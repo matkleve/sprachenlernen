@@ -119,21 +119,60 @@ Stufe 2 eingebaut, nicht nachträglich:
 Diese Fragen sind nicht rhetorisch — sie ändern jeweils, was gebaut wird. Die
 mit ⚠ markierten blockieren Stufe 0 oder 1.
 
-### ⚠ 1 · Für wen ist das?
+**Stand 2026-08-08: die vier blockierenden Fragen sind beantwortet.** Stufe 0 ist
+damit freigegeben. Offen bleiben 5–10 und 12–14; keine davon blockiert die
+Stufen 0 bis 2.
 
-Ein Werkzeug für dich (und ein paar Leute), oder ein Produkt für Fremde? Das
-ändert fast alles: Redaktionsaufwand für Startdecks, Datenschutzanforderungen
-für Audioaufnahmen, laufende LLM-Kosten, ob generierte Inhalte geprüft werden
-müssen (A5) — und ob überhaupt ein Konto nötig ist.
+### ✔ 1 · Für wen ist das? — **beantwortet 2026-08-08**
 
-### ⚠ 2 · Welche Sprache zuerst, aus welcher Ausgangssprache?
+**Erst ein Werkzeug für den Autor, später offen.** Also: bauen wie ein Werkzeug
+(kein Konto nötig, Daten lokal, generierte Inhalte ungeprüft nutzbar), aber
+Datenmodell und Datenschutz so, dass ein Produkt daraus werden kann.
 
-Frequenzlisten, Lemmatisierung und Levelkalibrierung sind **pro Sprache**
-verschieden. Morphologiearme Sprachen (Englisch) sind deutlich billiger als
-morphologiereiche (Russisch, Finnisch, Türkisch). Für die erste Version braucht
-es genau ein Paar.
+Was das jetzt schon erzwingt, weil es nachträglich teuer ist:
 
-### ⚠ 3 · Web oder native App?
+- **Datenmodell mehrsprachig und nutzergebunden** von Anfang an ([ADR-0004](../adr/0004-word-task-data-model.md)).
+- **Datenexport vollständig** (F83) — bei einem Werkzeug für einen Menschen ist
+  das ohnehin die wichtigste Funktion.
+- **Meldeweg** (F85) existiert, auch wenn er zunächst nur in eine Datei schreibt.
+  Ohne ihn gibt es keine Aussage darüber, wie gut die Generierung ist.
+
+Was das **erlaubt** zu verschieben: Redaktion der Startdecks, Muttersprachler-Stichproben,
+Konto und Mehrbenutzerbetrieb, Kostenoptimierung beim LLM.
+
+### ✔ 2 · Welche Sprache zuerst? — **beantwortet 2026-08-08**
+
+**Deutsch → Spanisch *und* Deutsch → Italienisch.** Zwei Paare, nicht eines.
+
+Ich hatte eines empfohlen. Zwei sind trotzdem die bessere Wahl, und zwar aus
+einem Grund, der erst beim Durchdenken auffällt: **die beiden Sprachen sind
+morphologisch fast baugleich.** Romanische Verbmorphologie, gleiche Wortarten,
+gleiche Flexionslogik — der Lemmatisierer wird zu ~80 % geteilt, und was nicht
+geteilt wird, sind Tabellen, kein Code. Der Zusatzaufwand liegt bei den
+**Inhalten**, nicht bei der Architektur.
+
+Und es kippt eine Reihenfolge, was gut ist: **UC-025 (zwei Sprachen ohne
+Interferenz) rutscht von Stufe 6 auf Stufe 0.** Das Datenmodell ist damit von
+der ersten Zeile an mehrsprachig, statt es später nachzurüsten — genau die Art
+Nachrüstung, die allen Nutzern die Historie verbiegt.
+
+Der reale Preis, ehrlich benannt:
+
+- **Zwei Kalibrierungen**, nicht eine. Die Wortschatzanker aus
+  [03](03-level-modell.md) sind **[C]** und müssen pro Sprache justiert werden.
+- **Zwei Inhaltsbestände** — Texte, Audio, Sprecherpools. Das ist die eigentliche
+  Verdopplung.
+- **Verwechslungen zwischen ES und IT** sind ab Tag eins ein echtes Problem, weil
+  sich beide Sprachen ähnlich genug sind. Das wird zu einer diagnostizierbaren
+  Fehlerart mit Minimalpaar-Reparatur (UC-013, UC-025) — Mehrarbeit, aber es ist
+  auch ein Alleinstellungsmerkmal, das kein Mitbewerber hat.
+
+### ✔ 3 · Web oder native App? — **beantwortet 2026-08-08: Web zuerst**
+
+Weg (a): Web/PWA für die Stufen 1–3, native Hülle erst vor Stufe 4 entscheiden.
+Die Begründung unten bleibt als Kontext stehen — besonders der Satz, dass die
+Entscheidung bei Stufe 4 nochmal auf den Tisch kommt und **nicht** stillschweigend
+zu „Web für alles" wird.
 
 Grundriss ist Next.js, also Web/PWA. Für Karten, Lesen und Level reicht das
 vollständig. Für Stufe 4 wird es eng: Hintergrundaudio, Sperrbildschirm-Tasten,
@@ -145,14 +184,22 @@ Hören, Hören nativ; (c) von Anfang an nativ, dann ist Grundriss die falsche
 Basis. **Empfehlung: (a)** — die Stufen 1–3 haben keinen nativen Bedarf, und bis
 Stufe 4 ist genug gelernt, um die Entscheidung besser zu treffen.
 
-### ⚠ 4 · Ein Wort = eine Karte oder eine Karte pro Aufgabe?
+### ✔ 4 · Ein Wort = eine Karte oder eine Karte pro Aufgabe? — **entschieden 2026-08-08**
 
-Die teuerste Datenmodellentscheidung im Projekt ([04](04-karteikarten-srs.md)).
-Getrennte Zeitpläne pro Abfragerichtung sind lernpsychologisch richtig
-([02](02-evidenz.md), E3), vervielfachen aber die Kartenzahl und damit die
-gefühlte Last. **Empfehlung:** ein Wort-Objekt mit mehreren *Aufgaben*, jede mit
-eigenem FSRS-Zustand, aber gemeinsamer Darstellung im Atlas und in der
-Wortschatzzählung — sonst zählt eine Vokabel dreimal.
+**Wort → mehrere Aufgaben, jede mit eigenem FSRS-Zustand.** Ausgeführt und
+begründet in [ADR-0004](../adr/0004-word-task-data-model.md), inklusive der drei
+verworfenen Alternativen und der Kosten.
+
+Zwei Dinge, die daraus folgen und hier stehen müssen, weil sie Stufe 1 betreffen:
+
+- **Die Wortschatzschätzung zählt Wörter, die Sitzung zählt Aufgaben.** Ein
+  Lernender mit 500 Wörtern hat ~2.000 Aufgaben. Diese Zahl wird nie angezeigt —
+  die Sitzung mit fester Länge (F04) ist damit keine Annehmlichkeit, sondern
+  eine Anforderung des Datenmodells.
+- **⚠ SPEC GAP:** Der Mindestabstand zwischen zwei Aufgaben desselben Wortes ist
+  unentschieden. Vier Aufgaben eines Wortes driften sonst zusammen und klumpen.
+  Gehört ins Scheduler-Spec, siehe
+  [`../specs/service/scheduler.md`](../specs/service/scheduler.md).
 
 ### 5 · Wo läuft das LLM, und was kostet es?
 

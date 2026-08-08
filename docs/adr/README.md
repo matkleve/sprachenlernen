@@ -17,7 +17,7 @@ a whim next week.
 ## How
 
 ```bash
-cp docs/adr/0000-template.md docs/adr/0004-short-slug.md
+cp docs/adr/0000-template.md docs/adr/0005-short-slug.md
 ```
 
 Number sequentially, never reuse a number, never delete a record. A superseded
@@ -30,3 +30,4 @@ ADR stays — the fact that it was once the right answer is the most useful part
 | [0001](0001-record-architecture-decisions.md) | Record architecture decisions | Accepted |
 | [0002](0002-specs-are-the-source-of-truth.md) | Specs are the source of truth | Accepted |
 | [0003](0003-agents-md-as-the-single-instruction-file.md) | AGENTS.md as the single instruction file | Accepted |
+| [0004](0004-word-task-data-model.md) | Model a word as one entity owning several independently scheduled tasks | Accepted |

@@ -151,3 +151,41 @@ have. Then measure rather than eyeball: screenshots hide sub-pixel and baseline
 problems. Query real geometry (`getBoundingClientRect()`, canvas
 `measureText()`) and print the numbers. A five-line script that asserts
 `delta === 0` is worth more than ten screenshots.
+
+## A self-transition out of a terminal state looks legal and isn't
+
+The scheduler's guard read `from === to || TRANSITIONS[from].includes(to)`. The
+first clause is correct — moving to the state you are already in is not a
+transition — and it quietly made `retired → retired` legal, so retiring an
+already-retired task reported success instead of a no-op. A terminal state is
+one you can never *leave*, and by `docs/STATE.md` acting on it is a no-op; that
+includes acting on it with its own name.
+
+Guard terminality first, and **derive** it from the map (`TRANSITIONS[s].length
+=== 0`) rather than keeping a second list of terminal states. Two lists drift;
+the second one is always the one nobody updates.
+
+## The state machine, not the algorithm, is where a scheduler goes wrong
+
+Implementing FSRS from the published formulas produced a scheduler where a new
+card silently never left `new`. Nothing was wrong with the arithmetic: the code
+graduated a first "good" answer straight to `review`, the transition map had no
+`new → review` edge, and the illegal move became a no-op — exactly as designed.
+Every downstream test failed with a number, none with "illegal transition".
+
+When a stateful module fails broadly and numerically, check the transition map
+before checking the maths. And make illegal moves *reportable*: the `reason`
+string was in the return value all along, and no test looked at it until one was
+written that did.
+
+## Verify numeric constants against the source, not against memory
+
+The FSRS-4.5 initial-difficulty formula is `D₀(G) = w₄ − (G−3)·w₅`, linear. The
+exponential form belongs to FSRS-5. Recalled from memory it looked right and
+produced difficulties that clamped to the floor for every good answer — which
+degrades quietly into "everything is easy" rather than failing loudly.
+
+For any weight table or published formula, fetch the source and paste the link
+next to the constant. `lib/scheduler.ts` does this. A wrong constant in a
+memory model is invisible for months and then unfixable, because user history
+was built on it.
