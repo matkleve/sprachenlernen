@@ -115,6 +115,14 @@ because it is interesting.
 | [UC-054](UC-054-find-out-whether-this-is-going-anywhere.md) | Find out whether this is going anywhere at all | 1 · logging, 2 · display | [25](../study/25-why-it-does-not-feel-productive.md) |
 | [UC-055](UC-055-use-the-language-for-something-real.md) | Use the language for something real this week | 4b — see question 18 | [25](../study/25-why-it-does-not-feel-productive.md) |
 | [UC-056](UC-056-understand-why-the-good-exercise-felt-bad.md) | Understand why the exercise that worked felt bad | 4b | [25](../study/25-why-it-does-not-feel-productive.md) |
+| [UC-057](UC-057-know-whether-a-method-is-right-for-me-yet.md) | Know whether a method is right for me *yet* | 1 · state, 2 · band-relative | [21](../study/21-method-catalogue-and-context.md), [03](../study/03-level-model.md) |
+| [UC-058](UC-058-do-it-anyway-when-the-app-says-wait.md) | Do it anyway, when the app says wait | 1 | [02](../study/02-evidence.md) E7 |
+| [UC-059](UC-059-find-out-what-stands-between-me-and-a-method.md) | Find out what stands between me and a method I want | 3 — with UC-034 | [19](../study/19-milestones-and-map.md) K3 |
+| [UC-060](UC-060-practise-without-tripping-over-forms-i-lack.md) | Practise without tripping over forms I have not got yet | 3 — with UC-007 | [03](../study/03-level-model.md), [05](../study/05-input-reading-listening.md) |
+| [UC-061](UC-061-be-told-what-to-learn-first.md) | Be told what to learn first, without being told what to do | 1 | [02](../study/02-evidence.md) E7/E10 |
+| [UC-062](UC-062-see-what-is-holding-my-level-back.md) | See what is actually holding my level back | 2 | [03](../study/03-level-model.md) |
+| [UC-063](UC-063-get-to-my-cards-without-the-menu.md) | Get to my cards without going through today's menu | 1 | [04](../study/04-flashcards-srs.md) |
+| [UC-064](UC-064-understand-what-one-sub-metric-says-about-me.md) | Understand what one sub-metric says about me | 2 | [03](../study/03-level-model.md), [25](../study/25-why-it-does-not-feel-productive.md) |
 
 **Not yet written**, and deliberately: use cases for content production (adding a
 language pair, recording a talker pool, curating texts). Those are operator
