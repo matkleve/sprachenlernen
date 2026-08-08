@@ -80,6 +80,10 @@ because it is interesting.
 | [UC-013](UC-013-stop-losing-time-on-one-card.md) | Stop losing time on the card I keep failing | 4b | [04](../studie/04-karteikarten-srs.md) |
 | [UC-042](UC-042-know-why-a-method-works.md) | Know why a method is supposed to work | 4b | [12](../studie/12-methodenkarten.md) |
 | [UC-043](UC-043-practise-beyond-the-app.md) | Do something in the language that is not in the app | 4b | [12](../studie/12-methodenkarten.md), [20](../studie/20-sprechen-und-saetze.md) |
+| [UC-045](UC-045-practise-in-the-situation-im-in.md) | Practise in the situation I am actually in | 4b | [21](../studie/21-methodenkatalog-und-kontext.md) |
+| [UC-046](UC-046-discover-a-method-i-never-tried.md) | Discover a way of practising I never knew existed | 4b | [21](../studie/21-methodenkatalog-und-kontext.md) |
+| [UC-047](UC-047-choose-something-demanding.md) | Choose something demanding, on purpose | 4b | [21](../studie/21-methodenkatalog-und-kontext.md) |
+| [UC-048](UC-048-use-two-free-hours.md) | Use two free hours well | 4b | [21](../studie/21-methodenkatalog-und-kontext.md) |
 | [UC-044](UC-044-speak-the-same-thing-three-times.md) | Say the same thing three times and hear myself get better | 4 | [20](../studie/20-sprechen-und-saetze.md) |
 | [UC-015](UC-015-speak-without-being-judged.md) | Say something in the language without an audience | 5 | [06](../studie/06-produktion.md) |
 | [UC-017](UC-017-get-a-correction-i-can-act-on.md) | Write something and get a correction I can act on | 5 | [06](../studie/06-produktion.md) |

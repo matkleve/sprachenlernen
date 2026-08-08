@@ -245,6 +245,20 @@ wird.
 | F145 | Ihre Stellung im Menü kommt aus der **Grundfrequenz**, nicht aus Messung | D | S | **V2** — sonst verdrängt Messbares das Zählende |
 | F146 | Selbstberichtete Erledigung als selbstberichtet markiert, fließt nicht in Ebene 1 | D | S | **V2** |
 
+## R · Katalog und Kontext → [21](21-methodenkatalog-und-kontext.md)
+
+| # | Funktion | Ev. | Aufw. | Urteil |
+| --- | --- | --- | --- | --- |
+| F147 | Methodenkatalog als **Daten** — eine Methode hinzufügen ist ein Eintrag, kein Release | — | M | **V2** — sonst bleibt der Katalog bei zehn Einträgen stehen |
+| F148 | Kontextmodell: acht Dimensionen (Augen, Hände, Stimme, Fläche, Ton, Aufmerksamkeit, Zeit, Gesellschaft) | D | M | **V2** |
+| F149 | Benannte Kontext-Voreinstellungen, bearbeitbar, eigene anlegbar | D | S | **V2** |
+| F150 | **Kontext filtert zuerst** — vor Grundfrequenz, Wirkung, Vorliebe | D | S | **V2** — korrigiert die Menüreihenfolge aus [12](12-methodenkarten.md) |
+| F151 | Kontext wird **angetippt**, nie erschnüffelt (kein Standort, keine Sensoren) | — | S | **V2** — [`../CONSTITUTION.md`](../CONSTITUTION.md) §2 |
+| F152 | Harte Methoden als solche angeschrieben statt versteckt | D | S | **V2** |
+| F153 | Schwach belegte Methoden bleiben im Katalog, mit ehrlicher Marke | D | S | **V2** |
+| F154 | Langfenster-Modus: eigene Sequenz statt 24× die Fünf-Minuten-Einheit | A | M | **V2** — massiertes Wiederholen ist genau das, was E2 verbietet |
+| F155 | Katalog-Lücke benennen, wenn zum Kontext nichts passt | D | S | **später** |
+
 ## H · Grundlagen (unsichtbar, aber tragend)
 
 | # | Funktion | Ev. | Aufw. | Urteil |

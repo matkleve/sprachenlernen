@@ -14,9 +14,9 @@ Der Code und die Specs bleiben englisch (siehe [`../GLOSSARY.md`](../GLOSSARY.md
 
 ---
 
-## Die neun Kernthesen
+## Die zehn Kernthesen
 
-Alles Weitere hängt an diesen neun Sätzen. Wer nur fünf Minuten hat, liest nur
+Alles Weitere hängt an diesen zehn Sätzen. Wer nur fünf Minuten hat, liest nur
 diese Tabelle.
 
 | # | These | Folgt daraus |
@@ -30,6 +30,7 @@ diese Tabelle.
 | **7** | Das Aussprachproblem beginnt im Ohr, nicht im Mund. Wahrnehmungstraining ist billig, sehr gut belegt — und strahlt auf die Produktion aus. | HVPT als eigene Methode, statt Aussprache automatisch zu benoten. → [13](13-aussprache-hoerwahrnehmung.md) |
 | **8** | Lernende bekommen überall einen **Kompass** — Richtung, Fortschritt, „weiter so". Niemand gibt ihnen eine **Karte**: wo stehe ich, was ist von hier erreichbar, was hat der letzte Monat aufgeschlossen. | Die Karte ist eine Hauptoberfläche, und jede Anzeige benennt die nächste. → [19](19-meilensteine-und-karte.md) |
 | **9** | Keine App bringt jemanden zum flüssigen Sprechen. Der Methodenkatalog enthält deshalb auch, was **außerhalb** der App passiert — vorgeschlagen, vorbereitet, nachbereitet, aber nicht gemessen. | Methoden jenseits der App, mit Grundfrequenz statt Wirkungsschätzung. → [12](12-methodenkarten.md) |
+| **10** | Apps meiden die harten Methoden nicht aus Unkenntnis, sondern weil langsam, fehlerreich und unmessbar jede Engagement-Kennzahl senkt. Und: eine perfekte Methode, die man gerade **nicht ausführen kann**, hat Effektstärke null. | Der Katalog enthält gerade die harten Methoden, und der **Lernkontext filtert vor allem anderen**. → [21](21-methodenkatalog-und-kontext.md) |
 
 ---
 
@@ -57,9 +58,10 @@ diese Tabelle.
 | [18 · Sprachen-Baukasten](18-sprachen-baukasten.md) | Jede Sprache lernbar: was Code ist, was Daten, und die ehrliche Qualitätsstufe |
 | [19 · Meilensteine & Karte](19-meilensteine-und-karte.md) | Wortschatz in Blöcken, und die Oberfläche, die zeigt wie alles zusammenhängt |
 | [20 · Sprechen & Sätze](20-sprechen-und-saetze.md) | Was Sprechübungen belegt wirksam macht — und dass der Kern davon keine KI braucht |
+| [21 · Methodenkatalog & Kontext](21-methodenkatalog-und-kontext.md) | Der eigentliche Katalog, warum Apps die harten Methoden meiden, und wie der Lernkontext die Auswahl bestimmt |
 | [Quellen](quellen.md) | Literatur, mit ehrlicher Kennzeichnung was nachgeprüft wurde |
 
-Kapitel 12–20 sind nach der Roadmap entstanden und deshalb hinten angehängt.
+Kapitel 12–21 sind nach der Roadmap entstanden und deshalb hinten angehängt.
 Inhaltlich gehört 12 neben [08](08-motivation.md), 13 neben
 [06](06-produktion.md), 17 neben [05](05-input-lesen-hoeren.md), 19 neben
 [03](03-level-modell.md), und 14, 15, 18 vor die Roadmap.

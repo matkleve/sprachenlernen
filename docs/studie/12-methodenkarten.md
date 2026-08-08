@@ -108,8 +108,11 @@ nach vier Regeln:
 1. **Immer eine niedrigintensive Option.** Sonst wird an müden Tagen nichts
    gemacht statt etwas Kleines.
 2. **Immer eine mit hoher gemessener Wirkung**, auch wenn sie unbeliebt ist.
-3. **Setting berücksichtigen.** Wer täglich um 7:40 lernt, bekommt keine
-   Papierübung angeboten.
+3. **Kontext filtert zuerst, nicht als Dritter.** ⚠ Korrigiert in
+   [21](21-methodenkatalog-und-kontext.md): die Reihenfolge lautet
+   **Kontext → Grundfrequenz → Wirkung → Vorliebe**. Eine Methode, die gerade
+   nicht ausführbar ist, hat Effektstärke null — sie gehört nicht ins Menü,
+   auch nicht ausgegraut.
 4. **Mischung über die Woche**, nicht innerhalb des Tages. Verschachtelung
    *innerhalb* einer Einheit ist Aufgabensache ([02](02-evidenz.md), E6);
    Methodenvielfalt über Tage ist etwas anderes und schwächer belegt — **[C]**.

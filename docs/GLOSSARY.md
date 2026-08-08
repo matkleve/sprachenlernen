@@ -89,7 +89,9 @@ requires a `⚠ SPEC GAP` line, not a guess.
 | **Method card** | Methodenkarte | The user-facing presentation of a Method. | a Card (that is a Task) |
 | **Daily menu** | Tagesmenü | The three Methods offered today, given budget, setting, floors, effect and preference. | a plan, a course |
 | **Intensity** | Intensität | Cognitive load of a Method, in three steps. Answers "can I manage this now?" | duration, difficulty of the material |
-| **Setting** | Setting | What a Method physically requires: headphones, paper, quiet, free hands. Filters the menu. | a preference |
+| **Context** | Kontext | What is available to the learner right now, across eight dimensions: eyes, hands, voice, writing surface, sound, attention, time, company. **Filters the menu before anything else** — a Method that cannot be performed now has an effect of zero. Always stated by the learner, never inferred. | a place, a preference, a time of day |
+| **Context preset** | Kontext-Voreinstellung | A named, editable bundle of context values the learner recognises — at the desk, cooking, on transit. | a location |
+| **Demanding method** | Harte Methode | A Method that is slow, error-rich, unmeasurable or off-app, and which engagement-optimised products therefore cannot offer. Labelled, never hidden. | an advanced Method |
 | **Preference** | Vorliebe | The thumbs signal. Governs **form** — length, timing, share, framing. | a measure of effectiveness |
 | **Effect estimate** | Wirkungsschätzung | Measured movement of a Method's target signal per hour invested, with uncertainty. Governs **selection**. | Preference |
 | **Floor** | Grundfrequenz | The minimum rate at which a Method is offered regardless of Preference, derived from its role. Negotiates over length, never over existence. | a goal, a streak |
