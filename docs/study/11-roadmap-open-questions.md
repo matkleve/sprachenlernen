@@ -62,6 +62,13 @@ deselected or unmeasured skill delivers permanently wrong numbers for some users
 ([14](14-accessibility.md)), and changing it afterwards means bending everyone's
 history.
 
+**F165–F170** belong here too — the goal skill in the headline and the sentence
+on the landing screen ([24](24-speaking-as-the-goal.md)). The sentence is the
+first thing in this product that *shows* a level instead of asserting one, and
+it is the cheapest honest answer to "is this number true?" — which is the exact
+question this stage exists to settle. F169 (feeding the estimate as an item)
+comes later; showing the sentence does not depend on scoring it.
+
 ### Stage 3 · Reading
 
 F29–F36, F39, **F116** (upload), **F114** (support ladder), **F129/F130** (the
@@ -95,10 +102,17 @@ gets less out of audiobooks.
 ### Stage 4b · Method choice
 
 F87–F93, F96, and **F141–F164** (info pages, methods beyond the app, context, the
-exercise runner). Only here, because a method menu needs at least four methods to
-choose from — before that the menu is a list with one entry. The effect estimate
-(F94) and exploration (F95) come later: they need months of data before they
-deliver anything but noise ([12](12-method-cards.md)).
+exercise runner), plus **F171–F178** (stagnation detection and commitments). Only
+here, because a method menu needs at least four methods to choose from — before
+that the menu is a list with one entry. The effect estimate (F94) and exploration
+(F95) come later: they need months of data before they deliver anything but noise
+([12](12-method-cards.md)).
+
+Stagnation detection is placed here rather than in stage 2 for a reason: its
+output is *"do this instead"*, and before there is a menu to point at, the
+detector can only say "you have plateaued" — which is a diagnosis with no
+treatment attached, and the least useful sentence in the product
+([24](24-speaking-as-the-goal.md) S3).
 
 Important for the order: **the floors (F92) must arrive with the menu, not
 after.** A selection system without lower bounds converges within weeks on the
@@ -106,8 +120,9 @@ pleasantest methods, and by then users have got used to it.
 
 ### Stage 5 · Production and offline
 
-F51–F53, F60, F64–F67, F72. Only once reception carries — production practice
-without vocabulary is frustration.
+F51–F53, F60, F64–F67, F72, and **F179–F183** (the read-aloud comparison and the
+microphone rules). Only once reception carries — production practice without
+vocabulary is frustration.
 
 **Correction of 2026-08-08:** speaking sat here because I had coupled it to the
 LLM conversation partner. That was wrong. The evidenced core of speaking practice
@@ -158,9 +173,11 @@ typically built so that it flatters. Four rules against that, built in from stag
 These questions are not rhetorical — each changes what gets built. The ones
 marked ⚠ block stage 0 or 1.
 
-**Status 2026-08-08: the four blocking questions are answered.** Stage 0 is
-therefore cleared. Questions 5–10 and 12–14 remain open; none of them blocks
-stages 0 to 2.
+**Status 2026-08-08: the four blocking questions are answered**, as is question
+15 (the goal). Stage 0 is therefore cleared. Questions 5–10 and 12–14 remain
+open and none of them blocks stages 0 to 2 — but **question 16 blocks stage 1**,
+because that is where review history starts accumulating in whatever shape it is
+first written in.
 
 ### ✔ 1 · Who is this for? — **answered 2026-08-08**
 
@@ -325,6 +342,41 @@ feature.
 any roadmap decision builds on K1 or K3, someone should actually have used them.
 That is not a research problem but a time problem, and it is cheap compared with
 what it prevents.
+
+### ✔ 15 · What is the app's goal? — **answered 2026-08-08: speaking**
+
+**Speaking is the main goal, with the 20/80 taken along the way.** The decision of
+this study's user.
+
+Worked out in [24](24-speaking-as-the-goal.md) S1, and the load-bearing part is
+the boundary: the goal changes the **headline skill**, the **floors** and the
+**content selection** — and it changes nothing about how any skill is measured or
+how the overall level is computed. A goal that reweights the measurement produces
+a number that tells you what you wanted to hear.
+
+The 20/80 is not a competing goal but the ordering *within* this one: input is
+the precondition, speaking is the goal, and the roadmap already runs in that
+order.
+
+### 16 · Where does the data live? — **decide before stage 1**
+
+The review log is the source of truth ([`../adr/0004-word-task-data-model.md`](../adr/0004-word-task-data-model.md)),
+which makes this question load-bearing rather than infrastructural. Three
+options, and the ordering is not obvious:
+
+| Option | For | Against |
+| --- | --- | --- |
+| **Local only** (IndexedDB) | No account, no server, no privacy question, offline by default (F82) | One device. F83 export becomes the *only* way to move |
+| **Local first + sync** | Same, plus a second device | Sync of an append-only log is easy; sync of derived state is not. Real work |
+| **Server first** (e.g. Supabase) | Cheapest to build, one obvious place for everything | An offline-first product with a server-first data layer is a retrofit later, and this one is offline-first by requirement |
+
+**[D] Recommendation: local first, with the log shaped for sync from day one.**
+Append-only, per-review UUIDs, no update-in-place — then adding a server later is
+an addition rather than a migration. What must **not** happen is stage 1 storing
+review history in a shape that assumes a single device.
+
+Decide before stage 1 writes its first review; see
+[`../BACKEND.md`](../BACKEND.md).
 
 ---
 

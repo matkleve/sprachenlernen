@@ -280,3 +280,11 @@ apps.
 - **⚠ SPEC GAP:** what happens when no catalogue entry fits the current context?
   Proposal: name the gap ("we have nothing for *kitchen* yet — here is the
   closest thing") rather than showing an unsuitable menu.
+
+**Corrected 2026-08-08 by [24](24-speaking-as-the-goal.md) S4.** Everything above
+assumes a catalogue entry is a **session** — duration, context, completion. That
+excluded the highest-leverage entries there are: standing rules like *write to
+one friend only in Italian*, which have no duration and no completion. The
+catalogue therefore holds **two entry types**, and the schema has to admit both:
+`method` (a session) and `commitment` (a standing rule, active or inactive, with
+no completion tracking and no streak).

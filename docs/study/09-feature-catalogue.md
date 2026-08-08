@@ -295,6 +295,32 @@ be gone through and cut — the list is deliberately longer than what gets built
 
 ---
 
+## T · Speaking as the goal, stalling, the demonstrated level → [24](24-speaking-as-the-goal.md)
+
+| # | Feature | Ev. | Eff. | Verdict |
+| --- | --- | --- | --- | --- |
+| F165 | Goal setting changes the **headline skill**, the floors and content selection — and nothing else | D | S | **V2** — thesis 11; the level formula stays untouched |
+| F166 | Home surface leads with the goal skill and the gap to it (*"speaking A2.4, reading B1.3"*) | D | S | **V2** |
+| F167 | Sentence on the landing screen, one level step **above** the estimate | B | M | **V2** — CEFR-SP shows sentence level is estimable (macro-F1 84.5 %) |
+| F168 | It is **tapped, not self-reported** — "tap what you are unsure of" | B | S | **V2** — self-assessment is biased by proficiency in a known direction |
+| F169 | That response feeds the adaptive estimate as an IRT item | B | M | **later** — one sentence a day builds F24 without staging a test |
+| F170 | No CEFR label on the sentence in a language below quality tier B | — | S | **V2** — [18](18-language-kit.md) |
+| F171 | Stagnation markers computed from existing data: below-norm accuracy, **alternation**, backsliding, de-acceleration | B | M | **V2** — alternation on one cell is the sharpest of the four |
+| F172 | Stagnation output is an **observation plus one matched method**, never "practise more" | D | S | **V2** |
+| F173 | "You have **no** speaking data at all" as its own message | D | S | **V2** — the most useful thing this detector can ever say |
+| F174 | Stagnation prompts share the one-prompt-a-day cap with the floors | D | S | **V2** — a detector is not a new notification channel |
+| F175 | **Commitments** as a second catalogue entry type: standing, active/inactive, not a session | D | M | **V2** — [21](21-method-catalogue-and-context.md) assumed everything was a session |
+| F176 | Maximum two or three commitments active at once | D | S | **V2** |
+| F177 | Commitments have **no completion tracking and no streak** | D | S | **V2** — otherwise it is A1 with a new name |
+| F178 | Quiet review of a commitment after a few weeks, all three outcomes equal | D | S | **later** |
+| F179 | Hard methods measured by an **objectively checkable by-product**, not by grading | D | M | **V2** — the general form of the read-aloud idea |
+| F180 | Read-aloud: ASR transcript aligned against the known text | B | L | **V2** — ground truth exists, so this is a count and not an opinion |
+| F181 | **Show what was heard. No score, no band** | B | S | **V2** — no audio model reaches human level on any dimension; humans agree only r=.46–.73 |
+| F182 | Divergent word → card or perception contrast | D | S | **V2** — [13](13-pronunciation-perception.md) |
+| F183 | Live microphone **input indicator** — about the device, never the speaker | D | S | **V2** |
+
+---
+
 ## H · Foundations (invisible, but load-bearing)
 
 | # | Feature | Ev. | Eff. | Verdict |

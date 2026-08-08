@@ -67,6 +67,8 @@ requires a `⚠ SPEC GAP` line, not a guess.
 | **Coverage** | Share of tokens in a given text this user knows. Selects content; 95–98 % is the target band. | reading level |
 | **Signal** | One measured input to a Level (the six in `study/03`). The only thing recorded directly. | a score |
 | **Calibration** | The versioned mapping from Signals to Levels. Changing it is a dated, visible event. | a formula |
+| **Demonstrated level** | A level the learner just showed rather than one computed for them — the landing sentence read without tapping anything. One item, and treated as one item. | the Level, a test result |
+| **Stagnation marker** | One of four observable patterns: below-norm accuracy on a cell, **alternation** on the same cell, backsliding, de-acceleration. Named as an observation with a matched Method, never as a verdict. | a plateau, low activity |
 
 ### Content → [`study/05`](study/05-input-reading-listening.md)
 
@@ -95,10 +97,16 @@ requires a `⚠ SPEC GAP` line, not a guess.
 | **Floor** | The minimum rate at which a Method is offered regardless of Preference, derived from its role. Negotiates over length, never over existence. | a goal, a streak |
 | **Exploration** | The share of menu slots deliberately filled with a Method the system would not have chosen, so the Effect estimate has causal footing. | randomness, variety |
 | **Hidden** | A Method the *learner* deliberately switched off, from settings. Stays visibly hidden and is restorable. The **algorithm** may never put a Method in this state — that is A15. | a Method with a low share |
+| **Commitment** | The catalogue's **second entry type**: a standing rule about ordinary life (write to one friend only in Italian, switch the phone's language). Active or inactive, never done or not done. No completion tracking, no streak, at most two or three at once. | a Method, a habit tracker, a goal |
+| **Goal** | The skill the learner is aiming at. Changes the headline Skill, the Floors and content selection — and **nothing** about how anything is measured. | the Overall level, a target level |
 
 **Preference and Effect estimate are never combined into one number.** Once they
 are, the distinction is gone and nothing surfaces the loss — see
 [`study/12`](study/12-method-cards.md).
+
+**A Goal never touches a measurement.** If setting a goal changes a number, the
+number was reporting the goal and not the learner — see
+[`study/24`](study/24-speaking-as-the-goal.md).
 
 ### Perception and access → [`study/13`](study/13-pronunciation-perception.md), [`study/14`](study/14-accessibility.md)
 

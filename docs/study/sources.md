@@ -253,6 +253,22 @@ ourselves** rather than adopted.
 
 ---
 
+## Sentence level, stalling, automated speech assessment → [24](24-speaking-as-the-goal.md)
+
+| | Source | Used in |
+| --- | --- | --- |
+| ⬤ | Arase, Uchida & Kajiwara (2022): *CEFR-Based Sentence Difficulty Annotation and Assessment.* EMNLP — 17,000 sentences annotated by education professionals, assessment model at macro-F1 84.5 %, beating readability baselines. [Link](https://aclanthology.org/2022.emnlp-main.416/) | [24](24-speaking-as-the-goal.md) S2 |
+| ◐ | Research on CEFR can-do self-assessment: valid as an instrument, but lower-proficiency learners overestimate and advanced learners underestimate | [24](24-speaking-as-the-goal.md) S2 |
+| ◐ | Han (2009 ff.): *Selective Fossilization Hypothesis* — fossilization markers: persistent below-norm accuracy, fluctuation on the same structure, backsliding, de-acceleration; intermediate levels most affected | [24](24-speaking-as-the-goal.md) S3 |
+| ◐ | Evaluations of large audio language models on L2 speech (intelligibility · comprehensibility · accentedness) against a human leave-one-out benchmark of r = .46–.73 — **no model reached human level on any dimension** | [24](24-speaking-as-the-goal.md) S6 |
+| ◐ | Work on ASR recognition of L2 speech as a proxy for L1 listeners' intelligibility judgments — correspondence only partial, varying by speaker and speech type | [24](24-speaking-as-the-goal.md) S5–S6 |
+
+The three **◐** entries are the reason S3 and S6 are graded **[B]** and not
+**[A]**: the direction of each finding is well supported, but the specific
+figures come from secondary reporting rather than from a paper read end to end.
+
+---
+
 ## Frameworks
 
 | | Source | Used in |

@@ -108,6 +108,10 @@ because it is interesting.
 | [UC-040](UC-040-check-a-translation-i-doubt.md) | Check a translation I do not trust | 3 | [18](../study/18-language-kit.md) |
 | [UC-027](UC-027-practise-with-audio-i-chose.md) | Practise with audio I actually wanted to listen to | 4 | [17](../study/17-own-content.md) |
 | [UC-028](UC-028-fill-in-what-i-could-not-catch.md) | Fill in the words I could not catch | 4 | [17](../study/17-own-content.md) |
+| [UC-050](UC-050-see-that-i-can-already-read-this.md) | See for myself that I can already read this | 2 | [24](../study/24-speaking-as-the-goal.md) |
+| [UC-051](UC-051-notice-that-i-stopped-getting-better.md) | Notice that I have stopped getting better | 4b | [24](../study/24-speaking-as-the-goal.md) |
+| [UC-052](UC-052-change-something-about-my-life-not-my-day.md) | Change something about my life, not just my day | 4b | [24](../study/24-speaking-as-the-goal.md) |
+| [UC-053](UC-053-find-out-what-was-actually-heard.md) | Read something aloud and find out what was actually heard | 5 | [24](../study/24-speaking-as-the-goal.md) |
 
 **Not yet written**, and deliberately: use cases for content production (adding a
 language pair, recording a talker pool, curating texts). Those are operator
