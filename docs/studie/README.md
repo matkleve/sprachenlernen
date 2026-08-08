@@ -14,9 +14,9 @@ Der Code und die Specs bleiben englisch (siehe [`../GLOSSARY.md`](../GLOSSARY.md
 
 ---
 
-## Die sieben Kernthesen
+## Die acht Kernthesen
 
-Alles Weitere hängt an diesen sieben Sätzen. Wer nur fünf Minuten hat, liest nur
+Alles Weitere hängt an diesen acht Sätzen. Wer nur fünf Minuten hat, liest nur
 diese Tabelle.
 
 | # | These | Folgt daraus |
@@ -28,6 +28,7 @@ diese Tabelle.
 | **5** | Die wirksamsten Übungen sind unbequem und teilweise nicht am Handy: Diktat, Handschrift, freies Produzieren. | Die App plant auch Offline-Übungen und nimmt deren Ergebnis wieder auf. → [07](07-offline-papier.md) |
 | **6** | Was sich beim Üben gut anfühlt, wirkt oft am wenigsten — und umgekehrt. Lernende halten das Falsche für wirksam, auch nachdem sie den Gegenbeweis erlebt haben. | Vorliebe und gemessene Wirkung sind **zwei getrennte Konten**. Vorliebe steuert die Form, Wirkung steuert die Auswahl. → [12](12-methodenkarten.md) |
 | **7** | Das Aussprachproblem beginnt im Ohr, nicht im Mund. Wahrnehmungstraining ist billig, sehr gut belegt — und strahlt auf die Produktion aus. | HVPT als eigene Methode, statt Aussprache automatisch zu benoten. → [13](13-aussprache-hoerwahrnehmung.md) |
+| **8** | Lernende bekommen überall einen **Kompass** — Richtung, Fortschritt, „weiter so". Niemand gibt ihnen eine **Karte**: wo stehe ich, was ist von hier erreichbar, was hat der letzte Monat aufgeschlossen. | Die Karte ist eine Hauptoberfläche, und jede Anzeige benennt die nächste. → [19](19-meilensteine-und-karte.md) |
 
 ---
 
@@ -51,13 +52,20 @@ diese Tabelle.
 | [14 · Barrierefreiheit](14-barrierefreiheit.md) | Legasthenie, Hören, Sehen — und warum das hier ein Rechen- und kein Darstellungsproblem ist |
 | [15 · Das Umfeld](15-umfeld.md) | Anki, LingQ, Migaku, Busuu & Co. — was schon existiert, und welche unserer Thesen das korrigiert |
 | [16 · Weitere Befunde](16-weitere-befunde.md) | Lernstil-Mythos, Chunks, Schlaf, und das erwünschte vs. das gesollte Selbst |
+| [17 · Eigene Inhalte](17-eigene-inhalte.md) | Podcasts, hochgeladene Texte, Vereinfachung — und wo ich zwei der Ideen anders bauen würde |
+| [18 · Sprachen-Baukasten](18-sprachen-baukasten.md) | Jede Sprache lernbar: was Code ist, was Daten, und die ehrliche Qualitätsstufe |
+| [19 · Meilensteine & Karte](19-meilensteine-und-karte.md) | Wortschatz in Blöcken, und die Oberfläche, die zeigt wie alles zusammenhängt |
 | [Quellen](quellen.md) | Literatur, mit ehrlicher Kennzeichnung was nachgeprüft wurde |
 
-Kapitel 12–16 sind nach der Roadmap entstanden und deshalb hinten angehängt.
+Kapitel 12–19 sind nach der Roadmap entstanden und deshalb hinten angehängt.
 Inhaltlich gehört 12 neben [08](08-motivation.md), 13 neben
-[06](06-produktion.md), 14 und 15 vor die Roadmap. Diese ist entsprechend
-ergänzt — und [15](15-umfeld.md) korrigiert zwei Aussagen aus
-[05](05-input-lesen-hoeren.md), die zu stark formuliert waren.
+[06](06-produktion.md), 17 neben [05](05-input-lesen-hoeren.md), 19 neben
+[03](03-level-modell.md), und 14, 15, 18 vor die Roadmap.
+
+Zwei Kapitel **korrigieren** frühere: [15](15-umfeld.md) entschärft zwei zu
+starke Aussagen in [05](05-input-lesen-hoeren.md), und
+[18](18-sprachen-baukasten.md) korrigiert meine eigene Behauptung aus Frage 2,
+Sprachen seien pauschal teuer.
 
 ---
 

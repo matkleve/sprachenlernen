@@ -184,6 +184,43 @@ wird.
 | F108 | Antippen erkennt feste Wendung und bietet die ganze an | B | M | **V2** |
 | F109 | Wendungen zählen in der Wortschatzschätzung nicht wie n Wörter | — | M | **V2** — ⚠ offene Modellierungsfrage, gehört zu Frage 4 |
 
+## M · Eigene Inhalte → [17](17-eigene-inhalte.md)
+
+| # | Funktion | Ev. | Aufw. | Urteil |
+| --- | --- | --- | --- | --- |
+| F111 | Eigene Audioquellen: RSS, Datei, Link — **kein Katalog** | D | M | **V2** |
+| F112 | Abdeckung über ein **gleitendes Fenster** → Abschnitt statt Folge vorschlagen | D | M | **V2** — billigste Antwort auf „Podcasts sind zu schwer" |
+| F113 | Partial Dictation über das Transkript, Lücken **gezielt** gesetzt | B | M | **V2** — ersetzt „Text korrigieren", wofür es keine Evidenz gibt |
+| F114 | Stützleiter statt Vereinfachung (Stufe 0–4, niedrigste passende) | B | M | **V2** |
+| F115 | Zielgerichtete Vereinfachung: nur die Wörter, die *dieser* Nutzer nicht kennt | D | M | **später** |
+| F116 | Textupload, lokal verarbeitet, Verarbeitungsort sichtbar | — | M | **V2** |
+| F117 | Serien-Vorschlag (Narrow Listening) aus den eigenen Quellen | B | S | **V2** |
+| F118 | Stützenabbau-Leiter über mehrere Durchgänge desselben Stücks | B | S | **V2** |
+| F119 | ASR-Transkript, wenn keins mitgeliefert wird | — | L | **später** — ohne Transkript ist ein Audio für uns unbenutzbar |
+
+## N · Sprachen-Baukasten → [18](18-sprachen-baukasten.md)
+
+| # | Funktion | Ev. | Aufw. | Urteil |
+| --- | --- | --- | --- | --- |
+| F120 | Sprachprofil als validiertes Schema (Schrift, Morphologie, **Zähleinheit**, Quellen) | — | M | **V1** — ohne Zähleinheit rechnet das Levelmodell still falsch |
+| F121 | Paar-Profil (Kontrastliste, Übersetzungsqualität) | — | S | **V2** |
+| F122 | Lemmatisierung über Stanza/UD statt handgeschriebener Regeln | — | M | **V1** — ~70 Sprachen ohne eigene Linguistik |
+| F123 | Qualitätsstufe A/B/C, **abgeleitet** aus dem Profil, nie handgesetzt | D | S | **V2** |
+| F124 | Bootstrap einer neuen Sprache: Liste + Lemmatisierer → Stufe C, generiertes Deck → Stufe B | D | L | **V2** |
+| F125 | Auf Stufe C kein Levelwert, sondern Status „nicht gemessen" | D | S | **V2** |
+
+## O · Meilensteine und Karte → [19](19-meilensteine-und-karte.md)
+
+| # | Funktion | Ev. | Aufw. | Urteil |
+| --- | --- | --- | --- | --- |
+| F126 | Frequenzblöcke mit **marginalem** Ertrag, pro Sprache kalibriert | A | M | **V2** |
+| F127 | Blockfortschritt zählt **stabiles** Wissen, nicht gesehene Karten | A | S | **V2** — sonst ist es eine Aktivitätsmetrik (A1) |
+| F128 | Ehrliche Vorwarnung: „der nächste Block bringt nur noch +4" | D | S | **V2** |
+| F129 | **K3 · Was fehlt mir zu diesem Inhalt?** — Abdeckungsrechner rückwärts | D | M | **V2** — stärkste Einzelidee: man lernt nicht Vokabeln, man schließt eine Folge auf |
+| F130 | K2 · Was ist diesen Monat aus „anstrengend" in „angenehm" gewandert | D | M | **V2** |
+| F131 | Wort rückverfolgbar: wo kommt es in meinen Inhalten vor, welcher Rang, welcher Block | D | M | **später** |
+| F132 | Historische Abdeckung mit Zeitstempel **und** damaliger Kalibrierung | — | M | **V2** — sonst zeigt eine Neukalibrierung Fortschritt, den es nicht gab |
+
 ## H · Grundlagen (unsichtbar, aber tragend)
 
 | # | Funktion | Ev. | Aufw. | Urteil |

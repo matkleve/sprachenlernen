@@ -107,6 +107,19 @@ are, the distinction is gone and nothing surfaces the loss — see
 | **Skill profile** | Fertigkeitsprofil | Which of the four Skills a user counts as theirs. Excluded Skills are left out of the overall level rather than scored low. | a difficulty setting, an accessibility toggle |
 | **Alternative route** | Alternativweg | The second way to answer a Task that is bound to one Skill — speaking or choosing instead of typing. Every such spec names one or says why there is none. | a fallback, an accommodation |
 
+### Languages and own content → [`studie/17`](studie/17-eigene-inhalte.md), [`studie/18`](studie/18-sprachen-baukasten.md), [`studie/19`](studie/19-meilensteine-und-karte.md)
+
+| Term | Deutsch | Means | Not |
+| --- | --- | --- | --- |
+| **Language profile** | Sprachprofil | Declarative data for one language: script, morphology type, **counting unit**, frequency list, lemmatiser, calibration, voices. Data, never code. | a course, a language pack |
+| **Counting unit** | Zähleinheit | What "one word" means in this language — lemma, word family, or segment. Declared per language; without it the vocabulary estimate has no meaning. | a word |
+| **Quality tier** | Qualitätsstufe | A / B / C, **derived** from what the profile contains. Governs how much the app is willing to claim, especially whether a level value exists at all. | a rating of the language |
+| **Source** | Quelle | An audio or text item the learner added — feed, file, link. The app never curates its own catalogue. | content, a lesson |
+| **Window coverage** | Fensterabdeckung | Coverage over a sliding window inside an item, so a hard episode can still offer a workable passage. | coverage of the item |
+| **Support rung** | Stützstufe | One of five levels of help on a hard text, from untouched original to rewritten version. The app offers the lowest rung that reaches the comfortable band. | a difficulty level |
+| **Block** | Block | A frequency band of the language, carrying its own **marginal** coverage payoff. Progress counts stable knowledge only. | a level, a lesson group |
+| **Map** | Karte | The surface answering where I am, what it unlocked, what is missing to a given item, and what today moved. | a progress screen |
+
 ### ⚠ Undecided
 
 | Term | What is unresolved |

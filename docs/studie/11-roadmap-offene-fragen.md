@@ -9,8 +9,14 @@ sich benutzbar — sonst ist es keine Stufe, sondern eine Bauphase.
 
 ### Stufe 0 · Fundament (unsichtbar)
 
-Frequenzlisten und Lemmatisierung pro Sprache (F81), Datenmodell für Karten und
-Wiederholungshistorie. Ohne diese Grundlage funktionieren weder die
+Frequenzlisten und Lemmatisierung pro Sprache (F81), **Sprachprofil-Schema
+(F120)** und **Lemmatisierung über Stanza/UD (F122)**, Datenmodell für Karten und
+Wiederholungshistorie.
+
+F120 gehört hierher und nicht später: das Profil deklariert die **Zähleinheit**,
+und ohne die rechnet das Levelmodell in agglutinierenden Sprachen still falsch
+([18](18-sprachen-baukasten.md), U1). Eine Sprache ohne diese Angabe darf nicht
+ladbar sein. Ohne diese Grundlage funktionieren weder die
 Wortschatzschätzung (F17) noch der Abdeckungsrechner (F29) — also weder das
 Levelmodell noch die Inhaltsauswahl.
 
@@ -27,8 +33,9 @@ weil sie zeigt, was sie tut.
 
 ### Stufe 2 · Levelmodell
 
-F17–F22, **F110** (Fertigkeitsstatus) und **F102** (konfigurierbares
-Fertigkeitsprofil). Ab hier ist sie *anders* als alles andere. Das ist der Punkt,
+F17–F22, **F110** (Fertigkeitsstatus), **F102** (konfigurierbares
+Fertigkeitsprofil), **F126–F128** (Frequenzblöcke) und **F123/F125**
+(Qualitätsstufe). Ab hier ist sie *anders* als alles andere. Das ist der Punkt,
 an dem sich zeigt, ob die Kernidee trägt: sagt die berechnete Zahl etwas, das der
 Nutzer als zutreffend erlebt?
 
@@ -39,12 +46,19 @@ dauerhaft falsche Zahlen ([14](14-barrierefreiheit.md)), und nachträglich zu
 
 ### Stufe 3 · Lesen
 
-F29–F36, F39. Die zweite Säule. Ab hier schließt sich der Kreis: Karten führen
-zu Texten, Texte erzeugen Karten.
+F29–F36, F39, **F116** (Upload), **F114** (Stützleiter), **F129/F130** (die
+Karte, K2 und K3). Die zweite Säule. Ab hier schließt sich der Kreis: Karten
+führen zu Texten, Texte erzeugen Karten.
+
+F129 („was fehlt mir zu diesem Inhalt") gehört hierher, obwohl es nach einer
+Verfeinerung aussieht: es ist der Abdeckungsrechner rückwärts gelesen, kostet
+also fast nichts — und es ist die Funktion, die Vokabellernen ein Ziel gibt
+([19](19-meilensteine-und-karte.md), K3).
 
 ### Stufe 4 · Hören
 
-F41–F46, **F97–F101**. Der aufwendigste Teil und der mit dem größten Unterschied.
+F41–F46, **F97–F101**, **F111–F113, F117, F118** (eigene Audioquellen, Partial
+Dictation). Der aufwendigste Teil und der mit dem größten Unterschied.
 Bewusst nach dem Lesen, weil er die Transkript- und Synchronisationsinfrastruktur
 braucht und weil der Abdeckungsrechner aus Stufe 3 hier wiederverwendet wird.
 

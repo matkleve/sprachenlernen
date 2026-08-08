@@ -191,6 +191,51 @@ Produktbeschreibungen, **nicht auf eigener Nutzung** — siehe Frage 14 in
 
 ---
 
+## Eigene Inhalte, Vereinfachung, Hören → [17](17-eigene-inhalte.md)
+
+| | Quelle | Verwendet in |
+| --- | --- | --- |
+| ⬤ | *Optimal input for language learning: Genuine, simplified, elaborated, or modified elaborated?* Language Teaching (Long) — die Elaborations-Position gegen bloßes Vereinfachen. [Link](https://www.cambridge.org/core/journals/language-teaching/article/abs/optimal-input-for-language-learning-genuine-simplified-elaborated-or-modified-elaborated/FDA2F787BFB75161F5D851C62BBFA7C9) | [17](17-eigene-inhalte.md), Stützleiter |
+| ⬤ | Crossley, Allen & McNamara (2012): *Text simplification and comprehensible input: A case for an intuitive approach.* Language Teaching Research. [Link](https://journals.sagepub.com/doi/abs/10.1177/1362168811423456) | [17](17-eigene-inhalte.md) |
+| ⬤ | *The effects of simplified and elaborated texts on second language reading comprehension.* VIAL — gemischte Befundlage. [Link](https://revistas.uvigo.es/index.php/vial/article/view/9) | [17](17-eigene-inhalte.md) |
+| ⬤ | *The Effect of Partial Dictation on the Listening Comprehension Ability of Iranian Intermediate EFL Learners* — Zugewinn 5,3 vs. 0,33 in der Kontrollgruppe. [Link](https://www.academia.edu/7925145/The_Effect_of_Partial_Dictation_on_the_Listening_Comprehension_Ability_of_Iranian_Intermediate_EFL_Learners) | [17](17-eigene-inhalte.md) |
+| ⬤ | *Comparative effects of partial dictation and dictogloss on listening comprehension ability of EFL learners.* [Link](https://www.academia.edu/60693480/Comparative_effects_of_partial_dictation_and_dictogloss_on_listening_comprehension_ability_of_EFL_learners) | [17](17-eigene-inhalte.md) |
+| ⬤ | *Impact of repetitive listening, listening-aid and podcast length on EFL podcast listening.* Computers & Education — wirksam, und von Lernenden als langweilig empfunden. [Link](https://www.sciencedirect.com/science/article/abs/pii/S0360131518301623) | [17](17-eigene-inhalte.md) |
+| ⬤ | *L2 Incidental Vocabulary Acquisition Through Extensive Listening to Podcasts.* [Link](https://www.academia.edu/36392262/L2_Incidental_Vocabulary_Acquisition_Through_Extensive_Listening_to_Podcasts) | [17](17-eigene-inhalte.md) |
+| ⬤ | *Narrow Listening and Audio-library.* [Link](https://www.researchgate.net/publication/313512255_Narrow_Listening_and_Audio-library_the_Transitional_Stage_in_the_Process_of_Developing_Listening_Comprehension_in_a_Foreign_Language) | [17](17-eigene-inhalte.md) |
+
+**Nicht gefunden:** irgendeine Studie dazu, dass das **Korrigieren** eines
+Transkripts das Hörverstehen verbessert. Deshalb ist die Idee in
+[17](17-eigene-inhalte.md) durch Partial Dictation ersetzt und nicht bloß
+umbenannt.
+
+---
+
+## Sprachwerkzeuge → [18](18-sprachen-baukasten.md)
+
+| | Quelle | Verwendet in |
+| --- | --- | --- |
+| ⬤ | Stanza — *Available Models & Languages*: über 70 Sprachen, UD v2.12, Tokenisierung/MWT/Lemma/POS. [Link](https://stanfordnlp.github.io/stanza/available_models.html) | [18](18-sprachen-baukasten.md) |
+| ⬤ | Stanza gegen UDPipe und spaCy über 100 UD-Treebanks in 66 Sprachen. [Link](https://github.com/explosion/spacy-stanza) | [18](18-sprachen-baukasten.md) |
+
+---
+
+## Frequenzblöcke und Abdeckung → [19](19-meilensteine-und-karte.md)
+
+| | Quelle | Verwendet in |
+| --- | --- | --- |
+| ⬤ | *Word Frequency Level and Lexical Coverage* — Zugewinn je Band, steil abnehmend. [Link](https://files.eric.ed.gov/fulltext/EJ1304999.pdf) | [19](19-meilensteine-und-karte.md) |
+| ⬤ | *Vocabulary Range and Text Coverage.* [Link](http://www.lingref.com/cpp/hls/7/paper1091.pdf) | [19](19-meilensteine-und-karte.md) |
+| ⬤ | *Vocabulary, text coverage, word frequency and the lexical threshold in elementary school reading comprehension.* Reading and Writing. [Link](https://link.springer.com/article/10.1007/s11145-022-10385-0) | [19](19-meilensteine-und-karte.md) |
+
+**Widerspruch, der stehen bleibt:** manche Arbeiten erreichen 95 % Abdeckung bei
+2.000–3.000 Einheiten, andere erst bei 4.000–5.000 ([02](02-evidenz.md), E4). Der
+Unterschied kommt von der Zähleinheit, vom Korpus und von der Behandlung von
+Eigennamen — nicht davon, dass eine Seite falsch liegt. Deshalb werden unsere
+Blockgrenzen **selbst kalibriert** statt übernommen.
+
+---
+
 ## Referenzrahmen
 
 | | Quelle | Verwendet in |
