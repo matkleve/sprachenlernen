@@ -25,6 +25,18 @@ Levelmodell noch die Inhaltsauswahl.
 > alles neu kalibrieren — mit einem sichtbaren Sprung in den Verläufen aller
 > Nutzer ([03](03-level-modell.md), Ehrlichkeitsregel 4).
 
+**Stand 2026-08-08:** Scheduler (`lib/scheduler.ts`,
+[Spec](../specs/service/scheduler.md)) und Lexikon (`lib/lexicon.ts`,
+[Spec](../specs/service/lexicon.md)) stehen, mit echten Frequenzdaten für
+Spanisch und Italienisch. **Beide Sprachen sind aktuell Qualitätsstufe C** — die
+gelieferten Listen sind *Formfrequenzen* aus Untertiteln, keine Lemmafrequenzen.
+Solange keine Form→Lemma-Tabelle existiert, gibt es folgerichtig **keinen
+Levelwert** ([18](18-sprachen-baukasten.md)). Das ist der Mechanismus, der
+funktioniert, nicht ein fehlendes Feature.
+
+Offen in Stufe 0: die Form→Lemma-Tabellen (Stufe B) und danach die Kalibrierung
+(Stufe A).
+
 ### Stufe 1 · Karteikarten mit gläserner Planung
 
 F01–F07, F12, F73, F74, F78. **Ab hier ist die App benutzbar** und schon jetzt

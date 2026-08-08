@@ -1,0 +1,18 @@
+{
+  "code": "it",
+  "name": "Italiano",
+  "script": "latin",
+  "morphology": "fusional",
+  "countingUnit": "lemma",
+  "frequency": {
+    "source": "hermitdave/FrequencyWords",
+    "corpus": "OpenSubtitles 2018",
+    "version": "2018",
+    "licence": "MIT",
+    "unit": "form",
+    "file": "data/frequency/it.txt"
+  },
+  "lemmaTable": null,
+  "calibration": null,
+  "voices": []
+}

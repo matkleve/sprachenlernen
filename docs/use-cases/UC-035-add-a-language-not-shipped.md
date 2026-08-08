@@ -1,7 +1,7 @@
 # UC-035 — Learn a language the app does not ship yet
 
 <!-- id: UC-035 -->
-<!-- specs:  -->
+<!-- specs: SPEC-service-lexicon -->
 
 **Who:** someone who wants Norwegian, or Portuguese, or Czech — and finds the
 app offers Spanish and Italian.
