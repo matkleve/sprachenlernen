@@ -1,0 +1,163 @@
+# 09 · Feature-Katalog
+
+Alle Ideen an einem Ort, jede mit Evidenzgrad, Aufwand und Urteil. Gedacht zum
+Durchgehen und Streichen — die Liste ist bewusst länger als das, was gebaut
+wird.
+
+**Spalten:**
+`Ev.` = Evidenzgrad **[A]–[D]** ([README](README.md)) ·
+`Aufw.` = S / M / L / XL ·
+`Urteil` = **V1** (erste Version) · **V2** · **später** · **nein**
+
+---
+
+## A · Karteikarten und Wiederholung → [04](04-karteikarten-srs.md)
+
+| # | Funktion | Ev. | Aufw. | Urteil |
+| --- | --- | --- | --- | --- |
+| F01 | FSRS-Scheduler mit Stabilität / Schwierigkeit / Abrufwahrscheinlichkeit | A | M | **V1** |
+| F02 | „Warum kommt diese Karte jetzt?" — Erklärpanel pro Karte | C | S | **V1** — das Alleinstellungsmerkmal, und billig |
+| F03 | Wiederholungshorizont: 30-Tage-Vorschau **mit Ursachenzeile** | C | S | **V1** |
+| F04 | Sitzung mit fester Länge statt Rückstandszähler | D | S | **V1** — verhindert den häufigsten Abbruchgrund |
+| F05 | Kartentypen gestuft (Erkennung → Bedeutungsabruf → Formabruf) | A | M | **V1** |
+| F06 | Hörabruf-Karte für jedes Wort | B | M | **V1** — sonst entsteht ein rein schriftlicher Wortschatz |
+| F07 | Mitgelieferte, frequenzsortierte Startdecks pro Sprache | B | M | **V1** — ohne das ist Tag 1 eine Hürde |
+| F08 | Wortschatz-Atlas (Frequenzrang × Stabilität) | D | M | **V2** — schönstes Bild der App, aber nicht tragend |
+| F09 | Leech-Erkennung mit Diagnose statt mehr Wiederholungen | B | M | **V2** |
+| F10 | Zielretention als Nutzerregler (85 % / 90 % / 95 %) | A | S | **V2** — braucht Erklärung, sonst verwirrend |
+| F11 | Lückensatz- und Minimalpaar-Karten | A | M | **V2** |
+| F12 | Karten aus angetippten Wörtern beim Lesen | B | S | **V1** — koppelt die zwei Säulen |
+| F13 | Kollokations-/Chunk-Karten statt Einzelwörter | B | M | **V2** — Sprache besteht aus Wendungen, nicht Wörtern |
+| F14 | Zielabhängige Deckauswahl (Reise / Beruf / Prüfung / Lektüre) | C | S | **V2** |
+| F15 | Import aus Anki (.apkg) / CSV | D | M | **später** — Nischenpublikum, hoher Supportaufwand |
+| F16 | Bildkarten statt Übersetzung (Umgehung der L1) | C | M | **später** — Evidenzlage dünner als der Ruf |
+
+---
+
+## B · Level und Fortschritt → [03](03-level-modell.md)
+
+| # | Funktion | Ev. | Aufw. | Urteil |
+| --- | --- | --- | --- | --- |
+| F17 | Wortschatzgrößen-Schätzung aus SRS-Daten + Frequenzrang | B | L | **V1** — Fundament für alles Weitere |
+| F18 | Vier getrennte Fertigkeitsniveaus | A | M | **V1** |
+| F19 | 24 Unterstufen (A1.1 … C2.4) + Prozent innerhalb der Stufe | D | S | **V1** |
+| F20 | Gesamtlevel = zweitniedrigste Fertigkeit, plus erklärender Satz | D | S | **V1** |
+| F21 | Verlaufskurve pro Fertigkeit (30 / 90 / 365 Tage) | D | M | **V1** — beantwortet „werde ich besser?" |
+| F22 | Unsicherheitsband bei dünner Datenlage | D | S | **V1** — Voraussetzung dafür, dass man der Zahl glaubt |
+| F23 | Aufklappbare Herleitung jeder Zahl | D | M | **V2** |
+| F24 | Adaptiver Einstufungstest (IRT), **nach** der ersten Übung angeboten | B | L | **V2** |
+| F25 | Zielprognose („bei diesem Tempo B2 im August ± 6 Wochen") | D | M | **V2** — nur mit sichtbarer Unsicherheit |
+| F26 | Fortschritt pro investierter Stunde | D | S | **V2** — unbequemste und ehrlichste Anzeige |
+| F27 | Kohortenvergleich, opt-in, als Verteilung statt Rangliste | D | M | **später** — Nutzen unklar, Schadenspotenzial belegt |
+| F28 | Kalibrierungsmarker im Verlauf bei Berechnungsänderung | D | S | **V2** — Vertrauensfrage |
+
+---
+
+## C · Lesen → [05](05-input-lesen-hoeren.md)
+
+| # | Funktion | Ev. | Aufw. | Urteil |
+| --- | --- | --- | --- | --- |
+| F29 | Abdeckungsrechner (95–98 % bekannte Wörter pro Nutzer und Text) | A | L | **V1** — das Auswahlprinzip für allen Input |
+| F30 | Abdeckungsanzeige vor dem Öffnen („98 % bekannt · 6 min") | D | S | **V1** |
+| F31 | Antippen: Wort → Bedeutung im Kontext + Karte anlegen | B | M | **V1** |
+| F32 | Antippen: Satz → Übersetzung | C | S | **V1** — deine Ausgangsidee |
+| F33 | Antippen: Absatz → Zusammenfassung statt Übersetzung | D | S | **V2** — hilft, ohne die Arbeit abzunehmen |
+| F34 | Verzögerungsbremse vor der Übersetzung | B | S | **V1** — ohne sie kein Abrufversuch, ohne Abruf kein Lernen |
+| F35 | Vorentlastung: 5 Schlüsselwörter vor dem Text | B | S | **V1** |
+| F36 | 2–3 Verständnisfragen nach dem Text | A | M | **V1** — Abrufübung, und Messpunkt fürs Level |
+| F37 | Lesegeschwindigkeit messen (WpM) | B | S | **V2** — der einzige Automatisierungsindikator |
+| F38 | Thematische Serien (Narrow Reading), 4–6 Texte | B | S | **V2** — reine Sortierregel, große Wirkung |
+| F39 | Generierte Texte mit automatischer Frequenz-/Levelprüfung | D | L | **V1** — anders ist Material auf jedem Level nicht finanzierbar |
+| F40 | Kuratierte Originaltexte ab B2 | D | XL | **später** — Lizenz- und Redaktionsaufwand |
+
+---
+
+## D · Hören → [05](05-input-lesen-hoeren.md)
+
+| # | Funktion | Ev. | Aufw. | Urteil |
+| --- | --- | --- | --- | --- |
+| F41 | Audio + synchronisiertes Transkript (Reading-while-listening) | B | L | **V1** |
+| F42 | Drei Sichtbarkeitsstufen (nur Audio / Captions / + Übersetzung) | B | M | **V1** |
+| F43 | Protokollieren, auf welcher Stufe gehört wurde | D | S | **V1** — sonst misst das Level Lesen und nennt es Hören |
+| F44 | Sprachbefehle: wiederhole · übersetze · langsamer · merken | C | L | **V1** — deine Kernidee; ermöglicht Lernen ohne Bildschirm |
+| F45 | Dieselben Befehle als Tasten, auch im Sperrbildschirm | D | M | **V1** — Sprache ist im Bus unbrauchbar |
+| F46 | Tempoänderung ohne Tonhöhenverzerrung | D | S | **V1** |
+| F47 | „Wiederhole"-Häufungen → Kandidatenkarten | D | M | **V2** — Verhaltenssignal für Nicht-Verstehen |
+| F48 | Rücksprungdichte kalibriert die Schwierigkeitsschätzung nach | D | M | **später** |
+| F49 | Eigene Hörbücher/Podcasts einspielen (Transkript per ASR) | D | XL | **später** — rechtlich und technisch der teuerste Punkt |
+| F50 | Audio-Karteikarten, vollständig blind bedienbar | C | M | **V2** |
+
+---
+
+## E · Produktion → [06](06-produktion.md)
+
+| # | Funktion | Ev. | Aufw. | Urteil |
+| --- | --- | --- | --- | --- |
+| F51 | LLM-Gesprächspartner, Text | B | M | **V2** |
+| F52 | Korrekturregler (fließen lassen / sanft / streng) | B | M | **V2** — ohne ihn verfestigt der Partner Fehler |
+| F53 | Nachbesprechung mit Fehlerkategorien → Karten | B | M | **V2** |
+| F54 | „Umschifft"-Analyse (was hast du vermieden?) | D | L | **später** — beste Idee der Studie, teuerste Umsetzung |
+| F55 | 60-Sekunden-Anleitung zum Umgang mit dem KI-Partner | B | S | **V2** |
+| F56 | Sprachversion des Gesprächspartners | B | L | **später** |
+| F57 | Aussprache: Konfidenzband statt ✓/✗ | B | M | **V2** |
+| F58 | Aussprache: Selbstvergleich (eigene Aufnahme ↔ Muttersprachler) | C | S | **V2** — billigste wirksame Aussprachefunktion |
+| F59 | Lautspezifisches Feedback für bekannte Problemlaute des Sprachpaars | B | L | **später** |
+| F60 | Schreiben: Satz mit Zielwort bilden (im SRS) | A | S | **V1** — Produktionsabruf, minimaler Aufwand |
+| F61 | Schreiben: Tagebuch, 3 Sätze, mit Korrektur-Diff | B | M | **V2** |
+| F62 | Schreiben: Rückübersetzung mit Musterlösungsvergleich | B | M | **V2** — bestes Format gegen Vermeidung |
+| F63 | Korrekturen nach Kategorie zählen → Fehlerarten-Verlauf | D | M | **V2** |
+
+---
+
+## F · Offline und Papier → [07](07-offline-papier.md)
+
+| # | Funktion | Ev. | Aufw. | Urteil |
+| --- | --- | --- | --- | --- |
+| F64 | Diktat aus dem eigenen Kartenbestand generiert, dreifach vorgelesen | B | M | **V2** |
+| F65 | Selbstkorrektur-Abgleich → Fehler werden Karten | D | M | **V2** |
+| F66 | Druckbares Handschriftblatt (20 wackligste Karten) | B | S | **V2** |
+| F67 | Formentabellen (Konjugation, Deklination, Steigerung), **gemischt** | A | M | **V2** — deine Idee; Mischung ist der Wirkfaktor |
+| F68 | Dictogloss ab B1 | B | M | **später** |
+| F69 | Foto-Erkennung handschriftlicher Antworten | D | XL | **nein für V1/V2** — hängt die Idee an eine Technik, die sie nicht braucht |
+| F70 | Gesprächskarten für echte Tandempartner | D | S | **später** |
+| F71 | Vorbereitungsblatt für einen konkreten Anlass (Arzt, Amt, Bewerbung) | D | M | **später** |
+| F72 | Nachbereitung: „Was konntest du nicht sagen?" → Karten | D | S | **V2** — beste Kartenquelle überhaupt |
+
+---
+
+## G · Motivation und Rahmen → [08](08-motivation.md)
+
+| # | Funktion | Ev. | Aufw. | Urteil |
+| --- | --- | --- | --- | --- |
+| F73 | Kurze Einheit mit sichtbarem Ende | A | S | **V1** |
+| F74 | Benachrichtigung mit Inhalt („12 Karten kippen heute · 6 min") | D | S | **V1** |
+| F75 | Wochen-Streak (≥3 Lerntage), unter dem Level, ohne Kaufangebot | D | S | **V2** |
+| F76 | Wochenrückblick als Erzählung mit Kausalsatz | D | M | **V2** |
+| F77 | Kompetenzmoment: alten, zu schweren Inhalt erneut anbieten | D | M | **V2** — stärkster echter Motivator, billig zu bauen |
+| F78 | Pausenmodus ohne Strafe | D | S | **V1** |
+| F79 | Lernziel abfragen und **tatsächlich** auf Inhalte wirken lassen | B | M | **V2** |
+| F80 | Ligen, Herzen, XP, kaufbarer Streak-Schutz | — | — | **nein** — siehe [10](10-antipatterns.md) |
+
+---
+
+## H · Grundlagen (unsichtbar, aber tragend)
+
+| # | Funktion | Ev. | Aufw. | Urteil |
+| --- | --- | --- | --- | --- |
+| F81 | Frequenzlisten + Lemmatisierung pro Sprache | — | L | **V1** — ohne das funktioniert weder F17 noch F29 |
+| F82 | Offline-Fähigkeit für SRS und heruntergeladenes Audio | — | L | **V2** — Pendeln ist die häufigste Lernsituation |
+| F83 | Datenexport (alle Karten, alle Historie) | — | S | **V1** — [`../CONSTITUTION.md`](../CONSTITUTION.md) §2 |
+| F84 | Mehrere Zielsprachen pro Konto | — | M | **V2** |
+| F85 | Meldeweg für falsche generierte Inhalte | — | S | **V1** — Qualitätspflicht bei generiertem Material |
+| F86 | Wirksamkeitsmessung eingebaut (Vortest, Kohorten, auch Abbrecher) | — | L | **V2** — sonst wiederholen wir [01](01-duolingo.md), S5 |
+
+---
+
+## Der V1-Schnitt in einem Satz
+
+**Karteikarten mit sichtbarem Zeitplan, ein aus Kartendaten berechnetes
+Levelprofil, und Lese- sowie Hörinhalte, die nach berechneter Abdeckung
+ausgewählt werden.** Alles andere ist Erweiterung.
+
+Die Reihenfolge und die Begründung des Schnitts stehen in
+[11](11-roadmap-offene-fragen.md).

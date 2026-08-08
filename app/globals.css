@@ -1,0 +1,179 @@
+@import "tailwindcss";
+
+/* ---------------------------------------------------------------------------
+   Design tokens — the single source of truth for every value in the UI.
+   Tailwind v4 turns each one into utilities: --color-accent → bg-accent,
+   text-accent, border-accent, ring-accent.
+
+   Rules (docs/DESIGN-SYSTEM.md):
+   - Components never contain raw colors, radii or shadows. Add a token here.
+   - `-deep`  = the darker/stronger tone used for hover and active.
+   - `-soft`  = the tinted background version.
+   - `-ink`   = the text color that is legible ON that fill.
+   - Adding a token means adding its pairs to scripts/check-contrast.mjs.
+--------------------------------------------------------------------------- */
+
+@theme {
+  /* Surfaces */
+  --color-canvas: #faf9f7;
+  --color-surface: #ffffff;
+  --color-surface-raised: #ffffff;
+
+  /* Text */
+  --color-ink: #17181c;
+  --color-muted: #5b6070;
+
+  /* Lines */
+  /* `line` is decorative; `line-strong` bounds real controls and therefore
+     has to clear 3:1 against the surface it sits on (WCAG 1.4.11). */
+  --color-line: #e5e4e0;
+  --color-line-strong: #8e8d87;
+
+  /* Accent — primary actions */
+  --color-accent: #2f5ad0;
+  --color-accent-deep: #2445a4;
+  --color-accent-soft: #e8eefc;
+  --color-accent-ink: #ffffff;
+
+  /* Danger — destructive actions, errors */
+  --color-danger: #b3261e;
+  --color-danger-deep: #8c1d17;
+  --color-danger-soft: #fbe9e7;
+  --color-danger-ink: #ffffff;
+
+  /* Success */
+  --color-success: #1c6b45;
+  --color-success-soft: #e4f3ec;
+  --color-success-ink: #ffffff;
+
+  /* Radius */
+  --radius-card: 0.75rem;
+  --radius-pill: 9999px;
+
+  /* Elevation */
+  --shadow-soft: 0 1px 2px rgb(23 24 28 / 0.06), 0 1px 3px rgb(23 24 28 / 0.04);
+  --shadow-raised: 0 4px 12px rgb(23 24 28 / 0.08), 0 2px 4px rgb(23 24 28 / 0.04);
+
+  /* Motion. Tailwind has no --duration theme namespace, so the duration scale
+     is a convention instead: 150 for feedback, 200 for larger moves, 300 for
+     entrances. check-tokens rejects anything else — see docs/DESIGN-SYSTEM.md. */
+  --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
+
+  /* Page rhythm — change the vertical feel of every page in one place */
+  --spacing-page-top: 4rem;
+  --spacing-page-bottom: 6rem;
+  --spacing-page-content: 2.5rem;
+
+  /* Type. Swap in next/font here when the project picks a brand typeface. */
+  --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+
+  /* Line heights. Tailwind's defaults are tuned for UI labels and leave body
+     copy too tight to read in a paragraph, and headings too loose. Overriding
+     these is the single highest-impact typographic decision in the system —
+     which sizes mean what is documented in docs/DESIGN-SYSTEM.md. */
+  --text-sm--line-height: 1.6;
+  --text-base--line-height: 1.65;
+  --text-2xl--line-height: 1.25;
+  --text-3xl--line-height: 1.2;
+  --text-4xl--line-height: 1.1;
+}
+
+/* ---------------------------------------------------------------------------
+   Dark theme. Only the token VALUES change — no component knows about this.
+   That is the entire reason components may not hardcode colors.
+
+   Two selectors on purpose: the media query is the default, and the
+   [data-theme] attribute lets an explicit user toggle win over it later.
+--------------------------------------------------------------------------- */
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-canvas: #0f1115;
+    --color-surface: #171a20;
+    --color-surface-raised: #1e222a;
+
+    --color-ink: #f1f2f4;
+    --color-muted: #a3aab8;
+
+    --color-line: #2a2f39;
+    --color-line-strong: #6b7280;
+
+    /* In dark, "deeper" means brighter — hover must move toward the eye. */
+    --color-accent: #8ab0ff;
+    --color-accent-deep: #adc7ff;
+    --color-accent-soft: #1b2540;
+    --color-accent-ink: #0f1115;
+
+    --color-danger: #ff9d94;
+    --color-danger-deep: #ffbcb6;
+    --color-danger-soft: #3a1e1c;
+    --color-danger-ink: #1a0f0e;
+
+    --color-success: #7fd6ab;
+    --color-success-soft: #14301f;
+    --color-success-ink: #0f1115;
+
+    --shadow-soft: 0 1px 2px rgb(0 0 0 / 0.4), 0 1px 3px rgb(0 0 0 / 0.3);
+    --shadow-raised: 0 4px 12px rgb(0 0 0 / 0.5), 0 2px 4px rgb(0 0 0 / 0.3);
+  }
+}
+
+:root[data-theme="dark"] {
+  --color-canvas: #0f1115;
+  --color-surface: #171a20;
+  --color-surface-raised: #1e222a;
+  --color-ink: #f1f2f4;
+  --color-muted: #a3aab8;
+  --color-line: #2a2f39;
+  --color-line-strong: #6b7280;
+  --color-accent: #8ab0ff;
+  --color-accent-deep: #adc7ff;
+  --color-accent-soft: #1b2540;
+  --color-accent-ink: #0f1115;
+  --color-danger: #ff9d94;
+  --color-danger-deep: #ffbcb6;
+  --color-danger-soft: #3a1e1c;
+  --color-danger-ink: #1a0f0e;
+  --color-success: #7fd6ab;
+  --color-success-soft: #14301f;
+  --color-success-ink: #0f1115;
+}
+
+:root[data-theme="light"] {
+  color-scheme: light;
+}
+
+/* --------------------------------------------------------------------------- */
+
+@layer base {
+  html {
+    color-scheme: light dark;
+  }
+
+  body {
+    background-color: var(--color-canvas);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Never remove a focus ring without replacing it. Keyboard users depend on
+     it, and `:focus-visible` already keeps it away from mouse clicks. */
+  :focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}

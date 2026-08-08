@@ -1,0 +1,40 @@
+import type { Metadata, Viewport } from "next";
+
+import "./globals.css";
+
+export const metadata: Metadata = {
+  title: "Grundriss",
+  description: "Spec-driven base project.",
+};
+
+export const viewport: Viewport = {
+  // These must be literal hex: Next emits them as a <meta> tag that the browser
+  // reads before any CSS loads, so `var(--color-canvas)` would resolve to
+  // nothing. They are the one place a token value is legitimately duplicated —
+  // and check-tokens asserts they still equal --color-canvas in each theme, so
+  // the duplication cannot drift.
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#faf9f7" }, // token-check-ignore: mirrors --color-canvas (light)
+    { media: "(prefers-color-scheme: dark)", color: "#0f1115" }, // token-check-ignore: mirrors --color-canvas (dark)
+  ],
+};
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <html lang="en">
+      <body>
+        {/* Visible only on keyboard focus. Without it, every keyboard user tabs
+            through the whole header on every page before reaching content. */}
+        <a
+          href="#main"
+          className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded-card focus:bg-surface focus:px-4 focus:py-2 focus:text-ink focus:shadow-raised"
+        >
+          Skip to content
+        </a>
+        {/* The landmark lives here, not in each page. A page that forgot it
+            would break the skip link above silently — and nothing would fail. */}
+        <main id="main">{children}</main>
+      </body>
+    </html>
+  );
+}

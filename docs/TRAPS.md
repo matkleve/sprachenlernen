@@ -1,0 +1,153 @@
+# Traps
+
+Bugs that shipped, or nearly shipped, because the code looked correct. Each one
+cost real time. Read the relevant entry **before your second attempt** at a fix —
+that is when this file pays for itself.
+
+**Add to this file whenever something surprised you.** Format: what looked
+right, what was actually true, and the check that would have caught it. Newest
+at the top. Entries never get deleted, only marked resolved — a trap that stops
+applying is still evidence about how this codebase misleads people.
+
+---
+
+## A token that does not exist resolves to nothing, silently
+
+`var(--transition-geometry)` where no such token is defined does not error. The
+declaration is simply dropped and the property never applies. The symptom is
+"the animation does nothing", which reliably sends people off refactoring the
+logic — in the case this comes from, an agent rebuilt a state machine and its
+CSS before discovering the one-line cause: a token the spec still named, removed
+in an earlier migration.
+
+Tailwind does the same thing with utilities: `bg-brand` where no `--color-brand`
+exists produces no class at all, and the element just has no background.
+
+**When something visual "does nothing", check that every name involved actually
+resolves before touching any logic.** `npm run check:tokens` now catches
+`var(--x)` references to undefined tokens, which covers the CSS half.
+
+## Tests that pass alone and fail together
+
+A test file that is green on its own and red in the full run is not flaky in the
+random sense — it is sharing state. Module-level variables, a cached client, a
+mock installed in one file and read in another, an `fetch` stub that leaks.
+
+Two consequences worth internalising:
+
+- **A flaky test is not a gate.** Fix the isolation before adding assertions;
+  a check people learn to re-run until it passes has stopped being a check.
+- **Order-dependence hides real failures.** If test A only passes because test B
+  ran first, then the thing A claims to prove is not proven.
+
+Keep setup inside the test or in `beforeEach`, never at module scope, and be
+suspicious of anything imported for its side effects.
+
+## `position: sticky` fails silently without a bounded scroll container
+
+Sticky only works when an ancestor actually scrolls **and** has a definite
+height. In a flex column that usually means the ancestor needs `flex: 1`,
+`min-height: 0` **and** `overflow-y: auto`. Miss any of the three and the
+element simply does not stick — no error, and the whole page scrolls instead.
+
+Before changing the sticky element, use DevTools to confirm *which* element is
+the scroll container. It is frequently not the one you assume.
+
+## A controlled input can lose what the user typed
+
+Binding an input's `value` to state that is updated asynchronously — or updated
+in an effect that also reads it — lets a render land between the keystroke and
+the state update, and the DOM value is reset to the older value. The visible
+symptom is characters disappearing, or the field freezing after the first one.
+
+Two rules that avoid it:
+
+- Read the value from the event (`e.target.value`), not from a re-read of the
+  element afterwards.
+- Never write to the input's value from an effect that depends on the same
+  state. See [`STATE.md`](STATE.md) § Do not write state in an effect.
+
+## `cn()` silently keeps both classes for custom tokens
+
+`tailwind-merge` only knows Tailwind's **default** scales. A custom token like
+`rounded-pill` is a class it cannot classify — and a class it cannot classify is
+one it will never treat as conflicting. So `cn("rounded-pill", "rounded-none")`
+emits **both**, and which one wins comes down to CSS source order.
+
+It reads as "`cn()` is broken". It is not; it is uninformed. Every custom token
+namespace has to be declared in `extendTailwindMerge` in
+[`lib/utils.ts`](../lib/utils.ts) — and **adding a token to `globals.css` means
+adding its name there too**, or callers quietly lose the ability to override it.
+
+Caught by the `className` override test in `components/ui/button.test.tsx`. If
+you add a token scale, add that test for it.
+
+## Chromium is not a proxy for Safari, and desktop is not a proxy for iOS
+
+The only browser in most CI and agent environments is Chromium. Several classes
+of bug measure **correct in Chromium** and are wrong on an iPhone, so a green
+local screenshot proves nothing:
+
+- baseline / `vertical-align` / line-box height — engines read different font
+  metric tables for the same font file
+- flexbox baseline alignment, especially of buttons and other replaced elements
+- `backdrop-filter`, `mix-blend-mode`, `filter` on composited layers
+- `position: fixed` combined with any of the above
+
+If a change touches those, reason from the CSS spec and from font metrics, and
+**say plainly that you could not reproduce on-device**. Do not report "verified".
+
+## A `<button>` has no baseline
+
+`vertical-align` does nothing to a flex item, and flexbox cannot baseline-align
+a `<button>` — it has no text baseline, so it silently falls back to centering
+on the flex line's cross size, which is derived from font metrics and therefore
+differs per engine. Aligning a button with adjacent text via flexbox is not a
+thing you can do reliably. Use an inline-block wrapper with no in-flow line
+boxes, or accept centering.
+
+## The dev server serves the last build
+
+`npm run start` serves whatever is in `.next`. Screenshotting without rebuilding
+shows you the old UI and has produced false "verified" claims. **Always rebuild
+before screenshotting.** If output looks impossible, `rm -rf .next && npm run build`.
+
+## Utilities beat component classes regardless of source order
+
+Tailwind emits `@layer utilities` after `@layer components`, so a utility in a
+class string overrides a component class silently. A `shadow-none` in a class
+string once cancelled the box-shadow that *was* the component's entire visual
+identity — nothing looked wrong in the code. See
+[`DESIGN-SYSTEM.md`](DESIGN-SYSTEM.md) § The trap.
+
+## A shared component renders at more than one width
+
+A component used at a fixed width in a dialog and a fluid width in a grid cannot
+be styled with viewport breakpoints — the dialog's box never changes width no
+matter the screen size. Use **container queries** (`@container` + `@[NNNpx]:`)
+when the component's *own* width should drive its styling, not the viewport's.
+
+## Automated a11y checks only see what is rendered and visible
+
+A static-page audit never opens a dialog, a menu, or anything behind an
+interaction — and anything `opacity-0` is invisible to it too. So:
+
+- Interactive surfaces must be checked by hand or with a test that opens them.
+- When you un-hide an existing surface, expect the audit to start reporting its
+  pre-existing debt. **That is the gate working, not a regression you caused.**
+  Fix it or file it; do not re-hide the surface to make the gate quiet.
+
+## Don't fix a layout bug by swapping the layout
+
+A card had dead space under its text because of a fixed-height text block. The
+"fix" replaced the whole card with a different component: the gap went away, and
+so did the design. The real fix was one line — remove the fixed height so the box
+is content-driven. Prefer the smallest change that removes the *cause*.
+
+## Two fixes shipped on theory alone, and both were wrong
+
+If you cannot reproduce a problem, say so and explain what evidence you *do*
+have. Then measure rather than eyeball: screenshots hide sub-pixel and baseline
+problems. Query real geometry (`getBoundingClientRect()`, canvas
+`measureText()`) and print the numbers. A five-line script that asserts
+`delta === 0` is worth more than ten screenshots.
