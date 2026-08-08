@@ -8,6 +8,8 @@ import {
   project,
   rebuild,
   retire,
+  suspend,
+  unsuspend,
   retrievability,
   type Grade,
   type Review,
@@ -100,7 +102,7 @@ describe("scheduler · AC-4 retrievability at the due date equals target retenti
 });
 
 describe("scheduler · AC-5 a suspended task ignores grades and reports why", () => {
-  const suspend = () => {
+  const lapsedToSuspension = () => {
     const lapses = Array.from<unknown, Grade>(
       { length: DEFAULT_CONFIG.lapseThreshold + 1 },
       () => "again",
@@ -109,17 +111,17 @@ describe("scheduler · AC-5 a suspended task ignores grades and reports why", ()
   };
 
   it("reaches suspended", () => {
-    expect(suspend().state).toBe("suspended");
+    expect(lapsedToSuspension().state).toBe("suspended");
   });
 
   it("leaves state and due untouched", () => {
-    const task = suspend();
+    const task = lapsedToSuspension();
     const result = applyReview(task, "good", T0 + 99 * DAY, DEFAULT_CONFIG);
     expect(result.task).toEqual(task);
   });
 
   it("reports the transition as illegal instead of throwing", () => {
-    const result = applyReview(suspend(), "good", T0 + 99 * DAY, DEFAULT_CONFIG);
+    const result = applyReview(lapsedToSuspension(), "good", T0 + 99 * DAY, DEFAULT_CONFIG);
     expect(result.illegal).toBe(true);
     expect(result.reason).toMatch(/suspended/i);
   });
@@ -191,7 +193,7 @@ describe("scheduler · AC-9 rebuilding from the log reproduces the state", () =>
       at = stepwise.due;
     }
 
-    expect(rebuild("t1", "w", reviews, DEFAULT_CONFIG)).toEqual(stepwise);
+    expect(rebuild("t1", "w", reviews, DEFAULT_CONFIG).task).toEqual(stepwise);
   });
 
   it("is stable when rebuilt twice", () => {
@@ -200,8 +202,8 @@ describe("scheduler · AC-9 rebuilding from the log reproduces the state", () =>
       { at: T0 + 4 * DAY, grade: "again" },
       { at: T0 + 5 * DAY, grade: "good" },
     ];
-    expect(rebuild("t1", "w", reviews, DEFAULT_CONFIG)).toEqual(
-      rebuild("t1", "w", reviews, DEFAULT_CONFIG),
+    expect(rebuild("t1", "w", reviews, DEFAULT_CONFIG).task).toEqual(
+      rebuild("t1", "w", reviews, DEFAULT_CONFIG).task,
     );
   });
 });
@@ -258,5 +260,204 @@ describe("scheduler · AC-11 no task holds two states or loses its due date", ()
   it("keeps stability positive once reviewed", () => {
     const task = sequence(["good", "again", "good"], 2);
     expect(task.stability).toBeGreaterThan(0);
+  });
+});
+
+// ---------------------------------------------------------------------------
+// Regressions from the adversarial review of 2026-08-08. Each of these failed
+// against the reviewed implementation while all 29 tests above passed — which
+// is the point: they are written to be capable of failing.
+// ---------------------------------------------------------------------------
+
+describe("scheduler · R1 no answer is ever discarded", () => {
+  it("records a lapse on a task still in learning", () => {
+    const learning = sequence(["good"]);
+    expect(learning.state).toBe("learning");
+
+    const outcome = applyReview(learning, "again", T0 + DAY, DEFAULT_CONFIG);
+    expect(outcome.illegal).toBe(false);
+    expect(outcome.task.reviews).toHaveLength(2);
+    expect(outcome.task.lapses).toBe(1);
+    expect(outcome.task.lastReviewAt).toBe(T0 + DAY);
+  });
+
+  it("keeps a failing learning task in learning, not relearning", () => {
+    const outcome = applyReview(sequence(["good"]), "again", T0 + DAY, DEFAULT_CONFIG);
+    expect(outcome.task.state).toBe("learning");
+  });
+
+  it("never drops a review across every grade sequence up to depth 5", () => {
+    const walk = (task: Task, at: number, depth: number, applied: number) => {
+      if (depth === 0) return;
+      for (const grade of GRADES) {
+        const outcome = applyReview(task, grade, at, DEFAULT_CONFIG);
+        if (task.state === "suspended" || task.state === "retired") {
+          expect(outcome.illegal).toBe(true);
+          continue;
+        }
+        expect({ grade, from: task.state, illegal: outcome.illegal }).toEqual({
+          grade,
+          from: task.state,
+          illegal: false,
+        });
+        expect(outcome.task.reviews).toHaveLength(applied + 1);
+        walk(outcome.task, Math.max(outcome.task.due, at + DAY), depth - 1, applied + 1);
+      }
+    };
+    walk(newTask("t1", "w"), T0, 5, 0);
+  });
+});
+
+describe("scheduler · R2 the projection cannot promise what answering will not deliver", () => {
+  it.each(GRADES)("agrees with answering from state learning · %s", (grade) => {
+    const learning = sequence(["good"]);
+    const at = T0 + DAY;
+    expect(project(learning, at, DEFAULT_CONFIG)[grade].due).toBe(
+      applyReview(learning, grade, at, DEFAULT_CONFIG).task.due,
+    );
+  });
+
+  it("never offers a negative interval for a suspended task", () => {
+    const lapses = Array.from<unknown, Grade>(
+      { length: DEFAULT_CONFIG.lapseThreshold + 1 },
+      () => "again",
+    );
+    const suspended = sequence(["good", "good", ...lapses], 3);
+    const projected = project(suspended, T0 + 99 * DAY, DEFAULT_CONFIG);
+
+    for (const grade of GRADES) {
+      expect(projected[grade].intervalDays).toBeGreaterThanOrEqual(0);
+      expect(projected[grade].due).toBe(suspended.due);
+    }
+  });
+});
+
+describe("scheduler · R3 rebuild accounts for the whole log", () => {
+  it("keeps every review of a legal log", () => {
+    const grades: Grade[] = ["good", "again", "good", "again", "hard", "good"];
+    const reviews: Review[] = grades.map((grade, i) => ({ at: T0 + i * DAY, grade }));
+    const { task, rejected } = rebuild("t1", "w", reviews, DEFAULT_CONFIG);
+
+    expect(rejected).toEqual([]);
+    expect(task.reviews).toHaveLength(grades.length);
+  });
+
+  it("reports a review it could not apply rather than dropping it", () => {
+    const lapses = Array.from<unknown, Grade>(
+      { length: DEFAULT_CONFIG.lapseThreshold },
+      () => "again",
+    );
+    const grades: Grade[] = ["good", ...lapses, "good"];
+    const reviews: Review[] = grades.map((grade, i) => ({ at: T0 + i * DAY, grade }));
+    const { task, rejected } = rebuild("t1", "w", reviews, DEFAULT_CONFIG);
+
+    expect(task.state).toBe("suspended");
+    expect(rejected).toHaveLength(1);
+    expect(task.reviews.length + rejected.length).toBe(grades.length);
+  });
+});
+
+describe("scheduler · R4 the post-update difficulty feeds stability", () => {
+  it("uses the harder difficulty a lapse just produced", () => {
+    const mature = sequence(["good", "good", "good"], 4);
+    const at = T0 + 20 * DAY;
+    const after = applyReview(mature, "again", at, DEFAULT_CONFIG).task;
+
+    // A lapse raises difficulty, and higher difficulty means lower post-lapse
+    // stability. Feeding the pre-update difficulty would produce a strictly
+    // larger value; this asserts the documented ordering actually happens.
+    expect(after.difficulty).toBeGreaterThan(mature.difficulty);
+    expect(after.stability!).toBeLessThan(mature.stability!);
+  });
+
+  it("gives easy a larger stability than good, via its lower difficulty", () => {
+    const mature = sequence(["good", "good", "good"], 4);
+    const at = T0 + 20 * DAY;
+    const easy = applyReview(mature, "easy", at, DEFAULT_CONFIG).task;
+    const good = applyReview(mature, "good", at, DEFAULT_CONFIG).task;
+
+    expect(easy.difficulty).toBeLessThan(good.difficulty);
+    expect(easy.stability!).toBeGreaterThan(good.stability!);
+  });
+});
+
+describe("scheduler · R5 AC-4 holds in every state, not just review", () => {
+  const walk = (task: Task, at: number, depth: number, seen: Set<string>) => {
+    if (depth === 0) return;
+    for (const grade of GRADES) {
+      const outcome = applyReview(task, grade, at, DEFAULT_CONFIG);
+      if (outcome.illegal) continue;
+      const next = outcome.task;
+      if (next.state !== "suspended") {
+        const error = Math.abs(retrievability(next, next.due) - DEFAULT_CONFIG.targetRetention);
+        seen.add(next.state);
+        expect({ state: next.state, within: error < 0.02 }).toEqual({
+          state: next.state,
+          within: true,
+        });
+      }
+      walk(next, next.due, depth - 1, seen);
+    }
+  };
+
+  it("stays within tolerance for learning, relearning and review", () => {
+    const seen = new Set<string>();
+    walk(newTask("t1", "w"), T0, 5, seen);
+    expect([...seen].sort()).toEqual(["learning", "relearning", "review"]);
+  });
+});
+
+describe("scheduler · R6 post-lapse stability has a floor", () => {
+  it("never falls below the initial stability for again", () => {
+    let task = sequence(["good", "good", "good"], 4);
+    let at = T0 + 20 * DAY;
+
+    for (let i = 0; i < 3; i++) {
+      const outcome = applyReview(task, "again", at, DEFAULT_CONFIG);
+      if (outcome.illegal) break;
+      task = outcome.task;
+      expect(task.stability!).toBeGreaterThanOrEqual(DEFAULT_CONFIG.weights[0]);
+      at += 60_000;
+    }
+  });
+});
+
+describe("scheduler · R7 re-answering at the same instant teaches nothing", () => {
+  // Not a defect: at zero elapsed time recall probability is 1, so the growth
+  // term is zero. That IS the spacing effect. Recorded as a property so nobody
+  // later "fixes" it into rewarding immediate repetition.
+  it("does not grow stability when no time has passed", () => {
+    const task = sequence(["good", "good"], 3);
+    const again = applyReview(task, "good", task.lastReviewAt!, DEFAULT_CONFIG).task;
+    expect(again.stability!).toBeCloseTo(task.stability!, 10);
+  });
+});
+
+describe("scheduler · R8/R9 suspension is reversible and excluded by state", () => {
+  it("suspends on request and keeps the log", () => {
+    const task = sequence(["good", "good"], 3);
+    const outcome = suspend(task);
+    expect(outcome.illegal).toBe(false);
+    expect(outcome.task.state).toBe("suspended");
+    expect(outcome.task.reviews).toEqual(task.reviews);
+  });
+
+  it("returns as learning, never straight back to review", () => {
+    const suspended = suspend(sequence(["good", "good"], 3)).task;
+    const revived = unsuspend(suspended);
+    expect(revived.illegal).toBe(false);
+    expect(revived.task.state).toBe("learning");
+    expect(revived.task.lapses).toBe(0);
+  });
+
+  it("accepts grades again once unsuspended", () => {
+    const revived = unsuspend(suspend(sequence(["good", "good"], 3)).task).task;
+    expect(applyReview(revived, "good", T0 + 40 * DAY, DEFAULT_CONFIG).illegal).toBe(false);
+  });
+
+  it("keeps its due date, and is excluded by state rather than by date", () => {
+    const suspended = suspend(sequence(["good", "good"], 3)).task;
+    expect(Number.isFinite(suspended.due)).toBe(true);
+    expect(applyReview(suspended, "good", suspended.due, DEFAULT_CONFIG).illegal).toBe(true);
   });
 });

@@ -32,7 +32,7 @@ projections testable and the recomputation in AC-9 possible.
 | 2 | A review with a grade | new memory state, a new due date, appended to the log |
 | 3 | A task and `now` | retrievability as a probability in [0, 1] |
 | 4 | A task and `now` | the interval each of the four grades would produce |
-| 5 | A task whose consecutive lapses reach the threshold | state `suspended`, no due date |
+| 5 | A task whose consecutive lapses reach the threshold | state `suspended`; its last due date is **retained but ignored** |
 | 6 | A full review log | the same state as replaying the reviews one at a time |
 | 7 | Two tasks of one word, both due | the later one pushed out by the sibling gap |
 
@@ -50,7 +50,7 @@ One enum. Never a set of booleans — see [`../../STATE.md`](../../STATE.md) §2
 | `learning` | first review answered — **always**, even when initial stability already exceeds the graduation threshold | short intervals, minutes to days | no |
 | `review` | stability passes the graduation threshold | intervals in days, growing | no |
 | `relearning` | lapse from `review` | short intervals again; retains difficulty | no |
-| `suspended` | consecutive lapses reach the threshold, **or** the learner suspends it | never scheduled; state frozen | no — reversible only by explicit repair or unsuspend (UC-013) |
+| `suspended` | consecutive lapses reach the threshold, **or** the learner suspends it | never scheduled; state frozen; due date retained | no — reversible only via `unsuspend`, which returns it as `learning` (UC-013) |
 | `retired` | the word is removed from the learner's set | never scheduled; log kept for export | **yes** |
 
 Transition map, and everything absent from it is illegal:
@@ -69,6 +69,16 @@ terminal state**, where acting is a no-op by definition
 ([`../../STATE.md`](../../STATE.md)). There is no `new → review` edge: a first
 answer always lands in `learning`, so one lucky guess cannot buy a multi-day
 interval.
+
+**A grade never moves a task across the machine.** `relearning` means "lapsed
+from `review`" — a task still in `learning` that fails stays in `learning`, and a
+success promotes only forwards. Deriving the next state from stability alone
+produced targets this map forbids, and the resulting illegal move discarded the
+learner's answer outright.
+
+**Scheduling is excluded by state, never by date.** A suspended task keeps its
+last due date, which may be in the past. Any consumer selecting work must filter
+on state; filtering on `due <= now` alone will schedule suspended tasks.
 
 An illegal transition is a **no-op that reports**, never a silent fallthrough and
 never a throw: the caller gets the unchanged state plus a reason. A scheduler
@@ -105,32 +115,9 @@ rule 4) — and it is the property AC-9 checks.
 
 ## Acceptance criteria
 
-- [ ] AC-1 · Given a task with no reviews, when its state is computed, then it is
-      `new` and due at or before `now`.
-- [ ] AC-2 · Given any task and grade, when the grade is applied, then stability
-      for `again` is lower than for `hard`, `hard` lower than `good`, and `good`
-      lower than `easy`.
-- [ ] AC-3 · Given a task in `review`, when `good` is applied, then the new
-      interval is strictly longer than the previous one.
-- [ ] AC-4 · Given a task, when retrievability is computed at its due date, then
-      it equals the configured target retention within 0.02.
-- [ ] AC-5 · While a task is `suspended`, applying any grade shall leave its
-      state and due date unchanged and report the transition as illegal.
-- [ ] AC-6 · Given a task in `review`, when `again` is applied, then the state is
-      `relearning` and difficulty has not decreased.
-- [ ] AC-7 · When target retention is raised, the interval produced for the same
-      history and grade shall be shorter.
-- [ ] AC-8 · Given a projection for all four grades, when the learner then
-      answers, then the resulting due date equals the projection for that grade
-      exactly.
-- [ ] AC-9 · Given a review log, when the state is recomputed from scratch, then
-      it equals the state built by applying the reviews one at a time.
-- [ ] AC-10 · Given two tasks of the same word due within the sibling gap, when
-      the session is planned, then the second is pushed beyond the gap and its
-      word is not asked twice in one session.
-- [ ] AC-11 · Given any sequence of legal calls, no task shall ever hold two
-      states at once, and no reviewed task shall lack a due date unless
-      `suspended` or `retired`.
+Seventeen, in [`scheduler.acceptance-criteria.md`](scheduler.acceptance-criteria.md).
+AC-12 to AC-17 were added after the adversarial review of 2026-08-08 — each one
+exists because a real defect got past a green test suite.
 
 ## Check
 
@@ -138,6 +125,10 @@ rule 4) — and it is the property AC-9 checks.
 
 ## Open
 
+- Out-of-order reviews (a timestamp before the previous one) are accepted and
+  treated as zero elapsed time. No rule forbids backdated corrections, but
+  combined with AC-17 a backdated entry freezes stability growth. **⚠ SPEC GAP:
+  whether the log must be monotonic in time.**
 - **⚠ SPEC GAP: the sibling gap is undecided.** AC-10 assumes a minimum interval
   between two tasks of one word; the value and whether it is fixed or
   proportional to stability are open. Inherited from

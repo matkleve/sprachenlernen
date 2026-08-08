@@ -39,25 +39,38 @@ requested retention `r`:
 I(r, S) = (S / FACTOR) · (r ^ (1 / DECAY) − 1)
 ```
 
-Consequences that the parent's AC-4 and AC-7 pin down: at `r = 0.9` the interval
-is close to `S`; raising `r` shortens every interval; lowering it lengthens them.
-The interval is then clamped to at least one day for tasks in `review`, and
-rounded — rounding happens **once**, at the end, never on intermediate values.
+Consequences that AC-4 and AC-7 pin down: at `r = 0.9` the interval is close to
+`S`; raising `r` shortens every interval; lowering it lengthens them.
+
+**Whole-day rounding is conditional.** Learners think in days, so intervals land
+on whole days — but only while doing so keeps retrievability inside
+`retentionTolerance`. Near a stability of one day, rounding moved actual
+retrievability by more than the entire tolerance, so short intervals keep sub-day
+precision. Stating the rule in terms of the budget rather than as a length
+threshold is what makes AC-4 true by construction instead of by luck.
+
+Rounding happens **once**, at the end, never on intermediate values.
 
 ## Updating after a review
 
 Applied in this order; the order matters because difficulty feeds stability.
 
 1. **Difficulty** moves toward its grade-implied value, with `again` raising it
-   most and `easy` lowering it. It is clamped to 1 … 10, and — per AC-6 — a
-   lapse never *decreases* it.
+   most and `easy` lowering it. `D₀(G) = w₄ − (G−3)·w₅` is **linear** in
+   FSRS-4.5; the exponential form belongs to FSRS-5. Clamped to 1 … 10, and —
+   per AC-6 — a lapse never *decreases* it.
+   The **post-update** difficulty is what steps 2 and 3 consume. Passing the
+   pre-update value makes the ordering inert and mis-schedules every subsequent
+   review; it is worth up to two weeks of interval on a mature card.
 2. **Stability** on success grows by a factor that increases with `S`, decreases
    with `D`, and increases as `R` at review time was *lower* — recalling
    something you had nearly forgotten is worth more than recalling something
    fresh. This is the model's expression of desirable difficulty
    ([`../../studie/02-evidenz.md`](../../studie/02-evidenz.md) E1).
 3. **Stability** on a lapse drops to a post-lapse value driven by `D` and the
-   `S` it had, and never below the initial stability for that grade.
+   `S` it had. Clamped on **both** sides: never above the `S` it already had,
+   and never below `S₀(again) = w₀`. Without the lower bound, repeated lapses
+   drive stability toward zero — and the forgetting curve divides by it.
 4. **State** transitions per the parent's map.
 
 ## Weights
@@ -79,6 +92,11 @@ defaults already predict recall better than SM-2 for practically all users.
   four futures without committing any of them.
 - **Never persist a derived value as truth.** `S`, `D`, `due` and `state` may be
   cached for speed, but the log is authoritative and AC-9 proves it.
+- **Never discard an answer.** A grade the machine cannot apply is reported, not
+  dropped (AC-12, AC-13). A silently rejected review leaves the persisted log and
+  the state derived from it disagreeing about what happened.
+- **Never let the projection and the outcome diverge.** `project` runs the same
+  guards as `applyReview`, including the refusals (AC-14).
 - **Never round intermediate values** — rounding twice produces intervals that
   drift from the projection the learner was shown, which breaks AC-8 in a way
   that looks like a rounding nit and reads to the learner as a lie.

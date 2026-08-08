@@ -189,3 +189,72 @@ For any weight table or published formula, fetch the source and paste the link
 next to the constant. `lib/scheduler.ts` does this. A wrong constant in a
 memory model is invisible for months and then unfixable, because user history
 was built on it.
+
+## A green test suite proved nothing: nine defects, 29 passing tests
+
+An adversarial review of the scheduler found nine confirmed defects while every
+test passed. Two of the tests were **tautological**: they compared two call
+sites that both delegate to the same function, so they would pass against any
+implementation, including a stub returning a constant.
+
+The tell: a test whose two sides cannot disagree by construction. `project` vs
+`applyReview` and `rebuild` vs a hand-rolled fold both looked like strong
+end-to-end checks and asserted nothing. Before trusting a test, ask what
+implementation would make it fail. If none exists, the test is decoration.
+
+## Deriving a state from a value instead of from the current state
+
+`step` chose the next state from stability alone: any `again` returned
+`relearning`, even from `learning`. The transition map has no
+`learning → relearning` edge, so the guard did its job and rejected the move —
+and `applyReview` then discarded the learner's entire answer. New card answered,
+forgotten the next day, is the single most common flow in the product, and it
+was a no-op that also left the task permanently due.
+
+A state machine's next state is a function of `(current state, event)`. The
+moment a value like stability enters that decision, the code and the map can
+disagree, and the disagreement surfaces as data loss rather than as an error.
+
+## The illegal-transition no-op hides the bug it reports
+
+The rejection carried a perfectly good `reason` string. Nothing read it. Every
+downstream test failed with a wrong *number* instead, so the diagnosis pointed at
+arithmetic for as long as anyone looked.
+
+When a module reports refusals, at least one test must assert that a legal
+operation is **not** refused. `expect(result.illegal).toBe(false)` on the happy
+path is worth more than it looks: without it, "silently did nothing" is
+indistinguishable from "worked".
+
+## Documenting an ordering does not create it
+
+`scheduler.algorithm.md` said "the order matters because difficulty feeds
+stability". The code computed the new difficulty and then passed the **old** one
+into both stability functions, making the two steps order-independent. Worth up
+to two weeks of interval on a mature card, compounding on every future review.
+
+A normative sentence about internal ordering needs a test that fails when the
+ordering is inverted. Prose about data flow is not a constraint on data flow.
+
+## Rounding for the user's convenience broke the model's calibration
+
+Intervals were rounded to whole days because learners think in days. At a
+stability near one day that moved actual retrievability 0.17 from target — eight
+times the tolerance the spec allowed — and the acceptance test only survived
+because its fixture landed on a large stability.
+
+The fix was not a length threshold but a rule stated in the units that matter:
+round only while rounding stays inside the retention budget. A presentation
+choice that silently alters a measured quantity needs its distortion bounded by
+the same criterion the quantity is judged by.
+
+## A declared edge no exported function can reach
+
+`suspended → learning` was legal in the map, mentioned in the spec, covered by
+no test, and unreachable: there was no `unsuspend`, and `applyReview` refused
+suspended tasks outright. `suspended` was a second terminal state in everything
+but name, which the spec explicitly forbade.
+
+Every edge in a transition map needs a caller that can traverse it and a test
+that does. An unreachable edge is worse than a missing one — it documents
+behaviour that does not exist.

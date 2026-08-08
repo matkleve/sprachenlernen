@@ -66,6 +66,12 @@ export type Config = {
   lapseThreshold: number;
   /** Stability in days at which a learning task graduates to review. */
   graduationStability: number;
+  /**
+   * How far actual retrievability at the due date may drift from
+   * `targetRetention`. Whole-day rounding is applied only while it stays inside
+   * this budget — see `dueFrom`.
+   */
+  retentionTolerance: number;
   weights: Weights;
   /**
    * Bumped whenever `weights` change. Recorded next to the reviews that used it,
@@ -92,6 +98,7 @@ export const DEFAULT_CONFIG: Config = {
   targetRetention: 0.9,
   lapseThreshold: 4,
   graduationStability: 1,
+  retentionTolerance: 0.02,
   weights: FSRS_45_WEIGHTS,
   weightsVersion: "fsrs-4.5-default",
 };
@@ -196,8 +203,10 @@ const stabilityAfterLapse = (
     Math.pow(difficulty, -w[12]) *
     (Math.pow(stability + 1, w[13]) - 1) *
     Math.exp(w[14] * (1 - r));
-  // Never above the stability it already had: a lapse cannot be an improvement.
-  return Math.min(next, stability);
+  // Clamped on BOTH sides. Above: a lapse cannot be an improvement. Below: never
+  // under the initial stability for `again` — otherwise repeated lapses drive S
+  // toward zero, and `recallProbability` divides by it.
+  return Math.max(w[INITIAL_STABILITY_INDEX.again], Math.min(next, stability));
 };
 
 // --- stepping ----------------------------------------------------------------
@@ -237,29 +246,66 @@ const step = (task: Task, grade: Grade, now: number, config: Config): Step => {
   if (grade === "again") {
     const lapses = task.lapses + 1;
     return {
-      stability: stabilityAfterLapse(stability, task.difficulty, r, w),
+      // The POST-update difficulty feeds stability. The algorithm spec says the
+      // order matters; passing the pre-update value made steps 1 and 2
+      // order-independent and silently mis-scheduled every future review.
+      stability: stabilityAfterLapse(stability, difficulty, r, w),
       difficulty,
-      state: lapses >= config.lapseThreshold ? "suspended" : "relearning",
+      // A failure does not move a task across the machine. `relearning` means
+      // "lapsed from review"; a task still in `learning` that fails stays in
+      // `learning`. Deriving the target from stability alone produced states the
+      // transition map forbids, and the resulting illegal move discarded the
+      // learner's answer entirely.
+      state:
+        lapses >= config.lapseThreshold
+          ? "suspended"
+          : task.state === "review"
+            ? "relearning"
+            : task.state,
       lapses,
     };
   }
 
-  const nextStability = stabilityAfterRecall(stability, task.difficulty, r, grade, w);
+  const nextStability = stabilityAfterRecall(stability, difficulty, r, grade, w);
   return {
     stability: nextStability,
     difficulty,
-    state: nextStability >= config.graduationStability ? "review" : "learning",
+    // Graduation only ever moves forward. A success can promote `learning` or
+    // `relearning` to `review`; it can never demote a task already in `review`.
+    state:
+      task.state === "review" || nextStability >= config.graduationStability
+        ? "review"
+        : task.state,
     lapses: 0,
   };
 };
 
 /**
- * Interval in whole days. Rounded exactly once, here — rounding an intermediate
- * value too would make the outcome drift from the projection the learner was
- * shown, which reads to them as a lie (AC-8).
+ * Rounded exactly once, here — rounding an intermediate value too would make the
+ * outcome drift from the projection the learner was shown, which reads to them
+ * as a lie (AC-8).
+ *
+ * Whole days are a presentation choice: learners think in days, not hours. But
+ * they are only affordable when the interval is long enough that half a day is
+ * noise. At a stability near one day, rounding moved actual retrievability by
+ * more than the spec's whole tolerance.
+ *
+ * So the rule is stated in terms of the thing that matters rather than as a
+ * threshold someone would later tune: **round only while rounding keeps
+ * retrievability inside the tolerance budget.** Short intervals therefore keep
+ * sub-day precision, long ones land on whole days, and AC-4 holds by
+ * construction instead of by luck.
  */
-const dueFrom = (now: number, stability: number, config: Config) =>
-  now + Math.max(1, Math.round(intervalDays(config.targetRetention, stability))) * DAY;
+const dueFrom = (now: number, stability: number, state: TaskState, config: Config) => {
+  const exact = intervalDays(config.targetRetention, stability);
+  if (state !== "review") return now + exact * DAY;
+
+  const rounded = Math.max(1, Math.round(exact));
+  const drift = Math.abs(
+    recallProbability(rounded, stability) - config.targetRetention,
+  );
+  return now + (drift <= config.retentionTolerance ? rounded : exact) * DAY;
+};
 
 // --- public API --------------------------------------------------------------
 
@@ -316,7 +362,7 @@ export const applyReview = (
       lastReviewAt: now,
       // A suspended task keeps its last due date. It is excluded from sessions
       // by STATE, not by date — one source of truth for "is this scheduled".
-      due: next.state === "suspended" ? task.due : dueFrom(now, next.stability, config),
+      due: next.state === "suspended" ? task.due : dueFrom(now, next.stability, next.state, config),
       reviews: [...task.reviews, { at: now, grade }],
     },
     illegal: false,
@@ -327,7 +373,9 @@ export type Projection = { due: number; intervalDays: number; stability: number 
 
 /**
  * What each grade would do, without committing any of it. Shown to the learner
- * before they answer (UC-005), so it must not mutate.
+ * before they answer (UC-005), so it must not mutate — and it must honour the
+ * same guards as `applyReview`. Projecting freely while applying refuses is how
+ * the learner gets promised an interval that answering then does not deliver.
  */
 export const project = (
   task: Task,
@@ -336,27 +384,68 @@ export const project = (
 ): Record<Grade, Projection> =>
   Object.fromEntries(
     GRADES.map((grade) => {
-      const next = step(task, grade, now, config);
-      const due = next.state === "suspended" ? task.due : dueFrom(now, next.stability, config);
-      return [grade, { due, intervalDays: (due - now) / DAY, stability: next.stability }];
+      const outcome = applyReview(task, grade, now, config);
+      const due = outcome.illegal ? task.due : outcome.task.due;
+      return [
+        grade,
+        {
+          due,
+          intervalDays: outcome.illegal ? 0 : (due - now) / DAY,
+          stability: outcome.illegal ? (task.stability ?? 0) : (outcome.task.stability ?? 0),
+        },
+      ];
     }),
   ) as Record<Grade, Projection>;
 
+export type RebuildResult = {
+  task: Task;
+  /**
+   * Reviews the machine refused. Should always be empty: the log is the source
+   * of truth, so a rejected entry means the log and the model disagree. Returned
+   * rather than dropped — silently discarding a learner's answer is how a
+   * persisted log and the task derived from it end up with different histories.
+   */
+  rejected: Review[];
+};
+
 /**
- * Rebuild the whole state from the log. Equal to replaying the reviews one at a
- * time (AC-9) — which is what makes a weights change a recomputation rather
- * than a migration.
+ * Rebuild the whole state from the log — which is what makes a weights change a
+ * recomputation rather than a migration.
  */
 export const rebuild = (
   id: string,
   wordId: string,
   reviews: readonly Review[],
   config: Config = DEFAULT_CONFIG,
-): Task =>
-  reviews.reduce(
-    (task, review) => applyReview(task, review.grade, review.at, config).task,
-    newTask(id, wordId),
-  );
+): RebuildResult => {
+  let task = newTask(id, wordId);
+  const rejected: Review[] = [];
+
+  for (const review of reviews) {
+    const outcome = applyReview(task, review.grade, review.at, config);
+    if (outcome.illegal) rejected.push(review);
+    else task = outcome.task;
+  }
+
+  return { task, rejected };
+};
+
+/** The learner parks a task themselves. Distinct from lapse-driven suspension. */
+export const suspend = (task: Task): ApplyResult =>
+  canTransition(task.state, "suspended")
+    ? { task: { ...task, state: "suspended" }, illegal: false }
+    : { task, illegal: true, reason: `illegal transition ${task.state} → suspended` };
+
+/**
+ * Back from suspension — as `learning`, never straight to `review`: whatever
+ * made it fail has not been re-verified. Without this the map declared
+ * suspended → learning legal while no exported function could reach it, making
+ * `suspended` a second terminal state.
+ */
+export const unsuspend = (task: Task): ApplyResult =>
+  canTransition(task.state, "learning")
+    ? { task: { ...task, state: "learning", lapses: 0 }, illegal: false }
+    : { task, illegal: true, reason: `illegal transition ${task.state} → learning` };
 
 /** The only terminal transition: the learner removed the word from their set. */
 export const retire = (task: Task): ApplyResult =>
