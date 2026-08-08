@@ -321,6 +321,20 @@ be gone through and cut — the list is deliberately longer than what gets built
 
 ---
 
+## O · Felt productivity → [25](25-why-it-does-not-feel-productive.md)
+
+| # | Feature | Ev. | Eff. | Verdict |
+| --- | --- | --- | --- | --- |
+| F184 | **Dose ledger** — hours practised against the guided-hour band for the target level | D | S | **V1** — the denominator no product shows |
+| F185 | One sentence on *why that felt hard*, once per method, after a high-effort session | B | S | **V2** — a component of the treatment, never the whole of it |
+| F186 | A session may close by naming **one thing you can now do**, derived from data | D | M | **V2** — generic praise is explicitly not this |
+| F187 | **Whole-task floor** — a share of each week is real use, held by a floor | D | M | **V1** — the only answer when the feeling is correct |
+| F188 | "Not measured" for the felt side: when the app never handed over a whole task, it says so | D | S | **V2** |
+| F189 | Perceived effort logged per session, never netted into effect or preference | B | S | **later** — blocked on question 17 |
+| F190 | Dose band per language, dated, like the level calibration | D | M | **later** — the band is English-derived |
+
+---
+
 ## H · Foundations (invisible, but load-bearing)
 
 | # | Feature | Ev. | Eff. | Verdict |

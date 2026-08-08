@@ -112,6 +112,9 @@ because it is interesting.
 | [UC-051](UC-051-notice-that-i-stopped-getting-better.md) | Notice that I have stopped getting better | 4b | [24](../study/24-speaking-as-the-goal.md) |
 | [UC-052](UC-052-change-something-about-my-life-not-my-day.md) | Change something about my life, not just my day | 4b | [24](../study/24-speaking-as-the-goal.md) |
 | [UC-053](UC-053-find-out-what-was-actually-heard.md) | Read something aloud and find out what was actually heard | 5 | [24](../study/24-speaking-as-the-goal.md) |
+| [UC-054](UC-054-find-out-whether-this-is-going-anywhere.md) | Find out whether this is going anywhere at all | 1 · logging, 2 · display | [25](../study/25-why-it-does-not-feel-productive.md) |
+| [UC-055](UC-055-use-the-language-for-something-real.md) | Use the language for something real this week | 4b — see question 18 | [25](../study/25-why-it-does-not-feel-productive.md) |
+| [UC-056](UC-056-understand-why-the-good-exercise-felt-bad.md) | Understand why the exercise that worked felt bad | 4b | [25](../study/25-why-it-does-not-feel-productive.md) |
 
 **Not yet written**, and deliberately: use cases for content production (adding a
 language pair, recording a talker pool, curating texts). Those are operator

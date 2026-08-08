@@ -269,6 +269,35 @@ figures come from secondary reporting rather than from a paper read end to end.
 
 ---
 
+## Felt versus actual productivity → [25](25-why-it-does-not-feel-productive.md)
+
+| | Source | Used in |
+| --- | --- | --- |
+| ⬤ | Deslauriers, McCarty, Miller, Callaghan & Kestin (2019): *Measuring actual learning versus feeling of learning in response to being actively engaged in the classroom.* PNAS — randomised crossover, identical content, 149 students; higher scores and **lower** felt learning, described as strongly anticorrelated; plus the 20-minute framing intervention (65 % / 75 %, both self-reported). [Link](https://pmc.ncbi.nlm.nih.gov/articles/PMC6765278/) | [25](25-why-it-does-not-feel-productive.md) P3, P4 |
+| ⬤ | Kirk-Johnson, Galla & Fraundorf (2019): *Perceiving effort as poor learning: the misinterpreted-effort hypothesis…* Cognitive Psychology 115 — three studies, mediation via perceived learning; in study 3 the more effortful choice retained better. [Link](https://www.sciencedirect.com/science/article/abs/pii/S0010028519302270) | [25](25-why-it-does-not-feel-productive.md) P2 |
+| ⬤ | Cambridge English: *Guided learning hours* — cumulative bands from a standing start, 350–400 hours to B1. [Link](https://support.cambridgeenglish.org/hc/en-gb/articles/202838506-Guided-learning-hours) | [25](25-why-it-does-not-feel-productive.md) C4 |
+| ⬤ | Duolingo Q4 FY2024 shareholder letter — DAU/MAU 34.7 %, 10 m+ year-long streaks, and the stated 2025 plan to increase experiment velocity "to make the experience more social and gamified". A primary source for what is optimised. [Link](https://investors.duolingo.com/static-files/99006c40-d8cf-41ca-b5b1-c5cb1fa5ba88) | [25](25-why-it-does-not-feel-productive.md) C1 |
+| ⬤ | *Unique effects and moderators of effects of sources on self-efficacy: a model-based meta-analysis.* Journal of Counseling Psychology — k = 61, N ≈ 8,965; **performance accomplishments** carry by far the strongest unique association with academic self-efficacy. [Link](https://doi.org/10.1037/cou0000219) | [25](25-why-it-does-not-feel-productive.md) P5 |
+| ⬤ | *Is learning really just believing? A meta-analysis of self-efficacy and achievement in SLA.* SSLLT 12(2), 2022 — 40 samples, N = 23,050, average observed r = .46. [Link](https://doi.org/10.14746/ssllt.2022.12.2.4) | [25](25-why-it-does-not-feel-productive.md) P5 |
+| ⬤ | Wang & Sun (2020): *Relationship between self-efficacy and language proficiency: a meta-analysis.* System 95 — small-to-medium average, and the caution that zero-order correlations inflate the figure. [Link](https://doi.org/10.1016/j.system.2020.102366) | [25](25-why-it-does-not-feel-productive.md) P5 |
+| ⬤ | Loewen, Crowther, Isbell, Kim, Maloney, Miller et al. (2019): *Mobile-assisted language learning: a Duolingo case study.* ReCALL 31(3) — nine learners of Turkish, 34-hour target, lowest 12 hours; moderate correlation between time and gains. [Link](https://doi.org/10.1017/s0958344019000065) | [25](25-why-it-does-not-feel-productive.md) P6 |
+| ⬤ | Rachels & Rockinson-Szapkiw (2018): *The effects of a mobile gamification app on elementary students' Spanish achievement and self-efficacy.* CALL 31(1–2) — no significant difference against classroom instruction, concluded in the abstract as "this demonstrates that Duolingo® is a useful tool". [Link](https://doi.org/10.1080/09588221.2017.1382536) | [25](25-why-it-does-not-feel-productive.md) P6 |
+| ⬤ | *Mobile-assisted language learning with Babbel and Duolingo: comparing L2 learning gains and user experience.* CALL, 2023 — N = 59, eight weeks, **no statistically significant difference** between the two apps. [Link](https://doi.org/10.1080/09588221.2023.2215294) | [25](25-why-it-does-not-feel-productive.md) P6, [15](15-landscape.md) K3 |
+| ⬤ | *L2 grit and age as predictors of attrition in mobile-assisted language learning.* Learning and Individual Differences, 2025 — 601 Duolingo beginners over six months, with dropping out as the outcome variable. [Link](https://doi.org/10.1016/j.lindif.2025.102704) | [25](25-why-it-does-not-feel-productive.md) P6 |
+| ◐ | EUROCALL paper on the Duolingo–Colombia partnership (2017) — the ~60 % dropout figure **inside** Duolingo's own commissioned efficacy study, and the note that completion rates are not published. The figure is that paper's reading of Vesselinov & Grego, not their own report. [Link](https://doi.org/10.4995/eurocall.2017.8620) | [25](25-why-it-does-not-feel-productive.md) C4, P6 |
+| ◐ | *Testing the misinterpreted effort hypothesis: reframing effort changes perceived effort … but does not affect decisions to interleave.* Metacognition and Learning, 2025. Title and finding read; article not opened. [Link](https://doi.org/10.1007/s11409-025-09446-w) | [25](25-why-it-does-not-feel-productive.md) P4 |
+| ○ | Soderstrom & Bjork (2015): *Learning versus performance.* Perspectives on Psychological Science | [25](25-why-it-does-not-feel-productive.md) P1 |
+| ○ | Bandura (1977, 1997) on the four sources of self-efficacy | [25](25-why-it-does-not-feel-productive.md) P5 |
+
+Two caveats belong with this section rather than inside the chapter. **P3's
+evidence is not from language learning** — introductory physics, single sessions,
+and a self-reported feeling as the outcome; the direction transfers, the magnitude
+should not be assumed. And the two self-efficacy meta-analyses **disagree about
+size**, which is why P5 is graded [A/B]: the ordering of the four sources is the
+solid part, the correlation is not.
+
+---
+
 ## Frameworks
 
 | | Source | Used in |

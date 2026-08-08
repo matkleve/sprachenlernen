@@ -5,6 +5,11 @@ is the benchmark for reach — but Duolingo is not the competition for what is
 being built here. The competition is a handful of smaller tools that have
 **already implemented** parts of our core idea.
 
+This chapter answers *what exists*.
+[25](25-why-it-does-not-feel-productive.md) answers *what is wrong with it*, by
+defect rather than by brand, and keeps the critique in one place so it cannot
+drift between chapters.
+
 Anyone who does not look this up believes their idea is newer than it is, and
 expensively rebuilds the known.
 
@@ -73,6 +78,14 @@ the specialist tool.
 
 That is this project's real principal risk, and it appears nowhere else in the
 study.
+
+**A second one was added later**, and it is aimed at us rather than at them: a
+head-to-head comparison of Babbel and Duolingo found no significant difference in
+learning gains between the two apps
+([25](25-why-it-does-not-feel-productive.md) P6). Between-app differences are
+apparently not where the outcome variance lives — dose and whether the learner
+ever uses the language are. Being right about mechanism and irrelevant about
+magnitude is a distinct way to fail from losing the feature comparison.
 
 ---
 

@@ -49,6 +49,11 @@ F01–F07, F12, F73, F74, F78. **From here the app is usable** and already bette
 than any existing flashcard app — not because it can do more, but because it
 shows what it is doing.
 
+**F184 begins recording here, and only displays in stage 2.** Practice time
+cannot be reconstructed after the fact, so a ledger that starts when the display
+is built starts empty for every existing user — the same failure as question 16,
+in a cheaper form.
+
 ### Stage 2 · The level model
 
 F17–F22, **F110** (skill status), **F102** (configurable skill profile),
@@ -61,6 +66,11 @@ F110 and F102 must come **here** and not later: a level model that counts a
 deselected or unmeasured skill delivers permanently wrong numbers for some users
 ([14](14-accessibility.md)), and changing it afterwards means bending everyone's
 history.
+
+**F184** (the dose ledger) is displayed here, because the band it divides by is
+defined by the target level and there is no target level before this stage. It is
+the cheapest honest display in the product and the only one that can say "at this
+rate, not for years" ([25](25-why-it-does-not-feel-productive.md) C4).
 
 **F165–F170** belong here too — the goal skill in the headline and the sentence
 on the landing screen ([24](24-speaking-as-the-goal.md)). The sentence is the
@@ -117,6 +127,15 @@ treatment attached, and the least useful sentence in the product
 Important for the order: **the floors (F92) must arrive with the menu, not
 after.** A selection system without lower bounds converges within weeks on the
 pleasantest methods, and by then users have got used to it.
+
+**F185–F188** land here for the same reason — the whole-task floor is a floor, and
+the "why that felt hard" sentence is attached to a method. Worth stating plainly
+because it is uncomfortable: [25](25-why-it-does-not-feel-productive.md) argues
+that the absence of real use is the **largest** cause of the product feeling
+pointless, and every mechanism we have for it sits in the second-to-last stage.
+The reasoning for the placement holds; the consequence is that stages 1–3 must not
+promise otherwise. Question 18 asks whether the cheap, untracked half can come
+earlier.
 
 ### Stage 5 · Production and offline
 
@@ -377,6 +396,35 @@ review history in a shape that assumes a single device.
 
 Decide before stage 1 writes its first review; see
 [`../BACKEND.md`](../BACKEND.md).
+
+### 17 · Is perceived effort a third ledger?
+
+[12](12-method-cards.md) keeps preference and measured effect strictly separate
+and never nets them. Perceived effort is neither of the two: it is the *cause* of
+method choice ([25](25-why-it-does-not-feel-productive.md) P2), which is a reason
+to record it — and folding it into either existing ledger would destroy exactly
+the distinction that chapter exists to protect. Third ledger, attribute of the
+preference ledger, or not stored at all. F189 is blocked on this.
+
+### 18 · Does the whole-task floor apply from day one? — **decide before F187**
+
+The diagnosis in [25](25-why-it-does-not-feel-productive.md) is that the largest
+cause of "nothing is happening" is never using the language for anything. At A0
+there is no real task the learner can yet perform, so a floor demanding one would
+either misrepresent the difficulty or be dismissed on the second day. The options
+are a floor that activates once a threshold is crossed, or a real task chosen to
+be genuinely tiny. Related, and cheaper: whether a single **untracked**
+suggestion — which needs no infrastructure at all — belongs in stage 1 rather
+than waiting for the menu in stage 4b.
+
+### 19 · Is the dose band recalibrated per language?
+
+The guided-hour bands behind F184 are institutional and English-derived
+([25](25-why-it-does-not-feel-productive.md) C4). Using them for a German speaker
+learning Spanish or Italian is an order-of-magnitude guide, and the same class of
+error as copying frequency block boundaries between languages
+([19](19-milestones-and-map.md)). Either the band is labelled as borrowed, or it
+is calibrated and dated per language pair like the level calibration (F190).
 
 ---
 
