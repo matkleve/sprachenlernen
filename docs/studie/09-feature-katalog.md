@@ -258,6 +258,9 @@ wird.
 | F153 | Schwach belegte Methoden bleiben im Katalog, mit ehrlicher Marke | D | S | **V2** |
 | F154 | Langfenster-Modus: eigene Sequenz statt 24× die Fünf-Minuten-Einheit | A | M | **V2** — massiertes Wiederholen ist genau das, was E2 verbietet |
 | F155 | Katalog-Lücke benennen, wenn zum Kontext nichts passt | D | S | **später** |
+| F156 | Filter fragt **vier** Kriterien (Zeit, Augen, Stimme, Schreibfläche), nicht acht | D | S | **V2** |
+| F157 | Favoritenliste als explizite Oberfläche fürs Konto *Vorliebe* | D | S | **V2** |
+| F158 | Wirkungsdaten bleiben **lokal**; Aggregation über Menschen ist eine eigene Entscheidung | — | M | **V2** — [`../CONSTITUTION.md`](../CONSTITUTION.md) §2 |
 
 ## H · Grundlagen (unsichtbar, aber tragend)
 

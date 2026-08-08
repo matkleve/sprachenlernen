@@ -68,8 +68,36 @@ Nicht „wo bist du", sondern **was ist gerade verfügbar**:
 | **Zeit** | 2 min · 15 min · 45 min · offen |
 | **Gesellschaft** | allein · mit Leuten, die die Sprache können · mit Leuten, die sie nicht können |
 
-Acht Dimensionen sind zu viel zum Abfragen. Also gibt es **Voreinstellungen**,
-die der Nutzer wiedererkennt und selbst benennt:
+### Welche davon fragt man tatsächlich ab? **[D]**
+
+Acht Dimensionen sind das Modell, nicht die Oberfläche. Wer acht Fragen stellt,
+bevor jemand lernen darf, hat die Einstiegshürde aus [01](01-duolingo.md), S1
+wieder eingebaut.
+
+Prüft man den Katalog unten darauf, welche Dimensionen tatsächlich **trennen**,
+bleiben vier:
+
+| Frage | Warum sie trennt |
+| --- | --- |
+| **Wie viel Zeit?** | Trennt die 2-Minuten-Karten von Diktat und Langfenster |
+| **Augen frei?** | Die schärfste Grenze überhaupt: reines Audio gegen alles andere |
+| **Kannst du laut sprechen?** | Trennt den gesamten Sprechteil ab — und wird sonst nie gefragt |
+| **Worauf schreibst du?** Papier · Tastatur · nur Touch · nichts | Trennt Diktat, Formentabellen und Handschrift von Tipp-Übungen |
+
+Die anderen vier fallen raus, und zwar aus Gründen:
+
+- **Hände** ist fast deckungsgleich mit *Schreibfläche* — keine Hände heißt keine
+  Fläche. Redundant.
+- **Ton** ist selten der Blocker; Kopfhörer sind meistens da. Wird als
+  Eigenschaft der Voreinstellung gespeichert, nicht gefragt.
+- **Aufmerksamkeit** überschneidet sich mit Intensität, und Menschen schätzen
+  die eigene Aufmerksamkeit schlecht ein. Steckt praktisch in „wie viel Zeit".
+- **Gesellschaft** betrifft nur eine Handvoll Methoden. Kein Standardfeld,
+  sondern ein Schalter, den man **einschaltet**, wenn man Leute dabei hat — dann
+  öffnet sich ein Teil des Katalogs, den man sonst nie sieht.
+
+Vier Fragen sind noch immer drei zu viel für den Alltag. Deshalb fragt man sie
+**einmal** und speichert das Ergebnis als benannte Voreinstellung:
 
 ```
   Zuhause am Tisch    Augen frei · Hände frei · laut · Papier · offen
@@ -86,6 +114,10 @@ und viel Zeit — das ist der beste Kontext für Hörbuch mit Sprachbefehlen
 ([05](05-input-lesen-hoeren.md)), Shadowing und Selbstgespräch, und der
 schlechteste für alles, was diese App sonst tut. Eine App, die nur
 Touch-Übungen kennt, hat für die produktivsten 45 Minuten des Tages nichts.
+
+Im Alltag ist es damit **ein Tipp auf „Küche"**, nicht vier Fragen. Die vier
+Fragen erscheinen nur beim Anlegen einer neuen Voreinstellung oder wenn man
+bewusst abweicht.
 
 **[D]** Kontext wird **angetippt, nicht erschnüffelt.** Kein Standort, kein
 Bewegungssensor, keine Uhrzeitprofile. Der Nutzer sagt in einem Tipp, wo er ist;
@@ -191,6 +223,46 @@ gemieden.
 | Tandem / Sprachcafé | echte Interaktion | Gesellschaft | B | **hart** |
 | Etwas bestellen, fragen, reklamieren | Ernstfall | draußen | D | **hart** |
 | Film schauen, den man auswendig kennt | Hören mit Rückhalt | Ton + Augen | C | |
+
+---
+
+---
+
+## Favoriten, und was Daten hier wirklich leisten
+
+Nutzerfrage: Favoriten anlegen — oder eher fragen, welche Methode man mag, und
+das dann mit dem Lernerfolg vergleichen?
+
+**Beides, und es ist genau die Zwei-Konten-Architektur aus
+[12](12-methodenkarten.md).** Eine Favoritenliste ist eine saubere Oberfläche für
+das Konto **Vorliebe**: sie ist explizit, jederzeit änderbar, und der Nutzer
+weiß, was er da tut — deutlich ehrlicher als aus Klickverhalten abgeleitete
+Vorlieben. Sie steuert damit **Form und Anteil**, nie die Auswahl allein
+([10](10-antipatterns.md), A15).
+
+Der Vergleich mit dem Lernerfolg ist der ganze Sinn des zweiten Kontos. Drei
+Einschränkungen gehören aber dazu, und sie sind unbequem:
+
+1. **Bei einem Nutzer ist die Wirkungsschätzung monatelang Rauschen.** Winzige
+   Stichprobe, massive Störfaktoren, langsame Rückmeldung
+   ([12](12-methodenkarten.md), „Wie der Algorithmus lernt"). Für ein Werkzeug
+   für eine Person ist der Wert der Daten vor allem **Rückschau für dich**, nicht
+   Modellanpassung.
+2. **Ohne Erkundungsanteil ist die Schätzung eine Schleife**, die sich selbst
+   bestätigt: was oft vorgeschlagen wird, wird oft gemacht, sieht wirksam aus,
+   wird öfter vorgeschlagen (F95).
+3. **Sobald es um fremde Daten geht, ist es ein anderes Regime.** Solange die App
+   dir gehört, ist „Daten sammeln" gleichbedeutend mit „deine eigene Historie
+   behalten". In dem Moment, wo andere Menschen sie erzeugen, gelten
+   Zweckbindung, Einwilligung und
+   [`../CONSTITUTION.md`](../CONSTITUTION.md) §2 — und die Frage, ob eine
+   Methodenbewertung überhaupt das Gerät verlassen muss, wird zu einer
+   Entscheidung statt einer Selbstverständlichkeit.
+
+> **[D]** Deshalb: Wirkungsdaten werden **lokal** erhoben und ausgewertet. Eine
+> Aggregation über mehrere Menschen — die für Populationswerte nötig wäre — ist
+> eine eigene, ausdrücklich einzuholende Entscheidung, nicht die Voreinstellung.
+> Das ist Frage 1 aus [11](11-roadmap-offene-fragen.md) in konkreter Form.
 
 ---
 

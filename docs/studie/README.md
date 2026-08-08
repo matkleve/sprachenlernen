@@ -59,9 +59,10 @@ diese Tabelle.
 | [19 · Meilensteine & Karte](19-meilensteine-und-karte.md) | Wortschatz in Blöcken, und die Oberfläche, die zeigt wie alles zusammenhängt |
 | [20 · Sprechen & Sätze](20-sprechen-und-saetze.md) | Was Sprechübungen belegt wirksam macht — und dass der Kern davon keine KI braucht |
 | [21 · Methodenkatalog & Kontext](21-methodenkatalog-und-kontext.md) | Der eigentliche Katalog, warum Apps die harten Methoden meiden, und wie der Lernkontext die Auswahl bestimmt |
+| [22 · Gestaltung](22-gestaltung.md) | Randbedingungen für die Optik — und warum eine Duolingo-Palette hier gegen das Produkt arbeiten würde |
 | [Quellen](quellen.md) | Literatur, mit ehrlicher Kennzeichnung was nachgeprüft wurde |
 
-Kapitel 12–21 sind nach der Roadmap entstanden und deshalb hinten angehängt.
+Kapitel 12–22 sind nach der Roadmap entstanden und deshalb hinten angehängt.
 Inhaltlich gehört 12 neben [08](08-motivation.md), 13 neben
 [06](06-produktion.md), 17 neben [05](05-input-lesen-hoeren.md), 19 neben
 [03](03-level-modell.md), und 14, 15, 18 vor die Roadmap.
