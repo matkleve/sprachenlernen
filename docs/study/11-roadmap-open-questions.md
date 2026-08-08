@@ -410,12 +410,14 @@ the table:
 | **Local first + sync** ← chosen | Same, plus a second device and recovery | Sync of an append-only log is easy; sync of derived state is not. Real work |
 | **Server first** (e.g. Supabase) | Cheapest to build, one obvious place for everything | An offline-first product with a server-first data layer is a retrofit later, and this one is offline-first by requirement |
 
-Recorded in two records, because the answer arrived in two parts on the same day.
+Recorded in three records, because the answer arrived in parts on the same day.
 [ADR-0005](../adr/0005-local-first-review-log-with-accounts-as-an-addition.md)
 chose local-first with sync and holds the rejected alternatives.
 [ADR-0006](../adr/0006-require-an-account.md) then made **an account required**,
 which moves the server into stage 1 and makes the row owner non-null from the
-first row.
+first row. [ADR-0007](../adr/0007-supabase-as-the-provider.md) picked the
+provider: **Supabase**, project `lnkgmjcueahhrzpnzmwq`, Postgres with
+row-level security plus its built-in auth.
 
 The four properties stage 1 may not break: **append-only, one UUID per review, a
 non-null owner, and no component that knows where the log is** — writes go
@@ -431,8 +433,9 @@ than being quietly broken**: signup and the language pair are the only two thing
 asked before the first exercise, which is stricter than before, not looser,
 because the account uses up the entire budget S1 allows.
 
-Still open, and now due: **which provider.** ADR-0005 fixed no vendor because
-sync was distant; it no longer is. See [`../BACKEND.md`](../BACKEND.md) §1.
+`BACKEND.md` §1 is therefore no longer a menu for this project — the choice is
+made and recorded, and re-evaluating it belongs in the ADR that would supersede
+ADR-0007, not in a task that happens to touch data.
 
 ### 17 · Is perceived effort a third ledger?
 

@@ -17,7 +17,7 @@ a whim next week.
 ## How
 
 ```bash
-cp docs/adr/0000-template.md docs/adr/0007-short-slug.md
+cp docs/adr/0000-template.md docs/adr/0008-short-slug.md
 ```
 
 Number sequentially, never reuse a number, never delete a record. A superseded
@@ -33,3 +33,4 @@ ADR stays — the fact that it was once the right answer is the most useful part
 | [0004](0004-word-task-data-model.md) | Model a word as one entity owning several independently scheduled tasks | Accepted |
 | [0005](0005-local-first-review-log-with-accounts-as-an-addition.md) | Store the review log locally first, and add accounts as an addition rather than a migration | Accepted, one clause superseded by 0006 |
 | [0006](0006-require-an-account.md) | Require an account before the first review | Accepted |
+| [0007](0007-supabase-as-the-provider.md) | Use Supabase for authentication and the review-log database | Accepted |

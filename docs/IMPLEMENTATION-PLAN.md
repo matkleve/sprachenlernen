@@ -51,10 +51,11 @@ What that changes for this queue:
 3. **Track B gained a task and reordered.** Authentication (T-B8) is no longer
    last — it is the gate for persistence, which is the gate for everything else.
    The chain is T-B8 → T-B2 → T-B1.
-4. **The provider is undecided and now blocks.** ADR-0005 fixed no vendor because
-   sync was distant; ADR-0006 made it stage 1. This is the one open question that
-   holds up Track B, and it needs an ADR of its own rather than whoever gets there
-   first installing something.
+4. **The provider is decided: Supabase**, project `lnkgmjcueahhrzpnzmwq`
+   ([ADR-0007](adr/0007-supabase-as-the-provider.md)). Its MCP server and the
+   `supabase` / `supabase-postgres-best-practices` skills are installed
+   (`.cursor/mcp.json`, `.agents/skills/`). T-B8 is now specifiable rather than
+   blocked.
 5. **`/` is the landing page, and the app is not on it.** The first product screen
    therefore gets its own route — T-03 no longer takes the home route, and the
    real landing page becomes its own piece of work (T-B7). With a required
@@ -229,7 +230,7 @@ low-inference agent would silently invent.
 
 | # | Work | Why it is not Track A |
 | --- | --- | --- |
-| **T-B8** | **Provider ADR, then accounts and authentication — this is now first** | **Sensitive**, and it moved from last to first: ADR-0006 requires an account before the first review, so nothing that persists can precede it. Two steps, in order: an ADR choosing the provider (auth **and** Postgres), then signup, sign-in, session handling and the §8 access-control test |
+| **T-B8** | **Accounts and authentication on Supabase — this is now first** | **Sensitive**, and it moved from last to first: ADR-0006 requires an account before the first review, so nothing that persists can precede it. The provider question is settled (ADR-0007); what remains is signup, sign-in, session handling, the RLS policy for the review-log table, and the §8 access-control test that proves it |
 | **T-B2** | Persistence of the review log | **Sensitive.** Shape is fixed by ADR-0005 and 0006 — append-only, per-review UUID, non-null owner, adapter-only. The remaining work is a spec pinning the row schema and the installation id, plus a red test per property. Depends on T-B8 for the owner it writes |
 | **T-B1** | The review session surface | **Sensitive.** Stateful UI, so `STATE.md` demands one enum, an explicit transition map, named terminal states and a single source of truth *before* any code. Depends on T-B2 |
 | **T-B3** | Vocabulary estimate and the level display (F17–F22) | Newly unblocked by tier B. Needs the anchor table from `study/03-level-model.md`, which is graded **[C]** and explicitly needs calibrating — a spec must say what is claimed with an uncalibrated band |
@@ -326,23 +327,22 @@ while a low-inference agent implements T-03.
 
 ## What needs a decision from you
 
-Ordered by how much they block. **Question 16 is off this list** (ADR-0005 and
-ADR-0006), and so is whether an account is required — it is, ADR-0006.
+Ordered by how much they block. **Question 16 is off this list** (ADR-0005,
+ADR-0006, ADR-0007) — an account is required, and the provider is Supabase.
 
-1. **Which auth and database provider?** Now the only thing blocking Track B,
-   because ADR-0006 put authentication inside stage 1. `BACKEND.md` §1's table is
-   the shortlist, and the requirement narrows it: the provider has to supply
-   authentication, not only Postgres. One word starts the ADR.
-2. **Is T-03 the first surface?** The alternative is going straight at T-B8 and
+1. **Is T-03 the first surface?** The alternative is going straight at T-B8 and
    the review chain. The manager and the designer disagree; the tie-breaker is
    whether you want a screenshot first or a mechanism first. Note that T-03 is now
    the only surface buildable before auth exists.
-3. **Are native form controls exempt from the five-state rule?** Yes → the
+2. **Are native form controls exempt from the five-state rule?** Yes → the
    boundary in `AGENTS.md` gains one sentence and `select.md` is already right.
    No → Input, Select, Table and ItemPicker each gain hover and active states,
    and that is a visual change you have not asked for.
-4. **A `success-deep` token, or a documented asymmetry?** Needed before the first
+3. **A `success-deep` token, or a documented asymmetry?** Needed before the first
    correct-answer button exists, not after.
+4. Does `CONSTITUTION.md` §2 (the user's data) need writing out now that server
+   storage is scheduled rather than hypothetical? `BACKEND.md` §9 says it stops
+   being abstract the moment something is actually stored.
 5. Chapter 25's questions 17–19 (perceived effort as a third ledger, whether the
    whole-task floor applies from day one, per-language dose bands). These can
    wait; none blocks code.
