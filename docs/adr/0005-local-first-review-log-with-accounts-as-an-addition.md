@@ -1,7 +1,14 @@
 # 0005. Store the review log locally first, and add accounts as an addition rather than a migration
 
-- **Status:** Accepted
+- **Status:** Accepted, with the optional-account clause superseded by [0006](0006-require-an-account.md)
 - **Date:** 2026-08-08
+
+> **What 0006 changed, later the same day.** An account is **required**, so the
+> owner of a review row is non-null from the first row and the server is part of
+> stage 1. The rest of this record stands: append-only, one UUID per review, an
+> installation id, and no component that knows where the log lives. The reasoning
+> below is left exactly as it was written — it is the argument the evidence
+> favours, and the one to re-read if the requirement is ever relaxed.
 
 ## Context
 

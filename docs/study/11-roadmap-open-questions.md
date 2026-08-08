@@ -49,9 +49,17 @@ analyser emits the cell anyway; retrofitting would mean rebuilding the table
 
 ### Stage 1 · Flashcards with a glass-walled schedule
 
-F01–F07, F12, F73, F74, F78. **From here the app is usable** and already better
-than any existing flashcard app — not because it can do more, but because it
-shows what it is doing.
+F01–F07, F12, F73, F74, F78, and — since question 16 — **F191 (account and
+authentication)**. **From here the app is usable** and already better than any
+existing flashcard app — not because it can do more, but because it shows what it
+is doing.
+
+**F191 is in this stage and not later because the account is required**
+([ADR-0006](../adr/0006-require-an-account.md)): the first review cannot be
+written before there is an owner to write it against. That makes stage 1 larger
+than it was — it now carries signup, sign-in, session handling and an
+access-control test — and it is the honest price of the decision rather than a
+scope surprise to be discovered mid-stage.
 
 **F184 begins recording here, and only displays in stage 2.** Practice time
 cannot be reconstructed after the fact, so a ledger that starts when the display
@@ -206,8 +214,8 @@ to 2.
 ### ✔ 1 · Who is this for? — **answered 2026-08-08**
 
 **A tool for the author first, kept open for later.** So: build it like a tool
-(no account needed, data local, generated content usable unchecked), but with a
-data model and privacy posture that can become a product.
+(generated content usable unchecked, editorial polish deferred), but with a data
+model and privacy posture that can become a product.
 
 What that already forces, because it is expensive to retrofit:
 
@@ -221,11 +229,12 @@ What that already forces, because it is expensive to retrofit:
 What it **allows** deferring: editorial work on starter decks, native-speaker
 sampling, multi-user operation, LLM cost optimisation.
 
-**Narrowed 2026-08-08 by question 16.** "No account needed" stays true as a
-property of *using* the app, and accounts themselves are no longer deferred as a
-destination — they are committed
-([ADR-0005](../adr/0005-local-first-review-log-with-accounts-as-an-addition.md)).
-What is deferred is building them, not designing the log to accept them.
+**Corrected 2026-08-08 by question 16.** This answer originally read "no account
+needed, data local". Both halves are now wrong: **an account is required**
+([ADR-0006](../adr/0006-require-an-account.md)) and a server is part of stage 1.
+"A tool for the author first" is what makes that affordable — signup friction is
+a cost paid in acquiring strangers, and there are none. It is *not* a licence to
+add a second step beside the account; see UC-011.
 
 ### ✔ 2 · Which language first? — **answered 2026-08-08**
 
@@ -390,8 +399,8 @@ order.
 
 ### ✔ 16 · Where does the data live? — **answered 2026-08-08**
 
-**Local first, and a real database with accounts afterwards.** The review log is
-the source of truth ([`../adr/0004-word-task-data-model.md`](../adr/0004-word-task-data-model.md)),
+**A server with accounts, and an offline-capable browser store in front of it.**
+The review log is the source of truth ([`../adr/0004-word-task-data-model.md`](../adr/0004-word-task-data-model.md)),
 which made this load-bearing rather than infrastructural. Three options were on
 the table:
 
@@ -401,19 +410,29 @@ the table:
 | **Local first + sync** ← chosen | Same, plus a second device and recovery | Sync of an append-only log is easy; sync of derived state is not. Real work |
 | **Server first** (e.g. Supabase) | Cheapest to build, one obvious place for everything | An offline-first product with a server-first data layer is a retrofit later, and this one is offline-first by requirement |
 
-Recorded as [ADR-0005](../adr/0005-local-first-review-log-with-accounts-as-an-addition.md),
-which is where the details and the rejected alternatives live. The four
-properties stage 1 may not break: **append-only, one UUID per review, a nullable
-owner, and no component that knows where the log is** — writes go through an
-adapter ([`../BACKEND.md`](../BACKEND.md) §3).
+Recorded in two records, because the answer arrived in two parts on the same day.
+[ADR-0005](../adr/0005-local-first-review-log-with-accounts-as-an-addition.md)
+chose local-first with sync and holds the rejected alternatives.
+[ADR-0006](../adr/0006-require-an-account.md) then made **an account required**,
+which moves the server into stage 1 and makes the row owner non-null from the
+first row.
 
-Two consequences that are easy to miss. **Authentication is now a committed
-destination, not a maybe** — so the log carries the identity it will need on a
-server from its first row, and question 1's deferral of *multi-user operation*
-does not mean deferring the ability of a row to belong to a user. And **no
-account is required to learn**: signing in buys durability and a second device,
-never capability. That is what puts the app itself behind the landing page rather
-than behind a signup form.
+The four properties stage 1 may not break: **append-only, one UUID per review, a
+non-null owner, and no component that knows where the log is** — writes go
+through an adapter ([`../BACKEND.md`](../BACKEND.md) §3).
+
+Three consequences that are easy to miss. **The browser store is the offline write
+path and cache, not the authority** — and because the log is append-only, the two
+stores hold the same rows and merging is a union rather than a judgement.
+**Stage 1 now contains authentication**, including the access-control test that
+[`../BACKEND.md`](../BACKEND.md) §8 calls the highest-value test in the product;
+that is the largest schedule effect of this answer. And **UC-011 changed rather
+than being quietly broken**: signup and the language pair are the only two things
+asked before the first exercise, which is stricter than before, not looser,
+because the account uses up the entire budget S1 allows.
+
+Still open, and now due: **which provider.** ADR-0005 fixed no vendor because
+sync was distant; it no longer is. See [`../BACKEND.md`](../BACKEND.md) §1.
 
 ### 17 · Is perceived effort a third ledger?
 

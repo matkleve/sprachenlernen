@@ -14,23 +14,29 @@ it is the set of decisions and boundaries to get right, in order.
 Read this before §1, because §1 is written for a project that still has a choice
 to make and this one no longer does.
 
+Two records, both dated 2026-08-08 and read in order.
 [ADR-0005](adr/0005-local-first-review-log-with-accounts-as-an-addition.md): the
-review log is written **to the browser first** (IndexedDB, append-only, one UUID
-per review, nullable owner), and a server with authentication and accounts
-arrives later as an addition to that log rather than a replacement for it. So:
+review log is **append-only, one UUID per review**, carries the installation it
+came from, and **no component knows where it lives**.
+[ADR-0006](adr/0006-require-an-account.md): **an account is required before the
+first review**, so the row owner is non-null from the first row and the server is
+part of stage 1 rather than a later addition. So:
 
-- **§1's choice is half-made.** The primary store is the browser. The remaining
-  choice is the *sync target*, and it gets its own ADR when sync is built — this
-  one deliberately fixes no vendor.
-- **§3's adapter is mandatory, not advisory.** It is the whole mechanism by which
-  the server stays a later addition. A component that touches IndexedDB directly
-  turns that addition back into a rewrite.
-- **§2 ("the client is untrusted") does not apply yet and will apply suddenly.**
-  While the store is local there is no server to trust or distrust; on the day
-  there is one, every rule in §2 becomes live at once for data that already
-  exists. Write the sync path expecting that, and never treat locally recorded
-  rows as authorised simply because they arrived.
-- **§6 still holds: all of this is Sensitive.** Local persistence is persistence.
+- **§1's choice is due now**, and it is one choice rather than two: the provider
+  has to supply authentication as well as Postgres, because stage 1 needs both. It
+  gets its own ADR. **⚠ SPEC GAP: the provider is undecided** — the first person
+  to need one must not simply install their favourite.
+- **§2 ("the client is untrusted") is live from the first write.** ADR-0005 could
+  defer it while there was no server; ADR-0006 cannot. Every write is authorised
+  server-side, at the data layer where possible.
+- **§3's adapter is mandatory, not advisory.** The browser store still exists — it
+  is the offline write path and cache (F82), not the authority — so there are two
+  places rows live and exactly one place that may know it: `lib/db/`.
+- **§8's policy test is stage 1 work**, not a later hardening pass. It is the
+  highest-value test in the product and the one that has to exist before the
+  second account does.
+- **§6 still holds: all of this is Sensitive.** Local persistence is persistence,
+  and now it is not only local.
 
 ## 0. Write the ADR first
 

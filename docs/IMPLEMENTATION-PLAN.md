@@ -32,27 +32,34 @@ first flow must be, plus the interaction debt already sitting in the primitives.
 
 ## Where storage stands, now that question 16 is answered
 
-**Answered 2026-08-08:
-[ADR-0005](adr/0005-local-first-review-log-with-accounts-as-an-addition.md).** The
-review log is written to the browser first — IndexedDB, append-only, one UUID per
-review, nullable owner — and a database with authentication and accounts follows
-as an addition rather than a replacement. No account is required to learn;
-signing in buys durability and a second device.
+**Answered 2026-08-08 in two records.**
+[ADR-0005](adr/0005-local-first-review-log-with-accounts-as-an-addition.md) fixed
+the log's shape: append-only, one UUID per review, an installation id, and no
+component that knows where it lives. [ADR-0006](adr/0006-require-an-account.md)
+then made **an account required**, which puts the server and authentication inside
+stage 1 and makes the row owner non-null from the first row. The browser store
+remains, as the offline write path and cache rather than the authority.
 
 What that changes for this queue:
 
-1. **Nothing in Track A moves**, because none of it persists anything. The
-   sequence below is unaffected.
-2. **Track B is unblocked to the point of being specifiable.** T-B2 (persistence)
-   can now be written, and it is the gate for T-B1 and T-B4 rather than a
-   question mark.
-3. **Four properties are now non-negotiable in every write path**: append-only,
-   per-review UUID, nullable owner, and no component that knows where the log
+1. **Nothing in Track A moves**, because none of it persists anything or reads a
+   session. The sequence below is unaffected, and that is now its main virtue:
+   it is the only work that can proceed while auth does not exist.
+2. **Four properties are non-negotiable in every write path**: append-only,
+   per-review UUID, **non-null owner**, and no component that knows where the log
    lives. A brief that omits any of them is not ready to hand out.
-4. **`/` is the landing page, and the app is not on it.** Also decided
-   2026-08-08. The first product screen therefore gets its own route, which is a
-   change from the previous version of this plan — T-03 no longer takes the home
-   route, and the real landing page becomes its own piece of work (T-B7).
+3. **Track B gained a task and reordered.** Authentication (T-B8) is no longer
+   last — it is the gate for persistence, which is the gate for everything else.
+   The chain is T-B8 → T-B2 → T-B1.
+4. **The provider is undecided and now blocks.** ADR-0005 fixed no vendor because
+   sync was distant; ADR-0006 made it stage 1. This is the one open question that
+   holds up Track B, and it needs an ADR of its own rather than whoever gets there
+   first installing something.
+5. **`/` is the landing page, and the app is not on it.** The first product screen
+   therefore gets its own route — T-03 no longer takes the home route, and the
+   real landing page becomes its own piece of work (T-B7). With a required
+   account, the landing page is also the whole of what a signed-out visitor ever
+   sees, which raises its stakes rather than lowering them.
 
 Still ahead of stage 2: **the vocabulary estimate (F17–F22)**, now unblocked on
 the data side, because tier B means a level *may* be claimed with a widened band.
@@ -162,9 +169,13 @@ that exists — nothing is invented, nothing is stored, no state machine is
 involved, and it is a Server Component.
 
 It lives at `/languages`, **not** at `/`, because the home route is the landing
-page (ADR-0005 and the decision of 2026-08-08 — the app is behind the landing
-page, not instead of it). The route name is the one thing here you can change
-with a one-line instruction; everything else is derived from data.
+page (ADR-0006 — the app is behind the landing page, not instead of it). It is
+**reachable without signing in**, since it contains no user data and every value
+on it is a property of the shipped language data rather than of a learner. That is
+also why it is still first in the queue: with an account now required, this is the
+only product surface that can be built and looked at before authentication
+exists. The route name is the one thing here you can change with a one-line
+instruction; everything else is derived from data.
 
 It is worth building first because it is the product's whole argument in one
 screen. Every competitor shows a number and hides its provenance
@@ -218,12 +229,13 @@ low-inference agent would silently invent.
 
 | # | Work | Why it is not Track A |
 | --- | --- | --- |
-| **T-B2** | Persistence of the review log — **do this one first** | **Sensitive.** Now specifiable, since ADR-0005 fixes the shape: append-only, per-review UUID, nullable owner, adapter-only access. The remaining work is a spec that pins the row schema and the installation id, and a red test per property. Nothing else in Track B can be honest before it |
+| **T-B8** | **Provider ADR, then accounts and authentication — this is now first** | **Sensitive**, and it moved from last to first: ADR-0006 requires an account before the first review, so nothing that persists can precede it. Two steps, in order: an ADR choosing the provider (auth **and** Postgres), then signup, sign-in, session handling and the §8 access-control test |
+| **T-B2** | Persistence of the review log | **Sensitive.** Shape is fixed by ADR-0005 and 0006 — append-only, per-review UUID, non-null owner, adapter-only. The remaining work is a spec pinning the row schema and the installation id, plus a red test per property. Depends on T-B8 for the owner it writes |
 | **T-B1** | The review session surface | **Sensitive.** Stateful UI, so `STATE.md` demands one enum, an explicit transition map, named terminal states and a single source of truth *before* any code. Depends on T-B2 |
 | **T-B3** | Vocabulary estimate and the level display (F17–F22) | Newly unblocked by tier B. Needs the anchor table from `study/03-level-model.md`, which is graded **[C]** and explicitly needs calibrating — a spec must say what is claimed with an uncalibrated band |
 | **T-B4** | Dose ledger (F184) | Needs roadmap question 19 answered, and its logging half needs T-B2 |
-| **T-B7** | The landing page | Positioning copy is a product decision, not an implementation. It is also the one surface whose job is to persuade, which makes every rule in `DESIGN-SYSTEM.md` necessary but not sufficient |
-| **T-B8** | Accounts, authentication and sync | **Sensitive**, and last on purpose. ADR-0005 fixes the order and the log shape but deliberately picks no vendor; that is a separate ADR, written when this is built. Every rule in `BACKEND.md` §2 goes live at once on that day, for data that already exists |
+| **T-B7** | The landing page | Positioning copy is a product decision, not an implementation. With a required account it is also everything a signed-out visitor ever sees, and its job is to persuade — which makes every rule in `DESIGN-SYSTEM.md` necessary but not sufficient |
+| **T-B9** | Sync across devices (F192) | Comes after T-B2 and is cheap *because* of it: a union of append-only rows. **⚠ SPEC GAP** carried from ADR-0005: the tiebreak between two rows with the same timestamp from different installations. Client clocks are untrusted, so it cannot be wall-clock order |
 | **T-B5** | Retire the Grundriss worked examples | Looks like a deletion, is a docs refactor: `docs/STATE.md:148` cites item-picker as **the** worked example of state coherence, `docs/specs/README.md:36` indexes it, and UC-001…003 are referenced from six files. Removing the code without re-pointing those is a broken-link failure at best and the loss of the only worked example at worst |
 | **T-B6** | Five-state compliance for Input and Select | A rule conflict, not a bug — see the decisions below |
 
@@ -278,10 +290,10 @@ screen. That ratio is the risk, not the backlog. The scheduler has been reviewed
 adversarially and the lexicon has 69 tests, and neither has ever been touched by
 a human hand through a UI — so we have high-confidence code and zero evidence
 that any of it is usable. Storage was the last thing standing between us and
-stage 1 and it has been answered, so the excuse is gone: write the persistence
-spec, then ship a review session end to end, badly if necessary. And I want the
-demo page off the home route before anyone else sees this repo and concludes the
-product is a starter kit."
+stage 1 and it has been answered — though the answer grew the stage: pick the
+provider, stand up auth, then the persistence spec, then a review session end to
+end, badly if necessary. And I want the demo page off the home route before anyone
+else sees this repo and concludes the product is a starter kit."
 
 **The UX designer.** "Shipping a review session first repeats the mistake the
 study spent 25 chapters diagnosing. A card, four grade buttons and a queue is
@@ -301,26 +313,30 @@ neither wants a review surface built before its state machine is written down.
 T-03 satisfies the designer and costs the manager one task on the critical path —
 and it produces the first screenshot this project has ever had.
 
-**What the storage decision does to the argument.** It weakens the manager's
-urgency slightly and strengthens the designer's ordering: with the log shape
-fixed, T-B2 is a specification exercise that a thinking model can do in parallel
-with T-03 being implemented by a low-inference one. The two tracks stopped
-competing for the same decision.
+**What the storage decisions do to the argument.** ADR-0006 strengthens the
+designer's ordering, for a reason neither persona anticipated: a required account
+means the review surface is now behind signup, session handling and an
+access-control test, so "ship a review session, badly if necessary" is no longer a
+small piece of work. T-03 is the only product surface that can be built and shown
+before authentication exists. The two tracks also stopped competing — with the log
+shape fixed, the persistence spec is a writing exercise a thinking model can do
+while a low-inference agent implements T-03.
 
 ---
 
 ## What needs a decision from you
 
-Ordered by how much they block. **Question 16 has come off this list** — it is
-ADR-0005.
+Ordered by how much they block. **Question 16 is off this list** (ADR-0005 and
+ADR-0006), and so is whether an account is required — it is, ADR-0006.
 
-1. **Is T-03 the first surface?** The alternative is going straight at T-B2 and
-   then the review session. The manager and the designer disagree; the
-   tie-breaker is whether you want a screenshot first or a mechanism first.
-2. **Does signing in ever become mandatory?** ADR-0005 says no — an account buys
-   durability, never capability — and that is the reading of "browser first" the
-   log shape now depends on. If you meant an account *is* required before the
-   first review, say so, because it changes both the landing page and T-B2.
+1. **Which auth and database provider?** Now the only thing blocking Track B,
+   because ADR-0006 put authentication inside stage 1. `BACKEND.md` §1's table is
+   the shortlist, and the requirement narrows it: the provider has to supply
+   authentication, not only Postgres. One word starts the ADR.
+2. **Is T-03 the first surface?** The alternative is going straight at T-B8 and
+   the review chain. The manager and the designer disagree; the tie-breaker is
+   whether you want a screenshot first or a mechanism first. Note that T-03 is now
+   the only surface buildable before auth exists.
 3. **Are native form controls exempt from the five-state rule?** Yes → the
    boundary in `AGENTS.md` gains one sentence and `select.md` is already right.
    No → Input, Select, Table and ItemPicker each gain hover and active states,

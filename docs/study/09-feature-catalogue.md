@@ -345,6 +345,8 @@ be gone through and cut — the list is deliberately longer than what gets built
 | F84 | Several target languages per account | — | M | **V2** |
 | F85 | A reporting route for wrong generated content | — | S | **V1** — the quality obligation for generated material |
 | F86 | Efficacy measurement built in (pre-test, cohorts, including dropouts) | — | L | **V2** — otherwise we repeat [01](01-duolingo.md), S5 |
+| F191 | **Account and authentication** — required before the first review | — | M | **V1** — stage 1, [ADR-0006](../adr/0006-require-an-account.md) |
+| F192 | Sync of the review log across devices | — | M | **V1** — a union of append-only rows, which is why F191 makes it cheap rather than dear |
 
 ---
 
