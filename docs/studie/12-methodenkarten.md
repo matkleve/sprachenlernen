@@ -287,6 +287,99 @@ Fehleinschätzung hält sich auch gegen eigene, direkt erlebte Gegenbeweise.
 
 ---
 
+## Die Infoseite je Methode **[D]**
+
+Nutzeridee, und sie schließt eine Lücke, die ich übersehen hatte: die
+Methodenkarte sagt bisher, *was* eine Methode trainiert, aber nicht **warum sie
+wirkt**. Das ist die Information, die den Unterschied macht zwischen „die App
+sagt, ich soll Diktat machen" und „ich weiß, wofür Diktat gut ist".
+
+Es gibt auch einen Evidenzgrund dafür: Lernende, die ausdrücklich beigebracht
+bekommen, *wie* man eine Methode nutzt, profitieren messbar mehr als solche, die
+es selbst herausfinden ([02](02-evidenz.md), E10) — und sie kommen mit falschen
+Vorannahmen an, siehe der Lernstil-Mythos in [16](16-weitere-befunde.md), W1.
+
+Sechs Abschnitte, und der vierte ist der wichtigste:
+
+| Abschnitt | Inhalt |
+| --- | --- |
+| **Was es ist** | Ein Satz, ohne Fachbegriffe |
+| **Warum es wirkt** | Der Mechanismus. Nicht „es hilft beim Hören", sondern „es zwingt Aufmerksamkeit auf die Lautform, und die fehlt dir bei Wörtern, die du nur gelesen kennst" |
+| **Wie sicher wir das wissen** | Dieselbe Marke **[A]–[D]** wie in dieser Studie, mit einem Satz dazu, worauf sie beruht |
+| **Was es *nicht* leistet** | Die Grenzen. Diktat verbessert die Enkodierung, nicht das Behalten ([02](02-evidenz.md), E9) |
+| **Abwandlungen** | Deine Idee: kürzer, schwerer, mit anderen, auf Papier, unterwegs |
+| **Was du dafür brauchst** | Setting, Dauer, Hilfsmittel |
+
+**Die Regel, die eine Infoseite von Werbung unterscheidet:** Der Abschnitt „was
+es *nicht* leistet" ist **Pflicht**. Eine Seite, die eine Methode nur verkauft,
+ist eine Anzeige mit Fußnoten — und sie beschädigt genau das Vertrauen, das der
+gläserne Zeitplan aus [04](04-karteikarten-srs.md) aufbaut.
+
+Ehrlichkeitshalber: Menschen die Belege zu zeigen korrigiert ihre
+Fehleinschätzung nur teilweise ([02](02-evidenz.md), E13). Die Infoseite ist
+trotzdem richtig — nicht weil sie zuverlässig überzeugt, sondern weil das
+Alternativverhalten „vertrau uns einfach" für ein Produkt mit diesen
+Ehrlichkeitsregeln nicht in Frage kommt.
+
+---
+
+## Methoden jenseits der App **[D]**
+
+Der zweite Teil der Nutzeridee, und er verändert, was dieses Produkt ist.
+
+> *„Was mich stört ist, dass viele Apps immer nur sagen: hey, lern mit dieser
+> App."*
+
+Der Methodenkatalog enthält **auch Methoden, die die App nicht selbst
+durchführt**. Ein Theaterstück schreiben und aufführen. Einen Tandempartner
+finden. Nach einem Rezept in der Zielsprache kochen. Eine Woche lang das eigene
+Tagebuch in der Zielsprache führen. Einen Film mit Freunden schauen, die die
+Sprache sprechen.
+
+Bei diesen Methoden macht die App drei Dinge — und ein viertes ausdrücklich
+nicht:
+
+| | |
+| --- | --- |
+| **Vorschlagen** | Als vollwertige Methodenkarte, mit Infoseite und Evidenzgrad wie jede andere. Theater hat welchen ([20](20-sprechen-und-saetze.md), S5) |
+| **Vorbereiten** | Das Vokabular, die Wendungen, das Blatt für den Anlass — der Mechanismus aus [07](07-offline-papier.md), Ü5 und UC-026 |
+| **Nachbereiten** | „Was konntest du nicht sagen?" → Karten. Die höchstwertige Kartenquelle überhaupt, weil der Bedarf belegt ist |
+| **Nicht: messen** | Sie behauptet keine Zahl über etwas, das sie nicht beobachtet hat |
+
+### Die Falle, die das erzeugt
+
+Und sie ist ernst: In [12](12-methodenkarten.md) steuert die **gemessene
+Wirkung** die Auswahl. Eine Methode, die nicht messbar ist, hat keine
+Wirkungsschätzung — und würde damit strukturell nach unten sortiert. Das ist
+derselbe Mechanismus wie [01](01-duolingo.md), D1: **was messbar ist, verdrängt
+was zählt.**
+
+**Lösung:** Methoden jenseits der App bekommen ihre Stellung über eine
+**Grundfrequenz**, nicht über eine Wirkungsschätzung. Ihre Existenz im Menü ist
+eine Setzung, keine Ableitung — und diese Setzung ist genau die Aussage, dass
+die App nicht das Ganze ist.
+
+Selbstberichtete Erledigung wird als **selbstberichtet** markiert und fließt
+nicht in Ebene 1 des Levelmodells ([03](03-level-modell.md)). Wer einen Monat
+Theater spielt und die App kaum öffnet, sieht dort kein Wachstum — und die App
+sagt das ehrlich, statt es zu behaupten oder zu verschweigen.
+
+### Warum das mehr ist als Bescheidenheit
+
+Drei Gründe, die über Sympathie hinausgehen:
+
+1. **Es ist ehrlich.** Keine App bringt jemanden zum flüssigen Sprechen. Das zu
+   behaupten ist die Grundlüge der Branche.
+2. **Es stützt Autonomie** ([02](02-evidenz.md), E7) und das erwünschte Selbst
+   ([16](16-weitere-befunde.md), W4). „Du könntest ein Stück aufführen" ist eine
+   Ideal-Self-Aussage; „du hast heute noch nicht gelernt" das Gegenteil.
+3. **Es ist das strukturelle Gegengift** gegen den Vokabel-Sog, den diese Studie
+   an sich selbst diagnostiziert hat: Wortschatz ist am leichtesten messbar, also
+   zieht das Produkt dorthin. Ein Katalog, der Unmessbares mit eigener
+   Grundfrequenz enthält, arbeitet dagegen — an der Stelle, an der es zählt.
+
+---
+
 ## Was in ein Spec muss
 
 - Methode als Katalogeintrag mit fester Struktur: Zielfertigkeit, Zielsignal,

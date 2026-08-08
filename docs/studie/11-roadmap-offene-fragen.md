@@ -110,6 +110,14 @@ dahin daran gewöhnt.
 F51–F53, F60, F64–F67, F72. Erst wenn Rezeption trägt — Produktionsübung ohne
 Wortschatz ist Frustration.
 
+**Korrektur vom 2026-08-08:** Sprechen stand hier, weil ich es an den
+LLM-Gesprächspartner gekoppelt hatte. Das war falsch. Der belegte Kern des
+Sprechtrainings — **4/3/2, Planungszeit, Shadowing, Selbstvergleich (F136–F139)**
+— braucht kein LLM, keine Spracherkennung und keinen zweiten Menschen, und
+gehört nach **Stufe 4**, wo Audio und Transkript ohnehin entstehen. Der
+Gesprächspartner ist die Erweiterung, nicht die Voraussetzung
+([20](20-sprechen-und-saetze.md)).
+
 ### Stufe 6 · Verfeinerung
 
 Alles mit Urteil **V2** und **später** aus [09](09-feature-katalog.md), sortiert

@@ -78,6 +78,9 @@ because it is interesting.
 | [UC-018](UC-018-keep-learning-with-no-connection.md) | Keep learning with no connection | 4 | F82 |
 | [UC-010](UC-010-choose-how-to-practise-today.md) | Choose how to practise today, without choosing badly | 4b | [12](../studie/12-methodenkarten.md) |
 | [UC-013](UC-013-stop-losing-time-on-one-card.md) | Stop losing time on the card I keep failing | 4b | [04](../studie/04-karteikarten-srs.md) |
+| [UC-042](UC-042-know-why-a-method-works.md) | Know why a method is supposed to work | 4b | [12](../studie/12-methodenkarten.md) |
+| [UC-043](UC-043-practise-beyond-the-app.md) | Do something in the language that is not in the app | 4b | [12](../studie/12-methodenkarten.md), [20](../studie/20-sprechen-und-saetze.md) |
+| [UC-044](UC-044-speak-the-same-thing-three-times.md) | Say the same thing three times and hear myself get better | 4 | [20](../studie/20-sprechen-und-saetze.md) |
 | [UC-015](UC-015-speak-without-being-judged.md) | Say something in the language without an audience | 5 | [06](../studie/06-produktion.md) |
 | [UC-017](UC-017-get-a-correction-i-can-act-on.md) | Write something and get a correction I can act on | 5 | [06](../studie/06-produktion.md) |
 | [UC-009](UC-009-practise-away-from-the-screen.md) | Practise on paper, and have it count | 5 | [07](../studie/07-offline-papier.md) |

@@ -236,6 +236,24 @@ Blockgrenzen **selbst kalibriert** statt übernommen.
 
 ---
 
+## Sprechen und Sätze → [20](20-sprechen-und-saetze.md)
+
+| | Quelle | Verwendet in |
+| --- | --- | --- |
+| ⬤ | *Improving Speaking Fluency Through 4/3/2 Technique and Self-Assessment.* TESL-EJ 26. [Link](https://tesl-ej.org/wordpress/issues/volume26/ej102/ej102a1/) | [20](20-sprechen-und-saetze.md) S1 |
+| ⬤ | *Fluency development through repetition: 4/3/2 versus 3/3/3.* Vrije Universiteit Brussel. [Link](https://researchportal.vub.be/en/publications/fluency-development-through-repetition-432-versus-333/) | [20](20-sprechen-und-saetze.md) S1 |
+| ⬤ | *Revised 4/3/2 Task: Fluency Training with Formulaic Language in the EFL Classroom.* [Link](https://www.researchgate.net/publication/357937213_Revised_432_Task_Fluency_Training_with_Formulaic_Language_in_the_EFL_Classroom) | [20](20-sprechen-und-saetze.md) S1, [16](16-weitere-befunde.md) W2 |
+| ⬤ | Guo: *Effectiveness of Task-Based Language Teaching in English Speaking Instruction: A Systematic Review.* IJLTER. [Link](https://www.ijlter.org/index.php/ijlter/article/view/15904) | [20](20-sprechen-und-saetze.md) S3 |
+| ⬤ | Boers & Faez (2023): *Meta-analysis to estimate the relative effectiveness of TBLT programs: Are we there yet?* Language Teaching Research — der Vorbehalt, im Titel. [Link](https://journals.sagepub.com/doi/10.1177/13621688231167573) | [20](20-sprechen-und-saetze.md) S3 |
+| ⬤ | *A Systematic Review of Research on the use of Shadowing for Second Language Pronunciation Teaching* (2025) — alle acht Flüssigkeitsstudien positiv, Einzellaute uneindeutig. [Link](https://www.tandfonline.com/doi/full/10.1080/29984475.2025.2546827) | [20](20-sprechen-und-saetze.md) S4 |
+| ⬤ | Galante (2018): *Drama for L2 Speaking and Language Anxiety: Evidence from Brazilian EFL Learners.* RELC Journal. [Link](https://journals.sagepub.com/doi/abs/10.1177/0033688217746205) | [20](20-sprechen-und-saetze.md) S5 |
+| ⬤ | Piazzoli (2011): *Process Drama: The Use of Affective Space to Reduce Language Anxiety.* Research in Drama Education. [Link](https://www.tandfonline.com/doi/abs/10.1080/13569783.2011.617104) | [20](20-sprechen-und-saetze.md) S5 |
+| ⬤ | *Drama pedagogy in foreign language learning: theatre texts and performance on L2 speaking accuracy and complexity.* [Link](https://www.tandfonline.com/doi/abs/10.1080/13569783.2021.2019578) | [20](20-sprechen-und-saetze.md) S5 |
+| ○ | Maurice (1983): die Ursprungsbeschreibung der 4/3/2-Technik | [20](20-sprechen-und-saetze.md) S1 |
+| ○ | Ellis zu Planungszeit vor Sprechaufgaben | [20](20-sprechen-und-saetze.md) S2 |
+
+---
+
 ## Referenzrahmen
 
 | | Quelle | Verwendet in |

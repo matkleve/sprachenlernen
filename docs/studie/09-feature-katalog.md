@@ -224,6 +224,27 @@ wird.
 | F131 | Wort rückverfolgbar: wo kommt es in meinen Inhalten vor, welcher Rang, welcher Block | D | M | **später** |
 | F132 | Historische Abdeckung mit Zeitstempel **und** damaliger Kalibrierung | — | M | **V2** — sonst zeigt eine Neukalibrierung Fortschritt, den es nicht gab |
 
+## P · Sprechen ohne KI → [20](20-sprechen-und-saetze.md)
+
+| # | Funktion | Ev. | Aufw. | Urteil |
+| --- | --- | --- | --- | --- |
+| F136 | **4/3/2**: dieselbe Geschichte in 4, dann 3, dann 2 Minuten | B | S | **V2** — beste Aufwand-Wirkung-Bilanz der ganzen Studie; Timer und Mikrofon genügen |
+| F137 | Die drei eigenen Aufnahmen direkt hintereinander anhören | C | S | **V2** — ersetzt den fehlenden Zuhörer und ist ein Kompetenzmoment |
+| F138 | Sichtbare Planungsphase vor jeder Sprechaufgabe | B | S | **V2** |
+| F139 | Shadowing über vorhandenes Audio + Transkript | B | M | **V2** — komplementär zu HVPT, nicht austauschbar |
+| F140 | Sprechaufgaben mit **Ergebnis** statt mit Thema (TBLT) | B | M | **V2** |
+
+## Q · Infoseite und Methoden jenseits der App → [12](12-methodenkarten.md)
+
+| # | Funktion | Ev. | Aufw. | Urteil |
+| --- | --- | --- | --- | --- |
+| F141 | Infoseite je Methode: was · warum · **wie sicher [A]–[D]** · Grenzen · Abwandlungen · Bedarf | B | M | **V2** — deine Idee |
+| F142 | Abschnitt „was es *nicht* leistet" ist **Pflichtfeld** | D | S | **V2** — sonst ist die Seite Werbung |
+| F143 | Methoden, die die App nicht durchführt (Theater, Tandem, Kochen, Tagebuch) im selben Katalog | D | M | **V2** — These 9 |
+| F144 | Für diese: Vorbereitung + Nachbereitung, aber **keine** Wirkungsschätzung | D | M | **V2** |
+| F145 | Ihre Stellung im Menü kommt aus der **Grundfrequenz**, nicht aus Messung | D | S | **V2** — sonst verdrängt Messbares das Zählende |
+| F146 | Selbstberichtete Erledigung als selbstberichtet markiert, fließt nicht in Ebene 1 | D | S | **V2** |
+
 ## H · Grundlagen (unsichtbar, aber tragend)
 
 | # | Funktion | Ev. | Aufw. | Urteil |
