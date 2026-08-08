@@ -8,9 +8,9 @@
 **So that:** they stop guessing from patterns and start knowing — without having
 to read a grammar chapter first.
 
-Derived from [`../studie/02-evidenz.md`](../studie/02-evidenz.md) E5,
-[`../studie/01-duolingo.md`](../studie/01-duolingo.md) D3, and
-[`../studie/10-antipatterns.md`](../studie/10-antipatterns.md) A8.
+Derived from [`../study/02-evidence.md`](../study/02-evidence.md) E5,
+[`../study/01-duolingo.md`](../study/01-duolingo.md) D3, and
+[`../study/10-antipatterns.md`](../study/10-antipatterns.md) A8.
 
 ## Today
 

@@ -7,7 +7,7 @@ repeats a rule from there.
 Source: FSRS (Free Spaced Repetition Scheduler), the model Anki ships since
 23.10. Rationale for choosing it over SM-2 — including that its variables are
 the ones a human can be *shown* — is in
-[`../../studie/04-karteikarten-srs.md`](../../studie/04-karteikarten-srs.md).
+[`../../study/04-flashcards-srs.md`](../../study/04-flashcards-srs.md).
 
 ## The three memory variables
 
@@ -66,7 +66,7 @@ Applied in this order; the order matters because difficulty feeds stability.
    with `D`, and increases as `R` at review time was *lower* — recalling
    something you had nearly forgotten is worth more than recalling something
    fresh. This is the model's expression of desirable difficulty
-   ([`../../studie/02-evidenz.md`](../../studie/02-evidenz.md) E1).
+   ([`../../study/02-evidence.md`](../../study/02-evidence.md) E1).
 3. **Stability** on a lapse drops to a post-lapse value driven by `D` and the
    `S` it had. Clamped on **both** sides: never above the `S` it already had,
    and never below `S₀(again) = w₀`. Without the lower bound, repeated lapses
@@ -78,7 +78,7 @@ Applied in this order; the order matters because difficulty feeds stability.
 17 trainable parameters. Defaults ship as a named constant table with a version
 number, because changing them changes every future interval — a calibration
 event under
-[`../../studie/03-level-modell.md`](../../studie/03-level-modell.md) rule 4, so
+[`../../study/03-level-model.md`](../../study/03-level-model.md) rule 4, so
 the version is recorded next to the review that used it.
 
 Per-user optimisation against the learner's own log is out of scope for now: the

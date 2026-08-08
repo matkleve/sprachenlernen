@@ -10,7 +10,7 @@ disappointment.
 **So that:** the thing they were motivated to listen to anyway becomes the thing
 that teaches them.
 
-Derived from [`../studie/17-eigene-inhalte.md`](../studie/17-eigene-inhalte.md).
+Derived from [`../study/17-own-content.md`](../study/17-own-content.md).
 
 ## Today
 

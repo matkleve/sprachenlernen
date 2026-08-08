@@ -8,7 +8,7 @@ improving.
 **Wants to:** see what they systematically go around instead of through.
 **So that:** they stop mistaking a shrinking error rate for growing competence.
 
-Derived from [`../studie/06-produktion.md`](../studie/06-produktion.md),
+Derived from [`../study/06-production.md`](../study/06-production.md),
 "Umschifft".
 
 ## Today

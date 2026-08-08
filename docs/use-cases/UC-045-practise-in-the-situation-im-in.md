@@ -10,7 +10,7 @@ the desk, hands-free audio while cooking, quiet tapping on a crowded tram.
 of the day stop being wasted.
 
 Derived from
-[`../studie/21-methodenkatalog-und-kontext.md`](../studie/21-methodenkatalog-und-kontext.md).
+[`../study/21-method-catalogue-and-context.md`](../study/21-method-catalogue-and-context.md).
 
 ## Today
 

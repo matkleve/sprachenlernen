@@ -11,9 +11,9 @@ help with them rather than compete with them.
 **So that:** the app supports learning the language instead of only supporting
 use of itself.
 
-Derived from [`../studie/12-methodenkarten.md`](../studie/12-methodenkarten.md),
+Derived from [`../study/12-method-cards.md`](../study/12-method-cards.md),
 "Methoden jenseits der App", and
-[`../studie/20-sprechen-und-saetze.md`](../studie/20-sprechen-und-saetze.md) S5.
+[`../study/20-speaking-and-sentences.md`](../study/20-speaking-and-sentences.md) S5.
 
 ## Today
 

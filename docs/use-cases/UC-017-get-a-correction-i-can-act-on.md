@@ -8,7 +8,7 @@
 **So that:** they build production ability without the pressure of speaking, and
 can see which kinds of error are disappearing.
 
-Derived from [`../studie/06-produktion.md`](../studie/06-produktion.md),
+Derived from [`../study/06-production.md`](../study/06-production.md),
 "Schreiben".
 
 ## Today

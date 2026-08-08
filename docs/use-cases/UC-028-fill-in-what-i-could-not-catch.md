@@ -9,8 +9,8 @@ ear.
 they systematically miss.
 **So that:** their vocabulary stops being something that only exists on paper.
 
-Derived from [`../studie/17-eigene-inhalte.md`](../studie/17-eigene-inhalte.md)
-and [`../studie/04-karteikarten-srs.md`](../studie/04-karteikarten-srs.md).
+Derived from [`../study/17-own-content.md`](../study/17-own-content.md)
+and [`../study/04-flashcards-srs.md`](../study/04-flashcards-srs.md).
 
 ## Today
 

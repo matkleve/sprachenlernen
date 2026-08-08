@@ -8,7 +8,7 @@ to read — an article, a letter, a contract, a chapter.
 **Wants to:** read it with the same support the app gives its own texts.
 **So that:** the app helps with real life instead of only with its own material.
 
-Derived from [`../studie/17-eigene-inhalte.md`](../studie/17-eigene-inhalte.md).
+Derived from [`../study/17-own-content.md`](../study/17-own-content.md).
 
 ## Success looks like
 

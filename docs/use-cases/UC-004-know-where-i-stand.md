@@ -8,7 +8,7 @@
 **So that:** they can tell whether the time they are spending is working — and
 where it is not.
 
-Derived from [`../studie/03-level-modell.md`](../studie/03-level-modell.md).
+Derived from [`../study/03-level-model.md`](../study/03-level-model.md).
 
 ## Today
 
@@ -29,7 +29,7 @@ it is rare, discouraging, and gives no direction.
 - Every number can be opened to show which measured signals produced it.
 - Each skill carries one of four statuses — measured, uncertain, not measured,
   not in profile — defined in
-  [`../studie/03-level-modell.md`](../studie/03-level-modell.md) and nowhere
+  [`../study/03-level-model.md`](../study/03-level-model.md) and nowhere
   else. A skill is **never guessed** to fill a gap.
 - The last two statuses are excluded from the overall level rather than scored
   low, so a learner who cannot or does not use a skill is not penalised for it
@@ -41,5 +41,5 @@ it is rare, discouraging, and gives no direction.
 ## Out of scope
 
 Comparison against other learners (deliberately deferred — see
-[`../studie/03-level-modell.md`](../studie/03-level-modell.md), V4), certificates,
+[`../study/03-level-model.md`](../study/03-level-model.md), V4), certificates,
 exam preparation, and any placement test taken before the first exercise.

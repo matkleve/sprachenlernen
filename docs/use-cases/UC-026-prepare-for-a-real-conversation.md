@@ -9,8 +9,8 @@ tandem meeting or a job interview in the target language, on a known date.
 **So that:** the highest-stakes real use of the language is the one they were
 actually prepared for.
 
-Derived from [`../studie/07-offline-papier.md`](../studie/07-offline-papier.md)
-Ü5 and [`../studie/09-feature-katalog.md`](../studie/09-feature-katalog.md) F71,
+Derived from [`../study/07-offline-and-paper.md`](../study/07-offline-and-paper.md)
+Ü5 and [`../study/09-feature-catalogue.md`](../study/09-feature-catalogue.md) F71,
 F72.
 
 ## Today

@@ -9,7 +9,7 @@ level.
 handed a different, easier text instead.
 **So that:** they read the thing they wanted to read.
 
-Derived from [`../studie/17-eigene-inhalte.md`](../studie/17-eigene-inhalte.md).
+Derived from [`../study/17-own-content.md`](../study/17-own-content.md).
 
 ## Today
 

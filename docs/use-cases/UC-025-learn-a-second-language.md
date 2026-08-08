@@ -8,9 +8,9 @@
 **So that:** starting a new language does not wreck the habit they built on the
 old one.
 
-Derived from [`../studie/09-feature-katalog.md`](../studie/09-feature-katalog.md)
+Derived from [`../study/09-feature-catalogue.md`](../study/09-feature-catalogue.md)
 F84 and question 6 in
-[`../studie/11-roadmap-offene-fragen.md`](../studie/11-roadmap-offene-fragen.md).
+[`../study/11-roadmap-open-questions.md`](../study/11-roadmap-open-questions.md).
 
 ## Today
 
@@ -32,7 +32,7 @@ which quietly decays.
 - Where two languages are close (Spanish and Italian), confusions between them
   are treated as a **diagnosable error type** with minimal-pair repair, not as
   ordinary failures (related to UC-013).
-- Method floors ([`../studie/12-methodenkarten.md`](../studie/12-methodenkarten.md))
+- Method floors ([`../study/12-method-cards.md`](../study/12-method-cards.md))
   apply per language but the daily prompt cap is global — one prompt a day
   across everything.
 

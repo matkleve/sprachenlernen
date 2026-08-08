@@ -8,7 +8,7 @@ Everything that is per-language: what counts as a word here, how text splits int
 words, which form belongs to which lemma, and how frequent it is. Framework-free.
 The foundation the vocabulary estimate and the coverage calculator both stand on.
 
-Background: [`../../studie/18-sprachen-baukasten.md`](../../studie/18-sprachen-baukasten.md).
+Background: [`../../study/18-language-kit.md`](../../study/18-language-kit.md).
 Data model: [ADR-0004](../../adr/0004-word-task-data-model.md).
 
 ## Scope
@@ -53,7 +53,7 @@ Consequences, all deliberate:
 The vocabulary estimate counts whatever the profile declares. Getting it wrong
 does not fail — it produces a plausible number that means nothing, and it is
 least visible in the languages where it is most wrong
-([`../../studie/18-sprachen-baukasten.md`](../../studie/18-sprachen-baukasten.md) U1).
+([`../../study/18-language-kit.md`](../../study/18-language-kit.md) U1).
 Hence behavior row 1: a profile without it must not load.
 
 **The shipped frequency data is form frequency, not lemma frequency.** It is
@@ -83,7 +83,7 @@ recalibrations.
 ## Quality tier
 
 Derived, never a field someone sets
-([`../../studie/18-sprachen-baukasten.md`](../../studie/18-sprachen-baukasten.md)):
+([`../../study/18-language-kit.md`](../../study/18-language-kit.md)):
 
 | Tier | Requires | Effect |
 | --- | --- | --- |
@@ -122,7 +122,7 @@ Derived, never a field someone sets
 
 - **⚠ SPEC GAP: whether ranks are recomputed when a lemma table arrives.** Summing
   form frequencies into lemma frequencies changes every rank, which is a
-  calibration event ([`../../studie/03-level-modell.md`](../../studie/03-level-modell.md)
+  calibration event ([`../../study/03-level-model.md`](../../study/03-level-model.md)
   rule 4). The migration path for learners who accumulated history at tier C is
   undecided.
 - Segmentation for scripts without word boundaries is out of scope here and

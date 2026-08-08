@@ -10,7 +10,7 @@ those.
 **So that:** vocabulary work has a destination instead of being open-ended.
 
 Derived from
-[`../studie/19-meilensteine-und-karte.md`](../studie/19-meilensteine-und-karte.md),
+[`../study/19-milestones-and-map.md`](../study/19-milestones-and-map.md),
 K3.
 
 ## Today

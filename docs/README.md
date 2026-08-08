@@ -6,7 +6,7 @@ Start at [`../AGENTS.md`](../AGENTS.md). Everything here is what it links to.
 
 | | Read |
 | --- | --- |
-| …understand what this product is and why | [`studie/`](studie/) |
+| …understand what this product is and why | [`study/`](study/) |
 | …understand how work flows here | [`WORKFLOW.md`](WORKFLOW.md) |
 | …avoid the mistakes we keep making | [`AGENT-PITFALLS.md`](AGENT-PITFALLS.md) |
 | …find out what happened last session | [`diary/`](diary/) |
@@ -25,7 +25,7 @@ Start at [`../AGENTS.md`](../AGENTS.md). Everything here is what it links to.
 
 ```
 docs/
-  studie/            the research this product is derived from (German)
+  study/            the research this product is derived from
   CONSTITUTION.md    non-negotiables — outranks everything
   WORKFLOW.md        pipeline, change classes, DoR/DoD, acceptance criteria
   SPEC-FORMAT.md     how to write a spec

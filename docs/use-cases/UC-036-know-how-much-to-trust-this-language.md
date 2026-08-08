@@ -10,8 +10,8 @@ built.
 precise level that rests on nothing.
 
 Derived from
-[`../studie/18-sprachen-baukasten.md`](../studie/18-sprachen-baukasten.md) and
-[`../studie/10-antipatterns.md`](../studie/10-antipatterns.md) A5.
+[`../study/18-language-kit.md`](../study/18-language-kit.md) and
+[`../study/10-antipatterns.md`](../study/10-antipatterns.md) A5.
 
 ## Today
 

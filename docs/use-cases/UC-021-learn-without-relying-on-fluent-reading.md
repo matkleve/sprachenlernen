@@ -9,7 +9,7 @@ a separate difficulty from knowing it.
 spell it.
 **So that:** their vocabulary is measured as vocabulary.
 
-Derived from [`../studie/14-barrierefreiheit.md`](../studie/14-barrierefreiheit.md).
+Derived from [`../study/14-accessibility.md`](../study/14-accessibility.md).
 
 ## Today
 
@@ -38,4 +38,4 @@ back at them, and the app concludes they are struggling with vocabulary.
 Diagnosing dyslexia, native-language literacy training, and treating "learning
 style" preferences as an equivalent need — a required alternative route and a
 preferred modality are different things
-([`../studie/16-weitere-befunde.md`](../studie/16-weitere-befunde.md) W1).
+([`../study/16-further-findings.md`](../study/16-further-findings.md) W1).

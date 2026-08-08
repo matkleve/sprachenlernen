@@ -40,8 +40,8 @@ Plus the parts that do not happen on a phone: dictation, handwriting, form
 drills — generated from your own weak spots, and fed back in when you are done.
 
 **The full reasoning, the evidence and the rejected alternatives are in
-[`docs/studie/`](docs/studie/)** (German). Start with the five theses in
-[`docs/studie/README.md`](docs/studie/README.md).
+[`docs/study/`](docs/study/)**. Start with the ten core theses in
+[`docs/study/README.md`](docs/study/README.md).
 
 ---
 
@@ -53,7 +53,7 @@ its primitives, kept until this project's own features replace them.
 
 | Next | Where |
 | --- | --- |
-| Answer the blocking questions (audience, language pair, web vs. native, data model) | [`docs/studie/11-roadmap-offene-fragen.md`](docs/studie/11-roadmap-offene-fragen.md) |
+| Answer the blocking questions (audience, language pair, web vs. native, data model) | [`docs/study/11-roadmap-open-questions.md`](docs/study/11-roadmap-open-questions.md) |
 | Turn UC-004 … UC-026 into specs, in roadmap-stage order | [`docs/use-cases/`](docs/use-cases/) → [`docs/SPEC-FORMAT.md`](docs/SPEC-FORMAT.md) |
 | ADR for the Word/Task data model | [`docs/adr/`](docs/adr/) |
 
@@ -67,7 +67,7 @@ app/globals.css     design tokens. The single source of truth for values.
 features/<name>/    one folder per feature: components, hooks, content, tests.
 components/ui/      primitives used by ≥2 features.
 lib/                framework-free helpers.
-docs/studie/        the research this product is derived from  ← read this first
+docs/study/        the research this product is derived from  ← read this first
 docs/               the process — start at docs/README.md
 scripts/            the gates behind `npm run verify`
 .claude/            skills and the reviewer agent
@@ -89,6 +89,7 @@ Two rules from the study are strong enough that they are candidates for
 
 > **No progress figure without a derivation the user can open.**
 
-Language: the study is German because it is read and argued with; code, specs
-and identifiers are English. [`docs/GLOSSARY.md`](docs/GLOSSARY.md) carries both
-columns so a term cannot be built twice under two names.
+Everything in this repository is in English — study, specs, use cases, code and
+identifiers — regardless of the language it is discussed in.
+[`docs/GLOSSARY.md`](docs/GLOSSARY.md) fixes one term per concept so nothing gets
+built twice under two names.

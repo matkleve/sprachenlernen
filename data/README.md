@@ -12,7 +12,7 @@ frequency/<code>.txt     `{form} {count}`, rank = line order
 Almost everything in this app is language-independent: the scheduler, the
 coverage maths, the level model, the whole interface. What differs per language
 is data. Adding a language means adding files here, not extending the app.
-Background: `docs/studie/18-sprachen-baukasten.md`.
+Background: `docs/study/18-language-kit.md`.
 
 ## The frequency lists are FORM frequencies
 
@@ -40,4 +40,4 @@ at runtime.
 | Register | subtitles — dialogue-heavy, interjection-heavy. Not representative of written prose |
 
 Provenance travels with the data because a rank cannot be compared across
-recalibrations without it (`docs/studie/03-level-modell.md`, honesty rule 4).
+recalibrations without it (`docs/study/03-level-model.md`, honesty rule 4).

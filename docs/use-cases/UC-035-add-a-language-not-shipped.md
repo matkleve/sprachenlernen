@@ -10,7 +10,7 @@ app offers Spanish and Italian.
 had time to build.
 
 Derived from
-[`../studie/18-sprachen-baukasten.md`](../studie/18-sprachen-baukasten.md).
+[`../study/18-language-kit.md`](../study/18-language-kit.md).
 
 ## Today
 

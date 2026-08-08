@@ -9,8 +9,8 @@
 have to trust.
 
 Derived from
-[`../studie/19-meilensteine-und-karte.md`](../studie/19-meilensteine-und-karte.md)
-and [`../studie/08-motivation.md`](../studie/08-motivation.md) M5.
+[`../study/19-milestones-and-map.md`](../study/19-milestones-and-map.md)
+and [`../study/08-motivation.md`](../study/08-motivation.md) M5.
 
 ## Today
 

@@ -9,8 +9,8 @@ they mean it.
 **So that:** they find out whether this is for them before being asked to invest
 anything.
 
-Derived from [`../studie/01-duolingo.md`](../studie/01-duolingo.md) S1 and S3,
-and [`../studie/10-antipatterns.md`](../studie/10-antipatterns.md) A9 and A10.
+Derived from [`../study/01-duolingo.md`](../study/01-duolingo.md) S1 and S3,
+and [`../study/10-antipatterns.md`](../study/10-antipatterns.md) A9 and A10.
 
 ## Today
 

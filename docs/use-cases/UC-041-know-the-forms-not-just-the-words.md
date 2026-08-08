@@ -11,8 +11,8 @@ practise the ones they cannot.
 something they can also say.
 
 Derived from
-[`../studie/03-level-modell.md`](../studie/03-level-modell.md), "Die zweite
-Achse", and [`../studie/07-offline-papier.md`](../studie/07-offline-papier.md) Ü3.
+[`../study/03-level-model.md`](../study/03-level-model.md), "Die zweite
+Achse", and [`../study/07-offline-and-paper.md`](../study/07-offline-and-paper.md) Ü3.
 
 ## Today
 

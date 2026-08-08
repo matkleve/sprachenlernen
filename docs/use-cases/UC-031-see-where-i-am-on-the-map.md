@@ -11,7 +11,7 @@ how the pieces of their practice connect.
 shape.
 
 Derived from
-[`../studie/19-meilensteine-und-karte.md`](../studie/19-meilensteine-und-karte.md).
+[`../study/19-milestones-and-map.md`](../study/19-milestones-and-map.md).
 
 ## Today
 

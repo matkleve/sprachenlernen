@@ -76,7 +76,7 @@ export type Config = {
   /**
    * Bumped whenever `weights` change. Recorded next to the reviews that used it,
    * because changing weights changes every future interval — a calibration
-   * event under studie/03-level-modell.md rule 4.
+   * event under study/03-level-model.md rule 4.
    */
   weightsVersion: string;
 };

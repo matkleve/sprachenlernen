@@ -110,7 +110,7 @@ the two drift the first time a review is corrected.
 
 Everything this module owns is **derived from the log**. Nothing persists a
 memory state as truth. That is what makes recalibration honest rather than a
-migration ([`../../studie/03-level-modell.md`](../../studie/03-level-modell.md),
+migration ([`../../study/03-level-model.md`](../../study/03-level-model.md),
 rule 4) — and it is the property AC-9 checks.
 
 ## Acceptance criteria
@@ -137,4 +137,4 @@ exists because a real defect got past a green test suite.
   UC-013, which owns the repair behavior but not the number.
 - Whether per-user weight optimisation happens here or in a separate module.
   Deferred: the default weights are more accurate than SM-2 without it
-  ([`../../studie/04-karteikarten-srs.md`](../../studie/04-karteikarten-srs.md)).
+  ([`../../study/04-flashcards-srs.md`](../../study/04-flashcards-srs.md)).

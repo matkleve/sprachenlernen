@@ -8,7 +8,7 @@
 turn the few they don't into practice.
 **So that:** vocabulary stops being a list and starts being a language.
 
-Derived from [`../studie/05-input-lesen-hoeren.md`](../studie/05-input-lesen-hoeren.md).
+Derived from [`../study/05-input-reading-listening.md`](../study/05-input-reading-listening.md).
 
 ## Today
 

@@ -121,7 +121,7 @@ feature needs it — not in anticipation of one.
 | Adding a database, or a second language | [`docs/BACKEND.md`](docs/BACKEND.md), [`docs/I18N.md`](docs/I18N.md) |
 | Making a call you'll have to defend later | [`docs/adr/`](docs/adr/) |
 | Product rules you may not break | [`docs/CONSTITUTION.md`](docs/CONSTITUTION.md) |
-| **Why a feature exists at all** | [`docs/studie/`](docs/studie/) — the research this product is derived from |
+| **Why a feature exists at all** | [`docs/study/`](docs/study/) — the research this product is derived from |
 
 ---
 

@@ -8,7 +8,7 @@
 **So that:** a small number of bad cards stops eating a large share of their
 practice — and stops feeling like a personal failing.
 
-Derived from [`../studie/04-karteikarten-srs.md`](../studie/04-karteikarten-srs.md),
+Derived from [`../study/04-flashcards-srs.md`](../study/04-flashcards-srs.md),
 "Die Leech-Falle".
 
 ## Today
