@@ -38,9 +38,15 @@ what teaches them least.
   hidden afterwards; restorable at any time.
 - Hiding every method that feeds a skill makes that skill read **"not
   measured"** in UC-004. It never produces a low number instead.
-- When a method has not been done for longer than its role allows, the app says
+- When a method has not been done for longer than its role suggests, the app says
   so **once**, gives the specific reason in terms of this learner's own data,
   and offers a shorter version rather than insisting.
+- **Declining is a complete answer.** It ends the prompt, is not asked again that
+  day, and produces no backlog, no penalty and nothing resembling a broken
+  streak. The app never states or implies that a method had to be done.
+- Persistently declining a method costs exactly one thing, and the app says which:
+  the skill it feeds reads **"not measured"** instead of being estimated. Nothing
+  is withheld and nothing is scored down.
 - At most **one** such prompt per day, across all methods.
 - Where a method's measured effect is shown, its uncertainty is shown with it.
 

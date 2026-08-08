@@ -156,8 +156,19 @@ to exist, not grounds for promotion.
 Your *"this is important once a week anyway"* — and the reason the whole system
 does not tip over.
 
-**[D]** Every method carries a minimum frequency that follows from its role, not
-from its popularity:
+> **⚠ Corrected 2026-08-08.** An earlier version of this section turned that
+> remark into an obligation: the floor "negotiates over length, never over
+> existence", and "a floor you can click away is not one". That was an
+> escalation nobody asked for. The user's correction: *"I never talked about the
+> concept of say you need to do this daily or this like that — it should nudge
+> you according to this, but you don't have to do it."*
+>
+> **A floor bounds what the app offers, never what the learner owes.** The rates
+> below survive unchanged as *offer* rates. What is gone is the idea that
+> declining one is not an available answer.
+
+**[D]** Every method carries a minimum rate at which it keeps being **offered**,
+following from its role rather than from its popularity:
 
 | Method | Floor | Because |
 | --- | --- | --- |
@@ -167,21 +178,34 @@ from its popularity:
 | Dictation | 1× / 10 days | Finds words that exist only in writing ([07](07-offline-and-paper.md)) |
 | Reading at coverage | 2× / week | Activates cards in context ([04](04-flashcards-srs.md)) |
 
-Two properties separate a floor from nagging:
+Three properties separate a floor from nagging:
 
 **It justifies itself.** Not *"time for your dictation!"* but:
 
 > Dictation was due 10 days ago. It is the only exercise that reveals which words
 > you read but do not hear — currently 41 of them for you.
 
-**It negotiates over length, never over existence.** If declined, the next
-question is not "please do" but:
+**It offers a smaller version before it accepts no.** Not as a way of refusing
+the refusal, but because "too long" is the commonest real reason and the cheapest
+to fix:
 
-> 6 minutes instead of 15? Or tomorrow?
+> 6 minutes instead of 15? Or not today?
 
-That is the difference between a rule and a streak. A floor you can click away is
-not one; a floor you cannot escape is controlling ([02](02-evidence.md), E7).
-Shorter rather than rarer is the exit that avoids both.
+**"No" is a complete answer.** It ends the prompt, and the method drops back to
+its offer rate without argument, without a second ask, and without anything
+resembling a broken streak. This is where an earlier version of this chapter went
+wrong: it treated an unclickable floor as the stronger design, when E7
+([02](02-evidence.md)) says the opposite — a structure the learner cannot decline
+is controlling, and controlling structures cost motivation rather than buying
+compliance.
+
+**What declining actually costs, which is the honest part.** Nothing is withheld
+and nothing is scolded. But a method is the only source of its skill's data, so
+persistently declining it means that skill reads **"not measured"** rather than
+being guessed — the same rule UC-010 already applies to a method the learner
+deliberately hides. The app loses the ability to make a claim; the learner loses
+nothing. That is the entire consequence, and it is stated to the learner in those
+terms.
 
 **And it has a hard cap:** at most **one** floor prompt per day. A system that
 flags four neglected methods in one day gets switched off.
@@ -362,7 +386,8 @@ misjudgement holds even against personally experienced counter-evidence.
    content, paired with a liked method. Most "I hate X" cases are really "X takes
    too long and comes at the wrong time".
 2. **Show the data once**, calmly and without a demand. Once, not weekly.
-3. **Hold the floor** and let the rest go.
+3. **Keep offering it at its floor** and let the rest go. The floor holds the
+   method's place in the catalogue; it does not hold the learner to anything.
 4. **Do not persuade.** A user who deletes the app over the nagging does zero
    dictations. That is worse than one every ten days.
 

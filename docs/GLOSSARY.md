@@ -94,7 +94,7 @@ requires a `⚠ SPEC GAP` line, not a guess.
 | **Demanding method** | A Method that is slow, error-rich, unmeasurable or off-app, and which engagement-optimised products therefore cannot offer. Labelled, never hidden. | an advanced Method |
 | **Preference** | The thumbs signal. Governs **form** — length, timing, share, framing. | a measure of effectiveness |
 | **Effect estimate** | Measured movement of a Method's target signal per hour invested, with uncertainty. Governs **selection**. | Preference |
-| **Floor** | The minimum rate at which a Method is offered regardless of Preference, derived from its role. Negotiates over length, never over existence. | a goal, a streak |
+| **Floor** | The minimum rate at which a Method is **offered** regardless of Preference, derived from its role. A floor on what the app offers, never on what the learner owes — declining costs nothing except measurement. | a goal, a streak, an obligation, a minimum amount of practice |
 | **Exploration** | The share of menu slots deliberately filled with a Method the system would not have chosen, so the Effect estimate has causal footing. | randomness, variety |
 | **Hidden** | A Method the *learner* deliberately switched off, from settings. Stays visibly hidden and is restorable. The **algorithm** may never put a Method in this state — that is A15. | a Method with a low share |
 | **Commitment** | The catalogue's **second entry type**: a standing rule about ordinary life (write to one friend only in Italian, switch the phone's language). Active or inactive, never done or not done. No completion tracking, no streak, at most two or three at once. | a Method, a habit tracker, a goal |

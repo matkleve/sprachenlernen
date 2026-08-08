@@ -145,7 +145,9 @@ governs selection; every method has a reasoned floor its share does not fall
 below.
 **Costs us:** users will occasionally be offered something they dislike, and may
 read that as their feedback being ignored. Hence the floor must justify itself
-and negotiate over length.
+and offer a shorter version — and must accept "no" as a complete answer, since a
+floor bounds what is **offered** and never what is owed
+([12](12-method-cards.md), corrected 2026-08-08).
 
 > **Boundary (decided 2026-08-08):** this anti-pattern forbids **the algorithm**
 > from sorting out. It does **not** forbid the user from deliberately hiding a

@@ -32,6 +32,11 @@ despite their hardness but because of it: they are what nobody else can offer.
 > And that is exactly why the **floor** from [12](12-method-cards.md) is the
 > load-bearing mechanism of the whole product. Without it our catalogue also
 > converges on the pleasant — just more slowly.
+>
+> Note what the floor does and does not bound (corrected 2026-08-08): it is a
+> lower bound on how often a method is **offered**, which is what stops the
+> convergence. It is not a lower bound on what the learner does. Declining is
+> always available and costs nothing but the ability to measure that skill.
 
 ---
 
