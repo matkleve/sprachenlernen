@@ -96,9 +96,19 @@ requires a `⚠ SPEC GAP` line, not a guess.
 are, the distinction is gone and nothing surfaces the loss — see
 [`studie/12`](studie/12-methodenkarten.md).
 
+### Perception and access → [`studie/13`](studie/13-aussprache-hoerwahrnehmung.md), [`studie/14`](studie/14-barrierefreiheit.md)
+
+| Term | Deutsch | Means | Not |
+| --- | --- | --- | --- |
+| **Contrast** | Kontrast | A pair of target-language sound categories this L1 does not separate (English *ship*/*sheep* for a German speaker). Per language pair, finite, and the unit HVPT trains. | a minimal pair (that is one example of it) |
+| **Talker pool** | Sprecherpool | The distinct voices used to train one Contrast. Its **size is the active ingredient**, not a production detail — too few and the training looks like HVPT without working. | a voice setting |
+| **Skill profile** | Fertigkeitsprofil | Which of the four Skills a user counts as theirs. Excluded Skills are left out of the overall level rather than scored low. | a difficulty setting, an accessibility toggle |
+| **Alternative route** | Alternativweg | The second way to answer a Task that is bound to one Skill — speaking or choosing instead of typing. Every such spec names one or says why there is none. | a fallback, an accommodation |
+
 ### ⚠ Undecided
 
 | Term | What is unresolved |
 | --- | --- |
 | **Word family vs. word form** | The vocabulary estimate counts families; Tasks train forms. Both need names before either appears in a spec — see [`studie/03`](studie/03-level-modell.md). |
 | **Error category** | The closed list used by writing/speaking feedback. Must be fixed before it is counted over time — see [`studie/06`](studie/06-produktion.md). |
+| **Multiword item** | Collocations and fixed expressions are Words for practice but must **not** count as *n* Words in the vocabulary estimate, or the calibration breaks. Belongs with the Word/Task decision — see [`studie/16`](studie/16-weitere-befunde.md) W2. |

@@ -134,6 +134,63 @@ Die Grundlage für [12](12-methodenkarten.md) und [02](02-evidenz.md) E13.
 
 ---
 
+## Hörwahrnehmung und Aussprache → [13](13-aussprache-hoerwahrnehmung.md)
+
+| | Quelle | Verwendet in |
+| --- | --- | --- |
+| ⬤ | *High variability phonetic training (HVPT): A meta-analysis of L2 perceptual training studies.* Studies in Second Language Acquisition — 79 Studien, g ≈ 0,92 (Vor/Nach) und g ≈ 0,67 (vs. Kontrolle), Generalisierung auf neue Wörter und Sprecher. [Link](https://www.cambridge.org/core/journals/studies-in-second-language-acquisition/article/high-variability-phonetic-training-hvpt-a-metaanalysis-of-l2-perceptual-training-studies/6ABB8C1F32D88D53EA8D05A4565E76F6) | [13](13-aussprache-hoerwahrnehmung.md) |
+| ⬤ | *Does perceptual HVPT improve L2 speech production? A meta-analysis of perception–production connection.* Applied Psycholinguistics — 31 Studien, ~10,5 % trainiert / ~4,5 % untrainiert. [Link](https://www.cambridge.org/core/journals/applied-psycholinguistics/article/does-perceptual-high-variability-phonetic-training-improve-l2-speech-production-a-metaanalysis-of-perceptionproduction-connection/E38D8F5CE65DC708137B0E95F97C6BC7) | [13](13-aussprache-hoerwahrnehmung.md) |
+| ⬤ | Thomson: *High Variability [Pronunciation] Training (HVPT): A proven technique about which every language teacher and learner ought to know.* Journal of Second Language Pronunciation — Synthese über 32 Studien. [Link](https://benjamins.com/catalog/jslp.17038.tho) | [13](13-aussprache-hoerwahrnehmung.md) |
+| ⬤ | Saito et al. (2022): *Incidental and Multimodal High Variability Phonetic Training: Potential, Limits, and Future Directions.* Language Learning. [Link](https://onlinelibrary.wiley.com/doi/10.1111/lang.12503) | [13](13-aussprache-hoerwahrnehmung.md), Grenzen |
+
+---
+
+## Barrierefreiheit → [14](14-barrierefreiheit.md)
+
+| | Quelle | Verwendet in |
+| --- | --- | --- |
+| ⬤ | *The effects of multisensory structured language instruction on native language and foreign language aptitude skills of at-risk high school foreign language learners.* Annals of Dyslexia. [Link](https://link.springer.com/article/10.1007/BF02654937) | [14](14-barrierefreiheit.md) |
+| ⬤ | *Teaching a Foreign Language Using Multisensory Structured Language Techniques to At-Risk Learners: A Review.* [Link](https://www.researchgate.net/publication/12476811_Teaching_a_Foreign_Language_Using_Multisensory_Structured_Language_Techniques_to_At-Risk_Learners_A_Review) | [14](14-barrierefreiheit.md) |
+| ⬤ | *A comprehensive review of assistive technologies for children with dyslexia.* [Link](https://arxiv.org/html/2412.13241v2) | [14](14-barrierefreiheit.md) |
+
+**Lücke, die bleibt:** keine Quelle zu Hör- oder Sehbeeinträchtigung im
+*Fremdsprachen*kontext gefunden. Die Empfehlungen dort sind **[D]** — abgeleitet
+aus dem Aufbau dieser App, nicht aus Studien.
+
+---
+
+## Umfeld und Mitbewerber → [15](15-umfeld.md)
+
+| | Quelle | Verwendet in |
+| --- | --- | --- |
+| ⬤ | *Efficacy Analysis of Mobile Language Learning Apps* (ACM, 2023) — Babbel / Busuu / Duolingo im Vergleich ihrer Wirksamkeitsstudien. [Link](https://dl.acm.org/doi/fullHtml/10.1145/3606150.3606152) | [15](15-umfeld.md) |
+| ⬤ | *The effectiveness of app-based language instruction for developing receptive linguistic knowledge and oral communicative ability.* [Link](https://www.researchgate.net/publication/341904580_The_effectiveness_of_app-based_language_instruction_for_developing_receptive_linguistic_knowledge_and_oral_communicative_ability) | [15](15-umfeld.md) |
+| ◐ | Produktvergleiche zu Language Reactor, Migaku, LingQ, Clozemaster. [Link](https://lexpresso.io/blog/language-reactor-vs-migaku-vs-trancy-vs-lexpresso/), [Link](https://forum.lingq.com/t/bringing-migakulanguagereactor-style-features-to-lingq/2036672) | [15](15-umfeld.md) |
+
+**Wichtig:** Die Werkzeugtabelle in [15](15-umfeld.md) beruht auf
+Produktbeschreibungen, **nicht auf eigener Nutzung** — siehe Frage 14 in
+[11](11-roadmap-offene-fragen.md).
+
+---
+
+## Weitere Befunde → [16](16-weitere-befunde.md)
+
+| | Quelle | Verwendet in |
+| --- | --- | --- |
+| ⬤ | *The Modality-Specific Learning Style Hypothesis: A Mini-Review.* [Link](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6113575/) | [16](16-weitere-befunde.md) W1 |
+| ⬤ | *The problem with learning styles: debunking the meshing hypothesis in English language teaching.* Impact (Chartered College of Teaching). [Link](https://my.chartered.college/impact_article/the-problem-with-learning-styles-debunking-the-meshing-hypothesis-in-english-language-teaching/) | [16](16-weitere-befunde.md) W1 |
+| ◐ | Pashler et al. (2008): *Learning Styles: Concepts and Evidence* — 70+ Studien, kein Beleg für die Meshing-Hypothese. Über die beiden vorstehenden Quellen bezogen | [16](16-weitere-befunde.md) W1 |
+| ⬤ | Yan et al. (2020): *Unpacking the Relationship Between Formulaic Sequences and Speech Fluency.* TESOL Quarterly. [Link](https://onlinelibrary.wiley.com/doi/10.1002/tesq.556) | [16](16-weitere-befunde.md) W2 |
+| ⬤ | *The productive processing of formulaic sequences by second language learners in writing.* [Link](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC10914984/) | [16](16-weitere-befunde.md) W2 |
+| ⬤ | *Promoting vocabulary learning during sleep at home using closed-loop targeted memory reactivation.* [Link](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC12592824/) | [16](16-weitere-befunde.md) W3 |
+| ⬤ | *No effect of targeted memory reactivation during sleep on retention of vocabulary in adolescents.* Scientific Reports — der Gegenbefund. [Link](https://www.nature.com/articles/s41598-020-61183-z) | [16](16-weitere-befunde.md) W3 |
+| ⬤ | *Vocabulary learning benefits from REM after slow-wave sleep.* [Link](https://pubmed.ncbi.nlm.nih.gov/28697944/) | [16](16-weitere-befunde.md) W3 |
+| ⬤ | Papi (2010): *The L2 motivational self system, L2 anxiety, and motivated behavior.* System. [Link](https://mostafapapi.com/wp-content/uploads/2021/09/papi-2010-system.pdf) | [16](16-weitere-befunde.md) W4 |
+| ⬤ | *Analyzing the relationships among the L2 motivational self system components, L2 anxiety, and intended effort.* Cogent Education (2025). [Link](https://www.tandfonline.com/doi/full/10.1080/2331186X.2025.2529075) | [16](16-weitere-befunde.md) W4 |
+| ○ | Dörnyei (2005, 2009): das L2 Motivational Self System selbst | [16](16-weitere-befunde.md) W4 |
+
+---
+
 ## Referenzrahmen
 
 | | Quelle | Verwendet in |
@@ -151,10 +208,16 @@ Ehrlichkeitshalber die Lücken dieser Studie:
   nachkalibriert werden.
 - **Keine Kosten- oder Marktrecherche.** Diese Studie sagt nichts darüber, ob
   das Produkt tragfähig ist.
-- **Keine Recherche zu Barrierefreiheit im Sprachenlernen** (Legasthenie,
-  Hörbeeinträchtigung, Sehbeeinträchtigung). Für eine App, deren Kern Audio und
-  Text sind, ist das eine echte Lücke — und
-  [`../CONSTITUTION.md`](../CONSTITUTION.md) §3 macht sie zu einer, die vor der
-  ersten Oberfläche geschlossen werden muss.
+- ~~Keine Recherche zu Barrierefreiheit~~ → nachgeholt in
+  [14](14-barrierefreiheit.md). **Teilweise** geschlossen: Legasthenie ist
+  belegt, Hör- und Sehbeeinträchtigung im Fremdsprachenkontext nicht — die
+  Empfehlungen dort sind **[D]**.
 - **Keine Recherche zu Kindern und Jugendlichen.** Alles hier setzt erwachsene,
-  selbstgesteuerte Lernende voraus.
+  selbstgesteuerte Lernende voraus. Ein Hinweis darauf, dass das nicht
+  automatisch überträgt, steht in [16](16-weitere-befunde.md) W3: das
+  Schlaf-Verfahren wirkte bei Erwachsenen und bei Jugendlichen **nicht**.
+- **Keine Recherche zu Altersefffekten und kritischer Periode.** Für die
+  Produktentscheidungen hier ohne Folgen, für die Erwartungssteuerung von
+  Nutzern nicht.
+- **Keine Kosten- oder Marktrecherche**, und [15](15-umfeld.md) ersetzt sie
+  nicht — dort geht es um Funktionsumfang, nicht um Tragfähigkeit.

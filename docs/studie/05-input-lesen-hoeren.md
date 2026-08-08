@@ -18,6 +18,10 @@ Kein Levellabel entscheidet, was jemand liest oder hört, sondern die
 tokenisieren — also können wir vorab sagen: *„von diesem Text kennst du 96,2 %
 der Wörter; die 41 unbekannten sind diese hier."*
 
+> **Korrektur aus [15](15-umfeld.md), K1:** Das Prinzip ist nicht neu — LingQ und
+> Migaku arbeiten seit Jahren mit dem Bestand bekannter Wörter. Unser Unterschied
+> liegt in den drei Punkten unten, nicht in der Idee selbst.
+
 Das löst drei Probleme auf einmal:
 
 - **Kein Levelraten.** Zwei B1-Texte können 90 % und 99 % Abdeckung haben.

@@ -155,6 +155,34 @@ wird.
 | F95 | Erkundungsanteil (10–20 % ungewählte Methoden im Menü) | D | S | **später** — ohne ihn ist die Schätzung eine sich selbst bestätigende Schleife |
 | F96 | Vorliebe und Wirkung getrennt gespeichert, nie zu einem Wert verrechnet | D | S | **V2** — sobald sie verschmelzen, ist die Unterscheidung unwiederbringlich weg |
 
+## J · Hörwahrnehmung → [13](13-aussprache-hoerwahrnehmung.md)
+
+| # | Funktion | Ev. | Aufw. | Urteil |
+| --- | --- | --- | --- | --- |
+| F97 | Kontrastliste pro Sprachpaar als Datenbestand | A | M | **V2** |
+| F98 | HVPT-Training: Zweiwahl, sofortiges Feedback, **viele Sprecher** | A | M | **V2** — beste Evidenz/Aufwand-Bilanz der ganzen Studie |
+| F99 | Kontrast-Screening: welche Kategorien fehlen diesem Nutzer? | A | S | **V2** — die einzige belastbare Aussprachediagnose hier |
+| F100 | Gelöste Kontraste als Ebene-1-Signal fürs Hörlevel | D | S | **V2** — echte Fähigkeitsschwelle statt Häufigkeitsstatistik |
+| F101 | Sprecherpool mit erzwungener Mindestanzahl | A | M | **V2** — zu wenige Sprecher sehen aus wie HVPT und wirken nicht |
+
+## K · Barrierefreiheit → [14](14-barrierefreiheit.md)
+
+| # | Funktion | Ev. | Aufw. | Urteil |
+| --- | --- | --- | --- | --- |
+| F102 | Konfigurierbares Fertigkeitsprofil; Gesamtlevel nur aus den gewählten | D | M | **V1** — sonst rechnet das Levelmodell für manche Nutzer dauerhaft falsch |
+| F103 | Karten mündlich oder per Auswahl beantwortbar, gleichwertig gezählt | B | M | **V1** — sonst misst die App Rechtschreibung und nennt es Wortschatz |
+| F104 | Audio zu **jedem** Text, nicht nur zu Hörinhalten | B | M | **V2** |
+| F105 | Typografie einstellbar (Schrift, Zeilenabstand, Zeilenlänge, Hintergrund) | C | S | **V2** |
+| F106 | Textliche Entsprechung für Verlaufskurve und Wortschatz-Atlas | — | S | **V2** — sonst ist die Kerninformation rein visuell |
+| F107 | Spec-Pflicht: jede fertigkeitsgebundene Aufgabe benennt ihren Alternativweg | — | S | **V1** — Prozessregel, billig jetzt, sehr teuer später |
+
+## L · Chunks und Wendungen → [16](16-weitere-befunde.md)
+
+| # | Funktion | Ev. | Aufw. | Urteil |
+| --- | --- | --- | --- | --- |
+| F108 | Antippen erkennt feste Wendung und bietet die ganze an | B | M | **V2** |
+| F109 | Wendungen zählen in der Wortschatzschätzung nicht wie n Wörter | — | M | **V2** — ⚠ offene Modellierungsfrage, gehört zu Frage 4 |
+
 ## H · Grundlagen (unsichtbar, aber tragend)
 
 | # | Funktion | Ev. | Aufw. | Urteil |

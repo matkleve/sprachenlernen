@@ -83,6 +83,11 @@ Also: eine 60-Sekunden-Einführung („bitte um Korrektur", „sag ihm dein Leve
 
 ## Aussprache: ehrlicher als die Konkurrenz
 
+> **Nachtrag:** Der eigentliche Aussprachehebel steht in
+> [13](13-aussprache-hoerwahrnehmung.md) und setzt an der **Wahrnehmung** an,
+> nicht an der Produktion. Dieser Abschnitt beschreibt, was für die
+> Produktionsseite übrig bleibt — bewusst wenig.
+
 Loewen & Sato (2018) fanden Duolingos Spracherkennung ungenau genug, dass sie
 Aussprachebildung eher behindert. Falsches Aussprachefeedback ist schlimmer als
 keines: es bestätigt Fehler und beschädigt das Vertrauen in *alle* anderen

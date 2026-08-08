@@ -27,9 +27,14 @@ weil sie zeigt, was sie tut.
 
 ### Stufe 2 · Levelmodell
 
-F17–F22. Ab hier ist sie *anders* als alles andere. Das ist der Punkt, an dem
-sich zeigt, ob die Kernidee trägt: sagt die berechnete Zahl etwas, das der
-Nutzer als zutreffend erlebt?
+F17–F22, **F102** (konfigurierbares Fertigkeitsprofil). Ab hier ist sie *anders*
+als alles andere. Das ist der Punkt, an dem sich zeigt, ob die Kernidee trägt:
+sagt die berechnete Zahl etwas, das der Nutzer als zutreffend erlebt?
+
+F102 muss **hier** kommen und nicht später: ein Levelmodell, das eine
+abgewählte Fertigkeit mitrechnet, liefert für manche Nutzer dauerhaft falsche
+Zahlen ([14](14-barrierefreiheit.md)), und nachträglich zu ändern heißt, allen
+Nutzern die Historie zu verbiegen.
 
 ### Stufe 3 · Lesen
 
@@ -38,9 +43,20 @@ zu Texten, Texte erzeugen Karten.
 
 ### Stufe 4 · Hören
 
-F41–F46. Der aufwendigste Teil und der mit dem größten Unterschied. Bewusst nach
-dem Lesen, weil er die Transkript- und Synchronisationsinfrastruktur braucht und
-weil der Abdeckungsrechner aus Stufe 3 hier wiederverwendet wird.
+F41–F46, **F97–F101**. Der aufwendigste Teil und der mit dem größten Unterschied.
+Bewusst nach dem Lesen, weil er die Transkript- und Synchronisationsinfrastruktur
+braucht und weil der Abdeckungsrechner aus Stufe 3 hier wiederverwendet wird.
+
+**HVPT gehört hierher und sollte zuerst kommen**
+([13](13-aussprache-hoerwahrnehmung.md)). Es ist der billigste Teil der Stufe —
+kein LLM, keine Spracherkennung, keine Synchronisation — und der mit der besten
+Evidenz. Es macht außerdem die restliche Stufe wirksamer: wer die Kontraste
+nicht hört, holt aus Hörbüchern weniger heraus.
+
+> **Risiko dieser Stufe** ([15](15-umfeld.md)): Hier treten wir gegen
+> Spezialisten an (Pimsleur, Migaku, Language Reactor), die echte Inhalte haben.
+> Frage 6 — woher kommen die Audioinhalte — gehört **vor** dem Bau beantwortet,
+> nicht währenddessen.
 
 ### Stufe 4b · Methodenwahl
 
@@ -196,6 +212,22 @@ Die Tabelle in [12](12-methodenkarten.md) ist ein Vorschlag **[D]**, kein
 Forschungsergebnis. Sie legt fest, was das System für unverzichtbar hält, und
 sollte deshalb bewusst gesetzt und datiert werden — wie die Kalibrierung in
 [03](03-level-modell.md).
+
+### 13 · Echte Sprecher oder TTS für HVPT?
+
+Variabilität zwischen Sprechern ist bei HVPT der **Wirkstoff**, nicht die
+Verpackung ([13](13-aussprache-hoerwahrnehmung.md)). Mehrere hochwertige
+TTS-Stimmen sind billig und wahrscheinlich brauchbar; sie sind aber tendenziell
+zu sauber und untereinander zu ähnlich, und ob das die Wirkung trägt, ist
+ungeprüft. Echte Sprecheraufnahmen sind der einzige nennenswerte Aufwand des
+sonst günstigsten Features der Studie.
+
+### 14 · Eine Woche LingQ und Migaku benutzen — wer macht das?
+
+[15](15-umfeld.md) beruht auf Produktbeschreibungen, nicht auf eigener Nutzung.
+Bevor eine Roadmap-Entscheidung auf K1 oder K3 aufbaut, sollte jemand die beiden
+tatsächlich benutzt haben. Das ist kein Recherche-, sondern ein Zeitproblem, und
+es ist billig im Vergleich zu dem, was es verhindert.
 
 ---
 

@@ -14,9 +14,9 @@ Der Code und die Specs bleiben englisch (siehe [`../GLOSSARY.md`](../GLOSSARY.md
 
 ---
 
-## Die sechs Kernthesen
+## Die sieben Kernthesen
 
-Alles Weitere hängt an diesen sechs Sätzen. Wer nur fünf Minuten hat, liest nur
+Alles Weitere hängt an diesen sieben Sätzen. Wer nur fünf Minuten hat, liest nur
 diese Tabelle.
 
 | # | These | Folgt daraus |
@@ -27,6 +27,7 @@ diese Tabelle.
 | **4** | „Level A2" ist keine Zahl, sondern ein Bündel aus vier Fertigkeiten mit sehr unterschiedlichem Stand. Ein einziger Fortschrittsbalken lügt. | Level-Modell mit Sublevels **pro Fertigkeit**, plus ein ehrliches Gesamtlevel. → [03](03-level-modell.md) |
 | **5** | Die wirksamsten Übungen sind unbequem und teilweise nicht am Handy: Diktat, Handschrift, freies Produzieren. | Die App plant auch Offline-Übungen und nimmt deren Ergebnis wieder auf. → [07](07-offline-papier.md) |
 | **6** | Was sich beim Üben gut anfühlt, wirkt oft am wenigsten — und umgekehrt. Lernende halten das Falsche für wirksam, auch nachdem sie den Gegenbeweis erlebt haben. | Vorliebe und gemessene Wirkung sind **zwei getrennte Konten**. Vorliebe steuert die Form, Wirkung steuert die Auswahl. → [12](12-methodenkarten.md) |
+| **7** | Das Aussprachproblem beginnt im Ohr, nicht im Mund. Wahrnehmungstraining ist billig, sehr gut belegt — und strahlt auf die Produktion aus. | HVPT als eigene Methode, statt Aussprache automatisch zu benoten. → [13](13-aussprache-hoerwahrnehmung.md) |
 
 ---
 
@@ -46,10 +47,17 @@ diese Tabelle.
 | [10 · Anti-Patterns](10-antipatterns.md) | Was wir bewusst **nicht** bauen, und was das kostet |
 | [11 · Roadmap & offene Fragen](11-roadmap-offene-fragen.md) | Reihenfolge, Schnitt der ersten Version, und was du entscheiden musst |
 | [12 · Methodenkarten](12-methodenkarten.md) | Tägliche Methodenauswahl, Daumen hoch/runter, und warum der Daumen allein das System kaputtmacht |
+| [13 · Aussprache & Hörwahrnehmung](13-aussprache-hoerwahrnehmung.md) | HVPT — die stärkste Einzelmethode der Studie, und die, die fast keine App umsetzt |
+| [14 · Barrierefreiheit](14-barrierefreiheit.md) | Legasthenie, Hören, Sehen — und warum das hier ein Rechen- und kein Darstellungsproblem ist |
+| [15 · Das Umfeld](15-umfeld.md) | Anki, LingQ, Migaku, Busuu & Co. — was schon existiert, und welche unserer Thesen das korrigiert |
+| [16 · Weitere Befunde](16-weitere-befunde.md) | Lernstil-Mythos, Chunks, Schlaf, und das erwünschte vs. das gesollte Selbst |
 | [Quellen](quellen.md) | Literatur, mit ehrlicher Kennzeichnung was nachgeprüft wurde |
 
-Kapitel 12 ist nach der Roadmap entstanden und deshalb hinten angehängt; inhaltlich
-gehört es neben [08](08-motivation.md). Die Roadmap ist entsprechend ergänzt.
+Kapitel 12–16 sind nach der Roadmap entstanden und deshalb hinten angehängt.
+Inhaltlich gehört 12 neben [08](08-motivation.md), 13 neben
+[06](06-produktion.md), 14 und 15 vor die Roadmap. Diese ist entsprechend
+ergänzt — und [15](15-umfeld.md) korrigiert zwei Aussagen aus
+[05](05-input-lesen-hoeren.md), die zu stark formuliert waren.
 
 ---
 
