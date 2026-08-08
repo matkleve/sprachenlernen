@@ -9,6 +9,29 @@ it is the set of decisions and boundaries to get right, in order.
 
 ---
 
+## What this project has already decided
+
+Read this before §1, because §1 is written for a project that still has a choice
+to make and this one no longer does.
+
+[ADR-0005](adr/0005-local-first-review-log-with-accounts-as-an-addition.md): the
+review log is written **to the browser first** (IndexedDB, append-only, one UUID
+per review, nullable owner), and a server with authentication and accounts
+arrives later as an addition to that log rather than a replacement for it. So:
+
+- **§1's choice is half-made.** The primary store is the browser. The remaining
+  choice is the *sync target*, and it gets its own ADR when sync is built — this
+  one deliberately fixes no vendor.
+- **§3's adapter is mandatory, not advisory.** It is the whole mechanism by which
+  the server stays a later addition. A component that touches IndexedDB directly
+  turns that addition back into a rewrite.
+- **§2 ("the client is untrusted") does not apply yet and will apply suddenly.**
+  While the store is local there is no server to trust or distrust; on the day
+  there is one, every rule in §2 becomes live at once for data that already
+  exists. Write the sync path expecting that, and never treat locally recorded
+  rows as authorised simply because they arrived.
+- **§6 still holds: all of this is Sensitive.** Local persistence is persistence.
+
 ## 0. Write the ADR first
 
 Before the first query. [`adr/0000-template.md`](adr/0000-template.md) — what

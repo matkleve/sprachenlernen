@@ -196,11 +196,12 @@ typically built so that it flatters. Four rules against that, built in from stag
 These questions are not rhetorical — each changes what gets built. The ones
 marked ⚠ block stage 0 or 1.
 
-**Status 2026-08-08: the four blocking questions are answered**, as is question
-15 (the goal). Stage 0 is therefore cleared. Questions 5–10 and 12–14 remain
-open and none of them blocks stages 0 to 2 — but **question 16 blocks stage 1**,
-because that is where review history starts accumulating in whatever shape it is
-first written in.
+**Status 2026-08-08: the four blocking questions are answered**, as are question
+15 (the goal) and **question 16 (where the data lives)** — the last of which had
+blocked stage 1, because that is where review history starts accumulating in
+whatever shape it is first written in. Stages 0 and 1 are therefore cleared.
+Questions 5–10, 12–14 and 17–19 remain open and none of them blocks stages 0
+to 2.
 
 ### ✔ 1 · Who is this for? — **answered 2026-08-08**
 
@@ -218,7 +219,13 @@ What that already forces, because it is expensive to retrofit:
   it there is no statement about how good the generation is.
 
 What it **allows** deferring: editorial work on starter decks, native-speaker
-sampling, accounts and multi-user operation, LLM cost optimisation.
+sampling, multi-user operation, LLM cost optimisation.
+
+**Narrowed 2026-08-08 by question 16.** "No account needed" stays true as a
+property of *using* the app, and accounts themselves are no longer deferred as a
+destination — they are committed
+([ADR-0005](../adr/0005-local-first-review-log-with-accounts-as-an-addition.md)).
+What is deferred is building them, not designing the log to accept them.
 
 ### ✔ 2 · Which language first? — **answered 2026-08-08**
 
@@ -381,25 +388,32 @@ The 20/80 is not a competing goal but the ordering *within* this one: input is
 the precondition, speaking is the goal, and the roadmap already runs in that
 order.
 
-### 16 · Where does the data live? — **decide before stage 1**
+### ✔ 16 · Where does the data live? — **answered 2026-08-08**
 
-The review log is the source of truth ([`../adr/0004-word-task-data-model.md`](../adr/0004-word-task-data-model.md)),
-which makes this question load-bearing rather than infrastructural. Three
-options, and the ordering is not obvious:
+**Local first, and a real database with accounts afterwards.** The review log is
+the source of truth ([`../adr/0004-word-task-data-model.md`](../adr/0004-word-task-data-model.md)),
+which made this load-bearing rather than infrastructural. Three options were on
+the table:
 
 | Option | For | Against |
 | --- | --- | --- |
-| **Local only** (IndexedDB) | No account, no server, no privacy question, offline by default (F82) | One device. F83 export becomes the *only* way to move |
-| **Local first + sync** | Same, plus a second device | Sync of an append-only log is easy; sync of derived state is not. Real work |
+| **Local only** (IndexedDB) | No account, no server, no privacy question, offline by default (F82) | One device. F83 export becomes the *only* way to move, and a lost browser profile loses everything |
+| **Local first + sync** ← chosen | Same, plus a second device and recovery | Sync of an append-only log is easy; sync of derived state is not. Real work |
 | **Server first** (e.g. Supabase) | Cheapest to build, one obvious place for everything | An offline-first product with a server-first data layer is a retrofit later, and this one is offline-first by requirement |
 
-**[D] Recommendation: local first, with the log shaped for sync from day one.**
-Append-only, per-review UUIDs, no update-in-place — then adding a server later is
-an addition rather than a migration. What must **not** happen is stage 1 storing
-review history in a shape that assumes a single device.
+Recorded as [ADR-0005](../adr/0005-local-first-review-log-with-accounts-as-an-addition.md),
+which is where the details and the rejected alternatives live. The four
+properties stage 1 may not break: **append-only, one UUID per review, a nullable
+owner, and no component that knows where the log is** — writes go through an
+adapter ([`../BACKEND.md`](../BACKEND.md) §3).
 
-Decide before stage 1 writes its first review; see
-[`../BACKEND.md`](../BACKEND.md).
+Two consequences that are easy to miss. **Authentication is now a committed
+destination, not a maybe** — so the log carries the identity it will need on a
+server from its first row, and question 1's deferral of *multi-user operation*
+does not mean deferring the ability of a row to belong to a user. And **no
+account is required to learn**: signing in buys durability and a second device,
+never capability. That is what puts the app itself behind the landing page rather
+than behind a signup form.
 
 ### 17 · Is perceived effort a third ledger?
 

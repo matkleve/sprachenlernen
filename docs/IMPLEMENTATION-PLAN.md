@@ -30,18 +30,32 @@ first flow must be, plus the interaction debt already sitting in the primitives.
 
 ---
 
-## Two blockers, and only one of them blocks this queue
+## Where storage stands, now that question 16 is answered
 
-1. **Question 16 — where the review log lives.** Blocks everything that
-   persists, which is all of stage 1. The recommendation already in the roadmap
-   is local-first with an append-only, per-review-UUID log so a server is later
-   an addition rather than a migration. **This needs one word from you.** Until
-   then, no task may write user data.
-2. **Stage 2 needs the vocabulary estimate (F17–F22)**, which is now unblocked on
-   the data side — tier B means a level *may* be claimed with a widened band.
-   That is new since this morning and it is the biggest change to the plan.
+**Answered 2026-08-08:
+[ADR-0005](adr/0005-local-first-review-log-with-accounts-as-an-addition.md).** The
+review log is written to the browser first — IndexedDB, append-only, one UUID per
+review, nullable owner — and a database with authentication and accounts follows
+as an addition rather than a replacement. No account is required to learn;
+signing in buys durability and a second device.
 
-Everything in Track A below is deliberately chosen to need **neither**.
+What that changes for this queue:
+
+1. **Nothing in Track A moves**, because none of it persists anything. The
+   sequence below is unaffected.
+2. **Track B is unblocked to the point of being specifiable.** T-B2 (persistence)
+   can now be written, and it is the gate for T-B1 and T-B4 rather than a
+   question mark.
+3. **Four properties are now non-negotiable in every write path**: append-only,
+   per-review UUID, nullable owner, and no component that knows where the log
+   lives. A brief that omits any of them is not ready to hand out.
+4. **`/` is the landing page, and the app is not on it.** Also decided
+   2026-08-08. The first product screen therefore gets its own route, which is a
+   change from the previous version of this plan — T-03 no longer takes the home
+   route, and the real landing page becomes its own piece of work (T-B7).
+
+Still ahead of stage 2: **the vocabulary estimate (F17–F22)**, now unblocked on
+the data side, because tier B means a level *may* be claimed with a widened band.
 
 ---
 
@@ -140,11 +154,17 @@ same commit.
 **Class:** Standard · **Reuse:** Table, Button · **Serves:**
 [`use-cases/UC-036-know-how-much-to-trust-this-language.md`](use-cases/UC-036-know-how-much-to-trust-this-language.md)
 · **New spec:** `docs/specs/page/language-status.md` (`SPEC-page-language-status`)
+· **Route:** `/languages`
 
-Replace the Grundriss demo page with the smallest screen that is *this* product:
-for each shipped language, what the app can and cannot claim, and why. Every
-value on it is already derived by code that exists — nothing is invented, nothing
-is stored, no state machine is involved, and it is a Server Component.
+The smallest screen that is *this* product: for each shipped language, what the
+app can and cannot claim, and why. Every value on it is already derived by code
+that exists — nothing is invented, nothing is stored, no state machine is
+involved, and it is a Server Component.
+
+It lives at `/languages`, **not** at `/`, because the home route is the landing
+page (ADR-0005 and the decision of 2026-08-08 — the app is behind the landing
+page, not instead of it). The route name is the one thing here you can change
+with a one-line instruction; everything else is derived from data.
 
 It is worth building first because it is the product's whole argument in one
 screen. Every competitor shows a number and hides its provenance
@@ -162,7 +182,9 @@ Requirements:
    artefact* is missing for the next tier.
 4. All copy lives in a `content.ts`, not in JSX.
 5. It is a Server Component with no `"use client"`.
-6. `app/page.tsx` no longer renders `PrimitivesDemo` or the Grundriss headline.
+6. It reads no user data and writes none — so it renders identically for a
+   signed-out visitor, which is the whole reason it can be built before storage
+   exists.
 7. Axe-clean, and the table carries a caption and `scope` on every header, which
    `components/ui/Table.tsx` requires anyway.
 
@@ -171,13 +193,21 @@ this task — see T-B5, they are load-bearing for the docs. Do not add a new
 component: if a card-like container seems necessary, use the Table primitive and
 say `Gap:` in the PR instead of creating one.
 
-### T-04 · Only after T-03: the starter's copy leaves `app/`
+### T-04 · Only after T-03: the Grundriss demo stops owning the home route
 
-**Class:** Trivial · **Files:** `app/page.tsx`, `features/primitives/**`
+**Class:** Trivial · **Files:** `app/page.tsx`, `app/primitives/page.tsx`,
+`features/primitives/**`
 
-Once T-03 owns the home route, the primitives demo has no route. Move it to
-`/primitives` or delete it — that is a decision, so it is listed here and not
-executed blind.
+The demo moves to `/primitives`, where it stays useful as the worked example the
+docs point at (see T-B5 — do not delete it). `/` then becomes a **holding page**:
+one sentence saying what this product is, taken verbatim from the study rather
+than written fresh, and a link to `/languages`.
+
+It is explicitly not the landing page. Positioning copy is a decision nobody has
+made yet, and inventing it here would be exactly the kind of quiet
+scope-widening this plan exists to prevent — the real one is T-B7. What this task
+buys is that nobody opening the repo concludes the product is a component
+showcase.
 
 ---
 
@@ -188,10 +218,12 @@ low-inference agent would silently invent.
 
 | # | Work | Why it is not Track A |
 | --- | --- | --- |
-| **T-B1** | The review session surface | **Sensitive.** Stateful UI, so `STATE.md` demands one enum, an explicit transition map, named terminal states and a single source of truth *before* any code. It also persists, so it is blocked on question 16 |
-| **T-B2** | Persistence of the review log | **Sensitive**, and it *is* question 16. The shape is the one thing in this product that cannot be recomputed |
+| **T-B2** | Persistence of the review log — **do this one first** | **Sensitive.** Now specifiable, since ADR-0005 fixes the shape: append-only, per-review UUID, nullable owner, adapter-only access. The remaining work is a spec that pins the row schema and the installation id, and a red test per property. Nothing else in Track B can be honest before it |
+| **T-B1** | The review session surface | **Sensitive.** Stateful UI, so `STATE.md` demands one enum, an explicit transition map, named terminal states and a single source of truth *before* any code. Depends on T-B2 |
 | **T-B3** | Vocabulary estimate and the level display (F17–F22) | Newly unblocked by tier B. Needs the anchor table from `study/03-level-model.md`, which is graded **[C]** and explicitly needs calibrating — a spec must say what is claimed with an uncalibrated band |
 | **T-B4** | Dose ledger (F184) | Needs roadmap question 19 answered, and its logging half needs T-B2 |
+| **T-B7** | The landing page | Positioning copy is a product decision, not an implementation. It is also the one surface whose job is to persuade, which makes every rule in `DESIGN-SYSTEM.md` necessary but not sufficient |
+| **T-B8** | Accounts, authentication and sync | **Sensitive**, and last on purpose. ADR-0005 fixes the order and the log shape but deliberately picks no vendor; that is a separate ADR, written when this is built. Every rule in `BACKEND.md` §2 goes live at once on that day, for data that already exists |
 | **T-B5** | Retire the Grundriss worked examples | Looks like a deletion, is a docs refactor: `docs/STATE.md:148` cites item-picker as **the** worked example of state coherence, `docs/specs/README.md:36` indexes it, and UC-001…003 are referenced from six files. Removing the code without re-pointing those is a broken-link failure at best and the loss of the only worked example at worst |
 | **T-B6** | Five-state compliance for Input and Select | A rule conflict, not a bug — see the decisions below |
 
@@ -245,11 +277,11 @@ rather than a conclusion.
 screen. That ratio is the risk, not the backlog. The scheduler has been reviewed
 adversarially and the lexicon has 69 tests, and neither has ever been touched by
 a human hand through a UI — so we have high-confidence code and zero evidence
-that any of it is usable. Question 16 is the only thing standing between us and
-stage 1, and it has been open since this morning; every hour it stays open, the
-implementable surface stays at about one afternoon of work. Answer it, then ship
-a review session end to end, badly if necessary. And I want the demo page gone
-before anyone else sees this repo and concludes the product is a starter kit."
+that any of it is usable. Storage was the last thing standing between us and
+stage 1 and it has been answered, so the excuse is gone: write the persistence
+spec, then ship a review session end to end, badly if necessary. And I want the
+demo page off the home route before anyone else sees this repo and concludes the
+product is a starter kit."
 
 **The UX designer.** "Shipping a review session first repeats the mistake the
 study spent 25 chapters diagnosing. A card, four grade buttons and a queue is
@@ -263,25 +295,32 @@ look, and how does 'not measured' look. Design those two first and the cheerful
 states come free. Design the cheerful ones first and the honest ones arrive as an
 afterthought, in red."
 
-**Where they agree, which is what matters.** Both want question 16 answered
-today; both want the Grundriss demo off the home route; and neither wants a
-review surface built before its state machine is written down. T-03 satisfies the
-designer and costs the manager about a day of the critical path — and it produces
-the first screenshot this project has ever had.
+**Where they agree, which is what matters.** Both wanted question 16 answered
+today, and it now is; both want the Grundriss demo off the home route; and
+neither wants a review surface built before its state machine is written down.
+T-03 satisfies the designer and costs the manager one task on the critical path —
+and it produces the first screenshot this project has ever had.
+
+**What the storage decision does to the argument.** It weakens the manager's
+urgency slightly and strengthens the designer's ordering: with the log shape
+fixed, T-B2 is a specification exercise that a thinking model can do in parallel
+with T-03 being implemented by a low-inference one. The two tracks stopped
+competing for the same decision.
 
 ---
 
 ## What needs a decision from you
 
-Ordered by how much they block.
+Ordered by how much they block. **Question 16 has come off this list** — it is
+ADR-0005.
 
-1. **Question 16 — where does the review log live?** Recommendation in the
-   roadmap is local-first, append-only, per-review UUIDs. One word unblocks all
-   of stage 1. Everything in Track A is designed to proceed without it, and
-   nothing in Track B can start.
-2. **Is T-03 the first surface?** The alternative is going straight at the review
-   session. The manager and the designer disagree; the tie-breaker is whether you
-   want a screenshot this week or a mechanism.
+1. **Is T-03 the first surface?** The alternative is going straight at T-B2 and
+   then the review session. The manager and the designer disagree; the
+   tie-breaker is whether you want a screenshot first or a mechanism first.
+2. **Does signing in ever become mandatory?** ADR-0005 says no — an account buys
+   durability, never capability — and that is the reading of "browser first" the
+   log shape now depends on. If you meant an account *is* required before the
+   first review, say so, because it changes both the landing page and T-B2.
 3. **Are native form controls exempt from the five-state rule?** Yes → the
    boundary in `AGENTS.md` gains one sentence and `select.md` is already right.
    No → Input, Select, Table and ItemPicker each gain hover and active states,
