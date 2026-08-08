@@ -280,7 +280,7 @@ One line of this chapter must not be softened:
 | F184 | **Dose ledger** — hours practised against the guided-hour band for the target level, as an honest denominator | D | S | **V1** — the number nobody shows |
 | F185 | One sentence on *why that felt hard*, after a high-effort method, at most once per method | B | S | **V2** — a component, never the treatment (P4) |
 | F186 | A session may end by naming **one thing you can now do**, derived from data, never generic praise | D | M | **V2** |
-| F187 | **Whole-task floor** — a share of each week must be real use, held by a floor like the unmeasurable methods | D | M | **V1** — the only answer to the bottom-right cell |
+| F187 | **Whole-task floor** — real use is offered every week at a floor, like the unmeasurable methods | D | M | **V1** — the only answer to the bottom-right cell |
 | F188 | "Not measured" for the felt side: when the app never handed over a whole task, it says so | D | S | **V2** |
 | F189 | Perceived effort logged per session, never netted into effect or preference | B | S | **later** — blocked on question 17 |
 | F190 | Dose band per language, dated, like the level calibration | D | M | **later** — C4's caveat |
@@ -288,17 +288,24 @@ One line of this chapter must not be softened:
 Three things already in the study pay for themselves here and are **reused, not
 reinvented**: commitments as a second entry type
 ([24](24-speaking-as-the-goal.md) S4) are the natural carrier of F187; the floor
-mechanism ([12](12-method-cards.md)) is what stops F187 being negotiated away;
-and the map ([19](19-milestones-and-map.md)) is where F186 gets its sentences
-from.
+mechanism ([12](12-method-cards.md)) is what keeps F187 on the menu when it is
+repeatedly declined — it protects the *offer*, not compliance, per the floor
+correction of 2026-08-08; and the map ([19](19-milestones-and-map.md)) is where
+F186 gets its sentences from.
 
-### The roadmap consequence, and it is uncomfortable
+### The roadmap consequence — **resolved 2026-08-08**
 
 This chapter's diagnosis is that the largest cause of "nothing is happening" is
-the absence of whole-task use. Every mechanism this study has for that —
-commitments, the method catalogue, the floors — sits in **stage 4b**. The thing
-most responsible for the feeling is scheduled almost last, and the reason is
-sound in itself (a menu needs several methods before it is a menu).
+the absence of whole-task use, and every mechanism this study has for that —
+commitments, the method catalogue, the floors — used to sit in **stage 4b**. The
+thing most responsible for the feeling was scheduled almost last, on the argument
+that a menu needs several methods before it is a menu.
+
+**That argument fell.** Most of the catalogue is methods the app does not host
+(thesis 9), which need no engine — so the menu was never blocked on having four
+of them. It is now stage 1 ([11](11-roadmap-open-questions.md)), and the
+whole-task floor moves with it. The paragraph below is kept because its second
+half still holds.
 
 The cheap half does not have to wait. F184's *logging* must start with stage 1,
 because practice time cannot be reconstructed after the fact — the same argument

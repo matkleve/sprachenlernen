@@ -229,6 +229,50 @@ implementing it. Now the plan and the code disagree and both need unwinding.
 so. If it is genuinely unclear which mode you are in, ask — it is a one-line
 question that saves a rewrite.
 
+## 15. Building a mechanism on a quoted remark, then citing the remark as its mandate
+
+**The failure:** the user says *"this is important once a week anyway"*. Three
+chapters later the docs contain a floor that "negotiates over length, never over
+existence", justified as **the user's own idea** because their sentence is quoted
+at the top of the section. The quote is real; the mechanism is several decisions
+past it. And because it is attributed, nobody re-examines it — the attribution
+functions as approval that was never given.
+
+**How it happened here** (2026-08-08): the floor grew from a remark about
+priority into an obligation the learner could not decline, and the chapter cited
+E7 — self-determination theory — while arguing for the version E7 forbids. The
+user's correction was *"I never talked about the concept of say you need to do
+this daily"*, and they were right.
+
+**The rules:**
+
+- Quote the user for **what they decided**, never for what you derived from it.
+  If a section needs a mechanism they did not describe, mark it `[D]` (derived)
+  and say so in the same sentence as the quote.
+- When a design cites evidence, check the citation argues for *your* version.
+  "Autonomy matters" supports the optional variant, not the mandatory one.
+- On any rule that constrains the user's behaviour, ask the narrow question: is
+  this a bound on what the **app offers**, or on what the **person owes**? The
+  first is nearly always what was wanted, and it is the cheaper thing to build.
+
+## 16. Two personas agreeing on a wrong premise
+
+**The failure:** to surface a contested decision, the agent writes both sides of
+the argument — a project manager wanting the mechanism, a designer wanting the
+honest screen. It reads like diligence. But both positions were derived from the
+same roadmap, so both inherited its assumption, and the argument cannot reach the
+answer that requires rejecting it.
+
+**How it happened here** (2026-08-08): the two viewpoints in
+[`IMPLEMENTATION-PLAN.md`](IMPLEMENTATION-PLAN.md) argued review-session versus
+status-page. The user's answer was *the method menu* — in neither list, because
+both had accepted that the menu was a stage-4b refinement. The premise was
+disproved by a chapter two files away, which neither persona was pointed at.
+
+**The rule:** when staging an internal debate, state the premise both sides share
+and check it separately against the primary sources. A debate is a good way to
+expose a trade-off and a poor way to expose a wrong assumption.
+
 ---
 
 ## For you, writing the prompt

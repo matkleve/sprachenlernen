@@ -148,16 +148,16 @@ be gone through and cut — the list is deliberately longer than what gets built
 
 | # | Feature | Ev. | Eff. | Verdict |
 | --- | --- | --- | --- | --- |
-| F87 | Method catalogue: each with target skill, **target signal**, intensity, duration variants, setting | D | M | **V2** — without a target signal the effect is unmeasurable |
-| F88 | Method card with intensity, duration, "trains mainly" | D | S | **V2** — your idea |
-| F89 | Daily menu: exactly 3 cards, filtered by budget and setting | B | M | **V2** |
-| F90 | Budget/energy filter ("5 / 15 / 30 min · tired / okay / sharp") | C | S | **V2** — more honest than a daily goal |
-| F91 | Thumbs up/down **plus** one diagnostic follow-up | D | S | **V2** — the bare thumb is nearly worthless |
-| F92 | Floor per method, with a reason and "shorter rather than rarer" | D | M | **V2** — your "once a week"; keeps the system stable |
-| F93 | Cap: at most **one** floor prompt per day | D | S | **V2** |
+| F87 | Method catalogue: each with target skill, **target signal**, intensity, duration variants, setting | D | M | **V1** — the menu is stage 1; without a target signal the effect is unmeasurable |
+| F88 | Method card with intensity, duration, "trains mainly" | D | S | **V1** — your idea |
+| F89 | Daily menu: exactly 3 cards, filtered by budget and setting | B | M | **V1** — this *is* the product ([11](11-roadmap-open-questions.md), stage 1) |
+| F90 | Budget/energy filter ("5 / 15 / 30 min · tired / okay / sharp") | C | S | **V1** — more honest than a daily goal |
+| F91 | Thumbs up/down **plus** one diagnostic follow-up | D | S | **V1** — the bare thumb is nearly worthless |
+| F92 | Floor per method: a minimum rate of **being offered**, with a reason, a shorter variant, and "no" as a complete answer | D | M | **V1** — your "once a week"; keeps the system stable without obliging anyone |
+| F93 | Cap: at most **one** floor prompt per day | D | S | **V1** |
 | F94 | Effect estimate per method and signal, with a population prior and uncertainty | D | L | **later** — statistically hard, see [12](12-method-cards.md) |
 | F95 | Exploration share (10–20 % unchosen methods in the menu) | D | S | **later** — without it the estimate is a self-confirming loop |
-| F96 | Preference and effect stored separately, never netted into one value | D | S | **V2** — once merged, the distinction is unrecoverable |
+| F96 | Preference and effect stored separately, never netted into one value | D | S | **V1** — once merged, the distinction is unrecoverable, so it is a day-one shape |
 
 ---
 
@@ -254,12 +254,12 @@ be gone through and cut — the list is deliberately longer than what gets built
 
 | # | Feature | Ev. | Eff. | Verdict |
 | --- | --- | --- | --- | --- |
-| F141 | Info page per method: what · why · **how sure [A]–[D]** · limits · variants · requirements | B | M | **V2** — your idea |
-| F142 | The "what it does *not* do" section is a **required field** | D | S | **V2** — otherwise the page is advertising |
-| F143 | Methods the app does not run (drama, tandem, cooking, diary) in the same catalogue | D | M | **V2** — thesis 9 |
-| F144 | For those: preparation + debrief, but **no** effect estimate | D | M | **V2** |
-| F145 | Their place in the menu comes from the **floor**, not from measurement | D | S | **V2** — otherwise the measurable displaces what counts |
-| F146 | Self-reported completion marked as such; does not feed layer 1 | D | S | **V2** |
+| F141 | Info page per method: what · why · **how sure [A]–[D]** · limits · variants · requirements | B | M | **V1** — your idea, and the menu's whole argument |
+| F142 | The "what it does *not* do" section is a **required field** | D | S | **V1** — otherwise the page is advertising |
+| F143 | Methods the app does not run (drama, tandem, cooking, diary) in the same catalogue | D | M | **V1** — thesis 9, and what makes a stage-1 catalogue full rather than a list of one |
+| F144 | For those: preparation + debrief, but **no** effect estimate | D | M | **V1** |
+| F145 | Their place in the menu comes from the **floor**, not from measurement | D | S | **V1** — otherwise the measurable displaces what counts |
+| F146 | Self-reported completion marked as such; does not feed layer 1 | D | S | **V1** |
 
 ---
 
@@ -267,18 +267,18 @@ be gone through and cut — the list is deliberately longer than what gets built
 
 | # | Feature | Ev. | Eff. | Verdict |
 | --- | --- | --- | --- | --- |
-| F147 | Method catalogue as **data** — adding a method is an entry, not a release | — | M | **V2** — otherwise the catalogue stops at ten entries |
-| F148 | Context model: eight dimensions (eyes, hands, voice, surface, sound, attention, time, company) | D | M | **V2** |
-| F149 | Named context presets, editable, user-creatable | D | S | **V2** |
-| F150 | **Context filters first** — before floor, effect, preference | D | S | **V2** — corrects the menu order in [12](12-method-cards.md) |
-| F151 | Context is **tapped**, never sensed (no location, no sensors) | — | S | **V2** — [`../CONSTITUTION.md`](../CONSTITUTION.md) §2 |
-| F152 | Hard methods labelled as such rather than hidden | D | S | **V2** |
-| F153 | Weakly evidenced methods stay in the catalogue, honestly marked | D | S | **V2** |
+| F147 | Method catalogue as **data** — adding a method is an entry, not a release | — | M | **V1** — otherwise the catalogue stops at ten entries |
+| F148 | Context model: eight dimensions (eyes, hands, voice, surface, sound, attention, time, company) | D | M | **V1** |
+| F149 | Named context presets, editable, user-creatable | D | S | **V2** — the four-criteria filter (F156) is enough to ship |
+| F150 | **Context filters first** — before floor, effect, preference | D | S | **V1** — corrects the menu order in [12](12-method-cards.md) |
+| F151 | Context is **tapped**, never sensed (no location, no sensors) | — | S | **V1** — [`../CONSTITUTION.md`](../CONSTITUTION.md) §2 |
+| F152 | Hard methods labelled as such rather than hidden | D | S | **V1** |
+| F153 | Weakly evidenced methods stay in the catalogue, honestly marked | D | S | **V1** |
 | F154 | Long-window mode: its own sequence rather than 24× the five-minute unit | A | M | **V2** — massed repetition is exactly what E2 forbids |
 | F155 | Name the catalogue gap when nothing fits the context | D | S | **later** |
-| F156 | The filter asks **four** criteria (time, eyes, voice, writing surface), not eight | D | S | **V2** |
+| F156 | The filter asks **four** criteria (time, eyes, voice, writing surface), not eight | D | S | **V1** — the interface to the stage-1 menu |
 | F157 | Favourites list as an explicit interface for the *preference* ledger | D | S | **V2** |
-| F158 | Effect data stay **local**; aggregating across people is a separate decision | — | M | **V2** — [`../CONSTITUTION.md`](../CONSTITUTION.md) §2 |
+| F158 | Effect data stay **local**; aggregating across people is a separate decision | — | M | **V1** — [`../CONSTITUTION.md`](../CONSTITUTION.md) §2, and a shape not a feature |
 
 ---
 
@@ -352,9 +352,17 @@ be gone through and cut — the list is deliberately longer than what gets built
 
 ## The V1 cut in one sentence
 
-**Flashcards with a visible schedule, a level profile computed from card data,
-and reading and listening content selected by computed coverage.** Everything
-else is extension.
+**A menu of ways to practise — each with its evidence, its limits and what it
+does not do — over a level profile computed from real data, with flashcards,
+reading and listening as the engines it can run itself.** Everything else is
+extension.
+
+> **⚠ Rewritten 2026-08-08.** This read "Flashcards with a visible schedule, a
+> level profile computed from card data, and reading and listening content
+> selected by computed coverage" — which made flashcards the product and the
+> method menu an extension. Corrected by the user: flashcards is one method among
+> ~60, distinguished by its floor rather than its status. The menu moved to
+> stage 1 ([11](11-roadmap-open-questions.md)).
 
 The order and the reasoning behind the cut are in
 [11](11-roadmap-open-questions.md).

@@ -157,12 +157,19 @@ guard, and deleting a test because it was green on arrival is how the criterion
 goes unenforced again. If it fails, that is a real bug and the fix belongs in the
 same commit.
 
-### T-03 · The first surface that belongs to this product
+### T-03 · The language status page
 
 **Class:** Standard · **Reuse:** Table, Button · **Serves:**
 [`use-cases/UC-036-know-how-much-to-trust-this-language.md`](use-cases/UC-036-know-how-much-to-trust-this-language.md)
 · **New spec:** `docs/specs/page/language-status.md` (`SPEC-page-language-status`)
 · **Route:** `/languages`
+
+> **No longer "the first surface" (2026-08-08).** The method menu is
+> ([`study/11-roadmap-open-questions.md`](study/11-roadmap-open-questions.md),
+> stage 1 — the user's correction that flashcards is one method among many). T-03
+> stays in the queue and stays first *in Track A*, because it is still the largest
+> honest surface a low-inference agent can build with no auth, no persistence and
+> no new spec decisions. It is now a supporting page, not the front door.
 
 The smallest screen that is *this* product: for each shipped language, what the
 app can and cannot claim, and why. Every value on it is already derived by code
@@ -236,6 +243,7 @@ low-inference agent would silently invent.
 | **T-B3** | Vocabulary estimate and the level display (F17–F22) | Newly unblocked by tier B. Needs the anchor table from `study/03-level-model.md`, which is graded **[C]** and explicitly needs calibrating — a spec must say what is claimed with an uncalibrated band |
 | **T-B4** | Dose ledger (F184) | Needs roadmap question 19 answered, and its logging half needs T-B2 |
 | **T-B7** | The landing page | Positioning copy is a product decision, not an implementation. With a required account it is also everything a signed-out visitor ever sees, and its job is to persuade — which makes every rule in `DESIGN-SYSTEM.md` necessary but not sufficient |
+| **T-B10** | **The method menu — the product's front door** | **Sensitive**, and the largest piece of design work in the plan. Stage 1 as of 2026-08-08. It is a selection surface driving two surfaces (menu → info page → runner), so `STATE.md` applies; it needs the catalogue as data (F147) before any UI; and its ranking rule is normative — context → floor → **evidence grade**, never a measured effect that does not exist yet. Blocked on the catalogue spec, not on auth |
 | **T-B9** | Sync across devices (F192) | Comes after T-B2 and is cheap *because* of it: a union of append-only rows. **⚠ SPEC GAP** carried from ADR-0005: the tiebreak between two rows with the same timestamp from different installations. Client clocks are untrusted, so it cannot be wall-clock order |
 | **T-B5** | Retire the Grundriss worked examples | Looks like a deletion, is a docs refactor: `docs/STATE.md:148` cites item-picker as **the** worked example of state coherence, `docs/specs/README.md:36` indexes it, and UC-001…003 are referenced from six files. Removing the code without re-pointing those is a broken-link failure at best and the loss of the only worked example at worst |
 | **T-B6** | Five-state compliance for Input and Select | A rule conflict, not a bug — see the decisions below |
@@ -323,6 +331,16 @@ before authentication exists. The two tracks also stopped competing — with the
 shape fixed, the persistence spec is a writing exercise a thinking model can do
 while a low-inference agent implements T-03.
 
+**How it was actually settled, and both personas were arguing the wrong
+question.** The user's answer: the **method menu** is the first surface, because
+it is the product — "flashcards is also just a method, it's nothing special".
+Neither persona proposed that, because both had inherited the roadmap's
+assumption that the menu was a stage-4b refinement on top of a flashcard app.
+The manager wanted the review session and the designer wanted the status page;
+the thing that was actually first was in neither list. Worth keeping as a warning
+about internal debates: two well-argued positions can share a premise that is
+wrong, and arguing between them will never surface it.
+
 ---
 
 ## What needs a decision from you
@@ -330,10 +348,11 @@ while a low-inference agent implements T-03.
 Ordered by how much they block. **Question 16 is off this list** (ADR-0005,
 ADR-0006, ADR-0007) — an account is required, and the provider is Supabase.
 
-1. **Is T-03 the first surface?** The alternative is going straight at T-B8 and
-   the review chain. The manager and the designer disagree; the tie-breaker is
-   whether you want a screenshot first or a mechanism first. Note that T-03 is now
-   the only surface buildable before auth exists.
+1. ~~Is T-03 the first surface?~~ **Answered 2026-08-08: no, the method menu is.**
+   What remains is a smaller sequencing question — whether the catalogue is
+   written as data (F147) before or alongside the menu spec. Writing the data
+   first is the recommendation, because ~60 entries with evidence grades is
+   research work rather than code, and it can proceed while nothing else can.
 2. **Are native form controls exempt from the five-state rule?** Yes → the
    boundary in `AGENTS.md` gains one sentence and `select.md` is already right.
    No → Input, Select, Table and ItemPicker each gain hover and active states,

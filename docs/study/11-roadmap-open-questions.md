@@ -47,12 +47,34 @@ analyser emits the cell anyway; retrofitting would mean rebuilding the table
 **and** re-scoring every review history. Reasoning: [03](03-level-model.md),
 "The second axis".
 
-### Stage 1 · Flashcards with a glass-walled schedule
+### Stage 1 · The method menu, with flashcards as its first engine
 
-F01–F07, F12, F73, F74, F78, and — since question 16 — **F191 (account and
-authentication)**. **From here the app is usable** and already better than any
-existing flashcard app — not because it can do more, but because it shows what it
-is doing.
+> **⚠ Reframed 2026-08-08**, from "Flashcards with a glass-walled schedule". The
+> user's correction: *"Flashcards is also just a method, it's nothing special,
+> it's on the same level — maybe generally more important. The app is just about:
+> okay, here's your progress, how much time do you have now, what can you do,
+> those methods would work this well or badly, that's what's best for you we
+> think, here is the evidence, here are different options, start."*
+>
+> That is the product, and it was previously scheduled as a stage-4b refinement
+> on top of a flashcard app. Flashcards earns prominence from its **floor** —
+> daily, because the schedule demands it — not from being the app's identity.
+
+F01–F07, F12, F73, F74, F78 and — since question 16 — **F191 (account and
+authentication)**, now together with the menu itself: **F87–F93, F96**,
+**F141–F155** (method cards, info pages with evidence grades, methods beyond the
+app, the catalogue as data, the context filter) and **F185–F188**.
+
+**From here the app is usable**, and what makes it different is visible on the
+first screen rather than four stages later: it shows the whole range of ways to
+practise, says how good the evidence for each is, says what each does not do, and
+lets the learner choose — with flashcards as the one entry that currently has an
+engine behind it.
+
+Three things this does **not** pull forward, because they need data rather than
+code: the effect estimate (F94), exploration (F95) and stagnation detection
+(F171–F178). Until F94 exists the menu ranks by context, floor and **published
+evidence grade** — never by a measured effect it does not have.
 
 **F191 is in this stage and not later because the account is required**
 ([ADR-0006](../adr/0006-require-an-account.md)): the first review cannot be
@@ -121,14 +143,28 @@ gets less out of audiobooks.
 > Question 6 — where the audio comes from — belongs answered **before** building,
 > not during.
 
-### Stage 4b · Method choice
+### Stage 4b · Method choice — **the measuring half only**
 
-F87–F93, F96, and **F141–F164** (info pages, methods beyond the app, context, the
-exercise runner), plus **F171–F178** (stagnation detection and commitments). Only
-here, because a method menu needs at least four methods to choose from — before
-that the menu is a list with one entry. The effect estimate (F94) and exploration
-(F95) come later: they need months of data before they deliver anything but noise
-([12](12-method-cards.md)).
+> **⚠ Reordered 2026-08-08.** This stage used to hold the whole of method choice,
+> on the argument that "a menu needs at least four methods to choose from —
+> before that the menu is a list with one entry." **That argument was wrong**, and
+> the correction came from the user: *"Flashcards is also just a method, it's
+> nothing special, it's on the same level."*
+>
+> The argument fails on its own catalogue. Most of chapter 21's ~60 entries are
+> methods **the app does not host** (thesis 9) — proposed, prepared, debriefed,
+> never measured. Those need no engine, so a menu shipping with one app-hosted
+> engine still offers a full catalogue of real options. The menu was never
+> blocked on having four engines; it was blocked on an assumption nobody checked.
+>
+> **The menu is now stage 1** (below). What stays here is the half that genuinely
+> needs data and history: the effect estimate, exploration, and stagnation
+> detection.
+
+What remains in this stage: **F94** (effect estimate) and **F95** (exploration),
+which need months of data before they deliver anything but noise
+([12](12-method-cards.md)), plus **F171–F178** (stagnation detection and
+commitments) and the parts of **F156–F164** that depend on accumulated history.
 
 Stagnation detection is placed here rather than in stage 2 for a reason: its
 output is *"do this instead"*, and before there is a menu to point at, the
@@ -137,17 +173,18 @@ treatment attached, and the least useful sentence in the product
 ([24](24-speaking-as-the-goal.md) S3).
 
 Important for the order: **the floors (F92) must arrive with the menu, not
-after.** A selection system without lower bounds converges within weeks on the
-pleasantest methods, and by then users have got used to it.
+after** — which now means stage 1. A selection system without lower bounds on
+what it *offers* converges within weeks on the pleasantest methods, and by then
+users have got used to it.
 
-**F185–F188** land here for the same reason — the whole-task floor is a floor, and
-the "why that felt hard" sentence is attached to a method. Worth stating plainly
-because it is uncomfortable: [25](25-why-it-does-not-feel-productive.md) argues
-that the absence of real use is the **largest** cause of the product feeling
-pointless, and every mechanism we have for it sits in the second-to-last stage.
-The reasoning for the placement holds; the consequence is that stages 1–3 must not
-promise otherwise. Question 18 asks whether the cheap, untracked half can come
-earlier.
+**F185–F188** move to stage 1 with the menu, and the reordering is a genuine
+improvement here rather than a side effect.
+[25](25-why-it-does-not-feel-productive.md) argues that the absence of real use is
+the **largest** cause of the product feeling pointless; the previous ordering put
+every mechanism for that in the second-to-last stage and could only ask stages 1–3
+not to promise otherwise. With the menu in stage 1, the whole-task floor is
+offered from the start — as an offer, per the floor correction above. Question 18
+still applies: at A0 there may be no real task to offer yet.
 
 ### Stage 5 · Production and offline
 
