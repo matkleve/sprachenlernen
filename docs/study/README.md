@@ -11,9 +11,9 @@ and it needs to say why.
 
 ---
 
-## The twelve core theses
+## The thirteen core theses
 
-Everything else hangs off these twelve sentences. If you have five minutes, read
+Everything else hangs off these thirteen sentences. If you have five minutes, read
 only this table.
 
 | # | Thesis | Follows from it |
@@ -30,6 +30,7 @@ only this table.
 | **10** | Apps avoid the hard methods not out of ignorance but because slow, error-rich and unmeasurable lower every engagement metric. And: a perfect method you **cannot perform right now** has an effect of zero. | The catalogue contains precisely the hard methods, and **context filters before everything else**. → [21](21-method-catalogue-and-context.md) |
 | **11** | Input is the precondition, speaking is the goal — not competing priorities but different positions in one chain. The goal decides what is **foregrounded**, never what is **true**. | Speaking leads the headline and raises the floors; the measurement and the level formula stay untouched. → [24](24-speaking-as-the-goal.md) |
 | **12** | "This doesn't feel productive" is a **measurement, not a mood**. It is wrong when the practice was hard, and right when the app never let you use the language for anything. Treating either case as the other is how products fail. | An honest denominator for the time spent, real use offered every week at a floor — and the desirable-difficulty argument only in the one case where it is not an excuse. → [25](25-why-it-does-not-feel-productive.md) |
+| **13** | **The learner chooses the method; the app chooses what goes inside it.** A form nobody may skip is an argument for putting it in front of them, never for making them wait — gating produces delay where targeting produces practice. | No method is ever locked, and difficulty is a consequence of what the learner holds rather than a control anybody sets. → [26](26-readiness-and-difficulty.md) |
 
 ---
 
@@ -62,15 +63,16 @@ only this table.
 | [23 · How an exercise runs](23-how-an-exercise-runs.md) | The step model: prepare, do, wait, check, decide — and why swiping is not doing |
 | [24 · Speaking as the goal](24-speaking-as-the-goal.md) | Serving one goal without corrupting the measurement, the demonstration sentence on Home, stalling, and the honest use of a microphone |
 | [25 · Why none of it feels productive](25-why-it-does-not-feel-productive.md) | What is actually wrong with the competition, sorted by defect — and when the feeling of getting nowhere is an illusion versus a correct reading |
+| [26 · Readiness & difficulty](26-readiness-and-difficulty.md) | Who decides what — why a form nobody may skip argues for targeting rather than gating, how difficulty rises with nobody setting it, and how a method is tested |
 | [Sources](sources.md) | Literature, honestly marked by how far each was checked |
 
-Chapters 12–25 were written after the roadmap and are appended at the end. By
+Chapters 12–26 were written after the roadmap and are appended at the end. By
 subject, 12 belongs beside [08](08-motivation.md), 13 beside
 [06](06-production.md), 17 beside [05](05-input-reading-listening.md), 19 beside
 [03](03-level-model.md), 23 beside [12](12-method-cards.md), and 14, 15, 18
 before the roadmap.
 
-Four chapters **correct** earlier ones: [15](15-landscape.md) walks back two
+Five chapters **correct** earlier ones: [15](15-landscape.md) walks back two
 overstated claims in [05](05-input-reading-listening.md),
 [18](18-language-kit.md) corrects my own assertion under roadmap question 2 that
 languages are uniformly expensive, [24](24-speaking-as-the-goal.md) adds a
@@ -78,7 +80,11 @@ second entry type to the catalogue in
 [21](21-method-catalogue-and-context.md), which had assumed every entry was a
 session, and [25](25-why-it-does-not-feel-productive.md) supplies the denominator
 that [08](08-motivation.md) is missing and a second principal risk that
-[15](15-landscape.md) does not name.
+[15](15-landscape.md) does not name, and
+[26](26-readiness-and-difficulty.md) sharpens [02](02-evidence.md) E4: the
+coverage band it introduced is a **comprehension** threshold, so using it as a
+difficulty controller silently optimises comfort. The band stays; what changes is
+that a method's purpose chooses it.
 
 ---
 

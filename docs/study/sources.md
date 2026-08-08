@@ -298,11 +298,43 @@ solid part, the correlation is not.
 
 ---
 
+## Readiness, error, and skill modelling → [26](26-readiness-and-difficulty.md)
+
+| | Source | Used in |
+| --- | --- | --- |
+| ○ | Kornell, Hays & Bjork (2009): *Unsuccessful retrieval attempts enhance subsequent learning.* JEP: LMC | [26](26-readiness-and-difficulty.md) R4 |
+| ○ | Metcalfe (2017): *Learning from errors.* Annual Review of Psychology — review concluding that error-free practice is the wrong target for healthy learners | [26](26-readiness-and-difficulty.md) R4 |
+| ○ | Butterfield & Metcalfe (2001) on the hypercorrection effect — confidently-held errors are the best corrected | [26](26-readiness-and-difficulty.md) R4 |
+| ○ | Corbett & Anderson (1995): *Knowledge tracing: modeling the acquisition of procedural knowledge.* User Modeling and User-Adapted Interaction | [26](26-readiness-and-difficulty.md) R2 |
+| ○ | VanLehn (2011): *The relative effectiveness of human tutoring, intelligent tutoring systems, and other tutoring systems.* Educational Psychologist — step-based ITS d ≈ 0.76, human tutoring d ≈ 0.79 | [26](26-readiness-and-difficulty.md) R2 |
+| ○ | Cen, Koedinger & Junker (2007): *Is over practice necessary?* AIED — mastery thresholds in a deployed Cognitive Tutor produced over-practice; refitting the skill model cut practice time by around 12 % | [26](26-readiness-and-difficulty.md) R6 |
+| ○ | Pienemann: the Teachability Hypothesis and Processability Theory — instruction takes only at the learner's current processing stage | [26](26-readiness-and-difficulty.md) R1 |
+| ○ | Dulay & Burt (1974) onward on morpheme acquisition order — order is partly fixed and not freely rearranged by instruction | [26](26-readiness-and-difficulty.md) R7 |
+| ○ | Morris, Bransford & Franks (1977) on transfer-appropriate processing | [26](26-readiness-and-difficulty.md) R9 |
+| ○ | Fulcher (2004) and Alderson (2007) on CEFR validation — the descriptors were scaled on teachers' judgments of difficulty rather than on learner performance data | [26](26-readiness-and-difficulty.md) R3 |
+
+**Every entry in this section is ○** — cited from knowledge of the literature,
+with no paper opened during this pass. That is why R1 is graded **[B/C]** and R6
+**[B]** rather than higher, and it is the section most in need of a verification
+pass before anything expensive is built on it. Two specific things to check: the
+exact figure in Cen et al. (reported here as "around 12 %", which is one study's
+number and not a general result), and whether Processability Theory's stages have
+ever been established for Spanish or Italian **morphology** as opposed to
+Germanic word order.
+
+Note also what is **absent**: no source here establishes that unknown-form density
+has an optimum for learning. R5's arithmetic (fewer known words → more learning
+opportunities, less comprehension) is sound, but the shape of the trade-off is
+unmeasured, so the band per method stays a **[D]**.
+
+---
+
 ## Frameworks
 
 | | Source | Used in |
 | --- | --- | --- |
 | ⬤ | Europarat: *The CEFR Levels* — six levels, explicitly further subdividable „according to the needs of the local context". [Link](https://www.coe.int/en/web/common-european-framework-reference-languages/level-descriptions) | [03](03-level-model.md) |
+| ⬤ | *Plan Curricular del Instituto Cervantes* (Spanish) and *Profilo della lingua italiana* (Italian) — the CEFR Reference Level Descriptions for our two shipped languages. Expert inventories rather than measurement models, and licensing-constrained: they calibrate our bands and are never republished as requirements. | [26](26-readiness-and-difficulty.md) R3, [18](18-language-kit.md) |
 
 ---
 

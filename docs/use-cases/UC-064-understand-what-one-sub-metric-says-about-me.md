@@ -27,6 +27,15 @@ ignored, and both are wrong.
 - The figure names its **denominator** in words. "3 of 10" is meaningless until
   the ten are identifiable — ten cell groups, ten of the learner's own words,
   ten tested items.
+- It is **frequency-weighted, never counted**. A completion fraction pulls effort
+  toward what is left rather than what pays, and paradigm cells are wildly
+  unequal — the first-person singular present earns its practice thousands of
+  times more often than the second-person plural subjunctive
+  ([26](../study/26-readiness-and-difficulty.md) R8). The shape of the widget
+  teaches a goal whatever the copy says.
+- It states the **task type it was measured on**, and no claim crosses from
+  receptive evidence to productive competence
+  ([26](../study/26-readiness-and-difficulty.md) R9).
 - It names what counts as having one: stability above some threshold, a number of
   successful retrievals, a share correct. Whatever it is, it is one documented,
   dated definition, and the same definition everywhere it appears.
