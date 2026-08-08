@@ -7,7 +7,20 @@
  * this module reads. That is what makes resolution fast, offline, deterministic
  * and identical on every device — and it is why adding a language means
  * generating data rather than shipping code.
+ *
+ * The table's own shape and validation live in `lib/lemma-table.ts` — this file
+ * re-exports them so `@/lib/lexicon` stays the one import a caller needs.
  */
+
+export {
+  loadLemmaTable,
+  type Analysis,
+  type LemmaDescription,
+  type LemmaTable,
+  type PartOfSpeech,
+  type Resolution,
+} from "./lemma-table";
+import type { LemmaTable, Resolution, LemmaDescription } from "./lemma-table";
 
 export const SCRIPTS = [
   "latin",
@@ -157,10 +170,10 @@ export const qualityTier = (profile: LanguageProfile): QualityTier => {
   return "A";
 };
 
+
 // --- the lexicon -------------------------------------------------------------
 
 export type Token = { text: string; start: number; end: number };
-export type Resolution = { value: string; resolved: "lemma" | "form" };
 
 /**
  * A word is a run of letters, optionally joined by an internal apostrophe
@@ -175,13 +188,14 @@ export type Lexicon = {
   tokenise: (text: string) => Token[];
   normalise: (token: string) => string;
   resolve: (form: string) => Resolution;
+  describe: (lemma: string) => LemmaDescription | undefined;
   rank: (word: string) => number | undefined;
 };
 
 export const buildLexicon = (
   profile: LanguageProfile,
   entries: readonly FrequencyEntry[],
-  lemmaTable?: Readonly<Record<string, string>>,
+  lemmaTable?: LemmaTable,
 ): Lexicon => {
   const ranks = new Map<string, number>();
   for (const entry of entries) {
@@ -211,13 +225,39 @@ export const buildLexicon = (
      * An unlisted form resolves to itself and says so. It is never guessed —
      * a runtime guess would be a second, worse morphological analyser hiding
      * behind the one we deliberately moved to build time.
+     *
+     * `fused` is checked first and wins outright: `del` (de + el) is not a
+     * competing reading with whatever a treebank annotated it as on its own,
+     * it is two words present at once, and reporting it as `ambiguous` would
+     * let a caller "pick one" of two things that are both true together.
      */
     resolve: (form) => {
       const normalised = normalise(form);
-      const lemma = lemmaTable?.[normalised];
-      return lemma === undefined
-        ? { value: normalised, resolved: "form" }
-        : { value: lemma, resolved: "lemma" };
+
+      const parts = lemmaTable?.fused[normalised];
+      if (parts) return { kind: "fused", form: normalised, parts };
+
+      const analyses = lemmaTable?.forms[normalised];
+      if (!analyses || analyses.length === 0) return { kind: "unknown", form: normalised };
+      if (analyses.length === 1) {
+        const analysis = analyses[0];
+        if (analysis) return { kind: "single", form: normalised, analysis };
+      }
+      return { kind: "ambiguous", form: normalised, analyses };
+    },
+
+    /**
+     * What the lemma *is*, never how it inflects — that is `resolve`'s job.
+     * Absent rather than defaulted: a lemma the table does not describe has no
+     * known conjugation class, and guessing one from the ending would be the
+     * runtime morphology guess this module exists to avoid.
+     */
+    describe: (lemma) => {
+      const entry = lemmaTable?.lemmas[lemma];
+      if (!entry) return undefined;
+      if (typeof entry.verb === "string") return { conjugation: entry.verb };
+      if (typeof entry.noun === "string") return { gender: entry.noun };
+      return undefined;
     },
 
     /** Absent, not zero and not the list length — an unlisted word has no rank. */

@@ -16,3 +16,8 @@ next-env.d.ts
 
 # Throwaway measurement scripts (docs/TRAPS.md § measure, don't eyeball)
 tmp/
+
+# Cached morphology sources for scripts/build-lemma-tables.mjs — large,
+# network-fetched, and reproducible. The generated data/lemma/*.json is
+# committed; these are not.
+.cache/

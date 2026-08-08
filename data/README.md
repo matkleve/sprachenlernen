@@ -5,6 +5,7 @@ Per-language data. **Never code** — see `docs/specs/service/lexicon.md`.
 ```
 languages/<code>.json    the language profile
 frequency/<code>.txt     `{form} {count}`, rank = line order
+lemma/<code>.json        generated: form → analyses, gen'd by scripts/build-lemma-tables.mjs
 ```
 
 ## Why this is data and not code
@@ -18,17 +19,28 @@ Background: `docs/study/18-language-kit.md`.
 
 The shipped Spanish and Italian lists count **word forms**, not lemmas. Spanish
 *es*, *son*, *era* and *fue* are four entries for one lemma. This is declared in
-each profile as `frequency.unit: "form"` and it is the reason both languages
-currently derive quality tier **C** — and therefore report no level value at all.
+each profile as `frequency.unit: "form"`.
 
-That is the mechanism working. A vocabulary count whose unit is undefined is not
-a measurement, so the app declines to make one rather than producing a plausible
-number that means nothing.
+## The lemma tables — tier B, not yet tier A
 
-To reach tier B, a form → lemma table is needed. It is generated **at build
-time** by a morphological analyser (Stanza / UDPipe, ~70 languages on one
-UD-based architecture) and shipped as a lookup table; nothing analyses morphology
-at runtime.
+Both languages now ship a generated `lemma/<code>.json`, which is what moves them
+from quality tier C to **B** ([`docs/specs/service/lexicon.md`](../docs/specs/service/lexicon.md)):
+a level value can be reported, with a widened uncertainty band, but there is
+still no dated calibration behind it.
+
+The table is generated **at build time**, never at runtime:
+`node scripts/build-lemma-tables.mjs [es|it]`. Two source shapes, because no
+single project covers both languages — UniMorph (complete Wiktionary paradigms)
+for Spanish, Morph-it! (a full-form lexicon) for Italian, both complemented by
+Universal Dependencies treebanks for function words and fused-form decomposition
+(`del` = de + el). Sources are cached in `.cache/morph/` (gitignored, large,
+network-fetched); the generated table is committed so a normal checkout needs no
+network. Details, including what each analysis carries and why ambiguity is
+reported rather than resolved: `docs/specs/service/lexicon.md`.
+
+**Both paradigm sources have real gaps** — UniMorph ships no Spanish `tener` at
+all — and the generator measures and records what it actually produced
+(`seedCoverage`, `verbParadigmsComplete`) rather than assuming completeness.
 
 ## Provenance
 

@@ -95,7 +95,7 @@ app/globals.css     design tokens (@theme) + base styles. Single source of truth
 features/<name>/    one folder per feature: components, hooks, content, tests.
 components/ui/      primitives used by ≥2 features (Button, Field, …).
 lib/                framework-free helpers. No React, no fetch.
-data/               per-language data — profiles, frequency lists. Never code.
+data/               per-language data — profiles, frequency lists, lemma tables. Never code.
 docs/specs/         implementation contracts ← source of truth
 docs/use-cases/     what the user is trying to do, in their words
 scripts/            the gates behind `npm run verify`
