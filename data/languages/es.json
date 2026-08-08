@@ -12,7 +12,7 @@
     "unit": "form",
     "file": "data/frequency/es.txt"
   },
-  "lemmaTable": null,
+  "lemmaTable": "data/lemma/es.json",
   "calibration": null,
   "voices": []
 }

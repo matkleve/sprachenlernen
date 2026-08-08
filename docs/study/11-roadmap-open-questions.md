@@ -29,13 +29,17 @@ loadable.
 **Status 2026-08-08:** the scheduler (`lib/scheduler.ts`,
 [spec](../specs/service/scheduler.md)) and the lexicon (`lib/lexicon.ts`,
 [spec](../specs/service/lexicon.md)) exist, with real frequency data for Spanish
-and Italian. **Both languages are currently quality tier C** — the shipped lists
-are *form* frequencies from subtitles, not lemma frequencies. As long as no
-form→lemma table exists there is consequently **no level value**
-([18](18-language-kit.md)). That is the mechanism working, not a missing feature.
+and Italian. **Both languages have since moved to quality tier B**: a generated
+form→lemma table with paradigm cells now ships for both
+(`scripts/build-lemma-tables.mjs`, `data/lemma/{es,it}.json`), which is what
+first makes a level value reportable — with a widened uncertainty band, since
+there is still no dated calibration ([18](18-language-kit.md)).
 
-Still open in stage 0: the form→lemma tables (tier B) and then the calibration
-(tier A).
+Still open in stage 0: the calibration (tier A). The tables also self-report
+where they are incomplete — Spanish 733 verbs / 98% with a full paradigm,
+Italian 812 / 100%, both against the top 5,000 frequency forms — and that
+incompleteness is a **⚠ SPEC GAP** for what partial form mastery means, not
+silently rounded away (see `docs/specs/service/lexicon.md`, Open).
 
 **Important for those tables (F133):** they store not just `form → lemma` but
 `form → (lemma, paradigm cell)`. It costs nothing while building, because the
