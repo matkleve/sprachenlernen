@@ -258,3 +258,14 @@ but name, which the spec explicitly forbade.
 Every edge in a transition map needs a caller that can traverse it and a test
 that does. An unreachable edge is worse than a missing one — it documents
 behaviour that does not exist.
+
+## Piping `npm run verify` into `tail` throws away its exit code
+
+`npm run verify 2>&1 | tail -3 && git commit && git push` pushed a **red** gate.
+A pipeline's status is the *last* command's, and `tail` always succeeds, so the
+`&&` chain saw success and carried on. The failure was visible on screen and
+ignored by the shell — the worst combination, because it looks like it was read.
+
+Use `set -o pipefail`, or check the gate in its own command before chaining
+anything to it. Do not summarise a gate's output in the same command that acts
+on its result.

@@ -1,7 +1,7 @@
 # 22 · Gestaltung: was die Oberfläche verspricht
 
 Noch keine Farbentscheidung — die kommt später und gehört dir
-([`../AGENTS.md`](../AGENTS.md), Grenze 6). Was hier steht, sind die
+([`../AGENTS.md`](../../AGENTS.md), Grenze 6). Was hier steht, sind die
 **Randbedingungen**, damit die spätere Sitzung nicht bei null anfängt, und ein
 Argument, das die Wahl enger macht, als sie zuerst aussieht.
 
@@ -110,7 +110,7 @@ würdig darstellt, ist die Aufgabe.
 
 ## Was jetzt schon feststeht
 
-Aus [`../AGENTS.md`](../AGENTS.md) und den Gates, unabhängig von jeder Palette:
+Aus [`../AGENTS.md`](../../AGENTS.md) und den Gates, unabhängig von jeder Palette:
 
 - Alle Werte als Token in `app/globals.css`, keine rohen Farben in Komponenten.
 - WCAG AA in **beiden** Themes, geprüft von `npm run check:contrast` — die
