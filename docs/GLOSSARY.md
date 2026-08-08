@@ -53,6 +53,8 @@ requires a `⚠ SPEC GAP` line, not a guess.
 | **Retrievability** | Abrufwahrscheinlichkeit | FSRS: probability of recall right now. Drives what is due. | due date |
 | **Target retention** | Zielretention | The recall probability the schedule aims for (e.g. 0.9). A user setting. | accuracy |
 | **Leech** | Sperrkarte | A Task that keeps failing. Suspended and flagged for repair, not repeated harder. | a hard Task |
+| **Paradigm cell** | Paradigmenzelle | The position a form occupies in its inflection pattern — class × tense/mood × person for verbs, number/gender for nouns. Stored **with** each form→lemma mapping. Failing `parliamo` while passing `parlare` is a form gap, not a vocabulary gap. | a word form, a grammar topic |
+| **Form mastery** | Formbeherrschung | A level-model signal of its own: which paradigm cells the learner can produce. Never folded into vocabulary size. | vocabulary, grammar knowledge |
 | **Frequency rank** | Frequenzrang | Position of a Word in the language's frequency list. The bridge between Reviews and Level. | difficulty |
 
 ### Level and progress → [`studie/03`](studie/03-level-modell.md)
@@ -124,6 +126,6 @@ are, the distinction is gone and nothing surfaces the loss — see
 
 | Term | What is unresolved |
 | --- | --- |
-| **Word family vs. word form** | The vocabulary estimate counts families; Tasks train forms. Both need names before either appears in a spec — see [`studie/03`](studie/03-level-modell.md). |
+| **Word family vs. word form** | The vocabulary estimate counts lemmas; Tasks train forms. Resolved in part: form mastery is now its own signal, not part of vocabulary size — see [`studie/03`](studie/03-level-modell.md). What is still open is whether the *estimate* counts lemmas or families. |
 | **Error category** | The closed list used by writing/speaking feedback. Must be fixed before it is counted over time — see [`studie/06`](studie/06-produktion.md). |
 | **Multiword item** | Collocations and fixed expressions are Words for practice but must **not** count as *n* Words in the vocabulary estimate, or the calibration breaks. Belongs with the Word/Task decision — see [`studie/16`](studie/16-weitere-befunde.md) W2. |

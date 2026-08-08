@@ -42,6 +42,9 @@ wird.
 | F18 | Vier getrennte Fertigkeitsniveaus | A | M | **V1** |
 | F19 | 24 Unterstufen (A1.1 … C2.4) + Prozent innerhalb der Stufe | D | S | **V1** |
 | F20 | Gesamtlevel aus den zählenden Fertigkeiten (zweitniedrigste ab drei, Minimum bei zwei), plus erklärender Satz | D | S | **V1** |
+| F133 | Paradigmenzelle an jeder Form gespeichert (`parliamo → parlare, 1. Pl. Präs.`) | — | M | **V1** — jetzt kostenlos, später Tabellenneubau plus Neubewertung aller Historie |
+| F134 | Formbeherrschung als eigene Ebene-1-Messgröße, getrennt von Wortschatzgröße | D | M | **V2** |
+| F135 | Formlücke vs. Vokabellücke unterscheiden und getrennt anzeigen | D | M | **V2** |
 | F110 | Fertigkeitsstatus als Zustand: gemessen · unsicher · nicht gemessen · nicht im Profil | D | S | **V1** — ein Besitzer für eine Regel, die sonst in drei Kapiteln auseinanderläuft |
 | F21 | Verlaufskurve pro Fertigkeit (30 / 90 / 365 Tage) | D | M | **V1** — beantwortet „werde ich besser?" |
 | F22 | Unsicherheitsband bei dünner Datenlage | D | S | **V1** — Voraussetzung dafür, dass man der Zahl glaubt |

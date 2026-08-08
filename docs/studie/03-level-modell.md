@@ -50,7 +50,8 @@ selbst (siehe [01](01-duolingo.md), D1).
 
 | Messgröße | Woher | Warum sie zählt |
 | --- | --- | --- |
-| **Wortschatzgröße** (geschätzte bekannte Wortfamilien) | SRS-Bestand, gewichtet nach Stabilität, hochgerechnet über Frequenzrang | Die einzige billig und valide schätzbare Kompetenzgröße ([02](02-evidenz.md), E4) |
+| **Wortschatzgröße** (geschätzte bekannte Grundformen) | SRS-Bestand, gewichtet nach Stabilität, hochgerechnet über Frequenzrang | Die einzige billig und valide schätzbare Kompetenzgröße ([02](02-evidenz.md), E4) |
+| **Formbeherrschung** | Erfolg auf Aufgaben, markiert mit ihrer Paradigmenzelle | Grundform zu kennen heißt nicht, sie beugen zu können — siehe unten |
 | **Abrufstabilität** | FSRS-Stabilität pro Karte, aggregiert | Unterscheidet „schon mal gesehen" von „kann ich" |
 | **Lexikale Abdeckung** | Anteil bekannter Tokens in Texten des jeweiligen Levels | Der direkte Prädiktor für Leseverstehen |
 | **Reaktionszeit bei korrektem Abruf** | Antwortzeit, normalisiert pro Nutzer und Kartentyp | Automatisierungsgrad. Richtig aber langsam ≠ flüssig |
@@ -76,9 +77,50 @@ Zwei Fallstricke, die wir explizit vermeiden:
   ist wegen überschätzter Reliabilität kritisiert worden und trennt L2-Niveaus
   schlechter als behauptet. Adaptives Testen nach Item-Response-Theorie ist der
   bessere Weg und ist genau das, was unsere Frequenzränge ohnehin ermöglichen.
-- **Wortfamilie ≠ Wortform.** Wer *gehen* kann, kann nicht automatisch *ginge*.
-  Die Schätzung zählt Familien, die Übung trainiert Formen; die Anzeige muss
-  sagen, welche von beidem sie meint.
+- **Grundform ≠ Wortform.** Wer *gehen* kann, kann nicht automatisch *ginge*.
+  Die Schätzung zählt Grundformen, die Übung trainiert Formen — und die Lücke
+  dazwischen ist groß genug für eine eigene Messgröße. Siehe „Die zweite Achse"
+  gleich unten.
+
+### Die zweite Achse: Formbeherrschung **[D — Korrektur vom 2026-08-08]**
+
+Dieses Modell hatte eine Lücke, auf die der Nutzer gestoßen ist, und sie ist
+groß genug für einen eigenen Abschnitt.
+
+**Eine Grundform zu kennen heißt nicht, ihre Formen zu beherrschen.** Im
+Italienischen laufen die drei Konjugationsklassen (*parlare · credere ·
+dormire*) unterschiedlich, *-ire* spaltet sich nochmal (*dormo* vs. *finisco*),
+und die häufigsten Verben sind unregelmäßig (*essere, avere, fare, stare*). Bei
+Nomen dasselbe: *-o/-i*, *-a/-e*, dazu *uomo/uomini*, *uovo/uova*, und
+Unveränderliches wie *città*.
+
+Die Wortschatzschätzung zählt Grundformen und **unterstellt stillschweigend**,
+dass die Formen dazugehören. Das ist bei flektierenden Sprachen falsch, und zwar
+pro Wort unterschiedlich stark.
+
+Der Fehler, den das erzeugt, ist derselbe wie in [These 4](README.md), nur eine
+Ebene tiefer: Wer 2.000 Grundformen kennt und nicht konjugieren kann, liest gut
+und spricht nicht — und bekommt trotzdem quer durch B1 angezeigt.
+
+**Konsequenz:** Formbeherrschung ist eine **eigene Ebene-1-Messgröße**, nicht
+Teil der Wortschatzgröße. Gemessen wird sie an **Paradigmenzellen**: Klasse ×
+Zeit/Modus × Person, plus die häufigen Unregelmäßigen einzeln. Wer *parlare*
+kann und bei *parliamo* scheitert, hat eine Formlücke, keine Vokabellücke.
+
+Zwei Dinge folgen sofort:
+
+1. **Die Form→Lemma-Tabelle muss die Zelle mitspeichern** — `parliamo →
+   (parlare, 1. Pl. Präsens)`, nicht nur `parliamo → parlare`. Jetzt kostet das
+   nichts; später heißt es, die Tabelle neu zu bauen und jede Historie neu zu
+   bewerten. Gleiche Klasse von Entscheidung wie die Zähleinheit
+   ([18](18-sprachen-baukasten.md), U1).
+2. **Die Formentabellen aus [07](07-offline-papier.md), Ü3 sind keine
+   Nebenübung mehr**, sondern das Training einer gemessenen Größe — und ihr
+   Mischungsgebot aus [02](02-evidenz.md), E6 bekommt damit ein Ziel.
+
+Nebenbefund: die häufigsten Verben sind die unregelmäßigen. Ganz oben in der
+Frequenzliste ist Formbeherrschung also am wichtigsten — genau dort, wo eine
+reine Lemmazählung am selbstsichersten aussieht.
 
 ---
 

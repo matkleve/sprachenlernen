@@ -13,12 +13,13 @@ Frequenzlisten und Lemmatisierung pro Sprache (F81), **Sprachprofil-Schema
 (F120)** und **Lemmatisierung über Stanza/UD (F122)**, Datenmodell für Karten und
 Wiederholungshistorie.
 
+Ohne diese Grundlage funktionieren weder die Wortschatzschätzung (F17) noch der
+Abdeckungsrechner (F29) — also weder das Levelmodell noch die Inhaltsauswahl.
+
 F120 gehört hierher und nicht später: das Profil deklariert die **Zähleinheit**,
 und ohne die rechnet das Levelmodell in agglutinierenden Sprachen still falsch
 ([18](18-sprachen-baukasten.md), U1). Eine Sprache ohne diese Angabe darf nicht
-ladbar sein. Ohne diese Grundlage funktionieren weder die
-Wortschatzschätzung (F17) noch der Abdeckungsrechner (F29) — also weder das
-Levelmodell noch die Inhaltsauswahl.
+ladbar sein.
 
 > **Falle:** Diese Stufe ist unattraktiv und wird deshalb regelmäßig übersprungen.
 > Wer sie überspringt, baut das Levelmodell auf geratenen Zahlen und muss später
@@ -36,6 +37,12 @@ funktioniert, nicht ein fehlendes Feature.
 
 Offen in Stufe 0: die Form→Lemma-Tabellen (Stufe B) und danach die Kalibrierung
 (Stufe A).
+
+**Wichtig für diese Tabellen (F133):** Sie speichern nicht nur `Form → Lemma`,
+sondern `Form → (Lemma, Paradigmenzelle)`. Beim Bauen kostet das nichts, weil der
+Analysator die Zelle ohnehin ausgibt; nachträglich hieße es, die Tabelle neu zu
+bauen **und** jede Wiederholungshistorie neu zu bewerten. Begründung:
+[03](03-level-modell.md), „Die zweite Achse".
 
 ### Stufe 1 · Karteikarten mit gläserner Planung
 

@@ -92,6 +92,7 @@ because it is interesting.
 | [UC-032](UC-032-reach-the-next-milestone.md) | Reach the next vocabulary milestone, and know what it buys | 2 | [19](../studie/19-meilensteine-und-karte.md) |
 | [UC-036](UC-036-know-how-much-to-trust-this-language.md) | Know how much to trust this language's material | 2 | [18](../studie/18-sprachen-baukasten.md) |
 | [UC-038](UC-038-why-is-this-word-worth-my-time.md) | Know why this word is worth my time | 2 | [19](../studie/19-meilensteine-und-karte.md) |
+| [UC-041](UC-041-know-the-forms-not-just-the-words.md) | Know the forms, not just the words | 0 · tagging, 2 · measure | [03](../studie/03-level-modell.md) |
 | [UC-029](UC-029-read-a-text-i-brought.md) | Read a text I brought myself | 3 | [17](../studie/17-eigene-inhalte.md) |
 | [UC-030](UC-030-make-a-hard-text-readable.md) | Make a text I care about readable, without gutting it | 3 | [17](../studie/17-eigene-inhalte.md) |
 | [UC-033](UC-033-see-what-i-unlocked.md) | See what my learning has unlocked | 3 | [19](../studie/19-meilensteine-und-karte.md) |
