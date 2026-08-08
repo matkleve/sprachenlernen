@@ -19,6 +19,7 @@ Start at [`../AGENTS.md`](../AGENTS.md). Everything here is what it links to.
 | …support more than one language | [`I18N.md`](I18N.md) |
 | …name something | [`GLOSSARY.md`](GLOSSARY.md) |
 | …understand why my fix isn't working | [`TRAPS.md`](TRAPS.md) |
+| …test behaviour that only appears over months | [`SIMULATION.md`](SIMULATION.md) |
 | …know what I'm not allowed to do | [`CONSTITUTION.md`](CONSTITUTION.md) |
 | …record or find a decision | [`adr/`](adr/) |
 
@@ -36,6 +37,7 @@ docs/
   DESIGN-SYSTEM.md   tokens, interaction states, ownership, motion
   BACKEND.md         adding a database — the optional module
   I18N.md            one language to many — the staged path
+  SIMULATION.md      synthetic learners with a hidden ground truth (lib/simulation/)
   GLOSSARY.md        canonical terminology
   TRAPS.md           bugs that looked correct        ← how the CODE misleads
   AGENT-PITFALLS.md  recurring collaboration failures ← how the WORK misleads

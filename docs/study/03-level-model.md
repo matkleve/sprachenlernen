@@ -202,6 +202,28 @@ and a sentence saying what to do next.
 
 ---
 
+## What a signal may and may not claim **[D — 2026-08-08, [26](26-readiness-and-difficulty.md)]**
+
+The layers above invite a mistake that is easy to make and expensive to undo, so
+the boundary is stated here rather than left to whoever builds the display first:
+
+| Rule | Because |
+| --- | --- |
+| **Signals have values and statuses. Only skills have levels.** | A signal rendered as "Plurals: A2" invents a level this model does not define, and it will be copied everywhere before anyone notices |
+| **No signal is a requirement for a CEFR band.** | The descriptors were scaled on teachers' judgments of difficulty, not on learner performance ([26](26-readiness-and-difficulty.md) R3). No mapping specific enough to support such a claim exists |
+| Every statement runs **"this is low because of that"**, never **"do that to get this"** | The second direction publishes the score to feed, which converts this display into a controller — [01](01-duolingo.md) D1 with a diagnostic vocabulary |
+| Anything shown at paradigm-cell granularity is **frequency-weighted, never counted** | A completion fraction pulls effort toward what is left rather than what pays ([26](26-readiness-and-difficulty.md) R8) |
+| A signal states the **task type it was measured on** | Receptive evidence licenses no claim about production ([26](26-readiness-and-difficulty.md) R9, E3) |
+| Nothing rides on a cell-level figure until it survives its own **standard error** | Per-cell mastery is a finer partition of already-thin data, so it is noise for longer than the effect estimate is ([26](26-readiness-and-difficulty.md) R6) |
+
+And the consequence for difficulty, which is the question this section exists to
+close: **the level model is never the difficulty control.** Difficulty rises
+because holdings changed — more known words clear more texts, stability stretches
+intervals, the cell mix shifts toward what is not yet held. Nobody sets it, and no
+level gates anything.
+
+---
+
 ## "Am I getting better or worse?"
 
 Four comparisons, in this order of prominence:

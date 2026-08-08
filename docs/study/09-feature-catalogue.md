@@ -347,6 +347,26 @@ be gone through and cut — the list is deliberately longer than what gets built
 | F86 | Efficacy measurement built in (pre-test, cohorts, including dropouts) | — | L | **V2** — otherwise we repeat [01](01-duolingo.md), S5 |
 | F191 | **Account and authentication** — required before the first review | — | M | **V1** — stage 1, [ADR-0006](../adr/0006-require-an-account.md) |
 | F192 | Sync of the review log across devices | — | M | **V1** — a union of append-only rows, which is why F191 makes it cheap rather than dear |
+| F193 | **Simulated learners** — synthetic memory with a hidden ground truth, run against the real scheduler | — | M | **V1** — the only way to test the measurement claim before real users exist ([ADR-0008](../adr/0008-simulated-learners-as-a-test-harness.md)) |
+
+---
+
+## P · Readiness and guidance → [26](26-readiness-and-difficulty.md)
+
+Where the "you have to learn the plural forms" question lands. Every entry here
+exists because the alternative — a threshold gate — fails on
+[26](26-readiness-and-difficulty.md) R4, R6 and R7.
+
+| # | Feature | Ev. | Effort | Verdict |
+| --- | --- | --- | --- | --- |
+| F194 | **Readiness state per method** — ready · better later · no material yet | B/C | M | **V1** — UC-057; never hides, never blocks |
+| F195 | One line of reason on a "better later" card, from the learner's own holdings | B | S | **V1** — UC-057. Without the reason it is a lock with better manners |
+| F196 | **Distance to a method** — what is missing and roughly how long, for "no material yet" | A | M | **V2** — UC-059, the coverage calculator read backwards |
+| F197 | Cell-aware material selection: exclude only the **unattemptable**, target weak cells when the method is about form | A | M | **V2** — UC-060, R4 |
+| F198 | One documented band per method, chosen by purpose, with its quantity named | — | S | **V1** — UC-060. Cheap now, a recalibration of every history later |
+| F199 | Recommended order as revisable advice with a reason, never a step | B | S | **V2** — UC-061, bounded by A8 |
+| F200 | Level derivation drilled to signal and cell granularity, frequency-weighted | D | M | **V2** — UC-062, UC-064 |
+| F201 | Reportability floor: no cell figure displayed until it survives its own standard error | B | M | **V2** — UC-064, R6 |
 
 ---
 

@@ -111,6 +111,12 @@ Three is the compromise: real choice, no decision load. Composed by four rules:
    **context → floor → effect → preference**. A method that cannot be performed
    right now has an effect of zero — it does not belong in the menu, not even
    greyed out.
+   **Readiness is not part of this chain** ([26](26-readiness-and-difficulty.md)).
+   Context is a hard filter because the learner physically cannot comply;
+   readiness only ever **demotes and annotates**, because the learner can always
+   comply and may be right to. No method is ever locked, and whether a
+   "better later" method may hold one of the three slots is
+   **⚠ SPEC GAP** (UC-057).
 4. **Variety across the week**, not within the day. Interleaving *within* a
    session is a task matter ([02](02-evidence.md), E6); method variety across days
    is something else and less well evidenced — **[C]**. It is here mainly because

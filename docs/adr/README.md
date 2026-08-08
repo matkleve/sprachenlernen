@@ -34,3 +34,4 @@ ADR stays — the fact that it was once the right answer is the most useful part
 | [0005](0005-local-first-review-log-with-accounts-as-an-addition.md) | Store the review log locally first, and add accounts as an addition rather than a migration | Accepted, one clause superseded by 0006 |
 | [0006](0006-require-an-account.md) | Require an account before the first review | Accepted |
 | [0007](0007-supabase-as-the-provider.md) | Use Supabase for authentication and the review-log database | Accepted |
+| [0008](0008-simulated-learners-as-a-test-harness.md) | Simulated learners as a test harness, never as evidence | Accepted |

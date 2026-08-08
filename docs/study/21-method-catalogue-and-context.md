@@ -55,6 +55,15 @@ That changes the ordering in the daily menu ([12](12-method-cards.md)):
 **filter by context first, then floor, then effect, then preference.** Previously
 context sat third. That was wrong.
 
+> **What this does not license, added 2026-08-08 by
+> [26](26-readiness-and-difficulty.md).** Context removes a method because the
+> learner *cannot* perform it — no paper, no voice, two minutes. **Readiness** is a
+> different quantity that looks superficially like it: whether the app can build
+> material at a sensible band right now. Readiness never removes and never blocks;
+> it demotes and annotates. Reading the two as one filter is how a context rule
+> ("not performable") turns into a gate ("not permitted"), which is what the whole
+> of chapter 26 exists to prevent.
+
 ### The context dimensions **[D]**
 
 Not "where are you" but **what is available right now**:

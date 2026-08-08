@@ -503,6 +503,35 @@ error as copying frequency block boundaries between languages
 ([19](19-milestones-and-map.md)). Either the band is labelled as borrowed, or it
 is calibrated and dated per language pair like the level calibration (F190).
 
+### 20 · What is a cell-level estimate computed from? — **decide before F194**
+
+The one quantity everything in [26](26-readiness-and-difficulty.md) inherits.
+Candidates: FSRS stability on cell-tagged tasks, a count of successful
+retrievals, or share correct on a deliberately sampled set. Each licenses
+different claims, and R6 says whichever it is, it needs an error term before any
+display or decision reads it. UC-064 holds the full statement of the gap.
+
+Note the dependency this creates: F194 (readiness state) is **V1**, and its
+reason line (F195) needs this quantity. Until it is answered, readiness can only
+speak in terms of coverage over known words — which is enough for reading and
+listening and says nothing about forms.
+
+### 21 · May a "better later" method hold one of the three daily slots?
+
+Three slots, one reserved for high measured effect
+([12](12-method-cards.md)). Spending one on a method the app has just said works
+better later has a real cost; keeping it out makes the guidance invisible to
+anyone who never browses the catalogue. Not blocking — the catalogue route works
+either way — but it decides whether readiness is guidance or trivia.
+
+### 22 · Is the simulation harness allowed to influence design? — **answered, ADR-0008**
+
+Recorded here because it is the kind of question that gets quietly re-answered:
+**no.** Simulated learners test the system's behaviour and the measurement's
+calibration. They may never be cited as evidence about learning, and no selection
+policy may be tuned against them — the RL-for-instruction literature is full of
+policies that beat baselines in simulation and not with people.
+
 ---
 
 ## What happens next
