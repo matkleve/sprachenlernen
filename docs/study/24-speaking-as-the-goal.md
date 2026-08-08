@@ -57,10 +57,18 @@ built for.
 
 ---
 
-## S2 · The sentence on the landing screen **[B — and better than you proposed]**
+## S2 · The demonstration sentence on **Home** **[B — and better than you proposed]**
 
 > *"Maybe a sentence on the landing screen that gets harder as your level rises,
 > and it says: look, you can already read this, that's level such-and-such."*
+
+> **⚠ Renamed 2026-08-08.** This section said "landing screen" throughout, and
+> "landing" has since been claimed by the **public landing page** — the signed-out
+> surface a visitor sees, which exists because an account is required
+> ([ADR-0006](../adr/0006-require-an-account.md)). Two different surfaces cannot
+> share a name (`AGENT-PITFALLS.md` §4), so: **Home** is the signed-in first
+> screen this section is about, and the sentence is the **demonstration
+> sentence**.
 
 This is a good idea and the research supports it — with one correction that makes
 it considerably stronger.

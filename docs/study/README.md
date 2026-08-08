@@ -60,7 +60,7 @@ only this table.
 | [21 · Method catalogue & context](21-method-catalogue-and-context.md) | The catalogue itself, why apps avoid the hard methods, and how context governs selection |
 | [22 · Visual design](22-visual-design.md) | Constraints for the look — and why a Duolingo palette would work against this product |
 | [23 · How an exercise runs](23-how-an-exercise-runs.md) | The step model: prepare, do, wait, check, decide — and why swiping is not doing |
-| [24 · Speaking as the goal](24-speaking-as-the-goal.md) | Serving one goal without corrupting the measurement, the sentence on the landing screen, stalling, and the honest use of a microphone |
+| [24 · Speaking as the goal](24-speaking-as-the-goal.md) | Serving one goal without corrupting the measurement, the demonstration sentence on Home, stalling, and the honest use of a microphone |
 | [25 · Why none of it feels productive](25-why-it-does-not-feel-productive.md) | What is actually wrong with the competition, sorted by defect — and when the feeling of getting nowhere is an illusion versus a correct reading |
 | [Sources](sources.md) | Literature, honestly marked by how far each was checked |
 

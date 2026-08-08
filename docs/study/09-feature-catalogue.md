@@ -301,7 +301,7 @@ be gone through and cut — the list is deliberately longer than what gets built
 | --- | --- | --- | --- | --- |
 | F165 | Goal setting changes the **headline skill**, the floors and content selection — and nothing else | D | S | **V2** — thesis 11; the level formula stays untouched |
 | F166 | Home surface leads with the goal skill and the gap to it (*"speaking A2.4, reading B1.3"*) | D | S | **V2** |
-| F167 | Sentence on the landing screen, one level step **above** the estimate | B | M | **V2** — CEFR-SP shows sentence level is estimable (macro-F1 84.5 %) |
+| F167 | **Demonstration sentence** on Home, one level step **above** the estimate | B | M | **V2** — CEFR-SP shows sentence level is estimable (macro-F1 84.5 %) |
 | F168 | It is **tapped, not self-reported** — "tap what you are unsure of" | B | S | **V2** — self-assessment is biased by proficiency in a known direction |
 | F169 | That response feeds the adaptive estimate as an IRT item | B | M | **later** — one sentence a day builds F24 without staging a test |
 | F170 | No CEFR label on the sentence in a language below quality tier B | — | S | **V2** — [18](18-language-kit.md) |

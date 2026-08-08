@@ -107,7 +107,7 @@ the cheapest honest display in the product and the only one that can say "at thi
 rate, not for years" ([25](25-why-it-does-not-feel-productive.md) C4).
 
 **F165–F170** belong here too — the goal skill in the headline and the sentence
-on the landing screen ([24](24-speaking-as-the-goal.md)). The sentence is the
+on Home ([24](24-speaking-as-the-goal.md)). The demonstration sentence is the
 first thing in this product that *shows* a level instead of asserting one, and
 it is the cheapest honest answer to "is this number true?" — which is the exact
 question this stage exists to settle. F169 (feeding the estimate as an item)

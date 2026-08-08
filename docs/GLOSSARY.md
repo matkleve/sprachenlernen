@@ -67,7 +67,10 @@ requires a `⚠ SPEC GAP` line, not a guess.
 | **Coverage** | Share of tokens in a given text this user knows. Selects content; 95–98 % is the target band. | reading level |
 | **Signal** | One measured input to a Level (the six in `study/03`). The only thing recorded directly. | a score |
 | **Calibration** | The versioned mapping from Signals to Levels. Changing it is a dated, visible event. | a formula |
-| **Demonstrated level** | A level the learner just showed rather than one computed for them — the landing sentence read without tapping anything. One item, and treated as one item. | the Level, a test result |
+| **Demonstrated level** | A level the learner just showed rather than one computed for them — the Demonstration sentence read without tapping anything. One item, and treated as one item. | the Level, a test result |
+| **Home** | The signed-in first screen: stats, the Demonstration sentence, the context filter and the Daily menu. | the Landing page (that is signed-out), the Map |
+| **Landing page** | The **signed-out** public surface at `/`. Everything a visitor sees before creating the account [ADR-0006](adr/0006-require-an-account.md) requires. | Home |
+| **Demonstration sentence** | One sentence shown on Home, a level step above the estimate, that the learner checks by tapping what they are unsure of. A demonstration, never a claim or a self-report. | a test, a placement question, a daily goal |
 | **Stagnation marker** | One of four observable patterns: below-norm accuracy on a cell, **alternation** on the same cell, backsliding, de-acceleration. Named as an observation with a matched Method, never as a verdict. | a plateau, low activity |
 
 ### Content → [`study/05`](study/05-input-reading-listening.md)
