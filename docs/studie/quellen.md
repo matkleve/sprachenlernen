@@ -46,6 +46,22 @@ können abweichen.
 
 ---
 
+## Fehleinschätzung des eigenen Lernens, Wahlfreiheit
+
+Die Grundlage für [12](12-methodenkarten.md) und [02](02-evidenz.md) E13.
+
+| | Quelle | Verwendet in |
+| --- | --- | --- |
+| ⬤ | *Why do people overestimate the effectiveness of blocked learning?* Psychonomic Bulletin & Review (2022) — Mechanismus: Leichtigkeit wird als Lernen gelesen, plus mitgebrachte Vorannahme. [Link](https://link.springer.com/article/10.3758/s13423-022-02225-7) | [02](02-evidenz.md) E13, [12](12-methodenkarten.md) |
+| ⬤ | Yan, Bjork & Bjork: *On the Difficulty of Mending Metacognitive Illusions.* Journal of Experimental Psychology: General. [Link](https://www.apa.org/pubs/journals/features/xge-xge0000177.pdf) | [12](12-methodenkarten.md), Überzeugungsfrage |
+| ⬤ | Bjork, Dunlosky & Kornell: *Self-regulated Learning: Beliefs, Techniques, and Illusions.* Annual Review of Psychology. [Link](https://sanlab.psych.ucla.edu/wp-content/uploads/sites/13/2016/07/RBjork_Dunlosky_Kornell_2012.pdf) | [02](02-evidenz.md) E1, E13 |
+| ⬤ | Firth et al. (2021): *A systematic review of interleaving as a concept learning strategy.* Review of Education — referiert Kornell & Bjork und die Barriere durch die Fehleinschätzung. [Link](https://bera-journals.onlinelibrary.wiley.com/doi/10.1002/rev3.3266) | [02](02-evidenz.md) E6, E13 |
+| ⬤ | Kang: *Interleaved Training and Category Learning* (Übersichtskapitel). [Link](https://www.unh.edu/teaching-learning-resource-hub/sites/default/files/media/2023-06/itow-interleaved-training-and-category-learning-kang.pdf) | [02](02-evidenz.md) E6 |
+| ⬤ | *Beyond autonomy: unpacking self-regulated and self-directed learning through the lens of learner agency* — Wahlfreiheit hebt Engagement; zu viel Auswahl überfordert schwach selbstregulierte Lernende. [Link](https://pmc.ncbi.nlm.nih.gov/articles/PMC11667877/) | [02](02-evidenz.md) E13, [12](12-methodenkarten.md) |
+| ◐ | Kornell & Bjork (2008): das Maler-Experiment selbst. Kernaussage über die vier vorstehenden Quellen bezogen, nicht aus dem Original | [02](02-evidenz.md) E13, [12](12-methodenkarten.md) |
+
+---
+
 ## Wortschatz, Abdeckung, Messung
 
 | | Quelle | Verwendet in |

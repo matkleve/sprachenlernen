@@ -14,9 +14,9 @@ Der Code und die Specs bleiben englisch (siehe [`../GLOSSARY.md`](../GLOSSARY.md
 
 ---
 
-## Die fünf Kernthesen
+## Die sechs Kernthesen
 
-Alles Weitere hängt an diesen fünf Sätzen. Wer nur fünf Minuten hat, liest nur
+Alles Weitere hängt an diesen sechs Sätzen. Wer nur fünf Minuten hat, liest nur
 diese Tabelle.
 
 | # | These | Folgt daraus |
@@ -26,6 +26,7 @@ diese Tabelle.
 | **3** | Karteikarten bauen **Wissen über** Wörter. Flüssigkeit entsteht nur aus Volumen an verständlichem Input. Beides ist nötig, keins ersetzt das andere. | Zwei gleichrangige Säulen: SRS **und** Lesen/Hören. → [05](05-input-lesen-hoeren.md) |
 | **4** | „Level A2" ist keine Zahl, sondern ein Bündel aus vier Fertigkeiten mit sehr unterschiedlichem Stand. Ein einziger Fortschrittsbalken lügt. | Level-Modell mit Sublevels **pro Fertigkeit**, plus ein ehrliches Gesamtlevel. → [03](03-level-modell.md) |
 | **5** | Die wirksamsten Übungen sind unbequem und teilweise nicht am Handy: Diktat, Handschrift, freies Produzieren. | Die App plant auch Offline-Übungen und nimmt deren Ergebnis wieder auf. → [07](07-offline-papier.md) |
+| **6** | Was sich beim Üben gut anfühlt, wirkt oft am wenigsten — und umgekehrt. Lernende halten das Falsche für wirksam, auch nachdem sie den Gegenbeweis erlebt haben. | Vorliebe und gemessene Wirkung sind **zwei getrennte Konten**. Vorliebe steuert die Form, Wirkung steuert die Auswahl. → [12](12-methodenkarten.md) |
 
 ---
 
@@ -44,7 +45,11 @@ diese Tabelle.
 | [09 · Feature-Katalog](09-feature-katalog.md) | Alle Ideen, jede mit Evidenzgrad, Aufwand und Urteil |
 | [10 · Anti-Patterns](10-antipatterns.md) | Was wir bewusst **nicht** bauen, und was das kostet |
 | [11 · Roadmap & offene Fragen](11-roadmap-offene-fragen.md) | Reihenfolge, Schnitt der ersten Version, und was du entscheiden musst |
+| [12 · Methodenkarten](12-methodenkarten.md) | Tägliche Methodenauswahl, Daumen hoch/runter, und warum der Daumen allein das System kaputtmacht |
 | [Quellen](quellen.md) | Literatur, mit ehrlicher Kennzeichnung was nachgeprüft wurde |
+
+Kapitel 12 ist nach der Roadmap entstanden und deshalb hinten angehängt; inhaltlich
+gehört es neben [08](08-motivation.md). Die Roadmap ist entsprechend ergänzt.
 
 ---
 

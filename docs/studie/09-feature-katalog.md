@@ -140,6 +140,21 @@ wird.
 
 ---
 
+## I · Methodenwahl → [12](12-methodenkarten.md)
+
+| # | Funktion | Ev. | Aufw. | Urteil |
+| --- | --- | --- | --- | --- |
+| F87 | Methodenkatalog: jede Methode mit Zielfertigkeit, **Zielsignal**, Intensität, Dauervarianten, Setting | D | M | **V2** — ohne Zielsignal ist Wirkung nicht messbar |
+| F88 | Methodenkarte mit Intensität, Dauer, „trainiert vor allem" | D | S | **V2** — deine Idee |
+| F89 | Tagesmenü: genau 3 Karten, nach Budget und Setting gefiltert | B | M | **V2** |
+| F90 | Budget-/Energiefilter („5 / 15 / 30 min · müde / geht / wach") | C | S | **V2** — ehrlicher als ein Tagesziel |
+| F91 | Daumen hoch/runter **plus** eine diagnostische Rückfrage | D | S | **V2** — der blanke Daumen ist fast wertlos |
+| F92 | Grundfrequenz pro Methode, mit Begründung und „kürzer statt seltener" | D | M | **V2** — dein „einmal die Woche"; hält das System stabil |
+| F93 | Deckel: max. **eine** Grundfrequenz-Aufforderung pro Tag | D | S | **V2** |
+| F94 | Wirkungsschätzung je Methode und Signal, mit Populationsstart und Unsicherheit | D | L | **später** — statistisch schwer, siehe [12](12-methodenkarten.md) |
+| F95 | Erkundungsanteil (10–20 % ungewählte Methoden im Menü) | D | S | **später** — ohne ihn ist die Schätzung eine sich selbst bestätigende Schleife |
+| F96 | Vorliebe und Wirkung getrennt gespeichert, nie zu einem Wert verrechnet | D | S | **V2** — sobald sie verschmelzen, ist die Unterscheidung unwiederbringlich weg |
+
 ## H · Grundlagen (unsichtbar, aber tragend)
 
 | # | Funktion | Ev. | Aufw. | Urteil |

@@ -42,6 +42,19 @@ F41–F46. Der aufwendigste Teil und der mit dem größten Unterschied. Bewusst 
 dem Lesen, weil er die Transkript- und Synchronisationsinfrastruktur braucht und
 weil der Abdeckungsrechner aus Stufe 3 hier wiederverwendet wird.
 
+### Stufe 4b · Methodenwahl
+
+F87–F93, F96. Kommt erst hier, weil eine Methodenauswahl mindestens vier
+Methoden zur Auswahl braucht — vorher ist das Menü eine Liste mit einem Eintrag.
+Die Wirkungsschätzung (F94) und die Erkundung (F95) kommen später: sie brauchen
+Monate an Daten, bevor sie etwas anderes als Rauschen liefern
+([12](12-methodenkarten.md)).
+
+Wichtig für die Reihenfolge: **die Grundfrequenzen (F92) müssen mit dem Menü
+zusammen kommen, nicht danach.** Ein Auswahlsystem ohne Untergrenzen konvergiert
+nach wenigen Wochen auf die angenehmsten Methoden, und die Nutzer haben sich bis
+dahin daran gewöhnt.
+
 ### Stufe 5 · Produktion und Offline
 
 F51–F53, F60, F64–F67, F72. Erst wenn Rezeption trägt — Produktionsübung ohne
@@ -163,13 +176,34 @@ Entscheidungen, die hier früh fallen — Datenmodell, Levelberechnung,
 Kartenzustände — sind die, die man später nicht mehr ändern kann, ohne allen
 Nutzern die Historie zu verbiegen.)
 
+### 11 · Darf eine Methode ganz verschwinden?
+
+[12](12-methodenkarten.md) sagt nein: jede Methode behält ihre Grundfrequenz,
+egal wie oft sie abgelehnt wird. Das ist die konsequente Position und sie folgt
+direkt aus E13 — aber sie heißt auch, dass ein Nutzer dauerhaft etwas angeboten
+bekommt, das er ausdrücklich nicht will, und das kann als Missachtung seines
+Feedbacks ankommen.
+
+Die Alternative wäre eine Ausstiegsmöglichkeit mit Reibung: „dauerhaft
+abschalten" versteckt in den Einstellungen, mit einem einmaligen Hinweis, was es
+kostet. Autonomiestützender, und riskiert genau die Verarmung, die A15 verhindern
+soll. **[D]** Ich neige zur Ausstiegsmöglichkeit — Punkt 4 der Überzeugungsfrage
+(„nicht überreden") gilt auch hier —, aber das ist deine Entscheidung.
+
+### 12 · Welche Methoden bekommen welche Grundfrequenz?
+
+Die Tabelle in [12](12-methodenkarten.md) ist ein Vorschlag **[D]**, kein
+Forschungsergebnis. Sie legt fest, was das System für unverzichtbar hält, und
+sollte deshalb bewusst gesetzt und datiert werden — wie die Kalibrierung in
+[03](03-level-modell.md).
+
 ---
 
 ## Was als Nächstes passiert
 
 Sobald Frage 1–4 beantwortet sind:
 
-1. `UC-004` bis `UC-008` schärfen (liegen als Entwurf in
+1. `UC-004` bis `UC-010` schärfen (liegen als Entwurf in
    [`../use-cases/`](../use-cases/)).
 2. ADR für die Datenmodellentscheidung aus Frage 4 schreiben — das ist der
    Lehrbuchfall für [`../adr/`](../adr/): teuer zu ändern, muss später

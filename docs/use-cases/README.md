@@ -62,3 +62,4 @@ and should stay until each is specified.
 | [UC-007](UC-007-read-something-at-my-level.md) | Read something I can almost understand | [05](../studie/05-input-lesen-hoeren.md) |
 | [UC-008](UC-008-listen-while-my-hands-are-busy.md) | Listen while walking, cooking or commuting | [05](../studie/05-input-lesen-hoeren.md) |
 | [UC-009](UC-009-practise-away-from-the-screen.md) | Practise on paper, and have it count | [07](../studie/07-offline-papier.md) |
+| [UC-010](UC-010-choose-how-to-practise-today.md) | Choose how to practise today, without choosing badly | [12](../studie/12-methodenkarten.md) |

@@ -252,3 +252,31 @@ Ehrlichkeitshalber, weil es sonst niemand dazusagt:
 
 Die zweite ist der eigentliche Produktauftrag: **Die App muss das
 Unangenehme erträglich machen, nicht das Angenehme wirksam behaupten.**
+
+---
+
+## E13 · Lernende halten das Falsche für wirksam — auch gegen eigene Beweise **[A]**
+
+Der Befund, der die Methodenauswahl in [12](12-methodenkarten.md) bestimmt, und
+die Verschärfung von E1 und E6.
+
+Kornell & Bjork ließen Versuchspersonen Gemälde von zwölf Malern blockweise oder
+verschachtelt lernen. Verschachtelt schnitt im anschließenden Test besser ab.
+Die Teilnehmer hielten trotzdem Blocktraining für wirksamer — **nachdem** sie
+den Test gemacht hatten, in dem sie mit der verschachtelten Variante besser
+abgeschnitten hatten.
+
+Die Ursache ist mechanisch: **Leichtigkeit beim Üben wird als Lernen gelesen.**
+Dazu kommt eine mitgebrachte Vorannahme, ein Thema nach dem anderen sei die
+richtige Reihenfolge. Eine Folgearbeit trägt den Titel *On the Difficulty of
+Mending Metacognitive Illusions* — Menschen ihre eigenen widersprechenden Daten
+zu zeigen, korrigiert die Fehleinschätzung nur teilweise.
+
+Gleichzeitig gilt: Wahlfreiheit über die eigene Übung steigert Engagement und
+Zufriedenheit (E7), wobei Lernende mit wenig Vorwissen oder schwacher
+Selbststeuerung von **zu viel** Auswahl überfordert werden — also genau die
+Anfänger.
+
+> **Produktsatz:** Nutzerbewertungen von Übungsmethoden dürfen die Auswahl nicht
+> allein steuern. Vorliebe und gemessene Wirkung werden getrennt geführt;
+> Wahlfreiheit ja, aber eng begrenzt (drei Optionen, nicht fünfzehn).

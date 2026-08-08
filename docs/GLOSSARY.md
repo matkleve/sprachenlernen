@@ -78,6 +78,24 @@ requires a `⚠ SPEC GAP` line, not a guess.
 | **Series** | Serie | 4–6 Texts or Tracks on one topic (narrow reading/listening). | a course, a unit |
 | **Sheet** | Blatt | A printable offline exercise, and the record that closes its loop back into Reviews. | a worksheet PDF |
 
+### Practice methods → [`studie/12`](studie/12-methodenkarten.md)
+
+| Term | Deutsch | Means | Not |
+| --- | --- | --- | --- |
+| **Method** | Methode | A named way of practising (dictation, listening at reveal level 1, free production …). Declares a target skill, a **target signal**, an intensity, duration variants and setting requirements. | a Task, a Session |
+| **Method card** | Methodenkarte | The user-facing presentation of a Method. | a Card (that is a Task) |
+| **Daily menu** | Tagesmenü | The three Methods offered today, given budget, setting, floors, effect and preference. | a plan, a course |
+| **Intensity** | Intensität | Cognitive load of a Method, in three steps. Answers "can I manage this now?" | duration, difficulty of the material |
+| **Setting** | Setting | What a Method physically requires: headphones, paper, quiet, free hands. Filters the menu. | a preference |
+| **Preference** | Vorliebe | The thumbs signal. Governs **form** — length, timing, share, framing. | a measure of effectiveness |
+| **Effect estimate** | Wirkungsschätzung | Measured movement of a Method's target signal per hour invested, with uncertainty. Governs **selection**. | Preference |
+| **Floor** | Grundfrequenz | The minimum rate at which a Method is offered regardless of Preference, derived from its role. Negotiates over length, never over existence. | a goal, a streak |
+| **Exploration** | Erkundung | The share of menu slots deliberately filled with a Method the system would not have chosen, so the Effect estimate has causal footing. | randomness, variety |
+
+**Preference and Effect estimate are never combined into one number.** Once they
+are, the distinction is gone and nothing surfaces the loss — see
+[`studie/12`](studie/12-methodenkarten.md).
+
 ### ⚠ Undecided
 
 | Term | What is unresolved |

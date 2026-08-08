@@ -138,9 +138,25 @@ also in der Mehrzahl der realen Lernsituationen.
 deutlichste denkbare Aussage darüber, wofür das Produkt optimiert.
 **Kostet uns:** Eine erwiesenermaßen wirksame Einnahmequelle.
 
+## A15 · Übungsmethoden nach Beliebtheit aussortieren
+
+**Nicht:** eine Methode entfernen oder auf null setzen, weil der Nutzer sie
+wiederholt schlecht bewertet.
+**Weil:** Vorliebe und Wirkung sind teilweise gegenläufig. Kornell & Bjork
+zeigten, dass Lernende Blocktraining für wirksamer halten als Verschachtelung —
+**auch nachdem** sie einen Test absolviert hatten, in dem das Gegenteil
+herauskam. Ein System, das auf Daumen optimiert, konvergiert deshalb gegen die
+angenehmsten und schwächsten Methoden ([12](12-methodenkarten.md)).
+**Stattdessen:** Vorliebe steuert Form (Länge, Zeitpunkt, Verpackung, Anteil),
+Wirkung steuert Auswahl; jede Methode hat eine begründete Grundfrequenz, unter
+die ihr Anteil nicht fällt.
+**Kostet uns:** Nutzer werden gelegentlich etwas angeboten bekommen, das sie
+nicht mögen — und das als Nichtbeachtung ihres Feedbacks erleben. Deshalb muss
+die Grundfrequenz sich begründen und über die Länge verhandeln lassen.
+
 ---
 
-## Die Regel hinter allen vierzehn
+## Die Regel hinter allen fünfzehn
 
 > **Was angezeigt wird, wird optimiert. Also darf prominent nur stehen, was zu
 > optimieren dem Lernen nützt.**
