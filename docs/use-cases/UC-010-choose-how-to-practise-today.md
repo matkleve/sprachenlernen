@@ -31,8 +31,13 @@ what teaches them least.
 - Options that do not fit the current setting are not offered.
 - After a session, one tap rates it — and a thumbs down asks one follow-up
   question, because "too long", "too hard" and "boring" have different fixes.
-- A disliked method becomes shorter, better-timed or differently framed. **It
-  does not disappear.**
+- A disliked method becomes shorter, better-timed or differently framed. The
+  **algorithm** never drops it to zero on its own.
+- The **learner** may hide a method deliberately — from settings, not from the
+  session; with one costed explanation drawn from their own data; visibly
+  hidden afterwards; restorable at any time.
+- Hiding every method that feeds a skill makes that skill read **"not
+  measured"** in UC-004. It never produces a low number instead.
 - When a method has not been done for longer than its role allows, the app says
   so **once**, gives the specific reason in terms of this learner's own data,
   and offers a shorter version rather than insisting.

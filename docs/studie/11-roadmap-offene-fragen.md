@@ -27,14 +27,15 @@ weil sie zeigt, was sie tut.
 
 ### Stufe 2 · Levelmodell
 
-F17–F22, **F102** (konfigurierbares Fertigkeitsprofil). Ab hier ist sie *anders*
-als alles andere. Das ist der Punkt, an dem sich zeigt, ob die Kernidee trägt:
-sagt die berechnete Zahl etwas, das der Nutzer als zutreffend erlebt?
+F17–F22, **F110** (Fertigkeitsstatus) und **F102** (konfigurierbares
+Fertigkeitsprofil). Ab hier ist sie *anders* als alles andere. Das ist der Punkt,
+an dem sich zeigt, ob die Kernidee trägt: sagt die berechnete Zahl etwas, das der
+Nutzer als zutreffend erlebt?
 
-F102 muss **hier** kommen und nicht später: ein Levelmodell, das eine
-abgewählte Fertigkeit mitrechnet, liefert für manche Nutzer dauerhaft falsche
-Zahlen ([14](14-barrierefreiheit.md)), und nachträglich zu ändern heißt, allen
-Nutzern die Historie zu verbiegen.
+F110 und F102 müssen **hier** kommen und nicht später: ein Levelmodell, das eine
+abgewählte oder ungemessene Fertigkeit mitrechnet, liefert für manche Nutzer
+dauerhaft falsche Zahlen ([14](14-barrierefreiheit.md)), und nachträglich zu
+ändern heißt, allen Nutzern die Historie zu verbiegen.
 
 ### Stufe 3 · Lesen
 
@@ -80,6 +81,18 @@ Wortschatz ist Frustration.
 
 Alles mit Urteil **V2** und **später** aus [09](09-feature-katalog.md), sortiert
 nach dem, was die Messung (unten) als Engpass ausweist.
+
+### Querschnitt · gilt ab der ersten Zeile Code
+
+Vier V1-Punkte gehören keiner Stufe, weil sie **jede** betreffen. Sie werden
+sonst zuverlässig vergessen, weil sie nie „dran" sind:
+
+| # | Was | Warum nicht später |
+| --- | --- | --- |
+| **F107** | Jedes fertigkeitsgebundene Spec benennt seinen Alternativweg | Eine Prozessregel. Ab dem ersten Spec kostenlos, danach eine Aufgabenmodell-Änderung mit Nutzerdaten daran ([14](14-barrierefreiheit.md)) |
+| **F103** | Karten mündlich oder per Auswahl beantwortbar, gleichwertig gezählt | Steckt im Aufgabenmodell aus Stufe 0/1. Nachträglich heißt: Historie neu bewerten |
+| **F83** | Datenexport, vollständig | [`../CONSTITUTION.md`](../CONSTITUTION.md) §2. Ein Export, der erst nach einem Jahr Daten gebaut wird, ist ein Migrationsprojekt |
+| **F85** | Meldeweg für falsche Inhalte | Ab dem ersten generierten Satz. Ohne ihn gibt es keine Rückmeldung darüber, wie gut die Generierung eigentlich ist ([10](10-antipatterns.md), A5) |
 
 ---
 
@@ -192,19 +205,19 @@ Entscheidungen, die hier früh fallen — Datenmodell, Levelberechnung,
 Kartenzustände — sind die, die man später nicht mehr ändern kann, ohne allen
 Nutzern die Historie zu verbiegen.)
 
-### 11 · Darf eine Methode ganz verschwinden?
+### ✔ 11 · Darf eine Methode ganz verschwinden? — **beantwortet 2026-08-08**
 
-[12](12-methodenkarten.md) sagt nein: jede Methode behält ihre Grundfrequenz,
-egal wie oft sie abgelehnt wird. Das ist die konsequente Position und sie folgt
-direkt aus E13 — aber sie heißt auch, dass ein Nutzer dauerhaft etwas angeboten
-bekommt, das er ausdrücklich nicht will, und das kann als Missachtung seines
-Feedbacks ankommen.
+**Ja, ausblenden ist erlaubt.** Entscheidung des Nutzers dieser Studie.
 
-Die Alternative wäre eine Ausstiegsmöglichkeit mit Reibung: „dauerhaft
-abschalten" versteckt in den Einstellungen, mit einem einmaligen Hinweis, was es
-kostet. Autonomiestützender, und riskiert genau die Verarmung, die A15 verhindern
-soll. **[D]** Ich neige zur Ausstiegsmöglichkeit — Punkt 4 der Überzeugungsfrage
-(„nicht überreden") gilt auch hier —, aber das ist deine Entscheidung.
+Ausgearbeitet in [12](12-methodenkarten.md), Abschnitt „Ausblenden": nur über
+die Einstellungen erreichbar (nicht aus dem Sitzungsverlauf heraus), mit einem
+einmaligen Hinweis aus den eigenen Daten, dauerhaft sichtbar als ausgeblendet,
+jederzeit rückholbar — und **die Konsequenz für das Levelmodell wird gezogen**:
+wer alle Methoden einer Fertigkeit ausblendet, bekommt dort „nicht gemessen",
+keine niedrige Zahl.
+
+A15 in [10](10-antipatterns.md) bleibt gültig und ist abgegrenzt: es verbietet
+dem **Algorithmus** das Aussortieren, nicht dem Menschen.
 
 ### 12 · Welche Methoden bekommen welche Grundfrequenz?
 

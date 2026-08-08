@@ -54,7 +54,7 @@ its primitives, kept until this project's own features replace them.
 | Next | Where |
 | --- | --- |
 | Answer the blocking questions (audience, language pair, web vs. native, data model) | [`docs/studie/11-roadmap-offene-fragen.md`](docs/studie/11-roadmap-offene-fragen.md) |
-| Turn UC-004 … UC-010 into specs | [`docs/use-cases/`](docs/use-cases/) → [`docs/SPEC-FORMAT.md`](docs/SPEC-FORMAT.md) |
+| Turn UC-004 … UC-026 into specs, in roadmap-stage order | [`docs/use-cases/`](docs/use-cases/) → [`docs/SPEC-FORMAT.md`](docs/SPEC-FORMAT.md) |
 | ADR for the Word/Task data model | [`docs/adr/`](docs/adr/) |
 
 ---

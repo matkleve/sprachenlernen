@@ -27,8 +27,14 @@ it is rare, discouraging, and gives no direction.
 - With too little data, the display says so — a range and "few data yet", never
   a precise-looking number.
 - Every number can be opened to show which measured signals produced it.
-- A skill never measured (e.g. speaking, if the user never spoke) reads
-  "not measured". It is never guessed.
+- Each skill carries one of four statuses — measured, uncertain, not measured,
+  not in profile — defined in
+  [`../studie/03-level-modell.md`](../studie/03-level-modell.md) and nowhere
+  else. A skill is **never guessed** to fill a gap.
+- The last two statuses are excluded from the overall level rather than scored
+  low, so a learner who cannot or does not use a skill is not penalised for it
+  (UC-010, UC-020).
+- The overall level states which skills it was computed from.
 - The level can go **down** after a long pause, and says what would bring it
   back.
 

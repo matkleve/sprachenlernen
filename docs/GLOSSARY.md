@@ -61,7 +61,8 @@ requires a `⚠ SPEC GAP` line, not a guess.
 | --- | --- | --- | --- |
 | **Skill** | Fertigkeit | One of exactly four: reading, listening, speaking, writing. | a topic, an exercise type |
 | **Level** | Level | A CEFR sub-level, `A1.1` … `C2.4`, plus percent within it. Always per Skill. | XP, a course position |
-| **Overall level** | Gesamtlevel | The **second-lowest** of the four Skill levels. Derived, never stored as truth. | the average |
+| **Overall level** | Gesamtlevel | Derived from the Skills that **count**: second-lowest of three or four, the minimum of two, undefined for one. Never stored as truth. | the average, a score over all four regardless of status |
+| **Skill status** | Fertigkeitsstatus | One of: measured · uncertain · not measured · not in profile. The last two are out of the Overall level. Defined in exactly one place — [`studie/03`](studie/03-level-modell.md). | a difficulty, a goal |
 | **Estimated vocabulary size** | Wortschatzgröße | Modelled count of known word families, from Stability × Frequency rank. | the number of Cards |
 | **Coverage** | Abdeckung | Share of tokens in a given text this user knows. Selects content; 95–98 % is the target band. | reading level |
 | **Signal** | Messgröße | One measured input to a Level (the six in `studie/03`). The only thing recorded directly. | a score |
@@ -91,6 +92,7 @@ requires a `⚠ SPEC GAP` line, not a guess.
 | **Effect estimate** | Wirkungsschätzung | Measured movement of a Method's target signal per hour invested, with uncertainty. Governs **selection**. | Preference |
 | **Floor** | Grundfrequenz | The minimum rate at which a Method is offered regardless of Preference, derived from its role. Negotiates over length, never over existence. | a goal, a streak |
 | **Exploration** | Erkundung | The share of menu slots deliberately filled with a Method the system would not have chosen, so the Effect estimate has causal footing. | randomness, variety |
+| **Hidden** | Ausgeblendet | A Method the *learner* deliberately switched off, from settings. Stays visibly hidden and is restorable. The **algorithm** may never put a Method in this state — that is A15. | a Method with a low share |
 
 **Preference and Effect estimate are never combined into one number.** Once they
 are, the distinction is gone and nothing surfaces the loss — see

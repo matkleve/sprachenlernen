@@ -126,12 +126,41 @@ trotzdem bewegt (Abdeckung, Stabilität, Lesegeschwindigkeit).
 
 ## Ebene 3: Das Gesamtlevel
 
-**[D]** Regel: **das Gesamtniveau ist das zweitniedrigste der vier
-Fertigkeitsniveaus.**
+### Der Status einer Fertigkeit — die einzige Stelle, wo das definiert ist
+
+Beim Durchgang über die Studie fiel auf, dass drei Kapitel dieselbe Sache
+unterschiedlich beschrieben haben. Sie gehört hierher, und die anderen verweisen
+nur noch:
+
+| Status | Wann | Zählt fürs Gesamtlevel? | Anzeige |
+| --- | --- | --- | --- |
+| **gemessen** | genug Ebene-1-Daten vorhanden | ja | Stufe + Prozent |
+| **unsicher** | wenige Daten | ja, mit Band | Stufe ± Spanne, „noch wenige Daten" |
+| **nicht gemessen** | Teil des Profils, aber keine Daten — nie gesprochen, oder alle zugehörigen Methoden ausgeblendet ([12](12-methodenkarten.md)) | **nein** | „nicht gemessen", mit dem Weg dorthin |
+| **nicht im Profil** | bewusst abgewählt ([14](14-barrierefreiheit.md)) | **nein** | „nicht Teil deines Profils" |
+
+Der Unterschied zwischen den letzten beiden ist keine Wortklauberei: *nicht
+gemessen* ist eine Lücke, die sich schließen lässt und deren Weg angezeigt wird;
+*nicht im Profil* ist eine Entscheidung, die respektiert und nicht kommentiert
+wird. Beide führen aber zum selben Rechenergebnis — sie sind aus der Formel
+draußen.
+
+### Die Formel
+
+**[D]** Regel: **das Gesamtniveau ist das zweitniedrigste der Fertigkeitsniveaus,
+die zählen.**
 
 Nicht der Durchschnitt (der versteckt eine Lücke), nicht das Minimum (ein
 einzelnes ungeübtes Feld drückt alles) und nicht das Maximum (das ist
 Selbstbetrug und der Grund, warum Leute im Ausland auf die Nase fallen).
+
+**Sonderfall:** Bleiben nur zwei zählende Fertigkeiten, ist „zweitniedrigste"
+gleich „höchste" — und damit zu optimistisch. Ab zwei Fertigkeiten gilt deshalb
+das **Minimum**, ab drei die Zweitniedrigste. Bei einer einzigen gibt es kein
+Gesamtlevel, sondern nur diese eine Fertigkeit. **⚠ Das ist eine
+Produktentscheidung [D] und sie war in der ersten Fassung nicht bedacht;** sie
+wurde beim Durchgang gefunden, weil [14](14-barrierefreiheit.md) Profile mit
+weniger als vier Fertigkeiten möglich macht.
 
 Dazu ein Satz Klartext neben der Zahl:
 

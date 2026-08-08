@@ -33,9 +33,12 @@ kein Darstellungsfehler, sondern ein Rechenfehler.
 
 > **Produktregel [D]:** Das Fertigkeitsprofil ist **konfigurierbar**. Wer eine
 > Fertigkeit abwählt, bekommt sie als „nicht Teil deines Profils" angezeigt, und
-> das Gesamtlevel wird aus den verbleibenden gebildet — mit derselben
-> Zweitniedrigste-Regel. Nicht „nicht gemessen", sondern bewusst nicht Teil des
-> Ziels.
+> das Gesamtlevel wird aus den verbleibenden gebildet.
+>
+> Der genaue Status und die Formel für weniger als vier Fertigkeiten stehen in
+> [03](03-level-modell.md), „Der Status einer Fertigkeit" — **dort und nur
+> dort**. „Nicht im Profil" ist ausdrücklich etwas anderes als „nicht gemessen":
+> das eine ist eine Entscheidung, das andere eine Lücke.
 
 ---
 

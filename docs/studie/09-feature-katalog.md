@@ -41,7 +41,8 @@ wird.
 | F17 | Wortschatzgrößen-Schätzung aus SRS-Daten + Frequenzrang | B | L | **V1** — Fundament für alles Weitere |
 | F18 | Vier getrennte Fertigkeitsniveaus | A | M | **V1** |
 | F19 | 24 Unterstufen (A1.1 … C2.4) + Prozent innerhalb der Stufe | D | S | **V1** |
-| F20 | Gesamtlevel = zweitniedrigste Fertigkeit, plus erklärender Satz | D | S | **V1** |
+| F20 | Gesamtlevel aus den zählenden Fertigkeiten (zweitniedrigste ab drei, Minimum bei zwei), plus erklärender Satz | D | S | **V1** |
+| F110 | Fertigkeitsstatus als Zustand: gemessen · unsicher · nicht gemessen · nicht im Profil | D | S | **V1** — ein Besitzer für eine Regel, die sonst in drei Kapiteln auseinanderläuft |
 | F21 | Verlaufskurve pro Fertigkeit (30 / 90 / 365 Tage) | D | M | **V1** — beantwortet „werde ich besser?" |
 | F22 | Unsicherheitsband bei dünner Datenlage | D | S | **V1** — Voraussetzung dafür, dass man der Zahl glaubt |
 | F23 | Aufklappbare Herleitung jeder Zahl | D | M | **V2** |

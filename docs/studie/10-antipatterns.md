@@ -154,6 +154,12 @@ die ihr Anteil nicht fällt.
 nicht mögen — und das als Nichtbeachtung ihres Feedbacks erleben. Deshalb muss
 die Grundfrequenz sich begründen und über die Länge verhandeln lassen.
 
+> **Abgrenzung (entschieden 2026-08-08):** Dieses Anti-Pattern verbietet, dass
+> **der Algorithmus** aussortiert. Es verbietet **nicht**, dass der Nutzer eine
+> Methode ausdrücklich ausblendet — das ist erlaubt, mit Reibung, und die
+> Regeln dafür stehen in [12](12-methodenkarten.md). Eine bewusste Entscheidung
+> ist etwas anderes als eine sich selbst verstärkende Häufigkeitsstatistik.
+
 ---
 
 ## Die Regel hinter allen fünfzehn

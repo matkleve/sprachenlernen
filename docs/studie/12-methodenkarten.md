@@ -190,6 +190,34 @@ wird abgeschaltet.
 
 ---
 
+## Ausblenden: entschieden **[D — Nutzerentscheidung, 2026-08-08]**
+
+Frage 11 aus [11](11-roadmap-offene-fragen.md) ist beantwortet: **eine Methode
+darf ausgeblendet werden.** Damit sticht Autonomie die Vollständigkeit — und das
+ist konsistent mit Punkt 4 der Überzeugungsfrage unten („nicht überreden").
+
+Die Begründung ist nicht, dass A15 falsch war. Sie ist, dass A15 einen anderen
+Fall trifft: **der Algorithmus darf nicht selbst aussortieren.** Ein Mensch, der
+eine ausdrückliche Entscheidung trifft, ist etwas anderes als eine
+Häufigkeitsstatistik, die sich selbst verstärkt. Das eine ist Autonomie, das
+andere ist Verarmung durch die Hintertür.
+
+Damit die Entscheidung eine Entscheidung bleibt und nicht ein Wegklicken wird:
+
+| Regel | Warum |
+| --- | --- |
+| **Nicht im Sitzungsverlauf erreichbar.** Nur in den Einstellungen, ein Weg mit Reibung | Ausblenden im Frust nach einer schlechten Sitzung ist keine Entscheidung, sondern eine Stimmung |
+| **Einmaliger Hinweis, was es kostet** — konkret und aus den eigenen Daten, nicht als Warnung | „Diktat ist die einzige Übung, die deine 41 nur-gelesenen Wörter findet. Ohne sie bleibt dein Hörlevel eine Schätzung." |
+| **Sichtbar bleiben, dass etwas ausgeblendet ist.** Eine ruhige Zeile im Methodenbereich, keine Mahnung | Sonst vergisst man in sechs Monaten, dass man es war und nicht die App |
+| **Jederzeit rückholbar, ohne Häme** | Der wahrscheinlichste Fall ist, dass jemand in drei Monaten anders darüber denkt |
+| **Die Folge fürs Level wird gezogen, nicht versteckt** | Wer alle Methoden einer Fertigkeit ausblendet, bekommt dort den Status **„nicht gemessen"** — keine niedrige Zahl. Definiert in [03](03-level-modell.md), „Der Status einer Fertigkeit" |
+
+Die letzte Regel ist die wichtige und die, die man leicht übersieht: Ausblenden
+ist **kein** Grund, weiterhin so zu tun, als sei die Messung vollständig. Wer
+Diktat und Hörabruf abschaltet, hat kein niedriges Hörlevel — er hat **keines**.
+
+---
+
 ## Wie der Algorithmus tatsächlich lernt
 
 **[D]** — und mit einer ehrlichen Warnung, weil das der Teil ist, der in
