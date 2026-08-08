@@ -7,6 +7,7 @@ Start at [`../AGENTS.md`](../AGENTS.md). Everything here is what it links to.
 | | Read |
 | --- | --- |
 | …understand what this product is and why | [`study/`](study/) |
+| …know what to build next, and who may build it | [`IMPLEMENTATION-PLAN.md`](IMPLEMENTATION-PLAN.md) |
 | …understand how work flows here | [`WORKFLOW.md`](WORKFLOW.md) |
 | …avoid the mistakes we keep making | [`AGENT-PITFALLS.md`](AGENT-PITFALLS.md) |
 | …find out what happened last session | [`diary/`](diary/) |
@@ -27,6 +28,7 @@ Start at [`../AGENTS.md`](../AGENTS.md). Everything here is what it links to.
 docs/
   study/            the research this product is derived from
   CONSTITUTION.md    non-negotiables — outranks everything
+  IMPLEMENTATION-PLAN.md  the code queue — what is next and who may do it
   WORKFLOW.md        pipeline, change classes, DoR/DoD, acceptance criteria
   SPEC-FORMAT.md     how to write a spec
   ARCHITECTURE.md    layers and dependency direction

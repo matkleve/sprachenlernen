@@ -2,7 +2,7 @@
 
 <!-- id: SPEC-service-lexicon -->
 <!-- use-case: UC-035 -->
-<!-- status: draft -->
+<!-- status: active -->
 
 Everything that is per-language: what counts as a word here, how text splits into
 words, which form belongs to which lemma, **which cell of which paradigm that

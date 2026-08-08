@@ -219,7 +219,7 @@ be gone through and cut — the list is deliberately longer than what gets built
 | F121 | Pair profile (contrast list, translation quality) | — | S | **V2** |
 | F122 | Lemmatisation via Stanza/UD rather than hand-written rules | — | M | **V1** — ~70 languages without doing linguistics |
 | F123 | Quality tier A/B/C, **derived** from the profile, never hand-set | D | S | **V2** |
-| F124 | Bootstrapping a new language: list + lemmatiser → tier C, generated deck → tier B | D | L | **V2** |
+| F124 | Bootstrapping a new language: frequency list → tier C, generated lemma table → tier B, dated calibration → tier A | D | L | **V2** — the tier measures data, never whether content was checked ([18](18-language-kit.md)) |
 | F125 | At tier C no level value, but the status "not measured" | D | S | **V2** |
 
 ---

@@ -2,7 +2,7 @@
 
 <!-- id: SPEC-service-scheduler -->
 <!-- use-case: UC-005 -->
-<!-- status: draft -->
+<!-- status: active -->
 
 The memory model. Given a task's review history, it says how likely recall is
 right now, when the task is next due, and what each possible answer would do to

@@ -128,12 +128,25 @@ product promise it is not. The way out is not to forgo it but to **label** it:
 
 | Tier | What exists | What the app shows |
 | --- | --- | --- |
-| **A** | Frequency list + lemmatiser + calibrated anchors + checked starter decks + contrast list | Everything. Level with normal uncertainty |
-| **B** | Frequency list + lemmatiser, anchors **estimated**, content generated and unchecked | Everything, but level with a **wider band**, content marked as generated |
-| **C** | Frequency list only, no reliable lemmatisation | Cards and input yes. **No level value** — skill status "not measured" ([03](03-level-model.md)) |
+| **A** | + a **dated calibration** of the anchors | Everything. Level with normal uncertainty |
+| **B** | + a **form→lemma table** carrying paradigm cells | Everything, but level with a **wider band** |
+| **C** | Frequency list only — no lemma table | Cards and input yes. **No level value** — skill status "not measured" ([03](03-level-model.md)) |
 
 Tier C is the honest handling of U1: where we cannot say what a word is, we
 cannot claim a vocabulary size. The app still works — it just claims less.
+
+**Correction of 2026-08-08.** This table used to define tier B as "anchors
+estimated, content generated and unchecked" and tier A as additionally having
+"checked starter decks + contrast list". That mixed two independent axes — how
+good the *lexical data* is, and whether the *content* has been checked — into one
+letter, and the implementation settled the question: the tier is derived purely
+from what the language's data contains
+([`../specs/service/lexicon.md`](../specs/service/lexicon.md)), because that is
+the only version a program can compute rather than assert. Whether generated
+content has been checked is a real and separate obligation, and it is marked on
+the content itself ([10](10-antipatterns.md), A5) — never inferred from a tier.
+Spanish and Italian reached **tier B on 2026-08-08** with no generated deck in
+existence, which is what exposed the conflation.
 
 **That is the answer to your question.** Every language: yes. Every language with
 the same authority: no, and showing that is more honest than hiding it.
@@ -142,14 +155,20 @@ the same authority: no, and showing that is more honest than hiding it.
 
 ## The bootstrap sequence for a new language
 
-1. Create the profile, obtain the frequency list and lemmatiser → tier C exists.
-2. Generate a starter deck from the top frequency ranks, translations by MT,
-   TTS audio → tier B, level with a wide band.
-3. Calibrate anchors once enough own data exists; have samples checked; build the
-   contrast list for the pair → tier A.
+1. Create the profile and obtain the frequency list → tier C exists. Cards and
+   reading work; no level is claimed.
+2. Generate the **form→lemma table with paradigm cells** from the morphological
+   resources at build time → tier B, level with a wide band.
+3. Calibrate the anchors against real data and date the calibration → tier A.
 
-Steps 1 and 2 are automatable — **that is your dream, and it works.** Step 3 is
-work, and it is the difference between "usable" and "trustworthy".
+Steps 1 and 2 are automatable — **that is your dream, and it works**: both
+shipped languages went through them on 2026-08-08. Step 3 is not automatable,
+because a calibration needs learners, and it is the difference between "usable"
+and "trustworthy".
+
+Content work — generated decks, MT translations, TTS audio, the contrast list for
+the pair — runs alongside this sequence and is *not* what the tier measures. See
+the correction above.
 
 ---
 
