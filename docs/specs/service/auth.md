@@ -12,12 +12,16 @@ user cannot read another Account's rows. **Sensitive** (`AGENTS.md`).
 
 ## Scope
 
-- **In:** `lib/db/client.ts` (the Supabase client factory — the only file
-  besides this spec's tests allowed to import `@supabase/*`), `lib/db/auth.ts`
-  (`signUp`, `signIn`, `signOut`, `getAccount`), `middleware.ts` (session
-  refresh), the `public.review_log` table's ownership columns and RLS
-  policies, and thin `/signup` and `/login` pages built only from `Field` and
-  `Button` (reuse — no new component).
+- **In:** `lib/db/client.ts` (the Supabase client factory for Server and
+  Client Components), `lib/db/auth.ts` (`signUp`, `signIn`, `signOut`,
+  `getAccount`), `middleware.ts` (session refresh), the `public.review_log`
+  table's ownership columns and RLS policies, and thin `/signup` and `/login`
+  pages built only from `Field` and `Button` (reuse — no new component).
+  `lib/db/client.ts` and `middleware.ts` are the only two files besides this
+  spec's tests allowed to import `@supabase/*` directly — `middleware.ts` is
+  a necessary second seam because it runs before any Server Component and
+  needs the request/response cookie API, not `next/headers`'s `cookies()`
+  that `lib/db/client.ts` uses.
 - **Out:** the review row's payload — word, task, grade, latency (T-B2, per
   ADR-0007's own scope note); any page that *requires* sign-in to view, since
   none exists yet (`/languages` and `/` are both signed-out surfaces — T-03,

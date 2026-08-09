@@ -77,7 +77,7 @@ authenticated Supabase MCP session, so it could not run DDL against the live
 project (`lnkgmjcueahhrzpnzmwq`) — those keys only ever reach PostgREST and Auth,
 never the database connection or the Management API. Someone with project access
 must run
-[`supabase/migrations/20260809073100_review_log_ownership.sql`](../../supabase/migrations/20260809073100_review_log_ownership.sql)
+[`supabase/migrations/20260809073100_review_log_ownership.sql`](../supabase/migrations/20260809073100_review_log_ownership.sql)
 once (SQL Editor, `supabase db push`, or the MCP once authenticated); after that,
 `npm test -- access-control` turns green with no code change. **T-B2 is
 unblocked to start its spec now** — the owner column T-B2 depends on exists in

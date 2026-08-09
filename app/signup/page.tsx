@@ -3,6 +3,7 @@ import { redirect } from "next/navigation";
 import { authContent } from "@/features/auth/content";
 import { SignUpForm } from "@/features/auth/SignUpForm";
 import { getAccount } from "@/lib/db/auth";
+import { safeDecodeURIComponent } from "@/lib/utils";
 
 /**
  * A page composes and passes data down — no logic here that a test can't
@@ -24,7 +25,7 @@ export default async function SignUpPage({
       <h1 className="text-2xl font-semibold tracking-tight text-ink">
         {authContent.signUp.heading}
       </h1>
-      <SignUpForm error={error ? decodeURIComponent(error) : undefined} sent={sent === "1"} />
+      <SignUpForm error={safeDecodeURIComponent(error)} sent={sent === "1"} />
     </div>
   );
 }

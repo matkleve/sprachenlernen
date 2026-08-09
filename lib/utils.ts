@@ -58,3 +58,17 @@ const twMerge = extendTailwindMerge({
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
+
+/**
+ * `decodeURIComponent`, but a malformed percent-encoding (e.g. a hand-edited
+ * `?error=%` in the address bar) returns `undefined` instead of throwing an
+ * uncaught `URIError` that would 500 the page.
+ */
+export function safeDecodeURIComponent(value: string | undefined): string | undefined {
+  if (!value) return undefined;
+  try {
+    return decodeURIComponent(value);
+  } catch {
+    return undefined;
+  }
+}
