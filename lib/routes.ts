@@ -13,6 +13,8 @@ export const routes = {
   languages: "/languages",
   signIn: "/login",
   signUp: "/signup",
+  /** Where Supabase sends users after they confirm email. */
+  authCallback: "/auth/callback",
   /** Public. The Grundriss worked example — stays reachable without an account. */
   primitives: "/primitives",
 
@@ -36,6 +38,7 @@ export const publicRoutes = [
   routes.languages,
   routes.signIn,
   routes.signUp,
+  routes.authCallback,
   routes.primitives,
 ] as const;
 
