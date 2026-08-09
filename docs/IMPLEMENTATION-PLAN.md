@@ -21,13 +21,15 @@ wins and this file is stale. Nothing normative may live only here.
 | `data/` | Spanish and Italian: frequency lists **and** lemma tables. Both at **quality tier B** |
 | `lib/method-catalogue.ts` + `data/methods/` | 53 methods, 6 commitments, 7 context presets. Schema, validation, context filter. 24 tests. Spec **active** |
 | `components/ui/` | Button, Field, Input, Select, Dialog, Table — inherited from Grundriss, specced, tested |
-| `features/` | `item-picker` and `primitives` — **both are the starter's worked examples** |
+| `features/` | `item-picker` and `primitives` — **both are the starter's worked examples**. `language-status` is the first that is not |
+| `app/languages/` | **Shipped 2026-08-09** (T-03). The language status page: derived tier, what it claims, what it does not, what the next tier needs. Server Component, 15 tests. Spec **active** |
 | `app/page.tsx` | Still the Grundriss demo. Headline reads "Grundriss — The plan comes before the building" |
 
-**The honest summary: two strong libraries and no product.** Nothing in `app/`
-belongs to this product yet. There is no screen a learner could open, so there is
-also no interaction flow to audit — the audit below is therefore about what the
-first flow must be, plus the interaction debt already sitting in the primitives.
+**The honest summary: two strong libraries and one screen.** `/languages` is the
+first surface that belongs to this product rather than to the starter — it holds
+no state, needs no account, and every value on it is derived rather than stored.
+That makes it the smallest honest thing the product could show, and it is
+deliberately not the front door: the menu (T-B10) is.
 
 ---
 
@@ -161,9 +163,14 @@ guard, and deleting a test because it was green on arrival is how the criterion
 goes unenforced again. If it fails, that is a real bug and the fix belongs in the
 same commit.
 
-### T-03 · The language status page
+### ~~T-03 · The language status page~~ — **shipped 2026-08-09**
 
-**Class:** Standard · **Reuse:** Table, Button · **Serves:**
+Built as specced, at `/languages`, with `docs/specs/page/language-status.md`
+**active** and 15 tests. `Reuse: Table` — no new component, and the guardrail
+below held: nothing needed a card. The requirements are kept below because they
+are now the record of what was agreed, and the spec is what governs.
+
+**Class:** Standard · **Reuse:** Table · **Serves:**
 [`use-cases/UC-036-know-how-much-to-trust-this-language.md`](use-cases/UC-036-know-how-much-to-trust-this-language.md)
 · **New spec:** `docs/specs/page/language-status.md` (`SPEC-page-language-status`)
 · **Route:** `/languages`
