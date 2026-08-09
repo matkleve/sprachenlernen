@@ -14,7 +14,7 @@ destination is built once and every screen inherits it.
 - **In:** the `(app)` layout; the three destinations — Methods, Words, Progress,
   in that order; the current-destination marker; the sign-out control; the
   account gate that keeps `(app)` routes signed-in only.
-- **Out:** what `/progress` contains (T-B3 — until then a holding page);
+- **Out:** what `/progress` contains ([`../page/progress.md`](../page/progress.md));
   `/words` content is [`../page/words.md`](../page/words.md); a fourth
   destination for profile or settings,
   which [ADR-0009](../../adr/0009-three-destinations.md) rejected as "a link in

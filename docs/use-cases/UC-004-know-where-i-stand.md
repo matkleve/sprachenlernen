@@ -1,7 +1,7 @@
 # UC-004 — Know where I stand, and whether I am getting better
 
 <!-- id: UC-004 -->
-<!-- specs:  -->
+<!-- specs: SPEC-page-progress -->
 
 **Who:** someone learning a language on their own, weeks or months in.
 **Wants to:** see their current level and whether it moved.

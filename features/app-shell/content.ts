@@ -24,11 +24,7 @@ export const holding = {
     intent:
       "Everything about your vocabulary: what is due now, what is held, what is shaky. Reviewing is one of the things you do here, not what this place is.",
   },
-  progress: {
-    title: "Progress",
-    intent:
-      "The level model drilled down to its signals, the dose ledger, and an honest 'not measured' wherever that is the truth.",
-    notYet:
-      "Not built yet. It arrives with the vocabulary estimate and the level display (T-B3), and it will have to render 'nothing measured yet' with dignity, because that is the state of every new account.",
-  },
+  // Progress is no longer a holding page — T-B3 built it. Its copy lives in
+  // features/progress/content.ts and its tab title comes from the destination
+  // name above, so the nav and the tab cannot drift apart.
 } as const;

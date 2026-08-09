@@ -1,24 +1,35 @@
 import type { Metadata } from "next";
 
-import { holding } from "@/features/app-shell/content";
+import { ErrorCallout } from "@/components/ui/ErrorCallout";
+import { copy as shellCopy } from "@/features/app-shell/content";
+import { copy } from "@/features/progress/content";
+import { ProgressReport } from "@/features/progress/ProgressReport";
+import { readProgress } from "@/features/progress/reading";
+import { toUserFacing } from "@/lib/errors";
 
 export const metadata: Metadata = {
-  title: holding.progress.title,
+  title: shellCopy.destinations.progress,
 };
 
 /**
- * A holding page — see app/(app)/words/page.tsx for why these exist at all.
- * What lives here is T-B3, and ADR-0009 already named the hardest part of it:
- * this is where "nothing measured yet" has to be rendered with dignity.
+ * The Progress destination (T-B3, first half). Contract:
+ * docs/specs/page/progress.md
+ *
+ * A page composes and passes data down — the derivation is in
+ * lib/level-model.ts and the loading in features/progress/reading.ts, so both
+ * are reachable by a test without a router (docs/ARCHITECTURE.md).
  */
-export default function ProgressPage() {
-  return (
-    <div className="mx-auto max-w-2xl px-6 pt-page-top pb-page-bottom">
-      <h1 className="text-3xl font-semibold tracking-tight text-ink">{holding.progress.title}</h1>
-      <p className="mt-4 text-base leading-relaxed text-muted">{holding.progress.intent}</p>
-      <p className="mt-page-content text-base leading-relaxed text-muted">
-        {holding.progress.notYet}
-      </p>
-    </div>
-  );
+export default async function ProgressPage() {
+  const outcome = await readProgress();
+
+  if (outcome.status === "error") {
+    return (
+      <div className="mx-auto max-w-2xl px-6 pt-page-top pb-page-bottom">
+        <h1 className="text-3xl font-semibold tracking-tight text-ink">{copy.title}</h1>
+        <ErrorCallout className="mt-page-content" {...toUserFacing(outcome.error)} />
+      </div>
+    );
+  }
+
+  return <ProgressReport reading={outcome.reading} />;
 }
