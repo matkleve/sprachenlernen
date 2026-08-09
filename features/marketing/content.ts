@@ -42,5 +42,6 @@ export const copy = {
     primaryCta: "Create account",
     secondaryCta: "Sign in",
     languagesLink: "What the app claims for each language",
+    designExplorerLink: "Compare five design directions",
   },
 } as const;

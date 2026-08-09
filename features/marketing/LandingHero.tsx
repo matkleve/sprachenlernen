@@ -55,12 +55,18 @@ export function LandingHero() {
         </ul>
       </section>
 
-      <p className="mt-page-content">
+      <p className="mt-page-content flex flex-col gap-3">
         <Link
           href={routes.languages}
           className="rounded-pill text-base text-accent underline underline-offset-4 transition-colors duration-150 ease-out-soft hover:text-accent-deep active:text-accent-deep focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-canvas"
         >
           {copy.landing.languagesLink}
+        </Link>
+        <Link
+          href="/dev/design"
+          className="rounded-pill text-base text-accent underline underline-offset-4 transition-colors duration-150 ease-out-soft hover:text-accent-deep active:text-accent-deep focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-canvas"
+        >
+          {copy.landing.designExplorerLink}
         </Link>
       </p>
     </div>
