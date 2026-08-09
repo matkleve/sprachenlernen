@@ -120,9 +120,9 @@ describe("Dialog", () => {
         <Dialog open onClose={noop} title="Leave without saving" />
       </>,
     );
-    const [first, second] = Array.from(document.querySelectorAll("dialog"));
-    const firstLabel = first.getAttribute("aria-labelledby")!;
-    const secondLabel = second.getAttribute("aria-labelledby")!;
+    const dialogs = document.querySelectorAll("dialog");
+    const firstLabel = dialogs[0]!.getAttribute("aria-labelledby")!;
+    const secondLabel = dialogs[1]!.getAttribute("aria-labelledby")!;
 
     expect(firstLabel).not.toBe(secondLabel);
     expect(document.getElementById(firstLabel)?.textContent).toBe("Delete project");

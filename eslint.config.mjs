@@ -4,7 +4,10 @@ const compat = new FlatCompat({ baseDirectory: import.meta.dirname });
 
 const config = [
   {
-    ignores: [".next/**", "node_modules/**", "next-env.d.ts"],
+    // `.next*` rather than `.next`, because `verify` builds into `.next-verify`
+    // (next.config.ts § distDir). Linting a build output is 6000 problems in
+    // generated code, and it looks like the gate found something.
+    ignores: [".next*/**", "node_modules/**", "next-env.d.ts"],
   },
   ...compat.extends("next/core-web-vitals", "next/typescript", "plugin:jsx-a11y/recommended"),
   {
