@@ -11,11 +11,12 @@ import { NextResponse, type NextRequest } from "next/server";
  * refreshing sessions, which surfaces days later as "users get signed out
  * randomly" (see docs/TRAPS.md-style failures this is written to avoid).
  *
- * Deliberately does **not** redirect signed-out visitors anywhere: no route
- * in this app requires an account yet (`/languages` and `/` are both meant to
- * work signed out — see T-03 and ADR-0006). The first protected route adds
- * its own check with `getAccount()`, the same way app/login and app/signup
- * already do for the opposite case.
+ * Deliberately does **not** redirect signed-out visitors anywhere, even now
+ * that protected routes exist. The gate lives in `app/(app)/layout.tsx`
+ * (docs/specs/feature/app-shell.md), because the route group and the auth
+ * boundary are the same line by construction — a matcher pattern here would be
+ * a second, hand-maintained copy of that list, and the failure mode is a route
+ * added to the group that the pattern does not cover.
  *
  * Pattern is Supabase's current one for `@supabase/ssr` — `getAll`/`setAll`
  * only, never the deprecated per-cookie `get`/`set`/`remove`:

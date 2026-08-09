@@ -3,6 +3,7 @@ import { redirect } from "next/navigation";
 import { authContent } from "@/features/auth/content";
 import { SignUpForm } from "@/features/auth/SignUpForm";
 import { getAccount } from "@/lib/db/auth";
+import { routes } from "@/lib/routes";
 import { safeDecodeURIComponent } from "@/lib/utils";
 
 /**
@@ -16,7 +17,7 @@ export default async function SignUpPage({
   searchParams: Promise<{ error?: string; sent?: string }>;
 }) {
   const account = await getAccount();
-  if (account) redirect("/");
+  if (account) redirect(routes.appHome);
 
   const { error, sent } = await searchParams;
 

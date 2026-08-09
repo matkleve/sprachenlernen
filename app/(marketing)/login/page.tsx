@@ -3,6 +3,7 @@ import { redirect } from "next/navigation";
 import { authContent } from "@/features/auth/content";
 import { SignInForm } from "@/features/auth/SignInForm";
 import { getAccount } from "@/lib/db/auth";
+import { routes } from "@/lib/routes";
 import { safeDecodeURIComponent } from "@/lib/utils";
 
 /**
@@ -16,7 +17,7 @@ export default async function LoginPage({
   searchParams: Promise<{ error?: string }>;
 }) {
   const account = await getAccount();
-  if (account) redirect("/");
+  if (account) redirect(routes.appHome);
 
   const { error } = await searchParams;
 

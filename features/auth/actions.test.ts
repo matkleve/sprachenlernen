@@ -25,7 +25,7 @@ beforeEach(() => {
 });
 
 describe("signUpAction", () => {
-  it("redirects to / on a signed-in outcome", async () => {
+  it("redirects to the app home on a signed-in outcome, not to the landing page", async () => {
     vi.mocked(signUp).mockResolvedValue({
       status: "signed-in",
       account: { id: "u1", email: "a@example.com" },
@@ -34,7 +34,7 @@ describe("signUpAction", () => {
     await signUpAction(formData({ email: "a@example.com", password: "correct horse battery staple" }));
 
     expect(signUp).toHaveBeenCalledWith("a@example.com", "correct horse battery staple");
-    expect(redirect).toHaveBeenCalledWith("/");
+    expect(redirect).toHaveBeenCalledWith("/methods");
   });
 
   it("redirects to the confirmation-sent state, not /", async () => {
@@ -58,7 +58,7 @@ describe("signUpAction", () => {
 });
 
 describe("signInAction", () => {
-  it("redirects to / on success", async () => {
+  it("redirects to the app home on success — ADR-0010, signing in lands on /methods", async () => {
     vi.mocked(signIn).mockResolvedValue({
       status: "signed-in",
       account: { id: "u1", email: "a@example.com" },
@@ -66,7 +66,7 @@ describe("signInAction", () => {
 
     await signInAction(formData({ email: "a@example.com", password: "correct horse battery staple" }));
 
-    expect(redirect).toHaveBeenCalledWith("/");
+    expect(redirect).toHaveBeenCalledWith("/methods");
   });
 
   it("redirects back to /login with the error encoded, on invalid credentials", async () => {

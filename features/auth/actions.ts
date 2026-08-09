@@ -3,6 +3,7 @@
 import { redirect } from "next/navigation";
 
 import { signIn, signUp } from "@/lib/db/auth";
+import { routes } from "@/lib/routes";
 
 /**
  * Server Actions bound directly to `<form action={...}>` from a Server
@@ -23,12 +24,12 @@ export async function signUpAction(formData: FormData): Promise<void> {
   const result = await signUp(email, password);
 
   if (result.status === "error") {
-    redirect(`/signup?error=${encodeURIComponent(result.error)}`);
+    redirect(`${routes.signUp}?error=${encodeURIComponent(result.error)}`);
   }
   if (result.status === "confirmation-required") {
-    redirect("/signup?sent=1");
+    redirect(`${routes.signUp}?sent=1`);
   }
-  redirect("/");
+  redirect(routes.appHome);
 }
 
 export async function signInAction(formData: FormData): Promise<void> {
@@ -36,7 +37,7 @@ export async function signInAction(formData: FormData): Promise<void> {
   const result = await signIn(email, password);
 
   if (result.status === "error") {
-    redirect(`/login?error=${encodeURIComponent(result.error)}`);
+    redirect(`${routes.signIn}?error=${encodeURIComponent(result.error)}`);
   }
-  redirect("/");
+  redirect(routes.appHome);
 }

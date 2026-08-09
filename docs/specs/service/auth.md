@@ -23,19 +23,20 @@ user cannot read another Account's rows. **Sensitive** (`AGENTS.md`).
   needs the request/response cookie API, not `next/headers`'s `cookies()`
   that `lib/db/client.ts` uses.
 - **Out:** the review row's payload — word, task, grade, latency (T-B2, per
-  ADR-0007's own scope note); any page that *requires* sign-in to view, since
-  none exists yet (`/languages` and `/` are both signed-out surfaces — T-03,
-  ADR-0006); a visible sign-out control (no signed-in nav exists to host one —
-  T-B7/T-B10); password reset, OAuth, and changing an Account's email.
+  ADR-0007's own scope note); the account gate on signed-in routes and the
+  visible sign-out control, both of which this spec listed as out for want of a
+  signed-in surface and which
+  [`../feature/app-shell.md`](../feature/app-shell.md) took over on 2026-08-09;
+  password reset, OAuth, and changing an Account's email.
 
 ## Behavior
 
 | # | User action | System response |
 | --- | --- | --- |
-| 1 | Submits the signup form with an email and a password | An Account is created. If Supabase's project settings return a session immediately, the visitor is signed in and sent to `/`. If email confirmation is required, they see "check your email" and no session is created yet |
-| 2 | Submits the sign-in form with valid credentials | An auth session is created (cookie, via `middleware.ts`) and the visitor is sent to `/` |
+| 1 | Submits the signup form with an email and a password | An Account is created. If Supabase's project settings return a session immediately, the visitor is signed in and sent to `/methods`. If email confirmation is required, they see "check your email" and no session is created yet |
+| 2 | Submits the sign-in form with valid credentials | An auth session is created (cookie, via `middleware.ts`) and the visitor is sent to `/methods` |
 | 3 | Submits either form with invalid input | The page re-renders with the error Supabase reported next to the password field; no account or session is created |
-| 4 | Opens `/login` or `/signup` while already signed in | Redirected to `/`; the form is never shown |
+| 4 | Opens `/login` or `/signup` while already signed in | Redirected to `/methods`; the form is never shown |
 | 5 | (Any signed-in request) | `middleware.ts` revalidates and refreshes the session cookie before any Server Component runs |
 
 ## States
@@ -76,7 +77,8 @@ to signed-out; a successful sign-in moves the other way.
 - [ ] Given a Supabase error on signup or sign-in, when the form is submitted,
       then the page shows that error and creates no Account and no session.
 - [ ] Given valid credentials for an existing Account, when a visitor submits
-      `/login`, then they are signed in and redirected to `/`.
+      `/login`, then they are signed in and redirected to `/methods` — the app's
+      default route, per ADR-0010, never the public landing page.
 - [ ] Given a signed-in Account, when it inserts a `review_log` row with its
       own `user_id`, then the insert succeeds and a `select` returns that row.
 - [ ] **The negative case, BACKEND.md §8:** given two signed-in Accounts A and
@@ -91,7 +93,7 @@ to signed-out; a successful sign-in moves the other way.
       it is refused outright (no `anon` grant), distinct from "signed in, saw
       nothing".
 - [ ] Given a signed-in Account, when it opens `/login` or `/signup`, then it
-      is redirected to `/` and never shown the form.
+      is redirected to `/methods` and never shown the form.
 
 ## Open questions
 
