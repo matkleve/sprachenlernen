@@ -4,128 +4,220 @@
     {
       "id": "extensive-reading",
       "name": "Extensive reading at coverage",
+      "summary": "Read something you mostly understand, without stopping",
       "type": "method",
       "trains": "reading, incidental vocabulary",
-      "skills": ["reading"],
+      "skills": [
+        "reading"
+      ],
       "targetSignal": "lexicalCoverage",
       "evidence": "A",
       "demanding": false,
       "hosted": true,
       "intensity": 2,
-      "durations": [10, 20, 45],
-      "requires": { "eyes": ["free"] },
+      "durations": [
+        10,
+        20,
+        45
+      ],
+      "requires": {
+        "eyes": [
+          "free"
+        ]
+      },
       "offerEveryDays": 3.5,
       "doesNotDo": "It does not fix a word in memory. Words met while reading are met once; without the schedule picking them up they are gone in a week."
     },
     {
       "id": "narrow-reading",
       "name": "Narrow reading",
+      "summary": "Four texts on one subject, so the words come back",
       "type": "method",
       "trains": "the same as extensive reading, faster, by reusing one topic's vocabulary",
-      "skills": ["reading"],
+      "skills": [
+        "reading"
+      ],
       "targetSignal": "lexicalCoverage",
       "evidence": "B",
       "demanding": false,
       "hosted": true,
       "intensity": 2,
-      "durations": [15, 30],
-      "requires": { "eyes": ["free"] },
+      "durations": [
+        15,
+        30
+      ],
+      "requires": {
+        "eyes": [
+          "free"
+        ]
+      },
       "offerEveryDays": null,
       "doesNotDo": "It broadens nothing. Four texts on one subject build that subject's vocabulary and leave the rest of the language exactly where it was."
     },
     {
       "id": "intensive-reading",
       "name": "Intensive reading",
+      "summary": "One paragraph, taken apart until nothing is unclear",
       "type": "method",
       "trains": "form, precision, noticing",
-      "skills": ["reading"],
+      "skills": [
+        "reading"
+      ],
       "targetSignal": "formMastery",
       "evidence": "B",
       "demanding": true,
       "hosted": true,
       "intensity": 3,
-      "durations": [15, 25],
-      "requires": { "eyes": ["free"], "attention": ["full"] },
+      "durations": [
+        15,
+        25
+      ],
+      "requires": {
+        "eyes": [
+          "free"
+        ],
+        "attention": [
+          "full"
+        ]
+      },
       "offerEveryDays": null,
       "doesNotDo": "It builds no volume. One paragraph exhaustively is the opposite of the input quantity fluency needs, and it cannot substitute for it."
     },
     {
       "id": "reading-aloud",
       "name": "Reading aloud",
+      "summary": "Read a passage out loud, at a speaking pace",
       "type": "method",
       "trains": "pronunciation, flow, segmentation",
-      "skills": ["reading", "speaking"],
+      "skills": [
+        "reading",
+        "speaking"
+      ],
       "targetSignal": null,
       "evidence": "B",
       "demanding": false,
       "hosted": true,
       "intensity": 2,
-      "durations": [5, 10, 20],
-      "requires": { "eyes": ["free"], "voice": ["aloud"] },
+      "durations": [
+        5,
+        10,
+        20
+      ],
+      "requires": {
+        "eyes": [
+          "free"
+        ],
+        "voice": [
+          "aloud"
+        ]
+      },
       "offerEveryDays": null,
       "doesNotDo": "It is not speaking. Every word is chosen for you, so it trains articulation and rhythm while leaving retrieval untouched."
     },
     {
       "id": "reading-while-listening",
       "name": "Reading and listening at once",
+      "summary": "Follow the text while a voice reads it to you",
       "type": "method",
       "trains": "listening, segmentation",
-      "skills": ["reading", "listening"],
+      "skills": [
+        "reading",
+        "listening"
+      ],
       "targetSignal": "successByDifficulty",
       "evidence": "B",
       "demanding": false,
       "hosted": true,
       "intensity": 1,
-      "durations": [10, 20, 40],
-      "requires": { "eyes": ["free"], "sound": ["speaker", "headphones"] },
+      "durations": [
+        10,
+        20,
+        40
+      ],
+      "requires": {
+        "eyes": [
+          "free"
+        ],
+        "sound": [
+          "speaker",
+          "headphones"
+        ]
+      },
       "offerEveryDays": null,
       "doesNotDo": "It does not test listening. The text carries you, so it cannot tell you what you would have understood without it."
     },
     {
       "id": "reread-something-hard",
       "name": "Re-read something that was too hard",
+      "summary": "Open something that beat you months ago",
       "type": "method",
       "trains": "the competence moment — noticing that it got easier",
-      "skills": ["reading"],
+      "skills": [
+        "reading"
+      ],
       "targetSignal": null,
       "evidence": "D",
       "demanding": false,
       "hosted": true,
       "intensity": 1,
-      "durations": [10, 20],
-      "requires": { "eyes": ["free"] },
+      "durations": [
+        10,
+        20
+      ],
+      "requires": {
+        "eyes": [
+          "free"
+        ]
+      },
       "offerEveryDays": null,
       "doesNotDo": "It teaches almost nothing new. Its whole value is evidence of progress you can feel, which is a motivation effect and not a learning one."
     },
     {
       "id": "parallel-text",
       "name": "Parallel text",
+      "summary": "The same passage in both languages, side by side",
       "type": "method",
       "trains": "structure, idiom",
-      "skills": ["reading"],
+      "skills": [
+        "reading"
+      ],
       "targetSignal": null,
       "evidence": "C",
       "demanding": false,
       "hosted": true,
       "intensity": 2,
-      "durations": [15, 30],
-      "requires": { "eyes": ["free"] },
+      "durations": [
+        15,
+        30
+      ],
+      "requires": {
+        "eyes": [
+          "free"
+        ]
+      },
       "offerEveryDays": null,
       "doesNotDo": "It removes the retrieval attempt. With the translation beside it, nothing forces you to work the meaning out, and unworked meaning does not stick."
     },
     {
       "id": "book-you-know",
       "name": "A book you already know in your own language",
+      "summary": "A book you know by heart, in the new language",
       "type": "method",
       "trains": "comprehension without a dictionary",
-      "skills": ["reading"],
+      "skills": [
+        "reading"
+      ],
       "targetSignal": "lexicalCoverage",
       "evidence": "C",
       "demanding": true,
       "hosted": false,
-      "intensity": 2,
+      "intensity": 3,
       "durations": null,
-      "requires": { "eyes": ["free"] },
+      "requires": {
+        "eyes": [
+          "free"
+        ]
+      },
       "offerEveryDays": null,
       "doesNotDo": "It lets you understand the story without understanding the sentences. Prior knowledge fills the gaps, so comprehension overstates what you read."
     }

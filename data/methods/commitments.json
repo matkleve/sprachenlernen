@@ -4,9 +4,12 @@
     {
       "id": "switch-phone-language",
       "name": "Switch your phone's language",
+      "summary": "Your phone speaks the language from now on",
       "type": "commitment",
       "trains": "incidental everyday vocabulary",
-      "skills": ["reading"],
+      "skills": [
+        "reading"
+      ],
       "targetSignal": null,
       "evidence": "D",
       "demanding": false,
@@ -21,9 +24,12 @@
     {
       "id": "write-to-one-friend",
       "name": "Write to one friend only in the target language",
+      "summary": "One person you only ever write to in the language",
       "type": "commitment",
       "trains": "production with a genuine reason to be understood",
-      "skills": ["writing"],
+      "skills": [
+        "writing"
+      ],
       "targetSignal": null,
       "evidence": "D",
       "demanding": true,
@@ -38,6 +44,7 @@
     {
       "id": "label-the-flat",
       "name": "Label the flat",
+      "summary": "Names on the things you walk past every day",
       "type": "commitment",
       "trains": "everyday vocabulary",
       "skills": [],
@@ -55,9 +62,12 @@
     {
       "id": "one-series-target-audio",
       "name": "Watch one series only with target-language audio",
+      "summary": "One series you never watch in your own language",
       "type": "commitment",
       "trains": "listening, by removing the choice",
-      "skills": ["listening"],
+      "skills": [
+        "listening"
+      ],
       "targetSignal": null,
       "evidence": "D",
       "demanding": true,
@@ -72,9 +82,12 @@
     {
       "id": "shopping-list-in-your-head",
       "name": "Think through your shopping list in the target language",
+      "summary": "Run everyday lists through the language in your head",
       "type": "commitment",
       "trains": "retrieval in the middle of ordinary life",
-      "skills": ["speaking"],
+      "skills": [
+        "speaking"
+      ],
       "targetSignal": null,
       "evidence": "D",
       "demanding": false,
@@ -89,9 +102,13 @@
     {
       "id": "hobby-in-target-language",
       "name": "Pursue one hobby in the target language",
+      "summary": "One thing you love, done in the language",
       "type": "commitment",
       "trains": "everything, voluntarily",
-      "skills": ["reading", "listening"],
+      "skills": [
+        "reading",
+        "listening"
+      ],
       "targetSignal": null,
       "evidence": "D",
       "demanding": false,

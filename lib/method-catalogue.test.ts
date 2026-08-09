@@ -38,6 +38,7 @@ const presets = (): Preset[] => {
 const aMethod = (over: Partial<MethodEntry> = {}) => ({
   id: "a-method",
   name: "A method",
+  summary: "What you actually do, in one line",
   type: "method",
   trains: "something",
   skills: ["reading"],
@@ -56,6 +57,7 @@ const aMethod = (over: Partial<MethodEntry> = {}) => ({
 const aCommitment = (over: Record<string, unknown> = {}) => ({
   id: "a-commitment",
   name: "A commitment",
+  summary: "What you actually do, in one line",
   type: "commitment",
   trains: "something",
   skills: [],
@@ -86,6 +88,13 @@ describe("the shipped catalogue", () => {
   it("covers all eight sections", () => {
     const sections = new Set(shipped().entries.map((entry) => entry.section));
     expect([...sections].sort()).toEqual([...SECTIONS].sort());
+  });
+
+  it("gives every entry a card subtitle that is not its name again", () => {
+    for (const entry of shipped().entries) {
+      expect(entry.summary.length, entry.id).toBeGreaterThan(15);
+      expect(entry.summary.toLowerCase(), entry.id).not.toBe(entry.name.toLowerCase());
+    }
   });
 
   it("says what every entry does not do", () => {

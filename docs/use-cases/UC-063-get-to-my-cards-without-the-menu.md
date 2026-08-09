@@ -46,16 +46,15 @@ Naming a navigation destination after a method; a review counter in any form; an
 promoting flashcards above the catalogue in the daily menu's composition, which
 is governed by [12](../study/12-method-cards.md) and unaffected by navigation.
 
-## Undecided
+## Decided
 
-- **⚠ SPEC GAP: the app has no navigation model at all.** Nothing in the
-  repository specifies global navigation — no chapter, no feature, no use case
-  mentions tabs or routes beyond `/` and `/languages`. This use case assumes a
-  persistent bottom bar because the owner asked for one; the number of
-  destinations, and whether this one is among them, is undecided.
-- **⚠ SPEC GAP: three destinations or four.** A dedicated words destination is
-  the owner's request; the alternative folds the card engine's surfaces into a
-  progress destination and keeps the bar at three. Reachability is already
-  guaranteed either way, since flashcards carry a daily offer rate — so what is
-  at stake is prominence, which [`../study/22-visual-design.md`](../study/22-visual-design.md)
-  G3 reserves for what is useful to optimise.
+Both gaps below closed on 2026-08-09 with
+[ADR-0009](../adr/0009-three-destinations.md): **three destinations — Methods,
+Words, Progress** — with Methods as the default route. The destination is named
+for the material, which is what this use case asked for, and the count stays
+banned in every form.
+
+~~**⚠ SPEC GAP: the app has no navigation model at all.**~~ Answered.
+~~**⚠ SPEC GAP: three destinations or four.**~~ Three. The fourth would have
+been a profile or settings tab, which is a link in a corner rather than a fifth
+of the screen.

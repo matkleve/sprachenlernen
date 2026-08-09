@@ -16,7 +16,31 @@
  *   context, because it runs in the background of a life rather than in a slot
  *   (study/24, S4). Filtering it by "do you have paper" is a category error, so
  *   the type system and the validator both refuse to let it carry one.
+ *
+ * The context model itself lives in `lib/learning-context.ts` and is re-exported
+ * here, so `@/lib/method-catalogue` stays the one import a caller needs.
  */
+
+export {
+  CONTEXT_DIMENSIONS,
+  TIME_BUDGETS,
+  loadPresets,
+  type Context,
+  type Dimension,
+  type Preset,
+  type PresetsResult,
+  type TimeBudget,
+} from "./learning-context";
+
+import {
+  CONTEXT_DIMENSIONS,
+  ID_PATTERN,
+  isNonEmptyString,
+  isRecord,
+  oneOf,
+  type Context,
+  type TimeBudget,
+} from "./learning-context";
 
 export const SECTIONS = [
   "reading",
@@ -48,30 +72,6 @@ export type Signal = (typeof SIGNALS)[number];
 export const EVIDENCE_GRADES = ["A", "B", "C", "D"] as const;
 export type EvidenceGrade = (typeof EVIDENCE_GRADES)[number];
 
-// --- the context model -------------------------------------------------------
-
-/**
- * The eight dimensions of study/21. `time` is deliberately absent from a
- * method's requirements: a method states its duration variants and the fit is
- * computed, rather than every entry restating the same budget list.
- */
-export const CONTEXT_DIMENSIONS = {
-  eyes: ["free", "occupied"],
-  hands: ["free", "one", "none"],
-  voice: ["aloud", "quiet", "none"],
-  writingSurface: ["paper", "keyboard", "touch", "none"],
-  sound: ["speaker", "headphones", "silent"],
-  attention: ["full", "divided", "fragmented"],
-  company: ["alone", "speakers", "others"],
-} as const;
-
-export const TIME_BUDGETS = ["2", "15", "45", "open"] as const;
-export type TimeBudget = (typeof TIME_BUDGETS)[number];
-
-export type Context = {
-  [K in keyof typeof CONTEXT_DIMENSIONS]: (typeof CONTEXT_DIMENSIONS)[K][number];
-} & { time: TimeBudget };
-
 /** Which values of a dimension the method can be performed in. */
 export type RequirementSet = {
   [K in keyof typeof CONTEXT_DIMENSIONS]?: readonly (typeof CONTEXT_DIMENSIONS)[K][number][];
@@ -88,13 +88,26 @@ export type RequirementSet = {
  */
 export type Requirements = RequirementSet | readonly RequirementSet[];
 
-export type Preset = { id: string; name: string; context: Context };
-
 // --- entries -----------------------------------------------------------------
+
+/**
+ * Cognitive load, not duration — it answers "can I manage this right now?",
+ * which is the question most sessions founder on (study/12).
+ *
+ * Anchored so that the three values mean the same thing across fifty-three
+ * entries. Without anchors an authored 1–3 scale is three shades of nothing.
+ */
+export const INTENSITY = {
+  1: "can be done tired or distracted",
+  2: "needs attention, but not effort",
+  3: "you will be tired afterwards",
+} as const;
 
 type EntryCommon = {
   id: string;
   name: string;
+  /** The card's subtitle: what you actually do, in one line, no jargon. */
+  summary: string;
   section: Section;
   /** Prose, from the catalogue table. Shown on the card; never parsed. */
   trains: string;
@@ -134,20 +147,8 @@ export type Entry = MethodEntry | CommitmentEntry;
 export type Catalogue = { entries: Entry[] };
 
 export type LoadResult = { catalogue?: Catalogue; errors: string[] };
-export type PresetsResult = { presets?: Preset[]; errors: string[] };
 
 // --- validation --------------------------------------------------------------
-
-const isRecord = (value: unknown): value is Record<string, unknown> =>
-  typeof value === "object" && value !== null && !Array.isArray(value);
-
-const isNonEmptyString = (value: unknown): value is string =>
-  typeof value === "string" && value.trim() !== "";
-
-const oneOf = <T extends string>(value: unknown, allowed: readonly T[]): value is T =>
-  typeof value === "string" && (allowed as readonly string[]).includes(value);
-
-const ID_PATTERN = /^[a-z0-9]+(-[a-z0-9]+)*$/;
 
 const validateRequirementSet = (value: unknown, where: string, errors: string[]) => {
   if (!isRecord(value)) {
@@ -207,7 +208,7 @@ const validateEntry = (input: unknown, section: Section, index: number, errors: 
     errors.push(`${where}.id: required, lowercase kebab-case`);
   }
 
-  for (const key of ["name", "trains", "doesNotDo"] as const) {
+  for (const key of ["name", "summary", "trains", "doesNotDo"] as const) {
     if (!isNonEmptyString(input[key])) {
       errors.push(`${where}.${key}: required, must be a non-empty string`);
     }
@@ -323,56 +324,6 @@ export const loadCatalogue = (inputs: readonly unknown[]): LoadResult => {
 
   if (errors.length) return { errors };
   return { catalogue: { entries }, errors: [] };
-};
-
-export const loadPresets = (input: unknown): PresetsResult => {
-  const errors: string[] = [];
-
-  if (!isRecord(input) || !Array.isArray(input.presets)) {
-    return { errors: ["presets: required array"] };
-  }
-
-  const ids = new Set<string>();
-
-  input.presets.forEach((preset, index) => {
-    if (!isRecord(preset)) {
-      errors.push(`presets[${index}]: must be an object`);
-      return;
-    }
-    if (!isNonEmptyString(preset.id) || !ID_PATTERN.test(preset.id)) {
-      errors.push(`presets[${index}].id: required, lowercase kebab-case`);
-    } else if (ids.has(preset.id)) {
-      errors.push(`presets[${index}].id: "${preset.id}" is already used`);
-    } else {
-      ids.add(preset.id);
-    }
-    if (!isNonEmptyString(preset.name)) errors.push(`presets[${index}].name: required`);
-
-    const context = preset.context;
-    if (!isRecord(context)) {
-      errors.push(`presets[${index}].context: required object`);
-      return;
-    }
-    for (const [dimension, allowed] of Object.entries(CONTEXT_DIMENSIONS)) {
-      if (!oneOf(context[dimension], allowed)) {
-        errors.push(`presets[${index}].context.${dimension}: one of ${allowed.join(", ")}`);
-      }
-    }
-    if (!oneOf(context.time, TIME_BUDGETS)) {
-      errors.push(`presets[${index}].context.time: one of ${TIME_BUDGETS.join(", ")}`);
-    }
-    // A misspelt dimension would otherwise sit in the file looking applied. A
-    // preset is a complete context; there is nothing else it can legitimately
-    // carry.
-    for (const key of Object.keys(context)) {
-      if (key !== "time" && !(key in CONTEXT_DIMENSIONS)) {
-        errors.push(`presets[${index}].context.${key}: not a context dimension`);
-      }
-    }
-  });
-
-  if (errors.length) return { errors };
-  return { presets: input.presets as Preset[], errors: [] };
 };
 
 // --- filtering ---------------------------------------------------------------

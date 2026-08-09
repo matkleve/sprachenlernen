@@ -18,6 +18,9 @@ the next person who finds it inconvenient.
       validate.
 - [ ] AC-3 · Given the shipped catalogue, when its sections are collected, then
       all eight are present.
+- [ ] AC-3b · Given any shipped entry, then it has a `summary` that is not
+      merely its name repeated. *It is the card's subtitle. A card whose second
+      line restates its first has spent a line telling you nothing.*
 - [ ] AC-4 · Given any shipped entry, then its `doesNotDo` is non-trivial.
       *The honest half of the info page is the product's distinguishing claim;
       an entry without it is a recommendation.*

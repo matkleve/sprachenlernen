@@ -59,7 +59,7 @@ Full pipeline, Definition of Ready and Definition of Done:
    (`bg-surface`, `text-ink`). New value → token in `app/globals.css` first.
    Enforced by `check:tokens`.
 4. **No interactive element without all five states** — default, hover, active,
-   focus-visible, disabled. See [`docs/DESIGN-SYSTEM.md`](docs/DESIGN-SYSTEM.md).
+ focus-visible, disabled. One narrow exemption, in [`docs/DESIGN-SYSTEM.md`](docs/DESIGN-SYSTEM.md).
 5. **Server Components by default.** `"use client"` only for state, effects, or
    event handlers — and as far down the tree as possible.
 6. **Ask before changing visual design.** Behavior fixes are free. Changing

@@ -88,7 +88,7 @@ presets — a floor the learner has no way to act on is worse than no floor.
 | Field | Shape | Both types |
 | --- | --- | --- |
 | `id` | lowercase kebab-case, unique across the catalogue | ● |
-| `name`, `trains` | non-empty strings — `trains` is prose, never parsed | ● |
+| `name`, `summary`, `trains` | non-empty strings. `summary` is the card's subtitle — what you do, one line. `trains` is prose, never parsed | ● |
 | `section` | one of eight; taken from the file, not repeated per entry | ● |
 | `skills` | subset of `reading listening speaking writing`, may be empty | ● |
 | `targetSignal` | one of the seven layer-1 signals, or `null` | ● |
@@ -96,7 +96,7 @@ presets — a floor the learner has no way to act on is worse than no floor.
 | `demanding` | "avoided by engagement-optimised apps", not "hard for you" | ● |
 | `hosted` | whether the app runs it | ● |
 | `doesNotDo` | the honest half of the info page. **Required** | ● |
-| `intensity` | `1 2 3` | method |
+| `intensity` | `1 2 3`, anchored below | method |
 | `durations` | ascending minutes, or `null` for open-ended | method |
 | `requires` | dimension → permitted values, or a list of alternative sets of those. **Non-empty** | method |
 | `offerEveryDays` | the floor, in days, or `null` | method |
@@ -106,7 +106,17 @@ Context dimensions: `eyes hands voice writingSurface sound attention company`,
 plus `time` on a context but never on an entry. Seven presets ship; a preset is
 a full context under a name, because asking four questions before someone may
 learn rebuilds the barrier to entry from
-[01](../../study/01-duolingo.md) S1.
+[01](../../study/01-duolingo.md) S1. The context model lives in
+`lib/learning-context.ts` — a context describes a person and a moment, an entry
+describes a way of practising, and keeping them in one module is how the
+"cannot perform" quantity and the "may not perform" one start to look alike.
+
+**Intensity is cognitive load, not duration** ([12](../../study/12-method-cards.md)),
+and it is anchored so that the same number means the same thing across
+fifty-three entries: **1** can be done tired or distracted, **2** needs
+attention but not effort, **3** will leave you tired. Duration is a separate
+field and they come apart often — a two-minute card review is a 2, and a
+forty-five-minute audiobook is a 1.
 
 `offerEveryDays` bounds what the app **offers**, never what the learner owes
 ([12](../../study/12-method-cards.md), corrected 2026-08-08). Five entries carry
@@ -165,8 +175,6 @@ In [`method-catalogue.acceptance-criteria.md`](method-catalogue.acceptance-crite
 - **⚠ SPEC GAP: whether a preset may be edited or created by the learner.**
   [21](../../study/21-method-catalogue-and-context.md) says presets are
   editable; nothing here writes, so they are constants.
-- `intensity` is authored on a 1–3 scale with no definition behind it. Before it
-  reaches a card it needs one, or it is three shades of nothing.
 - `demanding` is a boolean and
   [21](../../study/21-method-catalogue-and-context.md) marks two entries **very
   hard**. The distinction is lost; the card spec will need it back.

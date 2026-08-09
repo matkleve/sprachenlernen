@@ -73,6 +73,25 @@ interface feels broken even when it works.
 Reference implementation: [`components/ui/Button.tsx`](../components/ui/Button.tsx).
 New interactive elements reuse that pattern — they do not reinvent it.
 
+### The one exemption **[D — 2026-08-09]**
+
+**A native form control may omit `hover` and `active`.** `<select>` and `<input>`
+hand their pressed and hovered rendering to the platform: the option list is an
+OS popup we cannot style, and a hover tint we add competes with the one the
+system draws. Styling them anyway produces two disagreeing affordances, which is
+worse than one.
+
+**`focus-visible` and `disabled` are never exempt**, on anything, ever.
+[`CONSTITUTION.md`](CONSTITUTION.md) §3 makes a visible focus state
+non-waivable, and those two are the states that carry the accessibility weight —
+hover and active are polish, and polish is what an exemption may cost.
+
+This resolves a standing conflict rather than creating one: `Select.tsx` and
+`Input.tsx` already implement exactly these four. It was the specs that were
+short a row, and the boundary that admitted no exceptions. Both are now right.
+The exemption is **narrow on purpose** — it names native form controls, not
+"anything the platform helps with". A custom listbox is not a `<select>`.
+
 Two things that are easy to get wrong:
 
 - **`hover:` on touch devices sticks.** On mobile the hover style can remain

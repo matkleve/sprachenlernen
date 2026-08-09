@@ -36,8 +36,15 @@ for a nicer arrow.
 | State | Trigger | Effect | Terminal? |
 | --- | --- | --- | --- |
 | default | — | `border-line` | no |
+| focus-visible | keyboard focus | `ring-2 ring-accent` with an offset. Never waivable | no |
 | invalid | Field has an `error` | `border-danger` via `aria-invalid` | no |
 | disabled | `disabled` | 50% opacity, not focusable | no |
+
+**No `hover` and no `active`, deliberately** — the exemption in
+[`DESIGN-SYSTEM.md`](../../DESIGN-SYSTEM.md). The option list is an OS popup, so
+a tint we add competes with the one the platform draws. The row above was
+missing before 2026-08-09, which made this spec look like it was three states
+short of the boundary when it was one.
 
 ## Wiring
 
