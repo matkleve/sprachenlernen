@@ -16,11 +16,14 @@ the existing RLS policy. A reviewer may escalate.
 
 - **In:** `lib/level-model.ts` (pure: review history → skill statuses and layer-1
   signal values), `features/progress/`, `app/(app)/progress/page.tsx`.
+- **In, from T-B4:** the "what a level costs" section, rendering
+  [`../service/dose-band.md`](../service/dose-band.md).
 - **Out:** the **estimated vocabulary size** and the level display it feeds
   (F17–F22) — see Open questions; trend over 30/90/365 days (V1) and every other
   comparison in [`study/03`](../../study/03-level-model.md) V2–V4; the dose
-  ledger (F184, T-B4); the vocabulary atlas and horizon; goals; the cold-start
-  test; any second language.
+  ledger's **numerator** (hours practised — see
+  [`../service/dose-band.md`](../service/dose-band.md)); the vocabulary atlas and
+  horizon; goals; the cold-start test; any second language.
 
 **Reuse: `Table`** for the skills, as `/languages` does — same shape of claim,
 same reason not to invent a card.
@@ -73,6 +76,9 @@ signal starts arriving.
       ([`study/25`](../../study/25-why-it-does-not-feel-productive.md) C3).
 - [ ] Given the review log returns an error, then the error surface renders and
       the page does not read as "nothing learned yet".
+- [ ] Given the dose section, then the band, the fifteen-minute arithmetic, the
+      borrowed-and-uncalibrated statement and the reason there is no
+      hours-practised figure all appear.
 
 ## Open questions
 

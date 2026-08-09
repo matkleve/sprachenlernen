@@ -46,6 +46,25 @@ export const copy = {
     "You have not reviewed anything yet, so nothing below has a value. That is the honest starting state, not a failure.",
   startReview: "Start a review session",
 
+  doseHeading: "What a level costs",
+  doseIntro:
+    "The hours below are the denominator nobody in this category publishes. They are guided learning hours from a standing start — the total to reach that level, not the cost of the step.",
+  doseCaption: "Cumulative guided hours per level, and what a daily habit reaches",
+  doseColumns: {
+    level: "Level",
+    hours: "Guided hours",
+    atFifteen: "At 15 minutes a day",
+  },
+  doseHours: (min: number, max: number) => `${min}–${max} hours`,
+  doseYears: (minYears: number, maxYears: number) =>
+    `${minYears.toFixed(1)}–${maxYears.toFixed(1)} years`,
+  doseHabit: (hours: number) =>
+    `Fifteen minutes a day, every day without missing one, is about ${Math.round(hours)} hours a year.`,
+  doseBorrowed:
+    "These figures are borrowed and uncalibrated: English-derived institutional estimates, used here for a different language pair. Treat them as an order of magnitude, not a measurement. A guided hour is also instructed time with feedback, which app minutes only partly are — so the comparison flatters the app rather than the reverse.",
+  doseNoNumerator:
+    "There is no line here for the hours you have practised, because the app does not count them. It records how long each card took, which is time inside review sessions and nothing else — and roughly a third to a half of the practice this app recommends happens away from it. A total built only from card time would be wrong by an unknowable amount, and dividing it into the hours above would make the error look precise.",
+
   gapHeading: "What is missing, and why",
   gapBody:
     "The signal that would carry a level is estimated vocabulary size, and it is not built. It works by extrapolating what you know across a language's frequency list, and the shipped pool is fifty words — an estimate drawn from that would be a claim about Spanish made from one session. The mapping from vocabulary size to a level also still needs calibrating per language. Both are named in the spec rather than approximated here.",

@@ -2,6 +2,7 @@ import Link from "next/link";
 
 import { buttonVariants } from "@/components/ui/Button";
 import { Table, Td, Th } from "@/components/ui/Table";
+import { DOSE_BANDS, hoursPerYear, yearsToReach } from "@/lib/dose-band";
 import type { LevelReading } from "@/lib/level-model";
 import { routes } from "@/lib/routes";
 import { cn } from "@/lib/utils";
@@ -20,6 +21,13 @@ import { copy, routeToMeasuring, signalNames, skillNames, statusNames } from "./
  * that number's derivation — honesty rule 3, "every number opens" — and is
  * deliberately never shown on its own as an achievement.
  */
+/**
+ * study/25 C4's own worked example, so the page reproduces the chapter's
+ * arithmetic rather than a second one. Not a setting: a habit picker is a goal
+ * feature (V2) and nobody has specced one.
+ */
+const HABIT_MINUTES_PER_DAY = 15;
+
 export function ProgressReport({ reading }: { reading: LevelReading }) {
   const stability = reading.signals.find((signal) => signal.id === "recall-stability");
   const hasAnyData = reading.signals.some((signal) => signal.status === "has-data");
@@ -98,6 +106,46 @@ export function ProgressReport({ reading }: { reading: LevelReading }) {
             ))}
           </tbody>
         </Table>
+      </section>
+
+      <section className="mt-page-content">
+        <h2 className="text-xl font-semibold text-ink">{copy.doseHeading}</h2>
+        <p className="mt-4 max-w-2xl text-base leading-relaxed text-muted">{copy.doseIntro}</p>
+        <p className="mt-4 max-w-2xl text-base leading-relaxed text-muted">
+          {copy.doseHabit(hoursPerYear(HABIT_MINUTES_PER_DAY))}
+        </p>
+
+        <Table caption={copy.doseCaption} className="mt-6">
+          <thead>
+            <tr>
+              <Th scope="col">{copy.doseColumns.level}</Th>
+              <Th scope="col">{copy.doseColumns.hours}</Th>
+              <Th scope="col">{copy.doseColumns.atFifteen}</Th>
+            </tr>
+          </thead>
+          <tbody>
+            {DOSE_BANDS.map((band) => {
+              const years = yearsToReach(band.level, HABIT_MINUTES_PER_DAY);
+
+              return (
+                <tr key={band.level}>
+                  <Th scope="row">{band.level}</Th>
+                  <Td>{copy.doseHours(band.minHours, band.maxHours)}</Td>
+                  <Td>
+                    {years === null ? copy.noValue : copy.doseYears(years.minYears, years.maxYears)}
+                  </Td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </Table>
+
+        {/* Not a footnote. The band is uncalibrated for this language pair, and
+            question 19's answer is that a surface showing it says so. */}
+        <p className="mt-6 max-w-2xl text-base leading-relaxed text-muted">{copy.doseBorrowed}</p>
+        <p className="mt-4 max-w-2xl text-base leading-relaxed text-muted">
+          {copy.doseNoNumerator}
+        </p>
       </section>
 
       <section className="mt-page-content">

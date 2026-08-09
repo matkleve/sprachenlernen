@@ -3,6 +3,7 @@ import { describe, expect, it } from "vitest";
 
 import { ProgressReport } from "@/features/progress/ProgressReport";
 import { copy, statusNames } from "@/features/progress/content";
+import { hoursPerYear, yearsToReach } from "@/lib/dose-band";
 import { readLevel } from "@/lib/level-model";
 import { rebuild, type Review } from "@/lib/scheduler";
 
@@ -57,14 +58,40 @@ describe("ProgressReport", () => {
   });
 
   it("shows recall stability as a value with its derivation, and no CEFR level", () => {
-    const { container } = render(<ProgressReport reading={withHistory} />);
+    render(<ProgressReport reading={withHistory} />);
 
     const stability = withHistory.signals.find((signal) => signal.id === "recall-stability")!;
     expect(screen.getByText(copy.stabilityValue(stability.value!, stability.taskCount))).toBeDefined();
 
     // study/03 § What a signal may and may not claim: a signal rendered as
     // "Recall stability: A2" invents a level the model does not define.
-    expect(leafText(container)).not.toMatch(/\b[ABC][12](\.\d)?\b/);
+    //
+    // Scoped to the signals table, not the page. Written page-wide it went red
+    // the moment the dose band arrived, because that table's rows are *called*
+    // A1…B2 — and those are levels being costed, not signals being labelled.
+    // A page-wide ban on the letters would have been a rule nobody stated.
+    const signalsTable = screen.getByRole("region", { name: copy.signalsCaption });
+    expect(leafText(signalsTable)).not.toMatch(/\b[ABC][12](\.\d)?\b/);
+  });
+
+  it("shows the dose band with its borrowed label, and no numerator", () => {
+    render(<ProgressReport reading={withHistory} />);
+
+    // The band is the point of F184, and the caveat is question 19's answer —
+    // a figure from an uncalibrated table shown without it is the claim the
+    // study spends C4 refusing to make.
+    expect(screen.getByText(copy.doseHours(350, 400))).toBeDefined();
+    expect(screen.getByText(copy.doseBorrowed)).toBeDefined();
+    expect(screen.getByText(copy.doseNoNumerator)).toBeDefined();
+  });
+
+  it("reproduces the chapter's arithmetic rather than inventing a second one", () => {
+    render(<ProgressReport reading={empty} />);
+
+    expect(screen.getByText(copy.doseHabit(hoursPerYear(15)))).toBeDefined();
+
+    const b1 = yearsToReach("B1", 15)!;
+    expect(screen.getByText(copy.doseYears(b1.minYears, b1.maxYears))).toBeDefined();
   });
 
   it("presents no count that can only rise as progress", () => {
