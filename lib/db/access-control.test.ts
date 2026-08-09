@@ -73,25 +73,35 @@ describe.skipIf(!hasLiveProject)("review_log row-level security", () => {
     return client;
   }
 
+  function reviewPayload(userId: string) {
+    return {
+      user_id: userId,
+      installation_id: crypto.randomUUID(),
+      task_id: "access-control-test-task",
+      grade: "good" as const,
+      reviewed_at: new Date().toISOString(),
+      latency_ms: 100,
+    };
+  }
+
   it("lets a signed-in user insert and read their own review row", async () => {
     const asA = await signInAs(userA.email);
 
-    const { error: insertError } = await asA
-      .from("review_log")
-      .insert({ user_id: userA.id, installation_id: crypto.randomUUID() });
+    const { error: insertError } = await asA.from("review_log").insert(reviewPayload(userA.id));
     expect(insertError).toBeNull();
 
-    const { data, error } = await asA.from("review_log").select("id, user_id, installation_id");
+    const { data, error } = await asA
+      .from("review_log")
+      .select("id, user_id, installation_id, task_id, grade, latency_ms");
     expect(error).toBeNull();
     expect(data).toHaveLength(1);
     expect(data?.[0]?.user_id).toBe(userA.id);
+    expect(data?.[0]?.task_id).toBe("access-control-test-task");
   });
 
   it("never returns another user's review rows — the negative case this test exists for", async () => {
     const asA = await signInAs(userA.email);
-    await asA
-      .from("review_log")
-      .insert({ user_id: userA.id, installation_id: crypto.randomUUID() });
+    await asA.from("review_log").insert(reviewPayload(userA.id));
 
     const asB = await signInAs(userB.email);
     const { data, error } = await asB.from("review_log").select("*");
@@ -106,9 +116,7 @@ describe.skipIf(!hasLiveProject)("review_log row-level security", () => {
   it("refuses to insert a review row owned by someone else", async () => {
     const asB = await signInAs(userB.email);
 
-    const { error } = await asB
-      .from("review_log")
-      .insert({ user_id: userA.id, installation_id: crypto.randomUUID() });
+    const { error } = await asB.from("review_log").insert(reviewPayload(userA.id));
 
     expect(error).not.toBeNull();
   });
@@ -117,7 +125,7 @@ describe.skipIf(!hasLiveProject)("review_log row-level security", () => {
     const asA = await signInAs(userA.email);
     const { data: inserted } = await asA
       .from("review_log")
-      .insert({ user_id: userA.id, installation_id: crypto.randomUUID() })
+      .insert(reviewPayload(userA.id))
       .select("id");
     const row = inserted?.[0];
     expect(row).toBeDefined();
