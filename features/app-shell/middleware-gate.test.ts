@@ -115,6 +115,11 @@ describe("a signed-out request", () => {
       expect((await get(route)).status, `${route} must not redirect`).toBe(200);
     }
   });
+
+  it("is left alone on dev tooling routes without an account", async () => {
+    expect((await get(routes.designExplorer)).status).toBe(200);
+    expect((await get("/dev/future-tool")).status).toBe(200);
+  });
 });
 
 describe("a signed-in request", () => {
