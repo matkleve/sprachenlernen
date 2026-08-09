@@ -5,6 +5,7 @@ import { describe, expect, it } from "vitest";
 
 import {
   SECTIONS,
+  byId,
   commitments,
   filterByContext,
   isMethod,
@@ -95,12 +96,27 @@ describe("the shipped catalogue", () => {
     }
   });
 
-  it("keeps about half the catalogue outside the app", () => {
-    // study/12, thesis 9. If this ever trends towards 1, the vocabulary pull
-    // has won and the catalogue has quietly become the app's feature list.
+  it("keeps a third of the catalogue outside the app, and is watched for drifting up", () => {
+    // study/12, thesis 9 says "about half". The shipped catalogue is 34%, so
+    // the thesis is not met — recorded in the spec rather than papered over.
+    // The bound is tight against today's value so that adding hosted methods
+    // without adding off-app ones fails here instead of being noticed in a year.
     const entries = shipped().entries;
     const hosted = entries.filter((entry) => entry.hosted).length;
-    expect(hosted / entries.length).toBeLessThan(0.75);
+    expect(hosted / entries.length).toBeLessThanOrEqual(0.67);
+  });
+
+  it("carries the evidence grades the study gives, including the awkward ones", () => {
+    // Nothing else pins a grade, and the grade is normative for menu ranking:
+    // one hand-raised letter promotes an entry over fifty that have a source.
+    const grade = (id: string) => byId(shipped(), id)?.evidence;
+
+    // study/21 marks this "C, weak" — the chapter's own honesty test case.
+    expect(grade("background-listening")).toBe("C");
+    // study/21 marks it "B/C"; the schema admits one grade, so it is the lower.
+    expect(grade("write-and-perform-a-play")).toBe("C");
+    // No row in study/21 at all; graded from study/06, whose mark is [B].
+    expect(grade("free-production")).toBe("B");
   });
 
   it("carries a floor on exactly the five methods study/12 gives one", () => {
@@ -164,6 +180,21 @@ describe("what the validator refuses to admit", () => {
     expect(errors.join()).toContain("already used");
   });
 
+  it("a method claiming the commitment review", () => {
+    const { errors } = loadCatalogue(file([aMethod({ reviewAfterDays: 28 } as never)]));
+    expect(errors.join()).toContain("a method is not reviewed");
+  });
+
+  it("an empty list of requirement alternatives", () => {
+    const { errors } = loadCatalogue(file([aMethod({ requires: [] })]));
+    expect(errors.join()).toContain("no context requirements");
+  });
+
+  it("two files declaring the same section", () => {
+    const { errors } = loadCatalogue([...file([aMethod()]), ...file([aMethod({ id: "other" })])]);
+    expect(errors.join()).toContain("already declared");
+  });
+
   it("a target signal that is not one of the seven", () => {
     const { errors } = loadCatalogue(file([aMethod({ targetSignal: "vibes" as never })]));
     expect(errors.join()).toContain("targetSignal");
@@ -197,14 +228,50 @@ describe("filtering by context", () => {
 
   it("drops eyes-free methods when the eyes are busy", () => {
     const ids = filterByContext(shipped(), contextOf("kitchen")).map((entry) => entry.id);
-    expect(ids).not.toContain("reading-aloud");
+    // extensive-reading, not reading-aloud: study/21 gives this one "eyes free"
+    // and reading-aloud only "voice free". Illustrating a chapter rule with an
+    // authored requirement makes the test agree with the data by construction.
+    expect(ids).not.toContain("extensive-reading");
     expect(ids).toContain("shadowing");
   });
 
-  it("drops everything longer than the budget", () => {
-    const ids = filterByContext(shipped(), contextOf("waiting")).map((entry) => entry.id);
-    expect(ids).toContain("srs-session");
-    expect(ids).not.toContain("full-dictation");
+  it("drops everything longer than the budget, and nothing else", () => {
+    // Isolated deliberately. An earlier version compared two entries that were
+    // also separated by surface and attention, so deleting the budget
+    // comparison from fitsTime changed no assertion in the suite — the first of
+    // study/21's four separating questions was untested.
+    const block = byId(shipped(), "close-a-frequency-block");
+    if (!block || !isMethod(block)) throw new Error("missing entry");
+    expect(block.durations).toEqual([10, 20]);
+
+    const base = contextOf("transit");
+    expect(matchesContext(block, { ...base, time: "45" })).toBe(true);
+    expect(matchesContext(block, { ...base, time: "15" })).toBe(true);
+    expect(matchesContext(block, { ...base, time: "2" })).toBe(false);
+  });
+
+  it("accepts a method that can be done one way or another", () => {
+    // The SRS session is "touch or voice" in study/21. Expressed as one set it
+    // loses the voice half and the only daily floor becomes unofferable in four
+    // presets — a floor the learner cannot act on is worse than none.
+    const ids = (preset: string) =>
+      filterByContext(shipped(), contextOf(preset)).map((entry) => entry.id);
+
+    expect(ids("transit")).toContain("srs-session");
+    expect(ids("kitchen")).toContain("srs-session");
+  });
+
+  it("offers the daily floor in most contexts, and names the ones it cannot", () => {
+    const without = presets()
+      .filter(
+        (preset) =>
+          !filterByContext(shipped(), preset.context).some((entry) => entry.id === "srs-session"),
+      )
+      .map((preset) => preset.id);
+
+    // In bed the preset is "nothing to write on" and "quiet" — study/21's own
+    // values, and between them they exclude both halves of "touch or voice".
+    expect(without).toEqual(["bed"]);
   });
 
   it("offers open-ended methods only in an open block", () => {
@@ -231,6 +298,62 @@ describe("filtering by context", () => {
       .filter((id) => !filterByContext(shipped(), alone).some((entry) => entry.id === id));
 
     expect(gained).toContain("tandem-or-language-cafe");
+  });
+
+  it("ships the seven presets of study/21, with the kitchen read correctly", () => {
+    // Nothing else asserts a preset value, so the kitchen could quietly become
+    // eyes-free and the whole suite would still pass — which would delete the
+    // one context the chapter singles out as the hard case.
+    expect(presets().map((preset) => preset.id)).toEqual([
+      "desk",
+      "walking",
+      "transit",
+      "computer",
+      "bed",
+      "waiting",
+      "kitchen",
+    ]);
+
+    expect(contextOf("kitchen")).toMatchObject({
+      eyes: "occupied",
+      hands: "none",
+      voice: "aloud",
+      writingSurface: "none",
+      time: "45",
+    });
+    expect(contextOf("waiting")).toMatchObject({ attention: "fragmented", time: "2" });
+  });
+
+  it("names every entry no preset can reach, rather than letting the list grow", () => {
+    const reachable = new Set(
+      presets().flatMap((preset) =>
+        ["alone", "speakers", "others"].flatMap((company) =>
+          filterByContext(shipped(), { ...preset.context, company: company as never }).map(
+            (entry) => entry.id,
+          ),
+        ),
+      ),
+    );
+
+    const unreachable = shipped()
+      .entries.filter(isMethod)
+      .map((entry) => entry.id)
+      .filter((id) => !reachable.has(id))
+      .sort();
+
+    // Not a passing grade — a pinned defect. It needs an open-time keyboard
+    // preset, which study/21's seven do not include: "At the computer" is
+    // fifteen minutes and "At the desk" is paper. Recorded in the spec.
+    expect(unreachable).toEqual(["translate-a-song"]);
+  });
+
+  it("cannot offer the kitchen method in the kitchen — pinned, not accepted", () => {
+    // study/21 gives cooking from a recipe the context "kitchen" and defines
+    // the kitchen preset as eyes and hands gone. Reading a recipe needs eyes.
+    // The chapter contradicts itself; resolving it either way here would be
+    // inventing a rule, so the contradiction is pinned and left to a decision.
+    const ids = filterByContext(shipped(), contextOf("kitchen")).map((entry) => entry.id);
+    expect(ids).not.toContain("cook-from-a-recipe");
   });
 
   it("is a hard filter — a method that does not fit is absent, not demoted", () => {

@@ -13,7 +13,7 @@
       "hosted": true,
       "intensity": 2,
       "durations": [2, 10, 20],
-      "requires": { "writingSurface": ["touch", "keyboard"] },
+      "requires": [{ "writingSurface": ["touch", "keyboard"] }, { "voice": ["aloud"] }],
       "offerEveryDays": 1,
       "doesNotDo": "It builds nothing you can use in a sentence. Cards make words retrievable in isolation, and the rest of the app exists because that is not the same as knowing them."
     },

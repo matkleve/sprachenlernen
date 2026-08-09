@@ -24,7 +24,7 @@
       "trains": "unprompted production, and what you are avoiding",
       "skills": ["writing"],
       "targetSignal": "productionQuality",
-      "evidence": "A",
+      "evidence": "B",
       "demanding": true,
       "hosted": true,
       "intensity": 3,

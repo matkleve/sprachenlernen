@@ -21,10 +21,17 @@ the next person who finds it inconvenient.
 - [ ] AC-4 · Given any shipped entry, then its `doesNotDo` is non-trivial.
       *The honest half of the info page is the product's distinguishing claim;
       an entry without it is a recommendation.*
-- [ ] AC-5 · Given the shipped catalogue, then fewer than three quarters of
-      entries are hosted. *Study 12, thesis 9: about half the catalogue happens
-      outside the app. If this ratio climbs, the vocabulary pull has won and the
-      catalogue has become the app's feature list.*
+- [ ] AC-5 · Given the shipped catalogue, then at most 67% of entries are
+      hosted. *Study 12, thesis 9 asks for about half off-app; today it is 34%,
+      so the bound is set tight against the current value rather than at a round
+      number. A loose threshold cannot catch the drift it exists to catch: it
+      would sit unmoved while hosted methods were added and off-app ones were
+      not, which is the vocabulary pull winning slowly.*
+- [ ] AC-5b · Given the shipped catalogue, then the evidence grades of
+      `background-listening`, `write-and-perform-a-play` and `free-production`
+      are the ones the provenance file justifies. *Grade is normative for menu
+      ranking until an effect estimate exists, so one hand-raised letter
+      promotes an entry over fifty that have a source.*
 - [ ] AC-6 · Given the shipped catalogue, then exactly five methods carry a
       floor, with the rates study 12 states. *A floor invented to fill a column
       is a nudge nobody decided on.*
@@ -53,6 +60,9 @@ the next person who finds it inconvenient.
 - [ ] AC-15 · Given data with several problems, when it is loaded, then every
       problem is reported, not the first. *Fixing data one error per run is how
       a bad file survives.*
+- [ ] AC-15b · Given a method carrying `reviewAfterDays`, an empty list of
+      requirement alternatives, two files declaring one section, or two presets
+      sharing an id, when loaded, then each is rejected.
 
 ### Filtering by context
 
@@ -62,8 +72,16 @@ the next person who finds it inconvenient.
       exercises has nothing for the most productive part of the day.*
 - [ ] AC-17 · Given a context whose eyes are occupied, when filtering, then
       methods requiring free eyes are absent and audio-and-voice methods remain.
-- [ ] AC-18 · Given a two-minute budget, when filtering, then every method whose
-      shortest variant exceeds it is absent.
+- [ ] AC-18 · Given one context varied **only** in its time budget, when
+      filtering, then a method is present at budgets its shortest variant fits
+      and absent below them. *Isolated on purpose. The first version compared
+      two presets that also differed in surface and attention, so deleting the
+      budget comparison altogether changed no assertion — the criterion could
+      not detect its own rule being removed.*
+- [ ] AC-18b · Given a method with alternative requirement sets, when filtering,
+      then it is offered wherever any one set fits. *The SRS session is "touch
+      or voice"; as a single set it loses the voice half and the only method
+      with a daily floor becomes unofferable in four of seven presets.*
 - [ ] AC-19 · Given a bounded budget, when filtering, then methods with no fixed
       length are absent; given an open block, they are present.
 - [ ] AC-20 · Given any context, when filtering, then no commitment is returned,
@@ -74,3 +92,23 @@ the next person who finds it inconvenient.
 - [ ] AC-22 · Given a method that does not fit, then it is absent from the
       result rather than marked. *A method that cannot be performed has an
       effect of zero and does not belong in the menu, not even greyed out.*
+
+### Pinned defects
+
+These assert that something is currently **wrong**, so that it stays visible and
+cannot spread. Each is discharged by a decision, not by a fix here.
+
+- [ ] AC-23 · The shipped presets are study 21's seven, in its order, and the
+      kitchen still reads eyes occupied, hands none, voice aloud, forty-five
+      minutes. *Nothing else asserted a preset value; the kitchen could have
+      become eyes-free and the suite would have passed, deleting the one context
+      the chapter singles out as the hard case.*
+- [ ] AC-24 · Exactly one method — *translate a song* — is reachable from no
+      preset under any company setting. *A list, not a threshold: it names what
+      is broken and fails when anything joins it.*
+- [ ] AC-25 · Cooking from a recipe is not offered in the kitchen. *Chapter 21
+      gives it the context "kitchen" and defines the kitchen as eyes and hands
+      gone. Resolving that either way here would be inventing a rule.*
+- [ ] AC-26 · The SRS session is offerable in every preset except *in bed*.
+      *Where study 21's own values — nothing to write on, quiet — exclude both
+      halves of "touch or voice".*

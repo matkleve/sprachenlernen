@@ -131,7 +131,7 @@
       "trains": "very little",
       "skills": ["listening"],
       "targetSignal": null,
-      "evidence": "D",
+      "evidence": "C",
       "demanding": false,
       "hosted": false,
       "intensity": 1,

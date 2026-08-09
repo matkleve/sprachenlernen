@@ -39,3 +39,6 @@ that first.
 | `SPEC-component-select` | [component/select.md](component/select.md) | UC-002 | active |
 | `SPEC-component-dialog` | [component/dialog.md](component/dialog.md) | UC-002 | active |
 | `SPEC-component-table` | [component/table.md](component/table.md) | UC-003 | active |
+| `SPEC-service-lexicon` | [service/lexicon.md](service/lexicon.md) | UC-035 | active |
+| `SPEC-service-scheduler` | [service/scheduler.md](service/scheduler.md) | UC-005 | active |
+| `SPEC-service-method-catalogue` | [service/method-catalogue.md](service/method-catalogue.md) | UC-046 | active |

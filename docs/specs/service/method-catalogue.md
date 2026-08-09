@@ -38,6 +38,9 @@ gets its own spec. This one supplies its input.
 | 8 | A method with no fixed length, and a bounded budget | Absent; present only in an open block |
 | 9 | Any context | Never a commitment |
 | 10 | A catalogue | Its commitments, separately |
+| 11 | A method carrying `reviewAfterDays` | Refused — a method is completed, not reviewed |
+| 12 | Two files declaring one section, or two presets sharing an id | Refused |
+| 13 | A method with alternative requirement sets | Fits if **any** set fits |
 
 ## Two entry types, and why the schema refuses to blur them
 
@@ -73,6 +76,13 @@ fit is computed; `durations: null` means open-ended and fits only an open block.
 Stating a budget list per entry would have been the same information written
 fifty-three times, and wrong in a different way each time it drifted.
 
+One set of requirements is **and** across dimensions, **or** within one. That
+cannot express "touch **or** voice", which is what
+[21](../../study/21-method-catalogue-and-context.md) gives the SRS session, so a
+method may instead list alternative sets and fits if any of them does. Without
+it the one method with a daily floor was unofferable in four of the seven
+presets — a floor the learner has no way to act on is worse than no floor.
+
 ## Data
 
 | Field | Shape | Both types |
@@ -88,7 +98,7 @@ fifty-three times, and wrong in a different way each time it drifted.
 | `doesNotDo` | the honest half of the info page. **Required** | ● |
 | `intensity` | `1 2 3` | method |
 | `durations` | ascending minutes, or `null` for open-ended | method |
-| `requires` | dimension → permitted values. **Non-empty** | method |
+| `requires` | dimension → permitted values, or a list of alternative sets of those. **Non-empty** | method |
 | `offerEveryDays` | the floor, in days, or `null` | method |
 | `reviewAfterDays` | when the one quiet "still doing this?" fires | commitment |
 
@@ -103,32 +113,11 @@ learn rebuilds the barrier to entry from
 one; the other forty-eight do not, and a floor is never invented to fill the
 column.
 
-## What the shipped data is, and what was authored
+## Provenance
 
-Transcribed from [21](../../study/21-method-catalogue-and-context.md): the
-entries themselves, their section, `trains`, `evidence`, `demanding`, and the
-context requirements. From [12](../../study/12-method-cards.md): the five floors.
-From [24](../../study/24-speaking-as-the-goal.md): the commitments.
-
-**Authored, and therefore reviewable in one place:** `intensity`, `durations`,
-`doesNotDo`, `targetSignal`, `hosted`, and `reviewAfterDays`. None of these is
-derivable from the study; all of them are needed before a card can be rendered.
-They live in the data files rather than inside the menu code precisely so that
-disagreeing with one is an edit, not a pull request against a component.
-
-Three reconciliations were made, listed here rather than performed quietly:
-
-1. **Free production** is named in [12](../../study/12-method-cards.md)'s floor
-   table and absent from [21](../../study/21-method-catalogue-and-context.md)'s
-   tables. It is added to *Writing*, since [06](../../study/06-production.md)
-   treats it as a method and the floor presupposes one.
-2. **The dictation floor** (1× / 10 days) attaches to full dictation on paper,
-   which is what [07](../../study/07-offline-and-paper.md) describes. Partial
-   dictation carries none.
-3. **Switch your phone's language**, **label the flat** and **pursue a hobby**
-   appear as methods in [21](../../study/21-method-catalogue-and-context.md) and
-   meet [24](../../study/24-speaking-as-the-goal.md)'s definition of a
-   commitment. They are commitments, and appear once.
+Which fields were transcribed from the study, which were authored, and the six
+reconciliations between chapters — in
+[`method-catalogue.provenance.md`](method-catalogue.provenance.md).
 
 ## Acceptance criteria
 
@@ -148,13 +137,36 @@ In [`method-catalogue.acceptance-criteria.md`](method-catalogue.acceptance-crite
   [12](../../study/12-method-cards.md) ("a method without a named target signal
   cannot be admitted"). Either the signal list is short by two or three, or that
   rule applies only to hosted methods. Both are decisions; neither is made.
+- **⚠ SPEC GAP: `SKILLS` has no `vocabulary` value**, so the three vocabulary
+  methods and *label the flat* ship with an empty skill set — which contradicts
+  [12](../../study/12-method-cards.md) ("a method without a named target skill
+  does not belong in the catalogue") and makes `bySkill` silently omit the app's
+  core loop. Structurally the same decision as the signal gap above: extend the
+  vocabulary of what a method can target, or narrow the rule. Both are open.
+- **⚠ SPEC GAP: chapter 21 contradicts itself about the kitchen.** Cooking from
+  a recipe is given the context "kitchen", and the kitchen preset is defined as
+  eyes and hands gone. Reading a recipe needs eyes, so the one entry the chapter
+  places in the kitchen is the one entry the kitchen cannot offer. Pinned by a
+  test rather than resolved, because either direction is a rule nobody decided.
 - **⚠ SPEC GAP: what happens when no entry fits the current context** — carried
   over from [21](../../study/21-method-catalogue-and-context.md). The loader
   returns an empty list and says nothing about it. Every shipped preset yields
   something today, which is why this is not yet urgent and is also why it will
   be discovered late.
+- **No preset can reach *translate a song***, because it needs a keyboard and an
+  open block and the seven presets have no such combination — "At the computer"
+  is fifteen minutes, "At the desk" is paper. Pinned by a test so the list
+  cannot grow unnoticed. An eighth preset would fix it and is not this spec's
+  decision to take.
+- **The off-app share is 34%, where [12](../../study/12-method-cards.md) thesis
+  9 says about half.** Either the catalogue is short of off-app entries or the
+  thesis overstates. Recorded because the acceptance criterion that watches this
+  ratio is otherwise a threshold with no meaning behind it.
 - **⚠ SPEC GAP: whether a preset may be edited or created by the learner.**
   [21](../../study/21-method-catalogue-and-context.md) says presets are
   editable; nothing here writes, so they are constants.
 - `intensity` is authored on a 1–3 scale with no definition behind it. Before it
   reaches a card it needs one, or it is three shades of nothing.
+- `demanding` is a boolean and
+  [21](../../study/21-method-catalogue-and-context.md) marks two entries **very
+  hard**. The distinction is lost; the card spec will need it back.

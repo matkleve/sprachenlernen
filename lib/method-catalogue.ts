@@ -73,9 +73,20 @@ export type Context = {
 } & { time: TimeBudget };
 
 /** Which values of a dimension the method can be performed in. */
-export type Requirements = {
+export type RequirementSet = {
   [K in keyof typeof CONTEXT_DIMENSIONS]?: readonly (typeof CONTEXT_DIMENSIONS)[K][number][];
 };
+
+/**
+ * One set, or several alternatives of which any one suffices.
+ *
+ * The array form exists because a single set is AND across dimensions and OR
+ * only within one, and chapter 21 states a requirement that shape cannot hold:
+ * the SRS session runs on "touch **or** voice". Expressed as one set it loses
+ * the voice half, and the only method with a daily floor stops being offerable
+ * in four of the seven presets — a floor nobody can act on.
+ */
+export type Requirements = RequirementSet | readonly RequirementSet[];
 
 export type Preset = { id: string; name: string; context: Context };
 
@@ -138,30 +149,49 @@ const oneOf = <T extends string>(value: unknown, allowed: readonly T[]): value i
 
 const ID_PATTERN = /^[a-z0-9]+(-[a-z0-9]+)*$/;
 
-const validateRequirements = (value: unknown, where: string, errors: string[]) => {
+const validateRequirementSet = (value: unknown, where: string, errors: string[]) => {
   if (!isRecord(value)) {
-    errors.push(`${where}.requires: required object`);
+    errors.push(`${where}: required object`);
+    return;
+  }
+
+  if (Object.keys(value).length === 0) {
+    // study/21: without requirements it matches everything, and the filter
+    // that the whole menu is built on stops separating anything.
+    errors.push(`${where}: a method with no context requirements cannot be admitted`);
     return;
   }
 
   for (const [dimension, allowed] of Object.entries(value)) {
     const values = CONTEXT_DIMENSIONS[dimension as keyof typeof CONTEXT_DIMENSIONS];
     if (values === undefined) {
-      errors.push(`${where}.requires.${dimension}: not a context dimension`);
+      errors.push(`${where}.${dimension}: not a context dimension`);
       continue;
     }
     if (!Array.isArray(allowed) || allowed.length === 0) {
-      errors.push(`${where}.requires.${dimension}: must be a non-empty array`);
+      errors.push(`${where}.${dimension}: must be a non-empty array`);
       continue;
     }
     for (const entry of allowed) {
       if (!oneOf(entry, values)) {
         errors.push(
-          `${where}.requires.${dimension}: "${String(entry)}" is not one of ${values.join(", ")}`,
+          `${where}.${dimension}: "${String(entry)}" is not one of ${values.join(", ")}`,
         );
       }
     }
   }
+};
+
+const validateRequirements = (value: unknown, where: string, errors: string[]) => {
+  if (Array.isArray(value)) {
+    if (value.length === 0) {
+      errors.push(`${where}.requires: a method with no context requirements cannot be admitted`);
+      return;
+    }
+    value.forEach((set, index) => validateRequirementSet(set, `${where}.requires[${index}]`, errors));
+    return;
+  }
+  validateRequirementSet(value, `${where}.requires`, errors);
 };
 
 const validateEntry = (input: unknown, section: Section, index: number, errors: string[]) => {
@@ -217,15 +247,14 @@ const validateEntry = (input: unknown, section: Section, index: number, errors: 
     }
 
     validateRequirements(input.requires, where, errors);
-    if (isRecord(input.requires) && Object.keys(input.requires).length === 0) {
-      // study/21: without requirements it matches everything, and the filter
-      // that the whole menu is built on stops separating anything.
-      errors.push(`${where}.requires: a method with no context requirements cannot be admitted`);
-    }
 
     const floor = input.offerEveryDays;
     if (floor !== null && (typeof floor !== "number" || !Number.isFinite(floor) || floor <= 0)) {
       errors.push(`${where}.offerEveryDays: null or a positive number of days`);
+    }
+
+    if (input.reviewAfterDays !== undefined) {
+      errors.push(`${where}.reviewAfterDays: a method is not reviewed, it is completed`);
     }
   } else if (input.type === "commitment") {
     for (const key of ["intensity", "durations", "offerEveryDays"] as const) {
@@ -252,6 +281,7 @@ export const loadCatalogue = (inputs: readonly unknown[]): LoadResult => {
   const errors: string[] = [];
   const entries: Entry[] = [];
   const seen = new Set<string>();
+  const sectionsSeen = new Set<string>();
 
   inputs.forEach((input, fileIndex) => {
     if (!isRecord(input)) {
@@ -264,6 +294,12 @@ export const loadCatalogue = (inputs: readonly unknown[]): LoadResult => {
       errors.push(`file ${fileIndex}: section must be one of ${SECTIONS.join(", ")}`);
       return;
     }
+
+    if (sectionsSeen.has(section)) {
+      errors.push(`file ${fileIndex}: section "${section}" is already declared`);
+      return;
+    }
+    sectionsSeen.add(section);
 
     if (!Array.isArray(input.entries)) {
       errors.push(`${section}: entries must be an array`);
@@ -296,6 +332,8 @@ export const loadPresets = (input: unknown): PresetsResult => {
     return { errors: ["presets: required array"] };
   }
 
+  const ids = new Set<string>();
+
   input.presets.forEach((preset, index) => {
     if (!isRecord(preset)) {
       errors.push(`presets[${index}]: must be an object`);
@@ -303,6 +341,10 @@ export const loadPresets = (input: unknown): PresetsResult => {
     }
     if (!isNonEmptyString(preset.id) || !ID_PATTERN.test(preset.id)) {
       errors.push(`presets[${index}].id: required, lowercase kebab-case`);
+    } else if (ids.has(preset.id)) {
+      errors.push(`presets[${index}].id: "${preset.id}" is already used`);
+    } else {
+      ids.add(preset.id);
     }
     if (!isNonEmptyString(preset.name)) errors.push(`presets[${index}].name: required`);
 
@@ -318,6 +360,14 @@ export const loadPresets = (input: unknown): PresetsResult => {
     }
     if (!oneOf(context.time, TIME_BUDGETS)) {
       errors.push(`presets[${index}].context.time: one of ${TIME_BUDGETS.join(", ")}`);
+    }
+    // A misspelt dimension would otherwise sit in the file looking applied. A
+    // preset is a complete context; there is nothing else it can legitimately
+    // carry.
+    for (const key of Object.keys(context)) {
+      if (key !== "time" && !(key in CONTEXT_DIMENSIONS)) {
+        errors.push(`presets[${index}].context.${key}: not a context dimension`);
+      }
     }
   });
 
@@ -354,12 +404,15 @@ export const fitsTime = (entry: MethodEntry, time: TimeBudget): boolean =>
 export const matchesContext = (entry: MethodEntry, context: Context): boolean => {
   if (!fitsTime(entry, context.time)) return false;
 
-  for (const [dimension, allowed] of Object.entries(entry.requires)) {
-    const available = context[dimension as keyof typeof CONTEXT_DIMENSIONS];
-    if (!(allowed as readonly string[]).includes(available)) return false;
-  }
+  const sets = Array.isArray(entry.requires) ? entry.requires : [entry.requires as RequirementSet];
 
-  return true;
+  return sets.some((set) =>
+    Object.entries(set).every(([dimension, allowed]) =>
+      (allowed as readonly string[]).includes(
+        context[dimension as keyof typeof CONTEXT_DIMENSIONS],
+      ),
+    ),
+  );
 };
 
 /**
