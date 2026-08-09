@@ -82,6 +82,22 @@ describe("ItemPicker", () => {
     expect(document.activeElement).toBe(bravo);
   });
 
+  it("selects with Space too, which the native button gives us for free", async () => {
+    // Green on arrival, and kept: the spec promises Enter *or* Space, and the
+    // only thing making Space work is that the row is a real <button>. Someone
+    // swapping it for a div with a click handler would break this and nothing
+    // else — which is exactly when a regression guard is worth having.
+    const user = userEvent.setup();
+    render(<ItemPicker items={items} />);
+
+    const bravo = screen.getByRole("button", { name: "Bravo" });
+    bravo.focus();
+    await user.keyboard(" ");
+
+    expect(screen.getByText("Body of bravo.")).toBeDefined();
+    expect(document.activeElement).toBe(bravo);
+  });
+
   it("has no accessibility violations", async () => {
     const user = userEvent.setup();
     const { container } = render(<ItemPicker items={items} />);

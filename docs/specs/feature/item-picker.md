@@ -76,6 +76,9 @@ that could update one surface without the other, because neither owns selection.
       output is unchanged.
 - [ ] Given the list has focus, when I press `Enter` on a row, then that row is
       selected and retains focus.
+- [ ] Given the list has focus, when I press `Space` on a row, then that row is
+      selected and retains focus. Nothing implements this beyond the row being a
+      real `<button>`, which is the reason it is asserted rather than assumed.
 - [ ] When an item is selected, its row shall carry `aria-current="true"` and no
       other row shall.
 - [ ] The rendered surface has no axe-core violations.

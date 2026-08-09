@@ -182,7 +182,15 @@ Requirements:
 Guardrail: *"Automated a11y checks only see what is rendered and visible"* — the
 axe assertion must run with the dialog **open**.
 
-### T-02 · The Space key gets the test the spec already promises
+### ~~T-02 · The Space key gets the test the spec already promises~~ — **shipped 2026-08-09**
+
+Passed on the first run, as anticipated, and kept — with the extra step the task
+did not ask for: it was **mutation-tested**. Swapping the row's `<button>` for a
+`<div role="button" tabIndex={0}>` turns it red, along with the Enter test, so it
+is a guard and not decoration. `ItemPicker.tsx` is unchanged. The spec's
+acceptance criteria gained the `Space` line its Behavior table had promised
+since it was written.
+
 
 **Class:** Trivial · **Files:** `features/item-picker/item-picker.test.tsx` (and
 `ItemPicker.tsx` only if the test fails)
