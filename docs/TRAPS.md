@@ -11,6 +11,30 @@ applying is still evidence about how this codebase misleads people.
 
 ---
 
+## A layout's `redirect()` does not stop the page under it from rendering
+
+`app/(app)/layout.tsx` awaited an account and redirected signed-out visitors to
+`/login`. Nine tests passed, including one asserting the redirect. In the
+production build, `curl /methods` signed out returned **`307`, and 124 kB of
+body** — the entire rendered method menu, in the flight payload of the redirect
+response. A layout and the page beneath it render concurrently; the redirect
+wins the *status*, not the race.
+
+It gets worse with a `loading.tsx` anywhere above. That flushes the shell
+immediately, so by the time the redirect resolves the response has already
+started, and Next downgrades it to a **`200`** carrying a client-side redirect
+instruction. The route "works" in a browser and is wide open to anything that
+does not run JavaScript.
+
+Neither failure is visible to jsdom, because nothing in jsdom renders a route.
+The unit test asserting `redirect("/login")` was true and useless.
+
+**Put an auth gate in `middleware.ts`, which runs before rendering starts.**
+Keep the layout gate as well — it is the backstop if a matcher stops covering a
+route — but do not mistake it for the boundary. The check that catches this is
+`curl -D -` against `npm run start`, comparing the **body size**, not the
+status: a real redirect is a few bytes.
+
 ## A token that does not exist resolves to nothing, silently
 
 `var(--transition-geometry)` where no such token is defined does not error. The

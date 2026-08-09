@@ -35,7 +35,7 @@ sign-out control that had no signed-in navigation to live in.
 | # | User action | System response |
 | --- | --- | --- |
 | 1 | Opens any `(app)` route while signed in | The shell renders with all three destinations, and the page inside it |
-| 2 | Opens any `(app)` route while signed out | Redirected to `/login`. No shell, no page, no flash of either |
+| 2 | Opens any `(app)` route while signed out | Redirected to `/login` **before anything renders** — the response carries no page, not even in its flight payload |
 | 3 | Is on `/methods` | Methods carries `aria-current="page"`; the other two do not |
 | 4 | Taps Words or Progress | That destination loads. Reaching them never passes through the situation filter or the menu (UC-063) |
 | 5 | Signs out | The session ends and they land on `/`, the public landing page |
@@ -50,17 +50,26 @@ read per request.
 
 | State | Trigger | Effect | Terminal? |
 | --- | --- | --- | --- |
-| `gated` | `getAccount()` returns `null` | Redirect to `/login`; nothing under `(app)` renders | no |
-| `shown` | `getAccount()` returns an Account | The shell renders around the destination | no |
+| `gated` | no session on a route in `protectedRoutes` | Redirect to `/login`; nothing under `(app)` is rendered at all | no |
+| `shown` | a session | The shell renders around the destination | no |
 
 Neither is terminal — signing in and signing out move between them, which is
 [`../service/auth.md`](../service/auth.md) § States, not a second model.
 
 ## Data
 
-Reads `getAccount()` from [`../service/auth.md`](../service/auth.md) once per
-request, in the layout, and the current pathname. Writes nothing except through
-`signOut()`.
+Reads the current pathname, and the session — **in two places, on purpose.**
+
+`middleware.ts` is the boundary, because it is the only layer that runs *before*
+rendering: a layout's `redirect()` resolves alongside the page beneath it, so
+the page is already rendered into the response body by the time the redirect
+wins the status. `requireAccount()` in the layout stays as the backstop for a
+route the matcher stops covering. Both read `protectedRoutes` from
+`lib/routes.ts`, so a new destination is added in one place. See
+[`../../TRAPS.md`](../../TRAPS.md) — this was measured against a production
+build, not reasoned about.
+
+Writes nothing except through `signOut()`.
 
 **No count, in any form.** Not a badge, not a dot, not "12 due". UC-063 forbids
 it, [`../../study/10-antipatterns.md`](../../study/10-antipatterns.md) A3 calls
@@ -88,8 +97,14 @@ visual one: the shell is never given a number, so it cannot render one.
       page and no residue of the previous destination's marker remains.
 - [ ] **The negative UC-063 exists for:** given any `(app)` route, then the
       navigation renders no digit at all — no count, no badge, no dot.
-- [ ] Given a signed-out visitor, when they open an `(app)` route, then they are
-      redirected to `/login` and neither the shell nor the destination renders.
+- [ ] Given a signed-out visitor, when they open any route in `protectedRoutes`,
+      then the response is a redirect to `/login` **with an empty body** — the
+      destination is not rendered, so it cannot be read out of the payload.
+- [ ] Given a signed-out visitor, when they open a public route, then nothing
+      redirects them.
+- [ ] Given the set of protected routes, then it is exactly the three
+      destinations — a fourth cannot be added to the shell without being added
+      to the gate.
 - [ ] Given a signed-in Account, then a sign-out control is present, and
       submitting it ends the session and redirects to `/`.
 - [ ] Given a `(marketing)` route, then no destination navigation renders on it.
@@ -97,4 +112,7 @@ visual one: the shell is never given a number, so it cannot render one.
 
 ## Check
 
-`npm test -- app-shell`
+`npm test -- app-shell` — `app-shell.test.tsx` for the destinations and the
+sign-out path, and `middleware-gate.test.ts` for the boundary. The second runs
+in the `node` environment: `NextRequest` rejects jsdom's `Headers`, and nothing
+in it renders.

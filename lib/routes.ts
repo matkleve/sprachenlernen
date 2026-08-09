@@ -21,3 +21,17 @@ export const routes = {
   words: "/words",
   progress: "/progress",
 } as const;
+
+/**
+ * Everything in the app/(app)/ route group — the routes ADR-0006 puts behind
+ * an account. Adding a destination means adding it here, and the middleware
+ * test asserts this list and the three destinations stay the same set.
+ */
+export const protectedRoutes = [routes.methods, routes.words, routes.progress] as const;
+
+/** Whether a pathname is inside the signed-in half. `/words/atlas` is. */
+export function requiresAccount(pathname: string): boolean {
+  return protectedRoutes.some(
+    (route) => pathname === route || pathname.startsWith(`${route}/`),
+  );
+}

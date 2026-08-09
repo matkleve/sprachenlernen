@@ -1,9 +1,19 @@
 import { cleanup } from "@testing-library/react";
 import { afterEach, beforeAll } from "vitest";
 
+/**
+ * This setup file runs for every test, including the few that opt into the
+ * `node` environment because they exercise something Next only accepts the
+ * platform's own globals for (see features/app-shell/middleware-gate.test.ts).
+ * There is no DOM there, so everything below is guarded rather than assumed.
+ */
+const hasDom = typeof window !== "undefined";
+
 // Without this, a component from one test is still mounted during the next one
 // and queries silently match the wrong element — which reads as a flaky test.
-afterEach(cleanup);
+afterEach(() => {
+  if (hasDom) cleanup();
+});
 
 /**
  * jsdom does not implement `<dialog>`'s `showModal()` / `close()` — the methods
@@ -19,6 +29,8 @@ afterEach(cleanup);
  * Those belong in a browser test (docs/TRAPS.md § automated a11y checks).
  */
 beforeAll(() => {
+  if (!hasDom) return;
+
   // TypeScript types these methods as always present — that is the lib.dom
   // declaration, not a fact about jsdom. Widening to Partial is what lets us
   // ask whether the runtime actually has them.
