@@ -106,6 +106,13 @@ describe("the three destinations", () => {
 
     await expectNoA11yViolations(container);
   });
+
+  it("renders a sign-out control in a form", () => {
+    showAt("/methods");
+
+    const button = screen.getByRole("button", { name: copy.signOut });
+    expect(button.closest("form")).not.toBeNull();
+  });
 });
 
 describe("the account gate", () => {

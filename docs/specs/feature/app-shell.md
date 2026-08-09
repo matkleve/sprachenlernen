@@ -50,7 +50,7 @@ read per request.
 
 | State | Trigger | Effect | Terminal? |
 | --- | --- | --- | --- |
-| `gated` | no session on a route in `protectedRoutes` | Redirect to `/login`; nothing under `(app)` is rendered at all | no |
+| `gated` | no session on a non-public route | Redirect to `/login`; nothing under `(app)` is rendered at all | no |
 | `shown` | a session | The shell renders around the destination | no |
 
 Neither is terminal — signing in and signing out move between them, which is
@@ -64,10 +64,12 @@ Reads the current pathname, and the session — **in two places, on purpose.**
 rendering: a layout's `redirect()` resolves alongside the page beneath it, so
 the page is already rendered into the response body by the time the redirect
 wins the status. `requireAccount()` in the layout stays as the backstop for a
-route the matcher stops covering. Both read `protectedRoutes` from
-`lib/routes.ts`, so a new destination is added in one place. See
-[`../../TRAPS.md`](../../TRAPS.md) — this was measured against a production
-build, not reasoned about.
+route the matcher stops covering. Both call `requiresAccount()` from
+`lib/routes.ts`, which gates every route that is not in `publicRoutes` — so a
+page added under `app/(app)/` is protected even when it is not one of the three
+destinations. The shell still renders exactly three links; that list is
+`protectedRoutes`, checked separately. See [`../../TRAPS.md`](../../TRAPS.md) —
+this was measured against a production build, not reasoned about.
 
 Writes nothing except through `signOut()`.
 
@@ -97,14 +99,13 @@ visual one: the shell is never given a number, so it cannot render one.
       page and no residue of the previous destination's marker remains.
 - [ ] **The negative UC-063 exists for:** given any `(app)` route, then the
       navigation renders no digit at all — no count, no badge, no dot.
-- [ ] Given a signed-out visitor, when they open any route in `protectedRoutes`,
-      then the response is a redirect to `/login` **with an empty body** — the
-      destination is not rendered, so it cannot be read out of the payload.
+- [ ] Given a signed-out visitor, when they open any route under `app/(app)/`,
+      then the response is a redirect to `/login` **before anything renders**.
 - [ ] Given a signed-out visitor, when they open a public route, then nothing
       redirects them.
-- [ ] Given the set of protected routes, then it is exactly the three
-      destinations — a fourth cannot be added to the shell without being added
-      to the gate.
+- [ ] Given the shell, then it renders exactly three destinations — Methods,
+      Words, Progress — and a fourth cannot appear in the navigation without a
+      deliberate change to `protectedRoutes`.
 - [ ] Given a signed-in Account, then a sign-out control is present, and
       submitting it ends the session and redirects to `/`.
 - [ ] Given a `(marketing)` route, then no destination navigation renders on it.

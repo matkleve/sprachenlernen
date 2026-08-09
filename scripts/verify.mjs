@@ -8,6 +8,7 @@
  */
 
 import { spawnSync } from "node:child_process";
+import { rmSync } from "node:fs";
 
 const CHECKS = [
   ["typecheck", "npm", ["run", "--silent", "typecheck"]],
@@ -35,6 +36,11 @@ const failed = [];
 
 for (const [name, cmd, args, env] of selected) {
   process.stdout.write(`\n\x1b[1m▸ ${name}\x1b[0m\n`);
+  if (name === "build") {
+    // Stale generated types from a deleted route make typecheck red on the next
+    // run even though the source is fine. The verify build is ephemeral.
+    rmSync(".next-verify", { recursive: true, force: true });
+  }
   const { status } = spawnSync(cmd, args, {
     stdio: "inherit",
     shell: process.platform === "win32",

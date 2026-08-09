@@ -13,6 +13,8 @@ export const routes = {
   languages: "/languages",
   signIn: "/login",
   signUp: "/signup",
+  /** Public. The Grundriss worked example — stays reachable without an account. */
+  primitives: "/primitives",
 
   /** The app's default route — signing in lands here (ADR-0010). */
   appHome: "/methods",
@@ -23,15 +25,28 @@ export const routes = {
 } as const;
 
 /**
- * Everything in the app/(app)/ route group — the routes ADR-0006 puts behind
- * an account. Adding a destination means adding it here, and the middleware
- * test asserts this list and the three destinations stay the same set.
+ * The public half of the site — everything in `app/(marketing)/`. The gate is
+ * inverted on purpose: anything not listed here requires an account, so a page
+ * added under `app/(app)/` is protected even when nobody remembered to extend a
+ * hand-maintained allowlist. The shell still shows exactly three destinations;
+ * that list is `protectedRoutes`, not this one.
  */
+export const publicRoutes = [
+  routes.landing,
+  routes.languages,
+  routes.signIn,
+  routes.signUp,
+  routes.primitives,
+] as const;
+
+/** The three destinations the shell renders — a subset of the gated half. */
 export const protectedRoutes = [routes.methods, routes.words, routes.progress] as const;
+
+export function isPublicRoute(pathname: string): boolean {
+  return publicRoutes.some((route) => pathname === route);
+}
 
 /** Whether a pathname is inside the signed-in half. `/words/atlas` is. */
 export function requiresAccount(pathname: string): boolean {
-  return protectedRoutes.some(
-    (route) => pathname === route || pathname.startsWith(`${route}/`),
-  );
+  return !isPublicRoute(pathname);
 }

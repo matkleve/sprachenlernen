@@ -105,6 +105,13 @@ describe("choosing a context", () => {
     expect(chosenContext()).toEqual([presets.find((p) => p.id === "kitchen")!.name]);
   });
 
+  it("links the chosen preset back to the whole catalogue so tapping it clears the filter", () => {
+    show("kitchen");
+
+    const kitchen = presets.find((p) => p.id === "kitchen")!;
+    expect(presetLink(kitchen.name).getAttribute("href")).toBe("/methods");
+  });
+
   it("offers a way back to the whole catalogue that carries no context", () => {
     show("kitchen");
 

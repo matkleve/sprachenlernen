@@ -31,7 +31,7 @@ export function AppShell({ children }: { children: ReactNode }) {
           </form>
         </div>
       </header>
-      <main>{children}</main>
+      <main id="main">{children}</main>
     </div>
   );
 }

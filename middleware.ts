@@ -22,9 +22,9 @@ import { requiresAccount, routes } from "@/lib/routes";
  * is not even a 307 any more, it is a 200. Measured, not theorised; see
  * docs/TRAPS.md. Middleware runs before any of that.
  *
- * The layout gate stays as well, so a route cannot render without an account
- * even if this matcher ever stops covering it. Both read the same list in
- * `lib/routes.ts`, so there is one place to add a destination.
+ * The layout gate in `app/(app)/layout.tsx` stays as a backstop only — it cannot
+ * prevent content leaking into a redirect response. Both read `requiresAccount()`
+ * from `lib/routes.ts`, which gates every route that is not explicitly public.
  *
  * Pattern is Supabase's current one for `@supabase/ssr` — `getAll`/`setAll`
  * only, never the deprecated per-cookie `get`/`set`/`remove`:

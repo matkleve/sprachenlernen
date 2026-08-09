@@ -70,7 +70,14 @@ export function MethodMenu({ catalogue, presets = [], errors, context }: MethodM
           </li>
           {presets.map((preset) => (
             <li key={preset.id}>
-              <NavLink href={`${routes.methods}?context=${preset.id}`} current={chosen?.id === preset.id}>
+              <NavLink
+                href={
+                  chosen?.id === preset.id
+                    ? routes.methods
+                    : `${routes.methods}?context=${preset.id}`
+                }
+                current={chosen?.id === preset.id}
+              >
                 {preset.name}
               </NavLink>
             </li>

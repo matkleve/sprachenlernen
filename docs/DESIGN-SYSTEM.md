@@ -91,6 +91,9 @@ This resolves a standing conflict rather than creating one: `Select.tsx` and
 short a row, and the boundary that admitted no exceptions. Both are now right.
 The exemption is **narrow on purpose** — it names native form controls, not
 "anything the platform helps with". A custom listbox is not a `<select>`.
+**Navigation anchors may omit `disabled` for the same structural reason** — an
+`<a>` has no disabled state; where a destination is unavailable, render
+something that is not a link ([`specs/component/nav-link.md`](specs/component/nav-link.md)).
 
 Two things that are easy to get wrong:
 

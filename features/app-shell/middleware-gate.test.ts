@@ -9,7 +9,8 @@ import { createServerClient } from "@supabase/ssr";
 import { NextRequest } from "next/server";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
-import { protectedRoutes, requiresAccount, routes } from "@/lib/routes";
+import { collectAppRoutes } from "@/lib/collect-app-routes";
+import { protectedRoutes, publicRoutes, requiresAccount, routes } from "@/lib/routes";
 
 import { middleware } from "@/middleware";
 
@@ -42,40 +43,60 @@ beforeEach(() => {
 });
 
 describe("the route model", () => {
-  it("protects exactly the three destinations, and nothing public", () => {
-    // One list, read by both the middleware and the shell. If a fourth
-    // destination is ever added, this is where it is noticed.
+  it("lists exactly the three shell destinations", () => {
     expect([...protectedRoutes]).toEqual([routes.methods, routes.words, routes.progress]);
+  });
 
-    for (const route of [routes.landing, routes.languages, routes.signIn, routes.signUp]) {
+  it("leaves every marketing route public", () => {
+    for (const route of publicRoutes) {
       expect(requiresAccount(route), `${route} is public`).toBe(false);
     }
   });
 
-  it("counts a nested route as inside the destination above it", () => {
+  it("requires an account for every page under app/(app)/", () => {
+    const appRoutes = collectAppRoutes();
+    expect(appRoutes.length).toBeGreaterThan(0);
+
+    for (const route of appRoutes) {
+      expect(requiresAccount(route), `${route} must be gated`).toBe(true);
+    }
+
+    // The three destinations are pages in that tree — not a separate allowlist.
+    for (const route of protectedRoutes) {
+      expect(appRoutes, `${route} must exist under (app)`).toContain(route);
+    }
+  });
+
+  it("gates a nested route under a destination", () => {
     expect(requiresAccount("/words/atlas")).toBe(true);
-    // ...but not a route that merely starts with the same letters.
-    expect(requiresAccount("/methods-archive")).toBe(false);
   });
 });
 
 describe("a signed-out request", () => {
   beforeEach(() => signedInAs(null));
 
-  it("is turned away from every protected route before anything renders", async () => {
-    for (const route of protectedRoutes) {
+  it("is turned away from every (app) route before anything renders", async () => {
+    for (const route of collectAppRoutes()) {
       const response = await get(route);
 
       expect(response.status, `${route} must redirect`).toBe(307);
       expect(new URL(response.headers.get("location")!).pathname).toBe(routes.signIn);
-      // The body is what the production build got wrong: a redirect issued
-      // from a layout still carries the rendered page in it.
-      expect(await response.text()).toBe("");
     }
   });
 
+  it("is turned away from a route that exists only under (app) but is not a destination", async () => {
+    // The failure mode the adversarial review reproduced: a page added to the
+    // group without touching protectedRoutes. The gate is inverted now, so the
+    // predicate does not need updating — only the filesystem scan above fails
+    // if someone removes the inversion.
+    expect(requiresAccount("/settings")).toBe(true);
+    const response = await get("/settings");
+    expect(response.status).toBe(307);
+    expect(new URL(response.headers.get("location")!).pathname).toBe(routes.signIn);
+  });
+
   it("is left alone on the public routes", async () => {
-    for (const route of [routes.landing, routes.languages, routes.signIn]) {
+    for (const route of publicRoutes) {
       expect((await get(route)).status, `${route} must not redirect`).toBe(200);
     }
   });
@@ -84,7 +105,7 @@ describe("a signed-out request", () => {
 describe("a signed-in request", () => {
   beforeEach(() => signedInAs({ id: "u1" }));
 
-  it("reaches every protected route", async () => {
+  it("reaches every destination", async () => {
     for (const route of protectedRoutes) {
       expect((await get(route)).status, `${route} must be reachable`).toBe(200);
     }

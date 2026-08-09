@@ -33,9 +33,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         >
           Skip to content
         </a>
-        {/* The landmark lives here, not in each page. A page that forgot it
-            would break the skip link above silently — and nothing would fail. */}
-        <main id="main">{children}</main>
+        {/* `#main` lives in each route group's layout — marketing on the page,
+            signed-in on the shell's content below the header — so the skip link
+            never lands inside navigation. */}
+        {children}
       </body>
     </html>
   );
