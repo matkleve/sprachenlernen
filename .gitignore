@@ -21,3 +21,8 @@ tmp/
 # network-fetched, and reproducible. The generated data/lemma/*.json is
 # committed; these are not.
 .cache/
+
+# Written by `supabase link`. Machine-local state, and pooler-url embeds the
+# database user — the migrations under supabase/migrations/ are the artefact
+# worth committing, not the link.
+supabase/.temp/

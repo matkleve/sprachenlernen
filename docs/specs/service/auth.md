@@ -98,8 +98,9 @@ to signed-out; a successful sign-in moves the other way.
 **⚠ SPEC GAP: mandatory email confirmation contradicts UC-011's "first real
 exercise reachable in well under a minute."** This Supabase project currently
 has email confirmation on (`mailer_autoconfirm: false`), which is Supabase's
-secure default, but it is a project-level Auth setting this spec's author
-could not change (no Management API credential was available — see the PR).
+secure default. It is a project-level Auth setting, not a code path: turning it
+off is now technically possible (`SUPABASE_ACCESS_TOKEN` reaches the Management
+API as of 2026-08-09), which is precisely why it must not be done silently.
 `signUp` in `lib/db/auth.ts` handles both outcomes correctly either way; which
 one the product should *want* is a decision for whoever owns UC-011.
 

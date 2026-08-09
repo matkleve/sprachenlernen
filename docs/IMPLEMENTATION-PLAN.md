@@ -73,22 +73,25 @@ What that changes for this queue:
 Still ahead of stage 2: **the vocabulary estimate (F17–F22)**, now unblocked on
 the data side, because tier B means a level *may* be claimed with a widened band.
 
-**T-B8 is code-complete and blocked on one external step.** Spec
+**T-B8 is done, and the migration is live.** Spec
 [`docs/specs/service/auth.md`](specs/service/auth.md), `lib/db/`, `middleware.ts`,
-`/signup`, `/login` and the migration are all written and reviewed; `npm run
-verify` is green except `test`. That one failure is deliberate, not a defect: the
-agent had `NEXT_PUBLIC_SUPABASE_URL`, the publishable key and the service-role
-key, but no `SUPABASE_DB_PASSWORD` or `SUPABASE_ACCESS_TOKEN` and no
-authenticated Supabase MCP session, so it could not run DDL against the live
-project (`lnkgmjcueahhrzpnzmwq`) — those keys only ever reach PostgREST and Auth,
-never the database connection or the Management API. Someone with project access
-must run
+`/signup`, `/login` and
 [`supabase/migrations/20260809073100_review_log_ownership.sql`](../supabase/migrations/20260809073100_review_log_ownership.sql)
-once (SQL Editor, `supabase db push`, or the MCP once authenticated); after that,
-`npm test -- access-control` turns green with no code change. **T-B2 is
-unblocked to start its spec now** — the owner column T-B2 depends on exists in
-the migration file already — but its own red test needs the same migration
-applied to run for real.
+are written, reviewed and merged; the migration was applied to the live project
+(`lnkgmjcueahhrzpnzmwq`) on 2026-08-09 via `supabase db push`, and `npm run
+verify` is green in full — including the five §8 access-control tests, which now
+prove the RLS policy against the real database rather than describing it.
+
+**Applying a migration needs two secrets the app itself never reads**:
+`SUPABASE_ACCESS_TOKEN` (Management API, what `supabase link` authenticates
+with) and `SUPABASE_DB_PASSWORD` (the Postgres connection `supabase db push`
+opens). `NEXT_PUBLIC_SUPABASE_URL`, the publishable key and the service-role key
+reach only PostgREST and Auth — they cannot run DDL, which is why the first pass
+at T-B8 could not finish this step. Worth remembering before queueing any task
+whose "done" includes a schema change.
+
+**T-B2 is fully unblocked** — the owner column it depends on now exists in the
+live schema, so its own red test can run for real rather than against a file.
 
 ---
 
@@ -272,8 +275,8 @@ low-inference agent would silently invent.
 
 | # | Work | Why it is not Track A |
 | --- | --- | --- |
-| **T-B8** | **Accounts and authentication on Supabase — code-complete, blocked on migration** | **Sensitive.** Implemented 2026-08-09: `docs/specs/service/auth.md`, `lib/db/`, `middleware.ts`, `/signup`, `/login`, the `review_log` RLS migration and its §8 access-control test. See "Where storage stands" above for the one remaining step |
-| **T-B2** | Persistence of the review log | **Sensitive.** Shape is fixed by ADR-0005 and 0006 — append-only, per-review UUID, non-null owner, adapter-only. The remaining work is a spec pinning the row schema and the installation id, plus a red test per property. Depends on T-B8 for the owner it writes |
+| ~~**T-B8**~~ | ~~Accounts and authentication on Supabase~~ — **shipped 2026-08-09** | **Sensitive.** `docs/specs/service/auth.md`, `lib/db/`, `middleware.ts`, `/signup`, `/login`, the `review_log` RLS migration (applied to the live project) and its §8 access-control test, all green |
+| **T-B2** | Persistence of the review log | **Sensitive.** Shape is fixed by ADR-0005 and 0006 — append-only, per-review UUID, non-null owner, adapter-only. The remaining work is a spec pinning the row schema and the installation id, plus a red test per property. Its dependency on T-B8 for the owner it writes is satisfied — `user_id` exists in the live schema |
 | **T-B1** | The review session surface | **Sensitive.** Stateful UI, so `STATE.md` demands one enum, an explicit transition map, named terminal states and a single source of truth *before* any code. Depends on T-B2 |
 | **T-B3** | Vocabulary estimate and the level display (F17–F22) | Newly unblocked by tier B. Needs the anchor table from `study/03-level-model.md`, which is graded **[C]** and explicitly needs calibrating — a spec must say what is claimed with an uncalibrated band |
 | **T-B4** | Dose ledger (F184) | Needs roadmap question 19 answered, and its logging half needs T-B2 |
