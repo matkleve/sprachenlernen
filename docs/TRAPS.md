@@ -11,6 +11,37 @@ applying is still evidence about how this codebase misleads people.
 
 ---
 
+## `hover:` cannot be observed in this environment, and it is not your CSS
+
+Every `hover:` utility Tailwind v4 emits is compiled inside a single
+`@media (hover: hover)` block. The VM's display has no pointer device Chrome
+recognises, so it reports `pointer: none` and `hover: none` — headless **and**
+headful, every browser, every component. The rules are in the stylesheet and
+never match.
+
+The symptom is that hovering does nothing, anywhere, including on `Button`,
+which has had a specced hover state and passing tests since the starter. It
+reads as "the hover state I just wrote is broken", and it has now cost two
+separate investigations — the first concluded the `accent` → `accent-deep` step
+was too subtle to see, which was a reasonable read of a real observation and
+completely wrong.
+
+Two tells. `element.matches(":hover")` is **`true`** while
+`getComputedStyle(element).backgroundColor` is unchanged — the element is
+hovered and the rule is simply not in play. And the failure is *global*: one
+broken hover is a bug, every hover in the app failing at once is the
+environment.
+
+```js
+matchMedia("(hover: hover)").matches   // false here, true on a real machine
+```
+
+`Emulation.setEmulatedMedia` does **not** fix it — Chrome ignores the `hover`
+feature there, so you cannot emulate your way to a screenshot. **Do not report
+hover as verified from this VM, and do not restyle anything to make it show up
+in a recording.** Assert the class is present (a unit test can do that) and
+leave the visual confirmation to a human on a real pointer.
+
 ## A layout's `redirect()` does not stop the page under it from rendering
 
 `app/(app)/layout.tsx` awaited an account and redirected signed-out visitors to

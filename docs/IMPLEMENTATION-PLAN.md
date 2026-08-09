@@ -324,10 +324,16 @@ control — the exemption is deliberately narrow, so it does not reach them. Thi
 is ordinary interaction debt on components no learner sees yet, not a rule
 conflict, and it belongs to whichever task next touches those two.
 
-**Hover on touch devices.** `DESIGN-SYSTEM.md:78` recommends wrapping hover
-styles in `@media (hover: hover)`; no component does. On a phone, `hover:` sticks
-after a tap, which will look like a selection bug on a review surface where
-tapping is the primary interaction. Cheap now, annoying later.
+**Hover on touch devices — this debt does not exist, and never did.** The entry
+here used to say no component wraps hover in `@media (hover: hover)`. Tailwind
+v4 wraps **all of them**: in the built stylesheet every `hover:` utility sits
+inside a single `@media (hover:hover)` block. Nothing to do, and
+[`DESIGN-SYSTEM.md`](DESIGN-SYSTEM.md) has been corrected too.
+
+The real consequence is the opposite one and it is now in
+[`TRAPS.md`](TRAPS.md): where there is no hovering pointer the rules never
+apply, so hover cannot be the only signal — and it cannot be observed at all in
+this VM, which reports `pointer: none`.
 
 **The success tokens have never been used.** `success`, `success-deep`,
 `success-soft` and `success-ink` exist in `app/globals.css` and no component

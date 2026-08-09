@@ -94,9 +94,15 @@ The exemption is **narrow on purpose** — it names native form controls, not
 
 Two things that are easy to get wrong:
 
-- **`hover:` on touch devices sticks.** On mobile the hover style can remain
-  after a tap. Wrap hover-only affordances in `@media (hover: hover)` when the
-  difference matters.
+- **`hover:` on touch devices does not stick, and you do not have to do
+  anything about it.** Tailwind v4 compiles every `hover:` utility inside
+  `@media (hover: hover)` — verified against the built stylesheet, where the
+  whole hover block sits under that one at-rule. Wrapping it again by hand is
+  a no-op, and an earlier note here asking for that was wrong.
+  **What follows from it is the part that matters:** on a device with no
+  hovering pointer the hover style never applies at all, so hover may never be
+  the *only* signal that something is interactive or selected. That is why
+  `current` in `NavLink` is a fill rather than a hover-shaped hint.
 - **`focus` vs `focus-visible`.** Use `focus-visible`, or every mouse click
   leaves a ring behind and people will ask you to remove focus rings entirely —
   which breaks keyboard users.
