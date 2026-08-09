@@ -532,6 +532,25 @@ calibration. They may never be cited as evidence about learning, and no selectio
 policy may be tuned against them — the RL-for-instruction literature is full of
 policies that beat baselines in simulation and not with people.
 
+### 23 · Do the seven layer-1 signals need extending, or does the target-signal rule bind only hosted methods?
+
+Surfaced 2026-08-09 by writing the catalogue out as data
+([`../specs/service/method-catalogue.md`](../specs/service/method-catalogue.md)).
+[12](12-method-cards.md) says a method without a named target signal cannot be
+admitted. Twenty-one of the fifty-three methods have none: shadowing trains
+prosody, minimal pairs train perception, reading aloud trains intelligibility,
+and [03](03-level-model.md)'s seven signals measure none of those.
+
+Both answers cost something. Adding signals means adding measurement the level
+model then has to defend — and perception and prosody are exactly where cheap
+measurement is least valid ([02](02-evidence.md), E4). Restricting the rule to
+hosted methods concedes that half the catalogue sits outside layer 1, which is
+already the position of [12](12-method-cards.md), thesis 9 — but it also means
+the app can never say whether shadowing did anything for this learner.
+
+Blocking for the method card, not for the catalogue: an entry without a signal
+loads today and renders a card that cannot state its effect.
+
 ---
 
 ## What happens next

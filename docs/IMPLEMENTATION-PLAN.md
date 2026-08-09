@@ -19,6 +19,7 @@ wins and this file is stale. Nothing normative may live only here.
 | `lib/scheduler.ts` | FSRS-4.5, complete, adversarially reviewed, 48 tests. Spec **active** |
 | `lib/lexicon.ts` + `lib/lemma-table.ts` | Profiles, tokenising, resolution with paradigm cells, tier derivation. 69 tests. Spec **active** |
 | `data/` | Spanish and Italian: frequency lists **and** lemma tables. Both at **quality tier B** |
+| `lib/method-catalogue.ts` + `data/methods/` | 53 methods, 6 commitments, 7 context presets. Schema, validation, context filter. 24 tests. Spec **active** |
 | `components/ui/` | Button, Field, Input, Select, Dialog, Table — inherited from Grundriss, specced, tested |
 | `features/` | `item-picker` and `primitives` — **both are the starter's worked examples** |
 | `app/page.tsx` | Still the Grundriss demo. Headline reads "Grundriss — The plan comes before the building" |
@@ -243,7 +244,7 @@ low-inference agent would silently invent.
 | **T-B3** | Vocabulary estimate and the level display (F17–F22) | Newly unblocked by tier B. Needs the anchor table from `study/03-level-model.md`, which is graded **[C]** and explicitly needs calibrating — a spec must say what is claimed with an uncalibrated band |
 | **T-B4** | Dose ledger (F184) | Needs roadmap question 19 answered, and its logging half needs T-B2 |
 | **T-B7** | The landing page | Positioning copy is a product decision, not an implementation. With a required account it is also everything a signed-out visitor ever sees, and its job is to persuade — which makes every rule in `DESIGN-SYSTEM.md` necessary but not sufficient |
-| **T-B10** | **The method menu — the product's front door** | **Sensitive**, and the largest piece of design work in the plan. Stage 1 as of 2026-08-08. It is a selection surface driving two surfaces (menu → info page → runner), so `STATE.md` applies; it needs the catalogue as data (F147) before any UI; and its ranking rule is normative — context → floor → **evidence grade**, never a measured effect that does not exist yet. Blocked on the catalogue spec, not on auth |
+| **T-B10** | **The method menu — the product's front door** | **Sensitive**, and the largest piece of design work in the plan. Stage 1 as of 2026-08-08. It is a selection surface driving two surfaces (menu → info page → runner), so `STATE.md` applies; its ranking rule is normative — context → floor → **evidence grade**, never a measured effect that does not exist yet. The catalogue it needed (F147) shipped 2026-08-09, so what blocks it now is the navigation model (UC-063), not data |
 | **T-B9** | Sync across devices (F192) | Comes after T-B2 and is cheap *because* of it: a union of append-only rows. **⚠ SPEC GAP** carried from ADR-0005: the tiebreak between two rows with the same timestamp from different installations. Client clocks are untrusted, so it cannot be wall-clock order |
 | **T-B5** | Retire the Grundriss worked examples | Looks like a deletion, is a docs refactor: `docs/STATE.md:148` cites item-picker as **the** worked example of state coherence, `docs/specs/README.md:36` indexes it, and UC-001…003 are referenced from six files. Removing the code without re-pointing those is a broken-link failure at best and the loss of the only worked example at worst |
 | **T-B6** | Five-state compliance for Input and Select | A rule conflict, not a bug — see the decisions below |
@@ -349,10 +350,11 @@ Ordered by how much they block. **Question 16 is off this list** (ADR-0005,
 ADR-0006, ADR-0007) — an account is required, and the provider is Supabase.
 
 1. ~~Is T-03 the first surface?~~ **Answered 2026-08-08: no, the method menu is.**
-   What remains is a smaller sequencing question — whether the catalogue is
-   written as data (F147) before or alongside the menu spec. Writing the data
-   first is the recommendation, because ~60 entries with evidence grades is
-   research work rather than code, and it can proceed while nothing else can.
+   ~~And whether the catalogue is written before or alongside the menu spec.~~
+   **Closed 2026-08-09:** the catalogue shipped as data first. It surfaced three
+   conflicts between chapters 12, 21 and 24, and one gap that no single chapter
+   showed — twenty-one methods train something none of the seven layer-1 signals
+   measures. Writing it alongside a menu spec would have buried all four.
 2. **Are native form controls exempt from the five-state rule?** Yes → the
    boundary in `AGENTS.md` gains one sentence and `select.md` is already right.
    No → Input, Select, Table and ItemPicker each gain hover and active states,

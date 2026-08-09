@@ -1,0 +1,380 @@
+/**
+ * The method catalogue. Contract: docs/specs/service/method-catalogue.md
+ *
+ * The load-bearing decision here is that the catalogue is **data, not code**
+ * (study/21, "What follows for the product", point 1). Adding a method must be
+ * an entry in `data/methods/`, never a release — the alternative was a
+ * `switch` over method ids somewhere in the menu, which is exactly how a
+ * catalogue stops at ten entries.
+ *
+ * Two consequences fall out of that and are enforced below rather than
+ * documented and hoped for:
+ *
+ * - **A method with no context requirements cannot be admitted.** It would
+ *   match every context and filtering would quietly stop meaning anything.
+ * - **A commitment is not a session.** It has no duration, no intensity and no
+ *   context, because it runs in the background of a life rather than in a slot
+ *   (study/24, S4). Filtering it by "do you have paper" is a category error, so
+ *   the type system and the validator both refuse to let it carry one.
+ */
+
+export const SECTIONS = [
+  "reading",
+  "listening",
+  "speaking",
+  "writing",
+  "form",
+  "vocabulary",
+  "world",
+  "commitments",
+] as const;
+export type Section = (typeof SECTIONS)[number];
+
+export const SKILLS = ["reading", "listening", "speaking", "writing"] as const;
+export type Skill = (typeof SKILLS)[number];
+
+/** The seven layer-1 signals of study/03. Nothing else is measured. */
+export const SIGNALS = [
+  "vocabularySize",
+  "formMastery",
+  "recallStability",
+  "lexicalCoverage",
+  "responseTime",
+  "successByDifficulty",
+  "productionQuality",
+] as const;
+export type Signal = (typeof SIGNALS)[number];
+
+export const EVIDENCE_GRADES = ["A", "B", "C", "D"] as const;
+export type EvidenceGrade = (typeof EVIDENCE_GRADES)[number];
+
+// --- the context model -------------------------------------------------------
+
+/**
+ * The eight dimensions of study/21. `time` is deliberately absent from a
+ * method's requirements: a method states its duration variants and the fit is
+ * computed, rather than every entry restating the same budget list.
+ */
+export const CONTEXT_DIMENSIONS = {
+  eyes: ["free", "occupied"],
+  hands: ["free", "one", "none"],
+  voice: ["aloud", "quiet", "none"],
+  writingSurface: ["paper", "keyboard", "touch", "none"],
+  sound: ["speaker", "headphones", "silent"],
+  attention: ["full", "divided", "fragmented"],
+  company: ["alone", "speakers", "others"],
+} as const;
+
+export const TIME_BUDGETS = ["2", "15", "45", "open"] as const;
+export type TimeBudget = (typeof TIME_BUDGETS)[number];
+
+export type Context = {
+  [K in keyof typeof CONTEXT_DIMENSIONS]: (typeof CONTEXT_DIMENSIONS)[K][number];
+} & { time: TimeBudget };
+
+/** Which values of a dimension the method can be performed in. */
+export type Requirements = {
+  [K in keyof typeof CONTEXT_DIMENSIONS]?: readonly (typeof CONTEXT_DIMENSIONS)[K][number][];
+};
+
+export type Preset = { id: string; name: string; context: Context };
+
+// --- entries -----------------------------------------------------------------
+
+type EntryCommon = {
+  id: string;
+  name: string;
+  section: Section;
+  /** Prose, from the catalogue table. Shown on the card; never parsed. */
+  trains: string;
+  skills: Skill[];
+  /** `null` where no layer-1 signal covers what the method trains. */
+  targetSignal: Signal | null;
+  evidence: EvidenceGrade;
+  /** "Avoided by engagement-optimised apps" (study/21), not "difficult for you". */
+  demanding: boolean;
+  /** Whether the app runs it. Roughly half the catalogue does not. */
+  hosted: boolean;
+  /** Mandatory. A method with nothing honest to say about its limits is not described. */
+  doesNotDo: string;
+};
+
+export type MethodEntry = EntryCommon & {
+  type: "method";
+  intensity: 1 | 2 | 3;
+  /** Minutes, ascending. `null` means open-ended: it fits only an open budget. */
+  durations: number[] | null;
+  requires: Requirements;
+  /**
+   * Lower bound on how often the method is **offered**, in days. Never a lower
+   * bound on what the learner does — see study/12, "The floor".
+   */
+  offerEveryDays: number | null;
+};
+
+export type CommitmentEntry = EntryCommon & {
+  type: "commitment";
+  /** Days until the one quiet "still doing this?" review. No completion, no streak. */
+  reviewAfterDays: number;
+};
+
+export type Entry = MethodEntry | CommitmentEntry;
+
+export type Catalogue = { entries: Entry[] };
+
+export type LoadResult = { catalogue?: Catalogue; errors: string[] };
+export type PresetsResult = { presets?: Preset[]; errors: string[] };
+
+// --- validation --------------------------------------------------------------
+
+const isRecord = (value: unknown): value is Record<string, unknown> =>
+  typeof value === "object" && value !== null && !Array.isArray(value);
+
+const isNonEmptyString = (value: unknown): value is string =>
+  typeof value === "string" && value.trim() !== "";
+
+const oneOf = <T extends string>(value: unknown, allowed: readonly T[]): value is T =>
+  typeof value === "string" && (allowed as readonly string[]).includes(value);
+
+const ID_PATTERN = /^[a-z0-9]+(-[a-z0-9]+)*$/;
+
+const validateRequirements = (value: unknown, where: string, errors: string[]) => {
+  if (!isRecord(value)) {
+    errors.push(`${where}.requires: required object`);
+    return;
+  }
+
+  for (const [dimension, allowed] of Object.entries(value)) {
+    const values = CONTEXT_DIMENSIONS[dimension as keyof typeof CONTEXT_DIMENSIONS];
+    if (values === undefined) {
+      errors.push(`${where}.requires.${dimension}: not a context dimension`);
+      continue;
+    }
+    if (!Array.isArray(allowed) || allowed.length === 0) {
+      errors.push(`${where}.requires.${dimension}: must be a non-empty array`);
+      continue;
+    }
+    for (const entry of allowed) {
+      if (!oneOf(entry, values)) {
+        errors.push(
+          `${where}.requires.${dimension}: "${String(entry)}" is not one of ${values.join(", ")}`,
+        );
+      }
+    }
+  }
+};
+
+const validateEntry = (input: unknown, section: Section, index: number, errors: string[]) => {
+  const where = `${section}[${index}]`;
+
+  if (!isRecord(input)) {
+    errors.push(`${where}: must be an object`);
+    return;
+  }
+
+  const id = input.id;
+  if (!isNonEmptyString(id) || !ID_PATTERN.test(id)) {
+    errors.push(`${where}.id: required, lowercase kebab-case`);
+  }
+
+  for (const key of ["name", "trains", "doesNotDo"] as const) {
+    if (!isNonEmptyString(input[key])) {
+      errors.push(`${where}.${key}: required, must be a non-empty string`);
+    }
+  }
+
+  if (!oneOf(input.evidence, EVIDENCE_GRADES)) {
+    errors.push(`${where}.evidence: required — one of ${EVIDENCE_GRADES.join(", ")}`);
+  }
+
+  for (const key of ["demanding", "hosted"] as const) {
+    if (typeof input[key] !== "boolean") errors.push(`${where}.${key}: required boolean`);
+  }
+
+  if (!Array.isArray(input.skills) || input.skills.some((s) => !oneOf(s, SKILLS))) {
+    errors.push(`${where}.skills: required array of ${SKILLS.join(", ")}`);
+  }
+
+  if (input.targetSignal !== null && !oneOf(input.targetSignal, SIGNALS)) {
+    errors.push(`${where}.targetSignal: required — null or one of ${SIGNALS.join(", ")}`);
+  }
+
+  if (input.type === "method") {
+    if (![1, 2, 3].includes(input.intensity as number)) {
+      errors.push(`${where}.intensity: required — 1, 2 or 3`);
+    }
+
+    const durations = input.durations;
+    if (durations !== null) {
+      if (!Array.isArray(durations) || durations.length === 0) {
+        errors.push(`${where}.durations: null or a non-empty array of minutes`);
+      } else if (
+        durations.some((d) => typeof d !== "number" || !Number.isFinite(d) || d <= 0) ||
+        durations.some((d, i) => i > 0 && (d as number) <= (durations[i - 1] as number))
+      ) {
+        errors.push(`${where}.durations: minutes must be positive and ascending`);
+      }
+    }
+
+    validateRequirements(input.requires, where, errors);
+    if (isRecord(input.requires) && Object.keys(input.requires).length === 0) {
+      // study/21: without requirements it matches everything, and the filter
+      // that the whole menu is built on stops separating anything.
+      errors.push(`${where}.requires: a method with no context requirements cannot be admitted`);
+    }
+
+    const floor = input.offerEveryDays;
+    if (floor !== null && (typeof floor !== "number" || !Number.isFinite(floor) || floor <= 0)) {
+      errors.push(`${where}.offerEveryDays: null or a positive number of days`);
+    }
+  } else if (input.type === "commitment") {
+    for (const key of ["intensity", "durations", "offerEveryDays"] as const) {
+      if (input[key] !== null) errors.push(`${where}.${key}: must be null on a commitment`);
+    }
+    if (isRecord(input.requires) && Object.keys(input.requires).length > 0) {
+      errors.push(`${where}.requires: a commitment has no context — it is not a session`);
+    }
+    const review = input.reviewAfterDays;
+    if (typeof review !== "number" || !Number.isFinite(review) || review <= 0) {
+      errors.push(`${where}.reviewAfterDays: required, a positive number of days`);
+    }
+  } else {
+    errors.push(`${where}.type: required — "method" or "commitment"`);
+  }
+};
+
+/**
+ * Validates and loads the section files. Every file is checked even when an
+ * earlier one failed: a caller fixing the data wants the whole list, not the
+ * first line of it.
+ */
+export const loadCatalogue = (inputs: readonly unknown[]): LoadResult => {
+  const errors: string[] = [];
+  const entries: Entry[] = [];
+  const seen = new Set<string>();
+
+  inputs.forEach((input, fileIndex) => {
+    if (!isRecord(input)) {
+      errors.push(`file ${fileIndex}: must be an object`);
+      return;
+    }
+
+    const section = input.section;
+    if (!oneOf(section, SECTIONS)) {
+      errors.push(`file ${fileIndex}: section must be one of ${SECTIONS.join(", ")}`);
+      return;
+    }
+
+    if (!Array.isArray(input.entries)) {
+      errors.push(`${section}: entries must be an array`);
+      return;
+    }
+
+    input.entries.forEach((entry, index) => {
+      const before = errors.length;
+      validateEntry(entry, section, index, errors);
+      if (errors.length !== before) return;
+
+      const id = (entry as { id: string }).id;
+      if (seen.has(id)) {
+        errors.push(`${section}[${index}].id: "${id}" is already used`);
+        return;
+      }
+      seen.add(id);
+      entries.push({ ...(entry as object), section } as Entry);
+    });
+  });
+
+  if (errors.length) return { errors };
+  return { catalogue: { entries }, errors: [] };
+};
+
+export const loadPresets = (input: unknown): PresetsResult => {
+  const errors: string[] = [];
+
+  if (!isRecord(input) || !Array.isArray(input.presets)) {
+    return { errors: ["presets: required array"] };
+  }
+
+  input.presets.forEach((preset, index) => {
+    if (!isRecord(preset)) {
+      errors.push(`presets[${index}]: must be an object`);
+      return;
+    }
+    if (!isNonEmptyString(preset.id) || !ID_PATTERN.test(preset.id)) {
+      errors.push(`presets[${index}].id: required, lowercase kebab-case`);
+    }
+    if (!isNonEmptyString(preset.name)) errors.push(`presets[${index}].name: required`);
+
+    const context = preset.context;
+    if (!isRecord(context)) {
+      errors.push(`presets[${index}].context: required object`);
+      return;
+    }
+    for (const [dimension, allowed] of Object.entries(CONTEXT_DIMENSIONS)) {
+      if (!oneOf(context[dimension], allowed)) {
+        errors.push(`presets[${index}].context.${dimension}: one of ${allowed.join(", ")}`);
+      }
+    }
+    if (!oneOf(context.time, TIME_BUDGETS)) {
+      errors.push(`presets[${index}].context.time: one of ${TIME_BUDGETS.join(", ")}`);
+    }
+  });
+
+  if (errors.length) return { errors };
+  return { presets: input.presets as Preset[], errors: [] };
+};
+
+// --- filtering ---------------------------------------------------------------
+
+const BUDGET_MINUTES: Record<TimeBudget, number> = {
+  "2": 2,
+  "15": 15,
+  "45": 45,
+  open: Number.POSITIVE_INFINITY,
+};
+
+export const isMethod = (entry: Entry): entry is MethodEntry => entry.type === "method";
+export const isCommitment = (entry: Entry): entry is CommitmentEntry =>
+  entry.type === "commitment";
+
+/** Whether the shortest variant of the method fits the budget. */
+export const fitsTime = (entry: MethodEntry, time: TimeBudget): boolean =>
+  entry.durations === null
+    ? time === "open"
+    : Math.min(...entry.durations) <= BUDGET_MINUTES[time];
+
+/**
+ * Context is a **hard** filter: a method that cannot be performed right now has
+ * an effect of zero and does not belong in the menu, not even greyed out
+ * (study/21). Readiness is a different quantity and is not applied here — it
+ * demotes and annotates, and doing both in one pass is how a "cannot" becomes a
+ * "may not" (study/26).
+ */
+export const matchesContext = (entry: MethodEntry, context: Context): boolean => {
+  if (!fitsTime(entry, context.time)) return false;
+
+  for (const [dimension, allowed] of Object.entries(entry.requires)) {
+    const available = context[dimension as keyof typeof CONTEXT_DIMENSIONS];
+    if (!(allowed as readonly string[]).includes(available)) return false;
+  }
+
+  return true;
+};
+
+/**
+ * Commitments are absent from the result by construction, not by omission:
+ * they are standing rules rather than sessions, so "does it fit this context"
+ * has no answer for them. Reach them with `commitments()`.
+ */
+export const filterByContext = (catalogue: Catalogue, context: Context): MethodEntry[] =>
+  catalogue.entries.filter(isMethod).filter((entry) => matchesContext(entry, context));
+
+export const commitments = (catalogue: Catalogue): CommitmentEntry[] =>
+  catalogue.entries.filter(isCommitment);
+
+export const bySkill = (catalogue: Catalogue, skill: Skill): Entry[] =>
+  catalogue.entries.filter((entry) => entry.skills.includes(skill));
+
+export const byId = (catalogue: Catalogue, id: string): Entry | undefined =>
+  catalogue.entries.find((entry) => entry.id === id);
