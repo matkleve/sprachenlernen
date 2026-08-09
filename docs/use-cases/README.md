@@ -44,6 +44,29 @@ unkept promise, a spec with no use case is a solution looking for a problem.
 the primitives in `components/ui/` and stay until this project's own features
 demonstrate the same patterns.
 
+**Retirement status, checked 2026-08-09 (T-B5).** Partly met, and the part that
+is not is the reason the code is still here:
+
+| Primitive | Product consumer | Retirable |
+| --- | --- | --- |
+| `Button` | review session grades, method menu, auth, progress | yes |
+| `Field`, `Input` | `/signup`, `/login` | yes |
+| `Table` | `/languages`, `/progress` | yes |
+| `Select` | **none** | no |
+| `Dialog` | **none** | no |
+
+Removing `features/primitives/` today would leave `Select` and `Dialog` with no
+caller anywhere, which `AGENTS.md` boundary 1 makes a hard blocker — so the
+retirement would *create* the violation it is meant to clean up. The demo is
+currently the only thing exercising two shipped primitives, which is a real job
+even though it looks like a leftover.
+
+What has been retired is the **docs dependency**, which was the load-bearing
+half: [`../STATE.md`](../STATE.md) cited `item-picker` as *the* worked example
+of state coherence and now cites the review session. The code follows the first
+feature that needs a select or a confirmation — `Dialog` has one waiting in
+UC-024's delete confirmation.
+
 | ID | Use case | Specs |
 | --- | --- | --- |
 | [UC-001](UC-001-inspect-one-item-from-a-list.md) | Inspect one item from a list | `SPEC-feature-item-picker`, `SPEC-component-button` |

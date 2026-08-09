@@ -145,8 +145,20 @@ Implemented as: one `activeId`, everything else derived from it. Clicking a row
 sets *only* `activeId`. The bug becomes structurally impossible — you cannot
 update one surface without the other, because neither owns the selection.
 
-Worked example: [`specs/feature/item-picker.md`](specs/feature/item-picker.md)
-and `features/item-picker/`.
+**Worked example: the review session** —
+[`specs/feature/review-session.md`](specs/feature/review-session.md), its FSM
+child [`specs/feature/review-session.states.md`](specs/feature/review-session.states.md),
+and `features/review-session/`. One enum, an explicit transition map, `complete`
+as the only terminal state, and `sessionIndex` as the single source of truth
+with card text, progress and phase all derived from it. It also carries the
+negative criterion this section is about: after grading, **no text from the
+previous card appears anywhere** in the output.
+
+It replaced [`specs/feature/item-picker.md`](specs/feature/item-picker.md) here
+on 2026-08-09 (T-B5). The picker is the Grundriss starter's example and still
+demonstrates the derived-selection pattern; the review session is this
+product's own, and it exercises the harder half — transitions, a terminal
+state, and an illegal-transition no-op — which a selection alone cannot show.
 
 ---
 
