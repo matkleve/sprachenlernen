@@ -1,0 +1,100 @@
+# App shell — three destinations
+
+<!-- id: SPEC-feature-app-shell -->
+<!-- use-case: UC-063 -->
+<!-- status: active -->
+
+The frame every signed-in screen renders inside: the three destinations of
+[ADR-0009](../../adr/0009-three-destinations.md), the marker for the one you are
+on, and the way out. It is the `app/(app)/` route group's layout, so a
+destination is built once and every screen inherits it.
+
+## Scope
+
+- **In:** the `(app)` layout; the three destinations — Methods, Words, Progress,
+  in that order; the current-destination marker; the sign-out control; the
+  account gate that keeps `(app)` routes signed-in only.
+- **Out:** what `/words` and `/progress` contain (T-B1, T-B3 — until then they
+  are holding pages that say so); a fourth destination for profile or settings,
+  which [ADR-0009](../../adr/0009-three-destinations.md) rejected as "a link in
+  a corner, not a fifth of the screen"; the runner, which is a surface pushed
+  over a destination rather than one of them; and the marketing half, which has
+  no shell at all.
+
+**Reuse: `Button`.** The sign-out control is a `Button` in a form. The
+destinations are anchors, not buttons — they navigate, so they must be
+right-clickable and openable in a new tab, which a `<button>` is not.
+
+This spec takes over two lines that
+[`../service/auth.md`](../service/auth.md) § Scope listed as out and handed
+here by name: the first route that *requires* sign-in, and the visible
+sign-out control that had no signed-in navigation to live in.
+
+## Behavior
+
+| # | User action | System response |
+| --- | --- | --- |
+| 1 | Opens any `(app)` route while signed in | The shell renders with all three destinations, and the page inside it |
+| 2 | Opens any `(app)` route while signed out | Redirected to `/login`. No shell, no page, no flash of either |
+| 3 | Is on `/methods` | Methods carries `aria-current="page"`; the other two do not |
+| 4 | Taps Words or Progress | That destination loads. Reaching them never passes through the situation filter or the menu (UC-063) |
+| 5 | Signs out | The session ends and they land on `/`, the public landing page |
+| 6 | Opens `/`, `/languages`, `/login` or `/signup` | No shell — those are `(marketing)` |
+
+## States
+
+Not a client state machine (`docs/STATE.md` §1): which destination is current is
+derived from the URL on every render and held nowhere. The account condition is
+the same two states [`../service/auth.md`](../service/auth.md) already names,
+read per request.
+
+| State | Trigger | Effect | Terminal? |
+| --- | --- | --- | --- |
+| `gated` | `getAccount()` returns `null` | Redirect to `/login`; nothing under `(app)` renders | no |
+| `shown` | `getAccount()` returns an Account | The shell renders around the destination | no |
+
+Neither is terminal — signing in and signing out move between them, which is
+[`../service/auth.md`](../service/auth.md) § States, not a second model.
+
+## Data
+
+Reads `getAccount()` from [`../service/auth.md`](../service/auth.md) once per
+request, in the layout, and the current pathname. Writes nothing except through
+`signOut()`.
+
+**No count, in any form.** Not a badge, not a dot, not "12 due". UC-063 forbids
+it, [`../../study/10-antipatterns.md`](../../study/10-antipatterns.md) A3 calls
+the backlog counter the most common exit route from Anki, and a navigation badge
+is the most prominent figure a phone can display. This is a data rule, not a
+visual one: the shell is never given a number, so it cannot render one.
+
+## Accessibility
+
+- The destinations sit in a `<nav>` with an accessible name, so a screen-reader
+  user can jump to it and knows what it is.
+- The current destination is marked with `aria-current="page"` — the visual
+  marker alone does not survive being read aloud.
+- Every destination is a real link with an href, so it works before JavaScript
+  and behaves like a link to the browser.
+
+## Acceptance criteria
+
+- [ ] Given a signed-in Account, when it opens an `(app)` route, then exactly
+      three destinations render — Methods, Words, Progress — in that order, each
+      linking to `/methods`, `/words` and `/progress`.
+- [ ] Given a signed-in Account on `/methods`, then Methods is marked as the
+      current page and **neither** Words nor Progress is.
+- [ ] Given a signed-in Account on `/words`, then Words is marked as the current
+      page and no residue of the previous destination's marker remains.
+- [ ] **The negative UC-063 exists for:** given any `(app)` route, then the
+      navigation renders no digit at all — no count, no badge, no dot.
+- [ ] Given a signed-out visitor, when they open an `(app)` route, then they are
+      redirected to `/login` and neither the shell nor the destination renders.
+- [ ] Given a signed-in Account, then a sign-out control is present, and
+      submitting it ends the session and redirects to `/`.
+- [ ] Given a `(marketing)` route, then no destination navigation renders on it.
+- [ ] The rendered shell has no axe-core violations.
+
+## Check
+
+`npm test -- app-shell`

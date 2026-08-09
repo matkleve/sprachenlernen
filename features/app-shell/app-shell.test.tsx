@@ -1,0 +1,159 @@
+import { readFileSync, readdirSync } from "node:fs";
+import { join } from "node:path";
+
+import { render, screen } from "@testing-library/react";
+import { redirect } from "next/navigation";
+import { usePathname } from "next/navigation";
+import { beforeEach, describe, expect, it, vi } from "vitest";
+
+import { getAccount, signOut } from "@/lib/db/auth";
+import { expectNoA11yViolations } from "@/tests/axe";
+
+import { AppShell } from "./AppShell";
+import { signOutAction } from "./actions";
+import { copy } from "./content";
+import { requireAccount } from "./gate";
+
+/**
+ * The named check for docs/specs/feature/app-shell.md. Each test maps to one
+ * acceptance criterion in that spec — when a criterion changes, this file
+ * changes in the same commit.
+ */
+
+vi.mock("next/navigation", () => ({ redirect: vi.fn(), usePathname: vi.fn() }));
+vi.mock("@/lib/db/auth", () => ({ getAccount: vi.fn(), signOut: vi.fn() }));
+
+const account = { id: "u1", email: "a@example.com" };
+
+const showAt = (pathname: string) => {
+  vi.mocked(usePathname).mockReturnValue(pathname);
+  return render(
+    <AppShell>
+      <p>the destination</p>
+    </AppShell>,
+  );
+};
+
+const destinationLinks = () =>
+  screen
+    .getByRole("navigation", { name: copy.navLabel })
+    .querySelectorAll<HTMLAnchorElement>("a[href]");
+
+beforeEach(() => {
+  vi.mocked(redirect).mockClear();
+  vi.mocked(getAccount).mockClear();
+  vi.mocked(signOut).mockClear();
+});
+
+describe("the three destinations", () => {
+  it("renders exactly three, in ADR-0009's order, each linking to its route", () => {
+    showAt("/methods");
+
+    const links = [...destinationLinks()];
+    expect(links.map((a) => a.textContent)).toEqual([
+      copy.destinations.methods,
+      copy.destinations.words,
+      copy.destinations.progress,
+    ]);
+    expect(links.map((a) => a.getAttribute("href"))).toEqual(["/methods", "/words", "/progress"]);
+  });
+
+  it("marks the destination you are on, and marks no other", () => {
+    showAt("/methods");
+
+    const current = [...destinationLinks()].filter(
+      (a) => a.getAttribute("aria-current") === "page",
+    );
+    expect(current.map((a) => a.textContent)).toEqual([copy.destinations.methods]);
+  });
+
+  it("moves the marker with the route, leaving no residue on the previous one", () => {
+    showAt("/words");
+
+    const marked = [...destinationLinks()].filter(
+      (a) => a.getAttribute("aria-current") === "page",
+    );
+    expect(marked.map((a) => a.textContent)).toEqual([copy.destinations.words]);
+    // The negative half: the destination we are NOT on must carry nothing.
+    const methods = [...destinationLinks()].find(
+      (a) => a.textContent === copy.destinations.methods,
+    );
+    expect(methods?.getAttribute("aria-current")).toBeNull();
+  });
+
+  it("marks a nested route under a destination as that destination", () => {
+    showAt("/words/atlas");
+
+    const marked = [...destinationLinks()].filter(
+      (a) => a.getAttribute("aria-current") === "page",
+    );
+    expect(marked.map((a) => a.textContent)).toEqual([copy.destinations.words]);
+  });
+
+  it("renders no digit anywhere in the navigation — UC-063's whole point", () => {
+    // No badge, no dot, no "12 due". study/10 A3 calls the backlog counter the
+    // most common exit route from Anki, and a tab badge is the most prominent
+    // figure a phone has. Asserting on digits catches a count added in any
+    // form, including one smuggled into a label.
+    showAt("/methods");
+
+    const nav = screen.getByRole("navigation", { name: copy.navLabel });
+    expect(nav.textContent).not.toMatch(/\d/);
+  });
+
+  it("has no accessibility violations", async () => {
+    const { container } = showAt("/methods");
+
+    await expectNoA11yViolations(container);
+  });
+});
+
+describe("the account gate", () => {
+  it("sends a signed-out visitor to /login", async () => {
+    vi.mocked(getAccount).mockResolvedValue(null);
+
+    await requireAccount();
+
+    expect(redirect).toHaveBeenCalledWith("/login");
+  });
+
+  it("lets a signed-in Account through, and redirects nowhere", async () => {
+    vi.mocked(getAccount).mockResolvedValue(account);
+
+    expect(await requireAccount()).toEqual(account);
+    expect(redirect).not.toHaveBeenCalled();
+  });
+});
+
+describe("signing out", () => {
+  it("ends the session and lands on the public landing page", async () => {
+    vi.mocked(signOut).mockResolvedValue({ status: "signed-out" });
+
+    await signOutAction();
+
+    expect(signOut).toHaveBeenCalled();
+    expect(redirect).toHaveBeenCalledWith("/");
+  });
+});
+
+describe("where the shell may render", () => {
+  const read = (file: string) => readFileSync(join(process.cwd(), file), "utf8");
+
+  it("is mounted by the (app) layout", () => {
+    expect(read("app/(app)/layout.tsx")).toContain("AppShell");
+  });
+
+  it("is not reachable from any (marketing) route", () => {
+    // The shell aimed at people who cannot use it is the failure ADR-0010's
+    // route groups exist to prevent, and nothing but this test enforces it.
+    const dir = "app/(marketing)";
+    const files = readdirSync(join(process.cwd(), dir), { recursive: true, encoding: "utf8" });
+
+    for (const file of files) {
+      if (!file.endsWith(".tsx")) continue;
+      expect(read(join(dir, file)), `${file} must not mount the app shell`).not.toContain(
+        "app-shell",
+      );
+    }
+  });
+});
