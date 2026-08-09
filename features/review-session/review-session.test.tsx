@@ -99,4 +99,27 @@ describe("ReviewSession", () => {
       expect(screen.getByText("Not signed in.")).toBeDefined();
     });
   });
+
+  it("advances to the second card after grading the first", async () => {
+    const user = userEvent.setup();
+    render(<ReviewSession methodName="SRS session" />);
+
+    await waitFor(() => {
+      expect(screen.getByText("de")).toBeDefined();
+    });
+
+    await user.click(screen.getByRole("button", { name: copy.good }));
+
+    await waitFor(() => {
+      expect(screen.getByText("of, from")).toBeDefined();
+    });
+
+    await waitFor(
+      () => {
+        expect(screen.getByText("que")).toBeDefined();
+        expect(screen.queryByText("de")).toBeNull();
+      },
+      { timeout: 2000 },
+    );
+  });
 });

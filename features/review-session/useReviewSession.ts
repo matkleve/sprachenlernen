@@ -37,6 +37,7 @@ export function useReviewSession(): UseReviewSessionResult {
   const [persistError, setPersistError] = useState<string | null>(null);
   const [gradedCount, setGradedCount] = useState(0);
   const shownAtRef = useRef(Date.now());
+  const gradingRef = useRef(false);
 
   useEffect(() => {
     let cancelled = false;
@@ -69,35 +70,27 @@ export function useReviewSession(): UseReviewSessionResult {
 
   const currentCard = queue[sessionIndex] ?? null;
 
-  const advance = useCallback(() => {
-    setPersistError(null);
-    const nextIndex = sessionIndex + 1;
-    if (nextIndex >= queue.length) {
-      setPhase(nextPhase("advancing", "complete"));
-      return;
-    }
-    setSessionIndex(nextIndex);
-    setPhase(nextPhase("advancing", "prompting"));
-    shownAtRef.current = Date.now();
-  }, [queue.length, sessionIndex]);
-
   useEffect(() => {
     if (phase !== "revealed") return;
     const timer = window.setTimeout(() => {
-      setPhase((current) => nextPhase(current, "advancing"));
+      setPersistError(null);
+      const nextIndex = sessionIndex + 1;
+      if (nextIndex >= queue.length) {
+        setPhase((current) => nextPhase(nextPhase(current, "advancing"), "complete"));
+        return;
+      }
+      setSessionIndex(nextIndex);
+      setPhase((current) => nextPhase(nextPhase(current, "advancing"), "prompting"));
+      shownAtRef.current = Date.now();
     }, 400);
     return () => window.clearTimeout(timer);
-  }, [phase]);
-
-  useEffect(() => {
-    if (phase !== "advancing") return;
-    advance();
-  }, [phase, advance]);
+  }, [phase, queue.length, sessionIndex]);
 
   const grade = useCallback(
     async (value: Grade) => {
-      if (!currentCard || !canGrade(phase)) return;
+      if (!currentCard || !canGrade(phase) || gradingRef.current) return;
 
+      gradingRef.current = true;
       setPersistError(null);
       setPhase((current) => nextPhase(current, "persisting"));
 
@@ -111,12 +104,14 @@ export function useReviewSession(): UseReviewSessionResult {
       });
 
       if (result.status === "error") {
+        gradingRef.current = false;
         setPersistError(result.error);
         setPhase((current) => nextPhase(current, "prompting"));
         return;
       }
 
       setGradedCount((count) => count + 1);
+      gradingRef.current = false;
       setPhase((current) => nextPhase(current, "revealed"));
     },
     [currentCard, phase],
