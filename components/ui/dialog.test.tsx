@@ -90,6 +90,45 @@ describe("Dialog", () => {
     expect(document.getElementById(labelId)?.textContent).toBe("Delete project");
   });
 
+  it("is described by its description", () => {
+    // The description is the sentence saying what the confirming action does.
+    // Rendering it and not announcing it is the failure this component exists
+    // to prevent, and nothing visual shows it.
+    render(
+      <Dialog open onClose={noop} title="Delete project" description="This cannot be undone." />,
+    );
+    const dialog = document.querySelector("dialog")!;
+    const describedBy = dialog.getAttribute("aria-describedby")!;
+
+    expect(document.getElementById(describedBy)?.textContent).toBe("This cannot be undone.");
+  });
+
+  it("omits aria-describedby entirely when there is no description", () => {
+    // Absent, not empty — same rule Field applies to aria-invalid. An id
+    // pointing at nothing makes some screen readers read the whole element.
+    render(<Dialog open onClose={noop} title="Delete project" />);
+
+    expect(document.querySelector("dialog")!.hasAttribute("aria-describedby")).toBe(false);
+  });
+
+  it("gives two mounted dialogs different title ids", () => {
+    // Duplicate ids do not error. They make the accessible name ambiguous, so
+    // one dialog ends up labelled by the other's title.
+    render(
+      <>
+        <Dialog open onClose={noop} title="Delete project" />
+        <Dialog open onClose={noop} title="Leave without saving" />
+      </>,
+    );
+    const [first, second] = Array.from(document.querySelectorAll("dialog"));
+    const firstLabel = first.getAttribute("aria-labelledby")!;
+    const secondLabel = second.getAttribute("aria-labelledby")!;
+
+    expect(firstLabel).not.toBe(secondLabel);
+    expect(document.getElementById(firstLabel)?.textContent).toBe("Delete project");
+    expect(document.getElementById(secondLabel)?.textContent).toBe("Leave without saving");
+  });
+
   it("has no accessibility violations while open", async () => {
     const { container } = render(
       <Dialog open onClose={noop} title="Confirm" description="This cannot be undone.">

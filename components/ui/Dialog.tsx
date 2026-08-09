@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, type ReactNode } from "react";
+import { useEffect, useId, useRef, type ReactNode } from "react";
 
 import { cn } from "@/lib/utils";
 
@@ -36,6 +36,12 @@ export function Dialog({
   className,
 }: DialogProps) {
   const ref = useRef<HTMLDialogElement>(null);
+  // Per instance, not a literal: two mounted dialogs sharing an id do not
+  // error, they make the accessible name ambiguous, so one is labelled by the
+  // other's title and nothing anywhere reports it.
+  const id = useId();
+  const titleId = `${id}-title`;
+  const descriptionId = description ? `${id}-description` : undefined;
 
   useEffect(() => {
     const dialog = ref.current;
@@ -68,7 +74,11 @@ export function Dialog({
         // targets a descendant. That comparison is the whole detection.
         if (event.target === ref.current) onClose();
       }}
-      aria-labelledby="dialog-title"
+      aria-labelledby={titleId}
+      // Absent, not empty, when there is no description — the rule Field
+      // applies to aria-invalid. An id pointing at nothing makes some screen
+      // readers fall back to reading the element's entire text content.
+      aria-describedby={descriptionId}
       className={cn(
         "m-auto w-[min(32rem,calc(100vw-2rem))] rounded-card border border-line",
         "bg-surface p-6 text-ink shadow-raised",
@@ -76,11 +86,13 @@ export function Dialog({
         className,
       )}
     >
-      <h2 id="dialog-title" className="text-lg font-semibold text-ink">
+      <h2 id={titleId} className="text-lg font-semibold text-ink">
         {title}
       </h2>
       {description ? (
-        <p className="mt-2 text-sm leading-relaxed text-muted">{description}</p>
+        <p id={descriptionId} className="mt-2 text-sm leading-relaxed text-muted">
+          {description}
+        </p>
       ) : null}
       {children ? <div className="mt-4">{children}</div> : null}
       {footer ? <div className="mt-6 flex justify-end gap-3">{footer}</div> : null}

@@ -49,6 +49,18 @@ see [STATE.md](../../STATE.md).
 ## Accessibility
 
 - `aria-labelledby` points at the title, which is always rendered.
+- **`aria-describedby` points at the description whenever there is one.** The
+  description is the sentence that says what the confirming action will do, and
+  a dialog's main job here is destructive confirmation — announcing "Delete
+  project" without "This cannot be undone" is the failure this component exists
+  to prevent. With no description the attribute is **absent, not empty**, the
+  same rule [`field.md`](field.md) applies to `aria-invalid`: a dangling
+  `aria-describedby` points at nothing and some screen readers announce the
+  element's whole text content instead.
+- **Ids are generated per instance with `useId()`.** A literal id collides the
+  moment two dialogs are mounted at once, and duplicate ids make the accessible
+  name ambiguous rather than wrong — so nothing errors and one dialog is
+  labelled by the other's title.
 - Closing is handled by the element's `close` event, not a keydown listener, so
   Escape and programmatic close take the same path.
 - **`dismissOnBackdrop` must be `false` for destructive confirmations.** A stray
@@ -65,6 +77,10 @@ see [STATE.md](../../STATE.md).
 - [ ] Given a click on content inside the dialog, then `onClose` does **not** fire.
 - [ ] Given `dismissOnBackdrop` is false, then a backdrop click does nothing.
 - [ ] The dialog is labelled by its title.
+- [ ] Given a `description`, then the dialog's accessible description is that text.
+- [ ] Given no `description`, then no `aria-describedby` attribute is present.
+- [ ] Given two dialogs rendered at once, then their title ids differ, and each
+      is labelled by its own title.
 - [ ] No axe-core violations while open.
 
 ## Check

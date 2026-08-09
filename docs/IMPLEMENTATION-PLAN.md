@@ -151,7 +151,13 @@ Done when:
 Every task here is mechanical, needs no product decision, persists nothing, and
 has an existing spec to update rather than a new contract to invent.
 
-### T-01 · Dialog announces its description, and stops hardcoding an id
+### ~~T-01 · Dialog announces its description, and stops hardcoding an id~~ — **shipped 2026-08-09**
+
+Both defects fixed as written, with `useId()`. Three criteria, three tests, ten
+green in `dialog.test.tsx`. The omission test — no `description` means no
+`aria-describedby` — **passed on arrival**, because the attribute was never set
+at all; kept as the regression guard, on the same reasoning T-02 gives below.
+The requirements stay as the record of what was agreed; the spec governs.
 
 **Class:** Standard · **Reuse:** Dialog · **Files:** `components/ui/Dialog.tsx`,
 `components/ui/dialog.test.tsx`, `docs/specs/component/dialog.md`
