@@ -12,7 +12,7 @@ ADR-0007). **Sensitive** (`AGENTS.md`).
 
 - **In:** the `public.review_log` payload columns (migration appended after
   T-B8's ownership migration), `lib/db/review-log.ts` (`appendReview`,
-  `listReviewsForTask`, `toSchedulerReview`), `lib/installation-id.ts`
+  `listReviewsForTaskIds`, `toSchedulerReview`), `lib/installation-id.ts`
   (browser-local installation UUID), `features/review-session/actions.ts`, and
   wiring `ReviewSession` in `features/review-session/` so each graded card
   appends one row. Ownership and RLS remain in [`auth.md`](auth.md).
@@ -28,7 +28,8 @@ ADR-0007). **Sensitive** (`AGENTS.md`).
 | --- | --- | --- |
 | 1 | Taps a grade on a review session card | `latency_ms` is measured client-side; `appendReview` writes one row with the signed-in Account's `user_id`, the browser's `installation_id`, the card's `task_id`, grade, and `reviewed_at` |
 | 2 | Taps a grade while unsigned-in | Server action returns an error outcome; no row is written |
-| 3 | (Future) Scheduler rebuild | `listReviewsForTask` returns rows mapped to `{ at, grade }` via `toSchedulerReview` |
+| 3 | Session queue is built | `listReviewsForTaskIds` returns every stored review for the deck's tasks in one round trip, `reviewed_at` ascending, mapped to `{ at, grade }` via `toSchedulerReview` |
+| 4 | Signed-out read | `listReviewsForTaskIds` returns an `error` outcome — never an empty history, which the builder would read as a new learner |
 
 ## States
 
@@ -65,9 +66,13 @@ fingerprint (ADR-0005).
 - [ ] Given a signed-in Account, when `appendReview` is called with a valid
       payload, then a row exists with that Account's `user_id`, the supplied
       `installation_id`, `task_id`, `grade`, `reviewed_at`, and `latency_ms`.
-- [ ] Given rows for a `task_id`, when `listReviewsForTask` runs, then results
-      are ordered by `reviewed_at` ascending and `toSchedulerReview` yields
-      matching `{ at, grade }`.
+- [ ] Given rows for a set of `task_id`s, when `listReviewsForTaskIds` runs,
+      then results are ordered by `reviewed_at` ascending and `toSchedulerReview`
+      yields matching `{ at, grade }`.
+- [ ] Given an empty list of task ids, when `listReviewsForTaskIds` runs, then
+      it returns no reviews without querying the database.
+- [ ] Given no session, when `listReviewsForTaskIds` runs, then status is
+      `error` — not an empty history.
 - [ ] Given Account B signed in, when B selects from `review_log`, then zero
       of Account A's rows appear (inherits auth spec §8).
 - [ ] Given no session, when `appendReview` runs, then status is `error` and

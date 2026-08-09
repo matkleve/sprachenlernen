@@ -3,6 +3,7 @@ import type { SupabaseClient } from "@supabase/supabase-js";
 import { getAccount } from "@/lib/db/auth";
 import { createServerSupabaseClient } from "@/lib/db/client";
 import { GRADES, type Grade, type Review } from "@/lib/scheduler";
+import { isUuid } from "@/lib/uuid";
 
 /**
  * Review log adapter. Contract: docs/specs/service/review-log.md
@@ -40,12 +41,6 @@ export type ListReviewsOutcome =
 
 async function resolveClient(client?: SupabaseClient): Promise<SupabaseClient> {
   return client ?? (await createServerSupabaseClient());
-}
-
-function isUuid(value: string): boolean {
-  return /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(
-    value,
-  );
 }
 
 function validateAppendInput(input: AppendReviewInput): string | null {
@@ -155,31 +150,7 @@ export async function listReviewsForTaskIds(
   return { status: "ok", reviews: (data ?? []).map((row) => mapRow(row as DbRow)) };
 }
 
-export async function listReviewsForTask(
-  taskId: string,
-  client?: SupabaseClient,
-): Promise<ListReviewsOutcome> {
-  if (!taskId.trim()) {
-    return { status: "error", error: "task_id is required." };
-  }
-
-  const supabase = await resolveClient(client);
-  const account = await getAccount(supabase);
-  if (!account) {
-    return { status: "error", error: "Not signed in." };
-  }
-
-  const { data, error } = await supabase
-    .from("review_log")
-    .select(
-      "id, user_id, installation_id, task_id, grade, reviewed_at, latency_ms, created_at",
-    )
-    .eq("task_id", taskId)
-    .order("reviewed_at", { ascending: true });
-
-  if (error) {
-    return { status: "error", error: error.message };
-  }
-
-  return { status: "ok", reviews: (data ?? []).map((row) => mapRow(row as DbRow)) };
-}
+// A single-task `listReviewsForTask` lived here until T-B1. Nothing called it
+// once the session builder needed the whole deck's history in one round trip —
+// one task is `listReviewsForTaskIds([id])` — and an exported query with no
+// caller is the shape that goes untested and then drifts (AGENTS.md § 1).
