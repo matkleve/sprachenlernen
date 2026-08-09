@@ -18,7 +18,8 @@ overrides so each preview uses the same contracts as production.
   direction persisted in `localStorage`; metadata chips for font, radius and
   border weight.
 - **Out:** applying a direction to the global theme; dark-mode previews; editing
-  or exporting token files; navigation entry in the app shell (URL only).
+  or exporting token files; navigation entry in the app shell (URL only). Account
+  required: **no** — `/dev/*` is public like `/primitives`.
 
 ## Behavior
 
@@ -48,6 +49,8 @@ Loading, error and empty do not apply — presets are static data.
 
 ## Acceptance criteria
 
+- [ ] Given a signed-out visitor, when `/dev/design` is requested, then the page
+  renders without redirecting to sign-in.
 - [ ] Given a first visit, when `/dev/design` loads, then five direction cards
   are visible and none is marked selected.
 - [ ] Given any direction card, when the user reads it, then font family name,

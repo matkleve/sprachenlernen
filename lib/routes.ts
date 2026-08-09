@@ -17,6 +17,8 @@ export const routes = {
   authCallback: "/auth/callback",
   /** Public. The Grundriss worked example — stays reachable without an account. */
   primitives: "/primitives",
+  /** Public. Design-direction comparison — dev tooling, no account. */
+  designExplorer: "/dev/design",
 
   /** The app's default route — signing in lands here (ADR-0010). */
   appHome: "/methods",
@@ -42,12 +44,15 @@ export const publicRoutes = [
   routes.signUp,
   routes.authCallback,
   routes.primitives,
+  routes.designExplorer,
 ] as const;
 
 /** The three destinations the shell renders — a subset of the gated half. */
 export const protectedRoutes = [routes.methods, routes.words, routes.progress] as const;
 
 export function isPublicRoute(pathname: string): boolean {
+  // Everything under app/(marketing)/dev/ is tooling — same rule as /primitives.
+  if (pathname.startsWith("/dev/")) return true;
   return publicRoutes.some((route) => pathname === route);
 }
 
