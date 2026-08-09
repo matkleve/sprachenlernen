@@ -23,7 +23,8 @@ wins and this file is stale. Nothing normative may live only here.
 | `components/ui/` | Button, Field, Input, Select, Dialog, Table — inherited from Grundriss, specced, tested |
 | `features/` | `item-picker` and `primitives` — **both are the starter's worked examples**. `language-status` is the first that is not |
 | `app/languages/` | **Shipped 2026-08-09** (T-03). The language status page: derived tier, what it claims, what it does not, what the next tier needs. Server Component, 15 tests. Spec **active** |
-| `app/page.tsx` | Still the Grundriss demo. Headline reads "Grundriss — The plan comes before the building" |
+| `app/page.tsx` | **Shipped 2026-08-09** (T-04). A holding page: one sentence quoted from the study, a link to `/languages`. Not the landing page — that is T-B7 |
+| `app/primitives/` | Where the starter's demo went. Kept on purpose; see T-B5 before deleting it |
 
 **The honest summary: two strong libraries and one screen.** `/languages` is the
 first surface that belongs to this product rather than to the starter — it holds
@@ -223,12 +224,12 @@ this task — see T-B5, they are load-bearing for the docs. Do not add a new
 component: if a card-like container seems necessary, use the Table primitive and
 say `Gap:` in the PR instead of creating one.
 
-### T-04 · Only after T-03: the Grundriss demo stops owning the home route
+### ~~T-04 · Only after T-03: the Grundriss demo stops owning the home route~~ — **shipped 2026-08-09**
 
-> **⚠ Blocked 2026-08-09 on open question 3.** This task writes a holding page
-> onto `/`, and [ADR-0009](adr/0009-three-destinations.md) says `/` is the method
-> menu. Moving the demo to `/primitives` is safe and can proceed; deciding what
-> replaces it on `/` cannot.
+Done as written, once [ADR-0010](adr/0010-the-route-model.md) settled what `/`
+is. The demo is at `/primitives`, `/` is a holding page carrying one sentence
+quoted verbatim from the study and a link to `/languages`, and the root layout
+stopped titling every page "Grundriss". The real landing page is still T-B7.
 
 **Class:** Trivial · **Files:** `app/page.tsx`, `app/primitives/page.tsx`,
 `features/primitives/**`

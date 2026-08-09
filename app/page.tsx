@@ -1,51 +1,37 @@
-import { Button } from "@/components/ui/Button";
-import { ItemPicker } from "@/features/item-picker/ItemPicker";
-import { sampleItems } from "@/features/item-picker/content";
-import { PrimitivesDemo } from "@/features/primitives/PrimitivesDemo";
+import Link from "next/link";
+
+import { home } from "@/lib/content";
 
 /**
- * A page composes features and passes them data. It holds no logic — logic in a
- * page.tsx is logic no test can reach without a router (docs/ARCHITECTURE.md).
- *
- * Replace all of this when you start a real project. It exists to prove the
- * stack builds and to show the conventions in one screen.
+ * A holding page, deliberately. `/` is the public landing page per ADR-0010,
+ * and what it should argue is T-B7 — a product decision nobody has made. So
+ * this says one sentence quoted from the study and gets out of the way, rather
+ * than acquiring positioning copy by accident on its way past.
  */
 export default function Home() {
   return (
-    <div className="mx-auto max-w-4xl px-6 pt-page-top pb-page-bottom">
-      <p className="text-sm font-medium uppercase tracking-widest text-accent">
-        Grundriss
+    <div className="mx-auto max-w-2xl px-6 pt-page-top pb-page-bottom">
+      <p className="text-sm font-medium uppercase tracking-widest text-accent">{home.name}</p>
+      <h1 className="mt-3 text-4xl font-semibold tracking-tight text-ink">{home.thesis}</h1>
+
+      <p className="mt-page-content">
+        <Link
+          href="/languages"
+          className={
+            // A text link, not a Button: this navigates, so it has to be an
+            // anchor for middle-click, open-in-new-tab and screen readers.
+            // Gap: there is no Link primitive yet. The second surface that needs
+            // one is where it earns a spec, not this one.
+            "rounded-pill text-base text-accent underline underline-offset-4 " +
+            "transition-colors duration-150 ease-out-soft " +
+            "hover:text-accent-deep active:text-accent-deep " +
+            "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent " +
+            "focus-visible:ring-offset-2 focus-visible:ring-offset-canvas"
+          }
+        >
+          {home.languagesLink}
+        </Link>
       </p>
-      <h1 className="mt-3 text-4xl font-semibold tracking-tight text-ink">
-        The plan comes before the building
-      </h1>
-      <p className="mt-4 max-w-2xl text-base leading-relaxed text-muted">
-        A base project where the specification is the source of truth, the process
-        scales with risk, and every rule that matters is enforced by a command you
-        can run. Start at <code className="font-mono text-sm text-ink">AGENTS.md</code>.
-      </p>
-
-      <div className="mt-8 flex flex-wrap gap-3">
-        <Button>Primary action</Button>
-        <Button variant="secondary">Secondary</Button>
-        <Button variant="ghost">Ghost</Button>
-        <Button variant="danger">Danger</Button>
-        <Button disabled>Disabled</Button>
-      </div>
-
-      <section className="mt-page-content">
-        <h2 className="mb-4 text-sm font-medium uppercase tracking-widest text-muted">
-          Worked example — one source, many surfaces
-        </h2>
-        <ItemPicker items={sampleItems} />
-      </section>
-
-      <section className="mt-page-content">
-        <h2 className="mb-4 text-sm font-medium uppercase tracking-widest text-muted">
-          Primitives
-        </h2>
-        <PrimitivesDemo />
-      </section>
     </div>
   );
 }

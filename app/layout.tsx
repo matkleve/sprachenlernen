@@ -3,8 +3,10 @@ import type { Metadata, Viewport } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Grundriss",
-  description: "Spec-driven base project.",
+  // Was "Grundriss". Every page inherited the starter's name, which is the same
+  // defect T-04 exists to fix one level up from the home route.
+  title: { default: "Sprachenlernen", template: "%s · Sprachenlernen" },
+  description: "Evidence-driven language learning.",
 };
 
 export const viewport: Viewport = {
