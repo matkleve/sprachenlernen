@@ -14,6 +14,10 @@ import { routes } from "@/lib/routes";
  * instead of `/auth/callback?code=…`. Forwarding here avoids a dead end when
  * the redirect_to in the mail omitted the callback path.
  */
+// Branches on sign-in state, so it cannot be prerendered — same reason and
+// the same failure mode as app/(app)/layout.tsx, which carries the full note.
+export const dynamic = "force-dynamic";
+
 export default async function Home({
   searchParams,
 }: {

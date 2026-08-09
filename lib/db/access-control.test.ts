@@ -27,14 +27,22 @@ const hasLiveProject = Boolean(url && publishableKey && serviceRoleKey);
 const password = "correct horse battery staple";
 
 describe.skipIf(!hasLiveProject)("review_log row-level security", () => {
-  const admin: SupabaseClient = createClient(url!, serviceRoleKey!, {
-    auth: { autoRefreshToken: false, persistSession: false },
-  });
+  // Built in `beforeAll`, not at describe scope. `describe.skipIf` still runs
+  // the factory to collect the tests it is about to skip, so a `createClient`
+  // here throws "supabaseUrl is required" during collection — the whole file
+  // fails in exactly the environment the skip exists to spare. Hooks of a
+  // skipped suite do not run, so this is the only placement where the skip
+  // means what it says.
+  let admin: SupabaseClient;
 
   let userA: { id: string; email: string };
   let userB: { id: string; email: string };
 
   beforeAll(async () => {
+    admin = createClient(url!, serviceRoleKey!, {
+      auth: { autoRefreshToken: false, persistSession: false },
+    });
+
     // Admin-created and pre-confirmed on purpose: the policy under test is
     // row ownership, not the signup/email-confirmation flow, which
     // lib/db/auth.test.ts and the signup page cover separately.

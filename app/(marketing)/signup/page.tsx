@@ -11,6 +11,10 @@ import { safeDecodeURIComponent } from "@/lib/utils";
  * reach without a router (docs/ARCHITECTURE.md). Contract:
  * docs/specs/service/auth.md.
  */
+// Branches on sign-in state, so it cannot be prerendered — same reason and
+// the same failure mode as app/(app)/layout.tsx, which carries the full note.
+export const dynamic = "force-dynamic";
+
 export default async function SignUpPage({
   searchParams,
 }: {

@@ -7,7 +7,7 @@
 
 import { createServerClient } from "@supabase/ssr";
 import { NextRequest } from "next/server";
-import { beforeEach, describe, expect, it, vi } from "vitest";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 import { collectAppRoutes } from "@/lib/collect-app-routes";
 import { protectedRoutes, publicRoutes, requiresAccount, routes } from "@/lib/routes";
@@ -38,8 +38,37 @@ const signedInAs = (user: { id: string } | null) => {
 const get = (pathname: string) =>
   middleware(new NextRequest(new URL(pathname, "https://example.test")));
 
+/**
+ * The middleware short-circuits before it ever builds a client when the
+ * Supabase env is absent, and turns every gated route away — so on a machine
+ * with no `.env.local` the signed-in half of this file passed the mock and
+ * asserted the no-env branch instead, and "a signed-in request reaches every
+ * destination" failed for a reason that has nothing to do with the gate.
+ * `createServerClient` is mocked, so the values are never dialled; what
+ * matters is only that they are set.
+ */
+const supabaseEnv = {
+  NEXT_PUBLIC_SUPABASE_URL: "https://project.test.supabase.co",
+  NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: "sb_publishable_test",
+} as const;
+
+let realEnv: Partial<Record<keyof typeof supabaseEnv, string | undefined>> = {};
+
 beforeEach(() => {
   vi.mocked(createServerClient).mockClear();
+
+  realEnv = {
+    NEXT_PUBLIC_SUPABASE_URL: process.env.NEXT_PUBLIC_SUPABASE_URL,
+    NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY,
+  };
+  Object.assign(process.env, supabaseEnv);
+});
+
+afterEach(() => {
+  for (const [name, value] of Object.entries(realEnv)) {
+    if (value === undefined) delete process.env[name];
+    else process.env[name] = value;
+  }
 });
 
 describe("the route model", () => {
