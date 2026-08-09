@@ -1,7 +1,7 @@
 # UC-046 — Discover a way of practising I never knew existed
 
 <!-- id: UC-046 -->
-<!-- specs: SPEC-service-method-catalogue -->
+<!-- specs: SPEC-service-method-catalogue, SPEC-page-method-menu -->
 
 **Who:** a learner whose idea of "studying a language" is whatever their app has
 shown them.
@@ -23,8 +23,8 @@ them.
 ## Success looks like
 
 - The full catalogue is browsable, not only the three offered today.
-- It can be filtered by what the learner has available and by what they want to
-  get better at.
+- It can be filtered by how much time the learner has, what skill they want to
+  train, how much energy they have, and — optionally — hands, voice, and eyes.
 - Each entry says what it trains, what it requires, how demanding it is, and
   how good the evidence is (UC-042).
 - Methods the app does not host are listed alongside those it does, without

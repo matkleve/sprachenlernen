@@ -1,5 +1,4 @@
 import { ErrorCallout } from "@/components/ui/ErrorCallout";
-import { NavLink } from "@/components/ui/NavLink";
 import type { UserFacingError } from "@/lib/errors";
 import {
   SECTIONS,
@@ -13,21 +12,15 @@ import {
   filterMethods,
   menuQueryString,
   parseMenuFilter,
-  parseSkill,
-  savableCustomContext,
   type SearchParams,
 } from "@/lib/method-menu-filter";
 
-import { routes } from "@/lib/routes";
-
-import { ContextFilter } from "./ContextFilter";
 import { MethodCard } from "./MethodCard";
-import { SavedPresets } from "./SavedPresets";
-import { SkillFilter } from "./SkillFilter";
+import { MethodFilter } from "./MethodFilter";
 import { copy, sections } from "./content";
 
 /**
- * The app's front door: the catalogue, filtered by context. Contract:
+ * The app's front door: the catalogue, filtered by three questions. Contract:
  * docs/specs/page/method-menu.md
  */
 
@@ -46,74 +39,20 @@ const bySection = (methods: MethodEntry[]): [Section, MethodEntry[]][] =>
 
 export function MethodMenu({
   catalogue,
-  presets = [],
+  presets: _presets = [],
   loadError,
   searchParams = {},
 }: MethodMenuProps) {
-  const filter = parseMenuFilter(searchParams, presets);
-  const skill = parseSkill(searchParams);
-  const unknownContext = filter.kind === "unknown-context";
+  const filter = parseMenuFilter(searchParams);
   const returnQuery = menuQueryString(searchParams);
-
-  const methods = catalogue ? filterMethods(catalogue, filter, skill) : [];
-  const chosenPreset =
-    filter.kind === "filtered" && filter.presetId
-      ? presets.find((preset) => preset.id === filter.presetId)
-      : undefined;
+  const methods = catalogue ? filterMethods(catalogue, filter) : [];
 
   return (
     <div className="mx-auto max-w-5xl px-6 pt-page-top pb-page-bottom">
       <h1 className="text-3xl font-semibold tracking-tight text-ink">{copy.title}</h1>
       <p className="mt-4 max-w-2xl text-base leading-relaxed text-muted">{copy.intro}</p>
 
-      <nav aria-label={copy.contextLabel} className="mt-page-content">
-        <h2 className="mb-3 text-sm font-medium uppercase tracking-widest text-muted">
-          {copy.contextLabel}
-        </h2>
-        <ul className="flex flex-wrap items-center gap-1">
-          <li>
-            <NavLink
-              href={routes.methods}
-              current={
-                filter.kind === "all" ||
-                filter.kind === "time-only" ||
-                filter.kind === "incomplete-custom"
-              }
-            >
-              {copy.anyContext}
-            </NavLink>
-          </li>
-          {presets.map((preset) => (
-            <li key={preset.id}>
-              <NavLink
-                href={
-                  chosenPreset?.id === preset.id
-                    ? routes.methods
-                    : `${routes.methods}?context=${preset.id}`
-                }
-                current={chosenPreset?.id === preset.id}
-              >
-                {preset.name}
-              </NavLink>
-            </li>
-          ))}
-        </ul>
-      </nav>
-
-      <ContextFilter searchParams={searchParams} filter={filter} />
-
-      <SkillFilter searchParams={searchParams} />
-
-      <SavedPresets
-        savableContext={savableCustomContext(filter)}
-        searchParams={searchParams}
-      />
-
-      {unknownContext && (
-        <p className="mt-page-content max-w-2xl text-base leading-relaxed text-muted">
-          {copy.unknownContext}
-        </p>
-      )}
+      <MethodFilter searchParams={searchParams} />
 
       {loadError ? (
         <div className="mt-page-content max-w-2xl">

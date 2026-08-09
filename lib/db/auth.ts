@@ -30,6 +30,12 @@ export type SignInOutcome =
 
 export type SignOutOutcome = { status: "signed-out" } | { status: "error"; error: string };
 
+export type OAuthProvider = "google" | "apple";
+
+export type OAuthOutcome =
+  | { status: "redirect"; url: string }
+  | { status: "error"; error: string };
+
 async function resolveClient(client?: SupabaseClient): Promise<SupabaseClient> {
   return client ?? (await createServerSupabaseClient());
 }
@@ -88,6 +94,26 @@ export async function signOut(client?: SupabaseClient): Promise<SignOutOutcome> 
   const supabase = await resolveClient(client);
   const { error } = await supabase.auth.signOut();
   return error ? { status: "error", error: error.message } : { status: "signed-out" };
+}
+
+/** OAuth providers return a verified session — no separate email-confirmation step. */
+export async function signInWithOAuth(
+  provider: OAuthProvider,
+  client?: SupabaseClient,
+): Promise<OAuthOutcome> {
+  const supabase = await resolveClient(client);
+  const { data, error } = await supabase.auth.signInWithOAuth({
+    provider,
+    options: {
+      redirectTo: `${getSiteUrl()}${routes.authCallback}`,
+    },
+  });
+
+  if (error || !data.url) {
+    return { status: "error", error: error?.message ?? "Could not start sign-in." };
+  }
+
+  return { status: "redirect", url: data.url };
 }
 
 /** The signed-in Account for this request, or null. Never throws on "signed out". */

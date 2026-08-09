@@ -1,64 +1,49 @@
-# Methods — the catalogue, filtered by context
+# Methods — narrow the catalogue in three questions
 
 <!-- id: SPEC-page-method-menu -->
 <!-- use-case: UC-045 -->
 <!-- status: active -->
 
-The app's front door at `/methods` ([ADR-0010](../../adr/0010-the-route-model.md)):
-say where you are, and see only the ways of practising you can actually do
-there — each as a compact, tappable card. Serves
-[UC-045](../../use-cases/UC-045-practise-in-the-situation-im-in.md) and
-[UC-046](../../use-cases/UC-046-discover-a-method-i-never-tried.md)'s
-browse-and-filter goals. Hosted method cards **open the session directly**; off-app
-cards open the detail page ([SPEC-page-method-detail](method-detail.md)).
+The app's front door at `/methods` ([ADR-0010](../../adr/0010-the-route-model.md)).
+Three primary questions — **time**, **skill**, **energy** — narrow the catalogue;
+an optional **refine** panel adds hands, voice, and eyes only when needed.
+Hosted cards open the session directly; off-app cards open the detail page.
 
-**This is not the Daily menu.** `docs/GLOSSARY.md` reserves that term for the
-three Methods offered today.
+**UX revision 2026-08-09 (owner + two designer review):** the seven "where are
+you" presets and eight-dimension custom builder were dropped. Learners found
+them unclear and overwhelming; time as discrete chips was replaced by a slider.
+The science still treats physical constraints as a hard filter when stated
+(study/21), but they belong in refine, not as the front door.
 
 ## Scope
 
-- **In:** seven context presets; custom situation builder; **time** and **skill**
-  filter chips; saved custom presets in browser storage; compact chip cards;
-  hosted cards → session route; off-app cards → detail page; nothing-fits state.
-- **Out:** Daily menu composition; learner-specific card fields; syncing saved
-  presets across devices (local storage only in this slice); Commitments on this
-  list; skill values beyond the four in `SKILLS`.
+- **In:** time slider (2–60 min); skill chips; energy chips; optional refine
+  (hands, voice, eyes); compact chip cards; hosted → session; off-app → detail.
+- **Out:** situation presets ("kitchen", "transit", …); saved custom situations;
+  daily menu; learner-specific card fields; Commitments on this list.
 
-**Reuse: Chip**, **Reuse: NavLink**.
+**Reuse: Chip**, **Reuse: NavLink**. **Time slider** is a client island only.
 
 ## Behavior
 
 | # | User action | System response |
 | --- | --- | --- |
-| 1 | Opens `/methods` unfiltered | Whole catalogue, grouped by section |
-| 2 | Taps a preset / time / skill chip | List narrows; params in URL |
-| 3 | Customises situation | Dimension chips update URL; filters when complete |
-| 4 | Saves a custom situation with a name | Stored locally; appears as a preset chip |
-| 5 | Taps a **hosted** method card | Opens that method's session — no detail page, no duration picker |
-| 6 | Taps an **off-app** card | Opens `/methods/{id}` detail |
-| 7 | Clears filters | Whole catalogue; no residue |
+| 1 | Opens `/methods` | Whole catalogue until filters apply |
+| 2 | Moves time slider | URL `?minutes=` updates; list shows methods whose shortest variant fits |
+| 3 | Taps skill or energy | List intersects that dimension |
+| 4 | Opens refine | Optional hands / voice / eyes constraints |
+| 5 | Taps hosted card | Session route opens directly |
+| 6 | Taps off-app card | Detail page |
 
-**Filter composition:** context (preset or custom) ∩ time ∩ skill. Each dimension
-is optional except a complete custom context requires every dimension + time.
+Default slider position is 15 minutes on first visit; the URL updates on release.
 
 ## States
 
 URL search parameters are the single source of truth (`docs/STATE.md` §6).
 
-## Data
-
-Reads catalogue via `loadCatalogue` / `loadPresets`. Saved presets read/write
-`localStorage` in a client island only — not authoritative, not synced.
-
 ## Check
 
 `npm test -- method-menu`
-
-## Open questions
-
-**⚠ SPEC GAP: Daily menu three cards** — needs review log and effect estimate.
-
-**⚠ SPEC GAP: "nearest thing" when nothing fits** — distance undefined.
 
 ## Acceptance criteria
 

@@ -16,4 +16,7 @@ export const authContent = {
     switchPrompt: "Don't have an account?",
     switchLinkLabel: "Create one",
   },
+  oauthDivider: "or continue with",
+  oauthGoogle: "Google",
+  oauthApple: "Apple",
 } as const;

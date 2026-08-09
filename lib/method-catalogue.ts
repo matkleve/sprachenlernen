@@ -339,6 +339,10 @@ export const isMethod = (entry: Entry): entry is MethodEntry => entry.type === "
 export const isCommitment = (entry: Entry): entry is CommitmentEntry =>
   entry.type === "commitment";
 
+/** Whether the shortest variant fits within this many minutes. */
+export const fitsMinutes = (entry: MethodEntry, minutes: number): boolean =>
+  entry.durations === null ? minutes >= 45 : Math.min(...entry.durations) <= minutes;
+
 /** Whether the shortest variant of the method fits the budget. */
 export const fitsTime = (entry: MethodEntry, time: TimeBudget): boolean =>
   entry.durations === null
@@ -373,6 +377,28 @@ export const matchesContext = (entry: MethodEntry, context: Context): boolean =>
  */
 export const filterByContext = (catalogue: Catalogue, context: Context): MethodEntry[] =>
   catalogue.entries.filter(isMethod).filter((entry) => matchesContext(entry, context));
+
+/**
+ * Whether a method can be done when only some context dimensions are fixed.
+ * Used by the menu's optional "refine" filters — not the primary path.
+ */
+export const fitsPartialContext = (
+  entry: MethodEntry,
+  partial: Partial<Context>,
+): boolean => {
+  const sets = Array.isArray(entry.requires)
+    ? entry.requires
+    : [entry.requires as RequirementSet];
+
+  return sets.some((set) =>
+    Object.entries(set).every(([dimension, allowed]) => {
+      const key = dimension as keyof typeof CONTEXT_DIMENSIONS;
+      const chosen = partial[key];
+      if (chosen === undefined) return true;
+      return (allowed as readonly string[]).includes(chosen);
+    }),
+  );
+};
 
 export const commitments = (catalogue: Catalogue): CommitmentEntry[] =>
   catalogue.entries.filter(isCommitment);

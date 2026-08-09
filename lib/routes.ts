@@ -17,6 +17,7 @@ export const routes = {
   authCallback: "/auth/callback",
   /** Public. The Grundriss worked example — stays reachable without an account. */
   primitives: "/primitives",
+  privacy: "/privacy",
 
   /** The app's default route — signing in lands here (ADR-0010). */
   appHome: "/methods",
@@ -42,6 +43,7 @@ export const publicRoutes = [
   routes.signUp,
   routes.authCallback,
   routes.primitives,
+  routes.privacy,
 ] as const;
 
 /** The three destinations the shell renders — a subset of the gated half. */

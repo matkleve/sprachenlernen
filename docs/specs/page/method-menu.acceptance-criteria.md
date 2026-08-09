@@ -2,37 +2,18 @@
 
 <!-- parent: SPEC-page-method-menu -->
 
-- [ ] Given no filter, when the page renders, then every Method appears exactly
-      once, grouped under its section.
-- [ ] Given the `kitchen` preset, then only Methods performable there render —
-      and no Method requiring free eyes appears, greyed out or otherwise.
-- [ ] Given any preset, then no Commitment appears in the Method list.
-- [ ] Given a chosen preset and then cleared, then the whole catalogue renders
-      and no preset is marked chosen.
-- [ ] Given a chosen preset, then that preset and no other is marked chosen.
-- [ ] Given `?time=2`, then only Methods whose shortest duration is at most 2
-      minutes appear.
-- [ ] Given `?skill=reading`, then only Methods whose `skills` includes
-      `reading` appear, intersected with any active context or time filter.
-- [ ] Given a complete custom context in the URL, then the list matches
-      `filterByContext` for that context.
-- [ ] Given any rendered Method card, then durations, requirements, effort,
-      evidence and hosted status appear as chips, and `doesNotDo` appears as
-      prose.
-- [ ] Given a hosted Method card, then it links to the session route for that
-      method, not the detail page.
+- [ ] Given no filter params, when the page renders, then every Method appears
+      exactly once, grouped under its section.
+- [ ] Given `?minutes=2`, then only Methods whose shortest duration is at most
+      2 minutes appear.
+- [ ] Given `?skill=reading`, then only Methods whose `skills` includes reading
+      appear.
+- [ ] Given `?energy=low`, then only Methods with intensity 1 appear.
+- [ ] Given `?hands=none` in refine, then only Methods performable hands-free
+      appear.
+- [ ] Given a hosted Method card, then it links to the session route.
 - [ ] Given an off-app Method card, then it links to `/methods/{id}`.
-- [ ] Given a complete custom context, when the learner saves it with a name,
-      then it appears as a preset chip on return visits (same browser).
-- [ ] Given a Method the app does not host, then it renders as a full card that
-      says so.
-- [ ] Given a context nothing fits, then the gap is named and no Method list
-      renders.
-- [ ] Given an unknown `context` value, then the page says so and shows the
-      whole catalogue.
-- [ ] Given a catalogue load failure, then the error callout appears with a
-      reference id.
-- [ ] Given any state, then no learner-specific number appears.
-- [ ] The page tree contains no `"use client"` at the menu root — saved presets
-      may use a client island.
+- [ ] Given any rendered Method card, then chips and `doesNotDo` prose appear.
+- [ ] Given filters that match nothing, then the gap is named and no list renders.
+- [ ] The menu root has no `"use client"`; only the time slider is a client island.
 - [ ] The rendered surface has no axe-core violations.
