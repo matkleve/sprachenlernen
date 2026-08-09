@@ -14,7 +14,7 @@ export default function Home() {
       <p className="text-sm font-medium uppercase tracking-widest text-accent">{home.name}</p>
       <h1 className="mt-3 text-4xl font-semibold tracking-tight text-ink">{home.thesis}</h1>
 
-      <p className="mt-page-content">
+      <p className="mt-page-content flex flex-col gap-3">
         <Link
           href="/languages"
           className={
@@ -30,6 +30,18 @@ export default function Home() {
           }
         >
           {home.languagesLink}
+        </Link>
+        <Link
+          href="/dev/design"
+          className={
+            "rounded-pill text-base text-accent underline underline-offset-4 " +
+            "transition-colors duration-150 ease-out-soft " +
+            "hover:text-accent-deep active:text-accent-deep " +
+            "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent " +
+            "focus-visible:ring-offset-2 focus-visible:ring-offset-canvas"
+          }
+        >
+          {home.designExplorerLink}
         </Link>
       </p>
     </div>

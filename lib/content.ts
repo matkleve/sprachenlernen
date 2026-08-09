@@ -13,4 +13,5 @@ export const home = {
   /** Verbatim from docs/study/README.md, the consequence of thesis 1. */
   thesis: "Progress is shown as measured competence, never as activity.",
   languagesLink: "What the app claims for each language",
+  designExplorerLink: "Compare five design directions",
 } as const;
