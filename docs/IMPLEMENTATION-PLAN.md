@@ -62,6 +62,9 @@ What that changes for this queue:
    real landing page becomes its own piece of work (T-B7). With a required
    account, the landing page is also the whole of what a signed-out visitor ever
    sees, which raises its stakes rather than lowering them.
+   **⚠ Contested since 2026-08-09:** [ADR-0009](adr/0009-three-destinations.md)
+   says `/` is the method menu. Open question 3 below owns the conflict — do not
+   build against either sentence until it is answered.
 
 Still ahead of stage 2: **the vocabulary estimate (F17–F22)**, now unblocked on
 the data side, because tier B means a level *may* be claimed with a widened band.
@@ -215,6 +218,11 @@ say `Gap:` in the PR instead of creating one.
 
 ### T-04 · Only after T-03: the Grundriss demo stops owning the home route
 
+> **⚠ Blocked 2026-08-09 on open question 3.** This task writes a holding page
+> onto `/`, and [ADR-0009](adr/0009-three-destinations.md) says `/` is the method
+> menu. Moving the demo to `/primitives` is safe and can proceed; deciding what
+> replaces it on `/` cannot.
+
 **Class:** Trivial · **Files:** `app/page.tsx`, `app/primitives/page.tsx`,
 `features/primitives/**`
 
@@ -244,11 +252,9 @@ low-inference agent would silently invent.
 | **T-B3** | Vocabulary estimate and the level display (F17–F22) | Newly unblocked by tier B. Needs the anchor table from `study/03-level-model.md`, which is graded **[C]** and explicitly needs calibrating — a spec must say what is claimed with an uncalibrated band |
 | **T-B4** | Dose ledger (F184) | Needs roadmap question 19 answered, and its logging half needs T-B2 |
 | **T-B7** | The landing page | Positioning copy is a product decision, not an implementation. With a required account it is also everything a signed-out visitor ever sees, and its job is to persuade — which makes every rule in `DESIGN-SYSTEM.md` necessary but not sufficient |
-| **T-B10** | **The method menu — the product's front door** | **Sensitive**, and the largest piece of design work in the plan. Stage 1 as of 2026-08-08. It is a selection surface driving two surfaces (menu → info page → runner), so `STATE.md` applies; its ranking rule is normative — context → floor → **evidence grade**, never a measured effect that does not exist yet. The catalogue it needed (F147) shipped 2026-08-09, so what blocks it now is the navigation model (UC-063), not data |
+| **T-B10** | **The method menu — the product's front door** | **Sensitive**, and the largest piece of design work in the plan. Stage 1 as of 2026-08-08. It is a selection surface driving two surfaces (menu → info page → runner), so `STATE.md` applies; its ranking rule is normative — context → floor → **evidence grade**, never a measured effect that does not exist yet. The catalogue it needed (F147) shipped 2026-08-09 and the navigation model closed the same day ([ADR-0009](adr/0009-three-destinations.md)), so **nothing blocks it but its own spec** — which makes it the critical path rather than a queued item |
 | **T-B9** | Sync across devices (F192) | Comes after T-B2 and is cheap *because* of it: a union of append-only rows. **⚠ SPEC GAP** carried from ADR-0005: the tiebreak between two rows with the same timestamp from different installations. Client clocks are untrusted, so it cannot be wall-clock order |
 | **T-B5** | Retire the Grundriss worked examples | Looks like a deletion, is a docs refactor: `docs/STATE.md:148` cites item-picker as **the** worked example of state coherence, `docs/specs/README.md:36` indexes it, and UC-001…003 are referenced from six files. Removing the code without re-pointing those is a broken-link failure at best and the loss of the only worked example at worst |
-| **T-B6** | Five-state compliance for Input and Select | A rule conflict, not a bug — see the decisions below |
-
 ---
 
 ## Interaction and design-system audit
@@ -256,15 +262,21 @@ low-inference agent would silently invent.
 The primitives are in better shape than the app. What follows is real debt, but
 none of it is urgent, because none of it is on a screen a learner sees yet.
 
-**Five-state compliance.** `AGENTS.md` boundary 4 admits no exceptions: no
-interactive element without default, hover, active, focus-visible and disabled.
-Button honours all five. **Input and Select implement three** — no hover, no
-active — and `docs/specs/component/select.md:36` documents only three, so the
-spec and the boundary contradict each other in writing. Table's scroll region and
-ItemPicker's rows are also missing `active`. This is a decision, not a defect to
-be patched quietly: either native controls are exempt because the platform
-supplies the feedback, and the boundary says so, or they are not, and three
-components change. Nobody should resolve that by adding a hover colour.
+**Five-state compliance — resolved 2026-08-09, and the leftover is smaller than
+it looks.** The conflict was real: `AGENTS.md` boundary 4 admitted no exceptions
+while Input and Select shipped without hover and active. It was settled as a
+documentation fix rather than a visual one — a **native form control may omit
+`hover` and `active`**, because the platform draws them and two disagreeing
+affordances are worse than one. `focus-visible` and `disabled` stay non-waivable
+per `CONSTITUTION.md` §3. The exemption lives in
+[`DESIGN-SYSTEM.md`](DESIGN-SYSTEM.md) and is named from `AGENTS.md`; `select.md`
+gained the row it was missing. No component changed.
+
+**What survives is the part the exemption does not cover.** Table's scroll region
+and ItemPicker's rows are still missing `active`, and neither is a native form
+control — the exemption is deliberately narrow, so it does not reach them. This
+is ordinary interaction debt on components no learner sees yet, not a rule
+conflict, and it belongs to whichever task next touches those two.
 
 **Hover on touch devices.** `DESIGN-SYSTEM.md:78` recommends wrapping hover
 styles in `@media (hover: hover)`; no component does. On a phone, `hover:` sticks
@@ -355,15 +367,29 @@ ADR-0006, ADR-0007) — an account is required, and the provider is Supabase.
    conflicts between chapters 12, 21 and 24, and one gap that no single chapter
    showed — twenty-one methods train something none of the seven layer-1 signals
    measures. Writing it alongside a menu spec would have buried all four.
-2. **Are native form controls exempt from the five-state rule?** Yes → the
-   boundary in `AGENTS.md` gains one sentence and `select.md` is already right.
-   No → Input, Select, Table and ItemPicker each gain hover and active states,
-   and that is a visual change you have not asked for.
-3. **A `success-deep` token, or a documented asymmetry?** Needed before the first
+2. ~~Are native form controls exempt from the five-state rule?~~ **Answered
+   2026-08-09: yes, narrowly.** Hover and active only, native form controls only;
+   `focus-visible` and `disabled` stay non-waivable. The exemption lives in
+   [`DESIGN-SYSTEM.md`](DESIGN-SYSTEM.md) and `AGENTS.md` boundary 4 names it. No
+   component changed.
+3. **⚠ SPEC GAP — two accepted records disagree about what `/` is, and this
+   blocks the critical path.** [ADR-0009](adr/0009-three-destinations.md)'s
+   consequences say *"Methods is the default route. `/` is the menu, not a
+   dashboard."* This plan says the opposite in two places — §"Where storage
+   stands" point 5 and T-04 — on the strength of ADR-0006 and the 2026-08-08
+   instruction that *`/` is the landing page and the app is not on it*. Both
+   cannot hold. It has to be answered before T-B10, because the menu's spec
+   cannot say where the menu lives until it is, and before T-04, which writes a
+   holding page onto the same route. The likely reconciliation — `/` is the
+   public landing page and Methods is the default route *of the signed-in app* —
+   is **not** written down anywhere, and guessing it is exactly the invented rule
+   `AGENTS.md` boundary 8 forbids. Whichever way it goes, the losing record gets
+   a superseding note rather than a silent edit.
+4. **A `success-deep` token, or a documented asymmetry?** Needed before the first
    correct-answer button exists, not after.
-4. Does `CONSTITUTION.md` §2 (the user's data) need writing out now that server
+5. Does `CONSTITUTION.md` §2 (the user's data) need writing out now that server
    storage is scheduled rather than hypothetical? `BACKEND.md` §9 says it stops
    being abstract the moment something is actually stored.
-5. Chapter 25's questions 17–19 (perceived effort as a third ledger, whether the
+6. Chapter 25's questions 17–19 (perceived effort as a third ledger, whether the
    whole-task floor applies from day one, per-language dose bands). These can
    wait; none blocks code.
