@@ -97,12 +97,24 @@ describe("LandingHero", () => {
 });
 
 describe("the / route", () => {
+  it("forwards a Supabase confirmation code to /auth/callback", async () => {
+    vi.mocked(redirect).mockClear();
+    vi.mocked(getAccount).mockResolvedValue(null);
+
+    const Home = (await import("@/app/(marketing)/page")).default;
+    await Home({ searchParams: Promise.resolve({ code: "4fb7d79f-a085-4ab4-8e37-aaf52445cf30" }) });
+
+    expect(redirect).toHaveBeenCalledWith(
+      "/auth/callback?code=4fb7d79f-a085-4ab4-8e37-aaf52445cf30",
+    );
+  });
+
   it("redirects signed-in visitors to /methods", async () => {
     vi.mocked(redirect).mockClear();
     vi.mocked(getAccount).mockResolvedValue({ id: "u1", email: "a@example.com" });
 
     const Home = (await import("@/app/(marketing)/page")).default;
-    await Home();
+    await Home({ searchParams: Promise.resolve({}) });
 
     expect(redirect).toHaveBeenCalledWith("/methods");
   });
