@@ -51,8 +51,14 @@ what the learner sees; card front/back text derives from
 | `prompting` | front only | enabled | shown |
 | `persisting` | front | disabled | shown |
 | `revealed` | front + back | disabled | shown |
-| `advancing` | hidden | hidden | shown |
+| `advancing` | *never rendered — see below* | | |
 | `complete` | hidden | hidden | session summary |
+
+`advancing` is a **waypoint, not a screen.** It exists so that `revealed` has no
+legal direct edge to `prompting`, and the implementation passes through it inside
+one state update, so no render ever observes it. Nothing may be designed for it;
+a surface that needs a visible "moving to the next card" moment needs a phase of
+its own and an edge to reach it. (`docs/TRAPS.md`.)
 
 `persisting → prompting` is legal only on persistence **error** — grades re-enable
 so the learner can retry. Success always goes to `revealed`.

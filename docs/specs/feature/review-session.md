@@ -63,6 +63,27 @@ row in the database.
       card stays active, grades re-enable, and error copy is shown.
 - [ ] Given any phase, then no due count, backlog figure or badge appears.
 
+## Open questions
+
+**⚠ SPEC GAP: the learner grades before seeing the back, and the back is then
+shown for 400 ms.** Behavior rows 3–4 fix that order and the implementation
+follows it; the 400 ms is in `useReviewSession` and in no record at all. Two
+things are undecided and neither can be settled here:
+
+1. **Whether grading precedes the reveal.** Every other SRS reveals first and
+   grades second, because a grade is a report about a recall the learner has
+   just *checked*. As specced, the learner reports on an unverified memory and
+   then watches the answer go past — so `again`/`good` cannot mean "I was
+   wrong"/"I was right", which is what FSRS reads them as. This is the product's
+   own standard applied to itself (`study/25-…`): the grade is a measurement the
+   app is not currently in a position to make.
+2. **How long the back stays, if the order is kept.** 400 ms is not long enough
+   to read a gloss, and any number chosen here is a decision nobody has made.
+   A learner-driven "next" would remove the constant rather than tune it.
+
+Until this is answered the constant stays where it is, named here so it is not
+mistaken for a considered value.
+
 ## Check
 
 `npm test -- review-session session-machine`

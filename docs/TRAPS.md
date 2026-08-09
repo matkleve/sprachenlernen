@@ -11,6 +11,49 @@ applying is still evidence about how this codebase misleads people.
 
 ---
 
+## `container.textContent` welds siblings together and kills `\b` in your regex
+
+An acceptance test asserted that the review session shows no due count:
+`expect(container.textContent).not.toMatch(/\bdue\b|\bbacklog\b/i)`. It passed.
+It also passed with `due` deliberately added to the progress copy — the word was
+on screen and the assertion did not see it.
+
+`textContent` concatenates descendants with **no separator**, so the progress
+paragraph and the card front below it read `"1 of 2 duede"`. There is no word
+boundary between `due` and `de`, so `\bdue\b` never matched. The regex was
+right, the DOM was right, and the join between them was lossy.
+
+Assert on the leaves, joined with a separator you choose:
+
+```ts
+Array.from(container.querySelectorAll("*"))
+  .filter((element) => element.children.length === 0)
+  .map((element) => element.textContent?.trim() ?? "")
+  .filter(Boolean)
+  .join(" | ");
+```
+
+The general form: any "this text is absent" assertion must be shown failing with
+the text present. This one is worse than an ordinary untested assertion, because
+`textContent` makes the *sound* case — checking the whole subtree at once — the
+one that silently stops working.
+
+## A phase in the map that no render can ever observe
+
+`advancing` sits in the review session's transition map, has a row in the spec's
+phase-effects table saying what it looks like on screen, and is never rendered.
+`useReviewSession` moves through it inside a single `setPhase` updater —
+`nextPhase(nextPhase(current, "advancing"), "prompting")` — so only the final
+value is ever stored, and React never renders the middle one.
+
+That is the right implementation: the double call is what keeps the code honest
+about the map instead of jumping `revealed → prompting` directly. What was wrong
+was the spec describing an appearance for a phase that has none.
+
+A waypoint in a transition map is not automatically a rendered state. When a
+phase exists only to make an edge legal, the spec has to say so — otherwise the
+next author writes UI for it, and no test can ever reach that UI.
+
 ## `readFileSync` from `data/` works locally and 500s on Vercel without a trace include
 
 The method menu and language status pages read `data/methods/` and
