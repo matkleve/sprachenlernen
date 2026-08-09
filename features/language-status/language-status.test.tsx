@@ -202,7 +202,7 @@ describe("the surface stays a Server Component", () => {
     // the directive would be pure cost — and it is the kind of line that gets
     // added reflexively while debugging and then never removed.
     const files = [
-      "app/languages/page.tsx",
+      "app/(marketing)/languages/page.tsx",
       "features/language-status/LanguageStatus.tsx",
       "features/language-status/content.ts",
       "features/language-status/profiles.ts",

@@ -23,9 +23,8 @@ wins and this file is stale. Nothing normative may live only here.
 | `components/ui/` | Button, Field, Input, Select, Dialog, Table — inherited from Grundriss, specced, tested |
 | `features/` | `item-picker` and `primitives` — **both are the starter's worked examples**. `language-status` is the first that is not; `auth` (T-B8) adds `/signup` and `/login`, built only from `Field` and `Button` |
 | `lib/db/` | **Shipped 2026-08-09** (T-B8). Supabase client factory, `signUp`/`signIn`/`signOut`/`getAccount`, `middleware.ts` session refresh, the `review_log` RLS migration — applied to the live project. Spec **active**. 9 unit tests plus the 5-test §8 access-control suite |
-| `app/languages/` | **Shipped 2026-08-09** (T-03). The language status page: derived tier, what it claims, what it does not, what the next tier needs. Server Component, 15 tests. Spec **active** |
-| `app/page.tsx` | **Shipped 2026-08-09** (T-04). A holding page: one sentence quoted from the study, a link to `/languages`. Not the landing page — that is T-B7 |
-| `app/primitives/` | Where the starter's demo went. Kept on purpose; see T-B5 before deleting it |
+| `app/(marketing)/` | The public half, no app shell: `/` (T-04's holding page), `/languages` (T-03), `/login`, `/signup`, `/primitives`. Split out 2026-08-09 to implement [ADR-0010](adr/0010-the-route-model.md) |
+| `app/(app)/` | The signed-in half, under the shell's three destinations: `/methods` (T-B10), `/words` and `/progress` (holding pages until T-B1 and T-B3) |
 
 **The honest summary: two strong libraries and one screen.** `/languages` is the
 first surface that belongs to this product rather than to the starter — it holds
@@ -252,8 +251,8 @@ is. The demo is at `/primitives`, `/` is a holding page carrying one sentence
 quoted verbatim from the study and a link to `/languages`, and the root layout
 stopped titling every page "Grundriss". The real landing page is still T-B7.
 
-**Class:** Trivial · **Files:** `app/page.tsx`, `app/primitives/page.tsx`,
-`features/primitives/**`
+**Class:** Trivial · **Files:** the home and demo routes (since moved into
+`app/(marketing)/` by ADR-0010's route groups), `features/primitives/**`
 
 The demo moves to `/primitives`, where it stays useful as the worked example the
 docs point at (see T-B5 — do not delete it). `/` then becomes a **holding page**:
