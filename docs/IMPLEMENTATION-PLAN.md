@@ -308,7 +308,7 @@ low-inference agent would silently invent.
 | ~~**T-B1**~~ | ~~The review session surface~~ — **shipped 2026-08-09** | **Sensitive.** [`specs/feature/review-session.md`](specs/feature/review-session.md) + [`.states.md`](specs/feature/review-session.states.md), `features/review-session/`, `/words/review`. One enum, an explicit map, `complete` as the only terminal state. **⚠ SPEC GAP** carried in the spec: the learner grades *before* the back is shown, and the back then shows for 400 ms — the order is specced, the constant is not, and both are product decisions nobody has made |
 | **T-B3** | Vocabulary estimate and the level display (F17–F22) | Newly unblocked by tier B. Needs the anchor table from `study/03-level-model.md`, which is graded **[C]** and explicitly needs calibrating — a spec must say what is claimed with an uncalibrated band |
 | **T-B4** | Dose ledger (F184) | Needs roadmap question 19 answered, and its logging half needs T-B2 |
-| **T-B7** | The landing page | Positioning copy is a product decision, not an implementation. With a required account it is also everything a signed-out visitor ever sees, and its job is to persuade — which makes every rule in `DESIGN-SYSTEM.md` necessary but not sufficient |
+| **T-B7** | The landing page | **Everything except the positioning is built** — [`specs/page/landing.md`](specs/page/landing.md) is active, the header, hero, CTAs and the signed-in redirect all ship, and every sentence on it is quoted from the study with its thesis named in `features/marketing/content.ts`. What is left is the one thing an agent may not do: choose which of the thirteen theses the product leads with. That is a decision, and the options are below |
 | ~~**T-B10**~~ | ~~The method menu — the product's front door~~ — **shipped 2026-08-09, in the part that needs no learner** | **Sensitive.** [`specs/page/method-menu.md`](specs/page/method-menu.md) and [`specs/feature/app-shell.md`](specs/feature/app-shell.md) are active: `/methods` filters the catalogue by context, the `(app)` group carries ADR-0009's three destinations, and `middleware.ts` gates them before anything renders. **What was deliberately left out**, because each needs stored history or an effect estimate nothing produces yet: the daily three, current standing, the demonstration sentence, readiness, the skill filter, and where commitments live. Those return with T-B2 and T-B3; the spec carries them as named gaps rather than as silence |
 | **T-B9** | Sync across devices (F192) | **Blocked on a decision, not on work.** The log shipped server-only, contradicting ADR-0005's local-first decision, and nothing had recorded that until [ADR-0011](adr/0011-the-review-log-shipped-server-only.md). Under its Option A two devices on one account already share one table and T-B9 reduces to export/import; under Option B it is the merge ADR-0005 described, and the tiebreak gap has to be closed first. The gap itself is dormant meanwhile — one authority, nothing to merge |
 | **T-B5** | Retire the Grundriss worked examples | Looks like a deletion, is a docs refactor: `docs/STATE.md:148` cites item-picker as **the** worked example of state coherence, `docs/specs/README.md:36` indexes it, and UC-001…003 are referenced from six files. Removing the code without re-pointing those is a broken-link failure at best and the loss of the only worked example at worst |
@@ -461,6 +461,27 @@ ADR-0006, ADR-0007) — an account is required, and the provider is Supabase.
 6. Does `CONSTITUTION.md` §2 (the user's data) need writing out now that server
    storage is scheduled rather than hypothetical? `BACKEND.md` §9 says it stops
    being abstract the moment something is actually stored.
-7. Chapter 25's questions 17–19 (perceived effort as a third ledger, whether the
-   whole-task floor applies from day one, per-language dose bands). These can
-   wait; none blocks code.
+6. **T-B7: which thesis does the landing lead with?** The interim page leads
+   with thesis 1 — *"progress is shown as measured competence, never as
+   activity"* — because it was the sentence T-04 had already quoted, not
+   because anyone chose it. The candidates, all study-backed, are:
+   **1** (measured competence, not activity — the critique of the category),
+   **9/10** (the methods happen mostly outside the app — the most
+   differentiating and the least reassuring),
+   **11** (speaking is the goal — what a learner actually wants), and
+   **12** (an honest denominator for your time — the number nobody shows,
+   and now built). Picking one is five minutes and it is not an agent's
+   five minutes. Note that thesis 11's "leads the headline" is about the
+   signed-in **Home**, not this page — chapter 24 was renamed to keep those
+   apart, and it is an easy wrong inference to make.
+7. **Does `/progress` lead with speaking once anything is measured?** Chapter 24
+   says the goal decides which skill leads the *headline display*, and names
+   the home surface. Since [ADR-0010](adr/0010-the-route-model.md) made
+   `/methods` the default route, which surface that rule binds is no longer
+   obvious. It changes nothing today — four skills all read "not measured" —
+   and it binds the moment one does not.
+8. Chapter 25's questions 17–18 (perceived effort as a third ledger, whether the
+   whole-task floor applies from day one). **Question 19 is off this list** —
+   answered in its first branch by
+   [`specs/service/dose-band.md`](specs/service/dose-band.md): the band is
+   labelled borrowed, structurally, and F190 stays later.
