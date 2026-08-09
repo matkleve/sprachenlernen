@@ -1,7 +1,7 @@
 # UC-042 — Know why a method is supposed to work
 
 <!-- id: UC-042 -->
-<!-- specs:  -->
+<!-- specs: SPEC-page-method-detail -->
 
 **Who:** anyone being asked to spend fifteen minutes on an exercise they did not
 choose to invent.

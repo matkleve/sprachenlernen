@@ -22,6 +22,7 @@ export const routes = {
   appHome: "/methods",
   /** The three destinations of ADR-0009, in the order they are shown. */
   methods: "/methods",
+  method: (id: string) => `/methods/${id}`,
   words: "/words",
   progress: "/progress",
 } as const;

@@ -1,7 +1,7 @@
 # UC-045 — Practise in the situation I am actually in
 
 <!-- id: UC-045 -->
-<!-- specs: SPEC-page-method-menu -->
+<!-- specs: SPEC-page-method-menu, SPEC-component-chip -->
 
 **Who:** anyone whose day contains very different fifteen-minute windows.
 **Wants to:** be offered only what is possible right now — paper exercises at

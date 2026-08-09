@@ -29,12 +29,22 @@ export const copy = {
     needs: "Needs",
     needsNothing: "Nothing in particular",
     duration: "Takes",
-    openEnded: "As long as you have",
+    openEnded: "Open-ended",
     intensity: "Effort",
     doesNotDo: "What it does not do",
+    properties: "Method properties",
   },
   hosted: "The app runs this",
   notHosted: "You do this yourself — the app does not run it",
+  hostedShort: "App runs this",
+  notHostedShort: "Off-app",
+  timeLabel: "How much time?",
+  customiseLabel: "Customise situation",
+  customiseHint:
+    "Pick one value per row. The list updates when every row has a choice and a time budget is set.",
+  startUnavailable: "Starting a session is not built yet",
+  backToMethods: "Back to methods",
+  methodNotFound: "No method with that name exists in the catalogue.",
   minutes: "min",
   or: "or",
   /** Alternative requirement sets: any one of them suffices. */
@@ -57,6 +67,13 @@ export const evidence: Record<EvidenceGrade, string> = {
   B: "Evidence B — well supported, with limits",
   C: "Evidence C — plausible and widespread, but thinly evidenced",
   D: "Evidence D — a product decision, not a finding",
+};
+
+export const evidenceShort: Record<EvidenceGrade, string> = {
+  A: "Evidence A",
+  B: "Evidence B",
+  C: "Evidence C",
+  D: "Evidence D",
 };
 
 /**
