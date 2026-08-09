@@ -64,9 +64,9 @@ What that changes for this queue:
    real landing page becomes its own piece of work (T-B7). With a required
    account, the landing page is also the whole of what a signed-out visitor ever
    sees, which raises its stakes rather than lowering them.
-   **⚠ Contested since 2026-08-09:** [ADR-0009](adr/0009-three-destinations.md)
-   says `/` is the method menu. Open question 3 below owns the conflict — do not
-   build against either sentence until it is answered.
+   **Settled 2026-08-09** by [ADR-0010](adr/0010-the-route-model.md), which held
+   this sentence and scoped ADR-0009's competing one: the app's default route is
+   `/methods`, and `/` stays the landing page.
 
 Still ahead of stage 2: **the vocabulary estimate (F17–F22)**, now unblocked on
 the data side, because tier B means a level *may* be claimed with a widened band.
@@ -259,7 +259,7 @@ low-inference agent would silently invent.
 | **T-B3** | Vocabulary estimate and the level display (F17–F22) | Newly unblocked by tier B. Needs the anchor table from `study/03-level-model.md`, which is graded **[C]** and explicitly needs calibrating — a spec must say what is claimed with an uncalibrated band |
 | **T-B4** | Dose ledger (F184) | Needs roadmap question 19 answered, and its logging half needs T-B2 |
 | **T-B7** | The landing page | Positioning copy is a product decision, not an implementation. With a required account it is also everything a signed-out visitor ever sees, and its job is to persuade — which makes every rule in `DESIGN-SYSTEM.md` necessary but not sufficient |
-| **T-B10** | **The method menu — the product's front door** | **Sensitive**, and the largest piece of design work in the plan. Stage 1 as of 2026-08-08. It is a selection surface driving two surfaces (menu → info page → runner), so `STATE.md` applies; its ranking rule is normative — context → floor → **evidence grade**, never a measured effect that does not exist yet. The catalogue it needed (F147) shipped 2026-08-09 and the navigation model closed the same day ([ADR-0009](adr/0009-three-destinations.md)), so **nothing blocks it but its own spec** — which makes it the critical path rather than a queued item |
+| **T-B10** | **The method menu — the product's front door** | **Sensitive**, and the largest piece of design work in the plan. Stage 1 as of 2026-08-08. It is a selection surface driving two surfaces (menu → info page → runner), so `STATE.md` applies; its ranking rule is normative — context → floor → **evidence grade**, never a measured effect that does not exist yet. The catalogue it needed (F147) shipped 2026-08-09 and the navigation model closed the same day ([ADR-0009](adr/0009-three-destinations.md), [ADR-0010](adr/0010-the-route-model.md)), so **nothing blocks it but its own spec** — which makes it the critical path rather than a queued item. It lives at `/methods` and brings the `(app)` route group and the shell with it |
 | **T-B9** | Sync across devices (F192) | Comes after T-B2 and is cheap *because* of it: a union of append-only rows. **⚠ SPEC GAP** carried from ADR-0005: the tiebreak between two rows with the same timestamp from different installations. Client clocks are untrusted, so it cannot be wall-clock order |
 | **T-B5** | Retire the Grundriss worked examples | Looks like a deletion, is a docs refactor: `docs/STATE.md:148` cites item-picker as **the** worked example of state coherence, `docs/specs/README.md:36` indexes it, and UC-001…003 are referenced from six files. Removing the code without re-pointing those is a broken-link failure at best and the loss of the only worked example at worst |
 ---
@@ -379,19 +379,13 @@ ADR-0006, ADR-0007) — an account is required, and the provider is Supabase.
    `focus-visible` and `disabled` stay non-waivable. The exemption lives in
    [`DESIGN-SYSTEM.md`](DESIGN-SYSTEM.md) and `AGENTS.md` boundary 4 names it. No
    component changed.
-3. **⚠ SPEC GAP — two accepted records disagree about what `/` is, and this
-   blocks the critical path.** [ADR-0009](adr/0009-three-destinations.md)'s
-   consequences say *"Methods is the default route. `/` is the menu, not a
-   dashboard."* This plan says the opposite in two places — §"Where storage
-   stands" point 5 and T-04 — on the strength of ADR-0006 and the 2026-08-08
-   instruction that *`/` is the landing page and the app is not on it*. Both
-   cannot hold. It has to be answered before T-B10, because the menu's spec
-   cannot say where the menu lives until it is, and before T-04, which writes a
-   holding page onto the same route. The likely reconciliation — `/` is the
-   public landing page and Methods is the default route *of the signed-in app* —
-   is **not** written down anywhere, and guessing it is exactly the invented rule
-   `AGENTS.md` boundary 8 forbids. Whichever way it goes, the losing record gets
-   a superseding note rather than a silent edit.
+3. ~~Two accepted records disagree about what `/` is.~~ **Answered 2026-08-09 by
+   [ADR-0010](adr/0010-the-route-model.md)**, on the owner's instruction to use
+   the conventional answer where one exists: `/` is the public landing page,
+   the app's destinations are `/methods`, `/words` and `/progress`, and signing
+   in lands on `/methods`. Neither earlier record is superseded — ADR-0009's
+   "default route" gains the scope it was missing, which is the test of a
+   reconciliation being right rather than merely decisive.
 4. **A `success-deep` token, or a documented asymmetry?** Needed before the first
    correct-answer button exists, not after.
 5. Does `CONSTITUTION.md` §2 (the user's data) need writing out now that server
