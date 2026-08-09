@@ -14,19 +14,23 @@ import { safeDecodeURIComponent } from "@/lib/utils";
 export default async function SignUpPage({
   searchParams,
 }: {
-  searchParams: Promise<{ error?: string; sent?: string }>;
+  searchParams: Promise<{ error?: string; sent?: string; ref?: string }>;
 }) {
   const account = await getAccount();
   if (account) redirect(routes.appHome);
 
-  const { error, sent } = await searchParams;
+  const { error, sent, ref } = await searchParams;
 
   return (
     <div className="mx-auto max-w-sm px-6 pt-page-top pb-page-bottom">
       <h1 className="text-2xl font-semibold tracking-tight text-ink">
         {authContent.signUp.heading}
       </h1>
-      <SignUpForm error={safeDecodeURIComponent(error)} sent={sent === "1"} />
+      <SignUpForm
+        error={safeDecodeURIComponent(error)}
+        referenceId={ref}
+        sent={sent === "1"}
+      />
     </div>
   );
 }

@@ -3,6 +3,7 @@
 import { redirect } from "next/navigation";
 
 import { signIn, signUp } from "@/lib/db/auth";
+import { fromAuthError, logHandledError, type HandledError } from "@/lib/errors";
 import { routes } from "@/lib/routes";
 
 /**
@@ -19,12 +20,24 @@ function readCredentials(formData: FormData) {
   };
 }
 
+function redirectWithHandledError(path: string, handled: HandledError): never {
+  logHandledError(handled);
+  const params = new URLSearchParams({
+    error: handled.userMessage,
+    ref: handled.referenceId,
+  });
+  redirect(`${path}?${params}`);
+}
+
 export async function signUpAction(formData: FormData): Promise<void> {
   const { email, password } = readCredentials(formData);
   const result = await signUp(email, password);
 
   if (result.status === "error") {
-    redirect(`${routes.signUp}?error=${encodeURIComponent(result.error)}`);
+    redirectWithHandledError(
+      routes.signUp,
+      fromAuthError(result.error, { operation: "create your account" }),
+    );
   }
   if (result.status === "confirmation-required") {
     redirect(`${routes.signUp}?sent=1`);
@@ -37,7 +50,10 @@ export async function signInAction(formData: FormData): Promise<void> {
   const result = await signIn(email, password);
 
   if (result.status === "error") {
-    redirect(`${routes.signIn}?error=${encodeURIComponent(result.error)}`);
+    redirectWithHandledError(
+      routes.signIn,
+      fromAuthError(result.error, { operation: "sign you in" }),
+    );
   }
   redirect(routes.appHome);
 }

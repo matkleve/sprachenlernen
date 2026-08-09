@@ -1,7 +1,7 @@
 # UC-011 — Start learning in the first minute, without deciding anything
 
 <!-- id: UC-011 -->
-<!-- specs: SPEC-service-auth -->
+<!-- specs: SPEC-service-auth, SPEC-page-landing -->
 
 **Who:** someone who has just signed up and has not yet decided whether they
 mean it.

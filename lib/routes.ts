@@ -13,6 +13,8 @@ export const routes = {
   languages: "/languages",
   signIn: "/login",
   signUp: "/signup",
+  /** Where Supabase sends users after they confirm email. */
+  authCallback: "/auth/callback",
   /** Public. The Grundriss worked example — stays reachable without an account. */
   primitives: "/primitives",
 
@@ -20,7 +22,9 @@ export const routes = {
   appHome: "/methods",
   /** The three destinations of ADR-0009, in the order they are shown. */
   methods: "/methods",
+  method: (id: string) => `/methods/${id}`,
   words: "/words",
+  wordsReview: "/words/review",
   progress: "/progress",
 } as const;
 
@@ -36,6 +40,7 @@ export const publicRoutes = [
   routes.languages,
   routes.signIn,
   routes.signUp,
+  routes.authCallback,
   routes.primitives,
 ] as const;
 

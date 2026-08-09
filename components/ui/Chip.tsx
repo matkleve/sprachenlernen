@@ -1,0 +1,29 @@
+import { cva, type VariantProps } from "class-variance-authority";
+import type { HTMLAttributes } from "react";
+
+import { cn } from "@/lib/utils";
+
+/**
+ * A compact label for one fact. Contract: docs/specs/component/chip.md
+ *
+ * Non-interactive by default — filter chips wrap this in a link; card chips
+ * leave it as a span.
+ */
+const chip = cva(
+  "inline-flex items-center rounded-pill px-2.5 py-0.5 text-xs font-medium",
+  {
+    variants: {
+      tone: {
+        default: "border border-line bg-surface text-muted",
+        accent: "bg-accent-soft text-ink",
+      },
+    },
+    defaultVariants: { tone: "default" },
+  },
+);
+
+export type ChipProps = HTMLAttributes<HTMLSpanElement> & VariantProps<typeof chip>;
+
+export function Chip({ tone, className, ...props }: ChipProps) {
+  return <span className={cn(chip({ tone }), className)} {...props} />;
+}

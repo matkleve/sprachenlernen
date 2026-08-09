@@ -11,6 +11,25 @@ applying is still evidence about how this codebase misleads people.
 
 ---
 
+## `readFileSync` from `data/` works locally and 500s on Vercel without a trace include
+
+The method menu and language status pages read `data/methods/` and
+`data/languages/` at request time via `readFileSync(process.cwd(), …)`. Local
+`npm run dev` and `npm run build` both see the repo root, so the catalogue loads.
+Vercel's serverless bundle only ships files the NFT tracer can follow — and it
+does not follow dynamic paths into `data/`.
+
+The symptom is exactly `Could not load the method catalogue` with a reference id
+and **no** file names in the UI (developer detail is in the function log). It
+looks like bad JSON; it is a missing directory inside the lambda.
+
+The check: after `npm run build`, grep `.next/server` for a section file — zero
+hits means production will fail. The fix is `outputFileTracingIncludes` in
+`next.config.ts` for each route that reads disk. Do not switch to importing
+every JSON unless you want them in the JS bundle — tracing is the intended fix.
+
+---
+
 ## `hover:` cannot be observed in this environment, and it is not your CSS
 
 Every `hover:` utility Tailwind v4 emits is compiled inside a single

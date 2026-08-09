@@ -2,6 +2,7 @@ import { redirect } from "next/navigation";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
 import { signIn, signUp } from "@/lib/db/auth";
+import { setReferenceIdFactory } from "@/lib/errors";
 
 import { signInAction, signUpAction } from "./actions";
 
@@ -22,6 +23,7 @@ function formData(fields: Record<string, string>): FormData {
 
 beforeEach(() => {
   vi.mocked(redirect).mockClear();
+  setReferenceIdFactory(() => "abcd1234");
 });
 
 describe("signUpAction", () => {
@@ -48,12 +50,14 @@ describe("signUpAction", () => {
     expect(redirect).toHaveBeenCalledWith("/signup?sent=1");
   });
 
-  it("redirects back to /signup with the error encoded, creating no session", async () => {
+  it("redirects back to /signup with handled user copy and a reference id", async () => {
     vi.mocked(signUp).mockResolvedValue({ status: "error", error: "Password too short" });
 
     await signUpAction(formData({ email: "a@example.com", password: "x" }));
 
-    expect(redirect).toHaveBeenCalledWith("/signup?error=Password%20too%20short");
+    expect(redirect).toHaveBeenCalledWith(
+      "/signup?error=Could+not+create+your+account.&ref=abcd1234",
+    );
   });
 });
 
@@ -69,11 +73,13 @@ describe("signInAction", () => {
     expect(redirect).toHaveBeenCalledWith("/methods");
   });
 
-  it("redirects back to /login with the error encoded, on invalid credentials", async () => {
+  it("redirects back to /login with mapped user copy and a reference id", async () => {
     vi.mocked(signIn).mockResolvedValue({ status: "error", error: "Invalid login credentials" });
 
     await signInAction(formData({ email: "a@example.com", password: "wrong" }));
 
-    expect(redirect).toHaveBeenCalledWith("/login?error=Invalid%20login%20credentials");
+    expect(redirect).toHaveBeenCalledWith(
+      "/login?error=The+email+or+password+is+not+correct.&ref=abcd1234",
+    );
   });
 });

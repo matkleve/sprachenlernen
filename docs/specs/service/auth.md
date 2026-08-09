@@ -33,7 +33,7 @@ user cannot read another Account's rows. **Sensitive** (`AGENTS.md`).
 
 | # | User action | System response |
 | --- | --- | --- |
-| 1 | Submits the signup form with an email and a password | An Account is created. If Supabase's project settings return a session immediately, the visitor is signed in and sent to `/methods`. If email confirmation is required, they see "check your email" and no session is created yet |
+| 1 | Submits the signup form with an email and a password | An Account is created. If Supabase's project settings return a session immediately, the visitor is signed in and sent to `/methods`. If email confirmation is required, they see "check your email" and no session is created yet. The confirmation mail links to `/auth/callback` on this deployment's origin (`NEXT_PUBLIC_SITE_URL`, or `VERCEL_URL` on previews, or `http://localhost:3000` locally) — not Supabase's project Site URL alone |
 | 2 | Submits the sign-in form with valid credentials | An auth session is created (cookie, via `middleware.ts`) and the visitor is sent to `/methods` |
 | 3 | Submits either form with invalid input | The page re-renders with the error Supabase reported next to the password field; no account or session is created |
 | 4 | Opens `/login` or `/signup` while already signed in | Redirected to `/methods`; the form is never shown |

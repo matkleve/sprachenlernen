@@ -10,7 +10,7 @@ import { cn } from "@/lib/utils";
  * remember them — that is the whole reason this component exists rather than a
  * hand-rolled <button> per surface.
  */
-const button = cva(
+export const buttonVariants = cva(
   [
     // layout. `relative` anchors the hit-area pseudo-element in the size
     // variants; without it the expanded target would resolve against the page.
@@ -62,7 +62,7 @@ const button = cva(
 );
 
 export type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> &
-  VariantProps<typeof button>;
+  VariantProps<typeof buttonVariants>;
 
 export function Button({ className, variant, size, type, ...props }: ButtonProps) {
   return (
@@ -70,7 +70,7 @@ export function Button({ className, variant, size, type, ...props }: ButtonProps
       // Default to "button". A bare <button> inside a form submits it, which is
       // never what a caller who did not think about it wanted.
       type={type ?? "button"}
-      className={cn(button({ variant, size }), className)}
+      className={cn(buttonVariants({ variant, size }), className)}
       {...props}
     />
   );

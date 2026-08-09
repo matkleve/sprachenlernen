@@ -30,12 +30,21 @@ const user = { id: "user-1", email: "a@example.com" };
 
 describe("signUp", () => {
   it("is signed-in when Supabase returns a session immediately", async () => {
-    const client = fakeClient({
-      signUp: { data: { user, session: { access_token: "t" } }, error: null },
+    process.env.NEXT_PUBLIC_SITE_URL = "https://sprachenlernen.vercel.app";
+    const signUpFn = vi.fn().mockResolvedValue({
+      data: { user, session: { access_token: "t" } },
+      error: null,
     });
+    const client = fakeClient({ signUp: undefined });
+    (client.auth.signUp as ReturnType<typeof vi.fn>) = signUpFn;
 
     const result = await signUp("a@example.com", "correct horse battery staple", client);
 
+    expect(signUpFn).toHaveBeenCalledWith({
+      email: "a@example.com",
+      password: "correct horse battery staple",
+      options: { emailRedirectTo: "https://sprachenlernen.vercel.app/auth/callback" },
+    });
     expect(result).toEqual({
       status: "signed-in",
       account: { id: "user-1", email: "a@example.com" },

@@ -1,6 +1,8 @@
 import type { SupabaseClient } from "@supabase/supabase-js";
 
 import { createServerSupabaseClient } from "@/lib/db/client";
+import { routes } from "@/lib/routes";
+import { getSiteUrl } from "@/lib/site-url";
 
 /**
  * The auth adapter. Contract: docs/specs/service/auth.md
@@ -49,7 +51,13 @@ export async function signUp(
   client?: SupabaseClient,
 ): Promise<SignUpOutcome> {
   const supabase = await resolveClient(client);
-  const { data, error } = await supabase.auth.signUp({ email, password });
+  const { data, error } = await supabase.auth.signUp({
+    email,
+    password,
+    options: {
+      emailRedirectTo: `${getSiteUrl()}${routes.authCallback}`,
+    },
+  });
 
   if (error || !data.user) {
     return { status: "error", error: error?.message ?? "Could not create an account." };

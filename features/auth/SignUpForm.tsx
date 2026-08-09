@@ -11,7 +11,15 @@ import { authContent } from "@/features/auth/content";
  * no new component. Server Component: the action always redirects, so there
  * is no state to hold client-side.
  */
-export function SignUpForm({ error, sent }: { error?: string; sent?: boolean }) {
+export function SignUpForm({
+  error,
+  referenceId,
+  sent,
+}: {
+  error?: string;
+  referenceId?: string;
+  sent?: boolean;
+}) {
   if (sent) {
     return <p className="mt-6 text-sm text-ink">{authContent.signUp.confirmationSent}</p>;
   }
@@ -31,6 +39,9 @@ export function SignUpForm({ error, sent }: { error?: string; sent?: boolean }) 
         </Field>
         <Button type="submit">{authContent.signUp.submit}</Button>
       </form>
+      {referenceId ? (
+        <p className="mt-3 font-mono text-xs text-muted">Reference: {referenceId}</p>
+      ) : null}
       <p className="mt-4 text-sm text-muted">
         {authContent.signUp.switchPrompt}{" "}
         <Link className="text-accent underline" href="/login">
