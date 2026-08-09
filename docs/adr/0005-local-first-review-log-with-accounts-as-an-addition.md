@@ -1,6 +1,6 @@
 # 0005. Store the review log locally first, and add accounts as an addition rather than a migration
 
-- **Status:** Accepted, with the optional-account clause superseded by [0006](0006-require-an-account.md)
+- **Status:** Accepted, with the optional-account clause superseded by [0006](0006-require-an-account.md), and **the storage location contradicted by the shipped code** — see [0011](0011-the-review-log-shipped-server-only.md), which records the divergence without resolving it
 - **Date:** 2026-08-08
 
 > **What 0006 changed, later the same day.** An account is **required**, so the

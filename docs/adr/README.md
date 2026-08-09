@@ -37,3 +37,4 @@ ADR stays — the fact that it was once the right answer is the most useful part
 | [0008](0008-simulated-learners-as-a-test-harness.md) | Simulated learners as a test harness, never as evidence | Accepted |
 | [0009](0009-three-destinations.md) | Three destinations: Methods, Words, Progress | Accepted |
 | [0010](0010-the-route-model.md) | `/` is the public landing page; the app lives at its destinations | Accepted |
+| [0011](0011-the-review-log-shipped-server-only.md) | The review log shipped server-only, and offline is unbuilt | **Proposed** — needs a decision |

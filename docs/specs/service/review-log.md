@@ -21,6 +21,9 @@ ADR-0007). **Sensitive** (`AGENTS.md`).
   tables; scheduler projection UI; IndexedDB offline write path and cross-device
   sync (T-B9); export/delete (UC-024). **⚠ SPEC GAP:** tiebreak when two rows
   share a timestamp from different installations — deferred to T-B9 (ADR-0005).
+  **Dormant, not closed** ([ADR-0011](../../adr/0011-the-review-log-shipped-server-only.md)):
+  the log shipped server-only, so there is one authority and nothing to merge.
+  The gap binds again the moment anything writes locally.
 
 ## Behavior
 
