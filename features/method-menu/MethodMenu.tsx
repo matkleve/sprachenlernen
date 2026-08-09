@@ -1,3 +1,5 @@
+"use client";
+
 import { ErrorCallout } from "@/components/ui/ErrorCallout";
 import type { UserFacingError } from "@/lib/errors";
 import {
@@ -8,27 +10,27 @@ import {
   type Preset,
   type Section,
 } from "@/lib/method-catalogue";
-import {
-  filterMethods,
-  menuQueryString,
-  parseMenuFilter,
-  type SearchParams,
-} from "@/lib/method-menu-filter";
+import { filterMethods } from "@/lib/method-menu-filter";
+import type { SearchParams } from "@/lib/method-menu-filter";
 
 import { MethodCard } from "./MethodCard";
 import { MethodFilter } from "./MethodFilter";
 import { copy, sections } from "./content";
+import { useMenuFilter } from "./useMenuFilter";
 
 /**
  * The app's front door: the catalogue, filtered by three questions. Contract:
  * docs/specs/page/method-menu.md
+ *
+ * Client component: the catalogue loads once on the server; every filter change
+ * re-renders in memory — no round trip, no scroll reset.
  */
 
 export type MethodMenuProps = {
   catalogue?: Catalogue;
   presets?: Preset[];
   loadError?: UserFacingError;
-  searchParams?: SearchParams;
+  initialSearchParams?: SearchParams;
 };
 
 const bySection = (methods: MethodEntry[]): [Section, MethodEntry[]][] =>
@@ -41,10 +43,9 @@ export function MethodMenu({
   catalogue,
   presets: _presets = [],
   loadError,
-  searchParams = {},
+  initialSearchParams = {},
 }: MethodMenuProps) {
-  const filter = parseMenuFilter(searchParams);
-  const returnQuery = menuQueryString(searchParams);
+  const { filter, returnQuery, updateSearchParams } = useMenuFilter(initialSearchParams);
   const methods = catalogue ? filterMethods(catalogue, filter) : [];
 
   return (
@@ -52,7 +53,7 @@ export function MethodMenu({
       <h1 className="text-3xl font-semibold tracking-tight text-ink">{copy.title}</h1>
       <p className="mt-4 max-w-2xl text-base leading-relaxed text-muted">{copy.intro}</p>
 
-      <MethodFilter searchParams={searchParams} />
+      <MethodFilter filter={filter} onFilterChange={updateSearchParams} />
 
       {loadError ? (
         <div className="mt-page-content max-w-2xl">

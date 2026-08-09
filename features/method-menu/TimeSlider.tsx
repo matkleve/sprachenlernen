@@ -2,28 +2,27 @@
 
 import { useCallback, useEffect, useState } from "react";
 
-import { buildMethodsHref, MAX_MINUTES, MIN_MINUTES, type SearchParams } from "@/lib/method-menu-filter";
+import { MAX_MINUTES, MIN_MINUTES } from "@/lib/method-menu-filter";
 
 import { copy } from "./content";
 
 type TimeSliderProps = {
-  searchParams: SearchParams;
   value?: number;
+  onChange: (minutes: number) => void;
 };
 
-export function TimeSlider({ searchParams, value = 15 }: TimeSliderProps) {
+export function TimeSlider({ value = 15, onChange }: TimeSliderProps) {
   const [minutes, setMinutes] = useState(value);
 
   useEffect(() => {
     setMinutes(value);
   }, [value]);
 
-  const apply = useCallback(
+  const commit = useCallback(
     (next: number) => {
-      const href = buildMethodsHref(searchParams, { minutes: String(next) });
-      window.location.assign(href);
+      onChange(next);
     },
-    [searchParams],
+    [onChange],
   );
 
   return (
@@ -44,7 +43,12 @@ export function TimeSlider({ searchParams, value = 15 }: TimeSliderProps) {
         step={1}
         value={minutes}
         onChange={(event) => setMinutes(Number(event.target.value))}
-        onPointerUp={(event) => apply(Number((event.target as HTMLInputElement).value))}
+        onPointerUp={(event) => commit(Number((event.target as HTMLInputElement).value))}
+        onKeyUp={(event) => {
+          if (event.key === "Enter" || event.key === " ") {
+            commit(Number((event.target as HTMLInputElement).value));
+          }
+        }}
         className="mt-3 h-2 w-full cursor-pointer appearance-none rounded-pill bg-accent-soft accent-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-canvas"
         aria-label={copy.timeLabel}
         aria-valuemin={MIN_MINUTES}

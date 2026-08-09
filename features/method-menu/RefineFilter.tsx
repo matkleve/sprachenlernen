@@ -1,15 +1,14 @@
-import { NavLink } from "@/components/ui/NavLink";
-import type { MenuFilter, SearchParams } from "@/lib/method-menu-filter";
-import { buildMethodsHref } from "@/lib/method-menu-filter";
+import type { MenuFilter } from "@/lib/method-menu-filter";
 
 import { copy, refineOptions } from "./content";
+import { FilterPill } from "./FilterPill";
 
 type RefineFilterProps = {
-  searchParams: SearchParams;
   filter: MenuFilter;
+  onFilterChange: (updates: Record<string, string | undefined>) => void;
 };
 
-export function RefineFilter({ searchParams, filter }: RefineFilterProps) {
+export function RefineFilter({ filter, onFilterChange }: RefineFilterProps) {
   return (
     <details className="rounded-card border border-line bg-surface p-4">
       <summary className="cursor-pointer text-sm font-medium text-ink marker:content-none [&::-webkit-details-marker]:hidden">
@@ -25,25 +24,25 @@ export function RefineFilter({ searchParams, filter }: RefineFilterProps) {
             </h3>
             <ul className="flex flex-wrap gap-1">
               <li>
-                <NavLink
-                  href={buildMethodsHref(searchParams, { [dimension]: undefined })}
+                <FilterPill
                   current={filter.refine[dimension] === undefined}
+                  onClick={() => onFilterChange({ [dimension]: undefined })}
                 >
                   {copy.refineAny}
-                </NavLink>
+                </FilterPill>
               </li>
               {refineOptions[dimension].map(({ value, label }) => {
                 const current = filter.refine[dimension] === value;
                 return (
                   <li key={value}>
-                    <NavLink
-                      href={buildMethodsHref(searchParams, {
-                        [dimension]: current ? undefined : value,
-                      })}
+                    <FilterPill
                       current={current}
+                      onClick={() =>
+                        onFilterChange({ [dimension]: current ? undefined : value })
+                      }
                     >
                       {label}
-                    </NavLink>
+                    </FilterPill>
                   </li>
                 );
               })}

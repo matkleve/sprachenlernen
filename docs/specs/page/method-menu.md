@@ -22,7 +22,9 @@ The science still treats physical constraints as a hard filter when stated
 - **Out:** situation presets ("kitchen", "transit", …); saved custom situations;
   daily menu; learner-specific card fields; Commitments on this list.
 
-**Reuse: Chip**, **Reuse: NavLink**. **Time slider** is a client island only.
+**Reuse: Chip**, **Reuse: NavLink** (card links only). **FilterPill** toggles
+filters in place — same geometry as NavLink, but a button because it does not
+navigate. **MethodMenu** is a client island; the route stays a Server Component.
 
 ## Behavior
 
@@ -39,7 +41,12 @@ Default slider position is 15 minutes on first visit; the URL updates on release
 
 ## States
 
-URL search parameters are the single source of truth (`docs/STATE.md` §6).
+Filter state lives in a **client island** (`MethodMenu`). The URL is synced with
+`history.replaceState` on every change — shareable, but **no navigation** and
+no scroll jump. The catalogue is filtered in memory; the server page does not
+re-run (`docs/ARCHITECTURE.md`, client-first principle).
+
+URL search parameters remain the bookmark format (`docs/STATE.md` §6).
 
 ## Check
 

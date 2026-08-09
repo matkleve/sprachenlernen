@@ -4,6 +4,9 @@
 
 - [ ] Given no filter params, when the page renders, then every Method appears
       exactly once, grouped under its section.
+- [ ] Given any filter change, when the learner taps a chip or releases the time
+      slider, then the list updates **without a full page navigation** and the
+      scroll position is preserved.
 - [ ] Given `?minutes=2`, then only Methods whose shortest duration is at most
       2 minutes appear.
 - [ ] Given `?skill=reading`, then only Methods whose `skills` includes reading
@@ -15,5 +18,6 @@
 - [ ] Given an off-app Method card, then it links to `/methods/{id}`.
 - [ ] Given any rendered Method card, then chips and `doesNotDo` prose appear.
 - [ ] Given filters that match nothing, then the gap is named and no list renders.
-- [ ] The menu root has no `"use client"`; only the time slider is a client island.
+- [ ] The menu root has no `"use client"` on the route; `MethodMenu` is a client
+      island that filters in memory. Only filter controls are interactive.
 - [ ] The rendered surface has no axe-core violations.

@@ -1,33 +1,33 @@
-import { NavLink } from "@/components/ui/NavLink";
-import { SKILLS } from "@/lib/method-catalogue";
 import {
   ENERGY_LABELS,
   SKILL_LABELS,
-  buildMethodsHref,
-  parseMenuFilter,
-  type SearchParams,
+  type MenuFilter,
 } from "@/lib/method-menu-filter";
+import { SKILLS } from "@/lib/method-catalogue";
 
 import { copy } from "./content";
+import { FilterPill } from "./FilterPill";
 import { RefineFilter } from "./RefineFilter";
 import { TimeSlider } from "./TimeSlider";
 
 type MethodFilterProps = {
-  searchParams: SearchParams;
+  filter: MenuFilter;
+  onFilterChange: (updates: Record<string, string | undefined>) => void;
 };
 
 const ENERGIES = ["low", "medium", "high"] as const;
 
-export function MethodFilter({ searchParams }: MethodFilterProps) {
-  const filter = parseMenuFilter(searchParams);
-
+export function MethodFilter({ filter, onFilterChange }: MethodFilterProps) {
   return (
     <div className="mt-page-content space-y-8">
       <section aria-label={copy.timeLabel}>
         <h2 className="mb-3 text-sm font-medium uppercase tracking-widest text-muted">
           {copy.timeLabel}
         </h2>
-        <TimeSlider searchParams={searchParams} value={filter.minutes ?? 15} />
+        <TimeSlider
+          value={filter.minutes ?? 15}
+          onChange={(minutes) => onFilterChange({ minutes: String(minutes) })}
+        />
       </section>
 
       <section aria-label={copy.skillLabel}>
@@ -36,23 +36,23 @@ export function MethodFilter({ searchParams }: MethodFilterProps) {
         </h2>
         <ul className="flex flex-wrap items-center gap-1">
           <li>
-            <NavLink
-              href={buildMethodsHref(searchParams, { skill: undefined })}
+            <FilterPill
               current={filter.skill === undefined}
+              onClick={() => onFilterChange({ skill: undefined })}
             >
               {copy.anySkill}
-            </NavLink>
+            </FilterPill>
           </li>
           {SKILLS.map((skill) => (
             <li key={skill}>
-              <NavLink
-                href={buildMethodsHref(searchParams, {
-                  skill: filter.skill === skill ? undefined : skill,
-                })}
+              <FilterPill
                 current={filter.skill === skill}
+                onClick={() =>
+                  onFilterChange({ skill: filter.skill === skill ? undefined : skill })
+                }
               >
                 {SKILL_LABELS[skill]}
-              </NavLink>
+              </FilterPill>
             </li>
           ))}
         </ul>
@@ -64,29 +64,29 @@ export function MethodFilter({ searchParams }: MethodFilterProps) {
         </h2>
         <ul className="flex flex-wrap items-center gap-1">
           <li>
-            <NavLink
-              href={buildMethodsHref(searchParams, { energy: undefined })}
+            <FilterPill
               current={filter.energy === undefined}
+              onClick={() => onFilterChange({ energy: undefined })}
             >
               {copy.anyEnergy}
-            </NavLink>
+            </FilterPill>
           </li>
           {ENERGIES.map((energy) => (
             <li key={energy}>
-              <NavLink
-                href={buildMethodsHref(searchParams, {
-                  energy: filter.energy === energy ? undefined : energy,
-                })}
+              <FilterPill
                 current={filter.energy === energy}
+                onClick={() =>
+                  onFilterChange({ energy: filter.energy === energy ? undefined : energy })
+                }
               >
                 {ENERGY_LABELS[energy]}
-              </NavLink>
+              </FilterPill>
             </li>
           ))}
         </ul>
       </section>
 
-      <RefineFilter searchParams={searchParams} filter={filter} />
+      <RefineFilter filter={filter} onFilterChange={onFilterChange} />
     </div>
   );
 }

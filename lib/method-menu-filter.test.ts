@@ -2,7 +2,7 @@ import { describe, expect, it } from "vitest";
 
 import { loadMethodCatalogue } from "@/features/method-menu/catalogue";
 import { fitsMinutes, fitsPartialContext } from "@/lib/method-catalogue";
-import { filterMethods, parseMenuFilter } from "@/lib/method-menu-filter";
+import { filterMethods, parseMenuFilter, applySearchParamUpdates } from "@/lib/method-menu-filter";
 
 const { catalogue } = loadMethodCatalogue();
 
@@ -33,5 +33,20 @@ describe("filterMethods", () => {
     expect(
       result.every((m) => fitsPartialContext(m, { hands: "none" })),
     ).toBe(true);
+  });
+});
+
+describe("applySearchParamUpdates", () => {
+  it("merges updates without dropping unrelated params", () => {
+    const next = applySearchParamUpdates(
+      { minutes: "15", skill: "reading" },
+      { energy: "low" },
+    );
+    expect(next).toEqual({ minutes: "15", skill: "reading", energy: "low" });
+  });
+
+  it("clears a param when the update value is undefined", () => {
+    const next = applySearchParamUpdates({ minutes: "15", skill: "reading" }, { skill: undefined });
+    expect(next).toEqual({ minutes: "15" });
   });
 });

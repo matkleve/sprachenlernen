@@ -273,6 +273,17 @@ disproved by a chapter two files away, which neither persona was pointed at.
 and check it separately against the primary sources. A debate is a good way to
 expose a trade-off and a poor way to expose a wrong assumption.
 
+## 17. Navigating when you could filter locally
+
+**The failure:** every filter chip is a `<Link>` or `window.location.assign`, so
+each click reloads the page, jumps scroll to the top, and re-runs the server
+component — for data that was already in memory (sixty JSON method cards).
+
+**The rule:** when the dataset is small, static, and already loaded, **filter in
+the client** and sync the URL with `history.replaceState` — shareable, no scroll
+jump, no round trip. See [`ARCHITECTURE.md`](ARCHITECTURE.md) § Client-first.
+Navigate only when the user is actually going somewhere else.
+
 ---
 
 ## For you, writing the prompt

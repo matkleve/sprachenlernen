@@ -39,3 +39,6 @@ detecting context automatically.
 
 Owner feedback: context presets were unclear. Replaced with time + skill +
 energy as primary filters; study/21's full context model moves to optional refine.
+
+Filter changes are instant: the catalogue filters in the browser (no page reload,
+no scroll jump). The URL still updates so a filtered view is shareable.
