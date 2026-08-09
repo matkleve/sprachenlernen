@@ -2,7 +2,7 @@
 
 <!-- id: SPEC-service-errors -->
 <!-- use-case: UC-065 -->
-<!-- status: draft -->
+<!-- status: active -->
 
 The cross-cutting contract for failures: one shape in `lib/errors.ts`, two
 audiences. Serves [UC-065](../../use-cases/UC-065-know-what-went-wrong-and-what-to-do-next.md)

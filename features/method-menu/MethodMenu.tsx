@@ -1,4 +1,6 @@
+import { ErrorCallout } from "@/components/ui/ErrorCallout";
 import { NavLink } from "@/components/ui/NavLink";
+import type { UserFacingError } from "@/lib/errors";
 import {
   SECTIONS,
   filterByContext,
@@ -32,7 +34,8 @@ import { copy, sections } from "./content";
 export type MethodMenuProps = {
   catalogue?: Catalogue;
   presets?: Preset[];
-  errors: string[];
+  /** Set when the catalogue refused to load — user copy only, detail is in logs. */
+  loadError?: UserFacingError;
   /** The raw `?context=` value. Not assumed to name a preset that exists. */
   context?: string;
 };
@@ -43,7 +46,7 @@ const bySection = (methods: MethodEntry[]): [Section, MethodEntry[]][] =>
     methods.filter((method) => method.section === section),
   ]).filter(([, inSection]) => inSection.length > 0);
 
-export function MethodMenu({ catalogue, presets = [], errors, context }: MethodMenuProps) {
+export function MethodMenu({ catalogue, presets = [], loadError, context }: MethodMenuProps) {
   const chosen = context ? presets.find((preset) => preset.id === context) : undefined;
   const unknownContext = context !== undefined && chosen === undefined;
 
@@ -91,19 +94,10 @@ export function MethodMenu({ catalogue, presets = [], errors, context }: MethodM
         </p>
       )}
 
-      {!catalogue ? (
-        <section className="mt-page-content">
-          <p className="max-w-2xl text-base leading-relaxed text-muted">
-            {copy.catalogueUnavailable}
-          </p>
-          <ul className="mt-4 list-disc space-y-1 pl-5 text-sm text-muted">
-            {errors.map((error) => (
-              <li key={error} className="font-mono">
-                {error}
-              </li>
-            ))}
-          </ul>
-        </section>
+      {loadError ? (
+        <div className="mt-page-content max-w-2xl">
+          <ErrorCallout {...loadError} />
+        </div>
       ) : methods.length === 0 ? (
         <p className="mt-page-content max-w-2xl text-base leading-relaxed text-muted">
           {copy.nothingFits}

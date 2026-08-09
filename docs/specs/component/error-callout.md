@@ -2,7 +2,7 @@
 
 <!-- id: SPEC-component-error-callout -->
 <!-- use-case: UC-065 -->
-<!-- status: draft -->
+<!-- status: active -->
 
 The shared surface for page- and session-level failures — everything that is
 not a single field's validation error. Shows what went wrong, what to try next,

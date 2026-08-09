@@ -7,7 +7,7 @@ import { signInAction } from "@/features/auth/actions";
 import { authContent } from "@/features/auth/content";
 
 /** Reuse: Field, Button, Input — see SignUpForm.tsx for the same note. */
-export function SignInForm({ error }: { error?: string }) {
+export function SignInForm({ error, referenceId }: { error?: string; referenceId?: string }) {
   return (
     <>
       <form action={signInAction} className="mt-6 flex flex-col gap-4">
@@ -19,6 +19,9 @@ export function SignInForm({ error }: { error?: string }) {
         </Field>
         <Button type="submit">{authContent.signIn.submit}</Button>
       </form>
+      {referenceId ? (
+        <p className="mt-3 font-mono text-xs text-muted">Reference: {referenceId}</p>
+      ) : null}
       <p className="mt-4 text-sm text-muted">
         {authContent.signIn.switchPrompt}{" "}
         <Link className="text-accent underline" href="/signup">

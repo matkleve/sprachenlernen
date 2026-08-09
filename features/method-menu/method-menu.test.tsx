@@ -36,7 +36,6 @@ const show = (context?: string, over: { catalogue?: Catalogue; presets?: Preset[
     <MethodMenu
       catalogue={over.catalogue ?? catalogue}
       presets={over.presets ?? presets}
-      errors={[]}
       context={context}
     />,
   );
@@ -198,18 +197,25 @@ describe("the states that are not a list of Methods", () => {
     expect([...cardTitles()].sort()).toEqual([...methodNames].sort());
   });
 
-  it("lists the reason when the catalogue itself refuses to load", () => {
+  it("shows a handled error when the catalogue itself refuses to load", () => {
     render(
       <MethodMenu
         catalogue={undefined}
         presets={presets}
-        errors={["vocabulary.json: duplicate id"]}
+        loadError={{
+          userMessage: "Could not load the method catalogue.",
+          nextStep: "Refresh the page.",
+          referenceId: "abcd1234",
+        }}
         context={undefined}
       />,
     );
 
-    expect(screen.getByText(copy.catalogueUnavailable)).toBeDefined();
-    expect(document.body.textContent).toContain("vocabulary.json: duplicate id");
+    expect(screen.getByRole("alert").textContent).toContain(
+      "Could not load the method catalogue.",
+    );
+    expect(screen.getByRole("alert").textContent).toContain("Reference: abcd1234");
+    expect(document.body.textContent).not.toContain("vocabulary.json");
   });
 
   it("has no accessibility violations", async () => {
