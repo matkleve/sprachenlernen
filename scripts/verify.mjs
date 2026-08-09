@@ -16,7 +16,10 @@ const CHECKS = [
   ["tokens", "node", ["scripts/check-tokens.mjs"]],
   ["contrast", "node", ["scripts/check-contrast.mjs"]],
   ["test", "npm", ["run", "--silent", "test"]],
-  ["build", "npm", ["run", "--silent", "build"]],
+  // Its own output directory, so that running the gate while `npm run dev` is
+  // up cannot replace the manifests the dev server is serving from. Sharing
+  // `.next` cost a recording and a review round; see docs/TRAPS.md.
+  ["build", "npm", ["run", "--silent", "build"], { NEXT_DIST_DIR: ".next-verify" }],
 ];
 
 const only = process.argv.slice(2);
@@ -30,9 +33,13 @@ if (only.length && selected.length === 0) {
 
 const failed = [];
 
-for (const [name, cmd, args] of selected) {
+for (const [name, cmd, args, env] of selected) {
   process.stdout.write(`\n\x1b[1m▸ ${name}\x1b[0m\n`);
-  const { status } = spawnSync(cmd, args, { stdio: "inherit", shell: process.platform === "win32" });
+  const { status } = spawnSync(cmd, args, {
+    stdio: "inherit",
+    shell: process.platform === "win32",
+    env: { ...process.env, ...env },
+  });
   if (status !== 0) failed.push(name);
 }
 

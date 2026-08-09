@@ -138,10 +138,17 @@ before screenshotting.** If output looks impossible, `rm -rf .next && npm run bu
 
 ## `npm run verify` destroys a running dev server, and it looks like a CSS bug
 
+**Resolved 2026-08-09 — but read it anyway, because the symptom is the lesson.**
+`verify` now builds into `.next-verify` (`scripts/verify.mjs`, via `distDir` in
+`next.config.ts`), so the gate can no longer touch a dev server's output. Two
+consequences: `npm run build` on its own still writes `.next` and still breaks a
+running dev server, and a green `verify` no longer refreshes what `npm run start`
+serves — the entry above is now strictly necessary, not merely advisable.
+
 The trap above says to rebuild before screenshotting. Do that while `npm run dev`
-is running and you get this one, because both write to the same `.next`: the
-build replaces the manifests the dev server is still serving from, and
-`/_next/static/css/app/layout.css` starts returning the string `Not Found`.
+is running and you get this one, because both wrote to the same `.next`: the
+build replaced the manifests the dev server was still serving from, and
+`/_next/static/css/app/layout.css` started returning the string `Not Found`.
 
 **What you see is not a 404.** It is an app with no styles — collapsed spacing,
 bullet points on styled lists, buttons colliding, `hover:` doing nothing. It
@@ -154,8 +161,12 @@ production build that passes cannot coexist with globally missing CSS. When
 those two disagree, suspect the server, not the source.
 
 Fix: stop the dev server (by PID, never by name), `rm -rf .next`, restart it,
-and hard-reload the browser. Better: do not run `verify` and `dev` against the
-same working copy at the same time.
+and hard-reload the browser.
+
+**The general form is worth more than the fix.** A gate that can invalidate the
+thing you are about to inspect will eventually be blamed on the source, because
+the source is what you were already looking at. Where the choice exists, give
+the gate its own output rather than a rule that people have to remember.
 
 ## Utilities beat component classes regardless of source order
 
