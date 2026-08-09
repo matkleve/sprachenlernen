@@ -1,0 +1,158 @@
+import { createClient, type SupabaseClient } from "@supabase/supabase-js";
+import { afterAll, beforeAll, describe, expect, it } from "vitest";
+
+/**
+ * BACKEND.md §8 — "the single highest-value test in the product": sign in as
+ * one user, attempt to read another's rows, assert the failure. Contract:
+ * docs/specs/service/auth.md.
+ *
+ * This talks to the real Supabase project (ADR-0007) rather than a mock,
+ * because the thing under test is a database policy — a mock of the client
+ * would only prove that the mock was called, which is exactly the "test that
+ * cannot fail" trap (docs/TRAPS.md). It skips, visibly, when the three
+ * Supabase secrets are not present, rather than failing every environment
+ * that has not configured them.
+ *
+ * Uses `@supabase/supabase-js` directly, not `lib/db/client.ts` — that
+ * factory is wired to Next's request-scoped cookies and only makes sense
+ * inside a Next.js request. This file is proving the database boundary
+ * itself, independent of the framework in front of it.
+ */
+
+const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
+const publishableKey = process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY;
+const serviceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+
+const hasLiveProject = Boolean(url && publishableKey && serviceRoleKey);
+const password = "correct horse battery staple";
+
+describe.skipIf(!hasLiveProject)("review_log row-level security", () => {
+  const admin: SupabaseClient = createClient(url!, serviceRoleKey!, {
+    auth: { autoRefreshToken: false, persistSession: false },
+  });
+
+  let userA: { id: string; email: string };
+  let userB: { id: string; email: string };
+
+  beforeAll(async () => {
+    // Admin-created and pre-confirmed on purpose: the policy under test is
+    // row ownership, not the signup/email-confirmation flow, which
+    // lib/db/auth.test.ts and the signup page cover separately.
+    const emailA = `t-b8-a-${crypto.randomUUID()}@example.com`;
+    const emailB = `t-b8-b-${crypto.randomUUID()}@example.com`;
+
+    const [resultA, resultB] = await Promise.all([
+      admin.auth.admin.createUser({ email: emailA, password, email_confirm: true }),
+      admin.auth.admin.createUser({ email: emailB, password, email_confirm: true }),
+    ]);
+
+    if (resultA.error) throw resultA.error;
+    if (resultB.error) throw resultB.error;
+
+    const a = resultA.data.user;
+    const b = resultB.data.user;
+    if (!a || !b) throw new Error("test users were not created");
+
+    userA = { id: a.id, email: emailA };
+    userB = { id: b.id, email: emailB };
+  });
+
+  afterAll(async () => {
+    // `on delete cascade` (see the migration) removes each user's review_log
+    // rows along with the user — nothing else to clean up.
+    if (userA) await admin.auth.admin.deleteUser(userA.id);
+    if (userB) await admin.auth.admin.deleteUser(userB.id);
+  });
+
+  async function signInAs(email: string): Promise<SupabaseClient> {
+    const client = createClient(url!, publishableKey!, {
+      auth: { autoRefreshToken: false, persistSession: false },
+    });
+    const { error } = await client.auth.signInWithPassword({ email, password });
+    if (error) throw error;
+    return client;
+  }
+
+  it("lets a signed-in user insert and read their own review row", async () => {
+    const asA = await signInAs(userA.email);
+
+    const { error: insertError } = await asA
+      .from("review_log")
+      .insert({ user_id: userA.id, installation_id: crypto.randomUUID() });
+    expect(insertError).toBeNull();
+
+    const { data, error } = await asA.from("review_log").select("id, user_id, installation_id");
+    expect(error).toBeNull();
+    expect(data).toHaveLength(1);
+    expect(data?.[0]?.user_id).toBe(userA.id);
+  });
+
+  it("never returns another user's review rows — the negative case this test exists for", async () => {
+    const asA = await signInAs(userA.email);
+    await asA
+      .from("review_log")
+      .insert({ user_id: userA.id, installation_id: crypto.randomUUID() });
+
+    const asB = await signInAs(userB.email);
+    const { data, error } = await asB.from("review_log").select("*");
+
+    // RLS filters rows out of the result set; it does not turn the query
+    // into an error. Asserting only `data` would miss a query that failed
+    // for an unrelated reason and happened to return no rows.
+    expect(error).toBeNull();
+    expect(data).toEqual([]);
+  });
+
+  it("refuses to insert a review row owned by someone else", async () => {
+    const asB = await signInAs(userB.email);
+
+    const { error } = await asB
+      .from("review_log")
+      .insert({ user_id: userA.id, installation_id: crypto.randomUUID() });
+
+    expect(error).not.toBeNull();
+  });
+
+  it("refuses to update or delete any review row — the log is append-only", async () => {
+    const asA = await signInAs(userA.email);
+    const { data: inserted } = await asA
+      .from("review_log")
+      .insert({ user_id: userA.id, installation_id: crypto.randomUUID() })
+      .select("id");
+    const row = inserted?.[0];
+    expect(row).toBeDefined();
+
+    // Neither operation is granted to `authenticated` at all (see the
+    // migration), so Postgres refuses them outright rather than RLS quietly
+    // filtering the row set — confirmed against a local Postgres in the PR.
+    // Either way the observable effect is the same: nothing changes, so this
+    // asserts that rather than which layer produced it.
+    const { data: updated } = await asA
+      .from("review_log")
+      .update({ installation_id: crypto.randomUUID() })
+      .eq("id", row!.id)
+      .select();
+    expect(updated ?? []).toHaveLength(0);
+
+    const { data: deleted } = await asA
+      .from("review_log")
+      .delete()
+      .eq("id", row!.id)
+      .select();
+    expect(deleted ?? []).toHaveLength(0);
+  });
+
+  it("refuses an anonymous (signed-out) client any access at all", async () => {
+    const anon = createClient(url!, publishableKey!, {
+      auth: { autoRefreshToken: false, persistSession: false },
+    });
+
+    const { data, error } = await anon.from("review_log").select("*");
+
+    // `anon` has no GRANT on the table (see the migration) — PostgREST
+    // reports this as an error, not an empty result, which is the correct
+    // signal for "not allowed" versus "allowed, nothing matched".
+    expect(error).not.toBeNull();
+    expect(data).toBeNull();
+  });
+});
