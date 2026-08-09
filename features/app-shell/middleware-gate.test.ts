@@ -75,6 +75,21 @@ describe("the route model", () => {
 describe("a signed-out request", () => {
   beforeEach(() => signedInAs(null));
 
+  it("does not throw when Supabase env is absent — the public half must still render", async () => {
+    const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
+    const key = process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY;
+    delete process.env.NEXT_PUBLIC_SUPABASE_URL;
+    delete process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY;
+
+    try {
+      expect((await get(routes.landing)).status).toBe(200);
+      expect((await get(routes.methods)).status).toBe(307);
+    } finally {
+      if (url) process.env.NEXT_PUBLIC_SUPABASE_URL = url;
+      if (key) process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY = key;
+    }
+  });
+
   it("is turned away from every (app) route before anything renders", async () => {
     for (const route of collectAppRoutes()) {
       const response = await get(route);

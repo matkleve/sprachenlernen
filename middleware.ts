@@ -1,6 +1,7 @@
 import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
 
+import { readSupabaseEnv } from "@/lib/db/env";
 import { requiresAccount, routes } from "@/lib/routes";
 
 /**
@@ -31,26 +32,39 @@ import { requiresAccount, routes } from "@/lib/routes";
  * https://github.com/supabase/supabase/blob/master/examples/prompts/nextjs-supabase-auth.md
  */
 export async function middleware(request: NextRequest) {
+  const pathname = request.nextUrl.pathname;
+
+  // A deployment with no Supabase env must not 500 every request — Vercel
+  // previews are often wired before the secrets are. The public half still
+  // renders; protected routes redirect to sign-in, where the form will error
+  // until the env is set.
+  const supabaseEnv = readSupabaseEnv();
+  if (!supabaseEnv) {
+    if (requiresAccount(pathname)) {
+      const signIn = request.nextUrl.clone();
+      signIn.pathname = routes.signIn;
+      signIn.search = "";
+      return NextResponse.redirect(signIn);
+    }
+    return NextResponse.next();
+  }
+
   let response = NextResponse.next({ request });
 
-  const supabase = createServerClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY!,
-    {
-      cookies: {
-        getAll() {
-          return request.cookies.getAll();
-        },
-        setAll(cookiesToSet) {
-          cookiesToSet.forEach(({ name, value }) => request.cookies.set(name, value));
-          response = NextResponse.next({ request });
-          cookiesToSet.forEach(({ name, value, options }) =>
-            response.cookies.set(name, value, options),
-          );
-        },
+  const supabase = createServerClient(supabaseEnv.url, supabaseEnv.publishableKey, {
+    cookies: {
+      getAll() {
+        return request.cookies.getAll();
+      },
+      setAll(cookiesToSet) {
+        cookiesToSet.forEach(({ name, value }) => request.cookies.set(name, value));
+        response = NextResponse.next({ request });
+        cookiesToSet.forEach(({ name, value, options }) =>
+          response.cookies.set(name, value, options),
+        );
       },
     },
-  );
+  });
 
   // Do not remove, and do not add code between createServerClient and this
   // call — see the file-level comment above.
@@ -58,7 +72,7 @@ export async function middleware(request: NextRequest) {
     data: { user },
   } = await supabase.auth.getUser();
 
-  if (!user && requiresAccount(request.nextUrl.pathname)) {
+  if (!user && requiresAccount(pathname)) {
     const signIn = request.nextUrl.clone();
     signIn.pathname = routes.signIn;
     // No `?next=` yet: where to return to after signing in is a decision

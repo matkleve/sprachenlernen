@@ -1,6 +1,8 @@
 import { createBrowserClient, createServerClient } from "@supabase/ssr";
 import { cookies } from "next/headers";
 
+import { requireSupabaseEnv } from "@/lib/db/env";
+
 /**
  * The Supabase client boundary. Contract: docs/specs/service/auth.md
  *
@@ -23,22 +25,9 @@ import { cookies } from "next/headers";
  * https://github.com/supabase/supabase/blob/master/examples/prompts/nextjs-supabase-auth.md
  */
 
-function supabaseUrl(): string {
-  const value = process.env.NEXT_PUBLIC_SUPABASE_URL;
-  if (!value) throw new Error("NEXT_PUBLIC_SUPABASE_URL is not set — see .env.example");
-  return value;
-}
-
-function supabasePublishableKey(): string {
-  const value = process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY;
-  if (!value) {
-    throw new Error("NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY is not set — see .env.example");
-  }
-  return value;
-}
-
 export function createBrowserSupabaseClient() {
-  return createBrowserClient(supabaseUrl(), supabasePublishableKey());
+  const { url, publishableKey } = requireSupabaseEnv();
+  return createBrowserClient(url, publishableKey);
 }
 
 /**
@@ -47,9 +36,10 @@ export function createBrowserSupabaseClient() {
  * scope, or every request would share one user's session.
  */
 export async function createServerSupabaseClient() {
+  const { url, publishableKey } = requireSupabaseEnv();
   const cookieStore = await cookies();
 
-  return createServerClient(supabaseUrl(), supabasePublishableKey(), {
+  return createServerClient(url, publishableKey, {
     cookies: {
       getAll() {
         return cookieStore.getAll();
