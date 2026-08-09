@@ -24,9 +24,22 @@ export type ProgressOutcome =
   | { status: "error"; error: HandledError };
 
 export async function readProgress(now: number = Date.now()): Promise<ProgressOutcome> {
+  // The adapter returns its failures, but it does not promise never to throw:
+  // a rejected fetch inside supabase-js, or a missing environment, arrives as
+  // an exception and would take the whole route to an unhandled 500 — the
+  // "Error: An error occurred" archetype UC-065 exists to stop. Everything
+  // below is inside this boundary so the page has exactly two outcomes.
+  try {
+    return await read(now);
+  } catch (cause) {
+    return { status: "error", error: fail(cause) };
+  }
+}
+
+async function read(now: number): Promise<ProgressOutcome> {
   const deckResult = loadSpanishMeaningRecallDeck();
   if (deckResult.status === "error") {
-    return { status: "error", error: fail(deckResult.errors.join("; ")) };
+    return { status: "error", error: fail(new Error(deckResult.errors.join("; "))) };
   }
 
   const cards = deckResult.deck.cards;
@@ -35,7 +48,7 @@ export async function readProgress(now: number = Date.now()): Promise<ProgressOu
     // Not an empty reading. A failed read and a learner who has done nothing
     // look the same on this page — "nothing measured" — and only one of them
     // is true, so the failure has to be loud (UC-066).
-    return { status: "error", error: fail(reviewsResult.error) };
+    return { status: "error", error: fail(new Error(reviewsResult.error)) };
   }
 
   const reviewsByTaskId: Record<string, Review[]> = {};
@@ -52,8 +65,8 @@ export async function readProgress(now: number = Date.now()): Promise<ProgressOu
   return { status: "ok", reading: readLevel(tasks, now) };
 }
 
-function fail(details: string): HandledError {
-  const error = internalUnexpected(new Error(details), {
+function fail(cause: unknown): HandledError {
+  const error = internalUnexpected(cause, {
     feature: "progress",
     operation: "load your review history",
   });

@@ -11,6 +11,31 @@ applying is still evidence about how this codebase misleads people.
 
 ---
 
+## A concise `beforeEach` registered the mock as its own teardown
+
+```ts
+beforeEach(() => vi.mocked(listReviewsForTaskIds).mockClear());
+```
+
+A test whose mock threw, whose code caught it, and whose every assertion
+passed, failed with the thrown error. Adding braces fixed it.
+
+`mockClear()` returns the mock, so the arrow returns it too — and **vitest
+treats a function returned from a hook as that hook's teardown callback**. So
+after every test vitest called the mock again, outside any try/catch, and a
+mock implemented to throw threw into the runner. The test's own output was
+completely healthy: the code under test returned its error outcome, the log
+line was correct, `expect` never complained.
+
+An hour went into the code under test before the hook was suspected, and none
+of it was wrong. The tell was that the same test passed in a scratch file with
+no `beforeEach`, and failed as soon as one was added — *any* one, `mockReset`
+or `mockClear`.
+
+Give a hook a block body whenever its last expression is not obviously
+`undefined`. `() => x.mockClear()`, `() => cleanup()`, `() => setup()` — all
+return something, and one of them will eventually return a function.
+
 ## `container.textContent` welds siblings together and kills `\b` in your regex
 
 An acceptance test asserted that the review session shows no due count:
