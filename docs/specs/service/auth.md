@@ -22,8 +22,8 @@ user cannot read another Account's rows. **Sensitive** (`AGENTS.md`).
   a necessary second seam because it runs before any Server Component and
   needs the request/response cookie API, not `next/headers`'s `cookies()`
   that `lib/db/client.ts` uses.
-- **Out:** the review row's payload — word, task, grade, latency (T-B2, per
-  ADR-0007's own scope note); the account gate on signed-in routes and the
+- **Out:** the review row's payload — see
+  [`review-log.md`](review-log.md) (T-B2); the account gate on signed-in routes and the
   visible sign-out control, both of which this spec listed as out for want of a
   signed-in surface and which
   [`../feature/app-shell.md`](../feature/app-shell.md) took over on 2026-08-09;
@@ -64,7 +64,8 @@ to signed-out; a successful sign-in moves the other way.
   `supabase/migrations/20260809073100_review_log_ownership.sql`) — `id uuid`
   (the review's own UUID, ADR-0005), `user_id uuid not null` (the owning
   Account, ADR-0006), `installation_id uuid not null` (ADR-0005),
-  `created_at`. The row's remaining columns are T-B2's to add.
+  `created_at`. Payload columns (`task_id`, `grade`, `reviewed_at`,
+  `latency_ms`) are defined in [`review-log.md`](review-log.md).
 - **RLS**, `to authenticated` only (never `anon` — an Account is mandatory,
   ADR-0006): `select`/`insert` where `(select auth.uid()) = user_id`. No
   `update`/`delete` policy for any role — RLS denies both unconditionally,

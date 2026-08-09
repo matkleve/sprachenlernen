@@ -1,7 +1,7 @@
 # UC-005 — Understand why a card is in front of me right now
 
 <!-- id: UC-005 -->
-<!-- specs: SPEC-service-scheduler -->
+<!-- specs: SPEC-service-scheduler, SPEC-service-review-log -->
 
 **Who:** anyone using spaced repetition, from the first week onward.
 **Wants to:** see what the scheduler is doing and what it will do next.
