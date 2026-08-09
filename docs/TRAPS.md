@@ -112,6 +112,27 @@ boxes, or accept centering.
 shows you the old UI and has produced false "verified" claims. **Always rebuild
 before screenshotting.** If output looks impossible, `rm -rf .next && npm run build`.
 
+## `npm run verify` destroys a running dev server, and it looks like a CSS bug
+
+The trap above says to rebuild before screenshotting. Do that while `npm run dev`
+is running and you get this one, because both write to the same `.next`: the
+build replaces the manifests the dev server is still serving from, and
+`/_next/static/css/app/layout.css` starts returning the string `Not Found`.
+
+**What you see is not a 404.** It is an app with no styles — collapsed spacing,
+bullet points on styled lists, buttons colliding, `hover:` doing nothing. It
+looks exactly like a component you just broke, and the temptation is to go and
+"fix" the CSS. It cost a full recording and a round of review before anyone
+checked the byte count of the stylesheet: **9 bytes**.
+
+The tell is that `npm run verify` is green while the browser looks broken. A
+production build that passes cannot coexist with globally missing CSS. When
+those two disagree, suspect the server, not the source.
+
+Fix: stop the dev server (by PID, never by name), `rm -rf .next`, restart it,
+and hard-reload the browser. Better: do not run `verify` and `dev` against the
+same working copy at the same time.
+
 ## Utilities beat component classes regardless of source order
 
 Tailwind emits `@layer utilities` after `@layer components`, so a utility in a
