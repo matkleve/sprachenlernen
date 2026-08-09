@@ -34,6 +34,7 @@ const PAIRS = [
   ["danger-ink", "danger-deep", 4.5, "label on a hovered danger button"],
   ["ink", "danger-soft", 4.5, "text on a danger-tinted fill"],
   ["success-ink", "success", 4.5, "label on a success fill"],
+  ["success-ink", "success-deep", 4.5, "label on a hovered success fill"],
   ["ink", "success-soft", 4.5, "text on a success-tinted fill"],
   ["line-strong", "surface", 3.0, "the border of a control (WCAG 1.4.11)"],
   ["line-strong", "canvas", 3.0, "the border of a control on the page"],

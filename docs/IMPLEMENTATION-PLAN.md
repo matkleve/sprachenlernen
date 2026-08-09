@@ -290,13 +290,12 @@ styles in `@media (hover: hover)`; no component does. On a phone, `hover:` stick
 after a tap, which will look like a selection bug on a review surface where
 tapping is the primary interaction. Cheap now, annoying later.
 
-**The success tokens have never been used.** `success`, `success-soft` and
-`success-ink` exist in `app/globals.css` and no component consumes them, so the
-"you got it right" pattern is unestablished. Note the asymmetry that will bite:
-`accent` and `danger` each have a `-deep` variant for hover, and `success` does
-not — so the first correct-answer button has no hover token to reach for. Also,
-`check-contrast.mjs` only tests `success` as a *background*; `text-success` on
-`bg-surface` is unverified.
+**The success tokens have never been used.** `success`, `success-deep`,
+`success-soft` and `success-ink` exist in `app/globals.css` and no component
+consumes them, so the "you got it right" pattern is unestablished. The `-deep`
+asymmetry is fixed (2026-08-09) — the first correct-answer button now has a
+hover token to reach for. Still true: `check-contrast.mjs` only tests `success`
+as a *background*, so `text-success` on `bg-surface` is unverified.
 
 **What the gates cannot see.** Worth knowing before trusting a green run:
 `check-tokens` catches raw hex, arbitrary colours, `transition-all`, off-scale
@@ -386,8 +385,13 @@ ADR-0006, ADR-0007) — an account is required, and the provider is Supabase.
    in lands on `/methods`. Neither earlier record is superseded — ADR-0009's
    "default route" gains the scope it was missing, which is the test of a
    reconciliation being right rather than merely decisive.
-4. **A `success-deep` token, or a documented asymmetry?** Needed before the first
-   correct-answer button exists, not after.
+4. ~~A `success-deep` token, or a documented asymmetry?~~ **Answered 2026-08-09:
+   the token.** `accent` and `danger` both carry a `-deep` for hover, and a
+   third semantic colour that does not is an asymmetry every future author has
+   to rediscover. Added to both themes, paired in `check-contrast.mjs`
+   (9.17:1 light, 13.14:1 dark) and registered in `lib/utils.ts`. Nothing
+   consumes it yet — it exists so the first correct-answer button has a hover
+   token to reach for instead of inventing one.
 5. Does `CONSTITUTION.md` §2 (the user's data) need writing out now that server
    storage is scheduled rather than hypothetical? `BACKEND.md` §9 says it stops
    being abstract the moment something is actually stored.

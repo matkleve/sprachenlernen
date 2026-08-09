@@ -43,6 +43,7 @@
 
   /* Success */
   --color-success: #1c6b45;
+  --color-success-deep: #155235;
   --color-success-soft: #e4f3ec;
   --color-success-ink: #ffffff;
 
@@ -112,6 +113,7 @@
     --color-danger-ink: #1a0f0e;
 
     --color-success: #7fd6ab;
+    --color-success-deep: #a5e5c4;
     --color-success-soft: #14301f;
     --color-success-ink: #0f1115;
 
@@ -137,6 +139,7 @@
   --color-danger-soft: #3a1e1c;
   --color-danger-ink: #1a0f0e;
   --color-success: #7fd6ab;
+  --color-success-deep: #a5e5c4;
   --color-success-soft: #14301f;
   --color-success-ink: #0f1115;
 }
