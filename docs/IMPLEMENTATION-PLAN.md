@@ -24,7 +24,10 @@ wins and this file is stale. Nothing normative may live only here.
 | `features/` | `item-picker` and `primitives` — **both are the starter's worked examples**. `language-status` is the first that is not; `auth` (T-B8) adds `/signup` and `/login`, built only from `Field` and `Button`; `app-shell` and `method-menu` (T-B10) add the three destinations and the front door |
 | `lib/db/` | **Shipped 2026-08-09** (T-B8). Supabase client factory, `signUp`/`signIn`/`signOut`/`getAccount`, `middleware.ts` session refresh, the `review_log` RLS migration — applied to the live project. Spec **active**. 9 unit tests plus the 5-test §8 access-control suite |
 | `app/(marketing)/` | The public half, no app shell: `/` (T-04's holding page), `/languages` (T-03), `/login`, `/signup`, `/primitives`. Split out 2026-08-09 to implement [ADR-0010](adr/0010-the-route-model.md) |
-| `app/(app)/` | The signed-in half, under the shell's three destinations: `/methods` (T-B10), `/words` and `/progress` (holding pages until T-B1 and T-B3) |
+| `app/(app)/` | The signed-in half, under the shell's three destinations: `/methods` (T-B10), `/words` + `/words/review` (T-B1), `/progress` (holding page until T-B3) |
+| `lib/db/review-log.ts` + `lib/installation-id.ts` | **Shipped 2026-08-09** (T-B2). Append-only adapter, owner taken from the session, payload migration applied live. Spec **active** |
+| `lib/starter-deck.ts` + `lib/session-builder.ts` | **Shipped 2026-08-09** (T-B1). 50-lemma Spanish meaning-recall pool, 15-card queue, due-before-new. Specs **active** |
+| `features/review-session/` | **Shipped 2026-08-09** (T-B1). The FSM, the card, the summary. Grades persist one row each. Specs **active** |
 
 **The honest summary: two strong libraries, and a front door that lists what the
 product can do without yet doing any of it.** `/languages` was the first surface
@@ -93,8 +96,16 @@ reach only PostgREST and Auth — they cannot run DDL, which is why the first pa
 at T-B8 could not finish this step. Worth remembering before queueing any task
 whose "done" includes a schema change.
 
-**T-B2 is fully unblocked** — the owner column it depends on now exists in the
-live schema, so its own red test can run for real rather than against a file.
+**T-B2 and T-B1 both shipped the same day, and the chain T-B8 → T-B2 → T-B1 is
+closed.** A signed-in learner can open `/words/review?method=srs-session`, work
+a 15-card queue built from the starter deck and their own history, and every
+grade appends one row they own. What that unblocks is T-B3: `/progress` is the
+last holding page, and it is now the only destination with nothing behind it.
+
+**The honest limit on all of it:** one language, one task type, a 50-lemma
+starter pool, and a review loop whose grade is collected before the answer is
+shown (the spec gap on T-B1). The plumbing is real; what it measures is not yet
+something the product should claim.
 
 ---
 
@@ -293,8 +304,8 @@ low-inference agent would silently invent.
 | # | Work | Why it is not Track A |
 | --- | --- | --- |
 | ~~**T-B8**~~ | ~~Accounts and authentication on Supabase~~ — **shipped 2026-08-09** | **Sensitive.** `docs/specs/service/auth.md`, `lib/db/`, `middleware.ts`, `/signup`, `/login`, the `review_log` RLS migration (applied to the live project) and its §8 access-control test, all green |
-| **T-B2** | Persistence of the review log | **Sensitive.** Shape is fixed by ADR-0005 and 0006 — append-only, per-review UUID, non-null owner, adapter-only. The remaining work is a spec pinning the row schema and the installation id, plus a red test per property. Its dependency on T-B8 for the owner it writes is satisfied — `user_id` exists in the live schema |
-| **T-B1** | The review session surface | **Sensitive.** Stateful UI, so `STATE.md` demands one enum, an explicit transition map, named terminal states and a single source of truth *before* any code. Depends on T-B2 |
+| ~~**T-B2**~~ | ~~Persistence of the review log~~ — **shipped 2026-08-09** | **Sensitive.** [`specs/service/review-log.md`](specs/service/review-log.md), `lib/db/review-log.ts`, `lib/installation-id.ts`, and `20260809180000_review_log_payload.sql` applied to the live project. All four ADR-0005/0006 properties hold. Audited again 2026-08-09 (evening): coverage was pointing at a superseded function, now at the one the session builder actually calls |
+| ~~**T-B1**~~ | ~~The review session surface~~ — **shipped 2026-08-09** | **Sensitive.** [`specs/feature/review-session.md`](specs/feature/review-session.md) + [`.states.md`](specs/feature/review-session.states.md), `features/review-session/`, `/words/review`. One enum, an explicit map, `complete` as the only terminal state. **⚠ SPEC GAP** carried in the spec: the learner grades *before* the back is shown, and the back then shows for 400 ms — the order is specced, the constant is not, and both are product decisions nobody has made |
 | **T-B3** | Vocabulary estimate and the level display (F17–F22) | Newly unblocked by tier B. Needs the anchor table from `study/03-level-model.md`, which is graded **[C]** and explicitly needs calibrating — a spec must say what is claimed with an uncalibrated band |
 | **T-B4** | Dose ledger (F184) | Needs roadmap question 19 answered, and its logging half needs T-B2 |
 | **T-B7** | The landing page | Positioning copy is a product decision, not an implementation. With a required account it is also everything a signed-out visitor ever sees, and its job is to persuade — which makes every rule in `DESIGN-SYSTEM.md` necessary but not sufficient |
@@ -437,9 +448,19 @@ ADR-0006, ADR-0007) — an account is required, and the provider is Supabase.
    (9.17:1 light, 13.14:1 dark) and registered in `lib/utils.ts`. Nothing
    consumes it yet — it exists so the first correct-answer button has a hover
    token to reach for instead of inventing one.
-5. Does `CONSTITUTION.md` §2 (the user's data) need writing out now that server
+5. **Does the learner grade before or after seeing the answer?** Raised by the
+   T-B1 audit and carried as a ⚠ SPEC GAP in
+   [`specs/feature/review-session.md`](specs/feature/review-session.md). Today
+   they grade first and the back then shows for 400 ms. Every other SRS reveals
+   first, because a grade is a report about a recall the learner has just
+   checked — as built, `again` and `good` cannot mean "I was wrong" and "I was
+   right", which is exactly what FSRS reads them as. This is the one open
+   question that changes what the stored data means, so it blocks trusting
+   anything T-B3 derives from it. The 400 ms is a second, smaller decision
+   underneath it.
+6. Does `CONSTITUTION.md` §2 (the user's data) need writing out now that server
    storage is scheduled rather than hypothetical? `BACKEND.md` §9 says it stops
    being abstract the moment something is actually stored.
-6. Chapter 25's questions 17–19 (perceived effort as a third ledger, whether the
+7. Chapter 25's questions 17–19 (perceived effort as a third ledger, whether the
    whole-task floor applies from day one, per-language dose bands). These can
    wait; none blocks code.
