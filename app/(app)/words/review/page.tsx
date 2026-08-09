@@ -2,7 +2,7 @@ import Link from "next/link";
 
 import { loadMethodCatalogue } from "@/features/method-menu/catalogue";
 import { findMethod } from "@/features/method-menu/MethodDetail";
-import { ReviewOpen } from "@/features/review-session/ReviewOpen";
+import { ReviewSession } from "@/features/review-session/ReviewSession";
 import { copy } from "@/features/review-session/content";
 import { routes } from "@/lib/routes";
 
@@ -26,7 +26,7 @@ export default async function WordsReviewPage({
       {!method ? (
         <p className="mt-4 text-base text-muted">{copy.unknownMethod}</p>
       ) : method.id === "srs-session" ? (
-        <ReviewOpen methodName={method.name} />
+        <ReviewSession methodName={method.name} />
       ) : (
         <p className="mt-4 text-base text-muted">{copy.notBuilt}</p>
       )}

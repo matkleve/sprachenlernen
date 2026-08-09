@@ -126,6 +126,35 @@ export async function appendReview(
   return { status: "appended", id: data.id };
 }
 
+export async function listReviewsForTaskIds(
+  taskIds: string[],
+  client?: SupabaseClient,
+): Promise<ListReviewsOutcome> {
+  if (taskIds.length === 0) {
+    return { status: "ok", reviews: [] };
+  }
+
+  const supabase = await resolveClient(client);
+  const account = await getAccount(supabase);
+  if (!account) {
+    return { status: "error", error: "Not signed in." };
+  }
+
+  const { data, error } = await supabase
+    .from("review_log")
+    .select(
+      "id, user_id, installation_id, task_id, grade, reviewed_at, latency_ms, created_at",
+    )
+    .in("task_id", taskIds)
+    .order("reviewed_at", { ascending: true });
+
+  if (error) {
+    return { status: "error", error: error.message };
+  }
+
+  return { status: "ok", reviews: (data ?? []).map((row) => mapRow(row as DbRow)) };
+}
+
 export async function listReviewsForTask(
   taskId: string,
   client?: SupabaseClient,

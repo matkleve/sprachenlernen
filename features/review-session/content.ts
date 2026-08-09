@@ -1,25 +1,30 @@
 /**
- * Copy for the review session opener. Contract: docs/specs/service/review-log.md
- * (persistence); full session FSM follows in T-B1.
+ * Copy for the review session. Contracts:
+ * - docs/specs/feature/review-session.md
+ * - docs/specs/service/review-log.md
  */
 
 export const copy = {
   title: "Review",
   backToMethods: "Back to methods",
+  backToWords: "Back to Words",
   unknownMethod: "That method does not exist in the catalogue.",
   notBuilt:
     "This method is listed as hosted, but its session is not built yet. The catalogue is honest about what exists.",
-  prompt: "What is on the card?",
-  graded: "Saved — your grade is in the review log.",
+  prompt: "What does it mean?",
+  graded: "Saved.",
   saveError: "Could not save your grade. Try again.",
   saving: "Saving…",
+  loading: "Preparing your session…",
+  loadError: "Could not prepare your session. Try again.",
+  emptySession: "Nothing to review right now.",
   again: "Again",
   hard: "Hard",
   good: "Good",
   easy: "Easy",
-  demoTaskId: "demo-srs-session-task-1",
-  demoCard: {
-    front: "el gato",
-    back: "the cat",
-  },
+  progress: (position: number, total: number) => `${position} of ${total}`,
+  completeTitle: "Session complete",
+  completeBody: (count: number) =>
+    count === 1 ? "You reviewed 1 card." : `You reviewed ${count} cards.`,
+  startReview: "Start review",
 } as const;

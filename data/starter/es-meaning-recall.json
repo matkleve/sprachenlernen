@@ -1,0 +1,406 @@
+{
+  "language": "es",
+  "taskType": "meaning-recall",
+  "cards": [
+    {
+      "taskId": "es:de:meaning-recall",
+      "wordId": "es:de",
+      "lemma": "de",
+      "front": "de",
+      "back": "of, from",
+      "frequencyRank": 1
+    },
+    {
+      "taskId": "es:que:meaning-recall",
+      "wordId": "es:que",
+      "lemma": "que",
+      "front": "que",
+      "back": "that, which",
+      "frequencyRank": 2
+    },
+    {
+      "taskId": "es:no:meaning-recall",
+      "wordId": "es:no",
+      "lemma": "no",
+      "front": "no",
+      "back": "no, not",
+      "frequencyRank": 3
+    },
+    {
+      "taskId": "es:a:meaning-recall",
+      "wordId": "es:a",
+      "lemma": "a",
+      "front": "a",
+      "back": "to, at",
+      "frequencyRank": 4
+    },
+    {
+      "taskId": "es:el:meaning-recall",
+      "wordId": "es:el",
+      "lemma": "el",
+      "front": "el",
+      "back": "the (masc.)",
+      "frequencyRank": 5
+    },
+    {
+      "taskId": "es:y:meaning-recall",
+      "wordId": "es:y",
+      "lemma": "y",
+      "front": "y",
+      "back": "and",
+      "frequencyRank": 6
+    },
+    {
+      "taskId": "es:ser:meaning-recall",
+      "wordId": "es:ser",
+      "lemma": "ser",
+      "front": "ser",
+      "back": "to be",
+      "frequencyRank": 7
+    },
+    {
+      "taskId": "es:en:meaning-recall",
+      "wordId": "es:en",
+      "lemma": "en",
+      "front": "en",
+      "back": "in, on",
+      "frequencyRank": 8
+    },
+    {
+      "taskId": "es:él:meaning-recall",
+      "wordId": "es:él",
+      "lemma": "él",
+      "front": "él",
+      "back": "it, him",
+      "frequencyRank": 9
+    },
+    {
+      "taskId": "es:uno:meaning-recall",
+      "wordId": "es:uno",
+      "lemma": "uno",
+      "front": "uno",
+      "back": "a, one",
+      "frequencyRank": 10
+    },
+    {
+      "taskId": "es:por:meaning-recall",
+      "wordId": "es:por",
+      "lemma": "por",
+      "front": "por",
+      "back": "for, by",
+      "frequencyRank": 11
+    },
+    {
+      "taskId": "es:qué:meaning-recall",
+      "wordId": "es:qué",
+      "lemma": "qué",
+      "front": "qué",
+      "back": "what",
+      "frequencyRank": 12
+    },
+    {
+      "taskId": "es:yo:meaning-recall",
+      "wordId": "es:yo",
+      "lemma": "yo",
+      "front": "yo",
+      "back": "I",
+      "frequencyRank": 13
+    },
+    {
+      "taskId": "es:tú:meaning-recall",
+      "wordId": "es:tú",
+      "lemma": "tú",
+      "front": "tú",
+      "back": "you",
+      "frequencyRank": 14
+    },
+    {
+      "taskId": "es:con:meaning-recall",
+      "wordId": "es:con",
+      "lemma": "con",
+      "front": "con",
+      "back": "with",
+      "frequencyRank": 15
+    },
+    {
+      "taskId": "es:para:meaning-recall",
+      "wordId": "es:para",
+      "lemma": "para",
+      "front": "para",
+      "back": "for",
+      "frequencyRank": 16
+    },
+    {
+      "taskId": "es:estar:meaning-recall",
+      "wordId": "es:estar",
+      "lemma": "estar",
+      "front": "estar",
+      "back": "to be (state)",
+      "frequencyRank": 17
+    },
+    {
+      "taskId": "es:mi:meaning-recall",
+      "wordId": "es:mi",
+      "lemma": "mi",
+      "front": "mi",
+      "back": "my",
+      "frequencyRank": 18
+    },
+    {
+      "taskId": "es:pero:meaning-recall",
+      "wordId": "es:pero",
+      "lemma": "pero",
+      "front": "pero",
+      "back": "but",
+      "frequencyRank": 19
+    },
+    {
+      "taskId": "es:sí:meaning-recall",
+      "wordId": "es:sí",
+      "lemma": "sí",
+      "front": "sí",
+      "back": "yes",
+      "frequencyRank": 20
+    },
+    {
+      "taskId": "es:si:meaning-recall",
+      "wordId": "es:si",
+      "lemma": "si",
+      "front": "si",
+      "back": "if",
+      "frequencyRank": 21
+    },
+    {
+      "taskId": "es:bien:meaning-recall",
+      "wordId": "es:bien",
+      "lemma": "bien",
+      "front": "bien",
+      "back": "well",
+      "frequencyRank": 22
+    },
+    {
+      "taskId": "es:ese:meaning-recall",
+      "wordId": "es:ese",
+      "lemma": "ese",
+      "front": "ese",
+      "back": "that",
+      "frequencyRank": 23
+    },
+    {
+      "taskId": "es:su:meaning-recall",
+      "wordId": "es:su",
+      "lemma": "su",
+      "front": "su",
+      "back": "his, her, their",
+      "frequencyRank": 24
+    },
+    {
+      "taskId": "es:como:meaning-recall",
+      "wordId": "es:como",
+      "lemma": "como",
+      "front": "como",
+      "back": "like, as",
+      "frequencyRank": 25
+    },
+    {
+      "taskId": "es:aquí:meaning-recall",
+      "wordId": "es:aquí",
+      "lemma": "aquí",
+      "front": "aquí",
+      "back": "here",
+      "frequencyRank": 26
+    },
+    {
+      "taskId": "es:tu:meaning-recall",
+      "wordId": "es:tu",
+      "lemma": "tu",
+      "front": "tu",
+      "back": "your",
+      "frequencyRank": 27
+    },
+    {
+      "taskId": "es:más:meaning-recall",
+      "wordId": "es:más",
+      "lemma": "más",
+      "front": "más",
+      "back": "more",
+      "frequencyRank": 28
+    },
+    {
+      "taskId": "es:este:meaning-recall",
+      "wordId": "es:este",
+      "lemma": "este",
+      "front": "este",
+      "back": "this (masc.)",
+      "frequencyRank": 29
+    },
+    {
+      "taskId": "es:todo:meaning-recall",
+      "wordId": "es:todo",
+      "lemma": "todo",
+      "front": "todo",
+      "back": "all, everything",
+      "frequencyRank": 30
+    },
+    {
+      "taskId": "es:ya:meaning-recall",
+      "wordId": "es:ya",
+      "lemma": "ya",
+      "front": "ya",
+      "back": "already",
+      "frequencyRank": 31
+    },
+    {
+      "taskId": "es:ahora:meaning-recall",
+      "wordId": "es:ahora",
+      "lemma": "ahora",
+      "front": "ahora",
+      "back": "now",
+      "frequencyRank": 32
+    },
+    {
+      "taskId": "es:mucho:meaning-recall",
+      "wordId": "es:mucho",
+      "lemma": "mucho",
+      "front": "mucho",
+      "back": "much, a lot",
+      "frequencyRank": 33
+    },
+    {
+      "taskId": "es:haber:meaning-recall",
+      "wordId": "es:haber",
+      "lemma": "haber",
+      "front": "haber",
+      "back": "has (aux.)",
+      "frequencyRank": 34
+    },
+    {
+      "taskId": "es:así:meaning-recall",
+      "wordId": "es:así",
+      "lemma": "así",
+      "front": "así",
+      "back": "like this",
+      "frequencyRank": 35
+    },
+    {
+      "taskId": "es:ir:meaning-recall",
+      "wordId": "es:ir",
+      "lemma": "ir",
+      "front": "ir",
+      "back": "to go",
+      "frequencyRank": 36
+    },
+    {
+      "taskId": "es:algo:meaning-recall",
+      "wordId": "es:algo",
+      "lemma": "algo",
+      "front": "algo",
+      "back": "something",
+      "frequencyRank": 37
+    },
+    {
+      "taskId": "es:buen:meaning-recall",
+      "wordId": "es:buen",
+      "lemma": "buen",
+      "front": "buen",
+      "back": "good",
+      "frequencyRank": 38
+    },
+    {
+      "taskId": "es:tener:meaning-recall",
+      "wordId": "es:tener",
+      "lemma": "tener",
+      "front": "tener",
+      "back": "to have",
+      "frequencyRank": 39
+    },
+    {
+      "taskId": "es:cuando:meaning-recall",
+      "wordId": "es:cuando",
+      "lemma": "cuando",
+      "front": "cuando",
+      "back": "when",
+      "frequencyRank": 40
+    },
+    {
+      "taskId": "es:saber:meaning-recall",
+      "wordId": "es:saber",
+      "lemma": "saber",
+      "front": "saber",
+      "back": "to know",
+      "frequencyRank": 41
+    },
+    {
+      "taskId": "es:nada:meaning-recall",
+      "wordId": "es:nada",
+      "lemma": "nada",
+      "front": "nada",
+      "back": "nothing",
+      "frequencyRank": 42
+    },
+    {
+      "taskId": "es:cómo:meaning-recall",
+      "wordId": "es:cómo",
+      "lemma": "cómo",
+      "front": "cómo",
+      "back": "how",
+      "frequencyRank": 43
+    },
+    {
+      "taskId": "es:o:meaning-recall",
+      "wordId": "es:o",
+      "lemma": "o",
+      "front": "o",
+      "back": "or",
+      "frequencyRank": 44
+    },
+    {
+      "taskId": "es:poder:meaning-recall",
+      "wordId": "es:poder",
+      "lemma": "poder",
+      "front": "poder",
+      "back": "to be able",
+      "frequencyRank": 45
+    },
+    {
+      "taskId": "es:querer:meaning-recall",
+      "wordId": "es:querer",
+      "lemma": "querer",
+      "front": "querer",
+      "back": "I want",
+      "frequencyRank": 46
+    },
+    {
+      "taskId": "es:hacer:meaning-recall",
+      "wordId": "es:hacer",
+      "lemma": "hacer",
+      "front": "hacer",
+      "back": "to do",
+      "frequencyRank": 47
+    },
+    {
+      "taskId": "es:gracia:meaning-recall",
+      "wordId": "es:gracia",
+      "lemma": "gracia",
+      "front": "gracia",
+      "back": "thank you",
+      "frequencyRank": 48
+    },
+    {
+      "taskId": "es:vez:meaning-recall",
+      "wordId": "es:vez",
+      "lemma": "vez",
+      "front": "vez",
+      "back": "time (occasion)",
+      "frequencyRank": 49
+    },
+    {
+      "taskId": "es:sólo:meaning-recall",
+      "wordId": "es:sólo",
+      "lemma": "sólo",
+      "front": "sólo",
+      "back": "only",
+      "frequencyRank": 50
+    }
+  ]
+}

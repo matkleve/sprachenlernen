@@ -14,9 +14,10 @@ ADR-0007). **Sensitive** (`AGENTS.md`).
   T-B8's ownership migration), `lib/db/review-log.ts` (`appendReview`,
   `listReviewsForTask`, `toSchedulerReview`), `lib/installation-id.ts`
   (browser-local installation UUID), `features/review-session/actions.ts`, and
-  wiring `ReviewOpen` in `features/review-session/` so a grade on the demo card
+  wiring `ReviewSession` in `features/review-session/` so each graded card
   appends one row. Ownership and RLS remain in [`auth.md`](auth.md).
-- **Out:** the review session state machine and queue (T-B1); real Word/Task
+- **Out:** the session queue builder ([`session-builder.md`](session-builder.md));
+  real Word/Task
   tables; scheduler projection UI; IndexedDB offline write path and cross-device
   sync (T-B9); export/delete (UC-024). **⚠ SPEC GAP:** tiebreak when two rows
   share a timestamp from different installations — deferred to T-B9 (ADR-0005).
@@ -25,7 +26,7 @@ ADR-0007). **Sensitive** (`AGENTS.md`).
 
 | # | User action | System response |
 | --- | --- | --- |
-| 1 | Taps a grade on the open review stub | `latency_ms` is measured client-side; `appendReview` writes one row with the signed-in Account's `user_id`, the browser's `installation_id`, demo `task_id`, grade, and `reviewed_at` |
+| 1 | Taps a grade on a review session card | `latency_ms` is measured client-side; `appendReview` writes one row with the signed-in Account's `user_id`, the browser's `installation_id`, the card's `task_id`, grade, and `reviewed_at` |
 | 2 | Taps a grade while unsigned-in | Server action returns an error outcome; no row is written |
 | 3 | (Future) Scheduler rebuild | `listReviewsForTask` returns rows mapped to `{ at, grade }` via `toSchedulerReview` |
 
@@ -71,7 +72,7 @@ fingerprint (ADR-0005).
       of Account A's rows appear (inherits auth spec §8).
 - [ ] Given no session, when `appendReview` runs, then status is `error` and
       zero rows are written.
-- [ ] Given the review stub, when a signed-in learner taps a grade, then the UI
+- [ ] Given the review session, when a signed-in learner taps a grade, then the UI
       confirms persistence or shows an error — never silent failure.
 - [ ] Given any signed-in Account, when `update` or `delete` is attempted on
       `review_log`, then zero rows are affected (append-only unchanged).

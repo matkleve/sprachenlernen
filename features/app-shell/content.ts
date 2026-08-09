@@ -23,7 +23,6 @@ export const holding = {
     /** ADR-0009's own description of the destination, so nothing is invented here. */
     intent:
       "Everything about your vocabulary: what is due now, what is held, what is shaky. Reviewing is one of the things you do here, not what this place is.",
-    notYet: "Not built yet. It arrives with the review session (T-B1) and the log behind it (T-B2).",
   },
   progress: {
     title: "Progress",
