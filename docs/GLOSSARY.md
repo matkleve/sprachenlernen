@@ -37,6 +37,13 @@ specs, UI copy and conversation.
 Terms marked **⚠ undecided** have no canonical form yet — using them in a spec
 requires a `⚠ SPEC GAP` line, not a guess.
 
+### Accounts and access → [`adr/0006`](adr/0006-require-an-account.md), [`adr/0007`](adr/0007-supabase-as-the-provider.md)
+
+| Term | Means | Not |
+| --- | --- | --- |
+| **Account** | The authenticated identity a person signs up for and signs in with — one row in Supabase Auth, one UUID, required before the first Review. | a Profile, a subscription, a device |
+| **Auth session** | The signed-in state a browser holds after sign-in, restored on every request from Supabase's session cookie. Always qualified with "auth" because **Session** already means a fixed-length run of Tasks — the two must never share a bare name. | a Session, a review |
+
 ### Vocabulary and scheduling → [`study/04`](study/04-flashcards-srs.md)
 
 | Term | Means | Not |
@@ -45,7 +52,7 @@ requires a `⚠ SPEC GAP` line, not a guess.
 | **Task** | One question about a Word (meaning recall, form recall, audio recall, cloze …). **Carries its own schedule.** | a Card |
 | **Card** | The user-facing word for a Task. UI copy only — never a code identifier. | a Word |
 | **Review** | One answered Task with its grade, latency and timestamp. Append-only. | a session |
-| **Session** | A fixed-length run of Tasks. Has a visible end. | a lesson, a level |
+| **Session** | A fixed-length run of Tasks. Has a visible end. | a lesson, a level, an auth session, a login |
 | **Stability** | FSRS: days until recall probability falls to the target. Grows with successful review. | difficulty, ease |
 | **Difficulty** | FSRS: how hard *this* Word is for *this* user. | the CEFR level of the Word |
 | **Retrievability** | FSRS: probability of recall right now. Drives what is due. | due date |
