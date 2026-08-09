@@ -21,16 +21,20 @@ wins and this file is stale. Nothing normative may live only here.
 | `data/` | Spanish and Italian: frequency lists **and** lemma tables. Both at **quality tier B** |
 | `lib/method-catalogue.ts` + `data/methods/` | 53 methods, 6 commitments, 7 context presets. Schema, validation, context filter. 24 tests. Spec **active** |
 | `components/ui/` | Button, Field, Input, Select, Dialog, Table — inherited from Grundriss, specced, tested |
-| `features/` | `item-picker` and `primitives` — **both are the starter's worked examples**. `language-status` is the first that is not; `auth` (T-B8) adds `/signup` and `/login`, built only from `Field` and `Button` |
+| `features/` | `item-picker` and `primitives` — **both are the starter's worked examples**. `language-status` is the first that is not; `auth` (T-B8) adds `/signup` and `/login`, built only from `Field` and `Button`; `app-shell` and `method-menu` (T-B10) add the three destinations and the front door |
 | `lib/db/` | **Shipped 2026-08-09** (T-B8). Supabase client factory, `signUp`/`signIn`/`signOut`/`getAccount`, `middleware.ts` session refresh, the `review_log` RLS migration — applied to the live project. Spec **active**. 9 unit tests plus the 5-test §8 access-control suite |
 | `app/(marketing)/` | The public half, no app shell: `/` (T-04's holding page), `/languages` (T-03), `/login`, `/signup`, `/primitives`. Split out 2026-08-09 to implement [ADR-0010](adr/0010-the-route-model.md) |
 | `app/(app)/` | The signed-in half, under the shell's three destinations: `/methods` (T-B10), `/words` and `/progress` (holding pages until T-B1 and T-B3) |
 
-**The honest summary: two strong libraries and one screen.** `/languages` is the
-first surface that belongs to this product rather than to the starter — it holds
-no state, needs no account, and every value on it is derived rather than stored.
-That makes it the smallest honest thing the product could show, and it is
-deliberately not the front door: the menu (T-B10) is.
+**The honest summary: two strong libraries, and a front door that lists what the
+product can do without yet doing any of it.** `/languages` was the first surface
+that belonged to this product rather than to the starter — no state, no account,
+every value derived rather than stored. `/methods` (T-B10, shipped 2026-08-09)
+is now the front door it always said it would be, and it is honest in the same
+way: it shows the whole catalogue and what each method does *not* do, and it
+claims nothing about the learner, because nothing about the learner is measured
+yet. What is still missing is the part that needs stored history — the daily
+three, current standing, readiness. That gap is T-B2's, not the menu's.
 
 ---
 
@@ -280,7 +284,7 @@ low-inference agent would silently invent.
 | **T-B3** | Vocabulary estimate and the level display (F17–F22) | Newly unblocked by tier B. Needs the anchor table from `study/03-level-model.md`, which is graded **[C]** and explicitly needs calibrating — a spec must say what is claimed with an uncalibrated band |
 | **T-B4** | Dose ledger (F184) | Needs roadmap question 19 answered, and its logging half needs T-B2 |
 | **T-B7** | The landing page | Positioning copy is a product decision, not an implementation. With a required account it is also everything a signed-out visitor ever sees, and its job is to persuade — which makes every rule in `DESIGN-SYSTEM.md` necessary but not sufficient |
-| **T-B10** | **The method menu — the product's front door** | **Sensitive**, and the largest piece of design work in the plan. Stage 1 as of 2026-08-08. It is a selection surface driving two surfaces (menu → info page → runner), so `STATE.md` applies; its ranking rule is normative — context → floor → **evidence grade**, never a measured effect that does not exist yet. The catalogue it needed (F147) shipped 2026-08-09 and the navigation model closed the same day ([ADR-0009](adr/0009-three-destinations.md), [ADR-0010](adr/0010-the-route-model.md)), so **nothing blocks it but its own spec** — which makes it the critical path rather than a queued item. It lives at `/methods` and brings the `(app)` route group and the shell with it |
+| ~~**T-B10**~~ | ~~The method menu — the product's front door~~ — **shipped 2026-08-09, in the part that needs no learner** | **Sensitive.** [`specs/page/method-menu.md`](specs/page/method-menu.md) and [`specs/feature/app-shell.md`](specs/feature/app-shell.md) are active: `/methods` filters the catalogue by context, the `(app)` group carries ADR-0009's three destinations, and `middleware.ts` gates them before anything renders. **What was deliberately left out**, because each needs stored history or an effect estimate nothing produces yet: the daily three, current standing, the demonstration sentence, readiness, the skill filter, and where commitments live. Those return with T-B2 and T-B3; the spec carries them as named gaps rather than as silence |
 | **T-B9** | Sync across devices (F192) | Comes after T-B2 and is cheap *because* of it: a union of append-only rows. **⚠ SPEC GAP** carried from ADR-0005: the tiebreak between two rows with the same timestamp from different installations. Client clocks are untrusted, so it cannot be wall-clock order |
 | **T-B5** | Retire the Grundriss worked examples | Looks like a deletion, is a docs refactor: `docs/STATE.md:148` cites item-picker as **the** worked example of state coherence, `docs/specs/README.md:36` indexes it, and UC-001…003 are referenced from six files. Removing the code without re-pointing those is a broken-link failure at best and the loss of the only worked example at worst |
 ---
