@@ -22,8 +22,9 @@ and tap the first thing.
 
 ## Success looks like
 
-- **Three questions first:** how much time (slider), what skill to train, how
-  much energy — these narrow most of the catalogue.
+- **Three questions first:** how much time (stepped slider — short steps at the
+  start, up to one day, then **Endless** for an open window), what skill to train,
+  how much energy — these narrow most of the catalogue.
 - **Refine only when needed:** hands-free, silent, eyes elsewhere — not eight
   dimensions on the front door.
 - Methods that do not fit are **absent**, not greyed out.
@@ -39,3 +40,8 @@ detecting context automatically.
 
 Owner feedback: context presets were unclear. Replaced with time + skill +
 energy as primary filters; study/21's full context model moves to optional refine.
+
+**Time scale (UX, 2026-08-09):** linear 2–60 minutes made short windows fiddly
+and long afternoons impossible. The slider now steps slowly through the first
+quarter-hour, ramps through hours, peaks at **one day**, and ends at **Endless**
+(no time ceiling on the catalogue).

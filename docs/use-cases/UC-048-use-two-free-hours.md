@@ -1,7 +1,7 @@
 # UC-048 — Use two free hours well
 
 <!-- id: UC-048 -->
-<!-- specs:  -->
+<!-- specs: SPEC-page-method-menu -->
 
 **Who:** a learner with an unexpectedly free afternoon.
 **Wants to:** spend it on the language and get something out of it.
@@ -22,7 +22,8 @@ with time gets no more from the product than the learner without.
 
 - A long window is a **different offer**, not more of the short one: the methods
   that only work with time — a full dictation, a piece of writing, a long read,
-  a 4/3/2 round with real preparation, an hour with one difficult text.
+  a 4/3/2 round with real preparation, an hour with one difficult text. On the
+  method menu, drag time to **Endless** (or up to **one day**) to surface them.
 - It is composed as a **sequence with a shape**: something demanding while fresh,
   something receptive after, something producing at the end.
 - Card review is a small part of it, not the bulk. Extra cards today do not

@@ -15,9 +15,15 @@ them unclear and overwhelming; time as discrete chips was replaced by a slider.
 The science still treats physical constraints as a hard filter when stated
 (study/21), but they belong in refine, not as the front door.
 
+**Time scale revision 2026-08-09 (UX):** the slider is **stepped**, not linear.
+Steps are dense at the low end (2–15 min in small jumps) so a five-minute
+window is easy to hit; they spread out through hours and cap at **1 day**; the
+final step is **Endless**, which drops the time filter entirely so long-window
+methods appear (UC-048). URL: `?minutes=<step>` or `?minutes=endless`.
+
 ## Scope
 
-- **In:** time slider (2–60 min); skill chips; energy chips; optional refine
+- **In:** stepped time slider (2 min → 1 day → **Endless**); skill chips; energy chips; optional refine
   (hands, voice, eyes); compact chip cards; hosted → session; off-app → detail.
 - **Out:** situation presets ("kitchen", "transit", …); saved custom situations;
   daily menu; learner-specific card fields; Commitments on this list.
@@ -29,13 +35,15 @@ The science still treats physical constraints as a hard filter when stated
 | # | User action | System response |
 | --- | --- | --- |
 | 1 | Opens `/methods` | Whole catalogue until filters apply |
-| 2 | Moves time slider | URL `?minutes=` updates; list shows methods whose shortest variant fits |
+| 2 | Moves time slider | URL `?minutes=` updates to the nearest scale step (or `endless`); list shows methods whose shortest variant fits |
 | 3 | Taps skill or energy | List intersects that dimension |
 | 4 | Opens refine | Optional hands / voice / eyes constraints |
 | 5 | Taps hosted card | Session route opens directly |
 | 6 | Taps off-app card | Detail page |
 
-Default slider position is 15 minutes on first visit; the URL updates on release.
+Default slider position is **15 minutes** on first visit; the URL updates on release.
+
+Time steps are defined in [`lib/time-scale.ts`](../../../lib/time-scale.ts) — dense below 15 min, sparse up to 1440 min (1 day), then endless.
 
 ## States
 

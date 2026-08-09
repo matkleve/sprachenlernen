@@ -6,6 +6,10 @@
       exactly once, grouped under its section.
 - [ ] Given `?minutes=2`, then only Methods whose shortest duration is at most
       2 minutes appear.
+- [ ] Given `?minutes=endless`, then every Method appears regardless of duration
+      (no time filter).
+- [ ] Given a legacy `?minutes=37`, then the budget snaps to the nearest scale
+      step (40) for filtering and slider display.
 - [ ] Given `?skill=reading`, then only Methods whose `skills` includes reading
       appear.
 - [ ] Given `?energy=low`, then only Methods with intensity 1 appear.

@@ -4,6 +4,7 @@ import {
   ENERGY_LABELS,
   SKILL_LABELS,
   buildMethodsHref,
+  defaultTimeBudget,
   parseMenuFilter,
   type SearchParams,
 } from "@/lib/method-menu-filter";
@@ -27,7 +28,7 @@ export function MethodFilter({ searchParams }: MethodFilterProps) {
         <h2 className="mb-3 text-sm font-medium uppercase tracking-widest text-muted">
           {copy.timeLabel}
         </h2>
-        <TimeSlider searchParams={searchParams} value={filter.minutes ?? 15} />
+        <TimeSlider searchParams={searchParams} value={filter.timeBudget ?? defaultTimeBudget()} />
       </section>
 
       <section aria-label={copy.skillLabel}>

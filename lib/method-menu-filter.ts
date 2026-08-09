@@ -17,11 +17,19 @@ import {
   type Skill,
 } from "@/lib/method-catalogue";
 import { oneOf } from "@/lib/learning-context";
+import {
+  DEFAULT_TIME_BUDGET,
+  isEndless,
+  parseTimeBudgetParam,
+  type TimeBudget,
+} from "@/lib/time-scale";
+
+export type { TimeBudget };
 
 export type Energy = "low" | "medium" | "high";
 
 export type MenuFilter = {
-  minutes?: number;
+  timeBudget?: TimeBudget;
   skill?: Skill;
   energy?: Energy;
   refine: Partial<Pick<Context, "eyes" | "hands" | "voice">>;
@@ -31,9 +39,6 @@ export type SearchParams = Record<string, string | string[] | undefined>;
 
 const first = (value: string | string[] | undefined): string | undefined =>
   Array.isArray(value) ? value[0] : value;
-
-export const MIN_MINUTES = 2;
-export const MAX_MINUTES = 60;
 
 export const SKILL_LABELS: Record<Skill, string> = {
   reading: "Reading",
@@ -57,11 +62,7 @@ const ENERGY_TO_MAX_INTENSITY: Record<Energy, 1 | 2 | 3> = {
 const REFINE_KEYS = ["eyes", "hands", "voice"] as const;
 
 export const parseMenuFilter = (params: SearchParams): MenuFilter => {
-  const minutesRaw = first(params.minutes);
-  const minutes =
-    minutesRaw !== undefined && !Number.isNaN(Number(minutesRaw))
-      ? Math.min(MAX_MINUTES, Math.max(MIN_MINUTES, Number(minutesRaw)))
-      : undefined;
+  const timeBudget = parseTimeBudgetParam(first(params.minutes));
 
   const skill = first(params.skill);
   const parsedSkill = skill && oneOf(skill, SKILLS) ? skill : undefined;
@@ -79,14 +80,18 @@ export const parseMenuFilter = (params: SearchParams): MenuFilter => {
     }
   }
 
-  return { minutes, skill: parsedSkill, energy: parsedEnergy, refine };
+  return { timeBudget, skill: parsedSkill, energy: parsedEnergy, refine };
 };
+
+/** Budget used when the URL omits minutes — matches the slider's default step. */
+export const defaultTimeBudget = (): TimeBudget => DEFAULT_TIME_BUDGET;
 
 export const filterMethods = (catalogue: Catalogue, filter: MenuFilter): MethodEntry[] => {
   let methods = catalogue.entries.filter(isMethod);
 
-  if (filter.minutes !== undefined) {
-    methods = methods.filter((method) => fitsMinutes(method, filter.minutes!));
+  if (filter.timeBudget !== undefined && !isEndless(filter.timeBudget)) {
+    const minutes = filter.timeBudget;
+    methods = methods.filter((method) => fitsMinutes(method, minutes));
   }
 
   if (filter.skill !== undefined) {
