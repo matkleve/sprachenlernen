@@ -1,12 +1,12 @@
 # Design explorer — compare visual directions
 
 <!-- id: SPEC-page-design-explorer -->
-<!-- use-case: UC-065 -->
+<!-- use-case: UC-067 -->
 <!-- status: active -->
 
 A dev-facing page at `/dev/design` where a product owner compares five coherent
 visual directions before locking tokens into `app/globals.css`. Serves
-[UC-065](../../use-cases/UC-065-choose-how-the-app-should-feel.md).
+[UC-067](../../use-cases/UC-067-choose-how-the-app-should-feel.md).
 
 **Reuse: Button, Field, Input, Select** — primitives render inside scoped token
 overrides so each preview uses the same contracts as production.

@@ -1,6 +1,6 @@
-# UC-065 — choose how the app should feel
+# UC-067 — choose how the app should feel
 
-<!-- id: UC-065 -->
+<!-- id: UC-067 -->
 <!-- specs: SPEC-page-design-explorer -->
 
 **Who:** a product owner or designer deciding the app's visual identity
