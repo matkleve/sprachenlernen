@@ -3,41 +3,39 @@ import { NavLink } from "@/components/ui/NavLink";
 import type { UserFacingError } from "@/lib/errors";
 import {
   SECTIONS,
-  filterByContext,
   isMethod,
   type Catalogue,
   type MethodEntry,
   type Preset,
   type Section,
 } from "@/lib/method-catalogue";
+import {
+  filterMethods,
+  menuQueryString,
+  parseMenuFilter,
+  parseSkill,
+  savableCustomContext,
+  type SearchParams,
+} from "@/lib/method-menu-filter";
 
 import { routes } from "@/lib/routes";
 
+import { ContextFilter } from "./ContextFilter";
 import { MethodCard } from "./MethodCard";
+import { SavedPresets } from "./SavedPresets";
+import { SkillFilter } from "./SkillFilter";
 import { copy, sections } from "./content";
 
 /**
  * The app's front door: the catalogue, filtered by context. Contract:
  * docs/specs/page/method-menu.md
- *
- * A Server Component holding no state. The one thing that changes — which
- * context you are in — lives in the URL, so the two surfaces it drives (the
- * chosen chip and the list of Methods) are both derived from the same value in
- * the same render. docs/STATE.md §6's coherence contract holds structurally
- * rather than by anyone remembering to keep them in step.
- *
- * This is not the Daily menu. That is three Methods composed from floors,
- * effect and preference, two of which no code produces yet — so this page
- * deliberately does not rank. See the spec's § Open questions.
  */
 
 export type MethodMenuProps = {
   catalogue?: Catalogue;
   presets?: Preset[];
-  /** Set when the catalogue refused to load — user copy only, detail is in logs. */
   loadError?: UserFacingError;
-  /** The raw `?context=` value. Not assumed to name a preset that exists. */
-  context?: string;
+  searchParams?: SearchParams;
 };
 
 const bySection = (methods: MethodEntry[]): [Section, MethodEntry[]][] =>
@@ -46,15 +44,22 @@ const bySection = (methods: MethodEntry[]): [Section, MethodEntry[]][] =>
     methods.filter((method) => method.section === section),
   ]).filter(([, inSection]) => inSection.length > 0);
 
-export function MethodMenu({ catalogue, presets = [], loadError, context }: MethodMenuProps) {
-  const chosen = context ? presets.find((preset) => preset.id === context) : undefined;
-  const unknownContext = context !== undefined && chosen === undefined;
+export function MethodMenu({
+  catalogue,
+  presets = [],
+  loadError,
+  searchParams = {},
+}: MethodMenuProps) {
+  const filter = parseMenuFilter(searchParams, presets);
+  const skill = parseSkill(searchParams);
+  const unknownContext = filter.kind === "unknown-context";
+  const returnQuery = menuQueryString(searchParams);
 
-  const methods = catalogue
-    ? chosen
-      ? filterByContext(catalogue, chosen.context)
-      : catalogue.entries.filter(isMethod)
-    : [];
+  const methods = catalogue ? filterMethods(catalogue, filter, skill) : [];
+  const chosenPreset =
+    filter.kind === "filtered" && filter.presetId
+      ? presets.find((preset) => preset.id === filter.presetId)
+      : undefined;
 
   return (
     <div className="mx-auto max-w-5xl px-6 pt-page-top pb-page-bottom">
@@ -67,7 +72,14 @@ export function MethodMenu({ catalogue, presets = [], loadError, context }: Meth
         </h2>
         <ul className="flex flex-wrap items-center gap-1">
           <li>
-            <NavLink href={routes.methods} current={chosen === undefined}>
+            <NavLink
+              href={routes.methods}
+              current={
+                filter.kind === "all" ||
+                filter.kind === "time-only" ||
+                filter.kind === "incomplete-custom"
+              }
+            >
               {copy.anyContext}
             </NavLink>
           </li>
@@ -75,11 +87,11 @@ export function MethodMenu({ catalogue, presets = [], loadError, context }: Meth
             <li key={preset.id}>
               <NavLink
                 href={
-                  chosen?.id === preset.id
+                  chosenPreset?.id === preset.id
                     ? routes.methods
                     : `${routes.methods}?context=${preset.id}`
                 }
-                current={chosen?.id === preset.id}
+                current={chosenPreset?.id === preset.id}
               >
                 {preset.name}
               </NavLink>
@@ -87,6 +99,15 @@ export function MethodMenu({ catalogue, presets = [], loadError, context }: Meth
           ))}
         </ul>
       </nav>
+
+      <ContextFilter searchParams={searchParams} filter={filter} />
+
+      <SkillFilter searchParams={searchParams} />
+
+      <SavedPresets
+        savableContext={savableCustomContext(filter)}
+        searchParams={searchParams}
+      />
 
       {unknownContext && (
         <p className="mt-page-content max-w-2xl text-base leading-relaxed text-muted">
@@ -108,10 +129,10 @@ export function MethodMenu({ catalogue, presets = [], loadError, context }: Meth
             <h2 className="mb-4 text-sm font-medium uppercase tracking-widest text-muted">
               {sections[section]}
             </h2>
-            <ul className="grid gap-4 sm:grid-cols-2">
+            <ul className="grid gap-3 sm:grid-cols-2">
               {inSection.map((method) => (
                 <li key={method.id}>
-                  <MethodCard method={method} />
+                  <MethodCard method={method} returnQuery={returnQuery} />
                 </li>
               ))}
             </ul>
