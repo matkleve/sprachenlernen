@@ -16,7 +16,10 @@ describe("MethodDetail", () => {
 
     expect(screen.getByRole("heading", { level: 1 }).textContent).toBe(method.name);
     expect(document.body.textContent).toContain(method.doesNotDo);
-    expect(screen.getByRole("button", { name: copy.startUnavailable })).toBeDefined();
+    expect(screen.getByRole("link", { name: copy.startSession })).toBeDefined();
+    expect(screen.getByRole("link", { name: copy.startSession }).getAttribute("href")).toBe(
+      "/words/review?method=extensive-reading",
+    );
   });
 
   it("preserves filter on back link", () => {

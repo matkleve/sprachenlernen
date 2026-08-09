@@ -5,6 +5,7 @@ import { Chip } from "@/components/ui/Chip";
 import { byId, type MethodEntry } from "@/lib/method-catalogue";
 import type { SearchParams } from "@/lib/method-menu-filter";
 import { menuQueryString } from "@/lib/method-menu-filter";
+import { sessionHrefForMethod } from "@/lib/method-session";
 import { routes } from "@/lib/routes";
 
 import { copy, evidence, intensity, sections } from "./content";
@@ -80,9 +81,9 @@ export function MethodDetail({ method, searchParams = {} }: MethodDetailProps) {
       </p>
 
       {method.hosted && (
-        <Button className="mt-8" disabled>
-          {copy.startUnavailable}
-        </Button>
+        <Link href={sessionHrefForMethod(method)} className="mt-8 inline-block">
+          <Button type="button">{copy.startSession}</Button>
+        </Link>
       )}
     </div>
   );

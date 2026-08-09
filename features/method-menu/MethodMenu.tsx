@@ -13,6 +13,8 @@ import {
   filterMethods,
   menuQueryString,
   parseMenuFilter,
+  parseSkill,
+  savableCustomContext,
   type SearchParams,
 } from "@/lib/method-menu-filter";
 
@@ -20,6 +22,8 @@ import { routes } from "@/lib/routes";
 
 import { ContextFilter } from "./ContextFilter";
 import { MethodCard } from "./MethodCard";
+import { SavedPresets } from "./SavedPresets";
+import { SkillFilter } from "./SkillFilter";
 import { copy, sections } from "./content";
 
 /**
@@ -47,10 +51,11 @@ export function MethodMenu({
   searchParams = {},
 }: MethodMenuProps) {
   const filter = parseMenuFilter(searchParams, presets);
+  const skill = parseSkill(searchParams);
   const unknownContext = filter.kind === "unknown-context";
   const returnQuery = menuQueryString(searchParams);
 
-  const methods = catalogue ? filterMethods(catalogue, filter) : [];
+  const methods = catalogue ? filterMethods(catalogue, filter, skill) : [];
   const chosenPreset =
     filter.kind === "filtered" && filter.presetId
       ? presets.find((preset) => preset.id === filter.presetId)
@@ -96,6 +101,13 @@ export function MethodMenu({
       </nav>
 
       <ContextFilter searchParams={searchParams} filter={filter} />
+
+      <SkillFilter searchParams={searchParams} />
+
+      <SavedPresets
+        savableContext={savableCustomContext(filter)}
+        searchParams={searchParams}
+      />
 
       {unknownContext && (
         <p className="mt-page-content max-w-2xl text-base leading-relaxed text-muted">

@@ -1,12 +1,10 @@
 /**
  * URL-driven filter for /methods. Contract: docs/specs/page/method-menu.md
- *
- * The page is a Server Component — every filter change is a navigation, so the
- * list and the chosen chips cannot drift apart.
  */
 
 import {
   CONTEXT_DIMENSIONS,
+  SKILLS,
   TIME_BUDGETS,
   filterByContext,
   fitsTime,
@@ -15,6 +13,7 @@ import {
   type Context,
   type MethodEntry,
   type Preset,
+  type Skill,
   type TimeBudget,
 } from "@/lib/method-catalogue";
 import { oneOf } from "@/lib/learning-context";
@@ -38,6 +37,18 @@ export const TIME_BUDGET_LABELS: Record<TimeBudget, string> = {
   "15": "15 min",
   "45": "45 min",
   open: "Open-ended",
+};
+
+export const SKILL_LABELS: Record<Skill, string> = {
+  reading: "Reading",
+  listening: "Listening",
+  speaking: "Speaking",
+  writing: "Writing",
+};
+
+export const parseSkill = (params: SearchParams): Skill | undefined => {
+  const skill = first(params.skill);
+  return skill && oneOf(skill, SKILLS) ? skill : undefined;
 };
 
 /** Parse `?context=` and dimension params into a filter state. */
@@ -91,27 +102,41 @@ export const parseMenuFilter = (params: SearchParams, presets: Preset[]): MenuFi
   return { kind: "incomplete-custom", partial };
 };
 
-export const filterMethods = (catalogue: Catalogue, filter: MenuFilter): MethodEntry[] => {
+const applySkill = (methods: MethodEntry[], skill: Skill | undefined): MethodEntry[] =>
+  skill ? methods.filter((method) => method.skills.includes(skill)) : methods;
+
+export const filterMethods = (
+  catalogue: Catalogue,
+  filter: MenuFilter,
+  skill?: Skill,
+): MethodEntry[] => {
   const all = catalogue.entries.filter(isMethod);
+  let methods: MethodEntry[];
 
   switch (filter.kind) {
     case "all":
     case "unknown-context":
     case "incomplete-custom":
-      return all;
+      methods = all;
+      break;
     case "time-only":
-      return all.filter((method) => fitsTime(method, filter.time));
+      methods = all.filter((method) => fitsTime(method, filter.time));
+      break;
     case "filtered":
-      return filterByContext(catalogue, filter.context);
+      methods = filterByContext(catalogue, filter.context);
+      break;
   }
+
+  return applySkill(methods, skill);
 };
 
-/** Serialize active filter params for appending to method detail back-links. */
+const PARAM_KEYS = ["context", "skill", "time", ...DIMENSION_KEYS] as const;
+
+/** Serialize active filter params for back-links and card query preservation. */
 export const menuQueryString = (params: SearchParams): string => {
-  const keys = ["context", "time", ...DIMENSION_KEYS];
   const parts: string[] = [];
 
-  for (const key of keys) {
+  for (const key of PARAM_KEYS) {
     const value = first(params[key]);
     if (value) parts.push(`${key}=${encodeURIComponent(value)}`);
   }
@@ -126,7 +151,7 @@ export const buildMethodsHref = (
 ): string => {
   const next: Record<string, string | undefined> = {};
 
-  for (const key of ["context", "time", ...DIMENSION_KEYS]) {
+  for (const key of PARAM_KEYS) {
     const value = first(current[key]);
     if (value) next[key] = value;
   }
@@ -151,9 +176,23 @@ export const buildMethodsHref = (
   return query ? `/methods?${query}` : "/methods";
 };
 
-/** The time budget that is active for highlighting chips, if any. */
+/** Build query params from a full context (for saved presets). */
+export const contextToSearchParams = (context: Context): Record<string, string> => {
+  const params: Record<string, string> = { time: context.time };
+  for (const dimension of DIMENSION_KEYS) {
+    params[dimension] = context[dimension];
+  }
+  return params;
+};
+
 export const activeTimeBudget = (filter: MenuFilter): TimeBudget | undefined => {
   if (filter.kind === "time-only") return filter.time;
   if (filter.kind === "filtered") return filter.context.time;
+  return undefined;
+};
+
+/** A complete custom context suitable for saving, if one is active. */
+export const savableCustomContext = (filter: MenuFilter): Context | undefined => {
+  if (filter.kind === "filtered" && !filter.presetId) return filter.context;
   return undefined;
 };

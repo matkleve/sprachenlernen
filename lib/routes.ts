@@ -24,6 +24,7 @@ export const routes = {
   methods: "/methods",
   method: (id: string) => `/methods/${id}`,
   words: "/words",
+  wordsReview: "/words/review",
   progress: "/progress",
 } as const;
 

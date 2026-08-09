@@ -133,6 +133,19 @@ describe("choosing a context", () => {
   });
 });
 
+describe("skill filter", () => {
+  it("narrows to methods that train the chosen skill", () => {
+    show({ skill: "reading" });
+
+    const fitting = catalogue.entries
+      .filter(isMethod)
+      .filter((m) => m.skills.includes("reading"))
+      .map((m) => m.name);
+
+    expect([...cardTitles()].sort()).toEqual([...fitting].sort());
+  });
+});
+
 describe("time filter", () => {
   it("narrows to methods that fit a 2-minute budget", () => {
     show({ time: "2" });
@@ -177,12 +190,20 @@ describe("what a card has to say", () => {
     expect(document.body.textContent).toContain(copy.notHostedShort);
   });
 
-  it("links each card to its detail page", () => {
+  it("links each hosted card to its session route", () => {
     show();
 
-    const method = catalogue.entries.filter(isMethod)[0]!;
-    const link = screen.getByRole("link", { name: new RegExp(method.name) });
-    expect(link.getAttribute("href")).toBe(`/methods/${method.id}`);
+    const hosted = catalogue.entries.filter(isMethod).find((m) => m.hosted)!;
+    const link = screen.getByRole("link", { name: new RegExp(hosted.name) });
+    expect(link.getAttribute("href")).toBe(`/words/review?method=${hosted.id}`);
+  });
+
+  it("links each off-app card to its detail page", () => {
+    show();
+
+    const offApp = catalogue.entries.filter(isMethod).find((m) => !m.hosted)!;
+    const link = screen.getByRole("link", { name: new RegExp(offApp.name) });
+    expect(link.getAttribute("href")).toBe(`/methods/${offApp.id}`);
   });
 });
 

@@ -1,9 +1,8 @@
 import { describe, expect, it } from "vitest";
 
+import { loadMethodCatalogue } from "@/features/method-menu/catalogue";
 import { filterByContext } from "@/lib/method-catalogue";
 import { filterMethods, parseMenuFilter } from "@/lib/method-menu-filter";
-
-import { loadMethodCatalogue } from "@/features/method-menu/catalogue";
 
 const { catalogue, presets } = loadMethodCatalogue();
 
@@ -25,7 +24,9 @@ describe("parseMenuFilter", () => {
 describe("filterMethods", () => {
   it("filters by time budget alone", () => {
     const all = catalogue!.entries.filter((e) => e.type === "method");
-    const short = all.filter((m) => m.type === "method" && m.durations !== null && Math.min(...m.durations) <= 2);
+    const short = all.filter(
+      (m) => m.type === "method" && m.durations !== null && Math.min(...m.durations) <= 2,
+    );
     const result = filterMethods(catalogue!, { kind: "time-only", time: "2" });
     expect(result.map((m) => m.id).sort()).toEqual(short.map((m) => m.id).sort());
   });
@@ -39,5 +40,13 @@ describe("filterMethods", () => {
         .map((m) => m.id)
         .sort(),
     );
+  });
+
+  it("intersects skill with context filter", () => {
+    const filter = parseMenuFilter({ context: "desk" }, presets!);
+    const result = filterMethods(catalogue!, filter, "reading");
+    const desk = filterByContext(catalogue!, presets!.find((p) => p.id === "desk")!.context);
+    const expected = desk.filter((m) => m.skills.includes("reading"));
+    expect(result.map((m) => m.id).sort()).toEqual(expected.map((m) => m.id).sort());
   });
 });

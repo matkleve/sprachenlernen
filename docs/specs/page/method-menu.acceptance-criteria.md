@@ -12,12 +12,18 @@
 - [ ] Given a chosen preset, then that preset and no other is marked chosen.
 - [ ] Given `?time=2`, then only Methods whose shortest duration is at most 2
       minutes appear.
+- [ ] Given `?skill=reading`, then only Methods whose `skills` includes
+      `reading` appear, intersected with any active context or time filter.
 - [ ] Given a complete custom context in the URL, then the list matches
       `filterByContext` for that context.
 - [ ] Given any rendered Method card, then durations, requirements, effort,
       evidence and hosted status appear as chips, and `doesNotDo` appears as
       prose.
-- [ ] Given any rendered Method card, then it links to `/methods/{id}`.
+- [ ] Given a hosted Method card, then it links to the session route for that
+      method, not the detail page.
+- [ ] Given an off-app Method card, then it links to `/methods/{id}`.
+- [ ] Given a complete custom context, when the learner saves it with a name,
+      then it appears as a preset chip on return visits (same browser).
 - [ ] Given a Method the app does not host, then it renders as a full card that
       says so.
 - [ ] Given a context nothing fits, then the gap is named and no Method list
@@ -27,5 +33,6 @@
 - [ ] Given a catalogue load failure, then the error callout appears with a
       reference id.
 - [ ] Given any state, then no learner-specific number appears.
-- [ ] The page tree contains no `"use client"` directive.
+- [ ] The page tree contains no `"use client"` at the menu root — saved presets
+      may use a client island.
 - [ ] The rendered surface has no axe-core violations.

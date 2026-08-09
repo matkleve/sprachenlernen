@@ -2,6 +2,7 @@ import Link from "next/link";
 
 import { Chip } from "@/components/ui/Chip";
 import type { MethodEntry } from "@/lib/method-catalogue";
+import { cardHrefForMethod } from "@/lib/method-session";
 
 import { copy, evidenceShort, intensity } from "./content";
 import { durationChips, requirementChips } from "./requirements";
@@ -16,7 +17,7 @@ export type MethodCardProps = {
  * One Method, compact and tappable. Contract: docs/specs/page/method-menu.md
  */
 export function MethodCard({ method, returnQuery = "" }: MethodCardProps) {
-  const href = `/methods/${method.id}${returnQuery}`;
+  const href = cardHrefForMethod(method, returnQuery);
   const requirements = requirementChips(method.requires);
 
   return (
