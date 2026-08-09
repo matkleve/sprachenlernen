@@ -1,7 +1,7 @@
 # UC-036 — Know how much to trust this language's material
 
 <!-- id: UC-036 -->
-<!-- specs:  -->
+<!-- specs: SPEC-page-language-status -->
 
 **Who:** anyone learning a language whose course was bootstrapped rather than
 built.
