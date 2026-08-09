@@ -5,6 +5,9 @@
    Tailwind v4 turns each one into utilities: --color-accent → bg-accent,
    text-accent, border-accent, ring-accent.
 
+   Light palette: Warm Scholar (chosen 2026-08-09 via /dev/design).
+   Dark palette: warm-toned companion — not a greyscale invert of light.
+
    Rules (docs/DESIGN-SYSTEM.md):
    - Components never contain raw colors, radii or shadows. Add a token here.
    - `-deep`  = the darker/stronger tone used for hover and active.
@@ -15,45 +18,45 @@
 
 @theme {
   /* Surfaces */
-  --color-canvas: #faf9f7;
-  --color-surface: #ffffff;
+  --color-canvas: #f7f4ef;
+  --color-surface: #fffdf9;
   --color-surface-raised: #ffffff;
 
   /* Text */
-  --color-ink: #17181c;
-  --color-muted: #5b6070;
+  --color-ink: #2c2419;
+  --color-muted: #6b5f52;
 
   /* Lines */
   /* `line` is decorative; `line-strong` bounds real controls and therefore
      has to clear 3:1 against the surface it sits on (WCAG 1.4.11). */
-  --color-line: #e5e4e0;
-  --color-line-strong: #8e8d87;
+  --color-line: #e8e0d4;
+  --color-line-strong: #8a7768;
 
   /* Accent — primary actions */
-  --color-accent: #2f5ad0;
-  --color-accent-deep: #2445a4;
-  --color-accent-soft: #e8eefc;
+  --color-accent: #b4532a;
+  --color-accent-deep: #8f3f1f;
+  --color-accent-soft: #f5ebe4;
   --color-accent-ink: #ffffff;
 
   /* Danger — destructive actions, errors */
-  --color-danger: #b3261e;
-  --color-danger-deep: #8c1d17;
+  --color-danger: #a32e26;
+  --color-danger-deep: #7d221c;
   --color-danger-soft: #fbe9e7;
   --color-danger-ink: #ffffff;
 
   /* Success */
-  --color-success: #1c6b45;
-  --color-success-deep: #155235;
-  --color-success-soft: #e4f3ec;
+  --color-success: #3d6b4f;
+  --color-success-deep: #2e5340;
+  --color-success-soft: #e8f2ec;
   --color-success-ink: #ffffff;
 
   /* Radius */
-  --radius-card: 0.75rem;
+  --radius-card: 1rem;
   --radius-pill: 9999px;
 
   /* Elevation */
-  --shadow-soft: 0 1px 2px rgb(23 24 28 / 0.06), 0 1px 3px rgb(23 24 28 / 0.04);
-  --shadow-raised: 0 4px 12px rgb(23 24 28 / 0.08), 0 2px 4px rgb(23 24 28 / 0.04);
+  --shadow-soft: 0 1px 2px rgb(44 36 25 / 0.06), 0 1px 3px rgb(44 36 25 / 0.04);
+  --shadow-raised: 0 4px 12px rgb(44 36 25 / 0.08), 0 2px 4px rgb(44 36 25 / 0.04);
 
   /* Motion. Tailwind has no --duration theme namespace, so the duration scale
      is a convention instead: 150 for feedback, 200 for larger moves, 300 for
@@ -65,9 +68,11 @@
   --spacing-page-bottom: 6rem;
   --spacing-page-content: 2.5rem;
 
-  /* Type. Swap in next/font here when the project picks a brand typeface. */
-  --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
-    "Helvetica Neue", Arial, sans-serif;
+  /* Type. next/font on <html> overrides these fallbacks at runtime. */
+  --font-dm-sans: "DM Sans", sans-serif;
+  --font-source-serif: "Source Serif 4", serif;
+  --font-sans: var(--font-dm-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--font-source-serif), ui-serif, Georgia, serif;
   --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
 
   /* Line heights. Tailwind's defaults are tuned for UI labels and leave body
@@ -91,31 +96,31 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --color-canvas: #0f1115;
-    --color-surface: #171a20;
-    --color-surface-raised: #1e222a;
+    --color-canvas: #1c1814;
+    --color-surface: #252019;
+    --color-surface-raised: #2e2820;
 
-    --color-ink: #f1f2f4;
-    --color-muted: #a3aab8;
+    --color-ink: #f5f0e8;
+    --color-muted: #a89f94;
 
-    --color-line: #2a2f39;
-    --color-line-strong: #6b7280;
+    --color-line: #3d352c;
+    --color-line-strong: #8f8275;
 
     /* In dark, "deeper" means brighter — hover must move toward the eye. */
-    --color-accent: #8ab0ff;
-    --color-accent-deep: #adc7ff;
-    --color-accent-soft: #1b2540;
-    --color-accent-ink: #0f1115;
+    --color-accent: #e8956a;
+    --color-accent-deep: #f0ad85;
+    --color-accent-soft: #3a2a22;
+    --color-accent-ink: #1c1814;
 
-    --color-danger: #ff9d94;
-    --color-danger-deep: #ffbcb6;
-    --color-danger-soft: #3a1e1c;
-    --color-danger-ink: #1a0f0e;
+    --color-danger: #f0a09a;
+    --color-danger-deep: #f5bbb6;
+    --color-danger-soft: #3d2420;
+    --color-danger-ink: #1a100e;
 
-    --color-success: #7fd6ab;
-    --color-success-deep: #a5e5c4;
-    --color-success-soft: #14301f;
-    --color-success-ink: #0f1115;
+    --color-success: #7fbf9a;
+    --color-success-deep: #a5d4b8;
+    --color-success-soft: #1a2e22;
+    --color-success-ink: #1c1814;
 
     --shadow-soft: 0 1px 2px rgb(0 0 0 / 0.4), 0 1px 3px rgb(0 0 0 / 0.3);
     --shadow-raised: 0 4px 12px rgb(0 0 0 / 0.5), 0 2px 4px rgb(0 0 0 / 0.3);
@@ -123,25 +128,25 @@
 }
 
 :root[data-theme="dark"] {
-  --color-canvas: #0f1115;
-  --color-surface: #171a20;
-  --color-surface-raised: #1e222a;
-  --color-ink: #f1f2f4;
-  --color-muted: #a3aab8;
-  --color-line: #2a2f39;
-  --color-line-strong: #6b7280;
-  --color-accent: #8ab0ff;
-  --color-accent-deep: #adc7ff;
-  --color-accent-soft: #1b2540;
-  --color-accent-ink: #0f1115;
-  --color-danger: #ff9d94;
-  --color-danger-deep: #ffbcb6;
-  --color-danger-soft: #3a1e1c;
-  --color-danger-ink: #1a0f0e;
-  --color-success: #7fd6ab;
-  --color-success-deep: #a5e5c4;
-  --color-success-soft: #14301f;
-  --color-success-ink: #0f1115;
+  --color-canvas: #1c1814;
+  --color-surface: #252019;
+  --color-surface-raised: #2e2820;
+  --color-ink: #f5f0e8;
+  --color-muted: #a89f94;
+  --color-line: #3d352c;
+  --color-line-strong: #8f8275;
+  --color-accent: #e8956a;
+  --color-accent-deep: #f0ad85;
+  --color-accent-soft: #3a2a22;
+  --color-accent-ink: #1c1814;
+  --color-danger: #f0a09a;
+  --color-danger-deep: #f5bbb6;
+  --color-danger-soft: #3d2420;
+  --color-danger-ink: #1a100e;
+  --color-success: #7fbf9a;
+  --color-success-deep: #a5d4b8;
+  --color-success-soft: #1a2e22;
+  --color-success-ink: #1c1814;
 }
 
 :root[data-theme="light"] {
@@ -160,6 +165,13 @@
     color: var(--color-ink);
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-serif);
   }
 
   /* Never remove a focus ring without replacing it. Keyboard users depend on

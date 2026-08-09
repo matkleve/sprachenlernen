@@ -100,7 +100,7 @@ const themeBlock = THEME.slice(THEME.indexOf("@theme"), THEME.indexOf("\n}\n"));
 const NAMESPACES = ["color", "radius", "shadow", "spacing", "ease"];
 
 // Tokens Tailwind resolves itself; they need no entry in lib/utils.ts.
-const BUILTIN = new Set(["font-sans", "font-mono"]);
+const BUILTIN = new Set(["font-sans", "font-serif", "font-mono"]);
 
 for (const namespace of NAMESPACES) {
   const declared = [

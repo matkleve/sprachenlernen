@@ -45,11 +45,8 @@ export const publicRoutes = [
   routes.signUp,
   routes.authCallback,
   routes.primitives,
-<<<<<<< HEAD
   routes.designExplorer,
-=======
   routes.privacy,
->>>>>>> cursor/method-filter-redesign-d240
 ] as const;
 
 /** The three destinations the shell renders — a subset of the gated half. */
