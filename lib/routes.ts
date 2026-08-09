@@ -19,6 +19,7 @@ export const routes = {
   primitives: "/primitives",
   /** Public. Design-direction comparison — dev tooling, no account. */
   designExplorer: "/dev/design",
+  privacy: "/privacy",
 
   /** The app's default route — signing in lands here (ADR-0010). */
   appHome: "/methods",
@@ -44,7 +45,11 @@ export const publicRoutes = [
   routes.signUp,
   routes.authCallback,
   routes.primitives,
+<<<<<<< HEAD
   routes.designExplorer,
+=======
+  routes.privacy,
+>>>>>>> cursor/method-filter-redesign-d240
 ] as const;
 
 /** The three destinations the shell renders — a subset of the gated half. */

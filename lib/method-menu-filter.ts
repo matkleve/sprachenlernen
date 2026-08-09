@@ -1,43 +1,39 @@
 /**
  * URL-driven filter for /methods. Contract: docs/specs/page/method-menu.md
+ *
+ * Three primary questions (time, skill, energy) narrow the catalogue; optional
+ * refine constraints live in a details panel. No "where are you" presets.
  */
 
 import {
   CONTEXT_DIMENSIONS,
   SKILLS,
-  TIME_BUDGETS,
-  filterByContext,
-  fitsTime,
+  fitsMinutes,
+  fitsPartialContext,
   isMethod,
   type Catalogue,
   type Context,
   type MethodEntry,
-  type Preset,
   type Skill,
-  type TimeBudget,
 } from "@/lib/method-catalogue";
 import { oneOf } from "@/lib/learning-context";
 
-export type MenuFilter =
-  | { kind: "all" }
-  | { kind: "unknown-context"; contextId: string }
-  | { kind: "incomplete-custom"; partial: Partial<Context> }
-  | { kind: "time-only"; time: TimeBudget }
-  | { kind: "filtered"; context: Context; presetId?: string };
+export type Energy = "low" | "medium" | "high";
+
+export type MenuFilter = {
+  minutes?: number;
+  skill?: Skill;
+  energy?: Energy;
+  refine: Partial<Pick<Context, "eyes" | "hands" | "voice">>;
+};
 
 export type SearchParams = Record<string, string | string[] | undefined>;
 
 const first = (value: string | string[] | undefined): string | undefined =>
   Array.isArray(value) ? value[0] : value;
 
-const DIMENSION_KEYS = Object.keys(CONTEXT_DIMENSIONS) as (keyof typeof CONTEXT_DIMENSIONS)[];
-
-export const TIME_BUDGET_LABELS: Record<TimeBudget, string> = {
-  "2": "2 min",
-  "15": "15 min",
-  "45": "45 min",
-  open: "Open-ended",
-};
+export const MIN_MINUTES = 2;
+export const MAX_MINUTES = 60;
 
 export const SKILL_LABELS: Record<Skill, string> = {
   reading: "Reading",
@@ -46,105 +42,80 @@ export const SKILL_LABELS: Record<Skill, string> = {
   writing: "Writing",
 };
 
-export const parseSkill = (params: SearchParams): Skill | undefined => {
-  const skill = first(params.skill);
-  return skill && oneOf(skill, SKILLS) ? skill : undefined;
+export const ENERGY_LABELS: Record<Energy, string> = {
+  low: "Tired or distracted",
+  medium: "Normal focus",
+  high: "Full effort",
 };
 
-/** Parse `?context=` and dimension params into a filter state. */
-export const parseMenuFilter = (params: SearchParams, presets: Preset[]): MenuFilter => {
-  const contextId = first(params.context);
-  const timeOverride = first(params.time);
+const ENERGY_TO_MAX_INTENSITY: Record<Energy, 1 | 2 | 3> = {
+  low: 1,
+  medium: 2,
+  high: 3,
+};
 
-  if (contextId) {
-    const preset = presets.find((entry) => entry.id === contextId);
-    if (!preset) return { kind: "unknown-context", contextId };
+const REFINE_KEYS = ["eyes", "hands", "voice"] as const;
 
-    const context: Context = {
-      ...preset.context,
-      ...(timeOverride && oneOf(timeOverride, TIME_BUDGETS)
-        ? { time: timeOverride as TimeBudget }
-        : {}),
-    };
-    return { kind: "filtered", context, presetId: preset.id };
-  }
+export const parseMenuFilter = (params: SearchParams): MenuFilter => {
+  const minutesRaw = first(params.minutes);
+  const minutes =
+    minutesRaw !== undefined && !Number.isNaN(Number(minutesRaw))
+      ? Math.min(MAX_MINUTES, Math.max(MIN_MINUTES, Number(minutesRaw)))
+      : undefined;
 
-  const partial: Partial<Context> = {};
+  const skill = first(params.skill);
+  const parsedSkill = skill && oneOf(skill, SKILLS) ? skill : undefined;
 
-  for (const dimension of DIMENSION_KEYS) {
-    const value = first(params[dimension]);
-    if (value && oneOf(value, CONTEXT_DIMENSIONS[dimension])) {
-      Object.assign(partial, { [dimension]: value });
+  const energy = first(params.energy);
+  const parsedEnergy =
+    energy && oneOf(energy, ["low", "medium", "high"] as const) ? energy : undefined;
+
+  const refine: MenuFilter["refine"] = {};
+  for (const key of REFINE_KEYS) {
+    const value = first(params[key]);
+    const allowed = CONTEXT_DIMENSIONS[key];
+    if (value && oneOf(value, allowed)) {
+      Object.assign(refine, { [key]: value });
     }
   }
 
-  const time = first(params.time);
-  if (time && oneOf(time, TIME_BUDGETS)) {
-    partial.time = time as TimeBudget;
-  }
-
-  const hasDimension = DIMENSION_KEYS.some((dimension) => partial[dimension] !== undefined);
-  const hasTime = partial.time !== undefined;
-
-  if (!hasDimension && !hasTime) return { kind: "all" };
-
-  if (!hasDimension && hasTime) {
-    return { kind: "time-only", time: partial.time! };
-  }
-
-  const complete =
-    DIMENSION_KEYS.every((dimension) => partial[dimension] !== undefined) && hasTime;
-
-  if (complete) {
-    return { kind: "filtered", context: partial as Context };
-  }
-
-  return { kind: "incomplete-custom", partial };
+  return { minutes, skill: parsedSkill, energy: parsedEnergy, refine };
 };
 
-const applySkill = (methods: MethodEntry[], skill: Skill | undefined): MethodEntry[] =>
-  skill ? methods.filter((method) => method.skills.includes(skill)) : methods;
+export const filterMethods = (catalogue: Catalogue, filter: MenuFilter): MethodEntry[] => {
+  let methods = catalogue.entries.filter(isMethod);
 
-export const filterMethods = (
-  catalogue: Catalogue,
-  filter: MenuFilter,
-  skill?: Skill,
-): MethodEntry[] => {
-  const all = catalogue.entries.filter(isMethod);
-  let methods: MethodEntry[];
-
-  switch (filter.kind) {
-    case "all":
-    case "unknown-context":
-    case "incomplete-custom":
-      methods = all;
-      break;
-    case "time-only":
-      methods = all.filter((method) => fitsTime(method, filter.time));
-      break;
-    case "filtered":
-      methods = filterByContext(catalogue, filter.context);
-      break;
+  if (filter.minutes !== undefined) {
+    methods = methods.filter((method) => fitsMinutes(method, filter.minutes!));
   }
 
-  return applySkill(methods, skill);
+  if (filter.skill !== undefined) {
+    methods = methods.filter((method) => method.skills.includes(filter.skill!));
+  }
+
+  if (filter.energy !== undefined) {
+    const max = ENERGY_TO_MAX_INTENSITY[filter.energy];
+    methods = methods.filter((method) => method.intensity <= max);
+  }
+
+  if (Object.keys(filter.refine).length > 0) {
+    methods = methods.filter((method) => fitsPartialContext(method, filter.refine));
+  }
+
+  return methods;
 };
 
-const PARAM_KEYS = ["context", "skill", "time", ...DIMENSION_KEYS] as const;
+const PARAM_KEYS = ["minutes", "skill", "energy", ...REFINE_KEYS] as const;
 
-/** Serialize active filter params for back-links and card query preservation. */
 export const menuQueryString = (params: SearchParams): string => {
   const parts: string[] = [];
-
   for (const key of PARAM_KEYS) {
     const value = first(params[key]);
     if (value) parts.push(`${key}=${encodeURIComponent(value)}`);
   }
-
   return parts.length > 0 ? `?${parts.join("&")}` : "";
 };
 
-/** Build a /methods href, merging updates onto current params. */
 export const buildMethodsHref = (
   current: SearchParams,
   updates: Record<string, string | undefined>,
@@ -161,38 +132,10 @@ export const buildMethodsHref = (
     else next[key] = value;
   }
 
-  if (updates.context !== undefined) {
-    for (const dimension of DIMENSION_KEYS) delete next[dimension];
-  }
-  if (DIMENSION_KEYS.some((dimension) => updates[dimension] !== undefined)) {
-    delete next.context;
-  }
-
   const query = Object.entries(next)
     .filter(([, value]) => value !== undefined)
     .map(([key, value]) => `${key}=${encodeURIComponent(value!)}`)
     .join("&");
 
   return query ? `/methods?${query}` : "/methods";
-};
-
-/** Build query params from a full context (for saved presets). */
-export const contextToSearchParams = (context: Context): Record<string, string> => {
-  const params: Record<string, string> = { time: context.time };
-  for (const dimension of DIMENSION_KEYS) {
-    params[dimension] = context[dimension];
-  }
-  return params;
-};
-
-export const activeTimeBudget = (filter: MenuFilter): TimeBudget | undefined => {
-  if (filter.kind === "time-only") return filter.time;
-  if (filter.kind === "filtered") return filter.context.time;
-  return undefined;
-};
-
-/** A complete custom context suitable for saving, if one is active. */
-export const savableCustomContext = (filter: MenuFilter): Context | undefined => {
-  if (filter.kind === "filtered" && !filter.presetId) return filter.context;
-  return undefined;
 };

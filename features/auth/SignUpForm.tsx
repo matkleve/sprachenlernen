@@ -5,6 +5,7 @@ import { Field } from "@/components/ui/Field";
 import { Input } from "@/components/ui/Input";
 import { signUpAction } from "@/features/auth/actions";
 import { authContent } from "@/features/auth/content";
+import { OAuthButtons } from "@/features/auth/OAuthButtons";
 
 /**
  * Reuse: Field, Button, Input (docs/specs/component/field.md, button.md) —
@@ -39,6 +40,7 @@ export function SignUpForm({
         </Field>
         <Button type="submit">{authContent.signUp.submit}</Button>
       </form>
+      <OAuthButtons />
       {referenceId ? (
         <p className="mt-3 font-mono text-xs text-muted">Reference: {referenceId}</p>
       ) : null}

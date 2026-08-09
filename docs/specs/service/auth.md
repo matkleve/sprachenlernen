@@ -27,7 +27,9 @@ user cannot read another Account's rows. **Sensitive** (`AGENTS.md`).
   visible sign-out control, both of which this spec listed as out for want of a
   signed-in surface and which
   [`../feature/app-shell.md`](../feature/app-shell.md) took over on 2026-08-09;
-  password reset, OAuth, and changing an Account's email.
+  password reset and changing an Account's email. **OAuth (Google, Apple) is in**
+  — providers that return a verified session without a separate email-confirmation
+  step.
 
 ## Behavior
 
@@ -38,6 +40,8 @@ user cannot read another Account's rows. **Sensitive** (`AGENTS.md`).
 | 3 | Submits either form with invalid input | The page re-renders with the error Supabase reported next to the password field; no account or session is created |
 | 4 | Opens `/login` or `/signup` while already signed in | Redirected to `/methods`; the form is never shown |
 | 5 | (Any signed-in request) | `middleware.ts` revalidates and refreshes the session cookie before any Server Component runs |
+| 6 | Taps "Continue with Google" or "Continue with Apple" on `/login` or `/signup` | Redirected to the provider; on success, a session is created and they land on `/methods` without a separate email-confirmation step |
+| 7 | Signs up with email and password | Email confirmation remains required before a session exists (project setting) |
 
 ## States
 
@@ -97,14 +101,10 @@ to signed-out; a successful sign-in moves the other way.
 
 ## Open questions
 
-**⚠ SPEC GAP: mandatory email confirmation contradicts UC-011's "first real
-exercise reachable in well under a minute."** This Supabase project currently
-has email confirmation on (`mailer_autoconfirm: false`), which is Supabase's
-secure default. It is a project-level Auth setting, not a code path: turning it
-off is now technically possible (`SUPABASE_ACCESS_TOKEN` reaches the Management
-API as of 2026-08-09), which is precisely why it must not be done silently.
-`signUp` in `lib/db/auth.ts` handles both outcomes correctly either way; which
-one the product should *want* is a decision for whoever owns UC-011.
+**⚠ SPEC GAP: mandatory email confirmation for password signup contradicts
+UC-011's speed goal for that path only.** OAuth paths are immediate. Email/password
+signup keeps confirmation on (`mailer_autoconfirm: false`). Turning confirmation
+off for email signup is a product decision for UC-011; OAuth does not need it.
 
 ## Check
 

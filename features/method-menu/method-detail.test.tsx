@@ -12,7 +12,7 @@ const method = findMethod(catalogue, "extensive-reading")!;
 
 describe("MethodDetail", () => {
   it("shows a shipped method", () => {
-    render(<MethodDetail method={method} searchParams={{ context: "desk" }} />);
+    render(<MethodDetail method={method} searchParams={{ minutes: "15", skill: "reading" }} />);
 
     expect(screen.getByRole("heading", { level: 1 }).textContent).toBe(method.name);
     expect(document.body.textContent).toContain(method.doesNotDo);
@@ -23,10 +23,10 @@ describe("MethodDetail", () => {
   });
 
   it("preserves filter on back link", () => {
-    render(<MethodDetail method={method} searchParams={{ context: "desk" }} />);
+    render(<MethodDetail method={method} searchParams={{ minutes: "15", skill: "reading" }} />);
 
     expect(screen.getByRole("link", { name: new RegExp(copy.backToMethods) }).getAttribute("href")).toBe(
-      "/methods?context=desk",
+      "/methods?minutes=15&skill=reading",
     );
   });
 

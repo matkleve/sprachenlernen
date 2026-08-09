@@ -13,15 +13,22 @@ import { CONTEXT_DIMENSIONS } from "@/lib/method-catalogue";
 export const copy = {
   title: "Ways of practising",
   intro:
-    "Sixty-odd ways people actually learn languages, not the handful an app happens to implement. Say where you are and the list narrows to what you can do there — a method you cannot perform right now has an effect of zero, so it is not offered at all rather than offered and greyed out.",
-  contextLabel: "Where are you right now?",
-  anyContext: "Any situation",
-  fittingCount: "What you can do here",
-  wholeCatalogue: "The whole catalogue",
+    "Sixty-odd ways people actually learn languages. Three questions narrow the list — how long you have, what you want to train, and how much energy you have. Refine only if you need to.",
+  timeLabel: "How much time do you have?",
+  skillLabel: "What do you want to train?",
+  anySkill: "Any skill",
+  energyLabel: "How much energy do you have?",
+  anyEnergy: "Any energy",
+  refineLabel: "Refine further",
+  refineHint: "Only if the list still feels too broad — hands, voice, or whether you need your eyes.",
+  refineAny: "Does not matter",
+  refineDimension: {
+    hands: "Hands",
+    voice: "Voice",
+    eyes: "Eyes",
+  },
   nothingFits:
-    "Nothing in the catalogue can be done in this situation. That is a gap in what has been written down, not advice to do nothing — and it is better said than padded around.",
-  unknownContext:
-    "That is not a situation this app ships, so nothing was filtered. The whole catalogue is below.",
+    "Nothing in the catalogue fits those filters. Try more time, a different skill, or fewer refinements.",
   catalogueUnavailable:
     "The method catalogue could not be read, so nothing below is being hidden from you — there is nothing to show. What went wrong:",
   card: {
@@ -38,18 +45,6 @@ export const copy = {
   notHosted: "You do this yourself — the app does not run it",
   hostedShort: "App runs this",
   notHostedShort: "Off-app",
-  timeLabel: "How much time?",
-  customiseLabel: "Customise situation",
-  customiseHint:
-    "Pick one value per row. The list updates when every row has a choice and a time budget is set.",
-  skillLabel: "What do you want to train?",
-  anySkill: "Any skill",
-  savedPresetsLabel: "Your saved situations",
-  savePresetLabel: "Name this situation",
-  savePresetPlaceholder: "e.g. Morning commute",
-  savePresetAction: "Save",
-  removeSavedPreset: "Remove",
-  startUnavailable: "Starting a session is not built yet",
   startSession: "Start",
   backToMethods: "Back to methods",
   methodNotFound: "No method with that name exists in the catalogue.",
@@ -128,5 +123,22 @@ export const dimensionValues: DimensionLabels = {
     others: "other people",
   },
 };
+
+export const refineOptions = {
+  hands: [
+    { value: "none", label: "Hands-free" },
+    { value: "one", label: "One hand" },
+    { value: "free", label: "Both hands" },
+  ],
+  voice: [
+    { value: "none", label: "Silent" },
+    { value: "quiet", label: "Quiet voice" },
+    { value: "aloud", label: "Speaking aloud" },
+  ],
+  eyes: [
+    { value: "free", label: "Eyes on screen" },
+    { value: "occupied", label: "Eyes elsewhere" },
+  ],
+} as const;
 
 export const dimensionOrder = Object.keys(CONTEXT_DIMENSIONS) as Dimension[];

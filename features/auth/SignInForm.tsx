@@ -5,6 +5,7 @@ import { Field } from "@/components/ui/Field";
 import { Input } from "@/components/ui/Input";
 import { signInAction } from "@/features/auth/actions";
 import { authContent } from "@/features/auth/content";
+import { OAuthButtons } from "@/features/auth/OAuthButtons";
 
 /** Reuse: Field, Button, Input — see SignUpForm.tsx for the same note. */
 export function SignInForm({ error, referenceId }: { error?: string; referenceId?: string }) {
@@ -19,6 +20,7 @@ export function SignInForm({ error, referenceId }: { error?: string; referenceId
         </Field>
         <Button type="submit">{authContent.signIn.submit}</Button>
       </form>
+      <OAuthButtons />
       {referenceId ? (
         <p className="mt-3 font-mono text-xs text-muted">Reference: {referenceId}</p>
       ) : null}

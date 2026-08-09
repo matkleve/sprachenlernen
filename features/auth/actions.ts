@@ -2,7 +2,7 @@
 
 import { redirect } from "next/navigation";
 
-import { signIn, signUp } from "@/lib/db/auth";
+import { signIn, signUp, signInWithOAuth, type OAuthProvider } from "@/lib/db/auth";
 import { fromAuthError, logHandledError, type HandledError } from "@/lib/errors";
 import { routes } from "@/lib/routes";
 
@@ -56,4 +56,23 @@ export async function signInAction(formData: FormData): Promise<void> {
     );
   }
   redirect(routes.appHome);
+}
+
+export async function signInWithOAuthAction(formData: FormData): Promise<void> {
+  const provider = String(formData.get("provider") ?? "") as OAuthProvider;
+  if (provider !== "google" && provider !== "apple") {
+    redirectWithHandledError(
+      routes.signIn,
+      fromAuthError("Unknown provider.", { operation: "sign you in" }),
+    );
+  }
+
+  const result = await signInWithOAuth(provider);
+  if (result.status === "error") {
+    redirectWithHandledError(
+      routes.signIn,
+      fromAuthError(result.error, { operation: "sign you in" }),
+    );
+  }
+  redirect(result.url);
 }
