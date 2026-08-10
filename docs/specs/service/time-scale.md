@@ -49,7 +49,4 @@ Not a UI machine.
 
 ## Check
 
-`npm test -- method-menu-filter`
-
-Implementation: `lib/time-scale.ts` (PR #14). Until that lands, filtering
-semantics are partially covered by `method-menu-filter` tests.
+`npm test -- time-scale method-menu-filter`

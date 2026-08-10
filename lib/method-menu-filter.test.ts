@@ -9,8 +9,13 @@ const { catalogue } = loadMethodCatalogue();
 describe("parseMenuFilter", () => {
   it("parses minutes and skill", () => {
     const filter = parseMenuFilter({ minutes: "15", skill: "reading" });
-    expect(filter.minutes).toBe(15);
+    expect(filter.timeBudget).toBe(15);
     expect(filter.skill).toBe("reading");
+  });
+
+  it("parses endless time budget", () => {
+    const filter = parseMenuFilter({ minutes: "endless" });
+    expect(filter.timeBudget).toBe("endless");
   });
 });
 
@@ -26,6 +31,12 @@ describe("filterMethods", () => {
   it("filters by energy low", () => {
     const result = filterMethods(catalogue!, parseMenuFilter({ energy: "low" }));
     expect(result.every((m) => m.intensity === 1)).toBe(true);
+  });
+
+  it("does not filter by time when budget is endless", () => {
+    const all = catalogue!.entries.filter((e) => e.type === "method");
+    const result = filterMethods(catalogue!, parseMenuFilter({ minutes: "endless" }));
+    expect(result.length).toBe(all.length);
   });
 
   it("filters by refine hands=none", () => {

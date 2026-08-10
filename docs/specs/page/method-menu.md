@@ -19,7 +19,8 @@ The science still treats physical constraints as a hard filter when stated
 dense at the low end (2–15 min in small jumps) so a five-minute window is easy
 to hit; they spread through hours and cap at **one day**; the final step is
 **Endless**, which drops the time filter entirely so long-window methods appear
-(UC-048). Contract: [`../service/time-scale.md`](../service/time-scale.md).
+(UC-048). Contract: [`../service/time-scale.md`](../service/time-scale.md);
+implementation: [`lib/time-scale.ts`](../../../lib/time-scale.ts).
 
 **Instant filters (UX, 2026-08-10):** skill, energy, and refine chips filter the
 catalogue **in place** — no full page navigation, no scroll jump to the top. The
@@ -65,7 +66,7 @@ URL search parameters remain the bookmark format (`docs/STATE.md` §6).
 
 ## Check
 
-`npm test -- method-menu method-menu-filter`
+`npm test -- method-menu method-menu-filter time-scale`
 
 ## Acceptance criteria
 

@@ -9,12 +9,30 @@
 
 import type { Dimension, EvidenceGrade, Section } from "@/lib/method-catalogue";
 import { CONTEXT_DIMENSIONS } from "@/lib/method-catalogue";
+import { isEndless, type TimeBudget } from "@/lib/time-scale";
+
+/** Human label for a time-budget step — lives here for review and later i18n. */
+export function formatTimeBudget(budget: TimeBudget): string {
+  if (isEndless(budget)) return "Endless";
+  if (budget === 60) return "1 hour";
+  if (budget === 90) return "1½ hours";
+  if (budget === 120) return "2 hours";
+  if (budget === 180) return "3 hours";
+  if (budget === 240) return "4 hours";
+  if (budget === 360) return "6 hours";
+  if (budget === 480) return "8 hours";
+  if (budget === 720) return "12 hours";
+  if (budget === 1440) return "1 day";
+  if (budget >= 60) return `${budget / 60} hours`;
+  return `${budget} min`;
+}
 
 export const copy = {
   title: "Ways of practising",
   intro:
     "Sixty-odd ways people actually learn languages. Three questions narrow the list — how long you have, what you want to train, and how much energy you have. Refine only if you need to.",
   timeLabel: "How much time do you have?",
+  timeScaleHint: "Short steps at the start — drag right for longer, up to a day or endless",
   skillLabel: "What do you want to train?",
   anySkill: "Any skill",
   energyLabel: "How much energy do you have?",

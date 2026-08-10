@@ -2,54 +2,66 @@
 
 import { useCallback, useEffect, useState } from "react";
 
-import { buildMethodsHref, MAX_MINUTES, MIN_MINUTES, type SearchParams } from "@/lib/method-menu-filter";
+import {
+  buildMethodsHref,
+  type SearchParams,
+} from "@/lib/method-menu-filter";
+import {
+  TIME_SCALE_STEP_COUNT,
+  budgetFromStepIndex,
+  stepIndexFromBudget,
+  timeBudgetToParam,
+  type TimeBudget,
+} from "@/lib/time-scale";
 
-import { copy } from "./content";
+import { copy, formatTimeBudget } from "./content";
 
 type TimeSliderProps = {
   searchParams: SearchParams;
-  value?: number;
+  value: TimeBudget;
 };
 
-export function TimeSlider({ searchParams, value = 15 }: TimeSliderProps) {
-  const [minutes, setMinutes] = useState(value);
+export function TimeSlider({ searchParams, value }: TimeSliderProps) {
+  const [step, setStep] = useState(() => stepIndexFromBudget(value));
 
   useEffect(() => {
-    setMinutes(value);
+    setStep(stepIndexFromBudget(value));
   }, [value]);
 
   const apply = useCallback(
-    (next: number) => {
-      const href = buildMethodsHref(searchParams, { minutes: String(next) });
+    (nextStep: number) => {
+      const budget = budgetFromStepIndex(nextStep);
+      const href = buildMethodsHref(searchParams, { minutes: timeBudgetToParam(budget) });
       window.location.assign(href);
     },
     [searchParams],
   );
 
+  const budget = budgetFromStepIndex(step);
+
   return (
     <div className="max-w-md">
       <div className="flex items-baseline justify-between gap-4">
         <output htmlFor="time-slider" className="text-lg font-semibold text-ink">
-          {minutes} {copy.minutes}
+          {formatTimeBudget(budget)}
         </output>
-        <span className="text-sm text-muted">
-          {MIN_MINUTES}–{MAX_MINUTES} {copy.minutes}
-        </span>
+        <span className="text-sm text-muted">{copy.timeScaleHint}</span>
       </div>
       <input
         id="time-slider"
         type="range"
-        min={MIN_MINUTES}
-        max={MAX_MINUTES}
+        min={0}
+        max={TIME_SCALE_STEP_COUNT - 1}
         step={1}
-        value={minutes}
-        onChange={(event) => setMinutes(Number(event.target.value))}
+        value={step}
+        onChange={(event) => setStep(Number(event.target.value))}
         onPointerUp={(event) => apply(Number((event.target as HTMLInputElement).value))}
         className="mt-3 h-2 w-full cursor-pointer appearance-none rounded-pill bg-accent-soft accent-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-canvas"
         aria-label={copy.timeLabel}
-        aria-valuemin={MIN_MINUTES}
-        aria-valuemax={MAX_MINUTES}
-        aria-valuenow={minutes}
+        aria-valuemin={0}
+        aria-valuemax={TIME_SCALE_STEP_COUNT - 1}
+        aria-valuenow={step}
+        aria-valuetext={formatTimeBudget(budget)}
       />
     </div>
   );
