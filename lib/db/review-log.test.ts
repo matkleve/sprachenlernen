@@ -13,7 +13,7 @@ const reviewedAt = new Date("2026-08-09T12:00:00.000Z");
 
 function fakeClient(options: {
   userId: string | null;
-  insert?: { data: { id: string } | null; error: { message: string } | null };
+  insert?: { data: { id: string } | null; error: { message: string; code?: string } | null };
   select?: { data: unknown[] | null; error: { message: string } | null };
 }): SupabaseClient {
   const insert = vi.fn().mockReturnValue({
@@ -126,7 +126,7 @@ describe("appendReview", () => {
 
     const result = await appendReview(validInput, client);
 
-    expect(result).toEqual({ status: "error", error: "Not signed in." });
+    expect(result).toEqual({ status: "error", error: "You are not signed in." });
   });
 
   it("refuses an invalid grade before touching the database", async () => {
@@ -149,7 +149,24 @@ describe("appendReview", () => {
 
     const result = await appendReview(validInput, client);
 
-    expect(result).toEqual({ status: "error", error: "permission denied" });
+    expect(result.status).toBe("error");
+    if (result.status === "error") {
+      expect(result.error).toBe("Could not save your answer.");
+    }
+  });
+
+  it("maps a missing column to schema-mismatch user copy", async () => {
+    const client = fakeClient({
+      userId: "user-1",
+      insert: {
+        data: null,
+        error: { code: "PGRST204", message: "Could not find review_id column" },
+      },
+    });
+
+    const result = await appendReview(validInput, client);
+
+    expect(result).toEqual({ status: "error", error: "Could not save your answer." });
   });
 });
 

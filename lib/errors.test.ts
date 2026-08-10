@@ -5,9 +5,13 @@ import {
   authConfirmationFailed,
   authConfirmationMissing,
   catalogueLoadFailed,
+  databaseSchemaMismatch,
   fromAuthError,
+  fromSupabaseReviewError,
   internalUnexpected,
   logHandledError,
+  reviewFlushFailed,
+  sessionBuildFailed,
   setReferenceIdFactory,
   toUserFacing,
 } from "@/lib/errors";
@@ -70,5 +74,36 @@ describe("SPEC-service-errors", () => {
     expect(error.code).toBe("auth/confirmation-failed");
     expect(error.userMessage).toBe("Could not confirm your email.");
     expect(error.developerMessage).toBe("Email link is invalid or has expired");
+  });
+
+  it("maps schema mismatch from PostgREST codes", () => {
+    const error = fromSupabaseReviewError({
+      code: "PGRST204",
+      message: "Could not find the review_id column",
+    });
+    expect(error.code).toBe("database/schema-mismatch");
+    expect(error.userMessage).toBe("Could not save your answer.");
+  });
+
+  it("builds session and review flush failures with stable codes", () => {
+    const session = sessionBuildFailed("deck missing");
+    expect(session.code).toBe("session/build-failed");
+    expect(session.userMessage).toBe("Could not prepare your review session.");
+
+    const flush = reviewFlushFailed("timeout");
+    expect(flush.code).toBe("review/flush-failed");
+    expect(flush.userMessage).toBe("Your grade could not be saved.");
+
+    const schema = databaseSchemaMismatch("column review_id does not exist");
+    expect(schema.code).toBe("database/schema-mismatch");
+  });
+
+  it("includes requestId in logs when provided", () => {
+    const spy = vi.spyOn(console, "error").mockImplementation(() => {});
+    const error = authConfirmationMissing();
+    logHandledError(error, "req-abc");
+    const payload = JSON.parse(String(spy.mock.calls[0]?.[0]));
+    expect(payload.requestId).toBe("req-abc");
+    spy.mockRestore();
   });
 });

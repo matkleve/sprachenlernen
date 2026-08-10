@@ -20,7 +20,8 @@ destination is built once and every screen inherits it.
   which [ADR-0009](../../adr/0009-three-destinations.md) rejected as "a link in
   a corner, not a fifth of the screen"; the runner, which is a surface pushed
   over a destination rather than one of them; and the marketing half, which has
-  no shell at all.
+  no shell at all. Responsive mobile navigation:
+  [`mobile-nav.md`](mobile-nav.md) (draft — hamburger drawer on narrow viewports).
 
 **Reuse: `Button`.** The sign-out control is a `Button` in a form. The
 destinations are anchors, not buttons — they navigate, so they must be
@@ -41,6 +42,7 @@ sign-out control that had no signed-in navigation to live in.
 | 4 | Taps Words or Progress | That destination loads. Reaching them never passes through the situation filter or the menu (UC-063) |
 | 5 | Signs out | The session ends and they land on `/`, the public landing page |
 | 6 | Opens `/`, `/languages`, `/login` or `/signup` | No shell — those are `(marketing)` |
+| 7 | A destination's content throws | The shell header and navigation remain; only the destination content area shows the error surface ([`errors-boundaries.md`](../service/errors-boundaries.md)) |
 
 ## States
 

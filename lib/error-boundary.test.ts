@@ -6,7 +6,7 @@ import {
   logBoundaryError,
   routeOperation,
 } from "@/lib/error-boundary";
-import { internalUnexpected, setReferenceIdFactory } from "@/lib/errors";
+import { internalUnexpected, sessionBuildFailed, setReferenceIdFactory } from "@/lib/errors";
 
 describe("error-boundary", () => {
   afterEach(() => {
@@ -28,6 +28,15 @@ describe("error-boundary", () => {
       route: "/words/review",
     });
     expect(error).toBe(handled);
+  });
+
+  it("passes through AppError with session/build-failed unchanged", () => {
+    const handled = sessionBuildFailed("reviews query failed");
+    const error = boundaryErrorFromUnknown(new AppError(handled), {
+      route: "/words/review",
+    });
+    expect(error).toBe(handled);
+    expect(error.code).toBe("session/build-failed");
   });
 
   it("names the review operation for uncaught errors on /words/review", () => {

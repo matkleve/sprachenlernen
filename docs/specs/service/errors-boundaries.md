@@ -43,7 +43,7 @@ developer dashboards later.
 | --- | --- | --- | --- |
 | **Global** | `app/global-error.tsx` | Root layout / `html` failures | Full-page recovery; no app shell |
 | **Route** | `app/error.tsx` | Uncaught errors in a route segment's tree | `RouteErrorSurface` inside shell |
-| **Feature** | (future) `error.tsx` under `(app)/words/` etc. | One destination without killing siblings | Scoped callout — not built yet |
+| **Destination** | `app/(app)/{words,methods,progress}/error.tsx` | One destination without killing the shell | `RouteErrorSurface` in content area; header nav survives |
 | **Loader** | feature `reading.ts` | Expected I/O failures | `ErrorCallout` with `HandledError` |
 | **Inline** | forms, review sync | Single action failed | Field error or sync status line |
 
@@ -51,6 +51,10 @@ developer dashboards later.
 **return** `HandledError` — never throw. **Throw** only for true invariants
 (`AppError`) or unrecoverable programmer errors; boundaries map throws to
 `HandledError` at the edge.
+
+**Server actions:** return `{ status: "error", error: userMessage }` for
+recoverable failures the caller can show inline; **throw `AppError`** when the
+route boundary should recover (e.g. `buildSessionAction` catch-all).
 
 ## Behavior
 
@@ -84,14 +88,22 @@ developer dashboards later.
 | `referenceId` | `createReferenceId()` or from `AppError` | yes — `Reference: abc12345` |
 | `digest` | Next.js server error digest | logged in `developerMessage`; shown only when no `referenceId` |
 | `route` | `usePathname()` in client boundary | logged, not shown |
+| `requestId` | `x-request-id` middleware header | logged on server; not shown |
 
 When both exist, log `digest` inside `developerMessage`; UI shows one
 `referenceId` only.
 
+### Request correlation (middleware)
+
+`middleware.ts` generates or forwards `x-request-id` on every response. Server
+`logHandledErrorFromRequest` includes it when logging from RSC or Server Actions.
+Client-only boundary errors may lack `requestId` — acceptable for v1.
+
 ## Acceptance criteria
 
-- [ ] Given `/words/review` throws, when the route boundary renders, then copy
-      names starting the review session — not *"Something went wrong"*.
+- [ ] Given `/words/review` throws, when the destination boundary renders, then
+      copy names starting the review session — not *"Something went wrong"*, and
+      the shell header with three destinations remains visible.
 - [ ] Given any route boundary, when shown, then `userMessage`, optional
       `nextStep`, and `referenceId` appear via `RouteErrorSurface`.
 - [ ] Given `AppError`, when the boundary maps it, then the embedded

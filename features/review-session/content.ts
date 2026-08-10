@@ -14,10 +14,10 @@ export const copy = {
   prompt: "What does it mean?",
   flipHint: "Tap to turn",
   graded: "Saved.",
-  saveError: "Could not save your grade. Try again.",
+  saveError: "Your grade could not be saved.",
   saving: "Saving…",
   loading: "Preparing your session…",
-  loadError: "Could not prepare your session. Try again.",
+  loadError: "Could not prepare your review session.",
   emptySession: "Nothing to review right now.",
   again: "Again",
   hard: "Hard",
@@ -33,6 +33,6 @@ export const copy = {
   languageLabel: (name: string) => name,
   syncing: (count: number) =>
     count === 1 ? "Syncing 1 review…" : `Syncing ${count} reviews…`,
-  syncFailed: "1 review couldn't save",
+  syncFailed: "Your grade could not be saved.",
   syncRetry: "Retry",
 } as const;

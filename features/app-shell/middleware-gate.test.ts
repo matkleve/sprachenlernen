@@ -159,4 +159,9 @@ describe("a signed-in request", () => {
       expect((await get(route)).status, `${route} must be reachable`).toBe(200);
     }
   });
+
+  it("attaches x-request-id to every response", async () => {
+    const response = await get(routes.words);
+    expect(response.headers.get("x-request-id")).toMatch(/^[a-f0-9]{8}$/);
+  });
 });

@@ -2,6 +2,11 @@ import type { SupabaseClient } from "@supabase/supabase-js";
 
 import { getAccount } from "@/lib/db/auth";
 import { createServerSupabaseClient } from "@/lib/db/client";
+import {
+  databaseNotSignedIn,
+  fromSupabaseReviewError,
+  logHandledErrorFromRequest,
+} from "@/lib/errors";
 import { GRADES, type Grade, type Review } from "@/lib/scheduler";
 import { isUuid } from "@/lib/uuid";
 
@@ -103,7 +108,9 @@ export async function appendReview(
   const supabase = await resolveClient(client);
   const account = await getAccount(supabase);
   if (!account) {
-    return { status: "error", error: "Not signed in." };
+    const handled = databaseNotSignedIn({ operation: "save your answer" });
+    void logHandledErrorFromRequest(handled);
+    return { status: "error", error: handled.userMessage };
   }
 
   const payload = {
@@ -123,7 +130,9 @@ export async function appendReview(
     if (input.reviewId && error.code === "23505") {
       return { status: "appended", id: input.reviewId };
     }
-    return { status: "error", error: error.message ?? "Could not save review." };
+    const handled = fromSupabaseReviewError(error, { operation: "save your answer" });
+    void logHandledErrorFromRequest(handled);
+    return { status: "error", error: handled.userMessage };
   }
 
   if (!data) {
@@ -144,7 +153,9 @@ export async function listReviewsForTaskIds(
   const supabase = await resolveClient(client);
   const account = await getAccount(supabase);
   if (!account) {
-    return { status: "error", error: "Not signed in." };
+    const handled = databaseNotSignedIn({ operation: "load your review history" });
+    void logHandledErrorFromRequest(handled);
+    return { status: "error", error: handled.userMessage };
   }
 
   const { data, error } = await supabase
@@ -156,7 +167,9 @@ export async function listReviewsForTaskIds(
     .order("reviewed_at", { ascending: true });
 
   if (error) {
-    return { status: "error", error: error.message };
+    const handled = fromSupabaseReviewError(error, { operation: "load your review history" });
+    void logHandledErrorFromRequest(handled);
+    return { status: "error", error: handled.userMessage };
   }
 
   return { status: "ok", reviews: (data ?? []).map((row) => mapRow(row as DbRow)) };
