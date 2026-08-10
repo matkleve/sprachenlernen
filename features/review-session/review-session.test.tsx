@@ -173,6 +173,17 @@ describe("ReviewSession", () => {
     });
   });
 
+  it("shows inline load error when the server action rejects", async () => {
+    vi.mocked(buildSessionAction).mockRejectedValueOnce(new Error("server action failed"));
+
+    render(<ReviewSession methodName="Spaced repetition session" />);
+
+    await waitFor(() => {
+      expect(screen.getByText(copy.loadError)).toBeDefined();
+    });
+    expect(screen.queryByText("Could not start your review session.")).toBeNull();
+  });
+
   it("ends in the session summary with no grade buttons once the last card is graded", async () => {
     const user = userEvent.setup();
     render(<ReviewSession methodName="Spaced repetition session" />);

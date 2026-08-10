@@ -1,8 +1,11 @@
 "use server";
 
 import { appendReview, listReviewsForTaskIds, toSchedulerReview } from "@/lib/db/review-log";
-import { AppError } from "@/lib/error-boundary";
-import { catalogueLoadFailed, sessionBuildFailed } from "@/lib/errors";
+import {
+  catalogueLoadFailed,
+  logHandledErrorFromRequest,
+  sessionBuildFailed,
+} from "@/lib/errors";
 import { buildSession, type SessionCard } from "@/lib/session-builder";
 import { loadSpanishMeaningRecallDeck } from "@/lib/starter-deck";
 import type { Grade } from "@/lib/scheduler";
@@ -72,6 +75,10 @@ export async function buildSessionAction(): Promise<BuildSessionOutcome> {
     const handled = sessionBuildFailed(
       cause instanceof Error ? cause.message : String(cause),
     );
-    throw new AppError(handled);
+    await logHandledErrorFromRequest(handled);
+    // Return — do not throw. useReviewSession shows this inline; a thrown
+    // AppError does not survive the server-action wire and hits the route
+    // boundary as a generic render/boundary instead.
+    return { status: "error", error: handled.userMessage };
   }
 }

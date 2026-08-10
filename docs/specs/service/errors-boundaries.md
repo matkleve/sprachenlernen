@@ -53,8 +53,9 @@ developer dashboards later.
 `HandledError` at the edge.
 
 **Server actions:** return `{ status: "error", error: userMessage }` for
-recoverable failures the caller can show inline; **throw `AppError`** when the
-route boundary should recover (e.g. `buildSessionAction` catch-all).
+recoverable failures the caller can show inline — including `buildSessionAction`
+catch-all (`useReviewSession` owns that surface). **Throw `AppError`** only when
+no caller can show the failure inline and the route boundary should recover.
 
 ## Behavior
 
