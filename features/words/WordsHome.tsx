@@ -13,8 +13,15 @@ type WordsHomeProps = {
   snapshot: VocabularySnapshot;
 };
 
+const CHART_HEIGHT_PX = 96;
+
 function maxHorizonCount(snapshot: VocabularySnapshot): number {
   return Math.max(1, ...snapshot.horizon.map((bin) => bin.count));
+}
+
+function horizonBarHeight(count: number, max: number): number {
+  if (count === 0) return 2;
+  return Math.max(4, (count / max) * CHART_HEIGHT_PX);
 }
 
 export function WordsHome({ snapshot }: WordsHomeProps) {
@@ -57,23 +64,31 @@ export function WordsHome({ snapshot }: WordsHomeProps) {
       <section className="mt-page-content">
         <h2 className="text-xl font-semibold text-ink">{copy.horizonHeading}</h2>
         <p className="mt-4 max-w-2xl text-base leading-relaxed text-muted">{copy.horizonCaption}</p>
-        <div
-          className="mt-6 flex items-end gap-1 overflow-x-auto pb-2"
-          role="img"
-          aria-label={copy.horizonCaption}
-        >
-          {snapshot.horizon.map((bin) => (
-            <div key={bin.dayOffset} className="flex min-w-6 flex-col items-center gap-2">
+        <div className="mt-6 overflow-x-auto" role="img" aria-label={copy.horizonCaption}>
+          <div
+            className="flex min-w-max items-end gap-1"
+            style={{ height: CHART_HEIGHT_PX }}
+          >
+            {snapshot.horizon.map((bin) => (
               <div
-                className="w-full min-w-4 rounded-t-sm bg-accent"
-                style={{ height: `${Math.max(4, (bin.count / horizonMax) * 96)}px` }}
+                key={bin.dayOffset}
+                className="flex h-full w-4 flex-col justify-end"
                 title={`${copy.horizonDay(bin.dayOffset)}: ${bin.count}`}
-              />
-              <span className="text-[10px] text-muted">
+              >
+                <div
+                  className="w-full rounded-pill bg-accent"
+                  style={{ height: `${horizonBarHeight(bin.count, horizonMax)}px` }}
+                />
+              </div>
+            ))}
+          </div>
+          <div className="mt-2 flex min-w-max gap-1">
+            {snapshot.horizon.map((bin) => (
+              <span key={bin.dayOffset} className="w-4 text-center text-[10px] text-muted">
                 {bin.dayOffset % 5 === 0 ? bin.dayOffset + 1 : ""}
               </span>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </section>
 

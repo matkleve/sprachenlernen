@@ -28,9 +28,11 @@ describe("WordsHome", () => {
   });
 
   it("renders held, shaky, new, horizon and atlas sections", () => {
-    render(<WordsHome snapshot={emptySnapshot} />);
+    const { container } = render(<WordsHome snapshot={emptySnapshot} />);
     expect(screen.getByRole("heading", { name: copy.countsHeading })).toBeDefined();
     expect(screen.getByRole("heading", { name: copy.horizonHeading })).toBeDefined();
     expect(screen.getByRole("heading", { name: copy.atlasHeading })).toBeDefined();
+    const bars = container.querySelectorAll('[role="img"] .rounded-pill');
+    expect(bars.length).toBe(30);
   });
 });
