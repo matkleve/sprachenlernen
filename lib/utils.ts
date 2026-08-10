@@ -40,7 +40,7 @@ const twMerge = extendTailwindMerge({
       ],
       radius: ["card", "pill"],
       shadow: ["soft", "raised"],
-      spacing: ["page-top", "page-bottom", "page-content"],
+      spacing: ["page-top", "page-bottom", "page-content", "shell-float-top", "shell-float-bottom"],
       ease: ["out-soft"],
     },
   },

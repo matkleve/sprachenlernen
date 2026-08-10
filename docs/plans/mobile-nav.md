@@ -15,8 +15,8 @@ contract. Implementation: `MobileNav.tsx`, `destinations.ts`, `DestinationNavIte
 5. Widen to desktop → horizontal nav with icons; no hamburger.
 6. Confirm **no numbers** in nav (UC-063).
 
-## Alternative (v2)
+## v2
 
-If drawer feels slow in daily use, add ADR for **bottom tab bar** on `sm` and
-retire hamburger for destinations (keep drawer for sign-out only). Research
-supports tabs for 3-primary apps; this plan defers that per owner request.
+Superseded by [`mobile-nav-v2.md`](mobile-nav-v2.md) and
+[`../specs/feature/mobile-nav-v2.md`](../specs/feature/mobile-nav-v2.md)
+(floating pill + corner chips).

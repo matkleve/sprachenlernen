@@ -67,6 +67,9 @@
   --spacing-page-top: 4rem;
   --spacing-page-bottom: 6rem;
   --spacing-page-content: 2.5rem;
+  /* Mobile floating shell chrome — back/sign-out top, destination pill bottom */
+  --spacing-shell-float-top: 3.5rem;
+  --spacing-shell-float-bottom: 5rem;
 
   /* Type. next/font on <html> overrides these fallbacks at runtime. */
   --font-dm-sans: "DM Sans", sans-serif;

@@ -3,11 +3,10 @@ import userEvent from "@testing-library/user-event";
 import { usePathname } from "next/navigation";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
-import { copy } from "@/components/ui/route-error-surface-content";
+import { copy as routeErrorCopy } from "@/components/ui/route-error-surface-content";
 
 import { AppShell } from "./AppShell";
 import { DestinationError } from "./DestinationError";
-import { copy as shellCopy } from "./content";
 
 vi.mock("next/navigation", () => ({ usePathname: vi.fn() }));
 
@@ -40,7 +39,7 @@ describe("DestinationError", () => {
     const { reset } = renderDestinationError("/progress");
     const user = userEvent.setup();
 
-    await user.click(screen.getByRole("button", { name: copy.tryAgain }));
+    await user.click(screen.getByRole("button", { name: routeErrorCopy.tryAgain }));
     expect(reset).toHaveBeenCalledOnce();
   });
 });
@@ -59,8 +58,13 @@ describe("destination errors inside the shell", () => {
       </AppShell>,
     );
 
-    const nav = screen.getByRole("navigation", { name: shellCopy.navLabel });
-    expect(nav.querySelectorAll("a[href]")).toHaveLength(3);
+    const destinationHrefs = new Set(
+      screen
+        .getAllByRole("link")
+        .map((link) => link.getAttribute("href"))
+        .filter((href): href is string => href === "/methods" || href === "/words" || href === "/progress"),
+    );
+    expect(destinationHrefs).toEqual(new Set(["/methods", "/words", "/progress"]));
     expect(screen.getByText("Could not start your review session.")).toBeDefined();
   });
 });

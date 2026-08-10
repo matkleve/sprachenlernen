@@ -21,7 +21,7 @@ destination is built once and every screen inherits it.
   a corner, not a fifth of the screen"; the runner, which is a surface pushed
   over a destination rather than one of them; and the marketing half, which has
   no shell at all. Responsive mobile navigation:
-  [`mobile-nav.md`](mobile-nav.md).
+  [`mobile-nav-v2.md`](mobile-nav-v2.md) (`< md` floating chrome; `≥ md` header).
 
 **Reuse: `Button`.** The sign-out control is a `Button` in a form. The
 destinations are anchors, not buttons — they navigate, so they must be

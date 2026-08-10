@@ -1,19 +1,20 @@
 import type { ReactNode } from "react";
 
 import { Button } from "@/components/ui/Button";
+import { cn } from "@/lib/utils";
 
 import { Destinations } from "./Destinations";
-import { MobileNav } from "./MobileNav";
+import { FloatingShellChrome } from "./FloatingShellChrome";
 import { signOutAction } from "./actions";
 import { copy } from "./content";
 
 /**
  * The frame every signed-in screen renders inside. Contract:
- * docs/specs/feature/app-shell.md, docs/specs/feature/mobile-nav.md
+ * docs/specs/feature/app-shell.md, docs/specs/feature/mobile-nav-v2.md
  *
  * A Server Component: it holds nothing. The one fact that changes between
  * renders — which destination you are on — lives in the URL and is read by
- * Destinations and MobileNav, the client leaves.
+ * Destinations and FloatingShellChrome, the client leaves.
  *
  * Nothing here is ever handed a count. UC-063 forbids a number in the
  * navigation in every form, and the enforcement is that the data never arrives
@@ -22,20 +23,27 @@ import { copy } from "./content";
 export function AppShell({ children }: { children: ReactNode }) {
   return (
     <div className="min-h-dvh">
-      <header className="border-b border-line bg-surface">
+      <header className="hidden border-b border-line bg-surface md:block">
         <div className="mx-auto flex max-w-5xl items-center justify-between gap-4 px-6 py-3">
-          <MobileNav />
-          <div className="hidden md:block">
-            <Destinations />
-          </div>
-          <form action={signOutAction} className="hidden md:block">
+          <Destinations />
+          <form action={signOutAction}>
             <Button type="submit" variant="ghost" size="sm">
               {copy.signOut}
             </Button>
           </form>
         </div>
       </header>
-      <main id="main">{children}</main>
+
+      <FloatingShellChrome />
+
+      <main
+        id="main"
+        className={cn(
+          "pt-shell-float-top pb-shell-float-bottom md:pt-0 md:pb-0",
+        )}
+      >
+        {children}
+      </main>
     </div>
   );
 }

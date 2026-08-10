@@ -20,6 +20,7 @@ The one button primitive. Every clickable action in the app uses it — a bespok
 | --- | --- | --- |
 | `primary` | the one main action on a surface | `bg-accent` / `text-accent-ink` |
 | `secondary` | supporting actions | `bg-surface` + `border-line` / `text-ink` |
+| `floating` | floating shell chips (mobile corners) | `bg-surface` + `border-line` / `text-ink` + `shadow-soft` |
 | `ghost` | low-emphasis, dense contexts, toolbars | transparent / `text-ink` |
 | `danger` | destructive, irreversible actions | `bg-danger` / `text-danger-ink` |
 

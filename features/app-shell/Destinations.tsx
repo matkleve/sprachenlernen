@@ -6,7 +6,7 @@ import { copy } from "./content";
 /**
  * Desktop destination links (≥ md). Contract: docs/specs/feature/app-shell.md
  *
- * Mobile uses MobileNav instead — docs/specs/feature/mobile-nav.md.
+ * Desktop header only — docs/specs/feature/mobile-nav-v2.md.
  */
 export function Destinations() {
   return (

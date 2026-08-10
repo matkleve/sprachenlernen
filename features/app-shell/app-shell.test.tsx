@@ -1,7 +1,7 @@
 import { readFileSync, readdirSync } from "node:fs";
 import { join } from "node:path";
 
-import { render, screen } from "@testing-library/react";
+import { render, within } from "@testing-library/react";
 import { redirect } from "next/navigation";
 import { usePathname } from "next/navigation";
 import { beforeEach, describe, expect, it, vi } from "vitest";
@@ -52,10 +52,13 @@ function mockDesktopViewport() {
   );
 }
 
-const destinationLinks = () =>
-  screen
+const destinationLinks = () => {
+  const header = document.querySelector("header");
+  if (!header) throw new Error("expected desktop header");
+  return within(header as HTMLElement)
     .getByRole("navigation", { name: copy.navLabel })
     .querySelectorAll<HTMLAnchorElement>("a[href]");
+};
 
 beforeEach(() => {
   vi.mocked(redirect).mockClear();
@@ -116,7 +119,9 @@ describe("the three destinations", () => {
     // form, including one smuggled into a label.
     showAt("/methods");
 
-    const nav = screen.getByRole("navigation", { name: copy.navLabel });
+    const header = document.querySelector("header");
+    if (!header) throw new Error("expected desktop header");
+    const nav = within(header as HTMLElement).getByRole("navigation", { name: copy.navLabel });
     expect(nav.textContent).not.toMatch(/\d/);
   });
 
@@ -129,7 +134,9 @@ describe("the three destinations", () => {
   it("renders a sign-out control in a form", () => {
     showAt("/methods");
 
-    const button = screen.getByRole("button", { name: copy.signOut });
+    const header = document.querySelector("header");
+    if (!header) throw new Error("expected desktop header");
+    const button = within(header as HTMLElement).getByRole("button", { name: copy.signOut });
     expect(button.closest("form")).not.toBeNull();
   });
 });
