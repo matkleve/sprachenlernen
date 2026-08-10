@@ -2,16 +2,14 @@
 
 <!-- id: SPEC-feature-item-picker -->
 <!-- use-case: UC-001 -->
-<!-- status: active -->
+<!-- status: superseded -->
 
-A list of items beside a detail panel. Selecting a row shows that item's
-details. Serves [UC-001](../../use-cases/UC-001-inspect-one-item-from-a-list.md).
+**Superseded by [`review-session.md`](review-session.md)** and
+[`account-data.md`](account-data.md) (2026-08-10, T-B5). The Grundriss
+`item-picker` demo code is retired; state coherence is demonstrated by the
+review session FSM.
 
-This is the base project's worked example of the **state-coherence contract**
-([WORKFLOW.md](../../WORKFLOW.md) § State coherence). Keep it until the project
-has a real feature that demonstrates the same pattern.
-
-## Scope
+## Historical contract
 
 - **In:** selection, keyboard operation, the coherence guarantee between list
   and detail panel, empty state before a first selection.
@@ -85,4 +83,4 @@ that could update one surface without the other, because neither owns selection.
 
 ## Check
 
-`npm test -- item-picker`
+`npm test -- review-session account-data`

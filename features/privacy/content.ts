@@ -15,4 +15,6 @@ export const privacyContent = {
     "Cookie choice: your accept/essential-only decision in this browser only.",
   ],
   contact: "Questions: use the address in the imprint when it is published.",
+  accountLink:
+    "Signed in? Open Account in the app menu to download or delete your data.",
 } as const;

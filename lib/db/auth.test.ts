@@ -1,7 +1,7 @@
 import type { SupabaseClient } from "@supabase/supabase-js";
 import { describe, expect, it, vi } from "vitest";
 
-import { getAccount, signIn, signOut, signUp } from "@/lib/db/auth";
+import { deleteAccount, getAccount, signIn, signOut, signUp } from "@/lib/db/auth";
 
 /**
  * Unit coverage for the outcome mapping in lib/db/auth.ts — offline, no
@@ -9,6 +9,12 @@ import { getAccount, signIn, signOut, signUp } from "@/lib/db/auth";
  * in lib/db/access-control.test.ts against the live Supabase project, per
  * BACKEND.md §8: that is the test this spec's "Check" line names.
  */
+
+vi.mock("@/lib/db/admin-client", () => ({
+  createServiceRoleSupabaseClient: vi.fn(),
+}));
+
+import { createServiceRoleSupabaseClient } from "@/lib/db/admin-client";
 
 function fakeClient(overrides: {
   signUp?: unknown;
@@ -121,5 +127,33 @@ describe("getAccount", () => {
   it("returns null when signed out, rather than throwing", async () => {
     const client = fakeClient({ getUser: { data: { user: null } } });
     expect(await getAccount(client)).toBeNull();
+  });
+});
+
+describe("deleteAccount", () => {
+  it("deletes the signed-in user and signs out", async () => {
+    const deleteUser = vi.fn().mockResolvedValue({ error: null });
+    vi.mocked(createServiceRoleSupabaseClient).mockReturnValue({
+      auth: { admin: { deleteUser } },
+    } as unknown as ReturnType<typeof createServiceRoleSupabaseClient>);
+
+    const signOutFn = vi.fn().mockResolvedValue({ error: null });
+    const client = fakeClient({
+      getUser: { data: { user } },
+      signOut: { error: null },
+    });
+    (client.auth.signOut as ReturnType<typeof vi.fn>) = signOutFn;
+
+    expect(await deleteAccount(client)).toEqual({ status: "deleted" });
+    expect(deleteUser).toHaveBeenCalledWith("user-1");
+    expect(signOutFn).toHaveBeenCalled();
+  });
+
+  it("errors when signed out", async () => {
+    const client = fakeClient({ getUser: { data: { user: null } } });
+    expect(await deleteAccount(client)).toEqual({
+      status: "error",
+      error: "You must be signed in to delete your account.",
+    });
   });
 });

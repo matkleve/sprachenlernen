@@ -1,6 +1,7 @@
 import type { SupabaseClient } from "@supabase/supabase-js";
 
 import { createServerSupabaseClient } from "@/lib/db/client";
+import { createServiceRoleSupabaseClient } from "@/lib/db/admin-client";
 import { routes } from "@/lib/routes";
 import { getSiteUrl } from "@/lib/site-url";
 
@@ -34,6 +35,10 @@ export type OAuthProvider = "google" | "apple";
 
 export type OAuthOutcome =
   | { status: "redirect"; url: string }
+  | { status: "error"; error: string };
+
+export type DeleteAccountOutcome =
+  | { status: "deleted" }
   | { status: "error"; error: string };
 
 async function resolveClient(client?: SupabaseClient): Promise<SupabaseClient> {
@@ -121,4 +126,25 @@ export async function getAccount(client?: SupabaseClient): Promise<Account | nul
   const supabase = await resolveClient(client);
   const { data } = await supabase.auth.getUser();
   return data.user ? { id: data.user.id, email: data.user.email ?? "" } : null;
+}
+
+/**
+ * Permanently deletes the signed-in account and cascades review_log rows.
+ * Contract: docs/specs/feature/account-data.md (UC-024).
+ */
+export async function deleteAccount(client?: SupabaseClient): Promise<DeleteAccountOutcome> {
+  const supabase = await resolveClient(client);
+  const account = await getAccount(supabase);
+  if (!account) {
+    return { status: "error", error: "You must be signed in to delete your account." };
+  }
+
+  const admin = createServiceRoleSupabaseClient();
+  const { error } = await admin.auth.admin.deleteUser(account.id);
+  if (error) {
+    return { status: "error", error: error.message };
+  }
+
+  await supabase.auth.signOut();
+  return { status: "deleted" };
 }

@@ -17,6 +17,7 @@ export default function PrivacyPage() {
         ))}
       </ul>
       <p className="mt-page-content text-sm text-muted">{privacyContent.contact}</p>
+      <p className="mt-4 text-sm text-muted">{privacyContent.accountLink}</p>
     </div>
   );
 }

@@ -15,7 +15,7 @@ export const routes = {
   signUp: "/signup",
   /** Where Supabase sends users after they confirm email. */
   authCallback: "/auth/callback",
-  /** Public. The Grundriss worked example — stays reachable without an account. */
+  /** Public. Retired — redirects to /languages (T-B5). */
   primitives: "/primitives",
   /** Public. Design-direction comparison — dev tooling, no account. */
   designExplorer: "/dev/design",
@@ -29,6 +29,7 @@ export const routes = {
   words: "/words",
   wordsReview: "/words/review",
   progress: "/progress",
+  account: "/account",
 } as const;
 
 /**

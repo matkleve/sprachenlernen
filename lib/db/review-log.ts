@@ -175,6 +175,33 @@ export async function listReviewsForTaskIds(
   return { status: "ok", reviews: (data ?? []).map((row) => mapRow(row as DbRow)) };
 }
 
+export async function listAllReviews(
+  client?: SupabaseClient,
+): Promise<ListReviewsOutcome> {
+  const supabase = await resolveClient(client);
+  const account = await getAccount(supabase);
+  if (!account) {
+    const handled = databaseNotSignedIn({ operation: "load your review history" });
+    void logHandledErrorFromRequest(handled);
+    return { status: "error", error: handled.userMessage };
+  }
+
+  const { data, error } = await supabase
+    .from("review_log")
+    .select(
+      "id, user_id, installation_id, task_id, grade, reviewed_at, latency_ms, created_at",
+    )
+    .order("reviewed_at", { ascending: true });
+
+  if (error) {
+    const handled = fromSupabaseReviewError(error, { operation: "load your review history" });
+    void logHandledErrorFromRequest(handled);
+    return { status: "error", error: handled.userMessage };
+  }
+
+  return { status: "ok", reviews: (data ?? []).map((row) => mapRow(row as DbRow)) };
+}
+
 // A single-task `listReviewsForTask` lived here until T-B1. Nothing called it
 // once the session builder needed the whole deck's history in one round trip —
 // one task is `listReviewsForTaskIds([id])` — and an exported query with no
