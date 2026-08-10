@@ -18,8 +18,8 @@ const show = (
   searchParams: Record<string, string> = {},
   over: { catalogue?: Catalogue } = {},
 ) =>
-  render(
-    <MethodMenu catalogue={over.catalogue ?? catalogue} searchParams={searchParams} />,
+    render(
+    <MethodMenu catalogue={over.catalogue ?? catalogue} initialSearchParams={searchParams} />,
   );
 
 const cardTitles = () =>
@@ -105,14 +105,14 @@ describe("commitments and a11y", () => {
 });
 
 describe("server component boundary", () => {
-  const files = [
-    "features/method-menu/MethodMenu.tsx",
-    "features/method-menu/MethodCard.tsx",
-    "features/method-menu/MethodFilter.tsx",
-  ];
-  it('has no "use client" on the menu shell', () => {
-    for (const file of files) {
-      expect(readFileSync(join(process.cwd(), file), "utf8")).not.toContain("use client");
-    }
+  it('keeps the route thin — page.tsx has no "use client"', () => {
+    const page = readFileSync(join(process.cwd(), "app/(app)/methods/page.tsx"), "utf8");
+    expect(page).not.toContain("use client");
+  });
+
+  it("uses MethodMenu as the client island for instant filtering", () => {
+    const menu = readFileSync(join(process.cwd(), "features/method-menu/MethodMenu.tsx"), "utf8");
+    expect(menu).toContain("use client");
+    expect(menu).toContain("useMenuFilter");
   });
 });

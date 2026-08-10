@@ -28,7 +28,7 @@ export default async function MethodsPage({
       catalogue={catalogue}
       presets={presets}
       loadError={loadError}
-      searchParams={params}
+      initialSearchParams={params}
     />
   );
 }

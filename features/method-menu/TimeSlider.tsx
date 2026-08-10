@@ -3,38 +3,31 @@
 import { useCallback, useEffect, useState } from "react";
 
 import {
-  buildMethodsHref,
-  type SearchParams,
-} from "@/lib/method-menu-filter";
-import {
   TIME_SCALE_STEP_COUNT,
   budgetFromStepIndex,
   stepIndexFromBudget,
-  timeBudgetToParam,
   type TimeBudget,
 } from "@/lib/time-scale";
 
 import { copy, formatTimeBudget } from "./content";
 
 type TimeSliderProps = {
-  searchParams: SearchParams;
   value: TimeBudget;
+  onChange: (budget: TimeBudget) => void;
 };
 
-export function TimeSlider({ searchParams, value }: TimeSliderProps) {
+export function TimeSlider({ value, onChange }: TimeSliderProps) {
   const [step, setStep] = useState(() => stepIndexFromBudget(value));
 
   useEffect(() => {
     setStep(stepIndexFromBudget(value));
   }, [value]);
 
-  const apply = useCallback(
+  const commit = useCallback(
     (nextStep: number) => {
-      const budget = budgetFromStepIndex(nextStep);
-      const href = buildMethodsHref(searchParams, { minutes: timeBudgetToParam(budget) });
-      window.location.assign(href);
+      onChange(budgetFromStepIndex(nextStep));
     },
-    [searchParams],
+    [onChange],
   );
 
   const budget = budgetFromStepIndex(step);
@@ -55,7 +48,12 @@ export function TimeSlider({ searchParams, value }: TimeSliderProps) {
         step={1}
         value={step}
         onChange={(event) => setStep(Number(event.target.value))}
-        onPointerUp={(event) => apply(Number((event.target as HTMLInputElement).value))}
+        onPointerUp={(event) => commit(Number((event.target as HTMLInputElement).value))}
+        onKeyUp={(event) => {
+          if (event.key === "Enter" || event.key === " ") {
+            commit(Number((event.target as HTMLInputElement).value));
+          }
+        }}
         className="mt-3 h-2 w-full cursor-pointer appearance-none rounded-pill bg-accent-soft accent-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-canvas"
         aria-label={copy.timeLabel}
         aria-valuemin={0}

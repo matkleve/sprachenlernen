@@ -110,7 +110,29 @@ export const filterMethods = (catalogue: Catalogue, filter: MenuFilter): MethodE
   return methods;
 };
 
+export const METHODS_PATH = "/methods";
+
 const PARAM_KEYS = ["minutes", "skill", "energy", ...REFINE_KEYS] as const;
+
+/** Merge filter updates into search params without navigation — for client-side filtering. */
+export const applySearchParamUpdates = (
+  current: SearchParams,
+  updates: Record<string, string | undefined>,
+): SearchParams => {
+  const next: Record<string, string | undefined> = {};
+
+  for (const key of PARAM_KEYS) {
+    const value = first(current[key]);
+    if (value) next[key] = value;
+  }
+
+  for (const [key, value] of Object.entries(updates)) {
+    if (value === undefined) delete next[key];
+    else next[key] = value;
+  }
+
+  return next;
+};
 
 export const menuQueryString = (params: SearchParams): string => {
   const parts: string[] = [];
@@ -125,22 +147,12 @@ export const buildMethodsHref = (
   current: SearchParams,
   updates: Record<string, string | undefined>,
 ): string => {
-  const next: Record<string, string | undefined> = {};
-
-  for (const key of PARAM_KEYS) {
-    const value = first(current[key]);
-    if (value) next[key] = value;
-  }
-
-  for (const [key, value] of Object.entries(updates)) {
-    if (value === undefined) delete next[key];
-    else next[key] = value;
-  }
+  const next = applySearchParamUpdates(current, updates);
 
   const query = Object.entries(next)
-    .filter(([, value]) => value !== undefined)
-    .map(([key, value]) => `${key}=${encodeURIComponent(value!)}`)
+    .filter((entry): entry is [string, string] => typeof entry[1] === "string")
+    .map(([key, value]) => `${key}=${encodeURIComponent(value)}`)
     .join("&");
 
-  return query ? `/methods?${query}` : "/methods";
+  return query ? `${METHODS_PATH}?${query}` : METHODS_PATH;
 };

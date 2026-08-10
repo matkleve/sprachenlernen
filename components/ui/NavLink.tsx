@@ -12,7 +12,7 @@ import { cn } from "@/lib/utils";
  * and the screen reader's link list all have to work — none of which a
  * `<button onClick={router.push}>` gives you.
  */
-const navLink = cva(
+export const navLinkVariants = cva(
   [
     // `relative` anchors the hit-area pseudo-element below. Without it the
     // expanded target would resolve against the nearest positioned ancestor,
@@ -43,7 +43,7 @@ const navLink = cva(
 );
 
 export type NavLinkProps = ComponentPropsWithoutRef<typeof Link> &
-  VariantProps<typeof navLink>;
+  VariantProps<typeof navLinkVariants>;
 
 export function NavLink({ current, className, ...props }: NavLinkProps) {
   return (
@@ -51,7 +51,7 @@ export function NavLink({ current, className, ...props }: NavLinkProps) {
       // One value drives both the look and the announcement, so a link cannot
       // read as current to the eye and not to a screen reader.
       aria-current={current ? "page" : undefined}
-      className={cn(navLink({ current }), className)}
+      className={cn(navLinkVariants({ current }), className)}
       {...props}
     />
   );
