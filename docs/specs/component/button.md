@@ -5,14 +5,18 @@
 <!-- status: active -->
 
 The one button primitive. Every clickable action in the app uses it — a bespoke
-`<button>` with hand-written classes is a bug, not a shortcut.
+`<button>` with hand-written classes is a bug, not a shortcut. Also serves
+[UC-068](../../use-cases/UC-068-know-my-tap-was-received.md) via the `pending`
+action state ([`interaction-feedback.md`](../feature/interaction-feedback.md)).
 
 ## Scope
 
-- **In:** visual variants, sizes, the five interaction states, rendering as a
-  different element via `asChild`-style composition, disabled handling.
-- **Out:** loading spinners, icon-only sizing rules, split buttons, anything that
-  needs its own spec. Add those as variants here rather than as new components.
+- **In:** visual variants, sizes, the five interaction states, a `pending` action
+  state ([`interaction-feedback.md`](../feature/interaction-feedback.md)),
+  rendering as a different element via `asChild`-style composition, disabled
+  handling.
+- **Out:** icon-only sizing rules, split buttons, anything that needs its own
+  spec. Add those as variants here rather than as new components.
 
 ## Variants
 
@@ -52,6 +56,7 @@ Interaction states for the canonical table.
 | active | returns to `translate-y-0`, scales to `0.98` |
 | focus-visible | `ring-2 ring-accent ring-offset-2` |
 | disabled | `opacity-50`, `pointer-events-none`, no lift |
+| pending | muted fill, `aria-busy`, no second fire; optional spinner on `primary`/`danger` |
 
 Hover uses a **defined darker token**, never `brightness()` or opacity: on
 saturated fills a filter is barely visible, and on dark surfaces it moves the
@@ -82,6 +87,8 @@ wrong way.
 - [ ] Each size shall render a **different** visual height — no rule may
       collapse them into one box.
 - [ ] Every variant/size combination has no axe-core violations.
+- [ ] Given `pending={true}`, when clicked, then `onClick` is not called and
+      `aria-busy` is true.
 
 ## Check
 

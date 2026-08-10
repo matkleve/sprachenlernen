@@ -73,6 +73,20 @@ interface feels broken even when it works.
 Reference implementation: [`components/ui/Button.tsx`](../components/ui/Button.tsx).
 New interactive elements reuse that pattern — they do not reinvent it.
 
+### Action states (pending) **[D — 2026-08-10]**
+
+When an action continues after the finger lifts — server action, form submit,
+slow navigation — the control stays visually engaged until it settles:
+
+| State | When | What happens |
+| --- | --- | --- |
+| **pending** | async in flight | muted look, `aria-busy`, duplicate taps ignored; optional spinner on primary actions |
+| **settled** | success or error | returns to idle; errors use the error surface, not the button |
+
+Instant client-side actions (filter chips, grade advance) use **press only** —
+their feedback is the UI updating. Contract:
+[`docs/specs/feature/interaction-feedback.md`](specs/feature/interaction-feedback.md).
+
 ### The one exemption **[D — 2026-08-09]**
 
 **A native form control may omit `hover` and `active`.** `<select>` and `<input>`
