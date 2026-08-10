@@ -75,6 +75,21 @@ Prefer, in order: derive it → lift it → put it in a URL param → context. R
 for a global store only when you have a concrete case the four cheaper options
 cannot serve, and record it as an [ADR](adr/).
 
+### Client-first when the data is small and static
+
+If a screen's data fits in memory and changes only on deploy (the method
+catalogue, language profiles, design tokens), **filter and sort on the client**.
+Do not navigate — and do not re-run the server component — on every chip click.
+
+1. Load once on the server, pass as props to a client island.
+2. Keep filter state in React; derive the visible list during render.
+3. Sync the URL with `history.replaceState` so links stay shareable and
+   back/forward work, without scroll reset or an RSC round trip.
+4. Reserve server fetches and databases for data that is per-user, large, or
+   must not live in the bundle.
+
+The method menu is the reference implementation (`features/method-menu/`).
+
 ---
 
 ## Adding a backend later

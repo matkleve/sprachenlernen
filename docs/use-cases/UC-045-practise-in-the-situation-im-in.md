@@ -1,7 +1,7 @@
 # UC-045 — Find a way to practise that fits right now
 
 <!-- id: UC-045 -->
-<!-- specs: SPEC-page-method-menu, SPEC-component-chip -->
+<!-- specs: SPEC-page-method-menu, SPEC-service-time-scale, SPEC-component-chip -->
 
 **Who:** someone with a specific window — ten minutes on the sofa, half an hour
 before bed, a tired commute.
@@ -18,12 +18,16 @@ and [`../study/12-method-cards.md`](../study/12-method-cards.md).
 
 The menu shows everything, or it shows presets like "kitchen" that learners do
 not recognise as their situation. Too many dimensions at once; people give up
-and tap the first thing.
+and tap the first thing. Filter chips that reload the page and jump scroll back
+to the top make browsing worse, not better.
 
 ## Success looks like
 
-- **Three questions first:** how much time (slider), what skill to train, how
-  much energy — these narrow most of the catalogue.
+- **Three questions first:** how much time (stepped slider — short steps at the
+  start, up to one day, then **Endless** for an open window), what skill to train,
+  how much energy — these narrow most of the catalogue.
+- **Filters feel instant:** tapping skill, energy, or refine updates the list
+  in place — no full reload, no scroll jump. Only choosing a method navigates away.
 - **Refine only when needed:** hands-free, silent, eyes elsewhere — not eight
   dimensions on the front door.
 - Methods that do not fit are **absent**, not greyed out.
@@ -39,3 +43,12 @@ detecting context automatically.
 
 Owner feedback: context presets were unclear. Replaced with time + skill +
 energy as primary filters; study/21's full context model moves to optional refine.
+
+**Time scale (UX, 2026-08-09):** linear 2–60 minutes made short windows fiddly
+and long afternoons impossible. The slider now steps slowly through the first
+quarter-hour, ramps through hours, peaks at **one day**, and ends at **Endless**
+(no time ceiling on the catalogue).
+
+**Instant filters (UX, 2026-08-10):** filter chips must not navigate. The
+catalogue is static JSON already loaded; filtering is client-side with URL sync
+only (`docs/ARCHITECTURE.md`).
