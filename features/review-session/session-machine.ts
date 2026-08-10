@@ -13,7 +13,7 @@ export type SessionPhase =
 const TRANSITIONS: Record<SessionPhase, readonly SessionPhase[]> = {
   preparing: ["prompting", "complete"],
   prompting: ["revealed"],
-  revealed: ["persisting"],
+  revealed: ["advancing"],
   persisting: ["revealed", "advancing"],
   advancing: ["prompting", "complete"],
   complete: [],
@@ -37,5 +37,5 @@ export function canGrade(phase: SessionPhase): boolean {
 }
 
 export function showsBack(phase: SessionPhase): boolean {
-  return phase === "revealed" || phase === "persisting";
+  return phase === "revealed";
 }

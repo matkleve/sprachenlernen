@@ -29,4 +29,8 @@ export const copy = {
     count === 1 ? "You reviewed 1 card." : `You reviewed ${count} cards.`,
   startReview: "Start review",
   languageLabel: (name: string) => name,
+  syncing: (count: number) =>
+    count === 1 ? "Syncing 1 review…" : `Syncing ${count} reviews…`,
+  syncFailed: "1 review couldn't save",
+  syncRetry: "Retry",
 } as const;

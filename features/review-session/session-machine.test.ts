@@ -14,7 +14,7 @@ describe("session-machine", () => {
     expect(nextPhase("complete", "prompting")).toBe("complete");
   });
 
-  it("follows the happy path", () => {
+  it("follows the happy path without a learner-visible persisting phase", () => {
     let phase = nextPhase("preparing", "prompting");
     expect(phase).toBe("prompting");
     expect(canFlip(phase)).toBe(true);
@@ -24,16 +24,14 @@ describe("session-machine", () => {
     expect(canGrade(phase)).toBe(true);
     expect(showsBack(phase)).toBe(true);
 
-    phase = nextPhase(phase, "persisting");
-    expect(canGrade(phase)).toBe(false);
-
     phase = nextPhase(phase, "advancing");
     phase = nextPhase(phase, "prompting");
     expect(phase).toBe("prompting");
   });
 
-  it("returns to revealed on persistence error", () => {
+  it("keeps persisting as a worker-only transition", () => {
     expect(nextPhase("persisting", "revealed")).toBe("revealed");
+    expect(nextPhase("persisting", "advancing")).toBe("advancing");
   });
 
   it("rejects illegal transitions", () => {

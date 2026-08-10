@@ -1,12 +1,17 @@
 import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { describe, expect, it, vi } from "vitest";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 
 import {
   appendReviewAction,
   buildSessionAction,
 } from "@/features/review-session/actions";
 import { ReviewSession } from "@/features/review-session/ReviewSession";
+import {
+  createInMemoryReviewQueueStorage,
+  createReviewWriteQueue,
+} from "@/lib/db/review-write-queue";
+import { setReviewQueueForTests } from "@/features/review-session/review-queue";
 import { copy } from "@/features/review-session/content";
 
 vi.mock("@/features/review-session/actions", () => ({
@@ -43,7 +48,33 @@ vi.mock("@/lib/installation-id", () => ({
   getInstallationId: vi.fn().mockReturnValue("11111111-1111-4111-8111-111111111111"),
 }));
 
+function installTestQueue() {
+  const queue = createReviewWriteQueue({
+    storage: createInMemoryReviewQueueStorage(),
+    flush: (input) =>
+      appendReviewAction({
+        reviewId: input.reviewId,
+        taskId: input.taskId,
+        grade: input.grade,
+        reviewedAtMs: input.reviewedAtMs,
+        latencyMs: input.latencyMs,
+        installationId: input.installationId,
+      }).then((result) =>
+        result.status === "appended"
+          ? { status: "appended" as const }
+          : { status: "error" as const, error: result.error },
+      ),
+  });
+  setReviewQueueForTests(queue);
+  return queue;
+}
+
 describe("ReviewSession", () => {
+  beforeEach(() => {
+    vi.clearAllMocks();
+    installTestQueue();
+  });
+
   it("shows the first card, flips on tap, then persists a grade", async () => {
     const user = userEvent.setup();
     render(<ReviewSession methodName="Spaced repetition session" />);
@@ -63,17 +94,40 @@ describe("ReviewSession", () => {
 
     await user.click(screen.getByRole("button", { name: copy.good }));
 
-    expect(appendReviewAction).toHaveBeenCalledWith(
-      expect.objectContaining({
-        taskId: "es:de:meaning-recall",
-        grade: "good",
-        installationId: "11111111-1111-4111-8111-111111111111",
-        latencyMs: expect.any(Number),
-      }),
-    );
+    await waitFor(() => {
+      expect(appendReviewAction).toHaveBeenCalledWith(
+        expect.objectContaining({
+          taskId: "es:de:meaning-recall",
+          grade: "good",
+          installationId: "11111111-1111-4111-8111-111111111111",
+          latencyMs: expect.any(Number),
+          reviewId: expect.any(String),
+        }),
+      );
+    });
   });
 
-  it("shows an error when persistence fails", async () => {
+  it("advances before persistence completes and shows retry on failure", async () => {
+    let resolveAppend: (value: { status: "appended"; id: string }) => void;
+    vi.mocked(appendReviewAction).mockImplementation(
+      () =>
+        new Promise((resolve) => {
+          resolveAppend = resolve;
+        }),
+    );
+
+    const user = userEvent.setup();
+    render(<ReviewSession methodName="Spaced repetition session" />);
+
+    await waitFor(() => expect(screen.getByText("de")).toBeDefined());
+    await user.click(screen.getByRole("button", { name: copy.flipHint }));
+    await user.click(screen.getByRole("button", { name: copy.good }));
+
+    await waitFor(() => expect(screen.getByText("que")).toBeDefined());
+    resolveAppend!({ status: "appended", id: "row-1" });
+  });
+
+  it("shows sync retry when persistence fails after advancing", async () => {
     vi.mocked(appendReviewAction).mockResolvedValueOnce({
       status: "error",
       error: "permission denied",
@@ -82,16 +136,12 @@ describe("ReviewSession", () => {
     const user = userEvent.setup();
     render(<ReviewSession methodName="Spaced repetition session" />);
 
-    await waitFor(() => {
-      expect(screen.getByText("de")).toBeDefined();
-    });
-
+    await waitFor(() => expect(screen.getByText("de")).toBeDefined());
     await user.click(screen.getByRole("button", { name: copy.flipHint }));
     await user.click(screen.getByRole("button", { name: copy.good }));
 
-    await waitFor(() => {
-      expect(screen.getByText(copy.saveError)).toBeDefined();
-    });
+    await waitFor(() => expect(screen.getByText(copy.syncFailed)).toBeDefined());
+    expect(screen.getByText("que")).toBeDefined();
   });
 
   it("shows a load error when the queue cannot be built", async () => {

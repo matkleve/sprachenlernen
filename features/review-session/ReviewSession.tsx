@@ -1,7 +1,6 @@
-"use client";
-
 import Link from "next/link";
 
+import { Button } from "@/components/ui/Button";
 import { copy } from "@/features/review-session/content";
 import { ReviewCard } from "@/features/review-session/ReviewCard";
 import { SessionComplete } from "@/features/review-session/SessionComplete";
@@ -13,7 +12,7 @@ type ReviewSessionProps = {
 };
 
 function showsActiveCard(phase: string): boolean {
-  return phase === "prompting" || phase === "persisting" || phase === "revealed";
+  return phase === "prompting" || phase === "revealed";
 }
 
 export function ReviewSession({ methodName }: ReviewSessionProps) {
@@ -23,10 +22,13 @@ export function ReviewSession({ methodName }: ReviewSessionProps) {
     phase,
     currentCard,
     languageName,
-    persistError,
+    syncError,
+    pendingCount,
+    showSyncStatus,
     gradedCount,
     flip,
     grade,
+    retrySync,
   } = useReviewSession();
 
   if (status === "loading") {
@@ -54,16 +56,32 @@ export function ReviewSession({ methodName }: ReviewSessionProps) {
     <div className="mt-page-content">
       <p className="text-sm text-muted">{methodName}</p>
 
+      {showSyncStatus && pendingCount > 0 ? (
+        <p className="mt-2 text-sm text-muted" aria-live="polite">
+          {copy.syncing(pendingCount)}
+        </p>
+      ) : null}
+
+      {syncError ? (
+        <div className="mt-2 flex flex-wrap items-center gap-3">
+          <p className="text-sm text-danger" aria-live="polite">
+            {copy.syncFailed}
+          </p>
+          <Button type="button" variant="secondary" size="sm" onClick={retrySync}>
+            {copy.syncRetry}
+          </Button>
+        </div>
+      ) : null}
+
       {phase === "complete" ? (
-        <SessionComplete gradedCount={gradedCount} />
+        <SessionComplete gradedCount={gradedCount} pendingCount={pendingCount} />
       ) : showsActiveCard(phase) && currentCard ? (
         <ReviewCard
           card={currentCard}
           languageName={languageName}
           phase={phase}
-          persistError={persistError}
           onFlip={flip}
-          onGrade={(value) => void grade(value)}
+          onGrade={grade}
         />
       ) : null}
     </div>

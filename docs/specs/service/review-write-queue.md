@@ -2,7 +2,7 @@
 
 <!-- id: SPEC-service-review-write-queue -->
 <!-- use-case: UC-018 -->
-<!-- status: draft -->
+<!-- status: active -->
 
 When a learner taps a grade, the app must **not** wait on the network. The grade
 is recorded **locally first**, the next card appears immediately, and the server
@@ -90,12 +90,9 @@ See [review-write-queue.acceptance-criteria.md](review-write-queue.acceptance-cr
 
 ## Check
 
-`npm test -- review-log installation-id` — adapter and installation id. The write
-queue ([`review-write-queue.md`](review-write-queue.md)) is draft; session wiring
-is covered by `npm test -- review-session`.
+`npm test -- review-write-queue review-session session-machine review-log`
 
 ## Open questions
 
-**⚠ SPEC GAP: duplicate `review_id` on server.** Needs a unique constraint or
-upsert policy before Phase B ships — otherwise a retry creates two rows. Proposed:
-`review_id` column, unique per `user_id`, insert-on-conflict-do-nothing.
+**⚠ SPEC GAP: duplicate `review_id` on server.** Closed by migration
+`20260810120000_review_log_review_id.sql` — unique per `user_id`.

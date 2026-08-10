@@ -3,9 +3,9 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 
 import {
-  appendReviewAction,
   buildSessionAction,
 } from "@/features/review-session/actions";
+import { getReviewQueue } from "@/features/review-session/review-queue";
 import {
   canFlip,
   canGrade,
@@ -25,11 +25,16 @@ export type UseReviewSessionResult = {
   queue: SessionCard[];
   currentCard: SessionCard | null;
   languageName: string | null;
-  persistError: string | null;
+  syncError: string | null;
+  pendingCount: number;
+  showSyncStatus: boolean;
   gradedCount: number;
   flip: () => void;
-  grade: (value: Grade) => Promise<void>;
+  grade: (value: Grade) => void;
+  retrySync: () => void;
 };
+
+const SYNC_STATUS_DELAY_MS = 500;
 
 export function useReviewSession(): UseReviewSessionResult {
   const [status, setStatus] = useState<ReviewSessionStatus>("loading");
@@ -38,7 +43,9 @@ export function useReviewSession(): UseReviewSessionResult {
   const [queue, setQueue] = useState<SessionCard[]>([]);
   const [languageName, setLanguageName] = useState<string | null>(null);
   const [sessionIndex, setSessionIndex] = useState(0);
-  const [persistError, setPersistError] = useState<string | null>(null);
+  const [syncError, setSyncError] = useState<string | null>(null);
+  const [pendingCount, setPendingCount] = useState(0);
+  const [showSyncStatus, setShowSyncStatus] = useState(false);
   const [gradedCount, setGradedCount] = useState(0);
   const shownAtRef = useRef(Date.now());
   const gradingRef = useRef(false);
@@ -73,6 +80,24 @@ export function useReviewSession(): UseReviewSessionResult {
     };
   }, []);
 
+  useEffect(() => {
+    const queueClient = getReviewQueue();
+    return queueClient.subscribe((state) => {
+      setPendingCount(state.pending);
+      setSyncError(state.failed > 0 ? state.lastError : null);
+    });
+  }, []);
+
+  useEffect(() => {
+    if (pendingCount === 0) {
+      setShowSyncStatus(false);
+      return;
+    }
+
+    const timer = setTimeout(() => setShowSyncStatus(true), SYNC_STATUS_DELAY_MS);
+    return () => clearTimeout(timer);
+  }, [pendingCount]);
+
   const currentCard = queue[sessionIndex] ?? null;
 
   const flip = useCallback(() => {
@@ -81,28 +106,20 @@ export function useReviewSession(): UseReviewSessionResult {
   }, [phase]);
 
   const grade = useCallback(
-    async (value: Grade) => {
+    (value: Grade) => {
       if (!currentCard || !canGrade(phase) || gradingRef.current) return;
 
       gradingRef.current = true;
-      setPersistError(null);
-      setPhase((current) => nextPhase(current, "persisting"));
-
       const reviewedAtMs = Date.now();
-      const result = await appendReviewAction({
+
+      void getReviewQueue().enqueue({
+        reviewId: crypto.randomUUID(),
         taskId: currentCard.taskId,
         grade: value,
         reviewedAtMs,
         latencyMs: reviewedAtMs - shownAtRef.current,
         installationId: getInstallationId(),
       });
-
-      if (result.status === "error") {
-        gradingRef.current = false;
-        setPersistError(result.error);
-        setPhase((current) => nextPhase(current, "revealed"));
-        return;
-      }
 
       setGradedCount((count) => count + 1);
       gradingRef.current = false;
@@ -120,6 +137,10 @@ export function useReviewSession(): UseReviewSessionResult {
     [currentCard, phase, queue.length, sessionIndex],
   );
 
+  const retrySync = useCallback(() => {
+    void getReviewQueue().retryFailed();
+  }, []);
+
   return {
     status,
     loadError,
@@ -127,9 +148,12 @@ export function useReviewSession(): UseReviewSessionResult {
     queue,
     currentCard,
     languageName,
-    persistError,
+    syncError,
+    pendingCount,
+    showSyncStatus,
     gradedCount,
     flip,
     grade,
+    retrySync,
   };
 }

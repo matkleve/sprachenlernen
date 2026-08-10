@@ -29,6 +29,8 @@ export type AppendReviewInput = {
   reviewedAt: Date;
   latencyMs: number;
   installationId: string;
+  /** Client idempotency key from the write queue. */
+  reviewId?: string;
 };
 
 export type AppendReviewOutcome =
@@ -50,6 +52,9 @@ function validateAppendInput(input: AppendReviewInput): string | null {
     return "latency_ms must be a non-negative number.";
   }
   if (!isUuid(input.installationId)) return "installation_id must be a UUID.";
+  if (input.reviewId !== undefined && !isUuid(input.reviewId)) {
+    return "review_id must be a UUID.";
+  }
   if (Number.isNaN(input.reviewedAt.getTime())) return "reviewed_at is invalid.";
   return null;
 }
@@ -101,21 +106,28 @@ export async function appendReview(
     return { status: "error", error: "Not signed in." };
   }
 
-  const { data, error } = await supabase
-    .from("review_log")
-    .insert({
-      user_id: account.id,
-      installation_id: input.installationId,
-      task_id: input.taskId,
-      grade: input.grade,
-      reviewed_at: input.reviewedAt.toISOString(),
-      latency_ms: Math.round(input.latencyMs),
-    })
-    .select("id")
-    .single();
+  const payload = {
+    user_id: account.id,
+    installation_id: input.installationId,
+    task_id: input.taskId,
+    grade: input.grade,
+    reviewed_at: input.reviewedAt.toISOString(),
+    latency_ms: Math.round(input.latencyMs),
+    ...(input.reviewId ? { review_id: input.reviewId } : {}),
+  };
 
-  if (error || !data) {
-    return { status: "error", error: error?.message ?? "Could not save review." };
+  const { data, error } = await supabase.from("review_log").insert(payload).select("id").single();
+
+  if (error) {
+    // A retry after a successful first insert must not surface as failure.
+    if (input.reviewId && error.code === "23505") {
+      return { status: "appended", id: input.reviewId };
+    }
+    return { status: "error", error: error.message ?? "Could not save review." };
+  }
+
+  if (!data) {
+    return { status: "error", error: "Could not save review." };
   }
 
   return { status: "appended", id: data.id };

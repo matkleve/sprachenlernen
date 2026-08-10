@@ -12,6 +12,7 @@ import type { Grade } from "@/lib/scheduler";
  */
 
 export type AppendReviewActionInput = {
+  reviewId: string;
   taskId: string;
   grade: Grade;
   reviewedAtMs: number;
@@ -21,6 +22,7 @@ export type AppendReviewActionInput = {
 
 export async function appendReviewAction(input: AppendReviewActionInput) {
   return appendReview({
+    reviewId: input.reviewId,
     taskId: input.taskId,
     grade: input.grade,
     reviewedAt: new Date(input.reviewedAtMs),

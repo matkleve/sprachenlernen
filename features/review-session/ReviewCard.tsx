@@ -13,7 +13,6 @@ type ReviewCardProps = {
   card: SessionCard;
   languageName: string | null;
   phase: Parameters<typeof canGrade>[0];
-  persistError: string | null;
   onFlip: () => void;
   onGrade: (grade: Grade) => void;
 };
@@ -27,13 +26,11 @@ export function ReviewCard({
   card,
   languageName,
   phase,
-  persistError,
   onFlip,
   onGrade,
 }: ReviewCardProps) {
   const flipEnabled = canFlip(phase);
   const gradesEnabled = canGrade(phase);
-  const isSaving = phase === "persisting";
   const revealBack = showsBack(phase);
 
   return (
@@ -45,7 +42,7 @@ export function ReviewCard({
       <button
         type="button"
         onClick={onFlip}
-        disabled={!flipEnabled || isSaving}
+        disabled={!flipEnabled}
         aria-expanded={revealBack}
         aria-label={flipEnabled ? copy.flipHint : undefined}
         className={cn(
@@ -98,7 +95,6 @@ export function ReviewCard({
                 variant={gradeVariant(grade)}
                 size="sm"
                 className={cn("w-full", grade === "again" && "text-muted")}
-                disabled={isSaving}
                 onClick={() => onGrade(grade)}
               >
                 {copy[grade]}
@@ -106,17 +102,6 @@ export function ReviewCard({
             ))}
           </div>
         </>
-      )}
-
-      {isSaving && (
-        <p className="mt-6 text-sm text-muted" aria-live="polite">
-          {copy.saving}
-        </p>
-      )}
-      {persistError && (
-        <p className="mt-6 text-sm text-danger" aria-live="polite">
-          {copy.saveError}
-        </p>
       )}
     </div>
   );

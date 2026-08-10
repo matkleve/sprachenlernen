@@ -97,6 +97,30 @@ describe("appendReview", () => {
     });
   });
 
+  it("treats a duplicate review_id as appended", async () => {
+    const insert = vi.fn().mockReturnValue({
+      select: vi.fn().mockReturnValue({
+        single: vi.fn().mockResolvedValue({
+          data: null,
+          error: { code: "23505", message: "duplicate key value" },
+        }),
+      }),
+    });
+    const client = {
+      auth: {
+        getUser: vi.fn().mockResolvedValue({
+          data: { user: { id: "user-1", email: "a@example.com" } },
+        }),
+      },
+      from: vi.fn().mockReturnValue({ insert }),
+    } as unknown as SupabaseClient;
+
+    const reviewId = "22222222-2222-4222-8222-222222222222";
+    const result = await appendReview({ ...validInput, reviewId }, client);
+
+    expect(result).toEqual({ status: "appended", id: reviewId });
+  });
+
   it("refuses when there is no session", async () => {
     const client = fakeClient({ userId: null });
 
