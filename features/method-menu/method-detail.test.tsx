@@ -8,22 +8,33 @@ import { MethodDetail, findMethod } from "./MethodDetail";
 import { copy } from "./content";
 
 const { catalogue } = loadMethodCatalogue();
-const method = findMethod(catalogue, "extensive-reading")!;
+const extensiveReading = findMethod(catalogue, "extensive-reading")!;
+const srsSession = findMethod(catalogue, "srs-session")!;
 
 describe("MethodDetail", () => {
   it("shows a shipped method", () => {
-    render(<MethodDetail method={method} searchParams={{ minutes: "15", skill: "reading" }} />);
+    render(
+      <MethodDetail method={extensiveReading} searchParams={{ minutes: "15", skill: "reading" }} />,
+    );
 
-    expect(screen.getByRole("heading", { level: 1 }).textContent).toBe(method.name);
-    expect(document.body.textContent).toContain(method.doesNotDo);
-    expect(screen.getByRole("link", { name: copy.startSession })).toBeDefined();
+    expect(screen.getByRole("heading", { level: 1 }).textContent).toBe(extensiveReading.name);
+    expect(document.body.textContent).toContain(extensiveReading.doesNotDo);
+    expect(screen.queryByRole("link", { name: copy.startSession })).toBeNull();
+    expect(screen.getByText(copy.sessionNotBuilt)).toBeDefined();
+  });
+
+  it("shows Start for srs-session", () => {
+    render(<MethodDetail method={srsSession} />);
+
     expect(screen.getByRole("link", { name: copy.startSession }).getAttribute("href")).toBe(
-      "/words/review?method=extensive-reading",
+      "/words/review?method=srs-session",
     );
   });
 
   it("preserves filter on back link", () => {
-    render(<MethodDetail method={method} searchParams={{ minutes: "15", skill: "reading" }} />);
+    render(
+      <MethodDetail method={extensiveReading} searchParams={{ minutes: "15", skill: "reading" }} />,
+    );
 
     expect(screen.getByRole("link", { name: new RegExp(copy.backToMethods) }).getAttribute("href")).toBe(
       "/methods?minutes=15&skill=reading",
@@ -37,7 +48,7 @@ describe("MethodDetail", () => {
   });
 
   it("has no accessibility violations", async () => {
-    const { container } = render(<MethodDetail method={method} />);
+    const { container } = render(<MethodDetail method={extensiveReading} />);
     await expectNoA11yViolations(container);
   });
 });

@@ -22,7 +22,10 @@
 - [ ] Given `?energy=low`, then only Methods with intensity 1 appear.
 - [ ] Given `?hands=none` in refine, then only Methods performable hands-free
       appear.
-- [ ] Given a hosted Method card, then it links to the session route.
+- [ ] Given a hosted Method card for `srs-session`, then it links to
+      `/words/review?method=srs-session`.
+- [ ] Given a hosted Method card for any other id, then it links to
+      `/methods/{id}` (detail), not `/words/review`.
 - [ ] Given an off-app Method card, then it links to `/methods/{id}`.
 - [ ] Given any rendered Method card, then chips and `doesNotDo` prose appear.
 - [ ] Given filters that match nothing, then the gap is named and no list renders.

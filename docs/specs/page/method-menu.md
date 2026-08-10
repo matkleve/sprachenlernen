@@ -30,7 +30,8 @@ catalogue is already in memory; only method-card links navigate away.
 
 - **In:** stepped time slider ([`../service/time-scale.md`](../service/time-scale.md));
   skill and energy filter pills; optional refine (hands, voice, eyes); compact
-  chip cards; hosted → session; off-app → detail; client-side filtering with URL
+  chip cards; **card-engine hosted** (`srs-session`) → Words review; other hosted
+  → detail until built; off-app → detail; client-side filtering with URL
   sync (`history.replaceState`).
 - **Out:** situation presets ("kitchen", "transit", …); saved custom situations;
   daily menu; learner-specific card fields; Commitments on this list.
@@ -48,8 +49,9 @@ stays a Server Component.
 | 2 | Moves time slider | URL `?minutes=` updates to the nearest scale step (or `endless`); list shows methods whose shortest variant fits |
 | 3 | Taps skill, energy, or refine | List intersects that dimension **without reloading the page**; scroll position preserved |
 | 4 | Opens refine | Optional hands / voice / eyes constraints |
-| 5 | Taps hosted card | Session route opens directly |
-| 6 | Taps off-app card | Detail page |
+| 5 | Taps hosted card that uses the card engine (`srs-session`) | `/words/review?method=srs-session` opens directly |
+| 6 | Taps other hosted card | Detail page — session not built yet |
+| 7 | Taps off-app card | Detail page |
 
 Default slider position is **15 minutes** on first visit; the URL updates on
 release, not on every intermediate drag frame.

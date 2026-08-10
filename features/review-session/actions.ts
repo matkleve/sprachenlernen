@@ -30,14 +30,22 @@ export async function appendReviewAction(input: AppendReviewActionInput) {
 }
 
 export type BuildSessionOutcome =
-  | { status: "ok"; queue: SessionCard[] }
+  | { status: "ok"; queue: SessionCard[]; languageName: string }
   | { status: "error"; error: string };
+
+const LANGUAGE_DISPLAY_NAMES: Record<string, string> = {
+  es: "Spanish",
+  it: "Italian",
+};
 
 export async function buildSessionAction(): Promise<BuildSessionOutcome> {
   const deckResult = loadSpanishMeaningRecallDeck();
   if (deckResult.status === "error") {
     return { status: "error", error: deckResult.errors.join(" ") };
   }
+
+  const languageName =
+    LANGUAGE_DISPLAY_NAMES[deckResult.deck.language] ?? deckResult.deck.language;
 
   const taskIds = deckResult.deck.cards.map((card) => card.taskId);
   const reviewsResult = await listReviewsForTaskIds(taskIds);
@@ -52,5 +60,5 @@ export async function buildSessionAction(): Promise<BuildSessionOutcome> {
   }
 
   const queue = buildSession(deckResult.deck.cards, reviewsByTaskId, Date.now());
-  return { status: "ok", queue };
+  return { status: "ok", queue, languageName };
 }

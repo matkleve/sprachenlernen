@@ -3,7 +3,7 @@
   "entries": [
     {
       "id": "srs-session",
-      "name": "SRS session",
+      "name": "Spaced repetition session",
       "summary": "The cards the schedule says are due today",
       "type": "method",
       "trains": "retention",

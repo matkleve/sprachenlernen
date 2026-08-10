@@ -34,11 +34,14 @@ export function TimeSlider({ value, onChange }: TimeSliderProps) {
 
   return (
     <div className="max-w-md">
-      <div className="flex items-baseline justify-between gap-4">
-        <output htmlFor="time-slider" className="text-lg font-semibold text-ink">
+      <div className="flex min-h-10 items-center justify-between gap-4">
+        <output
+          htmlFor="time-slider"
+          className="shrink-0 whitespace-nowrap text-lg font-semibold leading-none text-ink"
+        >
           {formatTimeBudget(budget)}
         </output>
-        <span className="text-sm text-muted">{copy.timeScaleHint}</span>
+        <span className="text-right text-sm leading-snug text-muted">{copy.timeScaleHint}</span>
       </div>
       <input
         id="time-slider"

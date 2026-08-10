@@ -17,8 +17,17 @@ function showsActiveCard(phase: string): boolean {
 }
 
 export function ReviewSession({ methodName }: ReviewSessionProps) {
-  const { status, loadError, phase, currentCard, persistError, gradedCount, grade } =
-    useReviewSession();
+  const {
+    status,
+    loadError,
+    phase,
+    currentCard,
+    languageName,
+    persistError,
+    gradedCount,
+    flip,
+    grade,
+  } = useReviewSession();
 
   if (status === "loading") {
     return (
@@ -50,8 +59,10 @@ export function ReviewSession({ methodName }: ReviewSessionProps) {
       ) : showsActiveCard(phase) && currentCard ? (
         <ReviewCard
           card={currentCard}
+          languageName={languageName}
           phase={phase}
           persistError={persistError}
+          onFlip={flip}
           onGrade={(value) => void grade(value)}
         />
       ) : null}

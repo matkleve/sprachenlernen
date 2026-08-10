@@ -65,11 +65,21 @@ describe("filters", () => {
 });
 
 describe("cards", () => {
-  it("links hosted methods to session", () => {
+  it("links srs-session to Words review", () => {
     show();
-    const hosted = catalogue.entries.filter(isMethod).find((m) => m.hosted)!;
+    const srs = catalogue.entries.filter(isMethod).find((m) => m.id === "srs-session")!;
+    const link = screen.getByRole("link", { name: new RegExp(srs.name) });
+    expect(link.getAttribute("href")).toBe("/words/review?method=srs-session");
+  });
+
+  it("links other hosted methods to detail", () => {
+    show();
+    const hosted = catalogue.entries
+      .filter(isMethod)
+      .find((m) => m.hosted && m.id !== "srs-session")!;
     const link = screen.getByRole("link", { name: new RegExp(hosted.name) });
-    expect(link.getAttribute("href")).toContain("/words/review");
+    expect(link.getAttribute("href")).toContain(`/methods/${hosted.id}`);
+    expect(link.getAttribute("href")).not.toContain("/words/review");
   });
 
   it("states doesNotDo on every card", () => {

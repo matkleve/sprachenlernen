@@ -12,9 +12,9 @@ export type SessionPhase =
 
 const TRANSITIONS: Record<SessionPhase, readonly SessionPhase[]> = {
   preparing: ["prompting", "complete"],
-  prompting: ["persisting"],
-  persisting: ["revealed", "prompting"],
-  revealed: ["advancing"],
+  prompting: ["revealed"],
+  revealed: ["persisting"],
+  persisting: ["revealed", "advancing"],
   advancing: ["prompting", "complete"],
   complete: [],
 };
@@ -28,10 +28,14 @@ export function nextPhase(from: SessionPhase, to: SessionPhase): SessionPhase {
   return TRANSITIONS[from].includes(to) ? to : from;
 }
 
-export function canGrade(phase: SessionPhase): boolean {
+export function canFlip(phase: SessionPhase): boolean {
   return phase === "prompting";
 }
 
-export function showsBack(phase: SessionPhase): boolean {
+export function canGrade(phase: SessionPhase): boolean {
   return phase === "revealed";
+}
+
+export function showsBack(phase: SessionPhase): boolean {
+  return phase === "revealed" || phase === "persisting";
 }

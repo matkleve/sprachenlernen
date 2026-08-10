@@ -64,6 +64,8 @@ export const copy = {
   hostedShort: "App runs this",
   notHostedShort: "Off-app",
   startSession: "Start",
+  sessionNotBuilt:
+    "The app will run this method here once its session is built. For now, read what it does and try it off-app if you can.",
   backToMethods: "Back to methods",
   methodNotFound: "No method with that name exists in the catalogue.",
   minutes: "min",

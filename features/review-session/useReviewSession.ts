@@ -7,6 +7,7 @@ import {
   buildSessionAction,
 } from "@/features/review-session/actions";
 import {
+  canFlip,
   canGrade,
   nextPhase,
   type SessionPhase,
@@ -23,8 +24,10 @@ export type UseReviewSessionResult = {
   phase: SessionPhase;
   queue: SessionCard[];
   currentCard: SessionCard | null;
+  languageName: string | null;
   persistError: string | null;
   gradedCount: number;
+  flip: () => void;
   grade: (value: Grade) => Promise<void>;
 };
 
@@ -33,6 +36,7 @@ export function useReviewSession(): UseReviewSessionResult {
   const [loadError, setLoadError] = useState<string | null>(null);
   const [phase, setPhase] = useState<SessionPhase>("preparing");
   const [queue, setQueue] = useState<SessionCard[]>([]);
+  const [languageName, setLanguageName] = useState<string | null>(null);
   const [sessionIndex, setSessionIndex] = useState(0);
   const [persistError, setPersistError] = useState<string | null>(null);
   const [gradedCount, setGradedCount] = useState(0);
@@ -53,6 +57,7 @@ export function useReviewSession(): UseReviewSessionResult {
       }
 
       setQueue(result.queue);
+      setLanguageName(result.languageName);
       setStatus("ready");
       if (result.queue.length === 0) {
         setPhase("complete");
@@ -70,21 +75,10 @@ export function useReviewSession(): UseReviewSessionResult {
 
   const currentCard = queue[sessionIndex] ?? null;
 
-  useEffect(() => {
-    if (phase !== "revealed") return;
-    const timer = window.setTimeout(() => {
-      setPersistError(null);
-      const nextIndex = sessionIndex + 1;
-      if (nextIndex >= queue.length) {
-        setPhase((current) => nextPhase(nextPhase(current, "advancing"), "complete"));
-        return;
-      }
-      setSessionIndex(nextIndex);
-      setPhase((current) => nextPhase(nextPhase(current, "advancing"), "prompting"));
-      shownAtRef.current = Date.now();
-    }, 400);
-    return () => window.clearTimeout(timer);
-  }, [phase, queue.length, sessionIndex]);
+  const flip = useCallback(() => {
+    if (!canFlip(phase)) return;
+    setPhase((current) => nextPhase(current, "revealed"));
+  }, [phase]);
 
   const grade = useCallback(
     async (value: Grade) => {
@@ -106,15 +100,24 @@ export function useReviewSession(): UseReviewSessionResult {
       if (result.status === "error") {
         gradingRef.current = false;
         setPersistError(result.error);
-        setPhase((current) => nextPhase(current, "prompting"));
+        setPhase((current) => nextPhase(current, "revealed"));
         return;
       }
 
       setGradedCount((count) => count + 1);
       gradingRef.current = false;
-      setPhase((current) => nextPhase(current, "revealed"));
+
+      const nextIndex = sessionIndex + 1;
+      if (nextIndex >= queue.length) {
+        setPhase((current) => nextPhase(nextPhase(current, "advancing"), "complete"));
+        return;
+      }
+
+      setSessionIndex(nextIndex);
+      setPhase((current) => nextPhase(nextPhase(current, "advancing"), "prompting"));
+      shownAtRef.current = Date.now();
     },
-    [currentCard, phase],
+    [currentCard, phase, queue.length, sessionIndex],
   );
 
   return {
@@ -123,8 +126,10 @@ export function useReviewSession(): UseReviewSessionResult {
     phase,
     queue,
     currentCard,
+    languageName,
     persistError,
     gradedCount,
+    flip,
     grade,
   };
 }

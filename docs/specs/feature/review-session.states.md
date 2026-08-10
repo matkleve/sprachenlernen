@@ -20,9 +20,9 @@ type SessionPhase =
 | From | Legal to |
 | --- | --- |
 | `preparing` | `prompting`, `complete` |
-| `prompting` | `persisting` |
-| `persisting` | `revealed`, `prompting` |
-| `revealed` | `advancing` |
+| `prompting` | `revealed` |
+| `revealed` | `persisting` |
+| `persisting` | `revealed`, `advancing` |
 | `advancing` | `prompting`, `complete` |
 | `complete` | *(none — terminal)* |
 
@@ -48,9 +48,9 @@ what the learner sees; card front/back text derives from
 | Phase | Card | Grades | Progress |
 | --- | --- | --- | --- |
 | `preparing` | hidden | hidden | hidden |
-| `prompting` | front only | enabled | shown |
-| `persisting` | front | disabled | shown |
-| `revealed` | front + back | disabled | shown |
+| `prompting` | front only | hidden | shown |
+| `revealed` | front + back | enabled | shown |
+| `persisting` | front + back | disabled | shown |
 | `advancing` | *never rendered — see below* | | |
 | `complete` | hidden | hidden | session summary |
 
@@ -60,8 +60,9 @@ one state update, so no render ever observes it. Nothing may be designed for it;
 a surface that needs a visible "moving to the next card" moment needs a phase of
 its own and an edge to reach it. (`docs/TRAPS.md`.)
 
-`persisting → prompting` is legal only on persistence **error** — grades re-enable
-so the learner can retry. Success always goes to `revealed`.
+`persisting → revealed` is legal only on persistence **error** — grades re-enable
+so the learner can retry. Success always goes through `advancing` to the next
+card.
 
 ## Check
 
