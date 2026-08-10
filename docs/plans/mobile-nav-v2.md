@@ -1,6 +1,6 @@
 # Plan — mobile navigation v2 (floating pill + corner chips)
 
-**Status:** implemented on `cursor/mobile-nav-v2-d240`.
+**Status:** implemented on `main` (`d237fee`).
 **Change class:** Standard.
 
 Contract: [`../specs/feature/mobile-nav-v2.md`](../specs/feature/mobile-nav-v2.md).
@@ -17,7 +17,7 @@ Contract: [`../specs/feature/mobile-nav-v2.md`](../specs/feature/mobile-nav-v2.m
 | `components/ui/Button.tsx` | `floating` variant |
 | `app/globals.css` | shell float spacing tokens |
 | `features/app-shell/mobile-nav-v2.test.tsx` | **New** |
-| `docs/specs/feature/mobile-nav-v2.md` | `draft` → `active` when done |
+| `docs/specs/feature/mobile-nav-v2.md` | `active` |
 
 ## LIVE CHECK (you)
 

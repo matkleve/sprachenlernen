@@ -38,9 +38,14 @@ Progress (ADR-0009). **No due-count badges** (UC-063).
 
 ## Back targets
 
-When `pathname` is a strict child of a destination (`/words/review`, `/methods/id`,
-…), the back chip links to that destination root with its label. Destination
-roots themselves show no back chip.
+`shellBackTarget(pathname)` returns `null` on destination roots (no chip).
+On drill-in routes it returns `{ href, label }` for the parent destination.
+
+| Path pattern | Back `href` | Label copy |
+| --- | --- | --- |
+| `/words/review` | `/words` | Words |
+| `/methods/[id]` | `/methods` | Methods |
+| `/methods`, `/words`, `/progress` | *(no chip)* | — |
 
 ## States
 

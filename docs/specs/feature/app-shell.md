@@ -43,6 +43,8 @@ sign-out control that had no signed-in navigation to live in.
 | 5 | Signs out | The session ends and they land on `/`, the public landing page |
 | 6 | Opens `/`, `/languages`, `/login` or `/signup` | No shell — those are `(marketing)` |
 | 7 | A destination's content throws | The shell header and navigation remain; only the destination content area shows the error surface ([`errors-boundaries.md`](../service/errors-boundaries.md)) |
+| 8 | Viewport &lt; `md` while signed in | Floating bottom pill + top-right sign-out; no full-width header bar ([`mobile-nav-v2.md`](mobile-nav-v2.md)) |
+| 9 | Viewport ≥ `md` while signed in | Horizontal destination nav + inline sign-out in header; no floating chrome |
 
 ## States
 
@@ -112,6 +114,8 @@ visual one: the shell is never given a number, so it cannot render one.
 - [ ] Given a signed-in Account, then a sign-out control is present, and
       submitting it ends the session and redirects to `/`.
 - [ ] Given a `(marketing)` route, then no destination navigation renders on it.
+- [ ] Given a signed-in Account and viewport &lt; `md`, then the shell renders a
+      floating destination pill and a top-right sign-out float (no hamburger).
 - [ ] The rendered shell has no axe-core violations.
 
 ## Check
