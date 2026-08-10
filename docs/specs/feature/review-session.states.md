@@ -21,12 +21,13 @@ type SessionPhase =
 | --- | --- |
 | `preparing` | `prompting`, `complete` |
 | `prompting` | `revealed` |
-| `revealed` | `persisting` |
-| `persisting` | `revealed`, `advancing` |
+| `revealed` | `advancing` |
 | `advancing` | `prompting`, `complete` |
 | `complete` | *(none — terminal)* |
 
-Illegal transitions are no-ops (`docs/STATE.md` §3).
+`persisting` remains in the enum for the write-queue worker only — the review
+session FSM does not enter it. Illegal session transitions are no-ops
+(`docs/STATE.md` §3).
 
 ## Terminal states
 
@@ -50,19 +51,11 @@ what the learner sees; card front/back text derives from
 | `preparing` | hidden | hidden | hidden |
 | `prompting` | front only | hidden | shown |
 | `revealed` | front + back | enabled | shown |
-| `persisting` | front + back | disabled | shown |
 | `advancing` | *never rendered — see below* | | |
 | `complete` | hidden | hidden | session summary |
 
-`advancing` is a **waypoint, not a screen.** It exists so that `revealed` has no
-legal direct edge to `prompting`, and the implementation passes through it inside
-one state update, so no render ever observes it. Nothing may be designed for it;
-a surface that needs a visible "moving to the next card" moment needs a phase of
-its own and an edge to reach it. (`docs/TRAPS.md`.)
-
-`persisting → revealed` is legal only on persistence **error** — grades re-enable
-so the learner can retry. Success always goes through `advancing` to the next
-card.
+`advancing` is a **waypoint, not a screen.** The learner never waits on the
+network here.
 
 ## Check
 

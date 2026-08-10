@@ -18,8 +18,8 @@ ADR-0007). **Sensitive** (`AGENTS.md`).
   appends one row. Ownership and RLS remain in [`auth.md`](auth.md).
 - **Out:** the session queue builder ([`session-builder.md`](session-builder.md));
   real Word/Task
-  tables; scheduler projection UI; IndexedDB offline write path and cross-device
-  sync (T-B9); export/delete (UC-024). **⚠ SPEC GAP:** tiebreak when two rows
+  tables; scheduler projection UI; export/delete (UC-024). Offline durability
+  moves to [`review-write-queue.md`](review-write-queue.md) (draft). **⚠ SPEC GAP:**
   share a timestamp from different installations — deferred to T-B9 (ADR-0005).
   **Dormant, not closed** ([ADR-0011](../../adr/0011-the-review-log-shipped-server-only.md)):
   the log shipped server-only, so there is one authority and nothing to merge.

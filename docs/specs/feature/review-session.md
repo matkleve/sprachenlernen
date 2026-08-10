@@ -16,8 +16,9 @@ with persistence.
   queue (`buildSessionAction`), and wiring on `/words/review` for
   `method=srs-session`. Replaces `ReviewOpen`.
 - **Out:** scheduler projection UI (UC-005 G1–G4); session-length picker;
-  offline queue; sibling spacing; non-`srs-session` methods; Words atlas and
-  horizon (T-B3).
+  sibling spacing; non-`srs-session` methods; Words atlas and horizon (T-B3).
+  Persistence blocking the UI — see
+  [`../service/review-write-queue.md`](../service/review-write-queue.md).
 
 **Reuse: `Button`** for grade controls.
 
@@ -28,8 +29,8 @@ with persistence.
 | 1 | Lands on `/words/review?method=srs-session` | Session prepares: server returns a 15-card queue from the starter deck + their review history |
 | 2 | Sees a card | Front (target-language lemma) only; language name on the card; tap the card to flip and see the meaning |
 | 3 | Taps the card | Back (meaning) shown; four grade buttons in a row matching the card width |
-| 4 | Taps a grade | Phase → `persisting`; `appendReviewAction` writes one row; on success → next card `prompting`, or `complete` when the queue ends |
-| 5 | Persistence fails | Stays on the same card; grades re-enable; error copy shown |
+| 4 | Taps a grade | Grade queued locally; **next card immediately** (`advancing` → `prompting` or `complete`); server flush runs in the background ([`review-write-queue`](../service/review-write-queue.md)) |
+| 5 | Background flush fails | Session does not rewind; non-blocking status with Retry |
 | 6 | Session `complete` | Summary: cards graded this session; link back to Words and Methods |
 
 ## States
@@ -45,9 +46,10 @@ empty queue are mutually exclusive owners:
 
 ## Data
 
-Reads the built session queue (server), `installationId` (client),
-`appendReviewAction` (client → server). Writes via review log only — no session
-row in the database.
+Reads the built session queue (server), `installationId` (client), the local
+write queue (client). Writes via
+[`review-write-queue`](../service/review-write-queue.md) — not a blocking server
+round trip per card.
 
 ## Acceptance criteria
 
@@ -59,8 +61,10 @@ row in the database.
       text from card 1** anywhere in the output.
 - [ ] Given the last card graded successfully, when persistence completes, then
       phase is `complete` and grade buttons are not rendered.
-- [ ] Given a persistence error, when the learner taps a grade, then the same
-      card stays active, grades re-enable, and error copy is shown.
+- [ ] Given card 1, when the learner taps the card then **Good**, then card 2
+      front appears **before** the server confirms the write.
+- [ ] Given a background flush failure after advancing, when the learner is on a
+      later card, then a retry status appears and the session does not rewind.
 - [ ] Given any phase, then no due count, backlog figure or badge appears.
 
 ## Open questions

@@ -1,7 +1,7 @@
 # UC-018 — Keep learning with no connection
 
 <!-- id: UC-018 -->
-<!-- specs:  -->
+<!-- specs: SPEC-service-review-write-queue -->
 
 **Who:** anyone on a train, a plane, an underground line, or a bad data plan.
 **Wants to:** do their session anyway.

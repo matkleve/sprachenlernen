@@ -1,0 +1,99 @@
+# Review write queue — instant grades, durable sync
+
+<!-- id: SPEC-service-review-write-queue -->
+<!-- use-case: UC-018 -->
+<!-- status: draft -->
+
+When a learner taps a grade, the app must **not** wait on the network. The grade
+is recorded **locally first**, the next card appears immediately, and the server
+write runs in the background. This is what [ADR-0005](../../adr/0005-local-first-review-log-with-accounts-as-an-addition.md)
+specified and what [UC-018](../../use-cases/UC-018-keep-learning-with-no-connection.md)
+needs for commute practice.
+
+**Coder + UX agreed principle:** the card session is a rhythm game — any
+full-screen wait breaks flow. Persistence is bookkeeping; it must never sit on
+the critical path.
+
+## Scope
+
+- **In:** a browser-local append-only queue in `lib/db/review-write-queue.ts`
+  (IndexedDB), flush to [`review-log.md`](review-log.md) via the existing
+  adapter, retry with backoff, idempotent client `review_id` per row, and
+  wiring in `useReviewSession` so grading never blocks the FSM.
+- **Out:** multi-device merge (T-B9 / ADR-0011 Option B tiebreak); export/delete
+  (UC-024); showing a due count; rewriting the scheduler.
+
+Parent contracts: [`review-session.md`](../feature/review-session.md),
+[`review-log.md`](review-log.md).
+
+## Behavior
+
+| # | User action | System response |
+| --- | --- | --- |
+| 1 | Taps a grade | Row appended to the local queue with a new `review_id`; session advances to the next card **immediately** — no disabled buttons, no "Saving…" on the card |
+| 2 | Flush succeeds | Row removed from the queue silently |
+| 3 | Flush fails (offline, 5xx, auth) | Row stays in the queue; a **small, non-blocking** status appears (see below); retries on reconnect and on a timer |
+| 4 | Taps Retry on the status | Flush runs again for pending rows |
+| 5 | Closes the tab with pending rows | Queue survives in IndexedDB; flush resumes on next visit |
+| 6 | Session ends with pending rows | Summary still shows; status reads "Syncing N reviews…" until the queue is empty |
+
+### Status surface (UX)
+
+- **Default:** nothing — success is silent.
+- **Pending > 0 for longer than ~500 ms:** one line below the progress counter,
+  e.g. "Syncing 2 reviews…" — not a modal, not on the card, not a spinner on
+  the grade buttons.
+- **Pending > 0 after retries exhausted:** "1 review couldn't save — Retry" —
+  session does **not** rewind to the old card.
+
+## States
+
+Queue row:
+
+| State | Meaning |
+| --- | --- |
+| `pending` | waiting to flush |
+| `flushing` | in flight to server |
+| `done` | removed after confirmed append |
+| `failed` | kept; retry eligible |
+
+Session FSM no longer exposes a learner-visible `persisting` phase — see
+[`review-session.states.md`](../feature/review-session.states.md).
+
+## Data
+
+Each queued row carries everything `appendReview` needs today, plus:
+
+| Field | Notes |
+| --- | --- |
+| `review_id` | client UUID — idempotency key on insert |
+| `queued_at` | when the learner tapped |
+| `attempts` | retry count |
+
+`installation_id` and `user_id` are filled at flush time (session may have
+refreshed).
+
+## Implementation phases
+
+| Phase | What ships | What it fixes |
+| --- | --- | --- |
+| **A — optimistic advance** | in-memory queue + async flush; survives the session but not tab kill | removes "Saving…" and blocked buttons |
+| **B — durable queue** | IndexedDB backing (this spec's target) | UC-018 offline; survives tab close |
+
+Phase A is acceptable as a first merge only if Phase B is tracked immediately
+after — otherwise grades are lost on tab close, which violates UC-018's "never
+lost" rule.
+
+## Acceptance criteria
+
+See [review-write-queue.acceptance-criteria.md](review-write-queue.acceptance-criteria.md).
+
+## Check
+
+`npm test -- review-write-queue review-session`
+
+## Open questions
+
+**⚠ SPEC GAP: duplicate `review_id` on server.** Needs a unique constraint or
+upsert policy before Phase B ships — otherwise a retry creates two rows. Proposed:
+`review_id` column, unique per `user_id`, insert-on-conflict-do-nothing.
