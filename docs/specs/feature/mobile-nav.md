@@ -11,6 +11,36 @@ hamburger that opens a labelled drawer.
 **Parent:** [`app-shell.md`](app-shell.md). Still exactly Methods, Words, Progress
 (ADR-0009). **No due-count badges** (UC-063).
 
+## Research note (2026)
+
+Industry practice for **3–5 primary sections** favours a **bottom tab bar**
+within thumb reach (Material Design 3, Apple HIG, Nielsen Norman Group). Hamburger
+menus hide navigation and reduce discoverability — acceptable for **secondary**
+items, less ideal for daily destinations.
+
+This spec chooses a **hamburger drawer** because:
+
+1. The current shell is a top header; a bottom bar is a larger visual change.
+2. Sign-out and future account links fit naturally at the drawer foot.
+3. The owner validates on phone frequently and asked for an explicit hamburger
+   pattern to review.
+
+**Future option:** evolve to bottom tabs on `sm` only if user testing shows
+drawer friction. Document that fork here before implementing.
+
+Icons: **lucide-react** (already in the project). Pair every icon with its
+text label — icons alone fail WCAG and usability studies (~20–30% faster scan
+with labels).
+
+Suggested mapping:
+
+| Destination | Icon (lucide) | Label |
+| --- | --- | --- |
+| Methods | `Library` | Methods |
+| Words | `BookOpen` | Words |
+| Progress | `TrendingUp` | Progress |
+| Menu control | `Menu` / `X` when open | Menu (visible text beside icon on mobile) |
+
 ## Scope
 
 - **In:** breakpoint behaviour; hamburger; slide-in drawer; icon + label rows;

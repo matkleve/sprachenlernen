@@ -2,6 +2,7 @@ import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
 
 import { readSupabaseEnv } from "@/lib/db/env";
+import { createReferenceId } from "@/lib/errors";
 import { requiresAccount, routes } from "@/lib/routes";
 
 /**
@@ -33,6 +34,12 @@ import { requiresAccount, routes } from "@/lib/routes";
  */
 export async function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
+  const requestId = request.headers.get("x-request-id") ?? createReferenceId();
+
+  const withRequestId = (response: NextResponse) => {
+    response.headers.set("x-request-id", requestId);
+    return response;
+  };
 
   // A deployment with no Supabase env must not 500 every request — Vercel
   // previews are often wired before the secrets are. The public half still
@@ -44,12 +51,13 @@ export async function middleware(request: NextRequest) {
       const signIn = request.nextUrl.clone();
       signIn.pathname = routes.signIn;
       signIn.search = "";
-      return NextResponse.redirect(signIn);
+      return withRequestId(NextResponse.redirect(signIn));
     }
-    return NextResponse.next();
+    return withRequestId(NextResponse.next());
   }
 
   let response = NextResponse.next({ request });
+  response.headers.set("x-request-id", requestId);
 
   const supabase = createServerClient(supabaseEnv.url, supabaseEnv.publishableKey, {
     cookies: {
@@ -59,6 +67,7 @@ export async function middleware(request: NextRequest) {
       setAll(cookiesToSet) {
         cookiesToSet.forEach(({ name, value }) => request.cookies.set(name, value));
         response = NextResponse.next({ request });
+        response.headers.set("x-request-id", requestId);
         cookiesToSet.forEach(({ name, value, options }) =>
           response.cookies.set(name, value, options),
         );
@@ -79,7 +88,7 @@ export async function middleware(request: NextRequest) {
     // docs/specs/service/auth.md has not made, and guessing it here would put
     // it in the codebase with an authority nobody granted it.
     signIn.search = "";
-    return NextResponse.redirect(signIn);
+    return withRequestId(NextResponse.redirect(signIn));
   }
 
   return response;

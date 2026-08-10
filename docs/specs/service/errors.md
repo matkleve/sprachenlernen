@@ -66,6 +66,10 @@ message. If mapping fails, `userMessage` must still name the action
 | `render/boundary` | Could not {operation}. | Uncaught client render in a route segment |
 | `config/missing-env` | This environment is not fully configured. | Required env var missing at runtime |
 | `internal/unexpected` | Could not {operation}. | Anything unmapped |
+| `database/schema-mismatch` | Could not save your answer. | Postgres column missing (e.g. `review_id`) |
+| `database/not-signed-in` | You are not signed in. | `appendReview` / `listReviews` without session |
+| `session/build-failed` | Could not prepare your review session. | `buildSessionAction` hard failure |
+| `review/flush-failed` | Your grade could not be saved. | write-queue flush exhausted retries |
 
 New codes are added here in the same commit that introduces them. Grep this
 table before inventing a synonym.
@@ -100,13 +104,18 @@ path or one `HandledError` — never both, never neither after a failed load.
 - [ ] Given a field validation failure on a form, when the user submits, then
       UC-002's Field error is used — not `ErrorCallout`.
 
+## Correlation
+
+- **`referenceId`** — 8 hex chars from `createReferenceId()`; unique enough for
+  one learner's session; shown in UI as `Reference: abc12345`.
+- **`requestId`** — optional `x-request-id` header from middleware; included in
+  server `logHandledError` output when available. Client-only boundary errors
+  may lack it — `referenceId` + `route` is sufficient for v1.
+
 ## Open questions
 
-- **Correlation id format** — 8 hex chars vs UUID fragment. Decide at
-  implementation; must be unique enough for a single user's session.
-- **Show reference id in production UI** — proposed yes, in muted mono, so support
-  and agents can work from a screenshot. Owner may prefer dev-only; until
-  decided, spec assumes visible.
+- **Show reference id in production UI** — yes, in muted mono, so support and
+  agents can work from a screenshot.
 
 ## Check
 

@@ -42,6 +42,7 @@ sign-out control that had no signed-in navigation to live in.
 | 4 | Taps Words or Progress | That destination loads. Reaching them never passes through the situation filter or the menu (UC-063) |
 | 5 | Signs out | The session ends and they land on `/`, the public landing page |
 | 6 | Opens `/`, `/languages`, `/login` or `/signup` | No shell — those are `(marketing)` |
+| 7 | A destination's content throws | The shell header and navigation remain; only the destination content area shows the error surface ([`errors-boundaries.md`](../service/errors-boundaries.md)) |
 
 ## States
 

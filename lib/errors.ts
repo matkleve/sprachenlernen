@@ -6,6 +6,8 @@
  * bug once this module exists.
  */
 
+import { reportHandledError } from "@/lib/error-telemetry";
+
 export const ERROR_CODES = [
   "auth/invalid-credentials",
   "auth/confirmation-missing",
@@ -15,6 +17,10 @@ export const ERROR_CODES = [
   "render/boundary",
   "config/missing-env",
   "internal/unexpected",
+  "database/schema-mismatch",
+  "database/not-signed-in",
+  "session/build-failed",
+  "review/flush-failed",
 ] as const;
 
 export type ErrorCode = (typeof ERROR_CODES)[number];
@@ -71,15 +77,29 @@ export function toUserFacing(error: HandledError): UserFacingError {
   };
 }
 
-export function logHandledError(error: HandledError): void {
+export function logHandledError(error: HandledError, requestId?: string | null): void {
   console.error(
     JSON.stringify({
       code: error.code,
       referenceId: error.referenceId,
+      ...(requestId ? { requestId } : {}),
       context: error.context,
       developerMessage: error.developerMessage,
     }),
   );
+  reportHandledError(error, { requestId });
+}
+
+/** Server-only: reads `x-request-id` from the current request when available. */
+export async function logHandledErrorFromRequest(error: HandledError): Promise<void> {
+  let requestId: string | null = null;
+  try {
+    const { headers } = await import("next/headers");
+    requestId = (await headers()).get("x-request-id");
+  } catch {
+    // Not in a request context (tests, scripts).
+  }
+  logHandledError(error, requestId);
 }
 
 type BuildInput = {
@@ -176,5 +196,79 @@ export function authConfirmationFailed(upstreamMessage: string): HandledError {
     developerMessage: upstreamMessage,
     nextStep: "Request a new confirmation email by signing up again, or sign in if you already confirmed.",
     context: { feature: "auth", operation: "confirm your email" },
+  });
+}
+
+const SCHEMA_MISMATCH_CODES = new Set(["PGRST204", "42703"]);
+
+export function databaseSchemaMismatch(
+  upstreamMessage: string,
+  context?: ErrorContext,
+): HandledError {
+  return build({
+    code: "database/schema-mismatch",
+    userMessage: "Could not save your answer.",
+    developerMessage: upstreamMessage,
+    nextStep: "Try again. If this keeps happening, note the reference below.",
+    context: { feature: "review-log", operation: "save your answer", ...context },
+  });
+}
+
+export function databaseNotSignedIn(context?: ErrorContext): HandledError {
+  return build({
+    code: "database/not-signed-in",
+    userMessage: "You are not signed in.",
+    developerMessage: "No session when reading or writing review_log",
+    nextStep: "Sign in and try again.",
+    context: { feature: "review-log", operation: "access your review history", ...context },
+  });
+}
+
+export function sessionBuildFailed(
+  upstreamMessage: string,
+  context?: ErrorContext,
+): HandledError {
+  return build({
+    code: "session/build-failed",
+    userMessage: "Could not prepare your review session.",
+    developerMessage: upstreamMessage,
+    nextStep: "Go back to Words and try again. If this keeps happening, note the reference below.",
+    context: { feature: "review-session", operation: "prepare your review session", ...context },
+  });
+}
+
+export function reviewFlushFailed(
+  upstreamMessage: string,
+  context?: ErrorContext,
+): HandledError {
+  return build({
+    code: "review/flush-failed",
+    userMessage: "Your grade could not be saved.",
+    developerMessage: upstreamMessage,
+    nextStep: "Tap Retry. Your session can continue while sync catches up.",
+    context: { feature: "review-session", operation: "save your grade", ...context },
+  });
+}
+
+type SupabaseLikeError = {
+  code?: string;
+  message?: string;
+};
+
+/** Maps PostgREST / Postgres errors from review_log to stable HandledError codes. */
+export function fromSupabaseReviewError(
+  error: SupabaseLikeError,
+  context?: ErrorContext,
+): HandledError {
+  const message = error.message ?? "Unknown database error";
+  if (error.code && SCHEMA_MISMATCH_CODES.has(error.code)) {
+    return databaseSchemaMismatch(message, context);
+  }
+  return build({
+    code: "internal/unexpected",
+    userMessage: "Could not save your answer.",
+    developerMessage: `${error.code ?? "unknown"}: ${message}`,
+    nextStep: "Try again. If this keeps happening, note the reference below.",
+    context: { feature: "review-log", operation: "save your answer", ...context },
   });
 }

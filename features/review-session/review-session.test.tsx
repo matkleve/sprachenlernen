@@ -128,9 +128,25 @@ describe("ReviewSession", () => {
   });
 
   it("shows sync retry when persistence fails after advancing", async () => {
-    vi.mocked(appendReviewAction).mockResolvedValueOnce({
-      status: "error",
-      error: "permission denied",
+    setReviewQueueForTests({
+      subscribe(listener) {
+        listener({
+          pending: 0,
+          failed: 1,
+          lastError: copy.syncFailed,
+          pendingSince: null,
+        });
+        return () => {};
+      },
+      enqueue: vi.fn().mockResolvedValue(undefined),
+      flushAll: vi.fn().mockResolvedValue(undefined),
+      retryFailed: vi.fn().mockResolvedValue(undefined),
+      getState: () => ({
+        pending: 0,
+        failed: 1,
+        lastError: copy.syncFailed,
+        pendingSince: null,
+      }),
     });
 
     const user = userEvent.setup();
