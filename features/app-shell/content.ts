@@ -9,6 +9,8 @@
 
 export const copy = {
   navLabel: "Destinations",
+  menuLabel: "Menu",
+  menuClose: "Close menu",
   destinations: {
     methods: "Methods",
     words: "Words",

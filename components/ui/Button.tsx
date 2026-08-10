@@ -1,5 +1,5 @@
 import { cva, type VariantProps } from "class-variance-authority";
-import type { ButtonHTMLAttributes } from "react";
+import { forwardRef, type ButtonHTMLAttributes } from "react";
 
 import { cn } from "@/lib/utils";
 
@@ -64,9 +64,13 @@ export const buttonVariants = cva(
 export type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> &
   VariantProps<typeof buttonVariants>;
 
-export function Button({ className, variant, size, type, ...props }: ButtonProps) {
+export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button(
+  { className, variant, size, type, ...props },
+  ref,
+) {
   return (
     <button
+      ref={ref}
       // Default to "button". A bare <button> inside a form submits it, which is
       // never what a caller who did not think about it wanted.
       type={type ?? "button"}
@@ -74,4 +78,4 @@ export function Button({ className, variant, size, type, ...props }: ButtonProps
       {...props}
     />
   );
-}
+});

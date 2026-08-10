@@ -20,7 +20,8 @@ destination is built once and every screen inherits it.
   which [ADR-0009](../../adr/0009-three-destinations.md) rejected as "a link in
   a corner, not a fifth of the screen"; the runner, which is a surface pushed
   over a destination rather than one of them; and the marketing half, which has
-  no shell at all.
+  no shell at all. Responsive mobile navigation:
+  [`mobile-nav.md`](mobile-nav.md).
 
 **Reuse: `Button`.** The sign-out control is a `Button` in a form. The
 destinations are anchors, not buttons — they navigate, so they must be

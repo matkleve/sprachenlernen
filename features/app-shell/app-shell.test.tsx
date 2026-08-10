@@ -34,6 +34,24 @@ const showAt = (pathname: string) => {
   );
 };
 
+/** Desktop nav is `hidden md:block` — stub wide viewport so existing shell tests stay valid. */
+function mockDesktopViewport() {
+  vi.stubGlobal(
+    "matchMedia",
+    (query: string) =>
+      ({
+        matches: query.includes("min-width"),
+        media: query,
+        onchange: null,
+        addListener: vi.fn(),
+        removeListener: vi.fn(),
+        addEventListener: vi.fn(),
+        removeEventListener: vi.fn(),
+        dispatchEvent: vi.fn(),
+      }) as MediaQueryList,
+  );
+}
+
 const destinationLinks = () =>
   screen
     .getByRole("navigation", { name: copy.navLabel })
@@ -43,6 +61,7 @@ beforeEach(() => {
   vi.mocked(redirect).mockClear();
   vi.mocked(getAccount).mockClear();
   vi.mocked(signOut).mockClear();
+  mockDesktopViewport();
 });
 
 describe("the three destinations", () => {
