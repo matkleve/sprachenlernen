@@ -6,6 +6,8 @@
  * bug once this module exists.
  */
 
+import { reportHandledError } from "@/lib/error-telemetry";
+
 export const ERROR_CODES = [
   "auth/invalid-credentials",
   "auth/confirmation-missing",
@@ -85,6 +87,7 @@ export function logHandledError(error: HandledError, requestId?: string | null):
       developerMessage: error.developerMessage,
     }),
   );
+  reportHandledError(error, { requestId });
 }
 
 /** Server-only: reads `x-request-id` from the current request when available. */

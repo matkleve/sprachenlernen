@@ -1,7 +1,7 @@
 # UC-066 — Diagnose a failure from what the app recorded
 
 <!-- id: UC-066 -->
-<!-- specs: SPEC-service-errors -->
+<!-- specs: SPEC-service-errors, SPEC-service-errors-telemetry -->
 
 **Who:** a developer, a support person, or an agent working in this repository.
 **Wants to:** given a failure the user hit (or a test that failed), see exactly

@@ -7,7 +7,6 @@ import {
   createReviewWriteQueue,
   type ReviewWriteQueue,
 } from "@/lib/db/review-write-queue";
-import { reviewFlushFailed } from "@/lib/errors";
 
 let queue: ReviewWriteQueue | null = null;
 
@@ -37,10 +36,7 @@ export function getReviewQueue(): ReviewWriteQueue {
         }).then((result) =>
           result.status === "appended"
             ? { status: "appended" as const }
-            : {
-                status: "error" as const,
-                error: reviewFlushFailed(result.error).userMessage,
-              },
+            : { status: "error" as const, error: result.error },
         ),
     });
   }

@@ -7,6 +7,7 @@
  */
 
 import type { Grade } from "@/lib/scheduler";
+import { reviewFlushFailed } from "@/lib/errors";
 
 export type QueuedReviewRow = {
   reviewId: string;
@@ -120,7 +121,8 @@ function readState(rows: QueuedReviewRow[]): ReviewQueueState {
   return {
     pending: pendingRows.length,
     failed: failedRows.length,
-    lastError: failedRows.find((row) => row.lastError)?.lastError ?? null,
+    lastError:
+      failedRows.find((row) => row.attempts >= 5 && row.lastError)?.lastError ?? null,
     pendingSince,
   };
 }
@@ -186,11 +188,15 @@ export function createReviewWriteQueue(options: {
           if (result.status === "appended") {
             await options.storage.remove(row.reviewId);
           } else {
+            const nextAttempts = row.attempts + 1;
             await options.storage.put({
               ...row,
               state: "failed",
-              attempts: row.attempts + 1,
-              lastError: result.error,
+              attempts: nextAttempts,
+              lastError:
+                nextAttempts >= 5
+                  ? reviewFlushFailed(result.error).userMessage
+                  : row.lastError,
             });
             scheduleRetry();
           }

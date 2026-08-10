@@ -49,6 +49,25 @@ describe("review-write-queue", () => {
     expect(flush).toHaveBeenCalledTimes(2);
   });
 
+  it("surfaces review/flush-failed copy only after retries are exhausted", async () => {
+    const flush = vi.fn().mockResolvedValue({ status: "error", error: "offline" });
+    const queue = createReviewWriteQueue({
+      storage: createInMemoryReviewQueueStorage(),
+      flush,
+    });
+
+    await queue.enqueue(baseInput);
+    expect(queue.getState().lastError).toBeNull();
+
+    for (let attempt = 0; attempt < 3; attempt++) {
+      await queue.retryFailed();
+      expect(queue.getState().lastError).toBeNull();
+    }
+
+    await queue.retryFailed();
+    expect(queue.getState().lastError).toBe("Your grade could not be saved.");
+  });
+
   it("notifies subscribers when pending count changes", async () => {
     const listener = vi.fn();
     const flush = vi.fn().mockResolvedValue({ status: "appended" });

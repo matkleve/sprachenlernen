@@ -117,9 +117,9 @@ Client-only boundary errors may lack `requestId` — acceptable for v1.
 
 - **Widget boundaries** — e.g. horizon chart fails but atlas still shows. Deferred
   until a second destination needs partial render.
-- **External crash reporter** — contract leaves a single `logHandledError` hook
-  point; Sentry is an adapter, not a second shape.
+- **External crash reporter** — [`errors-telemetry.md`](errors-telemetry.md);
+  `registerErrorReporter` adapter. Sentry deferred until DSN confirmed.
 
 ## Check
 
-`npm test -- error-boundary route-error-surface errors`
+`npm test -- error-boundary route-error-surface errors error-telemetry destination-error`
