@@ -12,6 +12,8 @@ export const ERROR_CODES = [
   "auth/confirmation-failed",
   "catalogue/load-failed",
   "network/offline",
+  "render/boundary",
+  "config/missing-env",
   "internal/unexpected",
 ] as const;
 

@@ -11,6 +11,9 @@ audiences. Serves [UC-065](../../use-cases/UC-065-know-what-went-wrong-and-what-
 (stable codes, developer detail, correlation). Implements
 [`CONSTITUTION.md`](../../CONSTITUTION.md) §4.
 
+Boundary layers and taxonomy: [`errors-boundaries.md`](errors-boundaries.md).
+Route/global UI: [`route-error-surface.md`](../component/route-error-surface.md).
+
 **Sensitive** once wired to auth and persisted data — red-test-first when
 implementation starts (`AGENTS.md`).
 
@@ -60,6 +63,8 @@ message. If mapping fails, `userMessage` must still name the action
 | `auth/confirmation-failed` | Could not confirm your email. | `exchangeCodeForSession` failed |
 | `catalogue/load-failed` | Could not load the method catalogue. | Invalid JSON under `data/methods/` |
 | `network/offline` | You appear to be offline. | `fetch` failed with network error |
+| `render/boundary` | Could not {operation}. | Uncaught client render in a route segment |
+| `config/missing-env` | This environment is not fully configured. | Required env var missing at runtime |
 | `internal/unexpected` | Could not {operation}. | Anything unmapped |
 
 New codes are added here in the same commit that introduces them. Grep this

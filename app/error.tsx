@@ -1,16 +1,20 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
+import { usePathname } from "next/navigation";
 
-import { Button } from "@/components/ui/Button";
+import { RouteErrorSurface } from "@/components/ui/RouteErrorSurface";
+import {
+  boundaryErrorFromUnknown,
+  logBoundaryError,
+} from "@/lib/error-boundary";
+import { toUserFacing } from "@/lib/errors";
 
 /**
- * Route-level error boundary. Without this file every project inherits Next's
- * default error page, which is a stack trace in development and a blank screen
- * in production.
+ * Route-level error boundary. Contract: docs/specs/service/errors-boundaries.md
  *
- * Constitution §4: no silent failure. The user gets a state they can act on,
- * and the developer gets the error somewhere they will actually see it.
+ * Replaces Next's generic fallback. Maps uncaught errors to HandledError so the
+ * user sees what they were trying to do — not "Something went wrong".
  */
 export default function Error({
   error,
@@ -19,25 +23,15 @@ export default function Error({
   error: Error & { digest?: string };
   reset: () => void;
 }) {
-  useEffect(() => {
-    // Replace with your error reporter. Leaving this as a bare console.error is
-    // fine until you have one — silently swallowing it is not.
-    console.error(error);
-  }, [error]);
-
-  return (
-    <div className="mx-auto max-w-xl px-6 pt-page-top pb-page-bottom">
-      <h1 className="text-2xl font-semibold text-ink">Something went wrong</h1>
-      <p className="mt-3 text-sm leading-relaxed text-muted">
-        The page could not be loaded. Trying again may be enough; if it is not,
-        the error has been logged.
-      </p>
-      {error.digest ? (
-        <p className="mt-2 font-mono text-xs text-muted">Reference: {error.digest}</p>
-      ) : null}
-      <div className="mt-6">
-        <Button onClick={reset}>Try again</Button>
-      </div>
-    </div>
+  const pathname = usePathname();
+  const handled = useMemo(
+    () => boundaryErrorFromUnknown(error, { route: pathname, digest: error.digest }),
+    [error, pathname],
   );
+
+  useEffect(() => {
+    logBoundaryError(handled, pathname);
+  }, [handled, pathname]);
+
+  return <RouteErrorSurface {...toUserFacing(handled)} onRetry={reset} />;
 }

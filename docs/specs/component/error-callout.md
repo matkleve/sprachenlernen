@@ -15,8 +15,8 @@ fed by [`../service/errors.md`](../service/errors.md).
 - **In:** rendering `userMessage`, optional `nextStep`, `referenceId`; optional
   retry action slot; danger styling; full five interaction states on any
   interactive child (retry button).
-- **Out:** field errors ([`field.md`](field.md)); toast notifications; error
-  boundaries that replace the whole app shell; loading skeletons.
+- **Out:** field errors ([`field.md`](field.md)); toast notifications;
+  root layout failures — see [`route-error-surface.md`](route-error-surface.md).
 
 **Reuse: `Button`** for an optional retry action passed as a child or prop.
 

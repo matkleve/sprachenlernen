@@ -1,7 +1,7 @@
 # UC-065 — Know what went wrong and what to do next
 
 <!-- id: UC-065 -->
-<!-- specs: SPEC-service-errors, SPEC-component-error-callout -->
+<!-- specs: SPEC-service-errors, SPEC-component-error-callout, SPEC-component-route-error-surface, SPEC-service-errors-boundaries -->
 
 **Who:** anyone using the product — signing up, practising, or waiting on
 something that takes time.
