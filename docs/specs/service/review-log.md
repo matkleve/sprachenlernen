@@ -2,6 +2,7 @@
 
 <!-- id: SPEC-service-review-log -->
 <!-- use-case: UC-005 -->
+<!-- also-serves: UC-024 -->
 <!-- status: active -->
 
 T-B2. Append-only storage for each answered Task — grade, latency, timestamp,

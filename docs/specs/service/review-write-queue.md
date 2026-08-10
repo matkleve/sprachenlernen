@@ -90,7 +90,9 @@ See [review-write-queue.acceptance-criteria.md](review-write-queue.acceptance-cr
 
 ## Check
 
-`npm test -- review-write-queue review-session`
+`npm test -- review-log installation-id` — adapter and installation id. The write
+queue ([`review-write-queue.md`](review-write-queue.md)) is draft; session wiring
+is covered by `npm test -- review-session`.
 
 ## Open questions
 
