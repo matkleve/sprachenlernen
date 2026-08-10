@@ -37,4 +37,4 @@ No page-level machine — delegates to the feature FSM.
 
 ## Check
 
-`npm test -- review-session`
+`npm test -- review-session words-review`

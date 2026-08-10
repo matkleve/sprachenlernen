@@ -140,7 +140,14 @@ export function createReviewWriteQueue(options: {
   }
 
   async function reload() {
-    cache = await options.storage.list();
+    try {
+      cache = await options.storage.list();
+    } catch {
+      // IndexedDB can be blocked (private browsing, storage full). Treat as empty
+      // rather than taking down the review session — grades still queue in-memory
+      // for this visit via the fallback storage in getReviewQueue().
+      cache = [];
+    }
     notify();
   }
 

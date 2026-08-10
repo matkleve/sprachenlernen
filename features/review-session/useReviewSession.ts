@@ -5,6 +5,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import {
   buildSessionAction,
 } from "@/features/review-session/actions";
+import { copy } from "@/features/review-session/content";
 import { getReviewQueue } from "@/features/review-session/review-queue";
 import {
   canFlip,
@@ -54,23 +55,29 @@ export function useReviewSession(): UseReviewSessionResult {
     let cancelled = false;
 
     async function prepare() {
-      const result = await buildSessionAction();
-      if (cancelled) return;
+      try {
+        const result = await buildSessionAction();
+        if (cancelled) return;
 
-      if (result.status === "error") {
+        if (result.status === "error") {
+          setStatus("error");
+          setLoadError(result.error);
+          return;
+        }
+
+        setQueue(result.queue);
+        setLanguageName(result.languageName);
+        setStatus("ready");
+        if (result.queue.length === 0) {
+          setPhase("complete");
+        } else {
+          setPhase(nextPhase("preparing", "prompting"));
+          shownAtRef.current = Date.now();
+        }
+      } catch {
+        if (cancelled) return;
         setStatus("error");
-        setLoadError(result.error);
-        return;
-      }
-
-      setQueue(result.queue);
-      setLanguageName(result.languageName);
-      setStatus("ready");
-      if (result.queue.length === 0) {
-        setPhase("complete");
-      } else {
-        setPhase(nextPhase("preparing", "prompting"));
-        shownAtRef.current = Date.now();
+        setLoadError(copy.loadError);
       }
     }
 
@@ -82,10 +89,12 @@ export function useReviewSession(): UseReviewSessionResult {
 
   useEffect(() => {
     const queueClient = getReviewQueue();
-    return queueClient.subscribe((state) => {
+    const unsubscribe = queueClient.subscribe((state) => {
       setPendingCount(state.pending);
       setSyncError(state.failed > 0 ? state.lastError : null);
     });
+    void queueClient.flushAll();
+    return unsubscribe;
   }, []);
 
   useEffect(() => {

@@ -28,6 +28,8 @@ export const copy = {
   completeBody: (count: number) =>
     count === 1 ? "You reviewed 1 card." : `You reviewed ${count} cards.`,
   startReview: "Start review",
+  /** Must match data/methods/vocabulary.json — fast path on /words/review skips disk. */
+  srsSessionName: "Spaced repetition session",
   languageLabel: (name: string) => name,
   syncing: (count: number) =>
     count === 1 ? "Syncing 1 review…" : `Syncing ${count} reviews…`,

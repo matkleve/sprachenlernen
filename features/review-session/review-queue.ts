@@ -13,10 +13,15 @@ let queue: ReviewWriteQueue | null = null;
 /** Client singleton for the review write queue. */
 export function getReviewQueue(): ReviewWriteQueue {
   if (!queue) {
-    const storage =
-      typeof indexedDB !== "undefined"
-        ? createIndexedDbReviewQueueStorage()
-        : createInMemoryReviewQueueStorage();
+    let storage;
+    try {
+      storage =
+        typeof indexedDB !== "undefined"
+          ? createIndexedDbReviewQueueStorage()
+          : createInMemoryReviewQueueStorage();
+    } catch {
+      storage = createInMemoryReviewQueueStorage();
+    }
 
     queue = createReviewWriteQueue({
       storage,

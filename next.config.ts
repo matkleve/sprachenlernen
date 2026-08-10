@@ -7,6 +7,8 @@ const nextConfig: NextConfig = {
   // shows "Could not load the method catalogue" in production. See TRAPS.md.
   outputFileTracingIncludes: {
     "/methods": ["./data/methods/**/*"],
+    "/methods/[id]": ["./data/methods/**/*"],
+    "/words/review": ["./data/methods/**/*"],
     "/languages": ["./data/languages/**/*"],
   },
   // `verify` sets this so its build cannot overwrite the `.next` a running dev
