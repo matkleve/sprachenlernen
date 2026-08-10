@@ -1,9 +1,6 @@
-import Link from "next/link";
-
-import { buttonVariants } from "@/components/ui/Button";
+import { ActionLink } from "@/components/ui/ActionLink";
 import { copy } from "@/features/review-session/content";
 import { routes } from "@/lib/routes";
-import { cn } from "@/lib/utils";
 
 type SessionCompleteProps = {
   gradedCount: number;
@@ -23,12 +20,12 @@ export function SessionComplete({ gradedCount, pendingCount }: SessionCompletePr
         </p>
       ) : null}
       <div className="mt-8 flex flex-wrap gap-3">
-        <Link href={routes.words} className={cn(buttonVariants({ variant: "primary" }))}>
+        <ActionLink href={routes.words} variant="primary">
           {copy.backToWords}
-        </Link>
-        <Link href={routes.methods} className={cn(buttonVariants({ variant: "secondary" }))}>
+        </ActionLink>
+        <ActionLink href={routes.methods} variant="secondary">
           {copy.backToMethods}
-        </Link>
+        </ActionLink>
       </div>
     </div>
   );

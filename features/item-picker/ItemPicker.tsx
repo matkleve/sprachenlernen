@@ -40,8 +40,9 @@ export function ItemPicker({ items }: { items: Item[] }) {
                   aria-current={isSelected ? "true" : undefined}
                   onClick={() => setSelectedId(item.id)}
                   className={cn(
-                    "w-full rounded-card px-4 py-3 text-left text-sm transition-colors duration-150",
+                    "w-full touch-manipulation rounded-card px-4 py-3 text-left text-sm transition-[background-color,color,transform] duration-150",
                     "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-canvas",
+                    "active:scale-[0.98]",
                     isSelected
                       ? "bg-accent-soft font-medium text-ink"
                       : "text-muted hover:bg-accent-soft hover:text-ink",

@@ -1,12 +1,11 @@
-import Link from "next/link";
-
-import { Button } from "@/components/ui/Button";
+import { ActionLink } from "@/components/ui/ActionLink";
 import { Chip } from "@/components/ui/Chip";
 import { byId, type MethodEntry } from "@/lib/method-catalogue";
 import type { SearchParams } from "@/lib/method-menu-filter";
 import { menuQueryString } from "@/lib/method-menu-filter";
 import { sessionHrefForMethod, usesWordsReview } from "@/lib/method-session";
 import { routes } from "@/lib/routes";
+import { cn } from "@/lib/utils";
 
 import { copy, evidence, intensity, sections } from "./content";
 import { durationChips, requirementChips } from "./requirements";
@@ -16,6 +15,9 @@ export type MethodDetailProps = {
   searchParams?: SearchParams;
 };
 
+const backLinkClass =
+  "h-auto px-0 text-sm font-medium text-muted hover:bg-transparent hover:text-ink";
+
 export function MethodDetail({ method, searchParams = {} }: MethodDetailProps) {
   const backHref = `${routes.methods}${menuQueryString(searchParams)}`;
 
@@ -23,9 +25,14 @@ export function MethodDetail({ method, searchParams = {} }: MethodDetailProps) {
     return (
       <div className="mx-auto max-w-2xl px-6 pt-page-top pb-page-bottom">
         <p className="text-base text-muted">{copy.methodNotFound}</p>
-        <Link href={backHref} className="mt-4 inline-block text-sm font-medium text-ink underline">
+        <ActionLink
+          href={backHref}
+          variant="ghost"
+          size="sm"
+          className={cn(backLinkClass, "mt-4")}
+        >
           {copy.backToMethods}
-        </Link>
+        </ActionLink>
       </div>
     );
   }
@@ -34,9 +41,9 @@ export function MethodDetail({ method, searchParams = {} }: MethodDetailProps) {
 
   return (
     <div className="mx-auto max-w-2xl px-6 pt-page-top pb-page-bottom">
-      <Link href={backHref} className="text-sm font-medium text-muted hover:text-ink">
+      <ActionLink href={backHref} variant="ghost" size="sm" className={backLinkClass}>
         ← {copy.backToMethods}
-      </Link>
+      </ActionLink>
 
       <p className="mt-6 text-sm font-medium uppercase tracking-widest text-muted">
         {sections[method.section]}
@@ -81,9 +88,9 @@ export function MethodDetail({ method, searchParams = {} }: MethodDetailProps) {
       </p>
 
       {usesWordsReview(method) && (
-        <Link href={sessionHrefForMethod(method)} className="mt-8 inline-block">
-          <Button type="button">{copy.startSession}</Button>
-        </Link>
+        <ActionLink href={sessionHrefForMethod(method)} variant="primary" size="lg" className="mt-8">
+          {copy.startSession}
+        </ActionLink>
       )}
 
       {method.hosted && !usesWordsReview(method) && (

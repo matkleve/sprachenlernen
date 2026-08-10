@@ -14,6 +14,10 @@ import {
 import { setReviewQueueForTests } from "@/features/review-session/review-queue";
 import { copy } from "@/features/review-session/content";
 
+vi.mock("next/navigation", () => ({
+  useRouter: vi.fn(() => ({ push: vi.fn() })),
+}));
+
 vi.mock("@/features/review-session/actions", () => ({
   appendReviewAction: vi.fn().mockResolvedValue({ status: "appended", id: "row-1" }),
   buildSessionAction: vi.fn().mockResolvedValue({

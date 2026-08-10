@@ -1,6 +1,6 @@
 # Plan — interaction feedback (press + pending everywhere)
 
-**Status:** spec drafted — **no code until owner approves** `interaction-feedback.md`.
+**Status:** implemented on `cursor/interaction-feedback-d240`.
 **Change class:** Standard (primitives + audit + one test file per phase).
 **Use case:** [UC-068](../use-cases/UC-068-know-my-tap-was-received.md).
 

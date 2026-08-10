@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-import { Button } from "@/components/ui/Button";
+import { SubmitButton } from "@/components/ui/SubmitButton";
 import { Field } from "@/components/ui/Field";
 import { Input } from "@/components/ui/Input";
 import { signUpAction } from "@/features/auth/actions";
@@ -38,7 +38,7 @@ export function SignUpForm({
         >
           <Input type="password" name="password" autoComplete="new-password" minLength={6} required />
         </Field>
-        <Button type="submit">{authContent.signUp.submit}</Button>
+        <SubmitButton>{authContent.signUp.submit}</SubmitButton>
       </form>
       <OAuthButtons />
       {referenceId ? (

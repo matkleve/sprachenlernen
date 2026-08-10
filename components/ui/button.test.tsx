@@ -47,6 +47,13 @@ describe("Button", () => {
     expect(cls).not.toContain("rounded-pill");
   });
 
+  it("disables and sets aria-busy when pending", () => {
+    render(<Button pending>Save</Button>);
+    const button = screen.getByRole("button");
+    expect(button.getAttribute("aria-busy")).toBe("true");
+    expect(button).toHaveProperty("disabled", true);
+  });
+
   it.each(variants)("renders %s with no accessibility violations", async (variant) => {
     const { container } = render(<Button variant={variant}>Action</Button>);
     await expectNoA11yViolations(container);

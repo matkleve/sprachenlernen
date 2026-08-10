@@ -1,13 +1,10 @@
-import Link from "next/link";
-
-import { buttonVariants } from "@/components/ui/Button";
+import { ActionLink } from "@/components/ui/ActionLink";
 import { Table, Td, Th } from "@/components/ui/Table";
 import { holding } from "@/features/app-shell/content";
 import { copy as reviewCopy } from "@/features/review-session/content";
 import { copy } from "@/features/words/content";
 import { routes } from "@/lib/routes";
 import type { VocabularySnapshot } from "@/lib/vocabulary-snapshot";
-import { cn } from "@/lib/utils";
 
 type WordsHomeProps = {
   snapshot: VocabularySnapshot;
@@ -34,9 +31,9 @@ export function WordsHome({ snapshot }: WordsHomeProps) {
       <p className="mt-4 max-w-2xl text-base leading-relaxed text-muted">{holding.words.intent}</p>
 
       <div className="mt-page-content">
-        <Link href={reviewHref} className={cn(buttonVariants({ variant: "primary", size: "lg" }))}>
+        <ActionLink href={reviewHref} variant="primary" size="lg">
           {reviewCopy.startReview}
-        </Link>
+        </ActionLink>
       </div>
 
       <section className="mt-page-content">

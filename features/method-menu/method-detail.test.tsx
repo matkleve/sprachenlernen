@@ -1,11 +1,15 @@
 import { render, screen } from "@testing-library/react";
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 
 import { expectNoA11yViolations } from "@/tests/axe";
 
 import { loadMethodCatalogue } from "./catalogue";
 import { MethodDetail, findMethod } from "./MethodDetail";
 import { copy } from "./content";
+
+vi.mock("next/navigation", () => ({
+  useRouter: vi.fn(() => ({ push: vi.fn() })),
+}));
 
 const { catalogue } = loadMethodCatalogue();
 const extensiveReading = findMethod(catalogue, "extensive-reading")!;

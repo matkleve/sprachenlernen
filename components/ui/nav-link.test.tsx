@@ -1,9 +1,13 @@
 import { render, screen } from "@testing-library/react";
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 
 import { expectNoA11yViolations } from "@/tests/axe";
 
 import { NavLink } from "./NavLink";
+
+vi.mock("next/navigation", () => ({
+  useRouter: vi.fn(() => ({ push: vi.fn() })),
+}));
 
 /**
  * The named check for docs/specs/component/nav-link.md. One test per

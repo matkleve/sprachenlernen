@@ -17,7 +17,11 @@ import { copy } from "./content";
  * changes in the same commit.
  */
 
-vi.mock("next/navigation", () => ({ redirect: vi.fn(), usePathname: vi.fn() }));
+vi.mock("next/navigation", () => ({
+  redirect: vi.fn(),
+  usePathname: vi.fn(),
+  useRouter: vi.fn(() => ({ push: vi.fn() })),
+}));
 vi.mock("@/lib/db/auth", () => ({ getAccount: vi.fn() }));
 
 const showHeaderAt = (pathname: string) => {

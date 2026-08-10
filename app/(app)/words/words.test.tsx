@@ -1,10 +1,14 @@
 import { render, screen } from "@testing-library/react";
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 
 import { copy as reviewCopy } from "@/features/review-session/content";
 import { copy } from "@/features/words/content";
 import { WordsHome } from "@/features/words/WordsHome";
 import type { VocabularySnapshot } from "@/lib/vocabulary-snapshot";
+
+vi.mock("next/navigation", () => ({
+  useRouter: vi.fn(() => ({ push: vi.fn() })),
+}));
 
 const emptySnapshot: VocabularySnapshot = {
   counts: { held: 0, shaky: 0, new: 50 },

@@ -1,4 +1,4 @@
-import { Button } from "@/components/ui/Button";
+import { SubmitButton } from "@/components/ui/SubmitButton";
 import { signInWithOAuthAction } from "@/features/auth/actions";
 import { authContent } from "@/features/auth/content";
 
@@ -16,9 +16,9 @@ export function OAuthButtons() {
         {providers.map((provider) => (
           <form key={provider.id} action={signInWithOAuthAction}>
             <input type="hidden" name="provider" value={provider.id} />
-            <Button type="submit" variant="secondary" className="w-full">
+            <SubmitButton variant="secondary" className="w-full">
               {provider.label}
-            </Button>
+            </SubmitButton>
           </form>
         ))}
       </div>

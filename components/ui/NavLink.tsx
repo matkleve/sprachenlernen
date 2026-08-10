@@ -1,7 +1,10 @@
+"use client";
+
 import { cva, type VariantProps } from "class-variance-authority";
 import Link from "next/link";
 import type { ComponentPropsWithoutRef } from "react";
 
+import { usePendingNavigation } from "@/components/ui/use-pending-navigation";
 import { cn } from "@/lib/utils";
 
 /**
@@ -18,7 +21,7 @@ export const navLinkVariants = cva(
     // expanded target would resolve against the nearest positioned ancestor,
     // which is usually the page.
     "relative inline-flex items-center justify-center whitespace-nowrap",
-    "h-9 rounded-pill px-3 text-sm font-medium",
+    "touch-manipulation h-9 rounded-pill px-3 text-sm font-medium",
     // Grows the *target* to 44px without changing the visual box — the same
     // trick and the same reason as Button. `min-h-11` would beat the height
     // and inflate the pill itself.
@@ -45,13 +48,25 @@ export const navLinkVariants = cva(
 export type NavLinkProps = ComponentPropsWithoutRef<typeof Link> &
   VariantProps<typeof navLinkVariants>;
 
-export function NavLink({ current, className, ...props }: NavLinkProps) {
+export function NavLink({ current, className, href, onClick, ...props }: NavLinkProps) {
+  const { isPending, onClick: pendingClick } = usePendingNavigation(href);
+
   return (
     <Link
+      href={href}
       // One value drives both the look and the announcement, so a link cannot
       // read as current to the eye and not to a screen reader.
       aria-current={current ? "page" : undefined}
-      className={cn(navLinkVariants({ current }), className)}
+      aria-busy={isPending || undefined}
+      className={cn(
+        navLinkVariants({ current }),
+        isPending && "pointer-events-none opacity-70",
+        className,
+      )}
+      onClick={(event) => {
+        pendingClick(event);
+        onClick?.(event);
+      }}
       {...props}
     />
   );

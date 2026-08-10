@@ -49,7 +49,7 @@ export function ReviewCard({
           "group relative mt-6 w-full rounded-card border border-line bg-surface p-8 text-center shadow-soft",
           "transition-[box-shadow,transform] duration-200 ease-out-soft",
           "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-canvas",
-          flipEnabled && "cursor-pointer hover:-translate-y-px hover:shadow-raised active:translate-y-0",
+          flipEnabled && "cursor-pointer hover:-translate-y-px hover:shadow-raised active:scale-[0.98] active:translate-y-0",
           !flipEnabled && "cursor-default",
         )}
       >

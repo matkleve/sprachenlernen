@@ -1,3 +1,7 @@
+"use client";
+
+import { useTransition } from "react";
+
 import { Button } from "@/components/ui/Button";
 import { ErrorCallout } from "@/components/ui/ErrorCallout";
 import type { UserFacingError } from "@/lib/errors";
@@ -18,6 +22,8 @@ export function RouteErrorSurface({
   referenceId,
   onRetry,
 }: RouteErrorSurfaceProps) {
+  const [isPending, startTransition] = useTransition();
+
   return (
     <div className="mx-auto max-w-xl px-6 pt-page-top pb-page-bottom">
       <ErrorCallout
@@ -25,7 +31,12 @@ export function RouteErrorSurface({
         nextStep={nextStep}
         referenceId={referenceId}
         retry={
-          <Button type="button" variant="secondary" onClick={onRetry}>
+          <Button
+            type="button"
+            variant="secondary"
+            pending={isPending}
+            onClick={() => startTransition(() => onRetry())}
+          >
             {copy.tryAgain}
           </Button>
         }

@@ -8,7 +8,10 @@ import { copy as routeErrorCopy } from "@/components/ui/route-error-surface-cont
 import { AppShell } from "./AppShell";
 import { DestinationError } from "./DestinationError";
 
-vi.mock("next/navigation", () => ({ usePathname: vi.fn() }));
+vi.mock("next/navigation", () => ({
+  usePathname: vi.fn(),
+  useRouter: vi.fn(() => ({ push: vi.fn() })),
+}));
 
 const renderDestinationError = (pathname: string, message = "boom") => {
   vi.mocked(usePathname).mockReturnValue(pathname);

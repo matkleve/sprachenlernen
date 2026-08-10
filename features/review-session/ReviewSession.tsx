@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { useTransition } from "react";
 
 import { Button } from "@/components/ui/Button";
 import { copy } from "@/features/review-session/content";
@@ -18,6 +19,7 @@ function showsActiveCard(phase: string): boolean {
 }
 
 export function ReviewSession({ methodName }: ReviewSessionProps) {
+  const [retryPending, startRetry] = useTransition();
   const {
     status,
     loadError,
@@ -69,7 +71,13 @@ export function ReviewSession({ methodName }: ReviewSessionProps) {
           <p className="text-sm text-danger" aria-live="polite">
             {copy.syncFailed}
           </p>
-          <Button type="button" variant="secondary" size="sm" onClick={retrySync}>
+          <Button
+            type="button"
+            variant="secondary"
+            size="sm"
+            pending={retryPending}
+            onClick={() => startRetry(() => retrySync())}
+          >
             {copy.syncRetry}
           </Button>
         </div>

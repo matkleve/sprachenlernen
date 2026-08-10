@@ -3,10 +3,9 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
+import { ActionLink } from "@/components/ui/ActionLink";
 import { NavLink } from "@/components/ui/NavLink";
-import { buttonVariants } from "@/components/ui/Button";
 import { routes } from "@/lib/routes";
-import { cn } from "@/lib/utils";
 
 import { copy } from "./content";
 
@@ -25,7 +24,7 @@ export function PublicHeader() {
       <div className="mx-auto flex max-w-5xl items-center justify-between gap-4 px-6 py-3">
         <Link
           href={routes.landing}
-          className="text-sm font-semibold tracking-tight text-ink transition-colors duration-150 ease-out-soft hover:text-accent active:text-accent-deep focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-canvas"
+          className="touch-manipulation text-sm font-semibold tracking-tight text-ink transition-[color,transform] duration-150 ease-out-soft hover:text-accent active:scale-[0.98] active:text-accent-deep focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-canvas"
         >
           {copy.header.brand}
         </Link>
@@ -33,12 +32,9 @@ export function PublicHeader() {
           <NavLink href={routes.signIn} current={pathname === routes.signIn}>
             {copy.header.signIn}
           </NavLink>
-          <Link
-            href={routes.signUp}
-            className={cn(buttonVariants({ variant: "primary", size: "sm" }))}
-          >
+          <ActionLink href={routes.signUp} variant="primary" size="sm">
             {copy.header.signUp}
-          </Link>
+          </ActionLink>
         </nav>
       </div>
     </header>

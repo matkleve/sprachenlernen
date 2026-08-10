@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-import { Button } from "@/components/ui/Button";
+import { SubmitButton } from "@/components/ui/SubmitButton";
 import { Field } from "@/components/ui/Field";
 import { Input } from "@/components/ui/Input";
 import { signInAction } from "@/features/auth/actions";
@@ -18,7 +18,7 @@ export function SignInForm({ error, referenceId }: { error?: string; referenceId
         <Field label={authContent.passwordLabel} error={error}>
           <Input type="password" name="password" autoComplete="current-password" required />
         </Field>
-        <Button type="submit">{authContent.signIn.submit}</Button>
+        <SubmitButton>{authContent.signIn.submit}</SubmitButton>
       </form>
       <OAuthButtons />
       {referenceId ? (

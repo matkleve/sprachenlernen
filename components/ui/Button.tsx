@@ -1,6 +1,7 @@
 import { cva, type VariantProps } from "class-variance-authority";
 import { forwardRef, type ButtonHTMLAttributes } from "react";
 
+import { Spinner } from "@/components/ui/Spinner";
 import { cn } from "@/lib/utils";
 
 /**
@@ -15,7 +16,7 @@ export const buttonVariants = cva(
     // layout. `relative` anchors the hit-area pseudo-element in the size
     // variants; without it the expanded target would resolve against the page.
     "relative inline-flex items-center justify-center gap-2 whitespace-nowrap",
-    "rounded-pill font-medium",
+    "touch-manipulation rounded-pill font-medium",
     // The pseudo-element is part of the button for hit testing, so it grows the
     // interactive target to 44px without changing the visual box. Do NOT reach
     // for `min-h-11` instead: min-height beats height, so it would silently
@@ -64,20 +65,36 @@ export const buttonVariants = cva(
 );
 
 export type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> &
-  VariantProps<typeof buttonVariants>;
+  VariantProps<typeof buttonVariants> & {
+    /** Async in flight — mutes control, blocks duplicate taps. */
+    pending?: boolean;
+  };
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button(
-  { className, variant, size, type, ...props },
+  { className, variant, size, type, pending = false, disabled, children, ...props },
   ref,
 ) {
+  const isBusy = pending;
+  const showSpinner =
+    isBusy && (variant === "primary" || variant === "danger" || variant === undefined);
+
   return (
     <button
       ref={ref}
       // Default to "button". A bare <button> inside a form submits it, which is
       // never what a caller who did not think about it wanted.
       type={type ?? "button"}
-      className={cn(buttonVariants({ variant, size }), className)}
+      disabled={disabled || isBusy}
+      aria-busy={isBusy || undefined}
+      className={cn(
+        buttonVariants({ variant, size }),
+        isBusy && "pointer-events-none opacity-70",
+        className,
+      )}
       {...props}
-    />
+    >
+      {showSpinner ? <Spinner className="size-4 shrink-0" /> : null}
+      {children}
+    </button>
   );
 });

@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 
-import { Button } from "@/components/ui/Button";
+import { SubmitButton } from "@/components/ui/SubmitButton";
 import { cn } from "@/lib/utils";
 
 import { Destinations } from "./Destinations";
@@ -27,9 +27,9 @@ export function AppShell({ children }: { children: ReactNode }) {
         <div className="mx-auto flex max-w-5xl items-center justify-between gap-4 px-6 py-3">
           <Destinations />
           <form action={signOutAction}>
-            <Button type="submit" variant="ghost" size="sm">
+            <SubmitButton variant="ghost" size="sm">
               {copy.signOut}
-            </Button>
+            </SubmitButton>
           </form>
         </div>
       </header>

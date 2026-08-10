@@ -2,7 +2,7 @@
 
 <!-- id: SPEC-feature-interaction-feedback -->
 <!-- use-case: UC-068 -->
-<!-- status: draft -->
+<!-- status: active -->
 
 Every clickable control in the app communicates **press** (tap received) and,
 when work continues after release, **pending** (something is happening). Parent:

@@ -20,7 +20,11 @@ import { requireAccount } from "./gate";
  * changes in the same commit.
  */
 
-vi.mock("next/navigation", () => ({ redirect: vi.fn(), usePathname: vi.fn() }));
+vi.mock("next/navigation", () => ({
+  redirect: vi.fn(),
+  usePathname: vi.fn(),
+  useRouter: vi.fn(() => ({ push: vi.fn() })),
+}));
 vi.mock("@/lib/db/auth", () => ({ getAccount: vi.fn(), signOut: vi.fn() }));
 
 const account = { id: "u1", email: "a@example.com" };

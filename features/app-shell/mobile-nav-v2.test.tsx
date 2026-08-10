@@ -8,7 +8,10 @@ import { AppShell } from "./AppShell";
 import { FloatingShellChrome } from "./FloatingShellChrome";
 import { copy } from "./content";
 
-vi.mock("next/navigation", () => ({ usePathname: vi.fn() }));
+vi.mock("next/navigation", () => ({
+  usePathname: vi.fn(),
+  useRouter: vi.fn(() => ({ push: vi.fn() })),
+}));
 
 function mockMobileViewport() {
   vi.stubGlobal(

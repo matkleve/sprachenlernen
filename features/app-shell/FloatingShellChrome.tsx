@@ -1,10 +1,10 @@
 "use client";
 
 import { ArrowLeft, LogOut } from "lucide-react";
-import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-import { Button, buttonVariants } from "@/components/ui/Button";
+import { ActionLink } from "@/components/ui/ActionLink";
+import { SubmitButton } from "@/components/ui/SubmitButton";
 import { cn } from "@/lib/utils";
 
 import { shellBackTarget } from "./back-target";
@@ -34,21 +34,23 @@ export function FloatingShellChrome() {
       >
         <div className="pointer-events-auto min-h-11">
           {back ? (
-            <Link
+            <ActionLink
               href={back.href}
-              className={cn(buttonVariants({ variant: "floating", size: "sm" }), "gap-1.5")}
+              variant="floating"
+              size="sm"
+              className="gap-1.5"
             >
               <ArrowLeft aria-hidden className="size-4 shrink-0" />
               {back.label}
-            </Link>
+            </ActionLink>
           ) : null}
         </div>
 
         <form action={signOutAction} className="pointer-events-auto">
-          <Button type="submit" variant="floating" size="sm" className="gap-1.5">
+          <SubmitButton variant="floating" size="sm" className="gap-1.5">
             <LogOut aria-hidden className="size-4 shrink-0" />
             {copy.signOut}
-          </Button>
+          </SubmitButton>
         </form>
       </div>
 
