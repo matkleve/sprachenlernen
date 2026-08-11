@@ -117,6 +117,12 @@ In [`starter-deck.acceptance-criteria.md`](starter-deck.acceptance-criteria.md).
 
 `npm test -- starter-deck`
 
+## A second language
+
+Italian is investigated and **not buildable yet** — three independent blockers,
+none of them code. See
+[`starter-deck.second-language.md`](starter-deck.second-language.md).
+
 ## Open
 
 - **⚠ The shipped deck has not been reproduced from a live Kaikki fetch.**

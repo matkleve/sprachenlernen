@@ -335,6 +335,17 @@ honest Spanish/Italian; offline unlocks commute practice.
 three shipped), T-B4 (denominator only), T-B9 (multi-device share works; full
 offline does not).
 
+**Italian is not on this queue, and the reason is not effort.** Investigated
+2026-08-11: the ranking pipeline runs on the shipped `it` data unchanged and
+yields 3,135 lemmas, so the *code* is ready. Three things block it, none of them
+code — no reachable gloss source, a frequency list that splits accented and
+unaccented spellings (91 groups, and the misspelling often outranks the word),
+and no model anywhere for how an Account chooses a **learning** language, which
+`I18N.md` does not cover because it is about interface copy. Evidence and the
+per-blocker detail: [`specs/service/starter-deck.second-language.md`](specs/service/starter-deck.second-language.md).
+A second language is a **staged decision, not a task** — do not queue it until
+the third blocker has an ADR.
+
 
 ## Interaction and design-system audit
 
