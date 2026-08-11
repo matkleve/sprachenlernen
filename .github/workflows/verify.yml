@@ -20,4 +20,15 @@ jobs:
 
       - run: npm ci
 
+      # BACKEND.md §8 calls the RLS suite the highest-value test in the product,
+      # and it has never run here: `lib/db/access-control.test.ts` skips itself
+      # unless all three secrets are present, so CI has been reporting green on
+      # 5 tests it never executed. Passing them through costs nothing while they
+      # are unset — the suite skips exactly as it does today — and the access
+      # control test starts running on every PR the moment they are added in
+      # Settings → Secrets. Without this, adding the secrets would do nothing.
       - run: npm run verify
+        env:
+          NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
+          NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
