@@ -22,6 +22,9 @@ export function LandingHero() {
         {copy.landing.headline}
       </h1>
       <p className="mt-4 max-w-2xl text-lg text-muted">{copy.landing.subhead}</p>
+      <p className="mt-4 max-w-2xl text-base leading-relaxed text-muted">
+        {copy.landing.timeHonesty}
+      </p>
 
       <div className="mt-page-content flex flex-wrap items-center gap-3">
         <Link

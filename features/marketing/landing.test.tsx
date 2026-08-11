@@ -88,6 +88,8 @@ describe("LandingHero", () => {
   it("quotes the study pillars without inventing a fourth", () => {
     render(<LandingHero />);
 
+    expect(screen.getByText(copy.landing.timeHonesty)).toBeTruthy();
+
     for (const pillar of copy.landing.pillars) {
       expect(screen.getByText(pillar.text)).toBeTruthy();
     }

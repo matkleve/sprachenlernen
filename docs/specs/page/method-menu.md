@@ -33,7 +33,9 @@ catalogue is already in memory; only method-card links navigate away.
   chip cards; **card-engine hosted** (`srs-session`) → Words review; other hosted
   → detail until built; off-app → detail; client-side filtering with URL
   sync (`history.replaceState`); **current standing** — one honest sentence from
-  the progress reading, above the filters (T-B10 follow-up, narrowed).
+  the progress reading, above the filters (T-B10 follow-up, narrowed); **daily
+  three** — three method cards composed from the filtered catalogue (study/12,
+  narrowed — evidence grade proxies for measured effect).
 - **Out:** situation presets ("kitchen", "transit", …); saved custom situations;
   daily menu; learner-specific card fields; Commitments on this list;
   demonstration sentence; readiness; CEFR skill or overall level on this
@@ -69,6 +71,21 @@ Reads the same starter-deck derivation as [`progress.md`](progress.md) via
 
 Skills are not named here until a skill signal has data (study/03).
 
+## Daily three
+
+study/12's compromise: three cards, not the whole catalogue. Composed from the
+**currently filtered** methods so context still governs first:
+
+1. **Low intensity** — always one `intensity === 1` option when the pool has one.
+2. **Strong evidence** — highest `evidence` grade in the pool (A > B > C > D).
+   Per-learner effect estimates do not exist yet; grade is the v1 proxy.
+3. **Variety** — a third pick from a different `section` when possible; stable
+   for the calendar day via `pickDailyThree(methods, dayKey)` in
+   `lib/daily-three.ts`.
+
+Shown between standing and the filter controls. The full filtered list remains
+below — the three are a starting point, not a gate.
+
 Default slider position is **15 minutes** on first visit; the URL updates on
 release, not on every intermediate drag frame.
 
@@ -84,7 +101,7 @@ URL search parameters remain the bookmark format (`docs/STATE.md` §6).
 
 ## Check
 
-`npm test -- method-menu method-menu-filter time-scale standing`
+`npm test -- method-menu method-menu-filter time-scale standing daily-three`
 
 ## Acceptance criteria
 

@@ -34,6 +34,7 @@ export default async function MethodsPage({
       loadError={loadError}
       initialSearchParams={params}
       standing={standing.status === "ok" ? standing.summary : undefined}
+      dayKey={new Date().toISOString().slice(0, 10)}
     />
   );
 }
