@@ -102,7 +102,8 @@ grade appends one row they own. What that unblocks is T-B3: `/progress` is the
 last holding page, and it is now the only destination with nothing behind it.
 
 **The honest limit on all of it:** one language (Spanish), one task type
-(meaning-recall), a **500-lemma** starter pool (stage 1 of engine expansion), and progress that stops at
+(meaning-recall), a **500-lemma** starter pool (stage 1 of engine expansion),
+and progress that stops at
 pool-local counts — no CEFR skill levels yet. The plumbing is real; the
 measurement only becomes a language claim once the pool and form tables grow.
 
@@ -323,7 +324,7 @@ honest Spanish/Italian; offline unlocks commute practice.
 
 | Priority | Work | Unblocks |
 | --- | --- | --- |
-| **1** | ~~**Expand the Spanish word pool**~~ — **stage 1 shipped 2026-08-11**: 500 frequency-ranked lemmas (`scripts/build-starter-deck.mjs`). Stage 2 (2k) remains. | Language-wide vocabulary estimate; honest progress |
+| **1** | ~~**Expand the Spanish word pool**~~ — **stage 1 shipped 2026-08-11**: 500 frequency-ranked lemmas (`scripts/build-starter-deck.mjs`), glosses shaped and gated, pool reads batched. Stage 2 (2k) remains; the pipeline's ceiling is **2,953** lemmas — beyond that needs a larger frequency list, which is a recalibration event. | Language-wide vocabulary estimate; honest progress |
 | **2** | **Form→lemma tables with paradigm cells** — prefixes, endings, irregulars as data ([`study/18`](study/18-language-kit.md), ADR-0004). Build-time from Stanza, not runtime. | Form mastery signal; cards that train *hablo* not just *hablar* |
 | **3** | **T-B3 remainder** — extrapolation + per-skill levels once (1) and calibration exist | F18–F22; demonstration sentence |
 | **4** | **T-B9 / offline-PWA** — cache deck + scheduler; flush queue on reconnect (ADR-0011 Option B) | UC-018 commute practice; installable PWA |

@@ -11,6 +11,32 @@ applying is still evidence about how this codebase misleads people.
 
 ---
 
+## Growing a data file broke a query, and every test stayed green
+
+The Spanish starter pool went 50 → 500 lemmas. Pure data, no call-site change,
+`verify` green: typecheck, lint, 456 tests, build.
+
+`listReviewsForTaskIds` asks for the whole pool's history in one go, and
+PostgREST takes `in.(…)` **in the query string** — so the entire task-id list
+rides in the request line. At 50 lemmas that was ~1 KB. At 500 it is ~13 KB
+raw and **~19 KB URL-encoded**, past the request-line limit of a typical
+gateway, which answers `414` before Postgres is ever reached. The page renders
+the error surface instead of the learner's history.
+
+Nothing in the gate could see it. Every test around that function stubs the
+Supabase client, so the request that would have been too long is never built,
+let alone sent — the tests prove the adapter's *logic*, and the defect is in
+its *shape*. The pure-function tests below it are even further away.
+
+The fix is batching (100 ids), plus a re-sort across batches, since each batch
+is ordered but their concatenation is not and `rebuild` replays in order.
+
+**The general form: a data file's size is an input to every query that spans
+it.** When a `data/` file grows, grep for the call sites that pass all of it
+somewhere — `.in(`, `IN (`, a URL, a request body, a `Promise.all` over rows —
+and check the resulting request against a real limit, by hand. "It is only
+data" is what makes this one invisible.
+
 ## A concise `beforeEach` registered the mock as its own teardown
 
 ```ts

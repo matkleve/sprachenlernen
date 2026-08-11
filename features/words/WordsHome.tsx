@@ -12,6 +12,15 @@ type WordsHomeProps = {
 
 const CHART_HEIGHT_PX = 96;
 
+/**
+ * The atlas is ordered by frequency, so the head of it is the part a learner
+ * can act on; the tail is 400 rows of "New" that push the page's other
+ * sections out of reach. Capped rather than paginated because paging controls
+ * would be a second interactive surface for a table nobody scrolls to the end
+ * of — revisit if the pool grows again (stage 2).
+ */
+const ATLAS_ROW_LIMIT = 100;
+
 function maxHorizonCount(snapshot: VocabularySnapshot): number {
   return Math.max(1, ...snapshot.horizon.map((bin) => bin.count));
 }
@@ -24,6 +33,7 @@ function horizonBarHeight(count: number, max: number): number {
 export function WordsHome({ snapshot }: WordsHomeProps) {
   const reviewHref = `${routes.wordsReview}?method=srs-session`;
   const horizonMax = maxHorizonCount(snapshot);
+  const atlasRows = snapshot.atlas.slice(0, ATLAS_ROW_LIMIT);
 
   return (
     <div className="mx-auto max-w-5xl px-6 pt-page-top pb-page-bottom">
@@ -92,6 +102,11 @@ export function WordsHome({ snapshot }: WordsHomeProps) {
       <section className="mt-page-content">
         <h2 className="text-xl font-semibold text-ink">{copy.atlasHeading}</h2>
         <p className="mt-4 max-w-2xl text-base leading-relaxed text-muted">{copy.atlasCaption}</p>
+        {atlasRows.length < snapshot.atlas.length ? (
+          <p className="mt-2 max-w-2xl text-base leading-relaxed text-muted">
+            {copy.atlasTruncated(atlasRows.length, snapshot.atlas.length)}
+          </p>
+        ) : null}
         <Table caption={copy.atlasCaption} className="mt-6">
           <thead>
             <tr>
@@ -102,7 +117,7 @@ export function WordsHome({ snapshot }: WordsHomeProps) {
             </tr>
           </thead>
           <tbody>
-            {snapshot.atlas.map((point) => (
+            {atlasRows.map((point) => (
               <tr key={`${point.lemma}-${point.frequencyRank}`}>
                 <Th scope="row">{point.lemma}</Th>
                 <Td>{point.frequencyRank}</Td>

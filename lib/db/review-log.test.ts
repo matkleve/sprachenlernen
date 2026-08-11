@@ -237,6 +237,91 @@ describe("listReviewsForTaskIds", () => {
     expect(result.status).toBe("error");
     expect(select).not.toHaveBeenCalled();
   });
+
+  /**
+   * `.in()` rides in the PostgREST query string, so the whole pool travels in
+   * the request line. The 500-lemma pool crosses the request-line limit of a
+   * typical gateway, which answers 414 — invisible to every other test here,
+   * because they all stub the client.
+   */
+  function chunkedClient(rowsPerCall: unknown[][]) {
+    const calls: string[][] = [];
+    let call = 0;
+    const select = vi.fn().mockReturnValue({
+      in: vi.fn().mockImplementation((_column: string, ids: string[]) => {
+        calls.push(ids);
+        const rows = rowsPerCall[call] ?? [];
+        call += 1;
+        return { order: vi.fn().mockResolvedValue({ data: rows, error: null }) };
+      }),
+    });
+    const client = {
+      auth: {
+        getUser: vi
+          .fn()
+          .mockResolvedValue({ data: { user: { id: "user-1", email: "a@example.com" } } }),
+      },
+      from: vi.fn().mockReturnValue({ select }),
+    } as unknown as SupabaseClient;
+
+    return { client, calls };
+  }
+
+  const rowAt = (taskId: string, iso: string) => ({ ...row, task_id: taskId, reviewed_at: iso });
+
+  it("splits a pool-sized task list into bounded requests", async () => {
+    const taskIds = Array.from({ length: 500 }, (_, i) => `es:lemma-${i}:meaning-recall`);
+    const { client, calls } = chunkedClient([]);
+
+    const result = await listReviewsForTaskIds(taskIds, client);
+
+    expect(result.status).toBe("ok");
+    expect(calls.length).toBeGreaterThan(1);
+    expect(Math.max(...calls.map((ids) => ids.length))).toBeLessThanOrEqual(100);
+    expect(calls.flat()).toEqual(taskIds);
+  });
+
+  it("orders reviews by reviewed_at across chunk boundaries", async () => {
+    const taskIds = Array.from({ length: 150 }, (_, i) => `task-${i}`);
+    const { client } = chunkedClient([
+      [rowAt("task-1", "2026-08-09T12:00:02.000Z")],
+      [rowAt("task-120", "2026-08-09T12:00:01.000Z")],
+    ]);
+
+    const result = await listReviewsForTaskIds(taskIds, client);
+
+    expect(result.status).toBe("ok");
+    if (result.status !== "ok") return;
+    // Each chunk arrives ordered; the concatenation is not. `rebuild` replays
+    // in the order it receives, so this sort changes the stability it derives.
+    expect(result.reviews.map((review) => review.taskId)).toEqual(["task-120", "task-1"]);
+  });
+
+  it("surfaces an error from any chunk rather than a short history", async () => {
+    const taskIds = Array.from({ length: 150 }, (_, i) => `task-${i}`);
+    const select = vi.fn().mockReturnValue({
+      in: vi
+        .fn()
+        .mockReturnValueOnce({ order: vi.fn().mockResolvedValue({ data: [row], error: null }) })
+        .mockReturnValueOnce({
+          order: vi.fn().mockResolvedValue({ data: null, error: { message: "boom" } }),
+        }),
+    });
+    const client = {
+      auth: {
+        getUser: vi
+          .fn()
+          .mockResolvedValue({ data: { user: { id: "user-1", email: "a@example.com" } } }),
+      },
+      from: vi.fn().mockReturnValue({ select }),
+    } as unknown as SupabaseClient;
+
+    const result = await listReviewsForTaskIds(taskIds, client);
+
+    // A partial read looks exactly like a learner who reviewed less than they
+    // did, and the scheduler would happily reschedule from it.
+    expect(result.status).toBe("error");
+  });
 });
 
 describe("toSchedulerReview", () => {

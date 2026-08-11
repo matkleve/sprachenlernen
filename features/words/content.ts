@@ -18,6 +18,8 @@ export const copy = {
   horizonDay: (offset: number) => (offset === 0 ? "Today" : `Day ${offset + 1}`),
   atlasHeading: "Vocabulary atlas",
   atlasCaption: "Frequency rank and stability for each word in your deck.",
+  atlasTruncated: (shown: number, total: number) =>
+    `Showing the ${shown} most frequent of ${total} words in your deck.`,
   atlasColumns: {
     word: "Word",
     rank: "Rank",

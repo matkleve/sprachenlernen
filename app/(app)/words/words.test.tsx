@@ -39,4 +39,30 @@ describe("WordsHome", () => {
     const bars = container.querySelectorAll('[role="img"] .rounded-pill');
     expect(bars.length).toBe(30);
   });
+
+  it("caps the atlas and says how much of the deck it is showing", () => {
+    const snapshot: VocabularySnapshot = {
+      ...emptySnapshot,
+      atlas: Array.from({ length: 500 }, (_, index) => ({
+        lemma: `lemma-${index}`,
+        frequencyRank: index + 1,
+        stability: null,
+        bucket: "new" as const,
+      })),
+    };
+
+    const { container } = render(<WordsHome snapshot={snapshot} />);
+
+    // Truncating silently would read as a smaller deck than the counts above
+    // the table claim, which is the one thing this page may not do.
+    expect(container.querySelectorAll("tbody tr").length).toBe(100);
+    expect(screen.getByText(copy.atlasTruncated(100, 500))).toBeDefined();
+    expect(screen.getByText("lemma-0")).toBeDefined();
+    expect(screen.queryByText("lemma-100")).toBeNull();
+  });
+
+  it("says nothing about truncation when the whole deck fits", () => {
+    render(<WordsHome snapshot={emptySnapshot} />);
+    expect(screen.queryByText(/Showing the/)).toBeNull();
+  });
 });

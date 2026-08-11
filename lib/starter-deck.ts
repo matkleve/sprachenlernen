@@ -3,6 +3,7 @@
  */
 
 import esMeaningRecall from "@/data/starter/es-meaning-recall.json";
+import esIdenticalCognates from "@/data/starter/es-meaning-recall.cognates.json";
 
 export type StarterCard = {
   taskId: string;
@@ -71,6 +72,16 @@ export function validateStarterDeck(raw: unknown): LoadStarterDeckResult {
 
 /** Shipped Spanish meaning-recall pool size (stage 1). */
 export const SHIPPED_ES_POOL_SIZE = 500;
+
+/** Longest admissible card back. Mirrors the build script's cap. */
+export const MAX_GLOSS_CHARS = 60;
+
+/**
+ * Lemmas whose English gloss is legitimately the Spanish word itself. Shared
+ * with `scripts/build-starter-deck.mjs` through the data file so the gate and
+ * the generator enforce one list, not two that drift.
+ */
+export const ES_IDENTICAL_COGNATES: readonly string[] = esIdenticalCognates;
 
 /** Shipped Spanish meaning-recall pool ({@link SHIPPED_ES_POOL_SIZE} lemmas). */
 export function loadSpanishMeaningRecallDeck(): LoadStarterDeckResult {

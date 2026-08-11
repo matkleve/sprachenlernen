@@ -32,7 +32,8 @@ ADR-0007). **Sensitive** (`AGENTS.md`).
 | --- | --- | --- |
 | 1 | Taps a grade on a review session card | `latency_ms` is measured client-side; `appendReview` writes one row with the signed-in Account's `user_id`, the browser's `installation_id`, the card's `task_id`, grade, and `reviewed_at` |
 | 2 | Taps a grade while unsigned-in | Server action returns an error outcome; no row is written |
-| 3 | Session queue is built | `listReviewsForTaskIds` returns every stored review for the deck's tasks in one round trip, `reviewed_at` ascending, mapped to `{ at, grade }` via `toSchedulerReview` |
+| 3 | Session queue is built | `listReviewsForTaskIds` returns every stored review for the deck's tasks, `reviewed_at` ascending, mapped to `{ at, grade }` via `toSchedulerReview`. Task ids are sent in batches of **100** and the merged result re-sorted |
+| 3a | Any batch fails | The whole read returns `error` — a partial history is indistinguishable from a learner who reviewed less, and the scheduler would reschedule from it |
 | 4 | Signed-out read | `listReviewsForTaskIds` returns an `error` outcome — never an empty history, which the builder would read as a new learner |
 
 ## States
@@ -73,6 +74,14 @@ fingerprint (ADR-0005).
 - [ ] Given rows for a set of `task_id`s, when `listReviewsForTaskIds` runs,
       then results are ordered by `reviewed_at` ascending and `toSchedulerReview`
       yields matching `{ at, grade }`.
+- [ ] Given the whole 500-lemma pool, when `listReviewsForTaskIds` runs, then it
+      issues more than one request, none carrying more than 100 task ids, and
+      the union covers every id in order. PostgREST puts `in.(…)` in the query
+      string, so an unbatched pool read is a ~19 KB request line and a 414.
+- [ ] Given rows spread across batches, when they merge, then the returned list
+      is sorted by `reviewed_at` across batch boundaries, not merely within one.
+- [ ] Given one batch returning an error, then the outcome is `error` and no
+      partial history is returned.
 - [ ] Given an empty list of task ids, when `listReviewsForTaskIds` runs, then
       it returns no reviews without querying the database.
 - [ ] Given no session, when `listReviewsForTaskIds` runs, then status is

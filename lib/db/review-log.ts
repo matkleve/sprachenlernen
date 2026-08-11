@@ -50,6 +50,25 @@ async function resolveClient(client?: SupabaseClient): Promise<SupabaseClient> {
   return client ?? (await createServerSupabaseClient());
 }
 
+/**
+ * PostgREST takes `in.(…)` in the query string, so the whole task-id list rides
+ * in the request line. `/words` and `/progress` both ask for the entire starter
+ * pool: at 50 lemmas that was ~1 KB, at 500 it is ~13 KB raw and ~19 KB once
+ * encoded — past the request-line limit of a typical gateway, which answers 414
+ * rather than returning rows. Every test here is a pure function or a stubbed
+ * client, so nothing in the gate can see that; the chunk is what keeps the
+ * request bounded as the pool grows again.
+ */
+const TASK_ID_CHUNK = 100;
+
+function chunk<T>(items: T[], size: number): T[][] {
+  const out: T[][] = [];
+  for (let index = 0; index < items.length; index += size) {
+    out.push(items.slice(index, index + size));
+  }
+  return out;
+}
+
 function validateAppendInput(input: AppendReviewInput): string | null {
   if (!input.taskId.trim()) return "task_id is required.";
   if (!GRADES.includes(input.grade)) return "grade is invalid.";
@@ -158,21 +177,36 @@ export async function listReviewsForTaskIds(
     return { status: "error", error: handled.userMessage };
   }
 
-  const { data, error } = await supabase
-    .from("review_log")
-    .select(
-      "id, user_id, installation_id, task_id, grade, reviewed_at, latency_ms, created_at",
-    )
-    .in("task_id", taskIds)
-    .order("reviewed_at", { ascending: true });
+  const chunks = await Promise.all(
+    chunk(taskIds, TASK_ID_CHUNK).map((ids) =>
+      supabase
+        .from("review_log")
+        .select(
+          "id, user_id, installation_id, task_id, grade, reviewed_at, latency_ms, created_at",
+        )
+        .in("task_id", ids)
+        .order("reviewed_at", { ascending: true }),
+    ),
+  );
 
-  if (error) {
-    const handled = fromSupabaseReviewError(error, { operation: "load your review history" });
+  const failed = chunks.find((result) => result.error);
+  if (failed?.error) {
+    const handled = fromSupabaseReviewError(failed.error, {
+      operation: "load your review history",
+    });
     void logHandledErrorFromRequest(handled);
     return { status: "error", error: handled.userMessage };
   }
 
-  return { status: "ok", reviews: (data ?? []).map((row) => mapRow(row as DbRow)) };
+  // Each chunk is ordered, the concatenation is not. Callers rebuild scheduler
+  // state from this list and FSRS is order-dependent, so the sort is part of
+  // the contract, not a tidy-up.
+  const reviews = chunks
+    .flatMap((result) => result.data ?? [])
+    .map((row) => mapRow(row as DbRow))
+    .sort((a, b) => Date.parse(a.reviewedAt) - Date.parse(b.reviewedAt));
+
+  return { status: "ok", reviews };
 }
 
 export async function listAllReviews(

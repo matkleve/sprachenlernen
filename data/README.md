@@ -8,6 +8,8 @@ frequency/<code>.txt     `{form} {count}`, rank = line order
 lemma/<code>.json        generated: form → analyses, gen'd by scripts/build-lemma-tables.mjs
 starter/<lang>-<task>.json   the shipped review pool (e.g. es-meaning-recall.json)
 starter/<lang>-<task>.overrides.json   hand-checked English glosses for the build script
+starter/<lang>-<task>.exclusions.json  lemma → why it never enters the pool
+starter/<lang>-<task>.cognates.json    lemmas whose English gloss is the lemma itself
 ```
 
 ## Why this is data and not code

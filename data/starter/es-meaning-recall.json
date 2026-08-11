@@ -239,7 +239,7 @@
       "wordId": "es:querer",
       "lemma": "querer",
       "front": "querer",
-      "back": "I want",
+      "back": "to want",
       "frequencyRank": 30
     },
     {
@@ -407,7 +407,7 @@
       "wordId": "es:hablar",
       "lemma": "hablar",
       "front": "hablar",
-      "back": "to talk; to speak; to communicate using words",
+      "back": "to talk",
       "frequencyRank": 51
     },
     {
@@ -439,7 +439,7 @@
       "wordId": "es:dejar",
       "lemma": "dejar",
       "front": "dejar",
-      "back": "to leave (to place)",
+      "back": "to leave",
       "frequencyRank": 55
     },
     {
@@ -471,7 +471,7 @@
       "wordId": "es:tanto",
       "lemma": "tanto",
       "front": "tanto",
-      "back": "so much; as much; that much",
+      "back": "so much",
       "frequencyRank": 59
     },
     {
@@ -479,7 +479,7 @@
       "wordId": "es:gracia",
       "lemma": "gracia",
       "front": "gracia",
-      "back": "thank you",
+      "back": "grace; (pl.) thanks",
       "frequencyRank": 60
     },
     {
@@ -511,7 +511,7 @@
       "wordId": "es:cosa",
       "lemma": "cosa",
       "front": "cosa",
-      "back": "thing (object, concept)",
+      "back": "thing",
       "frequencyRank": 64
     },
     {
@@ -527,7 +527,7 @@
       "wordId": "es:día",
       "lemma": "día",
       "front": "día",
-      "back": "day (any period of 24 hours)",
+      "back": "day",
       "frequencyRank": 66
     },
     {
@@ -559,7 +559,7 @@
       "wordId": "es:hombre",
       "lemma": "hombre",
       "front": "hombre",
-      "back": "man, (adult male human)",
+      "back": "man",
       "frequencyRank": 70
     },
     {
@@ -567,7 +567,7 @@
       "wordId": "es:entonces",
       "lemma": "entonces",
       "front": "entonces",
-      "back": "then, next, thereupon, at that time, at that point",
+      "back": "then, next, thereupon",
       "frequencyRank": 71
     },
     {
@@ -591,7 +591,7 @@
       "wordId": "es:mirar",
       "lemma": "mirar",
       "front": "mirar",
-      "back": "to look at (to try to see, to pay attention to with one’s eyes)",
+      "back": "to look at",
       "frequencyRank": 74
     },
     {
@@ -607,7 +607,7 @@
       "wordId": "es:quién",
       "lemma": "quién",
       "front": "quién",
-      "back": "who?, whom?; (with “de”) whose?",
+      "back": "who?, whom?",
       "frequencyRank": 76
     },
     {
@@ -663,7 +663,7 @@
       "wordId": "es:dónde",
       "lemma": "dónde",
       "front": "dónde",
-      "back": "where?; in what place?",
+      "back": "where?",
       "frequencyRank": 83
     },
     {
@@ -679,7 +679,7 @@
       "wordId": "es:señor",
       "lemma": "señor",
       "front": "señor",
-      "back": "mister, sir, lord (title conferred on a married or older male)",
+      "back": "mister, sir, lord",
       "frequencyRank": 85
     },
     {
@@ -687,7 +687,7 @@
       "wordId": "es:oh",
       "lemma": "oh",
       "front": "oh",
-      "back": "oh (expression of awe, surprise, pain or realization)",
+      "back": "oh",
       "frequencyRank": 86
     },
     {
@@ -727,7 +727,7 @@
       "wordId": "es:noche",
       "lemma": "noche",
       "front": "noche",
-      "back": "night (the period between sunset and sunrise)",
+      "back": "night",
       "frequencyRank": 91
     },
     {
@@ -735,7 +735,7 @@
       "wordId": "es:gustar",
       "lemma": "gustar",
       "front": "gustar",
-      "back": "translated as \"to like\", analyzable in structure as \"to please\" [with dative ‘someone’] (the thing being liked is the subject, while the \"liker\" is in the dative case (\"indirect object\")). See the usage notes for more. Compare similar structures in Italian piacere, Romanian plăcea, German gefallen and Russian нравиться (nravitʹsja).",
+      "back": "to like",
       "frequencyRank": 92
     },
     {
@@ -743,7 +743,7 @@
       "wordId": "es:mismo",
       "lemma": "mismo",
       "front": "mismo",
-      "back": "same; identical; one and the same; indicates that the two compared noun clauses both represent the one thing",
+      "back": "same",
       "frequencyRank": 93
     },
     {
@@ -767,7 +767,7 @@
       "wordId": "es:sobre",
       "lemma": "sobre",
       "front": "sobre",
-      "back": "over, above, on, upon, atop",
+      "back": "over, above, on",
       "frequencyRank": 96
     },
     {
@@ -823,7 +823,7 @@
       "wordId": "es:ahí",
       "lemma": "ahí",
       "front": "ahí",
-      "back": "there (away from the speaker)",
+      "back": "there",
       "frequencyRank": 103
     },
     {
@@ -847,7 +847,7 @@
       "wordId": "es:salir",
       "lemma": "salir",
       "front": "salir",
-      "back": "to go out, to leave, to depart, to head out",
+      "back": "to go out, to leave, to depart",
       "frequencyRank": 106
     },
     {
@@ -871,7 +871,7 @@
       "wordId": "es:tomar",
       "lemma": "tomar",
       "front": "tomar",
-      "back": "to take (put under one's physical or mental control, often in one's hands)",
+      "back": "to take",
       "frequencyRank": 109
     },
     {
@@ -887,7 +887,7 @@
       "wordId": "es:llegar",
       "lemma": "llegar",
       "front": "llegar",
-      "back": "to arrive, get (to)",
+      "back": "to arrive, get",
       "frequencyRank": 111
     },
     {
@@ -903,7 +903,7 @@
       "wordId": "es:conocer",
       "lemma": "conocer",
       "front": "conocer",
-      "back": "to know (a person or a place), to be familiar with, to be acquainted with",
+      "back": "to know, to be familiar with, to be acquainted with",
       "frequencyRank": 113
     },
     {
@@ -911,7 +911,7 @@
       "wordId": "es:primero",
       "lemma": "primero",
       "front": "primero",
-      "back": "former (in contrast to the latter), first, first one",
+      "back": "former, first, first one",
       "frequencyRank": 114
     },
     {
@@ -919,7 +919,7 @@
       "wordId": "es:antes",
       "lemma": "antes",
       "front": "antes",
-      "back": "earlier; before; sooner; previously; formerly; beforehand (at an earlier time)",
+      "back": "earlier",
       "frequencyRank": 115
     },
     {
@@ -927,7 +927,7 @@
       "wordId": "es:quedar",
       "lemma": "quedar",
       "front": "quedar",
-      "back": "to be (as a result of something), to end up",
+      "back": "to be, to end up",
       "frequencyRank": 116
     },
     {
@@ -935,7 +935,7 @@
       "wordId": "es:ni",
       "lemma": "ni",
       "front": "ni",
-      "back": "Used when negating two or more elements, and not, not A or B, not A nor B, neither A nor B",
+      "back": "Used when negating two or more elements, and not, not A or B",
       "frequencyRank": 117
     },
     {
@@ -967,7 +967,7 @@
       "wordId": "es:seguro",
       "lemma": "seguro",
       "front": "seguro",
-      "back": "secure; safe (free from danger)",
+      "back": "secure",
       "frequencyRank": 121
     },
     {
@@ -1007,7 +1007,7 @@
       "wordId": "es:suponer",
       "lemma": "suponer",
       "front": "suponer",
-      "back": "to suppose, to surmise, to assume, to guess, to imagine, to figure, to say, to take it",
+      "back": "to suppose, to surmise, to assume",
       "frequencyRank": 126
     },
     {
@@ -1015,7 +1015,7 @@
       "wordId": "es:nadie",
       "lemma": "nadie",
       "front": "nadie",
-      "back": "no one; nobody (anyone or anybody)",
+      "back": "no one",
       "frequencyRank": 127
     },
     {
@@ -1031,7 +1031,7 @@
       "wordId": "es:después",
       "lemma": "después",
       "front": "después",
-      "back": "later, afterwards, afterward, post",
+      "back": "later, afterwards, afterward",
       "frequencyRank": 129
     },
     {
@@ -1047,7 +1047,7 @@
       "wordId": "es:estado",
       "lemma": "estado",
       "front": "estado",
-      "back": "country, land (any broad area or territory)",
+      "back": "country, land",
       "frequencyRank": 131
     },
     {
@@ -1087,7 +1087,7 @@
       "wordId": "es:claro",
       "lemma": "claro",
       "front": "claro",
-      "back": "clear (easily understood)",
+      "back": "clear",
       "frequencyRank": 136
     },
     {
@@ -1095,7 +1095,7 @@
       "wordId": "es:problema",
       "lemma": "problema",
       "front": "problema",
-      "back": "problem, issue, challenge (a difficulty or obstacle that has to be dealt with)",
+      "back": "problem, issue, challenge",
       "frequencyRank": 137
     },
     {
@@ -1103,7 +1103,7 @@
       "wordId": "es:hora",
       "lemma": "hora",
       "front": "hora",
-      "back": "hour (a time period of sixty minutes)",
+      "back": "hour",
       "frequencyRank": 138
     },
     {
@@ -1111,7 +1111,7 @@
       "wordId": "es:contar",
       "lemma": "contar",
       "front": "contar",
-      "back": "to count; to tally",
+      "back": "to count",
       "frequencyRank": 139
     },
     {
@@ -1119,7 +1119,7 @@
       "wordId": "es:desde",
       "lemma": "desde",
       "front": "desde",
-      "back": "since (from a specified time in the past)",
+      "back": "since",
       "frequencyRank": 140
     },
     {
@@ -1143,7 +1143,7 @@
       "wordId": "es:tipo",
       "lemma": "tipo",
       "front": "tipo",
-      "back": "kind, type, sort, manner",
+      "back": "kind, type, sort",
       "frequencyRank": 143
     },
     {
@@ -1151,7 +1151,7 @@
       "wordId": "es:mundo",
       "lemma": "mundo",
       "front": "mundo",
-      "back": "world, earth (human collective existence)",
+      "back": "world, earth",
       "frequencyRank": 144
     },
     {
@@ -1183,7 +1183,7 @@
       "wordId": "es:persona",
       "lemma": "persona",
       "front": "persona",
-      "back": "person (an individual; usually a human being)",
+      "back": "person",
       "frequencyRank": 148
     },
     {
@@ -1199,7 +1199,7 @@
       "wordId": "es:acabar",
       "lemma": "acabar",
       "front": "acabar",
-      "back": "to finish; to end",
+      "back": "to finish",
       "frequencyRank": 150
     },
     {
@@ -1207,7 +1207,7 @@
       "wordId": "es:allí",
       "lemma": "allí",
       "front": "allí",
-      "back": "there (away from the speaker and the listener)",
+      "back": "there",
       "frequencyRank": 151
     },
     {
@@ -1215,7 +1215,7 @@
       "wordId": "es:parte",
       "lemma": "parte",
       "front": "parte",
-      "back": "part; section; portion; share; piece; bit; cut; proportion",
+      "back": "part",
       "frequencyRank": 152
     },
     {
@@ -1223,7 +1223,7 @@
       "wordId": "es:buscar",
       "lemma": "buscar",
       "front": "buscar",
-      "back": "to seek, search for, look for, try to find, to scour",
+      "back": "to seek, search for, look for",
       "frequencyRank": 153
     },
     {
@@ -1263,7 +1263,7 @@
       "wordId": "es:gran",
       "lemma": "gran",
       "front": "gran",
-      "back": "apocopic form of grande; great, grand",
+      "back": "apocopic form of grande",
       "frequencyRank": 158
     },
     {
@@ -1271,7 +1271,7 @@
       "wordId": "es:ninguno",
       "lemma": "ninguno",
       "front": "ninguno",
-      "back": "no; none",
+      "back": "no",
       "frequencyRank": 159
     },
     {
@@ -1279,7 +1279,7 @@
       "wordId": "es:poner",
       "lemma": "poner",
       "front": "poner",
-      "back": "to put, to place (cause to assume a specified position)",
+      "back": "to put, to place",
       "frequencyRank": 160
     },
     {
@@ -1311,7 +1311,7 @@
       "wordId": "es:luego",
       "lemma": "luego",
       "front": "luego",
-      "back": "then (afterward)",
+      "back": "then",
       "frequencyRank": 164
     },
     {
@@ -1335,7 +1335,7 @@
       "wordId": "es:hoy",
       "lemma": "hoy",
       "front": "hoy",
-      "back": "today, tonight (on the current day)",
+      "back": "today, tonight",
       "frequencyRank": 167
     },
     {
@@ -1351,7 +1351,7 @@
       "wordId": "es:importar",
       "lemma": "importar",
       "front": "importar",
-      "back": "to matter, to be important [with a ‘someone’] (often translated idiomatically with English care or mind, with subject and object reversed)",
+      "back": "to matter, to be important",
       "frequencyRank": 169
     },
     {
@@ -1359,7 +1359,7 @@
       "wordId": "es:tratar",
       "lemma": "tratar",
       "front": "tratar",
-      "back": "to treat (to handle, behave toward in a specific way)",
+      "back": "to treat",
       "frequencyRank": 170
     },
     {
@@ -1375,7 +1375,7 @@
       "wordId": "es:último",
       "lemma": "último",
       "front": "último",
-      "back": "final; last",
+      "back": "final",
       "frequencyRank": 172
     },
     {
@@ -1383,7 +1383,7 @@
       "wordId": "es:mierda",
       "lemma": "mierda",
       "front": "mierda",
-      "back": "shit (solid excretory product evacuated from the bowels; feces.)",
+      "back": "shit",
       "frequencyRank": 173
     },
     {
@@ -1399,7 +1399,7 @@
       "wordId": "es:vivir",
       "lemma": "vivir",
       "front": "vivir",
-      "back": "to live; to be alive",
+      "back": "to live",
       "frequencyRank": 175
     },
     {
@@ -1407,7 +1407,7 @@
       "wordId": "es:pequeño",
       "lemma": "pequeño",
       "front": "pequeño",
-      "back": "small; little",
+      "back": "small",
       "frequencyRank": 176
     },
     {
@@ -1439,7 +1439,7 @@
       "wordId": "es:idea",
       "lemma": "idea",
       "front": "idea",
-      "back": "idea",
+      "back": "idea, notion",
       "frequencyRank": 180
     },
     {
@@ -1455,7 +1455,7 @@
       "wordId": "es:mío",
       "lemma": "mío",
       "front": "mío",
-      "back": "mine; of mine",
+      "back": "mine",
       "frequencyRank": 182
     },
     {
@@ -1471,7 +1471,7 @@
       "wordId": "es:cada",
       "lemma": "cada",
       "front": "cada",
-      "back": "each; every",
+      "back": "each",
       "frequencyRank": 184
     },
     {
@@ -1479,7 +1479,7 @@
       "wordId": "es:serio",
       "lemma": "serio",
       "front": "serio",
-      "back": "serious, earnest, sober, solemn (without humor)",
+      "back": "serious, earnest, sober",
       "frequencyRank": 185
     },
     {
@@ -1487,7 +1487,7 @@
       "wordId": "es:intentar",
       "lemma": "intentar",
       "front": "intentar",
-      "back": "to try, to attempt; especially: to strain or put forth effort in so doing",
+      "back": "to try, to attempt",
       "frequencyRank": 186
     },
     {
@@ -1527,7 +1527,7 @@
       "wordId": "es:único",
       "lemma": "único",
       "front": "único",
-      "back": "only; single; sole",
+      "back": "only",
       "frequencyRank": 191
     },
     {
@@ -1535,7 +1535,7 @@
       "wordId": "es:policía",
       "lemma": "policía",
       "front": "policía",
-      "back": "Civility, polity, public order, police, fineness, neatness, urbanity",
+      "back": "Civility, polity, public order",
       "frequencyRank": 192
     },
     {
@@ -1543,7 +1543,7 @@
       "wordId": "es:entrar",
       "lemma": "entrar",
       "front": "entrar",
-      "back": "to enter; to come in; to get in; to go in; to get inside; to come on in",
+      "back": "to enter",
       "frequencyRank": 193
     },
     {
@@ -1559,7 +1559,7 @@
       "wordId": "es:semana",
       "lemma": "semana",
       "front": "semana",
-      "back": "week (7 days)",
+      "back": "week",
       "frequencyRank": 195
     },
     {
@@ -1575,7 +1575,7 @@
       "wordId": "es:eh",
       "lemma": "eh",
       "front": "eh",
-      "back": "hey! (used to call, draw attention, warn or reprehend)",
+      "back": "hey!",
       "frequencyRank": 197
     },
     {
@@ -1583,7 +1583,7 @@
       "wordId": "es:minuto",
       "lemma": "minuto",
       "front": "minuto",
-      "back": "minute (a unit of time equal to 60 seconds or ¹⁄₆₀ hour)",
+      "back": "minute",
       "frequencyRank": 198
     },
     {
@@ -1591,7 +1591,7 @@
       "wordId": "es:familia",
       "lemma": "familia",
       "front": "familia",
-      "back": "family (group of people related to each other)",
+      "back": "family",
       "frequencyRank": 199
     },
     {
@@ -1607,7 +1607,7 @@
       "wordId": "es:cuánto",
       "lemma": "cuánto",
       "front": "cuánto",
-      "back": "how much; how many",
+      "back": "how much",
       "frequencyRank": 201
     },
     {
@@ -1615,7 +1615,7 @@
       "wordId": "es:amor",
       "lemma": "amor",
       "front": "amor",
-      "back": "a surname",
+      "back": "love",
       "frequencyRank": 202
     },
     {
@@ -1623,7 +1623,7 @@
       "wordId": "es:forma",
       "lemma": "forma",
       "front": "forma",
-      "back": "shape; form; figure",
+      "back": "shape",
       "frequencyRank": 203
     },
     {
@@ -1647,7 +1647,7 @@
       "wordId": "es:conseguir",
       "lemma": "conseguir",
       "front": "conseguir",
-      "back": "to achieve, succeed in, reach, accomplish, attain",
+      "back": "to achieve, succeed in, reach",
       "frequencyRank": 206
     },
     {
@@ -1655,7 +1655,7 @@
       "wordId": "es:viejo",
       "lemma": "viejo",
       "front": "viejo",
-      "back": "old (having existed for a long time)",
+      "back": "old",
       "frequencyRank": 207
     },
     {
@@ -1663,7 +1663,7 @@
       "wordId": "es:traer",
       "lemma": "traer",
       "front": "traer",
-      "back": "to bring (in the sense of transport, for differences with llevar and examples see that entry)",
+      "back": "to bring",
       "frequencyRank": 208
     },
     {
@@ -1687,7 +1687,7 @@
       "wordId": "es:loco",
       "lemma": "loco",
       "front": "loco",
-      "back": "crazy, insane, mad, nuts (asserting that something is out of place in the head)",
+      "back": "crazy, insane, mad",
       "frequencyRank": 211
     },
     {
@@ -1703,7 +1703,7 @@
       "wordId": "es:caso",
       "lemma": "caso",
       "front": "caso",
-      "back": "case (situation or fact)",
+      "back": "case",
       "frequencyRank": 213
     },
     {
@@ -1727,7 +1727,7 @@
       "wordId": "es:segundo",
       "lemma": "segundo",
       "front": "segundo",
-      "back": "second (after the first)",
+      "back": "second",
       "frequencyRank": 216
     },
     {
@@ -1735,7 +1735,7 @@
       "wordId": "es:señora",
       "lemma": "señora",
       "front": "señora",
-      "back": "Ms; a title or form of address for a woman; formerly for a married, divorced, or widowed woman and now commonly for any adult woman regardless of marital status, depending on the region",
+      "back": "Ms",
       "frequencyRank": 217
     },
     {
@@ -1743,7 +1743,7 @@
       "wordId": "es:historia",
       "lemma": "historia",
       "front": "historia",
-      "back": "history (the aggregate of past events)",
+      "back": "history",
       "frequencyRank": 218
     },
     {
@@ -1751,7 +1751,7 @@
       "wordId": "es:ah",
       "lemma": "ah",
       "front": "ah",
-      "back": "ah (expression of relief, realization, awe)",
+      "back": "ah",
       "frequencyRank": 219
     },
     {
@@ -1767,7 +1767,7 @@
       "wordId": "es:puerta",
       "lemma": "puerta",
       "front": "puerta",
-      "back": "door (portal of entry into a building)",
+      "back": "door",
       "frequencyRank": 221
     },
     {
@@ -1783,7 +1783,7 @@
       "wordId": "es:pregunta",
       "lemma": "pregunta",
       "front": "pregunta",
-      "back": "question (sentence that asks for information)",
+      "back": "question",
       "frequencyRank": 223
     },
     {
@@ -1799,7 +1799,7 @@
       "wordId": "es:manera",
       "lemma": "manera",
       "front": "manera",
-      "back": "way; manner; method; style",
+      "back": "way",
       "frequencyRank": 225
     },
     {
@@ -1815,7 +1815,7 @@
       "wordId": "es:cuál",
       "lemma": "cuál",
       "front": "cuál",
-      "back": "what; which",
+      "back": "what",
       "frequencyRank": 227
     },
     {
@@ -1831,7 +1831,7 @@
       "wordId": "es:bajo",
       "lemma": "bajo",
       "front": "bajo",
-      "back": "short (of little height)",
+      "back": "short",
       "frequencyRank": 229
     },
     {
@@ -1847,7 +1847,7 @@
       "wordId": "es:feliz",
       "lemma": "feliz",
       "front": "feliz",
-      "back": "happy, merry (trait)",
+      "back": "happy, merry",
       "frequencyRank": 231
     },
     {
@@ -1863,7 +1863,7 @@
       "wordId": "es:terminar",
       "lemma": "terminar",
       "front": "terminar",
-      "back": "to (cause to) finish, to (cause to) end, to (cause to) terminate, to (cause to) conclude",
+      "back": "to finish, to end, to terminate",
       "frequencyRank": 233
     },
     {
@@ -1879,7 +1879,7 @@
       "wordId": "es:pues",
       "lemma": "pues",
       "front": "pues",
-      "back": "so, then; in that case",
+      "back": "so, then",
       "frequencyRank": 235
     },
     {
@@ -1895,7 +1895,7 @@
       "wordId": "es:cambiar",
       "lemma": "cambiar",
       "front": "cambiar",
-      "back": "to change, to shift, to switch, to alter",
+      "back": "to change, to shift, to switch",
       "frequencyRank": 237
     },
     {
@@ -1935,7 +1935,7 @@
       "wordId": "es:tío",
       "lemma": "tío",
       "front": "tío",
-      "back": "uncle (the brother, brother-in-law, or male cousin or cousin-in-law of either parent)",
+      "back": "uncle",
       "frequencyRank": 242
     },
     {
@@ -1951,7 +1951,7 @@
       "wordId": "es:medio",
       "lemma": "medio",
       "front": "medio",
-      "back": "half (of or related to one of two equal divisions of a whole)",
+      "back": "half",
       "frequencyRank": 244
     },
     {
@@ -2007,7 +2007,7 @@
       "wordId": "es:preocupar",
       "lemma": "preocupar",
       "front": "preocupar",
-      "back": "to worry, to concern, to trouble, to be worrisome to, to preoccupy",
+      "back": "to worry, to concern, to trouble",
       "frequencyRank": 251
     },
     {
@@ -2023,7 +2023,7 @@
       "wordId": "es:dentro",
       "lemma": "dentro",
       "front": "dentro",
-      "back": "inside (for space)",
+      "back": "inside",
       "frequencyRank": 253
     },
     {
@@ -2031,7 +2031,7 @@
       "wordId": "es:hija",
       "lemma": "hija",
       "front": "hija",
-      "back": "daughter; female equivalent of hijo",
+      "back": "daughter",
       "frequencyRank": 254
     },
     {
@@ -2063,7 +2063,7 @@
       "wordId": "es:propio",
       "lemma": "propio",
       "front": "propio",
-      "back": "own (belonging to)",
+      "back": "own",
       "frequencyRank": 258
     },
     {
@@ -2079,7 +2079,7 @@
       "wordId": "es:listo",
       "lemma": "listo",
       "front": "listo",
-      "back": "clever, smart (with ser)",
+      "back": "clever, smart",
       "frequencyRank": 260
     },
     {
@@ -2087,7 +2087,7 @@
       "wordId": "es:muerte",
       "lemma": "muerte",
       "front": "muerte",
-      "back": "death (the cessation of life)",
+      "back": "death",
       "frequencyRank": 261
     },
     {
@@ -2095,7 +2095,7 @@
       "wordId": "es:corazón",
       "lemma": "corazón",
       "front": "corazón",
-      "back": "heart (organ of the body)",
+      "back": "heart",
       "frequencyRank": 262
     },
     {
@@ -2119,7 +2119,7 @@
       "wordId": "es:punto",
       "lemma": "punto",
       "front": "punto",
-      "back": "point (specific spot, location, or place)",
+      "back": "point",
       "frequencyRank": 265
     },
     {
@@ -2151,7 +2151,7 @@
       "wordId": "es:jefe",
       "lemma": "jefe",
       "front": "jefe",
-      "back": "chief; president; head; leader of a business, political party, or other organization",
+      "back": "chief",
       "frequencyRank": 269
     },
     {
@@ -2183,7 +2183,7 @@
       "wordId": "es:cara",
       "lemma": "cara",
       "front": "cara",
-      "back": "face (the front part of the head)",
+      "back": "face",
       "frequencyRank": 273
     },
     {
@@ -2191,7 +2191,7 @@
       "wordId": "es:difícil",
       "lemma": "difícil",
       "front": "difícil",
-      "back": "difficult, hard, tough, challenging, rough, tricky, trying, arduous, testing",
+      "back": "difficult, hard, tough",
       "frequencyRank": 274
     },
     {
@@ -2279,7 +2279,7 @@
       "wordId": "es:vivo",
       "lemma": "vivo",
       "front": "vivo",
-      "back": "alive, living (having life)",
+      "back": "alive, living",
       "frequencyRank": 285
     },
     {
@@ -2303,7 +2303,7 @@
       "wordId": "es:cuerpo",
       "lemma": "cuerpo",
       "front": "cuerpo",
-      "back": "body (the physical structure of a human or animal)",
+      "back": "body",
       "frequencyRank": 288
     },
     {
@@ -2311,7 +2311,7 @@
       "wordId": "es:adelante",
       "lemma": "adelante",
       "front": "adelante",
-      "back": "forward (toward the front)",
+      "back": "forward",
       "frequencyRank": 289
     },
     {
@@ -2327,7 +2327,7 @@
       "wordId": "es:tierra",
       "lemma": "tierra",
       "front": "tierra",
-      "back": "Earth (planet of the Solar System in which all of humanity resides)",
+      "back": "Earth",
       "frequencyRank": 291
     },
     {
@@ -2367,7 +2367,7 @@
       "wordId": "es:cerca",
       "lemma": "cerca",
       "front": "cerca",
-      "back": "close, near, around, about, nearly, nigh (referring to quantity or time-related)",
+      "back": "close, near, around",
       "frequencyRank": 296
     },
     {
@@ -2383,7 +2383,7 @@
       "wordId": "es:prueba",
       "lemma": "prueba",
       "front": "prueba",
-      "back": "proof; evidence (usually in the plural)",
+      "back": "proof",
       "frequencyRank": 298
     },
     {
@@ -2391,7 +2391,7 @@
       "wordId": "es:bastante",
       "lemma": "bastante",
       "front": "bastante",
-      "back": "enough; sufficient",
+      "back": "enough",
       "frequencyRank": 299
     },
     {
@@ -2399,7 +2399,7 @@
       "wordId": "es:número",
       "lemma": "número",
       "front": "número",
-      "back": "number (counting)",
+      "back": "number",
       "frequencyRank": 300
     },
     {
@@ -2455,7 +2455,7 @@
       "wordId": "es:doctor",
       "lemma": "doctor",
       "front": "doctor",
-      "back": "doctor (Ph.D.)",
+      "back": "doctor, physician",
       "frequencyRank": 307
     },
     {
@@ -2463,7 +2463,7 @@
       "wordId": "es:aunque",
       "lemma": "aunque",
       "front": "aunque",
-      "back": "though, although, even though, albeit",
+      "back": "though, although, even though",
       "frequencyRank": 308
     },
     {
@@ -2471,7 +2471,7 @@
       "wordId": "es:hermana",
       "lemma": "hermana",
       "front": "hermana",
-      "back": "sister; female equivalent of hermano (“brother”)",
+      "back": "sister",
       "frequencyRank": 309
     },
     {
@@ -2495,7 +2495,7 @@
       "wordId": "es:solo",
       "lemma": "solo",
       "front": "solo",
-      "back": "sole; one; only; single (unique)",
+      "back": "sole",
       "frequencyRank": 312
     },
     {
@@ -2503,7 +2503,7 @@
       "wordId": "es:allá",
       "lemma": "allá",
       "front": "allá",
-      "back": "there, over there, thither, yonder (in a direction away from the speaker and the listener)",
+      "back": "there, over there, thither",
       "frequencyRank": 313
     },
     {
@@ -2511,7 +2511,7 @@
       "wordId": "es:oportunidad",
       "lemma": "oportunidad",
       "front": "oportunidad",
-      "back": "opportunity, chance, shot, break, occasion, time (in both senses: “chance for advancement, progress or profit” and “favorable circumstance or occasion”)",
+      "back": "opportunity, chance, shot",
       "frequencyRank": 314
     },
     {
@@ -2519,7 +2519,7 @@
       "wordId": "es:teléfono",
       "lemma": "teléfono",
       "front": "teléfono",
-      "back": "telephone (a telecommunication device used for two-way talking with another person)",
+      "back": "telephone",
       "frequencyRank": 315
     },
     {
@@ -2543,7 +2543,7 @@
       "wordId": "es:final",
       "lemma": "final",
       "front": "final",
-      "back": "final (last, ultimate)",
+      "back": "final; end",
       "frequencyRank": 318
     },
     {
@@ -2599,7 +2599,7 @@
       "wordId": "es:escribir",
       "lemma": "escribir",
       "front": "escribir",
-      "back": "to write (to form letters, words or symbols on a surface in order to communicate)",
+      "back": "to write",
       "frequencyRank": 325
     },
     {
@@ -2615,7 +2615,7 @@
       "wordId": "es:e",
       "lemma": "e",
       "front": "e",
-      "back": "The fifth letter of the Spanish alphabet, written in the Latin script.",
+      "back": "and (before i-, hi-)",
       "frequencyRank": 327
     },
     {
@@ -2623,7 +2623,7 @@
       "wordId": "es:plan",
       "lemma": "plan",
       "front": "plan",
-      "back": "plan",
+      "back": "plan, scheme",
       "frequencyRank": 328
     },
     {
@@ -2639,7 +2639,7 @@
       "wordId": "es:sacar",
       "lemma": "sacar",
       "front": "sacar",
-      "back": "to put out, to get out (e.g. a public statement, an APB, a release of media or entertainment)",
+      "back": "to put out, to get out",
       "frequencyRank": 330
     },
     {
@@ -2647,7 +2647,7 @@
       "wordId": "es:habitación",
       "lemma": "habitación",
       "front": "habitación",
-      "back": "room (separate part of a building)",
+      "back": "room",
       "frequencyRank": 331
     },
     {
@@ -2655,7 +2655,7 @@
       "wordId": "es:orden",
       "lemma": "orden",
       "front": "orden",
-      "back": "order (command)",
+      "back": "order",
       "frequencyRank": 332
     },
     {
@@ -2695,7 +2695,7 @@
       "wordId": "es:recuerdo",
       "lemma": "recuerdo",
       "front": "recuerdo",
-      "back": "memory (a specific thing that is remembered)",
+      "back": "memory",
       "frequencyRank": 337
     },
     {
@@ -2759,7 +2759,7 @@
       "wordId": "es:escuela",
       "lemma": "escuela",
       "front": "escuela",
-      "back": "school (an institution dedicated to teaching and learning)",
+      "back": "school",
       "frequencyRank": 345
     },
     {
@@ -2791,7 +2791,7 @@
       "wordId": "es:negocio",
       "lemma": "negocio",
       "front": "negocio",
-      "back": "business, enterprise (commercial enterprise or establishment)",
+      "back": "business, enterprise",
       "frequencyRank": 349
     },
     {
@@ -2807,7 +2807,7 @@
       "wordId": "es:duro",
       "lemma": "duro",
       "front": "duro",
-      "back": "hard (not soft)",
+      "back": "hard",
       "frequencyRank": 351
     },
     {
@@ -2815,7 +2815,7 @@
       "wordId": "es:capitán",
       "lemma": "capitán",
       "front": "capitán",
-      "back": "captain (leader)",
+      "back": "captain",
       "frequencyRank": 352
     },
     {
@@ -2823,7 +2823,7 @@
       "wordId": "es:mover",
       "lemma": "mover",
       "front": "mover",
-      "back": "to move (to cause to change place or posture)",
+      "back": "to move",
       "frequencyRank": 353
     },
     {
@@ -2831,7 +2831,7 @@
       "wordId": "es:pie",
       "lemma": "pie",
       "front": "pie",
-      "back": "foot (a part of the body)",
+      "back": "foot",
       "frequencyRank": 354
     },
     {
@@ -2855,7 +2855,7 @@
       "wordId": "es:par",
       "lemma": "par",
       "front": "par",
-      "back": "even (divisible by two)",
+      "back": "even",
       "frequencyRank": 357
     },
     {
@@ -2895,7 +2895,7 @@
       "wordId": "es:perro",
       "lemma": "perro",
       "front": "perro",
-      "back": "dog (the species Canis familiaris (sometimes designated Canis lupus familiaris), domesticated for thousands of years and of highly variable appearance because of human breeding)",
+      "back": "dog",
       "frequencyRank": 362
     },
     {
@@ -2903,7 +2903,7 @@
       "wordId": "es:fácil",
       "lemma": "fácil",
       "front": "fácil",
-      "back": "easy, facile, simple (requiring little effort)",
+      "back": "easy, facile, simple",
       "frequencyRank": 363
     },
     {
@@ -2919,7 +2919,7 @@
       "wordId": "es:vino",
       "lemma": "vino",
       "front": "vino",
-      "back": "wine (an alcoholic beverage made by fermenting grape juice, with an ABV ranging from 5.5–16%)",
+      "back": "wine",
       "frequencyRank": 365
     },
     {
@@ -2927,7 +2927,7 @@
       "wordId": "es:largo",
       "lemma": "largo",
       "front": "largo",
-      "back": "long (having much distance from one terminating point to another)",
+      "back": "long",
       "frequencyRank": 366
     },
     {
@@ -2959,7 +2959,7 @@
       "wordId": "es:película",
       "lemma": "película",
       "front": "película",
-      "back": "film (layer)",
+      "back": "film",
       "frequencyRank": 370
     },
     {
@@ -2975,7 +2975,7 @@
       "wordId": "es:negro",
       "lemma": "negro",
       "front": "negro",
-      "back": "black (the color perceived in the absence of light)",
+      "back": "black",
       "frequencyRank": 372
     },
     {
@@ -2999,7 +2999,7 @@
       "wordId": "es:millón",
       "lemma": "millón",
       "front": "millón",
-      "back": "million (10⁶)",
+      "back": "million",
       "frequencyRank": 375
     },
     {
@@ -3007,7 +3007,7 @@
       "wordId": "es:dólar",
       "lemma": "dólar",
       "front": "dólar",
-      "back": "dollar (designation for specific currency)",
+      "back": "dollar",
       "frequencyRank": 376
     },
     {
@@ -3031,7 +3031,7 @@
       "wordId": "es:tampoco",
       "lemma": "tampoco",
       "front": "tampoco",
-      "back": "neither; nor; also not",
+      "back": "neither",
       "frequencyRank": 379
     },
     {
@@ -3063,7 +3063,7 @@
       "wordId": "es:hermoso",
       "lemma": "hermoso",
       "front": "hermoso",
-      "back": "gorgeous, beautiful, handsome, lovely",
+      "back": "gorgeous, beautiful, handsome",
       "frequencyRank": 383
     },
     {
@@ -3103,7 +3103,7 @@
       "wordId": "es:comprar",
       "lemma": "comprar",
       "front": "comprar",
-      "back": "to buy (to obtain in exchange of money or goods)",
+      "back": "to buy",
       "frequencyRank": 388
     },
     {
@@ -3135,7 +3135,7 @@
       "wordId": "es:caer",
       "lemma": "caer",
       "front": "caer",
-      "back": "to fall (to move to a lower position due to gravity)",
+      "back": "to fall",
       "frequencyRank": 392
     },
     {
@@ -3215,7 +3215,7 @@
       "wordId": "es:aquel",
       "lemma": "aquel",
       "front": "aquel",
-      "back": "that (over there; implying some distance)",
+      "back": "that",
       "frequencyRank": 402
     },
     {
@@ -3231,7 +3231,7 @@
       "wordId": "es:tranquilo",
       "lemma": "tranquilo",
       "front": "tranquilo",
-      "back": "calm, peaceful, tranquil, quiet",
+      "back": "calm, peaceful, tranquil",
       "frequencyRank": 404
     },
     {
@@ -3271,7 +3271,7 @@
       "wordId": "es:especial",
       "lemma": "especial",
       "front": "especial",
-      "back": "special (distinguished by a unique quality)",
+      "back": "special",
       "frequencyRank": 409
     },
     {
@@ -3279,7 +3279,7 @@
       "wordId": "es:real",
       "lemma": "real",
       "front": "real",
-      "back": "real",
+      "back": "real; royal",
       "frequencyRank": 410
     },
     {
@@ -3287,7 +3287,7 @@
       "wordId": "es:país",
       "lemma": "país",
       "front": "país",
-      "back": "country (the territory of a nation)",
+      "back": "country",
       "frequencyRank": 411
     },
     {
@@ -3303,7 +3303,7 @@
       "wordId": "es:oficina",
       "lemma": "oficina",
       "front": "oficina",
-      "back": "office (a room used for non-manual work)",
+      "back": "office",
       "frequencyRank": 413
     },
     {
@@ -3311,7 +3311,7 @@
       "wordId": "es:derecho",
       "lemma": "derecho",
       "front": "derecho",
-      "back": "straight (not crooked or bent; having a constant direction throughout its length)",
+      "back": "straight",
       "frequencyRank": 414
     },
     {
@@ -3327,7 +3327,7 @@
       "wordId": "es:además",
       "lemma": "además",
       "front": "además",
-      "back": "in addition, moreover, furthermore, further, also, additionally",
+      "back": "in addition, moreover, furthermore",
       "frequencyRank": 416
     },
     {
@@ -3359,7 +3359,7 @@
       "wordId": "es:libre",
       "lemma": "libre",
       "front": "libre",
-      "back": "free (not imprisoned or enslaved)",
+      "back": "free",
       "frequencyRank": 420
     },
     {
@@ -3415,7 +3415,7 @@
       "wordId": "es:carta",
       "lemma": "carta",
       "front": "carta",
-      "back": "letter (document)",
+      "back": "letter",
       "frequencyRank": 427
     },
     {
@@ -3439,7 +3439,7 @@
       "wordId": "es:paz",
       "lemma": "paz",
       "front": "paz",
-      "back": "peace (warlessness)",
+      "back": "peace",
       "frequencyRank": 430
     },
     {
@@ -3455,7 +3455,7 @@
       "wordId": "es:decidir",
       "lemma": "decidir",
       "front": "decidir",
-      "back": "to decide, to make up one's mind, to determine, to choose to",
+      "back": "to decide, to make up one's mind, to determine",
       "frequencyRank": 432
     },
     {
@@ -3471,7 +3471,7 @@
       "wordId": "es:extraño",
       "lemma": "extraño",
       "front": "extraño",
-      "back": "strange, unusual, odd, weird, bizarre, uncanny, rare, peculiar, freaky, freakish, freak, curious",
+      "back": "strange, unusual, odd",
       "frequencyRank": 434
     },
     {
@@ -3503,7 +3503,7 @@
       "wordId": "es:asesino",
       "lemma": "asesino",
       "front": "asesino",
-      "back": "murderous, homicidal (intending, or likely to commit murder)",
+      "back": "murderous, homicidal",
       "frequencyRank": 438
     },
     {
@@ -3523,20 +3523,12 @@
       "frequencyRank": 440
     },
     {
-      "taskId": "es:john:meaning-recall",
-      "wordId": "es:john",
-      "lemma": "john",
-      "front": "john",
-      "back": "John (name)",
-      "frequencyRank": 441
-    },
-    {
       "taskId": "es:bastar:meaning-recall",
       "wordId": "es:bastar",
       "lemma": "bastar",
       "front": "bastar",
-      "back": "to be enough; to suffice",
-      "frequencyRank": 442
+      "back": "to be enough",
+      "frequencyRank": 441
     },
     {
       "taskId": "es:música:meaning-recall",
@@ -3544,7 +3536,7 @@
       "lemma": "música",
       "front": "música",
       "back": "music",
-      "frequencyRank": 443
+      "frequencyRank": 442
     },
     {
       "taskId": "es:perdonar:meaning-recall",
@@ -3552,7 +3544,7 @@
       "lemma": "perdonar",
       "front": "perdonar",
       "back": "to pardon, excuse, forgive",
-      "frequencyRank": 444
+      "frequencyRank": 443
     },
     {
       "taskId": "es:anoche:meaning-recall",
@@ -3560,15 +3552,15 @@
       "lemma": "anoche",
       "front": "anoche",
       "back": "last night",
-      "frequencyRank": 445
+      "frequencyRank": 444
     },
     {
       "taskId": "es:error:meaning-recall",
       "wordId": "es:error",
       "lemma": "error",
       "front": "error",
-      "back": "error",
-      "frequencyRank": 446
+      "back": "error, mistake",
+      "frequencyRank": 445
     },
     {
       "taskId": "es:caballero:meaning-recall",
@@ -3576,7 +3568,7 @@
       "lemma": "caballero",
       "front": "caballero",
       "back": "horseman",
-      "frequencyRank": 447
+      "frequencyRank": 446
     },
     {
       "taskId": "es:cuarto:meaning-recall",
@@ -3584,7 +3576,7 @@
       "lemma": "cuarto",
       "front": "cuarto",
       "back": "fourth",
-      "frequencyRank": 448
+      "frequencyRank": 447
     },
     {
       "taskId": "es:referir:meaning-recall",
@@ -3592,15 +3584,15 @@
       "lemma": "referir",
       "front": "referir",
       "back": "to report",
-      "frequencyRank": 449
+      "frequencyRank": 448
     },
     {
       "taskId": "es:perdón:meaning-recall",
       "wordId": "es:perdón",
       "lemma": "perdón",
       "front": "perdón",
-      "back": "sorry, pardon me (excuse me)",
-      "frequencyRank": 450
+      "back": "sorry, pardon me",
+      "frequencyRank": 449
     },
     {
       "taskId": "es:beber:meaning-recall",
@@ -3608,7 +3600,7 @@
       "lemma": "beber",
       "front": "beber",
       "back": "to drink",
-      "frequencyRank": 451
+      "frequencyRank": 450
     },
     {
       "taskId": "es:falta:meaning-recall",
@@ -3616,7 +3608,7 @@
       "lemma": "falta",
       "front": "falta",
       "back": "lack, shortage",
-      "frequencyRank": 452
+      "frequencyRank": 451
     },
     {
       "taskId": "es:confiar:meaning-recall",
@@ -3624,7 +3616,7 @@
       "lemma": "confiar",
       "front": "confiar",
       "back": "to reassure",
-      "frequencyRank": 453
+      "frequencyRank": 452
     },
     {
       "taskId": "es:ambos:meaning-recall",
@@ -3632,7 +3624,7 @@
       "lemma": "ambos",
       "front": "ambos",
       "back": "both",
-      "frequencyRank": 454
+      "frequencyRank": 453
     },
     {
       "taskId": "es:diez:meaning-recall",
@@ -3640,7 +3632,7 @@
       "lemma": "diez",
       "front": "diez",
       "back": "ten",
-      "frequencyRank": 455
+      "frequencyRank": 454
     },
     {
       "taskId": "es:hospital:meaning-recall",
@@ -3648,7 +3640,7 @@
       "lemma": "hospital",
       "front": "hospital",
       "back": "hospital",
-      "frequencyRank": 456
+      "frequencyRank": 455
     },
     {
       "taskId": "es:alegrar:meaning-recall",
@@ -3656,7 +3648,7 @@
       "lemma": "alegrar",
       "front": "alegrar",
       "back": "to make happy",
-      "frequencyRank": 457
+      "frequencyRank": 456
     },
     {
       "taskId": "es:relación:meaning-recall",
@@ -3664,7 +3656,7 @@
       "lemma": "relación",
       "front": "relación",
       "back": "relation",
-      "frequencyRank": 458
+      "frequencyRank": 457
     },
     {
       "taskId": "es:maldito:meaning-recall",
@@ -3672,15 +3664,15 @@
       "lemma": "maldito",
       "front": "maldito",
       "back": "cursed",
-      "frequencyRank": 459
+      "frequencyRank": 458
     },
     {
       "taskId": "es:disparar:meaning-recall",
       "wordId": "es:disparar",
       "lemma": "disparar",
       "front": "disparar",
-      "back": "to shoot, to fire (e.g. a weapon, a rocket)",
-      "frequencyRank": 460
+      "back": "to shoot, to fire",
+      "frequencyRank": 459
     },
     {
       "taskId": "es:divertido:meaning-recall",
@@ -3688,7 +3680,7 @@
       "lemma": "divertido",
       "front": "divertido",
       "back": "entertaining, amusing, funny",
-      "frequencyRank": 461
+      "frequencyRank": 460
     },
     {
       "taskId": "es:fuego:meaning-recall",
@@ -3696,7 +3688,7 @@
       "lemma": "fuego",
       "front": "fuego",
       "back": "fire",
-      "frequencyRank": 462
+      "frequencyRank": 461
     },
     {
       "taskId": "es:callar:meaning-recall",
@@ -3704,7 +3696,7 @@
       "lemma": "callar",
       "front": "callar",
       "back": "to calm",
-      "frequencyRank": 463
+      "frequencyRank": 462
     },
     {
       "taskId": "es:grupo:meaning-recall",
@@ -3712,7 +3704,7 @@
       "lemma": "grupo",
       "front": "grupo",
       "back": "group",
-      "frequencyRank": 464
+      "frequencyRank": 463
     },
     {
       "taskId": "es:increíble:meaning-recall",
@@ -3720,7 +3712,7 @@
       "lemma": "increíble",
       "front": "increíble",
       "back": "incredible, unbelievable",
-      "frequencyRank": 465
+      "frequencyRank": 464
     },
     {
       "taskId": "es:andar:meaning-recall",
@@ -3728,15 +3720,15 @@
       "lemma": "andar",
       "front": "andar",
       "back": "to walk, to go",
-      "frequencyRank": 466
+      "frequencyRank": 465
     },
     {
       "taskId": "es:mía:meaning-recall",
       "wordId": "es:mía",
       "lemma": "mía",
       "front": "mía",
-      "back": "a regiment of 100 soldiers in the Spanish protectorate of Morocco.",
-      "frequencyRank": 467
+      "back": "mine (fem.)",
+      "frequencyRank": 466
     },
     {
       "taskId": "es:café:meaning-recall",
@@ -3744,7 +3736,7 @@
       "lemma": "café",
       "front": "café",
       "back": "brown",
-      "frequencyRank": 468
+      "frequencyRank": 467
     },
     {
       "taskId": "es:daño:meaning-recall",
@@ -3752,7 +3744,7 @@
       "lemma": "daño",
       "front": "daño",
       "back": "damage",
-      "frequencyRank": 469
+      "frequencyRank": 468
     },
     {
       "taskId": "es:detener:meaning-recall",
@@ -3760,31 +3752,15 @@
       "lemma": "detener",
       "front": "detener",
       "back": "to detain",
-      "frequencyRank": 470
-    },
-    {
-      "taskId": "es:afuerar:meaning-recall",
-      "wordId": "es:afuerar",
-      "lemma": "afuerar",
-      "front": "afuerar",
-      "back": "to lock out",
-      "frequencyRank": 471
+      "frequencyRank": 469
     },
     {
       "taskId": "es:pobre:meaning-recall",
       "wordId": "es:pobre",
       "lemma": "pobre",
       "front": "pobre",
-      "back": "poor (lacking money, resources, etc.)",
-      "frequencyRank": 472
-    },
-    {
-      "taskId": "es:jack:meaning-recall",
-      "wordId": "es:jack",
-      "lemma": "jack",
-      "front": "jack",
-      "back": "Jack (name)",
-      "frequencyRank": 473
+      "back": "poor",
+      "frequencyRank": 470
     },
     {
       "taskId": "es:cerrar:meaning-recall",
@@ -3792,7 +3768,7 @@
       "lemma": "cerrar",
       "front": "cerrar",
       "back": "to close, to shut",
-      "frequencyRank": 474
+      "frequencyRank": 471
     },
     {
       "taskId": "es:detrás:meaning-recall",
@@ -3800,15 +3776,15 @@
       "lemma": "detrás",
       "front": "detrás",
       "back": "behind, at the rear",
-      "frequencyRank": 475
+      "frequencyRank": 472
     },
     {
       "taskId": "es:querido:meaning-recall",
       "wordId": "es:querido",
       "lemma": "querido",
       "front": "querido",
-      "back": "dear (also used in letter introductions, etc.)",
-      "frequencyRank": 476
+      "back": "dear",
+      "frequencyRank": 473
     },
     {
       "taskId": "es:oficial:meaning-recall",
@@ -3816,7 +3792,7 @@
       "lemma": "oficial",
       "front": "oficial",
       "back": "official",
-      "frequencyRank": 477
+      "frequencyRank": 474
     },
     {
       "taskId": "es:asesinato:meaning-recall",
@@ -3824,23 +3800,23 @@
       "lemma": "asesinato",
       "front": "asesinato",
       "back": "assassination",
-      "frequencyRank": 478
+      "frequencyRank": 475
     },
     {
       "taskId": "es:mentir:meaning-recall",
       "wordId": "es:mentir",
       "lemma": "mentir",
       "front": "mentir",
-      "back": "to lie (say something untrue)",
-      "frequencyRank": 479
+      "back": "to lie",
+      "frequencyRank": 476
     },
     {
       "taskId": "es:presidente:meaning-recall",
       "wordId": "es:presidente",
       "lemma": "presidente",
       "front": "presidente",
-      "back": "president, head (leader)",
-      "frequencyRank": 480
+      "back": "president, head",
+      "frequencyRank": 477
     },
     {
       "taskId": "es:abogado:meaning-recall",
@@ -3848,7 +3824,7 @@
       "lemma": "abogado",
       "front": "abogado",
       "back": "lawyer, solicitor, counsel.",
-      "frequencyRank": 481
+      "frequencyRank": 478
     },
     {
       "taskId": "es:voz:meaning-recall",
@@ -3856,15 +3832,15 @@
       "lemma": "voz",
       "front": "voz",
       "back": "voice",
-      "frequencyRank": 482
+      "frequencyRank": 479
     },
     {
       "taskId": "es:ropa:meaning-recall",
       "wordId": "es:ropa",
       "lemma": "ropa",
       "front": "ropa",
-      "back": "garment, clothing, clothes, robes",
-      "frequencyRank": 483
+      "back": "garment, clothing, clothes",
+      "frequencyRank": 480
     },
     {
       "taskId": "es:crear:meaning-recall",
@@ -3872,7 +3848,7 @@
       "lemma": "crear",
       "front": "crear",
       "back": "to create",
-      "frequencyRank": 484
+      "frequencyRank": 481
     },
     {
       "taskId": "es:información:meaning-recall",
@@ -3880,7 +3856,7 @@
       "lemma": "información",
       "front": "información",
       "back": "information, data",
-      "frequencyRank": 485
+      "frequencyRank": 482
     },
     {
       "taskId": "es:general:meaning-recall",
@@ -3888,7 +3864,7 @@
       "lemma": "general",
       "front": "general",
       "back": "general, overall",
-      "frequencyRank": 486
+      "frequencyRank": 483
     },
     {
       "taskId": "es:romper:meaning-recall",
@@ -3896,23 +3872,23 @@
       "lemma": "romper",
       "front": "romper",
       "back": "to break",
-      "frequencyRank": 487
+      "frequencyRank": 484
     },
     {
       "taskId": "es:trato:meaning-recall",
       "wordId": "es:trato",
       "lemma": "trato",
       "front": "trato",
-      "back": "treatment (the process or manner of treating someone or something)",
-      "frequencyRank": 488
+      "back": "treatment",
+      "frequencyRank": 485
     },
     {
       "taskId": "es:cita:meaning-recall",
       "wordId": "es:cita",
       "lemma": "cita",
       "front": "cita",
-      "back": "date (romantic outing)",
-      "frequencyRank": 489
+      "back": "date",
+      "frequencyRank": 486
     },
     {
       "taskId": "es:respuesta:meaning-recall",
@@ -3920,7 +3896,7 @@
       "lemma": "respuesta",
       "front": "respuesta",
       "back": "reply, response, answer",
-      "frequencyRank": 490
+      "frequencyRank": 487
     },
     {
       "taskId": "es:meter:meaning-recall",
@@ -3928,7 +3904,7 @@
       "lemma": "meter",
       "front": "meter",
       "back": "to put in, insert",
-      "frequencyRank": 491
+      "frequencyRank": 488
     },
     {
       "taskId": "es:ayer:meaning-recall",
@@ -3936,7 +3912,7 @@
       "lemma": "ayer",
       "front": "ayer",
       "back": "yesterday",
-      "frequencyRank": 492
+      "frequencyRank": 489
     },
     {
       "taskId": "es:demás:meaning-recall",
@@ -3944,7 +3920,7 @@
       "lemma": "demás",
       "front": "demás",
       "back": "other, remaining",
-      "frequencyRank": 493
+      "frequencyRank": 490
     },
     {
       "taskId": "es:verdadero:meaning-recall",
@@ -3952,7 +3928,7 @@
       "lemma": "verdadero",
       "front": "verdadero",
       "back": "true, real",
-      "frequencyRank": 494
+      "frequencyRank": 491
     },
     {
       "taskId": "es:sistema:meaning-recall",
@@ -3960,7 +3936,7 @@
       "lemma": "sistema",
       "front": "sistema",
       "back": "system",
-      "frequencyRank": 495
+      "frequencyRank": 492
     },
     {
       "taskId": "es:campo:meaning-recall",
@@ -3968,15 +3944,15 @@
       "lemma": "campo",
       "front": "campo",
       "back": "countryside, country",
-      "frequencyRank": 496
+      "frequencyRank": 493
     },
     {
       "taskId": "es:mostrar:meaning-recall",
       "wordId": "es:mostrar",
       "lemma": "mostrar",
       "front": "mostrar",
-      "back": "to show (have somebody see something)",
-      "frequencyRank": 497
+      "back": "to show",
+      "frequencyRank": 494
     },
     {
       "taskId": "es:vuestro:meaning-recall",
@@ -3984,7 +3960,7 @@
       "lemma": "vuestro",
       "front": "vuestro",
       "back": "yours",
-      "frequencyRank": 498
+      "frequencyRank": 495
     },
     {
       "taskId": "es:suyo:meaning-recall",
@@ -3992,14 +3968,38 @@
       "lemma": "suyo",
       "front": "suyo",
       "back": "his, hers, its",
-      "frequencyRank": 499
+      "frequencyRank": 496
     },
     {
       "taskId": "es:personal:meaning-recall",
       "wordId": "es:personal",
       "lemma": "personal",
       "front": "personal",
-      "back": "personal",
+      "back": "personal; staff",
+      "frequencyRank": 497
+    },
+    {
+      "taskId": "es:control:meaning-recall",
+      "wordId": "es:control",
+      "lemma": "control",
+      "front": "control",
+      "back": "control, check",
+      "frequencyRank": 498
+    },
+    {
+      "taskId": "es:odio:meaning-recall",
+      "wordId": "es:odio",
+      "lemma": "odio",
+      "front": "odio",
+      "back": "hatred, hate",
+      "frequencyRank": 499
+    },
+    {
+      "taskId": "es:frente:meaning-recall",
+      "wordId": "es:frente",
+      "lemma": "frente",
+      "front": "frente",
+      "back": "forehead; front",
       "frequencyRank": 500
     }
   ]
