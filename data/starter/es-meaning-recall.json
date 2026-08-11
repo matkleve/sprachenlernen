@@ -407,7 +407,7 @@
       "wordId": "es:hablar",
       "lemma": "hablar",
       "front": "hablar",
-      "back": "to talk",
+      "back": "to talk; to speak; to communicate using words",
       "frequencyRank": 51
     },
     {
@@ -471,7 +471,7 @@
       "wordId": "es:tanto",
       "lemma": "tanto",
       "front": "tanto",
-      "back": "so much",
+      "back": "so much; as much; that much",
       "frequencyRank": 59
     },
     {
@@ -567,7 +567,7 @@
       "wordId": "es:entonces",
       "lemma": "entonces",
       "front": "entonces",
-      "back": "then, next, thereupon",
+      "back": "then, next, thereupon, at that time, at that point",
       "frequencyRank": 71
     },
     {
@@ -607,7 +607,7 @@
       "wordId": "es:quién",
       "lemma": "quién",
       "front": "quién",
-      "back": "who?, whom?",
+      "back": "who?, whom?; whose?",
       "frequencyRank": 76
     },
     {
@@ -655,7 +655,7 @@
       "wordId": "es:venir",
       "lemma": "venir",
       "front": "venir",
-      "back": "Senses relating to literal movement.",
+      "back": "to come",
       "frequencyRank": 82
     },
     {
@@ -663,7 +663,7 @@
       "wordId": "es:dónde",
       "lemma": "dónde",
       "front": "dónde",
-      "back": "where?",
+      "back": "where?; in what place?",
       "frequencyRank": 83
     },
     {
@@ -743,7 +743,7 @@
       "wordId": "es:mismo",
       "lemma": "mismo",
       "front": "mismo",
-      "back": "same",
+      "back": "same, identical",
       "frequencyRank": 93
     },
     {
@@ -767,7 +767,7 @@
       "wordId": "es:sobre",
       "lemma": "sobre",
       "front": "sobre",
-      "back": "over, above, on",
+      "back": "over, above, on, upon, atop",
       "frequencyRank": 96
     },
     {
@@ -779,20 +779,12 @@
       "frequencyRank": 97
     },
     {
-      "taskId": "es:dio:meaning-recall",
-      "wordId": "es:dio",
-      "lemma": "dio",
-      "front": "dio",
-      "back": "third-person singular preterite indicative of dar",
-      "frequencyRank": 98
-    },
-    {
       "taskId": "es:sin:meaning-recall",
       "wordId": "es:sin",
       "lemma": "sin",
       "front": "sin",
       "back": "without",
-      "frequencyRank": 99
+      "frequencyRank": 98
     },
     {
       "taskId": "es:nuevo:meaning-recall",
@@ -800,7 +792,7 @@
       "lemma": "nuevo",
       "front": "nuevo",
       "back": "new",
-      "frequencyRank": 100
+      "frequencyRank": 99
     },
     {
       "taskId": "es:llevar:meaning-recall",
@@ -808,7 +800,7 @@
       "lemma": "llevar",
       "front": "llevar",
       "back": "to take somewhere",
-      "frequencyRank": 101
+      "frequencyRank": 100
     },
     {
       "taskId": "es:alguien:meaning-recall",
@@ -816,7 +808,7 @@
       "lemma": "alguien",
       "front": "alguien",
       "back": "someone, somebody",
-      "frequencyRank": 102
+      "frequencyRank": 101
     },
     {
       "taskId": "es:ahí:meaning-recall",
@@ -824,7 +816,7 @@
       "lemma": "ahí",
       "front": "ahí",
       "back": "there",
-      "frequencyRank": 103
+      "frequencyRank": 102
     },
     {
       "taskId": "es:poco:meaning-recall",
@@ -832,7 +824,7 @@
       "lemma": "poco",
       "front": "poco",
       "back": "little, not much",
-      "frequencyRank": 104
+      "frequencyRank": 103
     },
     {
       "taskId": "es:padre:meaning-recall",
@@ -840,15 +832,15 @@
       "lemma": "padre",
       "front": "padre",
       "back": "father, parent",
-      "frequencyRank": 105
+      "frequencyRank": 104
     },
     {
       "taskId": "es:salir:meaning-recall",
       "wordId": "es:salir",
       "lemma": "salir",
       "front": "salir",
-      "back": "to go out, to leave, to depart",
-      "frequencyRank": 106
+      "back": "to go out, to leave, to depart, to head out",
+      "frequencyRank": 105
     },
     {
       "taskId": "es:siempre:meaning-recall",
@@ -856,7 +848,7 @@
       "lemma": "siempre",
       "front": "siempre",
       "back": "always",
-      "frequencyRank": 107
+      "frequencyRank": 106
     },
     {
       "taskId": "es:hasta:meaning-recall",
@@ -864,7 +856,7 @@
       "lemma": "hasta",
       "front": "hasta",
       "back": "even",
-      "frequencyRank": 108
+      "frequencyRank": 107
     },
     {
       "taskId": "es:tomar:meaning-recall",
@@ -872,7 +864,7 @@
       "lemma": "tomar",
       "front": "tomar",
       "back": "to take",
-      "frequencyRank": 109
+      "frequencyRank": 108
     },
     {
       "taskId": "es:amigo:meaning-recall",
@@ -880,7 +872,7 @@
       "lemma": "amigo",
       "front": "amigo",
       "back": "friend",
-      "frequencyRank": 110
+      "frequencyRank": 109
     },
     {
       "taskId": "es:llegar:meaning-recall",
@@ -888,7 +880,7 @@
       "lemma": "llegar",
       "front": "llegar",
       "back": "to arrive, get",
-      "frequencyRank": 111
+      "frequencyRank": 110
     },
     {
       "taskId": "es:mal:meaning-recall",
@@ -896,7 +888,7 @@
       "lemma": "mal",
       "front": "mal",
       "back": "badly, poorly, ill",
-      "frequencyRank": 112
+      "frequencyRank": 111
     },
     {
       "taskId": "es:conocer:meaning-recall",
@@ -904,7 +896,7 @@
       "lemma": "conocer",
       "front": "conocer",
       "back": "to know, to be familiar with, to be acquainted with",
-      "frequencyRank": 113
+      "frequencyRank": 112
     },
     {
       "taskId": "es:primero:meaning-recall",
@@ -912,15 +904,15 @@
       "lemma": "primero",
       "front": "primero",
       "back": "former, first, first one",
-      "frequencyRank": 114
+      "frequencyRank": 113
     },
     {
       "taskId": "es:antes:meaning-recall",
       "wordId": "es:antes",
       "lemma": "antes",
       "front": "antes",
-      "back": "earlier",
-      "frequencyRank": 115
+      "back": "earlier; before; sooner; previously; formerly; beforehand",
+      "frequencyRank": 114
     },
     {
       "taskId": "es:quedar:meaning-recall",
@@ -928,15 +920,15 @@
       "lemma": "quedar",
       "front": "quedar",
       "back": "to be, to end up",
-      "frequencyRank": 116
+      "frequencyRank": 115
     },
     {
       "taskId": "es:ni:meaning-recall",
       "wordId": "es:ni",
       "lemma": "ni",
       "front": "ni",
-      "back": "Used when negating two or more elements, and not, not A or B",
-      "frequencyRank": 117
+      "back": "nor, neither",
+      "frequencyRank": 116
     },
     {
       "taskId": "es:seguir:meaning-recall",
@@ -944,7 +936,7 @@
       "lemma": "seguir",
       "front": "seguir",
       "back": "to follow",
-      "frequencyRank": 118
+      "frequencyRank": 117
     },
     {
       "taskId": "es:morir:meaning-recall",
@@ -952,7 +944,7 @@
       "lemma": "morir",
       "front": "morir",
       "back": "to die",
-      "frequencyRank": 119
+      "frequencyRank": 118
     },
     {
       "taskId": "es:trabajo:meaning-recall",
@@ -960,15 +952,15 @@
       "lemma": "trabajo",
       "front": "trabajo",
       "back": "work, job",
-      "frequencyRank": 120
+      "frequencyRank": 119
     },
     {
       "taskId": "es:seguro:meaning-recall",
       "wordId": "es:seguro",
       "lemma": "seguro",
       "front": "seguro",
-      "back": "secure",
-      "frequencyRank": 121
+      "back": "secure; safe",
+      "frequencyRank": 120
     },
     {
       "taskId": "es:acuerdo:meaning-recall",
@@ -976,7 +968,7 @@
       "lemma": "acuerdo",
       "front": "acuerdo",
       "back": "agreement",
-      "frequencyRank": 122
+      "frequencyRank": 121
     },
     {
       "taskId": "es:gente:meaning-recall",
@@ -984,7 +976,7 @@
       "lemma": "gente",
       "front": "gente",
       "back": "people",
-      "frequencyRank": 123
+      "frequencyRank": 122
     },
     {
       "taskId": "es:hijo:meaning-recall",
@@ -992,7 +984,7 @@
       "lemma": "hijo",
       "front": "hijo",
       "back": "son",
-      "frequencyRank": 124
+      "frequencyRank": 123
     },
     {
       "taskId": "es:mujer:meaning-recall",
@@ -1000,23 +992,23 @@
       "lemma": "mujer",
       "front": "mujer",
       "back": "woman",
-      "frequencyRank": 125
+      "frequencyRank": 124
     },
     {
       "taskId": "es:suponer:meaning-recall",
       "wordId": "es:suponer",
       "lemma": "suponer",
       "front": "suponer",
-      "back": "to suppose, to surmise, to assume",
-      "frequencyRank": 126
+      "back": "to suppose, to assume",
+      "frequencyRank": 125
     },
     {
       "taskId": "es:nadie:meaning-recall",
       "wordId": "es:nadie",
       "lemma": "nadie",
       "front": "nadie",
-      "back": "no one",
-      "frequencyRank": 127
+      "back": "no one; nobody",
+      "frequencyRank": 126
     },
     {
       "taskId": "es:escuchar:meaning-recall",
@@ -1024,15 +1016,15 @@
       "lemma": "escuchar",
       "front": "escuchar",
       "back": "to listen to, to hear out",
-      "frequencyRank": 128
+      "frequencyRank": 127
     },
     {
       "taskId": "es:después:meaning-recall",
       "wordId": "es:después",
       "lemma": "después",
       "front": "después",
-      "back": "later, afterwards, afterward",
-      "frequencyRank": 129
+      "back": "later, afterwards, afterward, post",
+      "frequencyRank": 128
     },
     {
       "taskId": "es:entender:meaning-recall",
@@ -1040,7 +1032,7 @@
       "lemma": "entender",
       "front": "entender",
       "back": "to understand, to fathom",
-      "frequencyRank": 130
+      "frequencyRank": 129
     },
     {
       "taskId": "es:estado:meaning-recall",
@@ -1048,7 +1040,7 @@
       "lemma": "estado",
       "front": "estado",
       "back": "country, land",
-      "frequencyRank": 131
+      "frequencyRank": 130
     },
     {
       "taskId": "es:tal:meaning-recall",
@@ -1056,7 +1048,7 @@
       "lemma": "tal",
       "front": "tal",
       "back": "such",
-      "frequencyRank": 132
+      "frequencyRank": 131
     },
     {
       "taskId": "es:momento:meaning-recall",
@@ -1064,7 +1056,7 @@
       "lemma": "momento",
       "front": "momento",
       "back": "moment, instant",
-      "frequencyRank": 133
+      "frequencyRank": 132
     },
     {
       "taskId": "es:chico:meaning-recall",
@@ -1072,7 +1064,7 @@
       "lemma": "chico",
       "front": "chico",
       "back": "small",
-      "frequencyRank": 134
+      "frequencyRank": 133
     },
     {
       "taskId": "es:fuera:meaning-recall",
@@ -1080,7 +1072,7 @@
       "lemma": "fuera",
       "front": "fuera",
       "back": "outside",
-      "frequencyRank": 135
+      "frequencyRank": 134
     },
     {
       "taskId": "es:claro:meaning-recall",
@@ -1088,7 +1080,7 @@
       "lemma": "claro",
       "front": "claro",
       "back": "clear",
-      "frequencyRank": 136
+      "frequencyRank": 135
     },
     {
       "taskId": "es:problema:meaning-recall",
@@ -1096,7 +1088,7 @@
       "lemma": "problema",
       "front": "problema",
       "back": "problem, issue, challenge",
-      "frequencyRank": 137
+      "frequencyRank": 136
     },
     {
       "taskId": "es:hora:meaning-recall",
@@ -1104,15 +1096,15 @@
       "lemma": "hora",
       "front": "hora",
       "back": "hour",
-      "frequencyRank": 138
+      "frequencyRank": 137
     },
     {
       "taskId": "es:contar:meaning-recall",
       "wordId": "es:contar",
       "lemma": "contar",
       "front": "contar",
-      "back": "to count",
-      "frequencyRank": 139
+      "back": "to count; to tally",
+      "frequencyRank": 138
     },
     {
       "taskId": "es:desde:meaning-recall",
@@ -1120,7 +1112,7 @@
       "lemma": "desde",
       "front": "desde",
       "back": "since",
-      "frequencyRank": 140
+      "frequencyRank": 139
     },
     {
       "taskId": "es:lugar:meaning-recall",
@@ -1128,7 +1120,7 @@
       "lemma": "lugar",
       "front": "lugar",
       "back": "place",
-      "frequencyRank": 141
+      "frequencyRank": 140
     },
     {
       "taskId": "es:dinero:meaning-recall",
@@ -1136,15 +1128,15 @@
       "lemma": "dinero",
       "front": "dinero",
       "back": "money",
-      "frequencyRank": 142
+      "frequencyRank": 141
     },
     {
       "taskId": "es:tipo:meaning-recall",
       "wordId": "es:tipo",
       "lemma": "tipo",
       "front": "tipo",
-      "back": "kind, type, sort",
-      "frequencyRank": 143
+      "back": "kind, type, sort, manner",
+      "frequencyRank": 142
     },
     {
       "taskId": "es:mundo:meaning-recall",
@@ -1152,7 +1144,7 @@
       "lemma": "mundo",
       "front": "mundo",
       "back": "world, earth",
-      "frequencyRank": 144
+      "frequencyRank": 143
     },
     {
       "taskId": "es:madre:meaning-recall",
@@ -1160,7 +1152,7 @@
       "lemma": "madre",
       "front": "madre",
       "back": "mother",
-      "frequencyRank": 145
+      "frequencyRank": 144
     },
     {
       "taskId": "es:mañana:meaning-recall",
@@ -1168,7 +1160,7 @@
       "lemma": "mañana",
       "front": "mañana",
       "back": "tomorrow",
-      "frequencyRank": 146
+      "frequencyRank": 145
     },
     {
       "taskId": "es:valer:meaning-recall",
@@ -1176,7 +1168,7 @@
       "lemma": "valer",
       "front": "valer",
       "back": "to be worth",
-      "frequencyRank": 147
+      "frequencyRank": 146
     },
     {
       "taskId": "es:persona:meaning-recall",
@@ -1184,7 +1176,7 @@
       "lemma": "persona",
       "front": "persona",
       "back": "person",
-      "frequencyRank": 148
+      "frequencyRank": 147
     },
     {
       "taskId": "es:donde:meaning-recall",
@@ -1192,15 +1184,15 @@
       "lemma": "donde",
       "front": "donde",
       "back": "where, in what place",
-      "frequencyRank": 149
+      "frequencyRank": 148
     },
     {
       "taskId": "es:acabar:meaning-recall",
       "wordId": "es:acabar",
       "lemma": "acabar",
       "front": "acabar",
-      "back": "to finish",
-      "frequencyRank": 150
+      "back": "to finish; to end",
+      "frequencyRank": 149
     },
     {
       "taskId": "es:allí:meaning-recall",
@@ -1208,23 +1200,23 @@
       "lemma": "allí",
       "front": "allí",
       "back": "there",
-      "frequencyRank": 151
+      "frequencyRank": 150
     },
     {
       "taskId": "es:parte:meaning-recall",
       "wordId": "es:parte",
       "lemma": "parte",
       "front": "parte",
-      "back": "part",
-      "frequencyRank": 152
+      "back": "part; section; portion; share; piece; bit; cut; proportion",
+      "frequencyRank": 151
     },
     {
       "taskId": "es:buscar:meaning-recall",
       "wordId": "es:buscar",
       "lemma": "buscar",
       "front": "buscar",
-      "back": "to seek, search for, look for",
-      "frequencyRank": 153
+      "back": "to seek, search for, look for, try to find, to scour",
+      "frequencyRank": 152
     },
     {
       "taskId": "es:trabajar:meaning-recall",
@@ -1232,7 +1224,7 @@
       "lemma": "trabajar",
       "front": "trabajar",
       "back": "to work",
-      "frequencyRank": 154
+      "frequencyRank": 153
     },
     {
       "taskId": "es:menos:meaning-recall",
@@ -1240,7 +1232,7 @@
       "lemma": "menos",
       "front": "menos",
       "back": "less",
-      "frequencyRank": 155
+      "frequencyRank": 154
     },
     {
       "taskId": "es:chica:meaning-recall",
@@ -1248,7 +1240,7 @@
       "lemma": "chica",
       "front": "chica",
       "back": "female equivalent of chico: girl",
-      "frequencyRank": 156
+      "frequencyRank": 155
     },
     {
       "taskId": "es:ayudar:meaning-recall",
@@ -1256,23 +1248,23 @@
       "lemma": "ayudar",
       "front": "ayudar",
       "back": "to help",
-      "frequencyRank": 157
+      "frequencyRank": 156
     },
     {
       "taskId": "es:gran:meaning-recall",
       "wordId": "es:gran",
       "lemma": "gran",
       "front": "gran",
-      "back": "apocopic form of grande",
-      "frequencyRank": 158
+      "back": "great, grand",
+      "frequencyRank": 157
     },
     {
       "taskId": "es:ninguno:meaning-recall",
       "wordId": "es:ninguno",
       "lemma": "ninguno",
       "front": "ninguno",
-      "back": "no",
-      "frequencyRank": 159
+      "back": "no; none",
+      "frequencyRank": 158
     },
     {
       "taskId": "es:poner:meaning-recall",
@@ -1280,7 +1272,7 @@
       "lemma": "poner",
       "front": "poner",
       "back": "to put, to place",
-      "frequencyRank": 160
+      "frequencyRank": 159
     },
     {
       "taskId": "es:perder:meaning-recall",
@@ -1288,7 +1280,7 @@
       "lemma": "perder",
       "front": "perder",
       "back": "to lose",
-      "frequencyRank": 161
+      "frequencyRank": 160
     },
     {
       "taskId": "es:mamá:meaning-recall",
@@ -1296,7 +1288,7 @@
       "lemma": "mamá",
       "front": "mamá",
       "back": "mum, mom",
-      "frequencyRank": 162
+      "frequencyRank": 161
     },
     {
       "taskId": "es:nombre:meaning-recall",
@@ -1304,7 +1296,7 @@
       "lemma": "nombre",
       "front": "nombre",
       "back": "name",
-      "frequencyRank": 163
+      "frequencyRank": 162
     },
     {
       "taskId": "es:luego:meaning-recall",
@@ -1312,7 +1304,7 @@
       "lemma": "luego",
       "front": "luego",
       "back": "then",
-      "frequencyRank": 164
+      "frequencyRank": 163
     },
     {
       "taskId": "es:papá:meaning-recall",
@@ -1320,7 +1312,7 @@
       "lemma": "papá",
       "front": "papá",
       "back": "dad",
-      "frequencyRank": 165
+      "frequencyRank": 164
     },
     {
       "taskId": "es:niño:meaning-recall",
@@ -1328,7 +1320,7 @@
       "lemma": "niño",
       "front": "niño",
       "back": "child, boy",
-      "frequencyRank": 166
+      "frequencyRank": 165
     },
     {
       "taskId": "es:hoy:meaning-recall",
@@ -1336,7 +1328,7 @@
       "lemma": "hoy",
       "front": "hoy",
       "back": "today, tonight",
-      "frequencyRank": 167
+      "frequencyRank": 166
     },
     {
       "taskId": "es:tres:meaning-recall",
@@ -1344,7 +1336,7 @@
       "lemma": "tres",
       "front": "tres",
       "back": "three",
-      "frequencyRank": 168
+      "frequencyRank": 167
     },
     {
       "taskId": "es:importar:meaning-recall",
@@ -1352,7 +1344,7 @@
       "lemma": "importar",
       "front": "importar",
       "back": "to matter, to be important",
-      "frequencyRank": 169
+      "frequencyRank": 168
     },
     {
       "taskId": "es:tratar:meaning-recall",
@@ -1360,7 +1352,7 @@
       "lemma": "tratar",
       "front": "tratar",
       "back": "to treat",
-      "frequencyRank": 170
+      "frequencyRank": 169
     },
     {
       "taskId": "es:mano:meaning-recall",
@@ -1368,15 +1360,15 @@
       "lemma": "mano",
       "front": "mano",
       "back": "hand",
-      "frequencyRank": 171
+      "frequencyRank": 170
     },
     {
       "taskId": "es:último:meaning-recall",
       "wordId": "es:último",
       "lemma": "último",
       "front": "último",
-      "back": "final",
-      "frequencyRank": 172
+      "back": "final; last",
+      "frequencyRank": 171
     },
     {
       "taskId": "es:mierda:meaning-recall",
@@ -1384,7 +1376,7 @@
       "lemma": "mierda",
       "front": "mierda",
       "back": "shit",
-      "frequencyRank": 173
+      "frequencyRank": 172
     },
     {
       "taskId": "es:empezar:meaning-recall",
@@ -1392,23 +1384,23 @@
       "lemma": "empezar",
       "front": "empezar",
       "back": "to start, begin, to get started",
-      "frequencyRank": 174
+      "frequencyRank": 173
     },
     {
       "taskId": "es:vivir:meaning-recall",
       "wordId": "es:vivir",
       "lemma": "vivir",
       "front": "vivir",
-      "back": "to live",
-      "frequencyRank": 175
+      "back": "to live; to be alive",
+      "frequencyRank": 174
     },
     {
       "taskId": "es:pequeño:meaning-recall",
       "wordId": "es:pequeño",
       "lemma": "pequeño",
       "front": "pequeño",
-      "back": "small",
-      "frequencyRank": 176
+      "back": "small; little",
+      "frequencyRank": 175
     },
     {
       "taskId": "es:realmente:meaning-recall",
@@ -1416,7 +1408,7 @@
       "lemma": "realmente",
       "front": "realmente",
       "back": "really, actually, genuinely",
-      "frequencyRank": 177
+      "frequencyRank": 176
     },
     {
       "taskId": "es:cierto:meaning-recall",
@@ -1424,7 +1416,7 @@
       "lemma": "cierto",
       "front": "cierto",
       "back": "true",
-      "frequencyRank": 178
+      "frequencyRank": 177
     },
     {
       "taskId": "es:razón:meaning-recall",
@@ -1432,7 +1424,7 @@
       "lemma": "razón",
       "front": "razón",
       "back": "reason",
-      "frequencyRank": 179
+      "frequencyRank": 178
     },
     {
       "taskId": "es:idea:meaning-recall",
@@ -1440,7 +1432,7 @@
       "lemma": "idea",
       "front": "idea",
       "back": "idea, notion",
-      "frequencyRank": 180
+      "frequencyRank": 179
     },
     {
       "taskId": "es:aún:meaning-recall",
@@ -1448,15 +1440,15 @@
       "lemma": "aún",
       "front": "aún",
       "back": "still, yet",
-      "frequencyRank": 181
+      "frequencyRank": 180
     },
     {
       "taskId": "es:mío:meaning-recall",
       "wordId": "es:mío",
       "lemma": "mío",
       "front": "mío",
-      "back": "mine",
-      "frequencyRank": 182
+      "back": "mine; of mine",
+      "frequencyRank": 181
     },
     {
       "taskId": "es:tarde:meaning-recall",
@@ -1464,23 +1456,23 @@
       "lemma": "tarde",
       "front": "tarde",
       "back": "late",
-      "frequencyRank": 183
+      "frequencyRank": 182
     },
     {
       "taskId": "es:cada:meaning-recall",
       "wordId": "es:cada",
       "lemma": "cada",
       "front": "cada",
-      "back": "each",
-      "frequencyRank": 184
+      "back": "each; every",
+      "frequencyRank": 183
     },
     {
       "taskId": "es:serio:meaning-recall",
       "wordId": "es:serio",
       "lemma": "serio",
       "front": "serio",
-      "back": "serious, earnest, sober",
-      "frequencyRank": 185
+      "back": "serious, earnest, sober, solemn",
+      "frequencyRank": 184
     },
     {
       "taskId": "es:intentar:meaning-recall",
@@ -1488,7 +1480,7 @@
       "lemma": "intentar",
       "front": "intentar",
       "back": "to try, to attempt",
-      "frequencyRank": 186
+      "frequencyRank": 185
     },
     {
       "taskId": "es:quien:meaning-recall",
@@ -1496,7 +1488,7 @@
       "lemma": "quien",
       "front": "quien",
       "back": "who",
-      "frequencyRank": 187
+      "frequencyRank": 186
     },
     {
       "taskId": "es:matar:meaning-recall",
@@ -1504,7 +1496,7 @@
       "lemma": "matar",
       "front": "matar",
       "back": "to kill, slay",
-      "frequencyRank": 188
+      "frequencyRank": 187
     },
     {
       "taskId": "es:demasiado:meaning-recall",
@@ -1512,7 +1504,7 @@
       "lemma": "demasiado",
       "front": "demasiado",
       "back": "too much, too many, excessive",
-      "frequencyRank": 189
+      "frequencyRank": 188
     },
     {
       "taskId": "es:pasado:meaning-recall",
@@ -1520,31 +1512,31 @@
       "lemma": "pasado",
       "front": "pasado",
       "back": "past",
-      "frequencyRank": 190
+      "frequencyRank": 189
     },
     {
       "taskId": "es:único:meaning-recall",
       "wordId": "es:único",
       "lemma": "único",
       "front": "único",
-      "back": "only",
-      "frequencyRank": 191
+      "back": "only; single; sole",
+      "frequencyRank": 190
     },
     {
       "taskId": "es:policía:meaning-recall",
       "wordId": "es:policía",
       "lemma": "policía",
       "front": "policía",
-      "back": "Civility, polity, public order",
-      "frequencyRank": 192
+      "back": "police; police officer",
+      "frequencyRank": 191
     },
     {
       "taskId": "es:entrar:meaning-recall",
       "wordId": "es:entrar",
       "lemma": "entrar",
       "front": "entrar",
-      "back": "to enter",
-      "frequencyRank": 193
+      "back": "to enter, to come in",
+      "frequencyRank": 192
     },
     {
       "taskId": "es:pedir:meaning-recall",
@@ -1552,7 +1544,7 @@
       "lemma": "pedir",
       "front": "pedir",
       "back": "to ask for something",
-      "frequencyRank": 194
+      "frequencyRank": 193
     },
     {
       "taskId": "es:semana:meaning-recall",
@@ -1560,7 +1552,7 @@
       "lemma": "semana",
       "front": "semana",
       "back": "week",
-      "frequencyRank": 195
+      "frequencyRank": 194
     },
     {
       "taskId": "es:cualquiera:meaning-recall",
@@ -1568,7 +1560,7 @@
       "lemma": "cualquiera",
       "front": "cualquiera",
       "back": "anyone, whoever, whomever",
-      "frequencyRank": 196
+      "frequencyRank": 195
     },
     {
       "taskId": "es:eh:meaning-recall",
@@ -1576,7 +1568,7 @@
       "lemma": "eh",
       "front": "eh",
       "back": "hey!",
-      "frequencyRank": 197
+      "frequencyRank": 196
     },
     {
       "taskId": "es:minuto:meaning-recall",
@@ -1584,7 +1576,7 @@
       "lemma": "minuto",
       "front": "minuto",
       "back": "minute",
-      "frequencyRank": 198
+      "frequencyRank": 197
     },
     {
       "taskId": "es:familia:meaning-recall",
@@ -1592,7 +1584,7 @@
       "lemma": "familia",
       "front": "familia",
       "back": "family",
-      "frequencyRank": 199
+      "frequencyRank": 198
     },
     {
       "taskId": "es:hermano:meaning-recall",
@@ -1600,15 +1592,15 @@
       "lemma": "hermano",
       "front": "hermano",
       "back": "brother",
-      "frequencyRank": 200
+      "frequencyRank": 199
     },
     {
       "taskId": "es:cuánto:meaning-recall",
       "wordId": "es:cuánto",
       "lemma": "cuánto",
       "front": "cuánto",
-      "back": "how much",
-      "frequencyRank": 201
+      "back": "how much; how many",
+      "frequencyRank": 200
     },
     {
       "taskId": "es:amor:meaning-recall",
@@ -1616,15 +1608,15 @@
       "lemma": "amor",
       "front": "amor",
       "back": "love",
-      "frequencyRank": 202
+      "frequencyRank": 201
     },
     {
       "taskId": "es:forma:meaning-recall",
       "wordId": "es:forma",
       "lemma": "forma",
       "front": "forma",
-      "back": "shape",
-      "frequencyRank": 203
+      "back": "shape; form; figure",
+      "frequencyRank": 202
     },
     {
       "taskId": "es:junto:meaning-recall",
@@ -1632,7 +1624,7 @@
       "lemma": "junto",
       "front": "junto",
       "back": "together",
-      "frequencyRank": 204
+      "frequencyRank": 203
     },
     {
       "taskId": "es:entre:meaning-recall",
@@ -1640,15 +1632,15 @@
       "lemma": "entre",
       "front": "entre",
       "back": "between",
-      "frequencyRank": 205
+      "frequencyRank": 204
     },
     {
       "taskId": "es:conseguir:meaning-recall",
       "wordId": "es:conseguir",
       "lemma": "conseguir",
       "front": "conseguir",
-      "back": "to achieve, succeed in, reach",
-      "frequencyRank": 206
+      "back": "to achieve, succeed in, reach, accomplish, attain",
+      "frequencyRank": 205
     },
     {
       "taskId": "es:viejo:meaning-recall",
@@ -1656,7 +1648,7 @@
       "lemma": "viejo",
       "front": "viejo",
       "back": "old",
-      "frequencyRank": 207
+      "frequencyRank": 206
     },
     {
       "taskId": "es:traer:meaning-recall",
@@ -1664,7 +1656,7 @@
       "lemma": "traer",
       "front": "traer",
       "back": "to bring",
-      "frequencyRank": 208
+      "frequencyRank": 207
     },
     {
       "taskId": "es:todavía:meaning-recall",
@@ -1672,7 +1664,7 @@
       "lemma": "todavía",
       "front": "todavía",
       "back": "still, yet",
-      "frequencyRank": 209
+      "frequencyRank": 208
     },
     {
       "taskId": "es:grande:meaning-recall",
@@ -1680,15 +1672,15 @@
       "lemma": "grande",
       "front": "grande",
       "back": "big, large",
-      "frequencyRank": 210
+      "frequencyRank": 209
     },
     {
       "taskId": "es:loco:meaning-recall",
       "wordId": "es:loco",
       "lemma": "loco",
       "front": "loco",
-      "back": "crazy, insane, mad",
-      "frequencyRank": 211
+      "back": "crazy, insane, mad, nuts",
+      "frequencyRank": 210
     },
     {
       "taskId": "es:usar:meaning-recall",
@@ -1696,7 +1688,7 @@
       "lemma": "usar",
       "front": "usar",
       "back": "to use",
-      "frequencyRank": 212
+      "frequencyRank": 211
     },
     {
       "taskId": "es:caso:meaning-recall",
@@ -1704,7 +1696,7 @@
       "lemma": "caso",
       "front": "caso",
       "back": "case",
-      "frequencyRank": 213
+      "frequencyRank": 212
     },
     {
       "taskId": "es:cabeza:meaning-recall",
@@ -1712,7 +1704,7 @@
       "lemma": "cabeza",
       "front": "cabeza",
       "back": "head",
-      "frequencyRank": 214
+      "frequencyRank": 213
     },
     {
       "taskId": "es:lado:meaning-recall",
@@ -1720,7 +1712,7 @@
       "lemma": "lado",
       "front": "lado",
       "back": "side",
-      "frequencyRank": 215
+      "frequencyRank": 214
     },
     {
       "taskId": "es:segundo:meaning-recall",
@@ -1728,15 +1720,15 @@
       "lemma": "segundo",
       "front": "segundo",
       "back": "second",
-      "frequencyRank": 216
+      "frequencyRank": 215
     },
     {
       "taskId": "es:señora:meaning-recall",
       "wordId": "es:señora",
       "lemma": "señora",
       "front": "señora",
-      "back": "Ms",
-      "frequencyRank": 217
+      "back": "Ms, madam; lady",
+      "frequencyRank": 216
     },
     {
       "taskId": "es:historia:meaning-recall",
@@ -1744,7 +1736,7 @@
       "lemma": "historia",
       "front": "historia",
       "back": "history",
-      "frequencyRank": 218
+      "frequencyRank": 217
     },
     {
       "taskId": "es:ah:meaning-recall",
@@ -1752,7 +1744,7 @@
       "lemma": "ah",
       "front": "ah",
       "back": "ah",
-      "frequencyRank": 219
+      "frequencyRank": 218
     },
     {
       "taskId": "es:comer:meaning-recall",
@@ -1760,7 +1752,7 @@
       "lemma": "comer",
       "front": "comer",
       "back": "to eat",
-      "frequencyRank": 220
+      "frequencyRank": 219
     },
     {
       "taskId": "es:puerta:meaning-recall",
@@ -1768,7 +1760,7 @@
       "lemma": "puerta",
       "front": "puerta",
       "back": "door",
-      "frequencyRank": 221
+      "frequencyRank": 220
     },
     {
       "taskId": "es:cariño:meaning-recall",
@@ -1776,7 +1768,7 @@
       "lemma": "cariño",
       "front": "cariño",
       "back": "affection, fondness",
-      "frequencyRank": 222
+      "frequencyRank": 221
     },
     {
       "taskId": "es:pregunta:meaning-recall",
@@ -1784,7 +1776,7 @@
       "lemma": "pregunta",
       "front": "pregunta",
       "back": "question",
-      "frequencyRank": 223
+      "frequencyRank": 222
     },
     {
       "taskId": "es:genial:meaning-recall",
@@ -1792,15 +1784,15 @@
       "lemma": "genial",
       "front": "genial",
       "back": "ingenious, genius",
-      "frequencyRank": 224
+      "frequencyRank": 223
     },
     {
       "taskId": "es:manera:meaning-recall",
       "wordId": "es:manera",
       "lemma": "manera",
       "front": "manera",
-      "back": "way",
-      "frequencyRank": 225
+      "back": "way; manner; method; style",
+      "frequencyRank": 224
     },
     {
       "taskId": "es:mientras:meaning-recall",
@@ -1808,15 +1800,15 @@
       "lemma": "mientras",
       "front": "mientras",
       "back": "meanwhile",
-      "frequencyRank": 226
+      "frequencyRank": 225
     },
     {
       "taskId": "es:cuál:meaning-recall",
       "wordId": "es:cuál",
       "lemma": "cuál",
       "front": "cuál",
-      "back": "what",
-      "frequencyRank": 227
+      "back": "what; which",
+      "frequencyRank": 226
     },
     {
       "taskId": "es:rápido:meaning-recall",
@@ -1824,7 +1816,7 @@
       "lemma": "rápido",
       "front": "rápido",
       "back": "rapid, quick, fast",
-      "frequencyRank": 228
+      "frequencyRank": 227
     },
     {
       "taskId": "es:bajo:meaning-recall",
@@ -1832,7 +1824,7 @@
       "lemma": "bajo",
       "front": "bajo",
       "back": "short",
-      "frequencyRank": 229
+      "frequencyRank": 228
     },
     {
       "taskId": "es:preguntar:meaning-recall",
@@ -1840,7 +1832,7 @@
       "lemma": "preguntar",
       "front": "preguntar",
       "back": "to ask",
-      "frequencyRank": 230
+      "frequencyRank": 229
     },
     {
       "taskId": "es:feliz:meaning-recall",
@@ -1848,7 +1840,7 @@
       "lemma": "feliz",
       "front": "feliz",
       "back": "happy, merry",
-      "frequencyRank": 231
+      "frequencyRank": 230
     },
     {
       "taskId": "es:camino:meaning-recall",
@@ -1856,15 +1848,15 @@
       "lemma": "camino",
       "front": "camino",
       "back": "way, route",
-      "frequencyRank": 232
+      "frequencyRank": 231
     },
     {
       "taskId": "es:terminar:meaning-recall",
       "wordId": "es:terminar",
       "lemma": "terminar",
       "front": "terminar",
-      "back": "to finish, to end, to terminate",
-      "frequencyRank": 233
+      "back": "to finish, to end, to terminate, to conclude",
+      "frequencyRank": 232
     },
     {
       "taskId": "es:olvidar:meaning-recall",
@@ -1872,15 +1864,15 @@
       "lemma": "olvidar",
       "front": "olvidar",
       "back": "to forget",
-      "frequencyRank": 234
+      "frequencyRank": 233
     },
     {
       "taskId": "es:pues:meaning-recall",
       "wordId": "es:pues",
       "lemma": "pues",
       "front": "pues",
-      "back": "so, then",
-      "frequencyRank": 235
+      "back": "so, then; in that case",
+      "frequencyRank": 234
     },
     {
       "taskId": "es:adiós:meaning-recall",
@@ -1888,15 +1880,15 @@
       "lemma": "adiós",
       "front": "adiós",
       "back": "goodbye, farewell",
-      "frequencyRank": 236
+      "frequencyRank": 235
     },
     {
       "taskId": "es:cambiar:meaning-recall",
       "wordId": "es:cambiar",
       "lemma": "cambiar",
       "front": "cambiar",
-      "back": "to change, to shift, to switch",
-      "frequencyRank": 237
+      "back": "to change, to shift, to switch, to alter",
+      "frequencyRank": 236
     },
     {
       "taskId": "es:ayuda:meaning-recall",
@@ -1904,7 +1896,7 @@
       "lemma": "ayuda",
       "front": "ayuda",
       "back": "help, aid",
-      "frequencyRank": 238
+      "frequencyRank": 237
     },
     {
       "taskId": "es:ojo:meaning-recall",
@@ -1912,7 +1904,7 @@
       "lemma": "ojo",
       "front": "ojo",
       "back": "eye",
-      "frequencyRank": 239
+      "frequencyRank": 238
     },
     {
       "taskId": "es:quizá:meaning-recall",
@@ -1920,7 +1912,7 @@
       "lemma": "quizá",
       "front": "quizá",
       "back": "perhaps, maybe",
-      "frequencyRank": 240
+      "frequencyRank": 239
     },
     {
       "taskId": "es:contra:meaning-recall",
@@ -1928,7 +1920,7 @@
       "lemma": "contra",
       "front": "contra",
       "back": "against, versus",
-      "frequencyRank": 241
+      "frequencyRank": 240
     },
     {
       "taskId": "es:tío:meaning-recall",
@@ -1936,7 +1928,7 @@
       "lemma": "tío",
       "front": "tío",
       "back": "uncle",
-      "frequencyRank": 242
+      "frequencyRank": 241
     },
     {
       "taskId": "es:durante:meaning-recall",
@@ -1944,7 +1936,7 @@
       "lemma": "durante",
       "front": "durante",
       "back": "during, in, over",
-      "frequencyRank": 243
+      "frequencyRank": 242
     },
     {
       "taskId": "es:medio:meaning-recall",
@@ -1952,7 +1944,7 @@
       "lemma": "medio",
       "front": "medio",
       "back": "half",
-      "frequencyRank": 244
+      "frequencyRank": 243
     },
     {
       "taskId": "es:ganar:meaning-recall",
@@ -1960,7 +1952,7 @@
       "lemma": "ganar",
       "front": "ganar",
       "back": "to gain",
-      "frequencyRank": 245
+      "frequencyRank": 244
     },
     {
       "taskId": "es:mes:meaning-recall",
@@ -1968,7 +1960,7 @@
       "lemma": "mes",
       "front": "mes",
       "back": "month",
-      "frequencyRank": 246
+      "frequencyRank": 245
     },
     {
       "taskId": "es:suceder:meaning-recall",
@@ -1976,7 +1968,7 @@
       "lemma": "suceder",
       "front": "suceder",
       "back": "to happen, to befall, to occur",
-      "frequencyRank": 247
+      "frequencyRank": 246
     },
     {
       "taskId": "es:palabra:meaning-recall",
@@ -1984,7 +1976,7 @@
       "lemma": "palabra",
       "front": "palabra",
       "back": "word",
-      "frequencyRank": 248
+      "frequencyRank": 247
     },
     {
       "taskId": "es:arma:meaning-recall",
@@ -1992,7 +1984,7 @@
       "lemma": "arma",
       "front": "arma",
       "back": "weapon, arm",
-      "frequencyRank": 249
+      "frequencyRank": 248
     },
     {
       "taskId": "es:importante:meaning-recall",
@@ -2000,15 +1992,15 @@
       "lemma": "importante",
       "front": "importante",
       "back": "important, that cares, that matters.",
-      "frequencyRank": 250
+      "frequencyRank": 249
     },
     {
       "taskId": "es:preocupar:meaning-recall",
       "wordId": "es:preocupar",
       "lemma": "preocupar",
       "front": "preocupar",
-      "back": "to worry, to concern, to trouble",
-      "frequencyRank": 251
+      "back": "to worry, to concern",
+      "frequencyRank": 250
     },
     {
       "taskId": "es:ciudad:meaning-recall",
@@ -2016,7 +2008,7 @@
       "lemma": "ciudad",
       "front": "ciudad",
       "back": "city",
-      "frequencyRank": 252
+      "frequencyRank": 251
     },
     {
       "taskId": "es:dentro:meaning-recall",
@@ -2024,15 +2016,15 @@
       "lemma": "dentro",
       "front": "dentro",
       "back": "inside",
-      "frequencyRank": 253
+      "frequencyRank": 252
     },
     {
       "taskId": "es:hija:meaning-recall",
       "wordId": "es:hija",
       "lemma": "hija",
       "front": "hija",
-      "back": "daughter",
-      "frequencyRank": 254
+      "back": "daughter; female equivalent of hijo",
+      "frequencyRank": 253
     },
     {
       "taskId": "es:casi:meaning-recall",
@@ -2040,7 +2032,7 @@
       "lemma": "casi",
       "front": "casi",
       "back": "almost",
-      "frequencyRank": 255
+      "frequencyRank": 254
     },
     {
       "taskId": "es:significar:meaning-recall",
@@ -2048,7 +2040,7 @@
       "lemma": "significar",
       "front": "significar",
       "back": "to signify",
-      "frequencyRank": 256
+      "frequencyRank": 255
     },
     {
       "taskId": "es:hacia:meaning-recall",
@@ -2056,7 +2048,7 @@
       "lemma": "hacia",
       "front": "hacia",
       "back": "toward, towards",
-      "frequencyRank": 257
+      "frequencyRank": 256
     },
     {
       "taskId": "es:propio:meaning-recall",
@@ -2064,15 +2056,15 @@
       "lemma": "propio",
       "front": "propio",
       "back": "own",
-      "frequencyRank": 258
+      "frequencyRank": 257
     },
     {
       "taskId": "es:quizás:meaning-recall",
       "wordId": "es:quizás",
       "lemma": "quizás",
       "front": "quizás",
-      "back": "alternative form of quizá",
-      "frequencyRank": 259
+      "back": "perhaps, maybe",
+      "frequencyRank": 258
     },
     {
       "taskId": "es:listo:meaning-recall",
@@ -2080,7 +2072,7 @@
       "lemma": "listo",
       "front": "listo",
       "back": "clever, smart",
-      "frequencyRank": 260
+      "frequencyRank": 259
     },
     {
       "taskId": "es:muerte:meaning-recall",
@@ -2088,7 +2080,7 @@
       "lemma": "muerte",
       "front": "muerte",
       "back": "death",
-      "frequencyRank": 261
+      "frequencyRank": 260
     },
     {
       "taskId": "es:corazón:meaning-recall",
@@ -2096,7 +2088,7 @@
       "lemma": "corazón",
       "front": "corazón",
       "back": "heart",
-      "frequencyRank": 262
+      "frequencyRank": 261
     },
     {
       "taskId": "es:pronto:meaning-recall",
@@ -2104,7 +2096,7 @@
       "lemma": "pronto",
       "front": "pronto",
       "back": "prompt, on time",
-      "frequencyRank": 263
+      "frequencyRank": 262
     },
     {
       "taskId": "es:suerte:meaning-recall",
@@ -2112,7 +2104,7 @@
       "lemma": "suerte",
       "front": "suerte",
       "back": "luck, fortune",
-      "frequencyRank": 264
+      "frequencyRank": 263
     },
     {
       "taskId": "es:punto:meaning-recall",
@@ -2120,7 +2112,7 @@
       "lemma": "punto",
       "front": "punto",
       "back": "point",
-      "frequencyRank": 265
+      "frequencyRank": 264
     },
     {
       "taskId": "es:siquiera:meaning-recall",
@@ -2128,7 +2120,7 @@
       "lemma": "siquiera",
       "front": "siquiera",
       "back": "at least, at the least",
-      "frequencyRank": 266
+      "frequencyRank": 265
     },
     {
       "taskId": "es:agua:meaning-recall",
@@ -2136,7 +2128,7 @@
       "lemma": "agua",
       "front": "agua",
       "back": "water",
-      "frequencyRank": 267
+      "frequencyRank": 266
     },
     {
       "taskId": "es:esposa:meaning-recall",
@@ -2144,15 +2136,15 @@
       "lemma": "esposa",
       "front": "esposa",
       "back": "wife",
-      "frequencyRank": 268
+      "frequencyRank": 267
     },
     {
       "taskId": "es:jefe:meaning-recall",
       "wordId": "es:jefe",
       "lemma": "jefe",
       "front": "jefe",
-      "back": "chief",
-      "frequencyRank": 269
+      "back": "boss, chief, head",
+      "frequencyRank": 268
     },
     {
       "taskId": "es:clase:meaning-recall",
@@ -2160,7 +2152,7 @@
       "lemma": "clase",
       "front": "clase",
       "back": "lecture",
-      "frequencyRank": 270
+      "frequencyRank": 269
     },
     {
       "taskId": "es:ocurrir:meaning-recall",
@@ -2168,7 +2160,7 @@
       "lemma": "ocurrir",
       "front": "ocurrir",
       "back": "to happen, to occur",
-      "frequencyRank": 271
+      "frequencyRank": 270
     },
     {
       "taskId": "es:amar:meaning-recall",
@@ -2176,7 +2168,7 @@
       "lemma": "amar",
       "front": "amar",
       "back": "to love, have great affection for, care about",
-      "frequencyRank": 272
+      "frequencyRank": 271
     },
     {
       "taskId": "es:cara:meaning-recall",
@@ -2184,15 +2176,15 @@
       "lemma": "cara",
       "front": "cara",
       "back": "face",
-      "frequencyRank": 273
+      "frequencyRank": 272
     },
     {
       "taskId": "es:difícil:meaning-recall",
       "wordId": "es:difícil",
       "lemma": "difícil",
       "front": "difícil",
-      "back": "difficult, hard, tough",
-      "frequencyRank": 274
+      "back": "difficult, hard",
+      "frequencyRank": 273
     },
     {
       "taskId": "es:hey:meaning-recall",
@@ -2200,7 +2192,7 @@
       "lemma": "hey",
       "front": "hey",
       "back": "hey!",
-      "frequencyRank": 275
+      "frequencyRank": 274
     },
     {
       "taskId": "es:realidad:meaning-recall",
@@ -2208,15 +2200,7 @@
       "lemma": "realidad",
       "front": "realidad",
       "back": "reality",
-      "frequencyRank": 276
-    },
-    {
-      "taskId": "es:vi:meaning-recall",
-      "wordId": "es:vi",
-      "lemma": "vi",
-      "front": "vi",
-      "back": "first-person singular preterite indicative of ver",
-      "frequencyRank": 277
+      "frequencyRank": 275
     },
     {
       "taskId": "es:equipo:meaning-recall",
@@ -2224,7 +2208,7 @@
       "lemma": "equipo",
       "front": "equipo",
       "back": "team",
-      "frequencyRank": 278
+      "frequencyRank": 276
     },
     {
       "taskId": "es:miedo:meaning-recall",
@@ -2232,7 +2216,7 @@
       "lemma": "miedo",
       "front": "miedo",
       "back": "fear",
-      "frequencyRank": 279
+      "frequencyRank": 277
     },
     {
       "taskId": "es:suficiente:meaning-recall",
@@ -2240,7 +2224,7 @@
       "lemma": "suficiente",
       "front": "suficiente",
       "back": "sufficient, enough",
-      "frequencyRank": 280
+      "frequencyRank": 278
     },
     {
       "taskId": "es:leer:meaning-recall",
@@ -2248,7 +2232,7 @@
       "lemma": "leer",
       "front": "leer",
       "back": "to read",
-      "frequencyRank": 281
+      "frequencyRank": 279
     },
     {
       "taskId": "es:juego:meaning-recall",
@@ -2256,7 +2240,7 @@
       "lemma": "juego",
       "front": "juego",
       "back": "play",
-      "frequencyRank": 282
+      "frequencyRank": 280
     },
     {
       "taskId": "es:justo:meaning-recall",
@@ -2264,7 +2248,7 @@
       "lemma": "justo",
       "front": "justo",
       "back": "right, just",
-      "frequencyRank": 283
+      "frequencyRank": 281
     },
     {
       "taskId": "es:coche:meaning-recall",
@@ -2272,7 +2256,7 @@
       "lemma": "coche",
       "front": "coche",
       "back": "car, automobile",
-      "frequencyRank": 284
+      "frequencyRank": 282
     },
     {
       "taskId": "es:vivo:meaning-recall",
@@ -2280,7 +2264,7 @@
       "lemma": "vivo",
       "front": "vivo",
       "back": "alive, living",
-      "frequencyRank": 285
+      "frequencyRank": 283
     },
     {
       "taskId": "es:fin:meaning-recall",
@@ -2288,7 +2272,7 @@
       "lemma": "fin",
       "front": "fin",
       "back": "end",
-      "frequencyRank": 286
+      "frequencyRank": 284
     },
     {
       "taskId": "es:alto:meaning-recall",
@@ -2296,7 +2280,7 @@
       "lemma": "alto",
       "front": "alto",
       "back": "tall",
-      "frequencyRank": 287
+      "frequencyRank": 285
     },
     {
       "taskId": "es:cuerpo:meaning-recall",
@@ -2304,7 +2288,7 @@
       "lemma": "cuerpo",
       "front": "cuerpo",
       "back": "body",
-      "frequencyRank": 288
+      "frequencyRank": 286
     },
     {
       "taskId": "es:adelante:meaning-recall",
@@ -2312,7 +2296,7 @@
       "lemma": "adelante",
       "front": "adelante",
       "back": "forward",
-      "frequencyRank": 289
+      "frequencyRank": 287
     },
     {
       "taskId": "es:igual:meaning-recall",
@@ -2320,7 +2304,7 @@
       "lemma": "igual",
       "front": "igual",
       "back": "equal, same",
-      "frequencyRank": 290
+      "frequencyRank": 288
     },
     {
       "taskId": "es:tierra:meaning-recall",
@@ -2328,7 +2312,7 @@
       "lemma": "tierra",
       "front": "tierra",
       "back": "Earth",
-      "frequencyRank": 291
+      "frequencyRank": 289
     },
     {
       "taskId": "es:vuelta:meaning-recall",
@@ -2336,7 +2320,7 @@
       "lemma": "vuelta",
       "front": "vuelta",
       "back": "turn",
-      "frequencyRank": 292
+      "frequencyRank": 290
     },
     {
       "taskId": "es:cinco:meaning-recall",
@@ -2344,7 +2328,7 @@
       "lemma": "cinco",
       "front": "cinco",
       "back": "five",
-      "frequencyRank": 293
+      "frequencyRank": 291
     },
     {
       "taskId": "es:funcionar:meaning-recall",
@@ -2352,7 +2336,7 @@
       "lemma": "funcionar",
       "front": "funcionar",
       "back": "to work, to function",
-      "frequencyRank": 294
+      "frequencyRank": 292
     },
     {
       "taskId": "es:cuidado:meaning-recall",
@@ -2360,15 +2344,15 @@
       "lemma": "cuidado",
       "front": "cuidado",
       "back": "watch out!",
-      "frequencyRank": 295
+      "frequencyRank": 293
     },
     {
       "taskId": "es:cerca:meaning-recall",
       "wordId": "es:cerca",
       "lemma": "cerca",
       "front": "cerca",
-      "back": "close, near, around",
-      "frequencyRank": 296
+      "back": "close, near, around, about, nearly, nigh",
+      "frequencyRank": 294
     },
     {
       "taskId": "es:jugar:meaning-recall",
@@ -2376,23 +2360,23 @@
       "lemma": "jugar",
       "front": "jugar",
       "back": "to play",
-      "frequencyRank": 297
+      "frequencyRank": 295
     },
     {
       "taskId": "es:prueba:meaning-recall",
       "wordId": "es:prueba",
       "lemma": "prueba",
       "front": "prueba",
-      "back": "proof",
-      "frequencyRank": 298
+      "back": "proof; evidence",
+      "frequencyRank": 296
     },
     {
       "taskId": "es:bastante:meaning-recall",
       "wordId": "es:bastante",
       "lemma": "bastante",
       "front": "bastante",
-      "back": "enough",
-      "frequencyRank": 299
+      "back": "enough; sufficient",
+      "frequencyRank": 297
     },
     {
       "taskId": "es:número:meaning-recall",
@@ -2400,7 +2384,7 @@
       "lemma": "número",
       "front": "número",
       "back": "number",
-      "frequencyRank": 300
+      "frequencyRank": 298
     },
     {
       "taskId": "es:joven:meaning-recall",
@@ -2408,7 +2392,7 @@
       "lemma": "joven",
       "front": "joven",
       "back": "young, youthful",
-      "frequencyRank": 301
+      "frequencyRank": 299
     },
     {
       "taskId": "es:fiesta:meaning-recall",
@@ -2416,7 +2400,7 @@
       "lemma": "fiesta",
       "front": "fiesta",
       "back": "party",
-      "frequencyRank": 302
+      "frequencyRank": 300
     },
     {
       "taskId": "es:cuándo:meaning-recall",
@@ -2424,7 +2408,7 @@
       "lemma": "cuándo",
       "front": "cuándo",
       "back": "when",
-      "frequencyRank": 303
+      "frequencyRank": 301
     },
     {
       "taskId": "es:auto:meaning-recall",
@@ -2432,7 +2416,7 @@
       "lemma": "auto",
       "front": "auto",
       "back": "car, automobile",
-      "frequencyRank": 304
+      "frequencyRank": 302
     },
     {
       "taskId": "es:fuerte:meaning-recall",
@@ -2440,7 +2424,7 @@
       "lemma": "fuerte",
       "front": "fuerte",
       "back": "strong",
-      "frequencyRank": 305
+      "frequencyRank": 303
     },
     {
       "taskId": "es:incluso:meaning-recall",
@@ -2448,7 +2432,7 @@
       "lemma": "incluso",
       "front": "incluso",
       "back": "enclosed, included",
-      "frequencyRank": 306
+      "frequencyRank": 304
     },
     {
       "taskId": "es:doctor:meaning-recall",
@@ -2456,23 +2440,23 @@
       "lemma": "doctor",
       "front": "doctor",
       "back": "doctor, physician",
-      "frequencyRank": 307
+      "frequencyRank": 305
     },
     {
       "taskId": "es:aunque:meaning-recall",
       "wordId": "es:aunque",
       "lemma": "aunque",
       "front": "aunque",
-      "back": "though, although, even though",
-      "frequencyRank": 308
+      "back": "though, although, even though, albeit",
+      "frequencyRank": 306
     },
     {
       "taskId": "es:hermana:meaning-recall",
       "wordId": "es:hermana",
       "lemma": "hermana",
       "front": "hermana",
-      "back": "sister",
-      "frequencyRank": 309
+      "back": "sister; female equivalent of hermano",
+      "frequencyRank": 307
     },
     {
       "taskId": "es:cuatro:meaning-recall",
@@ -2480,7 +2464,7 @@
       "lemma": "cuatro",
       "front": "cuatro",
       "back": "four",
-      "frequencyRank": 310
+      "frequencyRank": 308
     },
     {
       "taskId": "es:dormir:meaning-recall",
@@ -2488,31 +2472,31 @@
       "lemma": "dormir",
       "front": "dormir",
       "back": "to sleep",
-      "frequencyRank": 311
+      "frequencyRank": 309
     },
     {
       "taskId": "es:solo:meaning-recall",
       "wordId": "es:solo",
       "lemma": "solo",
       "front": "solo",
-      "back": "sole",
-      "frequencyRank": 312
+      "back": "alone; only, single",
+      "frequencyRank": 310
     },
     {
       "taskId": "es:allá:meaning-recall",
       "wordId": "es:allá",
       "lemma": "allá",
       "front": "allá",
-      "back": "there, over there, thither",
-      "frequencyRank": 313
+      "back": "there, over there, thither, yonder",
+      "frequencyRank": 311
     },
     {
       "taskId": "es:oportunidad:meaning-recall",
       "wordId": "es:oportunidad",
       "lemma": "oportunidad",
       "front": "oportunidad",
-      "back": "opportunity, chance, shot",
-      "frequencyRank": 314
+      "back": "opportunity, chance, shot, break, occasion, time",
+      "frequencyRank": 312
     },
     {
       "taskId": "es:teléfono:meaning-recall",
@@ -2520,7 +2504,7 @@
       "lemma": "teléfono",
       "front": "teléfono",
       "back": "telephone",
-      "frequencyRank": 315
+      "frequencyRank": 313
     },
     {
       "taskId": "es:arriba:meaning-recall",
@@ -2528,7 +2512,7 @@
       "lemma": "arriba",
       "front": "arriba",
       "back": "above, over",
-      "frequencyRank": 316
+      "frequencyRank": 314
     },
     {
       "taskId": "es:pagar:meaning-recall",
@@ -2536,7 +2520,7 @@
       "lemma": "pagar",
       "front": "pagar",
       "back": "to pay",
-      "frequencyRank": 317
+      "frequencyRank": 315
     },
     {
       "taskId": "es:final:meaning-recall",
@@ -2544,7 +2528,7 @@
       "lemma": "final",
       "front": "final",
       "back": "final; end",
-      "frequencyRank": 318
+      "frequencyRank": 316
     },
     {
       "taskId": "es:guerra:meaning-recall",
@@ -2552,7 +2536,7 @@
       "lemma": "guerra",
       "front": "guerra",
       "back": "war, warfare",
-      "frequencyRank": 319
+      "frequencyRank": 317
     },
     {
       "taskId": "es:mayor:meaning-recall",
@@ -2560,7 +2544,7 @@
       "lemma": "mayor",
       "front": "mayor",
       "back": "comparative degree of grande: bigger",
-      "frequencyRank": 320
+      "frequencyRank": 318
     },
     {
       "taskId": "es:bebé:meaning-recall",
@@ -2568,7 +2552,7 @@
       "lemma": "bebé",
       "front": "bebé",
       "back": "baby",
-      "frequencyRank": 321
+      "frequencyRank": 319
     },
     {
       "taskId": "es:sangre:meaning-recall",
@@ -2576,7 +2560,7 @@
       "lemma": "sangre",
       "front": "sangre",
       "back": "blood",
-      "frequencyRank": 322
+      "frequencyRank": 320
     },
     {
       "taskId": "es:luz:meaning-recall",
@@ -2584,7 +2568,7 @@
       "lemma": "luz",
       "front": "luz",
       "back": "light",
-      "frequencyRank": 323
+      "frequencyRank": 321
     },
     {
       "taskId": "es:sentar:meaning-recall",
@@ -2592,7 +2576,7 @@
       "lemma": "sentar",
       "front": "sentar",
       "back": "to seat",
-      "frequencyRank": 324
+      "frequencyRank": 322
     },
     {
       "taskId": "es:escribir:meaning-recall",
@@ -2600,7 +2584,7 @@
       "lemma": "escribir",
       "front": "escribir",
       "back": "to write",
-      "frequencyRank": 325
+      "frequencyRank": 323
     },
     {
       "taskId": "es:maldecir:meaning-recall",
@@ -2608,7 +2592,7 @@
       "lemma": "maldecir",
       "front": "maldecir",
       "back": "to damn, to curse",
-      "frequencyRank": 326
+      "frequencyRank": 324
     },
     {
       "taskId": "es:e:meaning-recall",
@@ -2616,7 +2600,7 @@
       "lemma": "e",
       "front": "e",
       "back": "and (before i-, hi-)",
-      "frequencyRank": 327
+      "frequencyRank": 325
     },
     {
       "taskId": "es:plan:meaning-recall",
@@ -2624,7 +2608,7 @@
       "lemma": "plan",
       "front": "plan",
       "back": "plan, scheme",
-      "frequencyRank": 328
+      "frequencyRank": 326
     },
     {
       "taskId": "es:diablo:meaning-recall",
@@ -2632,7 +2616,7 @@
       "lemma": "diablo",
       "front": "diablo",
       "back": "devil",
-      "frequencyRank": 329
+      "frequencyRank": 327
     },
     {
       "taskId": "es:sacar:meaning-recall",
@@ -2640,7 +2624,7 @@
       "lemma": "sacar",
       "front": "sacar",
       "back": "to put out, to get out",
-      "frequencyRank": 330
+      "frequencyRank": 328
     },
     {
       "taskId": "es:habitación:meaning-recall",
@@ -2648,7 +2632,7 @@
       "lemma": "habitación",
       "front": "habitación",
       "back": "room",
-      "frequencyRank": 331
+      "frequencyRank": 329
     },
     {
       "taskId": "es:orden:meaning-recall",
@@ -2656,7 +2640,7 @@
       "lemma": "orden",
       "front": "orden",
       "back": "order",
-      "frequencyRank": 332
+      "frequencyRank": 330
     },
     {
       "taskId": "es:libro:meaning-recall",
@@ -2664,7 +2648,7 @@
       "lemma": "libro",
       "front": "libro",
       "back": "book",
-      "frequencyRank": 333
+      "frequencyRank": 331
     },
     {
       "taskId": "es:lista:meaning-recall",
@@ -2672,7 +2656,7 @@
       "lemma": "lista",
       "front": "lista",
       "back": "list, roll",
-      "frequencyRank": 334
+      "frequencyRank": 332
     },
     {
       "taskId": "es:posible:meaning-recall",
@@ -2680,7 +2664,7 @@
       "lemma": "posible",
       "front": "posible",
       "back": "possible",
-      "frequencyRank": 335
+      "frequencyRank": 333
     },
     {
       "taskId": "es:ok:meaning-recall",
@@ -2688,7 +2672,7 @@
       "lemma": "ok",
       "front": "ok",
       "back": "OK",
-      "frequencyRank": 336
+      "frequencyRank": 334
     },
     {
       "taskId": "es:recuerdo:meaning-recall",
@@ -2696,7 +2680,7 @@
       "lemma": "recuerdo",
       "front": "recuerdo",
       "back": "memory",
-      "frequencyRank": 337
+      "frequencyRank": 335
     },
     {
       "taskId": "es:demonio:meaning-recall",
@@ -2704,7 +2688,7 @@
       "lemma": "demonio",
       "front": "demonio",
       "back": "demon, devil",
-      "frequencyRank": 338
+      "frequencyRank": 336
     },
     {
       "taskId": "es:exactamente:meaning-recall",
@@ -2712,7 +2696,7 @@
       "lemma": "exactamente",
       "front": "exactamente",
       "back": "exactly",
-      "frequencyRank": 339
+      "frequencyRank": 337
     },
     {
       "taskId": "es:cielo:meaning-recall",
@@ -2720,7 +2704,7 @@
       "lemma": "cielo",
       "front": "cielo",
       "back": "sky",
-      "frequencyRank": 340
+      "frequencyRank": 338
     },
     {
       "taskId": "es:culpa:meaning-recall",
@@ -2728,7 +2712,7 @@
       "lemma": "culpa",
       "front": "culpa",
       "back": "fault",
-      "frequencyRank": 341
+      "frequencyRank": 339
     },
     {
       "taskId": "es:abrir:meaning-recall",
@@ -2736,7 +2720,7 @@
       "lemma": "abrir",
       "front": "abrir",
       "back": "to open, open up",
-      "frequencyRank": 342
+      "frequencyRank": 340
     },
     {
       "taskId": "es:abajo:meaning-recall",
@@ -2744,7 +2728,7 @@
       "lemma": "abajo",
       "front": "abajo",
       "back": "down, downwards",
-      "frequencyRank": 343
+      "frequencyRank": 341
     },
     {
       "taskId": "es:santo:meaning-recall",
@@ -2752,7 +2736,7 @@
       "lemma": "santo",
       "front": "santo",
       "back": "holy, godly",
-      "frequencyRank": 344
+      "frequencyRank": 342
     },
     {
       "taskId": "es:escuela:meaning-recall",
@@ -2760,7 +2744,7 @@
       "lemma": "escuela",
       "front": "escuela",
       "back": "school",
-      "frequencyRank": 345
+      "frequencyRank": 343
     },
     {
       "taskId": "es:modo:meaning-recall",
@@ -2768,7 +2752,7 @@
       "lemma": "modo",
       "front": "modo",
       "back": "way, manner",
-      "frequencyRank": 346
+      "frequencyRank": 344
     },
     {
       "taskId": "es:foto:meaning-recall",
@@ -2776,7 +2760,7 @@
       "lemma": "foto",
       "front": "foto",
       "back": "photo, photograph",
-      "frequencyRank": 347
+      "frequencyRank": 345
     },
     {
       "taskId": "es:disculpar:meaning-recall",
@@ -2784,7 +2768,7 @@
       "lemma": "disculpar",
       "front": "disculpar",
       "back": "to excuse, forgive, pardon",
-      "frequencyRank": 348
+      "frequencyRank": 346
     },
     {
       "taskId": "es:negocio:meaning-recall",
@@ -2792,7 +2776,7 @@
       "lemma": "negocio",
       "front": "negocio",
       "back": "business, enterprise",
-      "frequencyRank": 349
+      "frequencyRank": 347
     },
     {
       "taskId": "es:atrás:meaning-recall",
@@ -2800,7 +2784,7 @@
       "lemma": "atrás",
       "front": "atrás",
       "back": "behind",
-      "frequencyRank": 350
+      "frequencyRank": 348
     },
     {
       "taskId": "es:duro:meaning-recall",
@@ -2808,7 +2792,7 @@
       "lemma": "duro",
       "front": "duro",
       "back": "hard",
-      "frequencyRank": 351
+      "frequencyRank": 349
     },
     {
       "taskId": "es:capitán:meaning-recall",
@@ -2816,7 +2800,7 @@
       "lemma": "capitán",
       "front": "capitán",
       "back": "captain",
-      "frequencyRank": 352
+      "frequencyRank": 350
     },
     {
       "taskId": "es:mover:meaning-recall",
@@ -2824,7 +2808,7 @@
       "lemma": "mover",
       "front": "mover",
       "back": "to move",
-      "frequencyRank": 353
+      "frequencyRank": 351
     },
     {
       "taskId": "es:pie:meaning-recall",
@@ -2832,7 +2816,7 @@
       "lemma": "pie",
       "front": "pie",
       "back": "foot",
-      "frequencyRank": 354
+      "frequencyRank": 352
     },
     {
       "taskId": "es:regresar:meaning-recall",
@@ -2840,7 +2824,7 @@
       "lemma": "regresar",
       "front": "regresar",
       "back": "to return, go back, come back",
-      "frequencyRank": 355
+      "frequencyRank": 353
     },
     {
       "taskId": "es:puta:meaning-recall",
@@ -2848,7 +2832,7 @@
       "lemma": "puta",
       "front": "puta",
       "back": "whore, slut, prostitute",
-      "frequencyRank": 356
+      "frequencyRank": 354
     },
     {
       "taskId": "es:par:meaning-recall",
@@ -2856,7 +2840,7 @@
       "lemma": "par",
       "front": "par",
       "back": "even",
-      "frequencyRank": 357
+      "frequencyRank": 355
     },
     {
       "taskId": "es:idiota:meaning-recall",
@@ -2864,7 +2848,7 @@
       "lemma": "idiota",
       "front": "idiota",
       "back": "idiotic",
-      "frequencyRank": 358
+      "frequencyRank": 356
     },
     {
       "taskId": "es:comida:meaning-recall",
@@ -2872,7 +2856,7 @@
       "lemma": "comida",
       "front": "comida",
       "back": "food",
-      "frequencyRank": 359
+      "frequencyRank": 357
     },
     {
       "taskId": "es:tuyo:meaning-recall",
@@ -2880,7 +2864,7 @@
       "lemma": "tuyo",
       "front": "tuyo",
       "back": "yours",
-      "frequencyRank": 360
+      "frequencyRank": 358
     },
     {
       "taskId": "es:correcto:meaning-recall",
@@ -2888,7 +2872,7 @@
       "lemma": "correcto",
       "front": "correcto",
       "back": "correct, right",
-      "frequencyRank": 361
+      "frequencyRank": 359
     },
     {
       "taskId": "es:perro:meaning-recall",
@@ -2896,7 +2880,7 @@
       "lemma": "perro",
       "front": "perro",
       "back": "dog",
-      "frequencyRank": 362
+      "frequencyRank": 360
     },
     {
       "taskId": "es:fácil:meaning-recall",
@@ -2904,7 +2888,7 @@
       "lemma": "fácil",
       "front": "fácil",
       "back": "easy, facile, simple",
-      "frequencyRank": 363
+      "frequencyRank": 361
     },
     {
       "taskId": "es:bonito:meaning-recall",
@@ -2912,7 +2896,7 @@
       "lemma": "bonito",
       "front": "bonito",
       "back": "pretty, cute",
-      "frequencyRank": 364
+      "frequencyRank": 362
     },
     {
       "taskId": "es:vino:meaning-recall",
@@ -2920,7 +2904,7 @@
       "lemma": "vino",
       "front": "vino",
       "back": "wine",
-      "frequencyRank": 365
+      "frequencyRank": 363
     },
     {
       "taskId": "es:largo:meaning-recall",
@@ -2928,7 +2912,7 @@
       "lemma": "largo",
       "front": "largo",
       "back": "long",
-      "frequencyRank": 366
+      "frequencyRank": 364
     },
     {
       "taskId": "es:enviar:meaning-recall",
@@ -2936,7 +2920,7 @@
       "lemma": "enviar",
       "front": "enviar",
       "back": "to send",
-      "frequencyRank": 367
+      "frequencyRank": 365
     },
     {
       "taskId": "es:muchacho:meaning-recall",
@@ -2944,7 +2928,7 @@
       "lemma": "muchacho",
       "front": "muchacho",
       "back": "boy or young adult",
-      "frequencyRank": 368
+      "frequencyRank": 366
     },
     {
       "taskId": "es:encantar:meaning-recall",
@@ -2952,7 +2936,7 @@
       "lemma": "encantar",
       "front": "encantar",
       "back": "to charm, to enchant",
-      "frequencyRank": 369
+      "frequencyRank": 367
     },
     {
       "taskId": "es:película:meaning-recall",
@@ -2960,7 +2944,7 @@
       "lemma": "película",
       "front": "película",
       "back": "film",
-      "frequencyRank": 370
+      "frequencyRank": 368
     },
     {
       "taskId": "es:probablemente:meaning-recall",
@@ -2968,7 +2952,7 @@
       "lemma": "probablemente",
       "front": "probablemente",
       "back": "probably, likely",
-      "frequencyRank": 371
+      "frequencyRank": 369
     },
     {
       "taskId": "es:negro:meaning-recall",
@@ -2976,7 +2960,7 @@
       "lemma": "negro",
       "front": "negro",
       "back": "black",
-      "frequencyRank": 372
+      "frequencyRank": 370
     },
     {
       "taskId": "es:próximo:meaning-recall",
@@ -2984,7 +2968,7 @@
       "lemma": "próximo",
       "front": "próximo",
       "back": "near",
-      "frequencyRank": 373
+      "frequencyRank": 371
     },
     {
       "taskId": "es:diferente:meaning-recall",
@@ -2992,7 +2976,7 @@
       "lemma": "diferente",
       "front": "diferente",
       "back": "different",
-      "frequencyRank": 374
+      "frequencyRank": 372
     },
     {
       "taskId": "es:millón:meaning-recall",
@@ -3000,7 +2984,7 @@
       "lemma": "millón",
       "front": "millón",
       "back": "million",
-      "frequencyRank": 375
+      "frequencyRank": 373
     },
     {
       "taskId": "es:dólar:meaning-recall",
@@ -3008,7 +2992,7 @@
       "lemma": "dólar",
       "front": "dólar",
       "back": "dollar",
-      "frequencyRank": 376
+      "frequencyRank": 374
     },
     {
       "taskId": "es:mantener:meaning-recall",
@@ -3016,7 +3000,7 @@
       "lemma": "mantener",
       "front": "mantener",
       "back": "to keep",
-      "frequencyRank": 377
+      "frequencyRank": 375
     },
     {
       "taskId": "es:cuanto:meaning-recall",
@@ -3024,15 +3008,15 @@
       "lemma": "cuanto",
       "front": "cuanto",
       "back": "whatever quantity, as much, however much",
-      "frequencyRank": 378
+      "frequencyRank": 376
     },
     {
       "taskId": "es:tampoco:meaning-recall",
       "wordId": "es:tampoco",
       "lemma": "tampoco",
       "front": "tampoco",
-      "back": "neither",
-      "frequencyRank": 379
+      "back": "neither; nor; also not",
+      "frequencyRank": 377
     },
     {
       "taskId": "es:niña:meaning-recall",
@@ -3040,7 +3024,7 @@
       "lemma": "niña",
       "front": "niña",
       "back": "girl, female equivalent of niño",
-      "frequencyRank": 380
+      "frequencyRank": 378
     },
     {
       "taskId": "es:recordar:meaning-recall",
@@ -3048,7 +3032,7 @@
       "lemma": "recordar",
       "front": "recordar",
       "back": "to remember, to recollect",
-      "frequencyRank": 381
+      "frequencyRank": 379
     },
     {
       "taskId": "es:mil:meaning-recall",
@@ -3056,15 +3040,15 @@
       "lemma": "mil",
       "front": "mil",
       "back": "thousand",
-      "frequencyRank": 382
+      "frequencyRank": 380
     },
     {
       "taskId": "es:hermoso:meaning-recall",
       "wordId": "es:hermoso",
       "lemma": "hermoso",
       "front": "hermoso",
-      "back": "gorgeous, beautiful, handsome",
-      "frequencyRank": 383
+      "back": "gorgeous, beautiful, handsome, lovely",
+      "frequencyRank": 381
     },
     {
       "taskId": "es:sueño:meaning-recall",
@@ -3072,7 +3056,7 @@
       "lemma": "sueño",
       "front": "sueño",
       "back": "sleep, slumber",
-      "frequencyRank": 384
+      "frequencyRank": 382
     },
     {
       "taskId": "es:calle:meaning-recall",
@@ -3080,7 +3064,7 @@
       "lemma": "calle",
       "front": "calle",
       "back": "street",
-      "frequencyRank": 385
+      "frequencyRank": 383
     },
     {
       "taskId": "es:noticia:meaning-recall",
@@ -3088,7 +3072,7 @@
       "lemma": "noticia",
       "front": "noticia",
       "back": "notice",
-      "frequencyRank": 386
+      "frequencyRank": 384
     },
     {
       "taskId": "es:paso:meaning-recall",
@@ -3096,7 +3080,7 @@
       "lemma": "paso",
       "front": "paso",
       "back": "step, footstep",
-      "frequencyRank": 387
+      "frequencyRank": 385
     },
     {
       "taskId": "es:comprar:meaning-recall",
@@ -3104,7 +3088,7 @@
       "lemma": "comprar",
       "front": "comprar",
       "back": "to buy",
-      "frequencyRank": 388
+      "frequencyRank": 386
     },
     {
       "taskId": "es:sitio:meaning-recall",
@@ -3112,7 +3096,7 @@
       "lemma": "sitio",
       "front": "sitio",
       "back": "site, place",
-      "frequencyRank": 389
+      "frequencyRank": 387
     },
     {
       "taskId": "es:secreto:meaning-recall",
@@ -3120,7 +3104,7 @@
       "lemma": "secreto",
       "front": "secreto",
       "back": "secret",
-      "frequencyRank": 390
+      "frequencyRank": 388
     },
     {
       "taskId": "es:blanco:meaning-recall",
@@ -3128,7 +3112,7 @@
       "lemma": "blanco",
       "front": "blanco",
       "back": "white",
-      "frequencyRank": 391
+      "frequencyRank": 389
     },
     {
       "taskId": "es:caer:meaning-recall",
@@ -3136,7 +3120,7 @@
       "lemma": "caer",
       "front": "caer",
       "back": "to fall",
-      "frequencyRank": 392
+      "frequencyRank": 390
     },
     {
       "taskId": "es:muerto:meaning-recall",
@@ -3144,7 +3128,7 @@
       "lemma": "muerto",
       "front": "muerto",
       "back": "dead",
-      "frequencyRank": 393
+      "frequencyRank": 391
     },
     {
       "taskId": "es:simplemente:meaning-recall",
@@ -3152,7 +3136,7 @@
       "lemma": "simplemente",
       "front": "simplemente",
       "back": "simply",
-      "frequencyRank": 394
+      "frequencyRank": 392
     },
     {
       "taskId": "es:perfecto:meaning-recall",
@@ -3160,7 +3144,7 @@
       "lemma": "perfecto",
       "front": "perfecto",
       "back": "perfect",
-      "frequencyRank": 395
+      "frequencyRank": 393
     },
     {
       "taskId": "es:asunto:meaning-recall",
@@ -3168,7 +3152,7 @@
       "lemma": "asunto",
       "front": "asunto",
       "back": "matter, issue, business",
-      "frequencyRank": 396
+      "frequencyRank": 394
     },
     {
       "taskId": "es:raro:meaning-recall",
@@ -3176,7 +3160,7 @@
       "lemma": "raro",
       "front": "raro",
       "back": "rare",
-      "frequencyRank": 397
+      "frequencyRank": 395
     },
     {
       "taskId": "es:peor:meaning-recall",
@@ -3184,7 +3168,7 @@
       "lemma": "peor",
       "front": "peor",
       "back": "comparative degree of malo: worse",
-      "frequencyRank": 398
+      "frequencyRank": 396
     },
     {
       "taskId": "es:sentido:meaning-recall",
@@ -3192,7 +3176,7 @@
       "lemma": "sentido",
       "front": "sentido",
       "back": "deeply felt, heartfelt",
-      "frequencyRank": 399
+      "frequencyRank": 397
     },
     {
       "taskId": "es:médico:meaning-recall",
@@ -3200,7 +3184,7 @@
       "lemma": "médico",
       "front": "médico",
       "back": "doctor",
-      "frequencyRank": 400
+      "frequencyRank": 398
     },
     {
       "taskId": "es:lejos:meaning-recall",
@@ -3208,7 +3192,7 @@
       "lemma": "lejos",
       "front": "lejos",
       "back": "far, far away",
-      "frequencyRank": 401
+      "frequencyRank": 399
     },
     {
       "taskId": "es:aquel:meaning-recall",
@@ -3216,7 +3200,7 @@
       "lemma": "aquel",
       "front": "aquel",
       "back": "that",
-      "frequencyRank": 402
+      "frequencyRank": 400
     },
     {
       "taskId": "es:correr:meaning-recall",
@@ -3224,15 +3208,15 @@
       "lemma": "correr",
       "front": "correr",
       "back": "to run, to jog",
-      "frequencyRank": 403
+      "frequencyRank": 401
     },
     {
       "taskId": "es:tranquilo:meaning-recall",
       "wordId": "es:tranquilo",
       "lemma": "tranquilo",
       "front": "tranquilo",
-      "back": "calm, peaceful, tranquil",
-      "frequencyRank": 404
+      "back": "calm, peaceful, tranquil, quiet",
+      "frequencyRank": 402
     },
     {
       "taskId": "es:seis:meaning-recall",
@@ -3240,7 +3224,7 @@
       "lemma": "seis",
       "front": "seis",
       "back": "six",
-      "frequencyRank": 405
+      "frequencyRank": 403
     },
     {
       "taskId": "es:agente:meaning-recall",
@@ -3248,7 +3232,7 @@
       "lemma": "agente",
       "front": "agente",
       "back": "agent",
-      "frequencyRank": 406
+      "frequencyRank": 404
     },
     {
       "taskId": "es:humano:meaning-recall",
@@ -3256,7 +3240,7 @@
       "lemma": "humano",
       "front": "humano",
       "back": "human",
-      "frequencyRank": 407
+      "frequencyRank": 405
     },
     {
       "taskId": "es:seguridad:meaning-recall",
@@ -3264,7 +3248,7 @@
       "lemma": "seguridad",
       "front": "seguridad",
       "back": "safety, security",
-      "frequencyRank": 408
+      "frequencyRank": 406
     },
     {
       "taskId": "es:especial:meaning-recall",
@@ -3272,7 +3256,7 @@
       "lemma": "especial",
       "front": "especial",
       "back": "special",
-      "frequencyRank": 409
+      "frequencyRank": 407
     },
     {
       "taskId": "es:real:meaning-recall",
@@ -3280,7 +3264,7 @@
       "lemma": "real",
       "front": "real",
       "back": "real; royal",
-      "frequencyRank": 410
+      "frequencyRank": 408
     },
     {
       "taskId": "es:país:meaning-recall",
@@ -3288,7 +3272,7 @@
       "lemma": "país",
       "front": "país",
       "back": "country",
-      "frequencyRank": 411
+      "frequencyRank": 409
     },
     {
       "taskId": "es:recibir:meaning-recall",
@@ -3296,7 +3280,7 @@
       "lemma": "recibir",
       "front": "recibir",
       "back": "to receive, get",
-      "frequencyRank": 412
+      "frequencyRank": 410
     },
     {
       "taskId": "es:oficina:meaning-recall",
@@ -3304,7 +3288,7 @@
       "lemma": "oficina",
       "front": "oficina",
       "back": "office",
-      "frequencyRank": 413
+      "frequencyRank": 411
     },
     {
       "taskId": "es:derecho:meaning-recall",
@@ -3312,7 +3296,7 @@
       "lemma": "derecho",
       "front": "derecho",
       "back": "straight",
-      "frequencyRank": 414
+      "frequencyRank": 412
     },
     {
       "taskId": "es:cama:meaning-recall",
@@ -3320,15 +3304,15 @@
       "lemma": "cama",
       "front": "cama",
       "back": "bed",
-      "frequencyRank": 415
+      "frequencyRank": 413
     },
     {
       "taskId": "es:además:meaning-recall",
       "wordId": "es:además",
       "lemma": "además",
       "front": "además",
-      "back": "in addition, moreover, furthermore",
-      "frequencyRank": 416
+      "back": "besides, moreover",
+      "frequencyRank": 414
     },
     {
       "taskId": "es:tocar:meaning-recall",
@@ -3336,7 +3320,7 @@
       "lemma": "tocar",
       "front": "tocar",
       "back": "to touch",
-      "frequencyRank": 417
+      "frequencyRank": 415
     },
     {
       "taskId": "es:rey:meaning-recall",
@@ -3344,7 +3328,7 @@
       "lemma": "rey",
       "front": "rey",
       "back": "king",
-      "frequencyRank": 418
+      "frequencyRank": 416
     },
     {
       "taskId": "es:prometer:meaning-recall",
@@ -3352,7 +3336,7 @@
       "lemma": "prometer",
       "front": "prometer",
       "back": "to promise",
-      "frequencyRank": 419
+      "frequencyRank": 417
     },
     {
       "taskId": "es:libre:meaning-recall",
@@ -3360,7 +3344,7 @@
       "lemma": "libre",
       "front": "libre",
       "back": "free",
-      "frequencyRank": 420
+      "frequencyRank": 418
     },
     {
       "taskId": "es:estúpido:meaning-recall",
@@ -3368,7 +3352,7 @@
       "lemma": "estúpido",
       "front": "estúpido",
       "back": "stupid",
-      "frequencyRank": 421
+      "frequencyRank": 419
     },
     {
       "taskId": "es:señorita:meaning-recall",
@@ -3376,7 +3360,7 @@
       "lemma": "señorita",
       "front": "señorita",
       "back": "young woman",
-      "frequencyRank": 422
+      "frequencyRank": 420
     },
     {
       "taskId": "es:acerca:meaning-recall",
@@ -3384,7 +3368,7 @@
       "lemma": "acerca",
       "front": "acerca",
       "back": "adjacent",
-      "frequencyRank": 423
+      "frequencyRank": 421
     },
     {
       "taskId": "es:fuerza:meaning-recall",
@@ -3392,7 +3376,7 @@
       "lemma": "fuerza",
       "front": "fuerza",
       "back": "force",
-      "frequencyRank": 424
+      "frequencyRank": 422
     },
     {
       "taskId": "es:cambio:meaning-recall",
@@ -3400,7 +3384,7 @@
       "lemma": "cambio",
       "front": "cambio",
       "back": "change, shift",
-      "frequencyRank": 425
+      "frequencyRank": 423
     },
     {
       "taskId": "es:amiga:meaning-recall",
@@ -3408,7 +3392,7 @@
       "lemma": "amiga",
       "front": "amiga",
       "back": "female equivalent of amigo, friend",
-      "frequencyRank": 426
+      "frequencyRank": 424
     },
     {
       "taskId": "es:carta:meaning-recall",
@@ -3416,7 +3400,7 @@
       "lemma": "carta",
       "front": "carta",
       "back": "letter",
-      "frequencyRank": 427
+      "frequencyRank": 425
     },
     {
       "taskId": "es:marido:meaning-recall",
@@ -3424,7 +3408,7 @@
       "lemma": "marido",
       "front": "marido",
       "back": "husband",
-      "frequencyRank": 428
+      "frequencyRank": 426
     },
     {
       "taskId": "es:puesto:meaning-recall",
@@ -3432,7 +3416,7 @@
       "lemma": "puesto",
       "front": "puesto",
       "back": "position, employment, job",
-      "frequencyRank": 429
+      "frequencyRank": 427
     },
     {
       "taskId": "es:paz:meaning-recall",
@@ -3440,7 +3424,7 @@
       "lemma": "paz",
       "front": "paz",
       "back": "peace",
-      "frequencyRank": 430
+      "frequencyRank": 428
     },
     {
       "taskId": "es:cual:meaning-recall",
@@ -3448,15 +3432,15 @@
       "lemma": "cual",
       "front": "cual",
       "back": "like, as, in the manner of",
-      "frequencyRank": 431
+      "frequencyRank": 429
     },
     {
       "taskId": "es:decidir:meaning-recall",
       "wordId": "es:decidir",
       "lemma": "decidir",
       "front": "decidir",
-      "back": "to decide, to make up one's mind, to determine",
-      "frequencyRank": 432
+      "back": "to decide, to make up one's mind, to determine, to choose to",
+      "frequencyRank": 430
     },
     {
       "taskId": "es:robar:meaning-recall",
@@ -3464,15 +3448,15 @@
       "lemma": "robar",
       "front": "robar",
       "back": "to rob",
-      "frequencyRank": 433
+      "frequencyRank": 431
     },
     {
       "taskId": "es:extraño:meaning-recall",
       "wordId": "es:extraño",
       "lemma": "extraño",
       "front": "extraño",
-      "back": "strange, unusual, odd",
-      "frequencyRank": 434
+      "back": "strange, odd",
+      "frequencyRank": 432
     },
     {
       "taskId": "es:resto:meaning-recall",
@@ -3480,7 +3464,7 @@
       "lemma": "resto",
       "front": "resto",
       "back": "rest, remainder",
-      "frequencyRank": 435
+      "frequencyRank": 433
     },
     {
       "taskId": "es:mensaje:meaning-recall",
@@ -3488,7 +3472,7 @@
       "lemma": "mensaje",
       "front": "mensaje",
       "back": "message",
-      "frequencyRank": 436
+      "frequencyRank": 434
     },
     {
       "taskId": "es:viaje:meaning-recall",
@@ -3496,7 +3480,7 @@
       "lemma": "viaje",
       "front": "viaje",
       "back": "voyage",
-      "frequencyRank": 437
+      "frequencyRank": 435
     },
     {
       "taskId": "es:asesino:meaning-recall",
@@ -3504,7 +3488,7 @@
       "lemma": "asesino",
       "front": "asesino",
       "back": "murderous, homicidal",
-      "frequencyRank": 438
+      "frequencyRank": 436
     },
     {
       "taskId": "es:pueblo:meaning-recall",
@@ -3512,7 +3496,7 @@
       "lemma": "pueblo",
       "front": "pueblo",
       "back": "town, village",
-      "frequencyRank": 439
+      "frequencyRank": 437
     },
     {
       "taskId": "es:sonar:meaning-recall",
@@ -3520,15 +3504,15 @@
       "lemma": "sonar",
       "front": "sonar",
       "back": "to sound, to ring",
-      "frequencyRank": 440
+      "frequencyRank": 438
     },
     {
       "taskId": "es:bastar:meaning-recall",
       "wordId": "es:bastar",
       "lemma": "bastar",
       "front": "bastar",
-      "back": "to be enough",
-      "frequencyRank": 441
+      "back": "to be enough; to suffice",
+      "frequencyRank": 439
     },
     {
       "taskId": "es:música:meaning-recall",
@@ -3536,7 +3520,7 @@
       "lemma": "música",
       "front": "música",
       "back": "music",
-      "frequencyRank": 442
+      "frequencyRank": 440
     },
     {
       "taskId": "es:perdonar:meaning-recall",
@@ -3544,7 +3528,7 @@
       "lemma": "perdonar",
       "front": "perdonar",
       "back": "to pardon, excuse, forgive",
-      "frequencyRank": 443
+      "frequencyRank": 441
     },
     {
       "taskId": "es:anoche:meaning-recall",
@@ -3552,7 +3536,7 @@
       "lemma": "anoche",
       "front": "anoche",
       "back": "last night",
-      "frequencyRank": 444
+      "frequencyRank": 442
     },
     {
       "taskId": "es:error:meaning-recall",
@@ -3560,7 +3544,7 @@
       "lemma": "error",
       "front": "error",
       "back": "error, mistake",
-      "frequencyRank": 445
+      "frequencyRank": 443
     },
     {
       "taskId": "es:caballero:meaning-recall",
@@ -3568,7 +3552,7 @@
       "lemma": "caballero",
       "front": "caballero",
       "back": "horseman",
-      "frequencyRank": 446
+      "frequencyRank": 444
     },
     {
       "taskId": "es:cuarto:meaning-recall",
@@ -3576,7 +3560,7 @@
       "lemma": "cuarto",
       "front": "cuarto",
       "back": "fourth",
-      "frequencyRank": 447
+      "frequencyRank": 445
     },
     {
       "taskId": "es:referir:meaning-recall",
@@ -3584,7 +3568,7 @@
       "lemma": "referir",
       "front": "referir",
       "back": "to report",
-      "frequencyRank": 448
+      "frequencyRank": 446
     },
     {
       "taskId": "es:perdón:meaning-recall",
@@ -3592,7 +3576,7 @@
       "lemma": "perdón",
       "front": "perdón",
       "back": "sorry, pardon me",
-      "frequencyRank": 449
+      "frequencyRank": 447
     },
     {
       "taskId": "es:beber:meaning-recall",
@@ -3600,7 +3584,7 @@
       "lemma": "beber",
       "front": "beber",
       "back": "to drink",
-      "frequencyRank": 450
+      "frequencyRank": 448
     },
     {
       "taskId": "es:falta:meaning-recall",
@@ -3608,7 +3592,7 @@
       "lemma": "falta",
       "front": "falta",
       "back": "lack, shortage",
-      "frequencyRank": 451
+      "frequencyRank": 449
     },
     {
       "taskId": "es:confiar:meaning-recall",
@@ -3616,7 +3600,7 @@
       "lemma": "confiar",
       "front": "confiar",
       "back": "to reassure",
-      "frequencyRank": 452
+      "frequencyRank": 450
     },
     {
       "taskId": "es:ambos:meaning-recall",
@@ -3624,7 +3608,7 @@
       "lemma": "ambos",
       "front": "ambos",
       "back": "both",
-      "frequencyRank": 453
+      "frequencyRank": 451
     },
     {
       "taskId": "es:diez:meaning-recall",
@@ -3632,7 +3616,7 @@
       "lemma": "diez",
       "front": "diez",
       "back": "ten",
-      "frequencyRank": 454
+      "frequencyRank": 452
     },
     {
       "taskId": "es:hospital:meaning-recall",
@@ -3640,7 +3624,7 @@
       "lemma": "hospital",
       "front": "hospital",
       "back": "hospital",
-      "frequencyRank": 455
+      "frequencyRank": 453
     },
     {
       "taskId": "es:alegrar:meaning-recall",
@@ -3648,7 +3632,7 @@
       "lemma": "alegrar",
       "front": "alegrar",
       "back": "to make happy",
-      "frequencyRank": 456
+      "frequencyRank": 454
     },
     {
       "taskId": "es:relación:meaning-recall",
@@ -3656,7 +3640,7 @@
       "lemma": "relación",
       "front": "relación",
       "back": "relation",
-      "frequencyRank": 457
+      "frequencyRank": 455
     },
     {
       "taskId": "es:maldito:meaning-recall",
@@ -3664,7 +3648,7 @@
       "lemma": "maldito",
       "front": "maldito",
       "back": "cursed",
-      "frequencyRank": 458
+      "frequencyRank": 456
     },
     {
       "taskId": "es:disparar:meaning-recall",
@@ -3672,7 +3656,7 @@
       "lemma": "disparar",
       "front": "disparar",
       "back": "to shoot, to fire",
-      "frequencyRank": 459
+      "frequencyRank": 457
     },
     {
       "taskId": "es:divertido:meaning-recall",
@@ -3680,7 +3664,7 @@
       "lemma": "divertido",
       "front": "divertido",
       "back": "entertaining, amusing, funny",
-      "frequencyRank": 460
+      "frequencyRank": 458
     },
     {
       "taskId": "es:fuego:meaning-recall",
@@ -3688,7 +3672,7 @@
       "lemma": "fuego",
       "front": "fuego",
       "back": "fire",
-      "frequencyRank": 461
+      "frequencyRank": 459
     },
     {
       "taskId": "es:callar:meaning-recall",
@@ -3696,7 +3680,7 @@
       "lemma": "callar",
       "front": "callar",
       "back": "to calm",
-      "frequencyRank": 462
+      "frequencyRank": 460
     },
     {
       "taskId": "es:grupo:meaning-recall",
@@ -3704,7 +3688,7 @@
       "lemma": "grupo",
       "front": "grupo",
       "back": "group",
-      "frequencyRank": 463
+      "frequencyRank": 461
     },
     {
       "taskId": "es:increíble:meaning-recall",
@@ -3712,7 +3696,7 @@
       "lemma": "increíble",
       "front": "increíble",
       "back": "incredible, unbelievable",
-      "frequencyRank": 464
+      "frequencyRank": 462
     },
     {
       "taskId": "es:andar:meaning-recall",
@@ -3720,7 +3704,7 @@
       "lemma": "andar",
       "front": "andar",
       "back": "to walk, to go",
-      "frequencyRank": 465
+      "frequencyRank": 463
     },
     {
       "taskId": "es:mía:meaning-recall",
@@ -3728,7 +3712,7 @@
       "lemma": "mía",
       "front": "mía",
       "back": "mine (fem.)",
-      "frequencyRank": 466
+      "frequencyRank": 464
     },
     {
       "taskId": "es:café:meaning-recall",
@@ -3736,7 +3720,7 @@
       "lemma": "café",
       "front": "café",
       "back": "brown",
-      "frequencyRank": 467
+      "frequencyRank": 465
     },
     {
       "taskId": "es:daño:meaning-recall",
@@ -3744,7 +3728,7 @@
       "lemma": "daño",
       "front": "daño",
       "back": "damage",
-      "frequencyRank": 468
+      "frequencyRank": 466
     },
     {
       "taskId": "es:detener:meaning-recall",
@@ -3752,7 +3736,7 @@
       "lemma": "detener",
       "front": "detener",
       "back": "to detain",
-      "frequencyRank": 469
+      "frequencyRank": 467
     },
     {
       "taskId": "es:pobre:meaning-recall",
@@ -3760,7 +3744,7 @@
       "lemma": "pobre",
       "front": "pobre",
       "back": "poor",
-      "frequencyRank": 470
+      "frequencyRank": 468
     },
     {
       "taskId": "es:cerrar:meaning-recall",
@@ -3768,7 +3752,7 @@
       "lemma": "cerrar",
       "front": "cerrar",
       "back": "to close, to shut",
-      "frequencyRank": 471
+      "frequencyRank": 469
     },
     {
       "taskId": "es:detrás:meaning-recall",
@@ -3776,7 +3760,7 @@
       "lemma": "detrás",
       "front": "detrás",
       "back": "behind, at the rear",
-      "frequencyRank": 472
+      "frequencyRank": 470
     },
     {
       "taskId": "es:querido:meaning-recall",
@@ -3784,7 +3768,7 @@
       "lemma": "querido",
       "front": "querido",
       "back": "dear",
-      "frequencyRank": 473
+      "frequencyRank": 471
     },
     {
       "taskId": "es:oficial:meaning-recall",
@@ -3792,7 +3776,7 @@
       "lemma": "oficial",
       "front": "oficial",
       "back": "official",
-      "frequencyRank": 474
+      "frequencyRank": 472
     },
     {
       "taskId": "es:asesinato:meaning-recall",
@@ -3800,7 +3784,7 @@
       "lemma": "asesinato",
       "front": "asesinato",
       "back": "assassination",
-      "frequencyRank": 475
+      "frequencyRank": 473
     },
     {
       "taskId": "es:mentir:meaning-recall",
@@ -3808,7 +3792,7 @@
       "lemma": "mentir",
       "front": "mentir",
       "back": "to lie",
-      "frequencyRank": 476
+      "frequencyRank": 474
     },
     {
       "taskId": "es:presidente:meaning-recall",
@@ -3816,7 +3800,7 @@
       "lemma": "presidente",
       "front": "presidente",
       "back": "president, head",
-      "frequencyRank": 477
+      "frequencyRank": 475
     },
     {
       "taskId": "es:abogado:meaning-recall",
@@ -3824,7 +3808,7 @@
       "lemma": "abogado",
       "front": "abogado",
       "back": "lawyer, solicitor, counsel.",
-      "frequencyRank": 478
+      "frequencyRank": 476
     },
     {
       "taskId": "es:voz:meaning-recall",
@@ -3832,15 +3816,15 @@
       "lemma": "voz",
       "front": "voz",
       "back": "voice",
-      "frequencyRank": 479
+      "frequencyRank": 477
     },
     {
       "taskId": "es:ropa:meaning-recall",
       "wordId": "es:ropa",
       "lemma": "ropa",
       "front": "ropa",
-      "back": "garment, clothing, clothes",
-      "frequencyRank": 480
+      "back": "garment, clothing, clothes, robes",
+      "frequencyRank": 478
     },
     {
       "taskId": "es:crear:meaning-recall",
@@ -3848,7 +3832,7 @@
       "lemma": "crear",
       "front": "crear",
       "back": "to create",
-      "frequencyRank": 481
+      "frequencyRank": 479
     },
     {
       "taskId": "es:información:meaning-recall",
@@ -3856,7 +3840,7 @@
       "lemma": "información",
       "front": "información",
       "back": "information, data",
-      "frequencyRank": 482
+      "frequencyRank": 480
     },
     {
       "taskId": "es:general:meaning-recall",
@@ -3864,7 +3848,7 @@
       "lemma": "general",
       "front": "general",
       "back": "general, overall",
-      "frequencyRank": 483
+      "frequencyRank": 481
     },
     {
       "taskId": "es:romper:meaning-recall",
@@ -3872,7 +3856,7 @@
       "lemma": "romper",
       "front": "romper",
       "back": "to break",
-      "frequencyRank": 484
+      "frequencyRank": 482
     },
     {
       "taskId": "es:trato:meaning-recall",
@@ -3880,7 +3864,7 @@
       "lemma": "trato",
       "front": "trato",
       "back": "treatment",
-      "frequencyRank": 485
+      "frequencyRank": 483
     },
     {
       "taskId": "es:cita:meaning-recall",
@@ -3888,7 +3872,7 @@
       "lemma": "cita",
       "front": "cita",
       "back": "date",
-      "frequencyRank": 486
+      "frequencyRank": 484
     },
     {
       "taskId": "es:respuesta:meaning-recall",
@@ -3896,7 +3880,7 @@
       "lemma": "respuesta",
       "front": "respuesta",
       "back": "reply, response, answer",
-      "frequencyRank": 487
+      "frequencyRank": 485
     },
     {
       "taskId": "es:meter:meaning-recall",
@@ -3904,7 +3888,7 @@
       "lemma": "meter",
       "front": "meter",
       "back": "to put in, insert",
-      "frequencyRank": 488
+      "frequencyRank": 486
     },
     {
       "taskId": "es:ayer:meaning-recall",
@@ -3912,7 +3896,7 @@
       "lemma": "ayer",
       "front": "ayer",
       "back": "yesterday",
-      "frequencyRank": 489
+      "frequencyRank": 487
     },
     {
       "taskId": "es:demás:meaning-recall",
@@ -3920,7 +3904,7 @@
       "lemma": "demás",
       "front": "demás",
       "back": "other, remaining",
-      "frequencyRank": 490
+      "frequencyRank": 488
     },
     {
       "taskId": "es:verdadero:meaning-recall",
@@ -3928,7 +3912,7 @@
       "lemma": "verdadero",
       "front": "verdadero",
       "back": "true, real",
-      "frequencyRank": 491
+      "frequencyRank": 489
     },
     {
       "taskId": "es:sistema:meaning-recall",
@@ -3936,7 +3920,7 @@
       "lemma": "sistema",
       "front": "sistema",
       "back": "system",
-      "frequencyRank": 492
+      "frequencyRank": 490
     },
     {
       "taskId": "es:campo:meaning-recall",
@@ -3944,7 +3928,7 @@
       "lemma": "campo",
       "front": "campo",
       "back": "countryside, country",
-      "frequencyRank": 493
+      "frequencyRank": 491
     },
     {
       "taskId": "es:mostrar:meaning-recall",
@@ -3952,7 +3936,7 @@
       "lemma": "mostrar",
       "front": "mostrar",
       "back": "to show",
-      "frequencyRank": 494
+      "frequencyRank": 492
     },
     {
       "taskId": "es:vuestro:meaning-recall",
@@ -3960,7 +3944,7 @@
       "lemma": "vuestro",
       "front": "vuestro",
       "back": "yours",
-      "frequencyRank": 495
+      "frequencyRank": 493
     },
     {
       "taskId": "es:suyo:meaning-recall",
@@ -3968,7 +3952,7 @@
       "lemma": "suyo",
       "front": "suyo",
       "back": "his, hers, its",
-      "frequencyRank": 496
+      "frequencyRank": 494
     },
     {
       "taskId": "es:personal:meaning-recall",
@@ -3976,7 +3960,7 @@
       "lemma": "personal",
       "front": "personal",
       "back": "personal; staff",
-      "frequencyRank": 497
+      "frequencyRank": 495
     },
     {
       "taskId": "es:control:meaning-recall",
@@ -3984,7 +3968,7 @@
       "lemma": "control",
       "front": "control",
       "back": "control, check",
-      "frequencyRank": 498
+      "frequencyRank": 496
     },
     {
       "taskId": "es:odio:meaning-recall",
@@ -3992,7 +3976,7 @@
       "lemma": "odio",
       "front": "odio",
       "back": "hatred, hate",
-      "frequencyRank": 499
+      "frequencyRank": 497
     },
     {
       "taskId": "es:frente:meaning-recall",
@@ -4000,6 +3984,22 @@
       "lemma": "frente",
       "front": "frente",
       "back": "forehead; front",
+      "frequencyRank": 498
+    },
+    {
+      "taskId": "es:sexo:meaning-recall",
+      "wordId": "es:sexo",
+      "lemma": "sexo",
+      "front": "sexo",
+      "back": "sex, gender",
+      "frequencyRank": 499
+    },
+    {
+      "taskId": "es:línea:meaning-recall",
+      "wordId": "es:línea",
+      "lemma": "línea",
+      "front": "línea",
+      "back": "line",
       "frequencyRank": 500
     }
   ]

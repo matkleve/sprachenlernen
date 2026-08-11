@@ -32,7 +32,7 @@ ADR-0007). **Sensitive** (`AGENTS.md`).
 | --- | --- | --- |
 | 1 | Taps a grade on a review session card | `latency_ms` is measured client-side; `appendReview` writes one row with the signed-in Account's `user_id`, the browser's `installation_id`, the card's `task_id`, grade, and `reviewed_at` |
 | 2 | Taps a grade while unsigned-in | Server action returns an error outcome; no row is written |
-| 3 | Session queue is built | `listReviewsForTaskIds` returns every stored review for the deck's tasks, `reviewed_at` ascending, mapped to `{ at, grade }` via `toSchedulerReview`. Task ids are sent in batches of **100** and the merged result re-sorted |
+| 3 | Session queue is built | `listReviewsForTaskIds` returns every stored review for the deck's tasks, `reviewed_at` ascending, mapped to `{ at, grade }` via `toSchedulerReview`. Task ids are de-duplicated, sent in batches of **100**, and the merged result re-sorted |
 | 3a | Any batch fails | The whole read returns `error` — a partial history is indistinguishable from a learner who reviewed less, and the scheduler would reschedule from it |
 | 4 | Signed-out read | `listReviewsForTaskIds` returns an `error` outcome — never an empty history, which the builder would read as a new learner |
 
@@ -82,6 +82,9 @@ fingerprint (ADR-0005).
       is sorted by `reviewed_at` across batch boundaries, not merely within one.
 - [ ] Given one batch returning an error, then the outcome is `error` and no
       partial history is returned.
+- [ ] Given a task id repeated across a batch boundary, then its rows are
+      returned once — a single `in.(…)` collapsed duplicates for free, and
+      `rebuild` replaying a doubled history derives a stability nobody earned.
 - [ ] Given an empty list of task ids, when `listReviewsForTaskIds` runs, then
       it returns no reviews without querying the database.
 - [ ] Given no session, when `listReviewsForTaskIds` runs, then status is

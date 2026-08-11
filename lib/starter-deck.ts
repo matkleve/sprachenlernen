@@ -4,6 +4,7 @@
 
 import esMeaningRecall from "@/data/starter/es-meaning-recall.json";
 import esIdenticalCognates from "@/data/starter/es-meaning-recall.cognates.json";
+import esExclusions from "@/data/starter/es-meaning-recall.exclusions.json";
 
 export type StarterCard = {
   taskId: string;
@@ -73,15 +74,24 @@ export function validateStarterDeck(raw: unknown): LoadStarterDeckResult {
 /** Shipped Spanish meaning-recall pool size (stage 1). */
 export const SHIPPED_ES_POOL_SIZE = 500;
 
-/** Longest admissible card back. Mirrors the build script's cap. */
+/**
+ * Longest admissible card back. Mirrors `MAX_GLOSS_CHARS` in
+ * `scripts/build-starter-deck.mjs`; the deck test below is what makes the
+ * mirror hold, since a script loosened past this ships cards the gate rejects.
+ */
 export const MAX_GLOSS_CHARS = 60;
 
 /**
- * Lemmas whose English gloss is legitimately the Spanish word itself. Shared
- * with `scripts/build-starter-deck.mjs` through the data file so the gate and
- * the generator enforce one list, not two that drift.
+ * Lemmas whose English gloss is legitimately the Spanish word itself, and
+ * lemmas that never enter the pool. Both are shared with
+ * `scripts/build-starter-deck.mjs` through their data files, so the gate and
+ * the generator enforce one list each rather than two that drift — the build
+ * script is not part of `npm run verify`, so without this the lists would be
+ * checked only when somebody happened to regenerate.
  */
 export const ES_IDENTICAL_COGNATES: readonly string[] = esIdenticalCognates;
+
+export const ES_EXCLUDED_LEMMAS: readonly string[] = Object.keys(esExclusions);
 
 /** Shipped Spanish meaning-recall pool ({@link SHIPPED_ES_POOL_SIZE} lemmas). */
 export function loadSpanishMeaningRecallDeck(): LoadStarterDeckResult {

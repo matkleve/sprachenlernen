@@ -177,8 +177,15 @@ export async function listReviewsForTaskIds(
     return { status: "error", error: handled.userMessage };
   }
 
+  // A single `.in()` returned each row once however often an id was repeated.
+  // Split across batches, a duplicate lands in two of them and its rows come
+  // back twice — `rebuild` would then replay a doubled history and derive a
+  // stability the learner never earned. De-duplicating keeps the contract the
+  // unbatched query had for any input, not just the deck's unique ids.
+  const uniqueTaskIds = [...new Set(taskIds)];
+
   const chunks = await Promise.all(
-    chunk(taskIds, TASK_ID_CHUNK).map((ids) =>
+    chunk(uniqueTaskIds, TASK_ID_CHUNK).map((ids) =>
       supabase
         .from("review_log")
         .select(

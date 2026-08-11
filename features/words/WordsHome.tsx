@@ -34,6 +34,13 @@ export function WordsHome({ snapshot }: WordsHomeProps) {
   const reviewHref = `${routes.wordsReview}?method=srs-session`;
   const horizonMax = maxHorizonCount(snapshot);
   const atlasRows = snapshot.atlas.slice(0, ATLAS_ROW_LIMIT);
+  const atlasTruncated = atlasRows.length < snapshot.atlas.length;
+  // The caption is the table's accessible name, so it has to carry the limit
+  // too — a screen-reader user who hears "for each word in your deck" over 100
+  // of 500 rows has been told the deck is smaller than the counts above say.
+  const atlasCaption = atlasTruncated
+    ? `${copy.atlasCaption} ${copy.atlasTruncated(atlasRows.length, snapshot.atlas.length)}`
+    : copy.atlasCaption;
 
   return (
     <div className="mx-auto max-w-5xl px-6 pt-page-top pb-page-bottom">
@@ -102,12 +109,12 @@ export function WordsHome({ snapshot }: WordsHomeProps) {
       <section className="mt-page-content">
         <h2 className="text-xl font-semibold text-ink">{copy.atlasHeading}</h2>
         <p className="mt-4 max-w-2xl text-base leading-relaxed text-muted">{copy.atlasCaption}</p>
-        {atlasRows.length < snapshot.atlas.length ? (
+        {atlasTruncated ? (
           <p className="mt-2 max-w-2xl text-base leading-relaxed text-muted">
             {copy.atlasTruncated(atlasRows.length, snapshot.atlas.length)}
           </p>
         ) : null}
-        <Table caption={copy.atlasCaption} className="mt-6">
+        <Table caption={atlasCaption} className="mt-6">
           <thead>
             <tr>
               <Th scope="col">{copy.atlasColumns.word}</Th>

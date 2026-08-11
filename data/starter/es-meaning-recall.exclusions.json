@@ -2,5 +2,6 @@
   "john": "proper name — an English first name that survives the subtitle corpus, not Spanish vocabulary",
   "jack": "proper name — as above",
   "afuerar": "lemmatiser artefact — not a Spanish verb; the forms behind it belong to the adverb afuera",
-  "recuerdas": "lemmatiser artefact — the 2sg present of recordar, left unlemmatised by the table"
+  "dio": "inflected form — the preterite of dar, which the pool already holds at its own rank",
+  "vi": "inflected form — the preterite of ver, which the pool already holds at its own rank"
 }

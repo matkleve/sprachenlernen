@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 
 import {
+  ES_EXCLUDED_LEMMAS,
   ES_IDENTICAL_COGNATES,
   MAX_GLOSS_CHARS,
   SHIPPED_ES_POOL_SIZE,
@@ -53,6 +54,24 @@ describe("starter-deck", () => {
     // new one has to be added deliberately rather than absorbed silently.
     const repeated = cards.filter((card) => card.back === card.lemma).map((card) => card.lemma);
     expect(repeated.sort()).toEqual([...ES_IDENTICAL_COGNATES].sort());
+  });
+
+  it("keeps every excluded lemma out of the pool", () => {
+    // The build script is not part of `npm run verify`, so without this the
+    // exclusions hold only until the next regeneration of the lemma table
+    // quietly lets one back in.
+    expect(ES_EXCLUDED_LEMMAS.length).toBeGreaterThan(0);
+    const leaked = cards.filter((card) => ES_EXCLUDED_LEMMAS.includes(card.lemma));
+    expect(leaked.map((card) => card.lemma)).toEqual([]);
+  });
+
+  it("never shows a grammar note where a translation belongs", () => {
+    // `venir` shipped as "Senses relating to literal movement." — fluent,
+    // the right length, and no use to anyone. Length checks cannot see this.
+    const notes = cards.filter((card) =>
+      /\b(first|second|third)-person\b|^Senses relating|\bapocopic\b|\ba surname\b/i.test(card.back),
+    );
+    expect(notes.map((card) => `${card.lemma}: ${card.back}`)).toEqual([]);
   });
 
   it("keeps the task and word ids derivable from the lemma", () => {

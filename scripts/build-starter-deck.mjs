@@ -20,17 +20,33 @@ const CACHE = process.env.GLOSS_CACHE ?? join(ROOT, ".cache/gloss");
 const POOL_SIZE = 500;
 
 /**
- * A dictionary gloss is not a card back. Kaikki ships the full sense line —
- * `dog (the species Canis familiaris …)`, or twelve comma-separated synonyms —
- * and a learner grading their own recall against that is grading against a
- * paragraph. Shaping is deliberately mechanical so it stays reviewable: drop
- * the apparatus, keep the first sense group, cap the synonym run.
+ * A dictionary gloss is not a card back: Kaikki ships the full sense line,
+ * `dog (the species Canis familiaris …)`, and a learner grading recall against
+ * that is grading against a paragraph. Shaping removes the **apparatus** — the
+ * bracketed elaboration, which is always secondary to the gloss it follows.
+ *
+ * It deliberately does not choose between senses. An earlier version kept the
+ * first `;` group and capped the synonym run at three, and that silently
+ * shipped `policía` as "Civility, polity, public order" — one position short of
+ * "police" — and `gran` as "apocopic form of grande", dropping the "great,
+ * grand" that followed. Kaikki does not order senses by usefulness, so any
+ * positional rule throws away the right answer sooner or later, and does it
+ * invisibly. Anything still too long after the apparatus goes is a human's
+ * problem, and the build says so.
  *
  * Rejected: truncating to N characters. It cuts mid-word and mid-sense, which
  * produces a back that is wrong rather than merely short.
  */
-const MAX_SENSES = 3;
 const MAX_GLOSS_CHARS = 60;
+
+/**
+ * Wiktionary answers "what is this word" as often as "what does it mean", and
+ * an inflection note or a sense-group header is a fluent-looking gloss that
+ * teaches nothing — `venir` arrived as "Senses relating to literal movement."
+ * Length and emptiness cannot catch these, so they are matched and rejected.
+ */
+const METALINGUISTIC =
+  /\b(first|second|third)-person\b|\b(singular|plural)\b.*\bof\b|^Senses relating|\bform of\b|\bapocopic\b|^Used\b|\bpast participle of\b|\bfeminine of\b|\bdiminutive of\b|\bletter of the\b|\ba surname\b|\bgiven name\b/i;
 
 /**
  * Lemmas whose honest English gloss is the Spanish word itself live in
@@ -99,14 +115,10 @@ const rankLemmas = (table, formCounts, excluded) => {
     .slice(0, POOL_SIZE);
 };
 
-const loadJsonIfPresent = async (path) => {
-  try {
-    await access(path);
-  } catch {
-    return {};
-  }
-  return JSON.parse(await readFile(path, "utf8"));
-};
+const loadJson = async (path) => JSON.parse(await readFile(path, "utf8"));
+
+const isPlainObject = (value) =>
+  typeof value === "object" && value !== null && !Array.isArray(value);
 
 /** Balanced strip, so a nested `(… (…) …)` does not leave a stray tail. */
 const stripBracketed = (text, open, close) => {
@@ -120,16 +132,12 @@ const stripBracketed = (text, open, close) => {
   return out;
 };
 
-const shapeGloss = (raw) => {
-  const withoutApparatus = stripBracketed(stripBracketed(raw, "(", ")"), "[", "]");
-  const firstSenseGroup = withoutApparatus.split(";")[0];
-  return firstSenseGroup
-    .split(",")
-    .map((sense) => sense.replace(/\s+/g, " ").trim())
-    .filter(Boolean)
-    .slice(0, MAX_SENSES)
-    .join(", ");
-};
+const shapeGloss = (raw) =>
+  stripBracketed(stripBracketed(raw, "(", ")"), "[", "]")
+    .replace(/\s+/g, " ")
+    .replace(/\s+([,;])/g, "$1")
+    .replace(/[\s;,]+$/, "")
+    .trim();
 
 const ensureKaikkiCached = async () => {
   const path = join(CACHE, KAIKKI.file);
@@ -183,11 +191,21 @@ const build = async () => {
   const [formCounts, table, overrides, exclusions, cognateList] = await Promise.all([
     readFormCounts(),
     readFile(paths.lemmaTable, "utf8").then((raw) => JSON.parse(raw)),
-    loadJsonIfPresent(paths.overrides),
-    loadJsonIfPresent(paths.exclusions),
-    loadJsonIfPresent(paths.cognates),
+    loadJson(paths.overrides),
+    loadJson(paths.exclusions),
+    loadJson(paths.cognates),
   ]);
-  const cognates = new Set(Array.isArray(cognateList) ? cognateList : []);
+  // Both companion files fail *closed*. Written in the wrong shape — an array
+  // where an object belongs, which is what the sibling file next to it looks
+  // like — `Object.keys` would quietly yield indices and exclude nothing, and
+  // the build would print "wrote 500 cards" over a pool it never filtered.
+  if (!isPlainObject(exclusions)) {
+    throw new Error(`${paths.exclusions} must be a JSON object of lemma → reason`);
+  }
+  if (!Array.isArray(cognateList)) {
+    throw new Error(`${paths.cognates} must be a JSON array of lemmas`);
+  }
+  const cognates = new Set(cognateList);
 
   const lemmas = rankLemmas(table, formCounts, new Set(Object.keys(exclusions)));
   if (lemmas.length < POOL_SIZE) {
@@ -210,11 +228,17 @@ const build = async () => {
 
     const back = override ?? shapeGloss(raw);
     if (back === "" || back.length > MAX_GLOSS_CHARS) {
-      unusable.push(`${lemma}: ${JSON.stringify(back)} (needs an override)`);
+      unusable.push(`${lemma}: ${JSON.stringify(back)} (too long or empty — needs an override)`);
       return null;
     }
     if (back === lemma && !cognates.has(lemma)) {
       unusable.push(`${lemma}: gloss equals the front (override it, or list it as a cognate)`);
+      return null;
+    }
+    // Overrides are exempt: a human writing "mine (fem.)" has already decided
+    // that the note is the gloss.
+    if (override === undefined && METALINGUISTIC.test(back)) {
+      unusable.push(`${lemma}: ${JSON.stringify(back)} (grammar note, not a translation)`);
       return null;
     }
 

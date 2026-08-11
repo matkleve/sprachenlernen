@@ -17,9 +17,18 @@
       in the deck. A gloss equal to the front is otherwise a failed lookup.
 - [ ] Given an object missing `cards`, when `validateStarterDeck` runs, then
       it returns errors and no deck.
+- [ ] Given the shipped deck, then no lemma listed in
+      `es-meaning-recall.exclusions.json` appears in it, and no card's `back` is
+      a grammar note (`third-person singular … of`, `apocopic form of`,
+      `Senses relating to …`, `a surname`) — both checked in the gate, because
+      the build script is not part of `npm run verify`.
 - [ ] Given the build script and its gloss sources, when
-      `node scripts/build-starter-deck.mjs` runs, then it regenerates the JSON,
-      every one of the 500 cards has a gloss, and no excluded lemma appears.
-- [ ] Given a machine gloss that shapes to empty, to over 60 characters, or to
-      the lemma without a cognate entry, when the build runs, then it **fails**
-      naming that lemma rather than shipping the card.
+      `node scripts/build-starter-deck.mjs` runs, then it regenerates the JSON
+      and every one of the 500 cards has a gloss.
+- [ ] Given a machine gloss that shapes to empty, to over 60 characters, to the
+      lemma without a cognate entry, or to a grammar note, when the build runs,
+      then it **fails** naming that lemma rather than shipping the card.
+- [ ] Given `es-meaning-recall.exclusions.json` written as an array, or
+      `es-meaning-recall.cognates.json` written as an object, when the build
+      runs, then it **fails** — a companion file in the wrong shape must not
+      silently filter nothing.

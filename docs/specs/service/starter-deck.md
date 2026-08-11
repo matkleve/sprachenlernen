@@ -75,11 +75,20 @@ pool follows subtitle register, not textbook vocabulary.
 not a card back: a learner grading recall against *dog (the species Canis
 familiaris …)* is grading against a paragraph.
 
-1. Remove bracketed apparatus — `(…)` and `[…]`, balanced.
-2. Keep the first `;`-separated sense group.
-3. Keep at most **3** comma-separated synonyms.
-4. Reject the card if the result is empty, longer than **60** characters, or
-   equal to the lemma and not listed in `es-meaning-recall.cognates.json`.
+1. Remove bracketed apparatus — `(…)` and `[…]`, balanced — and collapse the
+   whitespace it leaves behind. That is the whole transformation.
+2. Reject the card if the result is empty, longer than **60** characters, equal
+   to the lemma without an entry in `es-meaning-recall.cognates.json`, or a
+   **grammar note rather than a translation** (`third-person singular … of`,
+   `apocopic form of`, `Senses relating to …`, `a surname`).
+
+**Shaping never chooses between senses**, and that is the point. An earlier
+version kept the first `;` group and the first three synonyms; it shipped
+`policía` as *"Civility, polity, public order"* — one position short of
+*police* — and `gran` as *"apocopic form of grande"*, discarding the *"great,
+grand"* that followed. Kaikki does not order senses by usefulness, so every
+positional rule eventually discards the right answer, silently. Anything still
+too long once the apparatus is gone is a human's problem, and the build says so.
 
 A rejected card fails the build naming the lemma, so the fix is an override
 rather than a silent bad card. A gloss equal to the front is otherwise the
@@ -87,12 +96,18 @@ signature of a failed lookup, which is why the cognate exceptions are listed as
 data rather than detected — and why `lib/starter-deck.ts` reads the same file
 the script does.
 
-**Regenerating is safe for stored history, removing is not.** `taskId` is
+**Regenerating is safe for stored history, excluding is not.** `taskId` is
 derived from the lemma, never the rank, so re-ranking the pool leaves every
 `review_log.task_id` still resolvable — a learner's history survives a rebuild.
-Adding an **exclusion** is the one edit that does not: rows for that lemma stay
-in the append-only log and are never queried again. Check the shipped pool
-before excluding anything.
+
+Adding an **exclusion** is the one edit that does not. Rows for that lemma stay
+in the append-only log — nothing is deleted, and the UC-024 export still carries
+them through `listAllReviews` — but `listReviewsForTaskIds` queries the pool's
+ids, so those reviews stop counting toward held/shaky/new, the horizon and the
+standing line. The learner sees a number go down for a reason no screen
+explains. Before excluding a lemma, check whether it has shipped: excluding one
+that never reached a learner costs nothing, and excluding one that did is a
+decision about their data, not a data-quality fix.
 
 ## Acceptance criteria
 

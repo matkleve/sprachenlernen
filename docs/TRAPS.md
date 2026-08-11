@@ -11,6 +11,35 @@ applying is still evidence about how this codebase misleads people.
 
 ---
 
+## The cleanup rule picked a sense, and picked the wrong one
+
+Dictionary glosses were too long for a flashcard back, so they were shaped:
+strip the bracketed apparatus, keep the first `;` group, keep the first three
+comma-separated synonyms. Mean length dropped from 22.7 to 11.0 characters and
+every card passed every check — non-empty, under the cap, not equal to its front.
+
+`policía` shipped as **"Civility, polity, public order"**. The raw gloss was
+`Civility, polity, public order, police, fineness, neatness, urbanity`, and the
+three-synonym cap cut one position before *police*. `gran` shipped as
+**"apocopic form of grande"**, because that was the first `;` group and
+`great, grand` was the second. Both are worse than shipping the raw gloss.
+
+The two rules that did the damage are **positional**, and the source does not
+order senses by usefulness — Wiktionary orders them historically as often as
+not. So the rule was a guess about which sense mattered, applied 500 times,
+silently, to a product whose whole claim is that it does not guess.
+
+**Removing what is always secondary is safe; ranking what is sometimes primary
+is not.** Stripping a parenthetical cannot discard the answer, because a
+parenthetical always elaborates the gloss in front of it. Keeping "the first N"
+of anything can. When a cleanup rule has to choose between alternatives, it
+does not belong in a script — make the case fail loudly and have a human decide.
+Here that left 12 cards needing a hand gloss out of 500, which is a morning.
+
+The tell it was missed by: the gate checks were all *shape* checks (length,
+emptiness, equality). None of them could see meaning, which is the only thing
+the shaping was changing.
+
 ## Growing a data file broke a query, and every test stayed green
 
 The Spanish starter pool went 50 → 500 lemmas. Pure data, no call-site change,

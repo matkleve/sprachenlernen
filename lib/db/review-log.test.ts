@@ -297,6 +297,21 @@ describe("listReviewsForTaskIds", () => {
     expect(result.reviews.map((review) => review.taskId)).toEqual(["task-120", "task-1"]);
   });
 
+  it("returns a repeated task id's rows once, as the single query did", async () => {
+    // The id repeats across a batch boundary. Unbatched, `.in()` collapsed it;
+    // batched it would be queried twice and `rebuild` would replay a doubled
+    // history — a stability the learner never earned.
+    const taskIds = [...Array.from({ length: 100 }, (_, i) => `task-${i}`), "task-0"];
+    const { client, calls } = chunkedClient([[rowAt("task-0", "2026-08-09T12:00:00.000Z")]]);
+
+    const result = await listReviewsForTaskIds(taskIds, client);
+
+    expect(result.status).toBe("ok");
+    if (result.status !== "ok") return;
+    expect(calls.flat().filter((id) => id === "task-0")).toHaveLength(1);
+    expect(result.reviews).toHaveLength(1);
+  });
+
   it("surfaces an error from any chunk rather than a short history", async () => {
     const taskIds = Array.from({ length: 150 }, (_, i) => `task-${i}`);
     const select = vi.fn().mockReturnValue({
