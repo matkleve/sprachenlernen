@@ -10,7 +10,7 @@
  */
 
 import { createReadStream } from "node:fs";
-import { access, mkdir, readFile, writeFile } from "node:fs/promises";
+import { access, mkdir, readFile, stat, writeFile } from "node:fs/promises";
 import { createInterface } from "node:readline";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -139,10 +139,21 @@ const shapeGloss = (raw) =>
     .replace(/[\s;,]+$/, "")
     .trim();
 
+/**
+ * The cache is trusted as-is, and a cache is not evidence of a fetch — it is
+ * whatever is sitting at that path. A partial one mostly fails loudly, because
+ * a lemma with no entry reaches the `missing glosses for:` throw; but every gap
+ * an override happens to cover passes silently. So the run says where its
+ * glosses came from, and a cached run says so out loud.
+ */
 const ensureKaikkiCached = async () => {
   const path = join(CACHE, KAIKKI.file);
   try {
     await access(path);
+    const { size } = await stat(path);
+    process.stdout.write(
+      `  using cached ${KAIKKI.file} (${(size / 1e6).toFixed(1)} MB) — delete it to refetch\n`,
+    );
     return path;
   } catch {
     /* not cached yet */
@@ -267,7 +278,12 @@ const build = async () => {
 
   await mkdir(dirname(paths.output), { recursive: true });
   await writeFile(paths.output, `${JSON.stringify(deck, null, 2)}\n`);
-  console.log(`wrote ${cards.length} cards → ${paths.output}`);
+
+  const fromOverride = cards.filter((card) => overrides[card.lemma] !== undefined).length;
+  console.log(
+    `wrote ${cards.length} cards → ${paths.output}\n` +
+      `  ${fromOverride} hand-checked, ${cards.length - fromOverride} from ${KAIKKI.file} (${KAIKKI.licence})`,
+  );
 };
 
 build().catch((error) => {

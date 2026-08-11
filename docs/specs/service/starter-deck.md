@@ -119,8 +119,20 @@ In [`starter-deck.acceptance-criteria.md`](starter-deck.acceptance-criteria.md).
 
 ## Open
 
+- **⚠ The shipped deck has not been reproduced from a live Kaikki fetch.**
+  `kaikki.org` is blocked by the agent network policy, so the committed pool was
+  built from a **reconstructed** gloss cache — the raw glosses the previous
+  build had already resolved, replayed through the current shaping rules. That
+  makes it reproducible *given that cache*, which is not the same claim. The
+  first run on a machine that can reach Kaikki is the real test, and it may
+  surface lemmas needing an override that this one could not see. Do it before
+  stage 2, not during.
 - **Stage 2 (2k lemmas)** — same pipeline, larger cap; blocked on gloss QA
-  bandwidth, not code.
+  bandwidth, not code. Roughly 4× the hand-gloss work: 20 overrides carried 500,
+  and the long tail is less cognate-friendly, not more. The pipeline's hard
+  ceiling is **2,953** lemmas — every unique lemma the 5,000-form frequency list
+  resolves to — so 2k fits and anything past it needs a larger list, which is a
+  recalibration event (provenance travels with the rank).
 - **Lemma-frequency recomputation** — summing form counts into lemma ranks is
   deliberate but is a calibration event when the level model extrapolates
   ([`lexicon.md`](lexicon.md) Open).
