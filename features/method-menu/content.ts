@@ -68,6 +68,13 @@ export const copy = {
     "The app will run this method here once its session is built. For now, read what it does and try it off-app if you can.",
   backToMethods: "Back to methods",
   methodNotFound: "No method with that name exists in the catalogue.",
+  standingLabel: "Current standing",
+  standingEmpty:
+    "Nothing recorded yet — your standing appears here once you have reviewed a few cards.",
+  standingStartReview: "Start a review session",
+  standingRecorded: (held: number, poolSize: number) =>
+    `${held} of ${poolSize} lemmas held stably in your starter pool. No skill levels yet — meaning-recall does not measure reading, listening, speaking or writing.`,
+  standingSeeProgress: "See the full progress report",
   minutes: "min",
   or: "or",
   /** Alternative requirement sets: any one of them suffices. */

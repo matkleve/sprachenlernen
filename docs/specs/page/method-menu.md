@@ -32,9 +32,12 @@ catalogue is already in memory; only method-card links navigate away.
   skill and energy filter pills; optional refine (hands, voice, eyes); compact
   chip cards; **card-engine hosted** (`srs-session`) → Words review; other hosted
   → detail until built; off-app → detail; client-side filtering with URL
-  sync (`history.replaceState`).
+  sync (`history.replaceState`); **current standing** — one honest sentence from
+  the progress reading, above the filters (T-B10 follow-up, narrowed).
 - **Out:** situation presets ("kitchen", "transit", …); saved custom situations;
-  daily menu; learner-specific card fields; Commitments on this list.
+  daily menu; learner-specific card fields; Commitments on this list;
+  demonstration sentence; readiness; CEFR skill or overall level on this
+  surface.
 
 **Reuse: Chip** (card facts), **Reuse: NavLink** (card links only).
 **FilterPill** toggles filters in place — button geometry matching Chip, because
@@ -45,13 +48,26 @@ stays a Server Component.
 
 | # | User action | System response |
 | --- | --- | --- |
-| 1 | Opens `/methods` | Whole catalogue until filters apply |
+| 1 | Opens `/methods` | Whole catalogue until filters apply; **current standing** appears above the filters when review history can be read |
 | 2 | Moves time slider | URL `?minutes=` updates to the nearest scale step (or `endless`); list shows methods whose shortest variant fits |
 | 3 | Taps skill, energy, or refine | List intersects that dimension **without reloading the page**; scroll position preserved |
 | 4 | Opens refine | Optional hands / voice / eyes constraints |
 | 5 | Taps hosted card that uses the card engine (`srs-session`) | `/words/review?method=srs-session` opens directly |
 | 6 | Taps other hosted card | Detail page — session not built yet |
 | 7 | Taps off-app card | Detail page |
+
+## Current standing
+
+Reads the same starter-deck derivation as [`progress.md`](progress.md) via
+`features/method-menu/standing.ts`. One sentence, never a CEFR label:
+
+| History | Standing line |
+| --- | --- |
+| None | Nothing recorded yet — link to start a review session |
+| Some, pool-local vocab has data | `{held} of {pool} lemmas held stably in your starter pool` plus link to `/progress` |
+| Review log read fails | Standing omitted — the catalogue still renders; failure is not shown as "no progress" |
+
+Skills are not named here until a skill signal has data (study/03).
 
 Default slider position is **15 minutes** on first visit; the URL updates on
 release, not on every intermediate drag frame.
@@ -68,7 +84,7 @@ URL search parameters remain the bookmark format (`docs/STATE.md` §6).
 
 ## Check
 
-`npm test -- method-menu method-menu-filter time-scale`
+`npm test -- method-menu method-menu-filter time-scale standing`
 
 ## Acceptance criteria
 

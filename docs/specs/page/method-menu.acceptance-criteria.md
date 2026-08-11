@@ -32,4 +32,10 @@
 - [ ] Given the route `app/(app)/methods/page.tsx`, then it has no `"use client"`;
       `MethodMenu` is a client island that filters in memory. Filter pills are
       buttons, not links.
+- [ ] Given no review history, when `/methods` renders, then standing says
+      nothing is recorded yet and links to the review session.
+- [ ] Given review history, when standing renders, then it names the pool-local
+      held count and links to `/progress`, with no CEFR label.
+- [ ] Given a review-log read error, when `/methods` renders, then the
+      catalogue still appears and standing is omitted.
 - [ ] The rendered surface has no axe-core violations.
