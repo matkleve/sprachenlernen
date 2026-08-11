@@ -24,20 +24,19 @@ wins and this file is stale. Nothing normative may live only here.
 | `features/` | `item-picker` and `primitives` — **both are the starter's worked examples**. `language-status` is the first that is not; `auth` (T-B8) adds `/signup` and `/login`, built only from `Field` and `Button`; `app-shell` and `method-menu` (T-B10) add the three destinations and the front door |
 | `lib/db/` | **Shipped 2026-08-09** (T-B8). Supabase client factory, `signUp`/`signIn`/`signOut`/`getAccount`, `middleware.ts` session refresh, the `review_log` RLS migration — applied to the live project. Spec **active**. 9 unit tests plus the 5-test §8 access-control suite |
 | `app/(marketing)/` | The public half, no app shell: `/` (T-04's holding page), `/languages` (T-03), `/login`, `/signup`, `/primitives`. Split out 2026-08-09 to implement [ADR-0010](adr/0010-the-route-model.md) |
-| `app/(app)/` | The signed-in half, under the shell's three destinations: `/methods` (T-B10), `/words` + `/words/review` (T-B1), `/progress` (holding page until T-B3) |
+| `app/(app)/` | The signed-in half, under the shell's three destinations: `/methods` (T-B10), `/words` + `/words/review` (T-B1), `/progress` (T-B3) |
 | `lib/db/review-log.ts` + `lib/installation-id.ts` | **Shipped 2026-08-09** (T-B2). Append-only adapter, owner taken from the session, payload migration applied live. Spec **active** |
 | `lib/starter-deck.ts` + `lib/session-builder.ts` | **Shipped 2026-08-09** (T-B1). 50-lemma Spanish meaning-recall pool, 15-card queue, due-before-new. Specs **active** |
 | `features/review-session/` | **Shipped 2026-08-09** (T-B1). The FSM, the card, the summary. Grades persist one row each. Specs **active** |
 
-**The honest summary: two strong libraries, and a front door that lists what the
-product can do without yet doing any of it.** `/languages` was the first surface
-that belonged to this product rather than to the starter — no state, no account,
-every value derived rather than stored. `/methods` (T-B10, shipped 2026-08-09)
-is now the front door it always said it would be, and it is honest in the same
-way: it shows the whole catalogue and what each method does *not* do, and it
-claims nothing about the learner, because nothing about the learner is measured
-yet. What is still missing is the part that needs stored history — the daily
-three, current standing, readiness. That gap is T-B2's, not the menu's.
+**Track B core shipped 2026-08-11.** A signed-in learner can sign up, open
+`/methods`, review a 15-card SRS session, see pool-local standing on Methods and
+Progress, and export or delete their account. The landing page leads with thesis
+1 and names the honest time denominator (thesis 12). What is still missing is
+not plumbing — it is the **language engine**: a frequency-ranked pool large
+enough to estimate vocabulary, form→lemma tables with paradigm cells, real skill
+levels, full offline/PWA practice, and the method-menu surfaces that need effect
+data (demonstration sentence, readiness).
 
 ---
 
@@ -102,10 +101,10 @@ a 15-card queue built from the starter deck and their own history, and every
 grade appends one row they own. What that unblocks is T-B3: `/progress` is the
 last holding page, and it is now the only destination with nothing behind it.
 
-**The honest limit on all of it:** one language, one task type, a 50-lemma
-starter pool, and a review loop whose grade is collected before the answer is
-shown (the spec gap on T-B1). The plumbing is real; what it measures is not yet
-something the product should claim.
+**The honest limit on all of it:** one language (Spanish), one task type
+(meaning-recall), a **50-lemma** starter pool, and progress that stops at
+pool-local counts — no CEFR skill levels yet. The plumbing is real; the
+measurement only becomes a language claim once the pool and form tables grow.
 
 ---
 
@@ -308,12 +307,33 @@ low-inference agent would silently invent.
 | ~~**T-B1**~~ | ~~The review session surface~~ — **shipped 2026-08-09** | **Sensitive.** [`specs/feature/review-session.md`](specs/feature/review-session.md) + [`.states.md`](specs/feature/review-session.states.md), `features/review-session/`, `/words/review`. Flip-then-grade (back before grade) matches FSRS semantics; spec AC updated 2026-08-10 |
 | **T-B3** | Vocabulary estimate and the level display (F17–F22) | **Pool-local vocabulary shipped** (F17 narrowed). Language-wide extrapolation + CEFR skill/overall levels (F18–F22) blocked — anchor table [C], pool too small |
 | **T-B10b** | Method menu learner half | **Standing + daily three shipped**; demonstration sentence, readiness still out |
-| **T-B4** | Dose ledger (F184) | Needs roadmap question 19 answered, and its logging half needs T-B2 |
+| **T-B4** | Dose ledger (F184) | **Denominator shipped** on `/progress` (question 19, first branch). **Numerator** (hours you practised) still out — needs practice-time logging beyond card `latency_ms` |
 | ~~**T-B7**~~ | ~~The landing page~~ — **shipped 2026-08-11** | Thesis 1 headline + thesis 12 time honesty in body |
-| ~~**T-B10**~~ | ~~The method menu — the product's front door~~ — **shipped 2026-08-09, in the part that needs no learner** | **Sensitive.** [`specs/page/method-menu.md`](specs/page/method-menu.md) and [`specs/feature/app-shell.md`](specs/feature/app-shell.md) are active: `/methods` filters the catalogue by context, the `(app)` group carries ADR-0009's three destinations, and `middleware.ts` gates them before anything renders. **What was deliberately left out**, because each needs stored history or an effect estimate nothing produces yet: the daily three, current standing, the demonstration sentence, readiness, the skill filter, and where commitments live. Those return with T-B2 and T-B3; the spec carries them as named gaps rather than as silence |
-| **T-B9** | Sync across devices (F192) | **Blocked on a decision, not on work.** The log shipped server-only, contradicting ADR-0005's local-first decision, and nothing had recorded that until [ADR-0011](adr/0011-the-review-log-shipped-server-only.md). Under its Option A two devices on one account already share one table and T-B9 reduces to export/import; under Option B it is the merge ADR-0005 described, and the tiebreak gap has to be closed first. The gap itself is dormant meanwhile — one authority, nothing to merge |
-| **T-B5** | ~~Retire the Grundriss worked examples~~ — **shipped 2026-08-10** | `/account` uses `Select` + `Dialog` (UC-024); `item-picker` and `primitives` demos removed; `/primitives` redirects to `/languages` |
+| ~~**T-B10**~~ | ~~The method menu — the product's front door~~ — **shipped 2026-08-09** | Filters, time scale, hosted routing. Learner half continued in T-B10b |
+| ~~**T-B5**~~ | ~~Retire the Grundriss worked examples~~ — **shipped 2026-08-10** | `/account` uses `Select` + `Dialog` (UC-024); demos removed; `/primitives` → `/languages` |
+| **T-B9** | Offline practice + sync (F192, UC-018) | **Owner direction: both** — online sync across devices *and* offline review (train/PWA). Needs ADR-0011 closed on Option B (local-first queue is partial — see [`review-write-queue.md`](specs/service/review-write-queue.md)); full offline still needs cached deck + scheduler |
 ---
+
+### Track B engine phase — what is next (2026-08-11)
+
+Track B **core** (auth → review → shell → methods → progress → landing → account)
+is done. The queue below is the **engine** — everything that turns the plumbing
+into a language claim. Order is load-bearing: the pool unlocks T-B3; forms unlock
+honest Spanish/Italian; offline unlocks commute practice.
+
+| Priority | Work | Unblocks |
+| --- | --- | --- |
+| **1** | **Expand the Spanish word pool** — frequency-ranked lemmas beyond 50; staged (e.g. 500 → 2k). Data in `data/`, consumed by `starter-deck` / session builder. | Language-wide vocabulary estimate; honest progress |
+| **2** | **Form→lemma tables with paradigm cells** — prefixes, endings, irregulars as data ([`study/18`](study/18-language-kit.md), ADR-0004). Build-time from Stanza, not runtime. | Form mastery signal; cards that train *hablo* not just *hablar* |
+| **3** | **T-B3 remainder** — extrapolation + per-skill levels once (1) and calibration exist | F18–F22; demonstration sentence |
+| **4** | **T-B9 / offline-PWA** — cache deck + scheduler; flush queue on reconnect (ADR-0011 Option B) | UC-018 commute practice; installable PWA |
+| **5** | **T-B10b remainder** — demonstration sentence, readiness ([`study/24`](study/24-speaking-as-the-goal.md), [`study/26`](study/26-readiness-and-difficulty.md)) | Methods front door complete |
+| **6** | **T-B4 numerator** — guided hours practised (thesis 9: not card time alone) | Progress per hour invested (study/03 V3) |
+
+**Still partial in Track B:** T-B3 (pool-local only), T-B10b (standing + daily
+three shipped), T-B4 (denominator only), T-B9 (multi-device share works; full
+offline does not).
+
 
 ## Interaction and design-system audit
 
