@@ -1,7 +1,7 @@
 # UC-024 — Take my learning history with me
 
 <!-- id: UC-024 -->
-<!-- specs: SPEC-service-review-log, SPEC-feature-account-data -->
+<!-- specs: SPEC-service-review-log, SPEC-feature-account-data, SPEC-page-profile -->
 
 **Who:** anyone who has put a year into the app.
 **Wants to:** get everything out — cards, review history, level history — in a

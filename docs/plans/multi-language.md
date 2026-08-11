@@ -299,17 +299,32 @@ before that gets built.
 
 ---
 
-## Open — owner decisions
+## Decided by the owner, 2026-08-11
 
-Reduced from three to two. Concurrency and terminology are settled above.
+**Navigation — the designer's recommendation, unchanged.** Three destinations stay
+at the bottom: Methods · Words · Progress. **Profile is the top-right corner
+chip**, replacing today's sign-out float, with sign-out moving inside it. **The
+language switcher is the top-left chip**, which `shellBackTarget()` leaves empty
+on destination roots. No ADR is superseded — ADR-0009's three destinations
+survive verbatim, and profile-as-a-corner-affordance is what ADR-0009 itself
+described.
 
-1. **Where does Progress live, and is there a Profile tab?** The designer's
-   recommendation is to keep three destinations and make Profile the corner chip
-   ADR-0009 already described, replacing today's sign-out float. The sketch's
-   version — Profile replaces Progress — reverses ADR-0009's own trade and moves
-   the product's differentiator two taps away. Fallback if a Profile tab is
-   non-negotiable: **four tabs**, which both Apple HIG and Material 3 sanction;
-   never the three-tab version that drops Progress.
-2. **Picker now, or language-as-data now and the picker when Italian exists?**
+The owner raised in passing whether Progress is needed as a destination at all.
+Not acted on: both reviews argue for keeping it, and it is the product's own
+argument. Recorded here so it is a separate decision later rather than a side
+effect of this one.
 
-⚠ **SPEC GAP: both are undecided, and no spec may guess them.**
+**Picker — build it now, with both languages**, against the review's advice to
+defer. The owner's call, and it is defensible: the structure becomes visible
+earlier. Executed honestly rather than literally — Spanish is selectable, Italian
+renders as **not available yet** with the reason, because there is no Italian pool
+and a selectable tile would lead nowhere. Italian becoming selectable depends on
+[`starter-deck.second-language.md`](../specs/service/starter-deck.second-language.md).
+
+## Still open
+
+- **Whether Progress remains a destination** (raised, not decided — see above).
+- **Cold start**: the planned five-minute adaptive vocabulary test versus the
+  C-test / elicited-imitation alternative the researcher recommends, which
+  reaches production. Not blocking; nothing is built yet.
+- The `study/03` defects and the UC-025 overclaim recorded above.

@@ -1,19 +1,12 @@
-import type { Metadata } from "next";
+import { redirect } from "next/navigation";
 
-import { AccountDataPanel } from "@/features/account-data/AccountDataPanel";
-import { copy } from "@/features/account-data/content";
+import { routes } from "@/lib/routes";
 
-export const metadata: Metadata = {
-  title: copy.title,
-};
-
-/** Contract: docs/specs/feature/account-data.md */
+/**
+ * `/account` became `/profile` when languages moved in (SPEC-page-profile).
+ * Kept as a redirect rather than deleted: the path shipped, and a learner who
+ * bookmarked it should land on the page rather than a 404.
+ */
 export default function AccountPage() {
-  return (
-    <div className="mx-auto max-w-2xl px-6 pt-page-top pb-page-bottom">
-      <h1 className="text-3xl font-semibold tracking-tight text-ink">{copy.title}</h1>
-      <p className="mt-4 max-w-2xl text-base leading-relaxed text-muted">{copy.intro}</p>
-      <AccountDataPanel />
-    </div>
-  );
+  redirect(routes.profile);
 }

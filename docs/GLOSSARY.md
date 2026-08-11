@@ -134,6 +134,8 @@ number was reporting the goal and not the learner — see
 | Term | Means | Not |
 | --- | --- | --- |
 | **Language profile** | Declarative data for one language: script, morphology type, **counting unit**, frequency list, lemmatiser, calibration, voices. Data, never code. | a course, a language pack |
+| **Learning language** | A language this Account is learning. There may be several at once. Owns its own Reviews, vocabulary reading, calibration and maintenance state — nothing is pooled across languages. | a Language profile (that is the data), a course, the interface language |
+| **Active language** | The Learning language currently in focus in the interface. Exactly one. Decides **what is displayed and nothing else** — it must never reach the session builder, or the combined daily budget stops protecting the older language (UC-025). | the only language being learned, a filter on what is scheduled |
 | **Counting unit** | What "one word" means in this language — lemma, word family, or segment. Declared per language; without it the vocabulary estimate has no meaning. | a word |
 | **Quality tier** | A / B / C, **derived** from what the profile contains. Governs how much the app is willing to claim, especially whether a level value exists at all. | a rating of the language |
 | **Source** | An audio or text item the learner added — feed, file, link. The app never curates its own catalogue. | content, a lesson |

@@ -97,3 +97,42 @@ export const ES_EXCLUDED_LEMMAS: readonly string[] = Object.keys(esExclusions);
 export function loadSpanishMeaningRecallDeck(): LoadStarterDeckResult {
   return validateStarterDeck(esMeaningRecall);
 }
+
+/**
+ * Every language that actually ships a meaning-recall pool.
+ *
+ * A static registry rather than a directory scan, because the decks are
+ * imported into the bundle and a runtime `readdir` would neither work in the
+ * browser nor agree with what was bundled. Availability elsewhere in the app is
+ * derived from **this** — never from a second hand-kept list, which is how a
+ * language becomes selectable months before it has anything to teach.
+ *
+ * Italian is deliberately absent: `data/frequency/it.txt` and `data/lemma/it.json`
+ * ship, but no pool can be built yet. See
+ * docs/specs/service/starter-deck.second-language.md.
+ */
+const SHIPPED_DECKS: Record<string, () => LoadStarterDeckResult> = {
+  es: loadSpanishMeaningRecallDeck,
+};
+
+export function availableLanguages(): readonly string[] {
+  return Object.keys(SHIPPED_DECKS);
+}
+
+export function isLanguageAvailable(languageCode: string): boolean {
+  return languageCode in SHIPPED_DECKS;
+}
+
+/**
+ * Loads the meaning-recall pool for a language. Returns an error outcome rather
+ * than throwing for an unknown language — a caller holding a stale language
+ * code is a data condition, not a programming fault, and the error surfaces
+ * exist for exactly this.
+ */
+export function loadMeaningRecallDeck(languageCode: string): LoadStarterDeckResult {
+  const load = SHIPPED_DECKS[languageCode];
+  if (!load) {
+    return { status: "error", errors: [`no meaning-recall pool ships for "${languageCode}"`] };
+  }
+  return load();
+}

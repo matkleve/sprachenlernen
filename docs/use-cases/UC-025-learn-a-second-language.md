@@ -1,7 +1,7 @@
 # UC-025 — Learn a second language without disturbing the first
 
 <!-- id: UC-025 -->
-<!-- specs:  -->
+<!-- specs: SPEC-service-learning-languages, SPEC-page-language-picker -->
 
 **Who:** someone already using the app for one language who starts another.
 **Wants to:** keep both running, with separate progress and a sane daily load.

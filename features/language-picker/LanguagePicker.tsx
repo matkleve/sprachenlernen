@@ -1,0 +1,89 @@
+import { Button } from "@/components/ui/Button";
+import { copy, languageNames } from "@/features/language-picker/content";
+
+/**
+ * The picker. Contract: docs/specs/page/language-picker.md
+ *
+ * A Server Component — choosing is a server action, so nothing here needs
+ * state. The unavailable tile renders **no control at all** rather than a
+ * disabled one: a disabled button still announces itself as an action that
+ * exists, and there is no action here to be had (spec behaviour 3).
+ */
+
+export type LanguageTile = {
+  code: string;
+  /** Null when no pool ships for this language. */
+  poolSize: number | null;
+  /** Null when the learner has never reviewed in it. */
+  heldCount: number | null;
+  alreadyLearning: boolean;
+};
+
+export type LanguagePickerProps = {
+  tiles: readonly LanguageTile[];
+  /** Rendered when adding failed — the picker stays usable regardless. */
+  error?: string | null;
+  choose: (code: string) => Promise<void>;
+};
+
+function statusLine(tile: LanguageTile): string {
+  const names = languageNames[tile.code];
+  if (tile.poolSize === null) {
+    return copy.unavailable(names?.english ?? tile.code);
+  }
+  if (tile.heldCount === null) {
+    return copy.notStarted(tile.poolSize);
+  }
+  return copy.held(tile.heldCount, tile.poolSize);
+}
+
+export function LanguagePicker({ tiles, error, choose }: LanguagePickerProps) {
+  return (
+    <div className="mx-auto max-w-3xl px-6 pt-page-top pb-page-bottom">
+      <h1 className="text-3xl font-semibold tracking-tight text-ink">{copy.title}</h1>
+      <p className="mt-4 max-w-2xl text-base leading-relaxed text-muted">{copy.intro}</p>
+
+      {error ? (
+        <p role="alert" className="mt-6 text-base leading-relaxed text-danger">
+          {error}
+        </p>
+      ) : null}
+
+      <ul className="mt-8 grid gap-4 sm:grid-cols-2">
+        {tiles.map((tile) => {
+          const names = languageNames[tile.code];
+          const available = tile.poolSize !== null;
+
+          return (
+            <li
+              key={tile.code}
+              className="rounded-card border border-line bg-surface p-6"
+            >
+              <p className="text-xl font-semibold text-ink">{names?.endonym ?? tile.code}</p>
+              <p className="mt-1 text-base text-muted">{names?.english ?? tile.code}</p>
+              <p className="mt-4 text-base leading-relaxed text-muted">{statusLine(tile)}</p>
+
+              {available && !tile.alreadyLearning ? (
+                <form
+                  action={async () => {
+                    "use server";
+                    await choose(tile.code);
+                  }}
+                  className="mt-6"
+                >
+                  <Button type="submit">{copy.choose}</Button>
+                </form>
+              ) : null}
+
+              {tile.alreadyLearning ? (
+                <p className="mt-6 text-base font-medium text-ink">{copy.alreadyLearning}</p>
+              ) : null}
+            </li>
+          );
+        })}
+      </ul>
+
+      <p className="mt-8 max-w-2xl text-base leading-relaxed text-muted">{copy.footnote}</p>
+    </div>
+  );
+}

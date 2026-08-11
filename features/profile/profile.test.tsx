@@ -1,0 +1,72 @@
+import { render, screen } from "@testing-library/react";
+import { describe, expect, it, vi } from "vitest";
+
+import { ProfileLanguages } from "@/features/profile/ProfileLanguages";
+import { copy } from "@/features/profile/content";
+
+/** Contract: docs/specs/page/profile.md */
+
+const switchTo = vi.fn();
+
+const language = (code: string, isActive: boolean) => ({
+  languageCode: code,
+  isActive,
+  addedAt: "2026-08-11T10:00:00.000Z",
+});
+
+describe("ProfileLanguages", () => {
+  it("shows the language with its endonym and marks the one in focus", () => {
+    render(
+      <ProfileLanguages
+        outcome={{ status: "ok", languages: [language("es", true)] }}
+        switchTo={switchTo}
+      />,
+    );
+
+    expect(screen.getByText("Español")).toBeDefined();
+    expect(screen.getByText("Spanish")).toBeDefined();
+    expect(screen.getByText(copy.active)).toBeDefined();
+  });
+
+  it("offers a switch on a language that is not in focus", () => {
+    render(
+      <ProfileLanguages
+        outcome={{ status: "ok", languages: [language("es", true), language("it", false)] }}
+        switchTo={switchTo}
+      />,
+    );
+
+    expect(screen.getAllByRole("button", { name: copy.makeActive })).toHaveLength(1);
+  });
+
+  it("routes to the picker instead of rendering an empty table", () => {
+    // A learner who has not chosen is not a learner with zero languages, and
+    // the difference between those two is a route.
+    render(<ProfileLanguages outcome={{ status: "ok", languages: [] }} switchTo={switchTo} />);
+
+    expect(screen.getByText(copy.noneYet)).toBeDefined();
+    expect(screen.getByRole("button", { name: copy.chooseFirst })).toBeDefined();
+    expect(screen.queryByRole("table")).toBeNull();
+  });
+
+  it("renders its own failure so the rest of the page survives", () => {
+    render(
+      <ProfileLanguages outcome={{ status: "error", error: "boom" }} switchTo={switchTo} />,
+    );
+
+    expect(screen.getByRole("alert").textContent).toBe(copy.languagesError);
+  });
+
+  it("shows no streak, XP, or review total", () => {
+    const { container } = render(
+      <ProfileLanguages
+        outcome={{ status: "ok", languages: [language("es", true)] }}
+        switchTo={switchTo}
+      />,
+    );
+    const text = (container.textContent ?? "").toLowerCase();
+
+    expect(text).not.toMatch(/streak|xp|day in a row|cards reviewed/);
+    expect(screen.queryByRole("progressbar")).toBeNull();
+  });
+});
