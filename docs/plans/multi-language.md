@@ -164,13 +164,152 @@ Profile, and `GLOSSARY.md` for whatever the chosen term turns out to be.
 New ADR required: the route model changes (ADR-0009 and ADR-0010 both speak to
 it), and "one active language or several" is a decision neither records.
 
+---
+
+## Reviewed 2026-08-11 — an SLA researcher and a UX designer, with literature
+
+Two reviews were commissioned before asking the owner anything. Both read the
+repo's own study base first and were briefed to disagree with it. What follows is
+what they settled, what they changed, and what they refused to answer.
+
+### Settled: several languages at once, not one
+
+Both arrive there from different directions, so this stops being an open
+question.
+
+The researcher found **no basis for a ban.** The interference mechanism is not
+typological proximity — it is **two labels on one concept** (Isurin & McDonald
+2001; Mickan et al. 2020–24, where the reaction-time cost was still present a
+week later). Spanish and Italian being close is not itself the risk. That makes
+it a **scheduling** problem rather than a product-shape problem: a card whose
+German prompt is answered in Spanish on Monday and Italian on Tuesday reproduces
+the lab paradigm exactly. Cheap to avoid here, because `task_id` already carries
+the language — treat "same L1 concept, two target languages" as a session-builder
+constraint. And the first-order cost of splitting a budget is **arithmetic**,
+roughly double the calendar time, an order of magnitude larger than the
+interference effect.
+
+**Maintenance mode is the best-evidenced item in this entire plan.** Cepeda et al.
+2008 (n > 1,350): the optimal gap is 10–20% of the retention interval, so review
+every 3–5 weeks holds material for a year. Bahrick et al. 1993 points the same
+way (13 sessions at 56 days ≈ 26 at 14 days), though n = 4.
+
+The designer reached the same answer from the market: **no mainstream app ships
+one-at-a-time.** Duolingo, Babbel, Busuu, Memrise and LingQ all keep parallel
+progress with a cheap switch. Anki is the closest thing to UC-025's combined
+budget and gets there by having no language concept at all — one queue, one daily
+limit — and its known failure mode is precisely UC-025's premise.
+
+**The distinction that has to survive into the code:**
+
+- **Learning language** — a language this Account is learning. Several possible.
+  Owns its reviews, its vocabulary reading, its calibration, its maintenance flag.
+- **Active language** — the one in focus in the UI. Exactly one. Affects **what is
+  displayed and nothing else.**
+
+⚠ If `activeLanguage` ever reaches the session builder as a filter, UC-025's
+crowding-out protection is gone. That belongs in `session-builder.md` as a
+**negative** acceptance criterion, because it is the most natural wrong thing to
+build.
+
+### Settled: "language", never "course"
+
+Independent agreement, and the designer added the argument that settles it:
+Duolingo itself **moved away from course-completion framing toward its Score**,
+because "% of course" conflates *how much of our content you touched* with *what
+you can do*. That is this repo's thesis 1, rediscovered by the company that
+created the problem. Apps without a path do not say course — Anki says deck,
+LingQ says language and counts known words.
+
+`GLOSSARY.md` already disowns the word twice (`Language profile` — *not a
+course*; `Series` — *not a course, a unit*). Adding **Learning language** and
+**Active language** there is a precondition for any spec below.
+
+### Changed by review: three findings that alter this plan
+
+**1. Do not build the picker yet.** With one real pool, a selection screen with
+one option repeats the `/languages` defect at higher cost — a screen that looks
+like a choice and is not one. Introduce the language as **data** first (account
+column, default `es`, a visible language chip), and build the picker when a second
+pool exists.
+
+**2. Tile copy fails on jargon, not on honesty.** "Lemma" has no user-facing form
+in `GLOSSARY.md` and must not acquire one; a bare "of 500" reads as a finish
+line. Working copy: `347 of 500 starter words held stably`, plus a one-time
+definition — *"Held stably means you'd still recall it in a week or more without
+seeing it again."* **No bar, no meter, no ring** — a progress bar promises a
+denominator that is a goal, and refusing it here is the same refusal as refusing
+the streak. Write it as a negative AC. No tile at all for a language with no pool.
+
+**3. Plan item 7 (tab bar instead of the floating pill) should be dropped.**
+iOS 26's Liquid Glass tab bar is itself an inset floating capsule that minimises
+on scroll. The existing pill is closer to the current platform default than a
+full-width bar would be — an M-sized change to become less current.
+
+### Two defects the review found in the repo's own evidence base
+
+Both belong to `study/03` and neither is caused by this plan:
+
+- **The anchor table mixes three counting units** — word families, X-Lex lemmas,
+  and pool-local lemmas — in one column. That breaches `study/18`'s own U1 rule
+  that the counting unit is declared per language and not silently swapped. The
+  table is already graded **[C]**; this makes it worse than [C] implies.
+- **"Second-lowest counting skill" is non-smooth.** With noisy inputs the overall
+  level will jump for measurement reasons, and the app then has to explain a
+  change the learner did not cause.
+
+### One place UC-025 overclaims
+
+Its Spanish/Italian confusion clause is **half supported**. The error class is
+real, and the closest research line (Polish/English/Italian, *System* 2025) is
+nearly this app's configuration. But the errors land in **word stems, not
+suffixes** — so `study/03`'s cell-based form-mastery signal *cannot detect the
+error type UC-025 asks it to diagnose*. And the two closest intervention studies
+returned **null** (Otwinowska et al. 2020, *Language Learning*; *Lingua* 2025,
+specifically for L2–L3 pairs). The single positive result (2022, n = 114) worked
+only when the contrast was presented **in the target language**, not via L1 —
+which rules out the obvious "German prompt, both answers" implementation.
+
+UC-025 should be corrected rather than implemented as written.
+
+### And one contradiction nobody can resolve
+
+`study/02` E6 commits to interleaving (Pan et al., d ≈ 0.67). The interference
+literature predicts the opposite outcome from the same manipulation. **Nobody
+knows which way it falls for Spanish and Italian specifically**, and neither
+review would guess.
+
+### On establishing a level, which was the owner's question
+
+"Do not rebuild LexTALE" is right, and the 2023 replication (Puig-Mayenco et al.,
+n = 288 + 266) is more damning than `study/03` states. The number that kills the
+yes/no format: Stubbe 2012 found an individual's false-alarm rate correlates only
+**r = .36** with that individual's actual overestimation — so the correction
+belongs in the error bar, not in the point estimate.
+
+**Nothing in the literature estimates a CEFR level from clickstream or SRS data
+alone with published error bars.** The app's refusal to show a level is therefore
+not conservatism; it is the state of the art.
+
+One recommendation **against** the current plan: a **C-test or elicited-imitation
+task** predicts global proficiency about as well as vocabulary testing
+(r ≈ .66–.69) and reaches **production**, where this app has no layer-1 data at
+all. Worth weighing against the planned five-minute adaptive vocabulary test
+before that gets built.
+
+---
+
 ## Open — owner decisions
 
-1. **One active language at a time, or several running together?** UC-025 assumes
-   several (combined budget, maintenance mode). The sketch says "Italian is
-   selected", which reads like one. This decides roughly half the work above.
-2. **Does Progress really leave the top level?** It is the surface the product
-   argues for most strongly; behind a profile tab it is two taps further away.
-3. **Course or language** as the user-facing word — see the terminology section.
+Reduced from three to two. Concurrency and terminology are settled above.
 
-⚠ **SPEC GAP: none of the three is decided, and no spec may guess them.**
+1. **Where does Progress live, and is there a Profile tab?** The designer's
+   recommendation is to keep three destinations and make Profile the corner chip
+   ADR-0009 already described, replacing today's sign-out float. The sketch's
+   version — Profile replaces Progress — reverses ADR-0009's own trade and moves
+   the product's differentiator two taps away. Fallback if a Profile tab is
+   non-negotiable: **four tabs**, which both Apple HIG and Material 3 sanction;
+   never the three-tab version that drops Progress.
+2. **Picker now, or language-as-data now and the picker when Italian exists?**
+
+⚠ **SPEC GAP: both are undecided, and no spec may guess them.**
