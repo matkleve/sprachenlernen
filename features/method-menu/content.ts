@@ -47,6 +47,9 @@ export const copy = {
   },
   nothingFits:
     "Nothing in the catalogue fits those filters. Try more time, a different skill, or fewer refinements.",
+  dailyHeading: "Three to try today",
+  dailyIntro:
+    "Real choice without decision load — one easy option, one well-evidenced option, and one for variety. The full list is still below.",
   catalogueUnavailable:
     "The method catalogue could not be read, so nothing below is being hidden from you — there is nothing to show. What went wrong:",
   card: {

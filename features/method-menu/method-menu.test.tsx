@@ -1,7 +1,7 @@
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
 
-import { render, screen } from "@testing-library/react";
+import { render, screen, within } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 
 import { commitments, isMethod, type Catalogue } from "@/lib/method-catalogue";
@@ -16,26 +16,47 @@ const catalogue = loaded.catalogue ?? { entries: [] };
 
 const show = (
   searchParams: Record<string, string> = {},
-  over: { catalogue?: Catalogue } = {},
+  over: { catalogue?: Catalogue; dayKey?: string } = {},
 ) =>
-    render(
-    <MethodMenu catalogue={over.catalogue ?? catalogue} initialSearchParams={searchParams} />,
+  render(
+    <MethodMenu
+      catalogue={over.catalogue ?? catalogue}
+      initialSearchParams={searchParams}
+      dayKey={over.dayKey}
+    />,
   );
 
-const cardTitles = () =>
-  screen
-    .getAllByRole("listitem")
-    .map((li) => li.querySelector("h3"))
-    .filter((h): h is HTMLHeadingElement => h !== null)
-    .map((h) => h.textContent ?? "");
+const catalogueCardTitles = () => {
+  const titles: string[] = [];
+  for (const sectionName of Object.values(sections)) {
+    const heading = screen.queryByRole("heading", { level: 2, name: sectionName });
+    const section = heading?.closest("section");
+    if (!section) continue;
+    for (const item of within(section).getAllByRole("listitem")) {
+      const name = item.querySelector("h3")?.textContent;
+      if (name) titles.push(name);
+    }
+  }
+  return titles;
+};
+
+const cardTitles = catalogueCardTitles;
 
 const methodNames = catalogue.entries.filter(isMethod).map((m) => m.name);
 
 describe("with no filter", () => {
-  it("shows every Method exactly once", () => {
+  it("shows every Method exactly once in the catalogue sections", () => {
     show();
     const titles = cardTitles();
     expect([...titles].sort()).toEqual([...methodNames].sort());
+  });
+
+  it("shows three daily picks", () => {
+    show({}, { dayKey: "2026-08-11" });
+    const heading = screen.getByRole("heading", { level: 2, name: copy.dailyHeading });
+    const list = heading.closest("section")?.querySelector(":scope > ul");
+    expect(list?.children).toHaveLength(3);
+    expect(screen.getByText(copy.dailyIntro)).toBeDefined();
   });
 });
 

@@ -1,9 +1,12 @@
 /**
  * Copy for the public half. Contract: docs/specs/page/landing.md
  *
- * Positioning argument stays T-B7. What ships here is study-backed fact and
- * the paths into the account — nothing invented to fill space.
+ * T-B7 closed 2026-08-11: thesis 1 leads; thesis 12 time honesty in the body.
  */
+
+import { hoursPerYear } from "@/lib/dose-band";
+
+const HABIT_MINUTES_PER_DAY = 15;
 
 export const copy = {
   header: {
@@ -24,6 +27,11 @@ export const copy = {
      */
     subhead:
       "Sixty-odd ways people actually learn languages, not the handful an app happens to implement.",
+    /**
+     * docs/study/25-why-it-does-not-feel-productive.md C4 — thesis 12. Uses the
+     * same fifteen-minute habit and `hoursPerYear` arithmetic as `/progress`.
+     */
+    timeHonesty: `Fifteen minutes a day, every day without missing one, is about ${Math.round(hoursPerYear(HABIT_MINUTES_PER_DAY))} hours a year — roughly a quarter of the way to B1 from a standing start. Feeling slow at that pace is arithmetic, not failure.`,
     pillarsHeading: "What follows from that",
     pillars: [
       {

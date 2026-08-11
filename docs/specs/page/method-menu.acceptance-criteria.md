@@ -38,4 +38,9 @@
       held count and links to `/progress`, with no CEFR label.
 - [ ] Given a review-log read error, when `/methods` renders, then the
       catalogue still appears and standing is omitted.
+- [ ] Given at least three methods in the filtered catalogue, when `/methods`
+      renders, then a daily-three section shows exactly three method cards above
+      the filters, including one low-intensity option.
+- [ ] Given any day, when filters change, then the daily three recompose from
+      the filtered pool without a full page reload.
 - [ ] The rendered surface has no axe-core violations.

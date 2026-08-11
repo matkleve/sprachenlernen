@@ -1,6 +1,9 @@
 "use client";
 
+import { useMemo } from "react";
+
 import { ErrorCallout } from "@/components/ui/ErrorCallout";
+import { pickDailyThree } from "@/lib/daily-three";
 import type { UserFacingError } from "@/lib/errors";
 import {
   SECTIONS,
@@ -34,6 +37,8 @@ export type MethodMenuProps = {
   loadError?: UserFacingError;
   initialSearchParams?: SearchParams;
   standing?: StandingSummary;
+  /** ISO date `YYYY-MM-DD` — stabilises daily-three picks for the day. */
+  dayKey?: string;
 };
 
 const bySection = (methods: MethodEntry[]): [Section, MethodEntry[]][] =>
@@ -48,9 +53,14 @@ export function MethodMenu({
   loadError,
   initialSearchParams = {},
   standing,
+  dayKey = new Date().toISOString().slice(0, 10),
 }: MethodMenuProps) {
   const { filter, returnQuery, updateSearchParams } = useMenuFilter(initialSearchParams);
   const methods = catalogue ? filterMethods(catalogue, filter) : [];
+  const dailyThree = useMemo(
+    () => pickDailyThree(methods.filter(isMethod), dayKey),
+    [methods, dayKey],
+  );
 
   return (
     <div className="mx-auto max-w-5xl px-6 pt-page-top pb-page-bottom">
@@ -58,6 +68,20 @@ export function MethodMenu({
       <p className="mt-4 max-w-2xl text-base leading-relaxed text-muted">{copy.intro}</p>
 
       {standing ? <CurrentStanding summary={standing} /> : null}
+
+      {!loadError && dailyThree.length > 0 ? (
+        <section className="mt-6" aria-label={copy.dailyHeading}>
+          <h2 className="text-xl font-semibold text-ink">{copy.dailyHeading}</h2>
+          <p className="mt-2 max-w-2xl text-base leading-relaxed text-muted">{copy.dailyIntro}</p>
+          <ul className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+            {dailyThree.map((method) => (
+              <li key={method.id}>
+                <MethodCard method={method} returnQuery={returnQuery} />
+              </li>
+            ))}
+          </ul>
+        </section>
+      ) : null}
 
       <MethodFilter filter={filter} onFilterChange={updateSearchParams} />
 
