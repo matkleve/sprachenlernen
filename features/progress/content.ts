@@ -42,6 +42,9 @@ export const copy = {
   stabilityValue: (days: number, taskCount: number) =>
     `${days.toFixed(1)} days, averaged over ${taskCount} ${taskCount === 1 ? "card" : "cards"} you have reviewed`,
 
+  vocabularyValue: (held: number, poolSize: number) =>
+    `${held} of ${poolSize} lemmas held stably in your starter pool — not extrapolated to the language`,
+
   emptyState:
     "You have not reviewed anything yet, so nothing below has a value. That is the honest starting state, not a failure.",
   startReview: "Start a review session",
@@ -67,7 +70,7 @@ export const copy = {
 
   gapHeading: "What is missing, and why",
   gapBody:
-    "The signal that would carry a level is estimated vocabulary size, and it is not built. It works by extrapolating what you know across a language's frequency list, and the shipped pool is fifty words — an estimate drawn from that would be a claim about Spanish made from one session. The mapping from vocabulary size to a level also still needs calibrating per language. Both are named in the spec rather than approximated here.",
+    "A language-wide vocabulary estimate and any CEFR level it would feed are not built. Extrapolation needs a frequency-ranked pool large enough to estimate a boundary rank — the shipped pool is fifty lemmas. The anchor table that maps vocabulary to a level is also still uncalibrated for this language pair. Both are named here rather than approximated.",
 } as const;
 
 export const skillNames: Record<Skill, string> = {

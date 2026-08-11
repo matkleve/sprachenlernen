@@ -12,8 +12,7 @@ export const metadata: Metadata = {
 };
 
 /**
- * The Progress destination (T-B3, first half). Contract:
- * docs/specs/page/progress.md
+ * The Progress destination (T-B3). Contract: docs/specs/page/progress.md
  *
  * A page composes and passes data down — the derivation is in
  * lib/level-model.ts and the loading in features/progress/reading.ts, so both

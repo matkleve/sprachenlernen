@@ -4,8 +4,8 @@
 <!-- use-case: UC-004 -->
 <!-- status: active -->
 
-T-B3, first half. The `/progress` destination — where the learner stands, and
-what the app is not in a position to say. Replaces the T-B10 holding page.
+T-B3. The `/progress` destination — where the learner stands, and what the app
+is not in a position to say. Replaces the T-B10 holding page.
 
 **Change class: Standard.** It reads learner data but writes none, has no state
 machine, and adds no auth surface; the Sensitive row's "anything persisted" is
@@ -18,8 +18,11 @@ the existing RLS policy. A reviewer may escalate.
   signal values), `features/progress/`, `app/(app)/progress/page.tsx`.
 - **In, from T-B4:** the "what a level costs" section, rendering
   [`../service/dose-band.md`](../service/dose-band.md).
-- **Out:** the **estimated vocabulary size** and the level display it feeds
-  (F17–F22) — see Open questions; trend over 30/90/365 days (V1) and every other
+- **In, second half:** the **pool-local vocabulary reading** — how many lemmas in
+  the shipped starter pool are held stably, with no extrapolation across the
+  language's frequency list (F17, narrowed — see Data).
+- **Out:** language-wide vocabulary extrapolation and the CEFR level display it
+  would feed (F18–F22) — see Open questions; trend over 30/90/365 days (V1) and every other
   comparison in [`study/03`](../../study/03-level-model.md) V2–V4; the dose
   ledger's **numerator** (hours practised — see
   [`../service/dose-band.md`](../service/dose-band.md)); the vocabulary atlas and
@@ -34,7 +37,7 @@ same reason not to invent a card.
 | --- | --- | --- |
 | 1 | Opens `/progress` | Four skills — reading, listening, speaking, writing — each with its status and, where the status is *not measured*, the route that would produce data for it |
 | 2 | Looks for an overall level | The page says there is none and why: the formula needs at least two counting skills ([`study/03`](../../study/03-level-model.md) Layer 3) and today no skill counts |
-| 3 | Looks at what *is* recorded | The layer-1 signals that have data, each as a **value with a status, never a level** — today: recall stability across the tasks with review history |
+| 3 | Looks at what *is* recorded | The layer-1 signals that have data, each as a **value with a status, never a level** — recall stability across reviewed tasks, and vocabulary size as lemmas held stably in the starter pool |
 | 4 | Has never reviewed anything | Every skill still reads *not measured*; the signals section says no data has been recorded yet, and links to the review session |
 | 5 | Cannot load their history | The error surface (SPEC-service-errors), not an empty page that reads as "no progress" |
 
@@ -71,6 +74,12 @@ signal starts arriving.
 - [ ] Given review history, when the signals section renders, then recall
       stability appears as a value with a status and its derivation named, and
       it is not labelled with a CEFR level (`study/03` § What a signal may claim).
+- [ ] Given review history, when the signals section renders, then estimated
+      vocabulary size appears as lemmas held stably in the starter pool, names
+      the pool size, and states that no language-wide extrapolation is shown.
+- [ ] Given review history where no lemma is held stably, when vocabulary size
+      renders, then the held count may be zero and the page still names the
+      pool — zero is a measurement, not an empty state.
 - [ ] Given any state, then no count that can only rise is presented as
       progress — no streak, no XP, no cards-reviewed total
       ([`study/25`](../../study/25-why-it-does-not-feel-productive.md) C3).
@@ -80,17 +89,28 @@ signal starts arriving.
       borrowed-and-uncalibrated statement and the reason there is no
       hours-practised figure all appear.
 
+## Data — vocabulary size (pool-local)
+
+The full estimator extrapolates SRS holdings over **frequency rank** across the
+language ([`study/03`](../../study/03-level-model.md) § Why vocabulary size is
+load-bearing). The shipped pool is 50 lemmas — extrapolation from it would be a
+claim about Spanish made from one session, so it is **withheld**.
+
+What ships instead: count lemmas in the starter pool whose stability exceeds the
+graduation threshold (`vocabulary-snapshot`'s `held` bucket). `taskCount` on the
+signal is the pool size; `value` is the held count. Copy must say both numbers
+and that no language-wide figure is shown.
+
 ## Open questions
 
-**⚠ SPEC GAP: the estimated vocabulary size is not built, and cannot be yet.**
-It is the load-bearing layer-1 signal ([`study/03`](../../study/03-level-model.md)
-§ Why vocabulary size is load-bearing) and two things block it. The anchor table
-is graded **[C]**, inconsistent across the literature and explicitly needing
-per-language calibration. And the estimator extrapolates SRS holdings over
-**frequency rank** across the language — the shipped pool is 50 lemmas, so any
-extrapolation from it would be a claim about a language made from one review
-session. Both must be answered before this page shows a number: what is claimed
-with an uncalibrated band, and what pool size makes the extrapolation admissible.
+**⚠ SPEC GAP: language-wide extrapolation and CEFR level display are not built.**
+Two things still block them. The anchor table is graded **[C]**, inconsistent
+across the literature and explicitly needing per-language calibration — the dose
+band's borrowed label is the precedent for how an uncalibrated mapping may be
+shown, but no CEFR label may appear on a signal (`study/03` § What a signal may
+claim). And extrapolation needs a frequency-ranked pool large enough to estimate
+a boundary rank — the shipped pool is fifty lemmas. Both must be answered before
+this page shows a language-wide number or a skill level.
 
 ## Check
 
