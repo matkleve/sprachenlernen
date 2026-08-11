@@ -29,10 +29,10 @@ vi.mock("@/lib/db/auth", () => ({ getAccount: vi.fn(), signOut: vi.fn() }));
 
 const account = { id: "u1", email: "a@example.com" };
 
-const showAt = (pathname: string) => {
+const showAt = (pathname: string, languages = [{ code: "es", endonym: "Español", isActive: true }]) => {
   vi.mocked(usePathname).mockReturnValue(pathname);
   return render(
-    <AppShell>
+    <AppShell languages={languages}>
       <p>the destination</p>
     </AppShell>,
   );
@@ -133,6 +133,19 @@ describe("the three destinations", () => {
     const { container } = showAt("/methods");
 
     await expectNoA11yViolations(container);
+  });
+
+  it("renders a language switcher when more than one language is being learned", () => {
+    showAt("/methods", [
+      { code: "es", endonym: "Español", isActive: true },
+      { code: "it", endonym: "Italiano", isActive: false },
+    ]);
+
+    const header = document.querySelector("header");
+    if (!header) throw new Error("expected desktop header");
+    expect(
+      within(header as HTMLElement).getByRole("combobox", { name: copy.switchLanguage }),
+    ).toBeDefined();
   });
 
   it("renders an account link, and sign-out is no longer in the header", () => {
