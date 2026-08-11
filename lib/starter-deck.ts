@@ -69,7 +69,10 @@ export function validateStarterDeck(raw: unknown): LoadStarterDeckResult {
   };
 }
 
-/** Shipped Spanish meaning-recall pool (50 lemmas). */
+/** Shipped Spanish meaning-recall pool size (stage 1). */
+export const SHIPPED_ES_POOL_SIZE = 500;
+
+/** Shipped Spanish meaning-recall pool ({@link SHIPPED_ES_POOL_SIZE} lemmas). */
 export function loadSpanishMeaningRecallDeck(): LoadStarterDeckResult {
   return validateStarterDeck(esMeaningRecall);
 }

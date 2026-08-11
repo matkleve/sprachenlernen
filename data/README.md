@@ -6,6 +6,8 @@ Per-language data. **Never code** — see `docs/specs/service/lexicon.md`.
 languages/<code>.json    the language profile
 frequency/<code>.txt     `{form} {count}`, rank = line order
 lemma/<code>.json        generated: form → analyses, gen'd by scripts/build-lemma-tables.mjs
+starter/<lang>-<task>.json   the shipped review pool (e.g. es-meaning-recall.json)
+starter/<lang>-<task>.overrides.json   hand-checked English glosses for the build script
 ```
 
 ## Why this is data and not code

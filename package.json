@@ -15,7 +15,8 @@
     "check:tokens": "node scripts/check-tokens.mjs",
     "check:contrast": "node scripts/check-contrast.mjs",
     "verify": "node scripts/verify.mjs",
-    "new:spec": "node scripts/new-spec.mjs"
+    "new:spec": "node scripts/new-spec.mjs",
+    "build:starter-deck": "node scripts/build-starter-deck.mjs"
   },
   "dependencies": {
     "@supabase/ssr": "0.12.4",

@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import { loadSpanishMeaningRecallDeck, validateStarterDeck } from "@/lib/starter-deck";
+import { loadSpanishMeaningRecallDeck, SHIPPED_ES_POOL_SIZE, validateStarterDeck } from "@/lib/starter-deck";
 
 describe("starter-deck", () => {
   it("loads the shipped Spanish meaning-recall pool", () => {
@@ -9,8 +9,8 @@ describe("starter-deck", () => {
     if (result.status !== "ok") return;
     expect(result.deck.language).toBe("es");
     expect(result.deck.taskType).toBe("meaning-recall");
-    expect(result.deck.cards.length).toBe(50);
-    expect(result.deck.cards[0]?.taskId).toBe("es:de:meaning-recall");
+    expect(result.deck.cards.length).toBe(SHIPPED_ES_POOL_SIZE);
+    expect(result.deck.cards[0]?.taskId).toBe("es:el:meaning-recall");
   });
 
   it("rejects an invalid deck", () => {

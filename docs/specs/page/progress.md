@@ -93,7 +93,7 @@ signal starts arriving.
 
 The full estimator extrapolates SRS holdings over **frequency rank** across the
 language ([`study/03`](../../study/03-level-model.md) § Why vocabulary size is
-load-bearing). The shipped pool is 50 lemmas — extrapolation from it would be a
+load-bearing). The shipped pool is **500** lemmas — extrapolation from it is still
 claim about Spanish made from one session, so it is **withheld**.
 
 What ships instead: count lemmas in the starter pool whose stability exceeds the
@@ -109,7 +109,7 @@ across the literature and explicitly needing per-language calibration — the do
 band's borrowed label is the precedent for how an uncalibrated mapping may be
 shown, but no CEFR label may appear on a signal (`study/03` § What a signal may
 claim). And extrapolation needs a frequency-ranked pool large enough to estimate
-a boundary rank — the shipped pool is fifty lemmas. Both must be answered before
+a boundary rank — the shipped pool is five hundred lemmas. Both must be answered before
 this page shows a language-wide number or a skill level.
 
 ## Check

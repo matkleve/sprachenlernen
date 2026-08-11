@@ -70,7 +70,7 @@ export const copy = {
 
   gapHeading: "What is missing, and why",
   gapBody:
-    "A language-wide vocabulary estimate and any CEFR level it would feed are not built. Extrapolation needs a frequency-ranked pool large enough to estimate a boundary rank — the shipped pool is fifty lemmas. The anchor table that maps vocabulary to a level is also still uncalibrated for this language pair. Both are named here rather than approximated.",
+    "A language-wide vocabulary estimate and any CEFR level it would feed are not built. Extrapolation needs a frequency-ranked pool large enough to estimate a boundary rank — the shipped pool is five hundred lemmas. The anchor table that maps vocabulary to a level is also still uncalibrated for this language pair. Both are named here rather than approximated.",
 } as const;
 
 export const skillNames: Record<Skill, string> = {

@@ -11,7 +11,7 @@ describe("session-builder", () => {
   it("returns 15 cards in frequency order with no history", () => {
     const session = buildSession(cards, {}, Date.now());
     expect(session).toHaveLength(DEFAULT_SESSION_LENGTH);
-    expect(session[0]?.lemma).toBe("de");
+    expect(session[0]?.lemma).toBe("el");
     expect(session[14]?.frequencyRank).toBe(15);
     expect(session[0]?.position).toBe(1);
     expect(session[0]?.total).toBe(DEFAULT_SESSION_LENGTH);
