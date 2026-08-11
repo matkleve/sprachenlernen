@@ -15,7 +15,9 @@ import type { SearchParams } from "@/lib/method-menu-filter";
 
 import { MethodCard } from "./MethodCard";
 import { MethodFilter } from "./MethodFilter";
+import { CurrentStanding } from "./CurrentStanding";
 import { copy, sections } from "./content";
+import type { StandingSummary } from "./standing";
 import { useMenuFilter } from "./useMenuFilter";
 
 /**
@@ -31,6 +33,7 @@ export type MethodMenuProps = {
   presets?: Preset[];
   loadError?: UserFacingError;
   initialSearchParams?: SearchParams;
+  standing?: StandingSummary;
 };
 
 const bySection = (methods: MethodEntry[]): [Section, MethodEntry[]][] =>
@@ -44,6 +47,7 @@ export function MethodMenu({
   presets: _presets = [],
   loadError,
   initialSearchParams = {},
+  standing,
 }: MethodMenuProps) {
   const { filter, returnQuery, updateSearchParams } = useMenuFilter(initialSearchParams);
   const methods = catalogue ? filterMethods(catalogue, filter) : [];
@@ -52,6 +56,8 @@ export function MethodMenu({
     <div className="mx-auto max-w-5xl px-6 pt-page-top pb-page-bottom">
       <h1 className="text-3xl font-semibold tracking-tight text-ink">{copy.title}</h1>
       <p className="mt-4 max-w-2xl text-base leading-relaxed text-muted">{copy.intro}</p>
+
+      {standing ? <CurrentStanding summary={standing} /> : null}
 
       <MethodFilter filter={filter} onFilterChange={updateSearchParams} />
 

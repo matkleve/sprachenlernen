@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { MethodMenu } from "@/features/method-menu/MethodMenu";
 import { loadMethodCatalogue } from "@/features/method-menu/catalogue";
 import { copy } from "@/features/method-menu/content";
+import { readStanding } from "@/features/method-menu/readStanding";
 import { catalogueLoadFailed, logHandledError, toUserFacing } from "@/lib/errors";
 
 export const metadata: Metadata = {
@@ -15,7 +16,10 @@ export default async function MethodsPage({
   searchParams: Promise<Record<string, string | string[] | undefined>>;
 }) {
   const params = await searchParams;
-  const { catalogue, presets, errors } = loadMethodCatalogue();
+  const [{ catalogue, presets, errors }, standing] = await Promise.all([
+    Promise.resolve(loadMethodCatalogue()),
+    readStanding(),
+  ]);
   let loadError;
   if (errors.length > 0) {
     const handled = catalogueLoadFailed(errors);
@@ -29,6 +33,7 @@ export default async function MethodsPage({
       presets={presets}
       loadError={loadError}
       initialSearchParams={params}
+      standing={standing.status === "ok" ? standing.summary : undefined}
     />
   );
 }
