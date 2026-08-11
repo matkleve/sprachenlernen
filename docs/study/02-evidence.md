@@ -102,6 +102,15 @@ Two things follow that shape the product:
 > *this* user, not by a blanket level label. Target: 95–98 % known words. That is
 > computable as soon as we know which words they know.
 
+> **⚠ Sharpened 2026-08-08 by [26](26-readiness-and-difficulty.md) R5.** The band
+> above is a **comprehension** threshold, and the table says so — but using it as a
+> difficulty *controller* quietly optimises comfort, because incidental
+> acquisition needs unknown words to be present at all. A thousand-word text holds
+> about twenty unknown tokens at 98 % and about fifty at 95 %: learning
+> opportunities rise as coverage falls, and comprehension falls with them. The band
+> stays; what changes is that **a method's purpose picks which end of it applies**,
+> written down once per method, and never tuned toward what feels smooth.
+
 ---
 
 ## E5 · Explicit explanation works — and beats pattern-bathing alone **[A]**

@@ -67,7 +67,10 @@ requires a `⚠ SPEC GAP` line, not a guess.
 | **Coverage** | Share of tokens in a given text this user knows. Selects content; 95–98 % is the target band. | reading level |
 | **Signal** | One measured input to a Level (the six in `study/03`). The only thing recorded directly. | a score |
 | **Calibration** | The versioned mapping from Signals to Levels. Changing it is a dated, visible event. | a formula |
-| **Demonstrated level** | A level the learner just showed rather than one computed for them — the landing sentence read without tapping anything. One item, and treated as one item. | the Level, a test result |
+| **Demonstrated level** | A level the learner just showed rather than one computed for them — the Demonstration sentence read without tapping anything. One item, and treated as one item. | the Level, a test result |
+| **Home** | The signed-in first screen. What it contains is a spec question, not a terminology one — an earlier version of this row listed four blocks (including a "stats" block that is not a term here) and thereby settled a composition no spec had decided. | the Landing page (that is signed-out), the Map |
+| **Landing page** | The **signed-out** public surface at `/`. Everything a visitor sees before creating the account [ADR-0006](adr/0006-require-an-account.md) requires. | Home |
+| **Demonstration sentence** | One sentence shown on Home, a level step above the estimate, that the learner checks by tapping what they are unsure of. A demonstration, never a claim or a self-report. | a test, a placement question, a daily goal |
 | **Stagnation marker** | One of four observable patterns: below-norm accuracy on a cell, **alternation** on the same cell, backsliding, de-acceleration. Named as an observation with a matched Method, never as a verdict. | a plateau, low activity |
 
 ### Content → [`study/05`](study/05-input-reading-listening.md)
@@ -94,7 +97,9 @@ requires a `⚠ SPEC GAP` line, not a guess.
 | **Demanding method** | A Method that is slow, error-rich, unmeasurable or off-app, and which engagement-optimised products therefore cannot offer. Labelled, never hidden. | an advanced Method |
 | **Preference** | The thumbs signal. Governs **form** — length, timing, share, framing. | a measure of effectiveness |
 | **Effect estimate** | Measured movement of a Method's target signal per hour invested, with uncertainty. Governs **selection**. | Preference |
-| **Floor** | The minimum rate at which a Method is offered regardless of Preference, derived from its role. Negotiates over length, never over existence. | a goal, a streak |
+| **Floor** | The minimum rate at which a Method is **offered** regardless of Preference, derived from its role. A floor on what the app offers, never on what the learner owes — declining costs nothing except measurement. | a goal, a streak, an obligation, a minimum amount of practice |
+| **Readiness** | Whether the app can build material for a Method right now, in three states: **ready** · **better later** (startable, with a reason) · **no material yet** (nothing exists to start). A statement about the app's stock, never about the learner's worth. May demote a Method; may never hide or block one. | a level requirement, a lock, a prerequisite, permission |
+| **Targeting** | The app's answer to a form the learner has not got: weight it into the material rather than withhold anything until it is learned. The opposite of gating, and the reason no Method is ever locked — see [`study/26`](study/26-readiness-and-difficulty.md). | gating, unlocking, a prerequisite chain |
 | **Exploration** | The share of menu slots deliberately filled with a Method the system would not have chosen, so the Effect estimate has causal footing. | randomness, variety |
 | **Hidden** | A Method the *learner* deliberately switched off, from settings. Stays visibly hidden and is restorable. The **algorithm** may never put a Method in this state — that is A15. | a Method with a low share |
 | **Commitment** | The catalogue's **second entry type**: a standing rule about ordinary life (write to one friend only in Italian, switch the phone's language). Active or inactive, never done or not done. No completion tracking, no streak, at most two or three at once. | a Method, a habit tracker, a goal |

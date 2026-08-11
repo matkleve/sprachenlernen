@@ -1,0 +1,171 @@
+{
+  "section": "vocabulary",
+  "entries": [
+    {
+      "id": "srs-session",
+      "name": "SRS session",
+      "summary": "The cards the schedule says are due today",
+      "type": "method",
+      "trains": "retention",
+      "skills": [],
+      "targetSignal": "recallStability",
+      "evidence": "A",
+      "demanding": false,
+      "hosted": true,
+      "intensity": 2,
+      "durations": [
+        2,
+        10,
+        20
+      ],
+      "requires": [
+        {
+          "writingSurface": [
+            "touch",
+            "keyboard"
+          ]
+        },
+        {
+          "voice": [
+            "aloud"
+          ]
+        }
+      ],
+      "offerEveryDays": 1,
+      "doesNotDo": "It builds nothing you can use in a sentence. Cards make words retrievable in isolation, and the rest of the app exists because that is not the same as knowing them."
+    },
+    {
+      "id": "audio-cards",
+      "name": "Audio cards, operable blind",
+      "summary": "The same cards, spoken, with your eyes free",
+      "type": "method",
+      "trains": "retention while your eyes are elsewhere",
+      "skills": [],
+      "targetSignal": "recallStability",
+      "evidence": "B",
+      "demanding": false,
+      "hosted": true,
+      "intensity": 2,
+      "durations": [
+        5,
+        15,
+        30
+      ],
+      "requires": {
+        "sound": [
+          "speaker",
+          "headphones"
+        ],
+        "voice": [
+          "aloud"
+        ]
+      },
+      "offerEveryDays": null,
+      "doesNotDo": "It cannot grade itself honestly. Marking your own spoken answer while walking is the loosest grading in the app, and the schedule inherits that noise."
+    },
+    {
+      "id": "mine-your-own-sentences",
+      "name": "Mining sentences from your own content",
+      "summary": "Turn sentences from your own reading into cards",
+      "type": "method",
+      "trains": "words you have demonstrably needed",
+      "skills": [
+        "reading"
+      ],
+      "targetSignal": "vocabularySize",
+      "evidence": "C",
+      "demanding": false,
+      "hosted": true,
+      "intensity": 2,
+      "durations": [
+        5,
+        15
+      ],
+      "requires": {
+        "eyes": [
+          "free"
+        ]
+      },
+      "offerEveryDays": null,
+      "doesNotDo": "It ignores frequency. Words you happen to meet are not the words that unlock the most text, and mining alone will leave common ones unlearned for years."
+    },
+    {
+      "id": "collocation-cards",
+      "name": "Collocation cards rather than single words",
+      "summary": "Learn the word with the words it travels with",
+      "type": "method",
+      "trains": "fluency — the word with what it goes with",
+      "skills": [],
+      "targetSignal": "recallStability",
+      "evidence": "B",
+      "demanding": false,
+      "hosted": true,
+      "intensity": 2,
+      "durations": [
+        5,
+        15
+      ],
+      "requires": {
+        "writingSurface": [
+          "touch",
+          "keyboard"
+        ]
+      },
+      "offerEveryDays": null,
+      "doesNotDo": "It counts as one item what is really several. A collocation card grows vocabulary size more slowly than the same minutes on single words."
+    },
+    {
+      "id": "close-a-frequency-block",
+      "name": "Closing a frequency block deliberately",
+      "summary": "Finish off a band of the frequency list",
+      "type": "method",
+      "trains": "coverage",
+      "skills": [
+        "reading"
+      ],
+      "targetSignal": "lexicalCoverage",
+      "evidence": "A",
+      "demanding": false,
+      "hosted": true,
+      "intensity": 2,
+      "durations": [
+        10,
+        20
+      ],
+      "requires": {
+        "writingSurface": [
+          "touch",
+          "keyboard"
+        ]
+      },
+      "offerEveryDays": null,
+      "doesNotDo": "It optimises the number rather than the need. Finishing a block is satisfying and it can spend a week on words you would never have missed."
+    },
+    {
+      "id": "handwriting-shakiest",
+      "name": "Handwriting sheet of the twenty shakiest cards",
+      "summary": "Write out the twenty cards you keep failing",
+      "type": "method",
+      "trains": "encoding",
+      "skills": [
+        "writing"
+      ],
+      "targetSignal": "recallStability",
+      "evidence": "B",
+      "demanding": true,
+      "hosted": true,
+      "intensity": 2,
+      "durations": [
+        10,
+        20
+      ],
+      "requires": {
+        "writingSurface": [
+          "paper"
+        ]
+      },
+      "offerEveryDays": null,
+      "doesNotDo": "It is slow and it is off-app, so its result has to be typed back in or it produces no signal at all."
+    }
+  ]
+}

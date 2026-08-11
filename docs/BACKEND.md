@@ -9,6 +9,42 @@ it is the set of decisions and boundaries to get right, in order.
 
 ---
 
+## What this project has already decided
+
+Read this before §1, because §1 is written for a project that still has a choice
+to make and this one no longer does.
+
+Three records, all dated 2026-08-08 and read in order.
+[ADR-0005](adr/0005-local-first-review-log-with-accounts-as-an-addition.md): the
+review log is **append-only, one UUID per review**, carries the installation it
+came from, and **no component knows where it lives**.
+[ADR-0006](adr/0006-require-an-account.md): **an account is required before the
+first review**, so the row owner is non-null from the first row and the server is
+part of stage 1 rather than a later addition.
+[ADR-0007](adr/0007-supabase-as-the-provider.md): **the provider is
+Supabase** — project `lnkgmjcueahhrzpnzmwq` — for both Postgres and
+authentication. So:
+
+- **§1 is decided, not open.** Do not evaluate Drizzle/Prisma, Turso, D1 or "no
+  database" for this data — that comparison already happened in ADR-0007's
+  alternatives. A task that reopens it is out of scope for itself.
+- **§2 ("the client is untrusted") is live from the first write**, enforced as
+  Postgres row-level security per ADR-0007 — a policy, not an application-level
+  filter that every query has to remember.
+- **§3's adapter is mandatory, not advisory.** The browser store still exists — it
+  is the offline write path and cache (F82), not the authority — so there are two
+  places rows live and exactly one place that may know it: `lib/db/`. It is also
+  the only file allowed to import the Supabase client.
+- **§8's policy test is stage 1 work**, not a later hardening pass: sign in as one
+  user, attempt to read another's rows via RLS, assert the failure. It is the
+  highest-value test in the product and the one that has to exist before the
+  second account does.
+- **§6 still holds: all of this is Sensitive.** Local persistence is persistence,
+  and now it is not only local.
+- **The Supabase MCP server and skills are already installed** — see
+  `.cursor/mcp.json` and `.agents/skills/supabase`. Use the MCP tools to inspect
+  the live schema and RLS policies rather than guessing at them from code.
+
 ## 0. Write the ADR first
 
 Before the first query. [`adr/0000-template.md`](adr/0000-template.md) — what

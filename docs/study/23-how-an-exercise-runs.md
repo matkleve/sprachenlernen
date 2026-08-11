@@ -143,10 +143,13 @@ exists:
 | | Mechanism |
 | --- | --- |
 | Unobtrusive by default | Offers, not actions. One prompt at the end, not three. Declining ends it |
-| Insistent when it matters | The **floor** ([12](12-method-cards.md)) — stating its reason from the learner's own data, negotiating over length, never over existence, capped at one prompt a day |
+| Clear when it matters | The **floor** ([12](12-method-cards.md)) — stating its reason from the learner's own data, offering a shorter version before accepting no, capped at one prompt a day. "No" ends it |
 
-The cap is what makes the insistence credible. A system that is emphatic about
-one thing a day is heard. A system that is emphatic about four is muted.
+The cap is what makes it credible. A system that is emphatic about one thing a
+day is heard. A system that is emphatic about four is muted. What the cap does
+*not* buy is the right to insist: the floor governs how often something is
+offered, never whether the learner has to accept it
+([12](12-method-cards.md), corrected 2026-08-08).
 
 ---
 

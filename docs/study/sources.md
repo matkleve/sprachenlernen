@@ -269,11 +269,72 @@ figures come from secondary reporting rather than from a paper read end to end.
 
 ---
 
+## Felt versus actual productivity → [25](25-why-it-does-not-feel-productive.md)
+
+| | Source | Used in |
+| --- | --- | --- |
+| ⬤ | Deslauriers, McCarty, Miller, Callaghan & Kestin (2019): *Measuring actual learning versus feeling of learning in response to being actively engaged in the classroom.* PNAS — randomised crossover, identical content, 149 students; higher scores and **lower** felt learning, described as strongly anticorrelated; plus the 20-minute framing intervention (65 % / 75 %, both self-reported). [Link](https://pmc.ncbi.nlm.nih.gov/articles/PMC6765278/) | [25](25-why-it-does-not-feel-productive.md) P3, P4 |
+| ⬤ | Kirk-Johnson, Galla & Fraundorf (2019): *Perceiving effort as poor learning: the misinterpreted-effort hypothesis…* Cognitive Psychology 115 — three studies, mediation via perceived learning; in study 3 the more effortful choice retained better. [Link](https://www.sciencedirect.com/science/article/abs/pii/S0010028519302270) | [25](25-why-it-does-not-feel-productive.md) P2 |
+| ⬤ | Cambridge English: *Guided learning hours* — cumulative bands from a standing start, 350–400 hours to B1. [Link](https://support.cambridgeenglish.org/hc/en-gb/articles/202838506-Guided-learning-hours) | [25](25-why-it-does-not-feel-productive.md) C4 |
+| ⬤ | Duolingo Q4 FY2024 shareholder letter — DAU/MAU 34.7 %, 10 m+ year-long streaks, and the stated 2025 plan to increase experiment velocity "to make the experience more social and gamified". A primary source for what is optimised. [Link](https://investors.duolingo.com/static-files/99006c40-d8cf-41ca-b5b1-c5cb1fa5ba88) | [25](25-why-it-does-not-feel-productive.md) C1 |
+| ⬤ | *Unique effects and moderators of effects of sources on self-efficacy: a model-based meta-analysis.* Journal of Counseling Psychology — k = 61, N ≈ 8,965; **performance accomplishments** carry by far the strongest unique association with academic self-efficacy. [Link](https://doi.org/10.1037/cou0000219) | [25](25-why-it-does-not-feel-productive.md) P5 |
+| ⬤ | *Is learning really just believing? A meta-analysis of self-efficacy and achievement in SLA.* SSLLT 12(2), 2022 — 40 samples, N = 23,050, average observed r = .46. [Link](https://doi.org/10.14746/ssllt.2022.12.2.4) | [25](25-why-it-does-not-feel-productive.md) P5 |
+| ⬤ | Wang & Sun (2020): *Relationship between self-efficacy and language proficiency: a meta-analysis.* System 95 — small-to-medium average, and the caution that zero-order correlations inflate the figure. [Link](https://doi.org/10.1016/j.system.2020.102366) | [25](25-why-it-does-not-feel-productive.md) P5 |
+| ⬤ | Loewen, Crowther, Isbell, Kim, Maloney, Miller et al. (2019): *Mobile-assisted language learning: a Duolingo case study.* ReCALL 31(3) — nine learners of Turkish, 34-hour target, lowest 12 hours; moderate correlation between time and gains. [Link](https://doi.org/10.1017/s0958344019000065) | [25](25-why-it-does-not-feel-productive.md) P6 |
+| ⬤ | Rachels & Rockinson-Szapkiw (2018): *The effects of a mobile gamification app on elementary students' Spanish achievement and self-efficacy.* CALL 31(1–2) — no significant difference against classroom instruction, concluded in the abstract as "this demonstrates that Duolingo® is a useful tool". [Link](https://doi.org/10.1080/09588221.2017.1382536) | [25](25-why-it-does-not-feel-productive.md) P6 |
+| ⬤ | *Mobile-assisted language learning with Babbel and Duolingo: comparing L2 learning gains and user experience.* CALL, 2023 — N = 59, eight weeks, **no statistically significant difference** between the two apps. [Link](https://doi.org/10.1080/09588221.2023.2215294) | [25](25-why-it-does-not-feel-productive.md) P6, [15](15-landscape.md) K3 |
+| ⬤ | *L2 grit and age as predictors of attrition in mobile-assisted language learning.* Learning and Individual Differences, 2025 — 601 Duolingo beginners over six months, with dropping out as the outcome variable. [Link](https://doi.org/10.1016/j.lindif.2025.102704) | [25](25-why-it-does-not-feel-productive.md) P6 |
+| ◐ | EUROCALL paper on the Duolingo–Colombia partnership (2017) — the ~60 % dropout figure **inside** Duolingo's own commissioned efficacy study, and the note that completion rates are not published. The figure is that paper's reading of Vesselinov & Grego, not their own report. [Link](https://doi.org/10.4995/eurocall.2017.8620) | [25](25-why-it-does-not-feel-productive.md) C4, P6 |
+| ◐ | *Testing the misinterpreted effort hypothesis: reframing effort changes perceived effort … but does not affect decisions to interleave.* Metacognition and Learning, 2025. Title and finding read; article not opened. [Link](https://doi.org/10.1007/s11409-025-09446-w) | [25](25-why-it-does-not-feel-productive.md) P4 |
+| ○ | Soderstrom & Bjork (2015): *Learning versus performance.* Perspectives on Psychological Science | [25](25-why-it-does-not-feel-productive.md) P1 |
+| ○ | Bandura (1977, 1997) on the four sources of self-efficacy | [25](25-why-it-does-not-feel-productive.md) P5 |
+
+Two caveats belong with this section rather than inside the chapter. **P3's
+evidence is not from language learning** — introductory physics, single sessions,
+and a self-reported feeling as the outcome; the direction transfers, the magnitude
+should not be assumed. And the two self-efficacy meta-analyses **disagree about
+size**, which is why P5 is graded [A/B]: the ordering of the four sources is the
+solid part, the correlation is not.
+
+---
+
+## Readiness, error, and skill modelling → [26](26-readiness-and-difficulty.md)
+
+| | Source | Used in |
+| --- | --- | --- |
+| ○ | Kornell, Hays & Bjork (2009): *Unsuccessful retrieval attempts enhance subsequent learning.* JEP: LMC | [26](26-readiness-and-difficulty.md) R4 |
+| ○ | Metcalfe (2017): *Learning from errors.* Annual Review of Psychology — review concluding that error-free practice is the wrong target for healthy learners | [26](26-readiness-and-difficulty.md) R4 |
+| ○ | Butterfield & Metcalfe (2001) on the hypercorrection effect — confidently-held errors are the best corrected | [26](26-readiness-and-difficulty.md) R4 |
+| ○ | Corbett & Anderson (1995): *Knowledge tracing: modeling the acquisition of procedural knowledge.* User Modeling and User-Adapted Interaction | [26](26-readiness-and-difficulty.md) R2 |
+| ○ | VanLehn (2011): *The relative effectiveness of human tutoring, intelligent tutoring systems, and other tutoring systems.* Educational Psychologist — step-based ITS d ≈ 0.76, human tutoring d ≈ 0.79 | [26](26-readiness-and-difficulty.md) R2 |
+| ○ | Cen, Koedinger & Junker (2007): *Is over practice necessary?* AIED — mastery thresholds in a deployed Cognitive Tutor produced over-practice; refitting the skill model cut practice time by around 12 % | [26](26-readiness-and-difficulty.md) R6 |
+| ○ | Pienemann: the Teachability Hypothesis and Processability Theory — instruction takes only at the learner's current processing stage | [26](26-readiness-and-difficulty.md) R1 |
+| ○ | Dulay & Burt (1974) onward on morpheme acquisition order — order is partly fixed and not freely rearranged by instruction | [26](26-readiness-and-difficulty.md) R7 |
+| ○ | Morris, Bransford & Franks (1977) on transfer-appropriate processing | [26](26-readiness-and-difficulty.md) R9 |
+| ○ | Fulcher (2004) and Alderson (2007) on CEFR validation — the descriptors were scaled on teachers' judgments of difficulty rather than on learner performance data | [26](26-readiness-and-difficulty.md) R3 |
+
+**Every entry in this section is ○** — cited from knowledge of the literature,
+with no paper opened during this pass. That is why R1 is graded **[B/C]** and R6
+**[B]** rather than higher, and it is the section most in need of a verification
+pass before anything expensive is built on it. Two specific things to check: the
+exact figure in Cen et al. (reported here as "around 12 %", which is one study's
+number and not a general result), and whether Processability Theory's stages have
+ever been established for Spanish or Italian **morphology** as opposed to
+Germanic word order.
+
+Note also what is **absent**: no source here establishes that unknown-form density
+has an optimum for learning. R5's arithmetic (fewer known words → more learning
+opportunities, less comprehension) is sound, but the shape of the trade-off is
+unmeasured, so the band per method stays a **[D]**.
+
+---
+
 ## Frameworks
 
 | | Source | Used in |
 | --- | --- | --- |
 | ⬤ | Europarat: *The CEFR Levels* — six levels, explicitly further subdividable „according to the needs of the local context". [Link](https://www.coe.int/en/web/common-european-framework-reference-languages/level-descriptions) | [03](03-level-model.md) |
+| ⬤ | *Plan Curricular del Instituto Cervantes* (Spanish) and *Profilo della lingua italiana* (Italian) — the CEFR Reference Level Descriptions for our two shipped languages. Expert inventories rather than measurement models, and licensing-constrained: they calibrate our bands and are never republished as requirements. | [26](26-readiness-and-difficulty.md) R3, [18](18-language-kit.md) |
 
 ---
 

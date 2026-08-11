@@ -1,0 +1,277 @@
+{
+  "section": "writing",
+  "entries": [
+    {
+      "id": "build-a-sentence",
+      "name": "Build a sentence with a target word",
+      "summary": "Write one sentence that uses a given word",
+      "type": "method",
+      "trains": "production recall",
+      "skills": [
+        "writing"
+      ],
+      "targetSignal": "productionQuality",
+      "evidence": "A",
+      "demanding": false,
+      "hosted": true,
+      "intensity": 2,
+      "durations": [
+        3,
+        8,
+        15
+      ],
+      "requires": {
+        "writingSurface": [
+          "keyboard",
+          "touch"
+        ]
+      },
+      "offerEveryDays": null,
+      "doesNotDo": "It stays at one sentence. Nothing in it exercises holding a thought across several sentences, which is where most learners actually break down."
+    },
+    {
+      "id": "free-production",
+      "name": "Free production",
+      "summary": "Write freely on a prompt, with nothing to copy from",
+      "type": "method",
+      "trains": "unprompted production, and what you are avoiding",
+      "skills": [
+        "writing"
+      ],
+      "targetSignal": "productionQuality",
+      "evidence": "B",
+      "demanding": true,
+      "hosted": true,
+      "intensity": 3,
+      "durations": [
+        10,
+        20
+      ],
+      "requires": {
+        "writingSurface": [
+          "keyboard",
+          "paper"
+        ],
+        "attention": [
+          "full"
+        ]
+      },
+      "offerEveryDays": 7,
+      "doesNotDo": "It cannot make you use what you are dodging. Avoidance is what it reveals, not what it repairs."
+    },
+    {
+      "id": "diary-three-sentences",
+      "name": "Diary, three sentences",
+      "summary": "Three sentences about your day",
+      "type": "method",
+      "trains": "genuine communicative intent",
+      "skills": [
+        "writing"
+      ],
+      "targetSignal": "productionQuality",
+      "evidence": "B",
+      "demanding": false,
+      "hosted": true,
+      "intensity": 1,
+      "durations": [
+        5
+      ],
+      "requires": {
+        "writingSurface": [
+          "keyboard",
+          "touch"
+        ]
+      },
+      "offerEveryDays": null,
+      "doesNotDo": "It circles the same life. Your days repeat, so the vocabulary it demands narrows rather than widens over months."
+    },
+    {
+      "id": "summarise-what-you-read",
+      "name": "Summarising what you read",
+      "summary": "Say what a text said, shorter, in writing",
+      "type": "method",
+      "trains": "the link from input to output",
+      "skills": [
+        "writing"
+      ],
+      "targetSignal": "productionQuality",
+      "evidence": "B",
+      "demanding": true,
+      "hosted": true,
+      "intensity": 3,
+      "durations": [
+        10,
+        20
+      ],
+      "requires": {
+        "writingSurface": [
+          "keyboard"
+        ],
+        "attention": [
+          "full"
+        ]
+      },
+      "offerEveryDays": null,
+      "doesNotDo": "It lets you lift phrases. Without a deliberate delay between reading and writing, much of what appears is copied rather than produced."
+    },
+    {
+      "id": "back-translation",
+      "name": "Back-translation with comparison",
+      "summary": "Translate out, translate back, compare with the original",
+      "type": "method",
+      "trains": "structure, and it makes avoidance visible",
+      "skills": [
+        "writing"
+      ],
+      "targetSignal": "productionQuality",
+      "evidence": "B",
+      "demanding": true,
+      "hosted": true,
+      "intensity": 3,
+      "durations": [
+        15,
+        25
+      ],
+      "requires": {
+        "writingSurface": [
+          "keyboard"
+        ],
+        "attention": [
+          "full"
+        ]
+      },
+      "offerEveryDays": null,
+      "doesNotDo": "It grades you against one reference. A different wording that is perfectly good will read as a difference, and the diff cannot tell the two apart."
+    },
+    {
+      "id": "copy-a-paragraph",
+      "name": "Copying out a good paragraph",
+      "summary": "Copy out a well-written paragraph by hand",
+      "type": "method",
+      "trains": "orthography, phrases",
+      "skills": [
+        "writing"
+      ],
+      "targetSignal": null,
+      "evidence": "C",
+      "demanding": true,
+      "hosted": true,
+      "intensity": 1,
+      "durations": [
+        8,
+        15
+      ],
+      "requires": {
+        "writingSurface": [
+          "paper"
+        ]
+      },
+      "offerEveryDays": null,
+      "doesNotDo": "It involves no choice at all. Every word is given, so it is handwriting and attention practice, not language production."
+    },
+    {
+      "id": "rewrite-in-your-own-words",
+      "name": "Rewriting a text in your own words",
+      "summary": "Say the same thing again, differently",
+      "type": "method",
+      "trains": "reformulation",
+      "skills": [
+        "writing"
+      ],
+      "targetSignal": "productionQuality",
+      "evidence": "C",
+      "demanding": true,
+      "hosted": true,
+      "intensity": 3,
+      "durations": [
+        15,
+        25
+      ],
+      "requires": {
+        "writingSurface": [
+          "keyboard"
+        ],
+        "attention": [
+          "full"
+        ]
+      },
+      "offerEveryDays": null,
+      "doesNotDo": "It rewards paraphrase over precision, and a learner short of vocabulary will reformulate downwards into what they already have."
+    },
+    {
+      "id": "caption-your-photos",
+      "name": "Captioning your own photos",
+      "summary": "Write a line under a photo of your own",
+      "type": "method",
+      "trains": "vocabulary you have a connection to",
+      "skills": [
+        "writing"
+      ],
+      "targetSignal": null,
+      "evidence": "D",
+      "demanding": false,
+      "hosted": true,
+      "intensity": 1,
+      "durations": [
+        3,
+        8
+      ],
+      "requires": {
+        "writingSurface": [
+          "touch",
+          "keyboard"
+        ]
+      },
+      "offerEveryDays": null,
+      "doesNotDo": "It cannot be aimed. What your photos happen to contain decides the vocabulary, and that is unlikely to be what you most need."
+    },
+    {
+      "id": "translate-a-song",
+      "name": "Translating a song",
+      "summary": "Work out what a song you like actually says",
+      "type": "method",
+      "trains": "idiom",
+      "skills": [
+        "writing"
+      ],
+      "targetSignal": null,
+      "evidence": "D",
+      "demanding": false,
+      "hosted": false,
+      "intensity": 2,
+      "durations": null,
+      "requires": {
+        "writingSurface": [
+          "keyboard"
+        ]
+      },
+      "offerEveryDays": null,
+      "doesNotDo": "Lyrics are unrepresentative. Inverted word order and archaic vocabulary are normal in songs and wrong in speech."
+    },
+    {
+      "id": "write-and-perform-a-play",
+      "name": "Writing and performing a play",
+      "summary": "Write something short and put it on",
+      "type": "method",
+      "trains": "everything",
+      "skills": [
+        "writing",
+        "speaking"
+      ],
+      "targetSignal": null,
+      "evidence": "C",
+      "demanding": true,
+      "hosted": false,
+      "intensity": 3,
+      "durations": null,
+      "requires": {
+        "company": [
+          "speakers",
+          "others"
+        ]
+      },
+      "offerEveryDays": null,
+      "doesNotDo": "It runs for weeks and produces one measurement. As a project it is excellent and as a source of signal it is nearly useless."
+    }
+  ]
+}

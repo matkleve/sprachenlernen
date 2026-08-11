@@ -32,6 +32,11 @@ despite their hardness but because of it: they are what nobody else can offer.
 > And that is exactly why the **floor** from [12](12-method-cards.md) is the
 > load-bearing mechanism of the whole product. Without it our catalogue also
 > converges on the pleasant — just more slowly.
+>
+> Note what the floor does and does not bound (corrected 2026-08-08): it is a
+> lower bound on how often a method is **offered**, which is what stops the
+> convergence. It is not a lower bound on what the learner does. Declining is
+> always available and costs nothing but the ability to measure that skill.
 
 ---
 
@@ -49,6 +54,15 @@ That matters more than the "setting" field represents, for a simple reason:
 That changes the ordering in the daily menu ([12](12-method-cards.md)):
 **filter by context first, then floor, then effect, then preference.** Previously
 context sat third. That was wrong.
+
+> **What this does not license, added 2026-08-08 by
+> [26](26-readiness-and-difficulty.md).** Context removes a method because the
+> learner *cannot* perform it — no paper, no voice, two minutes. **Readiness** is a
+> different quantity that looks superficially like it: whether the app can build
+> material at a sensible band right now. Readiness never removes and never blocks;
+> it demotes and annotates. Reading the two as one filter is how a context rule
+> ("not performable") turns into a gate ("not permitted"), which is what the whole
+> of chapter 26 exists to prevent.
 
 ### The context dimensions **[D]**
 

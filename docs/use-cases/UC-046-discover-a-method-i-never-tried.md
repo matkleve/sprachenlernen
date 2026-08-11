@@ -1,7 +1,7 @@
 # UC-046 — Discover a way of practising I never knew existed
 
 <!-- id: UC-046 -->
-<!-- specs:  -->
+<!-- specs: SPEC-service-method-catalogue -->
 
 **Who:** a learner whose idea of "studying a language" is whatever their app has
 shown them.

@@ -1,0 +1,138 @@
+{
+  "section": "world",
+  "entries": [
+    {
+      "id": "cook-from-a-recipe",
+      "name": "Cooking from a recipe in the language",
+      "summary": "Cook something, following the recipe in the language",
+      "type": "method",
+      "trains": "comprehension with consequences",
+      "skills": [
+        "reading"
+      ],
+      "targetSignal": null,
+      "evidence": "D",
+      "demanding": false,
+      "hosted": false,
+      "intensity": 2,
+      "durations": null,
+      "requires": {
+        "eyes": [
+          "free"
+        ]
+      },
+      "offerEveryDays": null,
+      "doesNotDo": "It teaches the vocabulary of one kitchen. The consequences make you read carefully; they do not make the words general."
+    },
+    {
+      "id": "video-game-in-target-language",
+      "name": "A video game in the target language",
+      "summary": "Play something with the language switched over",
+      "type": "method",
+      "trains": "reading under time pressure",
+      "skills": [
+        "reading"
+      ],
+      "targetSignal": null,
+      "evidence": "C",
+      "demanding": false,
+      "hosted": false,
+      "intensity": 2,
+      "durations": null,
+      "requires": {
+        "eyes": [
+          "free"
+        ]
+      },
+      "offerEveryDays": null,
+      "doesNotDo": "Games are playable without reading. Once you know the interface you stop parsing the text, and the practice quietly ends while the play continues."
+    },
+    {
+      "id": "tandem-or-language-cafe",
+      "name": "Tandem or language café",
+      "summary": "Talk to a speaker who is also learning yours",
+      "type": "method",
+      "trains": "real interaction",
+      "skills": [
+        "speaking",
+        "listening"
+      ],
+      "targetSignal": null,
+      "evidence": "B",
+      "demanding": true,
+      "hosted": false,
+      "intensity": 3,
+      "durations": [
+        45
+      ],
+      "requires": {
+        "voice": [
+          "aloud"
+        ],
+        "company": [
+          "speakers",
+          "others"
+        ]
+      },
+      "offerEveryDays": null,
+      "doesNotDo": "Half of it is in your own language, and a patient partner will accommodate you until neither of you notices what you cannot say."
+    },
+    {
+      "id": "order-ask-complain",
+      "name": "Ordering, asking, complaining",
+      "summary": "Do a real errand in the language, out loud",
+      "type": "method",
+      "trains": "the real thing",
+      "skills": [
+        "speaking"
+      ],
+      "targetSignal": null,
+      "evidence": "D",
+      "demanding": true,
+      "hosted": false,
+      "intensity": 3,
+      "durations": [
+        2
+      ],
+      "requires": {
+        "voice": [
+          "aloud"
+        ],
+        "company": [
+          "speakers"
+        ]
+      },
+      "offerEveryDays": null,
+      "doesNotDo": "It is a handful of fixed exchanges. Once they work you can repeat them for years without adding anything."
+    },
+    {
+      "id": "film-you-know-by-heart",
+      "name": "Watching a film you know by heart",
+      "summary": "A film you know every line of, in the language",
+      "type": "method",
+      "trains": "listening with a safety net",
+      "skills": [
+        "listening"
+      ],
+      "targetSignal": null,
+      "evidence": "C",
+      "demanding": false,
+      "hosted": false,
+      "intensity": 1,
+      "durations": [
+        45
+      ],
+      "requires": {
+        "sound": [
+          "speaker",
+          "headphones"
+        ],
+        "eyes": [
+          "free"
+        ]
+      },
+      "offerEveryDays": null,
+      "doesNotDo": "You already know what is being said. Memory does the comprehension, which is what makes it comfortable and what limits it."
+    }
+  ]
+}

@@ -1,0 +1,243 @@
+{
+  "section": "listening",
+  "entries": [
+    {
+      "id": "listening-level-1",
+      "name": "Listening at level 1, no transcript",
+      "summary": "Listen once, with no text to fall back on",
+      "type": "method",
+      "trains": "listening",
+      "skills": [
+        "listening"
+      ],
+      "targetSignal": "successByDifficulty",
+      "evidence": "B",
+      "demanding": true,
+      "hosted": true,
+      "intensity": 3,
+      "durations": [
+        5,
+        10,
+        20
+      ],
+      "requires": {
+        "sound": [
+          "speaker",
+          "headphones"
+        ]
+      },
+      "offerEveryDays": 3.5,
+      "doesNotDo": "It gives no partial credit. Without a transcript you cannot see which word you missed, only that you missed it."
+    },
+    {
+      "id": "narrow-listening",
+      "name": "Narrow listening, one series, one speaker",
+      "summary": "One series, one voice, until the voice is easy",
+      "type": "method",
+      "trains": "listening",
+      "skills": [
+        "listening"
+      ],
+      "targetSignal": "successByDifficulty",
+      "evidence": "B",
+      "demanding": false,
+      "hosted": true,
+      "intensity": 2,
+      "durations": [
+        10,
+        20,
+        45
+      ],
+      "requires": {
+        "sound": [
+          "speaker",
+          "headphones"
+        ]
+      },
+      "offerEveryDays": null,
+      "doesNotDo": "It tunes you to one voice. Getting comfortable with one speaker's rate and accent transfers to other speakers far less than it feels like it should."
+    },
+    {
+      "id": "repeated-listening",
+      "name": "Repeated listening with support removal",
+      "summary": "The same clip three times, with less help each pass",
+      "type": "method",
+      "trains": "listening",
+      "skills": [
+        "listening"
+      ],
+      "targetSignal": "successByDifficulty",
+      "evidence": "B",
+      "demanding": true,
+      "hosted": true,
+      "intensity": 3,
+      "durations": [
+        10,
+        20
+      ],
+      "requires": {
+        "sound": [
+          "speaker",
+          "headphones"
+        ]
+      },
+      "offerEveryDays": null,
+      "doesNotDo": "It does not build volume, and by the third pass you are recalling the passage rather than parsing it."
+    },
+    {
+      "id": "partial-dictation",
+      "name": "Partial dictation",
+      "summary": "Hear a sentence, fill in the words that were taken out",
+      "type": "method",
+      "trains": "sound form, audio recall",
+      "skills": [
+        "listening",
+        "writing"
+      ],
+      "targetSignal": "recallStability",
+      "evidence": "B",
+      "demanding": true,
+      "hosted": true,
+      "intensity": 3,
+      "durations": [
+        8,
+        15
+      ],
+      "requires": {
+        "sound": [
+          "speaker",
+          "headphones"
+        ],
+        "writingSurface": [
+          "keyboard",
+          "paper"
+        ]
+      },
+      "offerEveryDays": null,
+      "doesNotDo": "It measures the gaps and nothing else. The words you were handed tell you nothing about whether you would have heard them."
+    },
+    {
+      "id": "full-dictation",
+      "name": "Full dictation on paper",
+      "summary": "Hear a sentence, write the whole of it down",
+      "type": "method",
+      "trains": "sound form, orthography",
+      "skills": [
+        "listening",
+        "writing"
+      ],
+      "targetSignal": "recallStability",
+      "evidence": "B",
+      "demanding": true,
+      "hosted": true,
+      "intensity": 3,
+      "durations": [
+        12,
+        25
+      ],
+      "requires": {
+        "sound": [
+          "speaker",
+          "headphones"
+        ],
+        "writingSurface": [
+          "paper"
+        ],
+        "attention": [
+          "full"
+        ]
+      },
+      "offerEveryDays": 10,
+      "doesNotDo": "It is slow and it does not teach meaning. Ten minutes buys six sentences of sound-to-spelling, and comprehension is not what is being checked."
+    },
+    {
+      "id": "dictogloss",
+      "name": "Dictogloss — reconstruct rather than transcribe",
+      "summary": "Listen twice, then rebuild the passage from memory",
+      "type": "method",
+      "trains": "listening and grammar together",
+      "skills": [
+        "listening",
+        "writing"
+      ],
+      "targetSignal": "productionQuality",
+      "evidence": "B",
+      "demanding": true,
+      "hosted": true,
+      "intensity": 3,
+      "durations": [
+        15,
+        25
+      ],
+      "requires": {
+        "sound": [
+          "speaker",
+          "headphones"
+        ],
+        "writingSurface": [
+          "paper",
+          "keyboard"
+        ],
+        "attention": [
+          "full"
+        ]
+      },
+      "offerEveryDays": null,
+      "doesNotDo": "It does not check that you heard the words. A good reconstruction can be built from gist plus grammar, which is the point and also the limitation."
+    },
+    {
+      "id": "listening-faster",
+      "name": "Listening faster (1.25×)",
+      "summary": "Something you already follow, a quarter faster",
+      "type": "method",
+      "trains": "processing speed",
+      "skills": [
+        "listening"
+      ],
+      "targetSignal": "responseTime",
+      "evidence": "C",
+      "demanding": false,
+      "hosted": true,
+      "intensity": 2,
+      "durations": [
+        10,
+        20
+      ],
+      "requires": {
+        "sound": [
+          "speaker",
+          "headphones"
+        ]
+      },
+      "offerEveryDays": null,
+      "doesNotDo": "It adds no vocabulary. Speeding up material you already understand rehearses the parsing you have, not the words you lack."
+    },
+    {
+      "id": "background-listening",
+      "name": "Background listening with no task",
+      "summary": "Leave it playing while you do something else",
+      "type": "method",
+      "trains": "very little",
+      "skills": [
+        "listening"
+      ],
+      "targetSignal": null,
+      "evidence": "C",
+      "demanding": false,
+      "hosted": false,
+      "intensity": 1,
+      "durations": [
+        20,
+        45
+      ],
+      "requires": {
+        "sound": [
+          "speaker",
+          "headphones"
+        ]
+      },
+      "offerEveryDays": null,
+      "doesNotDo": "Honestly: barely anything. It is in the catalogue because learners ask about it, and the answer is that unattended sound produces almost no learning."
+    }
+  ]
+}

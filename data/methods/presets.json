@@ -1,0 +1,102 @@
+{
+  "presets": [
+    {
+      "id": "desk",
+      "name": "At the desk",
+      "context": {
+        "eyes": "free",
+        "hands": "free",
+        "voice": "aloud",
+        "writingSurface": "paper",
+        "sound": "speaker",
+        "attention": "full",
+        "time": "open",
+        "company": "alone"
+      }
+    },
+    {
+      "id": "walking",
+      "name": "Walking",
+      "context": {
+        "eyes": "occupied",
+        "hands": "free",
+        "voice": "aloud",
+        "writingSurface": "none",
+        "sound": "headphones",
+        "attention": "divided",
+        "time": "15",
+        "company": "alone"
+      }
+    },
+    {
+      "id": "transit",
+      "name": "On transit",
+      "context": {
+        "eyes": "free",
+        "hands": "one",
+        "voice": "none",
+        "writingSurface": "touch",
+        "sound": "headphones",
+        "attention": "divided",
+        "time": "15",
+        "company": "alone"
+      }
+    },
+    {
+      "id": "computer",
+      "name": "At the computer",
+      "context": {
+        "eyes": "free",
+        "hands": "free",
+        "voice": "quiet",
+        "writingSurface": "keyboard",
+        "sound": "headphones",
+        "attention": "full",
+        "time": "15",
+        "company": "alone"
+      }
+    },
+    {
+      "id": "bed",
+      "name": "In bed",
+      "context": {
+        "eyes": "free",
+        "hands": "one",
+        "voice": "quiet",
+        "writingSurface": "none",
+        "sound": "headphones",
+        "attention": "divided",
+        "time": "15",
+        "company": "alone"
+      }
+    },
+    {
+      "id": "waiting",
+      "name": "Waiting",
+      "context": {
+        "eyes": "free",
+        "hands": "one",
+        "voice": "none",
+        "writingSurface": "touch",
+        "sound": "headphones",
+        "attention": "fragmented",
+        "time": "2",
+        "company": "alone"
+      }
+    },
+    {
+      "id": "kitchen",
+      "name": "Kitchen",
+      "context": {
+        "eyes": "occupied",
+        "hands": "none",
+        "voice": "aloud",
+        "writingSurface": "none",
+        "sound": "speaker",
+        "attention": "divided",
+        "time": "45",
+        "company": "alone"
+      }
+    }
+  ]
+}
