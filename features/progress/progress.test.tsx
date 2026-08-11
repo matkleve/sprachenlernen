@@ -63,6 +63,11 @@ describe("ProgressReport", () => {
     const stability = withHistory.signals.find((signal) => signal.id === "recall-stability")!;
     expect(screen.getByText(copy.stabilityValue(stability.value!, stability.taskCount))).toBeDefined();
 
+    const vocabulary = withHistory.signals.find((signal) => signal.id === "vocabulary-size")!;
+    expect(
+      screen.getByText(copy.vocabularyValue(vocabulary.value!, vocabulary.taskCount)),
+    ).toBeDefined();
+
     // study/03 § What a signal may and may not claim: a signal rendered as
     // "Recall stability: A2" invents a level the model does not define.
     //
@@ -92,6 +97,12 @@ describe("ProgressReport", () => {
 
     const b1 = yearsToReach("B1", 15)!;
     expect(screen.getByText(copy.doseYears(b1.minYears, b1.maxYears))).toBeDefined();
+  });
+
+  it("names what is still missing for language-wide levels", () => {
+    render(<ProgressReport reading={withHistory} />);
+
+    expect(screen.getByText(copy.gapBody)).toBeDefined();
   });
 
   it("presents no count that can only rise as progress", () => {

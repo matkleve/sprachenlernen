@@ -61,11 +61,12 @@ describe("skills", () => {
     expect(signalsFeedingSkill("speaking")).toContain("production-quality");
     expect(signalsFeedingSkill("writing")).toContain("production-quality");
 
-    // Recall stability is not a skill signal anywhere in study/03. If this
-    // ever passes, someone has attached the one signal we can compute to a
-    // skill in order to have something to show.
+    // Recall stability and pool-local vocabulary size are not skill signals
+    // anywhere in study/03. If this ever passes, someone has attached a
+    // signal we can compute to a skill in order to have something to show.
     for (const skill of SKILLS) {
       expect(signalsFeedingSkill(skill), `${skill}`).not.toContain("recall-stability");
+      expect(signalsFeedingSkill(skill), `${skill}`).not.toContain("vocabulary-size");
     }
   });
 });
@@ -91,6 +92,41 @@ describe("layer-1 signals", () => {
       expect(signal.status, `${signal.id}`).toBe("no-data");
       expect(signal.value, `${signal.id}`).toBeNull();
     }
+  });
+
+  it("gives vocabulary size a pool-local held count once anything is reviewed", () => {
+    const tasks = [
+      reviewed("t1", ["easy", "easy", "easy"]),
+      reviewed("t2", ["again", "good"]),
+      newTask("t3", "word:t3"),
+    ];
+
+    const vocabulary = readLevel(tasks, now).signals.find((s) => s.id === "vocabulary-size")!;
+
+    expect(vocabulary.status).toBe("has-data");
+    expect(vocabulary.taskCount).toBe(3);
+    expect(vocabulary.value).toBeGreaterThanOrEqual(0);
+    expect(vocabulary.value).toBeLessThanOrEqual(3);
+  });
+
+  it("can report zero held lemmas without reverting to no-data", () => {
+    const tasks = [reviewed("t1", ["again", "again"])];
+
+    const vocabulary = readLevel(tasks, now).signals.find((s) => s.id === "vocabulary-size")!;
+
+    expect(vocabulary.status).toBe("has-data");
+    expect(vocabulary.value).toBe(0);
+    expect(vocabulary.taskCount).toBe(1);
+  });
+
+  it("falls when held lemmas become shaky — the count must be able to go down", () => {
+    const strong = readLevel([reviewed("t1", ["easy", "easy", "easy"])], now);
+    const weak = readLevel([reviewed("t1", ["again", "again", "again"])], now);
+
+    const held = (reading: ReturnType<typeof readLevel>) =>
+      reading.signals.find((s) => s.id === "vocabulary-size")!.value!;
+
+    expect(held(weak)).toBeLessThanOrEqual(held(strong));
   });
 
   it("gives recall stability a value once tasks carry review history", () => {

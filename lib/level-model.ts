@@ -8,6 +8,7 @@
  */
 
 import type { Task } from "@/lib/scheduler";
+import { bucketForTask } from "@/lib/vocabulary-snapshot";
 
 export const SKILLS = ["reading", "listening", "speaking", "writing"] as const;
 export type Skill = (typeof SKILLS)[number];
@@ -106,10 +107,37 @@ function readRecallStability(tasks: readonly Task[]): SignalReading {
   };
 }
 
+/**
+ * Pool-local vocabulary reading — lemmas held stably in the shipped deck.
+ * Language-wide extrapolation is withheld until the pool is large enough; see
+ * docs/specs/page/progress.md § Data — vocabulary size.
+ */
+function readVocabularySize(tasks: readonly Task[]): SignalReading {
+  if (tasks.length === 0) {
+    return { id: "vocabulary-size", status: "no-data", value: null, taskCount: 0 };
+  }
+
+  const reviewed = tasks.filter((task) => task.reviews.length > 0);
+  if (reviewed.length === 0) {
+    return { id: "vocabulary-size", status: "no-data", value: null, taskCount: tasks.length };
+  }
+
+  const held = tasks.filter((task) => bucketForTask(task) === "held").length;
+
+  return {
+    id: "vocabulary-size",
+    status: "has-data",
+    value: held,
+    taskCount: tasks.length,
+  };
+}
+
 function readSignals(tasks: readonly Task[]): readonly SignalReading[] {
+  const vocabularySize = readVocabularySize(tasks);
   const recallStability = readRecallStability(tasks);
 
   return LAYER_1_SIGNALS.map((id) => {
+    if (id === "vocabulary-size") return vocabularySize;
     if (id === "recall-stability") return recallStability;
 
     // Every other layer-1 signal needs content this product does not have yet:
