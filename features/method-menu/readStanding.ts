@@ -10,7 +10,9 @@ import { standingFromReading, type StandingOutcome } from "./standing";
  */
 export async function readStanding(now: number = Date.now()): Promise<StandingOutcome> {
   const outcome = await readProgress(now);
-  if (outcome.status === "error") return { status: "omit" };
+  // Same rule as a failed read: the catalogue always renders. A learner with
+  // no language yet gets the methods, not a broken standing line.
+  if (outcome.status !== "ok") return { status: "omit" };
 
   return { status: "ok", summary: standingFromReading(outcome.reading) };
 }

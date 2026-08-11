@@ -7,7 +7,7 @@ import {
   sessionBuildFailed,
 } from "@/lib/errors";
 import { buildSession, type SessionCard } from "@/lib/session-builder";
-import { loadSpanishMeaningRecallDeck } from "@/lib/starter-deck";
+import { poolForScheduling } from "@/lib/db/learner-pools";
 import type { Grade } from "@/lib/scheduler";
 
 /**
@@ -38,6 +38,8 @@ export async function appendReviewAction(input: AppendReviewActionInput) {
 
 export type BuildSessionOutcome =
   | { status: "ok"; queue: SessionCard[]; languageName: string }
+  /** Signed in, no language chosen — the caller sends them to the picker. */
+  | { status: "no-language" }
   | { status: "error"; error: string };
 
 const LANGUAGE_DISPLAY_NAMES: Record<string, string> = {
@@ -47,16 +49,25 @@ const LANGUAGE_DISPLAY_NAMES: Record<string, string> = {
 
 export async function buildSessionAction(): Promise<BuildSessionOutcome> {
   try {
-    const deckResult = loadSpanishMeaningRecallDeck();
-    if (deckResult.status === "error") {
-      const handled = catalogueLoadFailed(deckResult.errors);
+    // Every language being learned, not the one on screen. UC-025's combined
+    // budget is what stops a second language crowding out the first, and it
+    // only works if scheduling ignores the interface's focus.
+    const pool = await poolForScheduling();
+    if (pool.status === "no-language") {
+      return { status: "no-language" };
+    }
+    if (pool.status === "error") {
+      const handled = catalogueLoadFailed([pool.error]);
       return { status: "error", error: handled.userMessage };
     }
 
-    const languageName =
-      LANGUAGE_DISPLAY_NAMES[deckResult.deck.language] ?? deckResult.deck.language;
+    // ⚠ SPEC GAP: with two languages in one session this label is wrong, and
+    // the fix is per-card language rather than a session-level name. Cannot
+    // happen yet — one pool ships — so it is named rather than guessed.
+    const only = pool.languageCodes.length === 1 ? pool.languageCodes[0] : undefined;
+    const languageName = only ? (LANGUAGE_DISPLAY_NAMES[only] ?? only) : "";
 
-    const taskIds = deckResult.deck.cards.map((card) => card.taskId);
+    const taskIds = pool.cards.map((card) => card.taskId);
     const reviewsResult = await listReviewsForTaskIds(taskIds);
     if (reviewsResult.status === "error") {
       const handled = sessionBuildFailed(reviewsResult.error);
@@ -69,7 +80,7 @@ export async function buildSessionAction(): Promise<BuildSessionOutcome> {
       (reviewsByTaskId[row.taskId] ??= []).push(review);
     }
 
-    const queue = buildSession(deckResult.deck.cards, reviewsByTaskId, Date.now());
+    const queue = buildSession(pool.cards, reviewsByTaskId, Date.now());
     return { status: "ok", queue, languageName };
   } catch (cause) {
     const handled = sessionBuildFailed(

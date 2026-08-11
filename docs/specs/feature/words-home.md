@@ -26,10 +26,11 @@ and the vocabulary atlas. Reviewing is one action here, not the page's identity
 | 1a | Deck is larger than the atlas cap | Atlas lists the **100** most frequent words and says how many of how many it is showing |
 | 2 | Taps Start review | Navigates to `/words/review?method=srs-session` |
 | 3 | History load fails | Error callout; no fake empty snapshot |
+| 4 | No language chosen yet | Redirects to the picker rather than rendering an all-zero snapshot |
 
 ## States
 
-No client machine. Server page with `ok | error` outcomes.
+No client machine. Server page with `ok | error | no-language` outcomes.
 
 ## Acceptance criteria
 
@@ -41,6 +42,9 @@ No client machine. Server page with `ok | error` outcomes.
       shows the 100 most frequent rows and names both numbers — the tail is 400
       rows of "New" that push the rest of the page out of reach, and a silent
       truncation would read as a smaller deck than the counts above it claim.
+- [ ] Given an Account with no language chosen, then the page routes to the
+      picker — an all-zero snapshot would read as a learner who has done
+      nothing rather than one who has not been asked.
 - [ ] **The negative UC-063 exists for:** given `/words`, then no due count,
       badge or backlog figure appears anywhere.
 

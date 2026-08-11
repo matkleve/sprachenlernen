@@ -76,6 +76,31 @@ in `user_id`. Proven by the §8 access-control test, not asserted here.
 carries the language as its first segment (`es:el:meaning-recall`), so per-language
 partitioning of Reviews needs no column and no backfill.
 
+## Two pools, and why they are two functions
+
+`lib/db/learner-pools.ts` turns the account's languages into cards, and it
+exposes **`poolForScheduling`** and **`poolForDisplay`** rather than one
+parameterised call:
+
+| | Contains | Used by |
+| --- | --- | --- |
+| `poolForScheduling` | **every** learning language, concatenated | the review session |
+| `poolForDisplay` | the **active** language only | `/progress`, `/words`, the standing line |
+
+Task ids carry their language (`es:el:meaning-recall`), so concatenating decks
+cannot collide. A language whose pool stopped shipping is skipped rather than
+fatal — one broken deck must not cost a learner the languages that still work.
+
+Named, not parameterised (`getPool(activeOnly?)`), because a boolean at the call
+site is an invitation and a name is a decision. Display may follow the
+interface's focus; scheduling may not — see below.
+
+**Neither surface renders an empty state when nothing is chosen.** Both return
+`no-language`, and the caller routes to the picker: `/progress` and `/words`
+redirect, the review session redirects, and the method menu simply omits its
+standing line so the catalogue still loads. "Not measured" is a statement about
+a learner who has been asked; it must not be shown to one who has not.
+
 ## The constraint that protects UC-025
 
 ⚠ **The active language must never reach the session builder.** It selects what
@@ -106,6 +131,15 @@ enough for a rule this easy to violate.
 - [ ] **Negative:** no export from this module is imported by
       `lib/session-builder.ts` — checked by grep in the test, because the damage
       is silent and the reviewer would have to notice an absence.
+- [ ] Given an account learning two languages with only one in focus, when
+      `poolForScheduling` runs, then the pool contains **both** — the review
+      session never narrows to what the interface is showing.
+- [ ] Given the same account, when `poolForDisplay` runs, then the pool contains
+      only the language in focus.
+- [ ] Given an account with languages but none in focus, then `poolForDisplay`
+      reports `no-language` rather than guessing one.
+- [ ] Given a learning language whose pool no longer ships, then
+      `poolForScheduling` skips it and still returns the rest.
 
 ## Check
 

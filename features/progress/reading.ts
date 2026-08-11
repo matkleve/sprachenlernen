@@ -2,7 +2,7 @@ import { listReviewsForTaskIds, toSchedulerReview } from "@/lib/db/review-log";
 import { internalUnexpected, logHandledError, type HandledError } from "@/lib/errors";
 import { readLevel, type LevelReading } from "@/lib/level-model";
 import { newTask, rebuild, type Review, type Task } from "@/lib/scheduler";
-import { loadSpanishMeaningRecallDeck } from "@/lib/starter-deck";
+import { poolForDisplay } from "@/lib/db/learner-pools";
 
 /**
  * Assembles the progress reading for the signed-in learner. Contract:
@@ -20,6 +20,8 @@ import { loadSpanishMeaningRecallDeck } from "@/lib/starter-deck";
  */
 
 export type ProgressOutcome =
+  /** Signed in, no language chosen — the page routes to the picker. */
+  | { status: "no-language" }
   | { status: "ok"; reading: LevelReading }
   | { status: "error"; error: HandledError };
 
@@ -37,12 +39,16 @@ export async function readProgress(now: number = Date.now()): Promise<ProgressOu
 }
 
 async function read(now: number): Promise<ProgressOutcome> {
-  const deckResult = loadSpanishMeaningRecallDeck();
-  if (deckResult.status === "error") {
-    return { status: "error", error: fail(new Error(deckResult.errors.join("; "))) };
+  // The language in focus, not every language being learned: UC-025 keeps
+  // vocabulary and calibration per language, never pooled, so a figure summed
+  // across two languages would be a number about neither.
+  const pool = await poolForDisplay();
+  if (pool.status === "no-language") return { status: "no-language" };
+  if (pool.status === "error") {
+    return { status: "error", error: fail(new Error(pool.error)) };
   }
 
-  const cards = deckResult.deck.cards;
+  const cards = pool.cards;
   const reviewsResult = await listReviewsForTaskIds(cards.map((card) => card.taskId));
   if (reviewsResult.status === "error") {
     // Not an empty reading. A failed read and a learner who has done nothing

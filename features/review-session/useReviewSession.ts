@@ -1,11 +1,13 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
 
 import {
   buildSessionAction,
 } from "@/features/review-session/actions";
 import { copy } from "@/features/review-session/content";
+import { routes } from "@/lib/routes";
 import { getReviewQueue } from "@/features/review-session/review-queue";
 import {
   canFlip,
@@ -38,6 +40,7 @@ export type UseReviewSessionResult = {
 const SYNC_STATUS_DELAY_MS = 500;
 
 export function useReviewSession(): UseReviewSessionResult {
+  const router = useRouter();
   const [status, setStatus] = useState<ReviewSessionStatus>("loading");
   const [loadError, setLoadError] = useState<string | null>(null);
   const [phase, setPhase] = useState<SessionPhase>("preparing");
@@ -62,6 +65,13 @@ export function useReviewSession(): UseReviewSessionResult {
         if (result.status === "error") {
           setStatus("error");
           setLoadError(result.error);
+          return;
+        }
+
+        // Signed in with nothing chosen. Not an error — the learner has simply
+        // not been asked yet, and the answer is the picker, not a red box.
+        if (result.status === "no-language") {
+          router.push(routes.chooseLanguage);
           return;
         }
 

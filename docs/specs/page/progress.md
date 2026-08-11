@@ -40,6 +40,7 @@ same reason not to invent a card.
 | 3 | Looks at what *is* recorded | The layer-1 signals that have data, each as a **value with a status, never a level** — recall stability across reviewed tasks, and vocabulary size as lemmas held stably in the starter pool |
 | 4 | Has never reviewed anything | Every skill still reads *not measured*; the signals section says no data has been recorded yet, and links to the review session |
 | 5 | Cannot load their history | The error surface (SPEC-service-errors), not an empty page that reads as "no progress" |
+| 6 | Has not chosen a language yet | Redirects to the picker. "Not measured" is a statement about a learner who was asked; this one has not been ([`../service/learning-languages.md`](../service/learning-languages.md)) |
 
 ## States
 
@@ -85,11 +86,18 @@ signal starts arriving.
       ([`study/25`](../../study/25-why-it-does-not-feel-productive.md) C3).
 - [ ] Given the review log returns an error, then the error surface renders and
       the page does not read as "nothing learned yet".
+- [ ] Given an Account with no language chosen, then the page routes to the
+      picker and no reading is derived — an empty reading here would claim
+      "nothing measured" about someone who was never asked what to learn.
 - [ ] Given the dose section, then the band, the fifteen-minute arithmetic, the
       borrowed-and-uncalibrated statement and the reason there is no
       hours-practised figure all appear.
 
 ## Data — vocabulary size (pool-local)
+
+The reading covers the **language in focus** only, never a sum across
+languages — UC-025 keeps vocabulary and calibration per language, and a figure
+added up across two would be a number about neither.
 
 The full estimator extrapolates SRS holdings over **frequency rank** across the
 language ([`study/03`](../../study/03-level-model.md) § Why vocabulary size is

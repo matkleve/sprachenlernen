@@ -1,6 +1,8 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
+import { poolForDisplay } from "@/lib/db/learner-pools";
 import { listReviewsForTaskIds } from "@/lib/db/review-log";
+import { loadSpanishMeaningRecallDeck } from "@/lib/starter-deck";
 
 import { readProgress } from "./reading";
 
@@ -18,6 +20,13 @@ vi.mock("@/lib/db/review-log", async (importOriginal) => ({
   listReviewsForTaskIds: vi.fn(),
 }));
 
+// The page now reads the account's language before its history, so this mock
+// stands in for the database the pool would otherwise reach for.
+vi.mock("@/lib/db/learner-pools", () => ({ poolForDisplay: vi.fn() }));
+
+const spanishDeck = loadSpanishMeaningRecallDeck();
+const spanishCards = spanishDeck.status === "ok" ? spanishDeck.deck.cards : [];
+
 const now = Date.UTC(2026, 7, 9);
 
 // Braces are load-bearing. `beforeEach(() => mock.mockClear())` returns the
@@ -27,9 +36,25 @@ const now = Date.UTC(2026, 7, 9);
 // (docs/TRAPS.md).
 beforeEach(() => {
   vi.mocked(listReviewsForTaskIds).mockClear();
+  vi.mocked(poolForDisplay).mockResolvedValue({
+    status: "ok",
+    cards: spanishCards,
+    languageCodes: ["es"],
+  });
 });
 
 describe("readProgress", () => {
+  it("reports no-language rather than an empty reading when nothing is chosen", async () => {
+    // An empty reading would render as "nothing measured", which is a claim
+    // about a learner who has not been asked which language they want.
+    vi.mocked(poolForDisplay).mockResolvedValue({ status: "no-language" });
+
+    const outcome = await readProgress(now);
+
+    expect(outcome.status).toBe("no-language");
+    expect(listReviewsForTaskIds).not.toHaveBeenCalled();
+  });
+
   it("returns a reading when the log can be read", async () => {
     vi.mocked(listReviewsForTaskIds).mockResolvedValue({ status: "ok", reviews: [] });
 

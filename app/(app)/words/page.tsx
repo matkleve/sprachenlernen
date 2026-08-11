@@ -1,4 +1,7 @@
 import type { Metadata } from "next";
+import { redirect } from "next/navigation";
+
+import { routes } from "@/lib/routes";
 
 import { ErrorCallout } from "@/components/ui/ErrorCallout";
 import { holding } from "@/features/app-shell/content";
@@ -16,6 +19,10 @@ export const metadata: Metadata = {
  */
 export default async function WordsPage() {
   const outcome = await readWordsHome();
+
+  // Nothing chosen yet is not an error and not an empty page — it is a
+  // question the learner has not been asked.
+  if (outcome.status === "no-language") redirect(routes.chooseLanguage);
 
   if (outcome.status === "error") {
     return (
