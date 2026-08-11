@@ -8,13 +8,19 @@ The `/words` vocabulary home — held/shaky/new counts, a 30-day review horizon,
 and the vocabulary atlas. Reviewing is one action here, not the page's identity
 (ADR-0009, UC-063).
 
+**Not the home for all Methods.** Words shows card-engine material only
+([`method-engines.md`](../service/method-engines.md)). The catalogue's
+reading, listening, speaking, and off-app Methods are reached from `/methods`.
+
 ## Scope
 
 - **In:** `features/words/` — `WordsHome`, `reading.ts`, `content.ts`; wired on
   `app/(app)/words/page.tsx`. Derives from
-  [`vocabulary-snapshot.md`](../service/vocabulary-snapshot.md).
+  [`vocabulary-snapshot.md`](../service/vocabulary-snapshot.md) and **only**
+  Reviews from built card-engine Methods (today: `srs-session`).
 - **Out:** due counts anywhere (A3); skills and level display (Progress);
-  session-length picker; choosing a method other than `srs-session` from this page.
+  session-length picker; choosing a method other than a built card-engine Method
+  from this page; holdings or horizon for Methods without a card engine.
 
 **Reuse: `Button`, `Table`** — same primitives as Progress.
 

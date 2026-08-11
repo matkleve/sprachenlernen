@@ -5,16 +5,30 @@
 <!-- status: active -->
 
 One method, fully described. **Off-app methods** and **hosted methods whose
-session is not built** reach this page from the menu. Only `srs-session` opens
-its session directly from the card ([SPEC-page-method-menu](method-menu.md)).
-Direct navigation to `/methods/{id}` still works for bookmarks and links.
+session is not built** reach this page from the menu. Only Methods whose engine
+is built open a session from the card ([`method-engines.md`](../service/method-engines.md) —
+today: `srs-session` → Words review). Direct navigation to `/methods/{id}` still
+works for bookmarks and links.
 
 ## Scope
 
 - **In:** full catalogue fields; back link preserving filter query; for
   `srs-session` reached directly, a primary control that opens Words review.
 - **Out:** measured effect; variants beyond durations; starting non-hosted
-  methods; Start control for hosted methods whose session is not built yet.
+  methods; Start control for hosted methods whose engine is not built yet.
+
+## Not-built and off-app copy
+
+One table — implementation in `features/method-menu/content.ts`:
+
+| Case | Start control | Footer / session line |
+| --- | --- | --- |
+| Hosted, engine built (`srs-session`) | **Start** → `/words/review?method=srs-session` | "The app runs this" |
+| Hosted, engine not built | None | `sessionNotBuilt` — session will run here once built; try off-app meanwhile |
+| Off-app (`hosted: false`) | None | `notHosted` — learner does this themselves |
+
+The detail page always shows `doesNotDo` and evidence. Hosting status is a chip,
+not a rank — off-app Methods are not demoted visually.
 
 ## Behavior
 

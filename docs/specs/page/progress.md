@@ -53,6 +53,12 @@ Reads the learner's rows via `listReviewsForTaskIds` over the starter deck's
 task ids — the only content that exists — and rebuilds each Task with
 `lib/scheduler.ts`'s `rebuild`. Writes nothing.
 
+**Signal sources today (stage 1):** only **card-engine Reviews** (`srs-session`)
+feed this page. No reading, listening, speaking, writing, or off-app Method
+produces a layer-1 signal yet — see [`method-engines.md`](../service/method-engines.md).
+That is why all four skills read *not measured* even when vocabulary and
+stability have data.
+
 **Skill status** is [`study/03`](../../study/03-level-model.md)'s four-value set
 and is defined there, not here. This page derives it: a skill is *measured* or
 *uncertain* only when a layer-1 signal that feeds it has data. Meaning-recall of

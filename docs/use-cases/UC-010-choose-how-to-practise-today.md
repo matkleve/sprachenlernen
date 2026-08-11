@@ -1,7 +1,7 @@
 # UC-010 — Choose how to practise today, without choosing badly
 
 <!-- id: UC-010 -->
-<!-- specs:  -->
+<!-- specs: SPEC-service-practice-model -->
 
 **Who:** a learner opening the app with an unpredictable amount of time and
 attention.

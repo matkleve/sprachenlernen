@@ -27,6 +27,11 @@ first table added since `review_log`.
 - **Active language** — the one in focus in the interface. Exactly one. Decides
   **what is displayed and nothing else.**
 
+**Engines are per learning language.** Reviews, the starter pool, and Progress
+readings are scoped to the language in focus on display surfaces (Words,
+Progress, standing). The session builder may draw from **all** learning languages
+for scheduling — see UC-025. Active language must never reach the builder.
+
 ## Behavior
 
 | # | Input | System response |
