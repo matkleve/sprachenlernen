@@ -19,7 +19,7 @@ language actions, which belong to
   remains a destination. Profile links to it and never restates its numbers;
   the combined daily budget and maintenance mode (UC-025, later).
 
-**Reuse: `Table`, `Button`, `Dialog`, `Select`** — all already used by
+**Reuse: `ActionLink`, `SubmitButton`, `Dialog`, `Select`** — all already used by
 `account-data`. No new primitive.
 
 ## Why this is a corner chip and not a destination
@@ -55,10 +55,14 @@ label with the English name beneath — `Español` / *Spanish*. **A flag is neve
 the identifier**: Spanish is not Spain, and a flag alone misnames the language
 for most of its speakers.
 
-Each row carries the same one-line standing as the picker tile —
-`347 of 500 starter words held stably` — and nothing more. The number links to
-`/progress`, per [`study/03`](../../study/03-level-model.md)'s rule that every
-figure opens into what produced it.
+Each row shows the language and whether it is in focus. ⚠ **The one-line
+standing is not built here yet** — it needs the progress reading to take a
+language, exactly as the picker tile does
+([`language-picker.md`](language-picker.md)). When it lands it reads
+`347 of 500 starter words held stably` and links to `/progress`, per
+[`study/03`](../../study/03-level-model.md)'s rule that every figure opens into
+what produced it. Until then the row carries no number, because a count from the
+wrong language would be worse than none.
 
 ## Acceptance criteria
 
@@ -70,8 +74,8 @@ figure opens into what produced it.
       one language is active afterwards.
 - [ ] Given the language read fails, then export and delete still render — one
       failed block does not take the page.
-- [ ] Given any state, then no measured figure is restated here beyond the
-      one-line standing, and `/progress` remains reachable as a destination.
+- [ ] Given any state, then no measured figure is restated here, and `/progress`
+      remains reachable as a destination.
 - [ ] Given any state, then sign out is reachable from this page.
 - [ ] **Negative:** no streak, no XP, no cards-reviewed total, and no progress
       bar against the starter set — the denominator is a shipped set, not a goal

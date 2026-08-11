@@ -1,11 +1,12 @@
+import { UserRound } from "lucide-react";
 import type { ReactNode } from "react";
 
-import { SubmitButton } from "@/components/ui/SubmitButton";
+import { ActionLink } from "@/components/ui/ActionLink";
+import { routes } from "@/lib/routes";
 import { cn } from "@/lib/utils";
 
 import { Destinations } from "./Destinations";
 import { FloatingShellChrome } from "./FloatingShellChrome";
-import { signOutAction } from "./actions";
 import { copy } from "./content";
 
 /**
@@ -26,11 +27,12 @@ export function AppShell({ children }: { children: ReactNode }) {
       <header className="hidden border-b border-line bg-surface md:block">
         <div className="mx-auto flex max-w-5xl items-center justify-between gap-4 px-6 py-3">
           <Destinations />
-          <form action={signOutAction}>
-            <SubmitButton variant="ghost" size="sm">
-              {copy.signOut}
-            </SubmitButton>
-          </form>
+          {/* Same affordance as the mobile corner chip: the account is a link,
+              and sign out lives inside it on /profile (ADR-0009). */}
+          <ActionLink href={routes.profile} variant="ghost" size="sm" className="gap-1.5">
+            <UserRound aria-hidden className="size-4 shrink-0" />
+            {copy.account}
+          </ActionLink>
         </div>
       </header>
 

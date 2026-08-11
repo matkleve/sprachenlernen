@@ -1,4 +1,4 @@
-import { Button } from "@/components/ui/Button";
+import { SubmitButton } from "@/components/ui/SubmitButton";
 import { copy, languageNames } from "@/features/language-picker/content";
 
 /**
@@ -71,7 +71,7 @@ export function LanguagePicker({ tiles, error, choose }: LanguagePickerProps) {
                   }}
                   className="mt-6"
                 >
-                  <Button type="submit">{copy.choose}</Button>
+                  <SubmitButton>{copy.choose}</SubmitButton>
                 </form>
               ) : null}
 

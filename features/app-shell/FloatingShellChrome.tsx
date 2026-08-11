@@ -1,15 +1,14 @@
 "use client";
 
-import { ArrowLeft, LogOut } from "lucide-react";
+import { ArrowLeft, UserRound } from "lucide-react";
 import { usePathname } from "next/navigation";
 
 import { ActionLink } from "@/components/ui/ActionLink";
-import { SubmitButton } from "@/components/ui/SubmitButton";
+import { routes } from "@/lib/routes";
 import { cn } from "@/lib/utils";
 
 import { shellBackTarget } from "./back-target";
 import { DestinationNavItems } from "./DestinationNavItems";
-import { signOutAction } from "./actions";
 import { copy } from "./content";
 
 const safeTop = "pt-[max(1rem,env(safe-area-inset-top))]";
@@ -46,12 +45,21 @@ export function FloatingShellChrome() {
           ) : null}
         </div>
 
-        <form action={signOutAction} className="pointer-events-auto">
-          <SubmitButton variant="floating" size="sm" className="gap-1.5">
-            <LogOut aria-hidden className="size-4 shrink-0" />
-            {copy.signOut}
-          </SubmitButton>
-        </form>
+        {/* The account affordance ADR-0009 described: a link in a corner, not a
+            fifth of the screen. Sign out lives inside it, on /profile, so this
+            corner carries one control rather than two competing ones. */}
+        <div className="pointer-events-auto">
+          <ActionLink
+            href={routes.profile}
+            variant="floating"
+            size="sm"
+            className="gap-1.5"
+            aria-label={copy.account}
+          >
+            <UserRound aria-hidden className="size-4 shrink-0" />
+            {copy.account}
+          </ActionLink>
+        </div>
       </div>
 
       <nav

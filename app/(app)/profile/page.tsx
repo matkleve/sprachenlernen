@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { redirect } from "next/navigation";
 
 import { AccountDataPanel } from "@/features/account-data/AccountDataPanel";
 import { copy as accountCopy } from "@/features/account-data/content";
@@ -7,18 +8,26 @@ import { ProfileLanguages } from "@/features/profile/ProfileLanguages";
 import { copy } from "@/features/profile/content";
 import { Button } from "@/components/ui/Button";
 import { listLearningLanguages, setActiveLanguage } from "@/lib/db/learning-languages";
+import { routes } from "@/lib/routes";
 
 export const metadata: Metadata = {
   title: copy.title,
 };
 
 /** Contract: docs/specs/page/profile.md */
-export default async function ProfilePage() {
+export default async function ProfilePage({
+  searchParams,
+}: {
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
+}) {
+  const switchFailed = (await searchParams).failed !== undefined;
   const languages = await listLearningLanguages();
 
   async function switchTo(code: string) {
     "use server";
-    await setActiveLanguage(code);
+    const switched = await setActiveLanguage(code);
+    // Dropping this outcome is what made a half-finished switch invisible.
+    if (switched.status === "error") redirect(`${routes.profile}?failed`);
   }
 
   return (
@@ -26,7 +35,7 @@ export default async function ProfilePage() {
       <h1 className="text-3xl font-semibold tracking-tight text-ink">{copy.title}</h1>
 
       {/* One failed block must not take the page — export and delete still work. */}
-      <ProfileLanguages outcome={languages} switchTo={switchTo} />
+      <ProfileLanguages outcome={languages} switchFailed={switchFailed} switchTo={switchTo} />
 
       <section className="mt-page-content">
         <h2 className="text-xl font-semibold text-ink">{accountCopy.title}</h2>

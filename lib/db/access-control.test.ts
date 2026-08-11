@@ -129,6 +129,112 @@ describe.skipIf(!hasLiveProject)("review_log row-level security", () => {
     expect(error).not.toBeNull();
   });
 
+  /**
+   * Each learner_language test starts from an empty table for both users.
+   * Without this they collide: `unique (user_id, language_code)` rejects the
+   * second test's insert, and the assertions that follow would then be reading
+   * the *first* test's row while appearing to pass.
+   */
+  async function clearLanguages() {
+    await admin.from("learner_language").delete().in("user_id", [userA.id, userB.id]);
+  }
+
+  // --- learner_language -----------------------------------------------------
+  //
+  // This table is the first to grant UPDATE and DELETE, so it carries two
+  // attack surfaces review_log does not have: B flipping A's active language,
+  // and B deleting A's rows. Both are covered here rather than assumed from the
+  // policy text — BACKEND.md §8 calls this stage-1 work, not later hardening.
+
+  it("lets a signed-in user insert and read their own learner_language row", async () => {
+    await clearLanguages();
+    const asA = await signInAs(userA.email);
+
+    const { error: insertError } = await asA
+      .from("learner_language")
+      .insert({ user_id: userA.id, language_code: "es", is_active: true });
+    expect(insertError).toBeNull();
+
+    const { data, error } = await asA.from("learner_language").select("language_code, is_active");
+    expect(error).toBeNull();
+    expect(data).toHaveLength(1);
+    expect(data?.[0]?.language_code).toBe("es");
+  });
+
+  it("never returns another user's learner_language rows", async () => {
+    await clearLanguages();
+    const asA = await signInAs(userA.email);
+    await asA
+      .from("learner_language")
+      .insert({ user_id: userA.id, language_code: "es", is_active: true });
+
+    const asB = await signInAs(userB.email);
+    const { data, error } = await asB.from("learner_language").select("*");
+
+    expect(error).toBeNull();
+    expect(data).toEqual([]);
+  });
+
+  it("refuses to insert a learner_language row owned by someone else", async () => {
+    await clearLanguages();
+    const asB = await signInAs(userB.email);
+
+    const { error } = await asB
+      .from("learner_language")
+      .insert({ user_id: userA.id, language_code: "es", is_active: true });
+
+    expect(error).not.toBeNull();
+  });
+
+  it("cannot update another user's active language", async () => {
+    await clearLanguages();
+    const asA = await signInAs(userA.email);
+    await asA
+      .from("learner_language")
+      .insert({ user_id: userA.id, language_code: "es", is_active: true });
+
+    const asB = await signInAs(userB.email);
+    // RLS makes this match zero rows rather than error — so the proof is that
+    // A's row is unchanged afterwards, not that B got an error.
+    await asB.from("learner_language").update({ is_active: false }).eq("user_id", userA.id);
+
+    const { data } = await asA.from("learner_language").select("is_active");
+    expect(data?.[0]?.is_active).toBe(true);
+  });
+
+  it("cannot delete another user's language", async () => {
+    // Two layers, as with review_log: `authenticated` has no DELETE grant at
+    // all, and if a later migration granted it back there is still no delete
+    // policy. Either would refuse; the proof is that A's row survives.
+    await clearLanguages();
+    const asA = await signInAs(userA.email);
+    await asA
+      .from("learner_language")
+      .insert({ user_id: userA.id, language_code: "es", is_active: true });
+
+    const asB = await signInAs(userB.email);
+    await asB.from("learner_language").delete().eq("user_id", userA.id);
+
+    const { data } = await asA.from("learner_language").select("language_code");
+    expect(data).toHaveLength(1);
+  });
+
+  it("refuses a second active language for the same account", async () => {
+    await clearLanguages();
+    const asA = await signInAs(userA.email);
+    await asA
+      .from("learner_language")
+      .insert({ user_id: userA.id, language_code: "es", is_active: true });
+
+    // The partial unique index is what makes "at most one in focus" a database
+    // fact rather than adapter discipline.
+    const { error } = await asA
+      .from("learner_language")
+      .insert({ user_id: userA.id, language_code: "it", is_active: true });
+
+    expect(error).not.toBeNull();
+  });
+
   it("refuses to update or delete any review row — the log is append-only", async () => {
     const asA = await signInAs(userA.email);
     const { data: inserted } = await asA

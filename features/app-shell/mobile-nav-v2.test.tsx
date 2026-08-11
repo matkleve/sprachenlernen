@@ -51,11 +51,15 @@ describe("SPEC-feature-mobile-nav-v2", () => {
     ]);
   });
 
-  it("shows sign-out float and one Words link on a destination root", () => {
+  it("shows the account chip and one Words link on a destination root", () => {
     vi.mocked(usePathname).mockReturnValue("/words");
     render(<FloatingShellChrome />);
 
-    expect(screen.getByRole("button", { name: copy.signOut })).toBeDefined();
+    // The corner carries one control, not two: sign out moved inside /profile
+    // so the account is a link rather than competing with a form (ADR-0009).
+    const account = screen.getByRole("link", { name: copy.account });
+    expect(account.getAttribute("href")).toBe("/profile");
+    expect(screen.queryByRole("button", { name: copy.signOut })).toBeNull();
     const wordsLinks = screen
       .getAllByRole("link")
       .filter((link) => link.getAttribute("href") === "/words");

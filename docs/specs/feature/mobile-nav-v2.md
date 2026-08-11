@@ -5,7 +5,7 @@
 <!-- status: active -->
 
 Phone-width signed-in chrome: a **floating destination pill** at the bottom and
-**floating corner chips** at the top (back when drill-in, sign-out always).
+**floating corner chips** at the top (back when drill-in, account always).
 Desktop keeps the horizontal header from [`app-shell.md`](app-shell.md).
 
 **Parent:** [`app-shell.md`](app-shell.md). Supersedes
@@ -15,7 +15,7 @@ Progress (ADR-0009). **No due-count badges** (UC-063).
 ## Scope
 
 - **In:** `< md` floating bottom pill (three equal segments, icon + micro-label);
-  floating top-right sign-out (icon + label); floating top-left back on drill-in
+  floating top-right account chip (icon + label) linking to `/profile`; floating top-left back on drill-in
   routes; safe-area insets on shell `main`; token surfaces only; desktop `≥ md`
   unchanged.
 - **Out:** hamburger and drawer; full-width mobile header bar; hiding the pill on
@@ -28,11 +28,11 @@ Progress (ADR-0009). **No due-count badges** (UC-063).
 
 | # | User action | System response |
 | --- | --- | --- |
-| 1 | Viewport ≥ `md` | Horizontal nav + inline sign-out in header; no floating chrome |
-| 2 | Viewport &lt; `md` on a destination root | Bottom pill visible; top-right sign-out float; no top-left chip |
+| 1 | Viewport ≥ `md` | Horizontal nav + inline account link in header; no floating chrome |
+| 2 | Viewport &lt; `md` on a destination root | Bottom pill visible; top-right account chip; no top-left chip |
 | 3 | Viewport &lt; `md` on a drill-in route | Back float appears top-left; target is the parent destination |
 | 4 | Taps a pill segment | Navigates; current segment marked with `aria-current="page"` |
-| 5 | Taps sign-out float | Same `signOutAction` as desktop |
+| 5 | Taps the account chip | `/profile`, where sign out now lives ([`../page/profile.md`](../page/profile.md)) |
 | 6 | Taps back float | Navigates to parent destination (`href`, not blind history) |
 | 7 | Scrolls page content | Floats stay visible; content clears floats via shell padding |
 
@@ -72,7 +72,7 @@ in `app/globals.css`.
 - [ ] Given viewport &lt; `md` on `/words`, then no top-left back chip appears.
 - [ ] Given viewport &lt; `md` on `/words/review`, then a back chip links to
       `/words` and the bottom pill remains visible.
-- [ ] Given viewport &lt; `md`, then a top-right sign-out float is always present.
+- [ ] Given viewport &lt; `md`, then a top-right **account** chip is always present, linking to `/profile`, and no sign-out control renders in the shell.
 - [ ] Given any viewport, then exactly three pill segments — no fourth, no
       due-count digit (UC-063 negative).
 - [ ] Given viewport ≥ `md`, then horizontal destination nav renders without

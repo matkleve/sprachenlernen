@@ -6,8 +6,10 @@
 --
 --   * one row per (account, language) — makes "add a language you already
 --     have" idempotent instead of silently duplicating a learner's language;
---   * at most one active row per account — makes "exactly one language is in
---     focus" impossible to violate, including by a concurrent switch.
+--   * at most one active row per account. Note the asymmetry: a partial unique
+--     index can enforce AT MOST one, never AT LEAST one. Keeping a language in
+--     focus at all is the adapter's job, and setActiveLanguage restores the
+--     previous row if the promotion touches nothing.
 --
 -- Deliberately absent: maintenance mode (UC-025), which needs the combined
 -- daily budget to mean anything, and a column added now would be a guess about
@@ -47,14 +49,16 @@ alter table public.learner_language enable row level security;
 -- Supabase does not expose a new table to authenticated automatically. Grant
 -- what an owner needs and nothing else; never anon, since ADR-0006 makes an
 -- account mandatory before any of this exists.
-grant select, insert, update, delete on public.learner_language to authenticated;
+-- No DELETE grant and no delete policy: whether removing a language is offered
+-- at all is an open question in the spec, and granting the capability first is
+-- deciding it by accident (AGENTS.md boundary 8). Adding it later is one line.
+grant select, insert, update on public.learner_language to authenticated;
 revoke all on public.learner_language from anon;
 
 -- Unlike review_log, this table is mutable: switching the active language is an
--- update, and removing a language is a delete. That is not a weakening of
--- ADR-0005 — the append-only rule is about the *review log*, which is the
--- record of what happened. This table is a preference, and a preference that
--- could only be added to would be a bug.
+-- update. That is not a weakening of ADR-0005 — the append-only rule is about
+-- the *review log*, the record of what happened. This table is a preference,
+-- and a preference that could only be added to would be a bug.
 create policy "learner_language_select_own" on public.learner_language
   for select
   to authenticated
@@ -71,7 +75,3 @@ create policy "learner_language_update_own" on public.learner_language
   using ((select auth.uid()) = user_id)
   with check ((select auth.uid()) = user_id);
 
-create policy "learner_language_delete_own" on public.learner_language
-  for delete
-  to authenticated
-  using ((select auth.uid()) = user_id);

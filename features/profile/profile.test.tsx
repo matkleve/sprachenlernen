@@ -4,6 +4,11 @@ import { describe, expect, it, vi } from "vitest";
 import { ProfileLanguages } from "@/features/profile/ProfileLanguages";
 import { copy } from "@/features/profile/content";
 
+vi.mock("next/navigation", () => ({
+  usePathname: vi.fn(() => "/profile"),
+  useRouter: vi.fn(() => ({ push: vi.fn() })),
+}));
+
 /** Contract: docs/specs/page/profile.md */
 
 const switchTo = vi.fn();
@@ -45,8 +50,20 @@ describe("ProfileLanguages", () => {
     render(<ProfileLanguages outcome={{ status: "ok", languages: [] }} switchTo={switchTo} />);
 
     expect(screen.getByText(copy.noneYet)).toBeDefined();
-    expect(screen.getByRole("button", { name: copy.chooseFirst })).toBeDefined();
+    expect(screen.getByRole("link", { name: copy.chooseFirst })).toBeDefined();
     expect(screen.queryByRole("table")).toBeNull();
+  });
+
+  it("tells the learner when a switch failed rather than repainting silently", () => {
+    render(
+      <ProfileLanguages
+        outcome={{ status: "ok", languages: [language("es", true)] }}
+        switchFailed
+        switchTo={switchTo}
+      />,
+    );
+
+    expect(screen.getByRole("alert").textContent).toBe(copy.switchError);
   });
 
   it("renders its own failure so the rest of the page survives", () => {

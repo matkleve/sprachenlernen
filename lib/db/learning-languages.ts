@@ -2,7 +2,11 @@ import type { SupabaseClient } from "@supabase/supabase-js";
 
 import { getAccount } from "@/lib/db/auth";
 import { createServerSupabaseClient } from "@/lib/db/client";
-import { databaseNotSignedIn, fromSupabaseReviewError, logHandledErrorFromRequest } from "@/lib/errors";
+import {
+  fromSupabaseLanguageError,
+  languageNotSignedIn,
+  logHandledErrorFromRequest,
+} from "@/lib/errors";
 import { availableLanguages, isLanguageAvailable } from "@/lib/starter-deck";
 
 /**
@@ -67,7 +71,7 @@ export async function listLearningLanguages(
   const supabase = await resolveClient(client);
   const account = await getAccount(supabase);
   if (!account) {
-    const handled = databaseNotSignedIn({ operation: "load your languages" });
+    const handled = languageNotSignedIn({ operation: "load your languages" });
     void logHandledErrorFromRequest(handled);
     return { status: "error", error: handled.userMessage };
   }
@@ -78,7 +82,7 @@ export async function listLearningLanguages(
     .order("added_at", { ascending: true });
 
   if (error) {
-    const handled = fromSupabaseReviewError(error, { operation: "load your languages" });
+    const handled = fromSupabaseLanguageError(error, { operation: "load your languages" });
     void logHandledErrorFromRequest(handled);
     return { status: "error", error: handled.userMessage };
   }
@@ -103,7 +107,7 @@ export async function addLearningLanguage(
   const supabase = await resolveClient(client);
   const account = await getAccount(supabase);
   if (!account) {
-    const handled = databaseNotSignedIn({ operation: "add a language" });
+    const handled = languageNotSignedIn({ operation: "add a language" });
     void logHandledErrorFromRequest(handled);
     return { status: "error", error: handled.userMessage };
   }
@@ -111,21 +115,24 @@ export async function addLearningLanguage(
   const existing = await listLearningLanguages(supabase);
   if (existing.status === "error") return existing;
 
-  // Adding is not switching (spec behaviour 3). The first language becomes
-  // active because something has to be; a later one never steals focus.
-  const isFirst = existing.languages.length === 0;
   if (existing.languages.some((language) => language.languageCode === languageCode)) {
     return { status: "ok" };
   }
 
+  // Adding is not switching (spec behaviour 3): a later language never steals
+  // focus. The predicate is "nothing is active", not "the list is empty" — an
+  // account that lost its active row would otherwise keep adding inactive
+  // languages forever and never recover.
+  const nothingActive = existing.languages.every((language) => !language.isActive);
+
   const { error } = await supabase.from("learner_language").insert({
     user_id: account.id,
     language_code: languageCode,
-    is_active: isFirst,
+    is_active: nothingActive,
   });
 
   if (error) {
-    const handled = fromSupabaseReviewError(error, { operation: "add a language" });
+    const handled = fromSupabaseLanguageError(error, { operation: "add a language" });
     void logHandledErrorFromRequest(handled);
     return { status: "error", error: handled.userMessage };
   }
@@ -134,9 +141,18 @@ export async function addLearningLanguage(
 }
 
 /**
- * Moves the active pointer. Clears first, then sets — the partial unique index
- * makes the reverse order fail, and relying on statement ordering to satisfy a
- * constraint is the kind of thing that works until two tabs do it at once.
+ * Moves the active pointer.
+ *
+ * The partial unique index enforces **at most one** active row. It cannot
+ * enforce at least one, and an earlier version of this function relied on it as
+ * though it could: it cleared, then set, checked neither result for rows
+ * affected, and returned "ok" when the target did not exist — leaving the
+ * account with languages and no active one, permanently, with no path back.
+ *
+ * So the target is verified against the account's own rows **before** anything
+ * is cleared, and the set is checked for what it actually touched. The clear
+ * still comes first, because the reverse order transiently has two active rows
+ * and the index rejects it.
  */
 export async function setActiveLanguage(
   languageCode: string,
@@ -145,10 +161,21 @@ export async function setActiveLanguage(
   const supabase = await resolveClient(client);
   const account = await getAccount(supabase);
   if (!account) {
-    const handled = databaseNotSignedIn({ operation: "switch language" });
+    const handled = languageNotSignedIn({ operation: "switch language" });
     void logHandledErrorFromRequest(handled);
     return { status: "error", error: handled.userMessage };
   }
+
+  const existing = await listLearningLanguages(supabase);
+  if (existing.status === "error") return existing;
+
+  const target = existing.languages.find((language) => language.languageCode === languageCode);
+  if (!target) {
+    // Refused before the clear, so a stale code cannot cost the account its
+    // active language.
+    return { status: "error", error: "You are not learning that language." };
+  }
+  if (target.isActive) return { status: "ok" };
 
   const cleared = await supabase
     .from("learner_language")
@@ -157,19 +184,34 @@ export async function setActiveLanguage(
     .eq("is_active", true);
 
   if (cleared.error) {
-    const handled = fromSupabaseReviewError(cleared.error, { operation: "switch language" });
+    const handled = fromSupabaseLanguageError(cleared.error, { operation: "switch language" });
     void logHandledErrorFromRequest(handled);
     return { status: "error", error: handled.userMessage };
   }
 
-  const { error } = await supabase
+  const promoted = await supabase
     .from("learner_language")
     .update({ is_active: true })
     .eq("user_id", account.id)
-    .eq("language_code", languageCode);
+    .eq("language_code", languageCode)
+    .select("language_code");
 
-  if (error) {
-    const handled = fromSupabaseReviewError(error, { operation: "switch language" });
+  const touchedNothing = !promoted.error && (promoted.data?.length ?? 0) === 0;
+  if (promoted.error || touchedNothing) {
+    // The clear is already durable. Put the previous language back rather than
+    // returning an error over an account that now has no language in focus.
+    const previous = existing.languages.find((language) => language.isActive);
+    if (previous) {
+      await supabase
+        .from("learner_language")
+        .update({ is_active: true })
+        .eq("user_id", account.id)
+        .eq("language_code", previous.languageCode);
+    }
+
+    const handled = fromSupabaseLanguageError(promoted.error ?? { message: "no row promoted" }, {
+      operation: "switch language",
+    });
     void logHandledErrorFromRequest(handled);
     return { status: "error", error: handled.userMessage };
   }

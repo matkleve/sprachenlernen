@@ -120,7 +120,10 @@ export function availableLanguages(): readonly string[] {
 }
 
 export function isLanguageAvailable(languageCode: string): boolean {
-  return languageCode in SHIPPED_DECKS;
+  // `in` walks the prototype chain, so `"constructor" in SHIPPED_DECKS` is true
+  // and would make `Object` look like a shipped deck. Both server actions here
+  // take an unvalidated string, so this guard is the boundary.
+  return Object.hasOwn(SHIPPED_DECKS, languageCode);
 }
 
 /**
@@ -130,7 +133,7 @@ export function isLanguageAvailable(languageCode: string): boolean {
  * exist for exactly this.
  */
 export function loadMeaningRecallDeck(languageCode: string): LoadStarterDeckResult {
-  const load = SHIPPED_DECKS[languageCode];
+  const load = isLanguageAvailable(languageCode) ? SHIPPED_DECKS[languageCode] : undefined;
   if (!load) {
     return { status: "error", errors: [`no meaning-recall pool ships for "${languageCode}"`] };
   }

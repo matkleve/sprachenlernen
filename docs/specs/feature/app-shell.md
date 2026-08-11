@@ -12,7 +12,7 @@ destination is built once and every screen inherits it.
 ## Scope
 
 - **In:** the `(app)` layout; the three destinations — Methods, Words, Progress,
-  in that order; the current-destination marker; the sign-out control; the
+  in that order; the current-destination marker; the account link; the
   account gate that keeps `(app)` routes signed-in only.
 - **Out:** what `/progress` contains ([`../page/progress.md`](../page/progress.md));
   `/words` content is [`../page/words.md`](../page/words.md); a fourth
@@ -23,14 +23,14 @@ destination is built once and every screen inherits it.
   no shell at all. Responsive mobile navigation:
   [`mobile-nav-v2.md`](mobile-nav-v2.md) (`< md` floating chrome; `≥ md` header).
 
-**Reuse: `Button`.** The sign-out control is a `Button` in a form. The
+**Reuse: `ActionLink`.** The account control is a link, not a form — sign out moved onto `/profile`. The
 destinations are anchors, not buttons — they navigate, so they must be
 right-clickable and openable in a new tab, which a `<button>` is not.
 
 This spec takes over two lines that
 [`../service/auth.md`](../service/auth.md) § Scope listed as out and handed
 here by name: the first route that *requires* sign-in, and the visible
-sign-out control that had no signed-in navigation to live in.
+sign-out control that had no signed-in navigation to live in. That control is now an account link, and sign out sits on `/profile`.
 
 ## Behavior
 
@@ -43,8 +43,8 @@ sign-out control that had no signed-in navigation to live in.
 | 5 | Signs out | The session ends and they land on `/`, the public landing page |
 | 6 | Opens `/`, `/languages`, `/login` or `/signup` | No shell — those are `(marketing)` |
 | 7 | A destination's content throws | The shell header and navigation remain; only the destination content area shows the error surface ([`errors-boundaries.md`](../service/errors-boundaries.md)) |
-| 8 | Viewport &lt; `md` while signed in | Floating bottom pill + top-right sign-out; no full-width header bar ([`mobile-nav-v2.md`](mobile-nav-v2.md)) |
-| 9 | Viewport ≥ `md` while signed in | Horizontal destination nav + inline sign-out in header; no floating chrome |
+| 8 | Viewport &lt; `md` while signed in | Floating bottom pill + top-right account chip; no full-width header bar ([`mobile-nav-v2.md`](mobile-nav-v2.md)) |
+| 9 | Viewport ≥ `md` while signed in | Horizontal destination nav + inline account link in header; no floating chrome |
 
 ## States
 
@@ -111,11 +111,12 @@ visual one: the shell is never given a number, so it cannot render one.
 - [ ] Given the shell, then it renders exactly three destinations — Methods,
       Words, Progress — and a fourth cannot appear in the navigation without a
       deliberate change to `protectedRoutes`.
-- [ ] Given a signed-in Account, then a sign-out control is present, and
-      submitting it ends the session and redirects to `/`.
+- [ ] Given a signed-in Account, then an account link to `/profile` is present,
+      and the shell itself renders no sign-out control — signing out is reached
+      through the account link ([`../page/profile.md`](../page/profile.md)).
 - [ ] Given a `(marketing)` route, then no destination navigation renders on it.
 - [ ] Given a signed-in Account and viewport &lt; `md`, then the shell renders a
-      floating destination pill and a top-right sign-out float (no hamburger).
+      floating destination pill and a top-right account chip (no hamburger).
 - [ ] The rendered shell has no axe-core violations.
 
 ## Check

@@ -1,6 +1,5 @@
-import Link from "next/link";
-
-import { Button } from "@/components/ui/Button";
+import { ActionLink } from "@/components/ui/ActionLink";
+import { SubmitButton } from "@/components/ui/SubmitButton";
 import { languageNames } from "@/features/language-picker/content";
 import { copy } from "@/features/profile/content";
 import type { ListLanguagesOutcome } from "@/lib/db/learning-languages";
@@ -15,16 +14,24 @@ import { routes } from "@/lib/routes";
 
 export type ProfileLanguagesProps = {
   outcome: ListLanguagesOutcome;
+  /** A switch that failed, so the learner is told rather than left guessing. */
+  switchFailed?: boolean;
   switchTo: (code: string) => Promise<void>;
 };
 
-export function ProfileLanguages({ outcome, switchTo }: ProfileLanguagesProps) {
+export function ProfileLanguages({ outcome, switchFailed, switchTo }: ProfileLanguagesProps) {
   return (
     <section className="mt-page-content">
       <h2 className="text-xl font-semibold text-ink">{copy.languagesHeading}</h2>
       <p className="mt-4 max-w-2xl text-base leading-relaxed text-muted">
         {copy.languagesCaption}
       </p>
+
+      {switchFailed ? (
+        <p role="alert" className="mt-6 text-base leading-relaxed text-danger">
+          {copy.switchError}
+        </p>
+      ) : null}
 
       {outcome.status === "error" ? (
         <p role="alert" className="mt-6 text-base leading-relaxed text-danger">
@@ -35,9 +42,9 @@ export function ProfileLanguages({ outcome, switchTo }: ProfileLanguagesProps) {
         // with zero languages, and the difference is a route.
         <div className="mt-6">
           <p className="text-base leading-relaxed text-muted">{copy.noneYet}</p>
-          <Link href={routes.chooseLanguage} className="mt-4 inline-block">
-            <Button type="button">{copy.chooseFirst}</Button>
-          </Link>
+          <ActionLink href={routes.chooseLanguage} className="mt-4">
+            {copy.chooseFirst}
+          </ActionLink>
         </div>
       ) : (
         <>
@@ -67,9 +74,9 @@ export function ProfileLanguages({ outcome, switchTo }: ProfileLanguagesProps) {
                         await switchTo(language.languageCode);
                       }}
                     >
-                      <Button type="submit" variant="secondary" size="sm">
+                      <SubmitButton variant="secondary" size="sm">
                         {copy.makeActive}
-                      </Button>
+                      </SubmitButton>
                     </form>
                   )}
                 </li>
@@ -77,11 +84,9 @@ export function ProfileLanguages({ outcome, switchTo }: ProfileLanguagesProps) {
             })}
           </ul>
 
-          <Link href={routes.chooseLanguage} className="mt-4 inline-block">
-            <Button type="button" variant="secondary">
-              {copy.addLanguage}
-            </Button>
-          </Link>
+          <ActionLink href={routes.chooseLanguage} variant="secondary" className="mt-4">
+            {copy.addLanguage}
+          </ActionLink>
         </>
       )}
     </section>

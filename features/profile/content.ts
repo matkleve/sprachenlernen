@@ -9,5 +9,6 @@ export const copy = {
   noneYet: "You have not chosen a language yet.",
   chooseFirst: "Choose a language",
   languagesError: "Could not load your languages.",
+  switchError: "Could not switch language. Nothing changed.",
   signOut: "Sign out",
 } as const;

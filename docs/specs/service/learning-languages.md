@@ -59,12 +59,15 @@ create table public.learner_language (
 | --- | --- |
 | `user_id` | Owner, taken from the session — never from the client (BACKEND.md §4) |
 | `language_code` | Matches a profile in `data/languages/` |
-| `is_active` | Exactly one true row per Account, enforced by a partial unique index |
+| `is_active` | **At most one** true row per Account, enforced by a partial unique index. At *least* one is the adapter's job — an index cannot express it |
 | `added_at` | Ordering for the profile list |
 
 Constraints: `unique (user_id, language_code)` gives behaviour 4 for free, and
-`unique (user_id) where is_active` makes "exactly one active" a database fact
-rather than adapter discipline.
+`unique (user_id) where is_active` makes "**at most** one active" a database
+fact. Keeping one in focus cannot be an index: `setActiveLanguage` verifies the
+target belongs to the account **before** clearing, and restores the previous row
+if the promotion touches nothing — an earlier version cleared, set, checked
+neither, and could leave an account with languages and none in focus.
 
 **RLS mirrors `review_log`**: a row is readable and writable only by the Account
 in `user_id`. Proven by the §8 access-control test, not asserted here.

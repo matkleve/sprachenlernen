@@ -69,6 +69,25 @@ calls the database.
 - [ ] Given an invalid starter file, when `loadStarterDeck` runs, then it returns
       errors and no deck.
 
+## The active language may not reach this module
+
+⚠ **Negative, and load-bearing.** `buildSession` must never be filtered by the
+learner's **active** language ([`learning-languages.md`](learning-languages.md),
+[`GLOSSARY.md`](../../GLOSSARY.md)). The active language decides what is
+*displayed*. UC-025 splits one combined daily budget across every language being
+learned; the moment scheduling follows the interface's focus, the language not
+being looked at stops being reviewed and decays — which is the whole failure that
+use case exists to prevent.
+
+The pool this module receives is therefore the pool the caller chose for a
+Session, never "whatever is on screen". Enforced two ways because one is not
+enough for a rule this easy to violate: this criterion, and a test in
+`lib/db/learning-languages.test.ts` that reads `lib/session-builder.ts` and
+fails if the coupling appears.
+
+- [ ] Given the module, then it imports nothing from `lib/db/learning-languages.ts`
+      and takes no language, active-language or focus parameter.
+
 ## Check
 
 `npm test -- session-builder starter-deck`

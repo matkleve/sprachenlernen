@@ -12,20 +12,33 @@ export const metadata: Metadata = {
 };
 
 /** Contract: docs/specs/page/language-picker.md */
-export default async function ChooseLanguagePage() {
+export default async function ChooseLanguagePage({
+  searchParams,
+}: {
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
+}) {
   const outcome = await readPicker();
+  // A failed add redirects back here with a marker rather than returning a
+  // value: a server action that redirects on success cannot also hand state to
+  // the page it did not navigate to, and silently swallowing the failure left
+  // the learner tapping a button that repainted an identical screen.
+  const failed = (await searchParams).failed !== undefined;
 
   async function choose(code: string) {
     "use server";
     const added = await addLearningLanguage(code);
-    // A failed add must not strand the learner on a blank screen; the picker
-    // re-renders and the error surfaces there.
-    if (added.status === "ok") redirect(routes.appHome);
+    redirect(added.status === "ok" ? routes.appHome : `${routes.chooseLanguage}?failed`);
   }
 
   if (outcome.status === "error") {
     return <LanguagePicker tiles={[]} error={outcome.error} choose={choose} />;
   }
 
-  return <LanguagePicker tiles={outcome.tiles} choose={choose} />;
+  return (
+    <LanguagePicker
+      tiles={outcome.tiles}
+      error={failed ? copy.error : null}
+      choose={choose}
+    />
+  );
 }

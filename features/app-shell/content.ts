@@ -10,6 +10,7 @@
 export const copy = {
   navLabel: "Destinations",
   mobileNavLabel: "Switch destination",
+  account: "Account",
   destinations: {
     methods: "Methods",
     words: "Words",

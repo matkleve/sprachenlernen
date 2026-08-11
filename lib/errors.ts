@@ -255,6 +255,47 @@ type SupabaseLikeError = {
   message?: string;
 };
 
+/**
+ * Maps database errors from `learner_language`. Separate from the review-log
+ * mapper on purpose: that one hardcodes "Could not save your answer.", which is
+ * both wrong copy for a failed *read* of your languages and wrong `feature` for
+ * the log — grep-by-feature is the reason this module exists, and one shared
+ * mapper quietly attributed every language failure to review-log.
+ */
+export function fromSupabaseLanguageError(
+  error: SupabaseLikeError,
+  context?: ErrorContext,
+): HandledError {
+  const message = error.message ?? "Unknown database error";
+  if (error.code && SCHEMA_MISMATCH_CODES.has(error.code)) {
+    return build({
+      code: "database/schema-mismatch",
+      userMessage: "Could not load your languages.",
+      developerMessage: message,
+      nextStep: "Try again. If this keeps happening, note the reference below.",
+      context: { feature: "learner-language", operation: "load your languages", ...context },
+    });
+  }
+  return build({
+    code: "internal/unexpected",
+    userMessage: "Could not load your languages.",
+    developerMessage: `${error.code ?? "unknown"}: ${message}`,
+    nextStep: "Try again. If this keeps happening, note the reference below.",
+    context: { feature: "learner-language", operation: "load your languages", ...context },
+  });
+}
+
+/** "You are not signed in", attributed to the language feature rather than the log. */
+export function languageNotSignedIn(context?: ErrorContext): HandledError {
+  return build({
+    code: "database/not-signed-in",
+    userMessage: "You are not signed in.",
+    developerMessage: "No session when reading or writing learner_language",
+    nextStep: "Sign in and try again.",
+    context: { feature: "learner-language", operation: "load your languages", ...context },
+  });
+}
+
 /** Maps PostgREST / Postgres errors from review_log to stable HandledError codes. */
 export function fromSupabaseReviewError(
   error: SupabaseLikeError,

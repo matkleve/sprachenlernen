@@ -135,13 +135,16 @@ describe("the three destinations", () => {
     await expectNoA11yViolations(container);
   });
 
-  it("renders a sign-out control in a form", () => {
+  it("renders an account link, and sign-out is no longer in the header", () => {
     showAt("/methods");
 
     const header = document.querySelector("header");
     if (!header) throw new Error("expected desktop header");
-    const button = within(header as HTMLElement).getByRole("button", { name: copy.signOut });
-    expect(button.closest("form")).not.toBeNull();
+    const account = within(header as HTMLElement).getByRole("link", { name: copy.account });
+    expect(account.getAttribute("href")).toBe("/profile");
+    expect(
+      within(header as HTMLElement).queryByRole("button", { name: copy.signOut }),
+    ).toBeNull();
   });
 });
 

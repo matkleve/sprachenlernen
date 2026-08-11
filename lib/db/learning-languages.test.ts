@@ -13,8 +13,10 @@ import {
 } from "@/lib/db/learning-languages";
 
 /**
- * Offline adapter coverage. RLS is proven against the live project in
- * lib/db/access-control.test.ts, not here.
+ * Offline adapter coverage. RLS for `learner_language` — including the UPDATE
+ * surface this table is the first to grant — is proven against the live project
+ * in lib/db/access-control.test.ts, which skips without the three Supabase
+ * secrets. Behaviour below is the adapter's, not the policy's.
  */
 
 type Row = { language_code: string; is_active: boolean; added_at: string };
@@ -30,6 +32,9 @@ function client(options: {
   signedIn?: boolean;
   selectError?: { message: string };
   insertError?: { message: string };
+  updateError?: { message: string };
+  /** What the promotion says it touched — [] is "the target vanished". */
+  promotedRows?: { language_code: string }[];
 }) {
   const { rows = [], signedIn = true } = options;
   const inserted: Record<string, unknown>[] = [];
@@ -40,17 +45,22 @@ function client(options: {
     error: options.selectError ?? null,
   });
 
+  // `.update().eq().eq()` may be awaited directly (the clear) or finished with
+  // `.select()` (the promotion, which has to know how many rows it touched).
   const update = vi.fn().mockImplementation((values: Record<string, unknown>) => {
     const filters: [string, unknown][] = [];
+    const settle = () => {
+      updates.push({ values, filters });
+      const promoted = options.promotedRows ?? [{ language_code: "x" }];
+      return { data: promoted, error: options.updateError ?? null };
+    };
     const chain = {
       eq: vi.fn().mockImplementation((column: string, value: unknown) => {
         filters.push([column, value]);
         return chain;
       }),
-      then: (resolve: (value: { error: null }) => unknown) => {
-        updates.push({ values, filters });
-        return Promise.resolve({ error: null }).then(resolve);
-      },
+      select: vi.fn().mockImplementation(() => Promise.resolve(settle())),
+      then: (resolve: (value: unknown) => unknown) => Promise.resolve(settle()).then(resolve),
     };
     return chain;
   });
@@ -142,14 +152,47 @@ describe("learning-languages", () => {
   });
 
   it("clears the old active row before setting the new one", async () => {
-    // The partial unique index rejects the reverse order, and relying on
-    // statement order to satisfy a constraint breaks when two tabs switch.
-    const { supabase, updates } = client({ rows: [row("es", true)] });
+    // The partial unique index rejects the reverse order, so ordering is a
+    // correctness property, not tidiness.
+    const { supabase, updates } = client({ rows: [row("es", true), row("xx")] });
 
-    await setActiveLanguage("es", supabase);
+    const outcome = await setActiveLanguage("xx", supabase);
 
+    expect(outcome).toEqual({ status: "ok" });
     expect(updates[0]?.values).toEqual({ is_active: false });
     expect(updates[1]?.values).toEqual({ is_active: true });
+  });
+
+  it("does nothing when the language is already in focus", async () => {
+    const { supabase, updates } = client({ rows: [row("es", true)] });
+
+    const outcome = await setActiveLanguage("es", supabase);
+
+    expect(outcome).toEqual({ status: "ok" });
+    expect(updates).toEqual([]);
+  });
+
+  it("refuses a language the account does not have, before clearing anything", async () => {
+    // The old version cleared first and returned "ok" when the target matched
+    // nothing, leaving the account with languages and none in focus.
+    const { supabase, updates } = client({ rows: [row("es", true)] });
+
+    const outcome = await setActiveLanguage("zz", supabase);
+
+    expect(outcome.status).toBe("error");
+    expect(updates).toEqual([]);
+  });
+
+  it("puts the previous language back when the promotion touches nothing", async () => {
+    const { supabase, updates } = client({ rows: [row("es", true), row("xx")], promotedRows: [] });
+
+    const outcome = await setActiveLanguage("xx", supabase);
+
+    expect(outcome.status).toBe("error");
+    // clear → failed promote → restore, so the account is never left with none.
+    expect(updates).toHaveLength(3);
+    expect(updates[2]?.values).toEqual({ is_active: true });
+    expect(updates[2]?.filters).toContainEqual(["language_code", "es"]);
   });
 
   it("derives availability from the shipped pools", () => {
@@ -169,11 +212,23 @@ describe("learning-languages", () => {
 
   it("never lets the active language reach the session builder", () => {
     // The damage is silent and an absent import is not something a reviewer
-    // notices, so the absence is asserted. If the session builder ever filters
-    // by the active language, the combined daily budget stops splitting across
-    // languages and the older one decays — the whole failure UC-025 prevents.
-    const source = readFileSync(join(process.cwd(), "lib/session-builder.ts"), "utf8");
+    // notices, so the absence is asserted. If scheduling ever follows the
+    // interface's focus, the language not being looked at stops being reviewed
+    // and decays — the whole failure UC-025 prevents.
+    //
+    // The likelier violation is not an import here but a *caller* pre-filtering
+    // the pool, so the review-session action is checked too.
+    const builder = readFileSync(join(process.cwd(), "lib/session-builder.ts"), "utf8");
+    expect(builder).not.toMatch(/learning-languages|activeLanguage|isActive/);
 
-    expect(source).not.toMatch(/learning-languages|activeLanguage|isActive/);
+    // `buildSession(pool, reviews, now, length)` — a fifth argument, or a named
+    // language parameter, is how the coupling would arrive.
+    expect(builder).not.toMatch(/language/i);
+
+    const caller = readFileSync(
+      join(process.cwd(), "features/review-session/actions.ts"),
+      "utf8",
+    );
+    expect(caller).not.toMatch(/activeLanguageOf|learning-languages/);
   });
 });
