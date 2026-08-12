@@ -137,6 +137,8 @@ because it is interesting.
 | [UC-062](UC-062-see-what-is-holding-my-level-back.md) | See what is actually holding my level back | 2 | [03](../study/03-level-model.md) |
 | [UC-063](UC-063-get-to-my-cards-without-the-menu.md) | Get to my cards without going through today's menu | 1 | [04](../study/04-flashcards-srs.md) |
 | [UC-064](UC-064-understand-what-one-sub-metric-says-about-me.md) | Understand what one sub-metric says about me | 2 | [03](../study/03-level-model.md), [25](../study/25-why-it-does-not-feel-productive.md) |
+| [UC-069](UC-069-use-the-app-in-my-own-language.md) | Use the app in my own language | 1 · Querschnitt | [`I18N.md`](../I18N.md) |
+| [UC-070](UC-070-understand-cards-in-my-own-language.md) | Understand cards in my own language | 1 · Querschnitt | [`data/README.md`](../../data/README.md), UC-041 |
 
 **Not yet written**, and deliberately: use cases for content production (adding a
 language pair, recording a talker pool, curating texts). Those are operator

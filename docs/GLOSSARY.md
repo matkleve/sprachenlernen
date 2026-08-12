@@ -140,6 +140,8 @@ number was reporting the goal and not the learner — see
 | --- | --- | --- |
 | **Language profile** | Declarative data for one language: script, morphology type, **counting unit**, frequency list, lemmatiser, calibration, voices. Data, never code. | a course, a language pack |
 | **Learning language** | A language this Account is learning. There may be several at once. Owns its own Reviews, vocabulary reading, calibration and maintenance state — nothing is pooled across languages. | a Language profile (that is the data), a course, the interface language |
+| **Interface language** | The locale the app chrome is shown in — menus, buttons, errors, grade prompts. Independent of which languages are being learned. See UC-069. | the learning language, the gloss language |
+| **Gloss language** | The language used for definitions and produce-instructions on cards (meaning-recall backs, form-recall fronts). Often the learner's L1. Independent of interface language unless the product explicitly ties them. See UC-070. | the target language, the interface language |
 | **Active language** | The Learning language currently in focus in the interface. Exactly one. Decides **what is displayed and nothing else** — it must never reach the session builder, or the combined daily budget stops protecting the older language (UC-025). | the only language being learned, a filter on what is scheduled |
 | **Counting unit** | What "one word" means in this language — lemma, word family, or segment. Declared per language; without it the vocabulary estimate has no meaning. | a word |
 | **Quality tier** | A / B / C, **derived** from what the profile contains. Governs how much the app is willing to claim, especially whether a level value exists at all. | a rating of the language |
@@ -154,5 +156,6 @@ number was reporting the goal and not the learner — see
 | Term | What is unresolved |
 | --- | --- |
 | **Word family vs. word form** | The vocabulary estimate counts lemmas; Tasks train forms. Resolved in part: form mastery is now its own signal, not part of vocabulary size — see [`study/03`](study/03-level-model.md). What is still open is whether the *estimate* counts lemmas or families. |
+| **Interface vs gloss language** | UC-069 and UC-070 split app chrome from card glosses. Whether L1 defaults from interface locale, and how gloss packs are stored, is undecided — see those use cases. |
 | **Error category** | The closed list used by writing/speaking feedback. Must be fixed before it is counted over time — see [`study/06`](study/06-production.md). |
 | **Multiword item** | Collocations and fixed expressions are Words for practice but must **not** count as *n* Words in the vocabulary estimate, or the calibration breaks. Belongs with the Word/Task decision — see [`study/16`](study/16-further-findings.md) W2. |
