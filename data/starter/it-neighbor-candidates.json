@@ -1,0 +1,1227 @@
+{
+  "language": "it",
+  "rule": "levenshtein-1-length-3-8",
+  "tightened": true,
+  "candidates": {
+    "it:affatto": [
+      "affitto"
+    ],
+    "it:affitto": [
+      "affatto"
+    ],
+    "it:ala": [
+      "alba"
+    ],
+    "it:alare": [
+      "alzare"
+    ],
+    "it:alba": [
+      "ala"
+    ],
+    "it:albergo": [
+      "albero"
+    ],
+    "it:albero": [
+      "albergo"
+    ],
+    "it:alto": [
+      "altro"
+    ],
+    "it:altro": [
+      "alto"
+    ],
+    "it:alzare": [
+      "alare"
+    ],
+    "it:amare": [
+      "amore"
+    ],
+    "it:amica": [
+      "amico"
+    ],
+    "it:amico": [
+      "amica"
+    ],
+    "it:amore": [
+      "amare"
+    ],
+    "it:angelo": [
+      "angolo"
+    ],
+    "it:angolo": [
+      "angelo"
+    ],
+    "it:area": [
+      "aria",
+      "arma"
+    ],
+    "it:aria": [
+      "area",
+      "arma"
+    ],
+    "it:arma": [
+      "area",
+      "aria"
+    ],
+    "it:bambina": [
+      "bambino"
+    ],
+    "it:bambino": [
+      "bambina"
+    ],
+    "it:banca": [
+      "banda",
+      "barca"
+    ],
+    "it:banda": [
+      "banca"
+    ],
+    "it:barba": [
+      "barca"
+    ],
+    "it:barca": [
+      "banca",
+      "barba"
+    ],
+    "it:bene": [
+      "bere"
+    ],
+    "it:bere": [
+      "bene"
+    ],
+    "it:buco": [
+      "buio"
+    ],
+    "it:buio": [
+      "buco"
+    ],
+    "it:caffè": [
+      "caffo"
+    ],
+    "it:caffo": [
+      "caffè"
+    ],
+    "it:caldo": [
+      "calmo"
+    ],
+    "it:calma": [
+      "calmo"
+    ],
+    "it:calmo": [
+      "caldo",
+      "calma"
+    ],
+    "it:campo": [
+      "capo"
+    ],
+    "it:cane": [
+      "carne"
+    ],
+    "it:capello": [
+      "cappello"
+    ],
+    "it:capo": [
+      "campo",
+      "caro",
+      "caso",
+      "cavo"
+    ],
+    "it:cappello": [
+      "capello"
+    ],
+    "it:carica": [
+      "carico"
+    ],
+    "it:carico": [
+      "carica",
+      "carino"
+    ],
+    "it:carino": [
+      "carico",
+      "casino"
+    ],
+    "it:carne": [
+      "cane"
+    ],
+    "it:caro": [
+      "capo",
+      "caso",
+      "cavo"
+    ],
+    "it:cartello": [
+      "castello"
+    ],
+    "it:casa": [
+      "caso",
+      "cassa",
+      "causa"
+    ],
+    "it:casino": [
+      "carino"
+    ],
+    "it:caso": [
+      "capo",
+      "caro",
+      "casa",
+      "cavo"
+    ],
+    "it:cassa": [
+      "casa",
+      "causa"
+    ],
+    "it:castello": [
+      "cartello"
+    ],
+    "it:causa": [
+      "casa",
+      "cassa"
+    ],
+    "it:cavo": [
+      "capo",
+      "caro",
+      "caso"
+    ],
+    "it:cento": [
+      "centro",
+      "certo"
+    ],
+    "it:centro": [
+      "cento"
+    ],
+    "it:certo": [
+      "cento"
+    ],
+    "it:che": [
+      "chef",
+      "chi"
+    ],
+    "it:chef": [
+      "che"
+    ],
+    "it:chi": [
+      "che"
+    ],
+    "it:chiedere": [
+      "chiudere"
+    ],
+    "it:chiudere": [
+      "chiedere"
+    ],
+    "it:cia": [
+      "ciao",
+      "cima",
+      "cina",
+      "ciò"
+    ],
+    "it:ciao": [
+      "cia",
+      "cibo"
+    ],
+    "it:cibo": [
+      "ciao"
+    ],
+    "it:cieco": [
+      "cielo"
+    ],
+    "it:cielo": [
+      "cieco"
+    ],
+    "it:cima": [
+      "cia",
+      "cina"
+    ],
+    "it:cina": [
+      "cia",
+      "cima"
+    ],
+    "it:ciò": [
+      "cia"
+    ],
+    "it:citta": [
+      "città"
+    ],
+    "it:città": [
+      "citta"
+    ],
+    "it:coda": [
+      "corda",
+      "cosa"
+    ],
+    "it:collo": [
+      "colpo"
+    ],
+    "it:colore": [
+      "coloro"
+    ],
+    "it:coloro": [
+      "colore"
+    ],
+    "it:colpa": [
+      "colpo"
+    ],
+    "it:colpo": [
+      "collo",
+      "colpa",
+      "corpo"
+    ],
+    "it:contare": [
+      "costare"
+    ],
+    "it:conte": [
+      "contea",
+      "conto",
+      "corte"
+    ],
+    "it:contea": [
+      "conte"
+    ],
+    "it:conto": [
+      "conte",
+      "contro",
+      "corto",
+      "costo"
+    ],
+    "it:contro": [
+      "conto"
+    ],
+    "it:copia": [
+      "coppia"
+    ],
+    "it:coppia": [
+      "copia"
+    ],
+    "it:corda": [
+      "coda",
+      "corsa"
+    ],
+    "it:corpo": [
+      "colpo",
+      "corso",
+      "corto"
+    ],
+    "it:corsa": [
+      "corda",
+      "corso",
+      "cosa"
+    ],
+    "it:corso": [
+      "corpo",
+      "corsa",
+      "corto",
+      "coso"
+    ],
+    "it:corte": [
+      "conte",
+      "corto"
+    ],
+    "it:corto": [
+      "conto",
+      "corpo",
+      "corso",
+      "corte",
+      "costo"
+    ],
+    "it:cosa": [
+      "coda",
+      "corsa",
+      "così",
+      "coso"
+    ],
+    "it:così": [
+      "cosa",
+      "coso"
+    ],
+    "it:coso": [
+      "corso",
+      "cosa",
+      "così",
+      "costo"
+    ],
+    "it:costare": [
+      "contare"
+    ],
+    "it:costo": [
+      "conto",
+      "corto",
+      "coso"
+    ],
+    "it:denaro": [
+      "dentro"
+    ],
+    "it:dentro": [
+      "denaro",
+      "destro"
+    ],
+    "it:destra": [
+      "destro"
+    ],
+    "it:destro": [
+      "dentro",
+      "destra"
+    ],
+    "it:dille": [
+      "dillo"
+    ],
+    "it:dillo": [
+      "dille"
+    ],
+    "it:dio": [
+      "diro",
+      "dito"
+    ],
+    "it:dire": [
+      "diro"
+    ],
+    "it:diretto": [
+      "diritto"
+    ],
+    "it:diritto": [
+      "diretto"
+    ],
+    "it:diro": [
+      "dio",
+      "dire",
+      "dito"
+    ],
+    "it:dito": [
+      "dio",
+      "diro"
+    ],
+    "it:don": [
+      "dono"
+    ],
+    "it:dono": [
+      "don",
+      "dopo"
+    ],
+    "it:dopo": [
+      "dono"
+    ],
+    "it:eccomi": [
+      "eccoti"
+    ],
+    "it:eccoti": [
+      "eccomi"
+    ],
+    "it:ehi": [
+      "ehm"
+    ],
+    "it:ehm": [
+      "ehi"
+    ],
+    "it:eta": [
+      "età"
+    ],
+    "it:età": [
+      "eta"
+    ],
+    "it:falla": [
+      "fallo"
+    ],
+    "it:fallo": [
+      "falla",
+      "falso"
+    ],
+    "it:falso": [
+      "fallo"
+    ],
+    "it:fame": [
+      "fare",
+      "fase"
+    ],
+    "it:fare": [
+      "fame",
+      "faro",
+      "fase"
+    ],
+    "it:faro": [
+      "fare"
+    ],
+    "it:fase": [
+      "fame",
+      "fare"
+    ],
+    "it:fermo": [
+      "ferro"
+    ],
+    "it:ferro": [
+      "fermo"
+    ],
+    "it:fiato": [
+      "finto"
+    ],
+    "it:fico": [
+      "fido",
+      "filo",
+      "fino"
+    ],
+    "it:fido": [
+      "fico",
+      "filo",
+      "fino"
+    ],
+    "it:figlia": [
+      "figlio"
+    ],
+    "it:figlio": [
+      "figlia"
+    ],
+    "it:fila": [
+      "film",
+      "filo"
+    ],
+    "it:film": [
+      "fila",
+      "filo"
+    ],
+    "it:filo": [
+      "fico",
+      "fido",
+      "fila",
+      "film",
+      "fino"
+    ],
+    "it:fine": [
+      "fino"
+    ],
+    "it:finito": [
+      "finto"
+    ],
+    "it:fino": [
+      "fico",
+      "fido",
+      "filo",
+      "fine",
+      "finto"
+    ],
+    "it:finto": [
+      "fiato",
+      "finito",
+      "fino"
+    ],
+    "it:folla": [
+      "folle",
+      "follia"
+    ],
+    "it:folle": [
+      "folla"
+    ],
+    "it:follia": [
+      "folla"
+    ],
+    "it:fonte": [
+      "forte"
+    ],
+    "it:forma": [
+      "forza"
+    ],
+    "it:forse": [
+      "forte"
+    ],
+    "it:forte": [
+      "fonte",
+      "forse"
+    ],
+    "it:forza": [
+      "forma"
+    ],
+    "it:fretta": [
+      "frutta"
+    ],
+    "it:frutta": [
+      "fretta"
+    ],
+    "it:furbo": [
+      "furto"
+    ],
+    "it:furto": [
+      "furbo"
+    ],
+    "it:gas": [
+      "gay"
+    ],
+    "it:gay": [
+      "gas"
+    ],
+    "it:gia": [
+      "già",
+      "giù"
+    ],
+    "it:già": [
+      "gia",
+      "giù"
+    ],
+    "it:girare": [
+      "giurare"
+    ],
+    "it:giù": [
+      "gia",
+      "già"
+    ],
+    "it:giurare": [
+      "girare"
+    ],
+    "it:gola": [
+      "golf"
+    ],
+    "it:golf": [
+      "gola"
+    ],
+    "it:grasso": [
+      "grosso"
+    ],
+    "it:grazia": [
+      "grazie"
+    ],
+    "it:grazie": [
+      "grazia"
+    ],
+    "it:grosso": [
+      "grasso"
+    ],
+    "it:inferno": [
+      "interno",
+      "inverno"
+    ],
+    "it:interno": [
+      "inferno",
+      "intero",
+      "intorno",
+      "inverno"
+    ],
+    "it:intero": [
+      "interno"
+    ],
+    "it:intorno": [
+      "interno"
+    ],
+    "it:inverno": [
+      "inferno",
+      "interno"
+    ],
+    "it:inviato": [
+      "invito"
+    ],
+    "it:invito": [
+      "inviato"
+    ],
+    "it:lago": [
+      "largo",
+      "lato"
+    ],
+    "it:lanciare": [
+      "lasciare"
+    ],
+    "it:largo": [
+      "lago"
+    ],
+    "it:lasciare": [
+      "lanciare"
+    ],
+    "it:lato": [
+      "lago"
+    ],
+    "it:legale": [
+      "legame",
+      "legare"
+    ],
+    "it:legame": [
+      "legale",
+      "legare"
+    ],
+    "it:legare": [
+      "legale",
+      "legame",
+      "levare"
+    ],
+    "it:leggere": [
+      "leggero"
+    ],
+    "it:leggero": [
+      "leggere"
+    ],
+    "it:levare": [
+      "legare"
+    ],
+    "it:libero": [
+      "libro"
+    ],
+    "it:liberta": [
+      "libertà"
+    ],
+    "it:libertà": [
+      "liberta"
+    ],
+    "it:libro": [
+      "libero"
+    ],
+    "it:lord": [
+      "loro"
+    ],
+    "it:loro": [
+      "lord"
+    ],
+    "it:lungo": [
+      "luogo"
+    ],
+    "it:luogo": [
+      "lungo"
+    ],
+    "it:madre": [
+      "mare"
+    ],
+    "it:magia": [
+      "maria"
+    ],
+    "it:mai": [
+      "max"
+    ],
+    "it:male": [
+      "mare"
+    ],
+    "it:mancare": [
+      "mandare"
+    ],
+    "it:mandare": [
+      "mancare"
+    ],
+    "it:marcia": [
+      "maria"
+    ],
+    "it:mare": [
+      "madre",
+      "male"
+    ],
+    "it:maria": [
+      "magia",
+      "marcia",
+      "marina"
+    ],
+    "it:marina": [
+      "maria"
+    ],
+    "it:mattina": [
+      "mattino"
+    ],
+    "it:mattino": [
+      "mattina"
+    ],
+    "it:max": [
+      "mai"
+    ],
+    "it:mente": [
+      "mentre"
+    ],
+    "it:mentire": [
+      "mentre"
+    ],
+    "it:mentre": [
+      "mente",
+      "mentire"
+    ],
+    "it:meta": [
+      "metà"
+    ],
+    "it:metà": [
+      "meta"
+    ],
+    "it:mica": [
+      "mira"
+    ],
+    "it:miele": [
+      "mille"
+    ],
+    "it:mille": [
+      "miele"
+    ],
+    "it:mira": [
+      "mica"
+    ],
+    "it:moda": [
+      "modo"
+    ],
+    "it:modo": [
+      "moda",
+      "mondo",
+      "moto"
+    ],
+    "it:molto": [
+      "morto",
+      "moto"
+    ],
+    "it:mondo": [
+      "modo"
+    ],
+    "it:morso": [
+      "morto"
+    ],
+    "it:morte": [
+      "morto"
+    ],
+    "it:morto": [
+      "molto",
+      "morso",
+      "morte",
+      "moto"
+    ],
+    "it:mosca": [
+      "mossa"
+    ],
+    "it:mossa": [
+      "mosca"
+    ],
+    "it:moto": [
+      "modo",
+      "molto",
+      "morto"
+    ],
+    "it:noi": [
+      "non"
+    ],
+    "it:nome": [
+      "nove"
+    ],
+    "it:non": [
+      "noi"
+    ],
+    "it:nonna": [
+      "nonno"
+    ],
+    "it:nonno": [
+      "nonna"
+    ],
+    "it:nove": [
+      "nome"
+    ],
+    "it:oggi": [
+      "ogni"
+    ],
+    "it:ogni": [
+      "oggi"
+    ],
+    "it:ora": [
+      "oro"
+    ],
+    "it:oro": [
+      "ora",
+      "orso"
+    ],
+    "it:orso": [
+      "oro"
+    ],
+    "it:pacco": [
+      "palco",
+      "parco"
+    ],
+    "it:pace": [
+      "pane"
+    ],
+    "it:pago": [
+      "paio"
+    ],
+    "it:paio": [
+      "pago"
+    ],
+    "it:palco": [
+      "pacco",
+      "parco"
+    ],
+    "it:pane": [
+      "pace"
+    ],
+    "it:panico": [
+      "panino"
+    ],
+    "it:panino": [
+      "panico"
+    ],
+    "it:papa": [
+      "papà"
+    ],
+    "it:papà": [
+      "papa"
+    ],
+    "it:parco": [
+      "pacco",
+      "palco"
+    ],
+    "it:parte": [
+      "party"
+    ],
+    "it:partita": [
+      "partito"
+    ],
+    "it:partito": [
+      "partita"
+    ],
+    "it:party": [
+      "parte"
+    ],
+    "it:passo": [
+      "pasto"
+    ],
+    "it:pasto": [
+      "passo",
+      "patto"
+    ],
+    "it:patto": [
+      "pasto"
+    ],
+    "it:paura": [
+      "pausa"
+    ],
+    "it:pausa": [
+      "paura"
+    ],
+    "it:pena": [
+      "penna"
+    ],
+    "it:penna": [
+      "pena"
+    ],
+    "it:per": [
+      "pero",
+      "però"
+    ],
+    "it:perfino": [
+      "persino"
+    ],
+    "it:pero": [
+      "per",
+      "però",
+      "peso"
+    ],
+    "it:però": [
+      "per",
+      "pero"
+    ],
+    "it:persino": [
+      "perfino"
+    ],
+    "it:peso": [
+      "pero"
+    ],
+    "it:piano": [
+      "pieno"
+    ],
+    "it:pieno": [
+      "piano"
+    ],
+    "it:poco": [
+      "porco"
+    ],
+    "it:porco": [
+      "poco",
+      "porno",
+      "porto"
+    ],
+    "it:porno": [
+      "porco",
+      "porto"
+    ],
+    "it:porta": [
+      "porto",
+      "posta"
+    ],
+    "it:porto": [
+      "porco",
+      "porno",
+      "porta"
+    ],
+    "it:posta": [
+      "porta"
+    ],
+    "it:qua": [
+      "qual",
+      "qui"
+    ],
+    "it:qual": [
+      "qua",
+      "quale"
+    ],
+    "it:quale": [
+      "qual"
+    ],
+    "it:quando": [
+      "quanto"
+    ],
+    "it:quanto": [
+      "quando",
+      "quarto"
+    ],
+    "it:quarto": [
+      "quanto"
+    ],
+    "it:qui": [
+      "qua"
+    ],
+    "it:ragazza": [
+      "ragazzo"
+    ],
+    "it:ragazzo": [
+      "ragazza"
+    ],
+    "it:roba": [
+      "roma",
+      "rosa"
+    ],
+    "it:roma": [
+      "roba",
+      "rosa"
+    ],
+    "it:rosa": [
+      "roba",
+      "roma"
+    ],
+    "it:sala": [
+      "salsa"
+    ],
+    "it:salare": [
+      "salire",
+      "saltare",
+      "salvare"
+    ],
+    "it:salire": [
+      "salare"
+    ],
+    "it:salsa": [
+      "sala"
+    ],
+    "it:saltare": [
+      "salare",
+      "salutare",
+      "salvare"
+    ],
+    "it:salto": [
+      "salvo",
+      "santo"
+    ],
+    "it:salutare": [
+      "saltare"
+    ],
+    "it:salvare": [
+      "salare",
+      "saltare"
+    ],
+    "it:salvo": [
+      "salto"
+    ],
+    "it:santo": [
+      "salto"
+    ],
+    "it:sei": [
+      "set"
+    ],
+    "it:senso": [
+      "sesso"
+    ],
+    "it:sergente": [
+      "serpente"
+    ],
+    "it:serie": [
+      "serio"
+    ],
+    "it:serio": [
+      "serie"
+    ],
+    "it:serpente": [
+      "sergente"
+    ],
+    "it:sesso": [
+      "senso"
+    ],
+    "it:set": [
+      "sei"
+    ],
+    "it:sogno": [
+      "sonno"
+    ],
+    "it:soldo": [
+      "solo"
+    ],
+    "it:sole": [
+      "solo"
+    ],
+    "it:solo": [
+      "soldo",
+      "sole"
+    ],
+    "it:sonno": [
+      "sogno"
+    ],
+    "it:sparare": [
+      "sparire",
+      "sperare"
+    ],
+    "it:sparire": [
+      "sparare"
+    ],
+    "it:sperare": [
+      "sparare"
+    ],
+    "it:sposare": [
+      "spostare"
+    ],
+    "it:spostare": [
+      "sposare"
+    ],
+    "it:stagione": [
+      "stazione"
+    ],
+    "it:stara": [
+      "stare"
+    ],
+    "it:stare": [
+      "stara"
+    ],
+    "it:stazione": [
+      "stagione"
+    ],
+    "it:stronza": [
+      "stronzo"
+    ],
+    "it:stronzo": [
+      "stronza"
+    ],
+    "it:sud": [
+      "suo"
+    ],
+    "it:suo": [
+      "sud"
+    ],
+    "it:tavola": [
+      "tavolo"
+    ],
+    "it:tavolo": [
+      "tavola"
+    ],
+    "it:temere": [
+      "tenere"
+    ],
+    "it:tenere": [
+      "temere"
+    ],
+    "it:test": [
+      "testa"
+    ],
+    "it:testa": [
+      "test",
+      "tetta"
+    ],
+    "it:tetta": [
+      "testa",
+      "tetto"
+    ],
+    "it:tetto": [
+      "tetta"
+    ],
+    "it:tipo": [
+      "tiro"
+    ],
+    "it:tiro": [
+      "tipo"
+    ],
+    "it:torta": [
+      "torto"
+    ],
+    "it:torto": [
+      "torta"
+    ],
+    "it:tra": [
+      "tre"
+    ],
+    "it:tre": [
+      "tra"
+    ],
+    "it:unico": [
+      "unito"
+    ],
+    "it:unità": [
+      "unito"
+    ],
+    "it:unito": [
+      "unico",
+      "unità"
+    ],
+    "it:uomo": [
+      "uovo"
+    ],
+    "it:uovo": [
+      "uomo"
+    ],
+    "it:valere": [
+      "valore"
+    ],
+    "it:valore": [
+      "valere"
+    ],
+    "it:vedere": [
+      "vendere"
+    ],
+    "it:vendere": [
+      "vedere"
+    ],
+    "it:venti": [
+      "vento"
+    ],
+    "it:vento": [
+      "venti"
+    ],
+    "it:vero": [
+      "verso",
+      "vetro"
+    ],
+    "it:verso": [
+      "vero"
+    ],
+    "it:vetro": [
+      "vero"
+    ],
+    "it:via": [
+      "vita"
+    ],
+    "it:vino": [
+      "viso",
+      "vivo"
+    ],
+    "it:viso": [
+      "vino",
+      "vivo"
+    ],
+    "it:vita": [
+      "via"
+    ],
+    "it:vivo": [
+      "vino",
+      "viso"
+    ],
+    "it:volare": [
+      "volere"
+    ],
+    "it:volere": [
+      "volare"
+    ],
+    "it:volo": [
+      "volto",
+      "voto"
+    ],
+    "it:volta": [
+      "volto"
+    ],
+    "it:volto": [
+      "volo",
+      "volta",
+      "voto"
+    ],
+    "it:voto": [
+      "volo",
+      "volto"
+    ],
+    "it:zia": [
+      "zio"
+    ],
+    "it:zio": [
+      "zia"
+    ]
+  }
+}

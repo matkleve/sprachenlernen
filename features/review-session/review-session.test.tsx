@@ -20,6 +20,7 @@ vi.mock("next/navigation", () => ({
 
 vi.mock("@/features/review-session/actions", () => ({
   appendReviewAction: vi.fn().mockResolvedValue({ status: "appended", id: "row-1" }),
+  reportCardAction: vi.fn().mockResolvedValue({ status: "ok" }),
   buildSessionAction: vi.fn().mockResolvedValue({
     status: "ok",
     languageName: "Spanish",

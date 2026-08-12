@@ -1,6 +1,8 @@
 "use server";
 
 import { appendReview, listReviewsForTaskIds, toSchedulerReview } from "@/lib/db/review-log";
+import { listFlaggedWordIds } from "@/lib/db/card-content-flags";
+import { getSpokenLanguage } from "@/lib/db/profiles";
 import {
   catalogueLoadFailed,
   logHandledErrorFromRequest,
@@ -11,6 +13,7 @@ import { filterSchedulableCards } from "@/lib/form-recall-staging";
 import { poolForActiveLanguage } from "@/lib/db/learner-pools";
 import { languageLabel } from "@/lib/languages";
 import type { Grade } from "@/lib/scheduler";
+import { flagCardContent } from "@/lib/db/card-content-flags";
 
 /**
  * Server Actions for the review session. Contracts:
@@ -44,6 +47,10 @@ export type BuildSessionOutcome =
   | { status: "no-language" }
   | { status: "error"; error: string };
 
+export async function reportCardAction(wordId: string) {
+  return flagCardContent(wordId);
+}
+
 export async function buildSessionAction(): Promise<BuildSessionOutcome> {
   try {
     // The language in focus, and only that one (UC-025, corrected
@@ -63,7 +70,20 @@ export async function buildSessionAction(): Promise<BuildSessionOutcome> {
     const activeCode = pool.languageCodes[0];
     const languageName = activeCode ? languageLabel(activeCode).english : "";
 
-    const taskIds = pool.cards.map((card) => card.taskId);
+    const spoken = await getSpokenLanguage();
+    if (spoken.status === "error") {
+      return { status: "error", error: spoken.error };
+    }
+
+    const flagged = await listFlaggedWordIds(spoken.spokenLanguage);
+    if (flagged.status === "error") {
+      return { status: "error", error: flagged.error };
+    }
+
+    const flaggedSet = new Set(flagged.wordIds);
+    const poolCards = pool.cards.filter((card) => !flaggedSet.has(card.wordId));
+
+    const taskIds = poolCards.map((card) => card.taskId);
     const reviewsResult = await listReviewsForTaskIds(taskIds);
     if (reviewsResult.status === "error") {
       const handled = sessionBuildFailed(reviewsResult.error);
@@ -76,7 +96,7 @@ export async function buildSessionAction(): Promise<BuildSessionOutcome> {
       (reviewsByTaskId[row.taskId] ??= []).push(review);
     }
 
-    const schedulable = filterSchedulableCards(pool.cards, reviewsByTaskId);
+    const schedulable = filterSchedulableCards(poolCards, reviewsByTaskId);
     const queue = buildSession(schedulable, reviewsByTaskId, Date.now());
     return { status: "ok", queue, languageName };
   } catch (cause) {

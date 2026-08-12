@@ -1,10 +1,10 @@
 "use client";
 
-import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 import { ActionLink } from "@/components/ui/ActionLink";
 import { NavLink } from "@/components/ui/NavLink";
+import { TextLink } from "@/components/ui/TextLink";
 import { routes } from "@/lib/routes";
 
 import { copy } from "./content";
@@ -22,12 +22,9 @@ export function PublicHeader() {
   return (
     <header className="border-b border-line bg-surface">
       <div className="mx-auto flex max-w-5xl items-center justify-between gap-4 px-6 py-3">
-        <Link
-          href={routes.landing}
-          className="touch-manipulation text-sm font-semibold tracking-tight text-ink transition-[color,transform] duration-150 ease-out-soft hover:text-accent active:scale-[0.98] active:text-accent-deep focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-canvas"
-        >
+        <TextLink href={routes.landing} tone="ink" size="sm" className="no-underline hover:underline">
           {copy.header.brand}
-        </Link>
+        </TextLink>
         <nav className="flex items-center gap-1" aria-label="Account">
           <NavLink href={routes.signIn} current={pathname === routes.signIn}>
             {copy.header.signIn}

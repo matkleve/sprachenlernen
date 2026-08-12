@@ -37,6 +37,7 @@ describe("ReviewCard", () => {
         phase="revealed"
         onFlip={() => {}}
         onGrade={() => {}}
+        onReport={() => {}}
       />,
     );
 
@@ -52,6 +53,7 @@ describe("ReviewCard", () => {
         phase="revealed"
         onFlip={() => {}}
         onGrade={() => {}}
+        onReport={() => {}}
       />,
     );
 
@@ -66,6 +68,7 @@ describe("ReviewCard", () => {
         phase="revealed"
         onFlip={() => {}}
         onGrade={() => {}}
+        onReport={() => {}}
       />,
     );
 
@@ -84,6 +87,7 @@ describe("ReviewCard", () => {
         phase="prompting"
         onFlip={() => {}}
         onGrade={() => {}}
+        onReport={() => {}}
       />,
     );
 
@@ -103,9 +107,25 @@ describe("ReviewCard", () => {
         phase="prompting"
         onFlip={() => {}}
         onGrade={() => {}}
+        onReport={() => {}}
       />,
     );
 
     expect(screen.getByText("Write the form.")).toBeDefined();
+  });
+
+  it("exposes a report control on every card", () => {
+    render(
+      <ReviewCard
+        card={{ ...baseCard, taskId: "es:hablar:meaning-recall" }}
+        languageName="Spanish"
+        phase="prompting"
+        onFlip={() => {}}
+        onGrade={() => {}}
+        onReport={() => {}}
+      />,
+    );
+
+    expect(screen.getByRole("button", { name: copy.report })).toBeDefined();
   });
 });

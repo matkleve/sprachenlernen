@@ -1,7 +1,7 @@
 # UC-068 — Know my tap was received
 
 <!-- id: UC-068 -->
-<!-- specs: SPEC-feature-interaction-feedback -->
+<!-- specs: SPEC-feature-interaction-feedback, SPEC-system-interaction-inventory, SPEC-system-contrast-gate -->
 
 **Who:** a learner on phone or desktop tapping anything in the app.
 **Wants to:** see immediately that their tap registered, and that work is

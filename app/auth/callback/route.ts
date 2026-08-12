@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 
 import { createServerSupabaseClient } from "@/lib/db/client";
+import { ensureProfileFromAcceptLanguage } from "@/lib/db/profiles";
 import {
   authConfirmationFailed,
   authConfirmationMissing,
@@ -41,6 +42,8 @@ export async function GET(request: Request) {
   if (error) {
     return loginRedirect(url.origin, authConfirmationFailed(error.message));
   }
+
+  await ensureProfileFromAcceptLanguage(request.headers.get("accept-language"));
 
   return NextResponse.redirect(new URL(destination, url.origin));
 }

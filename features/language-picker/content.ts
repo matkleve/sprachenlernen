@@ -20,6 +20,7 @@ export const copy = {
     `Not available yet — we don't have a word set for ${name} we'd stand behind`,
 
   alreadyLearning: "Already learning",
+  active: "Active",
   choose: "Start with this language",
 
   footnote:

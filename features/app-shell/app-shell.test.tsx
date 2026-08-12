@@ -13,7 +13,7 @@ import { AppShell } from "./AppShell";
 import { signOutAction } from "./actions";
 import { copy as profileCopy } from "@/features/profile/content";
 
-import { copy } from "./content";
+import { copy, holding } from "./content";
 import { requireAccount } from "./gate";
 
 /**
@@ -31,7 +31,10 @@ vi.mock("@/lib/db/auth", () => ({ getAccount: vi.fn(), signOut: vi.fn() }));
 
 const account = { id: "u1", email: "a@example.com" };
 
-const showAt = (pathname: string, languages = [{ code: "es", endonym: "Español", isActive: true }]) => {
+const showAt = (
+  pathname: string,
+  languages = [{ code: "es", endonym: "Español", isActive: true }],
+) => {
   vi.mocked(usePathname).mockReturnValue(pathname);
   return render(
     <AppShell languages={languages}>
@@ -146,7 +149,7 @@ describe("the three destinations", () => {
     const header = document.querySelector("header");
     if (!header) throw new Error("expected desktop header");
     expect(
-      within(header as HTMLElement).getByRole("combobox", { name: copy.switchLanguage }),
+      within(header as HTMLElement).getByRole("button", { name: copy.switchLanguage }),
     ).toBeDefined();
   });
 
@@ -160,6 +163,16 @@ describe("the three destinations", () => {
     expect(
       within(header as HTMLElement).queryByRole("button", { name: profileCopy.signOut }),
     ).toBeNull();
+  });
+
+  it("shows the page title centered in the desktop header", () => {
+    showAt("/words");
+
+    const header = document.querySelector("header");
+    if (!header) throw new Error("expected desktop header");
+    expect(
+      within(header as HTMLElement).getByRole("heading", { level: 1, name: holding.words.title }),
+    ).toBeDefined();
   });
 });
 

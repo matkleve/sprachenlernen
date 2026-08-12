@@ -112,7 +112,7 @@ derived from the lemma, never the rank, so re-ranking the pool leaves every
 Adding an **exclusion** is the one edit that does not. Rows for that lemma stay
 in the append-only log — nothing is deleted, and the UC-024 export still carries
 them through `listAllReviews` — but `listReviewsForTaskIds` queries the pool's
-ids, so those reviews stop counting toward held/shaky/new, the horizon and the
+ids, so those reviews stop counting toward held/fragile/new, the horizon and the
 standing line. The learner sees a number go down for a reason no screen
 explains. Before excluding a lemma, check whether it has shipped: excluding one
 that never reached a learner costs nothing, and excluding one that did is a

@@ -1,8 +1,25 @@
 import { cva, type VariantProps } from "class-variance-authority";
 import { forwardRef, type ButtonHTMLAttributes } from "react";
 
+import {
+  disabledState,
+  focusRing,
+  hitAreaAnchor,
+  hitAreaExpandMd,
+  hitAreaExpandSm,
+  hitAreaPseudo,
+  hoverLift,
+  interactionMotion,
+  pendingBusy,
+  pendingNavRing,
+  pressFill,
+  pressScale,
+  touchTarget,
+} from "@/components/ui/interaction-kernel";
 import { Spinner } from "@/components/ui/Spinner";
 import { cn } from "@/lib/utils";
+
+export type PendingPolicy = "cta" | "nav" | "none";
 
 /**
  * The one button primitive. Contract: docs/specs/component/button.md
@@ -13,51 +30,38 @@ import { cn } from "@/lib/utils";
  */
 export const buttonVariants = cva(
   [
-    // layout. `relative` anchors the hit-area pseudo-element in the size
-    // variants; without it the expanded target would resolve against the page.
-    "relative inline-flex items-center justify-center gap-2 whitespace-nowrap",
-    "touch-manipulation rounded-pill font-medium",
-    // The pseudo-element is part of the button for hit testing, so it grows the
-    // interactive target to 44px without changing the visual box. Do NOT reach
-    // for `min-h-11` instead: min-height beats height, so it would silently
-    // flatten every size variant to the same 44px box.
-    "after:absolute after:inset-x-0 after:content-['']",
-    // motion — always name the properties. Transitioning everything also
-    // animates layout, costing a repaint per frame and producing surprises
-    // when an unrelated property changes.
-    "transition-[background-color,box-shadow,transform,border-color]",
-    "duration-150 ease-out-soft",
-    // focus-visible, not focus: a mouse click must not leave a ring behind
-    "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent",
-    "focus-visible:ring-offset-2 focus-visible:ring-offset-canvas",
-    // active — comes back down and compresses, so it feels pressed
-    "active:translate-y-0 active:scale-[0.98]",
-    // disabled
-    "disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none",
-    "disabled:hover:translate-y-0",
+    hitAreaAnchor,
+    "inline-flex items-center justify-center gap-2 whitespace-nowrap",
+    touchTarget,
+    "rounded-pill font-medium",
+    hitAreaPseudo,
+    interactionMotion,
+    focusRing,
+    pressScale,
+    disabledState,
   ],
   {
     variants: {
       variant: {
-        // hover deepens to a defined token — never brightness()/opacity, which
-        // is invisible on saturated fills and inverts on dark surfaces.
         primary:
           "bg-accent text-accent-ink shadow-soft hover:bg-accent-deep hover:-translate-y-px hover:shadow-raised",
-        secondary:
+        secondary: cn(
           "border border-line bg-surface text-ink shadow-soft hover:border-line-strong hover:-translate-y-px hover:shadow-raised",
-        floating:
-          "border border-line bg-surface text-ink shadow-soft hover:border-line-strong hover:-translate-y-px hover:shadow-raised",
-        ghost: "text-ink hover:bg-accent-soft",
+          pressFill,
+        ),
+        floating: cn(
+          "border border-line bg-surface text-ink shadow-soft hover:border-line-strong",
+          hoverLift,
+          pressFill,
+        ),
+        ghost: "text-ink hover:bg-accent-soft active:bg-accent-soft",
         danger:
           "bg-danger text-danger-ink shadow-soft hover:bg-danger-deep hover:-translate-y-px hover:shadow-raised",
       },
       size: {
-        // Visual height, then the vertical expansion that brings the *target*
-        // to 44px. Stacking these vertically closer than the expansion will
-        // make the targets overlap — keep at least gap-3 between them.
-        sm: "h-8 px-3 text-sm after:-inset-y-1.5", // 32px box → 44px target
-        md: "h-10 px-4 text-sm after:-inset-y-0.5", // 40px box → 44px target
-        lg: "h-12 px-6 text-base after:inset-y-0", // 48px box, already ≥44
+        sm: cn("h-8 px-3 text-sm", hitAreaExpandSm),
+        md: cn("h-10 px-4 text-sm", hitAreaExpandMd),
+        lg: "h-12 px-6 text-base after:inset-y-0",
       },
     },
     defaultVariants: { variant: "primary", size: "md" },
@@ -68,27 +72,47 @@ export type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> &
   VariantProps<typeof buttonVariants> & {
     /** Async in flight — mutes control, blocks duplicate taps. */
     pending?: boolean;
+    /** How pending looks: spinner on CTAs, ring on icon nav, opacity only. */
+    pendingPolicy?: PendingPolicy;
   };
 
+function showSpinnerForPending(
+  pending: boolean,
+  policy: PendingPolicy,
+  variant: ButtonProps["variant"],
+): boolean {
+  if (!pending || policy !== "cta") return false;
+  return variant === "primary" || variant === "danger" || variant === undefined;
+}
+
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button(
-  { className, variant, size, type, pending = false, disabled, children, ...props },
+  {
+    className,
+    variant,
+    size,
+    type,
+    pending = false,
+    pendingPolicy = "cta",
+    disabled,
+    children,
+    ...props
+  },
   ref,
 ) {
   const isBusy = pending;
-  const showSpinner =
-    isBusy && (variant === "primary" || variant === "danger" || variant === undefined);
+  const showSpinner = showSpinnerForPending(isBusy, pendingPolicy, variant);
+  const showNavRing = isBusy && pendingPolicy === "nav";
 
   return (
     <button
       ref={ref}
-      // Default to "button". A bare <button> inside a form submits it, which is
-      // never what a caller who did not think about it wanted.
       type={type ?? "button"}
       disabled={disabled || isBusy}
       aria-busy={isBusy || undefined}
       className={cn(
         buttonVariants({ variant, size }),
-        isBusy && "pointer-events-none opacity-70",
+        isBusy && pendingPolicy !== "nav" && pendingBusy,
+        showNavRing && pendingNavRing,
         className,
       )}
       {...props}
@@ -98,3 +122,15 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
     </button>
   );
 });
+
+/** Icon-only chip sizing — floating shell corners, language trigger. */
+export const iconButtonClass = cn(
+  buttonVariants({ variant: "floating", size: "sm" }),
+  "size-11 min-h-11 min-w-11 rounded-full p-0",
+);
+
+/** Compact icon control — review report flag, inline toolbars. */
+export const iconButtonSmClass = cn(
+  buttonVariants({ variant: "floating", size: "sm" }),
+  "size-9 min-h-9 min-w-9 rounded-full p-0",
+);
