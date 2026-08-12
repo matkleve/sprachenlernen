@@ -8,10 +8,11 @@ export const copy = {
   countsHeading: "Your vocabulary",
   countsCaption: "How words are held in memory right now — not a backlog.",
   held: "Held",
-  shaky: "Shaky",
+  fragile: "Fragile",
   newWords: "New",
-  heldDescription: "Stable enough to count as known.",
-  shakyDescription: "Seen but not yet secure.",
+  heldDescription:
+    "You'd still recall it after about a week without seeing it again — at least two spaced successes in review.",
+  fragileDescription: "Seen in review but not yet stable enough to count as known.",
   newDescription: "Not reviewed yet.",
   horizonHeading: "Review horizon",
   horizonCaption: "When scheduled reviews fall over the next 30 days.",
@@ -28,8 +29,9 @@ export const copy = {
   },
   bucketNames: {
     held: "Held",
-    shaky: "Shaky",
+    fragile: "Fragile",
     new: "New",
+    mature: "Mature",
   } as const,
   noStability: "—",
 } as const;

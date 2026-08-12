@@ -62,9 +62,9 @@ export function WordsHome({ snapshot }: WordsHomeProps) {
             <dd className="mt-2 text-sm text-muted">{copy.heldDescription}</dd>
           </div>
           <div className="rounded-card border border-line bg-surface p-4 shadow-soft">
-            <dt className="text-sm font-medium text-muted">{copy.shaky}</dt>
-            <dd className="mt-2 text-3xl font-semibold text-ink">{snapshot.counts.shaky}</dd>
-            <dd className="mt-2 text-sm text-muted">{copy.shakyDescription}</dd>
+            <dt className="text-sm font-medium text-muted">{copy.fragile}</dt>
+            <dd className="mt-2 text-3xl font-semibold text-ink">{snapshot.counts.fragile}</dd>
+            <dd className="mt-2 text-sm text-muted">{copy.fragileDescription}</dd>
           </div>
           <div className="rounded-card border border-line bg-surface p-4 shadow-soft">
             <dt className="text-sm font-medium text-muted">{copy.newWords}</dt>
@@ -128,7 +128,9 @@ export function WordsHome({ snapshot }: WordsHomeProps) {
                 <Th scope="row">{point.lemma}</Th>
                 <Td>{point.frequencyRank}</Td>
                 <Td>{point.stability !== null ? point.stability.toFixed(1) : copy.noStability}</Td>
-                <Td>{copy.bucketNames[point.bucket]}</Td>
+                <Td>
+                  {point.mature ? copy.bucketNames.mature : copy.bucketNames[point.bucket]}
+                </Td>
               </tr>
             ))}
           </tbody>

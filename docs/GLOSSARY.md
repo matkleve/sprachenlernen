@@ -57,6 +57,9 @@ requires a `⚠ SPEC GAP` line, not a guess.
 | **Difficulty** | FSRS: how hard *this* Word is for *this* user. | the CEFR level of the Word |
 | **Retrievability** | FSRS: probability of recall right now. Drives what is due. | due date |
 | **Target retention** | The recall probability the schedule aims for (e.g. 0.9). A user setting. | accuracy |
+| **Held** | A Task in `review` with stability ≥ held threshold (~7 days), ≥2 successes, no trailing `again`. Counts toward vocabulary size. | graduated, mature, seen |
+| **Fragile** | Reviewed but not held — still in `learning`/`relearning`, below held threshold, or not enough evidence. | shaky, learning |
+| **Mature** | A held Task whose stability ≥ mature threshold (~21 days). Atlas display tier, not a separate count. | graduated |
 | **Leech** | A Task that keeps failing. Suspended and flagged for repair, not repeated harder. | a hard Task |
 | **Paradigm cell** | The position a form occupies in its inflection pattern — class × tense/mood × person for verbs, number/gender for nouns. Stored **with** each form→lemma mapping. Failing `parliamo` while passing `parlare` is a form gap, not a vocabulary gap. | a word form, a grammar topic |
 | **Form mastery** | A level-model signal of its own: which paradigm cells the learner can produce. Never folded into vocabulary size. | vocabulary, grammar knowledge |

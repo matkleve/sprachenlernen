@@ -9,7 +9,7 @@ import {
 } from "@/lib/form-recall-pool";
 import type { StarterCard } from "@/lib/starter-deck";
 import { rebuild, type Review } from "@/lib/scheduler";
-import { bucketForTask } from "@/lib/vocabulary-snapshot";
+import { isTaskHeld } from "@/lib/vocabulary-snapshot";
 
 /**
  * Form-recall Tasks enter the schedulable pool only when meaning-recall for the
@@ -28,6 +28,6 @@ export function filterSchedulableCards(
 
     const meaningTask = rebuild(meaningId, card.wordId, reviews).task;
 
-    return bucketForTask(meaningTask) === "held";
+    return isTaskHeld(meaningTask);
   });
 }
