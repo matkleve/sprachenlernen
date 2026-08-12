@@ -79,24 +79,31 @@ calls the database.
 - [ ] Given an invalid starter file, when `loadStarterDeck` runs, then it returns
       errors and no deck.
 
-## The active language may not reach this module
+## This module never chooses a language, and never mixes two
 
-⚠ **Negative, and load-bearing.** `buildSession` must never be filtered by the
-learner's **active** language ([`learning-languages.md`](learning-languages.md),
-[`GLOSSARY.md`](../../GLOSSARY.md)). The active language decides what is
-*displayed*. UC-025 splits one combined daily budget across every language being
-learned; the moment scheduling follows the interface's focus, the language not
-being looked at stops being reviewed and decays — which is the whole failure that
-use case exists to prevent.
+**Corrected 2026-08-12.** An earlier version of this section forbade filtering
+the pool by the learner's active language, reasoning from a combined
+cross-language daily budget that [UC-025](../../use-cases/UC-025-learn-a-second-language.md)
+has since **rejected outright** — languages never share a session, so there is
+nothing left to protect by keeping this module blind to which language it is
+given.
 
-The pool this module receives is therefore the pool the caller chose for a
-Session, never "whatever is on screen". Enforced two ways because one is not
-enough for a rule this easy to violate: this criterion, and a test in
-`lib/db/learning-languages.test.ts` that reads `lib/session-builder.ts` and
-fails if the coupling appears.
+What still holds, for a different reason: `buildSession` takes **whatever pool
+the caller passes**, and does not know or care which language that is — it has
+no language parameter today and needs none. The actual rule this module must
+never violate is upstream of it: **a caller must never pass it cards from more
+than one learning language at once.** One session, one language, always — the
+caller (today, whichever pool-selection function replaces
+`poolForScheduling`) is where that is enforced, by handing this module only the
+active language's cards, the same pool `poolForDisplay` already uses.
 
 - [ ] Given the module, then it imports nothing from `lib/db/learning-languages.ts`
-      and takes no language, active-language or focus parameter.
+      and takes no language, active-language or focus parameter — it stays a
+      pure function over whatever pool it is handed.
+- [ ] Given a pool built from two learning languages' cards (a caller error),
+      then `buildSession`'s output still cannot be relied on to separate them —
+      this is why the separation belongs in the caller, covered by its own test,
+      not smuggled into this module as a filter.
 
 ## Check
 

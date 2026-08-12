@@ -209,21 +209,30 @@ describe("learning-languages", () => {
     expect(activeLanguageOf([])).toBeNull();
   });
 
-  it("never lets the active language reach the session builder", () => {
-    // The damage is silent and an absent import is not something a reviewer
-    // notices, so the absence is asserted. If scheduling ever follows the
-    // interface's focus, the language not being looked at stops being reviewed
-    // and decays — the whole failure UC-025 prevents.
-    //
-    // The likelier violation is not an import here but a *caller* pre-filtering
-    // the pool, so the review-session action is checked too.
+  it("keeps the session builder itself pure — no language parameter", () => {
+    // buildSession must stay a plain function over whatever pool it is handed;
+    // it takes no language, active-language or focus parameter today and needs
+    // none. This holds regardless of which language that pool belongs to —
+    // see session-builder.md, "This module never chooses a language, and never
+    // mixes two" (corrected 2026-08-12, UC-025).
     const builder = readFileSync(join(process.cwd(), "lib/session-builder.ts"), "utf8");
     expect(builder).not.toMatch(/learning-languages|activeLanguage|isActive/);
 
     // `buildSession(pool, reviews, now, length)` — a fifth argument, or a named
     // language parameter, is how the coupling would arrive.
     expect(builder).not.toMatch(/language/i);
+  });
 
+  // ⚠ Documents today's actual bug, not a design goal. UC-025 (corrected
+  // 2026-08-12) rejected the combined cross-language budget this used to
+  // protect, and now requires the opposite of what this asserts: the pool a
+  // session schedules from must be scoped to the active language, the same
+  // pool `poolForDisplay` already uses. `poolForScheduling`
+  // (`lib/db/learner-pools.ts`) still concatenates every learning language's
+  // cards instead — tracked as T-B12 in IMPLEMENTATION-PLAN.md. When that is
+  // fixed, this assertion inverts (the caller *should* reach active-language
+  // logic) and this comment goes with it.
+  it("today: the review-session caller does not yet scope to the active language (T-B12)", () => {
     const caller = readFileSync(
       join(process.cwd(), "features/review-session/actions.ts"),
       "utf8",

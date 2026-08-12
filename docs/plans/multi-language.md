@@ -149,7 +149,7 @@ prior, not a measurement.
 | 6 | Progress, standing and Words filtered per language | M | free of migration thanks to the `es:` key prefix |
 | 7 | Tab bar instead of the floating pill | M | breaks `mobile-nav-v2.md`; needs a spec change, not a quiet edit |
 | 8 | Progress moves into Profile as the third destination | **M, ADR** | supersedes [ADR-0009](../adr/0009-three-destinations.md) |
-| 9 | Combined daily budget across languages | L | UC-025's core mechanism |
+| 9 | ~~Combined daily budget across languages~~ | — | **Withdrawn 2026-08-12** — rejected outright, see below, nothing to build |
 | 10 | Maintenance mode per language | L | |
 | 11 | Italian pool | L | separately blocked — see [`starter-deck.second-language.md`](../specs/service/starter-deck.second-language.md) |
 
@@ -211,6 +211,10 @@ limit — and its known failure mode is precisely UC-025's premise.
 crowding-out protection is gone. That belongs in `session-builder.md` as a
 **negative** acceptance criterion, because it is the most natural wrong thing to
 build.
+
+**Superseded 2026-08-12, see below — this is now backwards.** The combined
+budget this paragraph protects was rejected; `activeLanguage` reaching the
+session builder is now the *required* behavior, not the thing to prevent.
 
 ### Settled: "language", never "course"
 
@@ -321,10 +325,46 @@ renders as **not available yet** with the reason, because there is no Italian po
 and a selectable tile would lead nowhere. Italian becoming selectable depends on
 [`starter-deck.second-language.md`](../specs/service/starter-deck.second-language.md).
 
+## Decided by the owner, 2026-08-12 — the combined budget is rejected
+
+**Overrides the 2026-08-11 review's recommendation above, in full.** That
+review argued for combining the daily budget across languages from real
+evidence — the arithmetic cost of not combining it, and Anki's own
+crowding-out failure mode as the nearest analog. The owner's answer is not that
+the evidence was wrong; it is that the model itself is wrong for this product.
+Two learning languages are not one system sharing a resource — they are two
+separate things a learner can each be doing, the same way switching between two
+courses on another platform puts you fully in one and not partly in both.
+**Nothing about them mixes.** Consequences, all now settled rather than open:
+
+- **No combined daily budget, ever.** Adding a second language does cost more
+  of the learner's time — accepted, not managed by the app.
+- **A review session belongs to exactly one language, always.** Cards from two
+  learning languages never share a queue or a schedule. `session-builder.md`
+  and `learning-languages.md` are corrected to match; `poolForScheduling`
+  (`lib/db/learner-pools.ts`) currently violates this by concatenating every
+  learning language's cards into one pool before scheduling — a real,
+  reachable bug once an account has two languages, not merely a gap. Fixing it
+  is now a Track B item in [`IMPLEMENTATION-PLAN.md`](../IMPLEMENTATION-PLAN.md).
+- **The Spanish/Italian confusion-as-diagnosable-error-type clause is dropped**,
+  not deferred — it depended on the two languages' scheduling being aware of
+  each other at all, which no longer happens. (It was already flagged above as
+  only half-supported by the literature the review checked; this closes that
+  question by removing the premise rather than by resolving the evidence.)
+- Plan item 9 in the table above ("Combined daily budget across languages")
+  is withdrawn. Nothing replaces it — there is no cross-language mechanism to
+  build here at all.
+
+What survives from the 2026-08-11 review untouched: per-language isolation of
+levels/vocabulary/calibration, maintenance mode as a per-language flag, and
+switching being one action from the profile that preserves the other
+language's progress exactly where it was.
+
 ## Still open
 
 - **Whether Progress remains a destination** (raised, not decided — see above).
 - **Cold start**: the planned five-minute adaptive vocabulary test versus the
   C-test / elicited-imitation alternative the researcher recommends, which
   reaches production. Not blocking; nothing is built yet.
-- The `study/03` defects and the UC-025 overclaim recorded above.
+- The `study/03` defects recorded above. (The UC-025 overclaim is no longer
+  open — see 2026-08-12 above: dropped, not resolved.)

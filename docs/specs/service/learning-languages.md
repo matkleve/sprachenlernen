@@ -14,9 +14,10 @@ first table added since `review_log`.
   `lib/db/learning-languages.ts` (adapter), and the derivation of the **active**
   language for a request.
 - **Out:** the picker and profile surfaces (their own specs); per-language
-  filtering of Progress and Words; the combined daily budget and maintenance
-  mode (UC-025, both later); interface translation, which is a different axis
-  entirely and is at stage 0 ([`I18N.md`](../../I18N.md)).
+  filtering of Progress and Words; maintenance mode (UC-025, later — a combined
+  cross-language budget is **not** a later item, it is rejected, see UC-025);
+  interface translation, which is a different axis entirely and is at stage 0
+  ([`I18N.md`](../../I18N.md)).
 
 ## The distinction this spec exists to hold
 
@@ -29,8 +30,13 @@ first table added since `review_log`.
 
 **Engines are per learning language.** Reviews, the starter pool, and Progress
 readings are scoped to the language in focus on display surfaces (Words,
-Progress, standing). The session builder may draw from **all** learning languages
-for scheduling — see UC-025. Active language must never reach the builder.
+Progress, standing). **Corrected 2026-08-12:** an earlier version of this
+sentence said the session builder may draw from *all* learning languages at
+once, reasoning from a combined cross-language budget UC-025 has since
+**rejected**. The session builder is scoped to the active language too — the
+same one display surfaces use. A session never contains more than one
+language's cards; there is no separate "scheduling view" that sees more than
+the interface does.
 
 ## Behavior
 
