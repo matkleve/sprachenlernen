@@ -155,7 +155,8 @@ describe("ProfileSpokenLanguage", () => {
     expect(screen.getAllByText("English").length).toBeGreaterThanOrEqual(1);
     const activeChip = screen.getByText(copy.active);
     expect(activeChip.tagName).toBe("SPAN");
-    expect(activeChip.className).toContain("bg-accent-soft");
+    expect(activeChip.className).toContain("bg-accent");
+    expect(activeChip.className).toContain("text-accent-ink");
     expect(activeChip.className).toContain("border-accent");
     expect(screen.getAllByRole("button", { name: copy.makeActive })).toHaveLength(1);
   });
