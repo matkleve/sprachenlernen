@@ -28,7 +28,7 @@ it a place in `components/ui/` rather than a copy in each feature.
 | 2 | Hovers it | Tinted fill and full-strength label |
 | 3 | Presses it | Compresses slightly, so it reads as pressed |
 | 4 | Tabs to it | A focus ring, offset from the surface behind it |
-| 5 | Sees the current one | Tinted fill and full-strength label at rest, and `aria-current="page"` |
+| 5 | Sees the current one | Primary accent fill and legible ink at rest, and `aria-current="page"` |
 | 6 | Taps anywhere within 44px of it | It activates — the target is larger than the pill |
 | 7 | Taps another destination in the shell nav | Selection moves immediately to the tapped link (`pendingPolicy="nav"`) — the previous destination loses its fill before the route settles |
 
@@ -46,9 +46,9 @@ announcing a destination it will not go to. Where a destination is unavailable,
 render something that is not a link. `default`, `hover`, `active` and
 `focus-visible` are all present and are not waivable.
 
-`current` is a fifth state specific to navigation, and it is deliberately the
-same fill as `hover` rather than a stronger one: the current item is where you
-already are, so it is the one that needs the *least* pull.
+`current` is a fifth state specific to navigation, and it uses the primary
+accent fill (`bg-accent text-accent-ink`) so the current destination reads as
+selected on touch devices where hover never sticks.
 
 ## Data
 

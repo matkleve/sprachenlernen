@@ -88,7 +88,7 @@ export function LanguageListRow({
       </div>
 
       {isActive ? (
-        <Chip tone="accent" className="shrink-0 border border-accent" aria-current="true">
+        <Chip tone="selected" className="shrink-0" aria-current="true">
           {activeLabel}
         </Chip>
       ) : (

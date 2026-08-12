@@ -37,7 +37,7 @@ export function AppShell({
       <main
         id="main"
         className={cn(
-          "pt-shell-float-top pb-shell-float-bottom md:pt-0 md:pb-0",
+          "pt-[var(--shell-float-top-active)] pb-shell-float-bottom md:pt-0 md:pb-0",
         )}
       >
         {children}

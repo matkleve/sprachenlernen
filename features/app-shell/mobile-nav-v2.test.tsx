@@ -45,9 +45,10 @@ beforeEach(() => {
 describe("SPEC-feature-mobile-nav-v2", () => {
   it("shows three pill destinations without a hamburger", () => {
     vi.mocked(usePathname).mockReturnValue("/words");
-    render(<FloatingShellChrome languages={oneLanguage} />);
+    const { container } = render(<FloatingShellChrome languages={oneLanguage} />);
 
     expect(screen.queryByRole("button", { name: /menu/i })).toBeNull();
+    expect(container.querySelector(".footer-scrim-blur")).not.toBeNull();
 
     const nav = screen.getByRole("navigation", { name: copy.mobileNavLabel });
     const links = nav.querySelectorAll<HTMLAnchorElement>("a[href]");

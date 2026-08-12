@@ -11,9 +11,9 @@ controls on the method menu use the same pill geometry via **FilterPill**
 
 ## Scope
 
-- **In:** pill geometry, `default` and `accent` tones, and text children only.
-- **Out:** dismiss buttons, counts, icons, filter toggles, and `selected` state —
-  filter pills are buttons in `features/method-menu/`, not Chip instances.
+- **In:** pill geometry, `default`, `accent`, and `selected` tones, and text children only.
+- **Out:** dismiss buttons, counts, icons, and filter toggles — filter pills are
+  buttons in `features/method-menu/`, not Chip instances.
 
 **Reuse: none.** First primitive at this layer; method cards use it; filter pills
 reuse the geometry separately (`FilterPill`).
@@ -31,7 +31,7 @@ Non-interactive chips have one state. Method-menu filter pills are separate
 
 ## Data
 
-Takes `children`, optional `tone` (`default` | `accent`), and optional
+Takes `children`, optional `tone` (`default` | `accent` | `selected`), and optional
 `className`. No `href` — callers use `FilterPill` or `NavLink` when interaction
 is needed.
 
@@ -41,6 +41,8 @@ is needed.
       no raw colours or radii.
 - [ ] Given accent tone, when it renders, then it uses `bg-accent-soft` and
       `text-ink`.
+- [ ] Given selected tone, when it renders, then it uses `bg-accent` and
+      `text-accent-ink`.
 - [ ] Given a `className` from the caller, then it overrides conflicting
       utilities via `cn()`.
 - [ ] Given a chip on a method card, then it is a `span`, not a link.

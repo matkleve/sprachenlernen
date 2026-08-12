@@ -25,4 +25,18 @@ describe("ShellPageTitle", () => {
     expect(title.className).not.toContain("truncate");
     expect(title.className).not.toContain("absolute");
   });
+
+  it("expands shell top padding when the mobile title wraps to two lines", () => {
+    vi.mocked(usePathname).mockReturnValue("/methods");
+    vi.spyOn(window, "getComputedStyle").mockReturnValue({
+      lineHeight: "24px",
+    } as CSSStyleDeclaration);
+    vi.spyOn(HTMLElement.prototype, "scrollHeight", "get").mockReturnValue(80);
+
+    render(<ShellPageTitle variant="mobile" />);
+
+    expect(document.documentElement.style.getPropertyValue("--shell-float-top-active")).toBe(
+      "var(--spacing-shell-float-top-expanded)",
+    );
+  });
 });

@@ -42,7 +42,7 @@ export const navLinkVariants = cva(
   {
     variants: {
       current: {
-        true: "bg-accent-soft text-ink",
+        true: "bg-accent text-accent-ink shadow-soft hover:bg-accent-deep hover:text-accent-ink",
         false: "text-muted hover:bg-accent-soft hover:text-ink",
       },
     },
