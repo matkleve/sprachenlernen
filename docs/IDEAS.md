@@ -26,7 +26,10 @@ in six months.
 
 ## 2026-08-12 — Same-session card requeueing + per-card status dots
 
-**Status:** 🆕 unevaluated.
+**Status:** split. Requeueing → **✅ graduated → [UC-071](use-cases/UC-071-get-a-wrong-card-back-before-the-session-ends.md)**.
+Status dots → still **🆕 unevaluated**, deliberately left here — see "Where
+this would land if it graduates" below; it is not required for UC-071 and may
+never become its own use case.
 
 **Source:** owner, observing other vocabulary apps' session UX.
 
@@ -115,13 +118,11 @@ It touches three things this project already has opinions about:
    decision (does orange mean the same thing everywhere it might appear later,
    e.g. a future warning banner?).
 
-### Open question, unresolved
+### Resolved — the two products were split, not merged
 
-**⚠ Does grading a card "Hard" or "Again" mid-session requeue it within the
-same run, in addition to (or instead of) affecting its next-day FSRS due
-date?** No use case states this goal yet, so there is nothing to write
-acceptance criteria against. Two different products are hiding inside one
-description:
+Two different products were hiding inside one description; splitting them,
+rather than answering one combined "should we build this" question, is the
+2026-08-12 outcome:
 
 - **(a) A within-run rehearsal buffer** — closer to Anki's "again" queue or
   Duolingo's per-lesson retry loop. Session-scoped, thrown away at session end,
@@ -134,16 +135,18 @@ description:
 These do not have to be one feature. Splitting them is itself a decision worth
 making explicitly before either becomes a use case.
 
-### Where this would land if it graduates
+### Where the spec will land
 
-- (a) extends [`session-builder.md`](specs/service/session-builder.md) +
+- **(a)**, now [UC-071](use-cases/UC-071-get-a-wrong-card-back-before-the-session-ends.md),
+  will extend [`session-builder.md`](specs/service/session-builder.md) +
   [`review-session.states.md`](specs/feature/review-session.states.md) — the
-  FSM's `advancing` transition would need to sometimes re-insert rather than
-  only advance an index, and [UC-013](use-cases/UC-013-stop-losing-time-on-one-card.md)
-  would need to say how it relates.
-- (b) is a `review-session` UI change plus a token addition, and would need its
-  own acceptance criteria for what each colour claims — see UC-064's insistence
-  that a shown figure "states what counts as having one" plainly.
+  FSM's `advancing` transition needs to sometimes re-insert rather than only
+  advance an index. **Sensitive** change class: `review-session.md` already
+  tags itself "stateful UI with persistence".
+- **(b)**, if it ever graduates, is a `review-session` UI change plus a token
+  addition, and would need its own acceptance criteria for what each colour
+  claims — see UC-064's insistence that a shown figure "states what counts as
+  having one" plainly.
 
 ### Related, do not conflate
 

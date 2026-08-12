@@ -139,6 +139,7 @@ because it is interesting.
 | [UC-064](UC-064-understand-what-one-sub-metric-says-about-me.md) | Understand what one sub-metric says about me | 2 | [03](../study/03-level-model.md), [25](../study/25-why-it-does-not-feel-productive.md) |
 | [UC-069](UC-069-use-the-app-in-my-own-language.md) | Use the app in my own language | 1 · Querschnitt | [`I18N.md`](../I18N.md) |
 | [UC-070](UC-070-understand-cards-in-my-own-language.md) | Understand cards in my own language | 1 · Querschnitt | [`data/README.md`](../../data/README.md), UC-041 |
+| [UC-071](UC-071-get-a-wrong-card-back-before-the-session-ends.md) | Get a wrong card back before the session ends | 4b — with UC-013 | [`IDEAS.md`](../IDEAS.md) |
 
 **Not yet written**, and deliberately: use cases for content production (adding a
 language pair, recording a talker pool, curating texts). Those are operator
