@@ -67,6 +67,11 @@ function client(options: {
 
   const supabase = {
     auth: {
+      getSession: vi.fn().mockResolvedValue({
+        data: {
+          session: signedIn ? { user: { id: "user-1", email: "a@example.com" } } : null,
+        },
+      }),
       getUser: vi.fn().mockResolvedValue({
         data: { user: signedIn ? { id: "user-1", email: "a@example.com" } : null },
       }),

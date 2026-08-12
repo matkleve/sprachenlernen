@@ -22,8 +22,12 @@ import { listLearningLanguages } from "@/lib/db/learning-languages";
 export const dynamic = "force-dynamic";
 
 export default async function AppLayout({ children }: { children: ReactNode }) {
+  // Start the language query before the gate finishes — both only read the
+  // session cookie (middleware already validated it), so this overlaps the
+  // shell's DB round trip with nothing else on the critical path.
+  const learningPromise = listLearningLanguages();
   await requireAccount();
-  const languages = switcherOptionsFrom(await listLearningLanguages());
+  const languages = switcherOptionsFrom(await learningPromise);
 
   return <AppShell languages={languages}>{children}</AppShell>;
 }

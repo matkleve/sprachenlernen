@@ -21,13 +21,30 @@ function fakeClient(overrides: {
   signInWithPassword?: unknown;
   signOut?: unknown;
   getUser?: unknown;
+  getSession?: unknown;
 }): SupabaseClient {
+  const sessionFromGetUser =
+    overrides.getUser !== undefined
+      ? {
+          data: {
+            session:
+              (overrides.getUser as { data?: { user?: typeof user | null } }).data?.user ===
+              undefined
+                ? null
+                : (overrides.getUser as { data: { user: typeof user | null } }).data.user
+                  ? { user: (overrides.getUser as { data: { user: typeof user } }).data.user }
+                  : null,
+          },
+        }
+      : undefined;
+
   return {
     auth: {
       signUp: vi.fn().mockResolvedValue(overrides.signUp),
       signInWithPassword: vi.fn().mockResolvedValue(overrides.signInWithPassword),
       signOut: vi.fn().mockResolvedValue(overrides.signOut),
       getUser: vi.fn().mockResolvedValue(overrides.getUser),
+      getSession: vi.fn().mockResolvedValue(overrides.getSession ?? sessionFromGetUser),
     },
   } as unknown as SupabaseClient;
 }
@@ -120,12 +137,14 @@ describe("signOut", () => {
 
 describe("getAccount", () => {
   it("returns the Account when a user is signed in", async () => {
-    const client = fakeClient({ getUser: { data: { user } } });
+    const client = fakeClient({
+      getSession: { data: { session: { user } } },
+    });
     expect(await getAccount(client)).toEqual({ id: "user-1", email: "a@example.com" });
   });
 
   it("returns null when signed out, rather than throwing", async () => {
-    const client = fakeClient({ getUser: { data: { user: null } } });
+    const client = fakeClient({ getSession: { data: { session: null } } });
     expect(await getAccount(client)).toBeNull();
   });
 });
@@ -139,7 +158,7 @@ describe("deleteAccount", () => {
 
     const signOutFn = vi.fn().mockResolvedValue({ error: null });
     const client = fakeClient({
-      getUser: { data: { user } },
+      getSession: { data: { session: { user } } },
       signOut: { error: null },
     });
     (client.auth.signOut as ReturnType<typeof vi.fn>) = signOutFn;
@@ -150,7 +169,7 @@ describe("deleteAccount", () => {
   });
 
   it("errors when signed out", async () => {
-    const client = fakeClient({ getUser: { data: { user: null } } });
+    const client = fakeClient({ getSession: { data: { session: null } } });
     expect(await deleteAccount(client)).toEqual({
       status: "error",
       error: "You must be signed in to delete your account.",
