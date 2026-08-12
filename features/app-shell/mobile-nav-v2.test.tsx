@@ -8,7 +8,7 @@ import { AppShell } from "./AppShell";
 import { FloatingShellChrome } from "./FloatingShellChrome";
 import { copy as profileCopy } from "@/features/profile/content";
 
-import { copy } from "./content";
+import { copy, holding } from "./content";
 
 const oneLanguage = [{ code: "es", endonym: "Español", isActive: true }] as const;
 const twoLanguages = [
@@ -71,6 +71,7 @@ describe("SPEC-feature-mobile-nav-v2", () => {
       .getAllByRole("link")
       .filter((link) => link.getAttribute("href") === "/words");
     expect(wordsLinks).toHaveLength(1);
+    expect(screen.getByRole("heading", { level: 1, name: holding.words.title })).toBeDefined();
   });
 
   it("shows the language icon on a destination root", () => {

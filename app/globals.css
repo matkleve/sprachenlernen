@@ -82,11 +82,13 @@
   --spacing-page-bottom: 6rem;
   --spacing-page-content: 2.5rem;
   /* Mobile floating shell chrome — back/sign-out top, destination pill bottom */
-  --spacing-shell-float-top: 3.5rem;
+  --spacing-shell-float-top-compact: 3.5rem;
+  --spacing-shell-float-top-expanded: 6.5rem;
+  --spacing-shell-float-top: var(--spacing-shell-float-top-expanded);
   --spacing-shell-float-bottom: 5rem;
   /* Active review session — one screen between floating chrome on mobile */
   --height-review-session: calc(
-    100dvh - var(--spacing-shell-float-top) - var(--spacing-shell-float-bottom)
+    100dvh - var(--spacing-shell-float-top-compact) - var(--spacing-shell-float-bottom)
   );
 
   /* Type. next/font on <html> overrides these fallbacks at runtime. */
