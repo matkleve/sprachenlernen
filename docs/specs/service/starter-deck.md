@@ -140,3 +140,9 @@ Italian ships at stage 2 (2000 lemmas + form-recall pool). See
 - **Lemma-frequency recomputation** — summing form counts into lemma ranks is
   deliberate but is a calibration event when the level model extrapolates
   ([`lexicon.md`](lexicon.md) Open).
+- ⚠ **`back` bakes English into this file, permanently.**
+  [UC-069](../../use-cases/UC-069-use-the-app-in-my-own-language.md) resolved
+  that word identity and description text must be **separate records**,
+  keyed by (word, spoken language) — not reflected here yet, blocked on
+  UC-069's own remaining two gaps. Not a duplicate-deck-per-language file when
+  it is updated — that design is explicitly rejected in UC-069.

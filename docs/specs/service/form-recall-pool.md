@@ -73,3 +73,11 @@ Gloss comes from the meaning-recall card's `back`.
 ## Check
 
 `npm test -- form-recall-pool`
+
+## Open
+
+- ⚠ **`front`/`back` bake English into this file, permanently**, same as the
+  parent pool. [UC-069](../../use-cases/UC-069-use-the-app-in-my-own-language.md)
+  resolved that word identity and description text must be **separate
+  records** — not reflected here yet, blocked on the same two open gaps as
+  [`starter-deck.md`](starter-deck.md).

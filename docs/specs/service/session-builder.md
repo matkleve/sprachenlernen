@@ -46,11 +46,21 @@ string — no partial queue.
 | `wordId` | `string` | Lexical unit, e.g. `es:de` |
 | `lemma` | `string` | Surface form shown on the front |
 | `front` | `string` | L2 prompt (v1: same as `lemma`) |
-| `back` | `string` | English gloss — supplied, not generated at runtime |
+| `back` | `string` | English description text — supplied, not generated at runtime |
 | `frequencyRank` | `number` | 1 = most frequent in pool |
 
 **Session queue entry** adds scheduler-derived fields the UI may show later:
 `position` (1-based), `total`.
+
+⚠ **This shape bakes description text into the pool file, permanently
+English.** [UC-069](../../use-cases/UC-069-use-the-app-in-my-own-language.md)
+resolved that word identity and description text must be **separate
+records**, keyed by (word, spoken language) — this spec's `back` field does
+not reflect that yet. Not updated here because two of UC-069's own gaps are
+still open (where non-English text comes from; one string vs. split parts).
+When it is updated: never a second `back`-like field per spoken language on
+this same shape — UC-069 explicitly rejects a duplicate-deck-per-language
+design.
 
 Reviews passed in are scheduler `Review[]` keyed by `taskId`. The builder never
 calls the database.
