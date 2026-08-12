@@ -3,7 +3,7 @@ import { beforeEach, describe, expect, it, vi } from "vitest";
 import { readPicker } from "@/features/language-picker/reading";
 import { listLearningLanguages } from "@/lib/db/learning-languages";
 import { listReviewsForTaskIds } from "@/lib/db/review-log";
-import { loadSpanishMeaningRecallDeck } from "@/lib/starter-deck";
+import { loadSpanishMeaningRecallDeck, SHIPPED_ES_POOL_SIZE } from "@/lib/starter-deck";
 
 /** Contract: docs/specs/page/language-picker.md */
 
@@ -33,7 +33,7 @@ describe("readPicker", () => {
     if (outcome.status !== "ok") return;
 
     const spanish = outcome.tiles.find((tile) => tile.code === "es");
-    expect(spanish?.poolSize).toBe(500);
+    expect(spanish?.poolSize).toBe(SHIPPED_ES_POOL_SIZE);
     expect(spanish?.heldCount).toBeNull();
   });
 
@@ -63,7 +63,7 @@ describe("readPicker", () => {
 
     const spanish = outcome.tiles.find((tile) => tile.code === "es");
     expect(spanish?.heldCount).toBeGreaterThanOrEqual(0);
-    expect(spanish?.heldCount).toBeLessThanOrEqual(500);
+    expect(spanish?.heldCount).toBeLessThanOrEqual(SHIPPED_ES_POOL_SIZE);
   });
 
   it("passes through a review-log failure", async () => {

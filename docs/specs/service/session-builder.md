@@ -13,7 +13,7 @@ into a fixed-length queue of Tasks for one review session. **Standard**
 - **In:** `data/starter/es-meaning-recall.json` (frequency-ordered pool),
   `lib/starter-deck.ts` (load + validate), `lib/session-builder.ts`
   (`buildSession`), and tests. Default session length **15** cards; pool size
-  **500** lemmas ([`starter-deck.md`](starter-deck.md)); language **es**; task
+  **2000** lemmas ([`starter-deck.md`](starter-deck.md)); language **es**; task
   type **meaning-recall** only.
 - **Out:** choosing session length from the method menu (time scale is a separate
   PR); sibling spacing between tasks of one Word (ADR-0004 spec gap); real

@@ -17,7 +17,7 @@ import { fileURLToPath } from "node:url";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const CACHE = process.env.GLOSS_CACHE ?? join(ROOT, ".cache/gloss");
-const POOL_SIZE = 500;
+const POOL_SIZE = Number(process.env.POOL_SIZE ?? 2000);
 
 /**
  * A dictionary gloss is not a card back: Kaikki ships the full sense line,

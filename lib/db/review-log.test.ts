@@ -2,6 +2,7 @@ import type { SupabaseClient } from "@supabase/supabase-js";
 import { describe, expect, it, vi } from "vitest";
 
 import { appendReview, listReviewsForTaskIds, toSchedulerReview } from "@/lib/db/review-log";
+import { SHIPPED_ES_POOL_SIZE } from "@/lib/starter-deck";
 
 /**
  * Offline adapter coverage. RLS with payload columns is proven in
@@ -240,7 +241,7 @@ describe("listReviewsForTaskIds", () => {
 
   /**
    * `.in()` rides in the PostgREST query string, so the whole pool travels in
-   * the request line. The 500-lemma pool crosses the request-line limit of a
+   * the request line. The 2000-lemma pool crosses the request-line limit of a
    * typical gateway, which answers 414 — invisible to every other test here,
    * because they all stub the client.
    */
@@ -270,7 +271,10 @@ describe("listReviewsForTaskIds", () => {
   const rowAt = (taskId: string, iso: string) => ({ ...row, task_id: taskId, reviewed_at: iso });
 
   it("splits a pool-sized task list into bounded requests", async () => {
-    const taskIds = Array.from({ length: 500 }, (_, i) => `es:lemma-${i}:meaning-recall`);
+    const taskIds = Array.from(
+      { length: SHIPPED_ES_POOL_SIZE },
+      (_, i) => `es:lemma-${i}:meaning-recall`,
+    );
     const { client, calls } = chunkedClient([]);
 
     const result = await listReviewsForTaskIds(taskIds, client);

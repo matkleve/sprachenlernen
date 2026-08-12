@@ -74,7 +74,7 @@ fingerprint (ADR-0005).
 - [ ] Given rows for a set of `task_id`s, when `listReviewsForTaskIds` runs,
       then results are ordered by `reviewed_at` ascending and `toSchedulerReview`
       yields matching `{ at, grade }`.
-- [ ] Given the whole 500-lemma pool, when `listReviewsForTaskIds` runs, then it
+- [ ] Given the whole 2000-lemma pool, when `listReviewsForTaskIds` runs, then it
       issues more than one request, none carrying more than 100 task ids, and
       the union covers every id in order. PostgREST puts `in.(…)` in the query
       string, so an unbatched pool read is a ~19 KB request line and a 414.

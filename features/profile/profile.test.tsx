@@ -3,6 +3,7 @@ import { describe, expect, it, vi } from "vitest";
 
 import { ProfileLanguages } from "@/features/profile/ProfileLanguages";
 import { copy } from "@/features/profile/content";
+import { SHIPPED_ES_POOL_SIZE } from "@/lib/starter-deck";
 
 vi.mock("next/navigation", () => ({
   usePathname: vi.fn(() => "/profile"),
@@ -78,12 +79,12 @@ describe("ProfileLanguages", () => {
     render(
       <ProfileLanguages
         outcome={{ status: "ok", languages: [language("es", true)] }}
-        holdings={{ es: { poolSize: 500, heldCount: 347 } }}
+        holdings={{ es: { poolSize: SHIPPED_ES_POOL_SIZE, heldCount: 347 } }}
         switchTo={switchTo}
       />,
     );
 
-    expect(screen.getByText(copy.standing(347, 500))).toBeDefined();
+    expect(screen.getByText(copy.standing(347, SHIPPED_ES_POOL_SIZE))).toBeDefined();
     expect(screen.getByRole("link", { name: copy.viewProgress })).toBeDefined();
   });
 

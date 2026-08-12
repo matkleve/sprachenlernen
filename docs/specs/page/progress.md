@@ -113,8 +113,8 @@ added up across two would be a number about neither.
 
 The full estimator extrapolates SRS holdings over **frequency rank** across the
 language ([`study/03`](../../study/03-level-model.md) § Why vocabulary size is
-load-bearing). The shipped pool is **500** lemmas — extrapolation from it is still
-claim about Spanish made from one session, so it is **withheld**.
+load-bearing). The shipped pool is **2000** lemmas — still short of a calibrated
+language-wide boundary estimate, so extrapolation is **withheld**.
 
 What ships instead: count lemmas in the starter pool whose stability exceeds the
 graduation threshold (`vocabulary-snapshot`'s `held` bucket). `taskCount` on the

@@ -22,7 +22,7 @@ describe("form-recall pool", () => {
 
     expect(result.deck.taskType).toBe("form-recall");
     const cards = result.deck.cards as FormRecallCard[];
-    expect(cards.length).toBeGreaterThan(300);
+    expect(cards.length).toBeGreaterThan(1500);
     const hablar = cards.find((card) => card.lemma === "hablar");
     expect(hablar?.taskId).toBe("es:hablar:habla:form-recall");
     expect(hablar?.surfaceForm).toBe("habla");

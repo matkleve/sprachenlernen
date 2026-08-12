@@ -37,7 +37,7 @@ Parent: [`form-recall-pool.md`](form-recall-pool.md),
       mastery shows *N of M starter forms held stably* and names that it is
       separate from vocabulary size.
 - [ ] Given only meaning-recall reviews, when vocabulary size renders, then
-      `taskCount` is the meaning-recall pool size (500), not the combined pool.
+      `taskCount` is the meaning-recall pool size (2000), not the combined pool.
 - [ ] Given zero held forms after reviews, when form mastery renders, then the
       held count may be zero and the signal still reads *recorded*.
 - [ ] **Negative:** form-mastery value never includes meaning-recall Tasks.
