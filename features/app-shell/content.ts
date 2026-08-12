@@ -12,6 +12,7 @@ export const copy = {
   mobileNavLabel: "Switch destination",
   account: "Account",
   switchLanguage: "Switch learning language",
+  switchError: "Could not switch language. Nothing changed.",
   currentLanguage: (endonym: string) => `${endonym}, current learning language`,
   destinations: {
     methods: "Methods",

@@ -81,12 +81,7 @@ export function ProfileLanguages({ outcome, holdings, switchFailed, switchTo }: 
                   {language.isActive ? (
                     <p className="text-sm font-medium text-ink">{copy.active}</p>
                   ) : (
-                    <form
-                      action={async () => {
-                        "use server";
-                        await switchTo(language.languageCode);
-                      }}
-                    >
+                    <form action={switchTo.bind(null, language.languageCode)}>
                       <SubmitButton variant="secondary" size="sm">
                         {copy.makeActive}
                       </SubmitButton>
