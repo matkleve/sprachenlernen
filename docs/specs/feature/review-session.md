@@ -45,7 +45,7 @@ empty queue are mutually exclusive owners:
 | Condition | Owner | Effect |
 | --- | --- | --- |
 | Queue loading | `preparing` | No card, no grades |
-| Queue build failed | error surface | Message + link back; no FSM |
+| Queue build failed | error surface | Message; link back on desktop only — mobile uses shell back chip |
 | Empty queue | `complete` immediately | "Nothing to review" copy |
 
 ## Data
