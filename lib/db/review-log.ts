@@ -3,13 +3,26 @@ import { cache } from "react";
 
 import { getAccount } from "@/lib/db/auth";
 import { createServerSupabaseClient } from "@/lib/db/client";
+import { listTaskStatesForTaskIds } from "@/lib/db/task-state";
 import { taskIdsCacheKey } from "@/lib/db/task-id-cache-key";
 import {
   databaseNotSignedIn,
   fromSupabaseReviewError,
   logHandledErrorFromRequest,
 } from "@/lib/errors";
-import { GRADES, type Grade, type Review } from "@/lib/scheduler";
+import {
+  applyReview,
+  DEFAULT_CONFIG,
+  GRADES,
+  newTask,
+  type Grade,
+  type Review,
+} from "@/lib/scheduler";
+import {
+  taskFromStateRow,
+  taskStatePayloadFromTask,
+  wordIdFromTaskId,
+} from "@/lib/task-from-state";
 import { isUuid } from "@/lib/uuid";
 
 /**
@@ -154,17 +167,41 @@ export async function appendReview(
     return { status: "error", error: handled.userMessage };
   }
 
-  const payload = {
-    user_id: account.id,
-    installation_id: input.installationId,
-    task_id: input.taskId,
-    grade: input.grade,
-    reviewed_at: input.reviewedAt.toISOString(),
-    latency_ms: Math.round(input.latencyMs),
-    ...(input.reviewId ? { review_id: input.reviewId } : {}),
-  };
+  const wordId = wordIdFromTaskId(input.taskId);
+  const stateResult = await listTaskStatesForTaskIds([input.taskId], supabase);
+  if (stateResult.status === "error") {
+    return { status: "error", error: stateResult.error };
+  }
 
-  const { data, error } = await supabase.from("review_log").insert(payload).select("id").single();
+  const currentRow = stateResult.rows[0];
+  const currentTask = currentRow
+    ? taskFromStateRow(currentRow)
+    : newTask(input.taskId, wordId);
+  const reviewedAtMs = input.reviewedAt.getTime();
+  const outcome = applyReview(currentTask, input.grade, reviewedAtMs, DEFAULT_CONFIG);
+  if (outcome.illegal) {
+    return { status: "error", error: outcome.reason ?? "Could not apply grade." };
+  }
+
+  const statePayload = taskStatePayloadFromTask(outcome.task, input.grade);
+
+  const { data, error } = await supabase.rpc("append_review_with_task_state", {
+    p_installation_id: input.installationId,
+    p_task_id: input.taskId,
+    p_word_id: wordId,
+    p_grade: input.grade,
+    p_reviewed_at: input.reviewedAt.toISOString(),
+    p_latency_ms: Math.round(input.latencyMs),
+    p_review_id: input.reviewId ?? null,
+    p_state: statePayload.state,
+    p_stability: statePayload.stability,
+    p_difficulty: statePayload.difficulty,
+    p_due: statePayload.due,
+    p_last_review_at: statePayload.lastReviewAt,
+    p_lapses: statePayload.lapses,
+    p_review_count: statePayload.reviewCount,
+    p_weights_version: statePayload.weightsVersion,
+  });
 
   if (error) {
     // A retry after a successful first insert must not surface as failure.
@@ -180,7 +217,7 @@ export async function appendReview(
     return { status: "error", error: "Could not save review." };
   }
 
-  return { status: "appended", id: data.id };
+  return { status: "appended", id: data as string };
 }
 
 export async function listReviewsForTaskIds(

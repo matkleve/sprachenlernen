@@ -1,14 +1,14 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
 import { buildSessionAction } from "@/features/review-session/actions";
-import * as reviewLog from "@/lib/db/review-log";
+import * as taskState from "@/lib/db/task-state";
 import { copy } from "@/features/review-session/content";
 
-vi.mock("@/lib/db/review-log", async (importOriginal) => {
-  const actual = await importOriginal<typeof reviewLog>();
+vi.mock("@/lib/db/task-state", async (importOriginal) => {
+  const actual = await importOriginal<typeof taskState>();
   return {
     ...actual,
-    listReviewsForTaskIds: vi.fn(),
+    listTaskStatesForTaskIds: vi.fn(),
   };
 });
 
@@ -17,8 +17,8 @@ describe("buildSessionAction", () => {
     vi.clearAllMocks();
   });
 
-  it("returns session build copy when review history load throws", async () => {
-    vi.mocked(reviewLog.listReviewsForTaskIds).mockRejectedValueOnce(
+  it("returns session build copy when task state load throws", async () => {
+    vi.mocked(taskState.listTaskStatesForTaskIds).mockRejectedValueOnce(
       new Error("cookies() unavailable"),
     );
 

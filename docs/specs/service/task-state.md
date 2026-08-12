@@ -2,7 +2,7 @@
 
 <!-- id: SPEC-service-task-state -->
 <!-- use-case: UC-005 -->
-<!-- status: draft -->
+<!-- status: active -->
 
 Per-task FSRS memory state, **updated on every grade** and **read on every
 surface that today replays `review_log`**. The append-only log stays for export
@@ -62,22 +62,22 @@ data bug, not a UI bug.
 
 ## Acceptance criteria
 
-- [ ] Given a signed-in learner with no prior reviews, when they grade a card,
+- [x] Given a signed-in learner with no prior reviews, when they grade a card,
       then one `review_log` row and one `task_state` row exist and session queue
       matches replay-from-log.
-- [ ] Given 10 prior reviews for a task, when a new grade is appended, then
+- [x] Given 10 prior reviews for a task, when a new grade is appended, then
       `task_state` matches `rebuild` over all 11 log rows — not merely the latest
       grade in isolation.
-- [ ] Given an account with history, when `/words` renders, then it does **not**
+- [x] Given an account with history, when `/words` renders, then it does **not**
       call `listReviewsForTaskIds` (asserted in test via mock/spy).
-- [ ] Given 74k `review_log` rows for the shipped Spanish pool, when
+- [x] Given 74k `review_log` rows for the shipped Spanish pool, when
       `listTaskStatesForTaskIds` runs, then it returns at most **3704** rows
       (2000 meaning + 1704 form) regardless of review count.
-- [ ] Given backfill on an account with history, when it completes, then parity
+- [x] Given backfill on an account with history, when it completes, then parity
       test passes for every `task_id` that has reviews.
-- [ ] Given a failed `task_state` upsert mid-transaction, then **no**
+- [x] Given a failed `task_state` upsert mid-transaction, then **no**
       `review_log` row is committed (atomic write).
-- [ ] **Negative:** given Account B, when B selects `task_state`, then zero of
+- [x] **Negative:** given Account B, when B selects `task_state`, then zero of
       Account A's rows appear (inherits auth §8).
 
 ## Open questions

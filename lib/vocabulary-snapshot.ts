@@ -6,14 +6,7 @@
  */
 
 import type { StarterCard } from "@/lib/starter-deck";
-import {
-  DEFAULT_CONFIG,
-  newTask,
-  rebuild,
-  type Config,
-  type Review,
-  type Task,
-} from "@/lib/scheduler";
+import { DEFAULT_CONFIG, newTask, type Config, type Task } from "@/lib/scheduler";
 
 const DAY_MS = 86_400_000;
 export const HORIZON_DAYS = 30;
@@ -45,11 +38,6 @@ export type VocabularySnapshot = {
   atlas: readonly AtlasPoint[];
 };
 
-function taskForCard(card: StarterCard, reviews: Review[]): Task {
-  if (reviews.length === 0) return newTask(card.taskId, card.wordId);
-  return rebuild(card.taskId, card.wordId, reviews).task;
-}
-
 /** Held means stability above the graduation threshold — study/04 G3. */
 export function bucketForTask(task: Task, config: Config = DEFAULT_CONFIG): VocabularyBucket {
   if (task.reviews.length === 0) return "new";
@@ -60,7 +48,7 @@ export function bucketForTask(task: Task, config: Config = DEFAULT_CONFIG): Voca
 
 export function buildVocabularySnapshot(
   cards: readonly StarterCard[],
-  reviewsByTaskId: Record<string, Review[]>,
+  tasksByTaskId: Record<string, Task>,
   now: number,
   config: Config = DEFAULT_CONFIG,
 ): VocabularySnapshot {
@@ -72,8 +60,7 @@ export function buildVocabularySnapshot(
   const atlas: AtlasPoint[] = [];
 
   for (const card of cards) {
-    const reviews = reviewsByTaskId[card.taskId] ?? [];
-    const task = taskForCard(card, reviews);
+    const task = tasksByTaskId[card.taskId] ?? newTask(card.taskId, card.wordId);
     if (task.state === "suspended" || task.state === "retired") continue;
 
     const bucket = bucketForTask(task, config);

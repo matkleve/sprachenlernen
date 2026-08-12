@@ -48,8 +48,8 @@ describe("buildVocabularySnapshot", () => {
     const snapshot = buildVocabularySnapshot(
       cards,
       {
-        [heldCard.taskId]: heldTask.reviews,
-        [shakyCard.taskId]: shakyTask.reviews,
+        [heldCard.taskId]: heldTask,
+        [shakyCard.taskId]: shakyTask,
       },
       now,
     );

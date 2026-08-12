@@ -82,7 +82,7 @@ describe("form-recall staging", () => {
 
     const blocked = filterSchedulableCards(
       [hablarMeaning, hablarForm],
-      { [hablarMeaning.taskId]: meaningTask.reviews },
+      { [hablarMeaning.taskId]: meaningTask },
     );
     expect(blocked.map((card) => card.taskId)).toEqual([hablarMeaning.taskId]);
 
@@ -92,7 +92,7 @@ describe("form-recall staging", () => {
 
     const open = filterSchedulableCards(
       [hablarMeaning, hablarForm],
-      { [hablarMeaning.taskId]: meaningTask.reviews },
+      { [hablarMeaning.taskId]: meaningTask },
     );
     expect(open.map((card) => card.taskId).sort()).toEqual(
       [hablarMeaning.taskId, hablarForm.taskId].sort(),

@@ -1,27 +1,27 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
 import { readLanguageHoldings } from "@/lib/db/language-holdings";
-import { listReviewsForTaskIds } from "@/lib/db/review-log";
+import { listTaskStatesForTaskIds } from "@/lib/db/task-state";
 import { loadSpanishMeaningRecallDeck, SHIPPED_ES_POOL_SIZE } from "@/lib/starter-deck";
 
 /** Contract: docs/specs/page/language-picker.md */
 
-vi.mock("@/lib/db/review-log", async (importOriginal) => ({
-  ...(await importOriginal<typeof import("@/lib/db/review-log")>()),
-  listReviewsForTaskIds: vi.fn(),
+vi.mock("@/lib/db/task-state", async (importOriginal) => ({
+  ...(await importOriginal<typeof import("@/lib/db/task-state")>()),
+  listTaskStatesForTaskIds: vi.fn(),
 }));
 
 const spanishDeck = loadSpanishMeaningRecallDeck();
 const firstCard = spanishDeck.status === "ok" ? spanishDeck.deck.cards[0]! : null;
 
 beforeEach(() => {
-  vi.mocked(listReviewsForTaskIds).mockClear();
-  vi.mocked(listReviewsForTaskIds).mockResolvedValue({ status: "ok", reviews: [] });
+  vi.mocked(listTaskStatesForTaskIds).mockClear();
+  vi.mocked(listTaskStatesForTaskIds).mockResolvedValue({ status: "ok", rows: [] });
 });
 
 describe("readLanguageHoldings", () => {
   it("returns null heldCount before any review in a language", async () => {
-    vi.mocked(listReviewsForTaskIds).mockResolvedValue({ status: "ok", reviews: [] });
+    vi.mocked(listTaskStatesForTaskIds).mockResolvedValue({ status: "ok", rows: [] });
 
     const outcome = await readLanguageHoldings(["es"]);
 
@@ -31,21 +31,24 @@ describe("readLanguageHoldings", () => {
     expect(outcome.byCode.es?.heldCount).toBeNull();
   });
 
-  it("returns a held count after meaning-recall reviews exist", async () => {
+  it("returns a held count after meaning-recall state exists", async () => {
     if (!firstCard) throw new Error("spanish deck missing in test setup");
 
-    vi.mocked(listReviewsForTaskIds).mockResolvedValue({
+    vi.mocked(listTaskStatesForTaskIds).mockResolvedValue({
       status: "ok",
-      reviews: [
+      rows: [
         {
-          id: "row-1",
-          userId: "user-1",
-          installationId: "11111111-1111-4111-8111-111111111111",
           taskId: firstCard.taskId,
-          grade: "easy",
-          reviewedAt: new Date().toISOString(),
-          latencyMs: 1000,
-          createdAt: new Date().toISOString(),
+          wordId: firstCard.wordId,
+          state: "review",
+          stability: 12,
+          difficulty: 5,
+          due: new Date().toISOString(),
+          lastReviewAt: new Date().toISOString(),
+          lapses: 0,
+          lastGrade: "easy",
+          reviewCount: 2,
+          weightsVersion: "fsrs-4.5-default",
         },
       ],
     });
@@ -57,11 +60,11 @@ describe("readLanguageHoldings", () => {
     expect(outcome.byCode.es?.heldCount).toBeGreaterThanOrEqual(0);
   });
 
-  it("batches one review-log read across languages", async () => {
-    vi.mocked(listReviewsForTaskIds).mockResolvedValue({ status: "ok", reviews: [] });
+  it("batches one task_state read across languages", async () => {
+    vi.mocked(listTaskStatesForTaskIds).mockResolvedValue({ status: "ok", rows: [] });
 
     await readLanguageHoldings(["es", "it"]);
 
-    expect(listReviewsForTaskIds).toHaveBeenCalledTimes(1);
+    expect(listTaskStatesForTaskIds).toHaveBeenCalledTimes(1);
   });
 });

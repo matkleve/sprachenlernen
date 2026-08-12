@@ -1,8 +1,9 @@
-import { listReviewsForTaskIds, toSchedulerReview } from "@/lib/db/review-log";
+import { listTaskStatesForTaskIds } from "@/lib/db/task-state";
 import { poolForActiveLanguage } from "@/lib/db/learner-pools";
 import { isMeaningRecallTaskId } from "@/lib/form-recall-pool";
 import { readVocabularySize } from "@/lib/level-model";
-import { newTask, rebuild, type Review, type Task } from "@/lib/scheduler";
+import { newTask, type Task } from "@/lib/scheduler";
+import { tasksByTaskIdForCards } from "@/lib/task-from-state";
 
 import { standingFromVocabulary, type StandingOutcome } from "./standing";
 
@@ -29,19 +30,13 @@ async function read(now: number): Promise<StandingOutcome> {
   if (pool.status === "error") return { status: "omit" };
 
   const cards = pool.cards.filter((card) => isMeaningRecallTaskId(card.taskId));
-  const reviewsResult = await listReviewsForTaskIds(cards.map((card) => card.taskId));
-  if (reviewsResult.status === "error") return { status: "omit" };
+  const statesResult = await listTaskStatesForTaskIds(cards.map((card) => card.taskId));
+  if (statesResult.status === "error") return { status: "omit" };
 
-  const reviewsByTaskId: Record<string, Review[]> = {};
-  for (const row of reviewsResult.reviews) {
-    (reviewsByTaskId[row.taskId] ??= []).push(toSchedulerReview(row));
-  }
-
-  const tasks: Task[] = cards.map((card) => {
-    const reviews = reviewsByTaskId[card.taskId];
-    if (!reviews || reviews.length === 0) return newTask(card.taskId, card.wordId);
-    return rebuild(card.taskId, card.wordId, reviews).task;
-  });
+  const tasksByTaskId = tasksByTaskIdForCards(cards, statesResult.rows);
+  const tasks: Task[] = cards.map(
+    (card) => tasksByTaskId[card.taskId] ?? newTask(card.taskId, card.wordId),
+  );
 
   void now;
   return { status: "ok", summary: standingFromVocabulary(readVocabularySize(tasks)) };

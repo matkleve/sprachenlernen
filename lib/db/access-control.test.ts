@@ -278,3 +278,107 @@ describe.skipIf(!hasLiveProject)("review_log row-level security", () => {
     expect(data).toBeNull();
   });
 });
+
+describe.skipIf(!hasLiveProject)("task_state row-level security", () => {
+  let admin: SupabaseClient;
+  let skipSuite = false;
+
+  let userA: { id: string; email: string };
+  let userB: { id: string; email: string };
+
+  beforeAll(async () => {
+    admin = createClient(url!, serviceRoleKey!, {
+      auth: { autoRefreshToken: false, persistSession: false },
+    });
+
+    const { error: probeError } = await admin.from("task_state").select("task_id").limit(1);
+    if (probeError?.code === "PGRST205") {
+      skipSuite = true;
+      return;
+    }
+
+    const emailA = `task-state-a-${crypto.randomUUID()}@example.com`;
+    const emailB = `task-state-b-${crypto.randomUUID()}@example.com`;
+
+    const [resultA, resultB] = await Promise.all([
+      admin.auth.admin.createUser({ email: emailA, password, email_confirm: true }),
+      admin.auth.admin.createUser({ email: emailB, password, email_confirm: true }),
+    ]);
+
+    if (resultA.error) throw resultA.error;
+    if (resultB.error) throw resultB.error;
+
+    const a = resultA.data.user;
+    const b = resultB.data.user;
+    if (!a || !b) throw new Error("test users were not created");
+
+    userA = { id: a.id, email: emailA };
+    userB = { id: b.id, email: emailB };
+  });
+
+  afterAll(async () => {
+    if (skipSuite) return;
+    if (userA) await admin.auth.admin.deleteUser(userA.id);
+    if (userB) await admin.auth.admin.deleteUser(userB.id);
+  });
+
+  async function signInAs(email: string): Promise<SupabaseClient> {
+    const client = createClient(url!, publishableKey!, {
+      auth: { autoRefreshToken: false, persistSession: false },
+    });
+    const { error } = await client.auth.signInWithPassword({ email, password });
+    if (error) throw error;
+    return client;
+  }
+
+  function statePayload(userId: string) {
+    return {
+      user_id: userId,
+      task_id: "es:access-control:meaning-recall",
+      word_id: "es:access-control",
+      state: "learning",
+      stability: 1.2,
+      difficulty: 5,
+      due: new Date().toISOString(),
+      last_review_at: new Date().toISOString(),
+      lapses: 0,
+      last_grade: "good",
+      review_count: 1,
+      weights_version: "fsrs-4.5-default",
+    };
+  }
+
+  it("lets a signed-in user insert and read their own task_state row", async (ctx) => {
+    if (skipSuite) ctx.skip();
+    const asA = await signInAs(userA.email);
+
+    const { error: insertError } = await asA.from("task_state").insert(statePayload(userA.id));
+    expect(insertError).toBeNull();
+
+    const { data, error } = await asA.from("task_state").select("task_id, state");
+    expect(error).toBeNull();
+    expect(data).toHaveLength(1);
+    expect(data?.[0]?.task_id).toBe("es:access-control:meaning-recall");
+  });
+
+  it("never returns another user's task_state rows", async (ctx) => {
+    if (skipSuite) ctx.skip();
+    const asA = await signInAs(userA.email);
+    await asA.from("task_state").insert(statePayload(userA.id));
+
+    const asB = await signInAs(userB.email);
+    const { data, error } = await asB.from("task_state").select("*");
+
+    expect(error).toBeNull();
+    expect(data).toEqual([]);
+  });
+
+  it("refuses to insert a task_state row owned by someone else", async (ctx) => {
+    if (skipSuite) ctx.skip();
+    const asB = await signInAs(userB.email);
+
+    const { error } = await asB.from("task_state").insert(statePayload(userA.id));
+
+    expect(error).not.toBeNull();
+  });
+});
