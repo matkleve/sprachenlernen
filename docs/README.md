@@ -8,6 +8,7 @@ Start at [`../AGENTS.md`](../AGENTS.md). Everything here is what it links to.
 | --- | --- |
 | …understand what this product is and why | [`study/`](study/) |
 | …know what to build next, and who may build it | [`IMPLEMENTATION-PLAN.md`](IMPLEMENTATION-PLAN.md) |
+| …park a mechanism someone noticed elsewhere, before it's a use case | [`IDEAS.md`](IDEAS.md) |
 | …understand how work flows here | [`WORKFLOW.md`](WORKFLOW.md) |
 | …avoid the mistakes we keep making | [`AGENT-PITFALLS.md`](AGENT-PITFALLS.md) |
 | …find out what happened last session | [`diary/`](diary/) |
@@ -30,6 +31,7 @@ docs/
   study/            the research this product is derived from
   CONSTITUTION.md    non-negotiables — outranks everything
   IMPLEMENTATION-PLAN.md  the code queue — what is next and who may do it
+  IDEAS.md           raw mechanisms, not yet a use case — status: unevaluated/graduated/rejected
   WORKFLOW.md        pipeline, change classes, DoR/DoD, acceptance criteria
   SPEC-FORMAT.md     how to write a spec
   ARCHITECTURE.md    layers and dependency direction
@@ -58,6 +60,7 @@ them means each gets read at the wrong time or not at all.
 | **specs/** | what it *should* do | before building |
 | **diary/** | what happened and what was decided | before resuming an area |
 | **TRAPS / PITFALLS** | how this misleads people | before your second attempt |
+| **IDEAS.md** | what someone noticed, not yet checked against a goal | when triaging the backlog, before writing a use case |
 
 A lesson is *noticed* in the diary and *promoted* to a trap, a pitfall, or a
 spec — somewhere a reader is required to look. A rule that lives only in a diary
