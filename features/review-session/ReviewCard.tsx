@@ -10,6 +10,7 @@ import { isFormRecallTaskId } from "@/lib/form-recall-pool";
 import { paradigmCellLabel } from "@/lib/paradigm-cells";
 import { GRADES, type Grade } from "@/lib/scheduler";
 import { cn } from "@/lib/utils";
+import { Flag } from "lucide-react";
 
 type ReviewCardProps = {
   card: SessionCard;
@@ -17,6 +18,8 @@ type ReviewCardProps = {
   phase: Parameters<typeof canGrade>[0];
   onFlip: () => void;
   onGrade: (grade: Grade) => void;
+  onReport: () => void;
+  reportPending?: boolean;
   /** Hides progress line and tightens spacing for mobile one-screen layout. */
   compact?: boolean;
 };
@@ -27,6 +30,8 @@ export function ReviewCard({
   phase,
   onFlip,
   onGrade,
+  onReport,
+  reportPending = false,
   compact = false,
 }: ReviewCardProps) {
   const flipEnabled = canFlip(phase);
@@ -49,15 +54,33 @@ export function ReviewCard({
         </p>
       ) : null}
 
-      <button
-        type="button"
-        onClick={onFlip}
-        disabled={!flipEnabled}
-        aria-expanded={revealBack}
-        aria-label={flipEnabled ? copy.flipHint : undefined}
-        className={cn(
-          "group relative w-full rounded-card border border-line bg-surface text-center shadow-soft",
-          compact ? "flex min-h-0 flex-1 flex-col justify-center p-5 md:mt-6 md:flex-none md:p-8" : "mt-6 p-8",
+      <div className={cn("relative", compact ? "flex min-h-0 flex-1 flex-col" : "")}>
+        <button
+          type="button"
+          onClick={onReport}
+          disabled={reportPending}
+          aria-label={copy.report}
+          className={cn(
+            "absolute top-3 right-3 z-10 inline-flex size-9 items-center justify-center rounded-pill border border-line bg-surface text-muted shadow-soft",
+            "transition-[background-color,box-shadow,transform,border-color] duration-150 ease-out-soft",
+            "hover:border-line-strong hover:text-ink hover:-translate-y-px hover:shadow-raised",
+            "active:scale-[0.98] active:translate-y-0",
+            "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-canvas",
+            "disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none disabled:hover:translate-y-0",
+          )}
+        >
+          <Flag className="size-4" aria-hidden />
+        </button>
+
+        <button
+          type="button"
+          onClick={onFlip}
+          disabled={!flipEnabled}
+          aria-expanded={revealBack}
+          aria-label={flipEnabled ? copy.flipHint : undefined}
+          className={cn(
+            "group relative w-full rounded-card border border-line bg-surface text-center shadow-soft",
+            compact ? "flex min-h-0 flex-1 flex-col justify-center p-5 md:mt-6 md:flex-none md:p-8" : "mt-6 p-8",
           "transition-[box-shadow,transform] duration-200 ease-out-soft",
           "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-canvas",
           flipEnabled && "cursor-pointer hover:-translate-y-px hover:shadow-raised active:scale-[0.98] active:translate-y-0",
@@ -113,6 +136,7 @@ export function ReviewCard({
           </p>
         )}
       </button>
+      </div>
 
       {gradesEnabled && (
         <div className={cn(compact && "mt-3 shrink-0 md:mt-6")}>

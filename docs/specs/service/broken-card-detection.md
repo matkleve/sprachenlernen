@@ -18,11 +18,34 @@ Parent: [`IDEAS.md`](../../IDEAS.md) three-tier model,
   `scripts/check-neighbor-candidates.mjs`, sidecar files
   `data/starter/<lang>-neighbor-candidates.json` for each shipped meaning-recall
   pool.
-- **Out:** learner report UI (UC-023), suspension UI (UC-013), tier-2 leech
-  counting, tier-3 diagnosis screen, sound-contrast tables, too-many-meanings
-  heuristics.
+- **Out:** tier-2 leech counting, tier-3 diagnosis screen, sound-contrast tables,
+  too-many-meanings heuristics, moderator review-queue UI.
 
-## Behavior
+## Learner report (UC-023)
+
+| # | Input | Output |
+| --- | --- | --- |
+| 1 | Learner taps **Report** on a card during review | One row in `card_content_flag` keyed by (`user_id`, `word_id`, `spoken_language`); confirmation copy shown |
+| 2 | Same card in the **current** session | Stays in the fixed queue — no mid-session removal |
+| 3 | Next session build | Cards whose `word_id` is flagged for the account's current `spoken_language` are excluded from scheduling |
+| 4 | Repeat report on same key | Idempotent — no error, same confirmation |
+
+Table:
+
+```sql
+create table public.card_content_flag (
+  user_id uuid not null references auth.users (id) on delete cascade,
+  word_id text not null,
+  spoken_language text not null,
+  flagged_at timestamptz not null default now(),
+  primary key (user_id, word_id, spoken_language)
+);
+```
+
+**RLS:** select/insert own rows only. No update/delete — unflagging is out of scope
+for v1.
+
+## Behavior (tier 1 — build-time)
 
 | # | Input | Output |
 | --- | --- | --- |
@@ -68,4 +91,4 @@ See [`broken-card-detection.acceptance-criteria.md`](broken-card-detection.accep
 
 ## Check
 
-`npm test -- neighbor-candidates`, `node scripts/check-neighbor-candidates.mjs`
+`npm test -- neighbor-candidates card-content-flags`, `node scripts/check-neighbor-candidates.mjs`

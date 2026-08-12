@@ -35,6 +35,7 @@ recall or form-recall), grades that append to the review log (T-B2).
 | 5 | Background flush fails | Session does not rewind; non-blocking status with Retry |
 | 6 | Session `complete` | Summary: cards graded this session; link back to Words and Methods |
 | 7 | Viewport &lt; `md` during an active card | Method name and progress share one line; card and grade row fit without page scroll |
+| 8 | Taps **Report** on a card | Card is flagged for this learner and spoken language; confirmation shown; card stays in the current queue ([`broken-card-detection`](../service/broken-card-detection.md), UC-023) |
 
 ## States
 

@@ -33,8 +33,11 @@ export function ReviewSession({ methodName, compact = false }: ReviewSessionProp
     pendingCount,
     showSyncStatus,
     gradedCount,
+    reportMessage,
+    reportPending,
     flip,
     grade,
+    report,
     retrySync,
   } = useReviewSession();
 
@@ -111,6 +114,19 @@ export function ReviewSession({ methodName, compact = false }: ReviewSessionProp
         </div>
       ) : null}
 
+      {reportMessage ? (
+        <p
+          className={cn(
+            "text-sm text-ink",
+            compact ? "mt-1 shrink-0" : "mt-2",
+          )}
+          role="status"
+          aria-live="polite"
+        >
+          {reportMessage}
+        </p>
+      ) : null}
+
       {phase === "complete" ? (
         <SessionComplete
           gradedCount={gradedCount}
@@ -124,6 +140,8 @@ export function ReviewSession({ methodName, compact = false }: ReviewSessionProp
           phase={phase}
           onFlip={flip}
           onGrade={grade}
+          onReport={report}
+          reportPending={reportPending}
           compact={compact}
         />
       ) : null}

@@ -2,6 +2,7 @@ import { render, screen } from "@testing-library/react";
 import { describe, expect, it, vi } from "vitest";
 
 import { ProfileLanguages } from "@/features/profile/ProfileLanguages";
+import { ProfileSpokenLanguage } from "@/features/profile/ProfileSpokenLanguage";
 import { copy } from "@/features/profile/content";
 import { SHIPPED_ES_POOL_SIZE } from "@/lib/starter-deck";
 
@@ -99,5 +100,23 @@ describe("ProfileLanguages", () => {
 
     expect(text).not.toMatch(/streak|xp|day in a row|cards reviewed/);
     expect(screen.queryByRole("progressbar")).toBeNull();
+  });
+});
+
+describe("ProfileSpokenLanguage", () => {
+  const changeTo = vi.fn();
+
+  it("marks the current spoken language and offers a switch for the other", () => {
+    render(
+      <ProfileSpokenLanguage
+        outcome={{ status: "ok", spokenLanguage: "en" }}
+        changeTo={changeTo}
+      />,
+    );
+
+    expect(screen.getByText("Deutsch")).toBeDefined();
+    expect(screen.getAllByText("English").length).toBeGreaterThanOrEqual(1);
+    expect(screen.getAllByText(copy.active)).toHaveLength(1);
+    expect(screen.getAllByRole("button", { name: copy.makeActive })).toHaveLength(1);
   });
 });

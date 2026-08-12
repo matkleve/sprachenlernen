@@ -5,6 +5,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 
 import {
   buildSessionAction,
+  reportCardAction,
 } from "@/features/review-session/actions";
 import { copy } from "@/features/review-session/content";
 import { routes } from "@/lib/routes";
@@ -33,8 +34,11 @@ export type UseReviewSessionResult = {
   pendingCount: number;
   showSyncStatus: boolean;
   gradedCount: number;
+  reportMessage: string | null;
+  reportPending: boolean;
   flip: () => void;
   grade: (value: Grade) => void;
+  report: () => void;
   retrySync: () => void;
 };
 
@@ -52,6 +56,8 @@ export function useReviewSession(): UseReviewSessionResult {
   const [pendingCount, setPendingCount] = useState(0);
   const [showSyncStatus, setShowSyncStatus] = useState(false);
   const [gradedCount, setGradedCount] = useState(0);
+  const [reportMessage, setReportMessage] = useState<string | null>(null);
+  const [reportPending, setReportPending] = useState(false);
   const shownAtRef = useRef(Date.now());
   const gradingRef = useRef(false);
 
@@ -173,6 +179,21 @@ export function useReviewSession(): UseReviewSessionResult {
     void getReviewQueue().retryFailed();
   }, []);
 
+  const report = useCallback(() => {
+    if (!currentCard || reportPending) return;
+
+    setReportPending(true);
+    setReportMessage(null);
+    void reportCardAction(currentCard.wordId).then((outcome) => {
+      setReportPending(false);
+      if (outcome.status === "error") {
+        setReportMessage(outcome.error);
+        return;
+      }
+      setReportMessage(copy.reportDone);
+    });
+  }, [currentCard, reportPending]);
+
   return {
     status,
     loadError,
@@ -184,8 +205,11 @@ export function useReviewSession(): UseReviewSessionResult {
     pendingCount,
     showSyncStatus,
     gradedCount,
+    reportMessage,
+    reportPending,
     flip,
     grade,
+    report,
     retrySync,
   };
 }

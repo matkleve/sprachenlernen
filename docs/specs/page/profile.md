@@ -13,7 +13,8 @@ language actions, which belong to
 ## Scope
 
 - **In:** `/profile` (today's `/account`, renamed), the language list and
-  `Add a language`, and the existing export and delete blocks from
+  `Add a language`, spoken-language setting ([`spoken-language.md`](../service/spoken-language.md)),
+  and the existing export and delete blocks from
   [`account-data.md`](../feature/account-data.md). Sign out moves in here.
 - **Out:** measured progress — that stays on [`progress.md`](progress.md) and
   remains a destination. Profile links to it and never restates its numbers;
@@ -37,12 +38,14 @@ page — the affordance ADR-0009 described, finally built.
 
 | # | User action | System response |
 | --- | --- | --- |
-| 1 | Taps the account chip | `/profile` — email, languages, export, delete, sign out |
-| 2 | Views languages | Every learning language, the active one marked, ordered by when it was added |
-| 3 | Taps a non-active language | It becomes active; the interface follows. No session state is lost (UC-025) |
-| 4 | Taps `Add a language` | The picker ([`language-picker.md`](language-picker.md)) |
-| 5 | Has no language yet | The list is replaced by a single call to action into the picker — never an empty table |
-| 6 | Language read fails | The error surface for that block only; export and delete still work |
+| 1 | Taps the account chip | `/profile` — email, spoken language, learning languages, export, delete, sign out |
+| 2 | Views spoken language | Every shipped spoken language, the current one marked |
+| 3 | Changes spoken language | Preference updates; learning languages and review history unchanged |
+| 4 | Views learning languages | Every learning language, the active one marked, ordered by when it was added |
+| 5 | Taps a non-active language | It becomes active; the interface follows. No session state is lost (UC-025) |
+| 6 | Taps `Add a language` | The picker ([`language-picker.md`](language-picker.md)) |
+| 7 | Has no language yet | The list is replaced by a single call to action into the picker — never an empty table |
+| 8 | Language read fails | The error surface for that block only; export and delete still work |
 
 ## States
 
@@ -51,7 +54,7 @@ Component; the language actions are server actions.
 
 ## Data
 
-Reads `listLearningLanguages()`. Shows, per language, the endonym as the primary
+Reads `listLearningLanguages()` and `getSpokenLanguage()`. Shows, per language, the endonym as the primary
 label with the English name beneath — `Español` / *Spanish*. **A flag is never
 the identifier**: Spanish is not Spain, and a flag alone misnames the language
 for most of its speakers.

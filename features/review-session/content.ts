@@ -48,4 +48,7 @@ export const copy = {
     count === 1 ? "Syncing 1 review…" : `Syncing ${count} reviews…`,
   syncFailed: "Your grade could not be saved.",
   syncRetry: "Retry",
+  report: "Report a problem with this card",
+  reportDone:
+    "Thanks — we will stop scheduling this card in your next session. You can finish this one.",
 } as const;
