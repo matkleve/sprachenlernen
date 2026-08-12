@@ -146,7 +146,7 @@ describe("the three destinations", () => {
     const header = document.querySelector("header");
     if (!header) throw new Error("expected desktop header");
     expect(
-      within(header as HTMLElement).getByRole("combobox", { name: copy.switchLanguage }),
+      within(header as HTMLElement).getByRole("button", { name: copy.switchLanguage }),
     ).toBeDefined();
   });
 

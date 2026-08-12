@@ -19,7 +19,9 @@ Progress (ADR-0009). **No due-count badges** (UC-063).
   `/profile`; floating top-left back on drill-in routes; **icon-only** language
   chip (round) on destination roots only — hidden on drill-in so back and
   language never compete; safe-area insets on shell `main`; token surfaces only;
-  desktop `≥ md` unchanged.
+  desktop `≥ md` unchanged. The language chip is a **circular flag** (decorative
+  glyph from `lib/languages.ts`, not the identifier) that opens a menu of
+  [`language-switch-row.md`](../component/language-switch-row.md) tiles.
 - **Out:** hamburger and drawer; full-width mobile header bar; hiding the pill on
   review; profile destination; notification badges; marketing shell.
 
@@ -36,8 +38,8 @@ Progress (ADR-0009). **No due-count badges** (UC-063).
 | 4 | Taps a pill segment | Navigates; current segment marked with `aria-current="page"` |
 | 5 | Taps the account chip | `/profile`, where sign out now lives ([`../page/profile.md`](../page/profile.md)) |
 | 6 | Taps back float | Navigates to parent destination (`href`, not blind history) |
-| 7 | Has more than one learning language | Top-left icon opens the language list; choosing one makes it active and refreshes the current page — one action (UC-025) |
-| 8 | Has exactly one learning language | Top-left shows a non-interactive language icon with the endonym in `aria-label` |
+| 7 | Has more than one learning language | Top-left flag circle opens a menu under it: language rows + **Add a language**; choosing a row makes it active and refreshes the current page — one action (UC-025) |
+| 8 | Has exactly one learning language | Top-left shows a non-interactive flag circle with the endonym in `aria-label` |
 | 9 | Scrolls page content | Floats stay fixed; the page title stays centered and scales down; a scrim (blur + tint) fades in at the top and out toward the bottom of the header |
 | 10 | On any signed-in route | The page title is always centered in the header row — large at scroll top, smaller after scrolling down (mobile floats and desktop header) |
 

@@ -53,8 +53,10 @@ Component; the language actions are server actions.
 
 Reads `listLearningLanguages()`. Shows, per language, the endonym as the primary
 label with the English name beneath — `Español` / *Spanish*. **A flag is never
-the identifier**: Spanish is not Spain, and a flag alone misnames the language
-for most of its speakers.
+the identifier** on these rows: Spanish is not Spain, and a flag alone misnames
+the language for most of its speakers. The shell switcher may show a decorative
+flag in its circle ([`../component/language-flag.md`](../component/language-flag.md));
+the endonym still names the language everywhere that matters.
 
 Each row shows the language and whether it is in focus. When the learner has
 reviewed meaning-recall in that language, a one-line standing reads

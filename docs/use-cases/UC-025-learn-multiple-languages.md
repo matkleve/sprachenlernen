@@ -1,7 +1,7 @@
 # UC-025 — Learn multiple languages, each fully separate
 
 <!-- id: UC-025 -->
-<!-- specs: SPEC-service-learning-languages, SPEC-page-language-picker -->
+<!-- specs: SPEC-service-learning-languages, SPEC-page-language-picker, SPEC-feature-app-shell, SPEC-feature-mobile-nav-v2, SPEC-component-language-flag, SPEC-component-language-switch-row -->
 
 **Who:** someone using the app for one or more languages who starts another —
 their second, third, or twelfth; the count never matters.
@@ -43,10 +43,11 @@ how many languages the account holds.
   never "mostly Spanish with some of whatever else I'm learning mixed in by
   whatever the scheduler decided was due."
 - **Switching which language you are working with is exactly like switching
-  which course you are in** — one action, from the profile, among however many
-  languages the account holds. It changes what you see and what you practise
-  next; it changes nothing about any other language's stored progress, which is
-  exactly where you left it whenever you switch back.
+  which course you are in** — one action, from the profile or from the shell's
+  circular flag switcher (tap the flag, pick a row or **Add a language**), among
+  however many languages the account holds. It changes what you see and what you
+  practise next; it changes nothing about any other language's stored progress,
+  which is exactly where you left it whenever you switch back.
 - Each language can independently be put in maintenance: enough review to hold
   what exists, no new material, no pressure (related to UC-006). Still per
   language, still never shared with any other language's schedule, no matter

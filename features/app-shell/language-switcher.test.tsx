@@ -26,30 +26,20 @@ describe("LanguageSwitcher", () => {
     expect(container.firstChild).toBeNull();
   });
 
-  it("shows a non-interactive icon when only one language is being learned", () => {
+  it("shows a non-interactive flag circle when only one language is being learned", () => {
     render(
       <LanguageSwitcher
         languages={[{ code: "es", endonym: "Español", isActive: true }]}
         layout="floating"
       />,
     );
-    expect(
-      screen.getByLabelText(copy.currentLanguage("Español")),
-    ).toBeDefined();
-    expect(screen.queryByRole("combobox")).toBeNull();
+
+    expect(screen.getByLabelText(copy.currentLanguage("Español"))).toBeDefined();
+    expect(screen.getByText("🇪🇸")).toBeDefined();
+    expect(screen.queryByRole("button", { name: copy.switchLanguage })).toBeNull();
   });
 
-  it("shows endonym text on desktop when only one language is being learned", () => {
-    render(
-      <LanguageSwitcher
-        languages={[{ code: "es", endonym: "Español", isActive: true }]}
-        layout="inline"
-      />,
-    );
-    expect(screen.getByText("Español")).toBeDefined();
-  });
-
-  it("switches language in one action when more than one is available", async () => {
+  it("opens a menu under the flag and switches in one action", async () => {
     const user = userEvent.setup();
     render(
       <LanguageSwitcher
@@ -60,8 +50,13 @@ describe("LanguageSwitcher", () => {
       />,
     );
 
-    const select = screen.getByRole("combobox", { name: copy.switchLanguage });
-    await user.selectOptions(select, "it");
+    await user.click(screen.getByRole("button", { name: copy.switchLanguage }));
+
+    expect(screen.getByRole("menu", { name: copy.switchLanguage })).toBeDefined();
+    expect(screen.getByText("Active")).toBeDefined();
+    expect(screen.getByRole("link", { name: copy.addLanguage })).toBeDefined();
+
+    await user.click(screen.getByRole("button", { name: /Italiano/i }));
 
     expect(switchActiveLanguageAction).toHaveBeenCalledWith("it");
   });

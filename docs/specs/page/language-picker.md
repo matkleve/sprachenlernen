@@ -45,7 +45,9 @@ stops a language becoming selectable months before it has anything to teach.
 Today: Spanish and Italian are both available (2000-word starter sets each).
 
 The endonym is the primary label with the English name beneath — `Español` /
-*Spanish*. **A flag is never the identifier**; Spanish is not Spain.
+*Spanish*. **A flag is never the identifier** on these tiles; Spanish is not Spain.
+The shell switcher may show a decorative flag in its circle
+([`../component/language-flag.md`](../component/language-flag.md)).
 
 ## Copy, and why it is shaped this way
 

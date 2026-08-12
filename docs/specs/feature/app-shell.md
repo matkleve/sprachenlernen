@@ -45,7 +45,7 @@ sign-out control that had no signed-in navigation to live in. That control is no
 | 7 | A destination's content throws | The shell header and navigation remain; only the destination content area shows the error surface ([`errors-boundaries.md`](../service/errors-boundaries.md)) |
 | 8 | Viewport &lt; `md` while signed in | Floating bottom pill + top-right account chip; no full-width header bar ([`mobile-nav-v2.md`](mobile-nav-v2.md)) |
 | 9 | Viewport ≥ `md` while signed in | Horizontal destination nav + inline account link in header; no floating chrome |
-| 10 | Has more than one learning language on any viewport | A language switcher in the desktop header (left of the destinations) switches the active language in one action (UC-025) |
+| 10 | Has more than one learning language on any viewport | A circular flag switcher in the header (left of the destinations on desktop; top-left on mobile) opens a menu of language rows plus **Add a language** — one action to switch (UC-025) |
 | 11 | Scrolls page content on desktop | A header scrim (blur + tint) fades in at the top and out toward the bottom; the page title scales down while staying centered |
 | 12 | On any signed-in route | The page title is always centered in the header — large at scroll top, smaller after scrolling down |
 
@@ -115,7 +115,8 @@ visual one: the shell is never given a number, so it cannot render one.
       Words, Progress — and a fourth cannot appear in the navigation without a
       deliberate change to `protectedRoutes`.
 - [ ] Given a signed-in Account with more than one learning language, then a
-      language switcher is reachable from the shell without opening `/profile`.
+      flag switcher is reachable from the shell without opening `/profile` — tap
+      the circle, choose a row or **Add a language**.
 - [ ] Given a signed-in Account on `/words`, then the shell header shows the page
       title "Words" centered and large at scroll top, scaling down smoothly on scroll.
 - [ ] Given a signed-in Account, then an account link to `/profile` is present,

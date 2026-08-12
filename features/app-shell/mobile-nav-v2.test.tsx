@@ -79,7 +79,7 @@ describe("SPEC-feature-mobile-nav-v2", () => {
     render(<FloatingShellChrome languages={twoLanguages} />);
 
     expect(
-      screen.getByRole("combobox", { name: copy.switchLanguage }),
+      screen.getByRole("button", { name: copy.switchLanguage }),
     ).toBeDefined();
   });
 
@@ -91,7 +91,7 @@ describe("SPEC-feature-mobile-nav-v2", () => {
       .getAllByRole("link")
       .filter((link) => link.getAttribute("href") === "/words");
     expect(wordsLinks).toHaveLength(2);
-    expect(screen.queryByRole("combobox", { name: copy.switchLanguage })).toBeNull();
+    expect(screen.queryByRole("button", { name: copy.switchLanguage })).toBeNull();
     expect(screen.getByRole("navigation", { name: copy.mobileNavLabel })).toBeDefined();
   });
 

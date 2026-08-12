@@ -14,6 +14,8 @@ export const copy = {
   switchLanguage: "Switch learning language",
   switchError: "Could not switch language. Nothing changed.",
   currentLanguage: (endonym: string) => `${endonym}, current learning language`,
+  active: "Active",
+  addLanguage: "Add a language",
   destinations: {
     methods: "Methods",
     words: "Words",
