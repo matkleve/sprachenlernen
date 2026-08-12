@@ -152,6 +152,13 @@ enough for a rule this easy to violate.
 
 `npm test -- learning-languages`
 
+## Not yet applied
+
+⚠ **The migration has never been executed anywhere** — not on the live project,
+not locally. Every destination reads this table, so until it runs they all show
+the error surface. Steps and the checks to run afterwards:
+[`plans/apply-learner-language.md`](../../plans/apply-learner-language.md).
+
 ## Open
 
 - **Maintenance mode** (UC-025) adds a per-row state. Deliberately not modelled
