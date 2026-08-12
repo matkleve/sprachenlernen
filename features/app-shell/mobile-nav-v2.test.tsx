@@ -82,14 +82,13 @@ describe("SPEC-feature-mobile-nav-v2", () => {
     expect(screen.getByText("🇪🇸")).toBeDefined();
   });
 
-  it("shows back and the language emoji on drill-in routes", () => {
+  it("shows icon-only back and the language emoji on drill-in routes", () => {
     vi.mocked(usePathname).mockReturnValue("/methods/srs-session");
     render(<FloatingShellChrome languages={twoLanguages} />);
 
-    const backLinks = screen
-      .getAllByRole("link")
-      .filter((link) => link.getAttribute("href") === "/methods");
-    expect(backLinks.length).toBeGreaterThanOrEqual(1);
+    const back = screen.getByRole("link", { name: copy.backTo(copy.destinations.methods) });
+    expect(back.getAttribute("href")).toBe("/methods");
+    expect(back.textContent?.trim()).toBe("");
     expect(screen.getByRole("button", { name: copy.switchLanguage })).toBeDefined();
     expect(screen.getByText("🇪🇸")).toBeDefined();
   });

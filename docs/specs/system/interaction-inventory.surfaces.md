@@ -10,7 +10,7 @@ Update this file in the same PR as any new control or migration.
 | Control | File | Primitive | Variant / policy | P |
 | --- | --- | --- | --- | --- |
 | Destination nav ×4 | `DestinationNavItems.tsx` | `NavLink` | `current` from pathname | ✓ |
-| Mobile back chip | `FloatingShellChrome.tsx` | `ActionLink` | `floating`, `pendingPolicy="nav"` | ring |
+| Mobile back chip | `FloatingShellChrome.tsx` | `IconLink` | `pendingPolicy="nav"` | ring |
 | Mobile profile icon | `FloatingShellChrome.tsx` | `IconLink` | `nav` | ring |
 | Desktop account | `DesktopShellHeader.tsx` | `ActionLink` | `ghost sm` | ✓ |
 | Language trigger | `LanguageSwitcher.tsx` | `IconButton` | `nav`; disabled while switching | ring |

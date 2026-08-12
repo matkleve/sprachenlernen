@@ -35,14 +35,14 @@ Progress (ADR-0009). **No due-count badges** (UC-063).
 | --- | --- | --- |
 | 1 | Viewport ≥ `md` | Horizontal nav + inline account link in header; no floating chrome |
 | 2 | Viewport &lt; `md` on a destination root | Bottom pill visible; top-right account icon chip; **top-left language icon chip** when the account has at least one learning language |
-| 3 | Viewport &lt; `md` on a drill-in route | Back float appears top-left (label + arrow); **language emoji chip** beside it when the account has a learning language; target is the parent destination |
+| 3 | Viewport &lt; `md` on a drill-in route | **Icon-only** back chip (round, same size as language chip) beside the language emoji chip; target is the parent destination (`aria-label` names it) |
 | 4 | Taps a pill segment | Navigates; current segment marked with `aria-current="page"` |
 | 5 | Taps the account chip | `/profile`, where sign out now lives ([`../page/profile.md`](../page/profile.md)) |
 | 6 | Taps back float | Navigates to parent destination (`href`, not blind history) |
 | 7 | Has more than one learning language | Language emoji chip opens a popover: blurred scrim over the page, stacked language cards (gap between each), then **Add a language**; choosing a row makes it active and refreshes — one action (UC-025) |
 | 8 | Has exactly one learning language | Top-left shows a non-interactive flag circle with the endonym in `aria-label` |
 | 9 | Scrolls page content | Floats stay fixed; the page title stays centered and scales down; a scrim (blur + tint) fades in at the top and out toward the bottom of the header |
-| 10 | On any signed-in route | The page title is always centered in the header row — large at scroll top, smaller after scrolling down (mobile floats and desktop header) |
+| 10 | On any signed-in route | The page title is centered between the corner chips — large at scroll top, smaller after scrolling down; on mobile it may wrap to **two lines** within a fixed max width, never overlapping the chips |
 
 ## Back targets
 
@@ -69,7 +69,7 @@ in `app/globals.css`.
 ## Accessibility
 
 - Pill: `<nav aria-label="Switch destination">`; each segment a real link.
-- Corner chips: ≥ 44px touch targets; back announces destination name.
+- Corner chips: ≥ 44px touch targets; back is icon-only with `aria-label` naming the parent destination.
 - `prefers-reduced-motion`: no entrance animations on floats.
 
 ## Acceptance criteria

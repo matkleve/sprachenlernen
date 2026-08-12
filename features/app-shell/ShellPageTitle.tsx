@@ -13,6 +13,11 @@ const TITLE_SIZES = {
   desktop: { large: 30, small: 14 },
 } as const;
 
+const MOBILE_TITLE_MAX_WIDTH = {
+  large: "11rem",
+  small: "9rem",
+} as const;
+
 type ShellPageTitleProps = {
   variant: "mobile" | "desktop";
   /** Always small — routes with no page scroll (review). */
@@ -24,8 +29,8 @@ type ShellPageTitleProps = {
  * Centered page title for the shell header. Contract:
  * docs/specs/feature/app-shell.md
  *
- * One position always: horizontally centered in the header row. Font size
- * scales with scroll — large at the top, small after scrolling down.
+ * Mobile: in-flow between corner chips, up to two lines. Desktop: absolutely
+ * centered, single line with ellipsis.
  */
 export function ShellPageTitle({ variant, pinnedCompact = false, className }: ShellPageTitleProps) {
   const pathname = usePathname();
@@ -36,6 +41,27 @@ export function ShellPageTitle({ variant, pinnedCompact = false, className }: Sh
   const fontSize = large + (small - large) * collapse;
 
   if (!title) return null;
+
+  if (variant === "mobile") {
+    const maxWidth =
+      collapse < 0.5 ? MOBILE_TITLE_MAX_WIDTH.large : MOBILE_TITLE_MAX_WIDTH.small;
+
+    return (
+      <h1
+        className={cn(
+          "pointer-events-none col-start-2 min-w-0 text-center font-semibold leading-tight tracking-tight text-ink line-clamp-2",
+          className,
+        )}
+        style={{
+          fontSize: `${fontSize}px`,
+          maxWidth,
+        }}
+        title={title}
+      >
+        {title}
+      </h1>
+    );
+  }
 
   return (
     <h1

@@ -3,7 +3,6 @@
 import { ArrowLeft, UserRound } from "lucide-react";
 import { usePathname } from "next/navigation";
 
-import { ActionLink } from "@/components/ui/ActionLink";
 import { IconLink } from "@/components/ui/IconLink";
 import type { LanguageHoldings } from "@/lib/db/language-holdings";
 import { routes } from "@/lib/routes";
@@ -44,22 +43,15 @@ export function FloatingShellChrome({
       >
         <div
           className={cn(
-            "relative flex min-h-11 items-center justify-between gap-3 px-4 pb-3",
+            "relative grid grid-cols-[1fr_minmax(0,11rem)_1fr] items-center gap-x-2 px-4 pb-3",
             safeTop,
           )}
         >
-          <div className="pointer-events-auto flex min-h-11 min-w-0 items-center gap-2">
+          <div className="pointer-events-auto col-start-1 flex min-w-0 items-center gap-2 justify-self-start">
             {back ? (
-              <ActionLink
-                href={back.href}
-                variant="floating"
-                size="sm"
-                pendingPolicy="nav"
-                className="gap-1.5"
-              >
-                <ArrowLeft aria-hidden className="size-4 shrink-0" />
-                {back.label}
-              </ActionLink>
+              <IconLink href={back.href} aria-label={copy.backTo(back.label)}>
+                <ArrowLeft aria-hidden className="size-5 shrink-0" />
+              </IconLink>
             ) : null}
             <LanguageSwitcher
               languages={languages}
@@ -70,7 +62,7 @@ export function FloatingShellChrome({
 
           <ShellPageTitle variant="mobile" pinnedCompact={pinnedCompact} />
 
-          <div className="pointer-events-auto">
+          <div className="pointer-events-auto col-start-3 justify-self-end">
             <IconLink href={routes.profile} aria-label={copy.account}>
               <UserRound aria-hidden className="size-5 shrink-0" />
             </IconLink>

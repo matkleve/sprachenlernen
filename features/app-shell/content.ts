@@ -19,6 +19,7 @@ export const copy = {
   standing: (held: number, poolSize: number) =>
     `${held} of ${poolSize} starter words held stably`,
   viewProgress: "View on Progress",
+  backTo: (destination: string) => `Back to ${destination}`,
   destinations: {
     methods: "Methods",
     words: "Words",

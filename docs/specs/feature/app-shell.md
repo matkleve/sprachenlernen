@@ -47,7 +47,7 @@ sign-out control that had no signed-in navigation to live in. That control is no
 | 9 | Viewport ≥ `md` while signed in | Horizontal destination nav + inline account link in header; no floating chrome |
 | 10 | Has more than one learning language on any viewport | A circular flag switcher opens a popover: blurred scrim, stacked language cards with gaps, plus **Add a language** — one action to switch (UC-025) |
 | 11 | Scrolls page content on desktop | A header scrim (blur + tint) fades in at the top and out toward the bottom; the page title scales down while staying centered |
-| 12 | On any signed-in route | The page title is always centered in the header — large at scroll top, smaller after scrolling down |
+| 12 | On any signed-in route | The page title is centered in the header — large at scroll top, smaller after scrolling down; on mobile it may wrap to two lines within a fixed max width |
 
 ## States
 
