@@ -26,7 +26,7 @@ wins and this file is stale. Nothing normative may live only here.
 | `app/(marketing)/` | The public half, no app shell: `/` (T-04's holding page), `/languages` (T-03), `/login`, `/signup`, `/primitives`. Split out 2026-08-09 to implement [ADR-0010](adr/0010-the-route-model.md) |
 | `app/(app)/` | The signed-in half, under the shell's three destinations: `/methods` (T-B10), `/words` + `/words/review` (T-B1), `/progress` (T-B3) |
 | `lib/db/review-log.ts` + `lib/installation-id.ts` | **Shipped 2026-08-09** (T-B2). Append-only adapter, owner taken from the session, payload migration applied live. Spec **active** |
-| `lib/starter-deck.ts` + `lib/session-builder.ts` | **Shipped 2026-08-09** (T-B1), pool **expanded 2026-08-11** to 500 lemmas. 15-card queue, due-before-new. Specs **active** |
+| `lib/starter-deck.ts` + `lib/session-builder.ts` | **Shipped 2026-08-09** (T-B1), pool **expanded 2026-08-12** to 2000 lemmas. 15-card queue, due-before-new. Specs **active** |
 | `features/review-session/` | **Shipped 2026-08-09** (T-B1). The FSM, the card, the summary. Grades persist one row each. Specs **active** |
 
 **Track B core shipped 2026-08-11.** A signed-in learner can sign up, open
@@ -102,7 +102,7 @@ grade appends one row they own. What that unblocks is T-B3: `/progress` is the
 last holding page, and it is now the only destination with nothing behind it.
 
 **The honest limit on all of it:** one language (Spanish), one task type
-(meaning-recall), a **500-lemma** starter pool (stage 1 of engine expansion),
+(meaning-recall), a **2000-lemma** starter pool (stage 2 of engine expansion),
 and progress that stops at
 pool-local counts — no CEFR skill levels yet. The plumbing is real; the
 measurement only becomes a language claim once the pool and form tables grow.
@@ -324,7 +324,7 @@ honest Spanish/Italian; offline unlocks commute practice.
 
 | Priority | Work | Unblocks |
 | --- | --- | --- |
-| **1** | ~~**Expand the Spanish word pool**~~ — **stage 1 shipped 2026-08-11**: 500 frequency-ranked lemmas (`scripts/build-starter-deck.mjs`), glosses shaped and gated, pool reads batched. Stage 2 (2k) remains; the pipeline's ceiling is **2,953** lemmas — beyond that needs a larger frequency list, which is a recalibration event. | Language-wide vocabulary estimate; honest progress |
+| **1** | ~~**Expand the Spanish word pool**~~ — **stage 1 shipped 2026-08-11** (500 lemmas); **stage 2 shipped 2026-08-12** (2000 lemmas). Pipeline ceiling **2,953** lemmas. | Language-wide vocabulary estimate; honest progress |
 | **2** | ~~**Form→lemma tables with paradigm cells**~~ — **data shipped 2026-08-08** (`data/lemma/es.json`, `it.json`, `lib/lexicon.ts`). **Form-recall pool + staging shipped** — [`form-recall-pool.md`](specs/service/form-recall-pool.md): 406 Spanish surface forms, scheduled after meaning-recall is held. **Form-mastery signal shipped** — [`form-mastery-signal.md`](specs/service/form-mastery-signal.md): pool-local held-form count on Progress; form-recall grade prompt in review session. | Paradigm-table method; per-cell form breakdown |
 | **3** | **T-B3 remainder** — extrapolation + per-skill levels once (1) and calibration exist | F18–F22; demonstration sentence |
 | **4** | **T-B9 / offline-PWA** — cache deck + scheduler; flush queue on reconnect (ADR-0011 Option B) | UC-018 commute practice; installable PWA |

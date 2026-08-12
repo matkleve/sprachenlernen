@@ -39,8 +39,9 @@ Not a UI machine. `loadSpanishMeaningRecallDeck` is synchronous.
 
 ## Data
 
-**Stage 1 pool (shipped):** **500** Spanish lemmas, task type
-`meaning-recall`, ordered by descending aggregated form frequency.
+**Stage 2 pool (shipped):** **2000** Spanish lemmas, task type
+`meaning-recall`, ordered by descending aggregated form frequency. Stage 1 was
+500 lemmas (2026-08-11).
 
 | Field | Type | Notes |
 | --- | --- | --- |
@@ -58,8 +59,8 @@ Not a UI machine. `loadSpanishMeaningRecallDeck` is synchronous.
 3. Sum form counts per lemma; sort descending.
 4. Drop every lemma listed in `es-meaning-recall.exclusions.json` — **before**
    the cap, so the pool reaches one rank deeper per exclusion and still holds
-   500 cards.
-5. Take the top **500** remaining lemmas.
+   2000 cards.
+5. Take the top **2000** remaining lemmas.
 
 Exclusions are proper names and lemmatiser artefacts — words the pipeline
 produces that are not Spanish vocabulary. Each entry carries its reason as its
@@ -130,20 +131,12 @@ none of them code. See
 
 ## Open
 
-- **⚠ The shipped deck has not been reproduced from a live Kaikki fetch.**
-  `kaikki.org` is blocked by the agent network policy, so the committed pool was
-  built from a **reconstructed** gloss cache — the raw glosses the previous
-  build had already resolved, replayed through the current shaping rules. That
-  makes it reproducible *given that cache*, which is not the same claim. The
-  first run on a machine that can reach Kaikki is the real test, and it may
-  surface lemmas needing an override that this one could not see. Do it before
-  stage 2, not during.
-- **Stage 2 (2k lemmas)** — same pipeline, larger cap; blocked on gloss QA
-  bandwidth, not code. Roughly 4× the hand-gloss work: 20 overrides carried 500,
-  and the long tail is less cognate-friendly, not more. The pipeline's hard
-  ceiling is **2,953** lemmas — every unique lemma the 5,000-form frequency list
-  resolves to — so 2k fits and anything past it needs a larger list, which is a
-  recalibration event (provenance travels with the rank).
+- **Stage 2 (2k lemmas)** — **shipped 2026-08-12**. Same pipeline; companion
+  files expanded via `scripts/expand-pool-companions.mjs` for gloss gaps in the
+  long tail. The pipeline's hard ceiling is **2,953** lemmas.
+- **⚠ Live Kaikki fetch** — still not reproduced from network; committed pool
+  built from cached glosses. First run on a machine that can reach Kaikki may
+  surface lemmas needing an override.
 - **Lemma-frequency recomputation** — summing form counts into lemma ranks is
   deliberate but is a calibration event when the level model extrapolates
   ([`lexicon.md`](lexicon.md) Open).

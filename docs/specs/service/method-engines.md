@@ -75,7 +75,7 @@ until their engines ship — not a bug in the catalogue.
 
 Order is load-bearing — see IMPLEMENTATION-PLAN § Track B engine phase:
 
-1. ~~Spanish starter pool (500 lemmas)~~ — shipped
+1. ~~Spanish starter pool (2000 lemmas)~~ — shipped
 2. Form→lemma tables with paradigm cells
 3. T-B3 remainder (extrapolation + per-skill levels)
 4. Offline / PWA

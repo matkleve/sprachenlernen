@@ -2,7 +2,7 @@ import { beforeEach, describe, expect, it, vi } from "vitest";
 
 import { readLanguageHoldings } from "@/lib/db/language-holdings";
 import { listReviewsForTaskIds } from "@/lib/db/review-log";
-import { loadSpanishMeaningRecallDeck } from "@/lib/starter-deck";
+import { loadSpanishMeaningRecallDeck, SHIPPED_ES_POOL_SIZE } from "@/lib/starter-deck";
 
 /** Contract: docs/specs/page/language-picker.md */
 
@@ -27,7 +27,7 @@ describe("readLanguageHoldings", () => {
 
     expect(outcome.status).toBe("ok");
     if (outcome.status !== "ok") return;
-    expect(outcome.byCode.es?.poolSize).toBe(500);
+    expect(outcome.byCode.es?.poolSize).toBe(SHIPPED_ES_POOL_SIZE);
     expect(outcome.byCode.es?.heldCount).toBeNull();
   });
 
