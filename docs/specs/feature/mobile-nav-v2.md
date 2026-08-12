@@ -29,12 +29,14 @@ Progress (ADR-0009). **No due-count badges** (UC-063).
 | # | User action | System response |
 | --- | --- | --- |
 | 1 | Viewport ≥ `md` | Horizontal nav + inline account link in header; no floating chrome |
-| 2 | Viewport &lt; `md` on a destination root | Bottom pill visible; top-right account chip; no top-left chip |
-| 3 | Viewport &lt; `md` on a drill-in route | Back float appears top-left; target is the parent destination |
+| 2 | Viewport &lt; `md` on a destination root | Bottom pill visible; top-right account chip; **top-left language switcher** when the account has at least one learning language |
+| 3 | Viewport &lt; `md` on a drill-in route | Back float appears top-left; target is the parent destination; language switcher remains reachable beside the back chip when the account has more than one language |
 | 4 | Taps a pill segment | Navigates; current segment marked with `aria-current="page"` |
 | 5 | Taps the account chip | `/profile`, where sign out now lives ([`../page/profile.md`](../page/profile.md)) |
 | 6 | Taps back float | Navigates to parent destination (`href`, not blind history) |
-| 7 | Scrolls page content | Floats stay visible; content clears floats via shell padding |
+| 7 | Has more than one learning language | Top-left switcher lists every language; choosing one makes it active and refreshes the current page — one action (UC-025) |
+| 8 | Has exactly one learning language | Top-left shows its endonym as a label, not a control |
+| 9 | Scrolls page content | Floats stay visible; content clears floats via shell padding |
 
 ## Back targets
 
@@ -69,7 +71,7 @@ in `app/globals.css`.
 - [ ] Given viewport &lt; `md` and a signed-in session, when the shell renders,
       then a bottom pill shows three destinations with icon + label and no
       hamburger.
-- [ ] Given viewport &lt; `md` on `/words`, then no top-left back chip appears.
+- [ ] Given viewport &lt; `md` on `/words`, then no top-left back chip appears, and a language switcher or label appears when the account has a learning language.
 - [ ] Given viewport &lt; `md` on `/words/review`, then a back chip links to
       `/words` and the bottom pill remains visible.
 - [ ] Given viewport &lt; `md`, then a top-right **account** chip is always present, linking to `/profile`, and no sign-out control renders in the shell.

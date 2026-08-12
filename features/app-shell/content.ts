@@ -11,6 +11,7 @@ export const copy = {
   navLabel: "Destinations",
   mobileNavLabel: "Switch destination",
   account: "Account",
+  switchLanguage: "Switch learning language",
   destinations: {
     methods: "Methods",
     words: "Words",

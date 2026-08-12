@@ -9,6 +9,7 @@ import { cn } from "@/lib/utils";
 
 import { shellBackTarget } from "./back-target";
 import { DestinationNavItems } from "./DestinationNavItems";
+import { LanguageSwitcher, type LanguageSwitcherOption } from "./LanguageSwitcher";
 import { copy } from "./content";
 
 const safeTop = "pt-[max(1rem,env(safe-area-inset-top))]";
@@ -18,7 +19,11 @@ const safeBottom = "pb-[max(1rem,env(safe-area-inset-bottom))]";
  * Mobile floating chrome: corner chips + bottom destination pill.
  * Contract: docs/specs/feature/mobile-nav-v2.md
  */
-export function FloatingShellChrome() {
+export function FloatingShellChrome({
+  languages,
+}: {
+  languages: readonly LanguageSwitcherOption[];
+}) {
   const pathname = usePathname();
   const back = shellBackTarget(pathname);
 
@@ -31,7 +36,7 @@ export function FloatingShellChrome() {
           "md:hidden",
         )}
       >
-        <div className="pointer-events-auto min-h-11">
+        <div className="pointer-events-auto flex min-h-11 min-w-0 items-center gap-2">
           {back ? (
             <ActionLink
               href={back.href}
@@ -43,6 +48,7 @@ export function FloatingShellChrome() {
               {back.label}
             </ActionLink>
           ) : null}
+          <LanguageSwitcher languages={languages} layout="floating" />
         </div>
 
         {/* The account affordance ADR-0009 described: a link in a corner, not a

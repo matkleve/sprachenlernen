@@ -53,7 +53,7 @@ describe("destination errors inside the shell", () => {
     const reset = vi.fn();
 
     render(
-      <AppShell>
+      <AppShell languages={[{ code: "es", endonym: "Español", isActive: true }]}>
         <DestinationError
           error={Object.assign(new Error("session crash"), { digest: "d1" })}
           reset={reset}
