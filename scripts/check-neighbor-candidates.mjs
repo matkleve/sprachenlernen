@@ -8,7 +8,7 @@ import { readFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
-import { buildNeighborCandidateIndex } from "../lib/neighbor-candidates.ts";
+import { buildNeighborCandidateIndex } from "../lib/neighbor-candidates.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const LANGS = ["es", "it"];
