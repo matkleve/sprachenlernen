@@ -81,7 +81,7 @@ describe("ReviewSession", () => {
     installTestQueue();
   });
 
-  it("shows the first card, flips on tap, then persists a grade", async () => {
+  it("shows the first card with grades, flips on tap, then persists a grade", async () => {
     const user = userEvent.setup();
     render(<ReviewSession methodName="Spaced repetition session" />);
 
@@ -90,7 +90,7 @@ describe("ReviewSession", () => {
     });
 
     expect(screen.getByText("Spanish")).toBeDefined();
-    expect(screen.queryByRole("button", { name: copy.good })).toBeNull();
+    expect(screen.getByRole("button", { name: copy.good })).toBeDefined();
 
     await user.click(screen.getByRole("button", { name: copy.flipHint }));
 
@@ -110,6 +110,26 @@ describe("ReviewSession", () => {
           reviewId: expect.any(String),
         }),
       );
+    });
+  });
+
+  it("grades without flipping when the learner is confident", async () => {
+    const user = userEvent.setup();
+    render(<ReviewSession methodName="Spaced repetition session" />);
+
+    await waitFor(() => expect(screen.getByText("de")).toBeDefined());
+    expect(screen.queryByText("of, from")).toBeNull();
+
+    await user.click(screen.getByRole("button", { name: copy.good }));
+
+    await waitFor(() => {
+      expect(appendReviewAction).toHaveBeenCalledWith(
+        expect.objectContaining({
+          taskId: "es:de:meaning-recall",
+          grade: "good",
+        }),
+      );
+      expect(screen.getByText("que")).toBeDefined();
     });
   });
 

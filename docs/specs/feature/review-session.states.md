@@ -20,7 +20,7 @@ type SessionPhase =
 | From | Legal to |
 | --- | --- |
 | `preparing` | `prompting`, `complete` |
-| `prompting` | `revealed` |
+| `prompting` | `revealed`, `advancing` |
 | `revealed` | `advancing` |
 | `advancing` | `prompting`, `complete` |
 | `complete` | *(none — terminal)* |
@@ -49,7 +49,7 @@ what the learner sees; card front/back text derives from
 | Phase | Card | Grades | Progress |
 | --- | --- | --- | --- |
 | `preparing` | hidden | hidden | hidden |
-| `prompting` | front only | hidden | shown |
+| `prompting` | front only | enabled | shown |
 | `revealed` | front + back | enabled | shown |
 | `advancing` | *never rendered — see below* | | |
 | `complete` | hidden | hidden | session summary |
