@@ -74,6 +74,19 @@ describe("ProfileLanguages", () => {
     expect(screen.getByRole("alert").textContent).toBe(copy.languagesError);
   });
 
+  it("shows a standing line with a link to progress when holdings exist", () => {
+    render(
+      <ProfileLanguages
+        outcome={{ status: "ok", languages: [language("es", true)] }}
+        holdings={{ es: { poolSize: 500, heldCount: 347 } }}
+        switchTo={switchTo}
+      />,
+    );
+
+    expect(screen.getByText(copy.standing(347, 500))).toBeDefined();
+    expect(screen.getByRole("link", { name: copy.viewProgress })).toBeDefined();
+  });
+
   it("shows no streak, XP, or review total", () => {
     const { container } = render(
       <ProfileLanguages

@@ -61,13 +61,10 @@ You can add another later. Nothing here locks you in.
 | Already learning | `500 words in the starter set` — see below |
 | Not available | `Not available yet — we don't have a word set for Italian we'd stand behind` |
 
-⚠ **The holdings line is not built.** `347 of 500 starter words held stably` and
-`0 of 500 starter words held stably` are what a tile *will* say once the progress
-reading takes a language; the component renders them and is tested on them, and
-the reading returns `null` until then. A count from the wrong language would be
-worse than no count, so the tile shows the pool size for now. This is a stated
-gap, not drift — the two lines above stay in this table because they are the
-copy that lands, and the AC below only requires what ships today.
+⚠ **The holdings line ships** when the learner has reviewed meaning-recall in
+that language — `347 of 500 starter words held stably` and
+`0 of 500 starter words held stably` are real lines; before the first review
+the tile shows the pool size only.
 
 Once, below the grid — not repeated per tile:
 
@@ -99,8 +96,7 @@ Three rules the copy is carrying:
 - [ ] Given a language already being learned, then its tile is marked and offers
       no second add.
 - [ ] Given a holdings count, when a tile renders it, then it reads
-      `{held} of {pool} starter words held stably`, including at zero. (The
-      component satisfies this; the reading does not supply a count yet.)
+      `{held} of {pool} starter words held stably`, including at zero.
 - [ ] Given an unavailable language, then the tile carries the reason and has no
       control a pointer or a screen reader can activate.
 - [ ] Given the add fails, then the error surface renders and the picker is

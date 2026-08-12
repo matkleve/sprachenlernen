@@ -1,4 +1,4 @@
-import { languageNames } from "@/features/language-picker/content";
+import { languageLabel } from "@/lib/languages";
 import type { ListLanguagesOutcome } from "@/lib/db/learning-languages";
 
 import type { LanguageSwitcherOption } from "./LanguageSwitcher";
@@ -11,7 +11,7 @@ export function switcherOptionsFrom(
 
   return outcome.languages.map((language) => ({
     code: language.languageCode,
-    endonym: languageNames[language.languageCode]?.endonym ?? language.languageCode,
+    endonym: languageLabel(language.languageCode).endonym,
     isActive: language.isActive,
   }));
 }

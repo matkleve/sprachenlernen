@@ -55,14 +55,11 @@ label with the English name beneath — `Español` / *Spanish*. **A flag is neve
 the identifier**: Spanish is not Spain, and a flag alone misnames the language
 for most of its speakers.
 
-Each row shows the language and whether it is in focus. ⚠ **The one-line
-standing is not built here yet** — it needs the progress reading to take a
-language, exactly as the picker tile does
-([`language-picker.md`](language-picker.md)). When it lands it reads
+Each row shows the language and whether it is in focus. When the learner has
+reviewed meaning-recall in that language, a one-line standing reads
 `347 of 500 starter words held stably` and links to `/progress`, per
 [`study/03`](../../study/03-level-model.md)'s rule that every figure opens into
-what produced it. Until then the row carries no number, because a count from the
-wrong language would be worse than none.
+what produced it. Before the first review the row carries no number.
 
 ## Acceptance criteria
 

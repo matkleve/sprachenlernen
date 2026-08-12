@@ -7,6 +7,7 @@ import { signOutAction } from "@/features/app-shell/actions";
 import { ProfileLanguages } from "@/features/profile/ProfileLanguages";
 import { copy } from "@/features/profile/content";
 import { Button } from "@/components/ui/Button";
+import { readLanguageHoldings } from "@/lib/db/language-holdings";
 import { listLearningLanguages, setActiveLanguage } from "@/lib/db/learning-languages";
 import { routes } from "@/lib/routes";
 
@@ -22,6 +23,10 @@ export default async function ProfilePage({
 }) {
   const switchFailed = (await searchParams).failed !== undefined;
   const languages = await listLearningLanguages();
+  const holdings =
+    languages.status === "ok"
+      ? await readLanguageHoldings(languages.languages.map((language) => language.languageCode))
+      : { status: "error" as const, error: "" };
 
   async function switchTo(code: string) {
     "use server";
@@ -35,7 +40,12 @@ export default async function ProfilePage({
       <h1 className="text-3xl font-semibold tracking-tight text-ink">{copy.title}</h1>
 
       {/* One failed block must not take the page — export and delete still work. */}
-      <ProfileLanguages outcome={languages} switchFailed={switchFailed} switchTo={switchTo} />
+      <ProfileLanguages
+        outcome={languages}
+        holdings={holdings.status === "ok" ? holdings.byCode : undefined}
+        switchFailed={switchFailed}
+        switchTo={switchTo}
+      />
 
       <section className="mt-page-content">
         <h2 className="text-xl font-semibold text-ink">{accountCopy.title}</h2>
