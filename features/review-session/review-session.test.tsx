@@ -177,6 +177,9 @@ describe("ReviewSession", () => {
     await waitFor(() => {
       expect(screen.getByText("Not signed in.")).toBeDefined();
     });
+    const back = screen.getByRole("link", { name: new RegExp(copy.backToMethods) });
+    expect(back.className).toContain("hidden");
+    expect(back.className).toContain("md:inline-block");
   });
 
   it("shows inline load error when the server action rejects", async () => {

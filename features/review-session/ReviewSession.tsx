@@ -59,7 +59,12 @@ export function ReviewSession({ methodName, compact = false }: ReviewSessionProp
         <p className="text-base text-danger" aria-live="polite">
           {loadError ?? copy.loadError}
         </p>
-        <TextLink href={routes.methods} tone="muted" size="sm" className="mt-4 inline-block">
+        <TextLink
+          href={routes.methods}
+          tone="muted"
+          size="sm"
+          className="mt-4 hidden md:inline-block"
+        >
           ← {copy.backToMethods}
         </TextLink>
       </div>
