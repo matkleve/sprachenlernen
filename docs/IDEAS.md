@@ -49,17 +49,49 @@ in six months.
   though the learner then "knows" a specific card is 5 slots away — the idea
   notes this tension itself.
 
+### How the feedback would be saved — resolved 2026-08-12
+
+Asked and answered: **no new persistence, and the cross-session half of this
+is already built.**
+
+- Every graded attempt — first look or a same-run repeat — is just one more
+  `{ taskId, at, grade }` row appended to `review_log`. Same shape as today,
+  written more than once per card within a run instead of once. No schema
+  change.
+- "A card that needed more tries comes back sooner" is not a feature to add —
+  it is `stabilityAfterLapse` in `lib/scheduler.ts` (already shipped): an
+  `again`/`hard` grade lowers `stability`, which shortens `intervalDays`,
+  which moves `due` closer. Once the repeat's grades land in the log via the
+  point above, FSRS produces exactly this outcome for free.
+- The opposite proposal — "all cards that finish a run get 3 or 8 days ±
+  randomness, regardless of tries" — would be a **downgrade**: it discards the
+  per-card difficulty signal that is the documented reason this app uses FSRS
+  over a cruder scheduler ([`study/04-flashcards-srs.md`](study/04-flashcards-srs.md)).
+- What genuinely has no existing equivalent: the **within-run** gap ("back in
+  ~5 cards"). FSRS's shortest native interval is fractional *days* (its
+  `again` weight is ≈0.49 days) — it cannot express "N cards from now" at any
+  setting. That half must be **session-local, client-only state** (the
+  review-session FSM's queue/position, already thrown away at session end
+  today) — never sent through the scheduler.
+- So: two tracks, not one mechanism — (1) every attempt still writes a normal
+  review row, unchanged; (2) which cards are still pending this run, and how
+  many times each has repeated, lives only in client session state. They do
+  not need to be reconciled with each other because they answer different
+  questions (this run's order vs. tomorrow's date).
+
 ### Why this is not a small addition
 
-It touches four things this project already has opinions about, and none of
-them obviously say yes:
+It touches three things this project already has opinions about:
 
-1. **Two different "repeat" mechanisms would coexist.** FSRS (`lib/scheduler.ts`)
-   already decides "when does this come back" — in **days**, cross-session,
-   from `stability`/`difficulty`. A same-run requeue is a **third** time scale
-   nothing today models: not "due", not "new", but "again before the run ends".
-   `buildSession` builds a **fixed** queue once ([`session-builder.md`](specs/service/session-builder.md))
-   and has no concept of inserting a card mid-run.
+1. **`buildSession` builds a fixed queue once**
+   ([`session-builder.md`](specs/service/session-builder.md)) with no concept
+   of inserting a card mid-run. This is a real gap to close, but — see above —
+   it does **not** conflict with FSRS's due dates, because those are never
+   shown to the user anywhere (`docs/specs/feature/review-session.md`,
+   `docs/specs/feature/words-home.md`, `docs/specs/page/words.md`,
+   [UC-006](use-cases/UC-006-come-back-after-a-break.md) all forbid a due
+   count, badge, or backlog figure). One visible clock only — the run in
+   front of you — so a same-run repeat has nothing to compete with for trust.
 2. **UC-039 already claims "the count never grows while the learner is working
    through it."** A same-run repeat does not grow the *total* (the card was
    already counted), but `position of total` stops meaning "how far through a
@@ -116,8 +148,9 @@ making explicitly before either becomes a use case.
 ### Related, do not conflate
 
 - [UC-005](use-cases/UC-005-trust-the-review-schedule.md) — trusting the
-  cross-session schedule; a same-run mechanic must not make that schedule feel
-  arbitrary by comparison.
+  cross-session schedule. Checked 2026-08-12: no conflict, because the
+  schedule this use case protects is never rendered as a date/count/badge
+  anywhere the learner can compare it against a same-run mechanic.
 - [UC-039](use-cases/UC-039-see-todays-session-before-starting.md) — session
   composition and progress visibility; the "count never grows" rule lives here
   and any change to what `position`/`total` mean must be checked against it.
