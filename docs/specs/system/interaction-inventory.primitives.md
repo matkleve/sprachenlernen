@@ -12,7 +12,7 @@ Per-primitive state matrix. Symbols: D H A F X P C — see parent
 | `Button` | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | — | `floating`: A adds `pressFill`. Spinner on P when policy `cta` + primary/danger |
 | `SubmitButton` | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ auto | — | Wraps `Button`; P from `useFormStatus` |
 | `ActionLink` | ✓ | ✓ | ✓ | ✓ | — | ✓ | — | P ≥180ms. Policies: `cta` (default), `nav` (ring), `none` |
-| `NavLink` | ✓ | ✓ | ✓ | ✓ | — | ✓ | ✓ | `current` → `bg-accent-soft`, `aria-current="page"` |
+| `NavLink` | ✓ | ✓ | ✓ | ✓ | — | ✓ | ✓ | `current` → `bg-accent text-accent-ink`, `aria-current="page"` |
 | `FilterPill` | ✓ | ✓ | ✓ | ✓ | ✓ | — | via `aria-pressed` | Same classes as `navLinkVariants` |
 | `TextLink` | ✓ | ✓ | ✓ | ✓ | — | — | — | Tones: `accent`, `muted`, `ink`. No nav pending |
 | `IconButton` | ✓ | ✓ | ✓+fill | ✓ | ✓ | ✓ ring | — | 44×44 round floating. Default policy `nav` |

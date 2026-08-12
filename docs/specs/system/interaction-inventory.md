@@ -51,7 +51,8 @@ is a sixth layer for async work — see [`interaction-feedback.md`](../feature/i
 | `disabledState` | opacity + `pointer-events-none` |
 | `pendingBusy` | muted + blocks clicks |
 | `pendingNavRing` | accent ring for icon nav pending |
-| `hitAreaPseudo` + `hitAreaExpand*` | 44px target without visual inflation |
+| `hitAreaPseudo` + `hitAreaExpand*` | 44px+ target without visual inflation |
+| `interactiveEmphasis` | `font-semibold` + heavier Lucide stroke on labels/icons |
 
 Navigation pending minimum: **180ms** (`MIN_PENDING_DISPLAY_MS` in
 `use-pending-navigation.ts`).

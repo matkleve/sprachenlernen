@@ -16,6 +16,7 @@ const chip = cva(
       tone: {
         default: "border border-line bg-surface text-muted",
         accent: "bg-accent-soft text-ink",
+        selected: "bg-accent text-accent-ink",
       },
     },
     defaultVariants: { tone: "default" },

@@ -85,6 +85,7 @@
   --spacing-shell-float-top-compact: 3.5rem;
   --spacing-shell-float-top-expanded: 6.5rem;
   --spacing-shell-float-top: 5.5rem;
+  --shell-float-top-active: var(--spacing-shell-float-top);
   --spacing-shell-float-bottom: 5rem;
   /* Active review session — one screen between floating chrome on mobile.
      Must match main's pt-shell-float-top + pb-shell-float-bottom or the page scrolls. */
@@ -258,6 +259,22 @@
 .header-scrim-tint {
   background: linear-gradient(
     to bottom,
+    color-mix(in srgb, var(--color-surface) 82%, transparent) 0%,
+    color-mix(in srgb, var(--color-surface) 38%, transparent) 52%,
+    transparent 100%
+  );
+}
+
+/* Footer scrim — mirror of header scrim for the bottom destination pill. */
+.footer-scrim-blur {
+  backdrop-filter: blur(12px);
+  -webkit-mask-image: linear-gradient(to top, #000 55%, transparent 100%);
+  mask-image: linear-gradient(to top, #000 55%, transparent 100%);
+}
+
+.footer-scrim-tint {
+  background: linear-gradient(
+    to top,
     color-mix(in srgb, var(--color-surface) 82%, transparent) 0%,
     color-mix(in srgb, var(--color-surface) 38%, transparent) 52%,
     transparent 100%

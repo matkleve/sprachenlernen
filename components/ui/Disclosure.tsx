@@ -2,6 +2,7 @@ import type { DetailsHTMLAttributes, HTMLAttributes, ReactNode } from "react";
 
 import {
   focusRing,
+  interactiveEmphasis,
   interactionMotion,
   pressScale,
   touchTarget,
@@ -17,7 +18,7 @@ import { cn } from "@/lib/utils";
  */
 export const disclosureSummaryClass = cn(
   touchTarget,
-  "cursor-pointer list-none text-sm font-medium text-ink",
+  "cursor-pointer list-none text-sm text-ink",
   "rounded-pill px-1 -mx-1",
   "marker:content-none [&::-webkit-details-marker]:hidden",
   interactionMotion,

@@ -16,6 +16,13 @@ describe("Chip", () => {
     expect(screen.getByText("Evidence A").className).toContain("bg-accent-soft");
   });
 
+  it("applies selected tone", () => {
+    render(<Chip tone="selected">Active</Chip>);
+    const chip = screen.getByText("Active");
+    expect(chip.className).toContain("bg-accent");
+    expect(chip.className).toContain("text-accent-ink");
+  });
+
   it("has no accessibility violations", async () => {
     const { container } = render(<Chip>open-ended</Chip>);
     await expectNoA11yViolations(container);

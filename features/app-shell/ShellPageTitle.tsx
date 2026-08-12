@@ -50,6 +50,7 @@ export function ShellPageTitle({ variant, pinnedCompact = false, className }: Sh
 
   useLayoutEffect(() => {
     if (variant !== "mobile" || !title) {
+      document.documentElement.style.removeProperty("--shell-float-top-active");
       setWrapsTwoLines(false);
       return;
     }
@@ -58,8 +59,21 @@ export function ShellPageTitle({ variant, pinnedCompact = false, className }: Sh
     if (!el) return;
 
     const lineHeight = parseFloat(getComputedStyle(el).lineHeight);
-    setWrapsTwoLines(mobileTitleWrapsTwoLines(el.scrollHeight, lineHeight));
+    const wraps = mobileTitleWrapsTwoLines(el.scrollHeight, lineHeight);
+    setWrapsTwoLines(wraps);
+    document.documentElement.style.setProperty(
+      "--shell-float-top-active",
+      wraps
+        ? "var(--spacing-shell-float-top-expanded)"
+        : "var(--spacing-shell-float-top)",
+    );
   }, [title, variant]);
+
+  useLayoutEffect(() => {
+    return () => {
+      document.documentElement.style.removeProperty("--shell-float-top-active");
+    };
+  }, []);
 
   if (!title) return null;
 

@@ -10,6 +10,7 @@ import { cn } from "@/lib/utils";
 
 import { shellBackTarget } from "./back-target";
 import { DestinationNavItems } from "./DestinationNavItems";
+import { FooterScrim } from "./FooterScrim";
 import { LanguageSwitcher, type LanguageSwitcherOption } from "./LanguageSwitcher";
 import { ShellPageTitle, shellHeaderStartsCompact } from "./ShellPageTitle";
 import { HeaderScrim } from "./HeaderScrim";
@@ -39,15 +40,15 @@ export function FloatingShellChrome({
     <>
       <HeaderScrim
         collapse={pinnedCompact ? 1 : collapse}
-        className="pointer-events-none fixed inset-x-0 top-0 z-50 md:hidden"
+        className="fixed inset-x-0 top-0 z-50 md:hidden"
       >
         <div
           className={cn(
-            "relative grid min-h-11 grid-cols-[1fr_1fr] items-center gap-x-2 px-4 pb-3",
+            "pointer-events-auto relative grid min-h-11 grid-cols-[1fr_1fr] items-center gap-x-2 px-4 pb-3",
             safeTop,
           )}
         >
-          <div className="pointer-events-auto col-start-1 flex min-w-0 items-center gap-2 justify-self-start">
+          <div className="col-start-1 flex min-w-0 items-center gap-2 justify-self-start">
             {back ? (
               <IconLink href={back.href} aria-label={copy.backTo(back.label)}>
                 <ArrowLeft aria-hidden className="size-5 shrink-0" />
@@ -63,7 +64,7 @@ export function FloatingShellChrome({
 
           <ShellPageTitle variant="mobile" pinnedCompact={pinnedCompact} />
 
-          <div className="pointer-events-auto col-start-2 justify-self-end">
+          <div className="col-start-2 justify-self-end">
             <IconLink href={routes.profile} aria-label={copy.account}>
               <UserRound aria-hidden className="size-5 shrink-0" />
             </IconLink>
@@ -71,23 +72,21 @@ export function FloatingShellChrome({
         </div>
       </HeaderScrim>
 
-      <nav
-        aria-label={copy.mobileNavLabel}
-        className={cn(
-          "pointer-events-none fixed inset-x-0 bottom-0 z-50 flex justify-center px-4",
-          safeBottom,
-          "md:hidden",
-        )}
-      >
-        <ul
-          className={cn(
-            "pointer-events-auto flex w-[min(85%,24rem)] list-none rounded-pill border border-line",
-            "bg-surface p-1 shadow-raised",
-          )}
+      <FooterScrim className="fixed inset-x-0 bottom-0 z-50 md:hidden">
+        <nav
+          aria-label={copy.mobileNavLabel}
+          className={cn("flex justify-center px-4", safeBottom)}
         >
-          <DestinationNavItems layout="pill" />
-        </ul>
-      </nav>
+          <ul
+            className={cn(
+              "flex w-[min(85%,24rem)] list-none rounded-pill border border-line",
+              "bg-surface p-1.5 shadow-raised",
+            )}
+          >
+            <DestinationNavItems layout="pill" />
+          </ul>
+        </nav>
+      </FooterScrim>
     </>
   );
 }
