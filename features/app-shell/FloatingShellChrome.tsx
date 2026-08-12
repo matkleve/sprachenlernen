@@ -4,7 +4,7 @@ import { ArrowLeft, UserRound } from "lucide-react";
 import { usePathname } from "next/navigation";
 
 import { ActionLink } from "@/components/ui/ActionLink";
-import { buttonVariants } from "@/components/ui/Button";
+import { IconLink } from "@/components/ui/IconLink";
 import { routes } from "@/lib/routes";
 import { cn } from "@/lib/utils";
 
@@ -18,11 +18,6 @@ import { useHeaderCollapse } from "./useHeaderCollapse";
 
 const safeTop = "pt-[max(1rem,env(safe-area-inset-top))]";
 const safeBottom = "pb-[max(1rem,env(safe-area-inset-bottom))]";
-
-const cornerIconChipClass = cn(
-  buttonVariants({ variant: "floating", size: "sm" }),
-  "size-11 min-h-11 min-w-11 rounded-full p-0",
-);
 
 /**
  * Mobile floating chrome: corner chips + bottom destination pill.
@@ -56,6 +51,7 @@ export function FloatingShellChrome({
                 href={back.href}
                 variant="floating"
                 size="sm"
+                pendingPolicy="nav"
                 className="gap-1.5"
               >
                 <ArrowLeft aria-hidden className="size-4 shrink-0" />
@@ -69,15 +65,9 @@ export function FloatingShellChrome({
           <ShellPageTitle variant="mobile" pinnedCompact={pinnedCompact} />
 
           <div className="pointer-events-auto">
-            <ActionLink
-              href={routes.profile}
-              variant="floating"
-              size="sm"
-              className={cornerIconChipClass}
-              aria-label={copy.account}
-            >
+            <IconLink href={routes.profile} aria-label={copy.account}>
               <UserRound aria-hidden className="size-5 shrink-0" />
-            </ActionLink>
+            </IconLink>
           </div>
         </div>
       </HeaderScrim>

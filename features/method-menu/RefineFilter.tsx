@@ -1,7 +1,7 @@
 import type { MenuFilter } from "@/lib/method-menu-filter";
 
 import { copy, refineOptions } from "./content";
-import { FilterPill } from "./FilterPill";
+import { FilterPill } from "@/components/ui/FilterPill";
 
 type RefineFilterProps = {
   filter: MenuFilter;

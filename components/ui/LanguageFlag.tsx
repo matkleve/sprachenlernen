@@ -1,7 +1,7 @@
 import { cva, type VariantProps } from "class-variance-authority";
 import type { HTMLAttributes } from "react";
 
-import { buttonVariants } from "@/components/ui/Button";
+import { iconButtonClass } from "@/components/ui/Button";
 import { languageLabel } from "@/lib/languages";
 import { cn } from "@/lib/utils";
 
@@ -14,10 +14,7 @@ import { cn } from "@/lib/utils";
 const flagCircle = cva("inline-flex items-center justify-center rounded-full leading-none", {
   variants: {
     size: {
-      header: cn(
-        buttonVariants({ variant: "floating", size: "sm" }),
-        "size-11 min-h-11 min-w-11 p-0 text-xl",
-      ),
+      header: cn(iconButtonClass, "text-xl"),
       row: "size-8 min-h-8 min-w-8 border border-line bg-surface text-lg",
     },
   },

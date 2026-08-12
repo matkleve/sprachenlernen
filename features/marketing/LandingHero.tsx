@@ -1,8 +1,6 @@
-import Link from "next/link";
-
-import { buttonVariants } from "@/components/ui/Button";
+import { ActionLink } from "@/components/ui/ActionLink";
+import { TextLink } from "@/components/ui/TextLink";
 import { routes } from "@/lib/routes";
-import { cn } from "@/lib/utils";
 
 import { copy } from "./content";
 
@@ -27,18 +25,12 @@ export function LandingHero() {
       </p>
 
       <div className="mt-page-content flex flex-wrap items-center gap-3">
-        <Link
-          href={routes.signUp}
-          className={cn(buttonVariants({ variant: "primary", size: "lg" }))}
-        >
+        <ActionLink href={routes.signUp} variant="primary" size="lg">
           {copy.landing.primaryCta}
-        </Link>
-        <Link
-          href={routes.signIn}
-          className={cn(buttonVariants({ variant: "secondary", size: "lg" }))}
-        >
+        </ActionLink>
+        <ActionLink href={routes.signIn} variant="secondary" size="lg">
           {copy.landing.secondaryCta}
-        </Link>
+        </ActionLink>
       </div>
 
       <section
@@ -59,18 +51,8 @@ export function LandingHero() {
       </section>
 
       <p className="mt-page-content flex flex-col gap-3">
-        <Link
-          href={routes.languages}
-          className="rounded-pill text-base text-accent underline underline-offset-4 transition-colors duration-150 ease-out-soft hover:text-accent-deep active:text-accent-deep focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-canvas"
-        >
-          {copy.landing.languagesLink}
-        </Link>
-        <Link
-          href={routes.designExplorer}
-          className="rounded-pill text-base text-accent underline underline-offset-4 transition-colors duration-150 ease-out-soft hover:text-accent-deep active:text-accent-deep focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-canvas"
-        >
-          {copy.landing.designExplorerLink}
-        </Link>
+        <TextLink href={routes.languages}>{copy.landing.languagesLink}</TextLink>
+        <TextLink href={routes.designExplorer}>{copy.landing.designExplorerLink}</TextLink>
       </p>
     </div>
   );

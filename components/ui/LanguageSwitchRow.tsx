@@ -1,4 +1,11 @@
 import { Chip } from "@/components/ui/Chip";
+import {
+  disabledState,
+  focusRing,
+  interactionMotion,
+  pressScale,
+  touchTarget,
+} from "@/components/ui/interaction-kernel";
 import { languageLabel } from "@/lib/languages";
 import { cn } from "@/lib/utils";
 
@@ -8,13 +15,16 @@ import { cn } from "@/lib/utils";
  */
 
 const rowClass =
-  "flex w-full items-start justify-between gap-3 rounded-card border border-line bg-surface p-3 text-left shadow-raised transition-[background-color,border-color] duration-150 ease-out-soft";
+  "flex w-full items-start justify-between gap-3 rounded-card border border-line bg-surface p-3 text-left shadow-raised";
 
 const interactiveRowClass = cn(
   rowClass,
+  touchTarget,
+  interactionMotion,
   "cursor-pointer hover:border-line-strong hover:bg-accent-soft",
-  "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-canvas",
-  "active:scale-[0.98] disabled:pointer-events-none disabled:opacity-50",
+  focusRing,
+  pressScale,
+  disabledState,
 );
 
 export type LanguageSwitchRowProps = {

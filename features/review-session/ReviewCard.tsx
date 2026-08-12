@@ -1,5 +1,4 @@
 import { copy } from "@/features/review-session/content";
-import { gradeButtonClass } from "@/features/review-session/grade-button-variants";
 import {
   canFlip,
   canGrade,
@@ -10,6 +9,8 @@ import { isFormRecallTaskId } from "@/lib/form-recall-pool";
 import { paradigmCellLabel } from "@/lib/paradigm-cells";
 import { GRADES, type Grade } from "@/lib/scheduler";
 import { cn } from "@/lib/utils";
+import { GradeButton } from "@/components/ui/GradeButton";
+import { PressableCard } from "@/components/ui/PressableCard";
 
 type ReviewCardProps = {
   card: SessionCard;
@@ -49,19 +50,13 @@ export function ReviewCard({
         </p>
       ) : null}
 
-      <button
-        type="button"
+      <PressableCard
         onClick={onFlip}
-        disabled={!flipEnabled}
+        interactive={flipEnabled}
         aria-expanded={revealBack}
         aria-label={flipEnabled ? copy.flipHint : undefined}
         className={cn(
-          "group relative w-full rounded-card border border-line bg-surface text-center shadow-soft",
           compact ? "flex min-h-0 flex-1 flex-col justify-center p-5 md:mt-6 md:flex-none md:p-8" : "mt-6 p-8",
-          "transition-[box-shadow,transform] duration-200 ease-out-soft",
-          "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-canvas",
-          flipEnabled && "cursor-pointer hover:-translate-y-px hover:shadow-raised active:scale-[0.98] active:translate-y-0",
-          !flipEnabled && "cursor-default",
         )}
       >
         {languageName && (
@@ -112,7 +107,7 @@ export function ReviewCard({
             {copy.flipHint}
           </p>
         )}
-      </button>
+      </PressableCard>
 
       {gradesEnabled && (
         <div className={cn(compact && "mt-3 shrink-0 md:mt-6")}>
@@ -120,14 +115,9 @@ export function ReviewCard({
 
           <div className={cn("grid w-full grid-cols-4 gap-2", compact ? "mt-2 md:mt-4" : "mt-4")}>
             {GRADES.map((grade) => (
-              <button
-                key={grade}
-                type="button"
-                className={gradeButtonClass(grade)}
-                onClick={() => onGrade(grade)}
-              >
+              <GradeButton key={grade} grade={grade} onClick={() => onGrade(grade)}>
                 {copy[grade]}
-              </button>
+              </GradeButton>
             ))}
           </div>
         </div>

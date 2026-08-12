@@ -5,9 +5,9 @@ import { useEffect, useRef, useState, useTransition } from "react";
 import { createPortal } from "react-dom";
 
 import { ActionLink } from "@/components/ui/ActionLink";
+import { IconButton } from "@/components/ui/IconButton";
 import { LanguageFlag } from "@/components/ui/LanguageFlag";
 import { LanguageSwitchRow } from "@/components/ui/LanguageSwitchRow";
-import { buttonVariants } from "@/components/ui/Button";
 import { routes } from "@/lib/routes";
 import { languageLabel } from "@/lib/languages";
 import { cn } from "@/lib/utils";
@@ -27,15 +27,7 @@ export type LanguageSwitcherProps = {
   layout?: "floating" | "inline";
 };
 
-const triggerClass = cn(
-  buttonVariants({ variant: "floating", size: "sm" }),
-  "size-11 min-h-11 min-w-11 rounded-full p-0",
-);
-
-const addLanguageClass = cn(
-  buttonVariants({ variant: "secondary", size: "sm" }),
-  "w-full shadow-raised",
-);
+const addLanguageClass = "w-full shadow-raised";
 
 /**
  * One-action language switch (UC-025). Contract: app-shell.md, mobile-nav-v2.md
@@ -194,13 +186,10 @@ export function LanguageSwitcher({ languages, layout = "floating" }: LanguageSwi
   return (
     <div className="relative flex flex-col gap-1">
       <div className="relative size-11 shrink-0 min-w-11">
-        <button
+        <IconButton
           ref={triggerRef}
-          type="button"
           className={cn(
-            triggerClass,
             open && menuPosition && "fixed z-language-switcher-trigger",
-            pending && "pointer-events-none opacity-70",
           )}
           style={
             open && menuPosition
@@ -210,13 +199,14 @@ export function LanguageSwitcher({ languages, layout = "floating" }: LanguageSwi
           aria-label={copy.switchLanguage}
           aria-expanded={open}
           aria-haspopup="menu"
+          pending={pending}
           disabled={pending}
           onClick={toggleMenu}
         >
           <span aria-hidden="true" className="text-xl leading-none">
             {languageLabel(active).flag}
           </span>
-        </button>
+        </IconButton>
       </div>
 
       {popover}

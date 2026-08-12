@@ -1,8 +1,8 @@
 "use client";
 
-import Link from "next/link";
 import { useTransition } from "react";
 
+import { TextLink } from "@/components/ui/TextLink";
 import { Button } from "@/components/ui/Button";
 import { copy } from "@/features/review-session/content";
 import { ReviewCard } from "@/features/review-session/ReviewCard";
@@ -56,12 +56,9 @@ export function ReviewSession({ methodName, compact = false }: ReviewSessionProp
         <p className="text-base text-danger" aria-live="polite">
           {loadError ?? copy.loadError}
         </p>
-        <Link
-          href={routes.methods}
-          className="mt-4 inline-block text-sm font-medium text-muted hover:text-ink md:inline-block"
-        >
+        <TextLink href={routes.methods} tone="muted" size="sm" className="mt-4 inline-block">
           ← {copy.backToMethods}
-        </Link>
+        </TextLink>
       </div>
     );
   }
