@@ -35,6 +35,11 @@ describe("interaction-feedback contract", () => {
     expect(screen.getByRole("button").className).toContain("active:bg-accent-soft");
   });
 
+  it("secondary Button includes active fill for touch-visible press", () => {
+    render(<Button variant="secondary">Try again</Button>);
+    expect(screen.getByRole("button").className).toContain("active:bg-accent-soft");
+  });
+
   it("NavLink variants include press (active) feedback classes", () => {
     expect(navLinkVariants()).toContain("active:scale");
   });

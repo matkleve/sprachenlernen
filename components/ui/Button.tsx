@@ -45,8 +45,10 @@ export const buttonVariants = cva(
       variant: {
         primary:
           "bg-accent text-accent-ink shadow-soft hover:bg-accent-deep hover:-translate-y-px hover:shadow-raised",
-        secondary:
+        secondary: cn(
           "border border-line bg-surface text-ink shadow-soft hover:border-line-strong hover:-translate-y-px hover:shadow-raised",
+          pressFill,
+        ),
         floating: cn(
           "border border-line bg-surface text-ink shadow-soft hover:border-line-strong",
           hoverLift,
