@@ -3,7 +3,7 @@ export const copy = {
   title: "Profile",
   languagesHeading: "Languages",
   languagesCaption: "What you are learning. The one in focus decides what the app shows you.",
-  active: "In focus",
+  active: "Active",
   makeActive: "Switch to this",
   addLanguage: "Add a language",
   noneYet: "You have not chosen a language yet.",

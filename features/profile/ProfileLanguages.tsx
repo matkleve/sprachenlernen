@@ -1,4 +1,5 @@
 import { ActionLink } from "@/components/ui/ActionLink";
+import { Chip } from "@/components/ui/Chip";
 import { SubmitButton } from "@/components/ui/SubmitButton";
 import { languageLabel } from "@/lib/languages";
 import { copy } from "@/features/profile/content";
@@ -79,7 +80,13 @@ export function ProfileLanguages({ outcome, holdings, switchFailed, switchTo }: 
                   </div>
 
                   {language.isActive ? (
-                    <p className="text-sm font-medium text-ink">{copy.active}</p>
+                    <Chip
+                      tone="accent"
+                      className="shrink-0 border border-accent"
+                      aria-current="true"
+                    >
+                      {copy.active}
+                    </Chip>
                   ) : (
                     <form action={switchTo.bind(null, language.languageCode)}>
                       <SubmitButton variant="secondary" size="sm">

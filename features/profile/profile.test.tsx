@@ -31,7 +31,10 @@ describe("ProfileLanguages", () => {
 
     expect(screen.getByText("Español")).toBeDefined();
     expect(screen.getByText("Spanish")).toBeDefined();
-    expect(screen.getByText(copy.active)).toBeDefined();
+    const activeChip = screen.getByText(copy.active);
+    expect(activeChip.tagName).toBe("SPAN");
+    expect(activeChip.className).toContain("bg-accent-soft");
+    expect(activeChip.className).toContain("border-accent");
   });
 
   it("offers a switch on a language that is not in focus", () => {
