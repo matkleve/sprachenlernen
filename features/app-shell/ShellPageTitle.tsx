@@ -12,9 +12,11 @@ import {
   MOBILE_TITLE_LARGE_PX,
   MOBILE_TITLE_SMALL_PX,
   MOBILE_TITLE_LARGE_MAX_REM,
+  desktopShellTitleMaxWidth,
   mobileShellTitleClampedMaxWidth,
   mobileShellTitleMaxWidth,
   mobileTitleWrapsTwoLines,
+  shellTitleFontSize,
 } from "./shell-page-title-layout";
 
 const TITLE_SIZES = {
@@ -42,7 +44,7 @@ export function ShellPageTitle({ variant, pinnedCompact = false, className }: Sh
   const scrollCollapse = useHeaderCollapse();
   const collapse = pinnedCompact ? 1 : scrollCollapse;
   const { large, small } = TITLE_SIZES[variant];
-  const fontSize = large + (small - large) * collapse;
+  const fontSize = shellTitleFontSize(large, small, collapse);
   const measureRef = useRef<HTMLSpanElement>(null);
   const [wrapsTwoLines, setWrapsTwoLines] = useState(false);
 
@@ -103,7 +105,7 @@ export function ShellPageTitle({ variant, pinnedCompact = false, className }: Sh
       )}
       style={{
         fontSize: `${fontSize}px`,
-        maxWidth: collapse < 0.5 ? "min(70vw, 20rem)" : "min(52vw, 14rem)",
+        maxWidth: desktopShellTitleMaxWidth(collapse),
       }}
       title={title}
     >
