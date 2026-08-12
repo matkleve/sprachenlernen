@@ -5,12 +5,18 @@ import { usePathname } from "next/navigation";
 import { routes } from "@/lib/routes";
 import { cn } from "@/lib/utils";
 
+import { useHeaderCollapse } from "./useHeaderCollapse";
 import { shellPageTitle } from "./page-title";
 
+const TITLE_SIZES = {
+  mobile: { large: 24, small: 14 },
+  desktop: { large: 30, small: 14 },
+} as const;
+
 type ShellPageTitleProps = {
-  /** Compact title in the toolbar row (scrolled, or routes with no page scroll). */
-  compact: boolean;
   variant: "mobile" | "desktop";
+  /** Always small — routes with no page scroll (review). */
+  pinnedCompact?: boolean;
   className?: string;
 };
 
@@ -18,37 +24,29 @@ type ShellPageTitleProps = {
  * Centered page title for the shell header. Contract:
  * docs/specs/feature/app-shell.md
  *
- * Large at the top of the page; shrinks into the toolbar row on scroll. The
- * header is fixed/sticky — the title never scrolls away with page content.
+ * One position always: horizontally centered in the header row. Font size
+ * scales with scroll — large at the top, small after scrolling down.
  */
-export function ShellPageTitle({ compact, variant, className }: ShellPageTitleProps) {
+export function ShellPageTitle({ variant, pinnedCompact = false, className }: ShellPageTitleProps) {
   const pathname = usePathname();
   const title = shellPageTitle(pathname);
+  const scrollCollapse = useHeaderCollapse();
+  const collapse = pinnedCompact ? 1 : scrollCollapse;
+  const { large, small } = TITLE_SIZES[variant];
+  const fontSize = large + (small - large) * collapse;
 
   if (!title) return null;
-
-  if (compact) {
-    return (
-      <h1
-        className={cn(
-          "pointer-events-none absolute top-1/2 left-1/2 max-w-[min(52vw,14rem)] -translate-x-1/2 -translate-y-1/2 truncate text-center font-semibold tracking-tight text-ink",
-          variant === "desktop" ? "text-sm" : "text-sm",
-          className,
-        )}
-        title={title}
-      >
-        {title}
-      </h1>
-    );
-  }
 
   return (
     <h1
       className={cn(
-        "px-4 pb-3 text-center font-semibold tracking-tight text-ink motion-reduce:transition-none",
-        variant === "desktop" ? "text-3xl" : "text-2xl",
+        "pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 truncate text-center font-semibold tracking-tight text-ink",
         className,
       )}
+      style={{
+        fontSize: `${fontSize}px`,
+        maxWidth: collapse < 0.5 ? "min(70vw, 20rem)" : "min(52vw, 14rem)",
+      }}
       title={title}
     >
       {title}
@@ -56,7 +54,7 @@ export function ShellPageTitle({ compact, variant, className }: ShellPageTitlePr
   );
 }
 
-/** Routes that never scroll on mobile — start with a compact header title. */
+/** Routes that never scroll on mobile — title stays compact. */
 export function shellHeaderStartsCompact(pathname: string): boolean {
   return pathname === routes.wordsReview;
 }

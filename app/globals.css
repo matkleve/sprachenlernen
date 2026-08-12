@@ -84,7 +84,7 @@
   /* Mobile floating shell chrome — back/sign-out top, destination pill bottom */
   --spacing-shell-float-top-compact: 3.5rem;
   --spacing-shell-float-top-expanded: 6.5rem;
-  --spacing-shell-float-top: var(--spacing-shell-float-top-expanded);
+  --spacing-shell-float-top: 3.5rem;
   --spacing-shell-float-bottom: 5rem;
   /* Active review session — one screen between floating chrome on mobile */
   --height-review-session: calc(
