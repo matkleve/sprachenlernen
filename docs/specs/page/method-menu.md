@@ -61,10 +61,11 @@ stays a Server Component.
 
 ## Current standing
 
-**Provisional — card engine only.** Standing reads the same starter-deck
-derivation as [`progress.md`](progress.md) via `features/method-menu/standing.ts`.
-It reflects **meaning-recall Reviews from `srs-session`**, not practice from
-other Methods (hosted or off-app). One sentence, never a CEFR label:
+**Provisional — card engine only.** Standing reads the vocabulary-size signal
+from meaning-recall Tasks only — the same derivation as
+[`progress.md`](progress.md), but not the full progress load on every
+`/methods` visit. It reflects **meaning-recall Reviews from `srs-session`**, not
+practice from other Methods (hosted or off-app). One sentence, never a CEFR label:
 
 | History | Standing line |
 | --- | --- |

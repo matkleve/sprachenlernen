@@ -1,20 +1,48 @@
-import { readProgress } from "@/features/progress/reading";
+import { listReviewsForTaskIds, toSchedulerReview } from "@/lib/db/review-log";
+import { poolForActiveLanguage } from "@/lib/db/learner-pools";
+import { isMeaningRecallTaskId } from "@/lib/form-recall-pool";
+import { readVocabularySize } from "@/lib/level-model";
+import { newTask, rebuild, type Review, type Task } from "@/lib/scheduler";
 
-import { standingFromReading, type StandingOutcome } from "./standing";
+import { standingFromVocabulary, type StandingOutcome } from "./standing";
 
 /**
  * Loads current standing for `/methods`. Contract:
  * docs/specs/page/method-menu.md § Current standing.
  *
- * Omits on read failure so a broken progress load never blocks the catalogue.
+ * Loads meaning-recall history only — standing needs the vocabulary-size
+ * signal, not form-recall or the other progress signals. Calling
+ * `readProgress()` here was loading the entire pool twice on every visit to
+ * the front door.
  */
 export async function readStanding(now: number = Date.now()): Promise<StandingOutcome> {
-  const outcome = await readProgress(now);
-  // "No language" is passed through rather than folded into omit: the page has
-  // to route on it, and a page cannot route on a line it was told to leave out.
-  if (outcome.status === "no-language") return { status: "no-language" };
-  // A failed read never blocks the catalogue — the standing is the optional part.
-  if (outcome.status !== "ok") return { status: "omit" };
+  try {
+    return await read(now);
+  } catch {
+    return { status: "omit" };
+  }
+}
 
-  return { status: "ok", summary: standingFromReading(outcome.reading) };
+async function read(now: number): Promise<StandingOutcome> {
+  const pool = await poolForActiveLanguage();
+  if (pool.status === "no-language") return { status: "no-language" };
+  if (pool.status === "error") return { status: "omit" };
+
+  const cards = pool.cards.filter((card) => isMeaningRecallTaskId(card.taskId));
+  const reviewsResult = await listReviewsForTaskIds(cards.map((card) => card.taskId));
+  if (reviewsResult.status === "error") return { status: "omit" };
+
+  const reviewsByTaskId: Record<string, Review[]> = {};
+  for (const row of reviewsResult.reviews) {
+    (reviewsByTaskId[row.taskId] ??= []).push(toSchedulerReview(row));
+  }
+
+  const tasks: Task[] = cards.map((card) => {
+    const reviews = reviewsByTaskId[card.taskId];
+    if (!reviews || reviews.length === 0) return newTask(card.taskId, card.wordId);
+    return rebuild(card.taskId, card.wordId, reviews).task;
+  });
+
+  void now;
+  return { status: "ok", summary: standingFromVocabulary(readVocabularySize(tasks)) };
 }
