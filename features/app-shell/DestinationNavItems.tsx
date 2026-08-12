@@ -3,6 +3,7 @@
 import { usePathname } from "next/navigation";
 
 import { NavLink } from "@/components/ui/NavLink";
+import { hitAreaExpandNavPill } from "@/components/ui/interaction-kernel";
 import { NavigationPendingProvider, useNavigationPending } from "@/components/ui/navigation-pending-context";
 import { cn } from "@/lib/utils";
 
@@ -29,8 +30,8 @@ function DestinationNavItemsInner({ layout = "header" }: DestinationNavItemsProp
             pendingPolicy="nav"
             className={cn(
               pill && [
-                "h-auto w-full min-h-11 flex-col gap-0.5 rounded-pill px-1 py-2 text-xs",
-                "after:-inset-x-0 after:-inset-y-1",
+                "h-auto w-full min-h-12 flex-col gap-1 rounded-pill px-2 py-3 text-xs",
+                hitAreaExpandNavPill,
               ],
               !pill && "gap-2",
             )}

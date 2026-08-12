@@ -80,7 +80,7 @@ export function FloatingShellChrome({
           <ul
             className={cn(
               "flex w-[min(85%,24rem)] list-none rounded-pill border border-line",
-              "bg-surface p-1 shadow-raised",
+              "bg-surface p-1.5 shadow-raised",
             )}
           >
             <DestinationNavItems layout="pill" />

@@ -42,7 +42,13 @@ export const hitAreaPseudo = "after:absolute after:inset-x-0 after:content-['']"
 
 export const hitAreaExpandSm = "after:-inset-y-1.5";
 export const hitAreaExpandMd = "after:-inset-y-0.5";
-export const hitAreaExpandNav = "after:-inset-y-1";
+/** Header / inline destination links — 44px+ target with side bleed into gaps. */
+export const hitAreaExpandNav = "after:-inset-y-1.5 after:-inset-x-1";
+/** Bottom pill segments — full column height plus horizontal bleed between segments. */
+export const hitAreaExpandNavPill = "after:-inset-x-2 after:-inset-y-2";
+
+/** Semibold label + heavier icon stroke on clickable controls. */
+export const interactiveEmphasis = "font-semibold [&_svg]:stroke-[2.5]";
 
 /** Composed stacks used by multiple primitives. */
 export const interactiveBase = [
