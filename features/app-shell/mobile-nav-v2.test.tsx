@@ -82,18 +82,18 @@ describe("SPEC-feature-mobile-nav-v2", () => {
     expect(screen.getByText("🇪🇸")).toBeDefined();
   });
 
-  it("shows icon-only back and the language emoji on drill-in routes", () => {
+  it("shows icon-only back without the language chip on drill-in routes", () => {
     vi.mocked(usePathname).mockReturnValue("/methods/srs-session");
     render(<FloatingShellChrome languages={twoLanguages} />);
 
     const back = screen.getByRole("link", { name: copy.backTo(copy.destinations.methods) });
     expect(back.getAttribute("href")).toBe("/methods");
     expect(back.textContent?.trim()).toBe("");
-    expect(screen.getByRole("button", { name: copy.switchLanguage })).toBeDefined();
-    expect(screen.getByText("🇪🇸")).toBeDefined();
+    expect(screen.queryByRole("button", { name: copy.switchLanguage })).toBeNull();
+    expect(screen.queryByText("🇪🇸")).toBeNull();
   });
 
-  it("shows back and language emoji on words review", () => {
+  it("shows back without the language chip on words review", () => {
     vi.mocked(usePathname).mockReturnValue("/words/review");
     render(<FloatingShellChrome languages={twoLanguages} />);
 
@@ -101,8 +101,8 @@ describe("SPEC-feature-mobile-nav-v2", () => {
       .getAllByRole("link")
       .filter((link) => link.getAttribute("href") === "/words");
     expect(wordsLinks).toHaveLength(2);
-    expect(screen.getByRole("button", { name: copy.switchLanguage })).toBeDefined();
-    expect(screen.getByText("🇪🇸")).toBeDefined();
+    expect(screen.queryByRole("button", { name: copy.switchLanguage })).toBeNull();
+    expect(screen.queryByText("🇪🇸")).toBeNull();
     expect(screen.getByRole("navigation", { name: copy.mobileNavLabel })).toBeDefined();
   });
 

@@ -52,12 +52,13 @@ export function FloatingShellChrome({
               <IconLink href={back.href} aria-label={copy.backTo(back.label)}>
                 <ArrowLeft aria-hidden className="size-5 shrink-0" />
               </IconLink>
-            ) : null}
-            <LanguageSwitcher
-              languages={languages}
-              languageHoldings={languageHoldings}
-              layout="floating"
-            />
+            ) : (
+              <LanguageSwitcher
+                languages={languages}
+                languageHoldings={languageHoldings}
+                layout="floating"
+              />
+            )}
           </div>
 
           <ShellPageTitle variant="mobile" pinnedCompact={pinnedCompact} />

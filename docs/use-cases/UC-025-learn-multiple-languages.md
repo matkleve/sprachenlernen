@@ -42,12 +42,11 @@ how many languages the account holds.
   or ten. If you are learning Spanish, you are practising Spanish — full stop,
   never "mostly Spanish with some of whatever else I'm learning mixed in by
   whatever the scheduler decided was due."
-- **Switching which language you are working with is exactly like switching
-  which course you are in** — one action, from the profile or from the shell's
-  circular flag switcher (tap the flag, pick a row or **Add a language**), among
-  however many languages the account holds. It changes what you see and what you
-  practise next; it changes nothing about any other language's stored progress,
-  which is exactly where you left it whenever you switch back.
+- Switching which language you are working with is exactly like switching
+  which course you are in — one action from a **destination root** (tap the
+  top-left flag, pick a row or **Add a language**) or from `/profile` on any
+  route. On mobile drill-in screens the top-left is the back control only; go
+  back to a destination root or open profile to switch language.
 - Each language can independently be put in maintenance: enough review to hold
   what exists, no new material, no pressure (related to UC-006). Still per
   language, still never shared with any other language's schedule, no matter
