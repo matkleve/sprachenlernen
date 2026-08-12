@@ -40,7 +40,7 @@ Progress (ADR-0009). **No due-count badges** (UC-063).
 | 7 | Has more than one learning language | Language emoji chip opens a popover: blurred scrim over the page, stacked language cards (gap between each), then **Add a language**; choosing a row makes it active and refreshes — one action (UC-025) |
 | 8 | Has exactly one learning language | Top-left shows a non-interactive flag circle with the endonym in `aria-label` |
 | 9 | Scrolls page content | Floats stay fixed; the page title stays centered and scales down; a scrim (blur + tint) fades in at the top and out toward the bottom of the header |
-| 10 | On any signed-in route | The page title is centered between the corner chips — large at scroll top, smaller after scrolling down; on mobile it may wrap to **two lines** within a fixed max width, never overlapping the chips |
+| 10 | On any signed-in route | The page title is centered between the corner chips — large at scroll top, smaller after scrolling down; on mobile it may wrap to **two lines** within a fixed max width, never overlapping the chips; **if it wraps to two lines at rest, it stays two lines while scaling down** (no reflow to one line on scroll) |
 
 ## Back targets
 
@@ -95,7 +95,9 @@ in `app/globals.css`.
       due-count digit (UC-063 negative).
 - [ ] Given viewport ≥ `md`, then horizontal destination nav renders without
       floating chrome.
-- [ ] Given the mobile shell, when tested with axe-core, then no violations.
+- [ ] Given viewport &lt; `md` and a long drill-in title, when the learner
+      scrolls, then the title scales down but **keeps the same line count** as at
+      scroll top (two lines stay two lines).
 
 ## Check
 
