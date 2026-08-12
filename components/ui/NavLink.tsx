@@ -15,6 +15,7 @@ import {
   pressScale,
   touchTarget,
 } from "@/components/ui/interaction-kernel";
+import type { PendingPolicy } from "@/components/ui/Button";
 import { usePendingNavigation } from "@/components/ui/use-pending-navigation";
 import { cn } from "@/lib/utils";
 
@@ -50,17 +51,32 @@ export const navLinkVariants = cva(
 );
 
 export type NavLinkProps = ComponentPropsWithoutRef<typeof Link> &
-  VariantProps<typeof navLinkVariants>;
+  VariantProps<typeof navLinkVariants> & {
+    /** `nav` — optimistic current fill, no dimming (shell destinations). */
+    pendingPolicy?: PendingPolicy;
+  };
 
-export function NavLink({ current, className, href, onClick, ...props }: NavLinkProps) {
+export function NavLink({
+  current,
+  pendingPolicy = "cta",
+  className,
+  href,
+  onClick,
+  ...props
+}: NavLinkProps) {
   const { isPending, onClick: pendingClick } = usePendingNavigation(href);
+  const visuallyCurrent = current || (isPending && pendingPolicy === "nav");
 
   return (
     <Link
       href={href}
-      aria-current={current ? "page" : undefined}
+      aria-current={visuallyCurrent ? "page" : undefined}
       aria-busy={isPending || undefined}
-      className={cn(navLinkVariants({ current }), isPending && pendingBusy, className)}
+      className={cn(
+        navLinkVariants({ current: visuallyCurrent }),
+        isPending && pendingPolicy !== "nav" && pendingBusy,
+        className,
+      )}
       onClick={(event) => {
         pendingClick(event);
         onClick?.(event);

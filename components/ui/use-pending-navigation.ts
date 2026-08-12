@@ -4,6 +4,8 @@ import type { LinkProps } from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState, useTransition, type MouseEvent } from "react";
 
+import { useNavigationPending } from "@/components/ui/navigation-pending-context";
+
 /** Minimum time pending stays visible so fast client navigations feel acknowledged. */
 export const MIN_PENDING_DISPLAY_MS = 180;
 
@@ -34,6 +36,7 @@ export function usePendingNavigation(
   { minDisplayMs = MIN_PENDING_DISPLAY_MS } = {},
 ) {
   const router = useRouter();
+  const navigationPending = useNavigationPending();
   const [isPending, startTransition] = useTransition();
   const [visiblePending, setVisiblePending] = useState(false);
   const startedAtRef = useRef(0);
@@ -56,8 +59,10 @@ export function usePendingNavigation(
   const onClick = (event: MouseEvent<HTMLAnchorElement>) => {
     if (event.defaultPrevented || isModifiedClick(event)) return;
     event.preventDefault();
+    const path = hrefToPath(href);
+    navigationPending?.setPendingHref(path);
     startTransition(() => {
-      router.push(hrefToPath(href));
+      router.push(path);
     });
   };
 

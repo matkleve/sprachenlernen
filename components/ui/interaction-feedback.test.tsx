@@ -121,12 +121,24 @@ describe("interaction-feedback contract", () => {
   it("NavLink has no axe violations with pending navigation hook", async () => {
     const { container } = render(
       <nav aria-label="Destinations">
-        <NavLink href="/methods" current>
+        <NavLink href="/methods" current pendingPolicy="nav">
           Methods
+        </NavLink>
+        <NavLink href="/words" pendingPolicy="nav">
+          Words
         </NavLink>
       </nav>,
     );
     await expectNoA11yViolations(container);
+  });
+
+  it("NavLink with nav pending policy does not dim while pending", () => {
+    render(
+      <NavLink href="/words" pendingPolicy="nav">
+        Words
+      </NavLink>,
+    );
+    expect(screen.getByRole("link").className).not.toContain("opacity-70");
   });
 
   it("exports minimum pending display duration for perceptible nav feedback", () => {
