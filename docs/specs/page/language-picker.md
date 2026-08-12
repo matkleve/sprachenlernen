@@ -42,8 +42,7 @@ A tile exists for every language with a profile in `data/languages/`, but
 ships, never from a second list someone can edit independently. That is what
 stops a language becoming selectable months before it has anything to teach.
 
-Today: Spanish is available, Italian is not
-([`starter-deck.second-language.md`](../service/starter-deck.second-language.md)).
+Today: Spanish and Italian are both available (2000-word starter sets each).
 
 The endonym is the primary label with the English name beneath — `Español` /
 *Spanish*. **A flag is never the identifier**; Spanish is not Spain.
@@ -90,7 +89,7 @@ Three rules the copy is carrying:
 ## Acceptance criteria
 
 - [ ] Given no chosen language, when the picker renders, then one tile per known
-      language appears, Spanish is actionable and Italian is not.
+      language appears, and every language with a shipped pool is actionable.
 - [ ] Given a tap on Spanish, then it is added, becomes active, and the learner
       lands on `/methods`.
 - [ ] Given a language already being learned, then its tile is marked and offers
@@ -114,7 +113,5 @@ Three rules the copy is carrying:
 ## Open
 
 - **The picker was built before a second pool existed**, against the design
-  review's advice, on the owner's decision. The risk it accepted: a chooser with
-  one real option is the defect `/languages` already has. Revisit once Italian
-  is buildable — if the answer is still one option, that is evidence the review
-  was right.
+  review's advice, on the owner's decision. Italian now ships at the same tier
+  as Spanish — revisit whether the two-tile chooser still needs UX work.

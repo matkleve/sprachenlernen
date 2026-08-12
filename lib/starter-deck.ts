@@ -5,6 +5,9 @@
 import esMeaningRecall from "@/data/starter/es-meaning-recall.json";
 import esIdenticalCognates from "@/data/starter/es-meaning-recall.cognates.json";
 import esExclusions from "@/data/starter/es-meaning-recall.exclusions.json";
+import itMeaningRecall from "@/data/starter/it-meaning-recall.json";
+import itIdenticalCognates from "@/data/starter/it-meaning-recall.cognates.json";
+import itExclusions from "@/data/starter/it-meaning-recall.exclusions.json";
 
 export type StarterCard = {
   taskId: string;
@@ -71,8 +74,9 @@ export function validateStarterDeck(raw: unknown): LoadStarterDeckResult {
   };
 }
 
-/** Shipped Spanish meaning-recall pool size (stage 2). */
+/** Shipped meaning-recall pool size (stage 2). */
 export const SHIPPED_ES_POOL_SIZE = 2000;
+export const SHIPPED_IT_POOL_SIZE = 2000;
 
 /**
  * Longest admissible card back. Mirrors `MAX_GLOSS_CHARS` in
@@ -93,9 +97,18 @@ export const ES_IDENTICAL_COGNATES: readonly string[] = esIdenticalCognates;
 
 export const ES_EXCLUDED_LEMMAS: readonly string[] = Object.keys(esExclusions);
 
+export const IT_IDENTICAL_COGNATES: readonly string[] = itIdenticalCognates;
+
+export const IT_EXCLUDED_LEMMAS: readonly string[] = Object.keys(itExclusions);
+
 /** Shipped Spanish meaning-recall pool ({@link SHIPPED_ES_POOL_SIZE} lemmas). */
 export function loadSpanishMeaningRecallDeck(): LoadStarterDeckResult {
   return validateStarterDeck(esMeaningRecall);
+}
+
+/** Shipped Italian meaning-recall pool ({@link SHIPPED_IT_POOL_SIZE} lemmas). */
+export function loadItalianMeaningRecallDeck(): LoadStarterDeckResult {
+  return validateStarterDeck(itMeaningRecall);
 }
 
 /**
@@ -106,13 +119,10 @@ export function loadSpanishMeaningRecallDeck(): LoadStarterDeckResult {
  * browser nor agree with what was bundled. Availability elsewhere in the app is
  * derived from **this** — never from a second hand-kept list, which is how a
  * language becomes selectable months before it has anything to teach.
- *
- * Italian is deliberately absent: `data/frequency/it.txt` and `data/lemma/it.json`
- * ship, but no pool can be built yet. See
- * docs/specs/service/starter-deck.second-language.md.
  */
 const SHIPPED_DECKS: Record<string, () => LoadStarterDeckResult> = {
   es: loadSpanishMeaningRecallDeck,
+  it: loadItalianMeaningRecallDeck,
 };
 
 export function availableLanguages(): readonly string[] {

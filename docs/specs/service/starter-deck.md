@@ -14,12 +14,12 @@ dependency here.
 
 ## Scope
 
-- **In:** `data/starter/es-meaning-recall.json` (shipped pool), its three
-  hand-maintained companions — `.overrides.json` (glosses), `.exclusions.json`
-  (lemmas that never enter the pool), `.cognates.json` (lemmas whose gloss is
-  legitimately the lemma) — `scripts/build-starter-deck.mjs` (regenerator),
-  `lib/starter-deck.ts` (load + validate).
-- **Out:** Italian or a second language; **audio** recall tasks; runtime
+- **In:** `data/starter/es-meaning-recall.json` and `data/starter/it-meaning-recall.json`
+  (shipped pools), their three hand-maintained companions per language — `.overrides.json`
+  (glosses), `.exclusions.json` (lemmas that never enter the pool), `.cognates.json`
+  (lemmas whose gloss is legitimately the lemma) —
+  `scripts/build-starter-deck.mjs` (regenerator), `lib/starter-deck.ts` (load + validate).
+- **Out:** **audio** recall tasks; runtime
   gloss generation; language-wide vocabulary extrapolation (still blocked on
   pool size + calibration — see [`page/progress.md`](../page/progress.md));
   choosing which lemmas enter the pool at review time (the pool is fixed per
@@ -125,15 +125,15 @@ In [`starter-deck.acceptance-criteria.md`](starter-deck.acceptance-criteria.md).
 
 ## A second language
 
-Italian is investigated and **not buildable yet** — three independent blockers,
-none of them code. See
+Italian ships at stage 2 (2000 lemmas + form-recall pool). See
 [`starter-deck.second-language.md`](starter-deck.second-language.md).
 
 ## Open
 
-- **Stage 2 (2k lemmas)** — **shipped 2026-08-12**. Same pipeline; companion
-  files expanded via `scripts/expand-pool-companions.mjs` for gloss gaps in the
-  long tail. The pipeline's hard ceiling is **2,953** lemmas.
+- **Stage 2 (2k lemmas)** — **shipped 2026-08-12** for Spanish and Italian.
+  Same pipeline; companion files expanded via `scripts/expand-pool-companions.mjs`
+  for gloss gaps in the long tail. The pipeline's hard ceiling is **2,953**
+  lemmas for Italian.
 - **⚠ Live Kaikki fetch** — still not reproduced from network; committed pool
   built from cached glosses. First run on a machine that can reach Kaikki may
   surface lemmas needing an override.

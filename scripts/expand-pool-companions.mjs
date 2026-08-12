@@ -1,21 +1,18 @@
 #!/usr/bin/env node
 /**
  * Expands companion files so `build-starter-deck.mjs` can reach POOL_SIZE.
- * Run before building stage 2: `node scripts/expand-pool-companions.mjs`
+ * Run before building stage 2: `node scripts/expand-pool-companions.mjs [es|it]`
  */
 import { readFile, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { spawnSync } from "node:child_process";
 
-const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
-const POOL_SIZE = Number(process.env.POOL_SIZE ?? 2000);
+import { POOL_SIZE, pathsFor, resolveLang } from "./starter-deck-lang.mjs";
 
-const paths = {
-  overrides: join(ROOT, "data/starter/es-meaning-recall.overrides.json"),
-  exclusions: join(ROOT, "data/starter/es-meaning-recall.exclusions.json"),
-  cognates: join(ROOT, "data/starter/es-meaning-recall.cognates.json"),
-};
+const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
+const { code: LANG, config: LANG_CONFIG } = resolveLang(process.argv[2]);
+const paths = pathsFor(ROOT, LANG);
 
 const loadJson = async (path) => JSON.parse(await readFile(path, "utf8"));
 const saveJson = async (path, value) =>
@@ -61,7 +58,7 @@ const shortenForOverride = (shaped) => {
 };
 
 const runAnalyze = () => {
-  const result = spawnSync("node", ["scripts/analyze-pool-glosses.mjs"], {
+  const result = spawnSync("node", ["scripts/analyze-pool-glosses.mjs", LANG], {
     cwd: ROOT,
     env: { ...process.env, POOL_SIZE: String(POOL_SIZE) },
     encoding: "utf8",
@@ -108,6 +105,13 @@ const isInflectedMeta = (back) =>
   /^diminutive of\b/i.test(back) ||
   /^plural of\b/i.test(back);
 
+const exclusionReason = {
+  missing:
+    "proper name or English fragment — from the subtitle corpus, not vocabulary",
+  properName: "proper name — not vocabulary",
+  inflected: "inflected form — the lemma form belongs in the pool at its own rank",
+};
+
 let overrides = await loadJson(paths.overrides);
 let exclusions = await loadJson(paths.exclusions);
 let cognates = await loadJson(paths.cognates);
@@ -118,15 +122,21 @@ while (iteration < 20) {
   iteration += 1;
   const { missing, unusable } = parseAnalyze(runAnalyze());
   if (missing.length === 0 && unusable.length === 0) {
-    console.log(`companions ready for pool size ${POOL_SIZE} after ${iteration - 1} expansion(s)`);
+    console.log(
+      `[${LANG}] companions ready for pool size ${POOL_SIZE} after ${iteration - 1} expansion(s)`,
+    );
     break;
   }
 
-  console.log(`iteration ${iteration}: ${missing.length} missing, ${unusable.length} unusable`);
+  console.log(
+    `[${LANG}] iteration ${iteration}: ${missing.length} missing, ${unusable.length} unusable`,
+  );
 
   for (const lemma of missing) {
-    exclusions[lemma] =
-      "proper name or English fragment — from the subtitle corpus, not Spanish vocabulary";
+    exclusions[lemma] = exclusionReason.missing.replace(
+      "vocabulary",
+      `${LANG_CONFIG.label} vocabulary`,
+    );
   }
 
   for (const row of unusable) {
@@ -140,9 +150,12 @@ while (iteration < 20) {
 
     if (row.reason === "meta") {
       if (isProperNameMeta(row.back)) {
-        exclusions[row.lemma] = "proper name — not Spanish vocabulary";
+        exclusions[row.lemma] = exclusionReason.properName.replace(
+          "vocabulary",
+          `${LANG_CONFIG.label} vocabulary`,
+        );
       } else if (isInflectedMeta(row.back)) {
-        exclusions[row.lemma] = "inflected form — the lemma form belongs in the pool at its own rank";
+        exclusions[row.lemma] = exclusionReason.inflected;
       } else {
         const short = shortenForOverride(shapeGloss(row.back));
         if (short) overrides[row.lemma] = short;

@@ -3,7 +3,11 @@ import { beforeEach, describe, expect, it, vi } from "vitest";
 import { readPicker } from "@/features/language-picker/reading";
 import { listLearningLanguages } from "@/lib/db/learning-languages";
 import { listReviewsForTaskIds } from "@/lib/db/review-log";
-import { loadSpanishMeaningRecallDeck, SHIPPED_ES_POOL_SIZE } from "@/lib/starter-deck";
+import {
+  loadSpanishMeaningRecallDeck,
+  SHIPPED_ES_POOL_SIZE,
+  SHIPPED_IT_POOL_SIZE,
+} from "@/lib/starter-deck";
 
 /** Contract: docs/specs/page/language-picker.md */
 
@@ -35,6 +39,10 @@ describe("readPicker", () => {
     const spanish = outcome.tiles.find((tile) => tile.code === "es");
     expect(spanish?.poolSize).toBe(SHIPPED_ES_POOL_SIZE);
     expect(spanish?.heldCount).toBeNull();
+
+    const italian = outcome.tiles.find((tile) => tile.code === "it");
+    expect(italian?.poolSize).toBe(SHIPPED_IT_POOL_SIZE);
+    expect(italian?.heldCount).toBeNull();
   });
 
   it("returns a held count once meaning-recall history exists", async () => {

@@ -143,11 +143,11 @@ describe("learning-languages", () => {
   it("refuses a language that ships no pool, naming it", async () => {
     const { supabase, inserted } = client({ rows: [] });
 
-    const outcome = await addLearningLanguage("it", supabase);
+    const outcome = await addLearningLanguage("fr", supabase);
 
     expect(outcome.status).toBe("error");
     if (outcome.status !== "error") return;
-    expect(outcome.error).toContain("it");
+    expect(outcome.error).toContain("fr");
     expect(inserted).toEqual([]);
   });
 
@@ -197,8 +197,7 @@ describe("learning-languages", () => {
 
   it("derives availability from the shipped pools", () => {
     expect(languagesWithAPool()).toContain("es");
-    // Italian data ships, but no pool can be built from it yet.
-    expect(languagesWithAPool()).not.toContain("it");
+    expect(languagesWithAPool()).toContain("it");
   });
 
   it("reads the active language out of a list", () => {

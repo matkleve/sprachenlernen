@@ -14,12 +14,13 @@ Parent: [`starter-deck.md`](starter-deck.md) (meaning-recall pool),
 
 ## Scope
 
-- **In:** `data/starter/es-form-recall.json`, `scripts/build-form-recall-pool.mjs`,
-  `lib/form-recall-pool.ts` (load + validate); staging rule — a form-recall Task
-  enters the session queue only when the sibling **meaning-recall** Task for the
-  same `wordId` is **held** (stability above graduation — [`vocabulary-snapshot.md`](vocabulary-snapshot.md)).
+- **In:** `data/starter/es-form-recall.json` and `data/starter/it-form-recall.json`,
+  `scripts/build-form-recall-pool.mjs`, `lib/form-recall-pool.ts` (load + validate);
+  staging rule — a form-recall Task enters the session queue only when the sibling
+  **meaning-recall** Task for the same `wordId` is **held** (stability above
+  graduation — [`vocabulary-snapshot.md`](vocabulary-snapshot.md)).
 - **Out:** form-mastery signal on Progress — see
-  [`form-mastery-signal.md`](form-mastery-signal.md); Italian; audio recall;
+  [`form-mastery-signal.md`](form-mastery-signal.md); audio recall;
   choosing the cell at review time; paradigm-table method (`paradigm-tables-mixed`);
   UI copy for every cell name (v1 uses a single prompt line).
 

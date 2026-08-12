@@ -1,22 +1,17 @@
 #!/usr/bin/env node
-/** One-off: report gloss gaps for a target pool size. */
+/** Report gloss gaps for a target pool size. Usage: node scripts/analyze-pool-glosses.mjs [es|it] */
 import { createReadStream } from "node:fs";
 import { readFile } from "node:fs/promises";
 import { createInterface } from "node:readline";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
-const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
-const POOL_SIZE = Number(process.env.POOL_SIZE ?? 2000);
-const CACHE = join(ROOT, ".cache/gloss/kaikki-es.jsonl");
+import { POOL_SIZE, pathsFor, resolveLang } from "./starter-deck-lang.mjs";
 
-const paths = {
-  frequency: join(ROOT, "data/frequency/es.txt"),
-  lemmaTable: join(ROOT, "data/lemma/es.json"),
-  overrides: join(ROOT, "data/starter/es-meaning-recall.overrides.json"),
-  exclusions: join(ROOT, "data/starter/es-meaning-recall.exclusions.json"),
-  cognates: join(ROOT, "data/starter/es-meaning-recall.cognates.json"),
-};
+const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
+const CACHE = join(ROOT, ".cache/gloss");
+const { code: LANG, config: LANG_CONFIG } = resolveLang(process.argv[2]);
+const paths = pathsFor(ROOT, LANG);
 
 const MAX_GLOSS_CHARS = 60;
 const METALINGUISTIC =
@@ -53,7 +48,7 @@ const readFormCounts = async () => {
 };
 
 const resolveLemma = (table, form) => {
-  if (table.fused[form]) return null;
+  if (table.fused?.[form]) return null;
   const raw = table.forms[form];
   if (!raw?.length) return form;
   const first = raw[0];
@@ -78,7 +73,8 @@ const rankLemmas = (table, formCounts, excluded) => {
 const loadKaikkiGlosses = async (lemmas) => {
   const need = new Set(lemmas);
   const glosses = new Map();
-  const rl = createInterface({ input: createReadStream(CACHE), crlfDelay: Infinity });
+  const kaikkiPath = join(CACHE, LANG_CONFIG.kaikki.file);
+  const rl = createInterface({ input: createReadStream(kaikkiPath), crlfDelay: Infinity });
   for await (const line of rl) {
     if (!line) continue;
     let entry;
@@ -132,7 +128,7 @@ for (const lemma of lemmas) {
   }
 }
 
-console.log(`pool size ${POOL_SIZE}, ranked ${lemmas.length}`);
+console.log(`[${LANG}] pool size ${POOL_SIZE}, ranked ${lemmas.length}`);
 console.log(`missing ${missing.length}:`, missing.join(", "));
 console.log(`unusable ${unusable.length}:`);
 for (const row of unusable) {
