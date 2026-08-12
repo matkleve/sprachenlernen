@@ -332,7 +332,7 @@ low-inference agent would silently invent.
 | ~~**T-B10**~~ | ~~The method menu — the product's front door~~ — **shipped 2026-08-09** | Filters, time scale, hosted routing. Learner half continued in T-B10b |
 | ~~**T-B5**~~ | ~~Retire the Grundriss worked examples~~ — **shipped 2026-08-10** | `/account` uses `Select` + `Dialog` (UC-024); demos removed; `/primitives` → `/languages` |
 | **T-B9** | Offline practice + sync (F192, UC-018) | **Owner direction: both** — online sync across devices *and* offline review (train/PWA). Needs ADR-0011 closed on Option B (local-first queue is partial — see [`review-write-queue.md`](specs/service/review-write-queue.md)); full offline still needs cached deck + scheduler |
-| **T-B11** | Spoken-language setting — `profiles` table, `next-intl` chrome, description-text records ([UC-069](use-cases/UC-069-use-the-app-in-my-own-language.md)) | Storage, default and library are decided (2026-08-12); **not spec-ready yet** — blocked on decisions 9–10 above (where non-English text comes from, one string vs. split parts) |
+| **T-B11** | Spoken-language setting — `profiles` table, `next-intl` chrome, description-text records ([UC-069](use-cases/UC-069-use-the-app-in-my-own-language.md)) | Storage, default and library are decided (2026-08-12); **not spec-ready yet** — blocked on decisions 10–11 above (where non-English text comes from, one string vs. split parts) |
 ---
 
 ### Track B engine phase — what is next (2026-08-11)
@@ -514,7 +514,7 @@ ADR-0006, ADR-0007) — an account is required, and the provider is Supabase.
 6. Does `CONSTITUTION.md` §2 (the user's data) need writing out now that server
    storage is scheduled rather than hypothetical? `BACKEND.md` §9 says it stops
    being abstract the moment something is actually stored.
-6. **T-B7: which thesis does the landing lead with?** The interim page leads
+7. **T-B7: which thesis does the landing lead with?** The interim page leads
    with thesis 1 — *"progress is shown as measured competence, never as
    activity"* — because it was the sentence T-04 had already quoted, not
    because anyone chose it. The candidates, all study-backed, are:
@@ -527,13 +527,13 @@ ADR-0006, ADR-0007) — an account is required, and the provider is Supabase.
    five minutes. Note that thesis 11's "leads the headline" is about the
    signed-in **Home**, not this page — chapter 24 was renamed to keep those
    apart, and it is an easy wrong inference to make.
-7. **Does `/progress` lead with speaking once anything is measured?** Chapter 24
+8. **Does `/progress` lead with speaking once anything is measured?** Chapter 24
    says the goal decides which skill leads the *headline display*, and names
    the home surface. Since [ADR-0010](adr/0010-the-route-model.md) made
    `/methods` the default route, which surface that rule binds is no longer
    obvious. It changes nothing today — four skills all read "not measured" —
    and it binds the moment one does not.
-8. Chapter 25's questions 17–18 (perceived effort as a third ledger, whether the
+9. Chapter 25's questions 17–18 (perceived effort as a third ledger, whether the
    whole-task floor applies from day one). **Question 19 is off this list** —
    answered in its first branch by
    [`specs/service/dose-band.md`](specs/service/dose-band.md): the band is
@@ -543,19 +543,19 @@ ADR-0006, ADR-0007) — an account is required, and the provider is Supabase.
 (no code yet — these block writing the specs, per DoR's "open questions
 resolved or explicitly deferred"):
 
-9. **Where does description text in a language other than English come
+10. **Where does description text in a language other than English come
    from?** ([UC-069](use-cases/UC-069-use-the-app-in-my-own-language.md) — a
    learner's card back and app chrome should read in whatever language they
    speak, not always English.) Kaikki, the current gloss source, only ships
    English senses. Candidates: a second lexical source per spoken language,
    machine translation with human review, or hand-written text at scale —
    each has a different provenance story for `data/README.md`.
-10. **Does a card's description stay one string, or split into named parts**
+11. **Does a card's description stay one string, or split into named parts**
     (the definition itself, a grammar hint, an instruction like "write the
     Spanish form") so each half can be translated independently? Same UC-069.
     Smaller than it looks now that word identity vs. description-text-record
     is settled, but still open, and it also gates decision below.
-11. **Does a same-session repeat count toward UC-013's cross-session
+12. **Does a same-session repeat count toward UC-013's cross-session
     leech-suspend counter?**
     ([UC-071](use-cases/UC-071-get-a-wrong-card-back-before-the-session-ends.md)
     — grading a card poorly should bring it back later in *this* session, not
@@ -563,10 +563,10 @@ resolved or explicitly deferred"):
     one hard day tripping suspension early; not counting it risks a true
     leech looking fine because same-session "fixes" keep resetting the count
     before it ever climbs.
-12. **What is the same-session requeue rule** — end of run, ~5 cards ahead, or
+13. **What is the same-session requeue rule** — end of run, ~5 cards ahead, or
     something else? Same UC-071; a use case states the outcome, not the
     algorithm, so this is left to the spec stage.
-13. **Does broken-card detection run once at build time, or per learner?**
+14. **Does broken-card detection run once at build time, or per learner?**
     ([`IDEAS.md`](IDEAS.md)'s "how would the app detect *why* a card keeps
     failing" design note, feeding
     [UC-013](use-cases/UC-013-stop-losing-time-on-one-card.md) — a card that
@@ -574,7 +574,7 @@ resolved or explicitly deferred"):
     *perro*?", instead of just repeated harder.) Static/build-time is far
     cheaper; per-learner has no false positive for someone who never studies
     the confusable word.
-14. **What similarity threshold catches a real confusion** (`pero`/`perro`)
+15. **What similarity threshold catches a real confusion** (`pero`/`perro`)
     **without flagging most short, common words against each other?** Same
     design note. Needs testing against the real 2000-lemma pools, not a
     guessed constant.
