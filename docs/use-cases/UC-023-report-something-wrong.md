@@ -57,3 +57,11 @@ crowd-voting on what is correct. A moderator **role** or a review-queue UI —
 v1 is a flag the person maintaining the content can query directly; a
 dedicated review workflow, if it is ever needed, is a later increment on top
 of the same flag, not a redesign of it.
+
+## Undecided
+
+- **⚠ SPEC GAP: blocked on UC-070's storage-shape decision.** A flag needs a
+  stable key for "which gloss text, in which gloss language" — that key does
+  not exist yet, because UC-070 has not decided whether gloss text lives in
+  duplicate per-L1 pool files or in `wordId`-keyed gloss tables. This use case
+  cannot be spec'd until that one is.
