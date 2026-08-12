@@ -4,8 +4,16 @@
 <!-- use-case: UC-063 -->
 <!-- status: active -->
 
-The `/words` destination — vocabulary home and one-tap entry to reviewing
-(UC-063).
+The `/words` destination — **home for the card engine**, not for every Method
+in the catalogue (UC-063, ADR-0009). Today that is `srs-session` only; future
+card-based Methods share this route. Reading, listening, and off-app Methods
+belong in the catalogue ([`method-menu.md`](method-menu.md)), not here.
+
+Thesis **3** ([`study/12`](../../study/12-method-cards.md)): SRS and input are
+both required long-term. Words is the SRS pillar's surface; it does not subsume
+the other fifty-two Methods.
+
+Product contract: [`../service/practice-model.md`](../service/practice-model.md).
 
 ## Scope
 
@@ -13,7 +21,8 @@ The `/words` destination — vocabulary home and one-tap entry to reviewing
   held/shaky/new counts, 30-day horizon, vocabulary atlas. See
   [`words-home.md`](../feature/words-home.md).
 - **Out:** due count anywhere; session-length picker; choosing a method other
-  than srs-session from this page.
+  than a **built card-engine** Method from this page; surfaces for Methods whose
+  engines live elsewhere (when those engines ship).
 
 **Reuse: `Button`** as the start control (link-styled or `asChild` pattern).
 

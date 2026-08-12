@@ -7,6 +7,11 @@
 The frequency-ranked lemma pool that seeds a learner's first SRS sessions.
 **Standard** (`AGENTS.md`) — data plus a loader; no UI.
 
+**Owned by the card engine** ([`method-engines.md`](method-engines.md)): consumed
+exclusively by `srs-session` via [`session-builder.md`](session-builder.md).
+Other Methods do not read this pool until their engines ship and declare a
+dependency here.
+
 ## Scope
 
 - **In:** `data/starter/es-meaning-recall.json` (shipped pool), its three

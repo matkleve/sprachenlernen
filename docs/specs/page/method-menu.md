@@ -60,8 +60,10 @@ stays a Server Component.
 
 ## Current standing
 
-Reads the same starter-deck derivation as [`progress.md`](progress.md) via
-`features/method-menu/standing.ts`. One sentence, never a CEFR label:
+**Provisional — card engine only.** Standing reads the same starter-deck
+derivation as [`progress.md`](progress.md) via `features/method-menu/standing.ts`.
+It reflects **meaning-recall Reviews from `srs-session`**, not practice from
+other Methods (hosted or off-app). One sentence, never a CEFR label:
 
 | History | Standing line |
 | --- | --- |
@@ -69,7 +71,9 @@ Reads the same starter-deck derivation as [`progress.md`](progress.md) via
 | Some, pool-local vocab has data | `{held} of {pool} lemmas held stably in your starter pool` plus link to `/progress` |
 | Review log read fails | Standing omitted — the catalogue still renders; failure is not shown as "no progress" |
 
-Skills are not named here until a skill signal has data (study/03).
+Skills are not named here until a skill signal has data (study/03). When input
+or production engines ship, standing may gain additional lines — each must name
+its source signal; nothing is folded into a single progress bar.
 
 ## Daily three
 
@@ -85,6 +89,12 @@ study/12's compromise: three cards, not the whole catalogue. Composed from the
 
 Shown between standing and the filter controls. The full filtered list remains
 below — the three are a starting point, not a gate.
+
+**Hosted but unbuilt:** a Method may appear in the daily three even when its
+engine is not built. Its card links to the detail page (honest not-built copy),
+not to a fake session. Floors and evidence grades still govern **selection**;
+readiness and engine availability govern **where the link goes**
+([`method-engines.md`](../service/method-engines.md)).
 
 Default slider position is **15 minutes** on first visit; the URL updates on
 release, not on every intermediate drag frame.
