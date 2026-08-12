@@ -20,7 +20,7 @@ export function MethodCard({ method, returnQuery = "" }: MethodCardProps) {
   const requirements = requirementChips(method.requires);
 
   return (
-    <article className="h-full rounded-card border border-line bg-surface shadow-soft transition-[box-shadow,transform] duration-150 ease-out-soft hover:-translate-y-px hover:shadow-raised">
+    <article className="h-full rounded-card border border-line bg-surface shadow-soft">
       <SurfaceLink href={href} className="p-4 focus-visible:ring-offset-2">
         <h3 className="text-base font-semibold text-ink">{method.name}</h3>
         <p className="mt-1 line-clamp-2 text-sm text-muted">{method.summary}</p>

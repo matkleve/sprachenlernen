@@ -31,7 +31,8 @@ Supersedes the shell-only `language-switch-row` shape.
 ## States
 
 Active rows use the same surface as inactive — only the chip differs. Switcher
-rows use hover/focus/active on the whole card when `onSelect` is set.
+rows use `cardPressable` on the whole card when `onSelect` is set (lift on hover,
+accent fill on press — same as method cards).
 
 ## Data
 

@@ -1,6 +1,6 @@
 import { forwardRef, type ButtonHTMLAttributes } from "react";
 
-import { cardInteractive, disabledState } from "@/components/ui/interaction-kernel";
+import { cardPressable, disabledState } from "@/components/ui/interaction-kernel";
 import { cn } from "@/lib/utils";
 
 export type PressableCardProps = ButtonHTMLAttributes<HTMLButtonElement> & {
@@ -24,7 +24,7 @@ export const PressableCard = forwardRef<HTMLButtonElement, PressableCardProps>(
         className={cn(
           "group relative w-full rounded-card border border-line bg-surface text-center shadow-soft",
           interactive
-            ? cn(cardInteractive, "cursor-pointer", disabledState)
+            ? cn(cardPressable, "cursor-pointer", disabledState)
             : "cursor-default",
           !interactive && "pointer-events-none",
           className,

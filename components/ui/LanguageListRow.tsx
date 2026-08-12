@@ -3,13 +3,7 @@
 import type { ReactNode } from "react";
 
 import { Chip } from "@/components/ui/Chip";
-import {
-  disabledState,
-  focusRing,
-  interactionMotion,
-  pressScale,
-  touchTarget,
-} from "@/components/ui/interaction-kernel";
+import { cardPressable, disabledState } from "@/components/ui/interaction-kernel";
 import { TextLink } from "@/components/ui/TextLink";
 import { languageLabel } from "@/lib/languages";
 import { cn } from "@/lib/utils";
@@ -24,11 +18,8 @@ export const languageListRowSurfaceClass =
 
 const interactiveSurfaceClass = cn(
   languageListRowSurfaceClass,
-  touchTarget,
-  interactionMotion,
-  "cursor-pointer hover:border-line-strong hover:bg-accent-soft",
-  focusRing,
-  pressScale,
+  cardPressable,
+  "cursor-pointer",
   disabledState,
 );
 

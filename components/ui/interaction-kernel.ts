@@ -61,3 +61,6 @@ export const cardInteractive = [
   pressScale,
   hoverLift,
 ] as const;
+
+/** Card-shaped pressables — lift on hover, accent fill on press. Shared by SurfaceLink, PressableCard, LanguageListRow. */
+export const cardPressable = [...cardInteractive, pressFill] as const;
