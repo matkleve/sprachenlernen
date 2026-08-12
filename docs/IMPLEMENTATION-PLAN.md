@@ -1,6 +1,8 @@
 # Implementation plan
 
-**Written 2026-08-08. Decision list last synced 2026-08-12.** What to build
+**Written 2026-08-08. "Where the code actually is" and the decision list last
+synced 2026-08-12 (Italian ship, form-recall pool sizes, and a words-atlas bug
+found in the same pass).** What to build
 next in *code*, in what order, and how to hand each piece to a coding agent
 that should make as few decisions as possible.
 
@@ -38,14 +40,14 @@ wins and this file is stale. Nothing normative may live only here.
 | `lib/scheduler.ts` | FSRS-4.5, complete, adversarially reviewed, 48 tests. Spec **active** |
 | `lib/lexicon.ts` + `lib/lemma-table.ts` | Profiles, tokenising, resolution with paradigm cells, tier derivation. 69 tests. Spec **active** |
 | `data/` | Spanish and Italian: frequency lists **and** lemma tables. Both at **quality tier B** |
-| `lib/method-catalogue.ts` + `data/methods/` | 53 methods, 6 commitments, 7 context presets. Schema, validation, context filter. 24 tests. Spec **active** |
+| `lib/method-catalogue.ts` + `data/methods/` | 53 methods, 6 commitments, 7 context presets. Schema, validation, context filter. 34 tests. Spec **active** |
 | `components/ui/` | Button, Field, Input, Select, Dialog, Table — inherited from Grundriss, specced, tested |
 | `features/` | `item-picker` and `primitives` — **both are the starter's worked examples**. `language-status` is the first that is not; `auth` (T-B8) adds `/signup` and `/login`, built only from `Field` and `Button`; `app-shell` and `method-menu` (T-B10) add the three destinations and the front door |
-| `lib/db/` | **Shipped 2026-08-09** (T-B8). Supabase client factory, `signUp`/`signIn`/`signOut`/`getAccount`, `middleware.ts` session refresh, the `review_log` RLS migration — applied to the live project. Spec **active**. 9 unit tests plus the 5-test §8 access-control suite |
+| `lib/db/` | **Shipped 2026-08-09** (T-B8), **grown since** as multi-language landed. Supabase client factory, `signUp`/`signIn`/`signOut`/`getAccount`, `middleware.ts` session refresh, the `review_log` RLS migration — applied to the live project; plus `learning-languages.ts`, `learner-pools.ts` (`poolForActiveLanguage`, T-B12), `language-holdings.ts`, `review-write-queue.ts`. Spec **active**. 7 files, 63 tests total — the §8 access-control suite alone is now 9 tests, not 5, since `learner_language` RLS joined it |
 | `app/(marketing)/` | The public half, no app shell: `/` (T-04's holding page), `/languages` (T-03), `/login`, `/signup`, `/primitives`. Split out 2026-08-09 to implement [ADR-0010](adr/0010-the-route-model.md) |
 | `app/(app)/` | The signed-in half, under the shell's three destinations: `/methods` (T-B10), `/words` + `/words/review` (T-B1), `/progress` (T-B3) |
 | `lib/db/review-log.ts` + `lib/installation-id.ts` | **Shipped 2026-08-09** (T-B2). Append-only adapter, owner taken from the session, payload migration applied live. Spec **active** |
-| `lib/starter-deck.ts` + `lib/session-builder.ts` | **Shipped 2026-08-09** (T-B1), pool **expanded 2026-08-12** to 2000 lemmas. 15-card queue, due-before-new. Specs **active** |
+| `lib/starter-deck.ts` + `lib/session-builder.ts` | **Shipped 2026-08-09** (T-B1). Spanish **expanded 2026-08-12** to 2000 lemmas; **Italian shipped 2026-08-12** at the same tier (2000 lemmas) — see [`starter-deck.second-language.md`](specs/service/starter-deck.second-language.md). 15-card queue, due-before-new, one language per session (T-B12). Specs **active** |
 | `features/review-session/` | **Shipped 2026-08-09** (T-B1). The FSM, the card, the summary. Grades persist one row each. Specs **active** |
 
 **Track B core shipped 2026-08-11.** A signed-in learner can sign up, open
@@ -120,11 +122,13 @@ a 15-card queue built from the starter deck and their own history, and every
 grade appends one row they own. What that unblocks is T-B3: `/progress` is the
 last holding page, and it is now the only destination with nothing behind it.
 
-**The honest limit on all of it:** one language (Spanish), one task type
-(meaning-recall), a **2000-lemma** starter pool (stage 2 of engine expansion),
-and progress that stops at
-pool-local counts — no CEFR skill levels yet. The plumbing is real; the
-measurement only becomes a language claim once the pool and form tables grow.
+**The honest limit on all of it:** two languages (Spanish, Italian, each fully
+isolated per UC-025 — no combined budget, no mixed sessions), two task types
+per language (meaning-recall and form-recall, once meaning-recall is held), a
+**2000-lemma** starter pool per language (stage 2 of engine expansion), and
+progress that stops at pool-local counts — no CEFR skill levels yet. The
+plumbing is real; the measurement only becomes a language claim once the pool
+and form tables grow further (2,953-lemma ceiling on the current pipeline).
 
 ---
 
@@ -347,8 +351,8 @@ honest Spanish/Italian; offline unlocks commute practice.
 
 | Priority | Work | Unblocks |
 | --- | --- | --- |
-| **1** | ~~**Expand the Spanish word pool**~~ — **stage 1 shipped 2026-08-11** (500 lemmas); **stage 2 shipped 2026-08-12** (2000 lemmas). Pipeline ceiling **2,953** lemmas. | Language-wide vocabulary estimate; honest progress |
-| **2** | ~~**Form→lemma tables with paradigm cells**~~ — **data shipped 2026-08-08** (`data/lemma/es.json`, `it.json`, `lib/lexicon.ts`). **Form-recall pool + staging shipped** — [`form-recall-pool.md`](specs/service/form-recall-pool.md): 406 Spanish surface forms, scheduled after meaning-recall is held. **Form-mastery signal shipped** — [`form-mastery-signal.md`](specs/service/form-mastery-signal.md): pool-local held-form count on Progress; form-recall grade prompt in review session. | Paradigm-table method; per-cell form breakdown |
+| **1** | ~~**Expand the word pool(s)**~~ — Spanish **stage 1 shipped 2026-08-11** (500 lemmas), **stage 2 shipped 2026-08-12** (2000 lemmas); **Italian shipped 2026-08-12** at the same tier (2000 lemmas, see [`starter-deck.second-language.md`](specs/service/starter-deck.second-language.md)). Pipeline ceiling **2,953** lemmas per language. | Language-wide vocabulary estimate; honest progress |
+| **2** | ~~**Form→lemma tables with paradigm cells**~~ — **data shipped 2026-08-08** (`data/lemma/es.json`, `it.json`, `lib/lexicon.ts`). **Form-recall pool + staging shipped** — [`form-recall-pool.md`](specs/service/form-recall-pool.md): **1704** Spanish, **1542** Italian surface forms, scheduled after meaning-recall is held. **Form-mastery signal shipped** — [`form-mastery-signal.md`](specs/service/form-mastery-signal.md): pool-local held-form count on Progress; form-recall grade prompt in review session. **Bug found and fixed 2026-08-12:** the Words atlas (`features/words/`) fed both task types into one snapshot meant for one deck, double-counting every lemma with a distinct form and pushing lower-ranked words out of the capped top-100 view — fixed by filtering to meaning-recall before the snapshot; see `features/words/reading.test.ts`. | Paradigm-table method; per-cell form breakdown |
 | **3** | **T-B3 remainder** — extrapolation + per-skill levels once (1) and calibration exist | F18–F22; demonstration sentence |
 | **4** | **T-B9 / offline-PWA** — cache deck + scheduler; flush queue on reconnect (ADR-0011 Option B) | UC-018 commute practice; installable PWA |
 | **5** | **T-B10b remainder** — demonstration sentence, readiness ([`study/24`](study/24-speaking-as-the-goal.md), [`study/26`](study/26-readiness-and-difficulty.md)) | Methods front door complete |
@@ -358,16 +362,17 @@ honest Spanish/Italian; offline unlocks commute practice.
 three shipped), T-B4 (denominator only), T-B9 (multi-device share works; full
 offline does not).
 
-**Italian is not on this queue, and the reason is not effort.** Investigated
-2026-08-11: the ranking pipeline runs on the shipped `it` data unchanged and
-yields 3,135 lemmas, so the *code* is ready. Three things block it, none of them
-code — no reachable gloss source, a frequency list that splits accented and
-unaccented spellings (91 groups, and the misspelling often outranks the word),
-and no model anywhere for how an Account chooses a **learning** language, which
-`I18N.md` does not cover because it is about interface copy. Evidence and the
-per-blocker detail: [`specs/service/starter-deck.second-language.md`](specs/service/starter-deck.second-language.md).
-A second language is a **staged decision, not a task** — do not queue it until
-the third blocker has an ADR.
+**Italian shipped 2026-08-12 — this section used to explain why it was
+blocked, and stayed after the block was cleared, which is exactly the kind of
+staleness this file exists to prevent.** All three blockers named on
+2026-08-11 (no reachable gloss source, an accent-split frequency list, no
+model for how an Account chooses a learning language) were resolved the same
+day the pool shipped: kaikki.org's Italian dictionary is reachable,
+lemma-level summing already merges accent variants, and `learner_language` /
+the language picker / switcher answered the third. Detail:
+[`specs/service/starter-deck.second-language.md`](specs/service/starter-deck.second-language.md).
+Both languages are fully isolated per [UC-025](use-cases/UC-025-learn-multiple-languages.md) —
+own pool, own scheduling, own progress, never mixed in a session.
 
 
 ## Interaction and design-system audit
