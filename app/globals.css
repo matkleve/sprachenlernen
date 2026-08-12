@@ -240,3 +240,20 @@
     }
   }
 }
+
+/* Header scroll scrim — blur and tint strongest at the top, transparent at the bottom. */
+.header-scrim-blur {
+  backdrop-filter: blur(12px);
+  /* Mask luminance only — not a visible color. */
+  -webkit-mask-image: linear-gradient(to bottom, #000 55%, transparent 100%);
+  mask-image: linear-gradient(to bottom, #000 55%, transparent 100%);
+}
+
+.header-scrim-tint {
+  background: linear-gradient(
+    to bottom,
+    color-mix(in srgb, var(--color-surface) 82%, transparent) 0%,
+    color-mix(in srgb, var(--color-surface) 38%, transparent) 52%,
+    transparent 100%
+  );
+}

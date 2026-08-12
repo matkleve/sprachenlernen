@@ -4,13 +4,12 @@ import { UserRound } from "lucide-react";
 
 import { ActionLink } from "@/components/ui/ActionLink";
 import { routes } from "@/lib/routes";
-import { cn } from "@/lib/utils";
 
 import { Destinations } from "./Destinations";
 import { LanguageSwitcher, type LanguageSwitcherOption } from "./LanguageSwitcher";
 import { ShellPageTitle } from "./ShellPageTitle";
+import { HeaderScrim } from "./HeaderScrim";
 import { copy } from "./content";
-import { headerBackdropClass } from "./header-chrome";
 import { useHeaderCollapse } from "./useHeaderCollapse";
 
 /**
@@ -25,13 +24,9 @@ export function DesktopShellHeader({
   const collapse = useHeaderCollapse();
 
   return (
-    <header
-      className={cn(
-        "sticky top-0 z-50 hidden md:block",
-        headerBackdropClass(collapse),
-      )}
-    >
-      <div className="relative mx-auto max-w-5xl px-6 py-3">
+    <header className="sticky top-0 z-50 hidden md:block">
+      <HeaderScrim collapse={collapse}>
+        <div className="relative mx-auto max-w-5xl px-6 py-3">
         <ShellPageTitle variant="desktop" />
 
         <div className="relative z-10 flex min-h-11 items-center justify-between gap-4">
@@ -45,7 +40,8 @@ export function DesktopShellHeader({
             {copy.account}
           </ActionLink>
         </div>
-      </div>
+        </div>
+      </HeaderScrim>
     </header>
   );
 }
