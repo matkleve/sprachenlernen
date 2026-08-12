@@ -1,7 +1,7 @@
 # UC-041 — Know the forms, not just the words
 
 <!-- id: UC-041 -->
-<!-- specs:  -->
+<!-- specs: SPEC-service-form-practice -->
 
 **Who:** anyone learning a language where words change shape — which is most of
 them, and certainly Spanish and Italian.

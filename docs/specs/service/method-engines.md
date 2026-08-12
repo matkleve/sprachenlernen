@@ -74,7 +74,7 @@ until their engines ship — not a bug in the catalogue.
 Order is load-bearing — see IMPLEMENTATION-PLAN § Track B engine phase:
 
 1. ~~Spanish starter pool (500 lemmas)~~ — shipped
-2. Form→lemma tables with paradigm cells
+2. Form→lemma tables with paradigm cells — **the table half already ships** (97.5% of Spanish verb paradigms carry their cell). What is missing is the Task type and the engine: [`form-practice.md`](form-practice.md), blocked on two decisions named there
 3. T-B3 remainder (extrapolation + per-skill levels)
 4. Offline / PWA
 5. T-B10b remainder (demonstration sentence, readiness)
