@@ -30,8 +30,8 @@ recall or form-recall), grades that append to the review log (T-B2).
 | 1 | Lands on `/words/review?method=srs-session` | Session prepares: server returns a 15-card queue from the starter deck + their review history |
 | 2 | Sees a meaning-recall card | Front (target-language lemma) only; language name on the card; tap the card to flip and see the meaning |
 | 2b | Sees a form-recall card | Front (English gloss + produce prompt) only; same flip interaction; back shows the target surface form |
-| 3 | Taps the card | Back shown; four grade buttons tinted **Again** (light red), **Hard** (light yellow), **Good** (light green), **Easy** (lighter green); grade prompt differs by task type |
-| 4 | Taps a grade | Grade queued locally; **next card immediately** (`advancing` → `prompting` or `complete`); server flush runs in the background ([`review-write-queue`](../service/review-write-queue.md)). **`again`** re-inserts the card five positions ahead (or at end if fewer than five remain); **`hard`** re-inserts at end of the remaining queue; **`good`** / **`easy`** do not requeue ([ADR-0012](../../adr/0012-ux-decisions-requeue-i18n-leech-nav.md), UC-071) |
+| 3 | Taps the card | Back shown; grade buttons stay visible (they were already on screen) |
+| 4 | Taps a grade (with or without flipping) | Grade queued locally; **next card immediately** (`advancing` → `prompting` or `complete`); server flush runs in the background ([`review-write-queue`](../service/review-write-queue.md)). **`again`** re-inserts the card five positions ahead (or at end if fewer than five remain); **`hard`** re-inserts at end of the remaining queue; **`good`** / **`easy`** do not requeue ([ADR-0012](../../adr/0012-ux-decisions-requeue-i18n-leech-nav.md), UC-071) |
 | 5 | Background flush fails | Session does not rewind; non-blocking status with Retry |
 | 6 | Session `complete` | Summary: cards graded this session; link back to Words and Methods |
 | 7 | Viewport &lt; `md` during an active card | Method name and progress share one line; card and grade row fit without page scroll |
@@ -60,9 +60,12 @@ round trip per card.
 - [ ] Given a signed-in learner opening `srs-session`, when the session loads,
       then 15 cards present in frequency order (no prior history) and card 1
       shows front only with grades enabled.
-- [ ] Given card 1, when the learner taps the card then **Good**, then the back was visible before grading, a row
+- [ ] Given card 1, when the learner taps **Good** without flipping, then a row
       is appended for that card's `taskId`, and card 2 front appears with **no
       text from card 1** anywhere in the output.
+- [ ] Given card 1, when the learner taps the card then **Good**, then the back
+      was visible before grading, a row is appended for that card's `taskId`, and
+      card 2 front appears with **no text from card 1** anywhere in the output.
 - [ ] Given the last card graded successfully, when persistence completes, then
       phase is `complete` and grade buttons are not rendered.
 - [ ] Given card 1, when the learner taps the card then **Good**, then card 2
@@ -76,8 +79,8 @@ round trip per card.
 
 ## Open questions
 
-None — flip-then-grade matches standard SRS apps and FSRS semantics (the learner
-checks recall before reporting).
+None — grades are always visible; flip is optional for learners who want to
+check recall before reporting.
 
 ## Check
 
