@@ -21,6 +21,7 @@ Per-primitive state matrix. Symbols: D H A F X P C — see parent
 | `PressableCard` | ✓ | ✓ | ✓ | ✓ | ✓ | — | — | `interactive={false}` → static, no H/A |
 | `GradeButton` | ✓ | ✓ | ✓ | ✓ | ✓ | — | — | Grade-tinted; no spinner (exemption) |
 | `LanguageSwitchRow` | ✓ | ✓ | ✓ | ✓ | ✓ | — | active=div | Active row is non-interactive `<div>` |
+| `Disclosure` | ✓ | ✓ | ✓ | ✓ | — | — | open state | Summary only; `<details>` toggle is platform |
 
 ## Native form controls (DESIGN-SYSTEM exemption)
 

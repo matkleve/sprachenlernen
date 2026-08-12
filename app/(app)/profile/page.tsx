@@ -6,7 +6,7 @@ import { copy as accountCopy } from "@/features/account-data/content";
 import { signOutAction } from "@/features/app-shell/actions";
 import { ProfileLanguages } from "@/features/profile/ProfileLanguages";
 import { copy } from "@/features/profile/content";
-import { Button } from "@/components/ui/Button";
+import { SubmitButton } from "@/components/ui/SubmitButton";
 import { readLanguageHoldings } from "@/lib/db/language-holdings";
 import { listLearningLanguages, setActiveLanguage } from "@/lib/db/learning-languages";
 import { routes } from "@/lib/routes";
@@ -52,7 +52,7 @@ export default async function ProfilePage({
       </section>
 
       <form action={signOutAction} className="mt-page-content">
-        <Button type="submit" variant="secondary">{copy.signOut}</Button>
+        <SubmitButton variant="secondary">{copy.signOut}</SubmitButton>
       </form>
     </div>
   );

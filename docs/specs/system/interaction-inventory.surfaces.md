@@ -55,6 +55,7 @@ Update this file in the same PR as any new control or migration.
 | --- | --- | --- | --- | --- |
 | Method card link | `MethodCard.tsx` | `SurfaceLink` | inside `<article>` | ✓ |
 | Filter pills | `MethodFilter.tsx`, `RefineFilter.tsx` | `FilterPill` | `aria-pressed` | — |
+| Refine panel toggle | `RefineFilter.tsx` | `Disclosure` / `DisclosureSummary` | native `<details>` | — |
 | Time slider | `TimeSlider.tsx` | `<input type="range">` | focus ring | — |
 | Empty → review | `CurrentStanding.tsx` | `ActionLink` | `secondary` | ✓ |
 | Progress link | `CurrentStanding.tsx` | `TextLink` | `ink sm` | — |
@@ -80,7 +81,7 @@ Update this file in the same PR as any new control or migration.
 | Download | `AccountDataPanel.tsx` | `Button` | `secondary`, manual pending | ✓ |
 | Delete open | `AccountDataPanel.tsx` | `Button` | `danger` | — |
 | Dialog cancel / confirm | `AccountDataPanel.tsx` | `Button` | secondary / danger | ✓ on confirm |
-| Sign out | `profile/page.tsx` | `Button` | `secondary submit` | **gap** — not `SubmitButton` |
+| Sign out | `profile/page.tsx` | `SubmitButton` | `secondary` | auto |
 
 ## Privacy
 

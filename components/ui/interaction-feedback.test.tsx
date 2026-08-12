@@ -9,6 +9,7 @@ import { Button } from "./Button";
 import { IconButton } from "./IconButton";
 import { IconLink } from "./IconLink";
 import { NavLink, navLinkVariants } from "./NavLink";
+import { disclosureSummaryClass } from "./Disclosure";
 import { SubmitButton } from "./SubmitButton";
 import { textLinkVariants } from "./TextLink";
 import { MIN_PENDING_DISPLAY_MS } from "./use-pending-navigation";
@@ -40,6 +41,11 @@ describe("interaction-feedback contract", () => {
 
   it("TextLink variants include press (active) feedback classes", () => {
     expect(textLinkVariants()).toContain("active:scale");
+  });
+
+  it("DisclosureSummary includes press and focus feedback classes", () => {
+    expect(disclosureSummaryClass).toContain("active:scale");
+    expect(disclosureSummaryClass).toContain("focus-visible:ring-accent");
   });
 
   it("Button sets aria-busy and disables when pending", () => {

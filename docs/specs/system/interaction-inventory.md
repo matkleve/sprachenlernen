@@ -75,6 +75,7 @@ Per-primitive state matrix:
 | `PressableCard` | flip `<button>` | none |
 | `GradeButton` | grade `<button>` | none (spec exemption) |
 | `LanguageSwitchRow` | row `<button>` | disabled while parent pending |
+| `Disclosure` | `<details>` + `<summary>` | none (instant toggle) |
 | `Input` / `Textarea` / `Select` | native | platform H/A; F + X styled |
 
 Non-interactive: `Chip`, `LanguageFlag` (decorative), `ErrorCallout` (container;
@@ -89,16 +90,18 @@ Per-route control list:
 
 | Control | Issue | Fix when touched |
 | --- | --- | --- |
-| Profile sign-out | `Button type="submit"`, not `SubmitButton` | Swap to `SubmitButton` for auto pending |
 | `TextLink` | No navigation pending | Accept or add opt-in `usePendingNavigation` |
 | `MethodCard` | Outer `<article>` + inner `SurfaceLink` both hover-lift | Remove article hover or document as intentional |
 | `MethodDetail` back | `hover:bg-transparent` override on ghost `ActionLink` | Intentional — text-link look |
+| Skip to content (`layout.tsx`) | Raw `<a>`, focus-only | Intentional a11y pattern — see exemptions |
+| `Table` scroll region | `tabIndex={0}` focus ring only | Keyboard scroll container, not a click target |
 
 ## Exemptions (registry)
 
 | Location | Pattern | Reason |
 | --- | --- | --- |
 | `LanguageSwitcher.tsx` | `language-switcher-scrim` | Full-screen dismiss overlay |
+| `app/layout.tsx` | Skip to content `<a>` | Focus-only keyboard skip link |
 | `error-callout.test.tsx` | `<button` | Test fixture only |
 
 ## Acceptance criteria
