@@ -1,6 +1,7 @@
 {
   "version": 1,
-  "description": "Authoritative list of interaction primitives and audited exemptions. Enforced by scripts/check-interaction-surfaces.mjs.",
+  "description": "Authoritative list of interaction primitives and audited exemptions. Enforced by scripts/check-interaction-surfaces.mjs. Human-readable mirror: docs/specs/system/interaction-inventory.md",
+  "inventoryDoc": "docs/specs/system/interaction-inventory.md",
   "primitives": [
     "Button",
     "ActionLink",

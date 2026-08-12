@@ -68,7 +68,7 @@ if (violations.length) {
     console.error(`  ${relative(ROOT, join(ROOT, v.file))}:${v.line}  ${v.message}`);
   }
   console.error(`\n  Registry: docs/specs/system/interaction-registry.json`);
-  console.error(`  Primitives: ${registry.primitives.join(", ")}\n`);
+  console.error(`  Inventory: docs/specs/system/interaction-inventory.md\n`);
   process.exit(1);
 }
 

@@ -6,7 +6,8 @@
 
 Every clickable control in the app communicates **press** (tap received) and,
 when work continues after release, **pending** (something is happening). Parent:
-[`DESIGN-SYSTEM.md`](../../DESIGN-SYSTEM.md) § Interaction states; kernel
+[`DESIGN-SYSTEM.md`](../../DESIGN-SYSTEM.md) § Interaction states; inventory
+[`interaction-inventory.md`](../system/interaction-inventory.md); machine list
 [`interaction-registry.json`](../system/interaction-registry.json).
 
 ## Scope
@@ -63,8 +64,10 @@ Press is CSS via `interaction-kernel.ts`. Pending is React state (`useTransition
 
 ## Surfaces
 
-All production interactives use a registry primitive. The gate fails on raw
-`<button>`, `buttonVariants`, or `gradeButtonClass` outside `components/ui/`.
+All production interactives use a registry primitive — see
+[`interaction-inventory.surfaces.md`](../system/interaction-inventory.surfaces.md).
+The gate fails on raw `<button>`, `buttonVariants`, or `gradeButtonClass`
+outside `components/ui/`.
 
 ## Accessibility
 

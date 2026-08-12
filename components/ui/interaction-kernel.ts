@@ -1,6 +1,6 @@
 /**
  * Shared interaction classes for every clickable primitive.
- * Contract: docs/specs/system/interaction-registry.json
+ * Contract: docs/specs/system/interaction-inventory.md
  *
  * One source for press, focus, motion, hit-target expansion, and pending
  * visuals — so a fix here fixes the whole app.
