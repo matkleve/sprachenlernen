@@ -39,7 +39,7 @@ user cannot read another Account's rows. **Sensitive** (`AGENTS.md`).
 | 2 | Submits the sign-in form with valid credentials | An auth session is created (cookie, via `middleware.ts`) and the visitor is sent to `/methods` |
 | 3 | Submits either form with invalid input | The page re-renders with the error Supabase reported next to the password field; no account or session is created |
 | 4 | Opens `/login` or `/signup` while already signed in | Redirected to `/methods`; the form is never shown |
-| 5 | (Any signed-in request) | `middleware.ts` revalidates and refreshes the session cookie before any Server Component runs |
+| 5 | (Any signed-in request) | `middleware.ts` revalidates and refreshes the session cookie before any Server Component runs. Server code reads the session with `getSession()` (local cookie, no second Auth round trip) via `getAccount()` — `getUser()` runs in middleware only |
 | 6 | Taps "Continue with Google" or "Continue with Apple" on `/login` or `/signup` | Redirected to the provider; on success, a session is created and they land on `/methods` without a separate email-confirmation step. An account with no learning language is sent to the picker by the destination itself, so OAuth needs no special case |
 | 7 | Signs up with email and password | Email confirmation remains required before a session exists (project setting) |
 

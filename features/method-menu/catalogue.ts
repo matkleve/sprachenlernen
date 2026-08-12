@@ -27,11 +27,7 @@ export type LoadedMenu = {
 
 export const METHODS_DIR = "data/methods";
 
-/**
- * `root` is a parameter so a test can point at a fixture directory. Production
- * passes nothing and gets the repository root, which is where Next builds from.
- */
-export const loadMethodCatalogue = (root: string = process.cwd()): LoadedMenu => {
+function loadMethodCatalogueFromDisk(root: string): LoadedMenu {
   const dir = join(root, METHODS_DIR);
   const errors: string[] = [];
 
@@ -57,4 +53,22 @@ export const loadMethodCatalogue = (root: string = process.cwd()): LoadedMenu =>
     : { presets: undefined, errors: [] };
 
   return { catalogue, presets, errors: [...errors, ...catalogueErrors, ...presetErrors] };
+}
+
+let productionMenu: LoadedMenu | undefined;
+
+/**
+ * `root` is a parameter so a test can point at a fixture directory. Production
+ * passes nothing and gets the repository root, which is where Next builds from.
+ *
+ * The catalogue is static at runtime — parsing nine JSON files from disk on
+ * every `/methods` visit was pure overhead after the first load in a process.
+ */
+export const loadMethodCatalogue = (root: string = process.cwd()): LoadedMenu => {
+  if (root === process.cwd()) {
+    productionMenu ??= loadMethodCatalogueFromDisk(root);
+    return productionMenu;
+  }
+
+  return loadMethodCatalogueFromDisk(root);
 };

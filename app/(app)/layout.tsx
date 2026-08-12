@@ -1,10 +1,13 @@
 import type { ReactNode } from "react";
+import { Suspense } from "react";
 
 import { AppShell } from "@/features/app-shell/AppShell";
 import { requireAccount } from "@/features/app-shell/gate";
 import { switcherOptionsFrom } from "@/features/app-shell/reading";
 import { readLanguageHoldings } from "@/lib/db/language-holdings";
 import { listLearningLanguages } from "@/lib/db/learning-languages";
+
+import AppLoading from "./loading";
 
 /**
  * The signed-in half of the app (ADR-0010). Every route in this group is
@@ -23,8 +26,12 @@ import { listLearningLanguages } from "@/lib/db/learning-languages";
 export const dynamic = "force-dynamic";
 
 export default async function AppLayout({ children }: { children: ReactNode }) {
+  // Start the language query before the gate finishes — both only read the
+  // session cookie (middleware already validated it), so this overlaps the
+  // shell's DB round trip with nothing else on the critical path.
+  const learningPromise = listLearningLanguages();
   await requireAccount();
-  const outcome = await listLearningLanguages();
+  const outcome = await learningPromise;
   const languages = switcherOptionsFrom(outcome);
   const holdings =
     outcome.status === "ok"
@@ -36,7 +43,7 @@ export default async function AppLayout({ children }: { children: ReactNode }) {
       languages={languages}
       languageHoldings={holdings.status === "ok" ? holdings.byCode : undefined}
     >
-      {children}
+      <Suspense fallback={<AppLoading />}>{children}</Suspense>
     </AppShell>
   );
 }

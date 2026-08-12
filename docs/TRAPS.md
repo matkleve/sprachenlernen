@@ -11,6 +11,28 @@ applying is still evidence about how this codebase misleads people.
 
 ---
 
+## Every adapter called `getUser()` independently, and every navigation paid for it
+
+Production felt slow on every navbar click and language switch. The client
+bundle was fine (~120 kB). The server was not.
+
+`middleware.ts` called `getUser()` to refresh the session. Then
+`requireAccount()`, `listLearningLanguages()`, `listReviewsForTaskIds()`, and
+`poolForActiveLanguage()` each created a fresh Supabase client and called
+`getUser()` again — three to five Auth round trips per navigation, plus
+`learner_language` queried twice (layout for the shell, page for the pool).
+`/methods` also called `readProgress()`, loading form-recall history the
+standing line never uses.
+
+Nothing in `npm run verify` counts network calls, and every adapter test stubs
+Supabase, so duplicate calls stayed green.
+
+**The fix:** `React.cache` on the per-request client and shared reads;
+`getSession()` in Server Components after middleware's one `getUser()`; standing
+loads meaning-recall history only. **The check that would have caught it:**
+trace one signed-in navigation and count Auth + DB round trips before shipping
+a new adapter that calls `getAccount()`.
+
 ## The cleanup rule picked a sense, and picked the wrong one
 
 Dictionary glosses were too long for a flashcard back, so they were shaped:

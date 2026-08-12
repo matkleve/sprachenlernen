@@ -12,6 +12,14 @@ import { SHIPPED_ES_POOL_SIZE } from "@/lib/starter-deck";
 const installationId = "11111111-1111-4111-8111-111111111111";
 const reviewedAt = new Date("2026-08-09T12:00:00.000Z");
 
+function authForUser(user: { id: string; email: string } | null) {
+  const session = user ? { user } : null;
+  return {
+    getSession: vi.fn().mockResolvedValue({ data: { session } }),
+    getUser: vi.fn().mockResolvedValue({ data: { user } }),
+  };
+}
+
 function fakeClient(options: {
   userId: string | null;
   insert?: { data: { id: string } | null; error: { message: string; code?: string } | null };
@@ -47,13 +55,9 @@ function fakeClient(options: {
   const select = vi.fn().mockReturnValue(selectChain);
 
   return {
-    auth: {
-      getUser: vi.fn().mockResolvedValue({
-        data: {
-          user: options.userId ? { id: options.userId, email: "a@example.com" } : null,
-        },
-      }),
-    },
+    auth: authForUser(
+      options.userId ? { id: options.userId, email: "a@example.com" } : null,
+    ),
     from: vi.fn().mockImplementation((table: string) => {
       expect(table).toBe("review_log");
       return { insert, select };
@@ -77,11 +81,7 @@ describe("appendReview", () => {
       }),
     });
     const client = {
-      auth: {
-        getUser: vi.fn().mockResolvedValue({
-          data: { user: { id: "user-1", email: "a@example.com" } },
-        }),
-      },
+      auth: authForUser({ id: "user-1", email: "a@example.com" }),
       from: vi.fn().mockReturnValue({ insert }),
     } as unknown as SupabaseClient;
 
@@ -108,11 +108,7 @@ describe("appendReview", () => {
       }),
     });
     const client = {
-      auth: {
-        getUser: vi.fn().mockResolvedValue({
-          data: { user: { id: "user-1", email: "a@example.com" } },
-        }),
-      },
+      auth: authForUser({ id: "user-1", email: "a@example.com" }),
       from: vi.fn().mockReturnValue({ insert }),
     } as unknown as SupabaseClient;
 
@@ -177,11 +173,7 @@ describe("listReviewsForTaskIds", () => {
     const inFilter = vi.fn().mockReturnValue({ order });
     const select = vi.fn().mockReturnValue({ in: inFilter });
     const client = {
-      auth: {
-        getUser: vi.fn().mockResolvedValue({
-          data: { user: signedIn ? { id: "user-1", email: "a@example.com" } : null },
-        }),
-      },
+      auth: authForUser(signedIn ? { id: "user-1", email: "a@example.com" } : null),
       from: vi.fn().mockReturnValue({ select }),
     } as unknown as SupabaseClient;
 
@@ -257,11 +249,7 @@ describe("listReviewsForTaskIds", () => {
       }),
     });
     const client = {
-      auth: {
-        getUser: vi
-          .fn()
-          .mockResolvedValue({ data: { user: { id: "user-1", email: "a@example.com" } } }),
-      },
+      auth: authForUser({ id: "user-1", email: "a@example.com" }),
       from: vi.fn().mockReturnValue({ select }),
     } as unknown as SupabaseClient;
 
@@ -327,11 +315,7 @@ describe("listReviewsForTaskIds", () => {
         }),
     });
     const client = {
-      auth: {
-        getUser: vi
-          .fn()
-          .mockResolvedValue({ data: { user: { id: "user-1", email: "a@example.com" } } }),
-      },
+      auth: authForUser({ id: "user-1", email: "a@example.com" }),
       from: vi.fn().mockReturnValue({ select }),
     } as unknown as SupabaseClient;
 
