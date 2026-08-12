@@ -1,5 +1,5 @@
-import { Button } from "@/components/ui/Button";
 import { copy } from "@/features/review-session/content";
+import { gradeButtonClass } from "@/features/review-session/grade-button-variants";
 import {
   canFlip,
   canGrade,
@@ -19,11 +19,6 @@ type ReviewCardProps = {
   onGrade: (grade: Grade) => void;
   /** Hides progress line and tightens spacing for mobile one-screen layout. */
   compact?: boolean;
-};
-
-const gradeVariant = (grade: Grade): "ghost" | "secondary" => {
-  if (grade === "again") return "ghost";
-  return "secondary";
 };
 
 export function ReviewCard({
@@ -125,16 +120,14 @@ export function ReviewCard({
 
           <div className={cn("grid w-full grid-cols-4 gap-2", compact ? "mt-2 md:mt-4" : "mt-4")}>
             {GRADES.map((grade) => (
-              <Button
+              <button
                 key={grade}
                 type="button"
-                variant={gradeVariant(grade)}
-                size="sm"
-                className={cn("w-full", grade === "again" && "text-muted")}
+                className={gradeButtonClass(grade)}
                 onClick={() => onGrade(grade)}
               >
                 {copy[grade]}
-              </Button>
+              </button>
             ))}
           </div>
         </div>

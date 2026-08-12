@@ -50,6 +50,20 @@
   --color-success-soft: #e8f2ec;
   --color-success-ink: #ffffff;
 
+  /* Review grades — light tints (Again / Hard / Good / Easy) */
+  --color-grade-again-soft: #fbe9e7;
+  --color-grade-again-deep: #f0c4bf;
+  --color-grade-again-ink: #8b2e26;
+  --color-grade-hard-soft: #fef6e4;
+  --color-grade-hard-deep: #f5e0a8;
+  --color-grade-hard-ink: #6b4f0f;
+  --color-grade-good-soft: #e8f2ec;
+  --color-grade-good-deep: #c5e0d0;
+  --color-grade-good-ink: #2e5340;
+  --color-grade-easy-soft: #e3f5ec;
+  --color-grade-easy-deep: #b8e6ce;
+  --color-grade-easy-ink: #1f5c3f;
+
   /* Radius */
   --radius-card: 1rem;
   --radius-pill: 9999px;
@@ -129,6 +143,19 @@
     --color-success-soft: #1a2e22;
     --color-success-ink: #1c1814;
 
+    --color-grade-again-soft: #3d2420;
+    --color-grade-again-deep: #5c3530;
+    --color-grade-again-ink: #f0b8b2;
+    --color-grade-hard-soft: #3a3018;
+    --color-grade-hard-deep: #5c4a1a;
+    --color-grade-hard-ink: #f5dfa0;
+    --color-grade-good-soft: #1a2e22;
+    --color-grade-good-deep: #2a4a36;
+    --color-grade-good-ink: #a5d4b8;
+    --color-grade-easy-soft: #182e24;
+    --color-grade-easy-deep: #244a38;
+    --color-grade-easy-ink: #b8e6ce;
+
     --shadow-soft: 0 1px 2px rgb(0 0 0 / 0.4), 0 1px 3px rgb(0 0 0 / 0.3);
     --shadow-raised: 0 4px 12px rgb(0 0 0 / 0.5), 0 2px 4px rgb(0 0 0 / 0.3);
   }
@@ -154,6 +181,18 @@
   --color-success-deep: #a5d4b8;
   --color-success-soft: #1a2e22;
   --color-success-ink: #1c1814;
+  --color-grade-again-soft: #3d2420;
+  --color-grade-again-deep: #5c3530;
+  --color-grade-again-ink: #f0b8b2;
+  --color-grade-hard-soft: #3a3018;
+  --color-grade-hard-deep: #5c4a1a;
+  --color-grade-hard-ink: #f5dfa0;
+  --color-grade-good-soft: #1a2e22;
+  --color-grade-good-deep: #2a4a36;
+  --color-grade-good-ink: #a5d4b8;
+  --color-grade-easy-soft: #182e24;
+  --color-grade-easy-deep: #244a38;
+  --color-grade-easy-ink: #b8e6ce;
 }
 
 :root[data-theme="light"] {
