@@ -7,6 +7,7 @@ import {
 } from "@/features/review-session/session-machine";
 import type { SessionCard } from "@/lib/session-builder";
 import { isFormRecallTaskId } from "@/lib/form-recall-pool";
+import { paradigmCellLabel } from "@/lib/paradigm-cells";
 import { GRADES, type Grade } from "@/lib/scheduler";
 import { cn } from "@/lib/utils";
 
@@ -33,7 +34,12 @@ export function ReviewCard({
   const flipEnabled = canFlip(phase);
   const gradesEnabled = canGrade(phase);
   const revealBack = showsBack(phase);
-  const gradePrompt = isFormRecallTaskId(card.taskId) ? copy.formRecallPrompt : copy.prompt;
+  const isFormRecall = isFormRecallTaskId(card.taskId);
+  const gradePrompt = isFormRecall ? copy.formRecallPrompt : copy.prompt;
+  // Three pieces the card composes: the meaning (data), the cell it wants
+  // (data, worded here), the instruction (copy). Keeping them apart is what
+  // lets this layout change without touching a single row of the pool.
+  const cell = card.paradigmCell ? paradigmCellLabel(card.paradigmCell) : null;
 
   return (
     <div className="mx-auto max-w-md">
@@ -70,6 +76,16 @@ export function ReviewCard({
         >
           {card.front}
         </p>
+
+        {cell && (
+          <p className="mt-3 text-base font-medium text-ink">{copy.cellLabel(cell)}</p>
+        )}
+
+        {isFormRecall && (
+          <p className="mt-2 text-sm text-muted">
+            {copy.formRecallInstruction(languageName)}
+          </p>
+        )}
 
         {revealBack && (
           <p className="mt-4 border-t border-line pt-4 text-base text-muted">{card.back}</p>

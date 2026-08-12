@@ -69,6 +69,9 @@ export function buildSession(
     front: card.front,
     back: card.back,
     frequencyRank: card.frequencyRank,
+    // Carried, not dropped: the front of a form card is only the meaning, so
+    // without the cell the screen cannot say which form it is asking for.
+    paradigmCell: card.paradigmCell,
     position: index + 1,
     total,
   }));

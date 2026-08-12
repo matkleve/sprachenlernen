@@ -15,13 +15,15 @@ Parent: [`starter-deck.md`](starter-deck.md) (meaning-recall pool),
 ## Scope
 
 - **In:** `data/starter/es-form-recall.json`, `scripts/build-form-recall-pool.mjs`,
-  `lib/form-recall-pool.ts` (load + validate); staging rule — a form-recall Task
-  enters the session queue only when the sibling **meaning-recall** Task for the
-  same `wordId` is **held** (stability above graduation — [`vocabulary-snapshot.md`](vocabulary-snapshot.md)).
+  `lib/form-recall-pool.ts` (load + validate), `lib/paradigm-cells.ts` (cell code
+  → words); staging rule — a form-recall Task enters the session queue only when
+  the sibling **meaning-recall** Task for the same `wordId` is **held**
+  (stability above graduation — [`vocabulary-snapshot.md`](vocabulary-snapshot.md)).
 - **Out:** form-mastery signal on Progress — see
   [`form-mastery-signal.md`](form-mastery-signal.md); Italian; audio recall;
   choosing the cell at review time; paradigm-table method (`paradigm-tables-mixed`);
-  UI copy for every cell name (v1 uses a single prompt line).
+  accepting more than one correct form per cell — the inverse index that would
+  need is blocked in [`form-practice.md`](form-practice.md).
 
 ## Behavior
 
@@ -44,7 +46,7 @@ Extends the starter card shape:
 | `lemma` | `string` | Dictionary lemma |
 | `surfaceForm` | `string` | The form the learner must produce |
 | `paradigmCell` | `string` | Canonical cell from [`lemma-table.ts`](../../../lib/lemma-table.ts) |
-| `front` | `string` | English gloss + produce prompt |
+| `front` | `string` | English gloss, **and nothing else** — no instruction, no cell name |
 | `back` | `string` | `surfaceForm` |
 | `frequencyRank` | `number` | Copied from the meaning-recall card (lemma rank) |
 
@@ -54,6 +56,35 @@ lemma, have a non-null `paradigmCell`, and differ from the lemma. Prefer
 `ind.pres.*` cells, then other finite indicative, then other moods, then
 non-finite forms; within a tier pick the highest frequency in `data/frequency/es.txt`.
 Gloss comes from the meaning-recall card's `back`.
+
+**A gloss that names a gender rules out the other one.** The gloss *is* the
+prompt, so a gender it states is a promise the answer has to keep: `el`, glossed
+"the (masc.)", may not ask for `la`. Candidate forms whose cell carries the
+opposing gender are skipped before ranking, which moved `es:el` to `los` rather
+than dropping the Word.
+
+## What the row stores and what the card says
+
+A row carries the **meaning** and the **cell code**. It never carries the
+sentence the learner reads — the cell's wording comes from
+[`paradigm-cells.ts`](../../../lib/paradigm-cells.ts), the instruction from
+`features/review-session/content.ts`, and their arrangement from `ReviewCard`.
+
+Two reasons, and only the second is about taste:
+
+1. **A card that says only "to be" has no answer.** *soy · eres · es · era ·
+   fue* all satisfy it. The prompt is answerable exactly because the cell is on
+   screen, so the cell has to reach the screen as data.
+2. **Presentation changes; 1,704 rows should not.** Wording, placement, and the
+   language named in the instruction are all layout decisions. Baking
+   `"to be — write the Spanish form"` into the data made every one of them a
+   pool rebuild, and would have shipped the word *Spanish* into an Italian pool.
+
+`paradigmCellLabel` composes rather than tabulating (69 codes, all built from
+mood, tense, person, gender, number) and returns `null` for a code it does not
+understand — an unlabelled cell shows no line rather than `ind.pres.3sg` on
+screen. The test that walks every cell in the shipped lemma table is what makes
+`null` unreachable in practice.
 
 ## Acceptance criteria
 
@@ -68,7 +99,19 @@ Gloss comes from the meaning-recall card's `back`.
       is built, then the form-recall Task may appear.
 - [ ] **Negative:** form-recall Tasks never appear before the meaning-recall
       Task for the same `wordId` has at least one Review.
+- [ ] Given any shipped form-recall card, when it is rendered, then the learner
+      sees the cell in words ("he/she · present") and the row's `front` contains
+      no instruction and no cell name.
+- [ ] Given a cell in `data/lemma/es.json`, when `paradigmCellLabel` is called,
+      then it returns a label — for **every** cell in the table, not only the
+      twelve the current pool happens to use.
+- [ ] **Negative:** no shipped card's gloss states a gender its `paradigmCell`
+      contradicts.
+- [ ] **Negative:** no card row carries an instruction, so the one that names
+      the language is composed at render time and a second language reuses the
+      card layout without regenerating its pool. (*Spanish* as the gloss of
+      `español` is a meaning, not an instruction, and stays.)
 
 ## Check
 
-`npm test -- form-recall-pool`
+`npm test -- form-recall-pool`, `npm test -- paradigm-cells`

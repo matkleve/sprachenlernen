@@ -78,6 +78,14 @@ scheduler does not give interleaving for free. Mixing is therefore a property of
    A cell reviewed a day early costs a fraction of a percent of stability; a
    twelve-item blocked stretch costs the effect the method exists for.
 
+**The item names its cell, and the item does not store that sentence.** A prompt
+of "to speak" alone has six answers; it is answerable only because the cell is on
+screen. Where the wording comes from is settled in
+[`form-recall-pool.md`](form-recall-pool.md): the row carries the meaning and the
+cell code, `paradigmCells.ts` turns the code into words, and the layout composes
+them. Every item type here inherits that split — a Build or Spoken item changes
+the arrangement, never the pool.
+
 **Heading: name the scope, never the answer.** *"Past — preterite and imperfect,
 mixed verbs"* is safe. *"Now the imperfect"* above contextual items is not: it
 pre-solves the choice the item is measuring. Attach the one-line reason —

@@ -39,6 +39,20 @@ const primaryAnalysis = (raw) => {
   return { lemma, pos, cell: cell === "" ? null : cell };
 };
 
+/**
+ * The gender a gloss commits to, if any. A gloss is the prompt, so a promise it
+ * makes the answer has to keep: `el` glossed "the (masc.)" cannot ask for `la`,
+ * however well-formed the cell is on its own.
+ */
+const genderOfGloss = (gloss) => {
+  if (/\(masc\.\)/.test(gloss)) return "m";
+  if (/\(fem\.\)/.test(gloss)) return "f";
+  return null;
+};
+
+/** Mirrors `genderOfCell` in lib/paradigm-cells.ts; the deck test holds them together. */
+const genderOfCell = (cell) => cell.split(".").find((part) => part === "m" || part === "f") ?? null;
+
 /** Prefer finite indicative present — the form learners meet first in speech. */
 const cellPriority = (cell) => {
   if (cell.startsWith("ind.pres.")) return 0;
@@ -52,12 +66,14 @@ const cellPriority = (cell) => {
  * One inflected form per lemma — highest corpus frequency within the best cell
  * tier, so `hablo` wins over `hablando` for *hablar*.
  */
-const pickSurfaceForm = (lemma, table, formCounts) => {
+const pickSurfaceForm = (lemma, table, formCounts, glossGender) => {
   let best = null;
   for (const [form, analyses] of Object.entries(table.forms)) {
     if (form === lemma) continue;
     const analysis = primaryAnalysis(analyses[0]);
     if (!analysis || analysis.lemma !== lemma || !analysis.cell) continue;
+    const cellGender = genderOfCell(analysis.cell);
+    if (glossGender && cellGender && cellGender !== glossGender) continue;
     const count = formCounts.get(form) ?? 0;
     const priority = cellPriority(analysis.cell);
     if (
@@ -83,7 +99,12 @@ const build = async () => {
   const skipped = [];
 
   for (const meaningCard of meaningPool.cards) {
-    const picked = pickSurfaceForm(meaningCard.lemma, table, formCounts);
+    const picked = pickSurfaceForm(
+      meaningCard.lemma,
+      table,
+      formCounts,
+      genderOfGloss(meaningCard.back),
+    );
     if (!picked) {
       skipped.push(meaningCard.lemma);
       continue;
@@ -95,7 +116,9 @@ const build = async () => {
       lemma: meaningCard.lemma,
       surfaceForm: picked.form,
       paradigmCell: picked.cell,
-      front: `${meaningCard.back} — write the Spanish form`,
+      // The meaning, and nothing else. Which cell to produce is `paradigmCell`,
+      // and the sentence around both is the card's — see lib/paradigm-cells.ts.
+      front: meaningCard.back,
       back: picked.form,
       frequencyRank: meaningCard.frequencyRank,
     });

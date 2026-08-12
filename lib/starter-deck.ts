@@ -10,9 +10,18 @@ export type StarterCard = {
   taskId: string;
   wordId: string;
   lemma: string;
+  /** What the learner is shown — a meaning or a lemma, never a whole sentence. */
   front: string;
   back: string;
   frequencyRank: number;
+  /**
+   * Which cell of the paradigm the answer sits in. Present on form-recall cards
+   * only, and on the base type because the session pool is one array of both
+   * kinds: a card that lost this on the way to the screen would be asked
+   * without saying which form it wants. Named here, worded in
+   * `lib/paradigm-cells.ts`.
+   */
+  paradigmCell?: string;
 };
 
 export type StarterDeck = {
