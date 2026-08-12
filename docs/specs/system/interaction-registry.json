@@ -1,0 +1,52 @@
+{
+  "version": 1,
+  "description": "Authoritative list of interaction primitives and audited exemptions. Enforced by scripts/check-interaction-surfaces.mjs. Human-readable mirror: docs/specs/system/interaction-inventory.md",
+  "inventoryDoc": "docs/specs/system/interaction-inventory.md",
+  "primitives": [
+    "Button",
+    "ActionLink",
+    "NavLink",
+    "FilterPill",
+    "SubmitButton",
+    "IconButton",
+    "IconLink",
+    "TextLink",
+    "SurfaceLink",
+    "PressableCard",
+    "GradeButton",
+    "LanguageListRow",
+    "Disclosure"
+  ],
+  "primitivePaths": [
+    "components/ui/Button.tsx",
+    "components/ui/ActionLink.tsx",
+    "components/ui/NavLink.tsx",
+    "components/ui/FilterPill.tsx",
+    "components/ui/SubmitButton.tsx",
+    "components/ui/IconButton.tsx",
+    "components/ui/IconLink.tsx",
+    "components/ui/TextLink.tsx",
+    "components/ui/SurfaceLink.tsx",
+    "components/ui/PressableCard.tsx",
+    "components/ui/GradeButton.tsx",
+    "components/ui/LanguageListRow.tsx",
+    "components/ui/Disclosure.tsx"
+  ],
+  "forbiddenOutsidePrimitives": [
+    "buttonVariants",
+    "gradeButtonVariants",
+    "gradeButtonClass"
+  ],
+  "exemptions": [
+    {
+      "file": "features/app-shell/LanguageSwitcher.tsx",
+      "pattern": "language-switcher-scrim",
+      "reason": "Full-screen dismiss overlay — not an actionable control; no press/pending contract."
+    },
+    {
+      "file": "components/ui/error-callout.test.tsx",
+      "pattern": "<button",
+      "reason": "Test fixture only — not production UI."
+    }
+  ]
+}

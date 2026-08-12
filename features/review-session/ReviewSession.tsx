@@ -1,8 +1,8 @@
 "use client";
 
-import Link from "next/link";
 import { useTransition } from "react";
 
+import { TextLink } from "@/components/ui/TextLink";
 import { Button } from "@/components/ui/Button";
 import { copy } from "@/features/review-session/content";
 import { ReviewCard } from "@/features/review-session/ReviewCard";
@@ -33,8 +33,11 @@ export function ReviewSession({ methodName, compact = false }: ReviewSessionProp
     pendingCount,
     showSyncStatus,
     gradedCount,
+    reportMessage,
+    reportPending,
     flip,
     grade,
+    report,
     retrySync,
   } = useReviewSession();
 
@@ -56,12 +59,9 @@ export function ReviewSession({ methodName, compact = false }: ReviewSessionProp
         <p className="text-base text-danger" aria-live="polite">
           {loadError ?? copy.loadError}
         </p>
-        <Link
-          href={routes.methods}
-          className="mt-4 inline-block text-sm font-medium text-muted hover:text-ink md:inline-block"
-        >
+        <TextLink href={routes.methods} tone="muted" size="sm" className="mt-4 inline-block">
           ← {copy.backToMethods}
-        </Link>
+        </TextLink>
       </div>
     );
   }
@@ -111,6 +111,19 @@ export function ReviewSession({ methodName, compact = false }: ReviewSessionProp
         </div>
       ) : null}
 
+      {reportMessage ? (
+        <p
+          className={cn(
+            "text-sm text-ink",
+            compact ? "mt-1 shrink-0" : "mt-2",
+          )}
+          role="status"
+          aria-live="polite"
+        >
+          {reportMessage}
+        </p>
+      ) : null}
+
       {phase === "complete" ? (
         <SessionComplete
           gradedCount={gradedCount}
@@ -124,6 +137,8 @@ export function ReviewSession({ methodName, compact = false }: ReviewSessionProp
           phase={phase}
           onFlip={flip}
           onGrade={grade}
+          onReport={report}
+          reportPending={reportPending}
           compact={compact}
         />
       ) : null}

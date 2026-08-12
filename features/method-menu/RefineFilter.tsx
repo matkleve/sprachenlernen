@@ -1,7 +1,8 @@
+import { Disclosure, DisclosureSummary } from "@/components/ui/Disclosure";
+import { FilterPill } from "@/components/ui/FilterPill";
 import type { MenuFilter } from "@/lib/method-menu-filter";
 
 import { copy, refineOptions } from "./content";
-import { FilterPill } from "./FilterPill";
 
 type RefineFilterProps = {
   filter: MenuFilter;
@@ -10,10 +11,8 @@ type RefineFilterProps = {
 
 export function RefineFilter({ filter, onFilterChange }: RefineFilterProps) {
   return (
-    <details className="rounded-card border border-line bg-surface p-4">
-      <summary className="cursor-pointer text-sm font-medium text-ink marker:content-none [&::-webkit-details-marker]:hidden">
-        {copy.refineLabel}
-      </summary>
+    <Disclosure>
+      <DisclosureSummary>{copy.refineLabel}</DisclosureSummary>
       <p className="mt-2 text-sm text-muted">{copy.refineHint}</p>
 
       <div className="mt-4 space-y-4">
@@ -50,6 +49,6 @@ export function RefineFilter({ filter, onFilterChange }: RefineFilterProps) {
           </section>
         ))}
       </div>
-    </details>
+    </Disclosure>
   );
 }

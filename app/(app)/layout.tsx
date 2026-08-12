@@ -4,6 +4,7 @@ import { Suspense } from "react";
 import { AppShell } from "@/features/app-shell/AppShell";
 import { requireAccount } from "@/features/app-shell/gate";
 import { switcherOptionsFrom } from "@/features/app-shell/reading";
+import { readLanguageHoldings } from "@/lib/db/language-holdings";
 import { listLearningLanguages } from "@/lib/db/learning-languages";
 
 import AppLoading from "./loading";
@@ -30,10 +31,18 @@ export default async function AppLayout({ children }: { children: ReactNode }) {
   // shell's DB round trip with nothing else on the critical path.
   const learningPromise = listLearningLanguages();
   await requireAccount();
-  const languages = switcherOptionsFrom(await learningPromise);
+  const outcome = await learningPromise;
+  const languages = switcherOptionsFrom(outcome);
+  const holdings =
+    outcome.status === "ok"
+      ? await readLanguageHoldings(outcome.languages.map((language) => language.languageCode))
+      : { status: "error" as const, error: "" };
 
   return (
-    <AppShell languages={languages}>
+    <AppShell
+      languages={languages}
+      languageHoldings={holdings.status === "ok" ? holdings.byCode : undefined}
+    >
       <Suspense fallback={<AppLoading />}>{children}</Suspense>
     </AppShell>
   );

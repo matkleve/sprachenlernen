@@ -1,10 +1,11 @@
 import { ActionLink } from "@/components/ui/ActionLink";
+import { LanguageListRow } from "@/components/ui/LanguageListRow";
 import { SubmitButton } from "@/components/ui/SubmitButton";
-import { languageLabel } from "@/lib/languages";
 import { copy } from "@/features/profile/content";
 import type { LanguageHoldings } from "@/lib/db/language-holdings";
 import type { ListLanguagesOutcome } from "@/lib/db/learning-languages";
 import { routes } from "@/lib/routes";
+import { hasUnaddedShippedLanguage } from "@/lib/starter-deck";
 
 /**
  * The languages block on the profile. Contract: docs/specs/page/profile.md
@@ -22,6 +23,11 @@ export type ProfileLanguagesProps = {
 };
 
 export function ProfileLanguages({ outcome, holdings, switchFailed, switchTo }: ProfileLanguagesProps) {
+  const learningCodes =
+    outcome.status === "ok" ? outcome.languages.map((language) => language.languageCode) : [];
+  const showAddLanguage =
+    outcome.status === "ok" && outcome.languages.length > 0 && hasUnaddedShippedLanguage(learningCodes);
+
   return (
     <section className="mt-page-content">
       <h2 className="text-xl font-semibold text-ink">{copy.languagesHeading}</h2>
@@ -52,54 +58,44 @@ export function ProfileLanguages({ outcome, holdings, switchFailed, switchTo }: 
         <>
           <ul className="mt-6 grid gap-3">
             {outcome.languages.map((language) => {
-              const names = languageLabel(language.languageCode);
               const standing = holdings?.[language.languageCode];
+              const poolSize = standing?.poolSize;
               return (
-                <li
-                  key={language.languageCode}
-                  className="flex items-center justify-between gap-4 rounded-card border border-line bg-surface p-4"
-                >
-                  <div>
-                    <p className="text-base font-semibold text-ink">
-                      {names.endonym}
-                    </p>
-                    <p className="text-sm text-muted">
-                      {names.english}
-                    </p>
-                    {standing?.heldCount !== null &&
-                    standing?.heldCount !== undefined &&
-                    standing.poolSize !== null ? (
-                      <p className="mt-2 text-sm text-muted">
-                        {copy.standing(standing.heldCount, standing.poolSize)}{" "}
-                        <ActionLink href={routes.progress} className="text-sm">
-                          {copy.viewProgress}
-                        </ActionLink>
-                      </p>
-                    ) : null}
-                  </div>
-
-                  {language.isActive ? (
-                    <p className="text-sm font-medium text-ink">{copy.active}</p>
-                  ) : (
-                    <form
-                      action={async () => {
-                        "use server";
-                        await switchTo(language.languageCode);
-                      }}
-                    >
-                      <SubmitButton variant="secondary" size="sm">
-                        {copy.makeActive}
-                      </SubmitButton>
-                    </form>
-                  )}
+                <li key={language.languageCode}>
+                  <LanguageListRow
+                    code={language.languageCode}
+                    isActive={language.isActive}
+                    activeLabel={copy.active}
+                    standing={
+                      poolSize !== null && poolSize !== undefined
+                        ? { held: standing?.heldCount ?? 0, pool: poolSize }
+                        : null
+                    }
+                    standingLabel={copy.standing}
+                    viewProgressHref={routes.progress}
+                    viewProgressLabel={copy.viewProgress}
+                    actionSlot={
+                      language.isActive
+                        ? undefined
+                        : (
+                          <form action={switchTo.bind(null, language.languageCode)}>
+                            <SubmitButton variant="secondary" size="sm">
+                              {copy.makeActive}
+                            </SubmitButton>
+                          </form>
+                        )
+                    }
+                  />
                 </li>
               );
             })}
           </ul>
 
-          <ActionLink href={routes.chooseLanguage} variant="secondary" className="mt-4">
-            {copy.addLanguage}
-          </ActionLink>
+          {showAddLanguage ? (
+            <ActionLink href={routes.chooseLanguage} variant="secondary" className="mt-4">
+              {copy.addLanguage}
+            </ActionLink>
+          ) : null}
         </>
       )}
     </section>

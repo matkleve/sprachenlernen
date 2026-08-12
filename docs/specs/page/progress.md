@@ -117,7 +117,7 @@ load-bearing). The shipped pool is **2000** lemmas — still short of a calibrat
 language-wide boundary estimate, so extrapolation is **withheld**.
 
 What ships instead: count lemmas in the starter pool whose stability exceeds the
-graduation threshold (`vocabulary-snapshot`'s `held` bucket). `taskCount` on the
+graduation threshold (`vocabulary-snapshot`'s `held` rules — `isTaskHeld`). `taskCount` on the
 signal is the pool size; `value` is the held count. Copy must say both numbers
 and that no language-wide figure is shown.
 

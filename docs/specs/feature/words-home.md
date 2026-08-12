@@ -4,7 +4,7 @@
 <!-- use-case: UC-063 -->
 <!-- status: active -->
 
-The `/words` vocabulary home — held/shaky/new counts, a 30-day review horizon,
+The `/words` vocabulary home — held/fragile/new counts, a 30-day review horizon,
 and the vocabulary atlas. Reviewing is one action here, not the page's identity
 (ADR-0009, UC-063).
 
@@ -32,7 +32,7 @@ reading, listening, speaking, and off-app Methods are reached from `/methods`.
 
 | # | User action | System response |
 | --- | --- | --- |
-| 1 | Opens `/words` | Intent copy, Start review, held/shaky/new counts, horizon, atlas |
+| 1 | Opens `/words` | Intent copy, Start review, held/fragile/new counts, horizon, atlas |
 | 1a | Deck is larger than the atlas cap | Atlas lists the **100** most frequent words and says how many of how many it is showing |
 | 2 | Taps Start review | Navigates to `/words/review?method=srs-session` |
 | 3 | History load fails | Error callout; no fake empty snapshot |
@@ -45,7 +45,7 @@ No client machine. Server page with `ok | error | no-language` outcomes.
 ## Acceptance criteria
 
 - [ ] Given a signed-in learner on `/words`, when the page renders, then held,
-      shaky and new counts are shown and Start review links to `srs-session`.
+      fragile and new counts are shown and Start review links to `srs-session`.
 - [ ] Given the starter deck, when the page renders, then a 30-day horizon and
       atlas table are present.
 - [ ] Given a deck larger than 100 lemmas, when the page renders, then the atlas

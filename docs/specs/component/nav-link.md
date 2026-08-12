@@ -30,11 +30,14 @@ it a place in `components/ui/` rather than a copy in each feature.
 | 4 | Tabs to it | A focus ring, offset from the surface behind it |
 | 5 | Sees the current one | Tinted fill and full-strength label at rest, and `aria-current="page"` |
 | 6 | Taps anywhere within 44px of it | It activates — the target is larger than the pill |
+| 7 | Taps another destination in the shell nav | Selection moves immediately to the tapped link (`pendingPolicy="nav"`) — the previous destination loses its fill before the route settles |
 
 ## States
 
 No machine (`docs/STATE.md` §1): `current` is a prop derived by the caller from
-the URL, and every other state is a CSS pseudo-class the browser owns.
+the URL, and every other state is a CSS pseudo-class the browser owns. Shell
+destinations wrap in `NavigationPendingProvider` so `current` follows the
+pending href during client navigation.
 
 **Four of the five interaction states, and the fifth does not exist here.** An
 anchor has no `disabled`: a link with no destination is not a disabled link, it

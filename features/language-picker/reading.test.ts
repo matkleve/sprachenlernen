@@ -85,4 +85,25 @@ describe("readPicker", () => {
 
     expect(await readPicker()).toEqual({ status: "error", error: "Not signed in." });
   });
+
+  it("marks the active language on each tile", async () => {
+    vi.mocked(listLearningLanguages).mockResolvedValue({
+      status: "ok",
+      languages: [
+        {
+          languageCode: "es",
+          isActive: true,
+          addedAt: "2026-08-11T10:00:00.000Z",
+        },
+      ],
+    });
+
+    const outcome = await readPicker();
+
+    expect(outcome.status).toBe("ok");
+    if (outcome.status !== "ok") return;
+
+    expect(outcome.tiles.find((tile) => tile.code === "es")?.isActive).toBe(true);
+    expect(outcome.tiles.find((tile) => tile.code === "it")?.isActive).toBe(false);
+  });
 });

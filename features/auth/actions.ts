@@ -1,8 +1,10 @@
 "use server";
 
+import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 
 import { signIn, signUp, signInWithOAuth, type OAuthProvider } from "@/lib/db/auth";
+import { ensureProfileFromAcceptLanguage } from "@/lib/db/profiles";
 import { fromAuthError, logHandledError, type HandledError } from "@/lib/errors";
 import { routes } from "@/lib/routes";
 
@@ -42,6 +44,9 @@ export async function signUpAction(formData: FormData): Promise<void> {
   if (result.status === "confirmation-required") {
     redirect(`${routes.signUp}?sent=1`);
   }
+
+  const acceptLanguage = (await headers()).get("accept-language");
+  await ensureProfileFromAcceptLanguage(acceptLanguage);
   redirect(routes.chooseLanguage);
 }
 

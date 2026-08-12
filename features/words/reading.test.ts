@@ -53,7 +53,7 @@ describe("readWordsHome", () => {
 
     expect(outcome.status).toBe("ok");
     if (outcome.status !== "ok") return;
-    expect(outcome.snapshot.counts).toEqual({ held: 0, shaky: 0, new: 1 });
+    expect(outcome.snapshot.counts).toEqual({ held: 0, fragile: 0, new: 1 });
     expect(outcome.snapshot.atlas).toHaveLength(1);
   });
 

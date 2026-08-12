@@ -1,8 +1,8 @@
 "use client";
 
-import Link from "next/link";
 import { useEffect, useState } from "react";
 
+import { TextLink } from "@/components/ui/TextLink";
 import { Button } from "@/components/ui/Button";
 import { routes } from "@/lib/routes";
 
@@ -42,9 +42,9 @@ export function CookieConsent() {
           </p>
           <p className="mt-1 text-sm text-muted">
             {privacyContent.bannerBody}{" "}
-            <Link href={routes.privacy} className="text-accent underline">
+            <TextLink href={routes.privacy} size="sm">
               {privacyContent.bannerLink}
-            </Link>
+            </TextLink>
           </p>
         </div>
         <div className="flex shrink-0 flex-wrap gap-2">
