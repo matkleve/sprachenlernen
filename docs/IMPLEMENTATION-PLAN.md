@@ -1,7 +1,26 @@
 # Implementation plan
 
-**Written 2026-08-08.** What to build next in *code*, in what order, and how to
-hand each piece to a coding agent that should make as few decisions as possible.
+**Written 2026-08-08. Decision list last synced 2026-08-12.** What to build
+next in *code*, in what order, and how to hand each piece to a coding agent
+that should make as few decisions as possible.
+
+**This is the project's one queue/backlog file** — the answer to "where do
+open tickets live." There is deliberately no separate kanban board or issue
+tracker: a second place to list "what's outstanding" would drift from this
+one, and `AGENTS.md`'s whole stance is one source of truth per question, not
+two that might disagree. What plays that role instead, each read at a
+different moment (see [`README.md`](README.md), "Three kinds of memory"):
+
+- **This file** — what's queued, and what's blocking it, project-wide.
+- [`IDEAS.md`](IDEAS.md) — a raw mechanism someone noticed, before it is even
+  a use case.
+- **A `⚠ SPEC GAP` inside a use case or spec** — one open question that blocks
+  *that* item specifically, resolved in the same file it blocks.
+
+**Keeping this current is part of finishing a docs-only session**, the same
+way the diary already is (`AGENTS.md`, "Working with the user"): when a
+`⚠ SPEC GAP` is opened, closed, or a use case graduates, sync the "What needs
+a decision from you" list below in the same session, not later.
 
 **What this file owns, and what it does not.** It owns the queue: which task is
 next, who can safely do it, and what "done" means for that task.
@@ -313,6 +332,7 @@ low-inference agent would silently invent.
 | ~~**T-B10**~~ | ~~The method menu — the product's front door~~ — **shipped 2026-08-09** | Filters, time scale, hosted routing. Learner half continued in T-B10b |
 | ~~**T-B5**~~ | ~~Retire the Grundriss worked examples~~ — **shipped 2026-08-10** | `/account` uses `Select` + `Dialog` (UC-024); demos removed; `/primitives` → `/languages` |
 | **T-B9** | Offline practice + sync (F192, UC-018) | **Owner direction: both** — online sync across devices *and* offline review (train/PWA). Needs ADR-0011 closed on Option B (local-first queue is partial — see [`review-write-queue.md`](specs/service/review-write-queue.md)); full offline still needs cached deck + scheduler |
+| **T-B11** | Spoken-language setting — `profiles` table, `next-intl` chrome, description-text records ([UC-069](use-cases/UC-069-use-the-app-in-my-own-language.md)) | Storage, default and library are decided (2026-08-12); **not spec-ready yet** — blocked on decisions 9–10 above (where non-English text comes from, one string vs. split parts) |
 ---
 
 ### Track B engine phase — what is next (2026-08-11)
@@ -518,3 +538,43 @@ ADR-0006, ADR-0007) — an account is required, and the provider is Supabase.
    answered in its first branch by
    [`specs/service/dose-band.md`](specs/service/dose-band.md): the band is
    labelled borrowed, structurally, and F190 stays later.
+
+**Added 2026-08-12**, from the localization + broken-card-detection docs pass
+(no code yet — these block writing the specs, per DoR's "open questions
+resolved or explicitly deferred"):
+
+9. **Where does description text in a language other than English come
+   from?** ([UC-069](use-cases/UC-069-use-the-app-in-my-own-language.md) — a
+   learner's card back and app chrome should read in whatever language they
+   speak, not always English.) Kaikki, the current gloss source, only ships
+   English senses. Candidates: a second lexical source per spoken language,
+   machine translation with human review, or hand-written text at scale —
+   each has a different provenance story for `data/README.md`.
+10. **Does a card's description stay one string, or split into named parts**
+    (the definition itself, a grammar hint, an instruction like "write the
+    Spanish form") so each half can be translated independently? Same UC-069.
+    Smaller than it looks now that word identity vs. description-text-record
+    is settled, but still open, and it also gates decision below.
+11. **Does a same-session repeat count toward UC-013's cross-session
+    leech-suspend counter?**
+    ([UC-071](use-cases/UC-071-get-a-wrong-card-back-before-the-session-ends.md)
+    — grading a card poorly should bring it back later in *this* session, not
+    only on some future day the scheduler picks silently.) Counting it risks
+    one hard day tripping suspension early; not counting it risks a true
+    leech looking fine because same-session "fixes" keep resetting the count
+    before it ever climbs.
+12. **What is the same-session requeue rule** — end of run, ~5 cards ahead, or
+    something else? Same UC-071; a use case states the outcome, not the
+    algorithm, so this is left to the spec stage.
+13. **Does broken-card detection run once at build time, or per learner?**
+    ([`IDEAS.md`](IDEAS.md)'s "how would the app detect *why* a card keeps
+    failing" design note, feeding
+    [UC-013](use-cases/UC-013-stop-losing-time-on-one-card.md) — a card that
+    keeps failing should get suspended with a diagnosis, e.g. "confused with
+    *perro*?", instead of just repeated harder.) Static/build-time is far
+    cheaper; per-learner has no false positive for someone who never studies
+    the confusable word.
+14. **What similarity threshold catches a real confusion** (`pero`/`perro`)
+    **without flagging most short, common words against each other?** Same
+    design note. Needs testing against the real 2000-lemma pools, not a
+    guessed constant.

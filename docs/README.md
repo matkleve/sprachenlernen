@@ -61,6 +61,7 @@ them means each gets read at the wrong time or not at all.
 | **diary/** | what happened and what was decided | before resuming an area |
 | **TRAPS / PITFALLS** | how this misleads people | before your second attempt |
 | **IDEAS.md** | what someone noticed, not yet checked against a goal | when triaging the backlog, before writing a use case |
+| **IMPLEMENTATION-PLAN.md** | what's queued project-wide, and what's blocking it — the one backlog file, not a kanban board | before picking what to work on next |
 
 A lesson is *noticed* in the diary and *promoted* to a trap, a pitfall, or a
 spec — somewhere a reader is required to look. A rule that lives only in a diary
