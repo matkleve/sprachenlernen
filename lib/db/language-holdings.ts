@@ -1,5 +1,5 @@
 import { listReviewsForTaskIds, toSchedulerReview } from "@/lib/db/review-log";
-import { readLevel } from "@/lib/level-model";
+import { readVocabularySize } from "@/lib/level-model";
 import { newTask, rebuild, type Review } from "@/lib/scheduler";
 import { loadMeaningRecallDeck } from "@/lib/starter-deck";
 
@@ -25,6 +25,7 @@ export async function readLanguageHoldings(
   languageCodes: readonly string[],
   now: number = Date.now(),
 ): Promise<LanguageHoldingsOutcome> {
+  void now;
   const decks = languageCodes.map((code) => ({
     code,
     deck: loadMeaningRecallDeck(code),
@@ -72,11 +73,11 @@ export async function readLanguageHoldings(
       return rebuild(card.taskId, card.wordId, reviews).task;
     });
 
-    const vocabulary = readLevel(tasks, now).signals.find((signal) => signal.id === "vocabulary-size");
+    const vocabulary = readVocabularySize(tasks);
     byCode[code] = {
       poolSize: cards.length,
       heldCount:
-        vocabulary?.status === "has-data" && vocabulary.value !== null ? vocabulary.value : 0,
+        vocabulary.status === "has-data" && vocabulary.value !== null ? vocabulary.value : 0,
     };
   }
 

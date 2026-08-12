@@ -1,7 +1,9 @@
 import type { SupabaseClient } from "@supabase/supabase-js";
+import { cache } from "react";
 
 import { getAccount } from "@/lib/db/auth";
 import { createServerSupabaseClient } from "@/lib/db/client";
+import { taskIdsCacheKey } from "@/lib/db/task-id-cache-key";
 import {
   databaseNotSignedIn,
   fromSupabaseReviewError,
@@ -94,6 +96,13 @@ type DbRow = {
   created_at: string;
 };
 
+/** Scheduler rebuild only needs these three columns — the full row is ~5× larger. */
+type HistoryDbRow = {
+  task_id: string;
+  grade: string;
+  reviewed_at: string;
+};
+
 function mapRow(row: DbRow): ReviewLogRow {
   return {
     id: row.id,
@@ -104,6 +113,19 @@ function mapRow(row: DbRow): ReviewLogRow {
     reviewedAt: row.reviewed_at,
     latencyMs: row.latency_ms,
     createdAt: row.created_at,
+  };
+}
+
+function mapHistoryRow(row: HistoryDbRow): ReviewLogRow {
+  return {
+    id: "",
+    userId: "",
+    installationId: "",
+    taskId: row.task_id,
+    grade: row.grade as Grade,
+    reviewedAt: row.reviewed_at,
+    latencyMs: 0,
+    createdAt: row.reviewed_at,
   };
 }
 
@@ -169,6 +191,14 @@ export async function listReviewsForTaskIds(
     return { status: "ok", reviews: [] };
   }
 
+  return listReviewsForTaskIdsCached(taskIdsCacheKey(taskIds), taskIds, client);
+}
+
+async function listReviewsForTaskIdsImpl(
+  _taskIdsKey: string,
+  taskIds: readonly string[],
+  client?: SupabaseClient,
+): Promise<ListReviewsOutcome> {
   const supabase = await resolveClient(client);
   const account = await getAccount(supabase);
   if (!account) {
@@ -188,9 +218,7 @@ export async function listReviewsForTaskIds(
     chunk(uniqueTaskIds, TASK_ID_CHUNK).map((ids) =>
       supabase
         .from("review_log")
-        .select(
-          "id, user_id, installation_id, task_id, grade, reviewed_at, latency_ms, created_at",
-        )
+        .select("task_id, grade, reviewed_at")
         .in("task_id", ids)
         .order("reviewed_at", { ascending: true }),
     ),
@@ -210,11 +238,13 @@ export async function listReviewsForTaskIds(
   // the contract, not a tidy-up.
   const reviews = chunks
     .flatMap((result) => result.data ?? [])
-    .map((row) => mapRow(row as DbRow))
+    .map((row) => mapHistoryRow(row as HistoryDbRow))
     .sort((a, b) => Date.parse(a.reviewedAt) - Date.parse(b.reviewedAt));
 
   return { status: "ok", reviews };
 }
+
+const listReviewsForTaskIdsCached = cache(listReviewsForTaskIdsImpl);
 
 export async function listAllReviews(
   client?: SupabaseClient,

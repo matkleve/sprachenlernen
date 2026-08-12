@@ -1,6 +1,7 @@
 import { activeLanguageOf, listLearningLanguages } from "@/lib/db/learning-languages";
 import { loadFormRecallDeck } from "@/lib/form-recall-pool";
 import { loadMeaningRecallDeck, type StarterCard } from "@/lib/starter-deck";
+import { cache } from "react";
 
 /**
  * Turns the account's active language into the cards a caller should work
@@ -22,8 +23,9 @@ export type LearnerPool =
   | { status: "error"; error: string };
 
 /** The language in focus, and only that one — every card a session or a
- * display surface should use. */
-export async function poolForActiveLanguage(): Promise<LearnerPool> {
+ * display surface should use. Cached per request — several readers on one
+ * navigation (standing, words, a server action) must not rebuild the deck. */
+async function poolForActiveLanguageImpl(): Promise<LearnerPool> {
   const learning = await listLearningLanguages();
   if (learning.status === "error") return { status: "error", error: learning.error };
 
@@ -43,3 +45,5 @@ export async function poolForActiveLanguage(): Promise<LearnerPool> {
 
   return { status: "ok", cards, languageCodes: [active] };
 }
+
+export const poolForActiveLanguage = cache(poolForActiveLanguageImpl);

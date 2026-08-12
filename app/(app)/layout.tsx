@@ -1,9 +1,12 @@
 import type { ReactNode } from "react";
+import { Suspense } from "react";
 
 import { AppShell } from "@/features/app-shell/AppShell";
 import { requireAccount } from "@/features/app-shell/gate";
 import { switcherOptionsFrom } from "@/features/app-shell/reading";
 import { listLearningLanguages } from "@/lib/db/learning-languages";
+
+import AppLoading from "./loading";
 
 /**
  * The signed-in half of the app (ADR-0010). Every route in this group is
@@ -29,5 +32,9 @@ export default async function AppLayout({ children }: { children: ReactNode }) {
   await requireAccount();
   const languages = switcherOptionsFrom(await learningPromise);
 
-  return <AppShell languages={languages}>{children}</AppShell>;
+  return (
+    <AppShell languages={languages}>
+      <Suspense fallback={<AppLoading />}>{children}</Suspense>
+    </AppShell>
+  );
 }
