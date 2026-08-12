@@ -23,6 +23,14 @@ import type { Grade } from "@/lib/scheduler";
 
 export type ReviewSessionStatus = "loading" | "ready" | "error";
 
+export type ReviewSessionInitialData =
+  | { status: "ok"; queue: SessionCard[]; languageName: string }
+  | { status: "error"; error: string };
+
+export type UseReviewSessionOptions = {
+  initialData?: ReviewSessionInitialData;
+};
+
 export type UseReviewSessionResult = {
   status: ReviewSessionStatus;
   loadError: string | null;
@@ -44,13 +52,32 @@ export type UseReviewSessionResult = {
 
 const SYNC_STATUS_DELAY_MS = 500;
 
-export function useReviewSession(): UseReviewSessionResult {
+function initialStatusFromData(
+  data: ReviewSessionInitialData | undefined,
+): ReviewSessionStatus {
+  if (!data) return "loading";
+  return data.status === "ok" ? "ready" : "error";
+}
+
+function initialPhaseFromData(data: ReviewSessionInitialData | undefined): SessionPhase {
+  if (!data || data.status !== "ok") return "preparing";
+  return data.queue.length === 0 ? "complete" : "prompting";
+}
+
+export function useReviewSession(options: UseReviewSessionOptions = {}): UseReviewSessionResult {
+  const { initialData } = options;
   const router = useRouter();
-  const [status, setStatus] = useState<ReviewSessionStatus>("loading");
-  const [loadError, setLoadError] = useState<string | null>(null);
-  const [phase, setPhase] = useState<SessionPhase>("preparing");
-  const [queue, setQueue] = useState<SessionCard[]>([]);
-  const [languageName, setLanguageName] = useState<string | null>(null);
+  const [status, setStatus] = useState<ReviewSessionStatus>(() => initialStatusFromData(initialData));
+  const [loadError, setLoadError] = useState<string | null>(() =>
+    initialData?.status === "error" ? initialData.error : null,
+  );
+  const [phase, setPhase] = useState<SessionPhase>(() => initialPhaseFromData(initialData));
+  const [queue, setQueue] = useState<SessionCard[]>(() =>
+    initialData?.status === "ok" ? initialData.queue : [],
+  );
+  const [languageName, setLanguageName] = useState<string | null>(() =>
+    initialData?.status === "ok" ? initialData.languageName : null,
+  );
   const [sessionIndex, setSessionIndex] = useState(0);
   const [syncError, setSyncError] = useState<string | null>(null);
   const [pendingCount, setPendingCount] = useState(0);
@@ -62,6 +89,8 @@ export function useReviewSession(): UseReviewSessionResult {
   const gradingRef = useRef(false);
 
   useEffect(() => {
+    if (initialData) return;
+
     let cancelled = false;
 
     async function prepare() {
@@ -102,7 +131,7 @@ export function useReviewSession(): UseReviewSessionResult {
     return () => {
       cancelled = true;
     };
-  }, []);
+  }, [initialData, router]);
 
   useEffect(() => {
     const queueClient = getReviewQueue();

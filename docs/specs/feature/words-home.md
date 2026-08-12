@@ -34,7 +34,7 @@ reading, listening, speaking, and off-app Methods are reached from `/methods`.
 
 | # | User action | System response |
 | --- | --- | --- |
-| 1 | Opens `/words` | Intent copy, Start review, held/fragile/new counts, frequency bands, horizon, atlas |
+| 1 | Opens `/words` | Intent copy and Start review in a raised action card; held/fragile/new counts, frequency bands, horizon, atlas below |
 | 1a | Deck is larger than the atlas cap | Atlas lists the **100** most frequent words and says how many of how many it is showing |
 | 2 | Taps Start review | Navigates to `/words/review?method=srs-session` |
 | 3 | History load fails | Error callout; no fake empty snapshot |

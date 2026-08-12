@@ -40,6 +40,7 @@ describe("WordsHome", () => {
     const link = screen.getByRole("link", { name: reviewCopy.startReview });
     expect(link.getAttribute("href")).toContain("method=srs-session");
     expect(screen.queryByText(/\d+\s+due/i)).toBeNull();
+    expect(screen.getByRole("heading", { name: copy.reviewHeading })).toBeDefined();
   });
 
   it("renders held, fragile, new, bands, horizon and atlas sections", () => {

@@ -15,7 +15,9 @@ recall or form-recall), grades that append to the review log (T-B2).
   ([`review-session.states.md`](review-session.states.md)), `useReviewSession`,
   `ReviewSession`, `ReviewCard`, `SessionComplete`, server action to load the
   queue (`buildSessionAction`), and wiring on `/words/review` for
-  `method=srs-session`. Replaces `ReviewOpen`.
+  `method=srs-session`. The review route builds the queue on the server and
+  passes it as props so the first card renders with the page — no client-only
+  prepare step after navigation. Replaces `ReviewOpen`.
 - **Out:** scheduler projection UI (UC-005 G1–G4); session-length picker;
   sibling spacing; non-`srs-session` methods; Words atlas and horizon (T-B3).
   Persistence blocking the UI — see
@@ -27,7 +29,7 @@ recall or form-recall), grades that append to the review log (T-B2).
 
 | # | User action | System response |
 | --- | --- | --- |
-| 1 | Lands on `/words/review?method=srs-session` | Session prepares: server returns a 15-card queue from the starter deck + their review history |
+| 1 | Lands on `/words/review?method=srs-session` | Route builds a 15-card queue on the server; first card front is in the initial HTML |
 | 2 | Sees a meaning-recall card | Front (target-language lemma) only; language name on the card; tap the card to flip and see the meaning |
 | 2b | Sees a form-recall card | Front (English gloss + produce prompt) only; same flip interaction; back shows the target surface form |
 | 3 | Taps the card | Back shown; grade buttons stay visible (they were already on screen) |
