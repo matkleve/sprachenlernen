@@ -36,3 +36,13 @@ nothing in the app says so, so the learner concludes they are bad at languages.
 ## Out of scope
 
 Manual editing of scheduler parameters, and deleting cards in bulk.
+
+## Undecided
+
+- **⚠ SPEC GAP: does a same-session repeat
+  ([UC-071](UC-071-get-a-wrong-card-back-before-the-session-ends.md)) count
+  toward the failure count that trips suspension here, or is it a separate,
+  gentler mechanism that never touches this counter?** Named from this side
+  too, not only UC-071's, since it decides what "keeps failing" means for
+  this use case's own suspend rule. Same open question as
+  [`IMPLEMENTATION-PLAN.md`](../IMPLEMENTATION-PLAN.md) decision 12.

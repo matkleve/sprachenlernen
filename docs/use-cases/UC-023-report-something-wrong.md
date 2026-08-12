@@ -34,7 +34,13 @@ where a report button exists, nothing visibly comes back.
   `preparing`, and never revisited until the next one). A card that just
   vanished mid-session would read as a bug, not a feature — checked
   2026-08-12, this needs no new mechanism, the existing one already behaves
-  this way.
+  this way. **⚠ Watch this reasoning, not just the outcome, once
+  [UC-071](UC-071-get-a-wrong-card-back-before-the-session-ends.md) ships:**
+  the queue stops being "never revisited" the moment same-session requeue
+  exists (it will re-insert cards mid-run). The *outcome* this bullet wants —
+  a flagged card never disappears out from under an in-progress session — can
+  likely still hold, but it will need a new reason (an explicit rule in the
+  requeue spec), not this one, which will no longer be true.
 - The learner is told what happened to their report.
 - Content is marked with where it came from, so a learner can weigh a generated
   sentence differently from a checked one.

@@ -340,6 +340,7 @@ low-inference agent would silently invent.
 | **T-B12** | ~~Scope `poolForScheduling` to the active language only~~ — **done 2026-08-12** ([UC-025](use-cases/UC-025-learn-multiple-languages.md)) | `poolForScheduling` and `poolForDisplay` (`lib/db/learner-pools.ts`) merged into one `poolForActiveLanguage()`, since the reason they differed — a cross-language budget — was rejected. `buildSessionAction` now calls it; a session can no longer contain more than one language's cards, and the `languageName` label is always correct as a result. Regression test: `learner-pools.test.ts` |
 | **T-B13** | Same-session card requeue ([UC-071](use-cases/UC-071-get-a-wrong-card-back-before-the-session-ends.md)) | **Not spec-ready** — blocked on decisions 12–13 above (same-run repeat vs. UC-013's leech count; the exact requeue distance). Touches `session-builder.md` (fixed queue → sometimes re-insert) and `review-session.states.md` (`advancing` transition). **Missing from this table since UC-071 graduated 2026-08-12** — added now; it was never dropped from the plan, only from this table |
 | **T-B14** | Broken-card flagging + leech diagnosis ([UC-023](use-cases/UC-023-report-something-wrong.md), [UC-013](use-cases/UC-013-stop-losing-time-on-one-card.md)) | **Not spec-ready** — blocked on decisions 14–15 above (build-time vs. per-learner detection; the similarity threshold). Adds a flag column scoped to (word, spoken language) per `UC-023`; suspension + tap-to-confirm diagnosis per `UC-013`'s three-tier model in [`IDEAS.md`](IDEAS.md). Same omission as `T-B13` — added now |
+| **T-B15** | Maintenance mode per language ([UC-025](use-cases/UC-025-learn-multiple-languages.md)) | **Not spec-ready** — no per-language flag exists. Moved 2026-08-12 from [`plans/multi-language.md`](plans/multi-language.md) table item 10, so it has exactly one tracked home. The best-evidenced item in that plan's 2026-08-11 review (Cepeda et al. 2008, Bahrick et al. 1993: 10–20% of the retention interval as the review gap) and the one piece of that review's recommendation not yet built |
 ---
 
 ### Track B engine phase — what is next (2026-08-11)
@@ -585,3 +586,13 @@ resolved or explicitly deferred"):
     **without flagging most short, common words against each other?** Same
     design note. Needs testing against the real 2000-lemma pools, not a
     guessed constant.
+
+**Added 2026-08-12**, moved from [`plans/multi-language.md`](plans/multi-language.md)
+so open items live in exactly one queue:
+
+16. **Does Progress remain a nav destination, or move under Profile** (the
+    original 2026-08-11 sketch)? Raised by the owner in passing, not decided
+    — both the SLA-researcher and UX-designer reviews commissioned for that
+    plan argued for keeping it, and it is the product's own argument, but
+    nobody has actually picked. See `plans/multi-language.md`, "Decided by
+    the owner, 2026-08-11."

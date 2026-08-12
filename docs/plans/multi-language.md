@@ -1,11 +1,22 @@
 # Plan — the learning language as a first-class choice
 
-**Status:** not started. This is the record of a design conversation, not a
-contract — no spec is written yet, and two decisions below are still the owner's.
-**Change class:** Sensitive (persisted, auth-adjacent, changes the route model).
+**Status: executed.** ⚠ **Corrected 2026-08-12** — this line used to say "not
+started," "no spec is written yet," and the table below it used to say
+language choice was "Nowhere." All of that was true when this file was
+written (2026-08-11) and stayed here, unedited, well after the plan below was
+actually built — the same staleness pattern
+[`IMPLEMENTATION-PLAN.md`](../IMPLEMENTATION-PLAN.md)'s diary entries name
+twice on 2026-08-12. What follows below this notice is now a **historical
+design record**: the reasoning that produced the shipped shape, kept for the
+"why," not the "what's left." For current status, read
+[`UC-025`](../use-cases/UC-025-learn-multiple-languages.md),
+[`specs/service/learning-languages.md`](../specs/service/learning-languages.md),
+[`specs/page/profile.md`](../specs/page/profile.md) and
+[`IMPLEMENTATION-PLAN.md`](../IMPLEMENTATION-PLAN.md)'s `T-B12` row — those are
+the source of truth now, not this file.
 
 Anchor use case: [`UC-025`](../use-cases/UC-025-learn-multiple-languages.md),
-written and accepted, with **no specs attached to it** to this day.
+now specced (`SPEC-service-learning-languages`, `SPEC-page-language-picker`).
 
 ---
 
@@ -20,9 +31,9 @@ quality**, it sits in the public half, and it is wired to nothing.
 That is a UX defect independent of everything below: a page that looks like a
 control and is not one.
 
-## What exists today
+## What existed 2026-08-11 (superseded — kept for contrast with "what shipped" below)
 
-| | Reality on `main` |
+| | Reality on `main`, 2026-08-11 |
 | --- | --- |
 | Navigation | Three destinations: Methods · Words · Progress ([ADR-0009](../adr/0009-three-destinations.md)) |
 | Account surface | `/account` exists, **is not in the navigation**, holds only export + delete |
@@ -30,6 +41,17 @@ control and is not one.
 | Which language is learned | Hard-wired: `loadSpanishMeaningRecallDeck()`, three call sites |
 | Mobile navigation | Floating pill + corner chips, not a tab bar |
 | After sign-in you land on | `/methods` |
+
+## What shipped instead — current reality, corrected 2026-08-12
+
+| | Reality on `main`, today |
+| --- | --- |
+| Navigation | Same three destinations; `/account` now **redirects** to `/profile` (kept for bookmarks) |
+| Account surface | `/profile` — language management (`ProfileLanguages`), export, delete, sign-out. Reached via the top-right corner chip, as decided 2026-08-11 below |
+| Language choice | `learner_language` table, one row per (account, language), one `active` flag; picker at first sign-in; switcher in the shell header ([`app-shell.md`](../specs/feature/app-shell.md) behavior #10) |
+| Which language is learned | `poolForActiveLanguage()` (`lib/db/learner-pools.ts`) — every read site takes the active language from the account, not a hardcoded loader |
+| Mobile navigation | Still the floating pill + corner chips — plan item 7 (tab bar) was dropped by the 2026-08-11 review, see below |
+| After sign-in you land on | `/methods`, or the language picker first if none is chosen yet |
 
 **The one piece of luck:** every stored review already carries its language in
 the key — `task_id = "es:el:meaning-recall"`. Progress can therefore be
@@ -137,21 +159,21 @@ prior, not a measurement.
 
 ---
 
-## What has to change, smallest first
+## What has to change, smallest first — corrected 2026-08-12, all but two done
 
 | # | Change | Size | Notes |
 | --- | --- | --- | --- |
-| 1 | `/account` → Profile, and into the navigation | S | |
-| 2 | Deck loading takes a language instead of `loadSpanishMeaningRecallDeck()` | S | mechanical |
-| 3 | `/languages` stops looking like a picker, or becomes one | S | the defect that started this |
-| 4 | Language choice as data — account column, default at signup, switcher | **M, Sensitive** | spec + red-test-first + fresh review |
-| 5 | Picker screen with tiles, and the post-signup "no language yet" state | M | today you land on `/methods`, which would be empty |
-| 6 | Progress, standing and Words filtered per language | M | free of migration thanks to the `es:` key prefix |
-| 7 | Tab bar instead of the floating pill | M | breaks `mobile-nav-v2.md`; needs a spec change, not a quiet edit |
-| 8 | Progress moves into Profile as the third destination | **M, ADR** | supersedes [ADR-0009](../adr/0009-three-destinations.md) |
+| 1 | ~~`/account` → Profile, and into the navigation~~ | S | **Done.** `/account` redirects; `/profile` reached from the corner chip, not a nav destination — see "Decided 2026-08-11" below |
+| 2 | ~~Deck loading takes a language instead of `loadSpanishMeaningRecallDeck()`~~ | S | **Done** via `poolForActiveLanguage()` |
+| 3 | ~~`/languages` stops looking like a picker, or becomes one~~ | S | **Done** — `/languages` stayed the data-quality page; the real picker is a separate route, `/languages/choose` |
+| 4 | ~~Language choice as data — account column, default at signup, switcher~~ | **M, Sensitive** | **Done** — `learner_language` table, `learning-languages.md` |
+| 5 | ~~Picker screen with tiles, and the post-signup "no language yet" state~~ | M | **Done** — `/languages/choose`, [`language-picker.md`](../specs/page/language-picker.md) |
+| 6 | ~~Progress, standing and Words filtered per language~~ | M | **Done** via `poolForActiveLanguage()`, free of migration as predicted |
+| 7 | ~~Tab bar instead of the floating pill~~ | M | **Dropped** by the 2026-08-11 review (item below) — the pill stays |
+| 8 | Progress moves into Profile as the third destination | **M, ADR** | **Still open** — raised, not decided; see "Still open" below |
 | 9 | ~~Combined daily budget across languages~~ | — | **Withdrawn 2026-08-12** — rejected outright, see below, nothing to build |
-| 10 | Maintenance mode per language | L | |
-| 11 | Italian pool | L | separately blocked — see [`starter-deck.second-language.md`](../specs/service/starter-deck.second-language.md) |
+| 10 | Maintenance mode per language | L | **Still open** — no per-language maintenance flag exists yet |
+| 11 | ~~Italian pool~~ | L | **Shipped 2026-08-12** — see [`starter-deck.second-language.md`](../specs/service/starter-deck.second-language.md) |
 
 ## Specs this will touch
 
@@ -320,10 +342,12 @@ effect of this one.
 
 **Picker — build it now, with both languages**, against the review's advice to
 defer. The owner's call, and it is defensible: the structure becomes visible
-earlier. Executed honestly rather than literally — Spanish is selectable, Italian
-renders as **not available yet** with the reason, because there is no Italian pool
-and a selectable tile would lead nowhere. Italian becoming selectable depends on
-[`starter-deck.second-language.md`](../specs/service/starter-deck.second-language.md).
+earlier. Executed honestly rather than literally — at the time, Spanish was
+selectable and Italian rendered as **not available yet** with the reason,
+because there was no Italian pool and a selectable tile would have led
+nowhere. **Superseded 2026-08-12:** Italian shipped at the same tier as
+Spanish (see [`starter-deck.second-language.md`](../specs/service/starter-deck.second-language.md)),
+so both languages are now selectable tiles.
 
 ## Decided by the owner, 2026-08-12 — the combined budget is rejected
 
@@ -360,11 +384,19 @@ levels/vocabulary/calibration, maintenance mode as a per-language flag, and
 switching being one action from the profile that preserves the other
 language's progress exactly where it was.
 
-## Still open
+## Still open — tracked in IMPLEMENTATION-PLAN.md, not here
 
-- **Whether Progress remains a destination** (raised, not decided — see above).
-- **Cold start**: the planned five-minute adaptive vocabulary test versus the
-  C-test / elicited-imitation alternative the researcher recommends, which
-  reaches production. Not blocking; nothing is built yet.
-- The `study/03` defects recorded above. (The UC-025 overclaim is no longer
+**Moved 2026-08-12.** `AGENTS.md` is explicit that there is one backlog file,
+because a second place to list "what's outstanding" drifts from the first —
+which is exactly what the rest of this file did for a day. The two genuinely
+open items (table items 8 and 10) are now `IMPLEMENTATION-PLAN.md` decision
+16 and task `T-B15` respectively; this section stays only as a pointer, not a
+second copy of their status.
+
+- Cold start (the adaptive vocabulary test vs. the researcher's C-test /
+  elicited-imitation alternative) — not blocking, nothing built yet, and not
+  worth its own plan-file tracking entry: revisit when F17–F22 resume.
+- The `study/03` defects recorded above (anchor-table counting units,
+  non-smooth "second-lowest" level) — belong to `study/03` itself, not this
+  plan; not caused by anything here. (The UC-025 overclaim is no longer
   open — see 2026-08-12 above: dropped, not resolved.)
