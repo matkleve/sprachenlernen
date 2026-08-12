@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest";
 
 import {
   MOBILE_TITLE_LARGE_PX,
+  mobileShellTitleClampedMaxWidth,
   mobileShellTitleMaxWidth,
   mobileTitleWrapsTwoLines,
 } from "./shell-page-title-layout";
@@ -26,5 +27,11 @@ describe("mobileTitleWrapsTwoLines", () => {
   it("detects when scroll height exceeds one line", () => {
     expect(mobileTitleWrapsTwoLines(20, 16)).toBe(false);
     expect(mobileTitleWrapsTwoLines(33, 16)).toBe(true);
+  });
+});
+
+describe("mobileShellTitleClampedMaxWidth", () => {
+  it("clamps max width so the title cannot overlap corner chips", () => {
+    expect(mobileShellTitleClampedMaxWidth("11rem")).toBe("min(11rem, calc(100vw - 7rem))");
   });
 });

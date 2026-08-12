@@ -12,6 +12,7 @@ import {
   MOBILE_TITLE_LARGE_PX,
   MOBILE_TITLE_SMALL_PX,
   MOBILE_TITLE_LARGE_MAX_REM,
+  mobileShellTitleClampedMaxWidth,
   mobileShellTitleMaxWidth,
   mobileTitleWrapsTwoLines,
 } from "./shell-page-title-layout";
@@ -61,12 +62,14 @@ export function ShellPageTitle({ variant, pinnedCompact = false, className }: Sh
   if (!title) return null;
 
   if (variant === "mobile") {
-    const maxWidth = mobileShellTitleMaxWidth(wrapsTwoLines, fontSize, collapse);
+    const maxWidth = mobileShellTitleClampedMaxWidth(
+      mobileShellTitleMaxWidth(wrapsTwoLines, fontSize, collapse),
+    );
 
     return (
       <h1
         className={cn(
-          "pointer-events-none relative col-start-2 min-w-0 text-center font-semibold leading-tight tracking-tight text-ink line-clamp-2",
+          "pointer-events-none absolute top-1/2 left-1/2 z-0 w-max -translate-x-1/2 -translate-y-1/2 text-center font-semibold leading-tight tracking-tight text-ink line-clamp-2",
           className,
         )}
         style={{

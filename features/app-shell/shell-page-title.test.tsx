@@ -17,12 +17,14 @@ describe("ShellPageTitle", () => {
     vi.mocked(usePathname).mockReturnValue("/methods/srs-session");
   });
 
-  it("wraps long mobile titles to two lines instead of truncating", () => {
+  it("viewport-centers long mobile titles with absolute positioning", () => {
     render(<ShellPageTitle variant="mobile" />);
 
     const title = screen.getByRole("heading", { level: 1 });
     expect(title.className).toContain("line-clamp-2");
+    expect(title.className).toContain("absolute");
+    expect(title.className).toContain("left-1/2");
+    expect(title.className).toContain("-translate-x-1/2");
     expect(title.className).not.toContain("truncate");
-    expect(title.className).not.toContain("absolute");
   });
 });
