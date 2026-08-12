@@ -8,6 +8,7 @@
  */
 
 import type { Task } from "@/lib/scheduler";
+import { isFormRecallTaskId, isMeaningRecallTaskId } from "@/lib/form-recall-pool";
 import { bucketForTask } from "@/lib/vocabulary-snapshot";
 
 export const SKILLS = ["reading", "listening", "speaking", "writing"] as const;
@@ -113,31 +114,66 @@ function readRecallStability(tasks: readonly Task[]): SignalReading {
  * docs/specs/page/progress.md § Data — vocabulary size.
  */
 function readVocabularySize(tasks: readonly Task[]): SignalReading {
-  if (tasks.length === 0) {
+  const meaningTasks = tasks.filter((task) => isMeaningRecallTaskId(task.id));
+
+  if (meaningTasks.length === 0) {
     return { id: "vocabulary-size", status: "no-data", value: null, taskCount: 0 };
   }
 
-  const reviewed = tasks.filter((task) => task.reviews.length > 0);
+  const reviewed = meaningTasks.filter((task) => task.reviews.length > 0);
   if (reviewed.length === 0) {
-    return { id: "vocabulary-size", status: "no-data", value: null, taskCount: tasks.length };
+    return {
+      id: "vocabulary-size",
+      status: "no-data",
+      value: null,
+      taskCount: meaningTasks.length,
+    };
   }
 
-  const held = tasks.filter((task) => bucketForTask(task) === "held").length;
+  const held = meaningTasks.filter((task) => bucketForTask(task) === "held").length;
 
   return {
     id: "vocabulary-size",
     status: "has-data",
     value: held,
-    taskCount: tasks.length,
+    taskCount: meaningTasks.length,
+  };
+}
+
+/**
+ * Pool-local form mastery — surface forms held stably in the form-recall deck.
+ * Contract: docs/specs/service/form-mastery-signal.md
+ */
+function readFormMastery(tasks: readonly Task[]): SignalReading {
+  const formTasks = tasks.filter((task) => isFormRecallTaskId(task.id));
+
+  if (formTasks.length === 0) {
+    return { id: "form-mastery", status: "no-data", value: null, taskCount: 0 };
+  }
+
+  const reviewed = formTasks.filter((task) => task.reviews.length > 0);
+  if (reviewed.length === 0) {
+    return { id: "form-mastery", status: "no-data", value: null, taskCount: formTasks.length };
+  }
+
+  const held = formTasks.filter((task) => bucketForTask(task) === "held").length;
+
+  return {
+    id: "form-mastery",
+    status: "has-data",
+    value: held,
+    taskCount: formTasks.length,
   };
 }
 
 function readSignals(tasks: readonly Task[]): readonly SignalReading[] {
   const vocabularySize = readVocabularySize(tasks);
+  const formMastery = readFormMastery(tasks);
   const recallStability = readRecallStability(tasks);
 
   return LAYER_1_SIGNALS.map((id) => {
     if (id === "vocabulary-size") return vocabularySize;
+    if (id === "form-mastery") return formMastery;
     if (id === "recall-stability") return recallStability;
 
     // Every other layer-1 signal needs content this product does not have yet:

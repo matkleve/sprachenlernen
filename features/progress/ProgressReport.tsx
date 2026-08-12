@@ -31,6 +31,7 @@ const HABIT_MINUTES_PER_DAY = 15;
 export function ProgressReport({ reading }: { reading: LevelReading }) {
   const stability = reading.signals.find((signal) => signal.id === "recall-stability");
   const vocabulary = reading.signals.find((signal) => signal.id === "vocabulary-size");
+  const formMastery = reading.signals.find((signal) => signal.id === "form-mastery");
   const hasAnyData = reading.signals.some((signal) => signal.status === "has-data");
 
   return (
@@ -105,7 +106,11 @@ export function ProgressReport({ reading }: { reading: LevelReading }) {
                         vocabulary?.status === "has-data" &&
                         vocabulary.value !== null
                       ? copy.vocabularyValue(vocabulary.value, vocabulary.taskCount)
-                      : copy.noValue}
+                      : signal.id === "form-mastery" &&
+                          formMastery?.status === "has-data" &&
+                          formMastery.value !== null
+                        ? copy.formMasteryValue(formMastery.value, formMastery.taskCount)
+                        : copy.noValue}
                 </Td>
               </tr>
             ))}

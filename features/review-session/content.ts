@@ -12,6 +12,7 @@ export const copy = {
   notBuilt:
     "This method is listed as hosted, but its session is not built yet. The catalogue is honest about what exists.",
   prompt: "What does it mean?",
+  formRecallPrompt: "Did you recall the form?",
   flipHint: "Tap to turn",
   graded: "Saved.",
   saveError: "Your grade could not be saved.",

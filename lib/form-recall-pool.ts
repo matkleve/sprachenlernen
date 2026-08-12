@@ -86,3 +86,7 @@ export function meaningRecallTaskIdFor(card: Pick<StarterCard, "wordId">): strin
 export function isFormRecallTaskId(taskId: string): boolean {
   return taskId.endsWith(":form-recall");
 }
+
+export function isMeaningRecallTaskId(taskId: string): boolean {
+  return taskId.endsWith(":meaning-recall");
+}
