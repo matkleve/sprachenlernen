@@ -31,7 +31,10 @@ No page-level machine — delegates to the feature FSM.
 ## Acceptance criteria
 
 - [ ] Given `?method=srs-session` and a signed-in Account, when the page renders,
-      then the review session feature mounts and the back link targets Methods.
+      then the review session feature mounts with **no in-page back link** on
+      mobile (shell back chip to Words is sufficient).
+- [ ] Given viewport &lt; `md` and `?method=srs-session`, when a card is shown,
+      then the session body does not scroll (one-screen layout).
 - [ ] Given no `method` param, when the page renders, then no session mounts and
       unknown-method copy appears.
 

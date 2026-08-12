@@ -4,6 +4,7 @@ import { ArrowLeft, UserRound } from "lucide-react";
 import { usePathname } from "next/navigation";
 
 import { ActionLink } from "@/components/ui/ActionLink";
+import { buttonVariants } from "@/components/ui/Button";
 import { routes } from "@/lib/routes";
 import { cn } from "@/lib/utils";
 
@@ -14,6 +15,11 @@ import { copy } from "./content";
 
 const safeTop = "pt-[max(1rem,env(safe-area-inset-top))]";
 const safeBottom = "pb-[max(1rem,env(safe-area-inset-bottom))]";
+
+const cornerIconChipClass = cn(
+  buttonVariants({ variant: "floating", size: "sm" }),
+  "size-11 min-h-11 min-w-11 rounded-full p-0",
+);
 
 /**
  * Mobile floating chrome: corner chips + bottom destination pill.
@@ -47,23 +53,20 @@ export function FloatingShellChrome({
               <ArrowLeft aria-hidden className="size-4 shrink-0" />
               {back.label}
             </ActionLink>
-          ) : null}
-          <LanguageSwitcher languages={languages} layout="floating" />
+          ) : (
+            <LanguageSwitcher languages={languages} layout="floating" />
+          )}
         </div>
 
-        {/* The account affordance ADR-0009 described: a link in a corner, not a
-            fifth of the screen. Sign out lives inside it, on /profile, so this
-            corner carries one control rather than two competing ones. */}
         <div className="pointer-events-auto">
           <ActionLink
             href={routes.profile}
             variant="floating"
             size="sm"
-            className="gap-1.5"
+            className={cornerIconChipClass}
             aria-label={copy.account}
           >
-            <UserRound aria-hidden className="size-4 shrink-0" />
-            {copy.account}
+            <UserRound aria-hidden className="size-5 shrink-0" />
           </ActionLink>
         </div>
       </div>

@@ -5,11 +5,12 @@ import { routes } from "@/lib/routes";
 type SessionCompleteProps = {
   gradedCount: number;
   pendingCount: number;
+  compact?: boolean;
 };
 
-export function SessionComplete({ gradedCount, pendingCount }: SessionCompleteProps) {
+export function SessionComplete({ gradedCount, pendingCount, compact = false }: SessionCompleteProps) {
   return (
-    <div className="mt-page-content">
+    <div className={compact ? "mt-4 min-h-0 flex-1 overflow-y-auto md:mt-page-content" : "mt-page-content"}>
       <h2 className="text-xl font-semibold text-ink">{copy.completeTitle}</h2>
       <p className="mt-4 text-base text-muted">
         {gradedCount > 0 ? copy.completeBody(gradedCount) : copy.emptySession}

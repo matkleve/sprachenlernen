@@ -59,14 +59,13 @@ describe("SPEC-feature-mobile-nav-v2", () => {
     ]);
   });
 
-  it("shows the account chip and one Words link on a destination root", () => {
+  it("shows the account icon chip and one Words link on a destination root", () => {
     vi.mocked(usePathname).mockReturnValue("/words");
     render(<FloatingShellChrome languages={oneLanguage} />);
 
-    // The corner carries one control, not two: sign out moved inside /profile
-    // so the account is a link rather than competing with a form (ADR-0009).
     const account = screen.getByRole("link", { name: copy.account });
     expect(account.getAttribute("href")).toBe("/profile");
+    expect(account.textContent?.trim()).toBe("");
     expect(screen.queryByRole("button", { name: profileCopy.signOut })).toBeNull();
     const wordsLinks = screen
       .getAllByRole("link")
@@ -74,7 +73,7 @@ describe("SPEC-feature-mobile-nav-v2", () => {
     expect(wordsLinks).toHaveLength(1);
   });
 
-  it("shows the language switcher on a destination root", () => {
+  it("shows the language icon on a destination root", () => {
     vi.mocked(usePathname).mockReturnValue("/words");
     render(<FloatingShellChrome languages={twoLanguages} />);
 
@@ -83,7 +82,7 @@ describe("SPEC-feature-mobile-nav-v2", () => {
     ).toBeDefined();
   });
 
-  it("keeps the language switcher beside back on drill-in routes", () => {
+  it("hides the language chip on drill-in routes", () => {
     vi.mocked(usePathname).mockReturnValue("/words/review");
     render(<FloatingShellChrome languages={twoLanguages} />);
 
@@ -91,10 +90,8 @@ describe("SPEC-feature-mobile-nav-v2", () => {
       .getAllByRole("link")
       .filter((link) => link.getAttribute("href") === "/words");
     expect(wordsLinks).toHaveLength(2);
+    expect(screen.queryByRole("combobox", { name: copy.switchLanguage })).toBeNull();
     expect(screen.getByRole("navigation", { name: copy.mobileNavLabel })).toBeDefined();
-    expect(
-      screen.getByRole("combobox", { name: copy.switchLanguage }),
-    ).toBeDefined();
   });
 
   it("renders no digit in the mobile navigation", () => {

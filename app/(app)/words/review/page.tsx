@@ -1,4 +1,3 @@
-import Link from "next/link";
 import type { ReactNode } from "react";
 
 import { loadMethodCatalogue } from "@/features/method-menu/catalogue";
@@ -6,7 +5,7 @@ import { findMethod } from "@/features/method-menu/MethodDetail";
 import { ReviewSession } from "@/features/review-session/ReviewSession";
 import { copy } from "@/features/review-session/content";
 import { CARD_ENGINE_METHOD_ID } from "@/lib/method-session";
-import { routes } from "@/lib/routes";
+import { cn } from "@/lib/utils";
 
 /**
  * Thin route at `/words/review`. Contract: docs/specs/page/words-review.md
@@ -22,12 +21,13 @@ export default async function WordsReviewPage({
   searchParams: Promise<{ method?: string }>;
 }) {
   const { method: methodId } = await searchParams;
+  const isActiveSession = methodId === CARD_ENGINE_METHOD_ID;
 
   let session: ReactNode;
   if (!methodId) {
     session = <p className="mt-4 text-base text-muted">{copy.unknownMethod}</p>;
-  } else if (methodId === CARD_ENGINE_METHOD_ID) {
-    session = <ReviewSession methodName={copy.srsSessionName} />;
+  } else if (isActiveSession) {
+    session = <ReviewSession methodName={copy.srsSessionName} compact />;
   } else {
     const { catalogue } = loadMethodCatalogue();
     const method = findMethod(catalogue, methodId);
@@ -39,12 +39,23 @@ export default async function WordsReviewPage({
   }
 
   return (
-    <div className="mx-auto max-w-2xl px-6 pt-page-top pb-page-bottom">
-      <Link href={routes.methods} className="text-sm font-medium text-muted hover:text-ink">
-        ← {copy.backToMethods}
-      </Link>
-
-      <h1 className="mt-6 text-3xl font-semibold tracking-tight text-ink">{copy.title}</h1>
+    <div
+      className={cn(
+        "mx-auto max-w-2xl px-4 md:px-6 md:pt-page-top md:pb-page-bottom",
+        isActiveSession &&
+          "flex h-review-session flex-col overflow-hidden md:h-auto md:overflow-visible",
+      )}
+    >
+      <h1
+        className={cn(
+          "font-semibold tracking-tight text-ink",
+          isActiveSession
+            ? "sr-only"
+            : "mt-6 text-3xl",
+        )}
+      >
+        {copy.title}
+      </h1>
 
       {session}
     </div>
