@@ -1,4 +1,5 @@
 import { activeLanguageOf, listLearningLanguages } from "@/lib/db/learning-languages";
+import { loadFormRecallDeck } from "@/lib/form-recall-pool";
 import { loadMeaningRecallDeck, type StarterCard } from "@/lib/starter-deck";
 
 /**
@@ -41,6 +42,11 @@ export async function poolForScheduling(): Promise<LearnerPool> {
     if (deck.status !== "ok") continue;
     cards.push(...deck.deck.cards);
     languageCodes.push(language.languageCode);
+
+    const formDeck = loadFormRecallDeck(language.languageCode);
+    if (formDeck.status === "ok") {
+      cards.push(...formDeck.deck.cards);
+    }
   }
 
   if (cards.length === 0) {
@@ -63,5 +69,11 @@ export async function poolForDisplay(): Promise<LearnerPool> {
     return { status: "error", error: deck.errors.join("; ") };
   }
 
-  return { status: "ok", cards: deck.deck.cards, languageCodes: [active] };
+  const cards: StarterCard[] = [...deck.deck.cards];
+  const formDeck = loadFormRecallDeck(active);
+  if (formDeck.status === "ok") {
+    cards.push(...formDeck.deck.cards);
+  }
+
+  return { status: "ok", cards, languageCodes: [active] };
 }

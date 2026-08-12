@@ -71,8 +71,8 @@ export function validateStarterDeck(raw: unknown): LoadStarterDeckResult {
   };
 }
 
-/** Shipped Spanish meaning-recall pool size (stage 1). */
-export const SHIPPED_ES_POOL_SIZE = 500;
+/** Shipped Spanish meaning-recall pool size (stage 2). */
+export const SHIPPED_ES_POOL_SIZE = 2000;
 
 /**
  * Longest admissible card back. Mirrors `MAX_GLOSS_CHARS` in

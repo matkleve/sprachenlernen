@@ -15,16 +15,34 @@ const DAY = 86_400_000;
 const now = Date.UTC(2026, 7, 9);
 
 function reviewedTask(id: string, grades: Review["grade"][]) {
+  const taskId = id.includes(":meaning-recall") ? id : `${id}:meaning-recall`;
+  const wordId = taskId.replace(/:meaning-recall$/, "");
   const reviews: Review[] = grades.map((grade, index) => ({
     at: now - (grades.length - index) * 3 * DAY,
     grade,
   }));
-  return rebuild(id, `word:${id}`, reviews).task;
+  return rebuild(taskId, wordId, reviews).task;
+}
+
+function reviewedFormTask(id: string, grades: Review["grade"][]) {
+  const wordId = id.replace(/:[^:]+:form-recall$/, "");
+  const reviews: Review[] = grades.map((grade, index) => ({
+    at: now - (grades.length - index) * 3 * DAY,
+    grade,
+  }));
+  return rebuild(id, wordId, reviews).task;
 }
 
 const empty = readLevel([], now);
 const withHistory = readLevel(
-  [reviewedTask("t1", ["good", "good", "good"]), reviewedTask("t2", ["hard", "good"])],
+  [
+    reviewedTask("es:t1", ["good", "good", "good"]),
+    reviewedTask("es:t2", ["hard", "good"]),
+  ],
+  now,
+);
+const withFormHistory = readLevel(
+  [reviewedFormTask("es:hablar:habla:form-recall", ["easy", "easy", "easy"])],
   now,
 );
 
@@ -68,15 +86,17 @@ describe("ProgressReport", () => {
       screen.getByText(copy.vocabularyValue(vocabulary.value!, vocabulary.taskCount)),
     ).toBeDefined();
 
-    // study/03 § What a signal may and may not claim: a signal rendered as
-    // "Recall stability: A2" invents a level the model does not define.
-    //
-    // Scoped to the signals table, not the page. Written page-wide it went red
-    // the moment the dose band arrived, because that table's rows are *called*
-    // A1…B2 — and those are levels being costed, not signals being labelled.
-    // A page-wide ban on the letters would have been a rule nobody stated.
     const signalsTable = screen.getByRole("region", { name: copy.signalsCaption });
     expect(leafText(signalsTable)).not.toMatch(/\b[ABC][12](\.\d)?\b/);
+  });
+
+  it("shows form mastery when form-recall tasks have been reviewed", () => {
+    render(<ProgressReport reading={withFormHistory} />);
+
+    const formMastery = withFormHistory.signals.find((signal) => signal.id === "form-mastery")!;
+    expect(
+      screen.getByText(copy.formMasteryValue(formMastery.value!, formMastery.taskCount)),
+    ).toBeDefined();
   });
 
   it("shows the dose band with its borrowed label, and no numerator", () => {

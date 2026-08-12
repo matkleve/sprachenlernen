@@ -10,5 +10,8 @@ export const copy = {
   chooseFirst: "Choose a language",
   languagesError: "Could not load your languages.",
   switchError: "Could not switch language. Nothing changed.",
+  standing: (held: number, poolSize: number) =>
+    `${held} of ${poolSize} starter words held stably`,
+  viewProgress: "View on Progress",
   signOut: "Sign out",
 } as const;

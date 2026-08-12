@@ -17,11 +17,21 @@ const DAY = 86_400_000;
 const now = Date.UTC(2026, 7, 9);
 
 function reviewed(id: string, grades: Review["grade"][]): Task {
+  const taskId = id.includes(":meaning-recall") ? id : `${id}:meaning-recall`;
+  const wordId = taskId.replace(/:meaning-recall$/, "");
   const reviews: Review[] = grades.map((grade, index) => ({
     at: now - (grades.length - index) * 3 * DAY,
     grade,
   }));
-  return rebuild(id, `word:${id}`, reviews).task;
+  return rebuild(taskId, wordId, reviews).task;
+}
+
+function reviewedForm(id: string, grades: Review["grade"][]): Task {
+  const reviews: Review[] = grades.map((grade, index) => ({
+    at: now - (grades.length - index) * 3 * DAY,
+    grade,
+  }));
+  return rebuild(id, id.replace(/:[^:]+:form-recall$/, ""), reviews).task;
 }
 
 describe("skills", () => {
@@ -96,9 +106,9 @@ describe("layer-1 signals", () => {
 
   it("gives vocabulary size a pool-local held count once anything is reviewed", () => {
     const tasks = [
-      reviewed("t1", ["easy", "easy", "easy"]),
-      reviewed("t2", ["again", "good"]),
-      newTask("t3", "word:t3"),
+      reviewed("es:t1", ["easy", "easy", "easy"]),
+      reviewed("es:t2", ["again", "good"]),
+      newTask("es:t3:meaning-recall", "es:t3"),
     ];
 
     const vocabulary = readLevel(tasks, now).signals.find((s) => s.id === "vocabulary-size")!;
@@ -167,12 +177,57 @@ describe("layer-1 signals", () => {
     // study/25 C3 and study/03 honesty rule 1. A display that can only rise
     // is a score, not a measurement, and this is the only assertion that
     // distinguishes the two.
-    const strong = readLevel([reviewed("t1", ["easy", "easy", "easy"])], now);
-    const weak = readLevel([reviewed("t1", ["again", "again", "hard"])], now);
+    const strong = readLevel([reviewed("es:t1", ["easy", "easy", "easy"])], now);
+    const weak = readLevel([reviewed("es:t1", ["again", "again", "hard"])], now);
 
     const value = (reading: ReturnType<typeof readLevel>) =>
       reading.signals.find((s) => s.id === "recall-stability")!.value!;
 
     expect(value(weak)).toBeLessThan(value(strong));
+  });
+
+  it("counts only meaning-recall tasks toward vocabulary size", () => {
+    const tasks = [
+      reviewed("es:t1", ["easy", "easy", "easy"]),
+      reviewedForm("es:hablar:habla:form-recall", ["good", "good"]),
+      newTask("es:t2:meaning-recall", "es:t2"),
+    ];
+
+    const vocabulary = readLevel(tasks, now).signals.find((s) => s.id === "vocabulary-size")!;
+
+    expect(vocabulary.status).toBe("has-data");
+    expect(vocabulary.taskCount).toBe(2);
+  });
+
+  it("gives form mastery a pool-local held count once a form-recall task is reviewed", () => {
+    const tasks = [
+      reviewedForm("es:hablar:habla:form-recall", ["easy", "easy", "easy"]),
+      reviewedForm("es:ser:es:form-recall", ["again", "good"]),
+      newTask("es:hablar:habla:form-recall", "es:hablar"),
+    ];
+
+    const formMastery = readLevel(tasks, now).signals.find((s) => s.id === "form-mastery")!;
+
+    expect(formMastery.status).toBe("has-data");
+    expect(formMastery.taskCount).toBe(3);
+    expect(formMastery.value).toBeGreaterThanOrEqual(0);
+    expect(formMastery.value).toBeLessThanOrEqual(3);
+  });
+
+  it("reports no-data for form mastery until a form-recall task is reviewed", () => {
+    const tasks = [reviewed("es:t1", ["good", "good"])];
+
+    const formMastery = readLevel(tasks, now).signals.find((s) => s.id === "form-mastery")!;
+
+    expect(formMastery.status).toBe("no-data");
+  });
+
+  it("never counts meaning-recall tasks toward form mastery", () => {
+    const tasks = [reviewed("es:t1", ["easy", "easy", "easy"])];
+
+    const formMastery = readLevel(tasks, now).signals.find((s) => s.id === "form-mastery")!;
+
+    expect(formMastery.status).toBe("no-data");
+    expect(formMastery.value).toBeNull();
   });
 });

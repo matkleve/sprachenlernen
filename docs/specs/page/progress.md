@@ -20,7 +20,9 @@ the existing RLS policy. A reviewer may escalate.
   [`../service/dose-band.md`](../service/dose-band.md).
 - **In, second half:** the **pool-local vocabulary reading** — how many lemmas in
   the shipped starter pool are held stably, with no extrapolation across the
-  language's frequency list (F17, narrowed — see Data).
+  language's frequency list (F17, narrowed — see Data); the **pool-local
+  form-mastery reading** — how many form-recall Tasks are held stably
+  ([`form-mastery-signal.md`](../service/form-mastery-signal.md)).
 - **Out:** language-wide vocabulary extrapolation and the CEFR level display it
   would feed (F18–F22) — see Open questions; trend over 30/90/365 days (V1) and every other
   comparison in [`study/03`](../../study/03-level-model.md) V2–V4; the dose
@@ -37,7 +39,7 @@ same reason not to invent a card.
 | --- | --- | --- |
 | 1 | Opens `/progress` | Four skills — reading, listening, speaking, writing — each with its status and, where the status is *not measured*, the route that would produce data for it |
 | 2 | Looks for an overall level | The page says there is none and why: the formula needs at least two counting skills ([`study/03`](../../study/03-level-model.md) Layer 3) and today no skill counts |
-| 3 | Looks at what *is* recorded | The layer-1 signals that have data, each as a **value with a status, never a level** — recall stability across reviewed tasks, and vocabulary size as lemmas held stably in the starter pool |
+| 3 | Looks at what *is* recorded | The layer-1 signals that have data, each as a **value with a status, never a level** — recall stability across reviewed tasks, vocabulary size as lemmas held stably in the meaning-recall pool, and form mastery as surface forms held stably in the form-recall pool |
 | 4 | Has never reviewed anything | Every skill still reads *not measured*; the signals section says no data has been recorded yet, and links to the review session |
 | 5 | Cannot load their history | The error surface (SPEC-service-errors), not an empty page that reads as "no progress" |
 | 6 | Has not chosen a language yet | Redirects to the picker. "Not measured" is a statement about a learner who was asked; this one has not been ([`../service/learning-languages.md`](../service/learning-languages.md)) |
@@ -82,8 +84,12 @@ signal starts arriving.
       stability appears as a value with a status and its derivation named, and
       it is not labelled with a CEFR level (`study/03` § What a signal may claim).
 - [ ] Given review history, when the signals section renders, then estimated
-      vocabulary size appears as lemmas held stably in the starter pool, names
-      the pool size, and states that no language-wide extrapolation is shown.
+      vocabulary size appears as lemmas held stably in the meaning-recall pool,
+      names the pool size, and states that no language-wide extrapolation is
+      shown.
+- [ ] Given form-recall review history, when the signals section renders, then
+      form mastery appears as forms held stably in the form-recall pool, names
+      the pool size, and states that it is separate from vocabulary size.
 - [ ] Given review history where no lemma is held stably, when vocabulary size
       renders, then the held count may be zero and the page still names the
       pool — zero is a measurement, not an empty state.
@@ -107,8 +113,8 @@ added up across two would be a number about neither.
 
 The full estimator extrapolates SRS holdings over **frequency rank** across the
 language ([`study/03`](../../study/03-level-model.md) § Why vocabulary size is
-load-bearing). The shipped pool is **500** lemmas — extrapolation from it is still
-claim about Spanish made from one session, so it is **withheld**.
+load-bearing). The shipped pool is **2000** lemmas — still short of a calibrated
+language-wide boundary estimate, so extrapolation is **withheld**.
 
 What ships instead: count lemmas in the starter pool whose stability exceeds the
 graduation threshold (`vocabulary-snapshot`'s `held` bucket). `taskCount` on the

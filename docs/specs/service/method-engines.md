@@ -44,7 +44,9 @@ hosted; one engine is built.
 | Home surface | [`words-home.md`](../feature/words-home.md) at `/words` |
 
 Future card-based Methods (form recall, audio recall, cloze …) extend this
-engine on the same route until a Method needs a different runner.
+engine on the same route. **Form-recall** Tasks ship in
+[`form-recall-pool.md`](form-recall-pool.md) — staged after meaning-recall is
+held for the same Word.
 
 ## Routing
 
@@ -73,8 +75,13 @@ until their engines ship — not a bug in the catalogue.
 
 Order is load-bearing — see IMPLEMENTATION-PLAN § Track B engine phase:
 
-1. ~~Spanish starter pool (500 lemmas)~~ — shipped
-2. Form→lemma tables with paradigm cells — **the table half already ships** (97.5% of Spanish verb paradigms carry their cell). What is missing is the Task type and the engine: [`form-practice.md`](form-practice.md), blocked on two decisions named there
+1. ~~Spanish starter pool (2000 lemmas)~~ — shipped
+2. Form→lemma tables with paradigm cells — pool and signal shipped
+   ([`form-recall-pool.md`](form-recall-pool.md),
+   [`form-mastery-signal.md`](form-mastery-signal.md)). The **practice design**
+   — introduction order, session mixing, answer routes — is
+   [`form-practice.md`](form-practice.md), and it is still blocked on two
+   decisions named there
 3. T-B3 remainder (extrapolation + per-skill levels)
 4. Offline / PWA
 5. T-B10b remainder (demonstration sentence, readiness)

@@ -2,6 +2,7 @@ import { ActionLink } from "@/components/ui/ActionLink";
 import { SubmitButton } from "@/components/ui/SubmitButton";
 import { languageLabel } from "@/lib/languages";
 import { copy } from "@/features/profile/content";
+import type { LanguageHoldings } from "@/lib/db/language-holdings";
 import type { ListLanguagesOutcome } from "@/lib/db/learning-languages";
 import { routes } from "@/lib/routes";
 
@@ -14,12 +15,13 @@ import { routes } from "@/lib/routes";
 
 export type ProfileLanguagesProps = {
   outcome: ListLanguagesOutcome;
+  holdings?: Record<string, LanguageHoldings>;
   /** A switch that failed, so the learner is told rather than left guessing. */
   switchFailed?: boolean;
   switchTo: (code: string) => Promise<void>;
 };
 
-export function ProfileLanguages({ outcome, switchFailed, switchTo }: ProfileLanguagesProps) {
+export function ProfileLanguages({ outcome, holdings, switchFailed, switchTo }: ProfileLanguagesProps) {
   return (
     <section className="mt-page-content">
       <h2 className="text-xl font-semibold text-ink">{copy.languagesHeading}</h2>
@@ -51,6 +53,7 @@ export function ProfileLanguages({ outcome, switchFailed, switchTo }: ProfileLan
           <ul className="mt-6 grid gap-3">
             {outcome.languages.map((language) => {
               const names = languageLabel(language.languageCode);
+              const standing = holdings?.[language.languageCode];
               return (
                 <li
                   key={language.languageCode}
@@ -63,6 +66,16 @@ export function ProfileLanguages({ outcome, switchFailed, switchTo }: ProfileLan
                     <p className="text-sm text-muted">
                       {names.english}
                     </p>
+                    {standing?.heldCount !== null &&
+                    standing?.heldCount !== undefined &&
+                    standing.poolSize !== null ? (
+                      <p className="mt-2 text-sm text-muted">
+                        {copy.standing(standing.heldCount, standing.poolSize)}{" "}
+                        <ActionLink href={routes.progress} className="text-sm">
+                          {copy.viewProgress}
+                        </ActionLink>
+                      </p>
+                    ) : null}
                   </div>
 
                   {language.isActive ? (

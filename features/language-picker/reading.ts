@@ -1,4 +1,5 @@
 import type { LanguageTile } from "@/features/language-picker/LanguagePicker";
+import { readLanguageHoldings } from "@/lib/db/language-holdings";
 import { listLearningLanguages } from "@/lib/db/learning-languages";
 import { loadMeaningRecallDeck } from "@/lib/starter-deck";
 
@@ -26,15 +27,18 @@ export async function readPicker(): Promise<PickerOutcome> {
 
   const learned = new Set(learning.languages.map((language) => language.languageCode));
 
+  const holdings = await readLanguageHoldings([...KNOWN_LANGUAGES]);
+  if (holdings.status === "error") {
+    return { status: "error", error: holdings.error };
+  }
+
   const tiles = KNOWN_LANGUAGES.map((code) => {
     const deck = loadMeaningRecallDeck(code);
+    const held = holdings.byCode[code];
     return {
       code,
       poolSize: deck.status === "ok" ? deck.deck.cards.length : null,
-      // Per-language holdings need the progress reading to take a language,
-      // which is a separate step. Showing a count from the wrong language would
-      // be worse than showing none, so this stays null until that lands.
-      heldCount: null,
+      heldCount: held?.heldCount ?? null,
       alreadyLearning: learned.has(code),
     };
   });

@@ -1,7 +1,9 @@
 "use server";
 
+import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
+import { setActiveLanguage } from "@/lib/db/learning-languages";
 import { signOut } from "@/lib/db/auth";
 import { routes } from "@/lib/routes";
 
@@ -20,4 +22,11 @@ export async function signOutAction(): Promise<void> {
   const result = await signOut();
   if (result.status === "error") throw new Error(result.error);
   redirect(routes.landing);
+}
+
+/** Switches the interface's active learning language and refreshes the shell. */
+export async function switchActiveLanguageAction(languageCode: string): Promise<void> {
+  const result = await setActiveLanguage(languageCode);
+  if (result.status === "error") throw new Error(result.error);
+  revalidatePath("/", "layout");
 }

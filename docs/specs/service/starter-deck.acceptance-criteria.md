@@ -3,7 +3,7 @@
 <!-- parent: SPEC-service-starter-deck -->
 
 - [ ] Given the shipped `es-meaning-recall.json`, when
-      `loadSpanishMeaningRecallDeck` runs, then it returns **500** cards with
+      `loadSpanishMeaningRecallDeck` runs, then it returns **2000** cards with
       unique `taskId`s, unique lemmas, consecutive `frequencyRank`s from 1, and
       language `es`.
 - [ ] Given the first card, then `frequencyRank` is 1 and `taskId` is
@@ -24,7 +24,7 @@
       the build script is not part of `npm run verify`.
 - [ ] Given the build script and its gloss sources, when
       `node scripts/build-starter-deck.mjs` runs, then it regenerates the JSON
-      and every one of the 500 cards has a gloss.
+      and every one of the 2000 cards has a gloss.
 - [ ] Given a machine gloss that shapes to empty, to over 60 characters, to the
       lemma without a cognate entry, or to a grammar note, when the build runs,
       then it **fails** naming that lemma rather than shipping the card.

@@ -7,6 +7,7 @@ import { cn } from "@/lib/utils";
 
 import { Destinations } from "./Destinations";
 import { FloatingShellChrome } from "./FloatingShellChrome";
+import { LanguageSwitcher, type LanguageSwitcherOption } from "./LanguageSwitcher";
 import { copy } from "./content";
 
 /**
@@ -21,12 +22,21 @@ import { copy } from "./content";
  * navigation in every form, and the enforcement is that the data never arrives
  * rather than that somebody remembers not to render it.
  */
-export function AppShell({ children }: { children: ReactNode }) {
+export function AppShell({
+  children,
+  languages,
+}: {
+  children: ReactNode;
+  languages: readonly LanguageSwitcherOption[];
+}) {
   return (
     <div className="min-h-dvh">
       <header className="hidden border-b border-line bg-surface md:block">
         <div className="mx-auto flex max-w-5xl items-center justify-between gap-4 px-6 py-3">
-          <Destinations />
+          <div className="flex min-w-0 flex-1 items-center gap-4">
+            <LanguageSwitcher languages={languages} layout="inline" />
+            <Destinations />
+          </div>
           {/* Same affordance as the mobile corner chip: the account is a link,
               and sign out lives inside it on /profile (ADR-0009). */}
           <ActionLink href={routes.profile} variant="ghost" size="sm" className="gap-1.5">
@@ -36,7 +46,7 @@ export function AppShell({ children }: { children: ReactNode }) {
         </div>
       </header>
 
-      <FloatingShellChrome />
+      <FloatingShellChrome languages={languages} />
 
       <main
         id="main"

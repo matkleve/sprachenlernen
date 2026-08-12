@@ -7,6 +7,7 @@ import {
   sessionBuildFailed,
 } from "@/lib/errors";
 import { buildSession, type SessionCard } from "@/lib/session-builder";
+import { filterSchedulableCards } from "@/lib/form-recall-staging";
 import { poolForScheduling } from "@/lib/db/learner-pools";
 import { languageLabel } from "@/lib/languages";
 import type { Grade } from "@/lib/scheduler";
@@ -76,7 +77,8 @@ export async function buildSessionAction(): Promise<BuildSessionOutcome> {
       (reviewsByTaskId[row.taskId] ??= []).push(review);
     }
 
-    const queue = buildSession(pool.cards, reviewsByTaskId, Date.now());
+    const schedulable = filterSchedulableCards(pool.cards, reviewsByTaskId);
+    const queue = buildSession(schedulable, reviewsByTaskId, Date.now());
     return { status: "ok", queue, languageName };
   } catch (cause) {
     const handled = sessionBuildFailed(

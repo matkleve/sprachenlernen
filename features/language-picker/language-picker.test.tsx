@@ -3,12 +3,13 @@ import { describe, expect, it, vi } from "vitest";
 
 import { LanguagePicker, type LanguageTile } from "@/features/language-picker/LanguagePicker";
 import { copy } from "@/features/language-picker/content";
+import { SHIPPED_ES_POOL_SIZE } from "@/lib/starter-deck";
 
 /** Contract: docs/specs/page/language-picker.md */
 
 const spanish: LanguageTile = {
   code: "es",
-  poolSize: 500,
+  poolSize: SHIPPED_ES_POOL_SIZE,
   heldCount: null,
   alreadyLearning: false,
 };
@@ -28,7 +29,7 @@ describe("LanguagePicker", () => {
 
     expect(screen.getByText("Español")).toBeDefined();
     expect(screen.getByText("Spanish")).toBeDefined();
-    expect(screen.getByText(copy.notStarted(500))).toBeDefined();
+    expect(screen.getByText(copy.notStarted(SHIPPED_ES_POOL_SIZE))).toBeDefined();
     expect(screen.getByRole("button", { name: copy.choose })).toBeDefined();
   });
 
@@ -51,7 +52,7 @@ describe("LanguagePicker", () => {
   it("shows zero held as a measurement, not an empty state", () => {
     render(<LanguagePicker tiles={[{ ...spanish, heldCount: 0 }]} choose={choose} />);
 
-    expect(screen.getByText(copy.held(0, 500))).toBeDefined();
+    expect(screen.getByText(copy.held(0, SHIPPED_ES_POOL_SIZE))).toBeDefined();
   });
 
   it("renders the error and stays usable", () => {

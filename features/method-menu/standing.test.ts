@@ -10,11 +10,13 @@ const DAY = 86_400_000;
 const now = Date.UTC(2026, 7, 9);
 
 function reviewed(id: string, grades: Review["grade"][]) {
+  const taskId = id.includes(":meaning-recall") ? id : `${id}:meaning-recall`;
+  const wordId = taskId.replace(/:meaning-recall$/, "");
   const reviews: Review[] = grades.map((grade, index) => ({
     at: now - (grades.length - index) * 3 * DAY,
     grade,
   }));
-  return rebuild(id, `word:${id}`, reviews).task;
+  return rebuild(taskId, wordId, reviews).task;
 }
 
 describe("standingFromReading", () => {
@@ -25,7 +27,7 @@ describe("standingFromReading", () => {
   it("returns recorded with pool-local held count when history exists", () => {
     const summary = standingFromReading(
       readLevel(
-        [reviewed("t1", ["easy", "easy", "easy"]), reviewed("t2", ["good", "good"]), newTask("t3", "w")],
+        [reviewed("es:t1", ["easy", "easy", "easy"]), reviewed("es:t2", ["good", "good"]), newTask("es:t3:meaning-recall", "es:t3")],
         now,
       ),
     );

@@ -6,6 +6,7 @@ import {
   showsBack,
 } from "@/features/review-session/session-machine";
 import type { SessionCard } from "@/lib/session-builder";
+import { isFormRecallTaskId } from "@/lib/form-recall-pool";
 import { GRADES, type Grade } from "@/lib/scheduler";
 import { cn } from "@/lib/utils";
 
@@ -32,6 +33,7 @@ export function ReviewCard({
   const flipEnabled = canFlip(phase);
   const gradesEnabled = canGrade(phase);
   const revealBack = showsBack(phase);
+  const gradePrompt = isFormRecallTaskId(card.taskId) ? copy.formRecallPrompt : copy.prompt;
 
   return (
     <div className="mx-auto max-w-md">
@@ -85,7 +87,7 @@ export function ReviewCard({
 
       {gradesEnabled && (
         <>
-          <p className="mt-6 text-sm text-muted">{copy.prompt}</p>
+          <p className="mt-6 text-sm text-muted">{gradePrompt}</p>
 
           <div className="mt-4 grid w-full grid-cols-4 gap-2">
             {GRADES.map((grade) => (
