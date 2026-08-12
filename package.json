@@ -14,6 +14,7 @@
     "check:specs": "node scripts/check-specs.mjs",
     "check:tokens": "node scripts/check-tokens.mjs",
     "check:contrast": "node scripts/check-contrast.mjs",
+    "check:neighbors": "node --experimental-strip-types scripts/check-neighbor-candidates.mjs",
     "verify": "node scripts/verify.mjs",
     "new:spec": "node scripts/new-spec.mjs",
     "build:starter-deck": "node scripts/build-starter-deck.mjs"
