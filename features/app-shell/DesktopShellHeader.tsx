@@ -31,18 +31,24 @@ export function DesktopShellHeader({
         headerBackdropClass(scrolled),
       )}
     >
-      <div className="relative mx-auto flex max-w-5xl items-center justify-between gap-4 px-6 py-3">
-        <div className="flex min-w-0 flex-1 items-center gap-4">
-          <LanguageSwitcher languages={languages} layout="inline" />
-          <Destinations />
+      <div className="relative mx-auto max-w-5xl px-6 pt-3">
+        <div className="relative flex items-center justify-between gap-4">
+          <div className="flex min-w-0 flex-1 items-center gap-4">
+            <LanguageSwitcher languages={languages} layout="inline" />
+            <Destinations />
+          </div>
+
+          {scrolled ? <ShellPageTitle compact variant="desktop" /> : null}
+
+          <ActionLink href={routes.profile} variant="ghost" size="sm" className="gap-1.5">
+            <UserRound aria-hidden className="size-4 shrink-0" />
+            {copy.account}
+          </ActionLink>
         </div>
 
-        <ShellPageTitle />
-
-        <ActionLink href={routes.profile} variant="ghost" size="sm" className="gap-1.5">
-          <UserRound aria-hidden className="size-4 shrink-0" />
-          {copy.account}
-        </ActionLink>
+        {!scrolled ? (
+          <ShellPageTitle compact={false} variant="desktop" className="px-0" />
+        ) : null}
       </div>
     </header>
   );

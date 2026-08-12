@@ -7,6 +7,7 @@ import { routes } from "@/lib/routes";
 
 import { holding } from "./content";
 import { shellPageTitle } from "./page-title";
+import { shellHeaderStartsCompact } from "./ShellPageTitle";
 
 describe("shellPageTitle", () => {
   it("returns the destination title on each root route", () => {
@@ -21,5 +22,10 @@ describe("shellPageTitle", () => {
 
   it("returns the method name on a method detail route", () => {
     expect(shellPageTitle("/methods/srs-session")).toBe("Spaced repetition session");
+  });
+
+  it("starts compact on the review route", () => {
+    expect(shellHeaderStartsCompact(routes.wordsReview)).toBe(true);
+    expect(shellHeaderStartsCompact(routes.words)).toBe(false);
   });
 });

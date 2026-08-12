@@ -46,8 +46,8 @@ sign-out control that had no signed-in navigation to live in. That control is no
 | 8 | Viewport &lt; `md` while signed in | Floating bottom pill + top-right account chip; no full-width header bar ([`mobile-nav-v2.md`](mobile-nav-v2.md)) |
 | 9 | Viewport ≥ `md` while signed in | Horizontal destination nav + inline account link in header; no floating chrome |
 | 10 | Has more than one learning language on any viewport | A language switcher in the desktop header (left of the destinations) switches the active language in one action (UC-025) |
-| 11 | Scrolls page content on desktop | The sticky header gains a frosted blur over scrolling content |
-| 12 | On any signed-in route | The page title appears centered in the header bar |
+| 11 | Scrolls page content on desktop | The sticky header gains a frosted blur; the page title shrinks from large to compact |
+| 12 | On any signed-in route | The page title is centered in the header — large at the top of the page, compact after scroll |
 
 ## States
 
@@ -117,7 +117,7 @@ visual one: the shell is never given a number, so it cannot render one.
 - [ ] Given a signed-in Account with more than one learning language, then a
       language switcher is reachable from the shell without opening `/profile`.
 - [ ] Given a signed-in Account on `/words`, then the shell header shows the page
-      title "Words" centered horizontally.
+      title "Words" centered and large before scroll, and compact after scroll.
 - [ ] Given a signed-in Account, then an account link to `/profile` is present,
       and the shell itself renders no sign-out control — signing out is reached
       through the account link ([`../page/profile.md`](../page/profile.md)).

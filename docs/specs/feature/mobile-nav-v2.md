@@ -38,8 +38,8 @@ Progress (ADR-0009). **No due-count badges** (UC-063).
 | 6 | Taps back float | Navigates to parent destination (`href`, not blind history) |
 | 7 | Has more than one learning language | Top-left icon opens the language list; choosing one makes it active and refreshes the current page — one action (UC-025) |
 | 8 | Has exactly one learning language | Top-left shows a non-interactive language icon with the endonym in `aria-label` |
-| 9 | Scrolls page content | Floats stay visible; content clears floats via shell padding; the top bar gains a frosted blur behind it |
-| 10 | On any signed-in route | The page title appears centered in the top bar (mobile floats and desktop header) |
+| 9 | Scrolls page content | Floats stay fixed; content scrolls beneath; the top bar gains a frosted blur and the page title shrinks from large to compact |
+| 10 | On any signed-in route | The page title appears centered in the top bar — large at the top of the page, compact after scroll (mobile floats and desktop header) |
 
 ## Back targets
 
@@ -85,7 +85,8 @@ in `app/globals.css`.
       phone height (card + grades visible together).
 - [ ] Given viewport &lt; `md` on `/words`, when the learner scrolls, then the
       top bar shows a frosted blur over scrolling content and the page title
-      "Words" is centered between the corner chips.
+      shrinks from large to compact while staying centered between the corner
+      chips.
 - [ ] Given any viewport, then exactly three pill segments — no fourth, no
       due-count digit (UC-063 negative).
 - [ ] Given viewport ≥ `md`, then horizontal destination nav renders without

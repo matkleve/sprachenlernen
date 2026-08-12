@@ -11,7 +11,7 @@ import { cn } from "@/lib/utils";
 import { shellBackTarget } from "./back-target";
 import { DestinationNavItems } from "./DestinationNavItems";
 import { LanguageSwitcher, type LanguageSwitcherOption } from "./LanguageSwitcher";
-import { ShellPageTitle } from "./ShellPageTitle";
+import { ShellPageTitle, shellHeaderStartsCompact } from "./ShellPageTitle";
 import { copy } from "./content";
 import { headerBackdropClass } from "./header-chrome";
 import { useScrolled } from "./useScrolled";
@@ -36,6 +36,8 @@ export function FloatingShellChrome({
   const pathname = usePathname();
   const back = shellBackTarget(pathname);
   const scrolled = useScrolled();
+  const startsCompact = shellHeaderStartsCompact(pathname);
+  const compact = startsCompact || scrolled;
 
   return (
     <>
@@ -47,40 +49,43 @@ export function FloatingShellChrome({
       >
         <div
           className={cn(
-            "relative flex min-h-11 items-center justify-between gap-3 px-4 pb-3",
+            "relative flex min-h-11 items-center justify-between gap-3 px-4",
             safeTop,
+            compact ? "pb-3" : "",
           )}
         >
           <div className="pointer-events-auto flex min-h-11 min-w-0 items-center gap-2">
-          {back ? (
-            <ActionLink
-              href={back.href}
-              variant="floating"
-              size="sm"
-              className="gap-1.5"
-            >
-              <ArrowLeft aria-hidden className="size-4 shrink-0" />
-              {back.label}
-            </ActionLink>
-          ) : (
-            <LanguageSwitcher languages={languages} layout="floating" />
-          )}
+            {back ? (
+              <ActionLink
+                href={back.href}
+                variant="floating"
+                size="sm"
+                className="gap-1.5"
+              >
+                <ArrowLeft aria-hidden className="size-4 shrink-0" />
+                {back.label}
+              </ActionLink>
+            ) : (
+              <LanguageSwitcher languages={languages} layout="floating" />
+            )}
           </div>
 
-          <ShellPageTitle />
+          {compact ? <ShellPageTitle compact variant="mobile" /> : null}
 
           <div className="pointer-events-auto">
-          <ActionLink
-            href={routes.profile}
-            variant="floating"
-            size="sm"
-            className={cornerIconChipClass}
-            aria-label={copy.account}
-          >
-            <UserRound aria-hidden className="size-5 shrink-0" />
-          </ActionLink>
+            <ActionLink
+              href={routes.profile}
+              variant="floating"
+              size="sm"
+              className={cornerIconChipClass}
+              aria-label={copy.account}
+            >
+              <UserRound aria-hidden className="size-5 shrink-0" />
+            </ActionLink>
           </div>
         </div>
+
+        {!compact ? <ShellPageTitle compact={false} variant="mobile" /> : null}
       </div>
 
       <nav
