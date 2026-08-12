@@ -18,13 +18,16 @@ export type LanguageLabel = {
   endonym: string;
   /** For a reader who does not recognise the endonym yet. */
   english: string;
-  /** Compact chip glyph on mobile — not a country flag used as the identifier. */
-  emoji: string;
+  /**
+   * Compact chip glyph on mobile — decorative emoji, not the primary identifier
+   * (profile.md, language-picker.md).
+   */
+  flag: string;
 };
 
 const LABELS: Record<string, LanguageLabel> = {
-  es: { endonym: "Español", english: "Spanish", emoji: "🇪🇸" },
-  it: { endonym: "Italiano", english: "Italian", emoji: "🇮🇹" },
+  es: { endonym: "Español", english: "Spanish", flag: "🇪🇸" },
+  it: { endonym: "Italiano", english: "Italian", flag: "🇮🇹" },
 };
 
 /**
@@ -33,7 +36,7 @@ const LABELS: Record<string, LanguageLabel> = {
  * database before this map is a real one.
  */
 export function languageLabel(code: string): LanguageLabel {
-  return LABELS[code] ?? { endonym: code, english: code, emoji: "🌐" };
+  return LABELS[code] ?? { endonym: code, english: code, flag: "🌐" };
 }
 
 /** The codes this map knows — for the test that pins it to the shipped data. */

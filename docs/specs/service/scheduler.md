@@ -113,6 +113,17 @@ memory state as truth. That is what makes recalibration honest rather than a
 migration ([`../../study/03-level-model.md`](../../study/03-level-model.md),
 rule 4) — and it is the property AC-9 checks.
 
+### Config thresholds (owned by `DEFAULT_CONFIG`)
+
+| Field | Default | Used for |
+| --- | --- | --- |
+| `graduationStability` | 1 day | Scheduler: `learning` → `review` |
+| `heldStabilityThreshold` | 7 days | Vocabulary counts, form-recall staging (`isTaskHeld`) |
+| `matureStabilityThreshold` | 21 days | Atlas `mature` tier on held tasks |
+
+Graduation and held answer different questions. Changing held thresholds is a
+**calibration event** — counts move without any new reviews (2026-08-12).
+
 ## Acceptance criteria
 
 Seventeen, in [`scheduler.acceptance-criteria.md`](scheduler.acceptance-criteria.md).

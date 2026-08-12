@@ -1,6 +1,6 @@
 import type { LanguageTile } from "@/features/language-picker/LanguagePicker";
 import { readLanguageHoldings } from "@/lib/db/language-holdings";
-import { listLearningLanguages } from "@/lib/db/learning-languages";
+import { activeLanguageOf, listLearningLanguages } from "@/lib/db/learning-languages";
 import { loadMeaningRecallDeck } from "@/lib/starter-deck";
 
 /**
@@ -26,6 +26,7 @@ export async function readPicker(): Promise<PickerOutcome> {
   }
 
   const learned = new Set(learning.languages.map((language) => language.languageCode));
+  const activeCode = activeLanguageOf(learning.languages);
 
   const holdings = await readLanguageHoldings([...KNOWN_LANGUAGES]);
   if (holdings.status === "error") {
@@ -40,6 +41,7 @@ export async function readPicker(): Promise<PickerOutcome> {
       poolSize: deck.status === "ok" ? deck.deck.cards.length : null,
       heldCount: held?.heldCount ?? null,
       alreadyLearning: learned.has(code),
+      isActive: code === activeCode,
     };
   });
 

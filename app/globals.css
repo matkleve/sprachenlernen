@@ -82,11 +82,13 @@
   --spacing-page-bottom: 6rem;
   --spacing-page-content: 2.5rem;
   /* Mobile floating shell chrome — back/sign-out top, destination pill bottom */
+  --spacing-shell-float-top-compact: 3.5rem;
+  --spacing-shell-float-top-expanded: 6.5rem;
   --spacing-shell-float-top: 3.5rem;
   --spacing-shell-float-bottom: 5rem;
   /* Active review session — one screen between floating chrome on mobile */
   --height-review-session: calc(
-    100dvh - var(--spacing-shell-float-top) - var(--spacing-shell-float-bottom)
+    100dvh - var(--spacing-shell-float-top-compact) - var(--spacing-shell-float-bottom)
   );
 
   /* Type. next/font on <html> overrides these fallbacks at runtime. */
@@ -105,6 +107,11 @@
   --text-2xl--line-height: 1.25;
   --text-3xl--line-height: 1.2;
   --text-4xl--line-height: 1.1;
+
+  /* Stacking — language switcher popover sits above shell chrome (z-50). */
+  --z-index-language-switcher-scrim: 100;
+  --z-index-language-switcher-menu: 101;
+  --z-index-language-switcher-trigger: 102;
 }
 
 /* ---------------------------------------------------------------------------
@@ -237,4 +244,27 @@
       scroll-behavior: auto !important;
     }
   }
+}
+
+/* Header scroll scrim — blur and tint strongest at the top, transparent at the bottom. */
+.header-scrim-blur {
+  backdrop-filter: blur(12px);
+  /* Mask luminance only — not a visible color. */
+  -webkit-mask-image: linear-gradient(to bottom, #000 55%, transparent 100%);
+  mask-image: linear-gradient(to bottom, #000 55%, transparent 100%);
+}
+
+.header-scrim-tint {
+  background: linear-gradient(
+    to bottom,
+    color-mix(in srgb, var(--color-surface) 82%, transparent) 0%,
+    color-mix(in srgb, var(--color-surface) 38%, transparent) 52%,
+    transparent 100%
+  );
+}
+
+/* Language switcher popover — full-viewport scrim behind stacked language cards. */
+.language-switcher-scrim {
+  background: color-mix(in srgb, var(--color-ink) 35%, transparent);
+  backdrop-filter: blur(12px);
 }

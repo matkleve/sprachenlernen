@@ -1,9 +1,14 @@
 /** Copy for the profile surface. Contract: docs/specs/page/profile.md */
 export const copy = {
   title: "Profile",
+  spokenHeading: "Language you speak",
+  spokenCaption:
+    "Menus, buttons, and the text that describes words on cards. Changing this does not reset your learning progress.",
+  spokenError: "Could not load your spoken language.",
+  spokenChangeError: "Could not change your spoken language. Nothing changed.",
   languagesHeading: "Languages",
   languagesCaption: "What you are learning. The one in focus decides what the app shows you.",
-  active: "In focus",
+  active: "Active",
   makeActive: "Switch to this",
   addLanguage: "Add a language",
   noneYet: "You have not chosen a language yet.",

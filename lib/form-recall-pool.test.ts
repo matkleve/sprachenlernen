@@ -13,7 +13,7 @@ import { filterSchedulableCards } from "@/lib/form-recall-staging";
 import { loadSpanishMeaningRecallDeck } from "@/lib/starter-deck";
 import { loadLemmaTable } from "@/lib/lemma-table";
 import { applyReview, newTask as schedulerNewTask } from "@/lib/scheduler";
-import { bucketForTask } from "@/lib/vocabulary-snapshot";
+import { bucketForTask, isTaskHeld } from "@/lib/vocabulary-snapshot";
 
 describe("form-recall pool", () => {
   it("loads the shipped Spanish form-recall pool", () => {
@@ -86,9 +86,10 @@ describe("form-recall staging", () => {
     );
     expect(blocked.map((card) => card.taskId)).toEqual([hablarMeaning.taskId]);
 
-    meaningTask = applyReview(meaningTask, "easy", now - 86_400_000).task;
-    meaningTask = applyReview(meaningTask, "good", now - 43_200_000).task;
-    expect(bucketForTask(meaningTask)).toBe("held");
+    meaningTask = applyReview(meaningTask, "easy", now - 15 * 86_400_000).task;
+    meaningTask = applyReview(meaningTask, "good", now - 10 * 86_400_000).task;
+    meaningTask = applyReview(meaningTask, "good", now - 5 * 86_400_000).task;
+    expect(isTaskHeld(meaningTask)).toBe(true);
 
     const open = filterSchedulableCards(
       [hablarMeaning, hablarForm],

@@ -235,6 +235,109 @@ describe.skipIf(!hasLiveProject)("review_log row-level security", () => {
     expect(error).not.toBeNull();
   });
 
+  // --- profiles -------------------------------------------------------------
+
+  async function clearProfiles() {
+    await admin.from("profiles").delete().in("user_id", [userA.id, userB.id]);
+  }
+
+  it("lets a signed-in user insert and read their own profiles row", async () => {
+    await clearProfiles();
+    const asA = await signInAs(userA.email);
+
+    const { error: insertError } = await asA
+      .from("profiles")
+      .insert({ user_id: userA.id, spoken_language: "de" });
+    expect(insertError).toBeNull();
+
+    const { data, error } = await asA.from("profiles").select("spoken_language");
+    expect(error).toBeNull();
+    expect(data).toHaveLength(1);
+    expect(data?.[0]?.spoken_language).toBe("de");
+  });
+
+  it("never returns another user's profiles row", async () => {
+    await clearProfiles();
+    const asA = await signInAs(userA.email);
+    await asA.from("profiles").insert({ user_id: userA.id, spoken_language: "en" });
+
+    const asB = await signInAs(userB.email);
+    const { data, error } = await asB.from("profiles").select("*");
+
+    expect(error).toBeNull();
+    expect(data).toEqual([]);
+  });
+
+  it("refuses to insert a profiles row owned by someone else", async () => {
+    await clearProfiles();
+    const asB = await signInAs(userB.email);
+
+    const { error } = await asB
+      .from("profiles")
+      .insert({ user_id: userA.id, spoken_language: "en" });
+
+    expect(error).not.toBeNull();
+  });
+
+  it("cannot update another user's spoken language", async () => {
+    await clearProfiles();
+    const asA = await signInAs(userA.email);
+    await asA.from("profiles").insert({ user_id: userA.id, spoken_language: "en" });
+
+    const asB = await signInAs(userB.email);
+    await asB.from("profiles").update({ spoken_language: "de" }).eq("user_id", userA.id);
+
+    const { data } = await asA.from("profiles").select("spoken_language");
+    expect(data?.[0]?.spoken_language).toBe("en");
+  });
+
+  // --- card_content_flag ----------------------------------------------------
+
+  async function clearFlags() {
+    await admin.from("card_content_flag").delete().in("user_id", [userA.id, userB.id]);
+  }
+
+  it("lets a signed-in user flag their own card content", async () => {
+    await clearFlags();
+    const asA = await signInAs(userA.email);
+
+    const { error } = await asA.from("card_content_flag").insert({
+      user_id: userA.id,
+      word_id: "es:perro",
+      spoken_language: "en",
+    });
+    expect(error).toBeNull();
+  });
+
+  it("never returns another user's card_content_flag rows", async () => {
+    await clearFlags();
+    const asA = await signInAs(userA.email);
+    await asA.from("card_content_flag").insert({
+      user_id: userA.id,
+      word_id: "es:perro",
+      spoken_language: "en",
+    });
+
+    const asB = await signInAs(userB.email);
+    const { data, error } = await asB.from("card_content_flag").select("*");
+
+    expect(error).toBeNull();
+    expect(data).toEqual([]);
+  });
+
+  it("refuses to insert a card_content_flag row owned by someone else", async () => {
+    await clearFlags();
+    const asB = await signInAs(userB.email);
+
+    const { error } = await asB.from("card_content_flag").insert({
+      user_id: userA.id,
+      word_id: "es:perro",
+      spoken_language: "en",
+    });
+
+    expect(error).not.toBeNull();
+  });
+
   it("refuses to update or delete any review row — the log is append-only", async () => {
     const asA = await signInAs(userA.email);
     const { data: inserted } = await asA

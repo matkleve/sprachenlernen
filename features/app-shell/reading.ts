@@ -12,7 +12,6 @@ export function switcherOptionsFrom(
   return outcome.languages.map((language) => ({
     code: language.languageCode,
     endonym: languageLabel(language.languageCode).endonym,
-    emoji: languageLabel(language.languageCode).emoji,
     isActive: language.isActive,
   }));
 }

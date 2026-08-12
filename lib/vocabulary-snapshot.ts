@@ -18,11 +18,11 @@ import {
 const DAY_MS = 86_400_000;
 export const HORIZON_DAYS = 30;
 
-export type VocabularyBucket = "held" | "shaky" | "new";
+export type VocabularyBucket = "held" | "fragile" | "new";
 
 export type VocabularyCounts = {
   held: number;
-  shaky: number;
+  fragile: number;
   new: number;
 };
 
@@ -37,6 +37,8 @@ export type AtlasPoint = {
   frequencyRank: number;
   stability: number | null;
   bucket: VocabularyBucket;
+  /** Held tasks at or above matureStabilityThreshold — atlas display tier only. */
+  mature: boolean;
 };
 
 export type VocabularySnapshot = {
@@ -50,12 +52,39 @@ function taskForCard(card: StarterCard, reviews: Review[]): Task {
   return rebuild(card.taskId, card.wordId, reviews).task;
 }
 
-/** Held means stability above the graduation threshold — study/04 G3. */
+const SUCCESS_GRADES: ReadonlySet<Review["grade"]> = new Set(["hard", "good", "easy"]);
+
+/**
+ * Held means stable enough to count as known — not merely graduated from the
+ * learning phase. Graduation (~1 day) and held (~7 days) answer different
+ * questions; conflating them let one `good` buy a held count (calibration
+ * 2026-08-12).
+ */
+export function isTaskHeld(task: Task, config: Config = DEFAULT_CONFIG): boolean {
+  if (task.reviews.length === 0) return false;
+  if (task.state !== "review") return false;
+
+  const stability = task.stability ?? 0;
+  if (stability < config.heldStabilityThreshold) return false;
+
+  const last = task.reviews[task.reviews.length - 1];
+  if (!last || last.grade === "again") return false;
+
+  const successes = task.reviews.filter((review) => SUCCESS_GRADES.has(review.grade)).length;
+  if (successes < 2) return false;
+
+  return true;
+}
+
+export function isTaskMature(task: Task, config: Config = DEFAULT_CONFIG): boolean {
+  if (!isTaskHeld(task, config)) return false;
+  return (task.stability ?? 0) >= config.matureStabilityThreshold;
+}
+
 export function bucketForTask(task: Task, config: Config = DEFAULT_CONFIG): VocabularyBucket {
   if (task.reviews.length === 0) return "new";
-  const stability = task.stability ?? 0;
-  if (stability > config.graduationStability) return "held";
-  return "shaky";
+  if (isTaskHeld(task, config)) return "held";
+  return "fragile";
 }
 
 export function buildVocabularySnapshot(
@@ -64,7 +93,7 @@ export function buildVocabularySnapshot(
   now: number,
   config: Config = DEFAULT_CONFIG,
 ): VocabularySnapshot {
-  const counts: VocabularyCounts = { held: 0, shaky: 0, new: 0 };
+  const counts: VocabularyCounts = { held: 0, fragile: 0, new: 0 };
   const horizon: HorizonBin[] = Array.from({ length: HORIZON_DAYS }, (_, dayOffset) => ({
     dayOffset,
     count: 0,
@@ -84,6 +113,7 @@ export function buildVocabularySnapshot(
       frequencyRank: card.frequencyRank,
       stability: task.stability ?? null,
       bucket,
+      mature: isTaskMature(task, config),
     });
 
     if (task.reviews.length > 0) {

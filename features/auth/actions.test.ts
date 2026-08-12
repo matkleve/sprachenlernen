@@ -13,6 +13,12 @@ import { signInAction, signUpAction } from "./actions";
  */
 
 vi.mock("next/navigation", () => ({ redirect: vi.fn() }));
+vi.mock("next/headers", () => ({
+  headers: vi.fn(() => new Headers({ "accept-language": "en-US" })),
+}));
+vi.mock("@/lib/db/profiles", () => ({
+  ensureProfileFromAcceptLanguage: vi.fn().mockResolvedValue({ status: "ok" }),
+}));
 vi.mock("@/lib/db/auth", () => ({ signIn: vi.fn(), signUp: vi.fn() }));
 
 function formData(fields: Record<string, string>): FormData {

@@ -26,43 +26,51 @@ describe("LanguageSwitcher", () => {
     expect(container.firstChild).toBeNull();
   });
 
-  it("shows a non-interactive icon when only one language is being learned", () => {
+  it("shows a non-interactive flag circle when only one language is being learned", () => {
     render(
       <LanguageSwitcher
-        languages={[{ code: "es", endonym: "Español", emoji: "🇪🇸", isActive: true }]}
+        languages={[{ code: "es", endonym: "Español", isActive: true }]}
         layout="floating"
       />,
     );
-    expect(
-      screen.getByLabelText(copy.currentLanguage("Español")),
-    ).toBeDefined();
+
+    expect(screen.getByLabelText(copy.currentLanguage("Español"))).toBeDefined();
     expect(screen.getByText("🇪🇸")).toBeDefined();
-    expect(screen.queryByRole("combobox")).toBeNull();
+    expect(screen.queryByRole("button", { name: copy.switchLanguage })).toBeNull();
   });
 
   it("shows endonym text on desktop when only one language is being learned", () => {
     render(
       <LanguageSwitcher
-        languages={[{ code: "es", endonym: "Español", emoji: "🇪🇸", isActive: true }]}
+        languages={[{ code: "es", endonym: "Español", isActive: true }]}
         layout="inline"
       />,
     );
     expect(screen.getByText("Español")).toBeDefined();
   });
 
-  it("switches language in one action when more than one is available", async () => {
+  it("opens stacked language cards with a blurred scrim and switches in one action", async () => {
     const user = userEvent.setup();
     render(
       <LanguageSwitcher
         languages={[
-          { code: "es", endonym: "Español", emoji: "🇪🇸", isActive: true },
-          { code: "it", endonym: "Italiano", emoji: "🇮🇹", isActive: false },
+          { code: "es", endonym: "Español", isActive: true },
+          { code: "it", endonym: "Italiano", isActive: false },
         ]}
       />,
     );
 
-    const select = screen.getByRole("combobox", { name: copy.switchLanguage });
-    await user.selectOptions(select, "it");
+    await user.click(screen.getByRole("button", { name: copy.switchLanguage }));
+
+    const menu = screen.getByRole("menu", { name: copy.switchLanguage });
+    expect(menu.className).toContain("gap-3");
+    expect(menu.className).toContain("inset-x-6");
+    expect(menu.querySelector(".language-switcher-scrim")).toBeNull();
+    expect(document.querySelector(".language-switcher-scrim")).not.toBeNull();
+    expect(screen.getByText("Active")).toBeDefined();
+    expect(screen.queryByRole("link", { name: copy.addLanguage })).toBeNull();
+
+    await user.click(screen.getByRole("button", { name: /Italiano/i }));
 
     expect(switchActiveLanguageAction).toHaveBeenCalledWith("it");
   });

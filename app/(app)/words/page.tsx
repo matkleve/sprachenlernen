@@ -27,8 +27,7 @@ export default async function WordsPage() {
   if (outcome.status === "error") {
     return (
       <div className="mx-auto max-w-2xl px-6 pt-page-top pb-page-bottom">
-        <h1 className="text-3xl font-semibold tracking-tight text-ink">{holding.words.title}</h1>
-        <ErrorCallout className="mt-page-content" {...toUserFacing(outcome.error)} />
+        <ErrorCallout {...toUserFacing(outcome.error)} />
       </div>
     );
   }

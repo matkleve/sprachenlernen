@@ -12,7 +12,7 @@ vi.mock("next/navigation", () => ({
 }));
 
 const emptySnapshot: VocabularySnapshot = {
-  counts: { held: 0, shaky: 0, new: 50 },
+  counts: { held: 0, fragile: 0, new: 50 },
   horizon: Array.from({ length: 30 }, (_, dayOffset) => ({ dayOffset, count: 0 })),
   atlas: [
     {
@@ -20,6 +20,7 @@ const emptySnapshot: VocabularySnapshot = {
       frequencyRank: 1,
       stability: null,
       bucket: "new",
+      mature: false,
     },
   ],
 };
@@ -32,7 +33,7 @@ describe("WordsHome", () => {
     expect(screen.queryByText(/\d+\s+due/i)).toBeNull();
   });
 
-  it("renders held, shaky, new, horizon and atlas sections", () => {
+  it("renders held, fragile, new, horizon and atlas sections", () => {
     const { container } = render(<WordsHome snapshot={emptySnapshot} />);
     expect(screen.getByRole("heading", { name: copy.countsHeading })).toBeDefined();
     expect(screen.getByRole("heading", { name: copy.horizonHeading })).toBeDefined();
@@ -49,6 +50,7 @@ describe("WordsHome", () => {
         frequencyRank: index + 1,
         stability: null,
         bucket: "new" as const,
+        mature: false,
       })),
     };
 

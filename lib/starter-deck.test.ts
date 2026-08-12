@@ -8,6 +8,8 @@ import {
   MAX_GLOSS_CHARS,
   SHIPPED_ES_POOL_SIZE,
   SHIPPED_IT_POOL_SIZE,
+  availableLanguages,
+  hasUnaddedShippedLanguage,
   loadItalianMeaningRecallDeck,
   loadSpanishMeaningRecallDeck,
   validateStarterDeck,
@@ -149,5 +151,19 @@ describe("starter-deck — Italian", () => {
       (card) => card.taskId !== `it:${card.lemma}:meaning-recall` || card.wordId !== `it:${card.lemma}`,
     );
     expect(wrong.map((card) => card.lemma)).toEqual([]);
+  });
+});
+
+describe("hasUnaddedShippedLanguage", () => {
+  it("is false when every shipped pool is already being learned", () => {
+    expect(hasUnaddedShippedLanguage(["es", "it"])).toBe(false);
+  });
+
+  it("is true when a shipped pool is not on the list yet", () => {
+    expect(hasUnaddedShippedLanguage(["es"])).toBe(true);
+  });
+
+  it("matches availableLanguages as the shipped set", () => {
+    expect(hasUnaddedShippedLanguage([...availableLanguages()])).toBe(false);
   });
 });

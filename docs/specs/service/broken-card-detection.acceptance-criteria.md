@@ -12,3 +12,7 @@
       passes and `tightened` matches the ratio rule.
 - [ ] Given a regenerated sidecar that differs from the committed file, when
       the check script runs, then it fails with a stale-data message.
+- [ ] Given a flagged (`word_id`, `spoken_language`) pair, when the next session
+      is built, then that word's tasks are not in the queue.
+- [ ] Given a report during an in-progress session, when the learner continues,
+      then the card remains in the current queue.

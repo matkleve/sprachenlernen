@@ -20,7 +20,9 @@ Progress (ADR-0009). **No due-count badges** (UC-063).
   chip (round, active learning language) on every signed-in mobile route when
   the account has at least one learning language — including drill-in, beside
   back when back is shown; safe-area insets on shell `main`; token surfaces only;
-  desktop `≥ md` unchanged.
+  desktop `≥ md` unchanged. The language chip is a **circular flag emoji**
+  (decorative glyph from `lib/languages.ts`, not the identifier) that opens a
+  popover of [`language-list-row.md`](../component/language-list-row.md) cards.
 - **Out:** hamburger and drawer; full-width mobile header bar; hiding the pill on
   review; profile destination; notification badges; marketing shell.
 
@@ -37,9 +39,10 @@ Progress (ADR-0009). **No due-count badges** (UC-063).
 | 4 | Taps a pill segment | Navigates; current segment marked with `aria-current="page"` |
 | 5 | Taps the account chip | `/profile`, where sign out now lives ([`../page/profile.md`](../page/profile.md)) |
 | 6 | Taps back float | Navigates to parent destination (`href`, not blind history) |
-| 7 | Has more than one learning language | Language emoji chip opens the language list; choosing one makes it active and refreshes the current page — one action (UC-025) |
-| 8 | Has exactly one learning language | Language emoji chip is non-interactive; endonym in `aria-label` |
-| 9 | Scrolls page content | Floats stay visible; content clears floats via shell padding |
+| 7 | Has more than one learning language | Language emoji chip opens a popover: blurred scrim over the page, stacked language cards (gap between each), then **Add a language**; choosing a row makes it active and refreshes — one action (UC-025) |
+| 8 | Has exactly one learning language | Top-left shows a non-interactive flag circle with the endonym in `aria-label` |
+| 9 | Scrolls page content | Floats stay fixed; the page title stays centered and scales down; a scrim (blur + tint) fades in at the top and out toward the bottom of the header |
+| 10 | On any signed-in route | The page title is always centered in the header row — large at scroll top, smaller after scrolling down (mobile floats and desktop header) |
 
 ## Back targets
 
@@ -86,6 +89,10 @@ in `app/globals.css`.
 - [ ] Given viewport &lt; `md` on `/words/review` with `?method=srs-session`,
       then the review session fits one screen without vertical scroll at default
       phone height (card + grades visible together).
+- [ ] Given viewport &lt; `md` on `/words`, when the learner scrolls, then the
+      page title stays centered between the corner chips, scales down smoothly,
+      and a header scrim (blur + tint) fades in at the top and out toward the
+      bottom edge.
 - [ ] Given any viewport, then exactly three pill segments — no fourth, no
       due-count digit (UC-063 negative).
 - [ ] Given viewport ≥ `md`, then horizontal destination nav renders without

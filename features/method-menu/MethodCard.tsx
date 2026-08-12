@@ -1,6 +1,5 @@
-import Link from "next/link";
-
 import { Chip } from "@/components/ui/Chip";
+import { SurfaceLink } from "@/components/ui/SurfaceLink";
 import type { MethodEntry } from "@/lib/method-catalogue";
 import { cardHrefForMethod } from "@/lib/method-session";
 
@@ -22,10 +21,7 @@ export function MethodCard({ method, returnQuery = "" }: MethodCardProps) {
 
   return (
     <article className="h-full rounded-card border border-line bg-surface shadow-soft transition-[box-shadow,transform] duration-150 ease-out-soft hover:-translate-y-px hover:shadow-raised">
-      <Link
-        href={href}
-        className="block rounded-card p-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-canvas"
-      >
+      <SurfaceLink href={href} className="p-4 focus-visible:ring-offset-2">
         <h3 className="text-base font-semibold text-ink">{method.name}</h3>
         <p className="mt-1 line-clamp-2 text-sm text-muted">{method.summary}</p>
 
@@ -55,7 +51,7 @@ export function MethodCard({ method, returnQuery = "" }: MethodCardProps) {
           <span className="font-medium text-ink">{copy.card.doesNotDo}: </span>
           {method.doesNotDo}
         </p>
-      </Link>
+      </SurfaceLink>
     </article>
   );
 }

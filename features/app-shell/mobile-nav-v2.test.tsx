@@ -8,12 +8,12 @@ import { AppShell } from "./AppShell";
 import { FloatingShellChrome } from "./FloatingShellChrome";
 import { copy as profileCopy } from "@/features/profile/content";
 
-import { copy } from "./content";
+import { copy, holding } from "./content";
 
-const oneLanguage = [{ code: "es", endonym: "Español", emoji: "🇪🇸", isActive: true }] as const;
+const oneLanguage = [{ code: "es", endonym: "Español", isActive: true }] as const;
 const twoLanguages = [
-  { code: "es", endonym: "Español", emoji: "🇪🇸", isActive: true },
-  { code: "it", endonym: "Italiano", emoji: "🇮🇹", isActive: false },
+  { code: "es", endonym: "Español", isActive: true },
+  { code: "it", endonym: "Italiano", isActive: false },
 ] as const;
 
 vi.mock("next/navigation", () => ({
@@ -71,13 +71,14 @@ describe("SPEC-feature-mobile-nav-v2", () => {
       .getAllByRole("link")
       .filter((link) => link.getAttribute("href") === "/words");
     expect(wordsLinks).toHaveLength(1);
+    expect(screen.getByRole("heading", { level: 1, name: holding.words.title })).toBeDefined();
   });
 
   it("shows the language emoji on a destination root", () => {
     vi.mocked(usePathname).mockReturnValue("/words");
     render(<FloatingShellChrome languages={twoLanguages} />);
 
-    expect(screen.getByRole("combobox", { name: copy.switchLanguage })).toBeDefined();
+    expect(screen.getByRole("button", { name: copy.switchLanguage })).toBeDefined();
     expect(screen.getByText("🇪🇸")).toBeDefined();
   });
 
@@ -89,7 +90,7 @@ describe("SPEC-feature-mobile-nav-v2", () => {
       .getAllByRole("link")
       .filter((link) => link.getAttribute("href") === "/methods");
     expect(backLinks.length).toBeGreaterThanOrEqual(1);
-    expect(screen.getByRole("combobox", { name: copy.switchLanguage })).toBeDefined();
+    expect(screen.getByRole("button", { name: copy.switchLanguage })).toBeDefined();
     expect(screen.getByText("🇪🇸")).toBeDefined();
   });
 
@@ -101,7 +102,7 @@ describe("SPEC-feature-mobile-nav-v2", () => {
       .getAllByRole("link")
       .filter((link) => link.getAttribute("href") === "/words");
     expect(wordsLinks).toHaveLength(2);
-    expect(screen.getByRole("combobox", { name: copy.switchLanguage })).toBeDefined();
+    expect(screen.getByRole("button", { name: copy.switchLanguage })).toBeDefined();
     expect(screen.getByText("🇪🇸")).toBeDefined();
     expect(screen.getByRole("navigation", { name: copy.mobileNavLabel })).toBeDefined();
   });

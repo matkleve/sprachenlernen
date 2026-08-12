@@ -329,6 +329,7 @@ low-inference agent would silently invent.
 | ~~**T-B8**~~ | ~~Accounts and authentication on Supabase~~ — **shipped 2026-08-09** | **Sensitive.** `docs/specs/service/auth.md`, `lib/db/`, `middleware.ts`, `/signup`, `/login`, the `review_log` RLS migration (applied to the live project) and its §8 access-control test, all green |
 | ~~**T-B2**~~ | ~~Persistence of the review log~~ — **shipped 2026-08-09** | **Sensitive.** [`specs/service/review-log.md`](specs/service/review-log.md), `lib/db/review-log.ts`, `lib/installation-id.ts`, and `20260809180000_review_log_payload.sql` applied to the live project. All four ADR-0005/0006 properties hold. Audited again 2026-08-09 (evening): coverage was pointing at a superseded function, now at the one the session builder actually calls |
 | ~~**T-B1**~~ | ~~The review session surface~~ — **shipped 2026-08-09** | **Sensitive.** [`specs/feature/review-session.md`](specs/feature/review-session.md) + [`.states.md`](specs/feature/review-session.states.md), `features/review-session/`, `/words/review`. Flip-then-grade (back before grade) matches FSRS semantics; spec AC updated 2026-08-10 |
+| ~~**T-B3a**~~ | ~~Held-stability taxonomy~~ — **shipped 2026-08-12** | **Standard.** Separate held vs graduation thresholds; fragile buckets; `isTaskHeld` for counts and form staging |
 | **T-B3** | Vocabulary estimate and the level display (F17–F22) | **Pool-local vocabulary shipped** (F17 narrowed). Language-wide extrapolation + CEFR skill/overall levels (F18–F22) blocked — anchor table [C], pool too small |
 | **T-B10b** | Method menu learner half | **Standing + daily three shipped**; demonstration sentence, readiness still out |
 | **T-B4** | Dose ledger (F184) | **Denominator shipped** on `/progress` (question 19, first branch). **Numerator** (hours you practised) still out — needs practice-time logging beyond card `latency_ms` |
@@ -336,10 +337,10 @@ low-inference agent would silently invent.
 | ~~**T-B10**~~ | ~~The method menu — the product's front door~~ — **shipped 2026-08-09** | Filters, time scale, hosted routing. Learner half continued in T-B10b |
 | ~~**T-B5**~~ | ~~Retire the Grundriss worked examples~~ — **shipped 2026-08-10** | `/account` uses `Select` + `Dialog` (UC-024); demos removed; `/primitives` → `/languages` |
 | **T-B9** | Offline practice + sync (F192, UC-018) | **Owner direction: both** — online sync across devices *and* offline review (train/PWA). Needs ADR-0011 closed on Option B (local-first queue is partial — see [`review-write-queue.md`](specs/service/review-write-queue.md)); full offline still needs cached deck + scheduler |
-| **T-B11** | Spoken-language setting — `profiles` table, `next-intl` chrome, description-text records ([UC-069](use-cases/UC-069-use-the-app-in-my-own-language.md)) | **Spec-ready 2026-08-12** — decisions 10–11 answered: chrome = `next-intl` stage 1; card descriptions = `I18N.md` stage-3 tables + snapshot JSON. Sensitive once implementation starts |
+| **T-B11** | Spoken-language setting — `profiles` table, `next-intl` chrome, description-text records ([UC-069](use-cases/UC-069-use-the-app-in-my-own-language.md)) | **Slice 1 shipped 2026-08-12** — [`spoken-language.md`](specs/service/spoken-language.md), `profiles` migration + adapter + profile UI. **Remaining:** `next-intl` chrome (slice 2), stage-3 description tables |
 | **T-B12** | ~~Scope `poolForScheduling` to the active language only~~ — **done 2026-08-12** ([UC-025](use-cases/UC-025-learn-multiple-languages.md)) | `poolForScheduling` and `poolForDisplay` (`lib/db/learner-pools.ts`) merged into one `poolForActiveLanguage()`, since the reason they differed — a cross-language budget — was rejected. `buildSessionAction` now calls it; a session can no longer contain more than one language's cards, and the `languageName` label is always correct as a result. Regression test: `learner-pools.test.ts` |
 | **T-B13** | ~~Same-session card requeue ([UC-071](use-cases/UC-071-get-a-wrong-card-back-before-the-session-ends.md))~~ — **shipped 2026-08-12** | **Sensitive.** [`lib/review-session-requeue.ts`](../lib/review-session-requeue.ts), `useReviewSession` re-insert on `again`/`hard`; [ADR-0012](adr/0012-ux-decisions-requeue-i18n-leech-nav.md) decisions 12–13 |
-| **T-B14** | Broken-card flagging + leech diagnosis ([UC-023](use-cases/UC-023-report-something-wrong.md), [UC-013](use-cases/UC-013-stop-losing-time-on-one-card.md)) | **Tier 1 shipped 2026-08-12** — [`broken-card-detection.md`](specs/service/broken-card-detection.md), neighbour sidecars + gate. **Remaining:** UC-023 report UI, UC-013 tier-2/3 diagnosis. **Sensitive** |
+| **T-B14** | Broken-card flagging + leech diagnosis ([UC-023](use-cases/UC-023-report-something-wrong.md), [UC-013](use-cases/UC-013-stop-losing-time-on-one-card.md)) | **UC-023 report UI shipped 2026-08-12** — `card_content_flag` + review report button. **Remaining:** UC-013 tier-2/3 diagnosis. **Sensitive** |
 | **T-B15** | Maintenance mode per language ([UC-025](use-cases/UC-025-learn-multiple-languages.md)) | **Not spec-ready** — no per-language flag exists. Moved 2026-08-12 from [`plans/multi-language.md`](plans/multi-language.md) table item 10, so it has exactly one tracked home. The best-evidenced item in that plan's 2026-08-11 review (Cepeda et al. 2008, Bahrick et al. 1993: 10–20% of the retention interval as the review gap) and the one piece of that review's recommendation not yet built |
 ---
 
@@ -354,10 +355,11 @@ honest Spanish/Italian; offline unlocks commute practice.
 | --- | --- | --- |
 | **1** | ~~**Expand the word pool(s)**~~ — Spanish **stage 1 shipped 2026-08-11** (500 lemmas), **stage 2 shipped 2026-08-12** (2000 lemmas); **Italian shipped 2026-08-12** at the same tier (2000 lemmas, see [`starter-deck.second-language.md`](specs/service/starter-deck.second-language.md)). Pipeline ceiling **2,953** lemmas per language. | Language-wide vocabulary estimate; honest progress |
 | **2** | ~~**Form→lemma tables with paradigm cells**~~ — **data shipped 2026-08-08** (`data/lemma/es.json`, `it.json`, `lib/lexicon.ts`). **Form-recall pool + staging shipped** — [`form-recall-pool.md`](specs/service/form-recall-pool.md): **1704** Spanish, **1542** Italian surface forms, scheduled after meaning-recall is held. **Form-mastery signal shipped** — [`form-mastery-signal.md`](specs/service/form-mastery-signal.md): pool-local held-form count on Progress; form-recall grade prompt in review session. **Bug found and fixed 2026-08-12:** the Words atlas (`features/words/`) fed both task types into one snapshot meant for one deck, double-counting every lemma with a distinct form and pushing lower-ranked words out of the capped top-100 view — fixed by filtering to meaning-recall before the snapshot; see `features/words/reading.test.ts`. | Paradigm-table method; per-cell form breakdown |
-| **3** | **T-B3 remainder** — extrapolation + per-skill levels once (1) and calibration exist | F18–F22; demonstration sentence |
-| **4** | **T-B9 / offline-PWA** — cache deck + scheduler; flush queue on reconnect (ADR-0011 Option B) | UC-018 commute practice; installable PWA |
-| **5** | **T-B10b remainder** — demonstration sentence, readiness ([`study/24`](study/24-speaking-as-the-goal.md), [`study/26`](study/26-readiness-and-difficulty.md)) | Methods front door complete |
-| **6** | **T-B4 numerator** — guided hours practised (thesis 9: not card time alone) | Progress per hour invested (study/03 V3) |
+| **3** | ~~**T-B3a Held-stability taxonomy**~~ — **shipped 2026-08-12**: `heldStabilityThreshold` (7d) separate from graduation; `isTaskHeld`; fragile replaces shaky; mature on atlas | Honest held counts; form-recall staging; UC-064 vocabulary branch |
+| **4** | **T-B3 remainder** — extrapolation + per-skill levels once (1) and calibration exist | F18–F22; demonstration sentence |
+| **5** | **T-B9 / offline-PWA** — cache deck + scheduler; flush queue on reconnect (ADR-0011 Option B) | UC-018 commute practice; installable PWA |
+| **6** | **T-B10b remainder** — demonstration sentence, readiness ([`study/24`](study/24-speaking-as-the-goal.md), [`study/26`](study/26-readiness-and-difficulty.md)) | Methods front door complete |
+| **7** | **T-B4 numerator** — guided hours practised (thesis 9: not card time alone) | Progress per hour invested (study/03 V3) |
 
 **Still partial in Track B:** T-B3 (pool-local only), T-B10b (standing + daily
 three shipped), T-B4 (denominator only), T-B9 (multi-device share works; full
@@ -620,6 +622,14 @@ ADR-0006, ADR-0007) — an account is required, and the provider is Supabase.
     against the shipped pool and report candidate-pair count before merge;
     if &gt; ~3% of lemmas have a candidate, tighten to "same first two
     characters AND distance 1." Confirmation always tier 3 (one tap).
+
+17. ~~**What counts as held stably for vocabulary and form counts?**~~
+    **Answered 2026-08-12 (literature + owner).** Separate from scheduler
+    graduation (1 day). **Held:** `review` state, stability ≥ 7 days at target
+    retention, ≥2 successes, no trailing `again`. **Fragile:** reviewed but not
+    held. **Mature:** held with stability ≥ 21 days (atlas tier). Shipped as
+    T-B3a. Closes the vocabulary branch of UC-064 and question 20 for
+    cell-tagged tasks using the same `isTaskHeld` rules.
 
 **Added 2026-08-12**, moved from [`plans/multi-language.md`](plans/multi-language.md)
 so open items live in exactly one queue:
