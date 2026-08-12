@@ -55,6 +55,7 @@ describe("readWordsHome", () => {
     if (outcome.status !== "ok") return;
     expect(outcome.snapshot.counts).toEqual({ held: 0, fragile: 0, new: 1 });
     expect(outcome.snapshot.atlas).toHaveLength(1);
+    expect(outcome.blocks).toHaveLength(2);
   });
 
   it("loads task_state for meaning-recall task IDs only", async () => {

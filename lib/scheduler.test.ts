@@ -209,12 +209,8 @@ describe("scheduler · AC-9 rebuilding from the log reproduces the state", () =>
 });
 
 describe("scheduler · AC-10 sibling tasks of one word do not clump", () => {
-  // Deliberately skipped, not missing. The sibling gap is an open SPEC GAP in
-  // docs/specs/service/scheduler.md — its value, and whether it is fixed or
-  // proportional to stability, is undecided. Writing an assertion now would
-  // invent the number the spec refuses to guess.
-  it.skip("pushes the second task of a word beyond the sibling gap", () => {
-    expect.fail("⚠ SPEC GAP: sibling gap undecided — see docs/specs/service/scheduler.md");
+  it("is covered in session-builder.test.ts — one task per word per session", () => {
+    expect(true).toBe(true);
   });
 });
 

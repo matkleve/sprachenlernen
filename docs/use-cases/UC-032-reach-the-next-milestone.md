@@ -1,7 +1,7 @@
 # UC-032 — Reach the next vocabulary milestone, and know what it buys
 
 <!-- id: UC-032 -->
-<!-- specs:  -->
+<!-- specs: SPEC-service-frequency-blocks, SPEC-feature-words-home -->
 
 **Who:** any learner past the first weeks.
 **Wants to:** work toward a block of vocabulary that is worth having, and know
@@ -33,6 +33,12 @@ feels like failure rather than arithmetic.
   never copied from figures published for another language.
 - Reaching a block is an event that is stated once, plainly, and does not expire,
   reset or need defending.
+
+## v1 scope (decided 2026-08-12)
+
+v1 shows **stable-held counts per frequency band** on `/words` — no marginal
+coverage payoff, no effort estimate, no completion event. Those need the
+coverage calculator (stage 3) and a dated corpus calibration per language.
 
 ## Out of scope
 

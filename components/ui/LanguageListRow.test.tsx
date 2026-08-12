@@ -46,4 +46,30 @@ describe("LanguageListRow", () => {
 
     expect(onSelect).toHaveBeenCalledOnce();
   });
+
+  it("uses cardPressable on selectable switcher rows", () => {
+    render(
+      <LanguageListRow code="it" isActive={false} activeLabel="Active" onSelect={() => {}} />,
+    );
+
+    const className = screen.getByRole("button").className;
+    expect(className).toContain("hover:-translate-y-px");
+    expect(className).toContain("active:bg-accent-soft");
+    expect(className).not.toContain("hover:bg-accent-soft");
+  });
+
+  it("accepts name overrides for codes outside the learning map", () => {
+    render(
+      <LanguageListRow
+        code="de"
+        names={{ endonym: "Deutsch", english: "German" }}
+        isActive
+        activeLabel="Active"
+      />,
+    );
+
+    expect(screen.getByText("Deutsch")).toBeDefined();
+    expect(screen.getByText("German")).toBeDefined();
+    expect(screen.queryByText("de")).toBeNull();
+  });
 });

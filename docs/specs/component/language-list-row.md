@@ -6,8 +6,8 @@
 
 One full-width language card — endonym primary, English beneath, optional
 standing line, **Active** chip or a switch action. Shared by
-[`profile.md`](../page/profile.md) and the shell switcher popover so both
-surfaces stay visually identical.
+[`profile.md`](../page/profile.md) (learning and spoken languages), and the
+shell switcher popover so both surfaces stay visually identical.
 
 Supersedes the shell-only `language-switch-row` shape.
 
@@ -31,11 +31,13 @@ Supersedes the shell-only `language-switch-row` shape.
 ## States
 
 Active rows use the same surface as inactive — only the chip differs. Switcher
-rows use hover/focus/active on the whole card when `onSelect` is set.
+rows use `cardPressable` on the whole card when `onSelect` is set (lift on hover,
+accent fill on press — same as method cards).
 
 ## Data
 
-`code`, `isActive`, `activeLabel`, optional standing, optional progress link,
+`code`, optional `names` (for spoken-language codes outside the learning map),
+`isActive`, `activeLabel`, optional standing, optional progress link,
 optional `actionSlot` or `onSelect`.
 
 ## Acceptance criteria

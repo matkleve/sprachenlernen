@@ -1,7 +1,7 @@
 # UC-031 — See where I am on the map of the language
 
 <!-- id: UC-031 -->
-<!-- specs:  -->
+<!-- specs: SPEC-feature-words-home, SPEC-service-frequency-blocks -->
 
 **Who:** a learner months in, who knows they are progressing but not what that
 means.
@@ -34,6 +34,14 @@ sense that any of it adds up.
   words. Each display points at the next.
 - Everything shown has a textual equivalent — a scatter plot must not be the only
   way to read the core information (UC-021, and `CONSTITUTION` §3).
+
+## v1 scope (decided 2026-08-12)
+
+The first map is **pool-local**: frequency bands over the starter deck on
+`/words`, not language-wide coverage. Bands show how many words the learner holds
+stably in each chunk of the 2,000-word pool. Language-wide holes, content
+traceability, and coverage payoff lines ship with the coverage calculator
+(stage 3).
 
 ## Out of scope
 

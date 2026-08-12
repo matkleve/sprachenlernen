@@ -87,9 +87,10 @@
   --spacing-shell-float-top: 5.5rem;
   --shell-float-top-active: var(--spacing-shell-float-top);
   --spacing-shell-float-bottom: 5rem;
-  /* Active review session — one screen between floating chrome on mobile */
+  /* Active review session — one screen between floating chrome on mobile.
+     Must match main's pt-shell-float-top + pb-shell-float-bottom or the page scrolls. */
   --height-review-session: calc(
-    100dvh - var(--spacing-shell-float-top-compact) - var(--spacing-shell-float-bottom)
+    100dvh - var(--spacing-shell-float-top) - var(--spacing-shell-float-bottom)
   );
 
   /* Type. next/font on <html> overrides these fallbacks at runtime. */

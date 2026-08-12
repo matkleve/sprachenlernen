@@ -74,6 +74,33 @@ function installTestQueue() {
   return queue;
 }
 
+const testInitialData = {
+  status: "ok" as const,
+  languageName: "Spanish",
+  queue: [
+    {
+      taskId: "es:de:meaning-recall",
+      wordId: "es:de",
+      lemma: "de",
+      front: "de",
+      back: "of, from",
+      frequencyRank: 1,
+      position: 1,
+      total: 2,
+    },
+    {
+      taskId: "es:que:meaning-recall",
+      wordId: "es:que",
+      lemma: "que",
+      front: "que",
+      back: "that, which",
+      frequencyRank: 2,
+      position: 2,
+      total: 2,
+    },
+  ],
+};
+
 describe("ReviewSession", () => {
   beforeEach(() => {
     vi.clearAllMocks();
@@ -81,16 +108,31 @@ describe("ReviewSession", () => {
     installTestQueue();
   });
 
-  it("shows the first card, flips on tap, then persists a grade", async () => {
-    const user = userEvent.setup();
-    render(<ReviewSession methodName="Spaced repetition session" />);
+  it("renders the first card immediately when the queue is server-built", () => {
+    render(
+      <ReviewSession
+        methodName="Spaced repetition session"
+        initialData={testInitialData}
+      />,
+    );
 
-    await waitFor(() => {
-      expect(screen.getByText("de")).toBeDefined();
-    });
+    expect(screen.getByText("de")).toBeDefined();
+    expect(screen.queryByText(copy.loading)).toBeNull();
+  });
+
+  it("shows the first card with grades, flips on tap, then persists a grade", async () => {
+    const user = userEvent.setup();
+    render(
+      <ReviewSession
+        methodName="Spaced repetition session"
+        initialData={testInitialData}
+      />,
+    );
+
+    expect(screen.getByText("de")).toBeDefined();
 
     expect(screen.getByText("Spanish")).toBeDefined();
-    expect(screen.queryByRole("button", { name: copy.good })).toBeNull();
+    expect(screen.getByRole("button", { name: copy.good })).toBeDefined();
 
     await user.click(screen.getByRole("button", { name: copy.flipHint }));
 
@@ -113,6 +155,26 @@ describe("ReviewSession", () => {
     });
   });
 
+  it("grades without flipping when the learner is confident", async () => {
+    const user = userEvent.setup();
+    render(<ReviewSession methodName="Spaced repetition session" />);
+
+    await waitFor(() => expect(screen.getByText("de")).toBeDefined());
+    expect(screen.queryByText("of, from")).toBeNull();
+
+    await user.click(screen.getByRole("button", { name: copy.good }));
+
+    await waitFor(() => {
+      expect(appendReviewAction).toHaveBeenCalledWith(
+        expect.objectContaining({
+          taskId: "es:de:meaning-recall",
+          grade: "good",
+        }),
+      );
+      expect(screen.getByText("que")).toBeDefined();
+    });
+  });
+
   it("advances before persistence completes and shows retry on failure", async () => {
     let resolveAppend: (value: { status: "appended"; id: string }) => void;
     vi.mocked(appendReviewAction).mockImplementation(
@@ -123,9 +185,14 @@ describe("ReviewSession", () => {
     );
 
     const user = userEvent.setup();
-    render(<ReviewSession methodName="Spaced repetition session" />);
+    render(
+      <ReviewSession
+        methodName="Spaced repetition session"
+        initialData={testInitialData}
+      />,
+    );
 
-    await waitFor(() => expect(screen.getByText("de")).toBeDefined());
+    expect(screen.getByText("de")).toBeDefined();
     await user.click(screen.getByRole("button", { name: copy.flipHint }));
     await user.click(screen.getByRole("button", { name: copy.good }));
 
@@ -156,9 +223,14 @@ describe("ReviewSession", () => {
     });
 
     const user = userEvent.setup();
-    render(<ReviewSession methodName="Spaced repetition session" />);
+    render(
+      <ReviewSession
+        methodName="Spaced repetition session"
+        initialData={testInitialData}
+      />,
+    );
 
-    await waitFor(() => expect(screen.getByText("de")).toBeDefined());
+    expect(screen.getByText("de")).toBeDefined();
     await user.click(screen.getByRole("button", { name: copy.flipHint }));
     await user.click(screen.getByRole("button", { name: copy.good }));
 
@@ -166,17 +238,15 @@ describe("ReviewSession", () => {
     expect(screen.getByText("que")).toBeDefined();
   });
 
-  it("shows a load error when the queue cannot be built", async () => {
-    vi.mocked(buildSessionAction).mockResolvedValueOnce({
-      status: "error",
-      error: "Not signed in.",
-    });
+  it("shows a load error when the queue cannot be built", () => {
+    render(
+      <ReviewSession
+        methodName="Spaced repetition session"
+        initialData={{ status: "error", error: "Not signed in." }}
+      />,
+    );
 
-    render(<ReviewSession methodName="Spaced repetition session" />);
-
-    await waitFor(() => {
-      expect(screen.getByText("Not signed in.")).toBeDefined();
-    });
+    expect(screen.getByText("Not signed in.")).toBeDefined();
     const back = screen.getByRole("link", { name: new RegExp(copy.backToMethods) });
     expect(back.className).toContain("hidden");
     expect(back.className).toContain("md:inline-block");
@@ -195,9 +265,14 @@ describe("ReviewSession", () => {
 
   it("ends in the session summary with no grade buttons once the last card is graded", async () => {
     const user = userEvent.setup();
-    render(<ReviewSession methodName="Spaced repetition session" />);
+    render(
+      <ReviewSession
+        methodName="Spaced repetition session"
+        initialData={testInitialData}
+      />,
+    );
 
-    await waitFor(() => expect(screen.getByText("de")).toBeDefined());
+    expect(screen.getByText("de")).toBeDefined();
     await user.click(screen.getByRole("button", { name: copy.flipHint }));
     await user.click(screen.getByRole("button", { name: copy.good }));
 
@@ -215,9 +290,14 @@ describe("ReviewSession", () => {
 
   it("never shows a due count, a backlog figure or a badge", async () => {
     const user = userEvent.setup();
-    const { container } = render(<ReviewSession methodName="Spaced repetition session" />);
+    const { container } = render(
+      <ReviewSession
+        methodName="Spaced repetition session"
+        initialData={testInitialData}
+      />,
+    );
 
-    await waitFor(() => expect(screen.getByText("de")).toBeDefined());
+    expect(screen.getByText("de")).toBeDefined();
 
     const forbidden = /\bdue\b|\bbacklog\b|\boverdue\b|\bremaining\b|\bleft to\b/i;
 
@@ -244,9 +324,14 @@ describe("ReviewSession", () => {
 
   it("requeues an again grade to the end when the queue is too short for five ahead", async () => {
     const user = userEvent.setup();
-    render(<ReviewSession methodName="Spaced repetition session" />);
+    render(
+      <ReviewSession
+        methodName="Spaced repetition session"
+        initialData={testInitialData}
+      />,
+    );
 
-    await waitFor(() => expect(screen.getByText("de")).toBeDefined());
+    expect(screen.getByText("de")).toBeDefined();
     await user.click(screen.getByRole("button", { name: copy.flipHint }));
     await user.click(screen.getByRole("button", { name: copy.again }));
 

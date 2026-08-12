@@ -1,7 +1,8 @@
+import { LanguageListRow } from "@/components/ui/LanguageListRow";
 import { SubmitButton } from "@/components/ui/SubmitButton";
-import { spokenLanguageLabel, shippedSpokenLanguages } from "@/lib/spoken-language";
 import { copy } from "@/features/profile/content";
 import type { SpokenLanguageOutcome } from "@/lib/db/profiles";
+import { shippedSpokenLanguages, spokenLanguageLabel } from "@/lib/spoken-language";
 
 /**
  * Spoken-language block on the profile. Contract:
@@ -41,29 +42,24 @@ export function ProfileSpokenLanguage({
           {shippedSpokenLanguages().map((language) => {
             const isCurrent = language.code === outcome.spokenLanguage;
             return (
-              <li
-                key={language.code}
-                className="flex items-center justify-between gap-4 rounded-card border border-line bg-surface p-4"
-              >
-                <div>
-                  <p className="text-base font-semibold text-ink">{language.endonym}</p>
-                  <p className="text-sm text-muted">{language.english}</p>
-                </div>
-
-                {isCurrent ? (
-                  <p className="text-sm font-medium text-ink">{copy.active}</p>
-                ) : (
-                  <form
-                    action={async () => {
-                      "use server";
-                      await changeTo(language.code);
-                    }}
-                  >
-                    <SubmitButton variant="secondary" size="sm">
-                      {copy.makeActive}
-                    </SubmitButton>
-                  </form>
-                )}
+              <li key={language.code}>
+                <LanguageListRow
+                  code={language.code}
+                  names={{ endonym: language.endonym, english: language.english }}
+                  isActive={isCurrent}
+                  activeLabel={copy.active}
+                  actionSlot={
+                    isCurrent
+                      ? undefined
+                      : (
+                        <form action={changeTo.bind(null, language.code)}>
+                          <SubmitButton variant="secondary" size="sm">
+                            {copy.makeActive}
+                          </SubmitButton>
+                        </form>
+                      )
+                  }
+                />
               </li>
             );
           })}

@@ -51,7 +51,16 @@ export function buildSession(
     .filter((card) => card.isNew)
     .sort((a, b) => a.frequencyRank - b.frequencyRank);
 
-  const picked = [...due, ...fresh].slice(0, sessionLength);
+  const picked: ScoredCard[] = [];
+  const seenWordIds = new Set<string>();
+
+  for (const card of [...due, ...fresh]) {
+    if (picked.length >= sessionLength) break;
+    // At most one Task per Word per session — siblings stay due for the next run.
+    if (seenWordIds.has(card.wordId)) continue;
+    seenWordIds.add(card.wordId);
+    picked.push(card);
+  }
   const total = picked.length;
 
   return picked.map((card, index) => ({

@@ -44,7 +44,7 @@ export function FloatingShellChrome({
       >
         <div
           className={cn(
-            "pointer-events-auto relative grid grid-cols-[1fr_minmax(0,11rem)_1fr] items-center gap-x-2 px-4 pb-3",
+            "pointer-events-auto relative grid min-h-11 grid-cols-[1fr_1fr] items-center gap-x-2 px-4 pb-3",
             safeTop,
           )}
         >
@@ -64,7 +64,7 @@ export function FloatingShellChrome({
 
           <ShellPageTitle variant="mobile" pinnedCompact={pinnedCompact} />
 
-          <div className="col-start-3 justify-self-end">
+          <div className="col-start-2 justify-self-end">
             <IconLink href={routes.profile} aria-label={copy.account}>
               <UserRound aria-hidden className="size-5 shrink-0" />
             </IconLink>

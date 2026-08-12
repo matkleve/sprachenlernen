@@ -21,8 +21,7 @@ language actions, which belong to
   maintenance mode (UC-025, later — a combined cross-language budget is not a
   later item, it is rejected, see UC-025).
 
-**Reuse: `ActionLink`, `SubmitButton`, `Dialog`, `Select`, [`language-list-row.md`](../component/language-list-row.md)** — all already used by
-`account-data` or shared with the shell switcher. No new primitive.
+**Reuse: `ActionLink`, `SubmitButton`, `Dialog`, `Select`, [`language-list-row.md`](../component/language-list-row.md)** — learning languages, spoken languages, and the shell switcher share the same row. No new primitive.
 
 ## Why this is a corner chip and not a destination
 

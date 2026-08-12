@@ -17,10 +17,10 @@ Per-primitive state matrix. Symbols: D H A F X P C — see parent
 | `TextLink` | ✓ | ✓ | ✓ | ✓ | — | — | — | Tones: `accent`, `muted`, `ink`. No nav pending |
 | `IconButton` | ✓ | ✓ | ✓+fill | ✓ | ✓ | ✓ ring | — | 44×44 round floating. Default policy `nav` |
 | `IconLink` | ✓ | ✓ | ✓+fill | ✓ | — | ✓ ring | — | `ActionLink` + `iconButtonClass` + policy `nav` |
-| `SurfaceLink` | ✓ | ✓ | ✓+fill | ✓ | — | ✓ | — | Card block link; P ≥180ms |
-| `PressableCard` | ✓ | ✓ | ✓ | ✓ | ✓ | — | — | `interactive={false}` → static, no H/A |
+| `SurfaceLink` | ✓ | ✓ lift | ✓+fill | ✓ | — | ✓ | — | Card block link; `cardPressable`; P ≥180ms |
+| `PressableCard` | ✓ | ✓ lift | ✓+fill | ✓ | ✓ | — | — | `interactive={false}` → static, no H/A |
 | `GradeButton` | ✓ | ✓ | ✓ | ✓ | ✓ | — | — | Grade-tinted; no spinner (exemption) |
-| `LanguageListRow` | ✓ | ✓ | ✓ | ✓ | ✓ | — | active=div | Active row is non-interactive `<div>`; progress link uses `TextLink` |
+| `LanguageListRow` | ✓ | ✓ lift | ✓+fill | ✓ | ✓ | — | active=div | Switcher rows use `cardPressable`; active row is non-interactive `<div>` |
 | `Disclosure` | ✓ | ✓ | ✓ | ✓ | — | — | open state | Summary only; `<details>` toggle is platform |
 
 ## Native form controls (DESIGN-SYSTEM exemption)

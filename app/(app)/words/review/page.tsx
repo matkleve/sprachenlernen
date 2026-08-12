@@ -1,10 +1,13 @@
 import type { ReactNode } from "react";
+import { redirect } from "next/navigation";
 
 import { loadMethodCatalogue } from "@/features/method-menu/catalogue";
 import { findMethod } from "@/features/method-menu/MethodDetail";
+import { buildSessionAction } from "@/features/review-session/actions";
 import { ReviewSession } from "@/features/review-session/ReviewSession";
 import { copy } from "@/features/review-session/content";
 import { CARD_ENGINE_METHOD_ID } from "@/lib/method-session";
+import { routes } from "@/lib/routes";
 import { cn } from "@/lib/utils";
 
 /**
@@ -27,7 +30,22 @@ export default async function WordsReviewPage({
   if (!methodId) {
     session = <p className="mt-4 text-base text-muted">{copy.unknownMethod}</p>;
   } else if (isActiveSession) {
-    session = <ReviewSession methodName={copy.srsSessionName} compact />;
+    const outcome = await buildSessionAction();
+    if (outcome.status === "no-language") {
+      redirect(routes.chooseLanguage);
+    }
+
+    session = (
+      <ReviewSession
+        methodName={copy.srsSessionName}
+        compact
+        initialData={
+          outcome.status === "error"
+            ? { status: "error", error: outcome.error }
+            : { status: "ok", queue: outcome.queue, languageName: outcome.languageName }
+        }
+      />
+    );
   } else {
     const { catalogue } = loadMethodCatalogue();
     const method = findMethod(catalogue, methodId);

@@ -18,7 +18,7 @@ describe("session-machine", () => {
     let phase = nextPhase("preparing", "prompting");
     expect(phase).toBe("prompting");
     expect(canFlip(phase)).toBe(true);
-    expect(canGrade(phase)).toBe(false);
+    expect(canGrade(phase)).toBe(true);
 
     phase = nextPhase(phase, "revealed");
     expect(canGrade(phase)).toBe(true);

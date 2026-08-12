@@ -32,5 +32,5 @@ export default async function WordsPage() {
     );
   }
 
-  return <WordsHome snapshot={outcome.snapshot} />;
+  return <WordsHome snapshot={outcome.snapshot} blocks={outcome.blocks} />;
 }

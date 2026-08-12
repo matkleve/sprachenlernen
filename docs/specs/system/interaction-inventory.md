@@ -47,6 +47,7 @@ is a sixth layer for async work — see [`interaction-feedback.md`](../feature/i
 | `pressScale` | `active:scale-[0.98]` |
 | `pressFill` | `active:bg-accent-soft` — icon chips, card links |
 | `hoverLift` | `hover:-translate-y-px hover:shadow-raised` |
+| `cardPressable` | `cardInteractive` + `pressFill` — card-shaped buttons and links |
 | `disabledState` | opacity + `pointer-events-none` |
 | `pendingBusy` | muted + blocks clicks |
 | `pendingNavRing` | accent ring for icon nav pending |
@@ -92,7 +93,6 @@ Per-route control list:
 | Control | Issue | Fix when touched |
 | --- | --- | --- |
 | `TextLink` | No navigation pending | Accept or add opt-in `usePendingNavigation` |
-| `MethodCard` | Outer `<article>` + inner `SurfaceLink` both hover-lift | Remove article hover or document as intentional |
 | `MethodDetail` back | `hover:bg-transparent` override on ghost `ActionLink` | Intentional — text-link look |
 | Skip to content (`layout.tsx`) | Raw `<a>`, focus-only | Intentional a11y pattern — see exemptions |
 | `Table` scroll region | `tabIndex={0}` focus ring only | Keyboard scroll container, not a click target |
