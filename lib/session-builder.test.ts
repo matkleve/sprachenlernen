@@ -39,4 +39,40 @@ describe("session-builder", () => {
     const session = buildSession(tiny, {}, Date.now(), DEFAULT_SESSION_LENGTH);
     expect(session).toHaveLength(10);
   });
+
+  it("includes at most one task per word when siblings are both due (AC-10)", () => {
+    const meaning = cards.find((card) => card.lemma === "hablar" && card.taskId.endsWith(":meaning-recall"));
+    expect(meaning).toBeDefined();
+    if (!meaning) return;
+
+    const form: typeof meaning = {
+      ...meaning,
+      taskId: "es:hablar:hablo:form-recall",
+      front: "to speak",
+      back: "hablo",
+      paradigmCell: "ind.pres.1sg",
+    };
+
+    const reviewedAt = Date.now() - 14 * 86_400_000;
+    const makeDue = (taskId: string, wordId: string) => {
+      let task = newTask(taskId, wordId);
+      task = applyReview(task, "good", reviewedAt).task;
+      task = applyReview(task, "good", reviewedAt + 86_400_000).task;
+      return task.reviews;
+    };
+
+    const now = Date.now();
+    const session = buildSession(
+      [meaning, form],
+      {
+        [meaning.taskId]: makeDue(meaning.taskId, meaning.wordId),
+        [form.taskId]: makeDue(form.taskId, form.wordId),
+      },
+      now,
+    );
+
+    const wordIds = session.map((card) => card.wordId);
+    expect(new Set(wordIds).size).toBe(wordIds.length);
+    expect(session).toHaveLength(1);
+  });
 });

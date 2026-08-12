@@ -32,9 +32,9 @@ failure got through, not because it seemed prudent.
       exactly.
 - [ ] AC-9 · Given a review log, when the state is recomputed from scratch, then
       it equals the state built by applying the reviews one at a time.
-- [ ] AC-10 · Given two tasks of the same word due within the sibling gap, when
-      the session is planned, then the second is pushed beyond the gap and its
-      word is not asked twice in one session.
+- [ ] AC-10 · Given meaning-recall and form-recall for the same `wordId` both due,
+      when `buildSession` runs, then exactly one appears in the queue and the
+      other remains due for a later session.
 - [ ] AC-11 · Given any sequence of legal calls, no task shall ever hold two
       states at once, and no reviewed task shall lack a due date unless
       `retired`.

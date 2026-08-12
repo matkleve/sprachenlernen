@@ -16,11 +16,11 @@ into a fixed-length queue of Tasks for one review session. **Standard**
   **2000** lemmas ([`starter-deck.md`](starter-deck.md)); language **es**; task
   type **meaning-recall** only.
 - **Out:** choosing session length from the method menu (time scale is a separate
-  PR); sibling spacing between tasks of one Word (ADR-0004 spec gap); real
-  Word/Task tables in the database; which language a pool belongs to, and how
-  many languages the account holds — a caller's job, never this module's (see
-  "This module never chooses a language" below); form recall, audio recall,
-  cloze; hand-picking cards (UC-039); backlog counters (UC-063, A3).
+  PR); **at most one Task per Word per session** when siblings are both due
+  (2026-08-12); real Word/Task tables in the database; which language a pool
+  belongs to, and how many languages the account holds — a caller's job, never
+  this module's (see "This module never chooses a language" below); form recall,
+  audio recall, cloze; hand-picking cards (UC-039); backlog counters (UC-063, A3).
 
 ## Behavior
 
@@ -31,6 +31,15 @@ into a fixed-length queue of Tasks for one review session. **Standard**
 | 3 | More than 15 due | Returns the 15 most overdue by `due` ascending |
 | 4 | Fewer than 15 due + new available | Fills with new tasks in frequency order until 15 or pool exhausted |
 | 5 | Pool smaller than session length | Returns every card in the pool — never invents cards |
+| 6 | Two Tasks of one Word both due | Includes the more overdue one; the other stays due for the next session |
+
+**Sibling rule (2026-08-12):** FSRS sets each Task's `due` date independently.
+When building a session, if meaning-recall and form-recall for the same Word are
+both due, **only one enters this session** — whichever sorts first (earlier
+`due`, then lower `frequencyRank`). The sibling remains due and can appear in the
+**next** session. This is not a fixed card count or fixed day gap; it prevents
+the same word twice in one 15-card run. Same-Task requeue after `again`/`hard`
+(UC-071) is separate and handled in the review session, not here.
 
 ## States
 
@@ -77,6 +86,8 @@ calls the database.
       they are the 15 with the earliest `due` values.
 - [ ] Given a pool of 10 cards, when `buildSession` runs, then 10 return and
       no error is thrown.
+- [ ] Given meaning-recall and form-recall for the same `wordId` both due,
+      when `buildSession` runs, then exactly one of them appears in the queue.
 - [ ] Given an invalid starter file, when `loadStarterDeck` runs, then it returns
       errors and no deck.
 

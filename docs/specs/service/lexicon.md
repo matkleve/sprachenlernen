@@ -154,11 +154,10 @@ In [`lexicon.acceptance-criteria.md`](lexicon.acceptance-criteria.md).
 
 ## Open
 
-- **⚠ SPEC GAP: whether ranks are recomputed now that a lemma table exists.**
-  Summing form frequencies into lemma frequencies changes every rank, which is a
-  calibration event ([`../../study/03-level-model.md`](../../study/03-level-model.md)
-  rule 4). The migration path for learners who accumulated history at tier C is
-  undecided.
+- ~~**⚠ SPEC GAP: whether ranks are recomputed now that a lemma table exists.**~~
+  **Decided 2026-08-12: keep form-based ranks in the starter pool for now.**
+  Lemma-level recomputation is deferred until the coverage calculator ships
+  (stage 3), when it becomes a dated calibration event with a migration plan.
 - **⚠ SPEC GAP: what an incomplete paradigm means for form mastery.** A verb
   whose table has 12 of 50 cells is not a verb the learner knows 12 cells of.
   Reporting mastery over a partial paradigm, or excluding such verbs, are both

@@ -661,19 +661,22 @@ ADR-0006, ADR-0007) — an account is required, and the provider is Supabase.
 Resolve before stage-2 vocabulary slices (T-W1–T-W6); cite the plan, not this
 list, when implementing.
 
-18. **Lemma-frequency ranks: recompute from lemma tables or keep form-based lists?**
-    Blocks frequency blocks, milestones, and per-word block labels (UC-031,
-    UC-032, UC-038). Open in [`lexicon.md`](specs/service/lexicon.md). A
-    recompute is a calibration event — visible step in learner history.
-19. **Is the starter-pool atlas on `/words` the stage-2 map v1**, or does UC-031
-    need a separate surface? Pool-local is honest today; language-wide needs
-    lexicon runtime (stage 3) or W-18 settled first.
+18. ~~**Lemma-frequency ranks: recompute from lemma tables or keep form-based lists?**~~
+    **Answered 2026-08-12 (owner). Keep form-based ranks in the starter pool
+    for now.** Lemma-level recomputation waits for the coverage calculator
+    (stage 3) and a dated calibration plan.
+19. ~~**Is the starter-pool atlas on `/words` the stage-2 map v1**~~
+    **Answered 2026-08-12 (owner). Yes — pool-local bands and atlas on `/words`
+    first.** Language-wide map ships with coverage (stage 3).
 20. **`SKILLS` vocabulary value** — add `vocabulary` to the skill enum, or
     document why vocabulary methods keep `skills: []`? See
     [`method-catalogue.md`](specs/service/method-catalogue.md) SPEC GAP.
-21. **Scheduler sibling gap** — minimum spacing between sibling tasks (same lemma,
-    different task type)? Blocks promoting [`form-practice.md`](specs/service/form-practice.md)
-    from draft (UC-041 full engine). Open in [`scheduler.md`](specs/service/scheduler.md).
+21. ~~**Scheduler sibling gap** — minimum spacing between sibling tasks?~~
+    **Answered 2026-08-12 (owner + FSRS).** FSRS sets each Task's `due` date —
+    no fixed-day override. **One Task per Word per session** when building the
+    queue; the sibling stays due for the next session. UC-071 requeue repeats the
+    **same** Task within a session after a bad grade — separate rule. See
+    [`session-builder.md`](specs/service/session-builder.md) behaviour #6.
 22. **Incomplete paradigms in form-mastery reporting** — round, omit, or flag?
     Blocks per-cell breakdown (UC-062). Open in [`lexicon.md`](specs/service/lexicon.md).
 

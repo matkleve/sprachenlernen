@@ -62,6 +62,7 @@ describe("readWordsHome", () => {
     if (outcome.status !== "ok") return;
     expect(outcome.snapshot.counts).toEqual({ held: 0, fragile: 0, new: 1 });
     expect(outcome.snapshot.atlas).toHaveLength(1);
+    expect(outcome.blocks).toHaveLength(2);
   });
 
   it("asks the review log for meaning-recall task IDs only", async () => {

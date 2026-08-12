@@ -2,6 +2,7 @@
 
 <!-- id: SPEC-feature-words-home -->
 <!-- use-case: UC-063 -->
+<!-- use-case: UC-031 -->
 <!-- status: active -->
 
 The `/words` vocabulary home — held/fragile/new counts, a 30-day review horizon,
@@ -16,7 +17,8 @@ reading, listening, speaking, and off-app Methods are reached from `/methods`.
 
 - **In:** `features/words/` — `WordsHome`, `reading.ts`, `content.ts`; wired on
   `app/(app)/words/page.tsx`. Derives from
-  [`vocabulary-snapshot.md`](../service/vocabulary-snapshot.md) and **only**
+  [`vocabulary-snapshot.md`](../service/vocabulary-snapshot.md),
+  [`frequency-blocks.md`](../service/frequency-blocks.md), and **only**
   Reviews from built card-engine Methods (today: `srs-session`); `reading.ts`
   filters `poolForActiveLanguage()`'s cards down to **meaning-recall only**
   before building the snapshot — one atlas row per word, never one per Task.
@@ -32,7 +34,7 @@ reading, listening, speaking, and off-app Methods are reached from `/methods`.
 
 | # | User action | System response |
 | --- | --- | --- |
-| 1 | Opens `/words` | Intent copy, Start review, held/fragile/new counts, horizon, atlas |
+| 1 | Opens `/words` | Intent copy, Start review, held/fragile/new counts, frequency bands, horizon, atlas |
 | 1a | Deck is larger than the atlas cap | Atlas lists the **100** most frequent words and says how many of how many it is showing |
 | 2 | Taps Start review | Navigates to `/words/review?method=srs-session` |
 | 3 | History load fails | Error callout; no fake empty snapshot |
@@ -45,7 +47,8 @@ No client machine. Server page with `ok | error | no-language` outcomes.
 ## Acceptance criteria
 
 - [ ] Given a signed-in learner on `/words`, when the page renders, then held,
-      fragile and new counts are shown and Start review links to `srs-session`.
+      fragile and new counts are shown, frequency bands name each rank range and
+      stable-held count, and Start review links to `srs-session`.
 - [ ] Given the starter deck, when the page renders, then a 30-day horizon and
       atlas table are present.
 - [ ] Given a deck larger than 100 lemmas, when the page renders, then the atlas

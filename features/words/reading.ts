@@ -3,6 +3,7 @@ import { internalUnexpected, logHandledError, type HandledError } from "@/lib/er
 import { poolForActiveLanguage } from "@/lib/db/learner-pools";
 import { isMeaningRecallTaskId } from "@/lib/form-recall-pool";
 import { buildVocabularySnapshot, type VocabularySnapshot } from "@/lib/vocabulary-snapshot";
+import { buildFrequencyBlocks, type FrequencyBlock } from "@/lib/frequency-blocks";
 import type { Review } from "@/lib/scheduler";
 
 /**
@@ -13,7 +14,7 @@ import type { Review } from "@/lib/scheduler";
 export type WordsHomeOutcome =
   /** Signed in, no language chosen — the page routes to the picker. */
   | { status: "no-language" }
-  | { status: "ok"; snapshot: VocabularySnapshot }
+  | { status: "ok"; snapshot: VocabularySnapshot; blocks: readonly FrequencyBlock[] }
   | { status: "error"; error: HandledError };
 
 export async function readWordsHome(now: number = Date.now()): Promise<WordsHomeOutcome> {
@@ -56,6 +57,7 @@ async function read(now: number): Promise<WordsHomeOutcome> {
   return {
     status: "ok",
     snapshot: buildVocabularySnapshot(cards, reviewsByTaskId, now),
+    blocks: buildFrequencyBlocks(cards, reviewsByTaskId),
   };
 }
 
