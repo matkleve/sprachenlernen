@@ -14,7 +14,7 @@ import { LanguageSwitcher, type LanguageSwitcherOption } from "./LanguageSwitche
 import { ShellPageTitle, shellHeaderStartsCompact } from "./ShellPageTitle";
 import { copy } from "./content";
 import { headerBackdropClass } from "./header-chrome";
-import { useScrolled } from "./useScrolled";
+import { useHeaderCollapse } from "./useHeaderCollapse";
 
 const safeTop = "pt-[max(1rem,env(safe-area-inset-top))]";
 const safeBottom = "pb-[max(1rem,env(safe-area-inset-bottom))]";
@@ -35,23 +35,21 @@ export function FloatingShellChrome({
 }) {
   const pathname = usePathname();
   const back = shellBackTarget(pathname);
-  const scrolled = useScrolled();
-  const startsCompact = shellHeaderStartsCompact(pathname);
-  const compact = startsCompact || scrolled;
+  const collapse = useHeaderCollapse();
+  const pinnedCompact = shellHeaderStartsCompact(pathname);
 
   return (
     <>
       <div
         className={cn(
           "pointer-events-none fixed inset-x-0 top-0 z-50 md:hidden",
-          headerBackdropClass(scrolled),
+          headerBackdropClass(pinnedCompact ? 1 : collapse),
         )}
       >
         <div
           className={cn(
-            "relative flex min-h-11 items-center justify-between gap-3 px-4",
+            "relative flex min-h-11 items-center justify-between gap-3 px-4 pb-3",
             safeTop,
-            compact ? "pb-3" : "",
           )}
         >
           <div className="pointer-events-auto flex min-h-11 min-w-0 items-center gap-2">
@@ -70,7 +68,7 @@ export function FloatingShellChrome({
             )}
           </div>
 
-          {compact ? <ShellPageTitle compact variant="mobile" /> : null}
+          <ShellPageTitle variant="mobile" pinnedCompact={pinnedCompact} />
 
           <div className="pointer-events-auto">
             <ActionLink
@@ -84,8 +82,6 @@ export function FloatingShellChrome({
             </ActionLink>
           </div>
         </div>
-
-        {!compact ? <ShellPageTitle compact={false} variant="mobile" /> : null}
       </div>
 
       <nav
