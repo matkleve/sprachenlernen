@@ -1,25 +1,18 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
 import { poolForActiveLanguage } from "@/lib/db/learner-pools";
-import { listReviewsForTaskIds } from "@/lib/db/review-log";
+import { listTaskStatesForTaskIds } from "@/lib/db/task-state";
 import type { StarterCard } from "@/lib/starter-deck";
 
 import { readWordsHome } from "./reading";
 
 /**
  * Contract: docs/specs/feature/words-home.md, docs/specs/service/vocabulary-snapshot.md
- *
- * poolForActiveLanguage carries meaning-recall and form-recall cards
- * together, for the review session's benefit. This page shows one atlas row
- * per word, so a mixed pool without a filter double-counts every lemma that
- * has a distinct form — verified on the shipped Spanish pool: it dropped the
- * capped top-100 atlas to 62 distinct lemmas. Regression coverage for that,
- * not a hypothetical.
  */
 
-vi.mock("@/lib/db/review-log", async (importOriginal) => ({
-  ...(await importOriginal<typeof import("@/lib/db/review-log")>()),
-  listReviewsForTaskIds: vi.fn(),
+vi.mock("@/lib/db/task-state", async (importOriginal) => ({
+  ...(await importOriginal<typeof import("@/lib/db/task-state")>()),
+  listTaskStatesForTaskIds: vi.fn(),
 }));
 
 vi.mock("@/lib/db/learner-pools", () => ({ poolForActiveLanguage: vi.fn() }));
@@ -45,8 +38,8 @@ const formCard: StarterCard = {
 };
 
 beforeEach(() => {
-  vi.mocked(listReviewsForTaskIds).mockClear();
-  vi.mocked(listReviewsForTaskIds).mockResolvedValue({ status: "ok", reviews: [] });
+  vi.mocked(listTaskStatesForTaskIds).mockClear();
+  vi.mocked(listTaskStatesForTaskIds).mockResolvedValue({ status: "ok", rows: [] });
   vi.mocked(poolForActiveLanguage).mockResolvedValue({
     status: "ok",
     cards: [meaningCard, formCard],
@@ -64,10 +57,10 @@ describe("readWordsHome", () => {
     expect(outcome.snapshot.atlas).toHaveLength(1);
   });
 
-  it("asks the review log for meaning-recall task IDs only", async () => {
+  it("loads task_state for meaning-recall task IDs only", async () => {
     await readWordsHome(now);
 
-    expect(listReviewsForTaskIds).toHaveBeenCalledWith(["es:hablar:meaning-recall"]);
+    expect(listTaskStatesForTaskIds).toHaveBeenCalledWith(["es:hablar:meaning-recall"]);
   });
 
   it("reports no-language rather than an empty snapshot when nothing is chosen", async () => {
@@ -78,8 +71,8 @@ describe("readWordsHome", () => {
     expect(outcome.status).toBe("no-language");
   });
 
-  it("returns a handled error when the log reports one", async () => {
-    vi.mocked(listReviewsForTaskIds).mockResolvedValue({
+  it("returns a handled error when task state cannot be read", async () => {
+    vi.mocked(listTaskStatesForTaskIds).mockResolvedValue({
       status: "error",
       error: "Not signed in.",
     });

@@ -1,7 +1,8 @@
 "use server";
 
-import { appendReview, listReviewsForTaskIds, toSchedulerReview } from "@/lib/db/review-log";
-import { listFlaggedWordIds } from "@/lib/db/card-content-flags";
+import { appendReview } from "@/lib/db/review-log";
+import { listTaskStatesForTaskIds } from "@/lib/db/task-state";
+import { flagCardContent, listFlaggedWordIds } from "@/lib/db/card-content-flags";
 import { getSpokenLanguage } from "@/lib/db/profiles";
 import {
   catalogueLoadFailed,
@@ -12,8 +13,8 @@ import { buildSession, type SessionCard } from "@/lib/session-builder";
 import { filterSchedulableCards } from "@/lib/form-recall-staging";
 import { poolForActiveLanguage } from "@/lib/db/learner-pools";
 import { languageLabel } from "@/lib/languages";
+import { tasksByTaskIdForCards } from "@/lib/task-from-state";
 import type { Grade } from "@/lib/scheduler";
-import { flagCardContent } from "@/lib/db/card-content-flags";
 
 /**
  * Server Actions for the review session. Contracts:
@@ -84,20 +85,15 @@ export async function buildSessionAction(): Promise<BuildSessionOutcome> {
     const poolCards = pool.cards.filter((card) => !flaggedSet.has(card.wordId));
 
     const taskIds = poolCards.map((card) => card.taskId);
-    const reviewsResult = await listReviewsForTaskIds(taskIds);
-    if (reviewsResult.status === "error") {
-      const handled = sessionBuildFailed(reviewsResult.error);
+    const statesResult = await listTaskStatesForTaskIds(taskIds);
+    if (statesResult.status === "error") {
+      const handled = sessionBuildFailed(statesResult.error);
       return { status: "error", error: handled.userMessage };
     }
 
-    const reviewsByTaskId: Record<string, ReturnType<typeof toSchedulerReview>[]> = {};
-    for (const row of reviewsResult.reviews) {
-      const review = toSchedulerReview(row);
-      (reviewsByTaskId[row.taskId] ??= []).push(review);
-    }
-
-    const schedulable = filterSchedulableCards(poolCards, reviewsByTaskId);
-    const queue = buildSession(schedulable, reviewsByTaskId, Date.now());
+    const tasksByTaskId = tasksByTaskIdForCards(poolCards, statesResult.rows);
+    const schedulable = filterSchedulableCards(poolCards, tasksByTaskId);
+    const queue = buildSession(schedulable, tasksByTaskId, Date.now());
     return { status: "ok", queue, languageName };
   } catch (cause) {
     const handled = sessionBuildFailed(

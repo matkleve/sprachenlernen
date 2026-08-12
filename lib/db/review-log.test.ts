@@ -20,53 +20,31 @@ function authForUser(user: { id: string; email: string } | null) {
   };
 }
 
-function fakeClient(options: {
+function appendFakeClient(options: {
   userId: string | null;
-  insert?: { data: { id: string } | null; error: { message: string; code?: string } | null };
-  select?: { data: unknown[] | null; error: { message: string } | null };
-}): SupabaseClient {
-  const insert = vi.fn().mockReturnValue({
-    select: vi.fn().mockReturnValue({
-      single: vi.fn().mockResolvedValue(options.insert ?? { data: { id: "row-1" }, error: null }),
-    }),
+  rpc?: { data: string | null; error: { message: string; code?: string } | null };
+  existingStates?: unknown[];
+}) {
+  const rpc = vi.fn().mockResolvedValue(options.rpc ?? { data: "row-1", error: null });
+  const taskStateSelect = vi.fn().mockReturnValue({
+    in: vi.fn().mockResolvedValue({ data: options.existingStates ?? [], error: null }),
   });
-
-  const selectChain = {
-    eq: vi.fn().mockReturnThis(),
-    order: vi.fn().mockResolvedValue(
-      options.select ?? {
-        data: [
-          {
-            id: "row-1",
-            user_id: options.userId,
-            installation_id: installationId,
-            task_id: "task-1",
-            grade: "good",
-            reviewed_at: reviewedAt.toISOString(),
-            latency_ms: 420,
-            created_at: reviewedAt.toISOString(),
-          },
-        ],
-        error: null,
-      },
-    ),
-  };
-
-  const select = vi.fn().mockReturnValue(selectChain);
+  const from = vi.fn().mockImplementation((table: string) => {
+    if (table === "task_state") return { select: taskStateSelect };
+    throw new Error(`unexpected table ${table}`);
+  });
 
   return {
     auth: authForUser(
       options.userId ? { id: options.userId, email: "a@example.com" } : null,
     ),
-    from: vi.fn().mockImplementation((table: string) => {
-      expect(table).toBe("review_log");
-      return { insert, select };
-    }),
+    from,
+    rpc,
   } as unknown as SupabaseClient;
 }
 
 const validInput = {
-  taskId: "task-1",
+  taskId: "es:hablar:meaning-recall",
   grade: "good" as const,
   reviewedAt,
   latencyMs: 420,
@@ -75,42 +53,27 @@ const validInput = {
 
 describe("appendReview", () => {
   it("appends a row for a signed-in account", async () => {
-    const insert = vi.fn().mockReturnValue({
-      select: vi.fn().mockReturnValue({
-        single: vi.fn().mockResolvedValue({ data: { id: "row-1" }, error: null }),
-      }),
-    });
-    const client = {
-      auth: authForUser({ id: "user-1", email: "a@example.com" }),
-      from: vi.fn().mockReturnValue({ insert }),
-    } as unknown as SupabaseClient;
+    const client = appendFakeClient({ userId: "user-1" });
 
     const result = await appendReview(validInput, client);
 
     expect(result).toEqual({ status: "appended", id: "row-1" });
-    expect(insert).toHaveBeenCalledWith({
-      user_id: "user-1",
-      installation_id: installationId,
-      task_id: "task-1",
-      grade: "good",
-      reviewed_at: reviewedAt.toISOString(),
-      latency_ms: 420,
-    });
+    expect(client.rpc).toHaveBeenCalledWith(
+      "append_review_with_task_state",
+      expect.objectContaining({
+        p_task_id: "es:hablar:meaning-recall",
+        p_word_id: "es:hablar",
+        p_grade: "good",
+        p_installation_id: installationId,
+      }),
+    );
   });
 
   it("treats a duplicate review_id as appended", async () => {
-    const insert = vi.fn().mockReturnValue({
-      select: vi.fn().mockReturnValue({
-        single: vi.fn().mockResolvedValue({
-          data: null,
-          error: { code: "23505", message: "duplicate key value" },
-        }),
-      }),
+    const client = appendFakeClient({
+      userId: "user-1",
+      rpc: { data: null, error: { code: "23505", message: "duplicate key value" } },
     });
-    const client = {
-      auth: authForUser({ id: "user-1", email: "a@example.com" }),
-      from: vi.fn().mockReturnValue({ insert }),
-    } as unknown as SupabaseClient;
 
     const reviewId = "22222222-2222-4222-8222-222222222222";
     const result = await appendReview({ ...validInput, reviewId }, client);
@@ -119,7 +82,7 @@ describe("appendReview", () => {
   });
 
   it("refuses when there is no session", async () => {
-    const client = fakeClient({ userId: null });
+    const client = appendFakeClient({ userId: null });
 
     const result = await appendReview(validInput, client);
 
@@ -127,7 +90,7 @@ describe("appendReview", () => {
   });
 
   it("refuses an invalid grade before touching the database", async () => {
-    const client = fakeClient({ userId: "user-1" });
+    const client = appendFakeClient({ userId: "user-1" });
 
     const result = await appendReview(
       { ...validInput, grade: "nope" as "good" },
@@ -135,13 +98,13 @@ describe("appendReview", () => {
     );
 
     expect(result.status).toBe("error");
-    expect(client.from).not.toHaveBeenCalled();
+    expect(client.rpc).not.toHaveBeenCalled();
   });
 
   it("surfaces insert errors from Supabase", async () => {
-    const client = fakeClient({
+    const client = appendFakeClient({
       userId: "user-1",
-      insert: { data: null, error: { message: "permission denied" } },
+      rpc: { data: null, error: { message: "permission denied" } },
     });
 
     const result = await appendReview(validInput, client);
@@ -153,9 +116,9 @@ describe("appendReview", () => {
   });
 
   it("maps a missing column to schema-mismatch user copy", async () => {
-    const client = fakeClient({
+    const client = appendFakeClient({
       userId: "user-1",
-      insert: {
+      rpc: {
         data: null,
         error: { code: "PGRST204", message: "Could not find review_id column" },
       },

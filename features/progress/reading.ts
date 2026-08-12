@@ -1,8 +1,9 @@
-import { listReviewsForTaskIds, toSchedulerReview } from "@/lib/db/review-log";
+import { listTaskStatesForTaskIds } from "@/lib/db/task-state";
 import { internalUnexpected, logHandledError, type HandledError } from "@/lib/errors";
 import { readLevel, type LevelReading } from "@/lib/level-model";
-import { newTask, rebuild, type Review, type Task } from "@/lib/scheduler";
+import { newTask, type Task } from "@/lib/scheduler";
 import { poolForActiveLanguage } from "@/lib/db/learner-pools";
+import { tasksByTaskIdForCards } from "@/lib/task-from-state";
 
 /**
  * Assembles the progress reading for the signed-in learner. Contract:
@@ -49,24 +50,18 @@ async function read(now: number): Promise<ProgressOutcome> {
   }
 
   const cards = pool.cards;
-  const reviewsResult = await listReviewsForTaskIds(cards.map((card) => card.taskId));
-  if (reviewsResult.status === "error") {
+  const statesResult = await listTaskStatesForTaskIds(cards.map((card) => card.taskId));
+  if (statesResult.status === "error") {
     // Not an empty reading. A failed read and a learner who has done nothing
     // look the same on this page — "nothing measured" — and only one of them
     // is true, so the failure has to be loud (UC-066).
-    return { status: "error", error: fail(new Error(reviewsResult.error)) };
+    return { status: "error", error: fail(new Error(statesResult.error)) };
   }
 
-  const reviewsByTaskId: Record<string, Review[]> = {};
-  for (const row of reviewsResult.reviews) {
-    (reviewsByTaskId[row.taskId] ??= []).push(toSchedulerReview(row));
-  }
-
-  const tasks: Task[] = cards.map((card) => {
-    const reviews = reviewsByTaskId[card.taskId];
-    if (!reviews || reviews.length === 0) return newTask(card.taskId, card.wordId);
-    return rebuild(card.taskId, card.wordId, reviews).task;
-  });
+  const tasksByTaskId = tasksByTaskIdForCards(cards, statesResult.rows);
+  const tasks: Task[] = cards.map(
+    (card) => tasksByTaskId[card.taskId] ?? newTask(card.taskId, card.wordId),
+  );
 
   return { status: "ok", reading: readLevel(tasks, now) };
 }

@@ -2,7 +2,7 @@ import { beforeEach, describe, expect, it, vi } from "vitest";
 
 import { readPicker } from "@/features/language-picker/reading";
 import { listLearningLanguages } from "@/lib/db/learning-languages";
-import { listReviewsForTaskIds } from "@/lib/db/review-log";
+import { listTaskStatesForTaskIds } from "@/lib/db/task-state";
 import {
   loadSpanishMeaningRecallDeck,
   SHIPPED_ES_POOL_SIZE,
@@ -16,9 +16,9 @@ vi.mock("@/lib/db/learning-languages", async (importOriginal) => ({
   listLearningLanguages: vi.fn(),
 }));
 
-vi.mock("@/lib/db/review-log", async (importOriginal) => ({
-  ...(await importOriginal<typeof import("@/lib/db/review-log")>()),
-  listReviewsForTaskIds: vi.fn(),
+vi.mock("@/lib/db/task-state", async (importOriginal) => ({
+  ...(await importOriginal<typeof import("@/lib/db/task-state")>()),
+  listTaskStatesForTaskIds: vi.fn(),
 }));
 
 const spanishDeck = loadSpanishMeaningRecallDeck();
@@ -26,7 +26,7 @@ const firstCard = spanishDeck.status === "ok" ? spanishDeck.deck.cards[0]! : nul
 
 beforeEach(() => {
   vi.mocked(listLearningLanguages).mockResolvedValue({ status: "ok", languages: [] });
-  vi.mocked(listReviewsForTaskIds).mockResolvedValue({ status: "ok", reviews: [] });
+  vi.mocked(listTaskStatesForTaskIds).mockResolvedValue({ status: "ok", rows: [] });
 });
 
 describe("readPicker", () => {
@@ -45,21 +45,24 @@ describe("readPicker", () => {
     expect(italian?.heldCount).toBeNull();
   });
 
-  it("returns a held count once meaning-recall history exists", async () => {
+  it("returns a held count once meaning-recall state exists", async () => {
     if (!firstCard) throw new Error("spanish deck missing in test setup");
 
-    vi.mocked(listReviewsForTaskIds).mockResolvedValue({
+    vi.mocked(listTaskStatesForTaskIds).mockResolvedValue({
       status: "ok",
-      reviews: [
+      rows: [
         {
-          id: "row-1",
-          userId: "user-1",
-          installationId: "11111111-1111-4111-8111-111111111111",
           taskId: firstCard.taskId,
-          grade: "easy",
-          reviewedAt: new Date().toISOString(),
-          latencyMs: 1000,
-          createdAt: new Date().toISOString(),
+          wordId: firstCard.wordId,
+          state: "review",
+          stability: 12,
+          difficulty: 5,
+          due: new Date().toISOString(),
+          lastReviewAt: new Date().toISOString(),
+          lapses: 0,
+          lastGrade: "easy",
+          reviewCount: 2,
+          weightsVersion: "fsrs-4.5-default",
         },
       ],
     });
@@ -74,8 +77,8 @@ describe("readPicker", () => {
     expect(spanish?.heldCount).toBeLessThanOrEqual(SHIPPED_ES_POOL_SIZE);
   });
 
-  it("passes through a review-log failure", async () => {
-    vi.mocked(listReviewsForTaskIds).mockResolvedValue({
+  it("passes through a task-state failure", async () => {
+    vi.mocked(listTaskStatesForTaskIds).mockResolvedValue({
       status: "error",
       error: "Not signed in.",
     });

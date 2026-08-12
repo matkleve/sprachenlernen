@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
-import { listReviewsForTaskIds } from "@/lib/db/review-log";
+import { listTaskStatesForTaskIds } from "@/lib/db/task-state";
 import { poolForActiveLanguage } from "@/lib/db/learner-pools";
 
 import { readStanding } from "./readStanding";
@@ -9,12 +9,8 @@ vi.mock("@/lib/db/learner-pools", () => ({
   poolForActiveLanguage: vi.fn(),
 }));
 
-vi.mock("@/lib/db/review-log", () => ({
-  listReviewsForTaskIds: vi.fn(),
-  toSchedulerReview: vi.fn((row: { reviewedAt: string; grade: string }) => ({
-    at: Date.parse(row.reviewedAt),
-    grade: row.grade,
-  })),
+vi.mock("@/lib/db/task-state", () => ({
+  listTaskStatesForTaskIds: vi.fn(),
 }));
 
 const meaningCard = (lemma: string, rank: number) => ({
@@ -29,23 +25,23 @@ const meaningCard = (lemma: string, rank: number) => ({
 describe("readStanding", () => {
   beforeEach(() => {
     vi.mocked(poolForActiveLanguage).mockReset();
-    vi.mocked(listReviewsForTaskIds).mockReset();
+    vi.mocked(listTaskStatesForTaskIds).mockReset();
   });
 
   it("routes on no language", async () => {
     vi.mocked(poolForActiveLanguage).mockResolvedValue({ status: "no-language" });
 
     expect(await readStanding()).toEqual({ status: "no-language" });
-    expect(listReviewsForTaskIds).not.toHaveBeenCalled();
+    expect(listTaskStatesForTaskIds).not.toHaveBeenCalled();
   });
 
-  it("omits standing when review history cannot be read", async () => {
+  it("omits standing when task state cannot be read", async () => {
     vi.mocked(poolForActiveLanguage).mockResolvedValue({
       status: "ok",
       cards: [meaningCard("hola", 1)],
       languageCodes: ["es"],
     });
-    vi.mocked(listReviewsForTaskIds).mockResolvedValue({
+    vi.mocked(listTaskStatesForTaskIds).mockResolvedValue({
       status: "error",
       error: "boom",
     });
@@ -70,11 +66,11 @@ describe("readStanding", () => {
       ],
       languageCodes: ["es"],
     });
-    vi.mocked(listReviewsForTaskIds).mockResolvedValue({ status: "ok", reviews: [] });
+    vi.mocked(listTaskStatesForTaskIds).mockResolvedValue({ status: "ok", rows: [] });
 
     await readStanding();
 
-    expect(listReviewsForTaskIds).toHaveBeenCalledWith(["es:hola:meaning-recall"]);
+    expect(listTaskStatesForTaskIds).toHaveBeenCalledWith(["es:hola:meaning-recall"]);
   });
 
   it("returns empty standing when nothing has been reviewed yet", async () => {
@@ -83,7 +79,7 @@ describe("readStanding", () => {
       cards: [meaningCard("hola", 1)],
       languageCodes: ["es"],
     });
-    vi.mocked(listReviewsForTaskIds).mockResolvedValue({ status: "ok", reviews: [] });
+    vi.mocked(listTaskStatesForTaskIds).mockResolvedValue({ status: "ok", rows: [] });
 
     const outcome = await readStanding();
 

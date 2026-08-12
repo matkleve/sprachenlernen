@@ -28,7 +28,7 @@ describe("session-builder", () => {
 
     const session = buildSession(
       [freshCard, dueCard],
-      { [dueCard.taskId]: task.reviews },
+      { [dueCard.taskId]: task },
       now,
     );
     expect(session[0]?.taskId).toBe(dueCard.taskId);
