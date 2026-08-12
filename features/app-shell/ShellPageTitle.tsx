@@ -1,5 +1,6 @@
 "use client";
 
+import { useLayoutEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
 
 import { routes } from "@/lib/routes";
@@ -7,15 +8,18 @@ import { cn } from "@/lib/utils";
 
 import { useHeaderCollapse } from "./useHeaderCollapse";
 import { shellPageTitle } from "./page-title";
+import {
+  MOBILE_TITLE_LARGE_PX,
+  MOBILE_TITLE_SMALL_PX,
+  MOBILE_TITLE_LARGE_MAX_REM,
+  mobileShellTitleClampedMaxWidth,
+  mobileShellTitleMaxWidth,
+  mobileTitleWrapsTwoLines,
+} from "./shell-page-title-layout";
 
 const TITLE_SIZES = {
-  mobile: { large: 24, small: 14 },
+  mobile: { large: MOBILE_TITLE_LARGE_PX, small: MOBILE_TITLE_SMALL_PX },
   desktop: { large: 30, small: 14 },
-} as const;
-
-const MOBILE_TITLE_MAX_WIDTH = {
-  large: "11rem",
-  small: "9rem",
 } as const;
 
 type ShellPageTitleProps = {
@@ -39,25 +43,53 @@ export function ShellPageTitle({ variant, pinnedCompact = false, className }: Sh
   const collapse = pinnedCompact ? 1 : scrollCollapse;
   const { large, small } = TITLE_SIZES[variant];
   const fontSize = large + (small - large) * collapse;
+  const measureRef = useRef<HTMLSpanElement>(null);
+  const [wrapsTwoLines, setWrapsTwoLines] = useState(false);
+
+  useLayoutEffect(() => {
+    if (variant !== "mobile" || !title) {
+      setWrapsTwoLines(false);
+      return;
+    }
+
+    const el = measureRef.current;
+    if (!el) return;
+
+    const lineHeight = parseFloat(getComputedStyle(el).lineHeight);
+    setWrapsTwoLines(mobileTitleWrapsTwoLines(el.scrollHeight, lineHeight));
+  }, [title, variant]);
 
   if (!title) return null;
 
   if (variant === "mobile") {
-    const maxWidth =
-      collapse < 0.5 ? MOBILE_TITLE_MAX_WIDTH.large : MOBILE_TITLE_MAX_WIDTH.small;
+    const maxWidth = mobileShellTitleClampedMaxWidth(
+      mobileShellTitleMaxWidth(wrapsTwoLines, fontSize, collapse),
+    );
 
     return (
       <h1
         className={cn(
-          "pointer-events-none col-start-2 min-w-0 text-center font-semibold leading-tight tracking-tight text-ink line-clamp-2",
+          "pointer-events-none absolute top-1/2 left-1/2 z-0 w-max -translate-x-1/2 -translate-y-1/2 text-center font-semibold leading-tight tracking-tight text-ink line-clamp-2",
           className,
         )}
         style={{
           fontSize: `${fontSize}px`,
           maxWidth,
+          minHeight: wrapsTwoLines ? "2lh" : undefined,
         }}
         title={title}
       >
+        <span
+          ref={measureRef}
+          aria-hidden
+          className="pointer-events-none absolute top-0 left-1/2 -translate-x-1/2 text-center font-semibold leading-tight tracking-tight opacity-0"
+          style={{
+            fontSize: `${large}px`,
+            width: `${MOBILE_TITLE_LARGE_MAX_REM}rem`,
+          }}
+        >
+          {title}
+        </span>
         {title}
       </h1>
     );

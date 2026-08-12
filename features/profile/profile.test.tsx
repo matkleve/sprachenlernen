@@ -153,7 +153,10 @@ describe("ProfileSpokenLanguage", () => {
 
     expect(screen.getByText("Deutsch")).toBeDefined();
     expect(screen.getAllByText("English").length).toBeGreaterThanOrEqual(1);
-    expect(screen.getAllByText(copy.active)).toHaveLength(1);
+    const activeChip = screen.getByText(copy.active);
+    expect(activeChip.tagName).toBe("SPAN");
+    expect(activeChip.className).toContain("bg-accent-soft");
+    expect(activeChip.className).toContain("border-accent");
     expect(screen.getAllByRole("button", { name: copy.makeActive })).toHaveLength(1);
   });
 });

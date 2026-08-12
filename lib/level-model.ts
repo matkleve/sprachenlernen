@@ -112,8 +112,11 @@ function readRecallStability(tasks: readonly Task[]): SignalReading {
  * Pool-local vocabulary reading — lemmas held stably in the shipped deck.
  * Language-wide extrapolation is withheld until the pool is large enough; see
  * docs/specs/page/progress.md § Data — vocabulary size.
+ *
+ * Exported for `/methods` standing, which needs only this signal — not the full
+ * progress reading on every navigation.
  */
-function readVocabularySize(tasks: readonly Task[]): SignalReading {
+export function readVocabularySize(tasks: readonly Task[]): SignalReading {
   const meaningTasks = tasks.filter((task) => isMeaningRecallTaskId(task.id));
 
   if (meaningTasks.length === 0) {

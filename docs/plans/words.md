@@ -65,11 +65,11 @@ decision from you" — same session as the answer, per project rules.
 
 | # | Question | Blocks | Notes |
 | --- | --- | --- | --- |
-| **W-1** | **Recompute lemma-frequency ranks** now that lemma tables exist, or keep form-based ranks from `data/frequency/*.txt`? | UC-031, UC-032, UC-038 block model | Open in [`lexicon.md`](../specs/service/lexicon.md). Recomputation is a calibration event — learners see a step change. |
-| **W-2** | **Is the pool atlas on `/words` the stage-2 map prototype**, or is UC-031 a separate surface? | T-W3 scope | Current atlas is starter-pool-only (2000 rows max), not language-wide. UC-031 wants full frequency distribution + holes. Pool-local map may be an honest v1. |
-| **W-3** | **`SKILLS` vocabulary value** — add `vocabulary` to the skill enum, or keep vocabulary methods with `skills: []` and document why? | method-catalogue coherence | [`method-catalogue.md`](../specs/service/method-catalogue.md) SPEC GAP. |
-| **W-4** | **Scheduler sibling gap** — minimum spacing between sibling tasks (same lemma, different task type)? | `form-practice` promotion, UC-041 full engine | Open in [`scheduler.md`](../specs/service/scheduler.md). Blocks draft [`form-practice.md`](../specs/service/form-practice.md). |
-| **W-5** | **Incomplete paradigms** — what does form-mastery report when a verb lacks cells? | UC-062 per-cell breakdown | Open in [`lexicon.md`](../specs/service/lexicon.md). |
+| **W-1** | ~~Lemma-frequency ranks~~ **Answered 2026-08-12:** keep form-based ranks in starter pool | — |
+| **W-2** | ~~Pool atlas vs full map~~ **Answered 2026-08-12:** pool-local bands on `/words` v1 | — |
+| **W-3** | `SKILLS` vocabulary value | method-catalogue coherence | Open |
+| **W-4** | ~~Sibling spacing~~ **Answered 2026-08-12:** FSRS `due` between sessions; one Task per Word per session; UC-071 requeue is same Task only | — |
+| **W-5** | Incomplete paradigms → form mastery | UC-062 | Open |
 
 Do not start T-W2–T-W6 until W-1 and W-2 are answered. W-4 blocks T-W6 only.
 
@@ -92,7 +92,7 @@ frequency blocks (derivation)
 
 | ID | Work | Serves | New spec | Class | Depends on |
 | --- | --- | --- | --- | --- | --- |
-| **T-W1** | **Frequency blocks** — derive stable-known counts per band (e.g. top 500, 501–1000, 1001–2000) from existing ranks + `isTaskHeld`. Display on `/words` or `/progress`. No new data files. | UC-032 (partial), UC-031 | `docs/specs/service/frequency-blocks.md` | Standard | W-1 if bands use recomputed ranks |
+| **T-W1** | ~~**Frequency blocks**~~ — **shipped 2026-08-12** | UC-032 (partial), UC-031 | `frequency-blocks.md`, `lib/frequency-blocks.ts`, `/words` bands UI |
 | **T-W2** | **Word detail** — tap an atlas row (or review card) → rank, block, stability, schedule reason, one-action suspend/drop (history preserved). | UC-038 | `docs/specs/feature/word-detail.md` or `docs/specs/page/word.md` | Standard | T-W1 for block label |
 | **T-W3** | **Vocabulary map (pool-local v1)** — extend `/words`: show distribution of held/fragile/new/new-hole across frequency bands; textual equivalent required (UC-021). Not language-wide until lexicon runtime. | UC-031 (partial) | extend [`words-home.md`](../specs/feature/words-home.md) | Standard | T-W1, W-2 answered |
 | **T-W4** | **T-B3 remainder** — language-wide vocabulary extrapolation, per-skill levels, demonstration sentence. | UC-004, UC-031, UC-054, UC-050 | existing [`progress.md`](../specs/page/progress.md), level-model specs | Standard / Sensitive | calibration (tier A) or widened band; anchor table [C] |

@@ -1,4 +1,5 @@
 import type { SupabaseClient } from "@supabase/supabase-js";
+import { cache } from "react";
 
 import { createServerSupabaseClient } from "@/lib/db/client";
 import { createServiceRoleSupabaseClient } from "@/lib/db/admin-client";
@@ -121,12 +122,24 @@ export async function signInWithOAuth(
   return { status: "redirect", url: data.url };
 }
 
-/** The signed-in Account for this request, or null. Never throws on "signed out". */
-export async function getAccount(client?: SupabaseClient): Promise<Account | null> {
+/**
+ * The signed-in Account for this request, or null. Never throws on "signed out".
+ *
+ * Reads the session cookie locally via `getSession()` — not another round trip
+ * to Supabase Auth. `middleware.ts` already called `getUser()` to refresh and
+ * validate before any Server Component runs; repeating that in the layout, the
+ * page, and every adapter was what made every navbar click feel slow.
+ */
+async function getAccountImpl(client?: SupabaseClient): Promise<Account | null> {
   const supabase = await resolveClient(client);
-  const { data } = await supabase.auth.getUser();
-  return data.user ? { id: data.user.id, email: data.user.email ?? "" } : null;
+  const {
+    data: { session },
+  } = await supabase.auth.getSession();
+  const user = session?.user;
+  return user ? { id: user.id, email: user.email ?? "" } : null;
 }
+
+export const getAccount = cache(getAccountImpl);
 
 /**
  * Permanently deletes the signed-in account and cascades review_log rows.

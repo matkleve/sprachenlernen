@@ -40,9 +40,10 @@ describe("MethodDetail", () => {
       <MethodDetail method={extensiveReading} searchParams={{ minutes: "15", skill: "reading" }} />,
     );
 
-    expect(screen.getByRole("link", { name: new RegExp(copy.backToMethods) }).getAttribute("href")).toBe(
-      "/methods?minutes=15&skill=reading",
-    );
+    const back = screen.getByRole("link", { name: new RegExp(copy.backToMethods) });
+    expect(back.getAttribute("href")).toBe("/methods?minutes=15&skill=reading");
+    expect(back.className).toContain("hidden");
+    expect(back.className).toContain("md:inline-flex");
   });
 
   it("shows not-found for an unknown id", () => {

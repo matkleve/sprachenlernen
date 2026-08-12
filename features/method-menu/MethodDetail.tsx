@@ -16,7 +16,7 @@ export type MethodDetailProps = {
 };
 
 const backLinkClass =
-  "h-auto px-0 text-sm font-medium text-muted hover:bg-transparent hover:text-ink";
+  "hidden h-auto px-0 text-sm font-medium text-muted hover:bg-transparent hover:text-ink md:inline-flex";
 
 export function MethodDetail({ method, searchParams = {} }: MethodDetailProps) {
   const backHref = `${routes.methods}${menuQueryString(searchParams)}`;

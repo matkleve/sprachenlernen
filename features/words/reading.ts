@@ -1,10 +1,10 @@
-import { listReviewsForTaskIds, toSchedulerReview } from "@/lib/db/review-log";
+import { listTaskStatesForTaskIds } from "@/lib/db/task-state";
 import { internalUnexpected, logHandledError, type HandledError } from "@/lib/errors";
 import { poolForActiveLanguage } from "@/lib/db/learner-pools";
 import { isMeaningRecallTaskId } from "@/lib/form-recall-pool";
-import { buildVocabularySnapshot, type VocabularySnapshot } from "@/lib/vocabulary-snapshot";
 import { buildFrequencyBlocks, type FrequencyBlock } from "@/lib/frequency-blocks";
-import type { Review } from "@/lib/scheduler";
+import { tasksByTaskIdForCards } from "@/lib/task-from-state";
+import { buildVocabularySnapshot, type VocabularySnapshot } from "@/lib/vocabulary-snapshot";
 
 /**
  * Loads the Words home snapshot for the signed-in learner. Contract:
@@ -44,20 +44,17 @@ async function read(now: number): Promise<WordsHomeOutcome> {
   // Spanish pool). vocabulary-snapshot.md's own acceptance criterion — "counts
   // sum to the deck size" — only holds for one deck.
   const cards = pool.cards.filter((card) => isMeaningRecallTaskId(card.taskId));
-  const reviewsResult = await listReviewsForTaskIds(cards.map((card) => card.taskId));
-  if (reviewsResult.status === "error") {
-    return { status: "error", error: fail(new Error(reviewsResult.error)) };
+  const statesResult = await listTaskStatesForTaskIds(cards.map((card) => card.taskId));
+  if (statesResult.status === "error") {
+    return { status: "error", error: fail(new Error(statesResult.error)) };
   }
 
-  const reviewsByTaskId: Record<string, Review[]> = {};
-  for (const row of reviewsResult.reviews) {
-    (reviewsByTaskId[row.taskId] ??= []).push(toSchedulerReview(row));
-  }
+  const tasksByTaskId = tasksByTaskIdForCards(cards, statesResult.rows);
 
   return {
     status: "ok",
-    snapshot: buildVocabularySnapshot(cards, reviewsByTaskId, now),
-    blocks: buildFrequencyBlocks(cards, reviewsByTaskId),
+    snapshot: buildVocabularySnapshot(cards, tasksByTaskId, now),
+    blocks: buildFrequencyBlocks(cards, tasksByTaskId),
   };
 }
 

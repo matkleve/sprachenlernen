@@ -4,7 +4,7 @@ import { readLevel } from "@/lib/level-model";
 import { newTask, rebuild, type Review } from "@/lib/scheduler";
 
 import type { StandingOutcome } from "./standing";
-import { standingFromReading } from "./standing";
+import { standingFromReading, standingFromVocabulary } from "./standing";
 
 const DAY = 86_400_000;
 const now = Date.UTC(2026, 7, 9);
@@ -18,6 +18,30 @@ function reviewed(id: string, grades: Review["grade"][]) {
   }));
   return rebuild(taskId, wordId, reviews).task;
 }
+
+describe("standingFromVocabulary", () => {
+  it("returns empty when the signal has no data", () => {
+    expect(
+      standingFromVocabulary({
+        id: "vocabulary-size",
+        status: "no-data",
+        value: null,
+        taskCount: 500,
+      }),
+    ).toEqual({ kind: "empty" });
+  });
+
+  it("returns recorded when held lemmas exist", () => {
+    expect(
+      standingFromVocabulary({
+        id: "vocabulary-size",
+        status: "has-data",
+        value: 12,
+        taskCount: 500,
+      }),
+    ).toEqual({ kind: "recorded", held: 12, poolSize: 500 });
+  });
+});
 
 describe("standingFromReading", () => {
   it("returns empty when nothing has been reviewed", () => {

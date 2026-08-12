@@ -43,7 +43,7 @@ export function FloatingShellChrome({
       >
         <div
           className={cn(
-            "relative grid grid-cols-[1fr_minmax(0,11rem)_1fr] items-center gap-x-2 px-4 pb-3",
+            "relative grid min-h-11 grid-cols-[1fr_1fr] items-center gap-x-2 px-4 pb-3",
             safeTop,
           )}
         >
@@ -52,17 +52,18 @@ export function FloatingShellChrome({
               <IconLink href={back.href} aria-label={copy.backTo(back.label)}>
                 <ArrowLeft aria-hidden className="size-5 shrink-0" />
               </IconLink>
-            ) : null}
-            <LanguageSwitcher
-              languages={languages}
-              languageHoldings={languageHoldings}
-              layout="floating"
-            />
+            ) : (
+              <LanguageSwitcher
+                languages={languages}
+                languageHoldings={languageHoldings}
+                layout="floating"
+              />
+            )}
           </div>
 
           <ShellPageTitle variant="mobile" pinnedCompact={pinnedCompact} />
 
-          <div className="pointer-events-auto col-start-3 justify-self-end">
+          <div className="pointer-events-auto col-start-2 justify-self-end">
             <IconLink href={routes.profile} aria-label={copy.account}>
               <UserRound aria-hidden className="size-5 shrink-0" />
             </IconLink>

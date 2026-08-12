@@ -1,4 +1,5 @@
 import type { SupabaseClient } from "@supabase/supabase-js";
+import { cache } from "react";
 
 import { getAccount } from "@/lib/db/auth";
 import { createServerSupabaseClient } from "@/lib/db/client";
@@ -67,7 +68,7 @@ export function languagesWithAPool(): readonly string[] {
   return availableLanguages();
 }
 
-export async function listLearningLanguages(
+async function listLearningLanguagesImpl(
   client?: SupabaseClient,
 ): Promise<ListLanguagesOutcome> {
   const supabase = await resolveClient(client);
@@ -94,6 +95,9 @@ export async function listLearningLanguages(
   // it) sends someone who is signed in and learning back to the front door.
   return { status: "ok", languages: (data ?? []).map((row) => mapRow(row as DbRow)) };
 }
+
+/** Cached per request — the shell and every page both need this list. */
+export const listLearningLanguages = cache(listLearningLanguagesImpl);
 
 export async function addLearningLanguage(
   languageCode: string,

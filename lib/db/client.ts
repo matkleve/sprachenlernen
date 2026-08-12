@@ -1,5 +1,6 @@
 import { createBrowserClient, createServerClient } from "@supabase/ssr";
 import { cookies } from "next/headers";
+import { cache } from "react";
 
 import { requireSupabaseEnv } from "@/lib/db/env";
 
@@ -31,11 +32,11 @@ export function createBrowserSupabaseClient() {
 }
 
 /**
- * The server client for the current request. Must be created fresh per
- * request (it closes over that request's cookies) — never cached at module
- * scope, or every request would share one user's session.
+ * The server client for the current request. `React.cache` scopes it to one
+ * render — every adapter call in a navigation shares one client, but requests
+ * never share a session. Module-scope caching would leak sessions across users.
  */
-export async function createServerSupabaseClient() {
+async function createServerSupabaseClientImpl() {
   const { url, publishableKey } = requireSupabaseEnv();
   const cookieStore = await cookies();
 
@@ -58,3 +59,5 @@ export async function createServerSupabaseClient() {
     },
   });
 }
+
+export const createServerSupabaseClient = cache(createServerSupabaseClientImpl);

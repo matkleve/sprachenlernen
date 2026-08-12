@@ -16,7 +16,10 @@ ADR-0007). **Sensitive** (`AGENTS.md`).
   `listReviewsForTaskIds`, `toSchedulerReview`), `lib/installation-id.ts`
   (browser-local installation UUID), `features/review-session/actions.ts`, and
   wiring `ReviewSession` in `features/review-session/` so each graded card
-  appends one row. Ownership and RLS remain in [`auth.md`](auth.md).
+  appends one row. **Read paths for scheduling surfaces move to
+  [`task-state.md`](task-state.md)** once shipped — this module remains the
+  append-only audit trail and export source. Ownership and RLS remain in
+  [`auth.md`](auth.md).
 - **Out:** the session queue builder ([`session-builder.md`](session-builder.md));
   real Word/Task
   tables; scheduler projection UI; export/delete (UC-024). Offline durability

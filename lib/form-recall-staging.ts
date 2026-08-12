@@ -8,7 +8,7 @@ import {
   meaningRecallTaskIdFor,
 } from "@/lib/form-recall-pool";
 import type { StarterCard } from "@/lib/starter-deck";
-import { rebuild, type Review } from "@/lib/scheduler";
+import { newTask, type Task } from "@/lib/scheduler";
 import { isTaskHeld } from "@/lib/vocabulary-snapshot";
 
 /**
@@ -17,16 +17,14 @@ import { isTaskHeld } from "@/lib/vocabulary-snapshot";
  */
 export function filterSchedulableCards(
   cards: readonly StarterCard[],
-  reviewsByTaskId: Record<string, Review[]>,
+  tasksByTaskId: Record<string, Task>,
 ): StarterCard[] {
   return cards.filter((card) => {
     if (!isFormRecallTaskId(card.taskId)) return true;
 
     const meaningId = meaningRecallTaskIdFor(card);
-    const reviews = reviewsByTaskId[meaningId] ?? [];
-    if (reviews.length === 0) return false;
-
-    const meaningTask = rebuild(meaningId, card.wordId, reviews).task;
+    const meaningTask = tasksByTaskId[meaningId] ?? newTask(meaningId, card.wordId);
+    if (meaningTask.reviews.length === 0) return false;
 
     return isTaskHeld(meaningTask);
   });

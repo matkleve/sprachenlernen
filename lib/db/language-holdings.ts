@@ -1,7 +1,8 @@
-import { listReviewsForTaskIds, toSchedulerReview } from "@/lib/db/review-log";
-import { readLevel } from "@/lib/level-model";
-import { newTask, rebuild, type Review } from "@/lib/scheduler";
+import { listTaskStatesForTaskIds } from "@/lib/db/task-state";
+import { readVocabularySize } from "@/lib/level-model";
+import { newTask } from "@/lib/scheduler";
 import { loadMeaningRecallDeck } from "@/lib/starter-deck";
+import { tasksByTaskIdForCards } from "@/lib/task-from-state";
 
 /**
  * Pool-local meaning-recall holdings per language. Contract:
@@ -25,6 +26,7 @@ export async function readLanguageHoldings(
   languageCodes: readonly string[],
   now: number = Date.now(),
 ): Promise<LanguageHoldingsOutcome> {
+  void now;
   const decks = languageCodes.map((code) => ({
     code,
     deck: loadMeaningRecallDeck(code),
@@ -49,34 +51,30 @@ export async function readLanguageHoldings(
     return { status: "ok", byCode };
   }
 
-  const reviewsResult = await listReviewsForTaskIds(allTaskIds);
-  if (reviewsResult.status === "error") {
-    return { status: "error", error: reviewsResult.error };
+  const statesResult = await listTaskStatesForTaskIds(allTaskIds);
+  if (statesResult.status === "error") {
+    return { status: "error", error: statesResult.error };
   }
 
-  const reviewsByTaskId: Record<string, Review[]> = {};
-  for (const row of reviewsResult.reviews) {
-    (reviewsByTaskId[row.taskId] ??= []).push(toSchedulerReview(row));
-  }
+  const rowByTaskId = new Map(statesResult.rows.map((row) => [row.taskId, row]));
 
   for (const code of languageCodes) {
     const cards = cardsPerCode[code];
     if (!cards) continue;
 
-    const hasAnyReview = cards.some((card) => (reviewsByTaskId[card.taskId]?.length ?? 0) > 0);
+    const hasAnyReview = cards.some((card) => rowByTaskId.has(card.taskId));
     if (!hasAnyReview) continue;
 
-    const tasks = cards.map((card) => {
-      const reviews = reviewsByTaskId[card.taskId];
-      if (!reviews || reviews.length === 0) return newTask(card.taskId, card.wordId);
-      return rebuild(card.taskId, card.wordId, reviews).task;
-    });
+    const tasksByTaskId = tasksByTaskIdForCards(cards, statesResult.rows);
+    const tasks = cards.map(
+      (card) => tasksByTaskId[card.taskId] ?? newTask(card.taskId, card.wordId),
+    );
 
-    const vocabulary = readLevel(tasks, now).signals.find((signal) => signal.id === "vocabulary-size");
+    const vocabulary = readVocabularySize(tasks);
     byCode[code] = {
       poolSize: cards.length,
       heldCount:
-        vocabulary?.status === "has-data" && vocabulary.value !== null ? vocabulary.value : 0,
+        vocabulary.status === "has-data" && vocabulary.value !== null ? vocabulary.value : 0,
     };
   }
 

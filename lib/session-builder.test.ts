@@ -28,7 +28,7 @@ describe("session-builder", () => {
 
     const session = buildSession(
       [freshCard, dueCard],
-      { [dueCard.taskId]: task.reviews },
+      { [dueCard.taskId]: task },
       now,
     );
     expect(session[0]?.taskId).toBe(dueCard.taskId);
@@ -58,7 +58,7 @@ describe("session-builder", () => {
       let task = newTask(taskId, wordId);
       task = applyReview(task, "good", reviewedAt).task;
       task = applyReview(task, "good", reviewedAt + 86_400_000).task;
-      return task.reviews;
+      return task;
     };
 
     const now = Date.now();

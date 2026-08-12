@@ -3,7 +3,7 @@
  */
 
 import type { StarterCard } from "@/lib/starter-deck";
-import { newTask, rebuild, type Review, type Task } from "@/lib/scheduler";
+import { newTask, type Task } from "@/lib/scheduler";
 
 export type SessionCard = StarterCard & {
   position: number;
@@ -13,13 +13,6 @@ export type SessionCard = StarterCard & {
 export const DEFAULT_SESSION_LENGTH = 15;
 
 type ScoredCard = StarterCard & { due: number; isNew: boolean };
-
-function taskFromReviews(card: StarterCard, reviews: Review[]): Task {
-  if (reviews.length === 0) {
-    return newTask(card.taskId, card.wordId);
-  }
-  return rebuild(card.taskId, card.wordId, reviews).task;
-}
 
 function isSchedulable(task: Task, now: number): "due" | "new" | "skip" {
   if (task.state === "suspended" || task.state === "retired") return "skip";
@@ -34,15 +27,14 @@ function isSchedulable(task: Task, now: number): "due" | "new" | "skip" {
  */
 export function buildSession(
   pool: StarterCard[],
-  reviewsByTaskId: Record<string, Review[]>,
+  tasksByTaskId: Record<string, Task>,
   now: number,
   sessionLength: number = DEFAULT_SESSION_LENGTH,
 ): SessionCard[] {
   const scored: ScoredCard[] = [];
 
   for (const card of pool) {
-    const reviews = reviewsByTaskId[card.taskId] ?? [];
-    const task = taskFromReviews(card, reviews);
+    const task = tasksByTaskId[card.taskId] ?? newTask(card.taskId, card.wordId);
     const bucket = isSchedulable(task, now);
     if (bucket === "skip") continue;
     scored.push({

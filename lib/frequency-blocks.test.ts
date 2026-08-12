@@ -44,7 +44,7 @@ describe("frequency-blocks", () => {
     heldTask = applyReview(heldTask, "good", now - 5 * DAY).task;
 
     const blocks = buildFrequencyBlocks(cards, {
-      [heldCard.taskId]: heldTask.reviews,
+      [heldCard.taskId]: heldTask,
     });
 
     expect(blocks[0]?.held).toBe(1);
@@ -56,9 +56,7 @@ describe("frequency-blocks", () => {
     expect(meaningCard).toBeDefined();
     if (!meaningCard) return;
 
-    const blocks = buildFrequencyBlocks([meaningCard], {
-      "es:hablar:hablo:form-recall": [{ at: now - DAY, grade: "good" }],
-    });
+    const blocks = buildFrequencyBlocks([meaningCard], {});
 
     expect(blocks[0]).toMatchObject({ poolSize: 1, held: 0, fragile: 0, new: 1 });
   });

@@ -28,7 +28,7 @@ language map and marginal coverage payoff wait for the coverage calculator
 
 | # | Input | Output |
 | --- | --- | --- |
-| 1 | Starter pool + review history | One row per band: `rankStart`, `rankEnd`, `poolSize`, `held`, `fragile`, `new` |
+| 1 | Starter pool + task state per card | One row per band: `rankStart`, `rankEnd`, `poolSize`, `held`, `fragile`, `new` |
 | 2 | A card whose rank falls in a band | Counted in that band's bucket via meaning-recall task state only |
 | 3 | Form-recall tasks | Ignored — one row per word, same rule as the vocabulary atlas |
 | 4 | Empty history | Every card in `new`; `held + fragile + new = poolSize` per band |

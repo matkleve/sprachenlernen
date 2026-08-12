@@ -12,8 +12,10 @@ works for bookmarks and links.
 
 ## Scope
 
-- **In:** full catalogue fields; back link preserving filter query; for
-  `srs-session` reached directly, a primary control that opens Words review.
+- **In:** full catalogue fields; on desktop (`≥ md`), a back link preserving
+  filter query; on mobile the shell back chip replaces it
+  ([`mobile-nav-v2.md`](../feature/mobile-nav-v2.md)); for `srs-session`
+  reached directly, a primary control that opens Words review.
 - **Out:** measured effect; variants beyond durations; starting non-hosted
   methods; Start control for hosted methods whose engine is not built yet.
 
@@ -37,7 +39,7 @@ not a rank — off-app Methods are not demoted visually.
 | 1 | Opens `/methods/{id}` | Full entry or not-found |
 | 2 | `srs-session`, taps Start | Navigates to `/words/review?method=srs-session` |
 | 3 | Other hosted method | No Start control; honest not-built copy |
-| 4 | Taps back | `/methods` with filter query preserved |
+| 4 | Taps back (desktop) or shell back chip (mobile) | `/methods` with filter query preserved |
 
 ## Acceptance criteria
 
@@ -52,7 +54,10 @@ not a rank — off-app Methods are not demoted visually.
 - [ ] Given a not-hosted method, when the page renders, then no start control
       appears.
 - [ ] Given the learner arrived from a filtered `/methods`, when they follow
-      back, then the same filter is still active.
+      back on desktop or the shell back chip on mobile, then the same filter is
+      still active.
+- [ ] Given viewport &lt; `md`, when the page renders, then no in-page back
+      link appears (shell back chip only).
 - [ ] The page tree contains no `"use client"` at the page root.
 - [ ] The rendered surface has no axe-core violations.
 

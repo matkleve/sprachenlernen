@@ -2,9 +2,9 @@
  * Frequency-block derivation. Contract: docs/specs/service/frequency-blocks.md
  */
 
-import { bucketForTask, type VocabularyBucket } from "@/lib/vocabulary-snapshot";
 import type { StarterCard } from "@/lib/starter-deck";
-import { DEFAULT_CONFIG, newTask, rebuild, type Config, type Review, type Task } from "@/lib/scheduler";
+import { DEFAULT_CONFIG, newTask, type Config, type Task } from "@/lib/scheduler";
+import { bucketForTask, type VocabularyBucket } from "@/lib/vocabulary-snapshot";
 
 export type FrequencyBlockBand = {
   rankStart: number;
@@ -28,11 +28,6 @@ export const DEFAULT_FREQUENCY_BANDS: readonly FrequencyBlockBand[] = [
   { rankStart: 1001, rankEnd: 2000 },
 ] as const;
 
-function taskForCard(card: StarterCard, reviews: Review[]): Task {
-  if (reviews.length === 0) return newTask(card.taskId, card.wordId);
-  return rebuild(card.taskId, card.wordId, reviews).task;
-}
-
 function emptyBlock(band: FrequencyBlockBand): FrequencyBlock {
   return {
     ...band,
@@ -50,7 +45,7 @@ function incrementBucket(block: FrequencyBlock, bucket: VocabularyBucket): void 
 
 export function buildFrequencyBlocks(
   cards: readonly StarterCard[],
-  reviewsByTaskId: Record<string, Review[]>,
+  tasksByTaskId: Record<string, Task>,
   bands: readonly FrequencyBlockBand[] = DEFAULT_FREQUENCY_BANDS,
   config: Config = DEFAULT_CONFIG,
 ): FrequencyBlock[] {
@@ -62,8 +57,7 @@ export function buildFrequencyBlocks(
     );
     if (bandIndex < 0) continue;
 
-    const reviews = reviewsByTaskId[card.taskId] ?? [];
-    const task = taskForCard(card, reviews);
+    const task = tasksByTaskId[card.taskId] ?? newTask(card.taskId, card.wordId);
     if (task.state === "suspended" || task.state === "retired") continue;
 
     incrementBucket(blocks[bandIndex]!, bucketForTask(task, config));
