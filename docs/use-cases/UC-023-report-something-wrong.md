@@ -41,14 +41,16 @@ where a report button exists, nothing visibly comes back.
 - Reports accumulate into a signal that is actually looked at — repeated reports
   on one item, or a spike for one generator or language, are visible to whoever
   maintains the content.
-- **The report is scoped to one (Learning language, Spoken language) pair,
-  not to the Word in the abstract.** "The translation is wrong" is a claim
-  about one specific gloss text, in one specific spoken language, on one
-  specific learning language's card — see **Spoken language** and **Learning
-  language** in [`../GLOSSARY.md`](../GLOSSARY.md). Once a second spoken
-  language ships glosses (UC-069), the same card's English gloss and German
-  gloss are independent texts that can each be right or wrong on their own; a
-  report must say which one it is about, never flag "this card" as a whole.
+- **The report is scoped to one (Word, Spoken language) pair, not to the Word
+  in the abstract.** "The translation is wrong" is a claim about one specific
+  description text, in one specific spoken language, describing one specific
+  word — see **Spoken language** and **Learning language** in
+  [`../GLOSSARY.md`](../GLOSSARY.md). Once a second spoken language ships
+  description text (UC-069 — word identity and description text are separate
+  records, keyed by (word, spoken language)), the same word's English and
+  German descriptions are independent texts that can each be right or wrong
+  on their own; a report must say which one it is about, never flag "this
+  word" as a whole.
 
 ## Out of scope
 
@@ -60,8 +62,12 @@ of the same flag, not a redesign of it.
 
 ## Undecided
 
-- **⚠ SPEC GAP: blocked on UC-069's gloss-content-storage decision.** A flag
-  needs a stable key for "which gloss text, in which spoken language" — that
-  key does not exist yet, because UC-069 has not decided whether gloss text
-  lives in duplicate per-spoken-language pool files or in `wordId`-keyed gloss
-  tables. This use case cannot be spec'd until that one is.
+Unblocked 2026-08-12: UC-069 settled the shape a report's key needs — word
+identity and description text are separate records, keyed by (`wordId`,
+spoken language). A report can use that same key directly. What is still
+open is smaller and specific to this use case:
+
+- **⚠ SPEC GAP: does a report point at the whole description, or one part of
+  it** (once UC-069's "single string vs. split parts" question resolves) —
+  deferred until that one is decided, since it changes what "which part is
+  wrong" can even mean.
