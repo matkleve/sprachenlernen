@@ -1,0 +1,4066 @@
+{
+  "language": "es",
+  "taskType": "form-recall",
+  "cards": [
+    {
+      "taskId": "es:el:la:form-recall",
+      "wordId": "es:el",
+      "lemma": "el",
+      "surfaceForm": "la",
+      "paradigmCell": "f.sg",
+      "front": "the (masc.) — write the Spanish form",
+      "back": "la",
+      "frequencyRank": 1
+    },
+    {
+      "taskId": "es:ser:es:form-recall",
+      "wordId": "es:ser",
+      "lemma": "ser",
+      "surfaceForm": "es",
+      "paradigmCell": "ind.pres.3sg",
+      "front": "to be — write the Spanish form",
+      "back": "es",
+      "frequencyRank": 4
+    },
+    {
+      "taskId": "es:él:lo:form-recall",
+      "wordId": "es:él",
+      "lemma": "él",
+      "surfaceForm": "lo",
+      "paradigmCell": "m.sg",
+      "front": "it, him — write the Spanish form",
+      "back": "lo",
+      "frequencyRank": 5
+    },
+    {
+      "taskId": "es:uno:un:form-recall",
+      "wordId": "es:uno",
+      "lemma": "uno",
+      "surfaceForm": "un",
+      "paradigmCell": "m.sg",
+      "front": "a, one — write the Spanish form",
+      "back": "un",
+      "frequencyRank": 7
+    },
+    {
+      "taskId": "es:yo:me:form-recall",
+      "wordId": "es:yo",
+      "lemma": "yo",
+      "surfaceForm": "me",
+      "paradigmCell": "sg",
+      "front": "I — write the Spanish form",
+      "back": "me",
+      "frequencyRank": 9
+    },
+    {
+      "taskId": "es:estar:está:form-recall",
+      "wordId": "es:estar",
+      "lemma": "estar",
+      "surfaceForm": "está",
+      "paradigmCell": "ind.pres.3sg",
+      "front": "to be (state) — write the Spanish form",
+      "back": "está",
+      "frequencyRank": 10
+    },
+    {
+      "taskId": "es:tú:te:form-recall",
+      "wordId": "es:tú",
+      "lemma": "tú",
+      "surfaceForm": "te",
+      "paradigmCell": "sg",
+      "front": "you — write the Spanish form",
+      "back": "te",
+      "frequencyRank": 13
+    },
+    {
+      "taskId": "es:haber:ha:form-recall",
+      "wordId": "es:haber",
+      "lemma": "haber",
+      "surfaceForm": "ha",
+      "paradigmCell": "ind.pres.3sg",
+      "front": "has (aux.) — write the Spanish form",
+      "back": "ha",
+      "frequencyRank": 14
+    },
+    {
+      "taskId": "es:tener:tengo:form-recall",
+      "wordId": "es:tener",
+      "lemma": "tener",
+      "surfaceForm": "tengo",
+      "paradigmCell": "ind.pres.1sg",
+      "front": "to have — write the Spanish form",
+      "back": "tengo",
+      "frequencyRank": 16
+    },
+    {
+      "taskId": "es:ir:vamos:form-recall",
+      "wordId": "es:ir",
+      "lemma": "ir",
+      "surfaceForm": "vamos",
+      "paradigmCell": "ind.pres.1pl",
+      "front": "to go — write the Spanish form",
+      "back": "vamos",
+      "frequencyRank": 18
+    },
+    {
+      "taskId": "es:este:esto:form-recall",
+      "wordId": "es:este",
+      "lemma": "este",
+      "surfaceForm": "esto",
+      "paradigmCell": "sg",
+      "front": "this (masc.) — write the Spanish form",
+      "back": "esto",
+      "frequencyRank": 19
+    },
+    {
+      "taskId": "es:hacer:hace:form-recall",
+      "wordId": "es:hacer",
+      "lemma": "hacer",
+      "surfaceForm": "hace",
+      "paradigmCell": "ind.pres.3sg",
+      "front": "to do — write the Spanish form",
+      "back": "hace",
+      "frequencyRank": 20
+    },
+    {
+      "taskId": "es:poder:puedo:form-recall",
+      "wordId": "es:poder",
+      "lemma": "poder",
+      "surfaceForm": "puedo",
+      "paradigmCell": "ind.pres.1sg",
+      "front": "to be able — write the Spanish form",
+      "back": "puedo",
+      "frequencyRank": 21
+    },
+    {
+      "taskId": "es:ese:eso:form-recall",
+      "wordId": "es:ese",
+      "lemma": "ese",
+      "surfaceForm": "eso",
+      "paradigmCell": "sg",
+      "front": "that — write the Spanish form",
+      "back": "eso",
+      "frequencyRank": 22
+    },
+    {
+      "taskId": "es:mi:mis:form-recall",
+      "wordId": "es:mi",
+      "lemma": "mi",
+      "surfaceForm": "mis",
+      "paradigmCell": "pl",
+      "front": "my — write the Spanish form",
+      "back": "mis",
+      "frequencyRank": 25
+    },
+    {
+      "taskId": "es:decir:dice:form-recall",
+      "wordId": "es:decir",
+      "lemma": "decir",
+      "surfaceForm": "dice",
+      "paradigmCell": "ind.pres.3sg",
+      "front": "to say, to tell — write the Spanish form",
+      "back": "dice",
+      "frequencyRank": 26
+    },
+    {
+      "taskId": "es:saber:sé:form-recall",
+      "wordId": "es:saber",
+      "lemma": "saber",
+      "surfaceForm": "sé",
+      "paradigmCell": "ind.pres.1sg",
+      "front": "to know — write the Spanish form",
+      "back": "sé",
+      "frequencyRank": 27
+    },
+    {
+      "taskId": "es:su:sus:form-recall",
+      "wordId": "es:su",
+      "lemma": "su",
+      "surfaceForm": "sus",
+      "paradigmCell": "pl",
+      "front": "his, her, their — write the Spanish form",
+      "back": "sus",
+      "frequencyRank": 28
+    },
+    {
+      "taskId": "es:todo:todos:form-recall",
+      "wordId": "es:todo",
+      "lemma": "todo",
+      "surfaceForm": "todos",
+      "paradigmCell": "m.pl",
+      "front": "all, everything — write the Spanish form",
+      "back": "todos",
+      "frequencyRank": 29
+    },
+    {
+      "taskId": "es:querer:quiero:form-recall",
+      "wordId": "es:querer",
+      "lemma": "querer",
+      "surfaceForm": "quiero",
+      "paradigmCell": "ind.pres.1sg",
+      "front": "to want — write the Spanish form",
+      "back": "quiero",
+      "frequencyRank": 30
+    },
+    {
+      "taskId": "es:pero:peros:form-recall",
+      "wordId": "es:pero",
+      "lemma": "pero",
+      "surfaceForm": "peros",
+      "paradigmCell": "pl",
+      "front": "but — write the Spanish form",
+      "back": "peros",
+      "frequencyRank": 31
+    },
+    {
+      "taskId": "es:bien:bienes:form-recall",
+      "wordId": "es:bien",
+      "lemma": "bien",
+      "surfaceForm": "bienes",
+      "paradigmCell": "pl",
+      "front": "well — write the Spanish form",
+      "back": "bienes",
+      "frequencyRank": 34
+    },
+    {
+      "taskId": "es:ver:ven:form-recall",
+      "wordId": "es:ver",
+      "lemma": "ver",
+      "surfaceForm": "ven",
+      "paradigmCell": "ind.pres.3pl",
+      "front": "to see, to spot — write the Spanish form",
+      "back": "ven",
+      "frequencyRank": 35
+    },
+    {
+      "taskId": "es:mucho:muchas:form-recall",
+      "wordId": "es:mucho",
+      "lemma": "mucho",
+      "surfaceForm": "muchas",
+      "paradigmCell": "f.pl",
+      "front": "much, a lot — write the Spanish form",
+      "back": "muchas",
+      "frequencyRank": 36
+    },
+    {
+      "taskId": "es:tu:tus:form-recall",
+      "wordId": "es:tu",
+      "lemma": "tu",
+      "surfaceForm": "tus",
+      "paradigmCell": "pl",
+      "front": "your — write the Spanish form",
+      "back": "tus",
+      "frequencyRank": 37
+    },
+    {
+      "taskId": "es:buen:bueno:form-recall",
+      "wordId": "es:buen",
+      "lemma": "buen",
+      "surfaceForm": "bueno",
+      "paradigmCell": "m.sg",
+      "front": "good — write the Spanish form",
+      "back": "bueno",
+      "frequencyRank": 38
+    },
+    {
+      "taskId": "es:creer:creo:form-recall",
+      "wordId": "es:creer",
+      "lemma": "creer",
+      "surfaceForm": "creo",
+      "paradigmCell": "ind.pres.1sg",
+      "front": "to believe — write the Spanish form",
+      "back": "creo",
+      "frequencyRank": 43
+    },
+    {
+      "taskId": "es:deber:debe:form-recall",
+      "wordId": "es:deber",
+      "lemma": "deber",
+      "surfaceForm": "debe",
+      "paradigmCell": "ind.pres.3sg",
+      "front": "to owe — write the Spanish form",
+      "back": "debe",
+      "frequencyRank": 44
+    },
+    {
+      "taskId": "es:vez:veces:form-recall",
+      "wordId": "es:vez",
+      "lemma": "vez",
+      "surfaceForm": "veces",
+      "paradigmCell": "pl",
+      "front": "time (occasion) — write the Spanish form",
+      "back": "veces",
+      "frequencyRank": 49
+    },
+    {
+      "taskId": "es:hablar:habla:form-recall",
+      "wordId": "es:hablar",
+      "lemma": "hablar",
+      "surfaceForm": "habla",
+      "paradigmCell": "ind.pres.3sg",
+      "front": "to talk; to speak; to communicate using words — write the Spanish form",
+      "back": "habla",
+      "frequencyRank": 51
+    },
+    {
+      "taskId": "es:cómo:cómos:form-recall",
+      "wordId": "es:cómo",
+      "lemma": "cómo",
+      "surfaceForm": "cómos",
+      "paradigmCell": "pl",
+      "front": "how — write the Spanish form",
+      "back": "cómos",
+      "frequencyRank": 53
+    },
+    {
+      "taskId": "es:pasar:pasa:form-recall",
+      "wordId": "es:pasar",
+      "lemma": "pasar",
+      "surfaceForm": "pasa",
+      "paradigmCell": "ind.pres.3sg",
+      "front": "to pass, to hand, to slip — write the Spanish form",
+      "back": "pasa",
+      "frequencyRank": 54
+    },
+    {
+      "taskId": "es:dejar:deja:form-recall",
+      "wordId": "es:dejar",
+      "lemma": "dejar",
+      "surfaceForm": "deja",
+      "paradigmCell": "ind.pres.3sg",
+      "front": "to leave — write the Spanish form",
+      "back": "deja",
+      "frequencyRank": 55
+    },
+    {
+      "taskId": "es:otro:otra:form-recall",
+      "wordId": "es:otro",
+      "lemma": "otro",
+      "surfaceForm": "otra",
+      "paradigmCell": "f.sg",
+      "front": "other, another — write the Spanish form",
+      "back": "otra",
+      "frequencyRank": 57
+    },
+    {
+      "taskId": "es:dar:da:form-recall",
+      "wordId": "es:dar",
+      "lemma": "dar",
+      "surfaceForm": "da",
+      "paradigmCell": "ind.pres.3sg",
+      "front": "to give, to give out — write the Spanish form",
+      "back": "da",
+      "frequencyRank": 58
+    },
+    {
+      "taskId": "es:tanto:tanta:form-recall",
+      "wordId": "es:tanto",
+      "lemma": "tanto",
+      "surfaceForm": "tanta",
+      "paradigmCell": "f.sg",
+      "front": "so much; as much; that much — write the Spanish form",
+      "back": "tanta",
+      "frequencyRank": 59
+    },
+    {
+      "taskId": "es:gracia:gracias:form-recall",
+      "wordId": "es:gracia",
+      "lemma": "gracia",
+      "surfaceForm": "gracias",
+      "paradigmCell": "pl",
+      "front": "grace; (pl.) thanks — write the Spanish form",
+      "back": "gracias",
+      "frequencyRank": 60
+    },
+    {
+      "taskId": "es:pensar:piensa:form-recall",
+      "wordId": "es:pensar",
+      "lemma": "pensar",
+      "surfaceForm": "piensa",
+      "paradigmCell": "ind.pres.3sg",
+      "front": "to think, ponder — write the Spanish form",
+      "back": "piensa",
+      "frequencyRank": 61
+    },
+    {
+      "taskId": "es:esperar:espera:form-recall",
+      "wordId": "es:esperar",
+      "lemma": "esperar",
+      "surfaceForm": "espera",
+      "paradigmCell": "ind.pres.3sg",
+      "front": "to hope — write the Spanish form",
+      "back": "espera",
+      "frequencyRank": 62
+    },
+    {
+      "taskId": "es:sentir:siento:form-recall",
+      "wordId": "es:sentir",
+      "lemma": "sentir",
+      "surfaceForm": "siento",
+      "paradigmCell": "ind.pres.1sg",
+      "front": "to feel — write the Spanish form",
+      "back": "siento",
+      "frequencyRank": 63
+    },
+    {
+      "taskId": "es:cosa:cosas:form-recall",
+      "wordId": "es:cosa",
+      "lemma": "cosa",
+      "surfaceForm": "cosas",
+      "paradigmCell": "pl",
+      "front": "thing — write the Spanish form",
+      "back": "cosas",
+      "frequencyRank": 64
+    },
+    {
+      "taskId": "es:día:días:form-recall",
+      "wordId": "es:día",
+      "lemma": "día",
+      "surfaceForm": "días",
+      "paradigmCell": "pl",
+      "front": "day — write the Spanish form",
+      "back": "días",
+      "frequencyRank": 66
+    },
+    {
+      "taskId": "es:nuestro:nuestra:form-recall",
+      "wordId": "es:nuestro",
+      "lemma": "nuestro",
+      "surfaceForm": "nuestra",
+      "paradigmCell": "f.sg",
+      "front": "ours — write the Spanish form",
+      "back": "nuestra",
+      "frequencyRank": 67
+    },
+    {
+      "taskId": "es:necesitar:necesito:form-recall",
+      "wordId": "es:necesitar",
+      "lemma": "necesitar",
+      "surfaceForm": "necesito",
+      "paradigmCell": "ind.pres.1sg",
+      "front": "to need — write the Spanish form",
+      "back": "necesito",
+      "frequencyRank": 68
+    },
+    {
+      "taskId": "es:llamar:llama:form-recall",
+      "wordId": "es:llamar",
+      "lemma": "llamar",
+      "surfaceForm": "llama",
+      "paradigmCell": "ind.pres.3sg",
+      "front": "to summon, to call — write the Spanish form",
+      "back": "llama",
+      "frequencyRank": 69
+    },
+    {
+      "taskId": "es:hombre:hombres:form-recall",
+      "wordId": "es:hombre",
+      "lemma": "hombre",
+      "surfaceForm": "hombres",
+      "paradigmCell": "pl",
+      "front": "man — write the Spanish form",
+      "back": "hombres",
+      "frequencyRank": 70
+    },
+    {
+      "taskId": "es:casa:casas:form-recall",
+      "wordId": "es:casa",
+      "lemma": "casa",
+      "surfaceForm": "casas",
+      "paradigmCell": "pl",
+      "front": "house — write the Spanish form",
+      "back": "casas",
+      "frequencyRank": 72
+    },
+    {
+      "taskId": "es:mirar:miro:form-recall",
+      "wordId": "es:mirar",
+      "lemma": "mirar",
+      "surfaceForm": "miro",
+      "paradigmCell": "ind.pres.1sg",
+      "front": "to look at — write the Spanish form",
+      "back": "miro",
+      "frequencyRank": 74
+    },
+    {
+      "taskId": "es:verdad:verdades:form-recall",
+      "wordId": "es:verdad",
+      "lemma": "verdad",
+      "surfaceForm": "verdades",
+      "paradigmCell": "pl",
+      "front": "truth — write the Spanish form",
+      "back": "verdades",
+      "frequencyRank": 75
+    },
+    {
+      "taskId": "es:quién:quiénes:form-recall",
+      "wordId": "es:quién",
+      "lemma": "quién",
+      "surfaceForm": "quiénes",
+      "paradigmCell": "pl",
+      "front": "who?, whom?; whose? — write the Spanish form",
+      "back": "quiénes",
+      "frequencyRank": 76
+    },
+    {
+      "taskId": "es:alguno:alguna:form-recall",
+      "wordId": "es:alguno",
+      "lemma": "alguno",
+      "surfaceForm": "alguna",
+      "paradigmCell": "f.sg",
+      "front": "some, any — write the Spanish form",
+      "back": "alguna",
+      "frequencyRank": 77
+    },
+    {
+      "taskId": "es:tiempo:tiempos:form-recall",
+      "wordId": "es:tiempo",
+      "lemma": "tiempo",
+      "surfaceForm": "tiempos",
+      "paradigmCell": "pl",
+      "front": "time — write the Spanish form",
+      "back": "tiempos",
+      "frequencyRank": 78
+    },
+    {
+      "taskId": "es:mejor:mejores:form-recall",
+      "wordId": "es:mejor",
+      "lemma": "mejor",
+      "surfaceForm": "mejores",
+      "paradigmCell": "pl",
+      "front": "better — write the Spanish form",
+      "back": "mejores",
+      "frequencyRank": 81
+    },
+    {
+      "taskId": "es:venir:viene:form-recall",
+      "wordId": "es:venir",
+      "lemma": "venir",
+      "surfaceForm": "viene",
+      "paradigmCell": "ind.pres.3sg",
+      "front": "to come — write the Spanish form",
+      "back": "viene",
+      "frequencyRank": 82
+    },
+    {
+      "taskId": "es:dónde:dóndes:form-recall",
+      "wordId": "es:dónde",
+      "lemma": "dónde",
+      "surfaceForm": "dóndes",
+      "paradigmCell": "pl",
+      "front": "where?; in what place? — write the Spanish form",
+      "back": "dóndes",
+      "frequencyRank": 83
+    },
+    {
+      "taskId": "es:año:años:form-recall",
+      "wordId": "es:año",
+      "lemma": "año",
+      "surfaceForm": "años",
+      "paradigmCell": "pl",
+      "front": "year — write the Spanish form",
+      "back": "años",
+      "frequencyRank": 84
+    },
+    {
+      "taskId": "es:señor:señores:form-recall",
+      "wordId": "es:señor",
+      "lemma": "señor",
+      "surfaceForm": "señores",
+      "paradigmCell": "pl",
+      "front": "mister, sir, lord — write the Spanish form",
+      "back": "señores",
+      "frequencyRank": 85
+    },
+    {
+      "taskId": "es:volver:vuelve:form-recall",
+      "wordId": "es:volver",
+      "lemma": "volver",
+      "surfaceForm": "vuelve",
+      "paradigmCell": "ind.pres.3sg",
+      "front": "to return, to revert, to get back — write the Spanish form",
+      "back": "vuelve",
+      "frequencyRank": 87
+    },
+    {
+      "taskId": "es:favor:favores:form-recall",
+      "wordId": "es:favor",
+      "lemma": "favor",
+      "surfaceForm": "favores",
+      "paradigmCell": "pl",
+      "front": "favor/favour — write the Spanish form",
+      "back": "favores",
+      "frequencyRank": 88
+    },
+    {
+      "taskId": "es:parecer:parece:form-recall",
+      "wordId": "es:parecer",
+      "lemma": "parecer",
+      "surfaceForm": "parece",
+      "paradigmCell": "ind.pres.3sg",
+      "front": "to seem, to see fit — write the Spanish form",
+      "back": "parece",
+      "frequencyRank": 89
+    },
+    {
+      "taskId": "es:noche:noches:form-recall",
+      "wordId": "es:noche",
+      "lemma": "noche",
+      "surfaceForm": "noches",
+      "paradigmCell": "pl",
+      "front": "night — write the Spanish form",
+      "back": "noches",
+      "frequencyRank": 91
+    },
+    {
+      "taskId": "es:gustar:gusta:form-recall",
+      "wordId": "es:gustar",
+      "lemma": "gustar",
+      "surfaceForm": "gusta",
+      "paradigmCell": "ind.pres.3sg",
+      "front": "to like — write the Spanish form",
+      "back": "gusta",
+      "frequencyRank": 92
+    },
+    {
+      "taskId": "es:mismo:misma:form-recall",
+      "wordId": "es:mismo",
+      "lemma": "mismo",
+      "surfaceForm": "misma",
+      "paradigmCell": "f.sg",
+      "front": "same, identical — write the Spanish form",
+      "back": "misma",
+      "frequencyRank": 93
+    },
+    {
+      "taskId": "es:vida:vidas:form-recall",
+      "wordId": "es:vida",
+      "lemma": "vida",
+      "surfaceForm": "vidas",
+      "paradigmCell": "pl",
+      "front": "life — write the Spanish form",
+      "back": "vidas",
+      "frequencyRank": 94
+    },
+    {
+      "taskId": "es:encontrar:encontramos:form-recall",
+      "wordId": "es:encontrar",
+      "lemma": "encontrar",
+      "surfaceForm": "encontramos",
+      "paradigmCell": "ind.pres.1pl",
+      "front": "to meet — write the Spanish form",
+      "back": "encontramos",
+      "frequencyRank": 95
+    },
+    {
+      "taskId": "es:sobre:sobres:form-recall",
+      "wordId": "es:sobre",
+      "lemma": "sobre",
+      "surfaceForm": "sobres",
+      "paradigmCell": "pl",
+      "front": "over, above, on, upon, atop — write the Spanish form",
+      "back": "sobres",
+      "frequencyRank": 96
+    },
+    {
+      "taskId": "es:oír:oye:form-recall",
+      "wordId": "es:oír",
+      "lemma": "oír",
+      "surfaceForm": "oye",
+      "paradigmCell": "ind.pres.3sg",
+      "front": "to hear — write the Spanish form",
+      "back": "oye",
+      "frequencyRank": 97
+    },
+    {
+      "taskId": "es:nuevo:nueva:form-recall",
+      "wordId": "es:nuevo",
+      "lemma": "nuevo",
+      "surfaceForm": "nueva",
+      "paradigmCell": "f.sg",
+      "front": "new — write the Spanish form",
+      "back": "nueva",
+      "frequencyRank": 99
+    },
+    {
+      "taskId": "es:llevar:lleva:form-recall",
+      "wordId": "es:llevar",
+      "lemma": "llevar",
+      "surfaceForm": "lleva",
+      "paradigmCell": "ind.pres.3sg",
+      "front": "to take somewhere — write the Spanish form",
+      "back": "lleva",
+      "frequencyRank": 100
+    },
+    {
+      "taskId": "es:poco:pocos:form-recall",
+      "wordId": "es:poco",
+      "lemma": "poco",
+      "surfaceForm": "pocos",
+      "paradigmCell": "m.pl",
+      "front": "little, not much — write the Spanish form",
+      "back": "pocos",
+      "frequencyRank": 103
+    },
+    {
+      "taskId": "es:padre:padres:form-recall",
+      "wordId": "es:padre",
+      "lemma": "padre",
+      "surfaceForm": "padres",
+      "paradigmCell": "pl",
+      "front": "father, parent — write the Spanish form",
+      "back": "padres",
+      "frequencyRank": 104
+    },
+    {
+      "taskId": "es:salir:sale:form-recall",
+      "wordId": "es:salir",
+      "lemma": "salir",
+      "surfaceForm": "sale",
+      "paradigmCell": "ind.pres.3sg",
+      "front": "to go out, to leave, to depart, to head out — write the Spanish form",
+      "back": "sale",
+      "frequencyRank": 105
+    },
+    {
+      "taskId": "es:tomar:toma:form-recall",
+      "wordId": "es:tomar",
+      "lemma": "tomar",
+      "surfaceForm": "toma",
+      "paradigmCell": "ind.pres.3sg",
+      "front": "to take — write the Spanish form",
+      "back": "toma",
+      "frequencyRank": 108
+    },
+    {
+      "taskId": "es:amigo:amigos:form-recall",
+      "wordId": "es:amigo",
+      "lemma": "amigo",
+      "surfaceForm": "amigos",
+      "paradigmCell": "pl",
+      "front": "friend — write the Spanish form",
+      "back": "amigos",
+      "frequencyRank": 109
+    },
+    {
+      "taskId": "es:llegar:llega:form-recall",
+      "wordId": "es:llegar",
+      "lemma": "llegar",
+      "surfaceForm": "llega",
+      "paradigmCell": "ind.pres.3sg",
+      "front": "to arrive, get — write the Spanish form",
+      "back": "llega",
+      "frequencyRank": 110
+    },
+    {
+      "taskId": "es:mal:malo:form-recall",
+      "wordId": "es:mal",
+      "lemma": "mal",
+      "surfaceForm": "malo",
+      "paradigmCell": "m.sg",
+      "front": "badly, poorly, ill — write the Spanish form",
+      "back": "malo",
+      "frequencyRank": 111
+    },
+    {
+      "taskId": "es:conocer:conozco:form-recall",
+      "wordId": "es:conocer",
+      "lemma": "conocer",
+      "surfaceForm": "conozco",
+      "paradigmCell": "ind.pres.1sg",
+      "front": "to know, to be familiar with, to be acquainted with — write the Spanish form",
+      "back": "conozco",
+      "frequencyRank": 112
+    },
+    {
+      "taskId": "es:primero:primera:form-recall",
+      "wordId": "es:primero",
+      "lemma": "primero",
+      "surfaceForm": "primera",
+      "paradigmCell": "f.sg",
+      "front": "former, first, first one — write the Spanish form",
+      "back": "primera",
+      "frequencyRank": 113
+    },
+    {
+      "taskId": "es:quedar:queda:form-recall",
+      "wordId": "es:quedar",
+      "lemma": "quedar",
+      "surfaceForm": "queda",
+      "paradigmCell": "ind.pres.3sg",
+      "front": "to be, to end up — write the Spanish form",
+      "back": "queda",
+      "frequencyRank": 115
+    },
+    {
+      "taskId": "es:seguir:sigue:form-recall",
+      "wordId": "es:seguir",
+      "lemma": "seguir",
+      "surfaceForm": "sigue",
+      "paradigmCell": "ind.pres.3sg",
+      "front": "to follow — write the Spanish form",
+      "back": "sigue",
+      "frequencyRank": 117
+    },
+    {
+      "taskId": "es:morir:muere:form-recall",
+      "wordId": "es:morir",
+      "lemma": "morir",
+      "surfaceForm": "muere",
+      "paradigmCell": "ind.pres.3sg",
+      "front": "to die — write the Spanish form",
+      "back": "muere",
+      "frequencyRank": 118
+    },
+    {
+      "taskId": "es:trabajo:trabajos:form-recall",
+      "wordId": "es:trabajo",
+      "lemma": "trabajo",
+      "surfaceForm": "trabajos",
+      "paradigmCell": "pl",
+      "front": "work, job — write the Spanish form",
+      "back": "trabajos",
+      "frequencyRank": 119
+    },
+    {
+      "taskId": "es:seguro:segura:form-recall",
+      "wordId": "es:seguro",
+      "lemma": "seguro",
+      "surfaceForm": "segura",
+      "paradigmCell": "f.sg",
+      "front": "secure; safe — write the Spanish form",
+      "back": "segura",
+      "frequencyRank": 120
+    },
+    {
+      "taskId": "es:acuerdo:acuerdos:form-recall",
+      "wordId": "es:acuerdo",
+      "lemma": "acuerdo",
+      "surfaceForm": "acuerdos",
+      "paradigmCell": "pl",
+      "front": "agreement — write the Spanish form",
+      "back": "acuerdos",
+      "frequencyRank": 121
+    },
+    {
+      "taskId": "es:gente:gentes:form-recall",
+      "wordId": "es:gente",
+      "lemma": "gente",
+      "surfaceForm": "gentes",
+      "paradigmCell": "pl",
+      "front": "people — write the Spanish form",
+      "back": "gentes",
+      "frequencyRank": 122
+    },
+    {
+      "taskId": "es:hijo:hijos:form-recall",
+      "wordId": "es:hijo",
+      "lemma": "hijo",
+      "surfaceForm": "hijos",
+      "paradigmCell": "pl",
+      "front": "son — write the Spanish form",
+      "back": "hijos",
+      "frequencyRank": 123
+    },
+    {
+      "taskId": "es:mujer:mujeres:form-recall",
+      "wordId": "es:mujer",
+      "lemma": "mujer",
+      "surfaceForm": "mujeres",
+      "paradigmCell": "pl",
+      "front": "woman — write the Spanish form",
+      "back": "mujeres",
+      "frequencyRank": 124
+    },
+    {
+      "taskId": "es:suponer:supongo:form-recall",
+      "wordId": "es:suponer",
+      "lemma": "suponer",
+      "surfaceForm": "supongo",
+      "paradigmCell": "ind.pres.1sg",
+      "front": "to suppose, to assume — write the Spanish form",
+      "back": "supongo",
+      "frequencyRank": 125
+    },
+    {
+      "taskId": "es:escuchar:escucha:form-recall",
+      "wordId": "es:escuchar",
+      "lemma": "escuchar",
+      "surfaceForm": "escucha",
+      "paradigmCell": "ind.pres.3sg",
+      "front": "to listen to, to hear out — write the Spanish form",
+      "back": "escucha",
+      "frequencyRank": 127
+    },
+    {
+      "taskId": "es:entender:entiendo:form-recall",
+      "wordId": "es:entender",
+      "lemma": "entender",
+      "surfaceForm": "entiendo",
+      "paradigmCell": "ind.pres.1sg",
+      "front": "to understand, to fathom — write the Spanish form",
+      "back": "entiendo",
+      "frequencyRank": 129
+    },
+    {
+      "taskId": "es:estado:estados:form-recall",
+      "wordId": "es:estado",
+      "lemma": "estado",
+      "surfaceForm": "estados",
+      "paradigmCell": "pl",
+      "front": "country, land — write the Spanish form",
+      "back": "estados",
+      "frequencyRank": 130
+    },
+    {
+      "taskId": "es:tal:tales:form-recall",
+      "wordId": "es:tal",
+      "lemma": "tal",
+      "surfaceForm": "tales",
+      "paradigmCell": "pl",
+      "front": "such — write the Spanish form",
+      "back": "tales",
+      "frequencyRank": 131
+    },
+    {
+      "taskId": "es:momento:momentos:form-recall",
+      "wordId": "es:momento",
+      "lemma": "momento",
+      "surfaceForm": "momentos",
+      "paradigmCell": "pl",
+      "front": "moment, instant — write the Spanish form",
+      "back": "momentos",
+      "frequencyRank": 132
+    },
+    {
+      "taskId": "es:chico:chicos:form-recall",
+      "wordId": "es:chico",
+      "lemma": "chico",
+      "surfaceForm": "chicos",
+      "paradigmCell": "pl",
+      "front": "small — write the Spanish form",
+      "back": "chicos",
+      "frequencyRank": 133
+    },
+    {
+      "taskId": "es:claro:clara:form-recall",
+      "wordId": "es:claro",
+      "lemma": "claro",
+      "surfaceForm": "clara",
+      "paradigmCell": "f.sg",
+      "front": "clear — write the Spanish form",
+      "back": "clara",
+      "frequencyRank": 135
+    },
+    {
+      "taskId": "es:problema:problemas:form-recall",
+      "wordId": "es:problema",
+      "lemma": "problema",
+      "surfaceForm": "problemas",
+      "paradigmCell": "pl",
+      "front": "problem, issue, challenge — write the Spanish form",
+      "back": "problemas",
+      "frequencyRank": 136
+    },
+    {
+      "taskId": "es:hora:horas:form-recall",
+      "wordId": "es:hora",
+      "lemma": "hora",
+      "surfaceForm": "horas",
+      "paradigmCell": "pl",
+      "front": "hour — write the Spanish form",
+      "back": "horas",
+      "frequencyRank": 137
+    },
+    {
+      "taskId": "es:contar:cuenta:form-recall",
+      "wordId": "es:contar",
+      "lemma": "contar",
+      "surfaceForm": "cuenta",
+      "paradigmCell": "ind.pres.3sg",
+      "front": "to count; to tally — write the Spanish form",
+      "back": "cuenta",
+      "frequencyRank": 138
+    },
+    {
+      "taskId": "es:lugar:lugares:form-recall",
+      "wordId": "es:lugar",
+      "lemma": "lugar",
+      "surfaceForm": "lugares",
+      "paradigmCell": "pl",
+      "front": "place — write the Spanish form",
+      "back": "lugares",
+      "frequencyRank": 140
+    },
+    {
+      "taskId": "es:dinero:dineros:form-recall",
+      "wordId": "es:dinero",
+      "lemma": "dinero",
+      "surfaceForm": "dineros",
+      "paradigmCell": "pl",
+      "front": "money — write the Spanish form",
+      "back": "dineros",
+      "frequencyRank": 141
+    },
+    {
+      "taskId": "es:tipo:tipos:form-recall",
+      "wordId": "es:tipo",
+      "lemma": "tipo",
+      "surfaceForm": "tipos",
+      "paradigmCell": "pl",
+      "front": "kind, type, sort, manner — write the Spanish form",
+      "back": "tipos",
+      "frequencyRank": 142
+    },
+    {
+      "taskId": "es:mundo:mundos:form-recall",
+      "wordId": "es:mundo",
+      "lemma": "mundo",
+      "surfaceForm": "mundos",
+      "paradigmCell": "pl",
+      "front": "world, earth — write the Spanish form",
+      "back": "mundos",
+      "frequencyRank": 143
+    },
+    {
+      "taskId": "es:madre:madres:form-recall",
+      "wordId": "es:madre",
+      "lemma": "madre",
+      "surfaceForm": "madres",
+      "paradigmCell": "pl",
+      "front": "mother — write the Spanish form",
+      "back": "madres",
+      "frequencyRank": 144
+    },
+    {
+      "taskId": "es:mañana:mañanas:form-recall",
+      "wordId": "es:mañana",
+      "lemma": "mañana",
+      "surfaceForm": "mañanas",
+      "paradigmCell": "pl",
+      "front": "tomorrow — write the Spanish form",
+      "back": "mañanas",
+      "frequencyRank": 145
+    },
+    {
+      "taskId": "es:valer:vale:form-recall",
+      "wordId": "es:valer",
+      "lemma": "valer",
+      "surfaceForm": "vale",
+      "paradigmCell": "ind.pres.3sg",
+      "front": "to be worth — write the Spanish form",
+      "back": "vale",
+      "frequencyRank": 146
+    },
+    {
+      "taskId": "es:persona:personas:form-recall",
+      "wordId": "es:persona",
+      "lemma": "persona",
+      "surfaceForm": "personas",
+      "paradigmCell": "pl",
+      "front": "person — write the Spanish form",
+      "back": "personas",
+      "frequencyRank": 147
+    },
+    {
+      "taskId": "es:acabar:acaba:form-recall",
+      "wordId": "es:acabar",
+      "lemma": "acabar",
+      "surfaceForm": "acaba",
+      "paradigmCell": "ind.pres.3sg",
+      "front": "to finish; to end — write the Spanish form",
+      "back": "acaba",
+      "frequencyRank": 149
+    },
+    {
+      "taskId": "es:parte:partes:form-recall",
+      "wordId": "es:parte",
+      "lemma": "parte",
+      "surfaceForm": "partes",
+      "paradigmCell": "pl",
+      "front": "part; section; portion; share; piece; bit; cut; proportion — write the Spanish form",
+      "back": "partes",
+      "frequencyRank": 151
+    },
+    {
+      "taskId": "es:buscar:busca:form-recall",
+      "wordId": "es:buscar",
+      "lemma": "buscar",
+      "surfaceForm": "busca",
+      "paradigmCell": "ind.pres.3sg",
+      "front": "to seek, search for, look for, try to find, to scour — write the Spanish form",
+      "back": "busca",
+      "frequencyRank": 152
+    },
+    {
+      "taskId": "es:trabajar:trabaja:form-recall",
+      "wordId": "es:trabajar",
+      "lemma": "trabajar",
+      "surfaceForm": "trabaja",
+      "paradigmCell": "ind.pres.3sg",
+      "front": "to work — write the Spanish form",
+      "back": "trabaja",
+      "frequencyRank": 153
+    },
+    {
+      "taskId": "es:chica:chicas:form-recall",
+      "wordId": "es:chica",
+      "lemma": "chica",
+      "surfaceForm": "chicas",
+      "paradigmCell": "pl",
+      "front": "female equivalent of chico: girl — write the Spanish form",
+      "back": "chicas",
+      "frequencyRank": 155
+    },
+    {
+      "taskId": "es:ayudar:ayudo:form-recall",
+      "wordId": "es:ayudar",
+      "lemma": "ayudar",
+      "surfaceForm": "ayudo",
+      "paradigmCell": "ind.pres.1sg",
+      "front": "to help — write the Spanish form",
+      "back": "ayudo",
+      "frequencyRank": 156
+    },
+    {
+      "taskId": "es:ninguno:ninguna:form-recall",
+      "wordId": "es:ninguno",
+      "lemma": "ninguno",
+      "surfaceForm": "ninguna",
+      "paradigmCell": "f.sg",
+      "front": "no; none — write the Spanish form",
+      "back": "ninguna",
+      "frequencyRank": 158
+    },
+    {
+      "taskId": "es:poner:pone:form-recall",
+      "wordId": "es:poner",
+      "lemma": "poner",
+      "surfaceForm": "pone",
+      "paradigmCell": "ind.pres.3sg",
+      "front": "to put, to place — write the Spanish form",
+      "back": "pone",
+      "frequencyRank": 159
+    },
+    {
+      "taskId": "es:perder:pierde:form-recall",
+      "wordId": "es:perder",
+      "lemma": "perder",
+      "surfaceForm": "pierde",
+      "paradigmCell": "ind.pres.3sg",
+      "front": "to lose — write the Spanish form",
+      "back": "pierde",
+      "frequencyRank": 160
+    },
+    {
+      "taskId": "es:nombre:nombres:form-recall",
+      "wordId": "es:nombre",
+      "lemma": "nombre",
+      "surfaceForm": "nombres",
+      "paradigmCell": "pl",
+      "front": "name — write the Spanish form",
+      "back": "nombres",
+      "frequencyRank": 162
+    },
+    {
+      "taskId": "es:papá:papás:form-recall",
+      "wordId": "es:papá",
+      "lemma": "papá",
+      "surfaceForm": "papás",
+      "paradigmCell": "pl",
+      "front": "dad — write the Spanish form",
+      "back": "papás",
+      "frequencyRank": 164
+    },
+    {
+      "taskId": "es:niño:niños:form-recall",
+      "wordId": "es:niño",
+      "lemma": "niño",
+      "surfaceForm": "niños",
+      "paradigmCell": "pl",
+      "front": "child, boy — write the Spanish form",
+      "back": "niños",
+      "frequencyRank": 165
+    },
+    {
+      "taskId": "es:importar:importa:form-recall",
+      "wordId": "es:importar",
+      "lemma": "importar",
+      "surfaceForm": "importa",
+      "paradigmCell": "ind.pres.3sg",
+      "front": "to matter, to be important — write the Spanish form",
+      "back": "importa",
+      "frequencyRank": 168
+    },
+    {
+      "taskId": "es:tratar:trata:form-recall",
+      "wordId": "es:tratar",
+      "lemma": "tratar",
+      "surfaceForm": "trata",
+      "paradigmCell": "ind.pres.3sg",
+      "front": "to treat — write the Spanish form",
+      "back": "trata",
+      "frequencyRank": 169
+    },
+    {
+      "taskId": "es:mano:manos:form-recall",
+      "wordId": "es:mano",
+      "lemma": "mano",
+      "surfaceForm": "manos",
+      "paradigmCell": "pl",
+      "front": "hand — write the Spanish form",
+      "back": "manos",
+      "frequencyRank": 170
+    },
+    {
+      "taskId": "es:último:última:form-recall",
+      "wordId": "es:último",
+      "lemma": "último",
+      "surfaceForm": "última",
+      "paradigmCell": "f.sg",
+      "front": "final; last — write the Spanish form",
+      "back": "última",
+      "frequencyRank": 171
+    },
+    {
+      "taskId": "es:mierda:mierdas:form-recall",
+      "wordId": "es:mierda",
+      "lemma": "mierda",
+      "surfaceForm": "mierdas",
+      "paradigmCell": "pl",
+      "front": "shit — write the Spanish form",
+      "back": "mierdas",
+      "frequencyRank": 172
+    },
+    {
+      "taskId": "es:empezar:empieza:form-recall",
+      "wordId": "es:empezar",
+      "lemma": "empezar",
+      "surfaceForm": "empieza",
+      "paradigmCell": "ind.pres.3sg",
+      "front": "to start, begin, to get started — write the Spanish form",
+      "back": "empieza",
+      "frequencyRank": 173
+    },
+    {
+      "taskId": "es:vivir:vive:form-recall",
+      "wordId": "es:vivir",
+      "lemma": "vivir",
+      "surfaceForm": "vive",
+      "paradigmCell": "ind.pres.3sg",
+      "front": "to live; to be alive — write the Spanish form",
+      "back": "vive",
+      "frequencyRank": 174
+    },
+    {
+      "taskId": "es:pequeño:pequeña:form-recall",
+      "wordId": "es:pequeño",
+      "lemma": "pequeño",
+      "surfaceForm": "pequeña",
+      "paradigmCell": "f.sg",
+      "front": "small; little — write the Spanish form",
+      "back": "pequeña",
+      "frequencyRank": 175
+    },
+    {
+      "taskId": "es:cierto:cierta:form-recall",
+      "wordId": "es:cierto",
+      "lemma": "cierto",
+      "surfaceForm": "cierta",
+      "paradigmCell": "f.sg",
+      "front": "true — write the Spanish form",
+      "back": "cierta",
+      "frequencyRank": 177
+    },
+    {
+      "taskId": "es:razón:razones:form-recall",
+      "wordId": "es:razón",
+      "lemma": "razón",
+      "surfaceForm": "razones",
+      "paradigmCell": "pl",
+      "front": "reason — write the Spanish form",
+      "back": "razones",
+      "frequencyRank": 178
+    },
+    {
+      "taskId": "es:idea:ideas:form-recall",
+      "wordId": "es:idea",
+      "lemma": "idea",
+      "surfaceForm": "ideas",
+      "paradigmCell": "pl",
+      "front": "idea, notion — write the Spanish form",
+      "back": "ideas",
+      "frequencyRank": 179
+    },
+    {
+      "taskId": "es:tarde:tardes:form-recall",
+      "wordId": "es:tarde",
+      "lemma": "tarde",
+      "surfaceForm": "tardes",
+      "paradigmCell": "pl",
+      "front": "late — write the Spanish form",
+      "back": "tardes",
+      "frequencyRank": 182
+    },
+    {
+      "taskId": "es:serio:seria:form-recall",
+      "wordId": "es:serio",
+      "lemma": "serio",
+      "surfaceForm": "seria",
+      "paradigmCell": "f.sg",
+      "front": "serious, earnest, sober, solemn — write the Spanish form",
+      "back": "seria",
+      "frequencyRank": 184
+    },
+    {
+      "taskId": "es:intentar:intenta:form-recall",
+      "wordId": "es:intentar",
+      "lemma": "intentar",
+      "surfaceForm": "intenta",
+      "paradigmCell": "ind.pres.3sg",
+      "front": "to try, to attempt — write the Spanish form",
+      "back": "intenta",
+      "frequencyRank": 185
+    },
+    {
+      "taskId": "es:quien:quienes:form-recall",
+      "wordId": "es:quien",
+      "lemma": "quien",
+      "surfaceForm": "quienes",
+      "paradigmCell": "pl",
+      "front": "who — write the Spanish form",
+      "back": "quienes",
+      "frequencyRank": 186
+    },
+    {
+      "taskId": "es:matar:mata:form-recall",
+      "wordId": "es:matar",
+      "lemma": "matar",
+      "surfaceForm": "mata",
+      "paradigmCell": "ind.pres.3sg",
+      "front": "to kill, slay — write the Spanish form",
+      "back": "mata",
+      "frequencyRank": 187
+    },
+    {
+      "taskId": "es:demasiado:demasiada:form-recall",
+      "wordId": "es:demasiado",
+      "lemma": "demasiado",
+      "surfaceForm": "demasiada",
+      "paradigmCell": "f.sg",
+      "front": "too much, too many, excessive — write the Spanish form",
+      "back": "demasiada",
+      "frequencyRank": 188
+    },
+    {
+      "taskId": "es:pasado:pasada:form-recall",
+      "wordId": "es:pasado",
+      "lemma": "pasado",
+      "surfaceForm": "pasada",
+      "paradigmCell": "f.sg",
+      "front": "past — write the Spanish form",
+      "back": "pasada",
+      "frequencyRank": 189
+    },
+    {
+      "taskId": "es:único:única:form-recall",
+      "wordId": "es:único",
+      "lemma": "único",
+      "surfaceForm": "única",
+      "paradigmCell": "f.sg",
+      "front": "only; single; sole — write the Spanish form",
+      "back": "única",
+      "frequencyRank": 190
+    },
+    {
+      "taskId": "es:policía:policías:form-recall",
+      "wordId": "es:policía",
+      "lemma": "policía",
+      "surfaceForm": "policías",
+      "paradigmCell": "pl",
+      "front": "police; police officer — write the Spanish form",
+      "back": "policías",
+      "frequencyRank": 191
+    },
+    {
+      "taskId": "es:entrar:entra:form-recall",
+      "wordId": "es:entrar",
+      "lemma": "entrar",
+      "surfaceForm": "entra",
+      "paradigmCell": "ind.pres.3sg",
+      "front": "to enter, to come in — write the Spanish form",
+      "back": "entra",
+      "frequencyRank": 192
+    },
+    {
+      "taskId": "es:pedir:pido:form-recall",
+      "wordId": "es:pedir",
+      "lemma": "pedir",
+      "surfaceForm": "pido",
+      "paradigmCell": "ind.pres.1sg",
+      "front": "to ask for something — write the Spanish form",
+      "back": "pido",
+      "frequencyRank": 193
+    },
+    {
+      "taskId": "es:semana:semanas:form-recall",
+      "wordId": "es:semana",
+      "lemma": "semana",
+      "surfaceForm": "semanas",
+      "paradigmCell": "pl",
+      "front": "week — write the Spanish form",
+      "back": "semanas",
+      "frequencyRank": 194
+    },
+    {
+      "taskId": "es:cualquiera:cualquier:form-recall",
+      "wordId": "es:cualquiera",
+      "lemma": "cualquiera",
+      "surfaceForm": "cualquier",
+      "paradigmCell": "sg",
+      "front": "anyone, whoever, whomever — write the Spanish form",
+      "back": "cualquier",
+      "frequencyRank": 195
+    },
+    {
+      "taskId": "es:minuto:minutos:form-recall",
+      "wordId": "es:minuto",
+      "lemma": "minuto",
+      "surfaceForm": "minutos",
+      "paradigmCell": "pl",
+      "front": "minute — write the Spanish form",
+      "back": "minutos",
+      "frequencyRank": 197
+    },
+    {
+      "taskId": "es:familia:familias:form-recall",
+      "wordId": "es:familia",
+      "lemma": "familia",
+      "surfaceForm": "familias",
+      "paradigmCell": "pl",
+      "front": "family — write the Spanish form",
+      "back": "familias",
+      "frequencyRank": 198
+    },
+    {
+      "taskId": "es:hermano:hermanos:form-recall",
+      "wordId": "es:hermano",
+      "lemma": "hermano",
+      "surfaceForm": "hermanos",
+      "paradigmCell": "pl",
+      "front": "brother — write the Spanish form",
+      "back": "hermanos",
+      "frequencyRank": 199
+    },
+    {
+      "taskId": "es:cuánto:cuántos:form-recall",
+      "wordId": "es:cuánto",
+      "lemma": "cuánto",
+      "surfaceForm": "cuántos",
+      "paradigmCell": "m.pl",
+      "front": "how much; how many — write the Spanish form",
+      "back": "cuántos",
+      "frequencyRank": 200
+    },
+    {
+      "taskId": "es:amor:amores:form-recall",
+      "wordId": "es:amor",
+      "lemma": "amor",
+      "surfaceForm": "amores",
+      "paradigmCell": "pl",
+      "front": "love — write the Spanish form",
+      "back": "amores",
+      "frequencyRank": 201
+    },
+    {
+      "taskId": "es:forma:formas:form-recall",
+      "wordId": "es:forma",
+      "lemma": "forma",
+      "surfaceForm": "formas",
+      "paradigmCell": "pl",
+      "front": "shape; form; figure — write the Spanish form",
+      "back": "formas",
+      "frequencyRank": 202
+    },
+    {
+      "taskId": "es:junto:juntos:form-recall",
+      "wordId": "es:junto",
+      "lemma": "junto",
+      "surfaceForm": "juntos",
+      "paradigmCell": "m.pl",
+      "front": "together — write the Spanish form",
+      "back": "juntos",
+      "frequencyRank": 203
+    },
+    {
+      "taskId": "es:conseguir:consigue:form-recall",
+      "wordId": "es:conseguir",
+      "lemma": "conseguir",
+      "surfaceForm": "consigue",
+      "paradigmCell": "ind.pres.3sg",
+      "front": "to achieve, succeed in, reach, accomplish, attain — write the Spanish form",
+      "back": "consigue",
+      "frequencyRank": 205
+    },
+    {
+      "taskId": "es:viejo:vieja:form-recall",
+      "wordId": "es:viejo",
+      "lemma": "viejo",
+      "surfaceForm": "vieja",
+      "paradigmCell": "f.sg",
+      "front": "old — write the Spanish form",
+      "back": "vieja",
+      "frequencyRank": 206
+    },
+    {
+      "taskId": "es:traer:trae:form-recall",
+      "wordId": "es:traer",
+      "lemma": "traer",
+      "surfaceForm": "trae",
+      "paradigmCell": "ind.pres.3sg",
+      "front": "to bring — write the Spanish form",
+      "back": "trae",
+      "frequencyRank": 207
+    },
+    {
+      "taskId": "es:grande:grandes:form-recall",
+      "wordId": "es:grande",
+      "lemma": "grande",
+      "surfaceForm": "grandes",
+      "paradigmCell": "pl",
+      "front": "big, large — write the Spanish form",
+      "back": "grandes",
+      "frequencyRank": 209
+    },
+    {
+      "taskId": "es:loco:loca:form-recall",
+      "wordId": "es:loco",
+      "lemma": "loco",
+      "surfaceForm": "loca",
+      "paradigmCell": "f.sg",
+      "front": "crazy, insane, mad, nuts — write the Spanish form",
+      "back": "loca",
+      "frequencyRank": 210
+    },
+    {
+      "taskId": "es:usar:usa:form-recall",
+      "wordId": "es:usar",
+      "lemma": "usar",
+      "surfaceForm": "usa",
+      "paradigmCell": "ind.pres.3sg",
+      "front": "to use — write the Spanish form",
+      "back": "usa",
+      "frequencyRank": 211
+    },
+    {
+      "taskId": "es:caso:casos:form-recall",
+      "wordId": "es:caso",
+      "lemma": "caso",
+      "surfaceForm": "casos",
+      "paradigmCell": "pl",
+      "front": "case — write the Spanish form",
+      "back": "casos",
+      "frequencyRank": 212
+    },
+    {
+      "taskId": "es:cabeza:cabezas:form-recall",
+      "wordId": "es:cabeza",
+      "lemma": "cabeza",
+      "surfaceForm": "cabezas",
+      "paradigmCell": "pl",
+      "front": "head — write the Spanish form",
+      "back": "cabezas",
+      "frequencyRank": 213
+    },
+    {
+      "taskId": "es:lado:lados:form-recall",
+      "wordId": "es:lado",
+      "lemma": "lado",
+      "surfaceForm": "lados",
+      "paradigmCell": "pl",
+      "front": "side — write the Spanish form",
+      "back": "lados",
+      "frequencyRank": 214
+    },
+    {
+      "taskId": "es:segundo:segunda:form-recall",
+      "wordId": "es:segundo",
+      "lemma": "segundo",
+      "surfaceForm": "segunda",
+      "paradigmCell": "f.sg",
+      "front": "second — write the Spanish form",
+      "back": "segunda",
+      "frequencyRank": 215
+    },
+    {
+      "taskId": "es:señora:señoras:form-recall",
+      "wordId": "es:señora",
+      "lemma": "señora",
+      "surfaceForm": "señoras",
+      "paradigmCell": "pl",
+      "front": "Ms, madam; lady — write the Spanish form",
+      "back": "señoras",
+      "frequencyRank": 216
+    },
+    {
+      "taskId": "es:historia:historias:form-recall",
+      "wordId": "es:historia",
+      "lemma": "historia",
+      "surfaceForm": "historias",
+      "paradigmCell": "pl",
+      "front": "history — write the Spanish form",
+      "back": "historias",
+      "frequencyRank": 217
+    },
+    {
+      "taskId": "es:comer:come:form-recall",
+      "wordId": "es:comer",
+      "lemma": "comer",
+      "surfaceForm": "come",
+      "paradigmCell": "ind.pres.3sg",
+      "front": "to eat — write the Spanish form",
+      "back": "come",
+      "frequencyRank": 219
+    },
+    {
+      "taskId": "es:puerta:puertas:form-recall",
+      "wordId": "es:puerta",
+      "lemma": "puerta",
+      "surfaceForm": "puertas",
+      "paradigmCell": "pl",
+      "front": "door — write the Spanish form",
+      "back": "puertas",
+      "frequencyRank": 220
+    },
+    {
+      "taskId": "es:cariño:cariños:form-recall",
+      "wordId": "es:cariño",
+      "lemma": "cariño",
+      "surfaceForm": "cariños",
+      "paradigmCell": "pl",
+      "front": "affection, fondness — write the Spanish form",
+      "back": "cariños",
+      "frequencyRank": 221
+    },
+    {
+      "taskId": "es:pregunta:preguntas:form-recall",
+      "wordId": "es:pregunta",
+      "lemma": "pregunta",
+      "surfaceForm": "preguntas",
+      "paradigmCell": "pl",
+      "front": "question — write the Spanish form",
+      "back": "preguntas",
+      "frequencyRank": 222
+    },
+    {
+      "taskId": "es:genial:geniales:form-recall",
+      "wordId": "es:genial",
+      "lemma": "genial",
+      "surfaceForm": "geniales",
+      "paradigmCell": "pl",
+      "front": "ingenious, genius — write the Spanish form",
+      "back": "geniales",
+      "frequencyRank": 223
+    },
+    {
+      "taskId": "es:manera:maneras:form-recall",
+      "wordId": "es:manera",
+      "lemma": "manera",
+      "surfaceForm": "maneras",
+      "paradigmCell": "pl",
+      "front": "way; manner; method; style — write the Spanish form",
+      "back": "maneras",
+      "frequencyRank": 224
+    },
+    {
+      "taskId": "es:cuál:cuáles:form-recall",
+      "wordId": "es:cuál",
+      "lemma": "cuál",
+      "surfaceForm": "cuáles",
+      "paradigmCell": "pl",
+      "front": "what; which — write the Spanish form",
+      "back": "cuáles",
+      "frequencyRank": 226
+    },
+    {
+      "taskId": "es:rápido:rápida:form-recall",
+      "wordId": "es:rápido",
+      "lemma": "rápido",
+      "surfaceForm": "rápida",
+      "paradigmCell": "f.sg",
+      "front": "rapid, quick, fast — write the Spanish form",
+      "back": "rápida",
+      "frequencyRank": 227
+    },
+    {
+      "taskId": "es:bajo:baja:form-recall",
+      "wordId": "es:bajo",
+      "lemma": "bajo",
+      "surfaceForm": "baja",
+      "paradigmCell": "f.sg",
+      "front": "short — write the Spanish form",
+      "back": "baja",
+      "frequencyRank": 228
+    },
+    {
+      "taskId": "es:preguntar:pregunto:form-recall",
+      "wordId": "es:preguntar",
+      "lemma": "preguntar",
+      "surfaceForm": "pregunto",
+      "paradigmCell": "ind.pres.1sg",
+      "front": "to ask — write the Spanish form",
+      "back": "pregunto",
+      "frequencyRank": 229
+    },
+    {
+      "taskId": "es:feliz:felices:form-recall",
+      "wordId": "es:feliz",
+      "lemma": "feliz",
+      "surfaceForm": "felices",
+      "paradigmCell": "pl",
+      "front": "happy, merry — write the Spanish form",
+      "back": "felices",
+      "frequencyRank": 230
+    },
+    {
+      "taskId": "es:camino:caminos:form-recall",
+      "wordId": "es:camino",
+      "lemma": "camino",
+      "surfaceForm": "caminos",
+      "paradigmCell": "pl",
+      "front": "way, route — write the Spanish form",
+      "back": "caminos",
+      "frequencyRank": 231
+    },
+    {
+      "taskId": "es:terminar:termina:form-recall",
+      "wordId": "es:terminar",
+      "lemma": "terminar",
+      "surfaceForm": "termina",
+      "paradigmCell": "ind.pres.3sg",
+      "front": "to finish, to end, to terminate, to conclude — write the Spanish form",
+      "back": "termina",
+      "frequencyRank": 232
+    },
+    {
+      "taskId": "es:olvidar:olvida:form-recall",
+      "wordId": "es:olvidar",
+      "lemma": "olvidar",
+      "surfaceForm": "olvida",
+      "paradigmCell": "ind.pres.3sg",
+      "front": "to forget — write the Spanish form",
+      "back": "olvida",
+      "frequencyRank": 233
+    },
+    {
+      "taskId": "es:adiós:adioses:form-recall",
+      "wordId": "es:adiós",
+      "lemma": "adiós",
+      "surfaceForm": "adioses",
+      "paradigmCell": "pl",
+      "front": "goodbye, farewell — write the Spanish form",
+      "back": "adioses",
+      "frequencyRank": 235
+    },
+    {
+      "taskId": "es:cambiar:cambia:form-recall",
+      "wordId": "es:cambiar",
+      "lemma": "cambiar",
+      "surfaceForm": "cambia",
+      "paradigmCell": "ind.pres.3sg",
+      "front": "to change, to shift, to switch, to alter — write the Spanish form",
+      "back": "cambia",
+      "frequencyRank": 236
+    },
+    {
+      "taskId": "es:ayuda:ayudas:form-recall",
+      "wordId": "es:ayuda",
+      "lemma": "ayuda",
+      "surfaceForm": "ayudas",
+      "paradigmCell": "pl",
+      "front": "help, aid — write the Spanish form",
+      "back": "ayudas",
+      "frequencyRank": 237
+    },
+    {
+      "taskId": "es:ojo:ojos:form-recall",
+      "wordId": "es:ojo",
+      "lemma": "ojo",
+      "surfaceForm": "ojos",
+      "paradigmCell": "pl",
+      "front": "eye — write the Spanish form",
+      "back": "ojos",
+      "frequencyRank": 238
+    },
+    {
+      "taskId": "es:contra:contras:form-recall",
+      "wordId": "es:contra",
+      "lemma": "contra",
+      "surfaceForm": "contras",
+      "paradigmCell": "pl",
+      "front": "against, versus — write the Spanish form",
+      "back": "contras",
+      "frequencyRank": 240
+    },
+    {
+      "taskId": "es:tío:tíos:form-recall",
+      "wordId": "es:tío",
+      "lemma": "tío",
+      "surfaceForm": "tíos",
+      "paradigmCell": "pl",
+      "front": "uncle — write the Spanish form",
+      "back": "tíos",
+      "frequencyRank": 241
+    },
+    {
+      "taskId": "es:medio:media:form-recall",
+      "wordId": "es:medio",
+      "lemma": "medio",
+      "surfaceForm": "media",
+      "paradigmCell": "f.sg",
+      "front": "half — write the Spanish form",
+      "back": "media",
+      "frequencyRank": 243
+    },
+    {
+      "taskId": "es:ganar:gana:form-recall",
+      "wordId": "es:ganar",
+      "lemma": "ganar",
+      "surfaceForm": "gana",
+      "paradigmCell": "ind.pres.3sg",
+      "front": "to gain — write the Spanish form",
+      "back": "gana",
+      "frequencyRank": 244
+    },
+    {
+      "taskId": "es:mes:meses:form-recall",
+      "wordId": "es:mes",
+      "lemma": "mes",
+      "surfaceForm": "meses",
+      "paradigmCell": "pl",
+      "front": "month — write the Spanish form",
+      "back": "meses",
+      "frequencyRank": 245
+    },
+    {
+      "taskId": "es:suceder:sucede:form-recall",
+      "wordId": "es:suceder",
+      "lemma": "suceder",
+      "surfaceForm": "sucede",
+      "paradigmCell": "ind.pres.3sg",
+      "front": "to happen, to befall, to occur — write the Spanish form",
+      "back": "sucede",
+      "frequencyRank": 246
+    },
+    {
+      "taskId": "es:palabra:palabras:form-recall",
+      "wordId": "es:palabra",
+      "lemma": "palabra",
+      "surfaceForm": "palabras",
+      "paradigmCell": "pl",
+      "front": "word — write the Spanish form",
+      "back": "palabras",
+      "frequencyRank": 247
+    },
+    {
+      "taskId": "es:arma:armas:form-recall",
+      "wordId": "es:arma",
+      "lemma": "arma",
+      "surfaceForm": "armas",
+      "paradigmCell": "pl",
+      "front": "weapon, arm — write the Spanish form",
+      "back": "armas",
+      "frequencyRank": 248
+    },
+    {
+      "taskId": "es:importante:importantes:form-recall",
+      "wordId": "es:importante",
+      "lemma": "importante",
+      "surfaceForm": "importantes",
+      "paradigmCell": "pl",
+      "front": "important, that cares, that matters. — write the Spanish form",
+      "back": "importantes",
+      "frequencyRank": 249
+    },
+    {
+      "taskId": "es:preocupar:preocupa:form-recall",
+      "wordId": "es:preocupar",
+      "lemma": "preocupar",
+      "surfaceForm": "preocupa",
+      "paradigmCell": "ind.pres.3sg",
+      "front": "to worry, to concern — write the Spanish form",
+      "back": "preocupa",
+      "frequencyRank": 250
+    },
+    {
+      "taskId": "es:ciudad:ciudades:form-recall",
+      "wordId": "es:ciudad",
+      "lemma": "ciudad",
+      "surfaceForm": "ciudades",
+      "paradigmCell": "pl",
+      "front": "city — write the Spanish form",
+      "back": "ciudades",
+      "frequencyRank": 251
+    },
+    {
+      "taskId": "es:hija:hijas:form-recall",
+      "wordId": "es:hija",
+      "lemma": "hija",
+      "surfaceForm": "hijas",
+      "paradigmCell": "pl",
+      "front": "daughter; female equivalent of hijo — write the Spanish form",
+      "back": "hijas",
+      "frequencyRank": 253
+    },
+    {
+      "taskId": "es:significar:significa:form-recall",
+      "wordId": "es:significar",
+      "lemma": "significar",
+      "surfaceForm": "significa",
+      "paradigmCell": "ind.pres.3sg",
+      "front": "to signify — write the Spanish form",
+      "back": "significa",
+      "frequencyRank": 255
+    },
+    {
+      "taskId": "es:propio:propia:form-recall",
+      "wordId": "es:propio",
+      "lemma": "propio",
+      "surfaceForm": "propia",
+      "paradigmCell": "f.sg",
+      "front": "own — write the Spanish form",
+      "back": "propia",
+      "frequencyRank": 257
+    },
+    {
+      "taskId": "es:listo:listos:form-recall",
+      "wordId": "es:listo",
+      "lemma": "listo",
+      "surfaceForm": "listos",
+      "paradigmCell": "m.pl",
+      "front": "clever, smart — write the Spanish form",
+      "back": "listos",
+      "frequencyRank": 259
+    },
+    {
+      "taskId": "es:muerte:muertes:form-recall",
+      "wordId": "es:muerte",
+      "lemma": "muerte",
+      "surfaceForm": "muertes",
+      "paradigmCell": "pl",
+      "front": "death — write the Spanish form",
+      "back": "muertes",
+      "frequencyRank": 260
+    },
+    {
+      "taskId": "es:corazón:corazones:form-recall",
+      "wordId": "es:corazón",
+      "lemma": "corazón",
+      "surfaceForm": "corazones",
+      "paradigmCell": "pl",
+      "front": "heart — write the Spanish form",
+      "back": "corazones",
+      "frequencyRank": 261
+    },
+    {
+      "taskId": "es:pronto:pronta:form-recall",
+      "wordId": "es:pronto",
+      "lemma": "pronto",
+      "surfaceForm": "pronta",
+      "paradigmCell": "f.sg",
+      "front": "prompt, on time — write the Spanish form",
+      "back": "pronta",
+      "frequencyRank": 262
+    },
+    {
+      "taskId": "es:suerte:suertes:form-recall",
+      "wordId": "es:suerte",
+      "lemma": "suerte",
+      "surfaceForm": "suertes",
+      "paradigmCell": "pl",
+      "front": "luck, fortune — write the Spanish form",
+      "back": "suertes",
+      "frequencyRank": 263
+    },
+    {
+      "taskId": "es:punto:puntos:form-recall",
+      "wordId": "es:punto",
+      "lemma": "punto",
+      "surfaceForm": "puntos",
+      "paradigmCell": "pl",
+      "front": "point — write the Spanish form",
+      "back": "puntos",
+      "frequencyRank": 264
+    },
+    {
+      "taskId": "es:agua:aguas:form-recall",
+      "wordId": "es:agua",
+      "lemma": "agua",
+      "surfaceForm": "aguas",
+      "paradigmCell": "pl",
+      "front": "water — write the Spanish form",
+      "back": "aguas",
+      "frequencyRank": 266
+    },
+    {
+      "taskId": "es:esposa:esposas:form-recall",
+      "wordId": "es:esposa",
+      "lemma": "esposa",
+      "surfaceForm": "esposas",
+      "paradigmCell": "pl",
+      "front": "wife — write the Spanish form",
+      "back": "esposas",
+      "frequencyRank": 267
+    },
+    {
+      "taskId": "es:jefe:jefes:form-recall",
+      "wordId": "es:jefe",
+      "lemma": "jefe",
+      "surfaceForm": "jefes",
+      "paradigmCell": "pl",
+      "front": "boss, chief, head — write the Spanish form",
+      "back": "jefes",
+      "frequencyRank": 268
+    },
+    {
+      "taskId": "es:clase:clases:form-recall",
+      "wordId": "es:clase",
+      "lemma": "clase",
+      "surfaceForm": "clases",
+      "paradigmCell": "pl",
+      "front": "lecture — write the Spanish form",
+      "back": "clases",
+      "frequencyRank": 269
+    },
+    {
+      "taskId": "es:ocurrir:ocurre:form-recall",
+      "wordId": "es:ocurrir",
+      "lemma": "ocurrir",
+      "surfaceForm": "ocurre",
+      "paradigmCell": "ind.pres.3sg",
+      "front": "to happen, to occur — write the Spanish form",
+      "back": "ocurre",
+      "frequencyRank": 270
+    },
+    {
+      "taskId": "es:amar:amo:form-recall",
+      "wordId": "es:amar",
+      "lemma": "amar",
+      "surfaceForm": "amo",
+      "paradigmCell": "ind.pres.1sg",
+      "front": "to love, have great affection for, care about — write the Spanish form",
+      "back": "amo",
+      "frequencyRank": 271
+    },
+    {
+      "taskId": "es:cara:caras:form-recall",
+      "wordId": "es:cara",
+      "lemma": "cara",
+      "surfaceForm": "caras",
+      "paradigmCell": "pl",
+      "front": "face — write the Spanish form",
+      "back": "caras",
+      "frequencyRank": 272
+    },
+    {
+      "taskId": "es:difícil:difíciles:form-recall",
+      "wordId": "es:difícil",
+      "lemma": "difícil",
+      "surfaceForm": "difíciles",
+      "paradigmCell": "pl",
+      "front": "difficult, hard — write the Spanish form",
+      "back": "difíciles",
+      "frequencyRank": 273
+    },
+    {
+      "taskId": "es:realidad:realidades:form-recall",
+      "wordId": "es:realidad",
+      "lemma": "realidad",
+      "surfaceForm": "realidades",
+      "paradigmCell": "pl",
+      "front": "reality — write the Spanish form",
+      "back": "realidades",
+      "frequencyRank": 275
+    },
+    {
+      "taskId": "es:equipo:equipos:form-recall",
+      "wordId": "es:equipo",
+      "lemma": "equipo",
+      "surfaceForm": "equipos",
+      "paradigmCell": "pl",
+      "front": "team — write the Spanish form",
+      "back": "equipos",
+      "frequencyRank": 276
+    },
+    {
+      "taskId": "es:miedo:miedos:form-recall",
+      "wordId": "es:miedo",
+      "lemma": "miedo",
+      "surfaceForm": "miedos",
+      "paradigmCell": "pl",
+      "front": "fear — write the Spanish form",
+      "back": "miedos",
+      "frequencyRank": 277
+    },
+    {
+      "taskId": "es:suficiente:suficientes:form-recall",
+      "wordId": "es:suficiente",
+      "lemma": "suficiente",
+      "surfaceForm": "suficientes",
+      "paradigmCell": "pl",
+      "front": "sufficient, enough — write the Spanish form",
+      "back": "suficientes",
+      "frequencyRank": 278
+    },
+    {
+      "taskId": "es:leer:lee:form-recall",
+      "wordId": "es:leer",
+      "lemma": "leer",
+      "surfaceForm": "lee",
+      "paradigmCell": "ind.pres.3sg",
+      "front": "to read — write the Spanish form",
+      "back": "lee",
+      "frequencyRank": 279
+    },
+    {
+      "taskId": "es:juego:juegos:form-recall",
+      "wordId": "es:juego",
+      "lemma": "juego",
+      "surfaceForm": "juegos",
+      "paradigmCell": "pl",
+      "front": "play — write the Spanish form",
+      "back": "juegos",
+      "frequencyRank": 280
+    },
+    {
+      "taskId": "es:justo:justa:form-recall",
+      "wordId": "es:justo",
+      "lemma": "justo",
+      "surfaceForm": "justa",
+      "paradigmCell": "f.sg",
+      "front": "right, just — write the Spanish form",
+      "back": "justa",
+      "frequencyRank": 281
+    },
+    {
+      "taskId": "es:coche:coches:form-recall",
+      "wordId": "es:coche",
+      "lemma": "coche",
+      "surfaceForm": "coches",
+      "paradigmCell": "pl",
+      "front": "car, automobile — write the Spanish form",
+      "back": "coches",
+      "frequencyRank": 282
+    },
+    {
+      "taskId": "es:vivo:viva:form-recall",
+      "wordId": "es:vivo",
+      "lemma": "vivo",
+      "surfaceForm": "viva",
+      "paradigmCell": "f.sg",
+      "front": "alive, living — write the Spanish form",
+      "back": "viva",
+      "frequencyRank": 283
+    },
+    {
+      "taskId": "es:fin:fines:form-recall",
+      "wordId": "es:fin",
+      "lemma": "fin",
+      "surfaceForm": "fines",
+      "paradigmCell": "pl",
+      "front": "end — write the Spanish form",
+      "back": "fines",
+      "frequencyRank": 284
+    },
+    {
+      "taskId": "es:alto:alta:form-recall",
+      "wordId": "es:alto",
+      "lemma": "alto",
+      "surfaceForm": "alta",
+      "paradigmCell": "f.sg",
+      "front": "tall — write the Spanish form",
+      "back": "alta",
+      "frequencyRank": 285
+    },
+    {
+      "taskId": "es:cuerpo:cuerpos:form-recall",
+      "wordId": "es:cuerpo",
+      "lemma": "cuerpo",
+      "surfaceForm": "cuerpos",
+      "paradigmCell": "pl",
+      "front": "body — write the Spanish form",
+      "back": "cuerpos",
+      "frequencyRank": 286
+    },
+    {
+      "taskId": "es:igual:iguales:form-recall",
+      "wordId": "es:igual",
+      "lemma": "igual",
+      "surfaceForm": "iguales",
+      "paradigmCell": "pl",
+      "front": "equal, same — write the Spanish form",
+      "back": "iguales",
+      "frequencyRank": 288
+    },
+    {
+      "taskId": "es:tierra:tierras:form-recall",
+      "wordId": "es:tierra",
+      "lemma": "tierra",
+      "surfaceForm": "tierras",
+      "paradigmCell": "pl",
+      "front": "Earth — write the Spanish form",
+      "back": "tierras",
+      "frequencyRank": 289
+    },
+    {
+      "taskId": "es:vuelta:vueltas:form-recall",
+      "wordId": "es:vuelta",
+      "lemma": "vuelta",
+      "surfaceForm": "vueltas",
+      "paradigmCell": "pl",
+      "front": "turn — write the Spanish form",
+      "back": "vueltas",
+      "frequencyRank": 290
+    },
+    {
+      "taskId": "es:cinco:cincos:form-recall",
+      "wordId": "es:cinco",
+      "lemma": "cinco",
+      "surfaceForm": "cincos",
+      "paradigmCell": "pl",
+      "front": "five — write the Spanish form",
+      "back": "cincos",
+      "frequencyRank": 291
+    },
+    {
+      "taskId": "es:funcionar:funciona:form-recall",
+      "wordId": "es:funcionar",
+      "lemma": "funcionar",
+      "surfaceForm": "funciona",
+      "paradigmCell": "ind.pres.3sg",
+      "front": "to work, to function — write the Spanish form",
+      "back": "funciona",
+      "frequencyRank": 292
+    },
+    {
+      "taskId": "es:cuidado:cuidada:form-recall",
+      "wordId": "es:cuidado",
+      "lemma": "cuidado",
+      "surfaceForm": "cuidada",
+      "paradigmCell": "f.sg",
+      "front": "watch out! — write the Spanish form",
+      "back": "cuidada",
+      "frequencyRank": 293
+    },
+    {
+      "taskId": "es:jugar:juega:form-recall",
+      "wordId": "es:jugar",
+      "lemma": "jugar",
+      "surfaceForm": "juega",
+      "paradigmCell": "ind.pres.3sg",
+      "front": "to play — write the Spanish form",
+      "back": "juega",
+      "frequencyRank": 295
+    },
+    {
+      "taskId": "es:prueba:pruebas:form-recall",
+      "wordId": "es:prueba",
+      "lemma": "prueba",
+      "surfaceForm": "pruebas",
+      "paradigmCell": "pl",
+      "front": "proof; evidence — write the Spanish form",
+      "back": "pruebas",
+      "frequencyRank": 296
+    },
+    {
+      "taskId": "es:bastante:bastantes:form-recall",
+      "wordId": "es:bastante",
+      "lemma": "bastante",
+      "surfaceForm": "bastantes",
+      "paradigmCell": "pl",
+      "front": "enough; sufficient — write the Spanish form",
+      "back": "bastantes",
+      "frequencyRank": 297
+    },
+    {
+      "taskId": "es:número:números:form-recall",
+      "wordId": "es:número",
+      "lemma": "número",
+      "surfaceForm": "números",
+      "paradigmCell": "pl",
+      "front": "number — write the Spanish form",
+      "back": "números",
+      "frequencyRank": 298
+    },
+    {
+      "taskId": "es:joven:jóvenes:form-recall",
+      "wordId": "es:joven",
+      "lemma": "joven",
+      "surfaceForm": "jóvenes",
+      "paradigmCell": "pl",
+      "front": "young, youthful — write the Spanish form",
+      "back": "jóvenes",
+      "frequencyRank": 299
+    },
+    {
+      "taskId": "es:fiesta:fiestas:form-recall",
+      "wordId": "es:fiesta",
+      "lemma": "fiesta",
+      "surfaceForm": "fiestas",
+      "paradigmCell": "pl",
+      "front": "party — write the Spanish form",
+      "back": "fiestas",
+      "frequencyRank": 300
+    },
+    {
+      "taskId": "es:auto:autos:form-recall",
+      "wordId": "es:auto",
+      "lemma": "auto",
+      "surfaceForm": "autos",
+      "paradigmCell": "pl",
+      "front": "car, automobile — write the Spanish form",
+      "back": "autos",
+      "frequencyRank": 302
+    },
+    {
+      "taskId": "es:fuerte:fuertes:form-recall",
+      "wordId": "es:fuerte",
+      "lemma": "fuerte",
+      "surfaceForm": "fuertes",
+      "paradigmCell": "pl",
+      "front": "strong — write the Spanish form",
+      "back": "fuertes",
+      "frequencyRank": 303
+    },
+    {
+      "taskId": "es:incluso:inclusa:form-recall",
+      "wordId": "es:incluso",
+      "lemma": "incluso",
+      "surfaceForm": "inclusa",
+      "paradigmCell": "f.sg",
+      "front": "enclosed, included — write the Spanish form",
+      "back": "inclusa",
+      "frequencyRank": 304
+    },
+    {
+      "taskId": "es:hermana:hermanas:form-recall",
+      "wordId": "es:hermana",
+      "lemma": "hermana",
+      "surfaceForm": "hermanas",
+      "paradigmCell": "pl",
+      "front": "sister; female equivalent of hermano — write the Spanish form",
+      "back": "hermanas",
+      "frequencyRank": 307
+    },
+    {
+      "taskId": "es:cuatro:cuatros:form-recall",
+      "wordId": "es:cuatro",
+      "lemma": "cuatro",
+      "surfaceForm": "cuatros",
+      "paradigmCell": "pl",
+      "front": "four — write the Spanish form",
+      "back": "cuatros",
+      "frequencyRank": 308
+    },
+    {
+      "taskId": "es:dormir:duerme:form-recall",
+      "wordId": "es:dormir",
+      "lemma": "dormir",
+      "surfaceForm": "duerme",
+      "paradigmCell": "ind.pres.3sg",
+      "front": "to sleep — write the Spanish form",
+      "back": "duerme",
+      "frequencyRank": 309
+    },
+    {
+      "taskId": "es:solo:sola:form-recall",
+      "wordId": "es:solo",
+      "lemma": "solo",
+      "surfaceForm": "sola",
+      "paradigmCell": "f.sg",
+      "front": "alone; only, single — write the Spanish form",
+      "back": "sola",
+      "frequencyRank": 310
+    },
+    {
+      "taskId": "es:oportunidad:oportunidades:form-recall",
+      "wordId": "es:oportunidad",
+      "lemma": "oportunidad",
+      "surfaceForm": "oportunidades",
+      "paradigmCell": "pl",
+      "front": "opportunity, chance, shot, break, occasion, time — write the Spanish form",
+      "back": "oportunidades",
+      "frequencyRank": 312
+    },
+    {
+      "taskId": "es:teléfono:teléfonos:form-recall",
+      "wordId": "es:teléfono",
+      "lemma": "teléfono",
+      "surfaceForm": "teléfonos",
+      "paradigmCell": "pl",
+      "front": "telephone — write the Spanish form",
+      "back": "teléfonos",
+      "frequencyRank": 313
+    },
+    {
+      "taskId": "es:pagar:paga:form-recall",
+      "wordId": "es:pagar",
+      "lemma": "pagar",
+      "surfaceForm": "paga",
+      "paradigmCell": "ind.pres.3sg",
+      "front": "to pay — write the Spanish form",
+      "back": "paga",
+      "frequencyRank": 315
+    },
+    {
+      "taskId": "es:final:finales:form-recall",
+      "wordId": "es:final",
+      "lemma": "final",
+      "surfaceForm": "finales",
+      "paradigmCell": "pl",
+      "front": "final; end — write the Spanish form",
+      "back": "finales",
+      "frequencyRank": 316
+    },
+    {
+      "taskId": "es:guerra:guerras:form-recall",
+      "wordId": "es:guerra",
+      "lemma": "guerra",
+      "surfaceForm": "guerras",
+      "paradigmCell": "pl",
+      "front": "war, warfare — write the Spanish form",
+      "back": "guerras",
+      "frequencyRank": 317
+    },
+    {
+      "taskId": "es:mayor:mayores:form-recall",
+      "wordId": "es:mayor",
+      "lemma": "mayor",
+      "surfaceForm": "mayores",
+      "paradigmCell": "pl",
+      "front": "comparative degree of grande: bigger — write the Spanish form",
+      "back": "mayores",
+      "frequencyRank": 318
+    },
+    {
+      "taskId": "es:bebé:bebés:form-recall",
+      "wordId": "es:bebé",
+      "lemma": "bebé",
+      "surfaceForm": "bebés",
+      "paradigmCell": "pl",
+      "front": "baby — write the Spanish form",
+      "back": "bebés",
+      "frequencyRank": 319
+    },
+    {
+      "taskId": "es:luz:luces:form-recall",
+      "wordId": "es:luz",
+      "lemma": "luz",
+      "surfaceForm": "luces",
+      "paradigmCell": "pl",
+      "front": "light — write the Spanish form",
+      "back": "luces",
+      "frequencyRank": 321
+    },
+    {
+      "taskId": "es:sentar:sienta:form-recall",
+      "wordId": "es:sentar",
+      "lemma": "sentar",
+      "surfaceForm": "sienta",
+      "paradigmCell": "ind.pres.3sg",
+      "front": "to seat — write the Spanish form",
+      "back": "sienta",
+      "frequencyRank": 322
+    },
+    {
+      "taskId": "es:escribir:escribe:form-recall",
+      "wordId": "es:escribir",
+      "lemma": "escribir",
+      "surfaceForm": "escribe",
+      "paradigmCell": "ind.pres.3sg",
+      "front": "to write — write the Spanish form",
+      "back": "escribe",
+      "frequencyRank": 323
+    },
+    {
+      "taskId": "es:maldecir:maldecimos:form-recall",
+      "wordId": "es:maldecir",
+      "lemma": "maldecir",
+      "surfaceForm": "maldecimos",
+      "paradigmCell": "ind.pres.1pl",
+      "front": "to damn, to curse — write the Spanish form",
+      "back": "maldecimos",
+      "frequencyRank": 324
+    },
+    {
+      "taskId": "es:plan:planes:form-recall",
+      "wordId": "es:plan",
+      "lemma": "plan",
+      "surfaceForm": "planes",
+      "paradigmCell": "pl",
+      "front": "plan, scheme — write the Spanish form",
+      "back": "planes",
+      "frequencyRank": 326
+    },
+    {
+      "taskId": "es:diablo:diablos:form-recall",
+      "wordId": "es:diablo",
+      "lemma": "diablo",
+      "surfaceForm": "diablos",
+      "paradigmCell": "pl",
+      "front": "devil — write the Spanish form",
+      "back": "diablos",
+      "frequencyRank": 327
+    },
+    {
+      "taskId": "es:sacar:saca:form-recall",
+      "wordId": "es:sacar",
+      "lemma": "sacar",
+      "surfaceForm": "saca",
+      "paradigmCell": "ind.pres.3sg",
+      "front": "to put out, to get out — write the Spanish form",
+      "back": "saca",
+      "frequencyRank": 328
+    },
+    {
+      "taskId": "es:habitación:habitaciones:form-recall",
+      "wordId": "es:habitación",
+      "lemma": "habitación",
+      "surfaceForm": "habitaciones",
+      "paradigmCell": "pl",
+      "front": "room — write the Spanish form",
+      "back": "habitaciones",
+      "frequencyRank": 329
+    },
+    {
+      "taskId": "es:orden:órdenes:form-recall",
+      "wordId": "es:orden",
+      "lemma": "orden",
+      "surfaceForm": "órdenes",
+      "paradigmCell": "pl",
+      "front": "order — write the Spanish form",
+      "back": "órdenes",
+      "frequencyRank": 330
+    },
+    {
+      "taskId": "es:libro:libros:form-recall",
+      "wordId": "es:libro",
+      "lemma": "libro",
+      "surfaceForm": "libros",
+      "paradigmCell": "pl",
+      "front": "book — write the Spanish form",
+      "back": "libros",
+      "frequencyRank": 331
+    },
+    {
+      "taskId": "es:lista:listas:form-recall",
+      "wordId": "es:lista",
+      "lemma": "lista",
+      "surfaceForm": "listas",
+      "paradigmCell": "pl",
+      "front": "list, roll — write the Spanish form",
+      "back": "listas",
+      "frequencyRank": 332
+    },
+    {
+      "taskId": "es:posible:posibles:form-recall",
+      "wordId": "es:posible",
+      "lemma": "posible",
+      "surfaceForm": "posibles",
+      "paradigmCell": "pl",
+      "front": "possible — write the Spanish form",
+      "back": "posibles",
+      "frequencyRank": 333
+    },
+    {
+      "taskId": "es:recuerdo:recuerdos:form-recall",
+      "wordId": "es:recuerdo",
+      "lemma": "recuerdo",
+      "surfaceForm": "recuerdos",
+      "paradigmCell": "pl",
+      "front": "memory — write the Spanish form",
+      "back": "recuerdos",
+      "frequencyRank": 335
+    },
+    {
+      "taskId": "es:demonio:demonios:form-recall",
+      "wordId": "es:demonio",
+      "lemma": "demonio",
+      "surfaceForm": "demonios",
+      "paradigmCell": "pl",
+      "front": "demon, devil — write the Spanish form",
+      "back": "demonios",
+      "frequencyRank": 336
+    },
+    {
+      "taskId": "es:cielo:cielos:form-recall",
+      "wordId": "es:cielo",
+      "lemma": "cielo",
+      "surfaceForm": "cielos",
+      "paradigmCell": "pl",
+      "front": "sky — write the Spanish form",
+      "back": "cielos",
+      "frequencyRank": 338
+    },
+    {
+      "taskId": "es:abrir:abre:form-recall",
+      "wordId": "es:abrir",
+      "lemma": "abrir",
+      "surfaceForm": "abre",
+      "paradigmCell": "ind.pres.3sg",
+      "front": "to open, open up — write the Spanish form",
+      "back": "abre",
+      "frequencyRank": 340
+    },
+    {
+      "taskId": "es:santo:san:form-recall",
+      "wordId": "es:santo",
+      "lemma": "santo",
+      "surfaceForm": "san",
+      "paradigmCell": "m.sg",
+      "front": "holy, godly — write the Spanish form",
+      "back": "san",
+      "frequencyRank": 342
+    },
+    {
+      "taskId": "es:escuela:escuelas:form-recall",
+      "wordId": "es:escuela",
+      "lemma": "escuela",
+      "surfaceForm": "escuelas",
+      "paradigmCell": "pl",
+      "front": "school — write the Spanish form",
+      "back": "escuelas",
+      "frequencyRank": 343
+    },
+    {
+      "taskId": "es:modo:modos:form-recall",
+      "wordId": "es:modo",
+      "lemma": "modo",
+      "surfaceForm": "modos",
+      "paradigmCell": "pl",
+      "front": "way, manner — write the Spanish form",
+      "back": "modos",
+      "frequencyRank": 344
+    },
+    {
+      "taskId": "es:foto:fotos:form-recall",
+      "wordId": "es:foto",
+      "lemma": "foto",
+      "surfaceForm": "fotos",
+      "paradigmCell": "pl",
+      "front": "photo, photograph — write the Spanish form",
+      "back": "fotos",
+      "frequencyRank": 345
+    },
+    {
+      "taskId": "es:disculpar:disculpamos:form-recall",
+      "wordId": "es:disculpar",
+      "lemma": "disculpar",
+      "surfaceForm": "disculpamos",
+      "paradigmCell": "ind.pres.1pl",
+      "front": "to excuse, forgive, pardon — write the Spanish form",
+      "back": "disculpamos",
+      "frequencyRank": 346
+    },
+    {
+      "taskId": "es:negocio:negocios:form-recall",
+      "wordId": "es:negocio",
+      "lemma": "negocio",
+      "surfaceForm": "negocios",
+      "paradigmCell": "pl",
+      "front": "business, enterprise — write the Spanish form",
+      "back": "negocios",
+      "frequencyRank": 347
+    },
+    {
+      "taskId": "es:duro:dura:form-recall",
+      "wordId": "es:duro",
+      "lemma": "duro",
+      "surfaceForm": "dura",
+      "paradigmCell": "f.sg",
+      "front": "hard — write the Spanish form",
+      "back": "dura",
+      "frequencyRank": 349
+    },
+    {
+      "taskId": "es:capitán:capitana:form-recall",
+      "wordId": "es:capitán",
+      "lemma": "capitán",
+      "surfaceForm": "capitana",
+      "paradigmCell": "sg",
+      "front": "captain — write the Spanish form",
+      "back": "capitana",
+      "frequencyRank": 350
+    },
+    {
+      "taskId": "es:mover:mueve:form-recall",
+      "wordId": "es:mover",
+      "lemma": "mover",
+      "surfaceForm": "mueve",
+      "paradigmCell": "ind.pres.3sg",
+      "front": "to move — write the Spanish form",
+      "back": "mueve",
+      "frequencyRank": 351
+    },
+    {
+      "taskId": "es:pie:pies:form-recall",
+      "wordId": "es:pie",
+      "lemma": "pie",
+      "surfaceForm": "pies",
+      "paradigmCell": "pl",
+      "front": "foot — write the Spanish form",
+      "back": "pies",
+      "frequencyRank": 352
+    },
+    {
+      "taskId": "es:regresar:regresa:form-recall",
+      "wordId": "es:regresar",
+      "lemma": "regresar",
+      "surfaceForm": "regresa",
+      "paradigmCell": "ind.pres.3sg",
+      "front": "to return, go back, come back — write the Spanish form",
+      "back": "regresa",
+      "frequencyRank": 353
+    },
+    {
+      "taskId": "es:puta:putas:form-recall",
+      "wordId": "es:puta",
+      "lemma": "puta",
+      "surfaceForm": "putas",
+      "paradigmCell": "pl",
+      "front": "whore, slut, prostitute — write the Spanish form",
+      "back": "putas",
+      "frequencyRank": 354
+    },
+    {
+      "taskId": "es:par:pares:form-recall",
+      "wordId": "es:par",
+      "lemma": "par",
+      "surfaceForm": "pares",
+      "paradigmCell": "pl",
+      "front": "even — write the Spanish form",
+      "back": "pares",
+      "frequencyRank": 355
+    },
+    {
+      "taskId": "es:idiota:idiotas:form-recall",
+      "wordId": "es:idiota",
+      "lemma": "idiota",
+      "surfaceForm": "idiotas",
+      "paradigmCell": "pl",
+      "front": "idiotic — write the Spanish form",
+      "back": "idiotas",
+      "frequencyRank": 356
+    },
+    {
+      "taskId": "es:comida:comidas:form-recall",
+      "wordId": "es:comida",
+      "lemma": "comida",
+      "surfaceForm": "comidas",
+      "paradigmCell": "pl",
+      "front": "food — write the Spanish form",
+      "back": "comidas",
+      "frequencyRank": 357
+    },
+    {
+      "taskId": "es:tuyo:tuya:form-recall",
+      "wordId": "es:tuyo",
+      "lemma": "tuyo",
+      "surfaceForm": "tuya",
+      "paradigmCell": "f.sg",
+      "front": "yours — write the Spanish form",
+      "back": "tuya",
+      "frequencyRank": 358
+    },
+    {
+      "taskId": "es:correcto:correcta:form-recall",
+      "wordId": "es:correcto",
+      "lemma": "correcto",
+      "surfaceForm": "correcta",
+      "paradigmCell": "f.sg",
+      "front": "correct, right — write the Spanish form",
+      "back": "correcta",
+      "frequencyRank": 359
+    },
+    {
+      "taskId": "es:perro:perros:form-recall",
+      "wordId": "es:perro",
+      "lemma": "perro",
+      "surfaceForm": "perros",
+      "paradigmCell": "pl",
+      "front": "dog — write the Spanish form",
+      "back": "perros",
+      "frequencyRank": 360
+    },
+    {
+      "taskId": "es:fácil:facil:form-recall",
+      "wordId": "es:fácil",
+      "lemma": "fácil",
+      "surfaceForm": "facil",
+      "paradigmCell": "sg",
+      "front": "easy, facile, simple — write the Spanish form",
+      "back": "facil",
+      "frequencyRank": 361
+    },
+    {
+      "taskId": "es:bonito:bonita:form-recall",
+      "wordId": "es:bonito",
+      "lemma": "bonito",
+      "surfaceForm": "bonita",
+      "paradigmCell": "f.sg",
+      "front": "pretty, cute — write the Spanish form",
+      "back": "bonita",
+      "frequencyRank": 362
+    },
+    {
+      "taskId": "es:vino:vinos:form-recall",
+      "wordId": "es:vino",
+      "lemma": "vino",
+      "surfaceForm": "vinos",
+      "paradigmCell": "pl",
+      "front": "wine — write the Spanish form",
+      "back": "vinos",
+      "frequencyRank": 363
+    },
+    {
+      "taskId": "es:largo:larga:form-recall",
+      "wordId": "es:largo",
+      "lemma": "largo",
+      "surfaceForm": "larga",
+      "paradigmCell": "f.sg",
+      "front": "long — write the Spanish form",
+      "back": "larga",
+      "frequencyRank": 364
+    },
+    {
+      "taskId": "es:enviar:envía:form-recall",
+      "wordId": "es:enviar",
+      "lemma": "enviar",
+      "surfaceForm": "envía",
+      "paradigmCell": "ind.pres.3sg",
+      "front": "to send — write the Spanish form",
+      "back": "envía",
+      "frequencyRank": 365
+    },
+    {
+      "taskId": "es:muchacho:muchachos:form-recall",
+      "wordId": "es:muchacho",
+      "lemma": "muchacho",
+      "surfaceForm": "muchachos",
+      "paradigmCell": "pl",
+      "front": "boy or young adult — write the Spanish form",
+      "back": "muchachos",
+      "frequencyRank": 366
+    },
+    {
+      "taskId": "es:encantar:encanta:form-recall",
+      "wordId": "es:encantar",
+      "lemma": "encantar",
+      "surfaceForm": "encanta",
+      "paradigmCell": "ind.pres.3sg",
+      "front": "to charm, to enchant — write the Spanish form",
+      "back": "encanta",
+      "frequencyRank": 367
+    },
+    {
+      "taskId": "es:película:películas:form-recall",
+      "wordId": "es:película",
+      "lemma": "película",
+      "surfaceForm": "películas",
+      "paradigmCell": "pl",
+      "front": "film — write the Spanish form",
+      "back": "películas",
+      "frequencyRank": 368
+    },
+    {
+      "taskId": "es:negro:negra:form-recall",
+      "wordId": "es:negro",
+      "lemma": "negro",
+      "surfaceForm": "negra",
+      "paradigmCell": "f.sg",
+      "front": "black — write the Spanish form",
+      "back": "negra",
+      "frequencyRank": 370
+    },
+    {
+      "taskId": "es:próximo:próxima:form-recall",
+      "wordId": "es:próximo",
+      "lemma": "próximo",
+      "surfaceForm": "próxima",
+      "paradigmCell": "f.sg",
+      "front": "near — write the Spanish form",
+      "back": "próxima",
+      "frequencyRank": 371
+    },
+    {
+      "taskId": "es:diferente:diferentes:form-recall",
+      "wordId": "es:diferente",
+      "lemma": "diferente",
+      "surfaceForm": "diferentes",
+      "paradigmCell": "pl",
+      "front": "different — write the Spanish form",
+      "back": "diferentes",
+      "frequencyRank": 372
+    },
+    {
+      "taskId": "es:millón:millones:form-recall",
+      "wordId": "es:millón",
+      "lemma": "millón",
+      "surfaceForm": "millones",
+      "paradigmCell": "pl",
+      "front": "million — write the Spanish form",
+      "back": "millones",
+      "frequencyRank": 373
+    },
+    {
+      "taskId": "es:dólar:dólares:form-recall",
+      "wordId": "es:dólar",
+      "lemma": "dólar",
+      "surfaceForm": "dólares",
+      "paradigmCell": "pl",
+      "front": "dollar — write the Spanish form",
+      "back": "dólares",
+      "frequencyRank": 374
+    },
+    {
+      "taskId": "es:mantener:mantiene:form-recall",
+      "wordId": "es:mantener",
+      "lemma": "mantener",
+      "surfaceForm": "mantiene",
+      "paradigmCell": "ind.pres.3sg",
+      "front": "to keep — write the Spanish form",
+      "back": "mantiene",
+      "frequencyRank": 375
+    },
+    {
+      "taskId": "es:cuanto:cuantos:form-recall",
+      "wordId": "es:cuanto",
+      "lemma": "cuanto",
+      "surfaceForm": "cuantos",
+      "paradigmCell": "m.pl",
+      "front": "whatever quantity, as much, however much — write the Spanish form",
+      "back": "cuantos",
+      "frequencyRank": 376
+    },
+    {
+      "taskId": "es:niña:niñas:form-recall",
+      "wordId": "es:niña",
+      "lemma": "niña",
+      "surfaceForm": "niñas",
+      "paradigmCell": "pl",
+      "front": "girl, female equivalent of niño — write the Spanish form",
+      "back": "niñas",
+      "frequencyRank": 378
+    },
+    {
+      "taskId": "es:recordar:recuerda:form-recall",
+      "wordId": "es:recordar",
+      "lemma": "recordar",
+      "surfaceForm": "recuerda",
+      "paradigmCell": "ind.pres.3sg",
+      "front": "to remember, to recollect — write the Spanish form",
+      "back": "recuerda",
+      "frequencyRank": 379
+    },
+    {
+      "taskId": "es:mil:miles:form-recall",
+      "wordId": "es:mil",
+      "lemma": "mil",
+      "surfaceForm": "miles",
+      "paradigmCell": "pl",
+      "front": "thousand — write the Spanish form",
+      "back": "miles",
+      "frequencyRank": 380
+    },
+    {
+      "taskId": "es:hermoso:hermosa:form-recall",
+      "wordId": "es:hermoso",
+      "lemma": "hermoso",
+      "surfaceForm": "hermosa",
+      "paradigmCell": "f.sg",
+      "front": "gorgeous, beautiful, handsome, lovely — write the Spanish form",
+      "back": "hermosa",
+      "frequencyRank": 381
+    },
+    {
+      "taskId": "es:sueño:sueños:form-recall",
+      "wordId": "es:sueño",
+      "lemma": "sueño",
+      "surfaceForm": "sueños",
+      "paradigmCell": "pl",
+      "front": "sleep, slumber — write the Spanish form",
+      "back": "sueños",
+      "frequencyRank": 382
+    },
+    {
+      "taskId": "es:calle:calles:form-recall",
+      "wordId": "es:calle",
+      "lemma": "calle",
+      "surfaceForm": "calles",
+      "paradigmCell": "pl",
+      "front": "street — write the Spanish form",
+      "back": "calles",
+      "frequencyRank": 383
+    },
+    {
+      "taskId": "es:noticia:noticias:form-recall",
+      "wordId": "es:noticia",
+      "lemma": "noticia",
+      "surfaceForm": "noticias",
+      "paradigmCell": "pl",
+      "front": "notice — write the Spanish form",
+      "back": "noticias",
+      "frequencyRank": 384
+    },
+    {
+      "taskId": "es:paso:pasos:form-recall",
+      "wordId": "es:paso",
+      "lemma": "paso",
+      "surfaceForm": "pasos",
+      "paradigmCell": "pl",
+      "front": "step, footstep — write the Spanish form",
+      "back": "pasos",
+      "frequencyRank": 385
+    },
+    {
+      "taskId": "es:comprar:compramos:form-recall",
+      "wordId": "es:comprar",
+      "lemma": "comprar",
+      "surfaceForm": "compramos",
+      "paradigmCell": "ind.pres.1pl",
+      "front": "to buy — write the Spanish form",
+      "back": "compramos",
+      "frequencyRank": 386
+    },
+    {
+      "taskId": "es:sitio:sitios:form-recall",
+      "wordId": "es:sitio",
+      "lemma": "sitio",
+      "surfaceForm": "sitios",
+      "paradigmCell": "pl",
+      "front": "site, place — write the Spanish form",
+      "back": "sitios",
+      "frequencyRank": 387
+    },
+    {
+      "taskId": "es:secreto:secretos:form-recall",
+      "wordId": "es:secreto",
+      "lemma": "secreto",
+      "surfaceForm": "secretos",
+      "paradigmCell": "pl",
+      "front": "secret — write the Spanish form",
+      "back": "secretos",
+      "frequencyRank": 388
+    },
+    {
+      "taskId": "es:blanco:blanca:form-recall",
+      "wordId": "es:blanco",
+      "lemma": "blanco",
+      "surfaceForm": "blanca",
+      "paradigmCell": "f.sg",
+      "front": "white — write the Spanish form",
+      "back": "blanca",
+      "frequencyRank": 389
+    },
+    {
+      "taskId": "es:caer:cae:form-recall",
+      "wordId": "es:caer",
+      "lemma": "caer",
+      "surfaceForm": "cae",
+      "paradigmCell": "ind.pres.3sg",
+      "front": "to fall — write the Spanish form",
+      "back": "cae",
+      "frequencyRank": 390
+    },
+    {
+      "taskId": "es:muerto:muerta:form-recall",
+      "wordId": "es:muerto",
+      "lemma": "muerto",
+      "surfaceForm": "muerta",
+      "paradigmCell": "f.sg",
+      "front": "dead — write the Spanish form",
+      "back": "muerta",
+      "frequencyRank": 391
+    },
+    {
+      "taskId": "es:perfecto:perfecta:form-recall",
+      "wordId": "es:perfecto",
+      "lemma": "perfecto",
+      "surfaceForm": "perfecta",
+      "paradigmCell": "f.sg",
+      "front": "perfect — write the Spanish form",
+      "back": "perfecta",
+      "frequencyRank": 393
+    },
+    {
+      "taskId": "es:asunto:asuntos:form-recall",
+      "wordId": "es:asunto",
+      "lemma": "asunto",
+      "surfaceForm": "asuntos",
+      "paradigmCell": "pl",
+      "front": "matter, issue, business — write the Spanish form",
+      "back": "asuntos",
+      "frequencyRank": 394
+    },
+    {
+      "taskId": "es:raro:rara:form-recall",
+      "wordId": "es:raro",
+      "lemma": "raro",
+      "surfaceForm": "rara",
+      "paradigmCell": "f.sg",
+      "front": "rare — write the Spanish form",
+      "back": "rara",
+      "frequencyRank": 395
+    },
+    {
+      "taskId": "es:peor:peores:form-recall",
+      "wordId": "es:peor",
+      "lemma": "peor",
+      "surfaceForm": "peores",
+      "paradigmCell": "pl",
+      "front": "comparative degree of malo: worse — write the Spanish form",
+      "back": "peores",
+      "frequencyRank": 396
+    },
+    {
+      "taskId": "es:sentido:sentida:form-recall",
+      "wordId": "es:sentido",
+      "lemma": "sentido",
+      "surfaceForm": "sentida",
+      "paradigmCell": "f.sg",
+      "front": "deeply felt, heartfelt — write the Spanish form",
+      "back": "sentida",
+      "frequencyRank": 397
+    },
+    {
+      "taskId": "es:médico:médicos:form-recall",
+      "wordId": "es:médico",
+      "lemma": "médico",
+      "surfaceForm": "médicos",
+      "paradigmCell": "pl",
+      "front": "doctor — write the Spanish form",
+      "back": "médicos",
+      "frequencyRank": 398
+    },
+    {
+      "taskId": "es:aquel:aquella:form-recall",
+      "wordId": "es:aquel",
+      "lemma": "aquel",
+      "surfaceForm": "aquella",
+      "paradigmCell": "f.sg",
+      "front": "that — write the Spanish form",
+      "back": "aquella",
+      "frequencyRank": 400
+    },
+    {
+      "taskId": "es:correr:corre:form-recall",
+      "wordId": "es:correr",
+      "lemma": "correr",
+      "surfaceForm": "corre",
+      "paradigmCell": "ind.pres.3sg",
+      "front": "to run, to jog — write the Spanish form",
+      "back": "corre",
+      "frequencyRank": 401
+    },
+    {
+      "taskId": "es:tranquilo:tranquila:form-recall",
+      "wordId": "es:tranquilo",
+      "lemma": "tranquilo",
+      "surfaceForm": "tranquila",
+      "paradigmCell": "f.sg",
+      "front": "calm, peaceful, tranquil, quiet — write the Spanish form",
+      "back": "tranquila",
+      "frequencyRank": 402
+    },
+    {
+      "taskId": "es:agente:agentes:form-recall",
+      "wordId": "es:agente",
+      "lemma": "agente",
+      "surfaceForm": "agentes",
+      "paradigmCell": "pl",
+      "front": "agent — write the Spanish form",
+      "back": "agentes",
+      "frequencyRank": 404
+    },
+    {
+      "taskId": "es:humano:humanos:form-recall",
+      "wordId": "es:humano",
+      "lemma": "humano",
+      "surfaceForm": "humanos",
+      "paradigmCell": "m.pl",
+      "front": "human — write the Spanish form",
+      "back": "humanos",
+      "frequencyRank": 405
+    },
+    {
+      "taskId": "es:seguridad:seguridades:form-recall",
+      "wordId": "es:seguridad",
+      "lemma": "seguridad",
+      "surfaceForm": "seguridades",
+      "paradigmCell": "pl",
+      "front": "safety, security — write the Spanish form",
+      "back": "seguridades",
+      "frequencyRank": 406
+    },
+    {
+      "taskId": "es:especial:especiales:form-recall",
+      "wordId": "es:especial",
+      "lemma": "especial",
+      "surfaceForm": "especiales",
+      "paradigmCell": "pl",
+      "front": "special — write the Spanish form",
+      "back": "especiales",
+      "frequencyRank": 407
+    },
+    {
+      "taskId": "es:real:reales:form-recall",
+      "wordId": "es:real",
+      "lemma": "real",
+      "surfaceForm": "reales",
+      "paradigmCell": "pl",
+      "front": "real; royal — write the Spanish form",
+      "back": "reales",
+      "frequencyRank": 408
+    },
+    {
+      "taskId": "es:país:países:form-recall",
+      "wordId": "es:país",
+      "lemma": "país",
+      "surfaceForm": "países",
+      "paradigmCell": "pl",
+      "front": "country — write the Spanish form",
+      "back": "países",
+      "frequencyRank": 409
+    },
+    {
+      "taskId": "es:recibir:recibe:form-recall",
+      "wordId": "es:recibir",
+      "lemma": "recibir",
+      "surfaceForm": "recibe",
+      "paradigmCell": "ind.pres.3sg",
+      "front": "to receive, get — write the Spanish form",
+      "back": "recibe",
+      "frequencyRank": 410
+    },
+    {
+      "taskId": "es:oficina:oficinas:form-recall",
+      "wordId": "es:oficina",
+      "lemma": "oficina",
+      "surfaceForm": "oficinas",
+      "paradigmCell": "pl",
+      "front": "office — write the Spanish form",
+      "back": "oficinas",
+      "frequencyRank": 411
+    },
+    {
+      "taskId": "es:derecho:derechos:form-recall",
+      "wordId": "es:derecho",
+      "lemma": "derecho",
+      "surfaceForm": "derechos",
+      "paradigmCell": "pl",
+      "front": "straight — write the Spanish form",
+      "back": "derechos",
+      "frequencyRank": 412
+    },
+    {
+      "taskId": "es:cama:camas:form-recall",
+      "wordId": "es:cama",
+      "lemma": "cama",
+      "surfaceForm": "camas",
+      "paradigmCell": "pl",
+      "front": "bed — write the Spanish form",
+      "back": "camas",
+      "frequencyRank": 413
+    },
+    {
+      "taskId": "es:tocar:toca:form-recall",
+      "wordId": "es:tocar",
+      "lemma": "tocar",
+      "surfaceForm": "toca",
+      "paradigmCell": "ind.pres.3sg",
+      "front": "to touch — write the Spanish form",
+      "back": "toca",
+      "frequencyRank": 415
+    },
+    {
+      "taskId": "es:rey:reyes:form-recall",
+      "wordId": "es:rey",
+      "lemma": "rey",
+      "surfaceForm": "reyes",
+      "paradigmCell": "pl",
+      "front": "king — write the Spanish form",
+      "back": "reyes",
+      "frequencyRank": 416
+    },
+    {
+      "taskId": "es:prometer:prometo:form-recall",
+      "wordId": "es:prometer",
+      "lemma": "prometer",
+      "surfaceForm": "prometo",
+      "paradigmCell": "ind.pres.1sg",
+      "front": "to promise — write the Spanish form",
+      "back": "prometo",
+      "frequencyRank": 417
+    },
+    {
+      "taskId": "es:libre:libres:form-recall",
+      "wordId": "es:libre",
+      "lemma": "libre",
+      "surfaceForm": "libres",
+      "paradigmCell": "pl",
+      "front": "free — write the Spanish form",
+      "back": "libres",
+      "frequencyRank": 418
+    },
+    {
+      "taskId": "es:estúpido:estúpida:form-recall",
+      "wordId": "es:estúpido",
+      "lemma": "estúpido",
+      "surfaceForm": "estúpida",
+      "paradigmCell": "f.sg",
+      "front": "stupid — write the Spanish form",
+      "back": "estúpida",
+      "frequencyRank": 419
+    },
+    {
+      "taskId": "es:señorita:señoritas:form-recall",
+      "wordId": "es:señorita",
+      "lemma": "señorita",
+      "surfaceForm": "señoritas",
+      "paradigmCell": "pl",
+      "front": "young woman — write the Spanish form",
+      "back": "señoritas",
+      "frequencyRank": 420
+    },
+    {
+      "taskId": "es:fuerza:fuerzas:form-recall",
+      "wordId": "es:fuerza",
+      "lemma": "fuerza",
+      "surfaceForm": "fuerzas",
+      "paradigmCell": "pl",
+      "front": "force — write the Spanish form",
+      "back": "fuerzas",
+      "frequencyRank": 422
+    },
+    {
+      "taskId": "es:cambio:cambios:form-recall",
+      "wordId": "es:cambio",
+      "lemma": "cambio",
+      "surfaceForm": "cambios",
+      "paradigmCell": "pl",
+      "front": "change, shift — write the Spanish form",
+      "back": "cambios",
+      "frequencyRank": 423
+    },
+    {
+      "taskId": "es:amiga:amigas:form-recall",
+      "wordId": "es:amiga",
+      "lemma": "amiga",
+      "surfaceForm": "amigas",
+      "paradigmCell": "pl",
+      "front": "female equivalent of amigo, friend — write the Spanish form",
+      "back": "amigas",
+      "frequencyRank": 424
+    },
+    {
+      "taskId": "es:carta:cartas:form-recall",
+      "wordId": "es:carta",
+      "lemma": "carta",
+      "surfaceForm": "cartas",
+      "paradigmCell": "pl",
+      "front": "letter — write the Spanish form",
+      "back": "cartas",
+      "frequencyRank": 425
+    },
+    {
+      "taskId": "es:marido:maridos:form-recall",
+      "wordId": "es:marido",
+      "lemma": "marido",
+      "surfaceForm": "maridos",
+      "paradigmCell": "pl",
+      "front": "husband — write the Spanish form",
+      "back": "maridos",
+      "frequencyRank": 426
+    },
+    {
+      "taskId": "es:puesto:puestos:form-recall",
+      "wordId": "es:puesto",
+      "lemma": "puesto",
+      "surfaceForm": "puestos",
+      "paradigmCell": "pl",
+      "front": "position, employment, job — write the Spanish form",
+      "back": "puestos",
+      "frequencyRank": 427
+    },
+    {
+      "taskId": "es:paz:paces:form-recall",
+      "wordId": "es:paz",
+      "lemma": "paz",
+      "surfaceForm": "paces",
+      "paradigmCell": "pl",
+      "front": "peace — write the Spanish form",
+      "back": "paces",
+      "frequencyRank": 428
+    },
+    {
+      "taskId": "es:cual:cuales:form-recall",
+      "wordId": "es:cual",
+      "lemma": "cual",
+      "surfaceForm": "cuales",
+      "paradigmCell": "pl",
+      "front": "like, as, in the manner of — write the Spanish form",
+      "back": "cuales",
+      "frequencyRank": 429
+    },
+    {
+      "taskId": "es:decidir:decide:form-recall",
+      "wordId": "es:decidir",
+      "lemma": "decidir",
+      "surfaceForm": "decide",
+      "paradigmCell": "ind.pres.3sg",
+      "front": "to decide, to make up one's mind, to determine, to choose to — write the Spanish form",
+      "back": "decide",
+      "frequencyRank": 430
+    },
+    {
+      "taskId": "es:robar:roba:form-recall",
+      "wordId": "es:robar",
+      "lemma": "robar",
+      "surfaceForm": "roba",
+      "paradigmCell": "ind.pres.3sg",
+      "front": "to rob — write the Spanish form",
+      "back": "roba",
+      "frequencyRank": 431
+    },
+    {
+      "taskId": "es:extraño:extraños:form-recall",
+      "wordId": "es:extraño",
+      "lemma": "extraño",
+      "surfaceForm": "extraños",
+      "paradigmCell": "m.pl",
+      "front": "strange, odd — write the Spanish form",
+      "back": "extraños",
+      "frequencyRank": 432
+    },
+    {
+      "taskId": "es:resto:restos:form-recall",
+      "wordId": "es:resto",
+      "lemma": "resto",
+      "surfaceForm": "restos",
+      "paradigmCell": "pl",
+      "front": "rest, remainder — write the Spanish form",
+      "back": "restos",
+      "frequencyRank": 433
+    },
+    {
+      "taskId": "es:mensaje:mensajes:form-recall",
+      "wordId": "es:mensaje",
+      "lemma": "mensaje",
+      "surfaceForm": "mensajes",
+      "paradigmCell": "pl",
+      "front": "message — write the Spanish form",
+      "back": "mensajes",
+      "frequencyRank": 434
+    },
+    {
+      "taskId": "es:viaje:viajes:form-recall",
+      "wordId": "es:viaje",
+      "lemma": "viaje",
+      "surfaceForm": "viajes",
+      "paradigmCell": "pl",
+      "front": "voyage — write the Spanish form",
+      "back": "viajes",
+      "frequencyRank": 435
+    },
+    {
+      "taskId": "es:asesino:asesinos:form-recall",
+      "wordId": "es:asesino",
+      "lemma": "asesino",
+      "surfaceForm": "asesinos",
+      "paradigmCell": "pl",
+      "front": "murderous, homicidal — write the Spanish form",
+      "back": "asesinos",
+      "frequencyRank": 436
+    },
+    {
+      "taskId": "es:pueblo:pueblos:form-recall",
+      "wordId": "es:pueblo",
+      "lemma": "pueblo",
+      "surfaceForm": "pueblos",
+      "paradigmCell": "pl",
+      "front": "town, village — write the Spanish form",
+      "back": "pueblos",
+      "frequencyRank": 437
+    },
+    {
+      "taskId": "es:sonar:suena:form-recall",
+      "wordId": "es:sonar",
+      "lemma": "sonar",
+      "surfaceForm": "suena",
+      "paradigmCell": "ind.pres.3sg",
+      "front": "to sound, to ring — write the Spanish form",
+      "back": "suena",
+      "frequencyRank": 438
+    },
+    {
+      "taskId": "es:bastar:basta:form-recall",
+      "wordId": "es:bastar",
+      "lemma": "bastar",
+      "surfaceForm": "basta",
+      "paradigmCell": "ind.pres.3sg",
+      "front": "to be enough; to suffice — write the Spanish form",
+      "back": "basta",
+      "frequencyRank": 439
+    },
+    {
+      "taskId": "es:música:musica:form-recall",
+      "wordId": "es:música",
+      "lemma": "música",
+      "surfaceForm": "musica",
+      "paradigmCell": "sg",
+      "front": "music — write the Spanish form",
+      "back": "musica",
+      "frequencyRank": 440
+    },
+    {
+      "taskId": "es:perdonar:perdona:form-recall",
+      "wordId": "es:perdonar",
+      "lemma": "perdonar",
+      "surfaceForm": "perdona",
+      "paradigmCell": "ind.pres.3sg",
+      "front": "to pardon, excuse, forgive — write the Spanish form",
+      "back": "perdona",
+      "frequencyRank": 441
+    },
+    {
+      "taskId": "es:error:errores:form-recall",
+      "wordId": "es:error",
+      "lemma": "error",
+      "surfaceForm": "errores",
+      "paradigmCell": "pl",
+      "front": "error, mistake — write the Spanish form",
+      "back": "errores",
+      "frequencyRank": 443
+    },
+    {
+      "taskId": "es:caballero:caballeros:form-recall",
+      "wordId": "es:caballero",
+      "lemma": "caballero",
+      "surfaceForm": "caballeros",
+      "paradigmCell": "pl",
+      "front": "horseman — write the Spanish form",
+      "back": "caballeros",
+      "frequencyRank": 444
+    },
+    {
+      "taskId": "es:cuarto:cuarta:form-recall",
+      "wordId": "es:cuarto",
+      "lemma": "cuarto",
+      "surfaceForm": "cuarta",
+      "paradigmCell": "f.sg",
+      "front": "fourth — write the Spanish form",
+      "back": "cuarta",
+      "frequencyRank": 445
+    },
+    {
+      "taskId": "es:referir:refiero:form-recall",
+      "wordId": "es:referir",
+      "lemma": "referir",
+      "surfaceForm": "refiero",
+      "paradigmCell": "ind.pres.1sg",
+      "front": "to report — write the Spanish form",
+      "back": "refiero",
+      "frequencyRank": 446
+    },
+    {
+      "taskId": "es:beber:bebe:form-recall",
+      "wordId": "es:beber",
+      "lemma": "beber",
+      "surfaceForm": "bebe",
+      "paradigmCell": "ind.pres.3sg",
+      "front": "to drink — write the Spanish form",
+      "back": "bebe",
+      "frequencyRank": 448
+    },
+    {
+      "taskId": "es:falta:faltas:form-recall",
+      "wordId": "es:falta",
+      "lemma": "falta",
+      "surfaceForm": "faltas",
+      "paradigmCell": "pl",
+      "front": "lack, shortage — write the Spanish form",
+      "back": "faltas",
+      "frequencyRank": 449
+    },
+    {
+      "taskId": "es:confiar:confía:form-recall",
+      "wordId": "es:confiar",
+      "lemma": "confiar",
+      "surfaceForm": "confía",
+      "paradigmCell": "ind.pres.3sg",
+      "front": "to reassure — write the Spanish form",
+      "back": "confía",
+      "frequencyRank": 450
+    },
+    {
+      "taskId": "es:ambos:ambas:form-recall",
+      "wordId": "es:ambos",
+      "lemma": "ambos",
+      "surfaceForm": "ambas",
+      "paradigmCell": "f.pl",
+      "front": "both — write the Spanish form",
+      "back": "ambas",
+      "frequencyRank": 451
+    },
+    {
+      "taskId": "es:diez:dieces:form-recall",
+      "wordId": "es:diez",
+      "lemma": "diez",
+      "surfaceForm": "dieces",
+      "paradigmCell": "pl",
+      "front": "ten — write the Spanish form",
+      "back": "dieces",
+      "frequencyRank": 452
+    },
+    {
+      "taskId": "es:hospital:hospitales:form-recall",
+      "wordId": "es:hospital",
+      "lemma": "hospital",
+      "surfaceForm": "hospitales",
+      "paradigmCell": "pl",
+      "front": "hospital — write the Spanish form",
+      "back": "hospitales",
+      "frequencyRank": 453
+    },
+    {
+      "taskId": "es:alegrar:alegro:form-recall",
+      "wordId": "es:alegrar",
+      "lemma": "alegrar",
+      "surfaceForm": "alegro",
+      "paradigmCell": "ind.pres.1sg",
+      "front": "to make happy — write the Spanish form",
+      "back": "alegro",
+      "frequencyRank": 454
+    },
+    {
+      "taskId": "es:relación:relaciones:form-recall",
+      "wordId": "es:relación",
+      "lemma": "relación",
+      "surfaceForm": "relaciones",
+      "paradigmCell": "pl",
+      "front": "relation — write the Spanish form",
+      "back": "relaciones",
+      "frequencyRank": 455
+    },
+    {
+      "taskId": "es:disparar:dispara:form-recall",
+      "wordId": "es:disparar",
+      "lemma": "disparar",
+      "surfaceForm": "dispara",
+      "paradigmCell": "ind.pres.3sg",
+      "front": "to shoot, to fire — write the Spanish form",
+      "back": "dispara",
+      "frequencyRank": 457
+    },
+    {
+      "taskId": "es:divertido:divertida:form-recall",
+      "wordId": "es:divertido",
+      "lemma": "divertido",
+      "surfaceForm": "divertida",
+      "paradigmCell": "f.sg",
+      "front": "entertaining, amusing, funny — write the Spanish form",
+      "back": "divertida",
+      "frequencyRank": 458
+    },
+    {
+      "taskId": "es:fuego:fuegos:form-recall",
+      "wordId": "es:fuego",
+      "lemma": "fuego",
+      "surfaceForm": "fuegos",
+      "paradigmCell": "pl",
+      "front": "fire — write the Spanish form",
+      "back": "fuegos",
+      "frequencyRank": 459
+    },
+    {
+      "taskId": "es:callar:calla:form-recall",
+      "wordId": "es:callar",
+      "lemma": "callar",
+      "surfaceForm": "calla",
+      "paradigmCell": "ind.pres.3sg",
+      "front": "to calm — write the Spanish form",
+      "back": "calla",
+      "frequencyRank": 460
+    },
+    {
+      "taskId": "es:grupo:grupos:form-recall",
+      "wordId": "es:grupo",
+      "lemma": "grupo",
+      "surfaceForm": "grupos",
+      "paradigmCell": "pl",
+      "front": "group — write the Spanish form",
+      "back": "grupos",
+      "frequencyRank": 461
+    },
+    {
+      "taskId": "es:increíble:increíbles:form-recall",
+      "wordId": "es:increíble",
+      "lemma": "increíble",
+      "surfaceForm": "increíbles",
+      "paradigmCell": "pl",
+      "front": "incredible, unbelievable — write the Spanish form",
+      "back": "increíbles",
+      "frequencyRank": 462
+    },
+    {
+      "taskId": "es:andar:anda:form-recall",
+      "wordId": "es:andar",
+      "lemma": "andar",
+      "surfaceForm": "anda",
+      "paradigmCell": "ind.pres.3sg",
+      "front": "to walk, to go — write the Spanish form",
+      "back": "anda",
+      "frequencyRank": 463
+    },
+    {
+      "taskId": "es:café:cafés:form-recall",
+      "wordId": "es:café",
+      "lemma": "café",
+      "surfaceForm": "cafés",
+      "paradigmCell": "pl",
+      "front": "brown — write the Spanish form",
+      "back": "cafés",
+      "frequencyRank": 465
+    },
+    {
+      "taskId": "es:daño:daños:form-recall",
+      "wordId": "es:daño",
+      "lemma": "daño",
+      "surfaceForm": "daños",
+      "paradigmCell": "pl",
+      "front": "damage — write the Spanish form",
+      "back": "daños",
+      "frequencyRank": 466
+    },
+    {
+      "taskId": "es:detener:detenemos:form-recall",
+      "wordId": "es:detener",
+      "lemma": "detener",
+      "surfaceForm": "detenemos",
+      "paradigmCell": "ind.pres.1pl",
+      "front": "to detain — write the Spanish form",
+      "back": "detenemos",
+      "frequencyRank": 467
+    },
+    {
+      "taskId": "es:pobre:pobres:form-recall",
+      "wordId": "es:pobre",
+      "lemma": "pobre",
+      "surfaceForm": "pobres",
+      "paradigmCell": "pl",
+      "front": "poor — write the Spanish form",
+      "back": "pobres",
+      "frequencyRank": 468
+    },
+    {
+      "taskId": "es:cerrar:cierra:form-recall",
+      "wordId": "es:cerrar",
+      "lemma": "cerrar",
+      "surfaceForm": "cierra",
+      "paradigmCell": "ind.pres.3sg",
+      "front": "to close, to shut — write the Spanish form",
+      "back": "cierra",
+      "frequencyRank": 469
+    },
+    {
+      "taskId": "es:querido:querida:form-recall",
+      "wordId": "es:querido",
+      "lemma": "querido",
+      "surfaceForm": "querida",
+      "paradigmCell": "f.sg",
+      "front": "dear — write the Spanish form",
+      "back": "querida",
+      "frequencyRank": 471
+    },
+    {
+      "taskId": "es:oficial:oficiales:form-recall",
+      "wordId": "es:oficial",
+      "lemma": "oficial",
+      "surfaceForm": "oficiales",
+      "paradigmCell": "pl",
+      "front": "official — write the Spanish form",
+      "back": "oficiales",
+      "frequencyRank": 472
+    },
+    {
+      "taskId": "es:asesinato:asesinatos:form-recall",
+      "wordId": "es:asesinato",
+      "lemma": "asesinato",
+      "surfaceForm": "asesinatos",
+      "paradigmCell": "pl",
+      "front": "assassination — write the Spanish form",
+      "back": "asesinatos",
+      "frequencyRank": 473
+    },
+    {
+      "taskId": "es:mentir:miente:form-recall",
+      "wordId": "es:mentir",
+      "lemma": "mentir",
+      "surfaceForm": "miente",
+      "paradigmCell": "ind.pres.3sg",
+      "front": "to lie — write the Spanish form",
+      "back": "miente",
+      "frequencyRank": 474
+    },
+    {
+      "taskId": "es:presidente:presidenta:form-recall",
+      "wordId": "es:presidente",
+      "lemma": "presidente",
+      "surfaceForm": "presidenta",
+      "paradigmCell": "sg",
+      "front": "president, head — write the Spanish form",
+      "back": "presidenta",
+      "frequencyRank": 475
+    },
+    {
+      "taskId": "es:abogado:abogados:form-recall",
+      "wordId": "es:abogado",
+      "lemma": "abogado",
+      "surfaceForm": "abogados",
+      "paradigmCell": "pl",
+      "front": "lawyer, solicitor, counsel. — write the Spanish form",
+      "back": "abogados",
+      "frequencyRank": 476
+    },
+    {
+      "taskId": "es:voz:voces:form-recall",
+      "wordId": "es:voz",
+      "lemma": "voz",
+      "surfaceForm": "voces",
+      "paradigmCell": "pl",
+      "front": "voice — write the Spanish form",
+      "back": "voces",
+      "frequencyRank": 477
+    },
+    {
+      "taskId": "es:ropa:ropas:form-recall",
+      "wordId": "es:ropa",
+      "lemma": "ropa",
+      "surfaceForm": "ropas",
+      "paradigmCell": "pl",
+      "front": "garment, clothing, clothes, robes — write the Spanish form",
+      "back": "ropas",
+      "frequencyRank": 478
+    },
+    {
+      "taskId": "es:crear:creas:form-recall",
+      "wordId": "es:crear",
+      "lemma": "crear",
+      "surfaceForm": "creas",
+      "paradigmCell": "ind.pres.2sg",
+      "front": "to create — write the Spanish form",
+      "back": "creas",
+      "frequencyRank": 479
+    },
+    {
+      "taskId": "es:información:informaciones:form-recall",
+      "wordId": "es:información",
+      "lemma": "información",
+      "surfaceForm": "informaciones",
+      "paradigmCell": "pl",
+      "front": "information, data — write the Spanish form",
+      "back": "informaciones",
+      "frequencyRank": 480
+    },
+    {
+      "taskId": "es:general:generala:form-recall",
+      "wordId": "es:general",
+      "lemma": "general",
+      "surfaceForm": "generala",
+      "paradigmCell": "sg",
+      "front": "general, overall — write the Spanish form",
+      "back": "generala",
+      "frequencyRank": 481
+    },
+    {
+      "taskId": "es:romper:rompe:form-recall",
+      "wordId": "es:romper",
+      "lemma": "romper",
+      "surfaceForm": "rompe",
+      "paradigmCell": "ind.pres.3sg",
+      "front": "to break — write the Spanish form",
+      "back": "rompe",
+      "frequencyRank": 482
+    },
+    {
+      "taskId": "es:trato:tratos:form-recall",
+      "wordId": "es:trato",
+      "lemma": "trato",
+      "surfaceForm": "tratos",
+      "paradigmCell": "pl",
+      "front": "treatment — write the Spanish form",
+      "back": "tratos",
+      "frequencyRank": 483
+    },
+    {
+      "taskId": "es:cita:citas:form-recall",
+      "wordId": "es:cita",
+      "lemma": "cita",
+      "surfaceForm": "citas",
+      "paradigmCell": "pl",
+      "front": "date — write the Spanish form",
+      "back": "citas",
+      "frequencyRank": 484
+    },
+    {
+      "taskId": "es:respuesta:respuestas:form-recall",
+      "wordId": "es:respuesta",
+      "lemma": "respuesta",
+      "surfaceForm": "respuestas",
+      "paradigmCell": "pl",
+      "front": "reply, response, answer — write the Spanish form",
+      "back": "respuestas",
+      "frequencyRank": 485
+    },
+    {
+      "taskId": "es:meter:mete:form-recall",
+      "wordId": "es:meter",
+      "lemma": "meter",
+      "surfaceForm": "mete",
+      "paradigmCell": "ind.pres.3sg",
+      "front": "to put in, insert — write the Spanish form",
+      "back": "mete",
+      "frequencyRank": 486
+    },
+    {
+      "taskId": "es:ayer:ayeres:form-recall",
+      "wordId": "es:ayer",
+      "lemma": "ayer",
+      "surfaceForm": "ayeres",
+      "paradigmCell": "pl",
+      "front": "yesterday — write the Spanish form",
+      "back": "ayeres",
+      "frequencyRank": 487
+    },
+    {
+      "taskId": "es:verdadero:verdadera:form-recall",
+      "wordId": "es:verdadero",
+      "lemma": "verdadero",
+      "surfaceForm": "verdadera",
+      "paradigmCell": "f.sg",
+      "front": "true, real — write the Spanish form",
+      "back": "verdadera",
+      "frequencyRank": 489
+    },
+    {
+      "taskId": "es:sistema:sistemas:form-recall",
+      "wordId": "es:sistema",
+      "lemma": "sistema",
+      "surfaceForm": "sistemas",
+      "paradigmCell": "pl",
+      "front": "system — write the Spanish form",
+      "back": "sistemas",
+      "frequencyRank": 490
+    },
+    {
+      "taskId": "es:campo:campos:form-recall",
+      "wordId": "es:campo",
+      "lemma": "campo",
+      "surfaceForm": "campos",
+      "paradigmCell": "pl",
+      "front": "countryside, country — write the Spanish form",
+      "back": "campos",
+      "frequencyRank": 491
+    },
+    {
+      "taskId": "es:mostrar:muestra:form-recall",
+      "wordId": "es:mostrar",
+      "lemma": "mostrar",
+      "surfaceForm": "muestra",
+      "paradigmCell": "ind.pres.3sg",
+      "front": "to show — write the Spanish form",
+      "back": "muestra",
+      "frequencyRank": 492
+    },
+    {
+      "taskId": "es:vuestro:vuestra:form-recall",
+      "wordId": "es:vuestro",
+      "lemma": "vuestro",
+      "surfaceForm": "vuestra",
+      "paradigmCell": "f.sg",
+      "front": "yours — write the Spanish form",
+      "back": "vuestra",
+      "frequencyRank": 493
+    },
+    {
+      "taskId": "es:suyo:suya:form-recall",
+      "wordId": "es:suyo",
+      "lemma": "suyo",
+      "surfaceForm": "suya",
+      "paradigmCell": "f.sg",
+      "front": "his, hers, its — write the Spanish form",
+      "back": "suya",
+      "frequencyRank": 494
+    },
+    {
+      "taskId": "es:personal:personales:form-recall",
+      "wordId": "es:personal",
+      "lemma": "personal",
+      "surfaceForm": "personales",
+      "paradigmCell": "pl",
+      "front": "personal; staff — write the Spanish form",
+      "back": "personales",
+      "frequencyRank": 495
+    },
+    {
+      "taskId": "es:control:controles:form-recall",
+      "wordId": "es:control",
+      "lemma": "control",
+      "surfaceForm": "controles",
+      "paradigmCell": "pl",
+      "front": "control, check — write the Spanish form",
+      "back": "controles",
+      "frequencyRank": 496
+    },
+    {
+      "taskId": "es:odio:odios:form-recall",
+      "wordId": "es:odio",
+      "lemma": "odio",
+      "surfaceForm": "odios",
+      "paradigmCell": "pl",
+      "front": "hatred, hate — write the Spanish form",
+      "back": "odios",
+      "frequencyRank": 497
+    },
+    {
+      "taskId": "es:frente:frentes:form-recall",
+      "wordId": "es:frente",
+      "lemma": "frente",
+      "surfaceForm": "frentes",
+      "paradigmCell": "pl",
+      "front": "forehead; front — write the Spanish form",
+      "back": "frentes",
+      "frequencyRank": 498
+    },
+    {
+      "taskId": "es:sexo:sexos:form-recall",
+      "wordId": "es:sexo",
+      "lemma": "sexo",
+      "surfaceForm": "sexos",
+      "paradigmCell": "pl",
+      "front": "sex, gender — write the Spanish form",
+      "back": "sexos",
+      "frequencyRank": 499
+    },
+    {
+      "taskId": "es:línea:líneas:form-recall",
+      "wordId": "es:línea",
+      "lemma": "línea",
+      "surfaceForm": "líneas",
+      "paradigmCell": "pl",
+      "front": "line — write the Spanish form",
+      "back": "líneas",
+      "frequencyRank": 500
+    }
+  ]
+}

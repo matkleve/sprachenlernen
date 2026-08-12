@@ -4,9 +4,9 @@
 <!-- use-case: UC-011 -->
 <!-- status: active -->
 
-The multi-card SRS runner: a fixed-length queue, one meaning-recall card at a
-time, grades that append to the review log (T-B2). **Sensitive** — stateful UI
-with persistence.
+The multi-card SRS runner: a fixed-length queue, one card at a time (meaning-
+recall or form-recall), grades that append to the review log (T-B2).
+**Sensitive** — stateful UI with persistence.
 
 ## Scope
 
@@ -27,8 +27,9 @@ with persistence.
 | # | User action | System response |
 | --- | --- | --- |
 | 1 | Lands on `/words/review?method=srs-session` | Session prepares: server returns a 15-card queue from the starter deck + their review history |
-| 2 | Sees a card | Front (target-language lemma) only; language name on the card; tap the card to flip and see the meaning |
-| 3 | Taps the card | Back (meaning) shown; four grade buttons in a row matching the card width |
+| 2 | Sees a meaning-recall card | Front (target-language lemma) only; language name on the card; tap the card to flip and see the meaning |
+| 2b | Sees a form-recall card | Front (English gloss + produce prompt) only; same flip interaction; back shows the target surface form |
+| 3 | Taps the card | Back shown; four grade buttons; grade prompt differs by task type — *What does it mean?* for meaning-recall, *Did you recall the form?* for form-recall |
 | 4 | Taps a grade | Grade queued locally; **next card immediately** (`advancing` → `prompting` or `complete`); server flush runs in the background ([`review-write-queue`](../service/review-write-queue.md)) |
 | 5 | Background flush fails | Session does not rewind; non-blocking status with Retry |
 | 6 | Session `complete` | Summary: cards graded this session; link back to Words and Methods |

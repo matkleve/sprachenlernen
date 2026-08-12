@@ -325,7 +325,7 @@ honest Spanish/Italian; offline unlocks commute practice.
 | Priority | Work | Unblocks |
 | --- | --- | --- |
 | **1** | ~~**Expand the Spanish word pool**~~ — **stage 1 shipped 2026-08-11**: 500 frequency-ranked lemmas (`scripts/build-starter-deck.mjs`), glosses shaped and gated, pool reads batched. Stage 2 (2k) remains; the pipeline's ceiling is **2,953** lemmas — beyond that needs a larger frequency list, which is a recalibration event. | Language-wide vocabulary estimate; honest progress |
-| **2** | **Form→lemma tables with paradigm cells** — prefixes, endings, irregulars as data ([`study/18`](study/18-language-kit.md), ADR-0004). Build-time from Stanza, not runtime. | Form mastery signal; cards that train *hablo* not just *hablar* |
+| **2** | ~~**Form→lemma tables with paradigm cells**~~ — **data shipped 2026-08-08** (`data/lemma/es.json`, `it.json`, `lib/lexicon.ts`). **Form-recall pool + staging shipped** — [`form-recall-pool.md`](specs/service/form-recall-pool.md): 406 Spanish surface forms, scheduled after meaning-recall is held. **Form-mastery signal shipped** — [`form-mastery-signal.md`](specs/service/form-mastery-signal.md): pool-local held-form count on Progress; form-recall grade prompt in review session. | Paradigm-table method; per-cell form breakdown |
 | **3** | **T-B3 remainder** — extrapolation + per-skill levels once (1) and calibration exist | F18–F22; demonstration sentence |
 | **4** | **T-B9 / offline-PWA** — cache deck + scheduler; flush queue on reconnect (ADR-0011 Option B) | UC-018 commute practice; installable PWA |
 | **5** | **T-B10b remainder** — demonstration sentence, readiness ([`study/24`](study/24-speaking-as-the-goal.md), [`study/26`](study/26-readiness-and-difficulty.md)) | Methods front door complete |

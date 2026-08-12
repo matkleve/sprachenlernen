@@ -73,6 +73,8 @@ describe("poolForDisplay", () => {
     expect(pool.status).toBe("ok");
     if (pool.status !== "ok") return;
     expect(pool.languageCodes).toEqual(["es"]);
+    expect(pool.cards.some((card) => card.taskId.endsWith(":form-recall"))).toBe(true);
+    expect(pool.cards.some((card) => card.taskId.endsWith(":meaning-recall"))).toBe(true);
   });
 
   it("reports no-language when nothing is in focus, even with languages present", async () => {

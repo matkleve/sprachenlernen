@@ -19,11 +19,11 @@ dependency here.
   (lemmas that never enter the pool), `.cognates.json` (lemmas whose gloss is
   legitimately the lemma) — `scripts/build-starter-deck.mjs` (regenerator),
   `lib/starter-deck.ts` (load + validate).
-- **Out:** Italian or a second language; form-recall or audio tasks; runtime
+- **Out:** Italian or a second language; **audio** recall tasks; runtime
   gloss generation; language-wide vocabulary extrapolation (still blocked on
   pool size + calibration — see [`page/progress.md`](../page/progress.md));
   choosing which lemmas enter the pool at review time (the pool is fixed per
-  release).
+  release). Form-recall pool: [`form-recall-pool.md`](form-recall-pool.md).
 
 ## Behavior
 
