@@ -10,6 +10,7 @@ import { IconButton } from "./IconButton";
 import { IconLink } from "./IconLink";
 import { NavLink, navLinkVariants } from "./NavLink";
 import { disclosureSummaryClass } from "./Disclosure";
+import { cardPressable } from "./interaction-kernel";
 import { SubmitButton } from "./SubmitButton";
 import { textLinkVariants } from "./TextLink";
 import { MIN_PENDING_DISPLAY_MS } from "./use-pending-navigation";
@@ -51,6 +52,11 @@ describe("interaction-feedback contract", () => {
   it("DisclosureSummary includes press and focus feedback classes", () => {
     expect(disclosureSummaryClass).toContain("active:scale");
     expect(disclosureSummaryClass).toContain("focus-visible:ring-accent");
+  });
+
+  it("cardPressable includes lift hover and accent fill on press", () => {
+    expect(cardPressable.join(" ")).toContain("hover:-translate-y-px");
+    expect(cardPressable.join(" ")).toContain("active:bg-accent-soft");
   });
 
   it("Button sets aria-busy and disables when pending", () => {

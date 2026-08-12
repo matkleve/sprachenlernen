@@ -16,7 +16,7 @@ Parent: [ADR-0012](../../adr/0012-ux-decisions-requeue-i18n-leech-nav.md) decisi
 
 - **In:** `public.profiles` migration, `lib/db/profiles.ts`, `lib/spoken-language.ts`
   (supported codes + `Accept-Language` resolution), seeding at first sign-in,
-  profile UI to read and change the setting.
+  profile UI to read and change the setting via [`language-list-row.md`](../component/language-list-row.md).
 - **Out:** `next-intl` wiring and `messages/<locale>.json` (T-B11 slice 2);
   stage-3 `app_texts` tables; runtime card-description lookup by spoken language;
   RTL layout.

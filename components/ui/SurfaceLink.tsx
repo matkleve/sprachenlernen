@@ -3,11 +3,7 @@
 import Link from "next/link";
 import type { ComponentPropsWithoutRef, ReactNode } from "react";
 
-import {
-  cardInteractive,
-  pendingBusy,
-  pressFill,
-} from "@/components/ui/interaction-kernel";
+import { cardPressable, pendingBusy } from "@/components/ui/interaction-kernel";
 import { usePendingNavigation } from "@/components/ui/use-pending-navigation";
 import { cn } from "@/lib/utils";
 
@@ -28,8 +24,7 @@ export function SurfaceLink({ className, href, children, onClick, ...props }: Su
       aria-busy={isPending || undefined}
       className={cn(
         "block rounded-card",
-        cardInteractive,
-        pressFill,
+        cardPressable,
         isPending && pendingBusy,
         className,
       )}
