@@ -1,3 +1,4 @@
+import { Chip } from "@/components/ui/Chip";
 import { SubmitButton } from "@/components/ui/SubmitButton";
 import { copy } from "@/features/language-picker/content";
 import { languageLabel } from "@/lib/languages";
@@ -18,6 +19,8 @@ export type LanguageTile = {
   /** Null when the learner has never reviewed in it. */
   heldCount: number | null;
   alreadyLearning: boolean;
+  /** The language currently in focus for the interface. */
+  isActive: boolean;
 };
 
 export type LanguagePickerProps = {
@@ -58,8 +61,23 @@ export function LanguagePicker({ tiles, error, choose }: LanguagePickerProps) {
               key={tile.code}
               className="rounded-card border border-line bg-surface p-6"
             >
-              <p className="text-xl font-semibold text-ink">{names.endonym}</p>
-              <p className="mt-1 text-base text-muted">{names.english}</p>
+              <div className="flex items-start justify-between gap-3">
+                <div className="min-w-0">
+                  <p className="text-xl font-semibold text-ink">{names.endonym}</p>
+                  <p className="mt-1 text-base text-muted">{names.english}</p>
+                </div>
+
+                {tile.isActive ? (
+                  <Chip
+                    tone="accent"
+                    className="shrink-0 border border-accent"
+                    aria-current="true"
+                  >
+                    {copy.active}
+                  </Chip>
+                ) : null}
+              </div>
+
               <p className="mt-4 text-base leading-relaxed text-muted">{statusLine(tile)}</p>
 
               {available && !tile.alreadyLearning ? (
@@ -74,7 +92,7 @@ export function LanguagePicker({ tiles, error, choose }: LanguagePickerProps) {
                 </form>
               ) : null}
 
-              {tile.alreadyLearning ? (
+              {tile.alreadyLearning && !tile.isActive ? (
                 <p className="mt-6 text-base font-medium text-ink">{copy.alreadyLearning}</p>
               ) : null}
             </li>

@@ -65,7 +65,8 @@ what produced it. Before the first review the row carries no number.
 ## Acceptance criteria
 
 - [ ] Given an Account with one language, when `/profile` renders, then that
-      language appears, is marked active, and its endonym is the primary label.
+      language appears, is marked active with an **Active** chip (accent outline
+      and soft fill, top-right of the row), and its endonym is the primary label.
 - [ ] Given an Account with no language, then the list is replaced by a call to
       action into the picker, and no empty table renders.
 - [ ] Given a tap on a non-active language, then it becomes active and exactly

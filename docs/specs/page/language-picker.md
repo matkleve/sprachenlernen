@@ -94,6 +94,8 @@ Three rules the copy is carrying:
       lands on `/methods`.
 - [ ] Given a language already being learned, then its tile is marked and offers
       no second add.
+- [ ] Given the active language, when its tile renders, then an **Active** chip
+      appears in the top-right corner with accent outline and soft fill.
 - [ ] Given a holdings count, when a tile renders it, then it reads
       `{held} of {pool} starter words held stably`, including at zero.
 - [ ] Given an unavailable language, then the tile carries the reason and has no

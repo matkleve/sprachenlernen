@@ -58,7 +58,7 @@ export function ProfileLanguages({ outcome, holdings, switchFailed, switchTo }: 
               return (
                 <li
                   key={language.languageCode}
-                  className="flex items-center justify-between gap-4 rounded-card border border-line bg-surface p-4"
+                  className="flex items-start justify-between gap-4 rounded-card border border-line bg-surface p-4"
                 >
                   <div>
                     <p className="text-base font-semibold text-ink">
