@@ -4,9 +4,9 @@
 <!-- use-case: UC-025 -->
 <!-- status: active -->
 
-One rectangular language option in the shell switcher menu — endonym primary,
-English beneath, **Active** chip when in focus. Switching is one tap on a
-non-active row.
+One rectangular language option in the shell switcher popover — endonym primary,
+English beneath, **Active** chip when in focus. Each row is its own elevated
+card; the popover stacks them with gaps rather than wrapping them in one box.
 
 ## Scope
 

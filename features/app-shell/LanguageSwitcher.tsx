@@ -2,6 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState, useTransition } from "react";
+import { createPortal } from "react-dom";
 
 import { ActionLink } from "@/components/ui/ActionLink";
 import { LanguageFlag } from "@/components/ui/LanguageFlag";
@@ -31,13 +32,25 @@ const triggerClass = cn(
   "size-11 min-h-11 min-w-11 rounded-full p-0",
 );
 
+const addLanguageClass = cn(
+  buttonVariants({ variant: "secondary", size: "sm" }),
+  "w-full shadow-raised",
+);
+
 /**
  * One-action language switch (UC-025). Contract: app-shell.md, mobile-nav-v2.md
  */
 export function LanguageSwitcher({ languages, layout = "floating" }: LanguageSwitcherProps) {
   const router = useRouter();
-  const rootRef = useRef<HTMLDivElement>(null);
+  const triggerRef = useRef<HTMLButtonElement>(null);
+  const popoverRef = useRef<HTMLDivElement>(null);
   const [open, setOpen] = useState(false);
+  const [menuPosition, setMenuPosition] = useState<{
+    menuTop: number;
+    menuLeft: number;
+    triggerTop: number;
+    triggerLeft: number;
+  } | null>(null);
   const [pending, startTransition] = useTransition();
   const [switchFailed, setSwitchFailed] = useState(false);
 
@@ -49,24 +62,65 @@ export function LanguageSwitcher({ languages, layout = "floating" }: LanguageSwi
   useEffect(() => {
     if (!open) return;
 
+    const updatePosition = () => {
+      const trigger = triggerRef.current;
+      if (!trigger) return;
+      const rect = trigger.getBoundingClientRect();
+      setMenuPosition({
+        menuTop: rect.bottom + 8,
+        menuLeft: rect.left,
+        triggerTop: rect.top,
+        triggerLeft: rect.left,
+      });
+    };
+
+    updatePosition();
+    window.addEventListener("resize", updatePosition);
+    window.addEventListener("scroll", updatePosition, true);
+
     const onKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Escape") setOpen(false);
     };
 
     const onPointerDown = (event: PointerEvent) => {
-      const root = rootRef.current;
-      if (root && !root.contains(event.target as Node)) setOpen(false);
+      const target = event.target as Node;
+      if (triggerRef.current?.contains(target) || popoverRef.current?.contains(target)) return;
+      setOpen(false);
     };
 
     document.addEventListener("keydown", onKeyDown);
     document.addEventListener("pointerdown", onPointerDown);
     return () => {
+      window.removeEventListener("resize", updatePosition);
+      window.removeEventListener("scroll", updatePosition, true);
       document.removeEventListener("keydown", onKeyDown);
       document.removeEventListener("pointerdown", onPointerDown);
     };
   }, [open]);
 
   if (languages.length === 0) return null;
+
+  const openMenu = () => {
+    const trigger = triggerRef.current;
+    if (trigger) {
+      const rect = trigger.getBoundingClientRect();
+      setMenuPosition({
+        menuTop: rect.bottom + 8,
+        menuLeft: rect.left,
+        triggerTop: rect.top,
+        triggerLeft: rect.left,
+      });
+    }
+    setOpen(true);
+  };
+
+  const toggleMenu = () => {
+    if (open) {
+      setOpen(false);
+      return;
+    }
+    openMenu();
+  };
 
   const onSwitch = (code: string) => {
     if (code === active) {
@@ -93,55 +147,79 @@ export function LanguageSwitcher({ languages, layout = "floating" }: LanguageSwi
     );
   }
 
-  return (
-    <div ref={rootRef} className="relative flex flex-col gap-1">
-      <button
-        type="button"
-        className={cn(triggerClass, pending && "pointer-events-none opacity-70")}
-        aria-label={copy.switchLanguage}
-        aria-expanded={open}
-        aria-haspopup="menu"
-        disabled={pending}
-        onClick={() => setOpen((value) => !value)}
-      >
-        <span aria-hidden="true" className="text-xl leading-none">
-          {languageLabel(active).flag}
-        </span>
-      </button>
+  const popover =
+    open && menuPosition
+      ? createPortal(
+          <div ref={popoverRef}>
+            <button
+              type="button"
+              aria-hidden="true"
+              tabIndex={-1}
+              className="language-switcher-scrim fixed inset-0 z-language-switcher-scrim"
+              onClick={() => setOpen(false)}
+            />
 
-      {open ? (
-        <div
-          role="menu"
-          aria-label={copy.switchLanguage}
-          className={cn(
-            "absolute left-0 top-full z-50 mt-2 w-[min(100vw-2rem,16rem)] rounded-card border border-line bg-surface p-2 shadow-raised",
-          )}
-        >
-          <ul className="flex list-none flex-col gap-2">
-            {languages.map((language) => (
-              <li key={language.code}>
+            <div
+              role="menu"
+              aria-label={copy.switchLanguage}
+              className="fixed z-language-switcher-menu flex w-[min(100vw-2rem,16rem)] flex-col gap-2"
+              style={{ top: menuPosition.menuTop, left: menuPosition.menuLeft }}
+            >
+              {languages.map((language) => (
                 <LanguageSwitchRow
+                  key={language.code}
                   code={language.code}
                   isActive={language.code === active}
                   activeLabel={copy.active}
                   disabled={pending}
                   onSelect={onSwitch}
                 />
-              </li>
-            ))}
-          </ul>
+              ))}
 
-          <ActionLink
-            href={routes.chooseLanguage}
-            variant="secondary"
-            size="sm"
-            className="mt-2 w-full"
-            onClick={() => setOpen(false)}
-          >
-            {copy.addLanguage}
-          </ActionLink>
-        </div>
-      ) : null}
+              <ActionLink
+                href={routes.chooseLanguage}
+                variant="secondary"
+                size="sm"
+                className={addLanguageClass}
+                onClick={() => setOpen(false)}
+              >
+                {copy.addLanguage}
+              </ActionLink>
+            </div>
+          </div>,
+          document.body,
+        )
+      : null;
+
+  return (
+    <div className="relative flex flex-col gap-1">
+      <div className="relative size-11 shrink-0 min-w-11">
+        <button
+          ref={triggerRef}
+          type="button"
+          className={cn(
+            triggerClass,
+            open && menuPosition && "fixed z-language-switcher-trigger",
+            pending && "pointer-events-none opacity-70",
+          )}
+          style={
+            open && menuPosition
+              ? { top: menuPosition.triggerTop, left: menuPosition.triggerLeft }
+              : undefined
+          }
+          aria-label={copy.switchLanguage}
+          aria-expanded={open}
+          aria-haspopup="menu"
+          disabled={pending}
+          onClick={toggleMenu}
+        >
+          <span aria-hidden="true" className="text-xl leading-none">
+            {languageLabel(active).flag}
+          </span>
+        </button>
+      </div>
+
+      {popover}
 
       {switchFailed ? (
         <p role="alert" className="max-w-[16rem] text-sm text-danger">{copy.switchError}</p>

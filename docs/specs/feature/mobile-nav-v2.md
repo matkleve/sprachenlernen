@@ -38,7 +38,7 @@ Progress (ADR-0009). **No due-count badges** (UC-063).
 | 4 | Taps a pill segment | Navigates; current segment marked with `aria-current="page"` |
 | 5 | Taps the account chip | `/profile`, where sign out now lives ([`../page/profile.md`](../page/profile.md)) |
 | 6 | Taps back float | Navigates to parent destination (`href`, not blind history) |
-| 7 | Has more than one learning language | Top-left flag circle opens a menu under it: language rows + **Add a language**; choosing a row makes it active and refreshes the current page — one action (UC-025) |
+| 7 | Has more than one learning language | Top-left flag circle opens a popover: blurred scrim over the page, stacked language cards (gap between each), then **Add a language**; choosing a row makes it active and refreshes — one action (UC-025) |
 | 8 | Has exactly one learning language | Top-left shows a non-interactive flag circle with the endonym in `aria-label` |
 | 9 | Scrolls page content | Floats stay fixed; the page title stays centered and scales down; a scrim (blur + tint) fades in at the top and out toward the bottom of the header |
 | 10 | On any signed-in route | The page title is always centered in the header row — large at scroll top, smaller after scrolling down (mobile floats and desktop header) |

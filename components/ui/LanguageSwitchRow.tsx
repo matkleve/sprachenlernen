@@ -8,7 +8,7 @@ import { cn } from "@/lib/utils";
  */
 
 const rowClass =
-  "flex w-full items-start justify-between gap-3 rounded-card border border-line bg-surface p-3 text-left transition-[background-color,border-color] duration-150 ease-out-soft";
+  "flex w-full items-start justify-between gap-3 rounded-card border border-line bg-surface p-3 text-left shadow-raised transition-[background-color,border-color] duration-150 ease-out-soft";
 
 const interactiveRowClass = cn(
   rowClass,

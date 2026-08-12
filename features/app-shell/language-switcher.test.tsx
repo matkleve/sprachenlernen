@@ -39,7 +39,7 @@ describe("LanguageSwitcher", () => {
     expect(screen.queryByRole("button", { name: copy.switchLanguage })).toBeNull();
   });
 
-  it("opens a menu under the flag and switches in one action", async () => {
+  it("opens stacked language cards with a blurred scrim and switches in one action", async () => {
     const user = userEvent.setup();
     render(
       <LanguageSwitcher
@@ -52,7 +52,10 @@ describe("LanguageSwitcher", () => {
 
     await user.click(screen.getByRole("button", { name: copy.switchLanguage }));
 
-    expect(screen.getByRole("menu", { name: copy.switchLanguage })).toBeDefined();
+    const menu = screen.getByRole("menu", { name: copy.switchLanguage });
+    expect(menu.className).toContain("gap-2");
+    expect(menu.querySelector(".language-switcher-scrim")).toBeNull();
+    expect(document.querySelector(".language-switcher-scrim")).not.toBeNull();
     expect(screen.getByText("Active")).toBeDefined();
     expect(screen.getByRole("link", { name: copy.addLanguage })).toBeDefined();
 

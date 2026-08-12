@@ -107,6 +107,11 @@
   --text-2xl--line-height: 1.25;
   --text-3xl--line-height: 1.2;
   --text-4xl--line-height: 1.1;
+
+  /* Stacking — language switcher popover sits above shell chrome (z-50). */
+  --z-index-language-switcher-scrim: 100;
+  --z-index-language-switcher-menu: 101;
+  --z-index-language-switcher-trigger: 102;
 }
 
 /* ---------------------------------------------------------------------------
@@ -256,4 +261,10 @@
     color-mix(in srgb, var(--color-surface) 38%, transparent) 52%,
     transparent 100%
   );
+}
+
+/* Language switcher popover — full-viewport scrim behind stacked language cards. */
+.language-switcher-scrim {
+  background: color-mix(in srgb, var(--color-ink) 35%, transparent);
+  backdrop-filter: blur(12px);
 }
