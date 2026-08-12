@@ -70,6 +70,10 @@
   /* Mobile floating shell chrome — back/sign-out top, destination pill bottom */
   --spacing-shell-float-top: 3.5rem;
   --spacing-shell-float-bottom: 5rem;
+  /* Active review session — one screen between floating chrome on mobile */
+  --height-review-session: calc(
+    100dvh - var(--spacing-shell-float-top) - var(--spacing-shell-float-bottom)
+  );
 
   /* Type. next/font on <html> overrides these fallbacks at runtime. */
   --font-dm-sans: "DM Sans", sans-serif;

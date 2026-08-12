@@ -17,6 +17,8 @@ type ReviewCardProps = {
   phase: Parameters<typeof canGrade>[0];
   onFlip: () => void;
   onGrade: (grade: Grade) => void;
+  /** Hides progress line and tightens spacing for mobile one-screen layout. */
+  compact?: boolean;
 };
 
 const gradeVariant = (grade: Grade): "ghost" | "secondary" => {
@@ -30,22 +32,27 @@ export function ReviewCard({
   phase,
   onFlip,
   onGrade,
+  compact = false,
 }: ReviewCardProps) {
   const flipEnabled = canFlip(phase);
   const gradesEnabled = canGrade(phase);
   const revealBack = showsBack(phase);
   const isFormRecall = isFormRecallTaskId(card.taskId);
   const gradePrompt = isFormRecall ? copy.formRecallPrompt : copy.prompt;
-  // Three pieces the card composes: the meaning (data), the cell it wants
-  // (data, worded here), the instruction (copy). Keeping them apart is what
-  // lets this layout change without touching a single row of the pool.
   const cell = card.paradigmCell ? paradigmCellLabel(card.paradigmCell) : null;
 
   return (
-    <div className="mx-auto max-w-md">
-      <p className="text-sm text-muted" aria-live="polite">
-        {copy.progress(card.position, card.total)}
-      </p>
+    <div
+      className={cn(
+        "mx-auto w-full max-w-md",
+        compact && "flex min-h-0 flex-1 flex-col justify-between pt-2 md:pt-0",
+      )}
+    >
+      {!compact ? (
+        <p className="text-sm text-muted" aria-live="polite">
+          {copy.progress(card.position, card.total)}
+        </p>
+      ) : null}
 
       <button
         type="button"
@@ -54,7 +61,8 @@ export function ReviewCard({
         aria-expanded={revealBack}
         aria-label={flipEnabled ? copy.flipHint : undefined}
         className={cn(
-          "group relative mt-6 w-full rounded-card border border-line bg-surface p-8 text-center shadow-soft",
+          "group relative w-full rounded-card border border-line bg-surface text-center shadow-soft",
+          compact ? "flex min-h-0 flex-1 flex-col justify-center p-5 md:mt-6 md:flex-none md:p-8" : "mt-6 p-8",
           "transition-[box-shadow,transform] duration-200 ease-out-soft",
           "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-canvas",
           flipEnabled && "cursor-pointer hover:-translate-y-px hover:shadow-raised active:scale-[0.98] active:translate-y-0",
@@ -69,8 +77,9 @@ export function ReviewCard({
 
         <p
           className={cn(
-            "text-2xl font-semibold text-ink transition-transform duration-300",
-            languageName ? "mt-2" : "",
+            compact ? "text-xl md:text-2xl" : "text-2xl",
+            "font-semibold text-ink transition-transform duration-300",
+            languageName ? "mt-1 md:mt-2" : "",
             revealBack && "scale-95 opacity-80",
           )}
         >
@@ -78,17 +87,26 @@ export function ReviewCard({
         </p>
 
         {cell && (
-          <p className="mt-3 text-base font-medium text-ink">{copy.cellLabel(cell)}</p>
+          <p className={cn("font-medium text-ink", compact ? "mt-2 text-sm md:text-base" : "mt-3 text-base")}>
+            {copy.cellLabel(cell)}
+          </p>
         )}
 
         {isFormRecall && (
-          <p className="mt-2 text-sm text-muted">
+          <p className={cn("text-muted", compact ? "mt-1 text-xs md:mt-2 md:text-sm" : "mt-2 text-sm")}>
             {copy.formRecallInstruction(languageName)}
           </p>
         )}
 
         {revealBack && (
-          <p className="mt-4 border-t border-line pt-4 text-base text-muted">{card.back}</p>
+          <p
+            className={cn(
+              "border-t border-line text-muted",
+              compact ? "mt-3 pt-3 text-sm md:mt-4 md:pt-4 md:text-base" : "mt-4 pt-4 text-base",
+            )}
+          >
+            {card.back}
+          </p>
         )}
 
         {flipEnabled && (
@@ -102,10 +120,10 @@ export function ReviewCard({
       </button>
 
       {gradesEnabled && (
-        <>
-          <p className="mt-6 text-sm text-muted">{gradePrompt}</p>
+        <div className={cn(compact && "mt-3 shrink-0 md:mt-6")}>
+          <p className={cn("text-sm text-muted", !compact && "mt-6")}>{gradePrompt}</p>
 
-          <div className="mt-4 grid w-full grid-cols-4 gap-2">
+          <div className={cn("grid w-full grid-cols-4 gap-2", compact ? "mt-2 md:mt-4" : "mt-4")}>
             {GRADES.map((grade) => (
               <Button
                 key={grade}
@@ -119,7 +137,7 @@ export function ReviewCard({
               </Button>
             ))}
           </div>
-        </>
+        </div>
       )}
     </div>
   );

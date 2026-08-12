@@ -26,14 +26,27 @@ describe("LanguageSwitcher", () => {
     expect(container.firstChild).toBeNull();
   });
 
-  it("shows a label when only one language is being learned", () => {
+  it("shows a non-interactive icon when only one language is being learned", () => {
     render(
       <LanguageSwitcher
         languages={[{ code: "es", endonym: "Español", isActive: true }]}
+        layout="floating"
+      />,
+    );
+    expect(
+      screen.getByLabelText(copy.currentLanguage("Español")),
+    ).toBeDefined();
+    expect(screen.queryByRole("combobox")).toBeNull();
+  });
+
+  it("shows endonym text on desktop when only one language is being learned", () => {
+    render(
+      <LanguageSwitcher
+        languages={[{ code: "es", endonym: "Español", isActive: true }]}
+        layout="inline"
       />,
     );
     expect(screen.getByText("Español")).toBeDefined();
-    expect(screen.queryByRole("combobox")).toBeNull();
   });
 
   it("switches language in one action when more than one is available", async () => {

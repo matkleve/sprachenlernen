@@ -15,9 +15,11 @@ Progress (ADR-0009). **No due-count badges** (UC-063).
 ## Scope
 
 - **In:** `< md` floating bottom pill (three equal segments, icon + micro-label);
-  floating top-right account chip (icon + label) linking to `/profile`; floating top-left back on drill-in
-  routes; safe-area insets on shell `main`; token surfaces only; desktop `≥ md`
-  unchanged.
+  floating top-right **icon-only** account chip (round, ≥ 44px) linking to
+  `/profile`; floating top-left back on drill-in routes; **icon-only** language
+  chip (round) on destination roots only — hidden on drill-in so back and
+  language never compete; safe-area insets on shell `main`; token surfaces only;
+  desktop `≥ md` unchanged.
 - **Out:** hamburger and drawer; full-width mobile header bar; hiding the pill on
   review; profile destination; notification badges; marketing shell.
 
@@ -29,13 +31,13 @@ Progress (ADR-0009). **No due-count badges** (UC-063).
 | # | User action | System response |
 | --- | --- | --- |
 | 1 | Viewport ≥ `md` | Horizontal nav + inline account link in header; no floating chrome |
-| 2 | Viewport &lt; `md` on a destination root | Bottom pill visible; top-right account chip; **top-left language switcher** when the account has at least one learning language |
-| 3 | Viewport &lt; `md` on a drill-in route | Back float appears top-left; target is the parent destination; language switcher remains reachable beside the back chip when the account has more than one language |
+| 2 | Viewport &lt; `md` on a destination root | Bottom pill visible; top-right account icon chip; **top-left language icon chip** when the account has at least one learning language |
+| 3 | Viewport &lt; `md` on a drill-in route | Back float appears top-left (label + arrow); target is the parent destination; **no language chip** — switching mid-drill-in is out of scope |
 | 4 | Taps a pill segment | Navigates; current segment marked with `aria-current="page"` |
 | 5 | Taps the account chip | `/profile`, where sign out now lives ([`../page/profile.md`](../page/profile.md)) |
 | 6 | Taps back float | Navigates to parent destination (`href`, not blind history) |
-| 7 | Has more than one learning language | Top-left switcher lists every language; choosing one makes it active and refreshes the current page — one action (UC-025) |
-| 8 | Has exactly one learning language | Top-left shows its endonym as a label, not a control |
+| 7 | Has more than one learning language | Top-left icon opens the language list; choosing one makes it active and refreshes the current page — one action (UC-025) |
+| 8 | Has exactly one learning language | Top-left shows a non-interactive language icon with the endonym in `aria-label` |
 | 9 | Scrolls page content | Floats stay visible; content clears floats via shell padding |
 
 ## Back targets
@@ -73,8 +75,13 @@ in `app/globals.css`.
       hamburger.
 - [ ] Given viewport &lt; `md` on `/words`, then no top-left back chip appears, and a language switcher or label appears when the account has a learning language.
 - [ ] Given viewport &lt; `md` on `/words/review`, then a back chip links to
-      `/words` and the bottom pill remains visible.
-- [ ] Given viewport &lt; `md`, then a top-right **account** chip is always present, linking to `/profile`, and no sign-out control renders in the shell.
+      `/words`, no language chip appears, and the bottom pill remains visible.
+- [ ] Given viewport &lt; `md`, then a top-right **account** icon chip is always
+      present (no text label), linking to `/profile`, and no sign-out control
+      renders in the shell.
+- [ ] Given viewport &lt; `md` on `/words/review` with `?method=srs-session`,
+      then the review session fits one screen without vertical scroll at default
+      phone height (card + grades visible together).
 - [ ] Given any viewport, then exactly three pill segments — no fourth, no
       due-count digit (UC-063 negative).
 - [ ] Given viewport ≥ `md`, then horizontal destination nav renders without
