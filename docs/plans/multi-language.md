@@ -170,7 +170,7 @@ prior, not a measurement.
 | 5 | ~~Picker screen with tiles, and the post-signup "no language yet" state~~ | M | **Done** — `/languages/choose`, [`language-picker.md`](../specs/page/language-picker.md) |
 | 6 | ~~Progress, standing and Words filtered per language~~ | M | **Done** via `poolForActiveLanguage()`, free of migration as predicted |
 | 7 | ~~Tab bar instead of the floating pill~~ | M | **Dropped** by the 2026-08-11 review (item below) — the pill stays |
-| 8 | Progress moves into Profile as the third destination | **M, ADR** | **Still open** — raised, not decided; see "Still open" below |
+| 8 | Progress moves into Profile as the third destination | **M, ADR** | **Rejected 2026-08-12** — Progress stays a top-level destination per ADR-0009 and owner decision 2026-08-11; see `IMPLEMENTATION-PLAN.md` decision 16 |
 | 9 | ~~Combined daily budget across languages~~ | — | **Withdrawn 2026-08-12** — rejected outright, see below, nothing to build |
 | 10 | Maintenance mode per language | L | **Still open** — no per-language maintenance flag exists yet |
 | 11 | ~~Italian pool~~ | L | **Shipped 2026-08-12** — see [`starter-deck.second-language.md`](../specs/service/starter-deck.second-language.md) |
@@ -386,12 +386,9 @@ language's progress exactly where it was.
 
 ## Still open — tracked in IMPLEMENTATION-PLAN.md, not here
 
-**Moved 2026-08-12.** `AGENTS.md` is explicit that there is one backlog file,
-because a second place to list "what's outstanding" drifts from the first —
-which is exactly what the rest of this file did for a day. The two genuinely
-open items (table items 8 and 10) are now `IMPLEMENTATION-PLAN.md` decision
-16 and task `T-B15` respectively; this section stays only as a pointer, not a
-second copy of their status.
+**Moved 2026-08-12.** `AGENTS.md` is explicit that there is exactly one backlog
+file. Open items are now `IMPLEMENTATION-PLAN.md` decision 16 (answered:
+**Progress stays a destination**) and task `T-B15` (maintenance mode).
 
 - Cold start (the adaptive vocabulary test vs. the researcher's C-test /
   elicited-imitation alternative) — not blocking, nothing built yet, and not

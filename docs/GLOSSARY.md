@@ -155,6 +155,6 @@ number was reporting the goal and not the learner — see
 | Term | What is unresolved |
 | --- | --- |
 | **Word family vs. word form** | The vocabulary estimate counts lemmas; Tasks train forms. Resolved in part: form mastery is now its own signal, not part of vocabulary size — see [`study/03`](study/03-level-model.md). What is still open is whether the *estimate* counts lemmas or families. |
-| **Description-text source** | Spoken language is one settled field, and the word being learned is a separate record from the text describing it, keyed by (word, spoken language) — both resolved 2026-08-12 (UC-069). Still open: where non-English description text comes from (Kaikki only ships English), and whether a description stays one string or splits into translatable parts. See UC-069. |
+| **Description-text source** | **Resolved 2026-08-12:** chrome = `I18N.md` stage 1 (`next-intl`); card descriptions = stage 3 DB (`app_texts` / `app_text_translations`) + snapshot JSON. One string per card face per spoken language — no split parts for v1. See UC-069. |
 | **Error category** | The closed list used by writing/speaking feedback. Must be fixed before it is counted over time — see [`study/06`](study/06-production.md). |
 | **Multiword item** | Collocations and fixed expressions are Words for practice but must **not** count as *n* Words in the vocabulary estimate, or the calibration breaks. Belongs with the Word/Task decision — see [`study/16`](study/16-further-findings.md) W2. |

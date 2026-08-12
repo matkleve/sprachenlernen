@@ -221,14 +221,10 @@ threshold already exists); tier 3 turns a candidate into a confirmed diagnosis
 with one tap. Nothing here needs typed-answer analysis or free-text NLP, which
 this app does not have and is not adding.
 
-### Open, before this is spec-ready
+### Resolved 2026-08-12 (decisions 14–15, UX)
 
-- **⚠ SPEC GAP:** does tier-1 neighbour-collision detection run once at
-  deck-build time (like the overrides/exclusions pipeline already does for the
-  Italian/Spanish pools) and ship as static data on the card, or per-learner
-  (it only matters if the learner is actually studying both neighbours)?
-  Static is far cheaper; per-learner has no false positive for a learner who
-  never touches the confusable word.
-- **⚠ SPEC GAP:** what similarity threshold catches `pero`/`perro` without
-  also flagging most short, common words against each other. Needs testing
-  against the real 2000-lemma pools, not a guessed constant.
+- **Tier 1 neighbour-collision detection runs at deck-build time** and ships
+  as static metadata on the card. Tier 2–3 are per learner. Candidates are
+  never auto-diagnoses.
+- **Threshold:** Levenshtein distance **1**, both lemmas length **3–8**.
+  Distance 2 rejected for v1. Build gate script required before merge.

@@ -336,10 +336,10 @@ low-inference agent would silently invent.
 | ~~**T-B10**~~ | ~~The method menu — the product's front door~~ — **shipped 2026-08-09** | Filters, time scale, hosted routing. Learner half continued in T-B10b |
 | ~~**T-B5**~~ | ~~Retire the Grundriss worked examples~~ — **shipped 2026-08-10** | `/account` uses `Select` + `Dialog` (UC-024); demos removed; `/primitives` → `/languages` |
 | **T-B9** | Offline practice + sync (F192, UC-018) | **Owner direction: both** — online sync across devices *and* offline review (train/PWA). Needs ADR-0011 closed on Option B (local-first queue is partial — see [`review-write-queue.md`](specs/service/review-write-queue.md)); full offline still needs cached deck + scheduler |
-| **T-B11** | Spoken-language setting — `profiles` table, `next-intl` chrome, description-text records ([UC-069](use-cases/UC-069-use-the-app-in-my-own-language.md)) | Storage, default and library are decided (2026-08-12); **not spec-ready yet** — blocked on decisions 10–11 above (where non-English text comes from, one string vs. split parts) |
+| **T-B11** | Spoken-language setting — `profiles` table, `next-intl` chrome, description-text records ([UC-069](use-cases/UC-069-use-the-app-in-my-own-language.md)) | **Spec-ready 2026-08-12** — decisions 10–11 answered: chrome = `next-intl` stage 1; card descriptions = `I18N.md` stage-3 tables + snapshot JSON. Sensitive once implementation starts |
 | **T-B12** | ~~Scope `poolForScheduling` to the active language only~~ — **done 2026-08-12** ([UC-025](use-cases/UC-025-learn-multiple-languages.md)) | `poolForScheduling` and `poolForDisplay` (`lib/db/learner-pools.ts`) merged into one `poolForActiveLanguage()`, since the reason they differed — a cross-language budget — was rejected. `buildSessionAction` now calls it; a session can no longer contain more than one language's cards, and the `languageName` label is always correct as a result. Regression test: `learner-pools.test.ts` |
-| **T-B13** | Same-session card requeue ([UC-071](use-cases/UC-071-get-a-wrong-card-back-before-the-session-ends.md)) | **Not spec-ready** — blocked on decisions 12–13 above (same-run repeat vs. UC-013's leech count; the exact requeue distance). Touches `session-builder.md` (fixed queue → sometimes re-insert) and `review-session.states.md` (`advancing` transition). **Missing from this table since UC-071 graduated 2026-08-12** — added now; it was never dropped from the plan, only from this table |
-| **T-B14** | Broken-card flagging + leech diagnosis ([UC-023](use-cases/UC-023-report-something-wrong.md), [UC-013](use-cases/UC-013-stop-losing-time-on-one-card.md)) | **Not spec-ready** — blocked on decisions 14–15 above (build-time vs. per-learner detection; the similarity threshold). Adds a flag column scoped to (word, spoken language) per `UC-023`; suspension + tap-to-confirm diagnosis per `UC-013`'s three-tier model in [`IDEAS.md`](IDEAS.md). Same omission as `T-B13` — added now |
+| **T-B13** | Same-session card requeue ([UC-071](use-cases/UC-071-get-a-wrong-card-back-before-the-session-ends.md)) | **Spec-ready 2026-08-12** — decisions 12–13 answered: `again` → 5 ahead, `hard` → end of remaining queue; same-run repeats do not count toward UC-013. **Sensitive** — extends `session-builder.md` + `review-session.states.md` |
+| **T-B14** | Broken-card flagging + leech diagnosis ([UC-023](use-cases/UC-023-report-something-wrong.md), [UC-013](use-cases/UC-013-stop-losing-time-on-one-card.md)) | **Spec-ready 2026-08-12** — decisions 14–15 answered: tier 1 build-time metadata, tier 2–3 per learner; Levenshtein-1 candidates for lemmas length 3–8. **Sensitive** |
 | **T-B15** | Maintenance mode per language ([UC-025](use-cases/UC-025-learn-multiple-languages.md)) | **Not spec-ready** — no per-language flag exists. Moved 2026-08-12 from [`plans/multi-language.md`](plans/multi-language.md) table item 10, so it has exactly one tracked home. The best-evidenced item in that plan's 2026-08-11 review (Cepeda et al. 2008, Bahrick et al. 1993: 10–20% of the retention interval as the review gap) and the one piece of that review's recommendation not yet built |
 ---
 
@@ -551,48 +551,86 @@ ADR-0006, ADR-0007) — an account is required, and the provider is Supabase.
 (no code yet — these block writing the specs, per DoR's "open questions
 resolved or explicitly deferred"):
 
-10. **Where does description text in a language other than English come
-   from?** ([UC-069](use-cases/UC-069-use-the-app-in-my-own-language.md) — a
-   learner's card back and app chrome should read in whatever language they
-   speak, not always English.) Kaikki, the current gloss source, only ships
-   English senses. Candidates: a second lexical source per spoken language,
-   machine translation with human review, or hand-written text at scale —
-   each has a different provenance story for `data/README.md`.
-11. **Does a card's description stay one string, or split into named parts**
-    (the definition itself, a grammar hint, an instruction like "write the
-    Spanish form") so each half can be translated independently? Same UC-069.
-    Smaller than it looks now that word identity vs. description-text-record
-    is settled, but still open, and it also gates decision below.
-12. **Does a same-session repeat count toward UC-013's cross-session
-    leech-suspend counter?**
-    ([UC-071](use-cases/UC-071-get-a-wrong-card-back-before-the-session-ends.md)
-    — grading a card poorly should bring it back later in *this* session, not
-    only on some future day the scheduler picks silently.) Counting it risks
-    one hard day tripping suspension early; not counting it risks a true
-    leech looking fine because same-session "fixes" keep resetting the count
-    before it ever climbs.
-13. **What is the same-session requeue rule** — end of run, ~5 cards ahead, or
-    something else? Same UC-071; a use case states the outcome, not the
-    algorithm, so this is left to the spec stage.
-14. **Does broken-card detection run once at build time, or per learner?**
-    ([`IDEAS.md`](IDEAS.md)'s "how would the app detect *why* a card keeps
-    failing" design note, feeding
-    [UC-013](use-cases/UC-013-stop-losing-time-on-one-card.md) — a card that
-    keeps failing should get suspended with a diagnosis, e.g. "confused with
-    *perro*?", instead of just repeated harder.) Static/build-time is far
-    cheaper; per-learner has no false positive for someone who never studies
-    the confusable word.
-15. **What similarity threshold catches a real confusion** (`pero`/`perro`)
-    **without flagging most short, common words against each other?** Same
-    design note. Needs testing against the real 2000-lemma pools, not a
-    guessed constant.
+10. ~~**Where does description text in a language other than English come
+   from?**~~ **Answered 2026-08-12 (owner direction + UX + [`I18N.md`](I18N.md)).**
+   Two surfaces, two stages — the Grundriss pattern, not one blob:
+   - **App chrome** (menus, buttons, grade labels, errors): **stage 1** —
+     `next-intl`, `messages/<locale>.json`, key parity gates. Already
+     decided in UC-069.
+   - **Card description text** (what describes a word on the back/front):
+     **stage 3 database** — `app_texts` + `app_text_translations` per
+     [`I18N.md`](I18N.md) § Stage 3, keyed by (`wordId`, spoken language),
+     `status ∈ (draft, reviewed, published)`, app reads **published** only.
+     Runtime serves a **snapshot JSON** at build/cache invalidation — never
+     a query per card. English rows seeded from Kaikki at import; other
+     locales via MT → `draft` → human review → `published`. Provenance in
+     `data/README.md`. Same shape as Feldpost-style i18n tables; this repo's
+     contract is `I18N.md`, not a second invention.
+11. ~~**Does a card's description stay one string, or split into named parts**~~
+    **Answered 2026-08-12 (UX). One string per card face per spoken
+    language — no microscopic split.** Meaning-recall back is already one
+    gloss ("to run", "of, from") — nothing to split. Form-recall front
+    combines gloss + instruction ("to run — write the Spanish form"); that
+    whole face is **one translatable string** per locale, not three fields.
+    Instruction wording lives in the translation row for that face, not a
+    separate grammar-hint table. Splitting definition vs hint vs instruction
+    into named parts is rejected for v1 — it multiplies rows and review
+    surface for no learner-visible gain.
+12. ~~**Does a same-session repeat count toward UC-013's cross-session
+    leech-suspend counter?**~~ **Answered 2026-08-12 (owner + UX). No.**
+    Same-run repeats are a within-sitting rehearsal buffer
+    ([UC-071](use-cases/UC-071-get-a-wrong-card-back-before-the-session-ends.md));
+    UC-013's suspend counter counts **cross-session** failures only — reviews
+    whose `at` timestamp falls on a different calendar day than the previous
+    failure on that `taskId`, or simply: one session's extra tries never
+    advance the leech count. Rationale: counting them would let one bad day
+    suspend a card the learner was still actively correcting; not counting
+    them matches the owner's instinct ("it would be weird if a card went
+    missing") — suspension is a cross-session diagnosis, not a same-sitting
+    penalty. See [`UC-013`](use-cases/UC-013-stop-losing-time-on-one-card.md)
+    and [`UC-071`](use-cases/UC-071-get-a-wrong-card-back-before-the-session-ends.md).
+13. ~~**What is the same-session requeue rule** — end of run, ~5 cards ahead, or
+    something else?~~ **Answered 2026-08-12 (UX, Anki-style reference).**
+    Map grades to distance, no learner-visible countdown:
+    - **`again`** → re-insert **5 positions ahead** (or at end of queue if
+      fewer than 5 remain — never drop the repeat).
+    - **`hard`** → re-insert at **end of the remaining queue** (after every
+      not-yet-seen card this run; if it was already a repeat, after the rest).
+    - **`good` / `easy`** → no requeue.
+    No indicator that a repeat is coming (UC-071). The session's advertised
+    total stays the count of **distinct** `taskId`s in the built queue
+    (UC-039); repeats do not inflate it. Spec stage: `T-B13`.
+14. ~~**Does broken-card detection run once at build time, or per learner?**~~
+    **Answered 2026-08-12 (UX). Both, by tier — not either/or.** Tier 1
+    (too-many-meanings, no-context, neighbour-word collision, sound-contrast
+    table) runs **once at build time** and ships as static metadata on the
+    card — same pipeline as overrides/exclusions. Tier 2 (repeated
+    `again`/`hard` crossing the lapse threshold) is **per learner**, from the
+    review log. Tier 3 (tap-to-confirm diagnosis) is **per learner**, at
+    suspension time, using tier-1 candidates as pre-filled choices. Neighbour
+    collision does **not** wait for "has this learner studied both words" —
+    the candidate list is static; only the confirmation is learner-specific.
+    See [`IDEAS.md`](IDEAS.md) three-tier model.
+15. ~~**What similarity threshold catches a real confusion** (`pero`/`perro`)
+    **without flagging most short, common words against each other?**~~
+    **Answered 2026-08-12 (UX).** Levenshtein distance **1** only, and only
+    when **both** lemmas are length 3–8 inclusive; flag as a **candidate**
+    (tier 1), never auto-diagnose. Distance 2 is rejected for v1 — it fires
+    on too many short frequent words. A build-time gate script must run
+    against the shipped pool and report candidate-pair count before merge;
+    if &gt; ~3% of lemmas have a candidate, tighten to "same first two
+    characters AND distance 1." Confirmation always tier 3 (one tap).
 
 **Added 2026-08-12**, moved from [`plans/multi-language.md`](plans/multi-language.md)
 so open items live in exactly one queue:
 
-16. **Does Progress remain a nav destination, or move under Profile** (the
-    original 2026-08-11 sketch)? Raised by the owner in passing, not decided
-    — both the SLA-researcher and UX-designer reviews commissioned for that
-    plan argued for keeping it, and it is the product's own argument, but
-    nobody has actually picked. See `plans/multi-language.md`, "Decided by
-    the owner, 2026-08-11."
+16. ~~**Does Progress remain a nav destination, or move under Profile**~~
+    **Answered 2026-08-12 (UX + prior owner decision 2026-08-11 + literature).**
+    **Progress stays a top-level destination.** Methods · Words · Progress;
+    Profile remains the corner chip ([ADR-0009](adr/0009-three-destinations.md),
+    [`plans/multi-language.md`](plans/multi-language.md) "Decided 2026-08-11").
+    Study 03's honesty rules need a surface that can show "not measured",
+    falling levels, and derivation on tap — burying that under Profile makes
+    the level model a footnote ([`IMPLEMENTATION-PLAN.md`](IMPLEMENTATION-PLAN.md)
+    PM/UX debate, 2026-08-08). Two destinations (Methods + Words) fails the
+    same test. This closes the question raised in passing; no ADR change.

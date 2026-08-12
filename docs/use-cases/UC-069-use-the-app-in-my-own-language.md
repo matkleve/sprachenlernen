@@ -107,18 +107,14 @@ loads; it does not change the language anything is *described* in.
 
 ## Undecided
 
-Resolved this session: where the setting lives (`profiles` table), the
-default (browser/device locale), the library (`next-intl`), and the shape —
-word identity and description text are separate records, keyed together by
-(word, spoken language), never duplicated per spoken language. Still open,
-and now correctly scoped to *content*, not to the setting or the shape:
+Resolved 2026-08-12 (decisions 10–11, owner + UX):
 
-- **⚠ SPEC GAP: where non-English description text comes from.** Kaikki only
-  ships English senses; a second lexical source, MT with human review, or
-  hand-written text at scale, with provenance recorded per
-  `data/README.md`.
-- **⚠ SPEC GAP: does a description stay one string, or split into parts**
-  (the definition itself, a grammar hint, an instruction like "write the
-  Spanish form") so each can be translated on its own — smaller than it
-  looks now that the record-separation question above is settled, but still
-  open.
+- **Description-text source:** card descriptions use [`I18N.md`](../I18N.md)
+  **stage 3** — `app_texts` + `app_text_translations`, keyed by (`wordId`,
+  spoken language), `status` workflow, runtime snapshot JSON. English seeded
+  from Kaikki; other locales MT → review → publish. App chrome stays stage 1
+  (`next-intl` JSON). Same database-i18n pattern as Grundriss/Feldpost;
+  contract is `I18N.md`, not a one-off.
+- **One string per card face per spoken language** — no split into definition /
+  hint / instruction parts for v1. Form-recall fronts like *"to run — write
+  the Spanish form"* are translated as one row, not three fields.

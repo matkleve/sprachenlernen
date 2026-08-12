@@ -59,12 +59,10 @@ when (UC-006, UC-063 both forbid showing that date).
   — untouched by this use case.
 - The chronic, cross-session leech case that keeps failing sitting after
   sitting — that is [UC-013](UC-013-stop-losing-time-on-one-card.md)'s
-  diagnosis-and-repair answer, not this one. **⚠ SPEC GAP: whether a same-run
-  repeat counts toward UC-013's failure-to-suspend count at all.** Counting it
-  risks a single hard day tripping suspension prematurely; not counting it
-  risks a card that is a true leech looking fine because its failures keep
-  getting "fixed" within the same session before the cross-session count ever
-  climbs. Needs a decision before this is spec'd, not a default.
-- The exact requeue distance ("end of the run" vs "~5 cards ahead" vs some
-  other rule). **⚠ SPEC GAP:** left to the spec stage — a use case states the
-  outcome (comes back this session), not the algorithm.
+  diagnosis-and-repair answer, not this one. **Resolved 2026-08-12:** a
+  same-run repeat does **not** count toward UC-013's suspend counter — only
+  cross-session failures do. See [`IMPLEMENTATION-PLAN.md`](../IMPLEMENTATION-PLAN.md)
+  decision 12.
+- **Resolved 2026-08-12 (decision 13):** `again` → re-insert 5 positions ahead;
+  `hard` → end of remaining queue; `good`/`easy` → no requeue. No visible
+  indicator. Spec: `T-B13`.

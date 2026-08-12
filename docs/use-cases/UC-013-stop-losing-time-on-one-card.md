@@ -39,10 +39,9 @@ Manual editing of scheduler parameters, and deleting cards in bulk.
 
 ## Undecided
 
-- **⚠ SPEC GAP: does a same-session repeat
-  ([UC-071](UC-071-get-a-wrong-card-back-before-the-session-ends.md)) count
-  toward the failure count that trips suspension here, or is it a separate,
-  gentler mechanism that never touches this counter?** Named from this side
-  too, not only UC-071's, since it decides what "keeps failing" means for
-  this use case's own suspend rule. Same open question as
-  [`IMPLEMENTATION-PLAN.md`](../IMPLEMENTATION-PLAN.md) decision 12.
+- **Resolved 2026-08-12 (decision 12):** same-session repeats do **not**
+  count toward the cross-session failure count that triggers suspension here.
+  UC-071's within-run buffer and this use case's leech suspend are separate
+  mechanisms. A card can be rehearsed heavily in one sitting without being
+  suspended that same day; suspension still requires repeated failure **across
+  sessions**.
