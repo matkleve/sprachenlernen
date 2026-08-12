@@ -18,8 +18,8 @@ Parent: [`starter-deck.md`](starter-deck.md) (meaning-recall pool),
   `scripts/build-form-recall-pool.mjs`, `lib/form-recall-pool.ts` (load + validate),
   `lib/paradigm-cells.ts` (cell code → words); staging rule — a form-recall Task
   enters the session queue only when the sibling **meaning-recall** Task for the
-  same `wordId` is **held** (stability above graduation —
-  [`vocabulary-snapshot.md`](vocabulary-snapshot.md)).
+  same `wordId` is **held** ([`vocabulary-snapshot.md`](vocabulary-snapshot.md)
+  `isTaskHeld` — not the scheduler graduation threshold).
 - **Out:** form-mastery signal on Progress — see
   [`form-mastery-signal.md`](form-mastery-signal.md); audio recall;
   choosing the cell at review time; paradigm-table method (`paradigm-tables-mixed`);

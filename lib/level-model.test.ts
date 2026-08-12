@@ -129,7 +129,7 @@ describe("layer-1 signals", () => {
     expect(vocabulary.taskCount).toBe(1);
   });
 
-  it("falls when held lemmas become shaky — the count must be able to go down", () => {
+  it("falls when held lemmas become fragile — the count must be able to go down", () => {
     const strong = readLevel([reviewed("t1", ["easy", "easy", "easy"])], now);
     const weak = readLevel([reviewed("t1", ["again", "again", "again"])], now);
 

@@ -63,7 +63,7 @@ in `lib/method-session.ts`.
 
 Only **card-engine Reviews** produce data Progress and Words can read:
 
-- pool-local vocabulary (`held` / `shaky` / `new`)
+- pool-local vocabulary (`held` / `fragile` / `new`)
 - recall-stability signal on `/progress`
 - method-menu **current standing**
 
