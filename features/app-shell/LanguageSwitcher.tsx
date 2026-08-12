@@ -1,6 +1,5 @@
 "use client";
 
-import { Languages } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useTransition } from "react";
 
@@ -14,6 +13,7 @@ import { copy } from "./content";
 export type LanguageSwitcherOption = {
   code: string;
   endonym: string;
+  emoji: string;
   isActive: boolean;
 };
 
@@ -25,7 +25,7 @@ export type LanguageSwitcherProps = {
 
 const floatingIconChipClass = cn(
   buttonVariants({ variant: "floating", size: "sm" }),
-  "size-11 min-h-11 min-w-11 rounded-full p-0",
+  "size-11 min-h-11 min-w-11 rounded-full p-0 text-xl leading-none",
 );
 
 /**
@@ -37,8 +37,11 @@ export function LanguageSwitcher({ languages, layout = "floating" }: LanguageSwi
 
   if (languages.length === 0) return null;
 
-  const active = languages.find((language) => language.isActive)?.code ?? languages[0]!.code;
-  const activeEndonym = languages.find((language) => language.code === active)?.endonym ?? active;
+  const activeLanguage =
+    languages.find((language) => language.isActive) ?? languages[0]!;
+  const active = activeLanguage.code;
+  const activeEndonym = activeLanguage.endonym;
+  const activeEmoji = activeLanguage.emoji;
 
   if (layout === "inline") {
     const chipClass = cn(buttonVariants({ variant: "ghost", size: "sm" }), "h-10 min-h-10");
@@ -79,22 +82,33 @@ export function LanguageSwitcher({ languages, layout = "floating" }: LanguageSwi
     );
   }
 
-  // Mobile floating: icon-only round chip (endonym in aria-label, not on screen).
+  // Mobile floating: learning-language emoji in a round chip (endonym in aria-label).
   if (languages.length === 1) {
     return (
       <span
-        className={cn(floatingIconChipClass, "pointer-events-none cursor-default")}
+        className={cn(
+          floatingIconChipClass,
+          "pointer-events-none cursor-default items-center justify-center",
+        )}
         role="img"
         aria-label={copy.currentLanguage(activeEndonym)}
       >
-        <Languages aria-hidden className="size-5 shrink-0" />
+        <span aria-hidden>{activeEmoji}</span>
       </span>
     );
   }
 
   return (
-    <div className={cn("relative", floatingIconChipClass, pending && "opacity-70")}>
-      <Languages aria-hidden className="size-5 shrink-0 pointer-events-none" />
+    <div
+      className={cn(
+        "relative flex items-center justify-center",
+        floatingIconChipClass,
+        pending && "opacity-70",
+      )}
+    >
+      <span aria-hidden className="pointer-events-none">
+        {activeEmoji}
+      </span>
       <Select
         aria-label={copy.switchLanguage}
         disabled={pending}

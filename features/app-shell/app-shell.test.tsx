@@ -31,7 +31,10 @@ vi.mock("@/lib/db/auth", () => ({ getAccount: vi.fn(), signOut: vi.fn() }));
 
 const account = { id: "u1", email: "a@example.com" };
 
-const showAt = (pathname: string, languages = [{ code: "es", endonym: "Español", isActive: true }]) => {
+const showAt = (
+  pathname: string,
+  languages = [{ code: "es", endonym: "Español", emoji: "🇪🇸", isActive: true }],
+) => {
   vi.mocked(usePathname).mockReturnValue(pathname);
   return render(
     <AppShell languages={languages}>
@@ -139,8 +142,8 @@ describe("the three destinations", () => {
 
   it("renders a language switcher when more than one language is being learned", () => {
     showAt("/methods", [
-      { code: "es", endonym: "Español", isActive: true },
-      { code: "it", endonym: "Italiano", isActive: false },
+      { code: "es", endonym: "Español", emoji: "🇪🇸", isActive: true },
+      { code: "it", endonym: "Italiano", emoji: "🇮🇹", isActive: false },
     ]);
 
     const header = document.querySelector("header");

@@ -29,20 +29,21 @@ describe("LanguageSwitcher", () => {
   it("shows a non-interactive icon when only one language is being learned", () => {
     render(
       <LanguageSwitcher
-        languages={[{ code: "es", endonym: "Español", isActive: true }]}
+        languages={[{ code: "es", endonym: "Español", emoji: "🇪🇸", isActive: true }]}
         layout="floating"
       />,
     );
     expect(
       screen.getByLabelText(copy.currentLanguage("Español")),
     ).toBeDefined();
+    expect(screen.getByText("🇪🇸")).toBeDefined();
     expect(screen.queryByRole("combobox")).toBeNull();
   });
 
   it("shows endonym text on desktop when only one language is being learned", () => {
     render(
       <LanguageSwitcher
-        languages={[{ code: "es", endonym: "Español", isActive: true }]}
+        languages={[{ code: "es", endonym: "Español", emoji: "🇪🇸", isActive: true }]}
         layout="inline"
       />,
     );
@@ -54,8 +55,8 @@ describe("LanguageSwitcher", () => {
     render(
       <LanguageSwitcher
         languages={[
-          { code: "es", endonym: "Español", isActive: true },
-          { code: "it", endonym: "Italiano", isActive: false },
+          { code: "es", endonym: "Español", emoji: "🇪🇸", isActive: true },
+          { code: "it", endonym: "Italiano", emoji: "🇮🇹", isActive: false },
         ]}
       />,
     );

@@ -16,9 +16,10 @@ Progress (ADR-0009). **No due-count badges** (UC-063).
 
 - **In:** `< md` floating bottom pill (three equal segments, icon + micro-label);
   floating top-right **icon-only** account chip (round, ≥ 44px) linking to
-  `/profile`; floating top-left back on drill-in routes; **icon-only** language
-  chip (round) on destination roots only — hidden on drill-in so back and
-  language never compete; safe-area insets on shell `main`; token surfaces only;
+  `/profile`; floating top-left back on drill-in routes; **emoji** language
+  chip (round, active learning language) on every signed-in mobile route when
+  the account has at least one learning language — including drill-in, beside
+  back when back is shown; safe-area insets on shell `main`; token surfaces only;
   desktop `≥ md` unchanged.
 - **Out:** hamburger and drawer; full-width mobile header bar; hiding the pill on
   review; profile destination; notification badges; marketing shell.
@@ -32,12 +33,12 @@ Progress (ADR-0009). **No due-count badges** (UC-063).
 | --- | --- | --- |
 | 1 | Viewport ≥ `md` | Horizontal nav + inline account link in header; no floating chrome |
 | 2 | Viewport &lt; `md` on a destination root | Bottom pill visible; top-right account icon chip; **top-left language icon chip** when the account has at least one learning language |
-| 3 | Viewport &lt; `md` on a drill-in route | Back float appears top-left (label + arrow); target is the parent destination; **no language chip** — switching mid-drill-in is out of scope |
+| 3 | Viewport &lt; `md` on a drill-in route | Back float appears top-left (label + arrow); **language emoji chip** beside it when the account has a learning language; target is the parent destination |
 | 4 | Taps a pill segment | Navigates; current segment marked with `aria-current="page"` |
 | 5 | Taps the account chip | `/profile`, where sign out now lives ([`../page/profile.md`](../page/profile.md)) |
 | 6 | Taps back float | Navigates to parent destination (`href`, not blind history) |
-| 7 | Has more than one learning language | Top-left icon opens the language list; choosing one makes it active and refreshes the current page — one action (UC-025) |
-| 8 | Has exactly one learning language | Top-left shows a non-interactive language icon with the endonym in `aria-label` |
+| 7 | Has more than one learning language | Language emoji chip opens the language list; choosing one makes it active and refreshes the current page — one action (UC-025) |
+| 8 | Has exactly one learning language | Language emoji chip is non-interactive; endonym in `aria-label` |
 | 9 | Scrolls page content | Floats stay visible; content clears floats via shell padding |
 
 ## Back targets
@@ -74,8 +75,11 @@ in `app/globals.css`.
       then a bottom pill shows three destinations with icon + label and no
       hamburger.
 - [ ] Given viewport &lt; `md` on `/words`, then no top-left back chip appears, and a language switcher or label appears when the account has a learning language.
+- [ ] Given viewport &lt; `md` on `/methods/[id]`, then a back chip links to
+      `/methods` and the language emoji chip is visible beside it.
 - [ ] Given viewport &lt; `md` on `/words/review`, then a back chip links to
-      `/words`, no language chip appears, and the bottom pill remains visible.
+      `/words`, the **language emoji chip** is visible, and the bottom pill
+      remains visible.
 - [ ] Given viewport &lt; `md`, then a top-right **account** icon chip is always
       present (no text label), linking to `/profile`, and no sign-out control
       renders in the shell.

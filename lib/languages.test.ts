@@ -29,6 +29,12 @@ describe("languageLabel", () => {
   it("falls back to the code rather than throwing", () => {
     // A language added to the database before this map is a cosmetic problem;
     // a page that dies because of it is not.
-    expect(languageLabel("zz")).toEqual({ endonym: "zz", english: "zz" });
+    expect(languageLabel("zz")).toEqual({ endonym: "zz", english: "zz", emoji: "🌐" });
+  });
+
+  it("ships an emoji for every labelled learning language", () => {
+    for (const code of labelledLanguages()) {
+      expect(languageLabel(code).emoji.length).toBeGreaterThan(0);
+    }
   });
 });

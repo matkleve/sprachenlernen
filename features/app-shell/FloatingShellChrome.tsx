@@ -53,9 +53,8 @@ export function FloatingShellChrome({
               <ArrowLeft aria-hidden className="size-4 shrink-0" />
               {back.label}
             </ActionLink>
-          ) : (
-            <LanguageSwitcher languages={languages} layout="floating" />
-          )}
+          ) : null}
+          <LanguageSwitcher languages={languages} layout="floating" />
         </div>
 
         <div className="pointer-events-auto">
