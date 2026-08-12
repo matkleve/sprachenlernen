@@ -8,7 +8,7 @@ import {
 } from "@/lib/errors";
 import { buildSession, type SessionCard } from "@/lib/session-builder";
 import { filterSchedulableCards } from "@/lib/form-recall-staging";
-import { poolForScheduling } from "@/lib/db/learner-pools";
+import { poolForActiveLanguage } from "@/lib/db/learner-pools";
 import { languageLabel } from "@/lib/languages";
 import type { Grade } from "@/lib/scheduler";
 
@@ -46,10 +46,10 @@ export type BuildSessionOutcome =
 
 export async function buildSessionAction(): Promise<BuildSessionOutcome> {
   try {
-    // Every language being learned, not the one on screen. UC-025's combined
-    // budget is what stops a second language crowding out the first, and it
-    // only works if scheduling ignores the interface's focus.
-    const pool = await poolForScheduling();
+    // The language in focus, and only that one (UC-025, corrected
+    // 2026-08-12): a session never draws from more than one learning
+    // language, so this is always the pool a session should schedule from.
+    const pool = await poolForActiveLanguage();
     if (pool.status === "no-language") {
       return { status: "no-language" };
     }
@@ -58,11 +58,10 @@ export async function buildSessionAction(): Promise<BuildSessionOutcome> {
       return { status: "error", error: handled.userMessage };
     }
 
-    // ⚠ SPEC GAP: with two languages in one session this label is wrong, and
-    // the fix is per-card language rather than a session-level name. Cannot
-    // happen yet — one pool ships — so it is named rather than guessed.
-    const only = pool.languageCodes.length === 1 ? pool.languageCodes[0] : undefined;
-    const languageName = only ? languageLabel(only).english : "";
+    // A pool from poolForActiveLanguage never holds more than one language,
+    // so this label is always correct — no per-card language name needed.
+    const activeCode = pool.languageCodes[0];
+    const languageName = activeCode ? languageLabel(activeCode).english : "";
 
     const taskIds = pool.cards.map((card) => card.taskId);
     const reviewsResult = await listReviewsForTaskIds(taskIds);

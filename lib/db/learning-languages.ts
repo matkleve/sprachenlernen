@@ -15,13 +15,15 @@ import { availableLanguages, isLanguageAvailable } from "@/lib/starter-deck";
  *
  * A **learning language** is one this Account is learning; there may be
  * several. The **active** language is the one the interface is showing; there
- * is exactly one, and it decides what is displayed and nothing else.
+ * is exactly one, and it decides both what is displayed and what a session
+ * schedules (UC-025, corrected 2026-08-12 — languages never share a session,
+ * so there is no longer a reason for those two to differ).
  *
- * ⚠ Nothing here may be imported by `lib/session-builder.ts`. The active
- * language is a view concern; the moment it filters what gets scheduled, the
- * combined daily budget stops splitting across languages and the older one
- * decays — the exact failure UC-025 exists to prevent. A test asserts the
- * absence, because a missing import is not something a reviewer notices.
+ * ⚠ Nothing here may be imported by `lib/session-builder.ts` — that module
+ * stays a pure function over whatever pool it is handed. Language selection
+ * happens in the caller (`lib/db/learner-pools.ts`), never inside the builder
+ * itself. A test asserts the absence, because a missing import is not
+ * something a reviewer notices.
  */
 
 export type LearnerLanguage = {

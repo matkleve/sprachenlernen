@@ -119,7 +119,7 @@ feature needs it — not in anticipation of one.
 | Touching styles or tokens | [`docs/DESIGN-SYSTEM.md`](docs/DESIGN-SYSTEM.md) |
 | Naming anything | [`docs/GLOSSARY.md`](docs/GLOSSARY.md) |
 | A "fix" isn't working | [`docs/TRAPS.md`](docs/TRAPS.md) ← read this before your second attempt |
-| Adding a database, or a second language | [`docs/BACKEND.md`](docs/BACKEND.md), [`docs/I18N.md`](docs/I18N.md) |
+| Adding a database, or another learning language | [`docs/BACKEND.md`](docs/BACKEND.md), [`docs/I18N.md`](docs/I18N.md) |
 | Making a call you'll have to defend later | [`docs/adr/`](docs/adr/) |
 | Product rules you may not break | [`docs/CONSTITUTION.md`](docs/CONSTITUTION.md) |
 | **Why a feature exists at all** | [`docs/study/`](docs/study/) — the research this product is derived from |

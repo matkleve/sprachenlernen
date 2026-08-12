@@ -26,17 +26,14 @@ first table added since `review_log`.
 - **Learning language** — a language this Account is learning. Several possible.
   Owns its Reviews, vocabulary reading and calibration.
 - **Active language** — the one in focus in the interface. Exactly one. Decides
-  **what is displayed and nothing else.**
+  **both what is displayed and what a session schedules from** (corrected
+  2026-08-12 — see "One pool, one function" below; it used to decide display
+  only).
 
 **Engines are per learning language.** Reviews, the starter pool, and Progress
-readings are scoped to the language in focus on display surfaces (Words,
-Progress, standing). **Corrected 2026-08-12:** an earlier version of this
-sentence said the session builder may draw from *all* learning languages at
-once, reasoning from a combined cross-language budget UC-025 has since
-**rejected**. The session builder is scoped to the active language too — the
-same one display surfaces use. A session never contains more than one
-language's cards; there is no separate "scheduling view" that sees more than
-the interface does.
+readings are scoped to the language in focus — on display surfaces and in the
+review session alike. There is no separate "scheduling view" that sees more
+languages than the interface does.
 
 ## Behavior
 
@@ -87,42 +84,37 @@ in `user_id`. Proven by the §8 access-control test, not asserted here.
 carries the language as its first segment (`es:el:meaning-recall`), so per-language
 partitioning of Reviews needs no column and no backfill.
 
-## Two pools, and why they are two functions
+## One pool, one function
 
-`lib/db/learner-pools.ts` turns the account's languages into cards, and it
-exposes **`poolForScheduling`** and **`poolForDisplay`** rather than one
-parameterised call:
+**Corrected 2026-08-12.** `lib/db/learner-pools.ts` used to expose two
+functions, `poolForScheduling` (every learning language, concatenated) and
+`poolForDisplay` (the active language only), because scheduling and display
+were meant to see different things under the now-rejected combined budget.
+That reason is gone, so there is one function instead:
 
 | | Contains | Used by |
 | --- | --- | --- |
-| `poolForScheduling` | **every** learning language, concatenated | the review session |
-| `poolForDisplay` | the **active** language only | `/progress`, `/words`, the standing line |
+| `poolForActiveLanguage` | the **active** language only, and nothing else | the review session, `/progress`, `/words`, the standing line — every surface, now the same way |
 
-Task ids carry their language (`es:el:meaning-recall`), so concatenating decks
-cannot collide. A language whose pool stopped shipping is skipped rather than
-fatal — one broken deck must not cost a learner the languages that still work.
+Task ids still carry their language (`es:el:meaning-recall`), which was needed
+for the old concatenation and stays true, but is no longer load-bearing for
+anything here since a pool never holds more than one language's cards. A
+language whose pool stopped shipping still errors rather than silently falling
+back to a different learning language — it is never substituted, only named.
 
-Named, not parameterised (`getPool(activeOnly?)`), because a boolean at the call
-site is an invitation and a name is a decision. Display may follow the
-interface's focus; scheduling may not — see below.
-
-**No destination renders for an account with no language.** Both pools return
+**No destination renders for an account with no language.** The pool returns
 `no-language` and every caller routes to the picker — `/methods`, `/progress`,
 `/words` and the review session alike. The guard is on the **destination**, not
 on signup: there are four ways into the app (immediate-session signup, the
 confirmation link, OAuth, and signing in later) and only the first passes
-through signup's redirect, so guarding the entrance left three unasked. "Not measured" is a statement about
-a learner who has been asked; it must not be shown to one who has not.
+through signup's redirect, so guarding the entrance left three unasked. "Not
+measured" is a statement about a learner who has been asked; it must not be
+shown to one who has not.
 
-## The constraint that protects UC-025
-
-⚠ **The active language must never reach the session builder.** It selects what
-is displayed. If it becomes a filter on what is scheduled, the combined daily
-budget stops splitting across languages and the older language decays — which is
-the entire failure UC-025 exists to prevent, and the most natural wrong thing to
-build. Stated as a negative acceptance criterion in
-[`session-builder.md`](session-builder.md) as well, because one place is not
-enough for a rule this easy to violate.
+`buildSession` (`session-builder.md`) itself still takes no language
+parameter and stays agnostic to which language its pool belongs to — this
+module is where "never more than one language at once" is actually enforced,
+by never asking for more than the active language in the first place.
 
 ## Acceptance criteria
 
@@ -145,14 +137,14 @@ enough for a rule this easy to violate.
       `lib/session-builder.ts` — checked by grep in the test, because the damage
       is silent and the reviewer would have to notice an absence.
 - [ ] Given an account learning two languages with only one in focus, when
-      `poolForScheduling` runs, then the pool contains **both** — the review
-      session never narrows to what the interface is showing.
-- [ ] Given the same account, when `poolForDisplay` runs, then the pool contains
-      only the language in focus.
-- [ ] Given an account with languages but none in focus, then `poolForDisplay`
-      reports `no-language` rather than guessing one.
-- [ ] Given a learning language whose pool no longer ships, then
-      `poolForScheduling` skips it and still returns the rest.
+      `poolForActiveLanguage` runs, then the pool contains **only** the
+      language in focus — a session never draws from a language the interface
+      is not showing.
+- [ ] Given an account with languages but none in focus, then
+      `poolForActiveLanguage` reports `no-language` rather than guessing one.
+- [ ] Given the language in focus has no shipped pool, then
+      `poolForActiveLanguage` errors rather than silently falling back to
+      another learning language.
 
 ## Check
 
@@ -167,9 +159,11 @@ the error surface. Steps and the checks to run afterwards:
 
 ## Open
 
-- **Maintenance mode** (UC-025) adds a per-row state. Deliberately not modelled
-  yet — it needs the combined budget to mean anything, and a column added now
-  would be a guess about its shape.
+- **Maintenance mode** (UC-025) adds a per-row state — enough review to hold
+  what exists, no new material, for one language independent of any other.
+  Deliberately not modelled yet — the shape of that state (a boolean? a target
+  retention override?) is still a guess, not the combined budget, which UC-025
+  no longer has.
 - **Removing a language.** Rows in `review_log` survive by design, so the count
   would return if it were re-added. Whether the UI offers removal at all is a
   question for [`profile.md`](../page/profile.md), not for this adapter.

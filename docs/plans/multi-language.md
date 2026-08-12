@@ -4,7 +4,7 @@
 contract — no spec is written yet, and two decisions below are still the owner's.
 **Change class:** Sensitive (persisted, auth-adjacent, changes the route model).
 
-Anchor use case: [`UC-025`](../use-cases/UC-025-learn-a-second-language.md),
+Anchor use case: [`UC-025`](../use-cases/UC-025-learn-multiple-languages.md),
 written and accepted, with **no specs attached to it** to this day.
 
 ---
@@ -341,11 +341,11 @@ courses on another platform puts you fully in one and not partly in both.
   of the learner's time — accepted, not managed by the app.
 - **A review session belongs to exactly one language, always.** Cards from two
   learning languages never share a queue or a schedule. `session-builder.md`
-  and `learning-languages.md` are corrected to match; `poolForScheduling`
-  (`lib/db/learner-pools.ts`) currently violates this by concatenating every
-  learning language's cards into one pool before scheduling — a real,
-  reachable bug once an account has two languages, not merely a gap. Fixing it
-  is now a Track B item in [`IMPLEMENTATION-PLAN.md`](../IMPLEMENTATION-PLAN.md).
+  and `learning-languages.md` are corrected to match; **fixed 2026-08-12**
+  (`T-B12`, [`IMPLEMENTATION-PLAN.md`](../IMPLEMENTATION-PLAN.md)) —
+  `poolForScheduling` (`lib/db/learner-pools.ts`), which used to concatenate
+  every learning language's cards into one pool before scheduling, is merged
+  into the single `poolForActiveLanguage` that every surface now uses.
 - **The Spanish/Italian confusion-as-diagnosable-error-type clause is dropped**,
   not deferred — it depended on the two languages' scheduling being aware of
   each other at all, which no longer happens. (It was already flagged above as

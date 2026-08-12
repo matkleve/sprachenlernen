@@ -17,9 +17,10 @@ into a fixed-length queue of Tasks for one review session. **Standard**
   type **meaning-recall** only.
 - **Out:** choosing session length from the method menu (time scale is a separate
   PR); sibling spacing between tasks of one Word (ADR-0004 spec gap); real
-  Word/Task tables in the database; Italian or a second language; form recall,
-  audio recall, cloze; hand-picking cards (UC-039); backlog counters (UC-063,
-  A3).
+  Word/Task tables in the database; which language a pool belongs to, and how
+  many languages the account holds — a caller's job, never this module's (see
+  "This module never chooses a language" below); form recall, audio recall,
+  cloze; hand-picking cards (UC-039); backlog counters (UC-063, A3).
 
 ## Behavior
 
@@ -83,7 +84,7 @@ calls the database.
 
 **Corrected 2026-08-12.** An earlier version of this section forbade filtering
 the pool by the learner's active language, reasoning from a combined
-cross-language daily budget that [UC-025](../../use-cases/UC-025-learn-a-second-language.md)
+cross-language daily budget that [UC-025](../../use-cases/UC-025-learn-multiple-languages.md)
 has since **rejected outright** — languages never share a session, so there is
 nothing left to protect by keeping this module blind to which language it is
 given.
@@ -93,9 +94,10 @@ the caller passes**, and does not know or care which language that is — it has
 no language parameter today and needs none. The actual rule this module must
 never violate is upstream of it: **a caller must never pass it cards from more
 than one learning language at once.** One session, one language, always — the
-caller (today, whichever pool-selection function replaces
-`poolForScheduling`) is where that is enforced, by handing this module only the
-active language's cards, the same pool `poolForDisplay` already uses.
+caller (`poolForActiveLanguage` in `lib/db/learner-pools.ts`, done 2026-08-12 —
+the single function that replaced the earlier `poolForScheduling`/
+`poolForDisplay` split) is where that is enforced, by handing this module only
+the active language's cards.
 
 - [ ] Given the module, then it imports nothing from `lib/db/learning-languages.ts`
       and takes no language, active-language or focus parameter — it stays a

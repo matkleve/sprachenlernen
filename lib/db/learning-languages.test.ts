@@ -223,20 +223,17 @@ describe("learning-languages", () => {
     expect(builder).not.toMatch(/language/i);
   });
 
-  // ⚠ Documents today's actual bug, not a design goal. UC-025 (corrected
-  // 2026-08-12) rejected the combined cross-language budget this used to
-  // protect, and now requires the opposite of what this asserts: the pool a
-  // session schedules from must be scoped to the active language, the same
-  // pool `poolForDisplay` already uses. `poolForScheduling`
-  // (`lib/db/learner-pools.ts`) still concatenates every learning language's
-  // cards instead — tracked as T-B12 in IMPLEMENTATION-PLAN.md. When that is
-  // fixed, this assertion inverts (the caller *should* reach active-language
-  // logic) and this comment goes with it.
-  it("today: the review-session caller does not yet scope to the active language (T-B12)", () => {
+  it("scopes the review-session caller to a single-language pool (T-B12, done 2026-08-12)", () => {
+    // UC-025 (corrected 2026-08-12) rejected the combined cross-language
+    // budget: a session must schedule from the active language only, the same
+    // pool display surfaces use. `poolForActiveLanguage` (`lib/db/learner-pools.ts`)
+    // is that one merged function; the review-session caller reaches it, not
+    // a separate multi-language concatenation.
     const caller = readFileSync(
       join(process.cwd(), "features/review-session/actions.ts"),
       "utf8",
     );
-    expect(caller).not.toMatch(/activeLanguageOf|learning-languages/);
+    expect(caller).toMatch(/poolForActiveLanguage/);
+    expect(caller).not.toMatch(/poolForScheduling/);
   });
 });
