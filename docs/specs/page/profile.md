@@ -40,7 +40,7 @@ page — the affordance ADR-0009 described, finally built.
 | 1 | Taps the account chip | `/profile` — email, languages, export, delete, sign out |
 | 2 | Views languages | Every learning language, the active one marked, ordered by when it was added |
 | 3 | Taps a non-active language | It becomes active; the interface follows. No session state is lost (UC-025) |
-| 4 | Taps `Add a language` | The picker ([`language-picker.md`](language-picker.md)) |
+| 4 | Taps `Add a language` | The picker ([`language-picker.md`](language-picker.md)) — only when a shipped pool is not already being learned |
 | 5 | Has no language yet | The list is replaced by a single call to action into the picker — never an empty table |
 | 6 | Language read fails | The error surface for that block only; export and delete still work |
 
@@ -58,11 +58,16 @@ the language for most of its speakers. The shell switcher may show a decorative
 flag in its circle ([`../component/language-flag.md`](../component/language-flag.md));
 the endonym still names the language everywhere that matters.
 
-Each row shows the language and whether it is in focus. When the learner has
-reviewed meaning-recall in that language, a one-line standing reads
-`347 of 500 starter words held stably` and links to `/progress`, per
+Each row shows the language and whether it is in focus. When a shipped pool
+exists for that language, a one-line standing reads
+`0 of 2000 starter words held stably` before the first review — zero is a
+measurement, not an empty state — and `347 of 500 starter words held stably`
+after. Each standing links to `/progress`, per
 [`study/03`](../../study/03-level-model.md)'s rule that every figure opens into
-what produced it. Before the first review the row carries no number.
+what produced it.
+
+`Add a language` appears only when at least one shipped pool is not already on
+the learner's list ([`starter-deck.md`](../service/starter-deck.md)).
 
 ## Acceptance criteria
 
@@ -77,7 +82,11 @@ what produced it. Before the first review the row carries no number.
       failed block does not take the page.
 - [ ] Given any state, then no measured figure is restated here, and `/progress`
       remains reachable as a destination.
-- [ ] Given any state, then sign out is reachable from this page.
+- [ ] Given an Account learning every shipped language, then **Add a language**
+      does not render.
+- [ ] Given a learning language with a shipped pool, when `/profile` renders,
+      then its row shows `{held} of {pool} starter words held stably`, including
+      `0 of {pool}` before the first review.
 - [ ] **Negative:** no streak, no XP, no cards-reviewed total, and no progress
       bar against the starter set — the denominator is a shipped set, not a goal
       ([`study/25`](../../study/25-why-it-does-not-feel-productive.md) C3).

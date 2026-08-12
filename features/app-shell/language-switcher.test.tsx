@@ -57,7 +57,7 @@ describe("LanguageSwitcher", () => {
     expect(menu.querySelector(".language-switcher-scrim")).toBeNull();
     expect(document.querySelector(".language-switcher-scrim")).not.toBeNull();
     expect(screen.getByText("Active")).toBeDefined();
-    expect(screen.getByRole("link", { name: copy.addLanguage })).toBeDefined();
+    expect(screen.queryByRole("link", { name: copy.addLanguage })).toBeNull();
 
     await user.click(screen.getByRole("button", { name: /Italiano/i }));
 

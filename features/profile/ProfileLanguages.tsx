@@ -6,6 +6,7 @@ import { copy } from "@/features/profile/content";
 import type { LanguageHoldings } from "@/lib/db/language-holdings";
 import type { ListLanguagesOutcome } from "@/lib/db/learning-languages";
 import { routes } from "@/lib/routes";
+import { hasUnaddedShippedLanguage } from "@/lib/starter-deck";
 
 /**
  * The languages block on the profile. Contract: docs/specs/page/profile.md
@@ -23,6 +24,11 @@ export type ProfileLanguagesProps = {
 };
 
 export function ProfileLanguages({ outcome, holdings, switchFailed, switchTo }: ProfileLanguagesProps) {
+  const learningCodes =
+    outcome.status === "ok" ? outcome.languages.map((language) => language.languageCode) : [];
+  const showAddLanguage =
+    outcome.status === "ok" && outcome.languages.length > 0 && hasUnaddedShippedLanguage(learningCodes);
+
   return (
     <section className="mt-page-content">
       <h2 className="text-xl font-semibold text-ink">{copy.languagesHeading}</h2>
@@ -67,11 +73,9 @@ export function ProfileLanguages({ outcome, holdings, switchFailed, switchTo }: 
                     <p className="text-sm text-muted">
                       {names.english}
                     </p>
-                    {standing?.heldCount !== null &&
-                    standing?.heldCount !== undefined &&
-                    standing.poolSize !== null ? (
+                    {standing?.poolSize !== null && standing?.poolSize !== undefined ? (
                       <p className="mt-2 text-sm text-muted">
-                        {copy.standing(standing.heldCount, standing.poolSize)}{" "}
+                        {copy.standing(standing.heldCount ?? 0, standing.poolSize)}{" "}
                         <ActionLink href={routes.progress} className="text-sm">
                           {copy.viewProgress}
                         </ActionLink>
@@ -99,9 +103,11 @@ export function ProfileLanguages({ outcome, holdings, switchFailed, switchTo }: 
             })}
           </ul>
 
-          <ActionLink href={routes.chooseLanguage} variant="secondary" className="mt-4">
-            {copy.addLanguage}
-          </ActionLink>
+          {showAddLanguage ? (
+            <ActionLink href={routes.chooseLanguage} variant="secondary" className="mt-4">
+              {copy.addLanguage}
+            </ActionLink>
+          ) : null}
         </>
       )}
     </section>

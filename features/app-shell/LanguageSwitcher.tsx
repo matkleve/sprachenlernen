@@ -10,6 +10,7 @@ import { LanguageSwitchRow } from "@/components/ui/LanguageSwitchRow";
 import { buttonVariants } from "@/components/ui/Button";
 import { routes } from "@/lib/routes";
 import { languageLabel } from "@/lib/languages";
+import { hasUnaddedShippedLanguage } from "@/lib/starter-deck";
 import { cn } from "@/lib/utils";
 
 import { switchActiveLanguageAction } from "./actions";
@@ -176,15 +177,17 @@ export function LanguageSwitcher({ languages, layout = "floating" }: LanguageSwi
                 />
               ))}
 
-              <ActionLink
-                href={routes.chooseLanguage}
-                variant="secondary"
-                size="sm"
-                className={addLanguageClass}
-                onClick={() => setOpen(false)}
-              >
-                {copy.addLanguage}
-              </ActionLink>
+              {hasUnaddedShippedLanguage(languages.map((language) => language.code)) ? (
+                <ActionLink
+                  href={routes.chooseLanguage}
+                  variant="secondary"
+                  size="sm"
+                  className={addLanguageClass}
+                  onClick={() => setOpen(false)}
+                >
+                  {copy.addLanguage}
+                </ActionLink>
+              ) : null}
             </div>
           </div>,
           document.body,

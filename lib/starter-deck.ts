@@ -145,6 +145,12 @@ export function isLanguageAvailable(languageCode: string): boolean {
   return Object.hasOwn(SHIPPED_DECKS, languageCode);
 }
 
+/** True when at least one shipped pool is not already on the learner's list. */
+export function hasUnaddedShippedLanguage(learningCodes: readonly string[]): boolean {
+  const learning = new Set(learningCodes);
+  return availableLanguages().some((code) => !learning.has(code));
+}
+
 /**
  * Loads the meaning-recall pool for a language. Returns an error outcome rather
  * than throwing for an unknown language — a caller holding a stale language
