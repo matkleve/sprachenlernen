@@ -129,10 +129,14 @@ exists because a real defect got past a green test suite.
   treated as zero elapsed time. No rule forbids backdated corrections, but
   combined with AC-17 a backdated entry freezes stability growth. **⚠ SPEC GAP:
   whether the log must be monotonic in time.**
-- **⚠ SPEC GAP: the sibling gap is undecided.** AC-10 assumes a minimum interval
-  between two tasks of one word; the value and whether it is fixed or
-  proportional to stability are open. Inherited from
-  [ADR-0004](../../adr/0004-word-task-data-model.md).
+- **⚠ SPEC GAP: the sibling gap is undecided — and it stopped being theoretical
+  on 2026-08-11.** AC-10 assumes a minimum interval between two tasks of one
+  word; the value and whether it is fixed or proportional to stability are open.
+  Inherited from [ADR-0004](../../adr/0004-word-task-data-model.md). Today one
+  Word has one Task, so the gap costs nothing. `hablar` has **59** paradigm
+  cells, so the moment [`form-practice.md`](form-practice.md) ships without this
+  decided, a learner meets the same verb twelve times in a fifteen-item session
+  — a blocked table delivered by the scheduler. **This blocks that engine.**
 - **⚠ SPEC GAP: the lapse threshold for `suspended` is undecided** — see
   UC-013, which owns the repair behavior but not the number.
 - Whether per-user weight optimisation happens here or in a separate module.

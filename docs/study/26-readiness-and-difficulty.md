@@ -53,6 +53,12 @@ emergence criterion it rests on is contested.
 
 ---
 
+**Addendum 2026-08-11 — what this does not say.** Processability constrains what
+**production** instruction can install, not what a learner may be **exposed** to.
+An unready learner still profits from meeting a form receptively. So readiness
+may de-prioritise a form for production practice; it may never remove it from
+input. Stated because the chapter is otherwise read as forbidding both.
+
 ## R2 · The architecture wanted here exists — and it is not CEFR **[A/B]**
 
 Fine-grained skill estimates steering what comes next is the best-evidenced
@@ -157,6 +163,12 @@ skill than we will ever have.
 > ledger already accepted, applied to the finer quantity.
 
 ---
+
+**Addendum 2026-08-11 — the scope of this argument.** R6 is about **adaptive**
+thresholds computed from noisy per-cell estimates, and against those it holds. It
+does **not** bear on a fixed, non-adaptive, learner-visible introduction order,
+which reads no estimate and therefore carries none of the noise problem. As
+written the chapter has been read as forbidding both; only the first is meant.
 
 ## R7 · Hand-authored prerequisite orders are usually wrong **[B]**
 

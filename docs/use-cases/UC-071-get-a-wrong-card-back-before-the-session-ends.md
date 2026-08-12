@@ -1,7 +1,7 @@
 # UC-071 — Get a wrong card back before the session ends
 
 <!-- id: UC-071 -->
-<!-- specs:  -->
+<!-- specs: SPEC-feature-review-session -->
 
 **Who:** anyone reviewing today's session who misses or struggles with a card.
 **Wants to:** see that specific card again before this session ends, not wait

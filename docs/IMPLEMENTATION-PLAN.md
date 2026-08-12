@@ -338,7 +338,7 @@ low-inference agent would silently invent.
 | **T-B9** | Offline practice + sync (F192, UC-018) | **Owner direction: both** — online sync across devices *and* offline review (train/PWA). Needs ADR-0011 closed on Option B (local-first queue is partial — see [`review-write-queue.md`](specs/service/review-write-queue.md)); full offline still needs cached deck + scheduler |
 | **T-B11** | Spoken-language setting — `profiles` table, `next-intl` chrome, description-text records ([UC-069](use-cases/UC-069-use-the-app-in-my-own-language.md)) | **Spec-ready 2026-08-12** — decisions 10–11 answered: chrome = `next-intl` stage 1; card descriptions = `I18N.md` stage-3 tables + snapshot JSON. Sensitive once implementation starts |
 | **T-B12** | ~~Scope `poolForScheduling` to the active language only~~ — **done 2026-08-12** ([UC-025](use-cases/UC-025-learn-multiple-languages.md)) | `poolForScheduling` and `poolForDisplay` (`lib/db/learner-pools.ts`) merged into one `poolForActiveLanguage()`, since the reason they differed — a cross-language budget — was rejected. `buildSessionAction` now calls it; a session can no longer contain more than one language's cards, and the `languageName` label is always correct as a result. Regression test: `learner-pools.test.ts` |
-| **T-B13** | Same-session card requeue ([UC-071](use-cases/UC-071-get-a-wrong-card-back-before-the-session-ends.md)) | **Spec-ready 2026-08-12** — decisions 12–13 answered: `again` → 5 ahead, `hard` → end of remaining queue; same-run repeats do not count toward UC-013. **Sensitive** — extends `session-builder.md` + `review-session.states.md` |
+| **T-B13** | ~~Same-session card requeue ([UC-071](use-cases/UC-071-get-a-wrong-card-back-before-the-session-ends.md))~~ — **shipped 2026-08-12** | **Sensitive.** [`lib/review-session-requeue.ts`](../lib/review-session-requeue.ts), `useReviewSession` re-insert on `again`/`hard`; [ADR-0012](adr/0012-ux-decisions-requeue-i18n-leech-nav.md) decisions 12–13 |
 | **T-B14** | Broken-card flagging + leech diagnosis ([UC-023](use-cases/UC-023-report-something-wrong.md), [UC-013](use-cases/UC-013-stop-losing-time-on-one-card.md)) | **Spec-ready 2026-08-12** — decisions 14–15 answered: tier 1 build-time metadata, tier 2–3 per learner; Levenshtein-1 candidates for lemmas length 3–8. **Sensitive** |
 | **T-B15** | Maintenance mode per language ([UC-025](use-cases/UC-025-learn-multiple-languages.md)) | **Not spec-ready** — no per-language flag exists. Moved 2026-08-12 from [`plans/multi-language.md`](plans/multi-language.md) table item 10, so it has exactly one tracked home. The best-evidenced item in that plan's 2026-08-11 review (Cepeda et al. 2008, Bahrick et al. 1993: 10–20% of the retention interval as the review gap) and the one piece of that review's recommendation not yet built |
 ---
@@ -547,9 +547,9 @@ ADR-0006, ADR-0007) — an account is required, and the provider is Supabase.
    [`specs/service/dose-band.md`](specs/service/dose-band.md): the band is
    labelled borrowed, structurally, and F190 stays later.
 
-**Added 2026-08-12**, from the localization + broken-card-detection docs pass
-(no code yet — these block writing the specs, per DoR's "open questions
-resolved or explicitly deferred"):
+**Added 2026-08-12**, from the localization + broken-card-detection docs pass.
+**Durable record:** [`adr/0012-ux-decisions-requeue-i18n-leech-nav.md`](adr/0012-ux-decisions-requeue-i18n-leech-nav.md)
+— cite the ADR, not this list, when implementing.
 
 10. ~~**Where does description text in a language other than English come
    from?**~~ **Answered 2026-08-12 (owner direction + UX + [`I18N.md`](I18N.md)).**

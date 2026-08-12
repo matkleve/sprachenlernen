@@ -102,8 +102,14 @@ quickly, and that is a drill problem, not a comprehension problem.
 
 The one important design rule follows from [02](02-evidence.md), E6: **not in
 blocks.** A table of only regular -ar verbs produces good training performance
-and poor retention. Mixed tables (regular and irregular interleaved, several
-tenses side by side) feel harder and stick better.
+and poor retention.
+
+**The two halves of "mixed" are not equally supported, and were graded together
+until 2026-08-11.** *Several tenses side by side* is the manipulation the
+interleaving studies on Romance verb morphology actually ran — that half is the
+stronger one. *Regular and irregular interleaved within one tense* has no direct
+support that could be found; it is a plausible extension, not a finding. Build
+the first with confidence and the second as a hypothesis.
 
 Four variants:
 

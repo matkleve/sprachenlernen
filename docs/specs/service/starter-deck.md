@@ -9,6 +9,9 @@ The frequency-ranked lemma pool that seeds a learner's first SRS sessions.
 
 **Owned by the card engine** ([`method-engines.md`](method-engines.md)): consumed
 exclusively by `srs-session` via [`session-builder.md`](session-builder.md).
+Its 112 verbs are also the seed for [`form-practice.md`](form-practice.md) —
+paradigm cells attach to lemmas that are already in this pool, so growing the
+pool grows the form inventory with it.
 Other Methods do not read this pool until their engines ship and declare a
 dependency here.
 

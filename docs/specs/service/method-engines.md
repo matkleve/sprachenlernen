@@ -76,7 +76,12 @@ until their engines ship — not a bug in the catalogue.
 Order is load-bearing — see IMPLEMENTATION-PLAN § Track B engine phase:
 
 1. ~~Spanish starter pool (2000 lemmas)~~ — shipped
-2. Form→lemma tables with paradigm cells
+2. Form→lemma tables with paradigm cells — pool and signal shipped
+   ([`form-recall-pool.md`](form-recall-pool.md),
+   [`form-mastery-signal.md`](form-mastery-signal.md)). The **practice design**
+   — introduction order, session mixing, answer routes — is
+   [`form-practice.md`](form-practice.md), and it is still blocked on two
+   decisions named there
 3. T-B3 remainder (extrapolation + per-skill levels)
 4. Offline / PWA
 5. T-B10b remainder (demonstration sentence, readiness)

@@ -129,20 +129,48 @@ common assumption that the complex stuff has to "come by itself".
 
 ---
 
-## E6 · Interleaving and variation beat blocked practice **[B]**
+## E6 · Interleaving usually beats blocked practice **[C — downgraded 2026-08-11]**
 
 Interleaving — mixing task types or categories rather than working through them
-in blocks — improves above all the ability to *discriminate* (Pan et al. 2019:
-d ≈ 0.67). For language this is directly relevant, because the typical errors
-are discrimination errors: *ser* vs. *estar*, perfect vs. imperfect, dative vs.
-accusative.
+in blocks — is the better **practice** schedule in most of the literature, and
+blocked practice reliably feels better while retaining worse. That much is E1's
+pattern again and it stands.
 
-Blocked practice feels better and produces better training performance — and
-worse retention. E1's pattern again.
+**What does not stand is the number this entry used to carry.** It read
+*"improves above all the ability to discriminate (Pan et al. 2019: d ≈ 0.67)"*,
+sourced ◐ — from a citation inside a review, never from the original. A check in
+2026-08-11 found that Pan et al. (2019) is almost certainly not a discrimination
+result at all but a study of **English speakers conjugating the Spanish
+preterite and imperfect** — this app's exact material — whose four experiments
+split: blocked numerically ahead in one, no difference in another, interleaving
+ahead only in the two that trained across two weekly sessions and tested a week
+later. The 0.67 appears to belong to a different paper's *paintings* moderator,
+whose **verbal-material moderator runs the other way**.
 
-> **Product sentence:** an exercise session mixes card types and topics. A
-> "possessive pronouns chapter, 40 items in a row" is explicitly the wrong
-> format.
+⚠ **Neither reading is verified here.** The publisher domains are unreachable
+from this environment, so the correction rests on abstracts, exactly as the
+original claim rested on a secondary citation. The entry is therefore
+**downgraded to [C]** and carries no effect size rather than a contested one.
+Whoever can open the originals should settle it and re-grade.
+
+**Two moderators this entry never had, and they matter more than the number:**
+
+- **Material.** Verbal material is the class where interleaving does worst in
+  meta-analysis; paintings and categories are where it does best. Inflectional
+  morphology sits closer to the former.
+- **Proficiency.** One line of work reports that low achievers need an initial
+  blocked phase to form the association at all; another reports that learners
+  with *less* prior knowledge benefit *more* from interleaving. The field has
+  not resolved this. Anything here that assumes a direction is inventing one.
+
+> **Product sentence — and it governs one axis only.** A **practice** session
+> mixes card types and topics: "possessive pronouns, 40 items in a row" is the
+> wrong format for *practising*. This says nothing about the order in which
+> material is **introduced**. Sequencing what a learner meets for the first time
+> and interleaving what they already have are independent decisions, and every
+> study behind this entry fixes the item set and varies only the order within
+> it. Reading E6 as a ban on a bounded, labelled introduction is reading it off
+> its own axis.
 
 ---
 

@@ -42,7 +42,7 @@ off.
 | ○ | Ebbinghaus (1885); Cepeda et al. (2006, 2008) on spacing and the optimal interval ratio | [02](02-evidence.md) E2 |
 | ○ | Bjork & Bjork: *desirable difficulties* | [02](02-evidence.md) E1, E6 |
 | ○ | Dunlosky et al. (2013): retrieval practice and spacing as the only techniques rated highly useful | [02](02-evidence.md) E1 |
-| ◐ | Pan et al. (2019): Interleaving, d ≈ 0,67. Cited in a review of desirable difficulties | [02](02-evidence.md) E6 |
+| ○ | Pan et al. (2019): **the d ≈ 0,67 attribution is withdrawn.** Taken from a citation inside a review; a 2026-08-11 check indicates the paper is a Spanish preterite/imperfect conjugation study with mixed results, and that 0,67 belongs to another paper's non-verbal moderator. Originals unreachable from the agent environment — settle this before citing either | [02](02-evidence.md) E6 |
 
 ---
 

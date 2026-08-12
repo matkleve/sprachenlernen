@@ -237,20 +237,20 @@ describe("ReviewSession", () => {
     expect(leafText()).not.toMatch(forbidden);
   });
 
-  it("advances to the second card after grading the first", async () => {
+  it("requeues an again grade to the end when the queue is too short for five ahead", async () => {
     const user = userEvent.setup();
     render(<ReviewSession methodName="Spaced repetition session" />);
 
-    await waitFor(() => {
-      expect(screen.getByText("de")).toBeDefined();
-    });
+    await waitFor(() => expect(screen.getByText("de")).toBeDefined());
+    await user.click(screen.getByRole("button", { name: copy.flipHint }));
+    await user.click(screen.getByRole("button", { name: copy.again }));
+
+    await waitFor(() => expect(screen.getByText("que")).toBeDefined());
 
     await user.click(screen.getByRole("button", { name: copy.flipHint }));
     await user.click(screen.getByRole("button", { name: copy.good }));
 
-    await waitFor(() => {
-      expect(screen.getByText("que")).toBeDefined();
-      expect(screen.queryByText("de")).toBeNull();
-    });
+    await waitFor(() => expect(screen.getByText("de")).toBeDefined());
+    await waitFor(() => expect(appendReviewAction).toHaveBeenCalledTimes(2));
   });
 });

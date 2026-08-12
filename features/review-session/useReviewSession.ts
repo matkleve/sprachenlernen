@@ -16,6 +16,7 @@ import {
   type SessionPhase,
 } from "@/features/review-session/session-machine";
 import { getInstallationId } from "@/lib/installation-id";
+import { requeueInsertIndex } from "@/lib/review-session-requeue";
 import type { SessionCard } from "@/lib/session-builder";
 import type { Grade } from "@/lib/scheduler";
 
@@ -141,10 +142,22 @@ export function useReviewSession(): UseReviewSessionResult {
       });
 
       setGradedCount((count) => count + 1);
+
+      const insertAt = requeueInsertIndex(sessionIndex, queue.length, value);
+      let nextQueue = queue;
+      if (insertAt !== null) {
+        nextQueue = [
+          ...queue.slice(0, insertAt),
+          { ...currentCard },
+          ...queue.slice(insertAt),
+        ];
+        setQueue(nextQueue);
+      }
+
       gradingRef.current = false;
 
       const nextIndex = sessionIndex + 1;
-      if (nextIndex >= queue.length) {
+      if (nextIndex >= nextQueue.length) {
         setPhase((current) => nextPhase(nextPhase(current, "advancing"), "complete"));
         return;
       }
@@ -153,7 +166,7 @@ export function useReviewSession(): UseReviewSessionResult {
       setPhase((current) => nextPhase(nextPhase(current, "advancing"), "prompting"));
       shownAtRef.current = Date.now();
     },
-    [currentCard, phase, queue.length, sessionIndex],
+    [currentCard, phase, queue, sessionIndex],
   );
 
   const retrySync = useCallback(() => {
