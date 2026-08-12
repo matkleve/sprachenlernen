@@ -12,8 +12,8 @@ import { shellBackTarget } from "./back-target";
 import { DestinationNavItems } from "./DestinationNavItems";
 import { LanguageSwitcher, type LanguageSwitcherOption } from "./LanguageSwitcher";
 import { ShellPageTitle, shellHeaderStartsCompact } from "./ShellPageTitle";
+import { HeaderScrim } from "./HeaderScrim";
 import { copy } from "./content";
-import { headerBackdropClass } from "./header-chrome";
 import { useHeaderCollapse } from "./useHeaderCollapse";
 
 const safeTop = "pt-[max(1rem,env(safe-area-inset-top))]";
@@ -40,11 +40,9 @@ export function FloatingShellChrome({
 
   return (
     <>
-      <div
-        className={cn(
-          "pointer-events-none fixed inset-x-0 top-0 z-50 md:hidden",
-          headerBackdropClass(pinnedCompact ? 1 : collapse),
-        )}
+      <HeaderScrim
+        collapse={pinnedCompact ? 1 : collapse}
+        className="pointer-events-none fixed inset-x-0 top-0 z-50 md:hidden"
       >
         <div
           className={cn(
@@ -82,7 +80,7 @@ export function FloatingShellChrome({
             </ActionLink>
           </div>
         </div>
-      </div>
+      </HeaderScrim>
 
       <nav
         aria-label={copy.mobileNavLabel}
