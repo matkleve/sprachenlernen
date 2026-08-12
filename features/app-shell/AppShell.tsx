@@ -1,14 +1,10 @@
-import { UserRound } from "lucide-react";
 import type { ReactNode } from "react";
 
-import { ActionLink } from "@/components/ui/ActionLink";
-import { routes } from "@/lib/routes";
 import { cn } from "@/lib/utils";
 
-import { Destinations } from "./Destinations";
+import { DesktopShellHeader } from "./DesktopShellHeader";
 import { FloatingShellChrome } from "./FloatingShellChrome";
-import { LanguageSwitcher, type LanguageSwitcherOption } from "./LanguageSwitcher";
-import { copy } from "./content";
+import type { LanguageSwitcherOption } from "./LanguageSwitcher";
 
 /**
  * The frame every signed-in screen renders inside. Contract:
@@ -31,20 +27,7 @@ export function AppShell({
 }) {
   return (
     <div className="min-h-dvh">
-      <header className="hidden border-b border-line bg-surface md:block">
-        <div className="mx-auto flex max-w-5xl items-center justify-between gap-4 px-6 py-3">
-          <div className="flex min-w-0 flex-1 items-center gap-4">
-            <LanguageSwitcher languages={languages} layout="inline" />
-            <Destinations />
-          </div>
-          {/* Same affordance as the mobile corner chip: the account is a link,
-              and sign out lives inside it on /profile (ADR-0009). */}
-          <ActionLink href={routes.profile} variant="ghost" size="sm" className="gap-1.5">
-            <UserRound aria-hidden className="size-4 shrink-0" />
-            {copy.account}
-          </ActionLink>
-        </div>
-      </header>
+      <DesktopShellHeader languages={languages} />
 
       <FloatingShellChrome languages={languages} />
 

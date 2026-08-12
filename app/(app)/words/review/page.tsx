@@ -46,17 +46,6 @@ export default async function WordsReviewPage({
           "flex h-review-session flex-col overflow-hidden md:h-auto md:overflow-visible",
       )}
     >
-      <h1
-        className={cn(
-          "font-semibold tracking-tight text-ink",
-          isActiveSession
-            ? "sr-only"
-            : "mt-6 text-3xl",
-        )}
-      >
-        {copy.title}
-      </h1>
-
       {session}
     </div>
   );

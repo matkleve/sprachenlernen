@@ -37,8 +37,6 @@ export default async function ProfilePage({
 
   return (
     <div className="mx-auto max-w-2xl px-6 pt-page-top pb-page-bottom">
-      <h1 className="text-3xl font-semibold tracking-tight text-ink">{copy.title}</h1>
-
       {/* One failed block must not take the page — export and delete still work. */}
       <ProfileLanguages
         outcome={languages}

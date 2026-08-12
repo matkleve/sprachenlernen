@@ -44,8 +44,7 @@ export function WordsHome({ snapshot }: WordsHomeProps) {
 
   return (
     <div className="mx-auto max-w-5xl px-6 pt-page-top pb-page-bottom">
-      <h1 className="text-3xl font-semibold tracking-tight text-ink">{holding.words.title}</h1>
-      <p className="mt-4 max-w-2xl text-base leading-relaxed text-muted">{holding.words.intent}</p>
+      <p className="max-w-2xl text-base leading-relaxed text-muted">{holding.words.intent}</p>
 
       <div className="mt-page-content">
         <ActionLink href={reviewHref} variant="primary" size="lg">

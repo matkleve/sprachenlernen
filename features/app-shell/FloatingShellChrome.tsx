@@ -11,7 +11,10 @@ import { cn } from "@/lib/utils";
 import { shellBackTarget } from "./back-target";
 import { DestinationNavItems } from "./DestinationNavItems";
 import { LanguageSwitcher, type LanguageSwitcherOption } from "./LanguageSwitcher";
+import { ShellPageTitle } from "./ShellPageTitle";
 import { copy } from "./content";
+import { headerBackdropClass } from "./header-chrome";
+import { useScrolled } from "./useScrolled";
 
 const safeTop = "pt-[max(1rem,env(safe-area-inset-top))]";
 const safeBottom = "pb-[max(1rem,env(safe-area-inset-bottom))]";
@@ -32,17 +35,23 @@ export function FloatingShellChrome({
 }) {
   const pathname = usePathname();
   const back = shellBackTarget(pathname);
+  const scrolled = useScrolled();
 
   return (
     <>
       <div
         className={cn(
-          "pointer-events-none fixed inset-x-0 top-0 z-50 flex items-start justify-between gap-3 px-4",
-          safeTop,
-          "md:hidden",
+          "pointer-events-none fixed inset-x-0 top-0 z-50 md:hidden",
+          headerBackdropClass(scrolled),
         )}
       >
-        <div className="pointer-events-auto flex min-h-11 min-w-0 items-center gap-2">
+        <div
+          className={cn(
+            "relative flex min-h-11 items-center justify-between gap-3 px-4 pb-3",
+            safeTop,
+          )}
+        >
+          <div className="pointer-events-auto flex min-h-11 min-w-0 items-center gap-2">
           {back ? (
             <ActionLink
               href={back.href}
@@ -56,9 +65,11 @@ export function FloatingShellChrome({
           ) : (
             <LanguageSwitcher languages={languages} layout="floating" />
           )}
-        </div>
+          </div>
 
-        <div className="pointer-events-auto">
+          <ShellPageTitle />
+
+          <div className="pointer-events-auto">
           <ActionLink
             href={routes.profile}
             variant="floating"
@@ -68,6 +79,7 @@ export function FloatingShellChrome({
           >
             <UserRound aria-hidden className="size-5 shrink-0" />
           </ActionLink>
+          </div>
         </div>
       </div>
 
