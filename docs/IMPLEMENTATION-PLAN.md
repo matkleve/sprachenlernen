@@ -365,6 +365,32 @@ honest Spanish/Italian; offline unlocks commute practice.
 three shipped), T-B4 (denominator only), T-B9 (multi-device share works; full
 offline does not).
 
+### Track B · Words domain — hygiene, decisions, then stage-2 slices
+
+**Added 2026-08-12** after a full audit of vocabulary use cases, specs, and code.
+Detail, slice IDs, and agent handoff template:
+[`plans/words.md`](plans/words.md).
+
+**What is solid:** stage-1 card engine — `/words` snapshot, `/words/review`
+(`srs-session`), 2000-lemma pools (es + it), form-recall staging, pool-local
+Progress counts. **What is not:** the vocabulary *map* (capture, milestones,
+per-word rationale, content-linked coverage) — ~28 vocabulary use cases have no
+spec; `lib/lexicon.ts` is not wired into any route.
+
+Work in four phases; do not skip phase 0:
+
+| Phase | What | Next up |
+| --- | --- | --- |
+| **0 · Hygiene** | Link repair, catalogue honesty (`hosted` vs built), test drift | **T-W0a–T-W0d** — safe for a low-reasoning agent |
+| **1 · Decisions** | W-1 lemma-rank recomputation, W-2 pool atlas vs full map, W-3 `vocabulary` skill, W-4 sibling gap, W-5 incomplete paradigms | Owner — blocks T-W1–T-W6 |
+| **2 · Stage-2 display** | Frequency blocks → word detail → pool-local map → T-B3 remainder → per-cell forms → form-practice | **T-W1** after W-1/W-2 |
+| **3 · Stage-3 loop** | Coverage calculator → content gaps → word capture → reading | After phase 2 map is honest |
+
+**Relationship to existing queue rows:** T-W4 *is* T-B3 remainder (same work,
+words-framed). T-W6 *is* UC-041 full engine (blocked on W-4). T-W13 *is* T-B14
+remainder. T-W14/T-W15 *are* T-B11 slices 2–3. Phase 0 does not compete with
+engine priority 4–7 above — it is a hygiene pass that can run in parallel.
+
 **Italian shipped 2026-08-12 — this section used to explain why it was
 blocked, and stayed after the block was cleared, which is exactly the kind of
 staleness this file exists to prevent.** All three blockers named on
@@ -630,6 +656,26 @@ ADR-0006, ADR-0007) — an account is required, and the provider is Supabase.
     held. **Mature:** held with stability ≥ 21 days (atlas tier). Shipped as
     T-B3a. Closes the vocabulary branch of UC-064 and question 20 for
     cell-tagged tasks using the same `isTaskHeld` rules.
+
+**Added 2026-08-12**, from the words-domain audit ([`plans/words.md`](plans/words.md)).
+Resolve before stage-2 vocabulary slices (T-W1–T-W6); cite the plan, not this
+list, when implementing.
+
+18. **Lemma-frequency ranks: recompute from lemma tables or keep form-based lists?**
+    Blocks frequency blocks, milestones, and per-word block labels (UC-031,
+    UC-032, UC-038). Open in [`lexicon.md`](specs/service/lexicon.md). A
+    recompute is a calibration event — visible step in learner history.
+19. **Is the starter-pool atlas on `/words` the stage-2 map v1**, or does UC-031
+    need a separate surface? Pool-local is honest today; language-wide needs
+    lexicon runtime (stage 3) or W-18 settled first.
+20. **`SKILLS` vocabulary value** — add `vocabulary` to the skill enum, or
+    document why vocabulary methods keep `skills: []`? See
+    [`method-catalogue.md`](specs/service/method-catalogue.md) SPEC GAP.
+21. **Scheduler sibling gap** — minimum spacing between sibling tasks (same lemma,
+    different task type)? Blocks promoting [`form-practice.md`](specs/service/form-practice.md)
+    from draft (UC-041 full engine). Open in [`scheduler.md`](specs/service/scheduler.md).
+22. **Incomplete paradigms in form-mastery reporting** — round, omit, or flag?
+    Blocks per-cell breakdown (UC-062). Open in [`lexicon.md`](specs/service/lexicon.md).
 
 **Added 2026-08-12**, moved from [`plans/multi-language.md`](plans/multi-language.md)
 so open items live in exactly one queue:
