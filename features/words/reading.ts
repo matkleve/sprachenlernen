@@ -2,8 +2,9 @@ import { listTaskStatesForTaskIds } from "@/lib/db/task-state";
 import { internalUnexpected, logHandledError, type HandledError } from "@/lib/errors";
 import { poolForActiveLanguage } from "@/lib/db/learner-pools";
 import { isMeaningRecallTaskId } from "@/lib/form-recall-pool";
-import { buildVocabularySnapshot, type VocabularySnapshot } from "@/lib/vocabulary-snapshot";
+import { buildFrequencyBlocks, type FrequencyBlock } from "@/lib/frequency-blocks";
 import { tasksByTaskIdForCards } from "@/lib/task-from-state";
+import { buildVocabularySnapshot, type VocabularySnapshot } from "@/lib/vocabulary-snapshot";
 
 /**
  * Loads the Words home snapshot for the signed-in learner. Contract:
@@ -13,7 +14,7 @@ import { tasksByTaskIdForCards } from "@/lib/task-from-state";
 export type WordsHomeOutcome =
   /** Signed in, no language chosen — the page routes to the picker. */
   | { status: "no-language" }
-  | { status: "ok"; snapshot: VocabularySnapshot }
+  | { status: "ok"; snapshot: VocabularySnapshot; blocks: readonly FrequencyBlock[] }
   | { status: "error"; error: HandledError };
 
 export async function readWordsHome(now: number = Date.now()): Promise<WordsHomeOutcome> {
@@ -53,6 +54,7 @@ async function read(now: number): Promise<WordsHomeOutcome> {
   return {
     status: "ok",
     snapshot: buildVocabularySnapshot(cards, tasksByTaskId, now),
+    blocks: buildFrequencyBlocks(cards, tasksByTaskId),
   };
 }
 

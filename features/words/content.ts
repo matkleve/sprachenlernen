@@ -14,6 +14,12 @@ export const copy = {
     "You'd still recall it after about a week without seeing it again — at least two spaced successes in review.",
   fragileDescription: "Seen in review but not yet stable enough to count as known.",
   newDescription: "Not reviewed yet.",
+  blocksHeading: "Frequency bands",
+  blocksCaption:
+    "How many of the most common words in your starter deck you hold stably — by rank band, not the whole language yet.",
+  blockLabel: (start: number, end: number) => `Ranks ${start}–${end}`,
+  blockHeld: (held: number, poolSize: number) => `${held} of ${poolSize} held`,
+  blockHeldDescription: "Stable enough to count as known — same rules as Held above.",
   horizonHeading: "Review horizon",
   horizonCaption: "When scheduled reviews fall over the next 30 days.",
   horizonDay: (offset: number) => (offset === 0 ? "Today" : `Day ${offset + 1}`),

@@ -4,10 +4,12 @@ import { holding } from "@/features/app-shell/content";
 import { copy as reviewCopy } from "@/features/review-session/content";
 import { copy } from "@/features/words/content";
 import { cardEngineSessionHref } from "@/lib/method-session";
+import type { FrequencyBlock } from "@/lib/frequency-blocks";
 import type { VocabularySnapshot } from "@/lib/vocabulary-snapshot";
 
 type WordsHomeProps = {
   snapshot: VocabularySnapshot;
+  blocks: readonly FrequencyBlock[];
 };
 
 const CHART_HEIGHT_PX = 96;
@@ -30,7 +32,7 @@ function horizonBarHeight(count: number, max: number): number {
   return Math.max(4, (count / max) * CHART_HEIGHT_PX);
 }
 
-export function WordsHome({ snapshot }: WordsHomeProps) {
+export function WordsHome({ snapshot, blocks }: WordsHomeProps) {
   const reviewHref = cardEngineSessionHref();
   const horizonMax = maxHorizonCount(snapshot);
   const atlasRows = snapshot.atlas.slice(0, ATLAS_ROW_LIMIT);
@@ -71,6 +73,27 @@ export function WordsHome({ snapshot }: WordsHomeProps) {
             <dd className="mt-2 text-3xl font-semibold text-ink">{snapshot.counts.new}</dd>
             <dd className="mt-2 text-sm text-muted">{copy.newDescription}</dd>
           </div>
+        </dl>
+      </section>
+
+      <section className="mt-page-content">
+        <h2 className="text-xl font-semibold text-ink">{copy.blocksHeading}</h2>
+        <p className="mt-4 max-w-2xl text-base leading-relaxed text-muted">{copy.blocksCaption}</p>
+        <dl className="mt-6 grid gap-4 sm:grid-cols-2">
+          {blocks.map((block) => (
+            <div
+              key={`${block.rankStart}-${block.rankEnd}`}
+              className="rounded-card border border-line bg-surface p-4 shadow-soft"
+            >
+              <dt className="text-sm font-medium text-muted">
+                {copy.blockLabel(block.rankStart, block.rankEnd)}
+              </dt>
+              <dd className="mt-2 text-3xl font-semibold text-ink">
+                {copy.blockHeld(block.held, block.poolSize)}
+              </dd>
+              <dd className="mt-2 text-sm text-muted">{copy.blockHeldDescription}</dd>
+            </div>
+          ))}
         </dl>
       </section>
 
