@@ -1,7 +1,7 @@
 # UC-025 — Learn multiple languages, each fully separate
 
 <!-- id: UC-025 -->
-<!-- specs: SPEC-service-learning-languages, SPEC-page-language-picker, SPEC-feature-app-shell, SPEC-feature-mobile-nav-v2, SPEC-component-language-flag, SPEC-component-language-switch-row -->
+<!-- specs: SPEC-service-learning-languages, SPEC-page-language-picker, SPEC-feature-app-shell, SPEC-feature-mobile-nav-v2, SPEC-component-language-flag, SPEC-component-language-list-row -->
 
 **Who:** someone using the app for one or more languages who starts another —
 their second, third, or twelfth; the count never matters.

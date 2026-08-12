@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 
 import { ActionLink } from "@/components/ui/ActionLink";
 import { buttonVariants } from "@/components/ui/Button";
+import type { LanguageHoldings } from "@/lib/db/language-holdings";
 import { routes } from "@/lib/routes";
 import { cn } from "@/lib/utils";
 
@@ -30,8 +31,10 @@ const cornerIconChipClass = cn(
  */
 export function FloatingShellChrome({
   languages,
+  languageHoldings,
 }: {
   languages: readonly LanguageSwitcherOption[];
+  languageHoldings?: Record<string, LanguageHoldings>;
 }) {
   const pathname = usePathname();
   const back = shellBackTarget(pathname);
@@ -62,7 +65,7 @@ export function FloatingShellChrome({
                 {back.label}
               </ActionLink>
             ) : (
-              <LanguageSwitcher languages={languages} layout="floating" />
+              <LanguageSwitcher languages={languages} languageHoldings={languageHoldings} layout="floating" />
             )}
           </div>
 

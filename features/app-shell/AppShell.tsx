@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 
+import type { LanguageHoldings } from "@/lib/db/language-holdings";
 import { cn } from "@/lib/utils";
 
 import { DesktopShellHeader } from "./DesktopShellHeader";
@@ -21,15 +22,17 @@ import type { LanguageSwitcherOption } from "./LanguageSwitcher";
 export function AppShell({
   children,
   languages,
+  languageHoldings,
 }: {
   children: ReactNode;
   languages: readonly LanguageSwitcherOption[];
+  languageHoldings?: Record<string, LanguageHoldings>;
 }) {
   return (
     <div className="min-h-dvh">
-      <DesktopShellHeader languages={languages} />
+      <DesktopShellHeader languages={languages} languageHoldings={languageHoldings} />
 
-      <FloatingShellChrome languages={languages} />
+      <FloatingShellChrome languages={languages} languageHoldings={languageHoldings} />
 
       <main
         id="main"

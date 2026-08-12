@@ -6,8 +6,9 @@ import { createPortal } from "react-dom";
 
 import { ActionLink } from "@/components/ui/ActionLink";
 import { LanguageFlag } from "@/components/ui/LanguageFlag";
-import { LanguageSwitchRow } from "@/components/ui/LanguageSwitchRow";
+import { LanguageListRow } from "@/components/ui/LanguageListRow";
 import { buttonVariants } from "@/components/ui/Button";
+import type { LanguageHoldings } from "@/lib/db/language-holdings";
 import { routes } from "@/lib/routes";
 import { languageLabel } from "@/lib/languages";
 import { hasUnaddedShippedLanguage } from "@/lib/starter-deck";
@@ -24,6 +25,7 @@ export type LanguageSwitcherOption = {
 
 export type LanguageSwitcherProps = {
   languages: readonly LanguageSwitcherOption[];
+  languageHoldings?: Record<string, LanguageHoldings>;
   /** `floating` for mobile corner chrome; `inline` for the desktop header. */
   layout?: "floating" | "inline";
 };
@@ -35,23 +37,25 @@ const triggerClass = cn(
 
 const addLanguageClass = cn(
   buttonVariants({ variant: "secondary", size: "sm" }),
-  "w-full shadow-raised",
+  "w-full",
 );
 
 /**
  * One-action language switch (UC-025). Contract: app-shell.md, mobile-nav-v2.md
  */
-export function LanguageSwitcher({ languages, layout = "floating" }: LanguageSwitcherProps) {
+export function LanguageSwitcher({
+  languages,
+  languageHoldings,
+  layout = "floating",
+}: LanguageSwitcherProps) {
   const router = useRouter();
   const triggerRef = useRef<HTMLButtonElement>(null);
   const popoverRef = useRef<HTMLDivElement>(null);
   const [open, setOpen] = useState(false);
-  const [menuPosition, setMenuPosition] = useState<{
-    menuTop: number;
-    menuLeft: number;
-    triggerTop: number;
-    triggerLeft: number;
-  } | null>(null);
+  const [menuTop, setMenuTop] = useState<number | null>(null);
+  const [triggerPosition, setTriggerPosition] = useState<{ top: number; left: number } | null>(
+    null,
+  );
   const [pending, startTransition] = useTransition();
   const [switchFailed, setSwitchFailed] = useState(false);
 
@@ -67,12 +71,8 @@ export function LanguageSwitcher({ languages, layout = "floating" }: LanguageSwi
       const trigger = triggerRef.current;
       if (!trigger) return;
       const rect = trigger.getBoundingClientRect();
-      setMenuPosition({
-        menuTop: rect.bottom + 8,
-        menuLeft: rect.left,
-        triggerTop: rect.top,
-        triggerLeft: rect.left,
-      });
+      setMenuTop(rect.bottom + 8);
+      setTriggerPosition({ top: rect.top, left: rect.left });
     };
 
     updatePosition();
@@ -105,12 +105,8 @@ export function LanguageSwitcher({ languages, layout = "floating" }: LanguageSwi
     const trigger = triggerRef.current;
     if (trigger) {
       const rect = trigger.getBoundingClientRect();
-      setMenuPosition({
-        menuTop: rect.bottom + 8,
-        menuLeft: rect.left,
-        triggerTop: rect.top,
-        triggerLeft: rect.left,
-      });
+      setMenuTop(rect.bottom + 8);
+      setTriggerPosition({ top: rect.top, left: rect.left });
     }
     setOpen(true);
   };
@@ -149,7 +145,7 @@ export function LanguageSwitcher({ languages, layout = "floating" }: LanguageSwi
   }
 
   const popover =
-    open && menuPosition
+    open && menuTop !== null
       ? createPortal(
           <div ref={popoverRef}>
             <button
@@ -163,19 +159,33 @@ export function LanguageSwitcher({ languages, layout = "floating" }: LanguageSwi
             <div
               role="menu"
               aria-label={copy.switchLanguage}
-              className="fixed z-language-switcher-menu flex w-[min(100vw-2rem,16rem)] flex-col gap-2"
-              style={{ top: menuPosition.menuTop, left: menuPosition.menuLeft }}
+              className="fixed z-language-switcher-menu inset-x-6 flex flex-col gap-3"
+              style={{ top: menuTop }}
             >
-              {languages.map((language) => (
-                <LanguageSwitchRow
-                  key={language.code}
-                  code={language.code}
-                  isActive={language.code === active}
-                  activeLabel={copy.active}
-                  disabled={pending}
-                  onSelect={onSwitch}
-                />
-              ))}
+              {languages.map((language) => {
+                const standing = languageHoldings?.[language.code];
+                const poolSize = standing?.poolSize;
+                return (
+                  <LanguageListRow
+                    key={language.code}
+                    code={language.code}
+                    isActive={language.code === active}
+                    activeLabel={copy.active}
+                    standing={
+                      poolSize !== null && poolSize !== undefined
+                        ? { held: standing?.heldCount ?? 0, pool: poolSize }
+                        : null
+                    }
+                    standingLabel={copy.standing}
+                    viewProgressHref={routes.progress}
+                    viewProgressLabel={copy.viewProgress}
+                    disabled={pending}
+                    onSelect={
+                      language.code === active ? undefined : () => onSwitch(language.code)
+                    }
+                  />
+                );
+              })}
 
               {hasUnaddedShippedLanguage(languages.map((language) => language.code)) ? (
                 <ActionLink
@@ -202,12 +212,12 @@ export function LanguageSwitcher({ languages, layout = "floating" }: LanguageSwi
           type="button"
           className={cn(
             triggerClass,
-            open && menuPosition && "fixed z-language-switcher-trigger",
+            open && triggerPosition && "fixed z-language-switcher-trigger",
             pending && "pointer-events-none opacity-70",
           )}
           style={
-            open && menuPosition
-              ? { top: menuPosition.triggerTop, left: menuPosition.triggerLeft }
+            open && triggerPosition
+              ? { top: triggerPosition.top, left: triggerPosition.left }
               : undefined
           }
           aria-label={copy.switchLanguage}
@@ -225,7 +235,7 @@ export function LanguageSwitcher({ languages, layout = "floating" }: LanguageSwi
       {popover}
 
       {switchFailed ? (
-        <p role="alert" className="max-w-[16rem] text-sm text-danger">{copy.switchError}</p>
+        <p role="alert" className="max-w-full text-sm text-danger">{copy.switchError}</p>
       ) : null}
     </div>
   );

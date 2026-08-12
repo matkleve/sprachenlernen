@@ -1,7 +1,6 @@
 import { ActionLink } from "@/components/ui/ActionLink";
-import { Chip } from "@/components/ui/Chip";
+import { LanguageListRow } from "@/components/ui/LanguageListRow";
 import { SubmitButton } from "@/components/ui/SubmitButton";
-import { languageLabel } from "@/lib/languages";
 import { copy } from "@/features/profile/content";
 import type { LanguageHoldings } from "@/lib/db/language-holdings";
 import type { ListLanguagesOutcome } from "@/lib/db/learning-languages";
@@ -59,45 +58,34 @@ export function ProfileLanguages({ outcome, holdings, switchFailed, switchTo }: 
         <>
           <ul className="mt-6 grid gap-3">
             {outcome.languages.map((language) => {
-              const names = languageLabel(language.languageCode);
               const standing = holdings?.[language.languageCode];
+              const poolSize = standing?.poolSize;
               return (
-                <li
-                  key={language.languageCode}
-                  className="flex items-start justify-between gap-4 rounded-card border border-line bg-surface p-4"
-                >
-                  <div>
-                    <p className="text-base font-semibold text-ink">
-                      {names.endonym}
-                    </p>
-                    <p className="text-sm text-muted">
-                      {names.english}
-                    </p>
-                    {standing?.poolSize !== null && standing?.poolSize !== undefined ? (
-                      <p className="mt-2 text-sm text-muted">
-                        {copy.standing(standing.heldCount ?? 0, standing.poolSize)}{" "}
-                        <ActionLink href={routes.progress} className="text-sm">
-                          {copy.viewProgress}
-                        </ActionLink>
-                      </p>
-                    ) : null}
-                  </div>
-
-                  {language.isActive ? (
-                    <Chip
-                      tone="accent"
-                      className="shrink-0 border border-accent"
-                      aria-current="true"
-                    >
-                      {copy.active}
-                    </Chip>
-                  ) : (
-                    <form action={switchTo.bind(null, language.languageCode)}>
-                      <SubmitButton variant="secondary" size="sm">
-                        {copy.makeActive}
-                      </SubmitButton>
-                    </form>
-                  )}
+                <li key={language.languageCode}>
+                  <LanguageListRow
+                    code={language.languageCode}
+                    isActive={language.isActive}
+                    activeLabel={copy.active}
+                    standing={
+                      poolSize !== null && poolSize !== undefined
+                        ? { held: standing?.heldCount ?? 0, pool: poolSize }
+                        : null
+                    }
+                    standingLabel={copy.standing}
+                    viewProgressHref={routes.progress}
+                    viewProgressLabel={copy.viewProgress}
+                    actionSlot={
+                      language.isActive
+                        ? undefined
+                        : (
+                          <form action={switchTo.bind(null, language.languageCode)}>
+                            <SubmitButton variant="secondary" size="sm">
+                              {copy.makeActive}
+                            </SubmitButton>
+                          </form>
+                        )
+                    }
+                  />
                 </li>
               );
             })}

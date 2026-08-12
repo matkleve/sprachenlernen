@@ -53,7 +53,8 @@ describe("LanguageSwitcher", () => {
     await user.click(screen.getByRole("button", { name: copy.switchLanguage }));
 
     const menu = screen.getByRole("menu", { name: copy.switchLanguage });
-    expect(menu.className).toContain("gap-2");
+    expect(menu.className).toContain("gap-3");
+    expect(menu.className).toContain("inset-x-6");
     expect(menu.querySelector(".language-switcher-scrim")).toBeNull();
     expect(document.querySelector(".language-switcher-scrim")).not.toBeNull();
     expect(screen.getByText("Active")).toBeDefined();

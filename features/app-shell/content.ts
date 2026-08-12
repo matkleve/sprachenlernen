@@ -16,6 +16,9 @@ export const copy = {
   currentLanguage: (endonym: string) => `${endonym}, current learning language`,
   active: "Active",
   addLanguage: "Add a language",
+  standing: (held: number, poolSize: number) =>
+    `${held} of ${poolSize} starter words held stably`,
+  viewProgress: "View on Progress",
   destinations: {
     methods: "Methods",
     words: "Words",

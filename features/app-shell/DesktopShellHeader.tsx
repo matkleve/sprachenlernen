@@ -3,6 +3,7 @@
 import { UserRound } from "lucide-react";
 
 import { ActionLink } from "@/components/ui/ActionLink";
+import type { LanguageHoldings } from "@/lib/db/language-holdings";
 import { routes } from "@/lib/routes";
 
 import { Destinations } from "./Destinations";
@@ -18,8 +19,10 @@ import { useHeaderCollapse } from "./useHeaderCollapse";
  */
 export function DesktopShellHeader({
   languages,
+  languageHoldings,
 }: {
   languages: readonly LanguageSwitcherOption[];
+  languageHoldings?: Record<string, LanguageHoldings>;
 }) {
   const collapse = useHeaderCollapse();
 
@@ -31,7 +34,11 @@ export function DesktopShellHeader({
 
         <div className="relative z-10 flex min-h-11 items-center justify-between gap-4">
           <div className="flex min-w-0 flex-1 items-center gap-4">
-            <LanguageSwitcher languages={languages} layout="inline" />
+            <LanguageSwitcher
+              languages={languages}
+              languageHoldings={languageHoldings}
+              layout="inline"
+            />
             <Destinations />
           </div>
 

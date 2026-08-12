@@ -20,8 +20,8 @@ Progress (ADR-0009). **No due-count badges** (UC-063).
   chip (round) on destination roots only — hidden on drill-in so back and
   language never compete; safe-area insets on shell `main`; token surfaces only;
   desktop `≥ md` unchanged. The language chip is a **circular flag** (decorative
-  glyph from `lib/languages.ts`, not the identifier) that opens a menu of
-  [`language-switch-row.md`](../component/language-switch-row.md) tiles.
+  glyph from `lib/languages.ts`, not the identifier) that opens a popover of
+  [`language-list-row.md`](../component/language-list-row.md) cards.
 - **Out:** hamburger and drawer; full-width mobile header bar; hiding the pill on
   review; profile destination; notification badges; marketing shell.
 
