@@ -297,7 +297,11 @@ The real price, named honestly:
 - **Confusions between Spanish and Italian** are a real problem from day one,
   because the two are similar enough. That becomes a diagnosable error type with
   minimal-pair repair (UC-013, UC-025) — extra work, but also a differentiator no
-  competitor has.
+  competitor has. ⚠ **Rejected 2026-08-12** — UC-025 now rules out any
+  mechanism that looks at more than one learning language at once, this
+  included. Kept here unedited as the historical reasoning; see
+  [`UC-025`](../use-cases/UC-025-learn-multiple-languages.md) for the current
+  decision.
 
 ### ✔ 3 · Web or native? — **answered 2026-08-08: web first**
 

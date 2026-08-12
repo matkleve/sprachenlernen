@@ -55,7 +55,9 @@ what the learner sees; card front/back text derives from
 | `complete` | hidden | hidden | session summary |
 
 `advancing` is a **waypoint, not a screen.** The learner never waits on the
-network here.
+network here. On a poor grade (`again` / `hard`), the hook may **re-insert** the
+current card into the client queue before advancing — session-local only, never
+sent through the scheduler ([ADR-0012](../../adr/0012-ux-decisions-requeue-i18n-leech-nav.md)).
 
 ## Check
 

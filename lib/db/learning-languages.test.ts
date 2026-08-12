@@ -143,11 +143,11 @@ describe("learning-languages", () => {
   it("refuses a language that ships no pool, naming it", async () => {
     const { supabase, inserted } = client({ rows: [] });
 
-    const outcome = await addLearningLanguage("it", supabase);
+    const outcome = await addLearningLanguage("fr", supabase);
 
     expect(outcome.status).toBe("error");
     if (outcome.status !== "error") return;
-    expect(outcome.error).toContain("it");
+    expect(outcome.error).toContain("fr");
     expect(inserted).toEqual([]);
   });
 
@@ -197,8 +197,7 @@ describe("learning-languages", () => {
 
   it("derives availability from the shipped pools", () => {
     expect(languagesWithAPool()).toContain("es");
-    // Italian data ships, but no pool can be built from it yet.
-    expect(languagesWithAPool()).not.toContain("it");
+    expect(languagesWithAPool()).toContain("it");
   });
 
   it("reads the active language out of a list", () => {
@@ -210,25 +209,31 @@ describe("learning-languages", () => {
     expect(activeLanguageOf([])).toBeNull();
   });
 
-  it("never lets the active language reach the session builder", () => {
-    // The damage is silent and an absent import is not something a reviewer
-    // notices, so the absence is asserted. If scheduling ever follows the
-    // interface's focus, the language not being looked at stops being reviewed
-    // and decays — the whole failure UC-025 prevents.
-    //
-    // The likelier violation is not an import here but a *caller* pre-filtering
-    // the pool, so the review-session action is checked too.
+  it("keeps the session builder itself pure — no language parameter", () => {
+    // buildSession must stay a plain function over whatever pool it is handed;
+    // it takes no language, active-language or focus parameter today and needs
+    // none. This holds regardless of which language that pool belongs to —
+    // see session-builder.md, "This module never chooses a language, and never
+    // mixes two" (corrected 2026-08-12, UC-025).
     const builder = readFileSync(join(process.cwd(), "lib/session-builder.ts"), "utf8");
     expect(builder).not.toMatch(/learning-languages|activeLanguage|isActive/);
 
     // `buildSession(pool, reviews, now, length)` — a fifth argument, or a named
     // language parameter, is how the coupling would arrive.
     expect(builder).not.toMatch(/language/i);
+  });
 
+  it("scopes the review-session caller to a single-language pool (T-B12, done 2026-08-12)", () => {
+    // UC-025 (corrected 2026-08-12) rejected the combined cross-language
+    // budget: a session must schedule from the active language only, the same
+    // pool display surfaces use. `poolForActiveLanguage` (`lib/db/learner-pools.ts`)
+    // is that one merged function; the review-session caller reaches it, not
+    // a separate multi-language concatenation.
     const caller = readFileSync(
       join(process.cwd(), "features/review-session/actions.ts"),
       "utf8",
     );
-    expect(caller).not.toMatch(/activeLanguageOf|learning-languages/);
+    expect(caller).toMatch(/poolForActiveLanguage/);
+    expect(caller).not.toMatch(/poolForScheduling/);
   });
 });

@@ -1,23 +1,20 @@
 #!/usr/bin/env node
 /**
- * Regenerates `data/starter/es-form-recall.json` from the meaning-recall pool
+ * Regenerates `data/starter/<lang>-form-recall.json` from the meaning-recall pool
  * and the shipped lemma table. See docs/specs/service/form-recall-pool.md.
  *
- *   node scripts/build-form-recall-pool.mjs
+ *   node scripts/build-form-recall-pool.mjs [es|it]
  */
 
 import { readFile, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
-const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
+import { pathsFor, resolveLang } from "./starter-deck-lang.mjs";
 
-const paths = {
-  frequency: join(ROOT, "data/frequency/es.txt"),
-  lemmaTable: join(ROOT, "data/lemma/es.json"),
-  meaningPool: join(ROOT, "data/starter/es-meaning-recall.json"),
-  output: join(ROOT, "data/starter/es-form-recall.json"),
-};
+const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
+const { code: LANG, config: LANG_CONFIG } = resolveLang(process.argv[2]);
+const paths = pathsFor(ROOT, LANG);
 
 const readFormCounts = async () => {
   const text = await readFile(paths.frequency, "utf8");
@@ -64,7 +61,7 @@ const cellPriority = (cell) => {
 
 /**
  * One inflected form per lemma — highest corpus frequency within the best cell
- * tier, so `hablo` wins over `hablando` for *hablar*.
+ * tier, so `parlo` wins over `parlando` for *parlare*.
  */
 const pickSurfaceForm = (lemma, table, formCounts, glossGender) => {
   let best = null;
@@ -92,7 +89,7 @@ const build = async () => {
   const [formCounts, table, meaningPool] = await Promise.all([
     readFormCounts(),
     readFile(paths.lemmaTable, "utf8").then((raw) => JSON.parse(raw)),
-    readFile(paths.meaningPool, "utf8").then((raw) => JSON.parse(raw)),
+    readFile(paths.output, "utf8").then((raw) => JSON.parse(raw)),
   ]);
 
   const cards = [];
@@ -111,7 +108,7 @@ const build = async () => {
     }
 
     cards.push({
-      taskId: `es:${meaningCard.lemma}:${picked.form}:form-recall`,
+      taskId: `${LANG}:${meaningCard.lemma}:${picked.form}:form-recall`,
       wordId: meaningCard.wordId,
       lemma: meaningCard.lemma,
       surfaceForm: picked.form,
@@ -125,14 +122,14 @@ const build = async () => {
   }
 
   const deck = {
-    language: "es",
+    language: LANG,
     taskType: "form-recall",
     cards,
   };
 
-  await writeFile(paths.output, `${JSON.stringify(deck, null, 2)}\n`, "utf8");
+  await writeFile(paths.formRecallOutput, `${JSON.stringify(deck, null, 2)}\n`, "utf8");
   console.log(
-    `wrote ${cards.length} form-recall cards (${skipped.length} lemmas had no inflected form) → ${paths.output}`,
+    `wrote ${cards.length} form-recall cards (${skipped.length} lemmas had no inflected form) → ${paths.formRecallOutput}`,
   );
 };
 

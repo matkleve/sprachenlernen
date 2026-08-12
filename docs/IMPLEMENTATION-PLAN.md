@@ -1,7 +1,28 @@
 # Implementation plan
 
-**Written 2026-08-08.** What to build next in *code*, in what order, and how to
-hand each piece to a coding agent that should make as few decisions as possible.
+**Written 2026-08-08. "Where the code actually is" and the decision list last
+synced 2026-08-12 (Italian ship, form-recall pool sizes, and a words-atlas bug
+found in the same pass).** What to build
+next in *code*, in what order, and how to hand each piece to a coding agent
+that should make as few decisions as possible.
+
+**This is the project's one queue/backlog file** — the answer to "where do
+open tickets live." There is deliberately no separate kanban board or issue
+tracker: a second place to list "what's outstanding" would drift from this
+one, and `AGENTS.md`'s whole stance is one source of truth per question, not
+two that might disagree. What plays that role instead, each read at a
+different moment (see [`README.md`](README.md), "Three kinds of memory"):
+
+- **This file** — what's queued, and what's blocking it, project-wide.
+- [`IDEAS.md`](IDEAS.md) — a raw mechanism someone noticed, before it is even
+  a use case.
+- **A `⚠ SPEC GAP` inside a use case or spec** — one open question that blocks
+  *that* item specifically, resolved in the same file it blocks.
+
+**Keeping this current is part of finishing a docs-only session**, the same
+way the diary already is (`AGENTS.md`, "Working with the user"): when a
+`⚠ SPEC GAP` is opened, closed, or a use case graduates, sync the "What needs
+a decision from you" list below in the same session, not later.
 
 **What this file owns, and what it does not.** It owns the queue: which task is
 next, who can safely do it, and what "done" means for that task.
@@ -19,14 +40,14 @@ wins and this file is stale. Nothing normative may live only here.
 | `lib/scheduler.ts` | FSRS-4.5, complete, adversarially reviewed, 48 tests. Spec **active** |
 | `lib/lexicon.ts` + `lib/lemma-table.ts` | Profiles, tokenising, resolution with paradigm cells, tier derivation. 69 tests. Spec **active** |
 | `data/` | Spanish and Italian: frequency lists **and** lemma tables. Both at **quality tier B** |
-| `lib/method-catalogue.ts` + `data/methods/` | 53 methods, 6 commitments, 7 context presets. Schema, validation, context filter. 24 tests. Spec **active** |
+| `lib/method-catalogue.ts` + `data/methods/` | 53 methods, 6 commitments, 7 context presets. Schema, validation, context filter. 34 tests. Spec **active** |
 | `components/ui/` | Button, Field, Input, Select, Dialog, Table — inherited from Grundriss, specced, tested |
 | `features/` | `item-picker` and `primitives` — **both are the starter's worked examples**. `language-status` is the first that is not; `auth` (T-B8) adds `/signup` and `/login`, built only from `Field` and `Button`; `app-shell` and `method-menu` (T-B10) add the three destinations and the front door |
-| `lib/db/` | **Shipped 2026-08-09** (T-B8). Supabase client factory, `signUp`/`signIn`/`signOut`/`getAccount`, `middleware.ts` session refresh, the `review_log` RLS migration — applied to the live project. Spec **active**. 9 unit tests plus the 5-test §8 access-control suite |
+| `lib/db/` | **Shipped 2026-08-09** (T-B8), **grown since** as multi-language landed. Supabase client factory, `signUp`/`signIn`/`signOut`/`getAccount`, `middleware.ts` session refresh, the `review_log` RLS migration — applied to the live project; plus `learning-languages.ts`, `learner-pools.ts` (`poolForActiveLanguage`, T-B12), `language-holdings.ts`, `review-write-queue.ts`. Spec **active**. 7 files, 63 tests total — the §8 access-control suite alone is now 9 tests, not 5, since `learner_language` RLS joined it |
 | `app/(marketing)/` | The public half, no app shell: `/` (T-04's holding page), `/languages` (T-03), `/login`, `/signup`, `/primitives`. Split out 2026-08-09 to implement [ADR-0010](adr/0010-the-route-model.md) |
 | `app/(app)/` | The signed-in half, under the shell's three destinations: `/methods` (T-B10), `/words` + `/words/review` (T-B1), `/progress` (T-B3) |
 | `lib/db/review-log.ts` + `lib/installation-id.ts` | **Shipped 2026-08-09** (T-B2). Append-only adapter, owner taken from the session, payload migration applied live. Spec **active** |
-| `lib/starter-deck.ts` + `lib/session-builder.ts` | **Shipped 2026-08-09** (T-B1), pool **expanded 2026-08-12** to 2000 lemmas. 15-card queue, due-before-new. Specs **active** |
+| `lib/starter-deck.ts` + `lib/session-builder.ts` | **Shipped 2026-08-09** (T-B1). Spanish **expanded 2026-08-12** to 2000 lemmas; **Italian shipped 2026-08-12** at the same tier (2000 lemmas) — see [`starter-deck.second-language.md`](specs/service/starter-deck.second-language.md). 15-card queue, due-before-new, one language per session (T-B12). Specs **active** |
 | `features/review-session/` | **Shipped 2026-08-09** (T-B1). The FSM, the card, the summary. Grades persist one row each. Specs **active** |
 
 **Track B core shipped 2026-08-11.** A signed-in learner can sign up, open
@@ -101,11 +122,13 @@ a 15-card queue built from the starter deck and their own history, and every
 grade appends one row they own. What that unblocks is T-B3: `/progress` is the
 last holding page, and it is now the only destination with nothing behind it.
 
-**The honest limit on all of it:** one language (Spanish), one task type
-(meaning-recall), a **2000-lemma** starter pool (stage 2 of engine expansion),
-and progress that stops at
-pool-local counts — no CEFR skill levels yet. The plumbing is real; the
-measurement only becomes a language claim once the pool and form tables grow.
+**The honest limit on all of it:** two languages (Spanish, Italian, each fully
+isolated per UC-025 — no combined budget, no mixed sessions), two task types
+per language (meaning-recall and form-recall, once meaning-recall is held), a
+**2000-lemma** starter pool per language (stage 2 of engine expansion), and
+progress that stops at pool-local counts — no CEFR skill levels yet. The
+plumbing is real; the measurement only becomes a language claim once the pool
+and form tables grow further (2,953-lemma ceiling on the current pipeline).
 
 ---
 
@@ -313,6 +336,11 @@ low-inference agent would silently invent.
 | ~~**T-B10**~~ | ~~The method menu — the product's front door~~ — **shipped 2026-08-09** | Filters, time scale, hosted routing. Learner half continued in T-B10b |
 | ~~**T-B5**~~ | ~~Retire the Grundriss worked examples~~ — **shipped 2026-08-10** | `/account` uses `Select` + `Dialog` (UC-024); demos removed; `/primitives` → `/languages` |
 | **T-B9** | Offline practice + sync (F192, UC-018) | **Owner direction: both** — online sync across devices *and* offline review (train/PWA). Needs ADR-0011 closed on Option B (local-first queue is partial — see [`review-write-queue.md`](specs/service/review-write-queue.md)); full offline still needs cached deck + scheduler |
+| **T-B11** | Spoken-language setting — `profiles` table, `next-intl` chrome, description-text records ([UC-069](use-cases/UC-069-use-the-app-in-my-own-language.md)) | **Spec-ready 2026-08-12** — decisions 10–11 answered: chrome = `next-intl` stage 1; card descriptions = `I18N.md` stage-3 tables + snapshot JSON. Sensitive once implementation starts |
+| **T-B12** | ~~Scope `poolForScheduling` to the active language only~~ — **done 2026-08-12** ([UC-025](use-cases/UC-025-learn-multiple-languages.md)) | `poolForScheduling` and `poolForDisplay` (`lib/db/learner-pools.ts`) merged into one `poolForActiveLanguage()`, since the reason they differed — a cross-language budget — was rejected. `buildSessionAction` now calls it; a session can no longer contain more than one language's cards, and the `languageName` label is always correct as a result. Regression test: `learner-pools.test.ts` |
+| **T-B13** | ~~Same-session card requeue ([UC-071](use-cases/UC-071-get-a-wrong-card-back-before-the-session-ends.md))~~ — **shipped 2026-08-12** | **Sensitive.** [`lib/review-session-requeue.ts`](../lib/review-session-requeue.ts), `useReviewSession` re-insert on `again`/`hard`; [ADR-0012](adr/0012-ux-decisions-requeue-i18n-leech-nav.md) decisions 12–13 |
+| **T-B14** | Broken-card flagging + leech diagnosis ([UC-023](use-cases/UC-023-report-something-wrong.md), [UC-013](use-cases/UC-013-stop-losing-time-on-one-card.md)) | **Spec-ready 2026-08-12** — decisions 14–15 answered: tier 1 build-time metadata, tier 2–3 per learner; Levenshtein-1 candidates for lemmas length 3–8. **Sensitive** |
+| **T-B15** | Maintenance mode per language ([UC-025](use-cases/UC-025-learn-multiple-languages.md)) | **Not spec-ready** — no per-language flag exists. Moved 2026-08-12 from [`plans/multi-language.md`](plans/multi-language.md) table item 10, so it has exactly one tracked home. The best-evidenced item in that plan's 2026-08-11 review (Cepeda et al. 2008, Bahrick et al. 1993: 10–20% of the retention interval as the review gap) and the one piece of that review's recommendation not yet built |
 ---
 
 ### Track B engine phase — what is next (2026-08-11)
@@ -324,8 +352,8 @@ honest Spanish/Italian; offline unlocks commute practice.
 
 | Priority | Work | Unblocks |
 | --- | --- | --- |
-| **1** | ~~**Expand the Spanish word pool**~~ — **stage 1 shipped 2026-08-11** (500 lemmas); **stage 2 shipped 2026-08-12** (2000 lemmas). Pipeline ceiling **2,953** lemmas. | Language-wide vocabulary estimate; honest progress |
-| **2** | ~~**Form→lemma tables with paradigm cells**~~ — **data shipped 2026-08-08** (`data/lemma/es.json`, `it.json`, `lib/lexicon.ts`). **Form-recall pool + staging shipped** — [`form-recall-pool.md`](specs/service/form-recall-pool.md): 406 Spanish surface forms, scheduled after meaning-recall is held. **Form-mastery signal shipped** — [`form-mastery-signal.md`](specs/service/form-mastery-signal.md): pool-local held-form count on Progress; form-recall grade prompt in review session. | Paradigm-table method; per-cell form breakdown |
+| **1** | ~~**Expand the word pool(s)**~~ — Spanish **stage 1 shipped 2026-08-11** (500 lemmas), **stage 2 shipped 2026-08-12** (2000 lemmas); **Italian shipped 2026-08-12** at the same tier (2000 lemmas, see [`starter-deck.second-language.md`](specs/service/starter-deck.second-language.md)). Pipeline ceiling **2,953** lemmas per language. | Language-wide vocabulary estimate; honest progress |
+| **2** | ~~**Form→lemma tables with paradigm cells**~~ — **data shipped 2026-08-08** (`data/lemma/es.json`, `it.json`, `lib/lexicon.ts`). **Form-recall pool + staging shipped** — [`form-recall-pool.md`](specs/service/form-recall-pool.md): **1704** Spanish, **1542** Italian surface forms, scheduled after meaning-recall is held. **Form-mastery signal shipped** — [`form-mastery-signal.md`](specs/service/form-mastery-signal.md): pool-local held-form count on Progress; form-recall grade prompt in review session. **Bug found and fixed 2026-08-12:** the Words atlas (`features/words/`) fed both task types into one snapshot meant for one deck, double-counting every lemma with a distinct form and pushing lower-ranked words out of the capped top-100 view — fixed by filtering to meaning-recall before the snapshot; see `features/words/reading.test.ts`. | Paradigm-table method; per-cell form breakdown |
 | **3** | **T-B3 remainder** — extrapolation + per-skill levels once (1) and calibration exist | F18–F22; demonstration sentence |
 | **4** | **T-B9 / offline-PWA** — cache deck + scheduler; flush queue on reconnect (ADR-0011 Option B) | UC-018 commute practice; installable PWA |
 | **5** | **T-B10b remainder** — demonstration sentence, readiness ([`study/24`](study/24-speaking-as-the-goal.md), [`study/26`](study/26-readiness-and-difficulty.md)) | Methods front door complete |
@@ -335,16 +363,17 @@ honest Spanish/Italian; offline unlocks commute practice.
 three shipped), T-B4 (denominator only), T-B9 (multi-device share works; full
 offline does not).
 
-**Italian is not on this queue, and the reason is not effort.** Investigated
-2026-08-11: the ranking pipeline runs on the shipped `it` data unchanged and
-yields 3,135 lemmas, so the *code* is ready. Three things block it, none of them
-code — no reachable gloss source, a frequency list that splits accented and
-unaccented spellings (91 groups, and the misspelling often outranks the word),
-and no model anywhere for how an Account chooses a **learning** language, which
-`I18N.md` does not cover because it is about interface copy. Evidence and the
-per-blocker detail: [`specs/service/starter-deck.second-language.md`](specs/service/starter-deck.second-language.md).
-A second language is a **staged decision, not a task** — do not queue it until
-the third blocker has an ADR.
+**Italian shipped 2026-08-12 — this section used to explain why it was
+blocked, and stayed after the block was cleared, which is exactly the kind of
+staleness this file exists to prevent.** All three blockers named on
+2026-08-11 (no reachable gloss source, an accent-split frequency list, no
+model for how an Account chooses a learning language) were resolved the same
+day the pool shipped: kaikki.org's Italian dictionary is reachable,
+lemma-level summing already merges accent variants, and `learner_language` /
+the language picker / switcher answered the third. Detail:
+[`specs/service/starter-deck.second-language.md`](specs/service/starter-deck.second-language.md).
+Both languages are fully isolated per [UC-025](use-cases/UC-025-learn-multiple-languages.md) —
+own pool, own scheduling, own progress, never mixed in a session.
 
 
 ## Interaction and design-system audit
@@ -481,20 +510,19 @@ ADR-0006, ADR-0007) — an account is required, and the provider is Supabase.
    (9.17:1 light, 13.14:1 dark) and registered in `lib/utils.ts`. Nothing
    consumes it yet — it exists so the first correct-answer button has a hover
    token to reach for instead of inventing one.
-5. **Does the learner grade before or after seeing the answer?** Raised by the
-   T-B1 audit and carried as a ⚠ SPEC GAP in
-   [`specs/feature/review-session.md`](specs/feature/review-session.md). Today
-   they grade first and the back then shows for 400 ms. Every other SRS reveals
-   first, because a grade is a report about a recall the learner has just
-   checked — as built, `again` and `good` cannot mean "I was wrong" and "I was
-   right", which is exactly what FSRS reads them as. This is the one open
-   question that changes what the stored data means, so it blocks trusting
-   anything T-B3 derives from it. The 400 ms is a second, smaller decision
-   underneath it.
+5. ~~Does the learner grade before or after seeing the answer?~~ **Answered and
+   shipped 2026-08-10** (`5f4b896`, "review flip UX"): tap the card to flip and
+   see the back, untimed, then grade — no 400 ms auto-hide, no grade-before-
+   reveal. [`specs/feature/review-session.md`](specs/feature/review-session.md)
+   has said "Open questions: None" since that commit. **This list entry was
+   stale for two days** — it kept describing the pre-fix design as current and
+   got repeated as live information on 2026-08-12. Kept here, struck through
+   rather than deleted, as the record of the miss: this file is supposed to be
+   corrected in the same session a spec resolves, and this one was not.
 6. Does `CONSTITUTION.md` §2 (the user's data) need writing out now that server
    storage is scheduled rather than hypothetical? `BACKEND.md` §9 says it stops
    being abstract the moment something is actually stored.
-6. **T-B7: which thesis does the landing lead with?** The interim page leads
+7. **T-B7: which thesis does the landing lead with?** The interim page leads
    with thesis 1 — *"progress is shown as measured competence, never as
    activity"* — because it was the sentence T-04 had already quoted, not
    because anyone chose it. The candidates, all study-backed, are:
@@ -507,14 +535,102 @@ ADR-0006, ADR-0007) — an account is required, and the provider is Supabase.
    five minutes. Note that thesis 11's "leads the headline" is about the
    signed-in **Home**, not this page — chapter 24 was renamed to keep those
    apart, and it is an easy wrong inference to make.
-7. **Does `/progress` lead with speaking once anything is measured?** Chapter 24
+8. **Does `/progress` lead with speaking once anything is measured?** Chapter 24
    says the goal decides which skill leads the *headline display*, and names
    the home surface. Since [ADR-0010](adr/0010-the-route-model.md) made
    `/methods` the default route, which surface that rule binds is no longer
    obvious. It changes nothing today — four skills all read "not measured" —
    and it binds the moment one does not.
-8. Chapter 25's questions 17–18 (perceived effort as a third ledger, whether the
+9. Chapter 25's questions 17–18 (perceived effort as a third ledger, whether the
    whole-task floor applies from day one). **Question 19 is off this list** —
    answered in its first branch by
    [`specs/service/dose-band.md`](specs/service/dose-band.md): the band is
    labelled borrowed, structurally, and F190 stays later.
+
+**Added 2026-08-12**, from the localization + broken-card-detection docs pass.
+**Durable record:** [`adr/0012-ux-decisions-requeue-i18n-leech-nav.md`](adr/0012-ux-decisions-requeue-i18n-leech-nav.md)
+— cite the ADR, not this list, when implementing.
+
+10. ~~**Where does description text in a language other than English come
+   from?**~~ **Answered 2026-08-12 (owner direction + UX + [`I18N.md`](I18N.md)).**
+   Two surfaces, two stages — the Grundriss pattern, not one blob:
+   - **App chrome** (menus, buttons, grade labels, errors): **stage 1** —
+     `next-intl`, `messages/<locale>.json`, key parity gates. Already
+     decided in UC-069.
+   - **Card description text** (what describes a word on the back/front):
+     **stage 3 database** — `app_texts` + `app_text_translations` per
+     [`I18N.md`](I18N.md) § Stage 3, keyed by (`wordId`, spoken language),
+     `status ∈ (draft, reviewed, published)`, app reads **published** only.
+     Runtime serves a **snapshot JSON** at build/cache invalidation — never
+     a query per card. English rows seeded from Kaikki at import; other
+     locales via MT → `draft` → human review → `published`. Provenance in
+     `data/README.md`. Same shape as Feldpost-style i18n tables; this repo's
+     contract is `I18N.md`, not a second invention.
+11. ~~**Does a card's description stay one string, or split into named parts**~~
+    **Answered 2026-08-12 (UX). One string per card face per spoken
+    language — no microscopic split.** Meaning-recall back is already one
+    gloss ("to run", "of, from") — nothing to split. Form-recall front
+    combines gloss + instruction ("to run — write the Spanish form"); that
+    whole face is **one translatable string** per locale, not three fields.
+    Instruction wording lives in the translation row for that face, not a
+    separate grammar-hint table. Splitting definition vs hint vs instruction
+    into named parts is rejected for v1 — it multiplies rows and review
+    surface for no learner-visible gain.
+12. ~~**Does a same-session repeat count toward UC-013's cross-session
+    leech-suspend counter?**~~ **Answered 2026-08-12 (owner + UX). No.**
+    Same-run repeats are a within-sitting rehearsal buffer
+    ([UC-071](use-cases/UC-071-get-a-wrong-card-back-before-the-session-ends.md));
+    UC-013's suspend counter counts **cross-session** failures only — reviews
+    whose `at` timestamp falls on a different calendar day than the previous
+    failure on that `taskId`, or simply: one session's extra tries never
+    advance the leech count. Rationale: counting them would let one bad day
+    suspend a card the learner was still actively correcting; not counting
+    them matches the owner's instinct ("it would be weird if a card went
+    missing") — suspension is a cross-session diagnosis, not a same-sitting
+    penalty. See [`UC-013`](use-cases/UC-013-stop-losing-time-on-one-card.md)
+    and [`UC-071`](use-cases/UC-071-get-a-wrong-card-back-before-the-session-ends.md).
+13. ~~**What is the same-session requeue rule** — end of run, ~5 cards ahead, or
+    something else?~~ **Answered 2026-08-12 (UX, Anki-style reference).**
+    Map grades to distance, no learner-visible countdown:
+    - **`again`** → re-insert **5 positions ahead** (or at end of queue if
+      fewer than 5 remain — never drop the repeat).
+    - **`hard`** → re-insert at **end of the remaining queue** (after every
+      not-yet-seen card this run; if it was already a repeat, after the rest).
+    - **`good` / `easy`** → no requeue.
+    No indicator that a repeat is coming (UC-071). The session's advertised
+    total stays the count of **distinct** `taskId`s in the built queue
+    (UC-039); repeats do not inflate it. Spec stage: `T-B13`.
+14. ~~**Does broken-card detection run once at build time, or per learner?**~~
+    **Answered 2026-08-12 (UX). Both, by tier — not either/or.** Tier 1
+    (too-many-meanings, no-context, neighbour-word collision, sound-contrast
+    table) runs **once at build time** and ships as static metadata on the
+    card — same pipeline as overrides/exclusions. Tier 2 (repeated
+    `again`/`hard` crossing the lapse threshold) is **per learner**, from the
+    review log. Tier 3 (tap-to-confirm diagnosis) is **per learner**, at
+    suspension time, using tier-1 candidates as pre-filled choices. Neighbour
+    collision does **not** wait for "has this learner studied both words" —
+    the candidate list is static; only the confirmation is learner-specific.
+    See [`IDEAS.md`](IDEAS.md) three-tier model.
+15. ~~**What similarity threshold catches a real confusion** (`pero`/`perro`)
+    **without flagging most short, common words against each other?**~~
+    **Answered 2026-08-12 (UX).** Levenshtein distance **1** only, and only
+    when **both** lemmas are length 3–8 inclusive; flag as a **candidate**
+    (tier 1), never auto-diagnose. Distance 2 is rejected for v1 — it fires
+    on too many short frequent words. A build-time gate script must run
+    against the shipped pool and report candidate-pair count before merge;
+    if &gt; ~3% of lemmas have a candidate, tighten to "same first two
+    characters AND distance 1." Confirmation always tier 3 (one tap).
+
+**Added 2026-08-12**, moved from [`plans/multi-language.md`](plans/multi-language.md)
+so open items live in exactly one queue:
+
+16. ~~**Does Progress remain a nav destination, or move under Profile**~~
+    **Answered 2026-08-12 (UX + prior owner decision 2026-08-11 + literature).**
+    **Progress stays a top-level destination.** Methods · Words · Progress;
+    Profile remains the corner chip ([ADR-0009](adr/0009-three-destinations.md),
+    [`plans/multi-language.md`](plans/multi-language.md) "Decided 2026-08-11").
+    Study 03's honesty rules need a surface that can show "not measured",
+    falling levels, and derivation on tap — burying that under Profile makes
+    the level model a footnote ([`IMPLEMENTATION-PLAN.md`](IMPLEMENTATION-PLAN.md)
+    PM/UX debate, 2026-08-08). Two destinations (Methods + Words) fails the
+    same test. This closes the question raised in passing; no ADR change.

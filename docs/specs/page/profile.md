@@ -17,7 +17,8 @@ language actions, which belong to
   [`account-data.md`](../feature/account-data.md). Sign out moves in here.
 - **Out:** measured progress — that stays on [`progress.md`](progress.md) and
   remains a destination. Profile links to it and never restates its numbers;
-  the combined daily budget and maintenance mode (UC-025, later).
+  maintenance mode (UC-025, later — a combined cross-language budget is not a
+  later item, it is rejected, see UC-025).
 
 **Reuse: `ActionLink`, `SubmitButton`, `Dialog`, `Select`** — all already used by
 `account-data`. No new primitive.

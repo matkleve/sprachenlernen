@@ -1,12 +1,8 @@
 #!/usr/bin/env node
 /**
- * Regenerates `data/starter/es-meaning-recall.json`.
+ * Regenerates `data/starter/<lang>-meaning-recall.json`.
  *
- * Lemma ranks come from summing OpenSubtitles form frequencies through the
- * generated lemma table. Glosses come from hand-checked overrides first, then
- * Kaikki.org (CC BY-SA 3.0). See docs/specs/service/starter-deck.md.
- *
- *   node scripts/build-starter-deck.mjs
+ *   node scripts/build-starter-deck.mjs [es|it]
  */
 
 import { createReadStream } from "node:fs";
@@ -15,62 +11,17 @@ import { createInterface } from "node:readline";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
+import { POOL_SIZE, pathsFor, resolveLang } from "./starter-deck-lang.mjs";
+
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const CACHE = process.env.GLOSS_CACHE ?? join(ROOT, ".cache/gloss");
-const POOL_SIZE = Number(process.env.POOL_SIZE ?? 2000);
+const { code: LANG, config: LANG_CONFIG } = resolveLang(process.argv[2]);
+const paths = pathsFor(ROOT, LANG);
+const KAIKKI = LANG_CONFIG.kaikki;
 
-/**
- * A dictionary gloss is not a card back: Kaikki ships the full sense line,
- * `dog (the species Canis familiaris …)`, and a learner grading recall against
- * that is grading against a paragraph. Shaping removes the **apparatus** — the
- * bracketed elaboration, which is always secondary to the gloss it follows.
- *
- * It deliberately does not choose between senses. An earlier version kept the
- * first `;` group and capped the synonym run at three, and that silently
- * shipped `policía` as "Civility, polity, public order" — one position short of
- * "police" — and `gran` as "apocopic form of grande", dropping the "great,
- * grand" that followed. Kaikki does not order senses by usefulness, so any
- * positional rule throws away the right answer sooner or later, and does it
- * invisibly. Anything still too long after the apparatus goes is a human's
- * problem, and the build says so.
- *
- * Rejected: truncating to N characters. It cuts mid-word and mid-sense, which
- * produces a back that is wrong rather than merely short.
- */
 const MAX_GLOSS_CHARS = 60;
-
-/**
- * Wiktionary answers "what is this word" as often as "what does it mean", and
- * an inflection note or a sense-group header is a fluent-looking gloss that
- * teaches nothing — `venir` arrived as "Senses relating to literal movement."
- * Length and emptiness cannot catch these, so they are matched and rejected.
- */
 const METALINGUISTIC =
   /\b(first|second|third)-person\b|\b(singular|plural)\b.*\bof\b|^Senses relating|\bform of\b|\bapocopic\b|^Used\b|\bpast participle of\b|\bfeminine of\b|\bdiminutive of\b|\bletter of the\b|\ba surname\b|\bgiven name\b/i;
-
-/**
- * Lemmas whose honest English gloss is the Spanish word itself live in
- * `es-meaning-recall.cognates.json`. Listed rather than detected, because "the
- * gloss equals the front" is otherwise exactly the signature of a gloss that
- * failed to resolve — the check below has to tell a true cognate from a broken
- * lookup, and only a human can. It is data so the script and the test that
- * enforces the same rule cannot drift apart.
- */
-
-const KAIKKI = {
-  url: "https://kaikki.org/dictionary/Spanish/kaikki.org-dictionary-Spanish.jsonl",
-  file: "kaikki-es.jsonl",
-  licence: "CC BY-SA 3.0",
-};
-
-const paths = {
-  frequency: join(ROOT, "data/frequency/es.txt"),
-  lemmaTable: join(ROOT, "data/lemma/es.json"),
-  overrides: join(ROOT, "data/starter/es-meaning-recall.overrides.json"),
-  exclusions: join(ROOT, "data/starter/es-meaning-recall.exclusions.json"),
-  cognates: join(ROOT, "data/starter/es-meaning-recall.cognates.json"),
-  output: join(ROOT, "data/starter/es-meaning-recall.json"),
-};
 
 const readFormCounts = async () => {
   const text = await readFile(paths.frequency, "utf8");
@@ -84,9 +35,8 @@ const readFormCounts = async () => {
   return counts;
 };
 
-/** @param {import("../lib/lemma-table.ts").LemmaTable} table */
 const resolveLemma = (table, form) => {
-  if (table.fused[form]) return null;
+  if (table.fused?.[form]) return null;
   const raw = table.forms[form];
   if (!raw?.length) return form;
   const first = raw[0];
@@ -94,13 +44,6 @@ const resolveLemma = (table, form) => {
   return first.lemma;
 };
 
-/**
- * Excluded lemmas are dropped before the cap, not after, so the pool always
- * holds POOL_SIZE cards and simply reaches one rank deeper for each one it
- * skips. Dropping after the slice would silently ship a 497-card "500".
- *
- * @param {import("../lib/lemma-table.ts").LemmaTable} table
- */
 const rankLemmas = (table, formCounts, excluded) => {
   const lemmaCounts = new Map();
   for (const [form, count] of formCounts) {
@@ -120,7 +63,6 @@ const loadJson = async (path) => JSON.parse(await readFile(path, "utf8"));
 const isPlainObject = (value) =>
   typeof value === "object" && value !== null && !Array.isArray(value);
 
-/** Balanced strip, so a nested `(… (…) …)` does not leave a stray tail. */
 const stripBracketed = (text, open, close) => {
   let out = "";
   let depth = 0;
@@ -139,13 +81,6 @@ const shapeGloss = (raw) =>
     .replace(/[\s;,]+$/, "")
     .trim();
 
-/**
- * The cache is trusted as-is, and a cache is not evidence of a fetch — it is
- * whatever is sitting at that path. A partial one mostly fails loudly, because
- * a lemma with no entry reaches the `missing glosses for:` throw; but every gap
- * an override happens to cover passes silently. So the run says where its
- * glosses came from, and a cached run says so out loud.
- */
 const ensureKaikkiCached = async () => {
   const path = join(CACHE, KAIKKI.file);
   try {
@@ -206,10 +141,7 @@ const build = async () => {
     loadJson(paths.exclusions),
     loadJson(paths.cognates),
   ]);
-  // Both companion files fail *closed*. Written in the wrong shape — an array
-  // where an object belongs, which is what the sibling file next to it looks
-  // like — `Object.keys` would quietly yield indices and exclude nothing, and
-  // the build would print "wrote 500 cards" over a pool it never filtered.
+
   if (!isPlainObject(exclusions)) {
     throw new Error(`${paths.exclusions} must be a JSON object of lemma → reason`);
   }
@@ -228,8 +160,6 @@ const build = async () => {
   const unusable = [];
 
   const cards = lemmas.map((lemma, index) => {
-    // Overrides are hand-checked and ship verbatim; only machine glosses are
-    // shaped, because shaping a human's answer would undo the review.
     const override = overrides[lemma];
     const raw = override ?? kaikki.get(lemma);
     if (!raw) {
@@ -246,16 +176,14 @@ const build = async () => {
       unusable.push(`${lemma}: gloss equals the front (override it, or list it as a cognate)`);
       return null;
     }
-    // Overrides are exempt: a human writing "mine (fem.)" has already decided
-    // that the note is the gloss.
     if (override === undefined && METALINGUISTIC.test(back)) {
       unusable.push(`${lemma}: ${JSON.stringify(back)} (grammar note, not a translation)`);
       return null;
     }
 
     return {
-      taskId: `es:${lemma}:meaning-recall`,
-      wordId: `es:${lemma}`,
+      taskId: `${LANG}:${lemma}:meaning-recall`,
+      wordId: `${LANG}:${lemma}`,
       lemma,
       front: lemma,
       back,
@@ -271,7 +199,7 @@ const build = async () => {
   }
 
   const deck = {
-    language: "es",
+    language: LANG,
     taskType: "meaning-recall",
     cards,
   };
@@ -281,7 +209,7 @@ const build = async () => {
 
   const fromOverride = cards.filter((card) => overrides[card.lemma] !== undefined).length;
   console.log(
-    `wrote ${cards.length} cards → ${paths.output}\n` +
+    `wrote ${cards.length} ${LANG} cards → ${paths.output}\n` +
       `  ${fromOverride} hand-checked, ${cards.length - fromOverride} from ${KAIKKI.file} (${KAIKKI.licence})`,
   );
 };

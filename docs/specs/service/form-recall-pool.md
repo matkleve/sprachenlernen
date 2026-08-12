@@ -14,13 +14,14 @@ Parent: [`starter-deck.md`](starter-deck.md) (meaning-recall pool),
 
 ## Scope
 
-- **In:** `data/starter/es-form-recall.json`, `scripts/build-form-recall-pool.mjs`,
-  `lib/form-recall-pool.ts` (load + validate), `lib/paradigm-cells.ts` (cell code
-  → words); staging rule — a form-recall Task enters the session queue only when
-  the sibling **meaning-recall** Task for the same `wordId` is **held**
-  (stability above graduation — [`vocabulary-snapshot.md`](vocabulary-snapshot.md)).
+- **In:** `data/starter/es-form-recall.json` and `data/starter/it-form-recall.json`,
+  `scripts/build-form-recall-pool.mjs`, `lib/form-recall-pool.ts` (load + validate),
+  `lib/paradigm-cells.ts` (cell code → words); staging rule — a form-recall Task
+  enters the session queue only when the sibling **meaning-recall** Task for the
+  same `wordId` is **held** (stability above graduation —
+  [`vocabulary-snapshot.md`](vocabulary-snapshot.md)).
 - **Out:** form-mastery signal on Progress — see
-  [`form-mastery-signal.md`](form-mastery-signal.md); Italian; audio recall;
+  [`form-mastery-signal.md`](form-mastery-signal.md); audio recall;
   choosing the cell at review time; paradigm-table method (`paradigm-tables-mixed`);
   accepting more than one correct form per cell — the inverse index that would
   need is blocked in [`form-practice.md`](form-practice.md).
@@ -115,3 +116,12 @@ screen. The test that walks every cell in the shipped lemma table is what makes
 ## Check
 
 `npm test -- form-recall-pool`, `npm test -- paradigm-cells`
+
+## Open
+
+- ⚠ **`front`/`back` bake English into this file, permanently**, same as the
+  parent pool. [UC-069](../../use-cases/UC-069-use-the-app-in-my-own-language.md)
+  resolved that word identity and description text must be **separate
+  records** — not reflected here yet. Storage decided 2026-08-12 per
+  [ADR-0012](../../adr/0012-ux-decisions-requeue-i18n-leech-nav.md): stage-3
+  `app_texts` / `app_text_translations` + snapshot JSON.

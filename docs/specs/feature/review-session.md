@@ -2,6 +2,7 @@
 
 <!-- id: SPEC-feature-review-session -->
 <!-- use-case: UC-011 -->
+<!-- use-case: UC-071 -->
 <!-- status: active -->
 
 The multi-card SRS runner: a fixed-length queue, one card at a time (meaning-
@@ -30,7 +31,7 @@ recall or form-recall), grades that append to the review log (T-B2).
 | 2 | Sees a meaning-recall card | Front (target-language lemma) only; language name on the card; tap the card to flip and see the meaning |
 | 2b | Sees a form-recall card | Front (English gloss + produce prompt) only; same flip interaction; back shows the target surface form |
 | 3 | Taps the card | Back shown; four grade buttons; grade prompt differs by task type — *What does it mean?* for meaning-recall, *Did you recall the form?* for form-recall |
-| 4 | Taps a grade | Grade queued locally; **next card immediately** (`advancing` → `prompting` or `complete`); server flush runs in the background ([`review-write-queue`](../service/review-write-queue.md)) |
+| 4 | Taps a grade | Grade queued locally; **next card immediately** (`advancing` → `prompting` or `complete`); server flush runs in the background ([`review-write-queue`](../service/review-write-queue.md)). **`again`** re-inserts the card five positions ahead (or at end if fewer than five remain); **`hard`** re-inserts at end of the remaining queue; **`good`** / **`easy`** do not requeue ([ADR-0012](../../adr/0012-ux-decisions-requeue-i18n-leech-nav.md), UC-071) |
 | 5 | Background flush fails | Session does not rewind; non-blocking status with Retry |
 | 6 | Session `complete` | Summary: cards graded this session; link back to Words and Methods |
 
@@ -67,6 +68,9 @@ round trip per card.
 - [ ] Given a background flush failure after advancing, when the learner is on a
       later card, then a retry status appears and the session does not rewind.
 - [ ] Given any phase, then no due count, backlog figure or badge appears.
+- [ ] Given card 1 of a two-card session, when the learner grades **Again**, then
+      card 2 appears next and card 1 returns after card 2 is graded (requeue at
+      end when the queue is shorter than five cards ahead).
 
 ## Open questions
 
@@ -75,4 +79,4 @@ checks recall before reporting).
 
 ## Check
 
-`npm test -- review-session session-machine`
+`npm test -- review-session session-machine review-session-requeue`

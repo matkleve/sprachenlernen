@@ -4,6 +4,7 @@ import { describe, expect, it } from "vitest";
 
 import {
   isFormRecallTaskId,
+  loadItalianFormRecallDeck,
   loadSpanishFormRecallDeck,
   meaningRecallTaskIdFor,
   type FormRecallCard,
@@ -39,6 +40,22 @@ describe("form-recall pool", () => {
     const analysis = table!.forms.hablo?.[0];
     expect(analysis?.lemma).toBe("hablar");
     expect(analysis?.cell).toBe("ind.pres.1sg");
+  });
+
+  it("loads the shipped Italian form-recall pool", () => {
+    const result = loadItalianFormRecallDeck();
+    expect(result.status).toBe("ok");
+    if (result.status !== "ok") return;
+
+    expect(result.deck.taskType).toBe("form-recall");
+    const cards = result.deck.cards as FormRecallCard[];
+    expect(cards.length).toBeGreaterThan(1400);
+    const parlare = cards.find((card) => card.lemma === "parlare");
+    expect(parlare?.taskId).toBe("it:parlare:parla:form-recall");
+    expect(parlare?.surfaceForm).toBe("parla");
+    expect(parlare?.paradigmCell).toBe("ind.pres.3sg");
+    expect(parlare?.back).toBe("parla");
+    expect(parlare?.front).not.toMatch(/write the Italian form/i);
   });
 
   it("derives the sibling meaning-recall task id from wordId", () => {

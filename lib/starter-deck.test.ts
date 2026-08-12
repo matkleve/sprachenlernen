@@ -3,8 +3,12 @@ import { describe, expect, it } from "vitest";
 import {
   ES_EXCLUDED_LEMMAS,
   ES_IDENTICAL_COGNATES,
+  IT_EXCLUDED_LEMMAS,
+  IT_IDENTICAL_COGNATES,
   MAX_GLOSS_CHARS,
   SHIPPED_ES_POOL_SIZE,
+  SHIPPED_IT_POOL_SIZE,
+  loadItalianMeaningRecallDeck,
   loadSpanishMeaningRecallDeck,
   validateStarterDeck,
 } from "@/lib/starter-deck";
@@ -87,5 +91,63 @@ describe("starter-deck", () => {
     if (invalid.status === "error") {
       expect(invalid.errors.join(" ")).toMatch(/cards/);
     }
+  });
+});
+
+describe("starter-deck — Italian", () => {
+  const result = loadItalianMeaningRecallDeck();
+  const cards = result.status === "ok" ? result.deck.cards : [];
+
+  it("loads the shipped Italian meaning-recall pool", () => {
+    expect(result.status).toBe("ok");
+    if (result.status !== "ok") return;
+    expect(result.deck.language).toBe("it");
+    expect(result.deck.taskType).toBe("meaning-recall");
+    expect(result.deck.cards.length).toBe(SHIPPED_IT_POOL_SIZE);
+    expect(result.deck.cards[0]?.taskId).toBe("it:il:meaning-recall");
+    expect(result.deck.cards[0]?.frequencyRank).toBe(1);
+  });
+
+  it("ranks every card uniquely and consecutively", () => {
+    expect(cards.map((card) => card.frequencyRank)).toEqual(
+      cards.map((_, index) => index + 1),
+    );
+    expect(new Set(cards.map((card) => card.taskId)).size).toBe(cards.length);
+    expect(new Set(cards.map((card) => card.lemma)).size).toBe(cards.length);
+  });
+
+  it("gives every card a usable gloss", () => {
+    const empty = cards.filter(
+      (card) => card.back.trim() === "" || card.front.trim() === "" || card.lemma.trim() === "",
+    );
+    expect(empty).toEqual([]);
+
+    const overlong = cards.filter((card) => card.back.length > MAX_GLOSS_CHARS);
+    expect(overlong.map((card) => card.lemma)).toEqual([]);
+  });
+
+  it("never shows a card whose back merely repeats its front", () => {
+    const repeated = cards.filter((card) => card.back === card.lemma).map((card) => card.lemma);
+    expect(repeated.sort()).toEqual([...IT_IDENTICAL_COGNATES].sort());
+  });
+
+  it("keeps every excluded lemma out of the pool", () => {
+    expect(IT_EXCLUDED_LEMMAS.length).toBeGreaterThan(0);
+    const leaked = cards.filter((card) => IT_EXCLUDED_LEMMAS.includes(card.lemma));
+    expect(leaked.map((card) => card.lemma)).toEqual([]);
+  });
+
+  it("never shows a grammar note where a translation belongs", () => {
+    const notes = cards.filter((card) =>
+      /\b(first|second|third)-person\b|^Senses relating|\bapocopic\b|\ba surname\b/i.test(card.back),
+    );
+    expect(notes.map((card) => `${card.lemma}: ${card.back}`)).toEqual([]);
+  });
+
+  it("keeps the task and word ids derivable from the lemma", () => {
+    const wrong = cards.filter(
+      (card) => card.taskId !== `it:${card.lemma}:meaning-recall` || card.wordId !== `it:${card.lemma}`,
+    );
+    expect(wrong.map((card) => card.lemma)).toEqual([]);
   });
 });

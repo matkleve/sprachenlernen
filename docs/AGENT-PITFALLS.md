@@ -284,6 +284,34 @@ the client** and sync the URL with `history.replaceState` — shareable, no scro
 jump, no round trip. See [`ARCHITECTURE.md`](ARCHITECTURE.md) § Client-first.
 Navigate only when the user is actually going somewhere else.
 
+## 18. Citing a use case by ID without saying what it is
+
+**The failure:** dropping "UC-013" or "per UC-039" into an answer as if the
+reader has the seventy-plus-item use-case index memorized. The ID alone
+carries no meaning — the reader has to stop, go open the file, and by the time
+they are back they have lost the thread of the actual point being made.
+
+**How it happened here** (2026-08-12): a report cited UC-013, UC-039 and
+UC-005 by ID and title only, while asking the user to weigh a real trade-off
+between them. The user could not evaluate the trade-off without first being
+taught what each one was — the citation format was doing the opposite of its
+job.
+
+**The rule:** every time a use case is cited, explain it in the same
+paragraph, in plain language — who wants what, and why — never the ID and
+title alone. When it actually shapes the decision on the table, add a
+concrete example of it firing, not just the one-line paraphrase.
+
+- Bad: "This conflicts with UC-013."
+- Good: "This conflicts with UC-013 — a card that keeps failing gets
+  suspended and diagnosed (e.g. flagged as confusable with a similar word),
+  never just repeated more. Example: someone mixes up *pero* and *perro*
+  every time; UC-013's answer is a repair card contrasting the two, not a
+  fifth attempt at the same one."
+
+Applies to any project-specific ID a reader cannot be assumed to have
+memorized — spec IDs, ADR numbers, task IDs — not only use cases.
+
 ---
 
 ## For you, writing the prompt

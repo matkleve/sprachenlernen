@@ -36,3 +36,12 @@ nothing in the app says so, so the learner concludes they are bad at languages.
 ## Out of scope
 
 Manual editing of scheduler parameters, and deleting cards in bulk.
+
+## Undecided
+
+- **Resolved 2026-08-12 (decision 12):** same-session repeats do **not**
+  count toward the cross-session failure count that triggers suspension here.
+  UC-071's within-run buffer and this use case's leech suspend are separate
+  mechanisms. A card can be rehearsed heavily in one sitting without being
+  suspended that same day; suspension still requires repeated failure **across
+  sessions**.

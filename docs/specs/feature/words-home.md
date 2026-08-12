@@ -17,10 +17,14 @@ reading, listening, speaking, and off-app Methods are reached from `/methods`.
 - **In:** `features/words/` — `WordsHome`, `reading.ts`, `content.ts`; wired on
   `app/(app)/words/page.tsx`. Derives from
   [`vocabulary-snapshot.md`](../service/vocabulary-snapshot.md) and **only**
-  Reviews from built card-engine Methods (today: `srs-session`).
+  Reviews from built card-engine Methods (today: `srs-session`); `reading.ts`
+  filters `poolForActiveLanguage()`'s cards down to **meaning-recall only**
+  before building the snapshot — one atlas row per word, never one per Task.
 - **Out:** due counts anywhere (A3); skills and level display (Progress);
   session-length picker; choosing a method other than a built card-engine Method
-  from this page; holdings or horizon for Methods without a card engine.
+  from this page; holdings or horizon for Methods without a card engine;
+  form-recall progress (that's [`form-mastery-signal.md`](../service/form-mastery-signal.md),
+  on Progress).
 
 **Reuse: `Button`, `Table`** — same primitives as Progress.
 

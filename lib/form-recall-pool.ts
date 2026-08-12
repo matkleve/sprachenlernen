@@ -4,8 +4,8 @@
  */
 
 import esFormRecall from "@/data/starter/es-form-recall.json";
+import itFormRecall from "@/data/starter/it-form-recall.json";
 import {
-  loadSpanishMeaningRecallDeck,
   validateStarterDeck,
   type LoadStarterDeckResult,
   type StarterCard,
@@ -61,8 +61,14 @@ export function loadSpanishFormRecallDeck(): LoadStarterDeckResult {
   return validateFormRecallDeck(esFormRecall);
 }
 
+/** Shipped Italian form-recall pool — one surface form per meaning-recall lemma where possible. */
+export function loadItalianFormRecallDeck(): LoadStarterDeckResult {
+  return validateFormRecallDeck(itFormRecall);
+}
+
 const SHIPPED_FORM_DECKS: Record<string, () => LoadStarterDeckResult> = {
   es: loadSpanishFormRecallDeck,
+  it: loadItalianFormRecallDeck,
 };
 
 export function loadFormRecallDeck(languageCode: string): LoadStarterDeckResult {

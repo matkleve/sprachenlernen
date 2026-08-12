@@ -104,7 +104,7 @@ because it is interesting.
 | [UC-017](UC-017-get-a-correction-i-can-act-on.md) | Write something and get a correction I can act on | 5 | [06](../study/06-production.md) |
 | [UC-009](UC-009-practise-away-from-the-screen.md) | Practise on paper, and have it count | 5 | [07](../study/07-offline-and-paper.md) |
 | [UC-019](UC-019-learn-for-something-specific.md) | Learn for the thing I actually need it for | 5 | [08](../study/08-motivation.md) M7 |
-| [UC-025](UC-025-learn-a-second-language.md) | Learn a second language without disturbing the first | 6 | F84 |
+| [UC-025](UC-025-learn-multiple-languages.md) | Learn multiple languages, each fully separate | 6 | F84 |
 | [UC-026](UC-026-prepare-for-a-real-conversation.md) | Prepare for a conversation that is actually happening | 6 | [07](../study/07-offline-and-paper.md) Ü5 |
 | [UC-016](UC-016-find-out-what-i-avoid.md) | Find out what I have been avoiding | 6 | [06](../study/06-production.md) |
 | [UC-035](UC-035-add-a-language-not-shipped.md) | Learn a language the app does not ship yet | 0 | [18](../study/18-language-kit.md) |
@@ -137,6 +137,8 @@ because it is interesting.
 | [UC-062](UC-062-see-what-is-holding-my-level-back.md) | See what is actually holding my level back | 2 | [03](../study/03-level-model.md) |
 | [UC-063](UC-063-get-to-my-cards-without-the-menu.md) | Get to my cards without going through today's menu | 1 | [04](../study/04-flashcards-srs.md) |
 | [UC-064](UC-064-understand-what-one-sub-metric-says-about-me.md) | Understand what one sub-metric says about me | 2 | [03](../study/03-level-model.md), [25](../study/25-why-it-does-not-feel-productive.md) |
+| [UC-069](UC-069-use-the-app-in-my-own-language.md) | Use the app in the language I speak — chrome and card glosses, one setting | 1 · Querschnitt | [`I18N.md`](../I18N.md), [`data/README.md`](../../data/README.md), UC-041 |
+| [UC-071](UC-071-get-a-wrong-card-back-before-the-session-ends.md) | Get a wrong card back before the session ends | 4b — with UC-013 | [`IDEAS.md`](../IDEAS.md) |
 
 **Not yet written**, and deliberately: use cases for content production (adding a
 language pair, recording a talker pool, curating texts). Those are operator
