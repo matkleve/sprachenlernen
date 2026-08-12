@@ -159,3 +159,76 @@ making explicitly before either becomes a use case.
   and any change to what `position`/`total` mean must be checked against it.
 - [UC-013](use-cases/UC-013-stop-losing-time-on-one-card.md) — the cross-session
   leech trap; the diagnosis-and-repair answer this use case already commits to.
+
+---
+
+## 2026-08-12 — How would the app detect *why* a card keeps failing?
+
+**Status:** design note, not a lifecycle idea — it serves an existing use case
+([UC-013](use-cases/UC-013-stop-losing-time-on-one-card.md): a card that keeps
+failing gets **suspended and diagnosed** — "you're confusing it with *X*" —
+rather than just repeated more) instead of an undecided one, so it skips the
+graduate/reject states above. Recorded here because [ADR-0004](adr/0004-word-task-data-model.md)
+already assumes a diagnosis mechanism exists ("minimal-pair tasks appear only
+when a confusion is detected") without saying how, and UC-013 has no spec yet
+to answer it in.
+
+**The constraint that shapes everything:** review sessions are Anki-style
+self-grading only (`again`/`hard`/`good`/`easy`) — never a typed answer. A
+grade carries **zero content signal**: it says "this went badly," never *why*
+or *what the learner said instead*. Any detection of "confused with X" has to
+come from somewhere other than the grade itself.
+
+### Three tiers, in order of reliability
+
+1. **Static — known before the first review, no learner behaviour needed.**
+   Properties of the *card*, computable once at content-build time from data
+   already on hand:
+   - **Too many meanings** — the source gloss (Kaikki) already lists every
+     sense; a card folding N ≥ 2 senses into one gloss is flaggable at build
+     time, not inferred from failures.
+   - **No context** — a card with no example sentence is a static fact,
+     checkable by field presence.
+   - **Confusion with a neighbour word** — compare every card's `lemma`
+     against every other `lemma` in the *same pool* (edit distance ≤ 1–2, or
+     shared stem) at build time. `pero` vs `perro` is caught by an
+     edit-distance check alone — no review data required.
+   - **Sound contrast** — a per-language-pair confusability table (which
+     phoneme pairs a given L1 struggles with in a given L2) is linguistic
+     knowledge, not behavioural data, and is what
+     [UC-014](use-cases/UC-014-hear-a-difference-i-cannot-hear.md) already
+     needs for its own purpose — one table could serve both.
+2. **Behavioural — from the review log alone.** The only thing self-grading
+   actually provides: repeated `again`/`hard` grades crossing the lapse
+   threshold. This tells the app **that** something is wrong — the leech
+   pattern already implemented in `stabilityAfterLapse`/`lapseThreshold`
+   (`lib/scheduler.ts`) — never **what**. Inferring "confused with X" from
+   grade timing alone (e.g. two cards failed in the same session) is a false
+   signal: it would flag any two hard cards reviewed back to back.
+3. **Ask, once, at the moment of suspension.** Tier 2 cannot name a cause;
+   tier 1 can only produce *candidates*. The last mile has to be a direct,
+   low-friction ask — tap-to-confirm, never free text (nothing here reads
+   free text) — with tier 1's candidates pre-filled as the choices, e.g.
+   "Confused with *perro*?" / "Too many meanings?" / "No context?" / "Can't
+   hear the difference?" / "Something else." One screen, one tap, turns a
+   guess into a confirmed diagnosis without asking the learner to type or
+   self-diagnose from a blank slate.
+
+**The formula, as one rule:** tier 1 generates candidate causes at
+content-build time (cheap, deterministic, offline, reusable across every
+learner who ever gets this card); tier 2 decides *when* to ask (the leech
+threshold already exists); tier 3 turns a candidate into a confirmed diagnosis
+with one tap. Nothing here needs typed-answer analysis or free-text NLP, which
+this app does not have and is not adding.
+
+### Open, before this is spec-ready
+
+- **⚠ SPEC GAP:** does tier-1 neighbour-collision detection run once at
+  deck-build time (like the overrides/exclusions pipeline already does for the
+  Italian/Spanish pools) and ship as static data on the card, or per-learner
+  (it only matters if the learner is actually studying both neighbours)?
+  Static is far cheaper; per-learner has no false positive for a learner who
+  never touches the confusable word.
+- **⚠ SPEC GAP:** what similarity threshold catches `pero`/`perro` without
+  also flagging most short, common words against each other. Needs testing
+  against the real 2000-lemma pools, not a guessed constant.

@@ -25,16 +25,35 @@ where a report button exists, nothing visibly comes back.
 - Every piece of content — card, sentence, text, audio clip, translation — can
   be reported from where it appears, in one action, without leaving the session.
 - The report needs no category and no explanation, though both can be given.
-- The item is **flagged for this learner immediately**: it stops being scheduled
-  while under question, rather than continuing to appear for weeks.
+- The item is **flagged for this learner immediately**: it stops being
+  scheduled **starting the next session**, rather than continuing to appear
+  for weeks. It is not pulled out from underneath a session already in
+  progress — the same fixed-queue behaviour
+  [`session-builder.md`](../specs/service/session-builder.md) already gives a
+  card that gets suspended mid-run (a session's queue is built once, at
+  `preparing`, and never revisited until the next one). A card that just
+  vanished mid-session would read as a bug, not a feature — checked
+  2026-08-12, this needs no new mechanism, the existing one already behaves
+  this way.
 - The learner is told what happened to their report.
 - Content is marked with where it came from, so a learner can weigh a generated
   sentence differently from a checked one.
 - Reports accumulate into a signal that is actually looked at — repeated reports
   on one item, or a spike for one generator or language, are visible to whoever
   maintains the content.
+- **The report is scoped to one (Learning language, Gloss language) pair, not
+  to the Word in the abstract.** "The translation is wrong" is a claim about
+  one specific gloss text in one specific gloss language attached to one
+  specific learning language's card — see **Gloss language** and **Learning
+  language** in [`../GLOSSARY.md`](../GLOSSARY.md). Once UC-070 ships more than
+  one gloss language, the same card's English gloss and German gloss are
+  independent texts that can each be right or wrong on their own; a report
+  must say which one it is about, never flag "this card" as a whole.
 
 ## Out of scope
 
 A public correction forum, learner-submitted replacement content, and
-crowd-voting on what is correct.
+crowd-voting on what is correct. A moderator **role** or a review-queue UI —
+v1 is a flag the person maintaining the content can query directly; a
+dedicated review workflow, if it is ever needed, is a later increment on top
+of the same flag, not a redesign of it.
