@@ -1,4 +1,5 @@
 import { activeLanguageOf, listLearningLanguages } from "@/lib/db/learning-languages";
+import { loadFormRecallDeck } from "@/lib/form-recall-pool";
 import { loadMeaningRecallDeck, type StarterCard } from "@/lib/starter-deck";
 
 /**
@@ -41,6 +42,11 @@ export async function poolForScheduling(): Promise<LearnerPool> {
     if (deck.status !== "ok") continue;
     cards.push(...deck.deck.cards);
     languageCodes.push(language.languageCode);
+
+    const formDeck = loadFormRecallDeck(language.languageCode);
+    if (formDeck.status === "ok") {
+      cards.push(...formDeck.deck.cards);
+    }
   }
 
   if (cards.length === 0) {

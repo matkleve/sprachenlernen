@@ -44,7 +44,9 @@ hosted; one engine is built.
 | Home surface | [`words-home.md`](../feature/words-home.md) at `/words` |
 
 Future card-based Methods (form recall, audio recall, cloze …) extend this
-engine on the same route until a Method needs a different runner.
+engine on the same route. **Form-recall** Tasks ship in
+[`form-recall-pool.md`](form-recall-pool.md) — staged after meaning-recall is
+held for the same Word.
 
 ## Routing
 
