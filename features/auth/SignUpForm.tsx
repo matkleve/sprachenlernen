@@ -1,5 +1,4 @@
-import Link from "next/link";
-
+import { TextLink } from "@/components/ui/TextLink";
 import { SubmitButton } from "@/components/ui/SubmitButton";
 import { Field } from "@/components/ui/Field";
 import { Input } from "@/components/ui/Input";
@@ -46,9 +45,9 @@ export function SignUpForm({
       ) : null}
       <p className="mt-4 text-sm text-muted">
         {authContent.signUp.switchPrompt}{" "}
-        <Link className="text-accent underline" href="/login">
+        <TextLink href="/login" size="sm">
           {authContent.signUp.switchLinkLabel}
-        </Link>
+        </TextLink>
       </p>
     </>
   );

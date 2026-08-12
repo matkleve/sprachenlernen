@@ -8,7 +8,7 @@ import { AppShell } from "./AppShell";
 import { FloatingShellChrome } from "./FloatingShellChrome";
 import { copy as profileCopy } from "@/features/profile/content";
 
-import { copy } from "./content";
+import { copy, holding } from "./content";
 
 const oneLanguage = [{ code: "es", endonym: "Español", isActive: true }] as const;
 const twoLanguages = [
@@ -71,6 +71,7 @@ describe("SPEC-feature-mobile-nav-v2", () => {
       .getAllByRole("link")
       .filter((link) => link.getAttribute("href") === "/words");
     expect(wordsLinks).toHaveLength(1);
+    expect(screen.getByRole("heading", { level: 1, name: holding.words.title })).toBeDefined();
   });
 
   it("shows the language icon on a destination root", () => {
@@ -78,7 +79,7 @@ describe("SPEC-feature-mobile-nav-v2", () => {
     render(<FloatingShellChrome languages={twoLanguages} />);
 
     expect(
-      screen.getByRole("combobox", { name: copy.switchLanguage }),
+      screen.getByRole("button", { name: copy.switchLanguage }),
     ).toBeDefined();
   });
 
@@ -90,7 +91,7 @@ describe("SPEC-feature-mobile-nav-v2", () => {
       .getAllByRole("link")
       .filter((link) => link.getAttribute("href") === "/words");
     expect(wordsLinks).toHaveLength(2);
-    expect(screen.queryByRole("combobox", { name: copy.switchLanguage })).toBeNull();
+    expect(screen.queryByRole("button", { name: copy.switchLanguage })).toBeNull();
     expect(screen.getByRole("navigation", { name: copy.mobileNavLabel })).toBeDefined();
   });
 

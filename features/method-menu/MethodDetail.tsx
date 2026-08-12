@@ -48,8 +48,7 @@ export function MethodDetail({ method, searchParams = {} }: MethodDetailProps) {
       <p className="mt-6 text-sm font-medium uppercase tracking-widest text-muted">
         {sections[method.section]}
       </p>
-      <h1 className="mt-2 text-3xl font-semibold tracking-tight text-ink">{method.name}</h1>
-      <p className="mt-3 text-base leading-relaxed text-muted">{method.summary}</p>
+      <p className="mt-2 text-base leading-relaxed text-muted">{method.summary}</p>
 
       <ul className="mt-6 flex flex-wrap gap-1.5" aria-label={copy.card.properties}>
         {durationChips(method.durations).map((label) => (

@@ -1,9 +1,7 @@
-import Link from "next/link";
-
-import { buttonVariants } from "@/components/ui/Button";
+import { ActionLink } from "@/components/ui/ActionLink";
+import { TextLink } from "@/components/ui/TextLink";
 import { cardEngineSessionHref } from "@/lib/method-session";
 import { routes } from "@/lib/routes";
-import { cn } from "@/lib/utils";
 
 import { copy } from "./content";
 import type { StandingSummary } from "./standing";
@@ -17,12 +15,9 @@ export function CurrentStanding({ summary }: { summary: StandingSummary }) {
     return (
       <section className="mt-6 max-w-2xl" aria-label={copy.standingLabel}>
         <p className="text-base leading-relaxed text-muted">{copy.standingEmpty}</p>
-        <Link
-          href={cardEngineSessionHref()}
-          className={cn(buttonVariants({ variant: "secondary" }), "mt-4")}
-        >
+        <ActionLink href={cardEngineSessionHref()} variant="secondary" className="mt-4">
           {copy.standingStartReview}
-        </Link>
+        </ActionLink>
       </section>
     );
   }
@@ -30,9 +25,9 @@ export function CurrentStanding({ summary }: { summary: StandingSummary }) {
   return (
     <section className="mt-page-content max-w-2xl" aria-label={copy.standingLabel}>
       <p className="text-base leading-relaxed text-ink">{copy.standingRecorded(summary.held, summary.poolSize)}</p>
-      <Link href={routes.progress} className="mt-2 inline-block text-sm font-medium text-ink underline-offset-4 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus focus-visible:ring-offset-2">
+      <TextLink href={routes.progress} tone="ink" size="sm" className="mt-2 inline-block">
         {copy.standingSeeProgress}
-      </Link>
+      </TextLink>
     </section>
   );
 }

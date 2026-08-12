@@ -32,7 +32,10 @@ describe("ProfileLanguages", () => {
 
     expect(screen.getByText("Español")).toBeDefined();
     expect(screen.getByText("Spanish")).toBeDefined();
-    expect(screen.getByText(copy.active)).toBeDefined();
+    const activeChip = screen.getByText(copy.active);
+    expect(activeChip.tagName).toBe("SPAN");
+    expect(activeChip.className).toContain("bg-accent-soft");
+    expect(activeChip.className).toContain("border-accent");
   });
 
   it("offers a switch on a language that is not in focus", () => {
@@ -87,6 +90,40 @@ describe("ProfileLanguages", () => {
 
     expect(screen.getByText(copy.standing(347, SHIPPED_ES_POOL_SIZE))).toBeDefined();
     expect(screen.getByRole("link", { name: copy.viewProgress })).toBeDefined();
+  });
+
+  it("shows zero held before the first review when a pool ships", () => {
+    render(
+      <ProfileLanguages
+        outcome={{ status: "ok", languages: [language("it", true)] }}
+        holdings={{ it: { poolSize: SHIPPED_ES_POOL_SIZE, heldCount: null } }}
+        switchTo={switchTo}
+      />,
+    );
+
+    expect(screen.getByText(copy.standing(0, SHIPPED_ES_POOL_SIZE))).toBeDefined();
+  });
+
+  it("hides Add a language when every shipped pool is already being learned", () => {
+    render(
+      <ProfileLanguages
+        outcome={{ status: "ok", languages: [language("es", true), language("it", false)] }}
+        switchTo={switchTo}
+      />,
+    );
+
+    expect(screen.queryByRole("link", { name: copy.addLanguage })).toBeNull();
+  });
+
+  it("shows Add a language when a shipped pool is not on the list yet", () => {
+    render(
+      <ProfileLanguages
+        outcome={{ status: "ok", languages: [language("es", true)] }}
+        switchTo={switchTo}
+      />,
+    );
+
+    expect(screen.getByRole("link", { name: copy.addLanguage })).toBeDefined();
   });
 
   it("shows no streak, XP, or review total", () => {

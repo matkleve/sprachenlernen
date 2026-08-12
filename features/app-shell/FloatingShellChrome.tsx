@@ -4,22 +4,21 @@ import { ArrowLeft, UserRound } from "lucide-react";
 import { usePathname } from "next/navigation";
 
 import { ActionLink } from "@/components/ui/ActionLink";
-import { buttonVariants } from "@/components/ui/Button";
+import { IconLink } from "@/components/ui/IconLink";
+import type { LanguageHoldings } from "@/lib/db/language-holdings";
 import { routes } from "@/lib/routes";
 import { cn } from "@/lib/utils";
 
 import { shellBackTarget } from "./back-target";
 import { DestinationNavItems } from "./DestinationNavItems";
 import { LanguageSwitcher, type LanguageSwitcherOption } from "./LanguageSwitcher";
+import { ShellPageTitle, shellHeaderStartsCompact } from "./ShellPageTitle";
+import { HeaderScrim } from "./HeaderScrim";
 import { copy } from "./content";
+import { useHeaderCollapse } from "./useHeaderCollapse";
 
 const safeTop = "pt-[max(1rem,env(safe-area-inset-top))]";
 const safeBottom = "pb-[max(1rem,env(safe-area-inset-bottom))]";
-
-const cornerIconChipClass = cn(
-  buttonVariants({ variant: "floating", size: "sm" }),
-  "size-11 min-h-11 min-w-11 rounded-full p-0",
-);
 
 /**
  * Mobile floating chrome: corner chips + bottom destination pill.
@@ -27,49 +26,58 @@ const cornerIconChipClass = cn(
  */
 export function FloatingShellChrome({
   languages,
+  languageHoldings,
 }: {
   languages: readonly LanguageSwitcherOption[];
+  languageHoldings?: Record<string, LanguageHoldings>;
 }) {
   const pathname = usePathname();
   const back = shellBackTarget(pathname);
+  const collapse = useHeaderCollapse();
+  const pinnedCompact = shellHeaderStartsCompact(pathname);
 
   return (
     <>
-      <div
-        className={cn(
-          "pointer-events-none fixed inset-x-0 top-0 z-50 flex items-start justify-between gap-3 px-4",
-          safeTop,
-          "md:hidden",
-        )}
+      <HeaderScrim
+        collapse={pinnedCompact ? 1 : collapse}
+        className="pointer-events-none fixed inset-x-0 top-0 z-50 md:hidden"
       >
-        <div className="pointer-events-auto flex min-h-11 min-w-0 items-center gap-2">
-          {back ? (
-            <ActionLink
-              href={back.href}
-              variant="floating"
-              size="sm"
-              className="gap-1.5"
-            >
-              <ArrowLeft aria-hidden className="size-4 shrink-0" />
-              {back.label}
-            </ActionLink>
-          ) : (
-            <LanguageSwitcher languages={languages} layout="floating" />
+        <div
+          className={cn(
+            "relative flex min-h-11 items-center justify-between gap-3 px-4 pb-3",
+            safeTop,
           )}
-        </div>
+        >
+          <div className="pointer-events-auto flex min-h-11 min-w-0 items-center gap-2">
+            {back ? (
+              <ActionLink
+                href={back.href}
+                variant="floating"
+                size="sm"
+                pendingPolicy="nav"
+                className="gap-1.5"
+              >
+                <ArrowLeft aria-hidden className="size-4 shrink-0" />
+                {back.label}
+              </ActionLink>
+            ) : (
+              <LanguageSwitcher
+                languages={languages}
+                languageHoldings={languageHoldings}
+                layout="floating"
+              />
+            )}
+          </div>
 
-        <div className="pointer-events-auto">
-          <ActionLink
-            href={routes.profile}
-            variant="floating"
-            size="sm"
-            className={cornerIconChipClass}
-            aria-label={copy.account}
-          >
-            <UserRound aria-hidden className="size-5 shrink-0" />
-          </ActionLink>
+          <ShellPageTitle variant="mobile" pinnedCompact={pinnedCompact} />
+
+          <div className="pointer-events-auto">
+            <IconLink href={routes.profile} aria-label={copy.account}>
+              <UserRound aria-hidden className="size-5 shrink-0" />
+            </IconLink>
+          </div>
         </div>
-      </div>
+      </HeaderScrim>
 
       <nav
         aria-label={copy.mobileNavLabel}

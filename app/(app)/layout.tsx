@@ -3,6 +3,7 @@ import type { ReactNode } from "react";
 import { AppShell } from "@/features/app-shell/AppShell";
 import { requireAccount } from "@/features/app-shell/gate";
 import { switcherOptionsFrom } from "@/features/app-shell/reading";
+import { readLanguageHoldings } from "@/lib/db/language-holdings";
 import { listLearningLanguages } from "@/lib/db/learning-languages";
 
 /**
@@ -23,7 +24,19 @@ export const dynamic = "force-dynamic";
 
 export default async function AppLayout({ children }: { children: ReactNode }) {
   await requireAccount();
-  const languages = switcherOptionsFrom(await listLearningLanguages());
+  const outcome = await listLearningLanguages();
+  const languages = switcherOptionsFrom(outcome);
+  const holdings =
+    outcome.status === "ok"
+      ? await readLanguageHoldings(outcome.languages.map((language) => language.languageCode))
+      : { status: "error" as const, error: "" };
 
-  return <AppShell languages={languages}>{children}</AppShell>;
+  return (
+    <AppShell
+      languages={languages}
+      languageHoldings={holdings.status === "ok" ? holdings.byCode : undefined}
+    >
+      {children}
+    </AppShell>
+  );
 }

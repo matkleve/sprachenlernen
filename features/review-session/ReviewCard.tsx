@@ -1,5 +1,9 @@
+import { Flag } from "lucide-react";
+
+import { GradeButton } from "@/components/ui/GradeButton";
+import { IconButton } from "@/components/ui/IconButton";
+import { PressableCard } from "@/components/ui/PressableCard";
 import { copy } from "@/features/review-session/content";
-import { gradeButtonClass } from "@/features/review-session/grade-button-variants";
 import {
   canFlip,
   canGrade,
@@ -10,7 +14,6 @@ import { isFormRecallTaskId } from "@/lib/form-recall-pool";
 import { paradigmCellLabel } from "@/lib/paradigm-cells";
 import { GRADES, type Grade } from "@/lib/scheduler";
 import { cn } from "@/lib/utils";
-import { Flag } from "lucide-react";
 
 type ReviewCardProps = {
   card: SessionCard;
@@ -54,88 +57,77 @@ export function ReviewCard({
         </p>
       ) : null}
 
-      <div className={cn("relative", compact ? "flex min-h-0 flex-1 flex-col" : "")}>
-        <button
+      <div className={cn("relative", compact && "flex min-h-0 flex-1 flex-col")}>
+        <IconButton
           type="button"
+          size="sm"
+          pending={reportPending}
+          pendingPolicy="none"
           onClick={onReport}
-          disabled={reportPending}
           aria-label={copy.report}
-          className={cn(
-            "absolute top-3 right-3 z-10 inline-flex size-9 items-center justify-center rounded-pill border border-line bg-surface text-muted shadow-soft",
-            "transition-[background-color,box-shadow,transform,border-color] duration-150 ease-out-soft",
-            "hover:border-line-strong hover:text-ink hover:-translate-y-px hover:shadow-raised",
-            "active:scale-[0.98] active:translate-y-0",
-            "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-canvas",
-            "disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none disabled:hover:translate-y-0",
-          )}
+          className="absolute top-3 right-3 z-10 text-muted hover:text-ink"
         >
           <Flag className="size-4" aria-hidden />
-        </button>
+        </IconButton>
 
-        <button
-          type="button"
+        <PressableCard
           onClick={onFlip}
-          disabled={!flipEnabled}
+          interactive={flipEnabled}
           aria-expanded={revealBack}
           aria-label={flipEnabled ? copy.flipHint : undefined}
           className={cn(
-            "group relative w-full rounded-card border border-line bg-surface text-center shadow-soft",
             compact ? "flex min-h-0 flex-1 flex-col justify-center p-5 md:mt-6 md:flex-none md:p-8" : "mt-6 p-8",
-          "transition-[box-shadow,transform] duration-200 ease-out-soft",
-          "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-canvas",
-          flipEnabled && "cursor-pointer hover:-translate-y-px hover:shadow-raised active:scale-[0.98] active:translate-y-0",
-          !flipEnabled && "cursor-default",
-        )}
-      >
-        {languageName && (
-          <p className="text-xs font-medium uppercase tracking-widest text-muted">
-            {copy.languageLabel(languageName)}
-          </p>
-        )}
-
-        <p
-          className={cn(
-            compact ? "text-xl md:text-2xl" : "text-2xl",
-            "font-semibold text-ink transition-transform duration-300",
-            languageName ? "mt-1 md:mt-2" : "",
-            revealBack && "scale-95 opacity-80",
           )}
         >
-          {card.front}
-        </p>
+          {languageName && (
+            <p className="text-xs font-medium uppercase tracking-widest text-muted">
+              {copy.languageLabel(languageName)}
+            </p>
+          )}
 
-        {cell && (
-          <p className={cn("font-medium text-ink", compact ? "mt-2 text-sm md:text-base" : "mt-3 text-base")}>
-            {copy.cellLabel(cell)}
-          </p>
-        )}
-
-        {isFormRecall && (
-          <p className={cn("text-muted", compact ? "mt-1 text-xs md:mt-2 md:text-sm" : "mt-2 text-sm")}>
-            {copy.formRecallInstruction(languageName)}
-          </p>
-        )}
-
-        {revealBack && (
           <p
             className={cn(
-              "border-t border-line text-muted",
-              compact ? "mt-3 pt-3 text-sm md:mt-4 md:pt-4 md:text-base" : "mt-4 pt-4 text-base",
+              compact ? "text-xl md:text-2xl" : "text-2xl",
+              "font-semibold text-ink transition-transform duration-300",
+              languageName ? "mt-1 md:mt-2" : "",
+              revealBack && "scale-95 opacity-80",
             )}
           >
-            {card.back}
+            {card.front}
           </p>
-        )}
 
-        {flipEnabled && (
-          <p className="pointer-events-none absolute right-4 bottom-3 flex items-center gap-1 text-xs text-muted">
-            <span aria-hidden className="text-sm leading-none">
-              ↻
-            </span>
-            {copy.flipHint}
-          </p>
-        )}
-      </button>
+          {cell && (
+            <p className={cn("font-medium text-ink", compact ? "mt-2 text-sm md:text-base" : "mt-3 text-base")}>
+              {copy.cellLabel(cell)}
+            </p>
+          )}
+
+          {isFormRecall && (
+            <p className={cn("text-muted", compact ? "mt-1 text-xs md:mt-2 md:text-sm" : "mt-2 text-sm")}>
+              {copy.formRecallInstruction(languageName)}
+            </p>
+          )}
+
+          {revealBack && (
+            <p
+              className={cn(
+                "border-t border-line text-muted",
+                compact ? "mt-3 pt-3 text-sm md:mt-4 md:pt-4 md:text-base" : "mt-4 pt-4 text-base",
+              )}
+            >
+              {card.back}
+            </p>
+          )}
+
+          {flipEnabled && (
+            <p className="pointer-events-none absolute right-4 bottom-3 flex items-center gap-1 text-xs text-muted">
+              <span aria-hidden className="text-sm leading-none">
+                ↻
+              </span>
+              {copy.flipHint}
+            </p>
+          )}
+        </PressableCard>
       </div>
 
       {gradesEnabled && (
@@ -144,14 +136,9 @@ export function ReviewCard({
 
           <div className={cn("grid w-full grid-cols-4 gap-2", compact ? "mt-2 md:mt-4" : "mt-4")}>
             {GRADES.map((grade) => (
-              <button
-                key={grade}
-                type="button"
-                className={gradeButtonClass(grade)}
-                onClick={() => onGrade(grade)}
-              >
+              <GradeButton key={grade} grade={grade} onClick={() => onGrade(grade)}>
                 {copy[grade]}
-              </button>
+              </GradeButton>
             ))}
           </div>
         </div>

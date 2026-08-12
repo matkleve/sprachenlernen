@@ -21,7 +21,7 @@ describe("MethodDetail", () => {
       <MethodDetail method={extensiveReading} searchParams={{ minutes: "15", skill: "reading" }} />,
     );
 
-    expect(screen.getByRole("heading", { level: 1 }).textContent).toBe(extensiveReading.name);
+    expect(document.body.textContent).toContain(extensiveReading.summary);
     expect(document.body.textContent).toContain(extensiveReading.doesNotDo);
     expect(screen.queryByRole("link", { name: copy.startSession })).toBeNull();
     expect(screen.getByText(copy.sessionNotBuilt)).toBeDefined();

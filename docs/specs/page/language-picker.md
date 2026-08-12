@@ -45,7 +45,9 @@ stops a language becoming selectable months before it has anything to teach.
 Today: Spanish and Italian are both available (2000-word starter sets each).
 
 The endonym is the primary label with the English name beneath — `Español` /
-*Spanish*. **A flag is never the identifier**; Spanish is not Spain.
+*Spanish*. **A flag is never the identifier** on these tiles; Spanish is not Spain.
+The shell switcher may show a decorative flag in its circle
+([`../component/language-flag.md`](../component/language-flag.md)).
 
 ## Copy, and why it is shaped this way
 
@@ -94,6 +96,8 @@ Three rules the copy is carrying:
       lands on `/methods`.
 - [ ] Given a language already being learned, then its tile is marked and offers
       no second add.
+- [ ] Given the active language, when its tile renders, then an **Active** chip
+      appears in the top-right corner with accent outline and soft fill.
 - [ ] Given a holdings count, when a tile renders it, then it reads
       `{held} of {pool} starter words held stably`, including at zero.
 - [ ] Given an unavailable language, then the tile carries the reason and has no
