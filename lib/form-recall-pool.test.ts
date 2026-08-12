@@ -51,9 +51,11 @@ describe("form-recall pool", () => {
     const cards = result.deck.cards as FormRecallCard[];
     expect(cards.length).toBeGreaterThan(1400);
     const parlare = cards.find((card) => card.lemma === "parlare");
-    expect(parlare?.surfaceForm).toBeTruthy();
-    expect(parlare?.back).toBe(parlare?.surfaceForm);
-    expect(parlare?.front).toContain("write the Italian form");
+    expect(parlare?.taskId).toBe("it:parlare:parla:form-recall");
+    expect(parlare?.surfaceForm).toBe("parla");
+    expect(parlare?.paradigmCell).toBe("ind.pres.3sg");
+    expect(parlare?.back).toBe("parla");
+    expect(parlare?.front).not.toMatch(/write the Italian form/i);
   });
 
   it("derives the sibling meaning-recall task id from wordId", () => {

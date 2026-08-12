@@ -76,6 +76,7 @@ function installTestQueue() {
 describe("ReviewSession", () => {
   beforeEach(() => {
     vi.clearAllMocks();
+    vi.mocked(appendReviewAction).mockResolvedValue({ status: "appended", id: "row-1" });
     installTestQueue();
   });
 
