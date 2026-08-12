@@ -3,6 +3,7 @@ import { describe, expect, it } from "vitest";
 import { readLevel } from "@/lib/level-model";
 import { newTask, rebuild, type Review } from "@/lib/scheduler";
 
+import type { StandingOutcome } from "./standing";
 import { standingFromReading } from "./standing";
 
 const DAY = 86_400_000;
@@ -33,5 +34,19 @@ describe("standingFromReading", () => {
     if (summary.kind !== "recorded") return;
     expect(summary.poolSize).toBe(3);
     expect(summary.held).toBeGreaterThanOrEqual(0);
+  });
+});
+
+describe("routing on no language", () => {
+  it("is a distinct outcome from omit, because the page routes on it", () => {
+    // Folding "no language" into `omit` would render the catalogue to someone
+    // who has never been asked what they are learning — which is three of the
+    // four ways into the app (confirmation link, OAuth, plain sign-in).
+    const outcomes: StandingOutcome[] = [
+      { status: "no-language" },
+      { status: "omit" },
+    ];
+
+    expect(outcomes.map((outcome) => outcome.status)).toEqual(["no-language", "omit"]);
   });
 });

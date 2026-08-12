@@ -50,6 +50,7 @@ stays a Server Component.
 
 | # | User action | System response |
 | --- | --- | --- |
+| 0 | Opens `/methods` with no language chosen | Redirects to the picker. Three of the four ways into the app — the confirmation link, OAuth, and simply signing in later — never pass through signup's redirect, so the guard lives on the destination |
 | 1 | Opens `/methods` | Whole catalogue until filters apply; **current standing** appears above the filters when review history can be read |
 | 2 | Moves time slider | URL `?minutes=` updates to the nearest scale step (or `endless`); list shows methods whose shortest variant fits |
 | 3 | Taps skill, energy, or refine | List intersects that dimension **without reloading the page**; scroll position preserved |

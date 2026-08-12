@@ -11,6 +11,8 @@ export type StandingSummary =
 
 export type StandingOutcome =
   | { status: "ok"; summary: StandingSummary }
+  /** Signed in, nothing chosen — the page routes to the picker. */
+  | { status: "no-language" }
   | { status: "omit" };
 
 export function standingFromReading(reading: LevelReading): StandingSummary {

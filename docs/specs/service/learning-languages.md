@@ -100,10 +100,12 @@ Named, not parameterised (`getPool(activeOnly?)`), because a boolean at the call
 site is an invitation and a name is a decision. Display may follow the
 interface's focus; scheduling may not — see below.
 
-**Neither surface renders an empty state when nothing is chosen.** Both return
-`no-language`, and the caller routes to the picker: `/progress` and `/words`
-redirect, the review session redirects, and the method menu simply omits its
-standing line so the catalogue still loads. "Not measured" is a statement about
+**No destination renders for an account with no language.** Both pools return
+`no-language` and every caller routes to the picker — `/methods`, `/progress`,
+`/words` and the review session alike. The guard is on the **destination**, not
+on signup: there are four ways into the app (immediate-session signup, the
+confirmation link, OAuth, and signing in later) and only the first passes
+through signup's redirect, so guarding the entrance left three unasked. "Not measured" is a statement about
 a learner who has been asked; it must not be shown to one who has not.
 
 ## The constraint that protects UC-025
