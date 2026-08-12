@@ -43,7 +43,7 @@ describe("task-state", () => {
       reviews.push({ at: now, grade });
 
       const { task: rebuilt } = rebuild(taskId, wordId, reviews, DEFAULT_CONFIG);
-      const payload = taskStatePayloadFromTask(rebuilt, grade);
+      const payload = taskStatePayloadFromTask(rebuilt, grade, DEFAULT_CONFIG.weightsVersion, reviews.length);
       const row: TaskStateRow = { taskId, wordId, ...payload };
       const fromState = taskFromStateRow(row);
 
@@ -67,6 +67,30 @@ describe("task-state", () => {
     const tasks = tasksByTaskIdForCards(cards, []);
     expect(tasks["es:hola:meaning-recall"]?.state).toBe("new");
     expect(tasks["es:hola:meaning-recall"]?.reviews).toEqual([]);
+  });
+
+  it("increments review_count from materialized state, not placeholder reviews", () => {
+    const taskId = "es:repeat:meaning-recall";
+    const wordId = wordIdFromTaskId(taskId);
+    const now = Date.UTC(2026, 8, 1);
+    const existing = taskFromStateRow({
+      taskId,
+      wordId,
+      state: "review",
+      stability: 8,
+      difficulty: 5,
+      due: new Date(now).toISOString(),
+      lastReviewAt: new Date(now - 86_400_000).toISOString(),
+      lapses: 0,
+      lastGrade: "good",
+      reviewCount: 9,
+      weightsVersion: DEFAULT_CONFIG.weightsVersion,
+    });
+    const { task } = applyReview(existing, "good", now + 86_400_000, DEFAULT_CONFIG);
+    const payload = taskStatePayloadFromTask(task, "good", DEFAULT_CONFIG.weightsVersion, 10);
+
+    expect(payload.reviewCount).toBe(10);
+    expect(task.reviews).toHaveLength(2);
   });
 
   it("applyReview on fresh task matches first materialized row", () => {

@@ -71,6 +71,7 @@ export function taskStatePayloadFromTask(
   task: Task,
   grade: Grade,
   weightsVersion: string = DEFAULT_CONFIG.weightsVersion,
+  reviewCount?: number,
 ): Omit<TaskStateRow, "taskId" | "wordId"> & { lastGrade: Grade } {
   return {
     state: task.state === "new" ? "learning" : task.state,
@@ -80,7 +81,7 @@ export function taskStatePayloadFromTask(
     lastReviewAt: task.lastReviewAt ? new Date(task.lastReviewAt).toISOString() : null,
     lapses: task.lapses,
     lastGrade: grade,
-    reviewCount: task.reviews.length,
+    reviewCount: reviewCount ?? task.reviews.length,
     weightsVersion,
   };
 }

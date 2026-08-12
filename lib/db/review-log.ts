@@ -183,7 +183,13 @@ export async function appendReview(
     return { status: "error", error: outcome.reason ?? "Could not apply grade." };
   }
 
-  const statePayload = taskStatePayloadFromTask(outcome.task, input.grade);
+  const priorReviewCount = currentRow?.reviewCount ?? 0;
+  const statePayload = taskStatePayloadFromTask(
+    outcome.task,
+    input.grade,
+    DEFAULT_CONFIG.weightsVersion,
+    priorReviewCount + 1,
+  );
 
   const { data, error } = await supabase.rpc("append_review_with_task_state", {
     p_installation_id: input.installationId,
