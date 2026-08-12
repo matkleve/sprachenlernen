@@ -14,7 +14,7 @@ Update this file in the same PR as any new control or migration.
 | Mobile profile icon | `FloatingShellChrome.tsx` | `IconLink` | `nav` | ring |
 | Desktop account | `DesktopShellHeader.tsx` | `ActionLink` | `ghost sm` | ✓ |
 | Language trigger | `LanguageSwitcher.tsx` | `IconButton` | `nav`; disabled while switching | ring |
-| Language menu row | `LanguageSwitcher.tsx` | `LanguageSwitchRow` | disabled while `pending` | — |
+| Language menu row | `LanguageSwitcher.tsx` | `LanguageListRow` | disabled while `pending` | — |
 | Add language (menu) | `LanguageSwitcher.tsx` | `ActionLink` | `secondary sm` | ✓ |
 | Language scrim | `LanguageSwitcher.tsx` | raw `<button>` | **exempt** — dismiss overlay | — |
 

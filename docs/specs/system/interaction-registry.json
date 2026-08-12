@@ -14,7 +14,7 @@
     "SurfaceLink",
     "PressableCard",
     "GradeButton",
-    "LanguageSwitchRow",
+    "LanguageListRow",
     "Disclosure"
   ],
   "primitivePaths": [
@@ -29,7 +29,7 @@
     "components/ui/SurfaceLink.tsx",
     "components/ui/PressableCard.tsx",
     "components/ui/GradeButton.tsx",
-    "components/ui/LanguageSwitchRow.tsx",
+    "components/ui/LanguageListRow.tsx",
     "components/ui/Disclosure.tsx"
   ],
   "forbiddenOutsidePrimitives": [

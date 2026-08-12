@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 
 import { ActionLink } from "@/components/ui/ActionLink";
 import { IconLink } from "@/components/ui/IconLink";
+import type { LanguageHoldings } from "@/lib/db/language-holdings";
 import { routes } from "@/lib/routes";
 import { cn } from "@/lib/utils";
 
@@ -25,8 +26,10 @@ const safeBottom = "pb-[max(1rem,env(safe-area-inset-bottom))]";
  */
 export function FloatingShellChrome({
   languages,
+  languageHoldings,
 }: {
   languages: readonly LanguageSwitcherOption[];
+  languageHoldings?: Record<string, LanguageHoldings>;
 }) {
   const pathname = usePathname();
   const back = shellBackTarget(pathname);
@@ -58,7 +61,11 @@ export function FloatingShellChrome({
                 {back.label}
               </ActionLink>
             ) : (
-              <LanguageSwitcher languages={languages} layout="floating" />
+              <LanguageSwitcher
+                languages={languages}
+                languageHoldings={languageHoldings}
+                layout="floating"
+              />
             )}
           </div>
 

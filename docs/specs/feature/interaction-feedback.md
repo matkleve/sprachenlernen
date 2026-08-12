@@ -21,7 +21,7 @@ when work continues after release, **pending** (something is happening). Parent:
 
 **Reuse:** `Button`, `ActionLink`, `NavLink`, `FilterPill`, `IconButton`,
 `IconLink`, `TextLink`, `SurfaceLink`, `PressableCard`, `GradeButton`,
-`LanguageSwitchRow`, `Disclosure`. Shared classes: `components/ui/interaction-kernel.ts`.
+`LanguageListRow`, `Disclosure`. Shared classes: `components/ui/interaction-kernel.ts`.
 
 ## Two layers
 

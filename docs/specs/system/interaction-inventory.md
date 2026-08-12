@@ -74,7 +74,7 @@ Per-primitive state matrix:
 | `SurfaceLink` | card `<Link>` | `usePendingNavigation` |
 | `PressableCard` | flip `<button>` | none |
 | `GradeButton` | grade `<button>` | none (spec exemption) |
-| `LanguageSwitchRow` | row `<button>` | disabled while parent pending |
+| `LanguageListRow` | row `<button>` or card | disabled while parent pending |
 | `Disclosure` | `<details>` + `<summary>` | none (instant toggle) |
 | `Input` / `Textarea` / `Select` | native | platform H/A; F + X styled |
 
