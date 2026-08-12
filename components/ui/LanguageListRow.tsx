@@ -5,7 +5,7 @@ import type { ReactNode } from "react";
 import { Chip } from "@/components/ui/Chip";
 import { cardPressable, disabledState } from "@/components/ui/interaction-kernel";
 import { TextLink } from "@/components/ui/TextLink";
-import { languageLabel } from "@/lib/languages";
+import { languageLabel, type LanguageLabel } from "@/lib/languages";
 import { cn } from "@/lib/utils";
 
 /**
@@ -30,6 +30,8 @@ export type LanguageListRowStanding = {
 
 export type LanguageListRowProps = {
   code: string;
+  /** Override labels when the code is not a learning language (e.g. spoken `en` / `de`). */
+  names?: Pick<LanguageLabel, "endonym" | "english">;
   isActive: boolean;
   activeLabel: string;
   standing?: LanguageListRowStanding | null;
@@ -45,6 +47,7 @@ export type LanguageListRowProps = {
 
 export function LanguageListRow({
   code,
+  names,
   isActive,
   activeLabel,
   standing,
@@ -56,13 +59,13 @@ export function LanguageListRow({
   disabled = false,
   className,
 }: LanguageListRowProps) {
-  const names = languageLabel(code);
+  const labels = names ?? languageLabel(code);
 
   const body = (
     <>
       <div className="min-w-0 flex-1">
-        <p className="text-base font-semibold text-ink">{names.endonym}</p>
-        <p className="text-sm text-muted">{names.english}</p>
+        <p className="text-base font-semibold text-ink">{labels.endonym}</p>
+        <p className="text-sm text-muted">{labels.english}</p>
 
         {standing && standingLabel ? (
           <div className="mt-2 space-y-2">

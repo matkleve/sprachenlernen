@@ -73,6 +73,8 @@ Update this file in the same PR as any new control or migration.
 
 | Control | File | Primitive | Variant | P |
 | --- | --- | --- | --- | --- |
+| Spoken language row | `ProfileSpokenLanguage.tsx` | `LanguageListRow` | `names` override | — |
+| Spoken make active | `ProfileSpokenLanguage.tsx` | `SubmitButton` | `secondary sm` | auto |
 | Choose first | `ProfileLanguages.tsx` | `ActionLink` | primary (default) | ✓ |
 | View progress | `ProfileLanguages.tsx` | `ActionLink` | `text-sm` override | ✓ |
 | Make active | `ProfileLanguages.tsx` | `SubmitButton` | `secondary sm` | auto |
