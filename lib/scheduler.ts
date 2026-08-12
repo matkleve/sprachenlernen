@@ -67,6 +67,14 @@ export type Config = {
   /** Stability in days at which a learning task graduates to review. */
   graduationStability: number;
   /**
+   * Stability in days at which a task counts as held stably for vocabulary
+   * counts and form-recall staging — separate from graduation (see
+   * vocabulary-snapshot.md, calibration 2026-08-12).
+   */
+  heldStabilityThreshold: number;
+  /** Atlas display tier: held tasks at or above this stability are mature. */
+  matureStabilityThreshold: number;
+  /**
    * How far actual retrievability at the due date may drift from
    * `targetRetention`. Whole-day rounding is applied only while it stays inside
    * this budget — see `dueFrom`.
@@ -98,6 +106,8 @@ export const DEFAULT_CONFIG: Config = {
   targetRetention: 0.9,
   lapseThreshold: 4,
   graduationStability: 1,
+  heldStabilityThreshold: 7,
+  matureStabilityThreshold: 21,
   retentionTolerance: 0.02,
   weights: FSRS_45_WEIGHTS,
   weightsVersion: "fsrs-4.5-default",

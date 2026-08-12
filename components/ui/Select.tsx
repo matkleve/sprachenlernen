@@ -18,13 +18,16 @@ import { cn } from "@/lib/utils";
  */
 export function Select({
   className,
+  wrapperClassName,
   children,
   ...props
-}: SelectHTMLAttributes<HTMLSelectElement>) {
+}: SelectHTMLAttributes<HTMLSelectElement> & {
+  wrapperClassName?: string;
+}) {
   const field = useFieldControl();
 
   return (
-    <div className="relative">
+    <div className={cn("relative", wrapperClassName)}>
       <select
         {...field}
         {...props}

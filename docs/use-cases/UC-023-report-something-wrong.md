@@ -1,7 +1,7 @@
 # UC-023 — Report something the app got wrong
 
 <!-- id: UC-023 -->
-<!-- specs:  -->
+<!-- specs: SPEC-service-broken-card-detection -->
 
 **Who:** any learner who hits a sentence that is odd, a translation that is
 wrong, or audio that does not match its text.
@@ -68,12 +68,6 @@ of the same flag, not a redesign of it.
 
 ## Undecided
 
-Unblocked 2026-08-12: UC-069 settled the shape a report's key needs — word
-identity and description text are separate records, keyed by (`wordId`,
-spoken language). A report can use that same key directly. What is still
-open is smaller and specific to this use case:
-
-- **⚠ SPEC GAP: does a report point at the whole description, or one part of
-  it** (once UC-069's "single string vs. split parts" question resolves) —
-  deferred until that one is decided, since it changes what "which part is
-  wrong" can even mean.
+Resolved 2026-08-12: a report flags the **whole description string** for the
+(`wordId`, spoken language) pair — ADR-0012 decision 11 (one string per card
+face per spoken language). No partial-field reports in v1.

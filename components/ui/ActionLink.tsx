@@ -3,15 +3,30 @@
 import Link from "next/link";
 import type { ComponentPropsWithoutRef, ReactNode } from "react";
 
+import { buttonVariants, type ButtonProps, type PendingPolicy } from "@/components/ui/Button";
+import {
+  pendingBusy,
+  pendingNavRing,
+  touchTarget,
+} from "@/components/ui/interaction-kernel";
 import { Spinner } from "@/components/ui/Spinner";
-import { buttonVariants, type ButtonProps } from "@/components/ui/Button";
 import { usePendingNavigation } from "@/components/ui/use-pending-navigation";
 import { cn } from "@/lib/utils";
 
 type ActionLinkProps = ComponentPropsWithoutRef<typeof Link> &
   Pick<ButtonProps, "variant" | "size"> & {
     children: ReactNode;
+    pendingPolicy?: PendingPolicy;
   };
+
+function showSpinnerForPending(
+  isPending: boolean,
+  policy: PendingPolicy,
+  variant: ActionLinkProps["variant"],
+): boolean {
+  if (!isPending || policy !== "cta") return false;
+  return variant === "primary" || variant === "danger" || variant === undefined;
+}
 
 /**
  * Navigation control styled as a button with press + pending feedback.
@@ -21,14 +36,15 @@ export function ActionLink({
   href,
   variant,
   size,
+  pendingPolicy = "cta",
   className,
   children,
   onClick,
   ...props
 }: ActionLinkProps) {
   const { isPending, onClick: pendingClick } = usePendingNavigation(href);
-  const showSpinner =
-    isPending && (variant === "primary" || variant === "danger" || variant === undefined);
+  const showSpinner = showSpinnerForPending(isPending, pendingPolicy, variant);
+  const showNavRing = isPending && pendingPolicy === "nav";
 
   return (
     <Link
@@ -36,8 +52,9 @@ export function ActionLink({
       aria-busy={isPending || undefined}
       className={cn(
         buttonVariants({ variant, size }),
-        "touch-manipulation",
-        isPending && "pointer-events-none opacity-70",
+        touchTarget,
+        isPending && pendingPolicy !== "nav" && pendingBusy,
+        showNavRing && pendingNavRing,
         className,
       )}
       onClick={(event) => {

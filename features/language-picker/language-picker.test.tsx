@@ -12,6 +12,7 @@ const spanish: LanguageTile = {
   poolSize: SHIPPED_ES_POOL_SIZE,
   heldCount: null,
   alreadyLearning: false,
+  isActive: false,
 };
 
 const italian: LanguageTile = {
@@ -19,6 +20,7 @@ const italian: LanguageTile = {
   poolSize: null,
   heldCount: null,
   alreadyLearning: false,
+  isActive: false,
 };
 
 const choose = vi.fn();
@@ -80,5 +82,15 @@ describe("LanguagePicker", () => {
 
     expect(text.toLowerCase()).not.toContain("lemma");
     expect(text).toContain("starter");
+  });
+
+  it("shows Active chip on the language in focus", () => {
+    render(<LanguagePicker tiles={[{ ...spanish, isActive: true }]} choose={choose} />);
+
+    const activeChip = screen.getByText(copy.active);
+    expect(activeChip.tagName).toBe("SPAN");
+    expect(activeChip.className).toContain("bg-accent-soft");
+    expect(activeChip.className).toContain("border-accent");
+    expect(screen.queryByText(copy.alreadyLearning)).toBeNull();
   });
 });

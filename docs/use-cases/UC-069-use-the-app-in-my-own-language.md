@@ -1,7 +1,7 @@
 # UC-069 — Use the app in the language I speak
 
 <!-- id: UC-069 -->
-<!-- specs:  -->
+<!-- specs: SPEC-service-spoken-language -->
 
 **Who:** a learner whose comfortable language is not English — for example a
 German speaker learning Spanish or Italian.

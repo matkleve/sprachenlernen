@@ -8,7 +8,7 @@ import { SKILLS } from "@/lib/method-catalogue";
 import { timeBudgetToParam } from "@/lib/time-scale";
 
 import { copy } from "./content";
-import { FilterPill } from "./FilterPill";
+import { FilterPill } from "@/components/ui/FilterPill";
 import { RefineFilter } from "./RefineFilter";
 import { TimeSlider } from "./TimeSlider";
 
