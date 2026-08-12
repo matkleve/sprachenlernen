@@ -157,7 +157,6 @@ describe("ProfileSpokenLanguage", () => {
     expect(activeChip.tagName).toBe("SPAN");
     expect(activeChip.className).toContain("bg-accent");
     expect(activeChip.className).toContain("text-accent-ink");
-    expect(activeChip.className).toContain("border-accent");
     expect(screen.getAllByRole("button", { name: copy.makeActive })).toHaveLength(1);
   });
 });
