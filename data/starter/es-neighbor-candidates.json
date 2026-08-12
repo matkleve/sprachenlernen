@@ -1,0 +1,1557 @@
+{
+  "language": "es",
+  "rule": "levenshtein-1-length-3-8",
+  "tightened": true,
+  "candidates": {
+    "es:abuela": [
+      "abuelo"
+    ],
+    "es:abuelo": [
+      "abuela"
+    ],
+    "es:acto": [
+      "actor"
+    ],
+    "es:actor": [
+      "acto"
+    ],
+    "es:actual": [
+      "actuar"
+    ],
+    "es:actuar": [
+      "actual"
+    ],
+    "es:adios": [
+      "adiós"
+    ],
+    "es:adiós": [
+      "adios"
+    ],
+    "es:adivina": [
+      "adivinar"
+    ],
+    "es:adivinar": [
+      "adivina"
+    ],
+    "es:adonde": [
+      "adónde"
+    ],
+    "es:adónde": [
+      "adonde"
+    ],
+    "es:ala": [
+      "alma"
+    ],
+    "es:algo": [
+      "alto"
+    ],
+    "es:allá": [
+      "allí"
+    ],
+    "es:allí": [
+      "allá"
+    ],
+    "es:alma": [
+      "ala"
+    ],
+    "es:alto": [
+      "algo"
+    ],
+    "es:ama": [
+      "amar"
+    ],
+    "es:amar": [
+      "ama",
+      "amor"
+    ],
+    "es:amiga": [
+      "amigo"
+    ],
+    "es:amigo": [
+      "amiga"
+    ],
+    "es:amor": [
+      "amar"
+    ],
+    "es:ante": [
+      "antes"
+    ],
+    "es:antes": [
+      "ante"
+    ],
+    "es:apuesta": [
+      "apuesto"
+    ],
+    "es:apuesto": [
+      "apuesta"
+    ],
+    "es:ayuda": [
+      "ayudar"
+    ],
+    "es:ayudar": [
+      "ayuda"
+    ],
+    "es:bajo": [
+      "baño"
+    ],
+    "es:banco": [
+      "barco"
+    ],
+    "es:baño": [
+      "bajo"
+    ],
+    "es:barco": [
+      "banco"
+    ],
+    "es:boca": [
+      "boda",
+      "bola",
+      "bota"
+    ],
+    "es:boda": [
+      "boca",
+      "bola",
+      "bota"
+    ],
+    "es:bola": [
+      "boca",
+      "boda",
+      "bolsa",
+      "bota"
+    ],
+    "es:bolsa": [
+      "bola",
+      "bolso"
+    ],
+    "es:bolso": [
+      "bolsa"
+    ],
+    "es:borde": [
+      "bordo"
+    ],
+    "es:bordo": [
+      "borde"
+    ],
+    "es:bota": [
+      "boca",
+      "boda",
+      "bola",
+      "bote"
+    ],
+    "es:bote": [
+      "bota"
+    ],
+    "es:bravo": [
+      "brazo"
+    ],
+    "es:brazo": [
+      "bravo"
+    ],
+    "es:caballo": [
+      "cabello"
+    ],
+    "es:cabello": [
+      "caballo"
+    ],
+    "es:cable": [
+      "calle"
+    ],
+    "es:cabo": [
+      "caro",
+      "caso"
+    ],
+    "es:cada": [
+      "caída",
+      "caja",
+      "cama",
+      "cara",
+      "casa",
+      "caza"
+    ],
+    "es:caída": [
+      "cada"
+    ],
+    "es:caja": [
+      "cada",
+      "cama",
+      "cara",
+      "casa",
+      "caza"
+    ],
+    "es:callar": [
+      "calmar"
+    ],
+    "es:calle": [
+      "cable"
+    ],
+    "es:calma": [
+      "calmar",
+      "cama"
+    ],
+    "es:calmar": [
+      "callar",
+      "calma"
+    ],
+    "es:cama": [
+      "cada",
+      "caja",
+      "calma",
+      "cara",
+      "casa",
+      "caza"
+    ],
+    "es:cansado": [
+      "casado"
+    ],
+    "es:cara": [
+      "cada",
+      "caja",
+      "cama",
+      "carga",
+      "caro",
+      "carta",
+      "casa",
+      "caza"
+    ],
+    "es:carga": [
+      "cara",
+      "cargo",
+      "carta"
+    ],
+    "es:cargo": [
+      "carga",
+      "caro",
+      "carro"
+    ],
+    "es:caro": [
+      "cabo",
+      "cara",
+      "cargo",
+      "carro",
+      "caso"
+    ],
+    "es:carrera": [
+      "cartera"
+    ],
+    "es:carro": [
+      "cargo",
+      "caro"
+    ],
+    "es:carta": [
+      "cara",
+      "carga"
+    ],
+    "es:cartera": [
+      "carrera"
+    ],
+    "es:casa": [
+      "cada",
+      "caja",
+      "cama",
+      "cara",
+      "casar",
+      "casi",
+      "caso",
+      "causa",
+      "caza"
+    ],
+    "es:casado": [
+      "cansado"
+    ],
+    "es:casar": [
+      "casa",
+      "causar"
+    ],
+    "es:casi": [
+      "casa",
+      "caso"
+    ],
+    "es:caso": [
+      "cabo",
+      "caro",
+      "casa",
+      "casi"
+    ],
+    "es:causa": [
+      "casa",
+      "causar"
+    ],
+    "es:causar": [
+      "casar",
+      "causa"
+    ],
+    "es:caza": [
+      "cada",
+      "caja",
+      "cama",
+      "cara",
+      "casa"
+    ],
+    "es:cena": [
+      "cenar"
+    ],
+    "es:cenar": [
+      "cena"
+    ],
+    "es:cerdo": [
+      "cero"
+    ],
+    "es:cero": [
+      "cerdo"
+    ],
+    "es:charla": [
+      "charlar"
+    ],
+    "es:charlar": [
+      "charla"
+    ],
+    "es:chica": [
+      "chico"
+    ],
+    "es:chico": [
+      "chica",
+      "chino"
+    ],
+    "es:chino": [
+      "chico"
+    ],
+    "es:ciego": [
+      "cielo"
+    ],
+    "es:cielo": [
+      "ciego"
+    ],
+    "es:ciento": [
+      "cierto"
+    ],
+    "es:cierto": [
+      "ciento"
+    ],
+    "es:cinta": [
+      "cita"
+    ],
+    "es:cita": [
+      "cinta"
+    ],
+    "es:clase": [
+      "clave"
+    ],
+    "es:clave": [
+      "clase"
+    ],
+    "es:cocina": [
+      "cocinar"
+    ],
+    "es:cocinar": [
+      "cocina"
+    ],
+    "es:coger": [
+      "comer"
+    ],
+    "es:cola": [
+      "cole",
+      "coma",
+      "copa",
+      "cosa"
+    ],
+    "es:cole": [
+      "cola"
+    ],
+    "es:coma": [
+      "cola",
+      "como",
+      "copa",
+      "cosa"
+    ],
+    "es:comer": [
+      "coger"
+    ],
+    "es:como": [
+      "coma",
+      "coño"
+    ],
+    "es:compra": [
+      "comprar"
+    ],
+    "es:comprar": [
+      "compra"
+    ],
+    "es:coño": [
+      "como"
+    ],
+    "es:contar": [
+      "cortar",
+      "costar"
+    ],
+    "es:copa": [
+      "cola",
+      "coma",
+      "copia",
+      "cosa"
+    ],
+    "es:copia": [
+      "copa"
+    ],
+    "es:correo": [
+      "correr"
+    ],
+    "es:correr": [
+      "correo"
+    ],
+    "es:cortar": [
+      "contar",
+      "costar"
+    ],
+    "es:corte": [
+      "corto"
+    ],
+    "es:corto": [
+      "corte"
+    ],
+    "es:cosa": [
+      "cola",
+      "coma",
+      "copa",
+      "costa"
+    ],
+    "es:costa": [
+      "cosa",
+      "costar"
+    ],
+    "es:costar": [
+      "contar",
+      "cortar",
+      "costa"
+    ],
+    "es:crear": [
+      "creer"
+    ],
+    "es:crecer": [
+      "creer"
+    ],
+    "es:creer": [
+      "crear",
+      "crecer"
+    ],
+    "es:cuadro": [
+      "cuatro"
+    ],
+    "es:cual": [
+      "cuál"
+    ],
+    "es:cuál": [
+      "cual"
+    ],
+    "es:cuando": [
+      "cuándo",
+      "cuanto"
+    ],
+    "es:cuándo": [
+      "cuando",
+      "cuánto"
+    ],
+    "es:cuanto": [
+      "cuando",
+      "cuánto",
+      "cuarto"
+    ],
+    "es:cuánto": [
+      "cuándo",
+      "cuanto"
+    ],
+    "es:cuarto": [
+      "cuanto"
+    ],
+    "es:cuatro": [
+      "cuadro"
+    ],
+    "es:cubierta": [
+      "cubierto"
+    ],
+    "es:cubierto": [
+      "cubierta"
+    ],
+    "es:daño": [
+      "dato"
+    ],
+    "es:dato": [
+      "daño"
+    ],
+    "es:derecha": [
+      "derecho"
+    ],
+    "es:derecho": [
+      "derecha"
+    ],
+    "es:despacho": [
+      "despacio"
+    ],
+    "es:despacio": [
+      "despacho"
+    ],
+    "es:directo": [
+      "director"
+    ],
+    "es:director": [
+      "directo"
+    ],
+    "es:doctor": [
+      "doctora"
+    ],
+    "es:doctora": [
+      "doctor"
+    ],
+    "es:doler": [
+      "dolor"
+    ],
+    "es:dolor": [
+      "doler"
+    ],
+    "es:don": [
+      "dos"
+    ],
+    "es:dos": [
+      "don"
+    ],
+    "es:duda": [
+      "dudar"
+    ],
+    "es:dudar": [
+      "duda"
+    ],
+    "es:enterar": [
+      "entrar"
+    ],
+    "es:entrar": [
+      "enterar"
+    ],
+    "es:entrega": [
+      "entregar"
+    ],
+    "es:entregar": [
+      "entrega"
+    ],
+    "es:ese": [
+      "este"
+    ],
+    "es:espacial": [
+      "especial"
+    ],
+    "es:espada": [
+      "espalda",
+      "españa"
+    ],
+    "es:espalda": [
+      "espada"
+    ],
+    "es:españa": [
+      "espada"
+    ],
+    "es:especial": [
+      "espacial"
+    ],
+    "es:esposa": [
+      "esposo"
+    ],
+    "es:esposo": [
+      "esposa"
+    ],
+    "es:este": [
+      "ese"
+    ],
+    "es:falta": [
+      "faltar"
+    ],
+    "es:faltar": [
+      "falta"
+    ],
+    "es:familia": [
+      "familiar"
+    ],
+    "es:familiar": [
+      "familia"
+    ],
+    "es:favorita": [
+      "favorito"
+    ],
+    "es:favorito": [
+      "favorita"
+    ],
+    "es:firma": [
+      "firmar",
+      "firme"
+    ],
+    "es:firmar": [
+      "firma"
+    ],
+    "es:firme": [
+      "firma"
+    ],
+    "es:fuente": [
+      "fuerte"
+    ],
+    "es:fuera": [
+      "fuerza"
+    ],
+    "es:fuerte": [
+      "fuente"
+    ],
+    "es:fuerza": [
+      "fuera"
+    ],
+    "es:gana": [
+      "ganar"
+    ],
+    "es:ganar": [
+      "gana"
+    ],
+    "es:gas": [
+      "gay"
+    ],
+    "es:gay": [
+      "gas"
+    ],
+    "es:grado": [
+      "grano"
+    ],
+    "es:gran": [
+      "grano"
+    ],
+    "es:grano": [
+      "grado",
+      "gran"
+    ],
+    "es:haber": [
+      "hacer"
+    ],
+    "es:hacer": [
+      "haber"
+    ],
+    "es:herida": [
+      "herido"
+    ],
+    "es:herido": [
+      "herida"
+    ],
+    "es:hermana": [
+      "hermano"
+    ],
+    "es:hermano": [
+      "hermana"
+    ],
+    "es:hija": [
+      "hijo"
+    ],
+    "es:hijo": [
+      "hija"
+    ],
+    "es:hoja": [
+      "hola",
+      "hora"
+    ],
+    "es:hola": [
+      "hoja",
+      "hora"
+    ],
+    "es:hombre": [
+      "hombro"
+    ],
+    "es:hombro": [
+      "hombre"
+    ],
+    "es:hora": [
+      "hoja",
+      "hola"
+    ],
+    "es:hueso": [
+      "huevo"
+    ],
+    "es:huevo": [
+      "hueso"
+    ],
+    "es:humo": [
+      "humor"
+    ],
+    "es:humor": [
+      "humo"
+    ],
+    "es:infierno": [
+      "invierno"
+    ],
+    "es:invierno": [
+      "infierno"
+    ],
+    "es:jefa": [
+      "jefe"
+    ],
+    "es:jefe": [
+      "jefa"
+    ],
+    "es:jugar": [
+      "juzgar"
+    ],
+    "es:junto": [
+      "justo"
+    ],
+    "es:justo": [
+      "junto"
+    ],
+    "es:juzgar": [
+      "jugar"
+    ],
+    "es:lado": [
+      "lady",
+      "lago"
+    ],
+    "es:lady": [
+      "lado"
+    ],
+    "es:lago": [
+      "lado",
+      "largo"
+    ],
+    "es:largo": [
+      "lago"
+    ],
+    "es:libra": [
+      "libre",
+      "libro"
+    ],
+    "es:libre": [
+      "libra",
+      "libro"
+    ],
+    "es:libro": [
+      "libra",
+      "libre"
+    ],
+    "es:lisa": [
+      "lista"
+    ],
+    "es:lista": [
+      "lisa",
+      "listo"
+    ],
+    "es:listo": [
+      "lista"
+    ],
+    "es:llama": [
+      "llamar"
+    ],
+    "es:llamar": [
+      "llama"
+    ],
+    "es:llegar": [
+      "llevar"
+    ],
+    "es:llevar": [
+      "llegar"
+    ],
+    "es:lobo": [
+      "loco"
+    ],
+    "es:loco": [
+      "lobo"
+    ],
+    "es:luca": [
+      "lucha",
+      "luna"
+    ],
+    "es:lucha": [
+      "luca",
+      "luchar"
+    ],
+    "es:luchar": [
+      "lucha"
+    ],
+    "es:luna": [
+      "luca"
+    ],
+    "es:madera": [
+      "manera"
+    ],
+    "es:mal": [
+      "man",
+      "mar"
+    ],
+    "es:mama": [
+      "mamá",
+      "mami",
+      "mapa"
+    ],
+    "es:mamá": [
+      "mama",
+      "mami"
+    ],
+    "es:mami": [
+      "mama",
+      "mamá"
+    ],
+    "es:man": [
+      "mal",
+      "mano",
+      "mar"
+    ],
+    "es:mando": [
+      "mano"
+    ],
+    "es:manera": [
+      "madera"
+    ],
+    "es:mano": [
+      "man",
+      "mando",
+      "mato"
+    ],
+    "es:mapa": [
+      "mama"
+    ],
+    "es:mar": [
+      "mal",
+      "man"
+    ],
+    "es:marca": [
+      "marcha",
+      "marco"
+    ],
+    "es:marcha": [
+      "marca"
+    ],
+    "es:marco": [
+      "marca"
+    ],
+    "es:matarme": [
+      "matarte"
+    ],
+    "es:matarte": [
+      "matarme"
+    ],
+    "es:mate": [
+      "mato"
+    ],
+    "es:mato": [
+      "mano",
+      "mate"
+    ],
+    "es:médico": [
+      "méxico"
+    ],
+    "es:mejor": [
+      "menor"
+    ],
+    "es:menor": [
+      "mejor",
+      "menos"
+    ],
+    "es:menos": [
+      "menor"
+    ],
+    "es:mental": [
+      "metal"
+    ],
+    "es:mentir": [
+      "mentira"
+    ],
+    "es:mentira": [
+      "mentir"
+    ],
+    "es:mes": [
+      "mesa"
+    ],
+    "es:mesa": [
+      "mes",
+      "meta"
+    ],
+    "es:meta": [
+      "mesa",
+      "metal"
+    ],
+    "es:metal": [
+      "mental",
+      "meta"
+    ],
+    "es:méxico": [
+      "médico"
+    ],
+    "es:mía": [
+      "mío"
+    ],
+    "es:miel": [
+      "mil"
+    ],
+    "es:mil": [
+      "miel",
+      "mio"
+    ],
+    "es:mio": [
+      "mil"
+    ],
+    "es:mío": [
+      "mía"
+    ],
+    "es:moda": [
+      "modo"
+    ],
+    "es:modo": [
+      "moda",
+      "mono",
+      "moto"
+    ],
+    "es:mono": [
+      "modo",
+      "moto"
+    ],
+    "es:moral": [
+      "mortal"
+    ],
+    "es:mortal": [
+      "moral"
+    ],
+    "es:moto": [
+      "modo",
+      "mono",
+      "motor"
+    ],
+    "es:motor": [
+      "moto"
+    ],
+    "es:muchacha": [
+      "muchacho"
+    ],
+    "es:muchacho": [
+      "muchacha"
+    ],
+    "es:muerte": [
+      "muerto"
+    ],
+    "es:muerto": [
+      "muerte"
+    ],
+    "es:nada": [
+      "nadar"
+    ],
+    "es:nadar": [
+      "nada"
+    ],
+    "es:niña": [
+      "niño"
+    ],
+    "es:niño": [
+      "niña"
+    ],
+    "es:novia": [
+      "novio"
+    ],
+    "es:novio": [
+      "novia"
+    ],
+    "es:nueve": [
+      "nuevo"
+    ],
+    "es:nuevo": [
+      "nueve"
+    ],
+    "es:odia": [
+      "odio"
+    ],
+    "es:odio": [
+      "odia"
+    ],
+    "es:oler": [
+      "olor"
+    ],
+    "es:olor": [
+      "oler"
+    ],
+    "es:pagar": [
+      "pagaré",
+      "parar",
+      "pasar"
+    ],
+    "es:pagaré": [
+      "pagar"
+    ],
+    "es:pago": [
+      "palo",
+      "paso"
+    ],
+    "es:palo": [
+      "pago",
+      "paso"
+    ],
+    "es:pan": [
+      "par",
+      "paz"
+    ],
+    "es:papa": [
+      "papá",
+      "papi",
+      "para",
+      "pata"
+    ],
+    "es:papá": [
+      "papa",
+      "papi"
+    ],
+    "es:papi": [
+      "papa",
+      "papá"
+    ],
+    "es:par": [
+      "pan",
+      "para",
+      "paz"
+    ],
+    "es:para": [
+      "papa",
+      "par",
+      "parar",
+      "pata"
+    ],
+    "es:parar": [
+      "pagar",
+      "para",
+      "parir",
+      "pasar"
+    ],
+    "es:parir": [
+      "parar",
+      "partir"
+    ],
+    "es:partida": [
+      "partido"
+    ],
+    "es:partido": [
+      "partida"
+    ],
+    "es:partir": [
+      "parir"
+    ],
+    "es:pasar": [
+      "pagar",
+      "parar"
+    ],
+    "es:paseo": [
+      "paso"
+    ],
+    "es:paso": [
+      "pago",
+      "palo",
+      "paseo"
+    ],
+    "es:pasta": [
+      "pata"
+    ],
+    "es:pata": [
+      "papa",
+      "para",
+      "pasta"
+    ],
+    "es:paz": [
+      "pan",
+      "par"
+    ],
+    "es:pecado": [
+      "pesado",
+      "pescado"
+    ],
+    "es:pelea": [
+      "pelear"
+    ],
+    "es:pelear": [
+      "pelea"
+    ],
+    "es:pelo": [
+      "pero",
+      "peso"
+    ],
+    "es:pena": [
+      "pene"
+    ],
+    "es:pene": [
+      "pena",
+      "pete"
+    ],
+    "es:pensar": [
+      "pesar"
+    ],
+    "es:pero": [
+      "pelo",
+      "perro",
+      "peso"
+    ],
+    "es:perra": [
+      "perro"
+    ],
+    "es:perro": [
+      "pero",
+      "perra"
+    ],
+    "es:persona": [
+      "personal"
+    ],
+    "es:personal": [
+      "persona"
+    ],
+    "es:pesado": [
+      "pecado",
+      "pescado"
+    ],
+    "es:pesar": [
+      "pensar"
+    ],
+    "es:pescado": [
+      "pecado",
+      "pesado"
+    ],
+    "es:peso": [
+      "pelo",
+      "pero"
+    ],
+    "es:pete": [
+      "pene"
+    ],
+    "es:pie": [
+      "piel"
+    ],
+    "es:piel": [
+      "pie"
+    ],
+    "es:pieza": [
+      "pizza"
+    ],
+    "es:pinta": [
+      "pista"
+    ],
+    "es:pista": [
+      "pinta"
+    ],
+    "es:pizza": [
+      "pieza"
+    ],
+    "es:placa": [
+      "plata",
+      "playa",
+      "plaza"
+    ],
+    "es:planeta": [
+      "planta"
+    ],
+    "es:planta": [
+      "planeta",
+      "plata"
+    ],
+    "es:plata": [
+      "placa",
+      "planta",
+      "plato",
+      "playa",
+      "plaza"
+    ],
+    "es:plato": [
+      "plata"
+    ],
+    "es:playa": [
+      "placa",
+      "plata",
+      "plaza"
+    ],
+    "es:plaza": [
+      "placa",
+      "plata",
+      "playa"
+    ],
+    "es:poder": [
+      "poner"
+    ],
+    "es:política": [
+      "político"
+    ],
+    "es:político": [
+      "política"
+    ],
+    "es:pollo": [
+      "polvo"
+    ],
+    "es:polvo": [
+      "pollo"
+    ],
+    "es:poner": [
+      "poder"
+    ],
+    "es:porque": [
+      "porqué"
+    ],
+    "es:porqué": [
+      "porque"
+    ],
+    "es:precio": [
+      "premio"
+    ],
+    "es:premio": [
+      "precio"
+    ],
+    "es:presión": [
+      "prisión"
+    ],
+    "es:prima": [
+      "primo",
+      "prisa"
+    ],
+    "es:primo": [
+      "prima"
+    ],
+    "es:prisa": [
+      "prima"
+    ],
+    "es:prisión": [
+      "presión"
+    ],
+    "es:puerta": [
+      "puerto"
+    ],
+    "es:puerto": [
+      "puerta",
+      "puesto"
+    ],
+    "es:puesto": [
+      "puerto"
+    ],
+    "es:punta": [
+      "punto",
+      "puta"
+    ],
+    "es:punto": [
+      "punta",
+      "puto"
+    ],
+    "es:puro": [
+      "puto"
+    ],
+    "es:puta": [
+      "punta",
+      "puto"
+    ],
+    "es:puto": [
+      "punto",
+      "puro",
+      "puta"
+    ],
+    "es:que": [
+      "qué"
+    ],
+    "es:qué": [
+      "que"
+    ],
+    "es:quedar": [
+      "quemar"
+    ],
+    "es:quemar": [
+      "quedar"
+    ],
+    "es:quien": [
+      "quién"
+    ],
+    "es:quién": [
+      "quien"
+    ],
+    "es:quietar": [
+      "quitar"
+    ],
+    "es:quitar": [
+      "quietar"
+    ],
+    "es:quizá": [
+      "quizás"
+    ],
+    "es:quizás": [
+      "quizá"
+    ],
+    "es:raro": [
+      "rato",
+      "rayo"
+    ],
+    "es:rata": [
+      "rato",
+      "raza"
+    ],
+    "es:rato": [
+      "raro",
+      "rata",
+      "rayo"
+    ],
+    "es:rayo": [
+      "raro",
+      "rato"
+    ],
+    "es:raza": [
+      "rata"
+    ],
+    "es:red": [
+      "rey"
+    ],
+    "es:reina": [
+      "reino"
+    ],
+    "es:reino": [
+      "reina"
+    ],
+    "es:respecto": [
+      "respeto"
+    ],
+    "es:respeto": [
+      "respecto"
+    ],
+    "es:rey": [
+      "red"
+    ],
+    "es:robo": [
+      "rojo",
+      "romo"
+    ],
+    "es:roca": [
+      "rock",
+      "ropa",
+      "rosa"
+    ],
+    "es:rock": [
+      "roca"
+    ],
+    "es:rojo": [
+      "robo",
+      "romo"
+    ],
+    "es:romo": [
+      "robo",
+      "rojo"
+    ],
+    "es:ropa": [
+      "roca",
+      "rosa"
+    ],
+    "es:rosa": [
+      "roca",
+      "ropa"
+    ],
+    "es:saber": [
+      "sabor"
+    ],
+    "es:sabor": [
+      "saber"
+    ],
+    "es:sal": [
+      "sala"
+    ],
+    "es:sala": [
+      "sal",
+      "salsa",
+      "sara"
+    ],
+    "es:salsa": [
+      "sala"
+    ],
+    "es:saltar": [
+      "salvar"
+    ],
+    "es:salto": [
+      "salvo",
+      "santo"
+    ],
+    "es:salud": [
+      "saludo"
+    ],
+    "es:saludo": [
+      "salud"
+    ],
+    "es:salvar": [
+      "saltar"
+    ],
+    "es:salvo": [
+      "salto"
+    ],
+    "es:santo": [
+      "salto"
+    ],
+    "es:sara": [
+      "sala"
+    ],
+    "es:sed": [
+      "ser"
+    ],
+    "es:señor": [
+      "señora"
+    ],
+    "es:señora": [
+      "señor",
+      "señoría"
+    ],
+    "es:señoría": [
+      "señora"
+    ],
+    "es:sentado": [
+      "sentido"
+    ],
+    "es:sentar": [
+      "sentir"
+    ],
+    "es:sentido": [
+      "sentado"
+    ],
+    "es:sentir": [
+      "sentar"
+    ],
+    "es:ser": [
+      "sed"
+    ],
+    "es:serie": [
+      "serio"
+    ],
+    "es:serio": [
+      "serie"
+    ],
+    "es:sin": [
+      "sino"
+    ],
+    "es:sino": [
+      "sin"
+    ],
+    "es:sol": [
+      "solo"
+    ],
+    "es:solo": [
+      "sol"
+    ],
+    "es:suelo": [
+      "suelto",
+      "sueño"
+    ],
+    "es:suelto": [
+      "suelo"
+    ],
+    "es:sueño": [
+      "suelo"
+    ],
+    "es:tema": [
+      "teta"
+    ],
+    "es:temer": [
+      "tener"
+    ],
+    "es:tener": [
+      "temer"
+    ],
+    "es:teta": [
+      "tema"
+    ],
+    "es:tía": [
+      "tío"
+    ],
+    "es:tina": [
+      "tira"
+    ],
+    "es:tío": [
+      "tía"
+    ],
+    "es:tipo": [
+      "tiro"
+    ],
+    "es:tira": [
+      "tina",
+      "tirar",
+      "tiro"
+    ],
+    "es:tirar": [
+      "tira"
+    ],
+    "es:tiro": [
+      "tipo",
+      "tira"
+    ],
+    "es:tocar": [
+      "tomar"
+    ],
+    "es:todo": [
+      "tomo",
+      "tono"
+    ],
+    "es:toma": [
+      "tomar",
+      "tomo"
+    ],
+    "es:tomar": [
+      "tocar",
+      "toma"
+    ],
+    "es:tomo": [
+      "todo",
+      "toma",
+      "tono"
+    ],
+    "es:tono": [
+      "todo",
+      "tomo",
+      "tonto",
+      "tony"
+    ],
+    "es:tonta": [
+      "tonto"
+    ],
+    "es:tonto": [
+      "tono",
+      "tonta"
+    ],
+    "es:tony": [
+      "tono"
+    ],
+    "es:trago": [
+      "trato"
+    ],
+    "es:tras": [
+      "tres"
+    ],
+    "es:trato": [
+      "trago"
+    ],
+    "es:tren": [
+      "tres"
+    ],
+    "es:tres": [
+      "tras",
+      "tren"
+    ],
+    "es:valer": [
+      "valor"
+    ],
+    "es:valor": [
+      "valer"
+    ],
+    "es:ventaja": [
+      "ventana"
+    ],
+    "es:ventana": [
+      "ventaja"
+    ],
+    "es:ver": [
+      "vez"
+    ],
+    "es:vez": [
+      "ver"
+    ],
+    "es:vino": [
+      "vivo"
+    ],
+    "es:visita": [
+      "visitar",
+      "vista"
+    ],
+    "es:visitar": [
+      "visita"
+    ],
+    "es:vista": [
+      "visita"
+    ],
+    "es:vivo": [
+      "vino"
+    ]
+  }
+}

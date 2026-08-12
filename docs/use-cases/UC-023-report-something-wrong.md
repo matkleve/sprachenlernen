@@ -1,7 +1,7 @@
 # UC-023 — Report something the app got wrong
 
 <!-- id: UC-023 -->
-<!-- specs:  -->
+<!-- specs: SPEC-service-broken-card-detection -->
 
 **Who:** any learner who hits a sentence that is odd, a translation that is
 wrong, or audio that does not match its text.

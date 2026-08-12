@@ -1,7 +1,7 @@
 # UC-013 — Stop losing time on the card I keep failing
 
 <!-- id: UC-013 -->
-<!-- specs:  -->
+<!-- specs: SPEC-service-broken-card-detection -->
 
 **Who:** anyone a few months into spaced repetition.
 **Wants to:** be rid of the handful of cards that fail every single time.
