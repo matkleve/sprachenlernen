@@ -5,6 +5,8 @@
  */
 
 export const copy = {
+  reviewHeading: "Review",
+  reviewCaption: "One session at a time — tap when you are ready.",
   countsHeading: "Your vocabulary",
   countsCaption: "How words are held in memory right now — not a backlog.",
   held: "Held",

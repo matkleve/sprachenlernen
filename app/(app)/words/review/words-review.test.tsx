@@ -5,17 +5,37 @@ import WordsReviewPage from "@/app/(app)/words/review/page";
 import { copy } from "@/features/review-session/content";
 
 vi.mock("@/features/review-session/ReviewSession", () => ({
-  ReviewSession: ({ methodName }: { methodName: string }) => (
-    <div data-testid="review-session">{methodName}</div>
+  ReviewSession: ({
+    methodName,
+    initialData,
+  }: {
+    methodName: string;
+    initialData?: { status: string; queue?: unknown[] };
+  }) => (
+    <div data-testid="review-session">
+      <span>{methodName}</span>
+      {initialData?.status === "ok" ? (
+        <span data-testid="queue-ready">{initialData.queue?.length ?? 0}</span>
+      ) : null}
+    </div>
   ),
 }));
 
+vi.mock("@/features/review-session/actions", () => ({
+  buildSessionAction: vi.fn().mockResolvedValue({
+    status: "ok",
+    languageName: "Spanish",
+    queue: [{ taskId: "es:de:meaning-recall" }],
+  }),
+}));
+
 describe("WordsReviewPage", () => {
-  it("mounts the review session for srs-session without reading the catalogue", async () => {
+  it("mounts the review session for srs-session with a server-built queue", async () => {
     const page = await WordsReviewPage({ searchParams: Promise.resolve({ method: "srs-session" }) });
     render(page);
     expect(screen.getByTestId("review-session")).toBeDefined();
     expect(screen.getByText(copy.srsSessionName)).toBeDefined();
+    expect(screen.getByTestId("queue-ready").textContent).toBe("1");
   });
 
   it("shows unknown-method copy when method is missing", async () => {

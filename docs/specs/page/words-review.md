@@ -20,7 +20,7 @@ in the query string. **Standard**.
 | # | User action | System response |
 | --- | --- | --- |
 | 1 | Opens `/words/review` with no `method` | Unknown-method message + link to Methods |
-| 2 | Opens with `method=srs-session` | Full review session (SPEC-feature-review-session) |
+| 2 | Opens with `method=srs-session` | Server builds the 15-card queue, then mounts review session with the first card ready — no second client-side prepare step |
 | 3 | Opens with a valid but unbuilt hosted method | Not-built message from catalogue |
 | 4 | Opens with an unknown id | Unknown-method message |
 

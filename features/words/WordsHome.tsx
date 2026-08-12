@@ -6,6 +6,7 @@ import { copy } from "@/features/words/content";
 import { cardEngineSessionHref } from "@/lib/method-session";
 import type { FrequencyBlock } from "@/lib/frequency-blocks";
 import type { VocabularySnapshot } from "@/lib/vocabulary-snapshot";
+import { cn } from "@/lib/utils";
 
 type WordsHomeProps = {
   snapshot: VocabularySnapshot;
@@ -32,6 +33,12 @@ function horizonBarHeight(count: number, max: number): number {
   return Math.max(4, (count / max) * CHART_HEIGHT_PX);
 }
 
+const countCardStyles = {
+  held: "border-success-soft bg-success-soft",
+  fragile: "border-accent-soft bg-accent-soft",
+  new: "border-line bg-surface",
+} as const;
+
 export function WordsHome({ snapshot, blocks }: WordsHomeProps) {
   const reviewHref = cardEngineSessionHref();
   const horizonMax = maxHorizonCount(snapshot);
@@ -46,33 +53,56 @@ export function WordsHome({ snapshot, blocks }: WordsHomeProps) {
 
   return (
     <div className="mx-auto max-w-5xl px-6 pt-page-top pb-page-bottom">
-      <p className="max-w-2xl text-base leading-relaxed text-muted">{holding.words.intent}</p>
+      <section className="rounded-card border border-line bg-surface-raised p-6 shadow-soft">
+        <p className="max-w-2xl text-base leading-relaxed text-muted">{holding.words.intent}</p>
 
-      <div className="mt-page-content">
-        <ActionLink href={reviewHref} variant="primary" size="lg">
-          {reviewCopy.startReview}
-        </ActionLink>
-      </div>
+        <div className="mt-6">
+          <h2 className="text-lg font-semibold text-ink">{copy.reviewHeading}</h2>
+          <p className="mt-1 max-w-2xl text-sm leading-relaxed text-muted">{copy.reviewCaption}</p>
+          <ActionLink href={reviewHref} variant="primary" size="lg" className="mt-4 w-full sm:w-auto">
+            {reviewCopy.startReview}
+          </ActionLink>
+        </div>
+      </section>
 
       <section className="mt-page-content">
         <h2 className="text-xl font-semibold text-ink">{copy.countsHeading}</h2>
         <p className="mt-4 max-w-2xl text-base leading-relaxed text-muted">{copy.countsCaption}</p>
         <dl className="mt-6 grid gap-4 sm:grid-cols-3">
-          <div className="rounded-card border border-line bg-surface p-4 shadow-soft">
-            <dt className="text-sm font-medium text-muted">{copy.held}</dt>
-            <dd className="mt-2 text-3xl font-semibold text-ink">{snapshot.counts.held}</dd>
-            <dd className="mt-2 text-sm text-muted">{copy.heldDescription}</dd>
-          </div>
-          <div className="rounded-card border border-line bg-surface p-4 shadow-soft">
-            <dt className="text-sm font-medium text-muted">{copy.fragile}</dt>
-            <dd className="mt-2 text-3xl font-semibold text-ink">{snapshot.counts.fragile}</dd>
-            <dd className="mt-2 text-sm text-muted">{copy.fragileDescription}</dd>
-          </div>
-          <div className="rounded-card border border-line bg-surface p-4 shadow-soft">
-            <dt className="text-sm font-medium text-muted">{copy.newWords}</dt>
-            <dd className="mt-2 text-3xl font-semibold text-ink">{snapshot.counts.new}</dd>
-            <dd className="mt-2 text-sm text-muted">{copy.newDescription}</dd>
-          </div>
+          {(
+            [
+              {
+                key: "held" as const,
+                label: copy.held,
+                value: snapshot.counts.held,
+                description: copy.heldDescription,
+              },
+              {
+                key: "fragile" as const,
+                label: copy.fragile,
+                value: snapshot.counts.fragile,
+                description: copy.fragileDescription,
+              },
+              {
+                key: "new" as const,
+                label: copy.newWords,
+                value: snapshot.counts.new,
+                description: copy.newDescription,
+              },
+            ] as const
+          ).map((item) => (
+            <div
+              key={item.key}
+              className={cn(
+                "rounded-card border p-4 shadow-soft",
+                countCardStyles[item.key],
+              )}
+            >
+              <dt className="text-sm font-medium text-muted">{item.label}</dt>
+              <dd className="mt-2 text-3xl font-semibold tabular-nums text-ink">{item.value}</dd>
+              <dd className="mt-2 text-sm text-muted">{item.description}</dd>
+            </div>
+          ))}
         </dl>
       </section>
 
