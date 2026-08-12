@@ -334,6 +334,8 @@ low-inference agent would silently invent.
 | **T-B9** | Offline practice + sync (F192, UC-018) | **Owner direction: both** — online sync across devices *and* offline review (train/PWA). Needs ADR-0011 closed on Option B (local-first queue is partial — see [`review-write-queue.md`](specs/service/review-write-queue.md)); full offline still needs cached deck + scheduler |
 | **T-B11** | Spoken-language setting — `profiles` table, `next-intl` chrome, description-text records ([UC-069](use-cases/UC-069-use-the-app-in-my-own-language.md)) | Storage, default and library are decided (2026-08-12); **not spec-ready yet** — blocked on decisions 10–11 above (where non-English text comes from, one string vs. split parts) |
 | **T-B12** | ~~Scope `poolForScheduling` to the active language only~~ — **done 2026-08-12** ([UC-025](use-cases/UC-025-learn-multiple-languages.md)) | `poolForScheduling` and `poolForDisplay` (`lib/db/learner-pools.ts`) merged into one `poolForActiveLanguage()`, since the reason they differed — a cross-language budget — was rejected. `buildSessionAction` now calls it; a session can no longer contain more than one language's cards, and the `languageName` label is always correct as a result. Regression test: `learner-pools.test.ts` |
+| **T-B13** | Same-session card requeue ([UC-071](use-cases/UC-071-get-a-wrong-card-back-before-the-session-ends.md)) | **Not spec-ready** — blocked on decisions 12–13 above (same-run repeat vs. UC-013's leech count; the exact requeue distance). Touches `session-builder.md` (fixed queue → sometimes re-insert) and `review-session.states.md` (`advancing` transition). **Missing from this table since UC-071 graduated 2026-08-12** — added now; it was never dropped from the plan, only from this table |
+| **T-B14** | Broken-card flagging + leech diagnosis ([UC-023](use-cases/UC-023-report-something-wrong.md), [UC-013](use-cases/UC-013-stop-losing-time-on-one-card.md)) | **Not spec-ready** — blocked on decisions 14–15 above (build-time vs. per-learner detection; the similarity threshold). Adds a flag column scoped to (word, spoken language) per `UC-023`; suspension + tap-to-confirm diagnosis per `UC-013`'s three-tier model in [`IDEAS.md`](IDEAS.md). Same omission as `T-B13` — added now |
 ---
 
 ### Track B engine phase — what is next (2026-08-11)
@@ -502,16 +504,15 @@ ADR-0006, ADR-0007) — an account is required, and the provider is Supabase.
    (9.17:1 light, 13.14:1 dark) and registered in `lib/utils.ts`. Nothing
    consumes it yet — it exists so the first correct-answer button has a hover
    token to reach for instead of inventing one.
-5. **Does the learner grade before or after seeing the answer?** Raised by the
-   T-B1 audit and carried as a ⚠ SPEC GAP in
-   [`specs/feature/review-session.md`](specs/feature/review-session.md). Today
-   they grade first and the back then shows for 400 ms. Every other SRS reveals
-   first, because a grade is a report about a recall the learner has just
-   checked — as built, `again` and `good` cannot mean "I was wrong" and "I was
-   right", which is exactly what FSRS reads them as. This is the one open
-   question that changes what the stored data means, so it blocks trusting
-   anything T-B3 derives from it. The 400 ms is a second, smaller decision
-   underneath it.
+5. ~~Does the learner grade before or after seeing the answer?~~ **Answered and
+   shipped 2026-08-10** (`5f4b896`, "review flip UX"): tap the card to flip and
+   see the back, untimed, then grade — no 400 ms auto-hide, no grade-before-
+   reveal. [`specs/feature/review-session.md`](specs/feature/review-session.md)
+   has said "Open questions: None" since that commit. **This list entry was
+   stale for two days** — it kept describing the pre-fix design as current and
+   got repeated as live information on 2026-08-12. Kept here, struck through
+   rather than deleted, as the record of the miss: this file is supposed to be
+   corrected in the same session a spec resolves, and this one was not.
 6. Does `CONSTITUTION.md` §2 (the user's data) need writing out now that server
    storage is scheduled rather than hypothetical? `BACKEND.md` §9 says it stops
    being abstract the moment something is actually stored.
