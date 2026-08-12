@@ -2,7 +2,7 @@
 
 <!-- id: SPEC-page-profile -->
 <!-- use-case: UC-024 -->
-<!-- status: draft -->
+<!-- status: active -->
 
 The account surface, reached from the top-right corner chip. Holds who you are,
 what you are learning, and what you can take away or delete. **Standard** —

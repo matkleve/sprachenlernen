@@ -11,6 +11,8 @@ import { expectNoA11yViolations } from "@/tests/axe";
 
 import { AppShell } from "./AppShell";
 import { signOutAction } from "./actions";
+import { copy as profileCopy } from "@/features/profile/content";
+
 import { copy } from "./content";
 import { requireAccount } from "./gate";
 
@@ -143,7 +145,7 @@ describe("the three destinations", () => {
     const account = within(header as HTMLElement).getByRole("link", { name: copy.account });
     expect(account.getAttribute("href")).toBe("/profile");
     expect(
-      within(header as HTMLElement).queryByRole("button", { name: copy.signOut }),
+      within(header as HTMLElement).queryByRole("button", { name: profileCopy.signOut }),
     ).toBeNull();
   });
 });

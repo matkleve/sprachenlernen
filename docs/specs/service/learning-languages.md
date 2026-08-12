@@ -2,7 +2,7 @@
 
 <!-- id: SPEC-service-learning-languages -->
 <!-- use-case: UC-025 -->
-<!-- status: draft -->
+<!-- status: active -->
 
 Which languages an Account is learning, and which one the interface is currently
 showing. **Sensitive** (`AGENTS.md`) — persisted, owned per Account, and the

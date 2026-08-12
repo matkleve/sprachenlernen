@@ -16,7 +16,6 @@ export const copy = {
     words: "Words",
     progress: "Progress",
   },
-  signOut: "Sign out",
 } as const;
 
 export const holding = {

@@ -42,7 +42,7 @@ export async function signUpAction(formData: FormData): Promise<void> {
   if (result.status === "confirmation-required") {
     redirect(`${routes.signUp}?sent=1`);
   }
-  redirect(routes.appHome);
+  redirect(routes.chooseLanguage);
 }
 
 export async function signInAction(formData: FormData): Promise<void> {

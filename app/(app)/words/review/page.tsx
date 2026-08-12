@@ -5,6 +5,7 @@ import { loadMethodCatalogue } from "@/features/method-menu/catalogue";
 import { findMethod } from "@/features/method-menu/MethodDetail";
 import { ReviewSession } from "@/features/review-session/ReviewSession";
 import { copy } from "@/features/review-session/content";
+import { CARD_ENGINE_METHOD_ID } from "@/lib/method-session";
 import { routes } from "@/lib/routes";
 
 /**
@@ -25,7 +26,7 @@ export default async function WordsReviewPage({
   let session: ReactNode;
   if (!methodId) {
     session = <p className="mt-4 text-base text-muted">{copy.unknownMethod}</p>;
-  } else if (methodId === "srs-session") {
+  } else if (methodId === CARD_ENGINE_METHOD_ID) {
     session = <ReviewSession methodName={copy.srsSessionName} />;
   } else {
     const { catalogue } = loadMethodCatalogue();

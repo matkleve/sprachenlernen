@@ -6,6 +6,8 @@ import { expectNoA11yViolations } from "@/tests/axe";
 
 import { AppShell } from "./AppShell";
 import { FloatingShellChrome } from "./FloatingShellChrome";
+import { copy as profileCopy } from "@/features/profile/content";
+
 import { copy } from "./content";
 
 vi.mock("next/navigation", () => ({
@@ -59,7 +61,7 @@ describe("SPEC-feature-mobile-nav-v2", () => {
     // so the account is a link rather than competing with a form (ADR-0009).
     const account = screen.getByRole("link", { name: copy.account });
     expect(account.getAttribute("href")).toBe("/profile");
-    expect(screen.queryByRole("button", { name: copy.signOut })).toBeNull();
+    expect(screen.queryByRole("button", { name: profileCopy.signOut })).toBeNull();
     const wordsLinks = screen
       .getAllByRole("link")
       .filter((link) => link.getAttribute("href") === "/words");

@@ -60,15 +60,23 @@ Research: [`study/12`](../../study/12-method-cards.md) (methods and floors),
 
 ## Acceptance criteria
 
-- [ ] Given a new contributor reading only specs, when they open Methods, Words,
-      and Progress, then no spec claims Words is the home for all Methods or
-      that `hosted` implies a runnable session.
-- [ ] Given thesis 3, when Words and Methods are described, then SRS is one
-      pillar and input Methods remain first-class in the catalogue.
+⚠ This spec is a **product contract**, so two of its criteria are about what
+other specs say rather than what code does. They are checked by reading, not by
+`npm test`, and saying so is better than naming a test that does not cover them.
+
+- [ ] *(by reading)* Given a contributor reading only specs, when they open
+      Methods, Words, and Progress, then no spec claims Words is the home for
+      all Methods or that `hosted` implies a runnable session.
+- [ ] *(by reading)* Given thesis 3, when Words and Methods are described, then
+      SRS is one pillar and input Methods remain first-class in the catalogue.
 - [ ] Given UC-004, when Progress is described, then vocabulary and stability
       may show data while all four skills remain *not measured* until their
       signal Methods ship.
 
 ## Check
 
-`npm test -- method-catalogue`
+`npm test -- method-catalogue practice-model`
+
+`practice-model.test.ts` pins the counts in the table above to the shipped
+catalogue — the one part of this contract a test can hold. The two criteria
+marked *(by reading)* are deliberately not claimed as covered.

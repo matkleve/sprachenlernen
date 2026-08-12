@@ -4,7 +4,7 @@ import { buttonVariants } from "@/components/ui/Button";
 import { Table, Td, Th } from "@/components/ui/Table";
 import { DOSE_BANDS, hoursPerYear, yearsToReach } from "@/lib/dose-band";
 import type { LevelReading } from "@/lib/level-model";
-import { routes } from "@/lib/routes";
+import { cardEngineSessionHref } from "@/lib/method-session";
 import { cn } from "@/lib/utils";
 
 import { copy, routeToMeasuring, signalNames, skillNames, statusNames } from "./content";
@@ -77,7 +77,7 @@ export function ProgressReport({ reading }: { reading: LevelReading }) {
           <div className="mt-6">
             <p className="max-w-2xl text-base leading-relaxed text-muted">{copy.emptyState}</p>
             <Link
-              href={`${routes.wordsReview}?method=srs-session`}
+              href={cardEngineSessionHref()}
               className={cn(buttonVariants({ variant: "primary" }), "mt-6")}
             >
               {copy.startReview}

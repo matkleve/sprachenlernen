@@ -76,7 +76,7 @@ export const copy = {
     "Nothing recorded yet — your standing appears here once you have reviewed a few cards.",
   standingStartReview: "Start a review session",
   standingRecorded: (held: number, poolSize: number) =>
-    `${held} of ${poolSize} lemmas held stably in your starter pool. No skill levels yet — meaning-recall does not measure reading, listening, speaking or writing.`,
+    `${held} of ${poolSize} starter words held stably. No skill levels yet — meaning-recall does not measure reading, listening, speaking or writing.`,
   standingSeeProgress: "See the full progress report",
   minutes: "min",
   or: "or",

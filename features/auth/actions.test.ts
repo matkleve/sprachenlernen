@@ -27,7 +27,7 @@ beforeEach(() => {
 });
 
 describe("signUpAction", () => {
-  it("redirects to the app home on a signed-in outcome, not to the landing page", async () => {
+  it("sends a new account to the language picker, not to the app home", async () => {
     vi.mocked(signUp).mockResolvedValue({
       status: "signed-in",
       account: { id: "u1", email: "a@example.com" },
@@ -36,7 +36,9 @@ describe("signUpAction", () => {
     await signUpAction(formData({ email: "a@example.com", password: "correct horse battery staple" }));
 
     expect(signUp).toHaveBeenCalledWith("a@example.com", "correct horse battery staple");
-    expect(redirect).toHaveBeenCalledWith("/methods");
+    // UC-011: signing up and choosing the language are the only two things
+    // asked before the first exercise. Landing on /methods asked neither.
+    expect(redirect).toHaveBeenCalledWith("/languages/choose");
   });
 
   it("redirects to the confirmation-sent state, not /", async () => {

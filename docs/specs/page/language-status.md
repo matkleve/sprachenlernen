@@ -13,6 +13,11 @@ here is authored per language, nothing is stored, and nothing is read from a
 field a person can set — which is the whole point: a page about how much to
 trust the data cannot itself be a place where someone types in a reassurance.
 
+**Not a chooser.** Two languages side by side with a quality column reads as a
+selection screen, and it was read that way — the title and intro now say what
+the page is before anything else does. Choosing a language is
+[`language-picker.md`](language-picker.md), behind an account.
+
 ## Scope
 
 - **In:** one row per profile in `data/languages/`; the derived quality tier;

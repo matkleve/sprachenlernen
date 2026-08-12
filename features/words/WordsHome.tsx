@@ -3,7 +3,7 @@ import { Table, Td, Th } from "@/components/ui/Table";
 import { holding } from "@/features/app-shell/content";
 import { copy as reviewCopy } from "@/features/review-session/content";
 import { copy } from "@/features/words/content";
-import { routes } from "@/lib/routes";
+import { cardEngineSessionHref } from "@/lib/method-session";
 import type { VocabularySnapshot } from "@/lib/vocabulary-snapshot";
 
 type WordsHomeProps = {
@@ -31,7 +31,7 @@ function horizonBarHeight(count: number, max: number): number {
 }
 
 export function WordsHome({ snapshot }: WordsHomeProps) {
-  const reviewHref = `${routes.wordsReview}?method=srs-session`;
+  const reviewHref = cardEngineSessionHref();
   const horizonMax = maxHorizonCount(snapshot);
   const atlasRows = snapshot.atlas.slice(0, ATLAS_ROW_LIMIT);
   const atlasTruncated = atlasRows.length < snapshot.atlas.length;

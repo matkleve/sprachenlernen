@@ -1,5 +1,6 @@
 import { SubmitButton } from "@/components/ui/SubmitButton";
-import { copy, languageNames } from "@/features/language-picker/content";
+import { copy } from "@/features/language-picker/content";
+import { languageLabel } from "@/lib/languages";
 
 /**
  * The picker. Contract: docs/specs/page/language-picker.md
@@ -27,9 +28,8 @@ export type LanguagePickerProps = {
 };
 
 function statusLine(tile: LanguageTile): string {
-  const names = languageNames[tile.code];
   if (tile.poolSize === null) {
-    return copy.unavailable(names?.english ?? tile.code);
+    return copy.unavailable(languageLabel(tile.code).english);
   }
   if (tile.heldCount === null) {
     return copy.notStarted(tile.poolSize);
@@ -51,7 +51,7 @@ export function LanguagePicker({ tiles, error, choose }: LanguagePickerProps) {
 
       <ul className="mt-8 grid gap-4 sm:grid-cols-2">
         {tiles.map((tile) => {
-          const names = languageNames[tile.code];
+          const names = languageLabel(tile.code);
           const available = tile.poolSize !== null;
 
           return (
@@ -59,8 +59,8 @@ export function LanguagePicker({ tiles, error, choose }: LanguagePickerProps) {
               key={tile.code}
               className="rounded-card border border-line bg-surface p-6"
             >
-              <p className="text-xl font-semibold text-ink">{names?.endonym ?? tile.code}</p>
-              <p className="mt-1 text-base text-muted">{names?.english ?? tile.code}</p>
+              <p className="text-xl font-semibold text-ink">{names.endonym}</p>
+              <p className="mt-1 text-base text-muted">{names.english}</p>
               <p className="mt-4 text-base leading-relaxed text-muted">{statusLine(tile)}</p>
 
               {available && !tile.alreadyLearning ? (

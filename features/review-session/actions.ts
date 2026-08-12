@@ -8,6 +8,7 @@ import {
 } from "@/lib/errors";
 import { buildSession, type SessionCard } from "@/lib/session-builder";
 import { poolForScheduling } from "@/lib/db/learner-pools";
+import { languageLabel } from "@/lib/languages";
 import type { Grade } from "@/lib/scheduler";
 
 /**
@@ -42,11 +43,6 @@ export type BuildSessionOutcome =
   | { status: "no-language" }
   | { status: "error"; error: string };
 
-const LANGUAGE_DISPLAY_NAMES: Record<string, string> = {
-  es: "Spanish",
-  it: "Italian",
-};
-
 export async function buildSessionAction(): Promise<BuildSessionOutcome> {
   try {
     // Every language being learned, not the one on screen. UC-025's combined
@@ -65,7 +61,7 @@ export async function buildSessionAction(): Promise<BuildSessionOutcome> {
     // the fix is per-card language rather than a session-level name. Cannot
     // happen yet — one pool ships — so it is named rather than guessed.
     const only = pool.languageCodes.length === 1 ? pool.languageCodes[0] : undefined;
-    const languageName = only ? (LANGUAGE_DISPLAY_NAMES[only] ?? only) : "";
+    const languageName = only ? languageLabel(only).english : "";
 
     const taskIds = pool.cards.map((card) => card.taskId);
     const reviewsResult = await listReviewsForTaskIds(taskIds);

@@ -29,7 +29,6 @@ export const routes = {
   words: "/words",
   wordsReview: "/words/review",
   progress: "/progress",
-  account: "/account",
   /** The signed-in profile — languages, data, sign out. */
   profile: "/profile",
   /** Where a learner chooses what to learn (UC-025). */

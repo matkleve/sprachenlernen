@@ -2,7 +2,7 @@
 
 <!-- id: SPEC-page-language-picker -->
 <!-- use-case: UC-025 -->
-<!-- status: draft -->
+<!-- status: active -->
 
 Where an Account chooses what to learn — at first run, and later from
 [`profile.md`](profile.md). **Standard**; the write it performs belongs to
@@ -78,9 +78,13 @@ about the language as a whole.
 
 Three rules the copy is carrying:
 
-1. **Never the word "lemma".** [`GLOSSARY.md`](../../GLOSSARY.md) gives `Card`
-   as the user-facing word for `Task` and gives lemma none — so the UI says
-   **words** and does not invent one.
+1. **A count shown to a learner is in "words", never "lemmas".**
+   [`GLOSSARY.md`](../../GLOSSARY.md) gives `Card` as the user-facing word for
+   `Task` and gives lemma none, so the unit of a count gets the same treatment.
+   The **artefact** keeps its name: `data/lemma/<code>.json` is a lemma table on
+   [`language-status.md`](language-status.md), which is a page about data
+   provenance and not a count. An earlier version of this rule banned the word
+   outright, which would have renamed a file in prose.
 2. **Name the denominator.** A bare "of 500" reads as a finish line; "starter
    set" does the scoping that the number alone cannot.
 3. **Zero is a measurement.** When the count arrives, `0 of 500` renders exactly

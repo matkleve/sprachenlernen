@@ -35,12 +35,12 @@ user cannot read another Account's rows. **Sensitive** (`AGENTS.md`).
 
 | # | User action | System response |
 | --- | --- | --- |
-| 1 | Submits the signup form with an email and a password | An Account is created. If Supabase's project settings return a session immediately, the visitor is signed in and sent to `/methods`. If email confirmation is required, they see "check your email" and no session is created yet. The confirmation mail links to `/auth/callback` on this deployment's origin (`NEXT_PUBLIC_SITE_URL`, or `VERCEL_URL` on previews, or `http://localhost:3000` locally) — not Supabase's project Site URL alone |
+| 1 | Submits the signup form with an email and a password | An Account is created. If Supabase's project settings return a session immediately, the visitor is signed in and sent to **`/languages/choose`** — a new Account has no learning language, and UC-011 makes choosing it one of the only two things asked before the first exercise. If email confirmation is required, they see "check your email" and no session is created yet. The confirmation mail links to `/auth/callback` on this deployment's origin (`NEXT_PUBLIC_SITE_URL`, or `VERCEL_URL` on previews, or `http://localhost:3000` locally) — not Supabase's project Site URL alone |
 | 2 | Submits the sign-in form with valid credentials | An auth session is created (cookie, via `middleware.ts`) and the visitor is sent to `/methods` |
 | 3 | Submits either form with invalid input | The page re-renders with the error Supabase reported next to the password field; no account or session is created |
 | 4 | Opens `/login` or `/signup` while already signed in | Redirected to `/methods`; the form is never shown |
 | 5 | (Any signed-in request) | `middleware.ts` revalidates and refreshes the session cookie before any Server Component runs |
-| 6 | Taps "Continue with Google" or "Continue with Apple" on `/login` or `/signup` | Redirected to the provider; on success, a session is created and they land on `/methods` without a separate email-confirmation step |
+| 6 | Taps "Continue with Google" or "Continue with Apple" on `/login` or `/signup` | Redirected to the provider; on success, a session is created and they land on `/methods` without a separate email-confirmation step. ⚠ **Not routed to the picker** — the callback cannot yet tell a first sign-in from a returning one, so an OAuth signup reaches the picker only via Words, Progress or Start review |
 | 7 | Signs up with email and password | Email confirmation remains required before a session exists (project setting) |
 
 ## States

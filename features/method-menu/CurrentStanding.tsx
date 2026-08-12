@@ -1,6 +1,7 @@
 import Link from "next/link";
 
 import { buttonVariants } from "@/components/ui/Button";
+import { cardEngineSessionHref } from "@/lib/method-session";
 import { routes } from "@/lib/routes";
 import { cn } from "@/lib/utils";
 
@@ -17,7 +18,7 @@ export function CurrentStanding({ summary }: { summary: StandingSummary }) {
       <section className="mt-6 max-w-2xl" aria-label={copy.standingLabel}>
         <p className="text-base leading-relaxed text-muted">{copy.standingEmpty}</p>
         <Link
-          href={`${routes.wordsReview}?method=srs-session`}
+          href={cardEngineSessionHref()}
           className={cn(buttonVariants({ variant: "secondary" }), "mt-4")}
         >
           {copy.standingStartReview}

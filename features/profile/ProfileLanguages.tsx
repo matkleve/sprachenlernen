@@ -1,6 +1,6 @@
 import { ActionLink } from "@/components/ui/ActionLink";
 import { SubmitButton } from "@/components/ui/SubmitButton";
-import { languageNames } from "@/features/language-picker/content";
+import { languageLabel } from "@/lib/languages";
 import { copy } from "@/features/profile/content";
 import type { ListLanguagesOutcome } from "@/lib/db/learning-languages";
 import { routes } from "@/lib/routes";
@@ -50,7 +50,7 @@ export function ProfileLanguages({ outcome, switchFailed, switchTo }: ProfileLan
         <>
           <ul className="mt-6 grid gap-3">
             {outcome.languages.map((language) => {
-              const names = languageNames[language.languageCode];
+              const names = languageLabel(language.languageCode);
               return (
                 <li
                   key={language.languageCode}
@@ -58,10 +58,10 @@ export function ProfileLanguages({ outcome, switchFailed, switchTo }: ProfileLan
                 >
                   <div>
                     <p className="text-base font-semibold text-ink">
-                      {names?.endonym ?? language.languageCode}
+                      {names.endonym}
                     </p>
                     <p className="text-sm text-muted">
-                      {names?.english ?? language.languageCode}
+                      {names.english}
                     </p>
                   </div>
 

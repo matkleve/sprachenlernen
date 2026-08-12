@@ -1,3 +1,5 @@
+import { DOSE_BAND_SOURCE } from "@/lib/dose-band";
+
 /**
  * Copy for the progress destination. Contract: docs/specs/page/progress.md
  *
@@ -43,7 +45,7 @@ export const copy = {
     `${days.toFixed(1)} days, averaged over ${taskCount} ${taskCount === 1 ? "card" : "cards"} you have reviewed`,
 
   vocabularyValue: (held: number, poolSize: number) =>
-    `${held} of ${poolSize} lemmas held stably in your starter pool — not extrapolated to the language`,
+    `${held} of ${poolSize} starter words held stably — not extrapolated to the language`,
 
   emptyState:
     "You have not reviewed anything yet, so nothing below has a value. That is the honest starting state, not a failure.",
@@ -64,13 +66,15 @@ export const copy = {
   doseHabit: (hours: number) =>
     `Fifteen minutes a day, every day without missing one, is about ${Math.round(hours)} hours a year.`,
   doseBorrowed:
-    "These figures are borrowed and uncalibrated: English-derived institutional estimates, used here for a different language pair. Treat them as an order of magnitude, not a measurement. A guided hour is also instructed time with feedback, which app minutes only partly are — so the comparison flatters the app rather than the reverse.",
+    DOSE_BAND_SOURCE.calibratedFor === null
+      ? `These figures are borrowed and uncalibrated: ${DOSE_BAND_SOURCE.name}, English-derived institutional estimates used here for a different language pair. Treat them as an order of magnitude, not a measurement. A guided hour is also instructed time with feedback, which app minutes only partly are — so the comparison flatters the app rather than the reverse.`
+      : `These figures come from ${DOSE_BAND_SOURCE.name}, calibrated for ${DOSE_BAND_SOURCE.calibratedFor}. A guided hour is instructed time with feedback, which app minutes only partly are.`,
   doseNoNumerator:
     "There is no line here for the hours you have practised, because the app does not count them. It records how long each card took, which is time inside review sessions and nothing else — and roughly a third to a half of the practice this app recommends happens away from it. A total built only from card time would be wrong by an unknowable amount, and dividing it into the hours above would make the error look precise.",
 
   gapHeading: "What is missing, and why",
   gapBody:
-    "A language-wide vocabulary estimate and any CEFR level it would feed are not built. Extrapolation needs a frequency-ranked pool large enough to estimate a boundary rank — the shipped pool is five hundred lemmas. The anchor table that maps vocabulary to a level is also still uncalibrated for this language pair. Both are named here rather than approximated.",
+    "A language-wide vocabulary estimate and any CEFR level it would feed are not built. Extrapolation needs a frequency-ranked pool large enough to estimate a boundary rank — the shipped starter set is five hundred words. The anchor table that maps vocabulary to a level is also still uncalibrated for this language pair. Both are named here rather than approximated.",
 } as const;
 
 export const skillNames: Record<Skill, string> = {

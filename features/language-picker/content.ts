@@ -27,13 +27,3 @@ export const copy = {
 
   error: "Could not add that language.",
 } as const;
-
-/**
- * Endonym first, English name beneath. A flag is never the identifier —
- * Spanish is not Spain, and a flag alone misnames the language for most of the
- * people who speak it.
- */
-export const languageNames: Record<string, { endonym: string; english: string }> = {
-  es: { endonym: "Español", english: "Spanish" },
-  it: { endonym: "Italiano", english: "Italian" },
-};

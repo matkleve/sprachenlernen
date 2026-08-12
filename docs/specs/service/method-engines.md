@@ -90,8 +90,17 @@ Order is load-bearing — see IMPLEMENTATION-PLAN § Track B engine phase:
       pool-local vocabulary and recall stability may have data and all four
       skills remain *not measured*.
 - [ ] Given the catalogue, when `hosted: true` is read, then no code path may
-      assume a session exists — only `usesWordsReview` may open a runner.
+      assume a session exists — only `usesWordsReview` may open a runner, and no
+      surface builds `?method=…` by hand. Enforced by a test that greps
+      `app/` and `features/` for the literal, because three surfaces had already
+      done it when this criterion was written.
 
 ## Check
 
-`npm test -- method-session`
+`npm test -- method-session progress`
+
+Two files, because the criteria are in two places: the routing rules are in
+`lib/method-session.test.ts`, and "skills stay *not measured* on card-engine
+Reviews alone" can only be observed where Progress is rendered. A `Check` that
+named only the first would have left that criterion unverified while looking
+covered.

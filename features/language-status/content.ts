@@ -10,9 +10,9 @@
 import type { QualityTier } from "@/lib/lexicon";
 
 export const copy = {
-  title: "Languages, and how far to trust each one",
+  title: "Language support — what we can honestly measure in each language",
   intro:
-    "Every figure below is derived from the data actually shipped for that language — never from a field anyone can set. A course bootstrapped from generated material is normal; being told which parts rest on what is not.",
+    "This page is about our data, not your learning — it is not where you choose a language. Every figure below is derived from what actually ships for that language, never from a field anyone can set. A course bootstrapped from generated material is normal; being told which parts rest on what is not.",
   tableCaption: "What the app claims for each shipped language, and why",
   columns: {
     language: "Language",
