@@ -69,6 +69,7 @@ only this table.
 | [29 · iOS inset by route](29-ios-inset-by-route.md) | Why Safari's bottom toolbar looks route-specific when it is session state |
 | [30 · Notifications & reflections](30-notifications-and-reflections.md) | Weekly digests, push, and “how am I doing?” without Duolingo-style guilt |
 | [31 · iOS Safari / PWA test report](31-ios-safari-pwa-test-report.md) | Consolidated issue report, shipped fixes, and owner LIVE CHECK matrix (`v0.4.1`) |
+| [32 · PWA profile UX](32-pwa-profile-ux.md) | Profile Home screen block — scope table, buttons, designer review |
 | [Sources](sources.md) | Literature, honestly marked by how far each was checked |
 
 Chapters 12–26 were written after the roadmap and are appended at the end. By

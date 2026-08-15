@@ -30,9 +30,19 @@ export const copy = {
     `Reload to update from ${currentVersion} to ${nextVersion}`,
   homeScreenHeading: "Home screen app (iPhone)",
   homeScreenCaption:
-    "Add this app from the main website address so Methods, Words, and Progress all open without Safari's bottom toolbar. Apple does not allow an install button — you use Share → Add to Home Screen.",
-  homeScreenActive: "You opened this from a Home Screen icon.",
+    "On iPhone, add this app from the main website address so Methods, Words, and Progress all work without Safari's bottom toolbar. Apple does not allow an install button — you use Share → Add to Home Screen.",
+  homeScreenActive: "Opened from your Home Screen icon",
+  homeScreenScopeHeading: "Which address to use",
+  homeScreenScopeCaption:
+    "The path in Safari when you tap Add to Home Screen decides which sections stay clean. Use the main website only.",
+  homeScreenScopeRows: [
+    { path: "/", covers: "Methods, Words, and Progress", recommended: true },
+    { path: "/methods", covers: "Methods only", recommended: false },
+    { path: "/words", covers: "Words only", recommended: false },
+    { path: "/progress", covers: "Progress only", recommended: false },
+  ],
+  homeScreenInstallButton: "Install instructions",
+  homeScreenMainSiteButton: "Open main website",
   homeScreenReinstall:
-    "If the bottom toolbar appears on some pages, remove the icon and follow the install steps again — from the main website, not from a section page.",
-  homeScreenInstallLink: "How to add to Home Screen",
+    "If the bottom toolbar appears on some pages, remove the Home Screen icon, open the main website in Safari, and add the app again from there — not from a section page.",
 } as const;

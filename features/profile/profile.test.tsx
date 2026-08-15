@@ -9,6 +9,7 @@ import { ProfileSpokenLanguage } from "@/features/profile/ProfileSpokenLanguage"
 import { copy } from "@/features/profile/content";
 import { renderWithAppUpdate } from "@/features/app-shell/test-utils";
 import packageJson from "@/package.json";
+import { isStandaloneDisplay } from "@/lib/is-standalone-display";
 import {
   APP_VERSION_LABEL,
   bumpPrideVersion,
@@ -26,6 +27,10 @@ const deployedLabel = `v${deployedVersion}`;
 vi.mock("next/navigation", () => ({
   usePathname: vi.fn(() => "/profile"),
   useRouter: vi.fn(() => ({ push: vi.fn(), refresh: vi.fn() })),
+}));
+
+vi.mock("@/lib/is-standalone-display", () => ({
+  isStandaloneDisplay: vi.fn(() => false),
 }));
 
 /** Contract: docs/specs/page/profile.md */
@@ -223,15 +228,27 @@ describe("ProfileAppSection", () => {
 });
 
 describe("ProfileHomeScreenSection", () => {
-  it("links to install instructions", () => {
-    vi.stubGlobal("navigator", { standalone: false });
-    vi.stubGlobal("matchMedia", () => ({ matches: false }));
+  it("shows scope table and install actions", () => {
+    vi.mocked(isStandaloneDisplay).mockReturnValue(false);
 
     render(<ProfileHomeScreenSection />);
 
     expect(screen.getByRole("heading", { name: copy.homeScreenHeading })).toBeDefined();
-    expect(screen.getByRole("link", { name: copy.homeScreenInstallLink }).getAttribute("href")).toBe(
+    expect(screen.getByText(copy.homeScreenScopeHeading)).toBeDefined();
+    expect(screen.getByText("/")).toBeDefined();
+    expect(screen.getByRole("link", { name: copy.homeScreenInstallButton }).getAttribute("href")).toBe(
       "/install",
     );
+    expect(screen.getByRole("link", { name: copy.homeScreenMainSiteButton }).getAttribute("href")).toBe(
+      "/",
+    );
+  });
+
+  it("shows status when opened from Home Screen icon", async () => {
+    vi.mocked(isStandaloneDisplay).mockReturnValue(true);
+
+    render(<ProfileHomeScreenSection />);
+
+    expect(await screen.findByText(copy.homeScreenActive)).toBeDefined();
   });
 });

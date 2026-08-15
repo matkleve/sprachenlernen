@@ -51,7 +51,7 @@ page — the affordance ADR-0009 described, finally built.
 | 8 | Language read fails | The error surface for that block only; export and delete still work |
 | 9 | Views **App** | Running Pride version on this device; **Check for updates** re-fetches the server |
 | 10 | Update available | Green reload row names the deployed version; tap reloads the page |
-| 11 | Views **Home screen app** | Link to `/install`; note if already opened from Home Screen icon |
+| 11 | Views **Home screen app** | Scope table; **Install instructions** → `/install`; **Open main website** → `/` |
 
 ## States
 
@@ -103,7 +103,8 @@ the learner's list ([`starter-deck.md`](../service/starter-deck.md)).
 - [ ] Given `/profile`, when the page renders, then the **App** section shows the
       running version and **Check for updates** per [`app-update.md`](../feature/app-update.md).
 - [ ] Given `/profile`, when the page renders, then a **Home screen app (iPhone)**
-      section links to [`pwa-install.md`](../feature/pwa-install.md) `/install`.
+      section shows the scope table, **Install instructions** → `/install`, and
+      **Open main website** → `/` per [`pwa-install.md`](../feature/pwa-install.md).
 - [ ] Given `/profile`, then the shell account control is marked as the current
       page with accent fill (mobile icon chip and desktop account link).
 

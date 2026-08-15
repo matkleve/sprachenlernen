@@ -2,14 +2,15 @@
 
 import { useEffect, useState } from "react";
 
-import { TextLink } from "@/components/ui/TextLink";
+import { ActionLink } from "@/components/ui/ActionLink";
 import { copy } from "@/features/profile/content";
 import { isStandaloneDisplay } from "@/lib/is-standalone-display";
 import { routes } from "@/lib/routes";
+import { cn } from "@/lib/utils";
 
 /**
- * Home Screen install guidance on /profile (iPhone PWA scope quirk).
- * Contract: docs/specs/feature/pwa-install.md
+ * Home Screen install guidance on /profile (iPhone PWA scope).
+ * Contract: docs/specs/feature/pwa-install.md, docs/study/32-pwa-profile-ux.md
  */
 export function ProfileHomeScreenSection() {
   const [standalone, setStandalone] = useState<boolean | null>(null);
@@ -19,19 +20,50 @@ export function ProfileHomeScreenSection() {
   }, []);
 
   return (
-    <section className="mt-page-content">
-      <h2 className="text-xl font-semibold text-ink">{copy.homeScreenHeading}</h2>
+    <section className="mt-page-content" aria-labelledby="profile-home-screen-heading">
+      <h2 id="profile-home-screen-heading" className="text-xl font-semibold text-ink">
+        {copy.homeScreenHeading}
+      </h2>
       <p className="mt-4 max-w-2xl text-base leading-relaxed text-muted">{copy.homeScreenCaption}</p>
 
       {standalone === true ? (
-        <p className="mt-4 max-w-2xl text-sm font-medium text-success">{copy.homeScreenActive}</p>
+        <p
+          className="mt-4 inline-flex rounded-pill border border-success bg-success-soft px-3 py-1 text-sm font-medium text-success"
+          role="status"
+        >
+          {copy.homeScreenActive}
+        </p>
       ) : null}
 
-      <p className="mt-4 max-w-2xl text-sm leading-relaxed text-muted">{copy.homeScreenReinstall}</p>
-
-      <div className="mt-4">
-        <TextLink href={routes.install}>{copy.homeScreenInstallLink}</TextLink>
+      <div className="mt-6 rounded-card border border-line bg-surface-raised p-4 shadow-soft">
+        <h3 className="text-sm font-semibold text-ink">{copy.homeScreenScopeHeading}</h3>
+        <p className="mt-2 text-sm leading-relaxed text-muted">{copy.homeScreenScopeCaption}</p>
+        <dl className="mt-4 grid gap-3 text-sm">
+          {copy.homeScreenScopeRows.map((row) => (
+            <div
+              key={row.path}
+              className={cn(
+                "flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1 border-b border-line pb-3 last:border-b-0 last:pb-0",
+                row.recommended && "font-medium",
+              )}
+            >
+              <dt className="font-mono text-ink">{row.path}</dt>
+              <dd className="text-muted">{row.covers}</dd>
+            </div>
+          ))}
+        </dl>
       </div>
+
+      <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+        <ActionLink href={routes.install} variant="primary" className="w-full sm:w-auto">
+          {copy.homeScreenInstallButton}
+        </ActionLink>
+        <ActionLink href={routes.landing} variant="secondary" className="w-full sm:w-auto">
+          {copy.homeScreenMainSiteButton}
+        </ActionLink>
+      </div>
+
+      <p className="mt-4 max-w-2xl text-sm leading-relaxed text-muted">{copy.homeScreenReinstall}</p>
     </section>
   );
 }
