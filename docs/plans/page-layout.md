@@ -4,6 +4,7 @@
 **Change class:** Standard (docs + small helper).
 
 Contract: [`../specs/feature/page-layout.md`](../specs/feature/page-layout.md).
+Layer diagram: [`../specs/feature/page-layout.layers.md`](../specs/feature/page-layout.layers.md).
 
 ## Decisions (2026-08-15)
 

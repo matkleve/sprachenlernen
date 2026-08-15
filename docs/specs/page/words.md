@@ -14,6 +14,7 @@ both required long-term. Words is the SRS pillar's surface; it does not subsume
 the other fifty-two Methods.
 
 Product contract: [`../service/practice-model.md`](../service/practice-model.md).
+Mobile layer stack: [`../feature/page-layout.layers.md`](../feature/page-layout.layers.md).
 
 ## Scope
 
