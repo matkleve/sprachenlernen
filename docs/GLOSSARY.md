@@ -106,7 +106,7 @@ requires a `⚠ SPEC GAP` line, not a guess.
 | **Words destination** | The navigation surface for the card engine's material — holdings, horizon, vocabulary orbit — not the home for every Method. | Methods, Home |
 | **Method card** | The user-facing presentation of a Method — section header graphic, badge row, tag chips, and summary. | a Card (that is a Task) |
 | **Method card header** | Decorative top band on a Method card: one abstract graphic per catalogue **section**, gradient fade, section label. Not shown on the detail page. | a per-method illustration, a quality badge |
-| **Method badge** | One of three non-interactive marks on a Method card or detail page: **skill contribution** (per skill), **evidence grade** (A–D), or **effort load** (intensity dots). Never combined into one score. | a Chip, a quality tier, a streak |
+| **Method badge** | One of three non-interactive marks on a Method card or detail page: **skill contribution** (per skill), **evidence** (plain label, e.g. "Thin evidence"), or **effort** (plain label, e.g. "Light effort"). Letter grades (A–D) appear in detail prose only. Never combined into one score. | a Chip, a quality tier, a streak |
 | **Section graphic** | The shared header image for all Methods in one catalogue section (~8 assets). Groups cards visually without ranking them. | a Method badge, a section filter |
 | **Skill contribution** | How much a Method serves one of the four Skills: primary, secondary, or slight. Shown as skill marks — not a global gold/silver/copper rank. | evidence grade, effect estimate |
 | **Daily menu** | The three Methods offered today, given budget, setting, floors, effect and preference. | a plan, a course |

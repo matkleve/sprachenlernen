@@ -30,8 +30,9 @@ to the top make browsing worse, not better.
   in place — no full reload, no scroll jump. Only choosing a method navigates away.
 - **Refine only when needed:** hands-free, silent, eyes elsewhere — not eight
   dimensions on the front door.
-- Each card shows **at a glance**: which skills it mainly serves, its evidence
-  grade, and its effort load — before the learner opens the detail page.
+- Each card shows **at a glance**: which skills it mainly serves, a plain
+  **evidence label** (e.g. "Thin evidence"), and a plain **effort label** (e.g.
+  "Light effort") — before the learner opens the detail page.
 - Each card shows a **section header graphic** (one abstract image per catalogue
   section) so browsing sixty entries has visual rhythm without ranking methods.
 - Methods that do not fit are **absent**, not greyed out.

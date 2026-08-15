@@ -6,8 +6,8 @@
 
 A compact label for a **short, single-line** fact — duration, a requirement,
 hosted/off-app. Used on **method cards** as non-interactive labels. **Evidence,
-intensity, and skill contribution** use **MethodBadge** instead
-([`method-badge.md`](method-badge.md)). Filter controls on the method menu use
+intensity, and skill contribution** use **MethodBadge** plain-language labels
+instead ([`method-badge.md`](method-badge.md)). Filter controls on the method menu use
 the same pill geometry via **FilterPill** (buttons), not Chip wrapped in a link.
 
 Multi-line copy must not use pill geometry — chips are `whitespace-nowrap` on

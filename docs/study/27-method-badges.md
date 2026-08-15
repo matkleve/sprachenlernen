@@ -80,9 +80,9 @@ E13 ([02](02-evidence.md)): teaching learners *how* methods work helps; showing
 evidence corrects misjudgement only partly. The info page is still right because
 the alternative is "trust us" ([12](12-method-cards.md)).
 
-**Implication:** evidence grade must stay **visible and legible** on cards, but
-as a **research-confidence mark** (A–D), not a gamified trophy. Detail page
-carries the one-sentence gloss; the card carries the letter.
+**Implication:** evidence must stay **visible and legible** on cards as a plain
+label (e.g. "Thin evidence"), not a letter grade. Detail page carries the graded
+sentence; the card carries the meaning.
 
 ### 5. Pre-attentive scanning at catalogue scale
 

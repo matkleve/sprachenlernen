@@ -29,8 +29,13 @@
 - [ ] Given an off-app Method card, then it links to `/methods/{id}`.
 - [ ] Given any rendered Method card, then a section header graphic appears above
       the title; the card has uniform border radius with no left accent stripe.
-- [ ] Given any rendered Method card, then the badge row (skill marks, evidence,
-      effort) appears above tag chips; `doesNotDo` prose appears below.
+- [ ] Given any rendered Method card, then the badge row (skill marks, plain
+      evidence label, plain effort label) appears above tag chips; `doesNotDo`
+      prose appears below.
+- [ ] Given evidence C on a method card, when it renders, then the badge shows
+      "Thin evidence" — not "Evidence C" or a bare letter.
+- [ ] Given intensity 1 on a method card, when it renders, then the effort badge
+      shows "Light effort" — not a dot scale.
 - [ ] Given any rendered Method card, then evidence and intensity are not
       rendered as multi-line accent chips.
 - [ ] Given filters that match nothing, then the gap is named and no list renders.

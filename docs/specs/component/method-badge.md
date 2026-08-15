@@ -5,8 +5,8 @@
 <!-- status: active -->
 
 Three non-interactive badge families for method cards and detail pages: **skill
-contribution**, **evidence grade**, and **effort load**. Replaces long-sentence
-accent chips for evidence and intensity. Contract:
+contribution**, **evidence** (plain label), and **effort** (plain label). Replaces
+long-sentence accent chips for evidence and intensity. Contract:
 [`../../study/27-method-badges.md`](../../study/27-method-badges.md).
 
 ## Scope
