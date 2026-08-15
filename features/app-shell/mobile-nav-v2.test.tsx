@@ -1,9 +1,11 @@
+import type { ReactElement } from "react";
 import { render, screen } from "@testing-library/react";
 import { usePathname } from "next/navigation";
-import { beforeEach, describe, expect, it, vi } from "vitest";
+import { beforeEach, describe, expect, it, vi, afterEach } from "vitest";
 
 import { expectNoA11yViolations } from "@/tests/axe";
 
+import { AppUpdateProvider } from "./AppUpdateProvider";
 import { AppShell } from "./AppShell";
 import { FloatingShellChrome } from "./FloatingShellChrome";
 import { APP_VERSION_LABEL } from "@/lib/pride-version";
@@ -41,12 +43,27 @@ function mockMobileViewport() {
 
 beforeEach(() => {
   mockMobileViewport();
+  vi.stubGlobal(
+    "fetch",
+    vi.fn().mockResolvedValue({
+      ok: true,
+      json: async () => ({ version: "0.3.0" }),
+    } as Response),
+  );
 });
+
+afterEach(() => {
+  vi.unstubAllGlobals();
+});
+
+function renderChrome(ui: ReactElement) {
+  return render(<AppUpdateProvider>{ui}</AppUpdateProvider>);
+}
 
 describe("SPEC-feature-mobile-nav-v2", () => {
   it("shows pill destinations without a hamburger", () => {
     vi.mocked(usePathname).mockReturnValue("/words");
-    const { container } = render(<FloatingShellChrome languages={oneLanguage} />);
+    const { container } = renderChrome(<FloatingShellChrome languages={oneLanguage} />);
 
     expect(screen.queryByRole("button", { name: /menu/i })).toBeNull();
     expect(container.querySelector(".footer-scrim-blur")).not.toBeNull();
@@ -69,7 +86,7 @@ describe("SPEC-feature-mobile-nav-v2", () => {
 
   it("shows the account icon chip and one Words link on a destination root", () => {
     vi.mocked(usePathname).mockReturnValue("/words");
-    render(<FloatingShellChrome languages={oneLanguage} />);
+    renderChrome(<FloatingShellChrome languages={oneLanguage} />);
 
     const account = screen.getByRole("link", { name: copy.account });
     expect(account.getAttribute("href")).toBe("/profile");
@@ -84,7 +101,7 @@ describe("SPEC-feature-mobile-nav-v2", () => {
 
   it("shows the language emoji on a destination root", () => {
     vi.mocked(usePathname).mockReturnValue("/words");
-    render(<FloatingShellChrome languages={twoLanguages} />);
+    renderChrome(<FloatingShellChrome languages={twoLanguages} />);
 
     expect(screen.getByRole("button", { name: copy.switchLanguage })).toBeDefined();
     expect(screen.getByText("🇪🇸")).toBeDefined();
@@ -92,7 +109,7 @@ describe("SPEC-feature-mobile-nav-v2", () => {
 
   it("shows icon-only back without the language chip on drill-in routes", () => {
     vi.mocked(usePathname).mockReturnValue("/methods/srs-session");
-    render(<FloatingShellChrome languages={twoLanguages} />);
+    renderChrome(<FloatingShellChrome languages={twoLanguages} />);
 
     const back = screen.getByRole("link", { name: copy.backTo(copy.destinations.methods) });
     expect(back.getAttribute("href")).toBe("/methods");
@@ -103,7 +120,7 @@ describe("SPEC-feature-mobile-nav-v2", () => {
 
   it("shows back without the language chip on words review", () => {
     vi.mocked(usePathname).mockReturnValue("/words/review");
-    render(<FloatingShellChrome languages={twoLanguages} />);
+    renderChrome(<FloatingShellChrome languages={twoLanguages} />);
 
     const wordsLinks = screen
       .getAllByRole("link")
@@ -116,7 +133,7 @@ describe("SPEC-feature-mobile-nav-v2", () => {
 
   it("anchors the footer scrim to the viewport bottom, not the pill lift", () => {
     vi.mocked(usePathname).mockReturnValue("/words");
-    const { container } = render(<FloatingShellChrome languages={oneLanguage} />);
+    const { container } = renderChrome(<FloatingShellChrome languages={oneLanguage} />);
 
     const scrim = container.querySelector(".shell-float-footer-scrim");
     expect(scrim?.className).toContain("bottom-0");
@@ -125,7 +142,7 @@ describe("SPEC-feature-mobile-nav-v2", () => {
 
   it("renders no digit in the mobile navigation", () => {
     vi.mocked(usePathname).mockReturnValue("/methods");
-    const { container } = render(
+    const { container } = renderChrome(
       <AppShell languages={oneLanguage}>
         <p>content</p>
       </AppShell>,
@@ -138,7 +155,7 @@ describe("SPEC-feature-mobile-nav-v2", () => {
 
   it("has no accessibility violations", async () => {
     vi.mocked(usePathname).mockReturnValue("/words/review");
-    const { container } = render(<FloatingShellChrome languages={oneLanguage} />);
+    const { container } = renderChrome(<FloatingShellChrome languages={oneLanguage} />);
 
     await expectNoA11yViolations(container);
   });

@@ -6,6 +6,7 @@ import { ProfileAppSection } from "@/features/profile/ProfileAppSection";
 import { ProfileLanguages } from "@/features/profile/ProfileLanguages";
 import { ProfileSpokenLanguage } from "@/features/profile/ProfileSpokenLanguage";
 import { copy } from "@/features/profile/content";
+import { renderWithAppUpdate } from "@/features/app-shell/test-utils";
 import { APP_VERSION_LABEL } from "@/lib/pride-version";
 import { SHIPPED_ES_POOL_SIZE } from "@/lib/starter-deck";
 
@@ -165,7 +166,7 @@ describe("ProfileAppSection", () => {
       json: async () => ({ version: "0.3.0" }),
     } as Response);
 
-    render(<ProfileAppSection />);
+    renderWithAppUpdate(<ProfileAppSection />);
 
     expect(screen.getByRole("heading", { name: copy.appHeading })).toBeDefined();
     expect(screen.getByText(copy.runningVersion)).toBeDefined();
@@ -179,7 +180,7 @@ describe("ProfileAppSection", () => {
       json: async () => ({ version: "0.4.0" }),
     } as Response);
 
-    render(<ProfileAppSection />);
+    renderWithAppUpdate(<ProfileAppSection />);
 
     await waitFor(() => {
       expect(screen.getByText(copy.updateAvailable("v0.4.0"))).toBeDefined();
@@ -198,7 +199,7 @@ describe("ProfileAppSection", () => {
       json: async () => ({ version: "0.3.0" }),
     } as Response);
 
-    render(<ProfileAppSection />);
+    renderWithAppUpdate(<ProfileAppSection />);
 
     await user.click(screen.getByRole("button", { name: copy.checkForUpdates }));
 
