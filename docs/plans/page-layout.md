@@ -4,6 +4,7 @@
 **Change class:** Standard (docs + small helper).
 
 Contract: [`../specs/feature/page-layout.md`](../specs/feature/page-layout.md).
+Layer diagram: [`../specs/feature/page-layout.layers.md`](../specs/feature/page-layout.layers.md).
 
 ## Decisions (2026-08-15)
 
@@ -34,6 +35,11 @@ Contract: [`../specs/feature/page-layout.md`](../specs/feature/page-layout.md).
 | `app/(app)/words/review/page.tsx` | Runner wrapper (`h-review-session`) |
 
 ## Follow-up (optional, Track A)
+
+**T-SHELL-04 · Decouple footer scrim from pill** — **shipped 2026-08-15**
+
+- Scrim zone: `bottom: 0`, height grows with `--shell-visual-viewport-bottom-inset`
+- Pill: `shell-float-nav-pill` with `--spacing-shell-float-nav-pad-y`
 
 **T-SHELL-03 · iPad shell QA**
 

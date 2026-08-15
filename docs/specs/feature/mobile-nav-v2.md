@@ -43,7 +43,7 @@ Progress (ADR-0009). **No due-count badges** (UC-063).
 | 6 | Taps back float | Navigates to parent destination (`href`, not blind history) |
 | 7 | Has more than one learning language | Language emoji chip opens a popover: blurred scrim over the page, stacked language cards (gap between each), then **Add a language**; choosing a row makes it active and refreshes — one action (UC-025) |
 | 8 | Has exactly one learning language | Top-left shows a non-interactive flag circle with the endonym in `aria-label` |
-| 9 | Scrolls page content | Floats stay fixed; the page title stays centered and scales down; a scrim (blur + tint) fades in at the top and out toward the bottom of the header; a matching scrim sits behind the bottom pill, **lifted above Safari's bottom toolbar**, and **blocks taps from reaching content underneath** |
+| 9 | Scrolls page content | Floats stay fixed; header scrim as today; **footer scrim bleeds to the viewport bottom** (behind Safari toolbar when present); **destination pill** sits above Safari chrome via `visualViewport` inset and has **padding inside the scrim band**; tap shield blocks dead zones |
 | 10 | On any signed-in route | The page title is centered between the corner chips — large at scroll top, smaller after scrolling down; on mobile it may wrap to **two lines** within a fixed max width, never overlapping the chips; **if it wraps to two lines at rest, it stays two lines while scaling down** (no reflow to one line on scroll); when it wraps, `main` uses `--spacing-shell-float-top-expanded` so content does not sit under the corner chips |
 
 ## Back targets
@@ -88,8 +88,12 @@ title wraps to two lines.
 - [ ] Given viewport &lt; `md`, when the learner taps the pill's dead zones or
       scrim, then page content underneath does not receive the tap.
 - [ ] Given viewport &lt; `md` and iOS Safari's bottom toolbar is visible, when
-      the shell renders, then the bottom pill sits above the toolbar (measured via
-      `useVisualViewportBottomInset`, not a fixed offset).
+      the shell renders, then the **destination pill** sits above the toolbar
+      (measured via `useVisualViewportBottomInset`) and the **footer scrim**
+      still extends to the physical bottom of the viewport behind the toolbar.
+- [ ] Given viewport &lt; `md` and no Safari bottom toolbar, when the shell
+      renders, then the footer scrim extends to the viewport bottom and the pill
+      has visible padding above and below inside the scrim band (not flush).
 - [ ] Given viewport &lt; `md` on any drill-in route, then the top-left shows
       **either** a back chip **or** a language chip — never both.
 - [ ] Given viewport &lt; `md` on `/methods/[id]`, then a back chip links to

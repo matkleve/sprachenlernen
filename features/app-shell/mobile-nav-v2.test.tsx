@@ -49,7 +49,9 @@ describe("SPEC-feature-mobile-nav-v2", () => {
 
     expect(screen.queryByRole("button", { name: /menu/i })).toBeNull();
     expect(container.querySelector(".footer-scrim-blur")).not.toBeNull();
-    expect(container.querySelector(".pointer-events-auto.absolute.inset-x-0")).not.toBeNull();
+    expect(container.querySelector(".shell-float-footer-scrim")).not.toBeNull();
+    expect(container.querySelector(".shell-float-nav-pill")).not.toBeNull();
+    expect(container.querySelector(".pointer-events-auto.absolute.inset-0")).not.toBeNull();
 
     const nav = screen.getByRole("navigation", { name: copy.mobileNavLabel });
     const links = nav.querySelectorAll<HTMLAnchorElement>("a[href]");
@@ -108,6 +110,15 @@ describe("SPEC-feature-mobile-nav-v2", () => {
     expect(screen.queryByRole("button", { name: copy.switchLanguage })).toBeNull();
     expect(screen.queryByText("🇪🇸")).toBeNull();
     expect(screen.getByRole("navigation", { name: copy.mobileNavLabel })).toBeDefined();
+  });
+
+  it("anchors the footer scrim to the viewport bottom, not the pill lift", () => {
+    vi.mocked(usePathname).mockReturnValue("/words");
+    const { container } = render(<FloatingShellChrome languages={oneLanguage} />);
+
+    const scrim = container.querySelector(".shell-float-footer-scrim");
+    expect(scrim?.className).toContain("bottom-0");
+    expect(scrim?.className).not.toContain("shell-float-nav-bottom");
   });
 
   it("renders no digit in the mobile navigation", () => {

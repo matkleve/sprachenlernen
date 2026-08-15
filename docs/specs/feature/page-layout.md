@@ -8,8 +8,9 @@ The contract for stacking **shell chrome**, **scrims**, and **page content** on
 every signed-in route. Answers: who owns padding, when the page scrolls, and
 when content must fit one screen. **Parent:** [`app-shell.md`](app-shell.md),
 [`mobile-nav-v2.md`](mobile-nav-v2.md). **Reasoning:**
-[`../../study/28-mobile-desktop-layout.md`](../../study/28-mobile-desktop-layout.md). **Reasoning:**
 [`../../study/28-mobile-desktop-layout.md`](../../study/28-mobile-desktop-layout.md).
+Layer stack and agent handoff:
+[`page-layout.layers.md`](page-layout.layers.md).
 
 ## Scope
 
@@ -147,8 +148,8 @@ iPad Safari in manual QA. Floating chrome does not extend to tablet width.
       `pt-page-top pb-page-bottom` and does **not** add extra bottom padding for
       shell chrome.
 - [ ] Given iOS Safari with its bottom toolbar visible, when the shell renders,
-      then the destination pill sits above the toolbar (measured inset, not a
-      fixed offset).
+      then the destination pill sits above the toolbar (measured inset) and the
+      footer scrim still bleeds to the viewport bottom behind the toolbar.
 
 ## Check
 
