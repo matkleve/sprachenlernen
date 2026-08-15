@@ -137,7 +137,7 @@ longest). **No per-route inset fixes.** Detail:
 | 1 | Scrolls a scrollable destination on mobile | Content moves; floats stay fixed; header scrim intensifies |
 | 2 | Opens `/words/review?method=srs-session` on mobile | Session body height is `--height-review-session`; no vertical page scroll |
 | 3 | Opens `/words/review` without a session | Scrollable drill-in layout; unknown-method copy scrolls normally |
-| 4 | Resizes visual viewport (Safari toolbar, keyboard) | Bottom pill repositions via `--shell-visual-viewport-bottom-inset` |
+| 4 | Resizes visual viewport (Safari toolbar, keyboard) | Bottom pill repositions via `--shell-visual-viewport-bottom-inset`; re-sync on pathname when shell stays mounted |
 | 5 | Viewport ≥ `md` | Flat sticky top header (desktop **and iPad**); no floating pill; runner may scroll on desktop/tablet |
 
 ## Breakpoints (owner 2026-08-15)

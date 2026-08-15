@@ -5,8 +5,9 @@ Investigation report (2026-08-15, revised same day). **Question:** why does
 and `/progress` do?
 
 **Short answer:** the app applies the **same** bottom-inset mechanism on every
-signed-in route. The difference is **Safari's toolbar state in that browser
-session** — not different shell code and **not** page length.
+signed-in route. The difference is **not random** — it follows a **reproducible
+flow** (login → `/methods`, then bottom-pill taps that reveal Safari chrome). It
+is **not** different inset CSS per route.
 
 **Policy:** **do not** add per-route inset hacks. **Do** keep
 `useVisualViewportBottomInset` and the footer-scrim split. See
@@ -21,7 +22,7 @@ bottom toolbar.
 | --- | --- |
 | `/methods` uses different inset CSS than `/words` | **False** — identical classes and hooks |
 | `/methods` skips `useVisualViewportBottomInset` | **False** — runs in `FloatingShellChrome` on every route |
-| Safari bottom toolbar is absent more often on `/methods` at first glance | **True** — observed; environmental |
+| Safari bottom toolbar is absent more often on `/methods` at first glance | **True** — follows the default navigation flow below |
 | Words/Progress are longer pages → more toolbar | **False** — `/methods` is ~10× taller (~18k vs ~1.8k px) |
 | A fixed bottom lift would “fix” Methods | **Wrong** — pill floated too high when toolbar absent |
 | Per-route code can normalise toolbar visibility | **False** — no web API; Apple documents this as intended |
@@ -39,7 +40,7 @@ scrim **grows** with that inset but stays anchored to `bottom: 0`.
 
 | Action | Why |
 | --- | --- |
-| `useVisualViewportBottomInset` on every signed-in mobile route | Only signal Safari exposes (`visualViewport` resize/scroll) |
+| `useVisualViewportBottomInset` on every signed-in mobile route | Only signal Safari exposes; **re-sync on pathname** when shell stays mounted |
 | Dynamic `--shell-visual-viewport-bottom-inset` | `0` when no toolbar; measured when present |
 | Footer scrim at `bottom: 0`; pill in `.shell-float-nav-pill` | Scrim full-bleeds; pill lifts independently |
 | Document + LIVE CHECK | Prevents agents “fixing” Methods with per-route lifts |
@@ -103,27 +104,36 @@ const inset = Math.max(0, window.innerHeight - viewport.height - viewport.offset
 
 `env(safe-area-inset-bottom)` covers the home indicator only — not Safari's toolbar.
 
-### 3. Safari controls the toolbar — not the app
+### 3. Reproducible flow — not random, not per-route CSS
+
+**Default app flow (always the same in this product):**
+
+1. Sign-in lands on **`/methods`** (`routes.appHome` in `lib/routes.ts`) — no
+   bottom-pill tap yet; Safari toolbar often **hidden**.
+2. Learner taps **Words** or **Progress** in the bottom pill — tap is in
+   Safari's bottom touch zone and often **reveals** the toolbar
+   ([Ben Frain](https://benfrain.com/the-ios-safari-menu-bar-is-hostile-to-web-apps-discuss/)).
+3. Toolbar state **persists** in the same Safari tab; returning to Methods does
+   not reset Safari chrome.
+
+So "Methods = no toolbar, Words = toolbar" is often **navigation order**, not a
+Methods-only rule. **Counter-test:** hard-reload `/words` in a fresh tab before
+ever visiting Methods — toolbar state can differ from the pill-navigation flow.
+
+**Shell stays mounted** across pill taps. `useVisualViewportBottomInset` re-syncs
+on `pathname` change so inset does not stay stale when Safari skips a
+`visualViewport` resize on client navigation.
 
 **External references:**
 
 | Source | Finding |
 | --- | --- |
-| [Ben Frain (2016, still cited)](https://benfrain.com/the-ios-safari-menu-bar-is-hostile-to-web-apps-discuss/) | No API/meta to load with toolbar hidden; bottom ~44px is a special tap zone |
-| [Ionic #19081 — Apple to Ionic](https://github.com/ionic-team/ionic-framework/issues/19081#issuecomment-948987368) | iOS 15+ stable: URL/toolbar does **not** auto-collapse on scroll in many web apps; **aA → Hide Toolbar** is the documented workaround |
-| [WebKit #259770](https://bugs.webkit.org/show_bug.cgi?id=259770) | `interactive-widget` not implemented on iOS Safari |
-| [SO #60804268](https://stackoverflow.com/questions/60804268/how-to-know-when-bottom-nav-bar-is-visible-in-mobile-safari) | Detect via `visualViewport` resize, not a dedicated API |
+| [Ben Frain](https://benfrain.com/the-ios-safari-menu-bar-is-hostile-to-web-apps-discuss/) | No API to hide toolbar; bottom ~44px is a special tap zone |
+| [Ionic #19081 — Apple](https://github.com/ionic-team/ionic-framework/issues/19081#issuecomment-948987368) | iOS 15+ stable: toolbar does not auto-collapse on scroll in many web apps |
+| WebKit bug 259770 | `interactive-widget` not on iOS Safari |
+| [SO #60804268](https://stackoverflow.com/questions/60804268/how-to-know-when-bottom-nav-bar-is-visible-in-mobile-safari) | Detect via `visualViewport` resize |
 
-**Why it looks route-specific (revised):**
-
-| Factor | Effect |
-| --- | --- |
-| **Session state** | Toolbar visibility persists across Next.js navigations in one Safari tab |
-| **Bottom pill taps** | Switching destinations taps near the bottom — a gesture that **reveals** Safari chrome |
-| **Methods as landing** | Often first page at scroll 0 before bottom taps |
-| **Fixed bottom pill** | Competes with Safari's bottom touch zone on **every** route equally |
-
-**Not the cause:** page length, per-route CSS, or `interactive-widget` on iOS.
+**Not the cause:** page length (Methods is longest), per-route CSS.
 
 ### 4. Historical bugs (fixed)
 
