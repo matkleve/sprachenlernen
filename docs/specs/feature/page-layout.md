@@ -7,7 +7,9 @@
 The contract for stacking **shell chrome**, **scrims**, and **page content** on
 every signed-in route. Answers: who owns padding, when the page scrolls, and
 when content must fit one screen. **Parent:** [`app-shell.md`](app-shell.md),
-[`mobile-nav-v2.md`](mobile-nav-v2.md).
+[`mobile-nav-v2.md`](mobile-nav-v2.md). **Reasoning:**
+[`../../study/28-mobile-desktop-layout.md`](../../study/28-mobile-desktop-layout.md). **Reasoning:**
+[`../../study/28-mobile-desktop-layout.md`](../../study/28-mobile-desktop-layout.md).
 
 ## Scope
 

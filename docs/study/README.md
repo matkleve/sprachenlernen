@@ -65,13 +65,14 @@ only this table.
 | [25 · Why none of it feels productive](25-why-it-does-not-feel-productive.md) | What is actually wrong with the competition, sorted by defect — and when the feeling of getting nowhere is an illusion versus a correct reading |
 | [26 · Readiness & difficulty](26-readiness-and-difficulty.md) | Who decides what — why a form nobody may skip argues for targeting rather than gating, how difficulty rises with nobody setting it, and how a method is tested |
 | [27 · Method badges](27-method-badges.md) | Three badge families for cards and detail — skill, evidence, effort — and why not one gold medal per method |
+| [28 · Mobile & desktop layout](28-mobile-desktop-layout.md) | What differs between phone and laptop chrome, what the industry does, and what we should not change |
 | [Sources](sources.md) | Literature, honestly marked by how far each was checked |
 
 Chapters 12–26 were written after the roadmap and are appended at the end. By
 subject, 12 belongs beside [08](08-motivation.md), 13 beside
 [06](06-production.md), 17 beside [05](05-input-reading-listening.md), 19 beside
-[03](03-level-model.md), 23 beside [12](12-method-cards.md), and 14, 15, 18
-before the roadmap.
+[03](03-level-model.md), 23 beside [12](12-method-cards.md), 28 beside
+[22](22-visual-design.md), and 14, 15, 18 before the roadmap.
 
 Five chapters **correct** earlier ones: [15](15-landscape.md) walks back two
 overstated claims in [05](05-input-reading-listening.md),

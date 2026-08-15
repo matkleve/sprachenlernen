@@ -424,6 +424,10 @@ behaviour lived only in scattered specs.
 | One-screen routes | `one-screen-runner` — `--height-review-session`, no page scroll on `< md` |
 | Safari bottom toolbar | `useVisualViewportBottomInset`; cannot hide in-browser |
 
+**UX study:** [`study/28-mobile-desktop-layout.md`](study/28-mobile-desktop-layout.md)
+— what differs by breakpoint, industry patterns, and what to defer (tablet rail,
+immersive review, sidebar).
+
 **Track A follow-up (optional):** T-SHELL-02 — lint that features do not add
 `pb-shell-float-bottom` (double reserve). `ShellPageContent` + route registry
 shipped 2026-08-15.
