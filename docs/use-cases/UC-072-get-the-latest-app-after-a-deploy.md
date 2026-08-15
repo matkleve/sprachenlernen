@@ -22,6 +22,8 @@ a reload when a newer build is live.
   a clear **Reload** control when the running build is older than the server.
 - Reload fetches the new bundle; the version label matches the server again.
 - When versions match, the quiet `vPROUD.DEFAULT.SHAME` label stays as today.
+- On iPhone, **Profile → Home screen app** explains install scope and offers
+  **Install instructions** and **Open main website** (see [`pwa-install`](../specs/feature/pwa-install.md)).
 
 ## Out of scope
 
