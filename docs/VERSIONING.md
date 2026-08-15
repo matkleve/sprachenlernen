@@ -66,7 +66,9 @@ their tab is behind production.
 - **Mobile shell:** tiny muted label centred under the destination pill
   (`AppVersionLabel`, `docs/specs/feature/mobile-nav-v2.md`). When the server
   ships a newer Pride version, the label becomes a green **deployed version**
-  with an `ArrowDownCircle` icon — tap to reload. See
+  with an `ArrowDownCircle` icon — tap to reload.
+- **Profile (`/profile`):** **App** section with running version, **Check for
+  updates**, and a green reload row when stale — see
   [`specs/feature/app-update.md`](specs/feature/app-update.md).
 - **Code:** `lib/pride-version.ts` — `APP_VERSION_LABEL` for display;
   `parsePrideVersion` / `bumpPrideVersion` for tooling.

@@ -1,9 +1,12 @@
-import { render, screen } from "@testing-library/react";
-import { describe, expect, it, vi } from "vitest";
+import { render, screen, waitFor } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
+import { ProfileAppSection } from "@/features/profile/ProfileAppSection";
 import { ProfileLanguages } from "@/features/profile/ProfileLanguages";
 import { ProfileSpokenLanguage } from "@/features/profile/ProfileSpokenLanguage";
 import { copy } from "@/features/profile/content";
+import { APP_VERSION_LABEL } from "@/lib/pride-version";
 import { SHIPPED_ES_POOL_SIZE } from "@/lib/starter-deck";
 
 vi.mock("next/navigation", () => ({
@@ -143,5 +146,64 @@ describe("ProfileSpokenLanguage", () => {
     expect(activeChip.className).toContain("bg-accent");
     expect(activeChip.className).toContain("text-accent-ink");
     expect(screen.getAllByRole("button", { name: copy.makeActive })).toHaveLength(1);
+  });
+});
+
+describe("ProfileAppSection", () => {
+  beforeEach(() => {
+    vi.stubGlobal("fetch", vi.fn());
+  });
+
+  afterEach(() => {
+    vi.unstubAllGlobals();
+    vi.restoreAllMocks();
+  });
+
+  it("shows the running version and a check-for-updates control", async () => {
+    vi.mocked(fetch).mockResolvedValue({
+      ok: true,
+      json: async () => ({ version: "0.2.1" }),
+    } as Response);
+
+    render(<ProfileAppSection />);
+
+    expect(screen.getByRole("heading", { name: copy.appHeading })).toBeDefined();
+    expect(screen.getByText(copy.runningVersion)).toBeDefined();
+    expect(screen.getAllByText(APP_VERSION_LABEL).length).toBeGreaterThan(0);
+    expect(screen.getByRole("button", { name: copy.checkForUpdates })).toBeDefined();
+  });
+
+  it("shows a green reload row when a newer version is available", async () => {
+    vi.mocked(fetch).mockResolvedValue({
+      ok: true,
+      json: async () => ({ version: "0.3.0" }),
+    } as Response);
+
+    render(<ProfileAppSection />);
+
+    await waitFor(() => {
+      expect(screen.getByText(copy.updateAvailable("v0.3.0"))).toBeDefined();
+    });
+    expect(
+      screen.getByRole("button", {
+        name: copy.reloadAria("v0.3.0", APP_VERSION_LABEL),
+      }),
+    ).toBeDefined();
+  });
+
+  it("re-checks when Check for updates is tapped", async () => {
+    const user = userEvent.setup();
+    vi.mocked(fetch).mockResolvedValue({
+      ok: true,
+      json: async () => ({ version: "0.2.1" }),
+    } as Response);
+
+    render(<ProfileAppSection />);
+
+    await user.click(screen.getByRole("button", { name: copy.checkForUpdates }));
+
+    await waitFor(() => {
+      expect(fetch).toHaveBeenCalled();
+    });
   });
 });

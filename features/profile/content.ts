@@ -19,4 +19,13 @@ export const copy = {
     `${held} of ${poolSize} starter words held stably`,
   viewProgress: "View on Progress",
   signOut: "Sign out",
+  appHeading: "App",
+  appCaption:
+    "The version running on this device. Check after a deploy if something looks out of date.",
+  runningVersion: "Running version",
+  checkForUpdates: "Check for updates",
+  updateAvailable: (version: string) => `Update available (${version})`,
+  reload: "Reload",
+  reloadAria: (nextVersion: string, currentVersion: string) =>
+    `Reload to update from ${currentVersion} to ${nextVersion}`,
 } as const;

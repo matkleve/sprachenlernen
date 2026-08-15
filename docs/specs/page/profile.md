@@ -14,7 +14,8 @@ language actions, which belong to
 
 - **In:** `/profile` (today's `/account`, renamed), the language list and
   `Add a language`, spoken-language setting ([`spoken-language.md`](../service/spoken-language.md)),
-  and the existing export and delete blocks from
+  an **App** block ([`app-update.md`](../feature/app-update.md)) with running
+  version and update check, and the existing export and delete blocks from
   [`account-data.md`](../feature/account-data.md). Sign out moves in here.
 - **Out:** measured progress — that stays on [`progress.md`](progress.md) and
   remains a destination. Profile links to it and never restates its numbers;
@@ -45,6 +46,8 @@ page — the affordance ADR-0009 described, finally built.
 | 6 | Taps `Add a language` | The picker ([`language-picker.md`](language-picker.md)) — only when a shipped pool is not already being learned |
 | 7 | Has no language yet | The list is replaced by a single call to action into the picker — never an empty table |
 | 8 | Language read fails | The error surface for that block only; export and delete still work |
+| 9 | Views **App** | Running Pride version on this device; **Check for updates** re-fetches the server |
+| 10 | Update available | Green reload row names the deployed version; tap reloads the page |
 
 ## States
 
@@ -93,6 +96,8 @@ the learner's list ([`starter-deck.md`](../service/starter-deck.md)).
 - [ ] **Negative:** no streak, no XP, no cards-reviewed total, and no progress
       bar against the starter set — the denominator is a shipped set, not a goal
       ([`study/25`](../../study/25-why-it-does-not-feel-productive.md) C3).
+- [ ] Given `/profile`, when the page renders, then the **App** section shows the
+      running version and **Check for updates** per [`app-update.md`](../feature/app-update.md).
 
 ## Check
 
