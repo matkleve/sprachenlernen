@@ -33,11 +33,7 @@ describe("SPEC-feature-app-update", () => {
   it("shows the version label when the deployed version matches the bundle", async () => {
     vi.mocked(fetch).mockResolvedValue({
       ok: true,
-<<<<<<< HEAD
       json: async () => ({ version: bundledVersion }),
-=======
-      json: async () => ({ version: "0.3.0" }),
->>>>>>> origin/main
     } as Response);
 
     render(<AppVersionLabel />);
@@ -47,11 +43,7 @@ describe("SPEC-feature-app-update", () => {
     });
     expect(
       screen.queryByRole("button", {
-<<<<<<< HEAD
         name: copy.appUpdate.reloadAria(deployedLabel, bundledLabel),
-=======
-        name: copy.appUpdate.reloadAria("v0.4.0", APP_VERSION_LABEL),
->>>>>>> origin/main
       }),
     ).toBeNull();
   });
@@ -59,31 +51,18 @@ describe("SPEC-feature-app-update", () => {
   it("shows the deployed version in success styling when an update is available", async () => {
     vi.mocked(fetch).mockResolvedValue({
       ok: true,
-<<<<<<< HEAD
       json: async () => ({ version: deployedVersion }),
-=======
-      json: async () => ({ version: "0.4.0" }),
->>>>>>> origin/main
     } as Response);
 
     const { container } = render(<AppVersionLabel />);
 
     const control = await screen.findByRole("button", {
-<<<<<<< HEAD
       name: copy.appUpdate.reloadAria(deployedLabel, bundledLabel),
     });
 
     expect(control).toBeDefined();
     expect(screen.getByText(deployedLabel)).toBeDefined();
     expect(screen.queryByText(bundledLabel)).toBeNull();
-=======
-      name: copy.appUpdate.reloadAria("v0.4.0", APP_VERSION_LABEL),
-    });
-
-    expect(control).toBeDefined();
-    expect(screen.getByText("v0.4.0")).toBeDefined();
-    expect(screen.queryByText(APP_VERSION_LABEL)).toBeNull();
->>>>>>> origin/main
     expect(container.querySelector(".text-success")).not.toBeNull();
   });
 
@@ -96,11 +75,7 @@ describe("SPEC-feature-app-update", () => {
 
     vi.mocked(fetch).mockResolvedValue({
       ok: true,
-<<<<<<< HEAD
       json: async () => ({ version: deployedVersion }),
-=======
-      json: async () => ({ version: "0.4.0" }),
->>>>>>> origin/main
     } as Response);
 
     const user = userEvent.setup();
@@ -108,11 +83,7 @@ describe("SPEC-feature-app-update", () => {
 
     await user.click(
       await screen.findByRole("button", {
-<<<<<<< HEAD
         name: copy.appUpdate.reloadAria(deployedLabel, bundledLabel),
-=======
-        name: copy.appUpdate.reloadAria("v0.4.0", APP_VERSION_LABEL),
->>>>>>> origin/main
       }),
     );
 
@@ -129,11 +100,7 @@ describe("SPEC-feature-app-update", () => {
     });
     expect(
       screen.queryByRole("button", {
-<<<<<<< HEAD
         name: copy.appUpdate.reloadAria(deployedLabel, bundledLabel),
-=======
-        name: copy.appUpdate.reloadAria("v0.4.0", APP_VERSION_LABEL),
->>>>>>> origin/main
       }),
     ).toBeNull();
   });
