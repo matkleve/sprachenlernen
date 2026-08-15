@@ -105,12 +105,15 @@ Nothing here contradicts adding reflections — it constrains **how**.
 
 ### Tier 1 · Ship first (in-app, no push) **[D]**
 
-1. **Progress destination** already holds measured figures — extend with a
-   **“This week”** block: words that changed band (fragile → held), one skill
-   that moved most, one structure still alternating (UC-051 logic, but only when
-   triggered).
-2. **Review horizon / scheduler surfaces** (UC-005): weekly sentence embedded
-   where the learner already looks when trusting the schedule — not a new tab.
+1. **Weekly reflection deck** on `/progress` (F76, M6): a **“This week”** row
+   with a one-line teaser. Tap opens a **popover with 1–5 swipeable cards** —
+   personal sentence on top, matching chart or diagram below. Only cards with a
+   fact that is new this week; honest single-card idle week when nothing moved.
+   Spec: [`reflection-deck`](../specs/component/reflection-deck.md),
+   [`weekly-reflection`](../specs/feature/weekly-reflection.md).
+2. **Review horizon / scheduler surfaces** (UC-005): one causal sentence may
+   also appear where the learner already trusts the schedule — not a second
+   deck; the deck is the deep read.
 3. **Opt-in operational reminder** (F74): due-count + time estimate, user sets
    time window. Default **off**. Copy must pass the “no *you have not*” test.
 
@@ -143,6 +146,47 @@ A/B whether anyone reads it before touching push.
 
 ---
 
+## Interaction model — reflection deck **[D]**
+
+Owner direction (2026-08-15): reflections should feel **personal and factual at
+once** — not a cold dashboard, not Duolingo cheer. The right container is a
+**short card story**, not one long paragraph.
+
+### Entry
+
+- One row on **Progress** — “This week” + teaser + unread dot when fresh.
+- **No auto-open.** The learner chooses to read; opening is the engagement signal.
+
+### Deck (popover)
+
+| Property | Rule |
+| --- | --- |
+| Card count | **1–5** — only slots with a non-repeatable fact this week |
+| Layout | **Headline first** (1–2 sentences), **visual second** (chart, band shift, structure diagram, orbit excerpt) |
+| Navigation | Swipe left/right **and** Previous/Next buttons — swipe alone is not enough ([`study/14`](14-accessibility.md)) |
+| Close | Scrim tap, Close, Escape — same scrim pattern as the language switcher |
+| End | Last card may offer **See the data** → exact derivation on Progress |
+
+### What “personal” means here
+
+Not small talk. The templates use **your** language, **your** goal when set,
+**your** lemmas and methods — concrete names from the log. Example card:
+
+> **Headline:** This week 28 words moved from shaky to held — mostly the travel
+> verbs you added in March.  
+> **Visual:** bar chart of fragile → held counts by rank band.
+
+Another card might pair a confusion pattern with a minimal pair diagram. Each
+card is one claim, one picture, one optional drill-down.
+
+### What we do not do in the deck
+
+- One card that is only a mood or encouragement with no metric.
+- Five cards when only one fact changed — padding trains skip.
+- A chart reused every week with new adjectives ([E4](#e4--weekly-push-without-new-information-is-noise--d)).
+
+---
+
 ## Design rules (checklist)
 
 Before any notification or weekly block ships:
@@ -166,12 +210,15 @@ Before any notification or weekly block ships:
 > 9 reviews due · about 4 minutes.  
 > [Start]
 
-**Good — weekly reflection (F76)**
+**Good — weekly reflection (F76)** — three cards in the deck, not one wall of text
 
-> This week 28 words moved from shaky to held. Listening improved most — almost
-> all of it from the two methods sessions you tagged as sharp. *Ser* and *estar*
-> are still alternating; contrast practice would be the highest lever.  
-> [See the words]
+| Card | Headline | Visual |
+| --- | --- | --- |
+| 1 | This week 28 words moved from shaky to held. | Band-shift bars (fragile → held) |
+| 2 | Listening improved most — almost all of it from the two methods sessions you tagged sharp. | Method tag breakdown |
+| 3 | *Ser* and *estar* are still alternating; contrast practice would be the highest lever. | Confusion-pair strip from the review log |
+
+> [See the words] on card 3 → word list filtered to those lemmas.
 
 **Good — honest idle week**
 

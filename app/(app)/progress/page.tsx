@@ -8,6 +8,7 @@ import { copy as shellCopy } from "@/features/app-shell/content";
 import { ShellPageContent } from "@/features/app-shell/ShellPageContent";
 import { ProgressReport } from "@/features/progress/ProgressReport";
 import { readProgress } from "@/features/progress/reading";
+import { readWeeklyReflection } from "@/features/progress/weekly-reflection/reading";
 import { toUserFacing } from "@/lib/errors";
 
 export const metadata: Metadata = {
@@ -22,7 +23,7 @@ export const metadata: Metadata = {
  * are reachable by a test without a router (docs/ARCHITECTURE.md).
  */
 export default async function ProgressPage() {
-  const outcome = await readProgress();
+  const [outcome, reflection] = await Promise.all([readProgress(), readWeeklyReflection()]);
 
   // Nothing chosen yet is not an error and not an empty page — it is a
   // question the learner has not been asked.
@@ -36,5 +37,5 @@ export default async function ProgressPage() {
     );
   }
 
-  return <ProgressReport reading={outcome.reading} />;
+  return <ProgressReport reading={outcome.reading} reflection={reflection} />;
 }
