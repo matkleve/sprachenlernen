@@ -6,9 +6,10 @@ import { useEffect } from "react";
 export const VISUAL_VIEWPORT_BOTTOM_INSET_VAR = "--shell-visual-viewport-bottom-inset";
 
 /**
- * iOS Safari's bottom toolbar is not in env(safe-area-inset-bottom) and it is
- * not always visible — /methods often runs without it, /words with it. Measure
- * the gap with visualViewport and expose it as a CSS variable for the shell.
+ * iOS Safari's bottom toolbar is not in env(safe-area-inset-bottom). It is
+ * browser-controlled (gestures, session state) — not per-route. Measure the gap
+ * with visualViewport and expose it as a CSS variable for the shell. Do not add
+ * pathname-specific inset; see docs/study/29-ios-inset-by-route.md.
  */
 export function useVisualViewportBottomInset() {
   useEffect(() => {

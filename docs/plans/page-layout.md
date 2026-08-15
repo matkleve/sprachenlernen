@@ -15,11 +15,14 @@ Layer diagram: [`../specs/feature/page-layout.layers.md`](../specs/feature/page-
 3. **Shell owns vertical reserves** — `<main>` `pt`/`pb` float tokens; features
    own `pt-page-top` / `pb-page-bottom` only.
 4. **Safari toolbar** — cannot be hidden in-browser; `useVisualViewportBottomInset`
-   adapts pill position. Home Screen PWA may differ; not a separate mode.
-5. **Runner height** — `--height-review-session` on mobile; desktop may scroll.
-6. **Chrome families (owner 2026-08-15)** — floating pill `< md` only; flat top
+   adapts pill position. **No per-route inset** — toolbar visibility is session/
+   gesture state, not page length (`/methods` is the longest page). Study:
+   [`../study/29-ios-inset-by-route.md`](../study/29-ios-inset-by-route.md).
+5. **Home Screen PWA** may differ; not a separate mode.
+6. **Runner height** — `--height-review-session` on mobile; desktop may scroll.
+7. **Chrome families (owner 2026-08-15)** — floating pill `< md` only; flat top
    nav `≥ md` (desktop + iPad). Review keeps destination pill visible.
-7. **iPad** — first-class at `≥ md`; no separate rail layout in v1.
+8. **iPad** — first-class at `≥ md`; no separate rail layout in v1.
 
 ## Files
 
@@ -59,7 +62,8 @@ Layer diagram: [`../specs/feature/page-layout.layers.md`](../specs/feature/page-
 1. Phone &lt; 768px — open `/words`, scroll to bottom; last content clears the pill.
 2. `/words/review?method=srs-session` — card + grades visible without page scroll.
 3. `/words/review` with no `method` — page scrolls; back chip present.
-4. `/methods` vs `/words` in iOS Safari — pill sits above toolbar when visible,
-   normal bottom when not.
+4. **iOS Safari toolbar (all routes):** fresh `/methods` → inset often `0`; tap
+   bottom pill to Words → inset may flip without scrolling; return to Methods →
+   inset may stay non-zero (session state, not route bug). Pill formula identical.
 5. **iPad** (`≥ md`) — flat top nav with labelled Methods / Words / Progress; no
    bottom pill; review session scrolls; language switcher inline in header.

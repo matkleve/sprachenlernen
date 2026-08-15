@@ -1,18 +1,17 @@
 # 29 · iOS Safari bottom inset by route — why `/methods` looks different
 
-Investigation report (2026-08-15). **Question:** why does `/methods` appear to have
-**no inset** for iOS Safari controls while `/words` and `/progress` do?
+Investigation report (2026-08-15, revised same day). **Question:** why does
+`/methods` appear to have **no inset** for iOS Safari controls while `/words`
+and `/progress` do?
 
 **Short answer:** the app applies the **same** bottom-inset mechanism on every
-signed-in route. The difference you see is almost entirely **Safari deciding
-whether to show its bottom toolbar** on that page at that moment — not different
-shell code per route.
+signed-in route. The difference is **Safari's toolbar state in that browser
+session** — not different shell code and **not** page length.
 
-**Normative shell contract:**
-[`../specs/feature/page-layout.md`](../specs/feature/page-layout.md),
-[`../specs/feature/page-layout.layers.md`](../specs/feature/page-layout.layers.md).
-**Prior trap:**
-[`../TRAPS.md`](../TRAPS.md) — `interactive-widget` / fixed lift.
+**Policy:** **do not** add per-route inset hacks. **Do** keep
+`useVisualViewportBottomInset` and the footer-scrim split. See
+[`../specs/feature/page-layout.md`](../specs/feature/page-layout.md) § Safari
+bottom toolbar.
 
 ---
 
@@ -22,14 +21,58 @@ shell code per route.
 | --- | --- |
 | `/methods` uses different inset CSS than `/words` | **False** — identical classes and hooks |
 | `/methods` skips `useVisualViewportBottomInset` | **False** — runs in `FloatingShellChrome` on every route |
-| Safari bottom toolbar is absent more often on `/methods` | **True** — observed behaviour, environmental |
-| A fixed bottom lift would “fix” Methods | **Wrong** — caused the original bug (pill floated too high when toolbar absent) |
-| Per-route content height affects toolbar visibility | **Plausible** — scroll and page length influence Safari heuristics |
+| Safari bottom toolbar is absent more often on `/methods` at first glance | **True** — observed; environmental |
+| Words/Progress are longer pages → more toolbar | **False** — `/methods` is ~10× taller (~18k vs ~1.8k px) |
+| A fixed bottom lift would “fix” Methods | **Wrong** — pill floated too high when toolbar absent |
+| Per-route code can normalise toolbar visibility | **False** — no web API; Apple documents this as intended |
 
 When `--shell-visual-viewport-bottom-inset` is `0px`, the pill sits at
-`safe-area + gap` only — that is **correct** for “no Safari toolbar”. When Safari
-shows back/share/refresh, the hook measures ~50px and the pill lifts; the footer
+`safe-area + gap` only — **correct** when Safari's toolbar is hidden. When Safari
+shows back/share/tabs, the hook measures ~50px and the pill lifts; the footer
 scrim **grows** with that inset but stays anchored to `bottom: 0`.
+
+---
+
+## What we do and do not do
+
+### Do (shipped — keep)
+
+| Action | Why |
+| --- | --- |
+| `useVisualViewportBottomInset` on every signed-in mobile route | Only signal Safari exposes (`visualViewport` resize/scroll) |
+| Dynamic `--shell-visual-viewport-bottom-inset` | `0` when no toolbar; measured when present |
+| Footer scrim at `bottom: 0`; pill in `.shell-float-nav-pill` | Scrim full-bleeds; pill lifts independently |
+| Document + LIVE CHECK | Prevents agents “fixing” Methods with per-route lifts |
+
+### Do not (rejected)
+
+| Action | Why |
+| --- | --- |
+| Per-route bottom inset or padding | Same shell on all routes; pathname is not the cause |
+| Fixed `rem` bottom lift | Wrong when toolbar absent (original Methods bug) |
+| Scroll hacks to hide Safari toolbar | Apple: no reliable auto-collapse on scroll (iOS 15+ stable); no API |
+| `interactive-widget: resizes-content` on iOS | **Not supported** in iOS Safari ([WebKit #259770](https://bugs.webkit.org/show_bug.cgi?id=259770)); removed from `app/layout.tsx` anyway |
+| Force toolbar visible/hidden per URL | Impossible in Mobile Safari |
+
+### Optional later (out of scope)
+
+- **Add to Home Screen** — standalone mode has no in-browser Safari toolbar; different chrome, not a bug in in-browser shell.
+- **iPad `≥ md`** — flat top nav; footer pill hidden.
+
+---
+
+## Page length (corrected)
+
+Estimated mobile scroll height (390px wide, single column, component model):
+
+| Route | Approx. content height | ~iPhone screens |
+| --- | ---: | ---: |
+| `/methods` | **~18,000 px** (53 method cards + filters) | **~21** |
+| `/words` | ~1,800 px (CTA, counts, blocks, chart, orbit) | ~2 |
+| `/progress` | ~1,500 px (tables + prose) | ~2 |
+
+**Methods is the longest page.** Toolbar visibility does **not** correlate with
+“more scrollable content” on Words/Progress.
 
 ---
 
@@ -37,212 +80,99 @@ scrim **grows** with that inset but stays anchored to `bottom: 0`.
 
 ### 1. One code path for all signed-in routes
 
-Every `(app)` page renders through the same layout:
-
 ```
 app/(app)/layout.tsx
   └─ AppShell
-       ├─ DesktopShellHeader        (≥ md only)
-       ├─ FloatingShellChrome       (< md)
-       │    ├─ useVisualViewportBottomInset()   ← sets CSS var on <html>
+       ├─ FloatingShellChrome
+       │    ├─ useVisualViewportBottomInset()
        │    ├─ HeaderScrim + corner chips + ShellPageTitle
        │    └─ FooterScrim + destination pill
-       └─ <main> pt/pb shell float tokens
-            └─ {children} → feature (often ShellPageContent)
+       └─ <main> pt/pb shell float tokens → ShellPageContent → feature
 ```
 
-There is **no** `if (pathname === '/methods')` branch for insets, padding, or
-footer positioning.
+No `if (pathname === '/methods')` for insets.
 
-**Source files (shared):**
-
-| Concern | File |
-| --- | --- |
-| Hook | `features/app-shell/useVisualViewportBottomInset.ts` |
-| Invoked from | `features/app-shell/FloatingShellChrome.tsx` |
-| Footer scrim + pill | `features/app-shell/FooterScrim.tsx` |
-| Main reserves | `features/app-shell/AppShell.tsx` |
-| Tokens + classes | `app/globals.css` (`.shell-float-footer-scrim`, `.shell-float-nav-pill`) |
-
-### 2. What the hook actually measures
+### 2. What the hook measures
 
 ```ts
 const inset = Math.max(0, window.innerHeight - viewport.height - viewport.offsetTop);
-document.documentElement.style.setProperty("--shell-visual-viewport-bottom-inset", `${inset}px`);
 ```
 
-- **`inset === 0`** — layout viewport extends to the physical bottom (no Safari
-  bottom toolbar in the measured gap).
-- **`inset > 0`** — browser chrome (typically Safari’s bottom toolbar) occupies
-  space below the layout viewport.
+- `inset === 0` — no measured gap below layout viewport (toolbar hidden).
+- `inset > 0` — browser chrome (typically ~50px bottom toolbar) present.
 
-`env(safe-area-inset-bottom)` is **always** applied on top of this for the home
-indicator; it does **not** replace toolbar measurement.
+`env(safe-area-inset-bottom)` covers the home indicator only — not Safari's toolbar.
 
-### 3. Safari shows the toolbar inconsistently — not per our route table
+### 3. Safari controls the toolbar — not the app
 
-Documented in [`../TRAPS.md`](../TRAPS.md):
+**External references:**
 
-> Words and Progress showed Safari's back/share/refresh bar under the app nav;
-> Methods did not.
-
-That entry describes **browser behaviour**, fixed by dynamic measurement instead
-of a fixed `3rem` lift or `interactive-widget: resizes-content` (removed from
-`app/layout.tsx` viewport export — it forced toolbar reservation on some pages
-and not others).
-
-**Why `/methods` is often toolbar-free at rest:**
-
-| Factor | `/methods` | `/words`, `/progress` |
-| --- | --- | --- |
-| Typical content length | Long catalogue, but filter UI is compact at top | Long scrollable dashboards (orbit, tables, charts) |
-| Scroll on first paint | May not scroll immediately | Often scrolls to read content → Safari more likely to expose toolbar |
-| Navigation pattern | Default landing; user may not have scrolled yet | Tab switches after scrolling elsewhere |
-| Toolbar persistence | Safari hides toolbar when idle at bottom | Toolbar often stays after scroll interaction |
-
-None of these are implemented as app rules — they are **heuristics inside Mobile
-Safari** that QA has observed across routes.
-
-### 4. What is *not* the cause
-
-| Ruled out | Evidence |
+| Source | Finding |
 | --- | --- |
-| Methods omits `ShellPageContent` | `MethodMenu` wraps content in `ShellPageContent width="wide"` — same padding tokens as Words/Progress |
-| Different `pb` on `<main>` | `AppShell` applies `pb-shell-float-bottom` on all routes |
-| Footer scrim not full-bleed on Methods | Post–PR #67: scrim uses `bottom: 0`; height includes inset term |
-| Per-route layout mode affects bottom inset | `shellPageLayout()` only changes feature wrapper (`h-review-session` etc.), not shell chrome |
+| [Ben Frain (2016, still cited)](https://benfrain.com/the-ios-safari-menu-bar-is-hostile-to-web-apps-discuss/) | No API/meta to load with toolbar hidden; bottom ~44px is a special tap zone |
+| [Ionic #19081 — Apple to Ionic](https://github.com/ionic-team/ionic-framework/issues/19081#issuecomment-948987368) | iOS 15+ stable: URL/toolbar does **not** auto-collapse on scroll in many web apps; **aA → Hide Toolbar** is the documented workaround |
+| [WebKit #259770](https://bugs.webkit.org/show_bug.cgi?id=259770) | `interactive-widget` not implemented on iOS Safari |
+| [SO #60804268](https://stackoverflow.com/questions/60804268/how-to-know-when-bottom-nav-bar-is-visible-in-mobile-safari) | Detect via `visualViewport` resize, not a dedicated API |
+
+**Why it looks route-specific (revised):**
+
+| Factor | Effect |
+| --- | --- |
+| **Session state** | Toolbar visibility persists across Next.js navigations in one Safari tab |
+| **Bottom pill taps** | Switching destinations taps near the bottom — a gesture that **reveals** Safari chrome |
+| **Methods as landing** | Often first page at scroll 0 before bottom taps |
+| **Fixed bottom pill** | Competes with Safari's bottom touch zone on **every** route equally |
+
+**Not the cause:** page length, per-route CSS, or `interactive-widget` on iOS.
+
+### 4. Historical bugs (fixed)
+
+| Era | Problem | Fix |
+| --- | --- | --- |
+| Fixed `3rem` bottom lift | Pill too high on Methods when toolbar hidden | Removed |
+| `interactive-widget: resizes-content` in viewport | Suspected asymmetry during mobile nav work; **not supported on iOS Safari** | Removed; dynamic measure regardless |
+| Scrim tied to pill container | Scrim stopped above Safari toolbar | PR #67 — split scrim / pill anchors |
 
 ---
 
 ## Full layer stack (mobile `< md`)
 
-Z-order increases downward. **Browser layers are not DOM nodes** but matter for
-inset measurement.
-
-```
-┌──────────────────────────────────────────────────────────────────────────┐
-│ B0  Safari URL / top chrome                              [browser]         │
-├──────────────────────────────────────────────────────────────────────────┤
-│ L1  Skip link (#main)                                    sr-only / focus │
-├──────────────────────────────────────────────────────────────────────────┤
-│ L2  HeaderScrim                                          fixed top z-50  │
-│     · header-scrim-blur + header-scrim-tint (on scroll)                  │
-│     · safe-area top: pt-[max(1rem, env(safe-area-inset-top))]            │
-│     · corner chips: Language OR Back | ShellPageTitle | Account          │
-├──────────────────────────────────────────────────────────────────────────┤
-│ L3  <main id="main">                                     document scroll │
-│     · pt: var(--shell-float-top-active)   ← 5.5rem or 6.5rem if 2-line   │
-│     · pb: var(--spacing-shell-float-bottom) ← pill + pad + inset + gap   │
-│     └─ ShellPageContent (feature)                                          │
-│          · mode classes (scroll / drill-in / runner)                     │
-│          · px-6 pt-page-top pb-page-bottom (except runner mobile)        │
-│        └─ Feature body (MethodMenu, WordsHome, …)                        │
-├──────────────────────────────────────────────────────────────────────────┤
-│ L4  FooterScrim root (.shell-float-footer-scrim)         fixed bottom 0  │
-│     · height grows with inset + safe-area + pill + pad + fade            │
-│     · blur + tint + tap shield (pointer-events on scrim layer)           │
-│     └─ .shell-float-nav-pill (absolute, bottom = safe-area + inset + gap)│
-│          └─ destination pill (3 icon chips)                              │
-├──────────────────────────────────────────────────────────────────────────┤
-│ L5  CookieConsent (if shown)                             fixed z-40      │
-│     · bottom: var(--spacing-shell-float-bottom) — clears pill            │
-├──────────────────────────────────────────────────────────────────────────┤
-│ B1  Safari bottom toolbar (back / share / tabs)          [browser]       │
-│     measured into --shell-visual-viewport-bottom-inset when visible      │
-└──────────────────────────────────────────────────────────────────────────┘
-```
-
-### CSS token roles (bottom)
-
-| Token / class | Anchors to | Grows when Safari toolbar appears? |
-| --- | --- | --- |
-| `--shell-visual-viewport-bottom-inset` | Measured gap | Set by JS (0 or ~50px) |
-| `.shell-float-footer-scrim` `bottom` | Viewport bottom (`0`) | Height **yes**; position **no** |
-| `.shell-float-nav-pill` `bottom` | Above toolbar | **Yes** |
-| `--spacing-shell-float-bottom` on `<main>` | Content reserve | **Yes** (via inset term in calc) |
+See [`../specs/feature/page-layout.layers.md`](../specs/feature/page-layout.layers.md).
 
 ---
 
 ## Per-route comparison
 
-Shell chrome is **identical** across rows. Differences are header chip, title,
-layout mode, content width, and feature body — not inset logic.
+Shell chrome is **identical**. Rows differ in header chip, title, layout mode,
+width, and feature body — not inset logic.
 
-| Route | Layout mode | `ShellPageContent` width | Top-left chip | Page title (mobile) | Title top reserve | Feature body |
-| --- | --- | --- | --- | --- | --- | --- |
-| `/methods` | `scrollable-destination` | `wide` (`max-w-5xl`) | Language | “Ways of practising” | Default or **expanded** if 2-line wrap | `MethodMenu` — filter + standing + method cards |
-| `/words` | `scrollable-destination` | `wide` | Language | “Words” | Usually **default** (short title) | `WordsHome` — orbit, horizon chart, review CTA |
-| `/progress` | `scrollable-destination` | `wide` | Language | “Where you stand” | May use **expanded** if 2-line wrap | `ProgressReport` — signals table, dose bands |
-| `/methods/[id]` | `scrollable-drill-in` | `narrow` (`max-w-2xl`) | **Back** | Method name | Per title length | `MethodDetail` — badges, prose, session CTA |
-| `/words/review` (idle / error) | `scrollable-drill-in` | `narrow` | **Back** | Review title | Default | Error / not-built copy |
-| `/words/review?method=srs-session` | `one-screen-runner` | `narrow` | **Back** | Review title | **Pinned compact** (no scroll collapse) | `ReviewSession` — `h-review-session`, no page scroll on mobile |
-| `/profile` | `scrollable-destination` | `narrow` | Language | Profile title | Per title | Profile form |
-| `/languages/choose` | `scrollable-destination` | `default` (`max-w-3xl`) | Language | Picker title | Per title | `LanguagePicker` |
-
-### Layout mode — what actually changes
-
-| Mode | Mobile scroll | `ShellPageContent` classes | Shell bottom inset |
-| --- | --- | --- | --- |
-| `scrollable-destination` | Page scrolls | `px-6 pt-page-top pb-page-bottom` | **Same** |
-| `scrollable-drill-in` | Page scrolls | Same rhythm | **Same** |
-| `one-screen-runner` | **No** page scroll (`h-review-session`) | `px-4`, flex column, overflow hidden | **Same** — pill still visible (UC-063) |
-
-### Desktop / iPad (`≥ md`) — same routes, different stack
-
-| Layer | Mobile | Desktop / iPad |
-| --- | --- | --- |
-| Primary nav | Bottom pill | Top `Destinations` links with labels |
-| Footer scrim + pill | Yes | **Hidden** (`display: none` in CSS) |
-| `useVisualViewportBottomInset` | Runs (harmless at ≥ md) | Footer chrome hidden |
-| `<main>` shell padding | `pt` / `pb` float tokens | `md:pt-0 md:pb-0` |
-| Language | Floating chip | Inline switcher |
-| Back | Top chip on drill-in | In-page link on method detail only |
+| Route | Layout mode | Width | Top-left | Notes |
+| --- | --- | --- | --- | --- |
+| `/methods` | scrollable-destination | wide | Language | Longest page (~53 cards) |
+| `/words` | scrollable-destination | wide | Language | Short dashboard |
+| `/progress` | scrollable-destination | wide | Language | Short tables |
+| `/methods/[id]` | scrollable-drill-in | narrow | Back | — |
+| `/words/review` (active SRS) | one-screen-runner | narrow | Back | No page scroll on mobile |
 
 ---
 
-## Top inset — the other per-page difference
+## Verification
 
-Bottom inset is Safari-driven. **Top** reserve can differ by route:
-
-- `--shell-float-top-active` defaults to `--spacing-shell-float-top` (5.5rem).
-- `ShellPageTitle` sets **`--spacing-shell-float-top-expanded` (6.5rem)** when the
-  mobile title wraps to two lines at rest (“Ways of practising”, “Where you stand”).
-- `/words/review` sets **`pinnedCompact`** — title stays small; no scroll-driven
-  title scaling.
-
-This affects **header clearance**, not Safari bottom toolbar measurement.
-
----
-
-## Historical bug (for context)
-
-| Era | Behaviour |
-| --- | --- |
-| `interactive-widget: resizes-content` | Toolbar space reserved on Words/Progress, not Methods — **asymmetric** |
-| Fixed `3rem` bottom lift | Pill too high on Methods when toolbar absent |
-| **Current** | `useVisualViewportBottomInset` — `0` when no toolbar, measured when present |
-
----
-
-## Verification checklist
-
-Automated: `npm run verify` (includes `footer-scrim.test.tsx`, `mobile-nav-v2.test.tsx`).
+**Automated:** `npm run verify` (footer-scrim, mobile-nav-v2 tests).
 
 **LIVE CHECK (iOS Safari, real device):**
 
-1. Open `/methods` fresh — note pill position; DevTools → `:root` style
-   `--shell-visual-viewport-bottom-inset` (often `0px`).
-2. Open `/words`, scroll content — toolbar often appears; inset becomes non-zero;
-   pill rises; scrim band grows; scrim still touches physical bottom.
-3. Return to `/methods` without scrolling — toolbar may hide; inset returns to `0`;
-   pill lowers — **expected**, not a regression.
-4. Compare computed `bottom` on `.shell-float-nav-pill` — formula identical on
-   both routes; only the CSS variable value differs.
+1. Fresh tab → `/methods` → `:root` `--shell-visual-viewport-bottom-inset` often `0px`.
+2. Tap **Words** in bottom pill (do not scroll) → inset may become non-zero from the tap alone.
+3. Tap **Methods** again → toolbar may **still** be visible; inset non-zero — **not a Methods bug**.
+4. On any route: **aA → Hide Toolbar** or scroll per Safari → inset returns to `0` when toolbar hides.
+5. Confirm `.shell-float-nav-pill` `bottom` formula is identical on all routes; only the CSS variable differs.
 
 ---
 
 ## Related docs
 
-- [`../specs/feature/page-layout.layers.md`](../specs/feature/page-layout.layers.md) — scrim vs pill handoff
-- [`28-mobile-desktop-layout.md`](28-mobile-desktop-layout.md) — breakpoint split
-- [`../TRAPS.md`](../TRAPS.md) — Safari / visualViewport trap (second entry)
+- [`../specs/feature/page-layout.md`](../specs/feature/page-layout.md) — § Safari bottom toolbar
+- [`../specs/feature/page-layout.layers.md`](../specs/feature/page-layout.layers.md)
+- [`../TRAPS.md`](../TRAPS.md) — Safari / visualViewport
+- [`28-mobile-desktop-layout.md`](28-mobile-desktop-layout.md)
