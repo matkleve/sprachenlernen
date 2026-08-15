@@ -92,8 +92,8 @@ title wraps to two lines.
       labels), a **Pride version label** (`vPROUD.DEFAULT.SHAME`) centred under
       the pill in `text-shell-version`, and no hamburger. Versioning:
       [`../../VERSIONING.md`](../../VERSIONING.md). When a newer build is
-      deployed, the label is replaced by a **Reload** control per
-      [`app-update.md`](app-update.md).
+      deployed, the label becomes a green **deployed version** with a download
+      icon per [`app-update.md`](app-update.md).
 - [ ] Given viewport &lt; `md`, when the learner taps the pill's dead zones or
       scrim, then page content underneath does not receive the tap.
 - [ ] Given viewport &lt; `md` and iOS Safari's bottom toolbar is visible, when

@@ -21,8 +21,8 @@ export const copy = {
   viewProgress: "View on Progress",
   backTo: (destination: string) => `Back to ${destination}`,
   appUpdate: {
-    reload: "Reload",
-    reloadAria: "Reload to get the latest app version",
+    reloadAria: (nextVersion: string, currentVersion: string) =>
+      `Reload to update from ${currentVersion} to ${nextVersion}`,
   },
   destinations: {
     methods: "Methods",

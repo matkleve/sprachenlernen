@@ -28,25 +28,32 @@ describe("SPEC-feature-app-update", () => {
     await waitFor(() => {
       expect(screen.getByText(APP_VERSION_LABEL)).toBeDefined();
     });
-    expect(screen.queryByRole("button", { name: copy.appUpdate.reloadAria })).toBeNull();
+    expect(
+      screen.queryByRole("button", {
+        name: copy.appUpdate.reloadAria("v0.2.0", APP_VERSION_LABEL),
+      }),
+    ).toBeNull();
   });
 
-  it("shows Reload when the deployed version is newer", async () => {
+  it("shows the deployed version in success styling when an update is available", async () => {
     vi.mocked(fetch).mockResolvedValue({
       ok: true,
       json: async () => ({ version: "0.2.0" }),
     } as Response);
 
-    render(<AppVersionLabel />);
+    const { container } = render(<AppVersionLabel />);
 
-    await waitFor(() => {
-      expect(screen.getByRole("button", { name: copy.appUpdate.reloadAria })).toBeDefined();
+    const control = await screen.findByRole("button", {
+      name: copy.appUpdate.reloadAria("v0.2.0", APP_VERSION_LABEL),
     });
-    expect(screen.getByText(copy.appUpdate.reload)).toBeDefined();
+
+    expect(control).toBeDefined();
+    expect(screen.getByText("v0.2.0")).toBeDefined();
     expect(screen.queryByText(APP_VERSION_LABEL)).toBeNull();
+    expect(container.querySelector(".text-success")).not.toBeNull();
   });
 
-  it("reloads the page when Reload is tapped", async () => {
+  it("reloads the page when the stale version control is tapped", async () => {
     const reload = vi.fn();
     Object.defineProperty(window, "location", {
       configurable: true,
@@ -62,7 +69,9 @@ describe("SPEC-feature-app-update", () => {
     render(<AppVersionLabel />);
 
     await user.click(
-      await screen.findByRole("button", { name: copy.appUpdate.reloadAria }),
+      await screen.findByRole("button", {
+        name: copy.appUpdate.reloadAria("v0.2.0", APP_VERSION_LABEL),
+      }),
     );
 
     expect(reload).toHaveBeenCalledOnce();
@@ -76,6 +85,10 @@ describe("SPEC-feature-app-update", () => {
     await waitFor(() => {
       expect(screen.getByText(APP_VERSION_LABEL)).toBeDefined();
     });
-    expect(screen.queryByRole("button", { name: copy.appUpdate.reloadAria })).toBeNull();
+    expect(
+      screen.queryByRole("button", {
+        name: copy.appUpdate.reloadAria("v0.2.0", APP_VERSION_LABEL),
+      }),
+    ).toBeNull();
   });
 });

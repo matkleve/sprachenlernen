@@ -10,6 +10,7 @@ const CHECK_INTERVAL_MS = 5 * 60 * 1000;
 /** Contract: docs/specs/feature/app-update.md */
 export function useAppUpdateAvailable() {
   const [stale, setStale] = useState(false);
+  const [deployedLabel, setDeployedLabel] = useState<string | null>(null);
 
   const check = useCallback(async () => {
     try {
@@ -17,7 +18,9 @@ export function useAppUpdateAvailable() {
       if (!response.ok) return;
 
       const payload = (await response.json()) as AppVersionPayload;
-      setStale(isDeployedVersionNewer(APP_PRIDE_VERSION, payload.version));
+      const newer = isDeployedVersionNewer(APP_PRIDE_VERSION, payload.version);
+      setStale(newer);
+      setDeployedLabel(newer ? `v${payload.version}` : null);
     } catch {
       // Fail silent — version label stays; no false prompt on offline.
     }
@@ -47,5 +50,5 @@ export function useAppUpdateAvailable() {
     };
   }, [check]);
 
-  return { stale, reload };
+  return { stale, deployedLabel, reload };
 }
