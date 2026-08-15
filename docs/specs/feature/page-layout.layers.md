@@ -238,3 +238,4 @@ flowchart TB
 - [`mobile-nav-v2.md`](mobile-nav-v2.md) — behaviour #9 (update when fixed)
 - [`../../TRAPS.md`](../../TRAPS.md) — Safari / visualViewport
 - [`../../study/28-mobile-desktop-layout.md`](../../study/28-mobile-desktop-layout.md)
+- [`../../study/29-ios-inset-by-route.md`](../../study/29-ios-inset-by-route.md) — why `/methods` often shows no bottom inset (Safari, not per-route code)
