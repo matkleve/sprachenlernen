@@ -1,8 +1,10 @@
 # 29 · iOS Safari bottom inset by route — why `/methods` looks different
 
-Investigation report (2026-08-15, revised same day). **Question:** why does
-`/methods` appear to have **no inset** for iOS Safari controls while `/words`
-and `/progress` do?
+Investigation report (2026-08-15, revised same day). **Owner test plan:**
+[`31-ios-safari-pwa-test-report.md`](31-ios-safari-pwa-test-report.md).
+
+**Question:** why does `/methods` appear to have **no inset** for iOS Safari
+controls while `/words` and `/progress` do?
 
 **Short answer:** the app applies the **same** bottom-inset mechanism on every
 signed-in route. The difference is **Safari's toolbar state in that browser
@@ -197,7 +199,10 @@ width, and feature body — not inset logic.
 
 ## Related docs
 
+- [`31-ios-safari-pwa-test-report.md`](31-ios-safari-pwa-test-report.md) — full
+  issue report + owner LIVE CHECK matrix
 - [`../specs/feature/page-layout.md`](../specs/feature/page-layout.md) — § Safari bottom toolbar
 - [`../specs/feature/page-layout.layers.md`](../specs/feature/page-layout.layers.md)
+- [`../specs/feature/app-update.md`](../specs/feature/app-update.md) — reload without Safari toolbar
 - [`../TRAPS.md`](../TRAPS.md) — Safari / visualViewport
 - [`28-mobile-desktop-layout.md`](28-mobile-desktop-layout.md)
