@@ -2,7 +2,7 @@
 
 <!-- id: SPEC-component-reflection-deck -->
 <!-- use-case: UC-004 -->
-<!-- status: draft -->
+<!-- status: active -->
 
 A swipeable stack of one to five reflection cards inside a modal popover. Each
 card pairs a short personal sentence with a derivable visual. Wired from

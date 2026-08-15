@@ -2,7 +2,7 @@
 
 <!-- id: SPEC-feature-weekly-reflection -->
 <!-- use-case: UC-004 -->
-<!-- status: draft -->
+<!-- status: active -->
 
 F76 / M6 in-app: a personal, factual weekly narrative the learner opens on
 demand. One entry row on `/progress`; tap opens a
@@ -84,8 +84,9 @@ deck ([`STATE.md`](../../STATE.md)).
 Reads: review log, vocabulary snapshot, form-mastery signal, method session
 tags, goal field, active language — same adapters as [`progress.md`](../page/progress.md).
 
-Writes: `lastSeenReflectionWeek` (account preference) — **Sensitive** when
-implemented; red-test-first on the write path.
+Writes: `lastSeenReflectionWeek` via httpOnly cookie `sl-reflection-seen`
+(`${isoWeek}:${languageCode}`) — **Sensitive**; covered by
+`features/progress/weekly-reflection/actions.test.ts`.
 
 ## Acceptance criteria
 
@@ -102,8 +103,8 @@ implemented; red-test-first on the write path.
 
 ## Open questions
 
-**⚠ SPEC GAP:** exact persistence shape for `lastSeenReflectionWeek` — cookie vs
-profile row — follows account-data policy when implementation starts.
+None for v1. Profile-row persistence can follow if cross-device read state is
+required later.
 
 ## Check
 
