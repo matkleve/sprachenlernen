@@ -46,6 +46,8 @@ is a sixth layer for async work — see [`interaction-feedback.md`](../feature/i
 | `focusRing` | `focus-visible:ring-2 ring-accent ring-offset-2` |
 | `pressScale` | `active:scale-[0.98]` |
 | `pressFill` | `active:bg-accent-soft` — icon chips, card links |
+| `navCurrentFill` | accent fill at rest for text nav links (`NavLink`, `ActionLink` `current`) |
+| `iconChipCurrentFill` | accent fill at rest for bordered icon chips (`IconLink` `current` / `emphasized`) |
 | `hoverLift` | `hover:-translate-y-px hover:shadow-raised` |
 | `cardPressable` | `cardInteractive` + `pressFill` — card-shaped buttons and links |
 | `disabledState` | opacity + `pointer-events-none` |

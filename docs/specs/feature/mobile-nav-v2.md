@@ -62,8 +62,10 @@ On drill-in routes it returns `{ href, label }` for the parent destination.
 
 ## States
 
-No open/closed machine — pill segments are `current` or `default` only, derived
-from the URL.
+No open/closed machine. Pill segments and the account chip are `current` or
+`default`, derived from the URL. The back chip on drill-in routes is
+`emphasized` (accent fill, no `aria-current`) — see
+[`interaction-feedback.md`](interaction-feedback.md) § Current navigation.
 
 ## Layout
 
@@ -113,7 +115,8 @@ title wraps to two lines.
       `/methods`, **no** language chip appears in the top-left corner, and the
       back chip has accent fill.
 - [ ] Given viewport &lt; `md` on `/words/review`, then a back chip links to
-      `/words`, **no** language chip appears, and the bottom pill remains visible.
+      `/words`, **no** language chip appears, the back chip has accent fill, and
+      the bottom pill remains visible.
 - [ ] Given viewport &lt; `md`, then a top-right **account** icon chip is always
       present (no text label), linking to `/profile`, and no sign-out control
       renders in the shell.

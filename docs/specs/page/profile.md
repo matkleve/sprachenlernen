@@ -41,6 +41,7 @@ page — the affordance ADR-0009 described, finally built.
 | # | User action | System response |
 | --- | --- | --- |
 | 1 | Taps the account chip | `/profile` — email, spoken language, learning languages, export, delete, sign out |
+| 1a | Is already on `/profile` | Shell account chip (mobile icon or desktop link) carries `aria-current="page"` and accent fill |
 | 2 | Views spoken language | Every shipped spoken language, the current one marked |
 | 3 | Changes spoken language | Preference updates; learning languages and review history unchanged |
 | 4 | Views learning languages | Every learning language, the active one marked, ordered by when it was added |
@@ -103,6 +104,8 @@ the learner's list ([`starter-deck.md`](../service/starter-deck.md)).
       running version and **Check for updates** per [`app-update.md`](../feature/app-update.md).
 - [ ] Given `/profile`, when the page renders, then a **Home screen app (iPhone)**
       section links to [`pwa-install.md`](../feature/pwa-install.md) `/install`.
+- [ ] Given `/profile`, then the shell account control is marked as the current
+      page with accent fill (mobile icon chip and desktop account link).
 
 ## Check
 
