@@ -149,10 +149,22 @@ describe("a signed-out request", () => {
     expect((await get(routes.designExplorer)).status).toBe(200);
     expect((await get("/dev/future-tool")).status).toBe(200);
   });
+
+  it("skips Supabase on public routes when no auth cookie is present", async () => {
+    await get(routes.landing);
+    expect(createServerClient).not.toHaveBeenCalled();
+  });
 });
 
 describe("a signed-in request", () => {
   beforeEach(() => signedInAs({ id: "u1" }));
+
+  it("still refreshes the session on a public route when an auth cookie is present", async () => {
+    const request = new NextRequest(new URL(routes.landing, "https://example.test"));
+    request.cookies.set("sb-project-auth-token", "session");
+    await middleware(request);
+    expect(createServerClient).toHaveBeenCalled();
+  });
 
   it("reaches every destination", async () => {
     for (const route of protectedRoutes) {

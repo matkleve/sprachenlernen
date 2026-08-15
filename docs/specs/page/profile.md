@@ -48,8 +48,9 @@ page — the affordance ADR-0009 described, finally built.
 
 ## States
 
-No client machine beyond the existing delete confirmation dialog. A Server
-Component; the language actions are server actions.
+No client machine beyond the existing delete confirmation dialog and the
+language blocks (they call server actions the same way as the shell switcher).
+The page itself is a Server Component; language actions are server actions.
 
 ## Data
 

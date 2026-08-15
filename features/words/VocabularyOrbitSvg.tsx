@@ -5,6 +5,7 @@ import type { CSSProperties } from "react";
 import { copy } from "@/features/words/content";
 import { languageStripes } from "@/lib/language-stripes";
 import {
+  ORBIT_BADGE_RADIUS,
   ORBIT_CENTER,
   ORBIT_CENTER_RADIUS,
   ORBIT_RING_WIDTH,
@@ -63,24 +64,38 @@ function ringSpinStyle(ringIndex: number): CSSProperties {
 
 function LanguageCenter({ languageCode }: { languageCode: string }) {
   const stripes = languageStripes(languageCode);
-  const size = ORBIT_CENTER_RADIUS * 2;
-  const third = size / 3;
+  const badgeSize = ORBIT_BADGE_RADIUS * 2;
+  const band = badgeSize / 3;
 
   return (
     <g>
-      <circle cx={CENTER} cy={CENTER} r={ORBIT_CENTER_RADIUS} className="fill-ink" />
+      <circle
+        cx={CENTER}
+        cy={CENTER}
+        r={ORBIT_CENTER_RADIUS}
+        className="fill-surface stroke-line"
+        strokeWidth={1}
+      />
+      <circle
+        cx={CENTER}
+        cy={CENTER}
+        r={ORBIT_BADGE_RADIUS + 2}
+        fill="none"
+        className="stroke-line opacity-50"
+        strokeWidth={1}
+      />
       <clipPath id={`orbit-center-clip-${languageCode}`}>
-        <circle cx={CENTER} cy={CENTER} r={ORBIT_CENTER_RADIUS - 1} />
+        <circle cx={CENTER} cy={CENTER} r={ORBIT_BADGE_RADIUS} />
       </clipPath>
       <g clipPath={`url(#orbit-center-clip-${languageCode})`}>
         {stripes.orientation === "horizontal" ? (
           stripes.fills.map((fill, index) => (
             <rect
               key={fill}
-              x={CENTER - ORBIT_CENTER_RADIUS}
-              y={CENTER - ORBIT_CENTER_RADIUS + index * third}
-              width={size}
-              height={third}
+              x={CENTER - ORBIT_BADGE_RADIUS}
+              y={CENTER - ORBIT_BADGE_RADIUS + index * band}
+              width={badgeSize}
+              height={band}
               className={fill}
             />
           ))
@@ -88,10 +103,10 @@ function LanguageCenter({ languageCode }: { languageCode: string }) {
           stripes.fills.map((fill, index) => (
             <rect
               key={fill}
-              x={CENTER - ORBIT_CENTER_RADIUS + index * third}
-              y={CENTER - ORBIT_CENTER_RADIUS}
-              width={third}
-              height={size}
+              x={CENTER - ORBIT_BADGE_RADIUS + index * band}
+              y={CENTER - ORBIT_BADGE_RADIUS}
+              width={band}
+              height={badgeSize}
               className={fill}
             />
           ))
@@ -123,39 +138,49 @@ function RingLayer({ ringIndex, segments, selectedId, onSelect }: RingLayerProps
         const selected = selectedId === segment.id;
 
         return (
-          <g key={segment.id}>
-            {interactive ? (
-              <path
-                d={path}
-                fill="none"
-                stroke="transparent"
-                strokeWidth={18}
-                strokeLinecap="round"
-                className="cursor-pointer"
-                tabIndex={0}
-                role="button"
-                aria-label={segmentLabel(segment)}
-                onClick={() => onSelect(segment)}
-                onKeyDown={(event) => {
-                  if (event.key === "Enter" || event.key === " ") {
-                    event.preventDefault();
-                    onSelect(segment);
+          <g
+            key={segment.id}
+            role={interactive ? "button" : undefined}
+            tabIndex={interactive ? 0 : undefined}
+            className={cn(
+              interactive &&
+                "group orbit-segment cursor-pointer outline-none focus:outline-none focus-visible:outline-none",
+            )}
+            aria-label={interactive ? segmentLabel(segment) : undefined}
+            onClick={interactive ? () => onSelect(segment) : undefined}
+            onKeyDown={
+              interactive
+                ? (event) => {
+                    if (event.key === "Enter" || event.key === " ") {
+                      event.preventDefault();
+                      onSelect(segment);
+                    }
                   }
-                }}
-              />
-            ) : null}
+                : undefined
+            }
+          >
             <path
               d={path}
               fill="none"
               className={cn(
                 segmentStrokeClass(segment.lit, segment.kind),
-                selected && "stroke-accent",
-                interactive && "pointer-events-none",
+                (selected || false) && "stroke-accent",
+                interactive && "pointer-events-none group-focus-visible:stroke-accent",
               )}
-              strokeWidth={selected ? ORBIT_RING_WIDTH + 1 : ORBIT_RING_WIDTH}
+              strokeWidth={selected ? ORBIT_RING_WIDTH + 2 : ORBIT_RING_WIDTH}
               strokeLinecap="round"
               pointerEvents="none"
             />
+            {interactive ? (
+              <path
+                d={path}
+                fill="none"
+                stroke="transparent"
+                strokeWidth={24}
+                strokeLinecap="round"
+                pointerEvents="stroke"
+              />
+            ) : null}
           </g>
         );
       })}
@@ -179,7 +204,7 @@ export function VocabularyOrbitSvg({
   return (
     <svg
       viewBox={`0 0 ${ORBIT_VIEW_SIZE} ${ORBIT_VIEW_SIZE}`}
-      className="mx-auto w-full max-w-md"
+      className="mx-auto w-full max-w-[min(100%,42rem)]"
       role="img"
       aria-label={copy.orbitAriaLabel}
     >

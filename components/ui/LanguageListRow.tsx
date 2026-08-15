@@ -38,7 +38,10 @@ export type LanguageListRowProps = {
   standingLabel?: (held: number, pool: number) => string;
   viewProgressHref?: string;
   viewProgressLabel?: string;
-  /** Profile: form + SubmitButton. Switcher: omit and use `onSelect`. */
+  /**
+   * Profile: Button calling a server action from the parent client block.
+   * Switcher: omit and use `onSelect`.
+   */
   actionSlot?: ReactNode;
   onSelect?: () => void;
   disabled?: boolean;

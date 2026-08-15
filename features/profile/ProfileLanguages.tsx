@@ -1,6 +1,12 @@
+"use client";
+
+import { useRouter } from "next/navigation";
+import { useState, useTransition } from "react";
+
 import { ActionLink } from "@/components/ui/ActionLink";
+import { Button } from "@/components/ui/Button";
 import { LanguageListRow } from "@/components/ui/LanguageListRow";
-import { SubmitButton } from "@/components/ui/SubmitButton";
+import { switchProfileLanguageAction } from "@/features/profile/actions";
 import { copy } from "@/features/profile/content";
 import type { LanguageHoldings } from "@/lib/db/language-holdings";
 import type { ListLanguagesOutcome } from "@/lib/db/learning-languages";
@@ -10,8 +16,9 @@ import { hasUnaddedShippedLanguage } from "@/lib/starter-deck";
 /**
  * The languages block on the profile. Contract: docs/specs/page/profile.md
  *
- * Renders its own failure rather than throwing, so a broken language read
- * leaves export and delete working — one failed block must not take the page.
+ * Client so language switches call server actions directly — the same pattern
+ * as LanguageSwitcher. Forms with bound actions inside LanguageListRow children
+ * fail RSC serialization in production.
  */
 
 export type ProfileLanguagesProps = {
@@ -19,14 +26,33 @@ export type ProfileLanguagesProps = {
   holdings?: Record<string, LanguageHoldings>;
   /** A switch that failed, so the learner is told rather than left guessing. */
   switchFailed?: boolean;
-  switchTo: (code: string) => Promise<void>;
 };
 
-export function ProfileLanguages({ outcome, holdings, switchFailed, switchTo }: ProfileLanguagesProps) {
+export function ProfileLanguages({ outcome, holdings, switchFailed: switchFailedProp }: ProfileLanguagesProps) {
+  const router = useRouter();
+  const [pending, startTransition] = useTransition();
+  const [switchFailed, setSwitchFailed] = useState(switchFailedProp ?? false);
+  const [pendingCode, setPendingCode] = useState<string | null>(null);
+
   const learningCodes =
     outcome.status === "ok" ? outcome.languages.map((language) => language.languageCode) : [];
   const showAddLanguage =
     outcome.status === "ok" && outcome.languages.length > 0 && hasUnaddedShippedLanguage(learningCodes);
+
+  const onSwitch = (code: string) => {
+    setSwitchFailed(false);
+    setPendingCode(code);
+    startTransition(async () => {
+      try {
+        await switchProfileLanguageAction(code);
+        router.refresh();
+      } catch {
+        setSwitchFailed(true);
+      } finally {
+        setPendingCode(null);
+      }
+    });
+  };
 
   return (
     <section className="mt-page-content">
@@ -46,8 +72,6 @@ export function ProfileLanguages({ outcome, holdings, switchFailed, switchTo }: 
           {copy.languagesError}
         </p>
       ) : outcome.languages.length === 0 ? (
-        // Never an empty table: a learner who has not chosen is not a learner
-        // with zero languages, and the difference is a route.
         <div className="mt-6">
           <p className="text-base leading-relaxed text-muted">{copy.noneYet}</p>
           <ActionLink href={routes.chooseLanguage} className="mt-4">
@@ -78,11 +102,16 @@ export function ProfileLanguages({ outcome, holdings, switchFailed, switchTo }: 
                       language.isActive
                         ? undefined
                         : (
-                          <form action={switchTo.bind(null, language.languageCode)}>
-                            <SubmitButton variant="secondary" size="sm">
-                              {copy.makeActive}
-                            </SubmitButton>
-                          </form>
+                          <Button
+                            type="button"
+                            variant="secondary"
+                            size="sm"
+                            pending={pending && pendingCode === language.languageCode}
+                            disabled={pending}
+                            onClick={() => onSwitch(language.languageCode)}
+                          >
+                            {copy.makeActive}
+                          </Button>
                         )
                     }
                   />

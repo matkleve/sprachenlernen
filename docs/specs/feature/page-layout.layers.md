@@ -7,7 +7,27 @@
 `/progress` with Safari bottom toolbar visible.
 
 Use this file when fixing **footer scrim vs pill positioning** or **nav pill
-padding** — not destination IA or nav count.
+padding** — not destination IA, nav count, or **per-route Safari toolbar
+inset** (environmental — see § Safari toolbar policy below).
+
+---
+
+## Safari toolbar policy (not a bug to fix per route)
+
+iOS Safari's bottom toolbar (back / share / tabs) is **not** app-controlled.
+The shell **measures** it via `useVisualViewportBottomInset` and lifts the pill.
+**Do not** add `/methods`-only or `/words`-only inset.
+
+| Do | Do not |
+| --- | --- |
+| Keep dynamic `visualViewport` measure | Per-route bottom padding / lift |
+| Footer scrim `bottom: 0`; pill in `.shell-float-nav-pill` | Fixed `rem` bottom offset |
+| LIVE CHECK with toolbar show/hide gestures | Assume Methods is "missing" inset |
+
+**Why `/methods` looks different:** session/gesture state (often landing page,
+fewer bottom taps yet), **not** shorter content — Methods is ~10× longer than
+Words/Progress. Full analysis:
+[`../../study/29-ios-inset-by-route.md`](../../study/29-ios-inset-by-route.md).
 
 ---
 
@@ -238,3 +258,4 @@ flowchart TB
 - [`mobile-nav-v2.md`](mobile-nav-v2.md) — behaviour #9 (update when fixed)
 - [`../../TRAPS.md`](../../TRAPS.md) — Safari / visualViewport
 - [`../../study/28-mobile-desktop-layout.md`](../../study/28-mobile-desktop-layout.md)
+- [`../../study/29-ios-inset-by-route.md`](../../study/29-ios-inset-by-route.md) — why `/methods` often shows no bottom inset (Safari, not per-route code)

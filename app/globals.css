@@ -127,11 +127,14 @@
   --spacing-shell-float-nav-height: 3.25rem;
   --spacing-shell-float-nav-gap: 0.5rem;
   --spacing-shell-float-nav-pad-y: 0.5rem;
+  --spacing-shell-float-version: 0.75rem;
+  --text-shell-version: 0.625rem;
   --spacing-shell-footer-scrim-fade: 1.5rem;
   --shell-visual-viewport-bottom-inset: 0px;
   --spacing-shell-float-bottom: calc(
     var(--spacing-shell-float-nav-height) + 2 * var(--spacing-shell-float-nav-pad-y) +
-      var(--shell-visual-viewport-bottom-inset) + var(--spacing-shell-float-nav-gap)
+      var(--spacing-shell-float-version) + var(--shell-visual-viewport-bottom-inset) +
+      var(--spacing-shell-float-nav-gap)
   );
   /* Active review session — one screen between floating chrome on mobile.
      Must match main's pt-shell-float-top + pb-shell-float-bottom or the page scrolls. */
@@ -387,7 +390,8 @@
   height: calc(
     env(safe-area-inset-bottom, 0px) + var(--shell-visual-viewport-bottom-inset) +
       var(--spacing-shell-float-nav-gap) + 2 * var(--spacing-shell-float-nav-pad-y) +
-      var(--spacing-shell-float-nav-height) + var(--spacing-shell-footer-scrim-fade)
+      var(--spacing-shell-float-nav-height) + var(--spacing-shell-float-version) +
+      var(--spacing-shell-footer-scrim-fade)
   );
   pointer-events: none;
 }
@@ -447,6 +451,11 @@
   .orbit-ring {
     animation: none !important;
   }
+}
+
+.orbit-segment {
+  -webkit-tap-highlight-color: transparent;
+  outline: none;
 }
 
 /* Language switcher popover — full-viewport scrim behind stacked language cards. */

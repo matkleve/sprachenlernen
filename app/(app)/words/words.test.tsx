@@ -81,6 +81,24 @@ describe("WordsHome", () => {
     expect(screen.getByRole("img", { name: copy.orbitAriaLabel })).toBeDefined();
   });
 
+  it("fits the collapsed horizon summary in the content width without horizontal scroll", () => {
+    const { container } = render(<WordsHome {...homeProps} />);
+
+    expect(screen.getByRole("button", { name: copy.horizonExpand })).toBeDefined();
+    expect(container.querySelector(".overflow-x-auto")).toBeNull();
+  });
+
+  it("uses a four-column week row when the horizon is expanded", async () => {
+    const user = userEvent.setup();
+    render(<WordsHome {...homeProps} />);
+
+    await user.click(screen.getByRole("button", { name: copy.horizonExpand }));
+
+    expect(screen.getByRole("group", { name: copy.horizonCaption })).toBeDefined();
+    expect(screen.getAllByText(copy.horizonWeekLabel(1)).length).toBeGreaterThan(0);
+    expect(screen.getAllByText(copy.horizonWeekLabel(4)).length).toBeGreaterThan(0);
+  });
+
   it("opens the full word list from the quiet show-list control", async () => {
     const user = userEvent.setup();
     render(<WordsHome {...homeProps} />);
@@ -89,5 +107,17 @@ describe("WordsHome", () => {
 
     expect(screen.getByRole("dialog", { name: copy.orbitListTitle })).toBeDefined();
     expect(screen.getByRole("rowheader", { name: "de" })).toBeDefined();
+  });
+
+  it("shows the upgraded detail card when a word segment is selected", async () => {
+    const user = userEvent.setup();
+    render(<WordsHome {...homeProps} />);
+
+    await user.click(screen.getByRole("button", { name: /de, rank 1/i }));
+
+    const detailCard = screen.getByRole("heading", { name: "de" }).closest("article");
+    expect(detailCard).toBeDefined();
+    expect(screen.getByText("of, from")).toBeDefined();
+    expect(detailCard?.textContent).toContain(copy.bucketNames.new);
   });
 });

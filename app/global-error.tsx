@@ -7,7 +7,6 @@ import {
   boundaryErrorFromUnknown,
   logBoundaryError,
 } from "@/lib/error-boundary";
-import { toUserFacing } from "@/lib/errors";
 
 import "@/app/globals.css";
 
@@ -38,7 +37,7 @@ export default function GlobalError({
   return (
     <html lang="en">
       <body className="bg-canvas text-ink antialiased">
-        <RouteErrorSurface {...toUserFacing(handled)} onRetry={reset} />
+        <RouteErrorSurface {...handled} onRetry={reset} />
       </body>
     </html>
   );

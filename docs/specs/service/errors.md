@@ -50,7 +50,7 @@ message. If mapping fails, `userMessage` must still name the action
 | --- | --- | --- |
 | 1 | A known upstream error (e.g. Supabase auth code) | Mapped to a documented `code`, user-appropriate `userMessage`, upstream text in `developerMessage` |
 | 2 | An unknown thrown value | `code: internal/unexpected`; `developerMessage` preserves `String(error)` or stack; user copy names the operation that failed |
-| 3 | A failure is shown in the UI | `ErrorCallout` receives `userMessage`, optional `nextStep`, and `referenceId` — not `developerMessage` |
+| 3 | A failure is shown in the UI | `ErrorCallout` receives `userMessage`, optional `nextStep`, and `referenceId`. `code` and `developerMessage` may render only inside **Technical details** and the copy payload — never as the headline |
 | 4 | A failure is logged (server) | One structured line: `code`, `referenceId`, `context`, `developerMessage` |
 | 5 | A feature catches an error | It returns or throws `HandledError` — never a bare string, never silence |
 
@@ -93,8 +93,8 @@ path or one `HandledError` — never both, never neither after a failed load.
 ## Acceptance criteria
 
 - [ ] Given any code path that handles a failure, when it surfaces to the user,
-      then the UI shows `userMessage`, optional `nextStep`, and `referenceId`,
-      and does **not** show `developerMessage`.
+      then the UI shows `userMessage`, optional `nextStep`, and `referenceId`.
+      `developerMessage` does not appear in the headline.
 - [ ] Given any handled failure on the server, when it is logged, then the log
       line includes `code`, `referenceId`, and `developerMessage`.
 - [ ] Given a banned generic string would be shown, when the error is built,
@@ -107,7 +107,8 @@ path or one `HandledError` — never both, never neither after a failed load.
 ## Correlation
 
 - **`referenceId`** — 8 hex chars from `createReferenceId()`; unique enough for
-  one learner's session; shown in UI as `Reference: abc12345`.
+  one learner's session; shown in UI as `Reference: abc12345` and included in
+  **Copy details** so support can match a screenshot to server logs (UC-066).
 - **`requestId`** — optional `x-request-id` header from middleware; included in
   server `logHandledError` output when available. Client-only boundary errors
   may lack it — `referenceId` + `route` is sufficient for v1.

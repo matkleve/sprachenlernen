@@ -8,7 +8,6 @@ import {
   boundaryErrorFromUnknown,
   logBoundaryError,
 } from "@/lib/error-boundary";
-import { toUserFacing } from "@/lib/errors";
 
 /**
  * Route-level error boundary. Contract: docs/specs/service/errors-boundaries.md
@@ -33,5 +32,5 @@ export default function Error({
     logBoundaryError(handled, pathname);
   }, [handled, pathname]);
 
-  return <RouteErrorSurface {...toUserFacing(handled)} onRetry={reset} />;
+  return <RouteErrorSurface {...handled} onRetry={reset} />;
 }

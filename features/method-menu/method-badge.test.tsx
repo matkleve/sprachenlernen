@@ -80,12 +80,15 @@ describe("method surfaces", () => {
     expect(link.textContent).not.toContain("plausible and widespread");
   });
 
-  it("shows hero title and at a glance on detail", () => {
+  it("shows article layout on detail without badge row", () => {
     render(<MethodDetail method={method} />);
     expect(screen.getByRole("heading", { level: 1, name: method.name })).toBeDefined();
-    expect(screen.getByLabelText(copy.card.atAGlance)).toBeDefined();
-    expect(screen.getByText(/plausible and widespread/i)).toBeDefined();
+    expect(screen.getByRole("heading", { level: 2, name: copy.detail.practical })).toBeDefined();
     expect(screen.getByText(/Light effort — can be done tired/i)).toBeDefined();
+    expect(screen.queryByTitle("Listening, slight")).toBeNull();
+    const disclosure = screen.getByText(copy.detail.researchConfidence).closest("details");
+    expect(disclosure?.textContent).toMatch(/plausible and widespread/i);
+    expect(screen.queryByText(/Evidence C/i)).toBeNull();
   });
 
   it("has no accessibility violations in isolation", async () => {

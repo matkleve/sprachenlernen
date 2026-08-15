@@ -20,14 +20,17 @@ export const ORBIT_RING_BANDS: readonly { rankStart: number; rankEnd: number }[]
 ] as const;
 
 /** Decorative ticks per ring — sparse enough to read at a glance. */
-export const ORBIT_SLOTS_PER_RING = [8, 9, 10, 11, 12, 13, 14, 16] as const;
+export const ORBIT_SLOTS_PER_RING = [5, 5, 6, 6, 7, 7, 8, 8] as const;
+
+/** Space between dashes on a ring — exported for SVG layout. */
+export const ORBIT_SLOT_GAP = 12;
 
 /** Each ring starts at a different phase so ticks never line up radially. */
 export function ringPhaseOffset(ringIndex: number): number {
   return (ringIndex * 23.7 + 11) % 360;
 }
 
-export const ORBIT_MAX_INDIVIDUALS = 12;
+export const ORBIT_MAX_INDIVIDUALS = 8;
 
 export type OrbitLit = "ghost" | "half" | "lit" | "bright";
 
@@ -110,6 +113,12 @@ function ringFillRatio(points: readonly AtlasPoint[]): number {
   return held / points.length;
 }
 
+export function orbitBandForRank(
+  rank: number,
+): { rankStart: number; rankEnd: number } | null {
+  return ORBIT_RING_BANDS.find((band) => rank >= band.rankStart && rank <= band.rankEnd) ?? null;
+}
+
 export function buildVocabularyOrbit(
   atlas: readonly AtlasPoint[],
   translations: Readonly<Record<string, string>>,
@@ -180,9 +189,9 @@ export function buildVocabularyOrbit(
 /** Deterministic slot angular width — fewer, larger dots and dashes. */
 export function slotAngularWidth(ringIndex: number, slotIndex: number, slotCount: number): number {
   const hash = (ringIndex * 31 + slotIndex * 17) % 11;
-  if (hash <= 2) return 5;
-  if (hash <= 6) return 11 + (hash % 3) * 1.5;
-  return 18 + (hash % 4) * 2;
+  if (hash <= 2) return 10;
+  if (hash <= 6) return 18 + (hash % 3) * 2;
+  return 28 + (hash % 4) * 3;
 }
 
 export function slotStartAngle(
@@ -191,7 +200,7 @@ export function slotStartAngle(
   slotCount: number,
 ): number {
   const phase = ringPhaseOffset(ringIndex);
-  const gap = 6;
+  const gap = ORBIT_SLOT_GAP;
   let angle = phase;
   for (let i = 0; i < slotIndex; i++) {
     angle += slotAngularWidth(ringIndex, i, slotCount) + gap;
