@@ -6,7 +6,7 @@ import { skillMarksForMethod } from "@/lib/method-skill-badges";
 import { expectNoA11yViolations } from "@/tests/axe";
 
 import {
-  EffortDots,
+  EffortBadge,
   EvidenceBadge,
   MethodBadgeRow,
   SkillMarkBadge,
@@ -14,7 +14,7 @@ import {
 import { MethodCard } from "./MethodCard";
 import { MethodDetail, findMethod } from "./MethodDetail";
 import { loadMethodCatalogue } from "./catalogue";
-import { copy } from "./content";
+import { copy, effortCard, evidenceCard } from "./content";
 
 const method: MethodEntry = {
   id: "background-listening",
@@ -41,23 +41,24 @@ describe("MethodBadgeRow", () => {
     render(<MethodBadgeRow skillMarks={marks} evidence="C" intensity={1} />);
 
     expect(screen.getByTitle("Listening, slight")).toBeDefined();
-    expect(screen.getByText("Evidence C")).toBeDefined();
-    expect(screen.getByTitle("Effort: 1 of 3")).toBeDefined();
+    expect(screen.getByText(evidenceCard.C)).toBeDefined();
+    expect(screen.getByText(effortCard[1])).toBeDefined();
   });
 });
 
 describe("EvidenceBadge", () => {
-  it("shows letter and short gloss without pill geometry", () => {
+  it("shows plain-language evidence without a letter grade", () => {
     render(<EvidenceBadge grade="C" />);
-    expect(screen.getByText("Evidence C")).toBeDefined();
-    expect(screen.getByText("C").className).toContain("font-semibold");
+    expect(screen.getByText(evidenceCard.C)).toBeDefined();
+    expect(screen.queryByText("Evidence C")).toBeNull();
+    expect(screen.queryByText(/^C$/)).toBeNull();
   });
 });
 
-describe("EffortDots", () => {
-  it("fills one dot for intensity 1", () => {
-    const { container } = render(<EffortDots intensity={1} />);
-    expect(container.querySelectorAll(".bg-accent")).toHaveLength(1);
+describe("EffortBadge", () => {
+  it("shows a plain-language effort label instead of dots", () => {
+    render(<EffortBadge intensity={1} />);
+    expect(screen.getByText(effortCard[1])).toBeDefined();
   });
 });
 
@@ -72,7 +73,8 @@ describe("method surfaces", () => {
   it("shows badge row above tag chips on cards", () => {
     render(<MethodCard method={method} />);
     const link = screen.getByRole("link", { name: new RegExp(method.name) });
-    expect(link.textContent).toContain("Evidence C");
+    expect(link.textContent).toContain(evidenceCard.C);
+    expect(link.textContent).toContain(effortCard[1]);
     expect(link.textContent).not.toContain("plausible and widespread");
   });
 
@@ -81,6 +83,7 @@ describe("method surfaces", () => {
     expect(screen.getByRole("heading", { level: 1, name: method.name })).toBeDefined();
     expect(screen.getByLabelText(copy.card.atAGlance)).toBeDefined();
     expect(screen.getByText(/plausible and widespread/i)).toBeDefined();
+    expect(screen.getByText(/Light effort — can be done tired/i)).toBeDefined();
   });
 
   it("has no accessibility violations in isolation", async () => {

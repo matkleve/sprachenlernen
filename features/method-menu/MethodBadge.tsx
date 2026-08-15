@@ -6,7 +6,14 @@ import type { ContributionLevel, SkillMark } from "@/lib/method-skill-badges";
 import type { Skill } from "@/lib/method-catalogue";
 import { cn } from "@/lib/utils";
 
-import { contributionLabels, copy, evidenceShort, skillLabels } from "./content";
+import {
+  contributionLabels,
+  copy,
+  effortCard,
+  evidence,
+  evidenceCard,
+  skillLabels,
+} from "./content";
 
 const skillIcons: Record<Skill, LucideIcon> = {
   reading: BookOpen,
@@ -21,6 +28,9 @@ const skillTone: Record<Skill, string> = {
   speaking: "text-skill-speaking bg-skill-speaking-soft border-skill-speaking",
   writing: "text-skill-writing bg-skill-writing-soft border-skill-writing",
 };
+
+const textBadgeClass =
+  "inline-flex shrink-0 items-center whitespace-nowrap rounded-chip border border-line bg-surface px-2 py-0.5 text-xs font-medium text-ink";
 
 function contributionClass(skill: Skill, level: ContributionLevel): string {
   const tone = skillTone[skill];
@@ -72,47 +82,25 @@ export type EvidenceBadgeProps = {
 };
 
 export function EvidenceBadge({ grade }: EvidenceBadgeProps) {
-  const label = evidenceShort[grade];
+  const label = evidenceCard[grade];
 
   return (
-    <span
-      className="inline-flex shrink-0 items-center gap-1 whitespace-nowrap rounded-chip border border-line bg-surface px-2 py-0.5 text-xs font-medium text-ink"
-      title={label}
-    >
-      <span className="font-semibold" aria-hidden>
-        {grade}
-      </span>
-      <span className="text-muted">{label}</span>
+    <span className={textBadgeClass} title={evidence[grade]}>
+      {label}
     </span>
   );
 }
 
-export type EffortDotsProps = {
+export type EffortBadgeProps = {
   intensity: 1 | 2 | 3;
-  showLabel?: boolean;
-  label?: string;
 };
 
-export function EffortDots({ intensity, showLabel = false, label }: EffortDotsProps) {
-  const effortLabel = label ?? copy.card.effort;
+export function EffortBadge({ intensity }: EffortBadgeProps) {
+  const label = effortCard[intensity];
 
   return (
-    <span
-      className="inline-flex shrink-0 items-center gap-1.5"
-      title={`${effortLabel}: ${intensity} of 3`}
-    >
-      <span className="inline-flex items-center gap-0.5" aria-hidden>
-        {[1, 2, 3].map((step) => (
-          <span
-            key={step}
-            className={cn(
-              "size-2 rounded-pill",
-              step <= intensity ? "bg-accent" : "bg-line",
-            )}
-          />
-        ))}
-      </span>
-      {showLabel ? <span className="text-xs text-muted">{effortLabel}</span> : null}
+    <span className={textBadgeClass} title={label}>
+      {label}
     </span>
   );
 }
@@ -128,7 +116,7 @@ export type MethodBadgeRowProps = {
 
 function badgeSummary(
   skillMarks: SkillMark[],
-  evidence: EvidenceGrade,
+  evidenceGrade: EvidenceGrade,
   intensity: 1 | 2 | 3,
 ): string {
   const skills =
@@ -137,10 +125,10 @@ function badgeSummary(
           .map((mark) => `${skillLabels[mark.skill]} (${contributionLabels[mark.level]})`)
           .join(", ")
       : "No skill marks";
-  return `${skills}. ${evidenceShort[evidence]}. ${copy.card.effort}: ${intensity} of 3.`;
+  return `${skills}. ${evidenceCard[evidenceGrade]}. ${effortCard[intensity]}.`;
 }
 
-/** Skill marks, evidence grade, effort — fixed order per study/27. */
+/** Skill marks, evidence, effort — fixed order per study/27. */
 export function MethodBadgeRow({
   skillMarks,
   evidence,
@@ -159,7 +147,7 @@ export function MethodBadgeRow({
       >
         <SkillMarks marks={skillMarks} />
         <EvidenceBadge grade={evidence} />
-        <EffortDots intensity={intensity} />
+        <EffortBadge intensity={intensity} />
       </div>
     </div>
   );
@@ -209,14 +197,13 @@ export function MethodAtAGlance({
           </div>
         ) : null}
         <div>
-          <dt className="font-medium text-ink">{copy.card.intensity}</dt>
-          <dd className="mt-0.5 flex items-center gap-2 text-muted">
-            <EffortDots intensity={intensity} />
-            <span>{intensityDetail}</span>
+          <dt className="font-medium text-ink">{copy.card.effort}</dt>
+          <dd className="mt-0.5 text-muted">
+            {effortCard[intensity]} — {intensityDetail}
           </dd>
         </div>
         <div>
-          <dt className="font-medium text-ink">{evidenceShort[evidence]}</dt>
+          <dt className="font-medium text-ink">{evidenceCard[evidence]}</dt>
           <dd className="mt-0.5 text-muted">{evidenceDetail}</dd>
         </div>
       </dl>

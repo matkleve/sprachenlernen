@@ -27,7 +27,7 @@ catalogue **in place** — no full page navigation, no scroll jump to the top. T
 catalogue is already in memory; only method-card links navigate away.
 
 **Method badges (UX, 2026-08-15):** each card shows a **badge row** — skill
-contribution, evidence grade, effort dots — above nowrap tag chips (duration,
+contribution, evidence label, effort label — above nowrap tag chips (duration,
 requirements, hosted). Study/27; component
 [`method-badge.md`](../component/method-badge.md).
 

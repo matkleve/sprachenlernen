@@ -32,8 +32,8 @@ So they optimise for what feels productive, which is reliably not what works.
   multi-line chip).
 - It states **what skills the method mainly serves**, with contribution level
   per skill (primary, secondary, slight) — visible on the card at a glance.
-- It states **how demanding it is to perform** (intensity), as effort dots on
-  the card and anchor text on the detail page.
+- It states **how demanding it is to perform** (intensity), as a plain effort
+  label on the card and anchor text on the detail page.
 - It states **what the method does not do**. This section is mandatory; a page
   without it is an advertisement. On the card it appears as clamped prose below
   the chips; on detail it uses a callout surface.

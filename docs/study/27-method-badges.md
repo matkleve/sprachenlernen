@@ -121,8 +121,8 @@ text label for accessibility.
 | Family | Answers | Card | Detail | Data today |
 | --- | --- | --- | --- | --- |
 | **Skill contribution** | What is this mainly for? | Up to four skill marks with contribution level | Same + one line from `trains` | `skills[]`, `section`, `trains` (v1 derived); `skillContribution` (v2 explicit) |
-| **Evidence grade** | How sure is the research? | Letter A–D + short label | Letter + full sentence from `content.ts` | `evidence` |
-| **Effort load** | Can I manage this now? | Three dots ●●○ + anchor phrase | Dots + full intensity sentence | `intensity` |
+| **Evidence grade** | How sure is the research? | Plain label (e.g. "Thin evidence") | Label + full sentence from `content.ts` | `evidence` |
+| **Effort load** | Can I manage this now? | Plain label (e.g. "Light effort") | Label + `intensity` sentence | `intensity` |
 
 **Not badges** (stay as nowrap **tag chips**): duration, requirements, hosted/off-app.
 
@@ -157,22 +157,27 @@ listening → speaking → writing for consistency.
 **v2 (catalogue enrichment):** optional `skillContribution` object per method,
 authored explicitly. Validator requires consistency with `skills[]`.
 
-### Evidence grade — keep A–D, change presentation
+### Evidence grade — plain words on cards
 
-| Grade | Card label | Visual weight |
+| Grade | Card label | Detail |
 | --- | --- | --- |
-| A | Evidence A | Strongest fill (not "gold") |
-| B | Evidence B | Medium |
-| C | Evidence C | Light |
-| D | Evidence D | Distinct pattern (product choice — not "failed") |
+| A | Strong evidence | Full sentence with grade letter in prose |
+| B | Solid evidence | Same |
+| C | Thin evidence | Same |
+| D | Not researched | Same |
 
-Card: letter + two-word gloss (`Evidence A`, `Thin evidence` for C). Detail:
-full sentence already in `content.ts` — **prose block**, not a chip.
+Card: plain label only — no "Evidence A" or bare letter. Detail: label as
+heading + full sentence from `content.ts`.
 
-### Effort load — dots from study/12
+### Effort load — plain words on cards
 
-Intensity 1–3 maps to ●○○, ●●○, ●●● with anchor text from `intensity` in
-`content.ts`. Card shows dots only; detail adds the sentence.
+| Intensity | Card label | Detail |
+| --- | --- | --- |
+| 1 | Light effort | Label + anchor sentence from `intensity` in `content.ts` |
+| 2 | Needs focus | Same |
+| 3 | Draining | Same |
+
+No dot scales — they read as ratings without a legend.
 
 ---
 
@@ -188,7 +193,7 @@ Intensity 1–3 maps to ●○○, ●●○, ●●● with anchor text from `i
 │  Background listening with no task     │
 │  Leave it playing while you do…      │
 │                                      │
-│  [🎧] [📖] [🎤] [✎]   C  ●○○         │  ← badge row (icons, evidence, effort)
+│  [🎧] [📖]  Thin evidence  Light effort   │  ← badge row (icons + plain labels)
 │                                      │
 │  [20 min] [45 min] [headphones] …    │  ← tag chips (nowrap)
 │                                      │
