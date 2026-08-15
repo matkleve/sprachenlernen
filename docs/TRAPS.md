@@ -58,9 +58,8 @@ A fixed `3rem` lift was wrong when the toolbar was absent.
 
 **Owner QA (2026-08-15, true PWA):** asymmetry persisted — Methods/mirror OK,
 Words/Progress not. That is **not** session-only: mirror shares Methods body.
-In standalone PWA there is no Safari toolbar; the lift was a **phantom
-visualViewport inset**. Fix: force `0px` inset when `isStandaloneDisplay()` —
-see [`study/31-ios-safari-pwa-test-report.md`](study/31-ios-safari-pwa-test-report.md).
+Forcing inset `0` in standalone (`v0.5.0`) **did not fix** it and **worsened
+pill taps** — reverted. See [`study/31-ios-safari-pwa-test-report.md`](study/31-ios-safari-pwa-test-report.md).
 
 **The fix (keep):** `useVisualViewportBottomInset` —
 `max(0, innerHeight - visualViewport.height - visualViewport.offsetTop)` →

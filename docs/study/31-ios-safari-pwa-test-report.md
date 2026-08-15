@@ -1,6 +1,6 @@
 # 31 · iOS Safari / PWA — Issue report & test plan
 
-**Status:** fix shipped (`cursor/pwa-inset-fix-0087`) · **Created:** 2026-08-15 · **Build under test:** `v0.4.1`+
+**Status:** open — PWA asymmetry unresolved · **Created:** 2026-08-15 · **Build:** `v0.5.1` (revert of failed `v0.5.0` fix)
 
 This document consolidates everything we investigated, shipped, rejected, and
 still need to verify on a **real iPhone**. It supersedes scattered chat notes;
@@ -20,15 +20,23 @@ Tested in **true PWA** (Home Screen icon):
 | `/progress` | Appears — pill sits higher ✗ |
 
 **Conclusion:** Not session-only. Methods and mirror share the same body; Words
-and Progress share different bodies. In standalone PWA there is **no Safari
-toolbar** — the pill lifting is a **false positive** from `visualViewport`
-measurement on those pages.
+and Progress share different bodies. The asymmetry is **real** in true PWA — still
+open.
 
-**Fix (shipped):** `useVisualViewportBottomInset` forces `0px` inset when
-`isStandaloneDisplay()` is true. Destination wrappers also use `overflow-x-clip`
-to block accidental horizontal overflow.
+### Failed fix (reverted on main, `v0.5.0` → `v0.5.1`)
 
-**Re-test after deploy:** sections C1–C6 below — all routes should match Methods.
+We tried forcing `--shell-visual-viewport-bottom-inset` to `0px` in standalone
+PWA (`isStandaloneDisplay()`). **Owner QA: did not fix asymmetry** and **made
+nav-pill taps worse**.
+
+**Why forcing inset `0` hurts taps:** the measured inset is not only “toolbar
+height” — it also keeps the pill **above** the iOS home-indicator band and
+bottom-edge gesture zone. Pinning the pill to `safe-area + gap` only leaves
+icons in a region where iOS competes for touches. **Do not zero the inset in
+PWA** without a replacement tap-target strategy.
+
+**Lesson for agents:** never ship inset changes without a LIVE CHECK for **pill
+tap reliability** on every destination, not just visual position.
 
 ---
 
@@ -190,9 +198,8 @@ Record for each route: **Safari toolbar visible?** · **Nav pill visible?** · *
 | C6 | On Progress: open weekly reflection deck | ☐ hidden ☐ visible | ☐ yes | vs C1 | ☐ |
 
 **Pass criterion for C:** In standalone PWA, all routes show **no extra bottom
-gap** and **nav pill visible** at the **same vertical position as Methods**.
-
-**After `v0.4.1` + PWA inset fix:** expect all C rows to pass.
+gap** and **nav pill visible** at the **same vertical position as Methods** —
+and pill icons remain **easy to tap** on every destination.
 
 ### D · App update flow
 
@@ -268,21 +275,7 @@ Green update prompt never appears?
 | Profile App section | PR #87 | Merged |
 | AppUpdateProvider sync fix | main | Merged |
 | This test report | study/31 | This doc |
-| PWA standalone inset fix | `lib/is-standalone-display.ts`, hook | Shipped |
-
----
-
-## Fix detail — standalone PWA inset
-
-When `navigator.standalone` or `display-mode: standalone|fullscreen`:
-
-- `--shell-visual-viewport-bottom-inset` is always `0px`
-- Rationale: no Safari bottom toolbar exists; phantom `visualViewport` gaps on
-  Words/Progress were lifting the pill incorrectly (owner-confirmed)
-- In-browser Safari tabs still use dynamic measurement
-
-Also: `ShellPageContent` scrollable modes use `overflow-x-clip` on destination
-pages to prevent nested horizontal overflow from widening the document.
+| PWA standalone inset fix (`isStandaloneDisplay`) | `v0.5.0` | **Reverted** — no visual fix; worse taps |
 
 ---
 

@@ -6,15 +6,9 @@ import {
   VISUAL_VIEWPORT_BOTTOM_INSET_VAR,
 } from "./useVisualViewportBottomInset";
 
-vi.mock("next/navigation", () => ({
-  usePathname: vi.fn(() => "/methods"),
-}));
-
 describe("useVisualViewportBottomInset", () => {
   beforeEach(() => {
     document.documentElement.style.removeProperty(VISUAL_VIEWPORT_BOTTOM_INSET_VAR);
-    vi.stubGlobal("navigator", { standalone: false });
-    vi.stubGlobal("matchMedia", () => ({ matches: false }));
   });
 
   afterEach(() => {
@@ -54,25 +48,5 @@ describe("useVisualViewportBottomInset", () => {
     expect(document.documentElement.style.getPropertyValue(VISUAL_VIEWPORT_BOTTOM_INSET_VAR)).toBe(
       "",
     );
-  });
-
-  it("forces 0px inset in standalone PWA even when visualViewport reports a gap", () => {
-    vi.stubGlobal("navigator", { standalone: true });
-    vi.stubGlobal("matchMedia", () => ({ matches: false }));
-    vi.stubGlobal("innerHeight", 750);
-    vi.stubGlobal("visualViewport", {
-      height: 700,
-      offsetTop: 0,
-      addEventListener: vi.fn(),
-      removeEventListener: vi.fn(),
-    });
-
-    const { unmount } = renderHook(() => useVisualViewportBottomInset());
-
-    expect(
-      document.documentElement.style.getPropertyValue(VISUAL_VIEWPORT_BOTTOM_INSET_VAR),
-    ).toBe("0px");
-
-    unmount();
   });
 });

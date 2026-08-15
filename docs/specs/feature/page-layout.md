@@ -124,7 +124,6 @@ default; see [`review-horizon.md`](review-horizon.md)). iOS
 in-browser toolbar is browser-controlled — shell measures via
 `useVisualViewportBottomInset`; **no per-route inset fixes**
 ([`page-layout.layers.md`](page-layout.layers.md) § Safari toolbar policy).
-Standalone PWA: inset always `0` ([`../../study/31-ios-safari-pwa-test-report.md`](../../study/31-ios-safari-pwa-test-report.md)).
 
 ## Scrims and tap shield
 
