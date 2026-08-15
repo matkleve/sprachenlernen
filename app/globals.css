@@ -290,8 +290,8 @@
   );
 }
 
-/* Vocabulary orbit — one slow rotation; disabled under prefers-reduced-motion in base. */
-@keyframes orbit-spin {
+/* Vocabulary orbit — each ring spins on its own; center stays fixed. */
+@keyframes orbit-ring-forward {
   from {
     transform: rotate(0deg);
   }
@@ -301,15 +301,19 @@
   }
 }
 
-.orbit-spin {
-  animation: orbit-spin 120s linear infinite;
-  transform-box: fill-box;
-  transform-origin: center;
+@keyframes orbit-ring-reverse {
+  from {
+    transform: rotate(360deg);
+  }
+
+  to {
+    transform: rotate(0deg);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .orbit-spin {
-    animation: none;
+  .orbit-ring {
+    animation: none !important;
   }
 }
 

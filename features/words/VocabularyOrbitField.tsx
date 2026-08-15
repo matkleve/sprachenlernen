@@ -8,7 +8,9 @@ import { OrbitListPopover } from "@/features/words/OrbitListPopover";
 import { VocabularyOrbitSvg } from "@/features/words/VocabularyOrbitSvg";
 import { copy } from "@/features/words/content";
 import type { AtlasPoint } from "@/lib/vocabulary-snapshot";
-import type { OrbitSegment, VocabularyOrbit } from "@/lib/vocabulary-orbit";
+import type { OrbitSegment, OrbitTickSegment, VocabularyOrbit } from "@/lib/vocabulary-orbit";
+
+type DetailSegment = Exclude<OrbitSegment, OrbitTickSegment>;
 
 type VocabularyOrbitFieldProps = {
   orbit: VocabularyOrbit;
@@ -17,7 +19,7 @@ type VocabularyOrbitFieldProps = {
 };
 
 export function VocabularyOrbitField({ orbit, languageCode, atlas }: VocabularyOrbitFieldProps) {
-  const [selected, setSelected] = useState<OrbitSegment | null>(null);
+  const [selected, setSelected] = useState<DetailSegment | null>(null);
   const [listOpen, setListOpen] = useState(false);
   const listTriggerRef = useRef<HTMLButtonElement>(null);
 
@@ -46,7 +48,9 @@ export function VocabularyOrbitField({ orbit, languageCode, atlas }: VocabularyO
           orbit={orbit}
           languageCode={languageCode}
           selectedId={selected?.id ?? null}
-          onSelect={setSelected}
+          onSelect={(segment) => {
+            if (segment.kind !== "tick") setSelected(segment);
+          }}
         />
       </div>
 

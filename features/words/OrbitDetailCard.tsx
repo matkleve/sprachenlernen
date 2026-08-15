@@ -1,7 +1,9 @@
 import { copy } from "@/features/words/content";
-import type { OrbitSegment } from "@/lib/vocabulary-orbit";
+import type { OrbitSegment, OrbitTickSegment } from "@/lib/vocabulary-orbit";
 
-export function OrbitDetailCard({ segment }: { segment: OrbitSegment }) {
+type DetailSegment = Exclude<OrbitSegment, OrbitTickSegment>;
+
+export function OrbitDetailCard({ segment }: { segment: DetailSegment }) {
   if (segment.kind === "aggregate") {
     return (
       <div className="rounded-card border border-line bg-surface p-4 shadow-soft">

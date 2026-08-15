@@ -23,7 +23,7 @@ vocabulary is held. Replaces the vocabulary atlas table as the default view.
 
 | # | User action | System response |
 | --- | --- | --- |
-| 1 | Opens `/words` | Orbit below counts/horizon; rings spin slowly unless reduced motion |
+| 1 | Opens `/words` | Orbit below counts/horizon; each ring spins slowly on its own unless reduced motion; center stripes stay fixed |
 | 2 | Taps a word segment | Detail card under the orbit: lemma, translation, rank, stability, status |
 | 3 | Taps an aggregate segment | Detail card names the rank range and held count |
 | 4 | Taps **Show list** | Scrollable popover with the full frequency-sorted atlas (same columns as before) |
@@ -31,9 +31,10 @@ vocabulary is held. Replaces the vocabulary atlas table as the default view.
 
 ### Rings
 
-Eight rings, inner = highest frequency band. Segment **brightness** follows
-bucket: mature/held bright, fragile half-lit, new ghost. Ring **track**
-opacity reflects held+mature share in that band.
+Eight rings, inner = highest frequency band. Segments are **rounded dashes and dots**
+on each ring (App Clip shape), ink on light. Brightness follows bucket: mature/held
+dark, fragile muted, new ghost. Decorative ghost ticks fill each band. The **center
+stripes do not rotate**; each ring has its own speed and direction.
 
 ### Collapse
 

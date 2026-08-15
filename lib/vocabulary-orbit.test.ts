@@ -35,12 +35,11 @@ describe("vocabulary-orbit", () => {
     expect(orbitLitForPoint(point("d", 4, "held", true))).toBe("bright");
   });
 
-  it("collapses overflow words into an aggregate segment", () => {
-    const atlas = Array.from({ length: 40 }, (_, index) =>
-      point(`w${index}`, index + 1, "new"),
-    );
-    const orbit = buildVocabularyOrbit(atlas, {});
+  it("fills empty slots with decorative ghost ticks", () => {
+    const atlas = [{ lemma: "el", frequencyRank: 1, stability: null, bucket: "new" as const, mature: false }];
+    const orbit = buildVocabularyOrbit(atlas, { el: "the" });
     const inner = orbit.rings[0]!;
-    expect(inner.segments.some((s) => s.kind === "aggregate")).toBe(true);
+    expect(inner.segments.some((s) => s.kind === "tick")).toBe(true);
+    expect(inner.segments.some((s) => s.kind === "word")).toBe(true);
   });
 });

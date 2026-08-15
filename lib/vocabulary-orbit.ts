@@ -19,8 +19,13 @@ export const ORBIT_RING_BANDS: readonly { rankStart: number; rankEnd: number }[]
   { rankStart: 1201, rankEnd: 2000 },
 ] as const;
 
-/** Slots per ring — more ticks outward, like an App Clip code. */
-export const ORBIT_SLOTS_PER_RING = [12, 14, 16, 18, 20, 22, 24, 28] as const;
+/** Decorative ticks per ring — dense App Clip-style band. */
+export const ORBIT_SLOTS_PER_RING = [24, 28, 32, 36, 40, 44, 48, 52] as const;
+
+/** Each ring starts at a different phase so ticks never line up radially. */
+export function ringPhaseOffset(ringIndex: number): number {
+  return (ringIndex * 23.7 + 11) % 360;
+}
 
 export const ORBIT_MAX_INDIVIDUALS = 24;
 
@@ -52,7 +57,16 @@ export type OrbitAggregateSegment = {
   lit: OrbitLit;
 };
 
-export type OrbitSegment = OrbitWordSegment | OrbitAggregateSegment;
+/** Decorative ghost tick — fills the band between data segments. */
+export type OrbitTickSegment = {
+  kind: "tick";
+  id: string;
+  ringIndex: number;
+  slotIndex: number;
+  lit: "ghost";
+};
+
+export type OrbitSegment = OrbitWordSegment | OrbitAggregateSegment | OrbitTickSegment;
 
 export type OrbitRing = {
   index: number;
@@ -137,6 +151,20 @@ export function buildVocabularyOrbit(
       });
     }
 
+    const slotCount = ORBIT_SLOTS_PER_RING[ringIndex]!;
+    for (let slotIndex = 0; slotIndex < slotCount; slotIndex++) {
+      if (segments.some((segment) => segment.slotIndex === slotIndex)) continue;
+      segments.push({
+        kind: "tick",
+        id: `tick:${ringIndex}:${slotIndex}`,
+        ringIndex,
+        slotIndex,
+        lit: "ghost",
+      });
+    }
+
+    segments.sort((a, b) => a.slotIndex - b.slotIndex);
+
     rings.push({
       index: ringIndex,
       rankStart: band.rankStart,
@@ -149,13 +177,12 @@ export function buildVocabularyOrbit(
   return { rings };
 }
 
-/** Deterministic slot angular width — short ticks and long dashes mixed. */
+/** Deterministic slot angular width — dots, short dashes, and long dashes mixed. */
 export function slotAngularWidth(ringIndex: number, slotIndex: number, slotCount: number): number {
-  const gapTotal = slotCount * 2.4;
-  const available = 360 - gapTotal;
-  const base = available / slotCount;
-  const hash = (ringIndex * 31 + slotIndex * 17) % 5;
-  return base * (0.55 + hash * 0.1);
+  const hash = (ringIndex * 31 + slotIndex * 17) % 11;
+  if (hash <= 2) return 1.8;
+  if (hash <= 6) return 4.2 + (hash % 3) * 0.8;
+  return 7.5 + (hash % 4) * 1.1;
 }
 
 export function slotStartAngle(
@@ -163,9 +190,11 @@ export function slotStartAngle(
   slotIndex: number,
   slotCount: number,
 ): number {
-  let angle = 0;
+  const phase = ringPhaseOffset(ringIndex);
+  const gap = 2.8;
+  let angle = phase;
   for (let i = 0; i < slotIndex; i++) {
-    angle += slotAngularWidth(ringIndex, i, slotCount) + 2.4;
+    angle += slotAngularWidth(ringIndex, i, slotCount) + gap;
   }
-  return angle;
+  return angle % 360;
 }

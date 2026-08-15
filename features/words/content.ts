@@ -40,7 +40,7 @@ export const copy = {
   noStability: "—",
   orbitHeading: "Your vocabulary orbit",
   orbitCaption:
-    "Common words sit near the center. Segments light up as you hold them — brighter means more stable.",
+    "Common words sit near the center. Dark dashes light up as you hold them — each ring drifts on its own.",
   orbitAriaLabel: "Vocabulary progress shown as concentric rings",
   orbitShowList: "Show list",
   orbitListTitle: "All words",
