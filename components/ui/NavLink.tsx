@@ -5,6 +5,7 @@ import Link from "next/link";
 import type { ComponentPropsWithoutRef } from "react";
 
 import {
+  navCurrentFill,
   disabledState,
   focusRing,
   hitAreaAnchor,
@@ -44,7 +45,7 @@ export const navLinkVariants = cva(
   {
     variants: {
       current: {
-        true: "bg-accent text-accent-ink shadow-soft hover:bg-accent-deep hover:text-accent-ink",
+        true: navCurrentFill,
         false: "text-muted hover:bg-accent-soft hover:text-ink",
       },
     },

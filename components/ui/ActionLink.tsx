@@ -5,6 +5,7 @@ import type { ComponentPropsWithoutRef, ReactNode } from "react";
 
 import { buttonVariants, type ButtonProps, type PendingPolicy } from "@/components/ui/Button";
 import {
+  navCurrentFill,
   pendingBusy,
   pendingNavRing,
   touchTarget,
@@ -17,6 +18,8 @@ type ActionLinkProps = ComponentPropsWithoutRef<typeof Link> &
   Pick<ButtonProps, "variant" | "size"> & {
     children: ReactNode;
     pendingPolicy?: PendingPolicy;
+    /** Accent fill when this link is the active route (`aria-current="page"`). */
+    current?: boolean;
   };
 
 function showSpinnerForPending(
@@ -37,6 +40,7 @@ export function ActionLink({
   variant,
   size,
   pendingPolicy = "cta",
+  current,
   className,
   children,
   onClick,
@@ -49,10 +53,12 @@ export function ActionLink({
   return (
     <Link
       href={href}
+      aria-current={current ? "page" : undefined}
       aria-busy={isPending || undefined}
       className={cn(
         buttonVariants({ variant, size }),
         touchTarget,
+        current && navCurrentFill,
         isPending && pendingPolicy !== "nav" && pendingBusy,
         showNavRing && pendingNavRing,
         className,

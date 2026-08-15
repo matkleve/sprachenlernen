@@ -50,6 +50,14 @@ export const hitAreaExpandNavPill = "after:-inset-x-2 after:-inset-y-2";
 /** Semibold label + heavier icon stroke on clickable controls. */
 export const interactiveEmphasis = "font-semibold [&_svg]:stroke-[2.5]";
 
+/** Accent fill when a nav link is the active route (`NavLink`, `ActionLink`). */
+export const navCurrentFill =
+  "bg-accent text-accent-ink shadow-soft hover:bg-accent-deep hover:text-accent-ink";
+
+/** Accent fill for bordered icon chips (`IconLink` current / emphasized). */
+export const iconChipCurrentFill =
+  "bg-accent text-accent-ink border-accent shadow-soft hover:bg-accent-deep hover:text-accent-ink";
+
 /** Composed stacks used by multiple primitives. */
 export const interactiveBase = [
   hitAreaAnchor,

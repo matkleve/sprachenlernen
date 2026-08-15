@@ -11,12 +11,12 @@ Per-primitive state matrix. Symbols: D H A F X P C — see parent
 | --- |:-:|:-:|:-:|:-:|:-:|:-:|:-:| --- |
 | `Button` | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | — | `floating`: A adds `pressFill`. Spinner on P when policy `cta` + primary/danger |
 | `SubmitButton` | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ auto | — | Wraps `Button`; P from `useFormStatus` |
-| `ActionLink` | ✓ | ✓ | ✓ | ✓ | — | ✓ | — | P ≥180ms. Policies: `cta` (default), `nav` (ring), `none` |
+| `ActionLink` | ✓ | ✓ | ✓ | ✓ | — | ✓ | ✓ | `current` → accent fill + `aria-current="page"`. P ≥180ms |
 | `NavLink` | ✓ | ✓ | ✓ | ✓ | — | ✓ | ✓ | `current` → `bg-accent text-accent-ink`, `aria-current="page"` |
 | `FilterPill` | ✓ | ✓ | ✓ | ✓ | ✓ | — | via `aria-pressed` | Same classes as `navLinkVariants` |
 | `TextLink` | ✓ | ✓ | ✓ | ✓ | — | — | — | Tones: `accent`, `muted`, `ink`. No nav pending |
 | `IconButton` | ✓ | ✓ | ✓+fill | ✓ | ✓ | ✓ ring | — | 44×44 round floating. Default policy `nav` |
-| `IconLink` | ✓ | ✓ | ✓+fill | ✓ | — | ✓ ring | — | `ActionLink` + `iconButtonClass` + policy `nav` |
+| `IconLink` | ✓ | ✓ | ✓+fill | ✓ | — | ✓ ring | ✓ | `current` → accent fill + `aria-current`; `emphasized` → fill only (back chip) |
 | `SurfaceLink` | ✓ | ✓ lift | ✓+fill | ✓ | — | ✓ | — | Card block link; `cardPressable`; P ≥180ms |
 | `PressableCard` | ✓ | ✓ lift | ✓+fill | ✓ | ✓ | — | — | `interactive={false}` → static, no H/A |
 | `GradeButton` | ✓ | ✓ | ✓ | ✓ | ✓ | — | — | Grade-tinted; no spinner (exemption) |
