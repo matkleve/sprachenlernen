@@ -44,7 +44,7 @@ export function FloatingShellChrome({
       >
         <div
           className={cn(
-            "pointer-events-auto relative grid min-h-11 grid-cols-[1fr_1fr] items-center gap-x-2 px-4 pb-3",
+            "pointer-events-auto relative grid min-h-12 grid-cols-[1fr_1fr] items-center gap-x-2 px-4 pb-3",
             safeTop,
           )}
         >
@@ -75,12 +75,12 @@ export function FloatingShellChrome({
       <FooterScrim className="fixed inset-x-0 bottom-0 z-50 md:hidden">
         <nav
           aria-label={copy.mobileNavLabel}
-          className={cn("flex justify-center px-4", safeBottom)}
+          className={cn("flex w-full justify-center px-4", safeBottom)}
         >
           <ul
             className={cn(
-              "flex w-[min(85%,24rem)] list-none rounded-pill border border-line",
-              "bg-surface p-1.5 shadow-raised",
+              "flex w-full max-w-md list-none rounded-pill border border-line",
+              "bg-surface p-1 shadow-raised",
             )}
           >
             <DestinationNavItems layout="pill" />

@@ -128,7 +128,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
 /** Icon-only chip sizing — floating shell corners, language trigger. */
 export const iconButtonClass = cn(
   buttonVariants({ variant: "floating", size: "sm" }),
-  "size-11 min-h-11 min-w-11 rounded-full p-0",
+  "size-12 min-h-12 min-w-12 rounded-full p-0",
 );
 
 /** Compact icon control — review report flag, inline toolbars. */

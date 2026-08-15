@@ -33,7 +33,7 @@ export function CookieConsent() {
     <div
       role="dialog"
       aria-labelledby="cookie-consent-title"
-      className="fixed inset-x-0 bottom-0 z-50 border-t border-line bg-surface p-4 shadow-raised"
+      className="fixed inset-x-0 bottom-[var(--spacing-shell-float-bottom)] z-40 border-t border-line bg-surface p-4 shadow-raised md:bottom-0"
     >
       <div className="mx-auto flex max-w-3xl flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <div>

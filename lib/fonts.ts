@@ -4,6 +4,7 @@ import { DM_Sans, Source_Serif_4 } from "next/font/google";
 export const bodyFont = DM_Sans({
   subsets: ["latin"],
   display: "swap",
+  weight: ["400", "500", "600", "700"],
   variable: "--font-dm-sans",
 });
 

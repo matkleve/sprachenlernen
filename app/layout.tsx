@@ -10,6 +10,10 @@ export const metadata: Metadata = {
   // defect T-04 exists to fix one level up from the home route.
   title: { default: "Sprachenlernen", template: "%s · Sprachenlernen" },
   description: "Evidence-driven language learning.",
+  appleWebApp: {
+    capable: true,
+    title: "Sprachenlernen",
+  },
 };
 
 export const viewport: Viewport = {
@@ -22,6 +26,8 @@ export const viewport: Viewport = {
     { media: "(prefers-color-scheme: light)", color: "#f7f4ef" }, // token-check-ignore: mirrors --color-canvas (light)
     { media: "(prefers-color-scheme: dark)", color: "#1c1814" }, // token-check-ignore: mirrors --color-canvas (dark)
   ],
+  viewportFit: "cover",
+  interactiveWidget: "resizes-content",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
