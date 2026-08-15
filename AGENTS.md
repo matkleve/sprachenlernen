@@ -125,6 +125,7 @@ feature needs it — not in anticipation of one.
 | Making a call you'll have to defend later | [`docs/adr/`](docs/adr/) |
 | Product rules you may not break | [`docs/CONSTITUTION.md`](docs/CONSTITUTION.md) |
 | **Why a feature exists at all** | [`docs/study/`](docs/study/) — the research this product is derived from |
+| **Version bump or merge** | [`docs/VERSIONING.md`](docs/VERSIONING.md) — never bump on a feature branch |
 
 ---
 

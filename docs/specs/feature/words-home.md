@@ -38,7 +38,7 @@ reading, listening, speaking, and off-app Methods are reached from `/methods`.
 
 | # | User action | System response |
 | --- | --- | --- |
-| 1 | Opens `/words` | Intent copy and Start review in a raised action card; held/fragile/new counts, frequency bands, horizon (per review-horizon collapsed/expanded rules), vocabulary orbit below |
+| 1 | Opens `/words` | Intent copy and Start review in a raised action card; held/fragile/new counts (meaning recall only) with a lemma callout, frequency bands, horizon (per review-horizon collapsed/expanded rules), vocabulary orbit below |
 | 2 | Taps Start review | Navigates to `/words/review?method=srs-session` |
 | 3 | Taps a segment or **Show list** | See [`vocabulary-orbit.md`](vocabulary-orbit.md) |
 | 4 | Expands or collapses horizon | See [`review-horizon.md`](review-horizon.md) |
@@ -54,9 +54,10 @@ outcomes.
 ## Acceptance criteria
 
 - [ ] Given a signed-in learner on `/words`, when the page renders, then held,
-      fragile and new counts are shown, frequency bands name each rank range and
-      stable-held count, the vocabulary orbit is present, and Start review links
-      to `srs-session`.
+      fragile and new counts are shown with copy that they track **meaning
+      recall** (not inflected forms), a callout explains what a **lemma** is,
+      frequency bands name each rank range and stable-held count, the vocabulary
+      orbit is present, and Start review links to `srs-session`.
 - [ ] Given the starter deck, when the page renders, then the horizon is
       present (collapsed or expanded per [`review-horizon.md`](review-horizon.md))
       and the full atlas is reachable via **Show list**.

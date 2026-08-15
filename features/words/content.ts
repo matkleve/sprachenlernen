@@ -8,20 +8,25 @@ export const copy = {
   reviewHeading: "Review",
   reviewCaption: "One session at a time — tap when you are ready.",
   countsHeading: "Your vocabulary",
-  countsCaption: "How words are held in memory right now — not a backlog.",
+  countsCaption:
+    "How many starter lemmas you can recall the meaning of — not every inflected form, and not a backlog.",
+  lemmaCalloutTitle: "What is a lemma?",
+  lemmaCalloutBody:
+    "The dictionary form of a word — correr, not corriendo. Each card here is one lemma. Held means you would still know what it means after about a week without seeing it again. Producing inflected forms is tracked separately on Progress.",
   held: "Held",
   fragile: "Fragile",
   newWords: "New",
   heldDescription:
-    "You'd still recall it after about a week without seeing it again — at least two spaced successes in review.",
-  fragileDescription: "Seen in review but not yet stable enough to count as known.",
-  newDescription: "Not reviewed yet.",
+    "You reliably recall what this lemma means — at least two spaced successes in review, stable for about a week.",
+  fragileDescription:
+    "You've seen the meaning in review but it is not yet stable enough to count as known.",
+  newDescription: "Meaning not reviewed yet.",
   blocksHeading: "Frequency bands",
   blocksCaption:
-    "How many of the most common words in your starter deck you hold stably — by rank band, not the whole language yet.",
+    "How many of the most common lemmas in your starter deck you hold stably by meaning — by rank band, not the whole language yet.",
   blockLabel: (start: number, end: number) => `Ranks ${start}–${end}`,
-  blockHeld: (held: number, poolSize: number) => `${held} of ${poolSize} held`,
-  blockHeldDescription: "Stable enough to count as known — same rules as Held above.",
+  blockHeld: (held: number, poolSize: number) => `${held} of ${poolSize} meanings held`,
+  blockHeldDescription: "Stable meaning recall — same rules as Held above.",
   horizonHeading: "Review horizon",
   horizonCaption:
     "How your scheduled reviews are spread over the next 30 days — not what is due in today's session.",
@@ -70,7 +75,7 @@ export const copy = {
     `${count} words, ranks ${start}–${end}`,
   orbitAggregateHeading: (start: number, end: number) => `Ranks ${start}–${end}`,
   orbitAggregateBody: (count: number, held: number) =>
-    `${count} words in this band on the outer ring. ${held} held stably.`,
+    `${count} lemmas in this band on the outer ring. ${held} meanings held stably.`,
   orbitDetailRankLabel: "Frequency rank",
   orbitDetailStabilityLabel: "Stability",
   orbitDetailBandLabel: "Band",

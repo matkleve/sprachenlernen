@@ -11,6 +11,17 @@ applying is still evidence about how this codebase misleads people.
 
 ---
 
+## Parallel agents bumped `package.json` on feature branches
+
+Two agents shipped overlapping PRs. Each ran a “release” bump (`0.1.1`, `0.2.0`)
+on its own branch, `pride-version.test.ts` pinned a literal version, and every
+merge became a three-way fight over `package.json`.
+
+**The fix:** version changes only on `main` via `npm run version:ship`; tests
+read `package.json` dynamically; `verify` runs `check-version-branch` on feature
+branches. **The check:** feature-branch PRs must not touch `version` in
+`package.json`.
+
 ## Profile bound server actions inside LanguageListRow crashed in production
 
 Forms with `action={serverAction.bind(null, code)}` rendered as `LanguageListRow`

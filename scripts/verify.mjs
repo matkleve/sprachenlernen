@@ -18,6 +18,7 @@ const CHECKS = [
   ["contrast", "node", ["scripts/check-contrast.mjs"]],
   ["interaction", "node", ["scripts/check-interaction-surfaces.mjs"]],
   ["neighbors", "node", ["scripts/check-neighbor-candidates.mjs"]],
+  ["version-branch", "node", ["scripts/check-version-branch.mjs"]],
   ["test", "npm", ["run", "--silent", "test"]],
   // Its own output directory, so that running the gate while `npm run dev` is
   // up cannot replace the manifests the dev server is serving from. Sharing
