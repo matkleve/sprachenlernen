@@ -3,6 +3,7 @@
 import { useMemo } from "react";
 
 import { ErrorCallout } from "@/components/ui/ErrorCallout";
+import { ShellPageContent } from "@/features/app-shell/ShellPageContent";
 import { pickDailyThree } from "@/lib/daily-three";
 import type { UserFacingError } from "@/lib/errors";
 import {
@@ -63,7 +64,7 @@ export function MethodMenu({
   );
 
   return (
-    <div className="mx-auto max-w-5xl px-6 pt-page-top pb-page-bottom">
+    <ShellPageContent width="wide">
       <p className="max-w-2xl text-base leading-relaxed text-muted">{copy.intro}</p>
 
       {standing ? <CurrentStanding summary={standing} /> : null}
@@ -108,6 +109,6 @@ export function MethodMenu({
           </section>
         ))
       )}
-    </div>
+    </ShellPageContent>
   );
 }

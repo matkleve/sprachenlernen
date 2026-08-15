@@ -4,6 +4,7 @@ import { redirect } from "next/navigation";
 import { AccountDataPanel } from "@/features/account-data/AccountDataPanel";
 import { copy as accountCopy } from "@/features/account-data/content";
 import { signOutAction } from "@/features/app-shell/actions";
+import { ShellPageContent } from "@/features/app-shell/ShellPageContent";
 import { ProfileLanguages } from "@/features/profile/ProfileLanguages";
 import { ProfileSpokenLanguage } from "@/features/profile/ProfileSpokenLanguage";
 import { copy } from "@/features/profile/content";
@@ -46,7 +47,7 @@ export default async function ProfilePage({
   }
 
   return (
-    <div className="mx-auto max-w-2xl px-6 pt-page-top pb-page-bottom">
+    <ShellPageContent width="narrow">
       <ProfileSpokenLanguage
         outcome={spoken}
         changeFailed={spokenFailed}
@@ -69,6 +70,6 @@ export default async function ProfilePage({
       <form action={signOutAction} className="mt-page-content">
         <SubmitButton variant="secondary">{copy.signOut}</SubmitButton>
       </form>
-    </div>
+    </ShellPageContent>
   );
 }

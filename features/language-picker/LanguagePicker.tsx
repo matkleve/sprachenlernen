@@ -1,5 +1,6 @@
 import { Chip } from "@/components/ui/Chip";
 import { SubmitButton } from "@/components/ui/SubmitButton";
+import { ShellPageContent } from "@/features/app-shell/ShellPageContent";
 import { copy } from "@/features/language-picker/content";
 import { languageLabel } from "@/lib/languages";
 
@@ -42,7 +43,7 @@ function statusLine(tile: LanguageTile): string {
 
 export function LanguagePicker({ tiles, error, choose }: LanguagePickerProps) {
   return (
-    <div className="mx-auto max-w-3xl px-6 pt-page-top pb-page-bottom">
+    <ShellPageContent width="default">
       <p className="max-w-2xl text-base leading-relaxed text-muted">{copy.intro}</p>
 
       {error ? (
@@ -101,6 +102,6 @@ export function LanguagePicker({ tiles, error, choose }: LanguagePickerProps) {
       </ul>
 
       <p className="mt-8 max-w-2xl text-base leading-relaxed text-muted">{copy.footnote}</p>
-    </div>
+    </ShellPageContent>
   );
 }

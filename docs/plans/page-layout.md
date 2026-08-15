@@ -1,6 +1,6 @@
 # Plan — page layout (shell chrome + scroll modes)
 
-**Status:** spec + registry shipped; routes still apply mode classes inline.
+**Status:** spec + registry + `ShellPageContent` shipped on signed-in surfaces.
 **Change class:** Standard (docs + small helper).
 
 Contract: [`../specs/feature/page-layout.md`](../specs/feature/page-layout.md).
@@ -24,21 +24,13 @@ Contract: [`../specs/feature/page-layout.md`](../specs/feature/page-layout.md).
 | `docs/specs/feature/page-layout.md` | Normative contract |
 | `lib/shell-page-layout.ts` | Route → mode registry |
 | `lib/shell-page-layout.test.ts` | Registry tests |
-| `features/app-shell/AppShell.tsx` | Shell `<main>` insets |
+| `features/app-shell/ShellPageContent.tsx` | Feature page wrapper (`pt-page-top`, runner height) |
 | `features/app-shell/FooterScrim.tsx` | Footer tap shield |
 | `features/app-shell/useVisualViewportBottomInset.ts` | Dynamic bottom inset |
 | `app/globals.css` | Shell + page + runner tokens |
 | `app/(app)/words/review/page.tsx` | Runner wrapper (`h-review-session`) |
 
 ## Follow-up (optional, Track A)
-
-**T-SHELL-01 · Wire `shellPageLayout` into routes**
-
-- **Class:** Trivial
-- **Files:** `app/(app)/words/review/page.tsx` (use `isActiveReviewSession`),
-  any future runner routes
-- **Done when:** runner vs drill-in class strings derive from the helper, not
-  duplicated `method ===` checks; `npm run verify` green
 
 **T-SHELL-02 · Lint against double bottom padding**
 

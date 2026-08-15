@@ -1,5 +1,6 @@
 import { ActionLink } from "@/components/ui/ActionLink";
 import { Chip } from "@/components/ui/Chip";
+import { ShellPageContent } from "@/features/app-shell/ShellPageContent";
 import { byId, type MethodEntry } from "@/lib/method-catalogue";
 import type { SearchParams } from "@/lib/method-menu-filter";
 import { menuQueryString } from "@/lib/method-menu-filter";
@@ -25,7 +26,7 @@ export function MethodDetail({ method, searchParams = {} }: MethodDetailProps) {
 
   if (!method) {
     return (
-      <div className="mx-auto max-w-2xl px-6 pt-page-top pb-page-bottom">
+      <ShellPageContent mode="scrollable-drill-in" width="narrow">
         <p className="text-base text-muted">{copy.methodNotFound}</p>
         <ActionLink
           href={backHref}
@@ -35,7 +36,7 @@ export function MethodDetail({ method, searchParams = {} }: MethodDetailProps) {
         >
           {copy.backToMethods}
         </ActionLink>
-      </div>
+      </ShellPageContent>
     );
   }
 
@@ -43,7 +44,7 @@ export function MethodDetail({ method, searchParams = {} }: MethodDetailProps) {
   const skillMarks = skillMarksForMethod(method);
 
   return (
-    <div className="mx-auto max-w-2xl px-6 pt-page-top pb-page-bottom">
+    <ShellPageContent mode="scrollable-drill-in" width="narrow">
       <ActionLink href={backHref} variant="ghost" size="sm" className={backLinkClass}>
         ← {copy.backToMethods}
       </ActionLink>
@@ -112,7 +113,7 @@ export function MethodDetail({ method, searchParams = {} }: MethodDetailProps) {
       {method.hosted && !usesWordsReview(method) && (
         <p className="mt-8 text-sm text-muted">{copy.sessionNotBuilt}</p>
       )}
-    </div>
+    </ShellPageContent>
   );
 }
 

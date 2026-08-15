@@ -5,6 +5,7 @@ import { routes } from "@/lib/routes";
 
 import { ErrorCallout } from "@/components/ui/ErrorCallout";
 import { holding } from "@/features/app-shell/content";
+import { ShellPageContent } from "@/features/app-shell/ShellPageContent";
 import { readWordsHome } from "@/features/words/reading";
 import { WordsHome } from "@/features/words/WordsHome";
 import { toUserFacing } from "@/lib/errors";
@@ -26,9 +27,9 @@ export default async function WordsPage() {
 
   if (outcome.status === "error") {
     return (
-      <div className="mx-auto max-w-2xl px-6 pt-page-top pb-page-bottom">
+      <ShellPageContent width="narrow">
         <ErrorCallout {...toUserFacing(outcome.error)} />
-      </div>
+      </ShellPageContent>
     );
   }
 

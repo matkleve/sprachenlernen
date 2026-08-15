@@ -1,6 +1,7 @@
 import { ActionLink } from "@/components/ui/ActionLink";
 import { TextLink } from "@/components/ui/TextLink";
 import { Table, Td, Th } from "@/components/ui/Table";
+import { ShellPageContent } from "@/features/app-shell/ShellPageContent";
 import { DOSE_BANDS, hoursPerYear, yearsToReach } from "@/lib/dose-band";
 import type { LevelReading } from "@/lib/level-model";
 import { cardEngineSessionHref } from "@/lib/method-session";
@@ -33,7 +34,7 @@ export function ProgressReport({ reading }: { reading: LevelReading }) {
   const hasAnyData = reading.signals.some((signal) => signal.status === "has-data");
 
   return (
-    <div className="mx-auto max-w-5xl px-6 pt-page-top pb-page-bottom">
+    <ShellPageContent width="wide">
       <p className="max-w-2xl text-base leading-relaxed text-muted">{copy.intro}</p>
 
       <section className="mt-page-content">
@@ -156,6 +157,6 @@ export function ProgressReport({ reading }: { reading: LevelReading }) {
         <h2 className="text-xl font-semibold text-ink">{copy.gapHeading}</h2>
         <p className="mt-4 max-w-2xl text-base leading-relaxed text-muted">{copy.gapBody}</p>
       </section>
-    </div>
+    </ShellPageContent>
   );
 }

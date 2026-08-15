@@ -76,13 +76,16 @@ built) use **`scrollable-drill-in`** rhythm — they scroll like a drill-in page
 └─────────────────────────────────────────────┘
                     │
 ┌───────────────────▼─────────────────────────┐
-│  Feature component                          │
-│  · scrollable: max-width + pt-page-top      │
-│    pb-page-bottom (horizontal px-6)         │
+│  Feature component (`ShellPageContent`)       │
+│  · scrollable: max-width + pt-page-top        │
+│    pb-page-bottom (horizontal px-6)           │
 │  · runner: h-review-session + overflow      │
 │    hidden on < md                           │
 └─────────────────────────────────────────────┘
 ```
+
+**Reuse:** `ShellPageContent` in `features/app-shell/` implements the feature
+wrapper layer below.
 
 **Shell owns** top/bottom **reserve** so floats never cover content.
 **Features own** horizontal padding and **page rhythm** (`pt-page-top`,
@@ -137,4 +140,4 @@ When the mobile title wraps to two lines, `ShellPageTitle` sets
 
 ## Check
 
-`npm test -- shell-page-layout` — route → mode registry.
+`npm test -- shell-page` — layout mode registry and `ShellPageContent` wrapper classes.

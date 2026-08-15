@@ -19,6 +19,7 @@ Update this file in the same PR as any new control or migration.
 | Language menu row | `LanguageSwitcher.tsx` | `LanguageListRow` | disabled while `pending` | — |
 | Add language (menu) | `LanguageSwitcher.tsx` | `ActionLink` | `secondary sm` | ✓ |
 | Language scrim | `LanguageSwitcher.tsx` | raw `<button>` | **exempt** — dismiss overlay | — |
+| Page content wrapper | `ShellPageContent.tsx` | layout shell | `mode` + `width` from [`page-layout.md`](../feature/page-layout.md) | — |
 
 ## Marketing (signed out)
 

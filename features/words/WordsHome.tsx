@@ -1,4 +1,5 @@
 import { ActionLink } from "@/components/ui/ActionLink";
+import { ShellPageContent } from "@/features/app-shell/ShellPageContent";
 import { holding } from "@/features/app-shell/content";
 import { copy as reviewCopy } from "@/features/review-session/content";
 import { copy } from "@/features/words/content";
@@ -39,7 +40,7 @@ export function WordsHome({ snapshot, blocks, languageCode, translations }: Word
   const orbit = buildVocabularyOrbit(snapshot.atlas, translations);
 
   return (
-    <div className="mx-auto max-w-5xl px-6 pt-page-top pb-page-bottom">
+    <ShellPageContent width="wide">
       <section className="rounded-card border border-line bg-surface-raised p-6 shadow-soft">
         <p className="max-w-2xl text-base leading-relaxed text-muted">{holding.words.intent}</p>
 
@@ -148,6 +149,6 @@ export function WordsHome({ snapshot, blocks, languageCode, translations }: Word
       <div className="mt-page-content">
         <VocabularyOrbitField orbit={orbit} languageCode={languageCode} atlas={snapshot.atlas} />
       </div>
-    </div>
+    </ShellPageContent>
   );
 }
