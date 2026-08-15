@@ -63,4 +63,4 @@ Asset path from `sectionGraphicSrc[section]`.
 
 ## Check
 
-`npm test -- method-menu`
+`npm test -- method-card-header`

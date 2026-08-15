@@ -27,3 +27,4 @@ tmp/
 # database user — the migrations under supabase/migrations/ are the artefact
 # worth committing, not the link.
 supabase/.temp/
+dev.log

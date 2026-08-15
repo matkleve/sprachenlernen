@@ -33,7 +33,8 @@ requirements, hosted). Study/27; component
 
 **Card graphics (UX, 2026-08-15):** each card shows a **section header graphic**
 (one abstract image per catalogue section, decorative) with a soft gradient into
-the card body. No accent left border — uniform `rounded-card` only.
+the card body. Component [`method-card-header.md`](../component/method-card-header.md).
+No accent left border — uniform `rounded-card` only.
 
 ## Scope
 
