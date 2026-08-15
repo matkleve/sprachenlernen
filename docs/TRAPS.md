@@ -11,6 +11,18 @@ applying is still evidence about how this codebase misleads people.
 
 ---
 
+## Profile bound server actions inside LanguageListRow crashed in production
+
+Forms with `action={serverAction.bind(null, code)}` rendered as `LanguageListRow`
+children looked correct in dev — the page loaded, switches worked. In production
+Next.js threw `render/boundary` with the digest-only message and the profile
+showed *Could not load your profile.*
+
+**The fix:** profile language blocks are client components that call server
+actions via `useTransition` + `Button onClick`, same as `LanguageSwitcher` —
+never bound form actions through the row's client boundary. **The check:** grep
+profile for `.bind(null` on server actions; zero hits.
+
 ## Card press scaled the link, not the shell
 
 Method cards wrapped `SurfaceLink` (`cardPressable` → `active:scale-[0.98]`) inside

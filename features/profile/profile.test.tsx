@@ -8,7 +8,7 @@ import { SHIPPED_ES_POOL_SIZE } from "@/lib/starter-deck";
 
 vi.mock("next/navigation", () => ({
   usePathname: vi.fn(() => "/profile"),
-  useRouter: vi.fn(() => ({ push: vi.fn() })),
+  useRouter: vi.fn(() => ({ push: vi.fn(), refresh: vi.fn() })),
 }));
 
 /** Contract: docs/specs/page/profile.md */
