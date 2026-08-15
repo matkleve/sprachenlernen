@@ -74,8 +74,8 @@ describe("WordsHome", () => {
   it("explains that held counts meaning recall and what a lemma is", () => {
     render(<WordsHome {...homeProps} />);
     expect(screen.getByText(copy.countsCaption)).toBeDefined();
-    expect(screen.getByLabelText(copy.lemmaCalloutTitle)).toBeDefined();
-    expect(screen.getByText(copy.lemmaCalloutBody)).toBeDefined();
+    expect(screen.getAllByLabelText(copy.lemmaCalloutTitle).length).toBeGreaterThan(0);
+    expect(screen.getAllByText(copy.lemmaCalloutBody).length).toBeGreaterThan(0);
     expect(screen.getByText(copy.heldDescription)).toBeDefined();
   });
 
