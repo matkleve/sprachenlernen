@@ -118,15 +118,15 @@ export function WordsHome({ snapshot, blocks, languageCode, translations }: Word
       <section className="mt-page-content">
         <h2 className="text-xl font-semibold text-ink">{copy.horizonHeading}</h2>
         <p className="mt-4 max-w-2xl text-base leading-relaxed text-muted">{copy.horizonCaption}</p>
-        <div className="mt-6 overflow-x-auto" role="img" aria-label={copy.horizonCaption}>
+        <div className="mt-6 w-full" role="img" aria-label={copy.horizonCaption}>
           <div
-            className="flex min-w-max items-end gap-1"
+            className="flex w-full items-end gap-0.5"
             style={{ height: CHART_HEIGHT_PX }}
           >
             {snapshot.horizon.map((bin) => (
               <div
                 key={bin.dayOffset}
-                className="flex h-full w-4 flex-col justify-end"
+                className="flex h-full min-w-0 flex-1 flex-col justify-end"
                 title={`${copy.horizonDay(bin.dayOffset)}: ${bin.count}`}
               >
                 <div
@@ -136,9 +136,9 @@ export function WordsHome({ snapshot, blocks, languageCode, translations }: Word
               </div>
             ))}
           </div>
-          <div className="mt-2 flex min-w-max gap-1">
+          <div className="mt-2 flex w-full gap-0.5">
             {snapshot.horizon.map((bin) => (
-              <span key={bin.dayOffset} className="w-4 text-center text-[10px] text-muted">
+              <span key={bin.dayOffset} className="min-w-0 flex-1 text-center text-[10px] text-muted">
                 {bin.dayOffset % 5 === 0 ? bin.dayOffset + 1 : ""}
               </span>
             ))}

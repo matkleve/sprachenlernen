@@ -31,8 +31,9 @@ the existing RLS policy. A reviewer may escalate.
   horizon, and per-word list on `/words`; goals; the cold-start test; any
   language beyond the one in focus.
 
-**Reuse: `Table`** for the skills, as `/languages` does — same shape of claim,
-same reason not to invent a card.
+**Reuse: `Table` with `layout="fit"`** — columns wrap on narrow viewports so
+`/progress` stays document-scroll-only (no nested horizontal scroller; see
+[`page-layout.md`](../feature/page-layout.md) § Destination scroll).
 
 ## Behavior
 

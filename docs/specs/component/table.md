@@ -25,8 +25,9 @@ type system carries the accessibility rule so review does not have to.
 | # | User action | System response |
 | --- | --- | --- |
 | 1 | Reads with a screen reader | Each cell is announced with its column, and its row header where set |
-| 2 | Views on a narrow screen | The table scrolls inside its own box; the page does not |
-| 3 | Tabs to the table | The scroll region takes focus and arrow keys pan it |
+| 2 | Views on a narrow screen with `layout="scroll"` (default) | The table scrolls inside its own box; the page does not |
+| 3 | Tabs to a scroll-layout table | The scroll region takes focus and arrow keys pan it |
+| 4 | Views a `layout="fit"` table | Cells wrap inside the viewport; no nested horizontal scroll region |
 
 ## States
 
@@ -40,8 +41,12 @@ owns the data — and are mutually exclusive with content there, not here
   `showCaption={false}` when a visible heading already says the same thing.
   Hidden is fine; absent is not — it is the only orientation a non-visual user
   gets about what the table lists.
-- The scroll container is `tabIndex={0}` with `role="region"` and a label. A
-  scrollable box that only a mouse can pan is a WCAG failure, not a nicety.
+- **`layout="scroll"`** (default): `overflow-x-auto` wrapper, `tabIndex={0}`,
+  `role="region"`, and a label — for genuinely wide tables (orbit word list).
+- **`layout="fit"`**: no horizontal scroll wrapper — for destination-page tables
+  whose columns wrap (`table-fixed`, `break-words`). Signed-in scrollable
+  destinations must not nest horizontal scroll regions
+  ([`page-layout.md`](../feature/page-layout.md) § Destination scroll).
 - `Th scope="col"` for column headers, `scope="row"` for the first cell of a
   row. Without scope, a screen reader reads a flat stream of values and the
   user has to remember the column order.
@@ -54,8 +59,9 @@ owns the data — and are mutually exclusive with content there, not here
 - [ ] Given `showCaption={false}`, then the caption is in the accessibility tree
       but visually hidden.
 - [ ] Every `Th` shall carry a `scope` attribute; omitting it shall not compile.
-- [ ] The scroll container shall be focusable and labelled.
-- [ ] Wide content shall scroll inside the container, not move the page.
+- [ ] Given `layout="scroll"`, the scroll container shall be focusable and labelled.
+- [ ] Given `layout="scroll"`, wide content shall scroll inside the container, not move the page.
+- [ ] Given `layout="fit"`, the wrapper shall not use `overflow-x-auto`.
 - [ ] No axe-core violations.
 
 ## Check

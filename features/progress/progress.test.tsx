@@ -86,7 +86,7 @@ describe("ProgressReport", () => {
       screen.getByText(copy.vocabularyValue(vocabulary.value!, vocabulary.taskCount)),
     ).toBeDefined();
 
-    const signalsTable = screen.getByRole("region", { name: copy.signalsCaption });
+    const signalsTable = screen.getByRole("table", { name: copy.signalsCaption });
     expect(leafText(signalsTable)).not.toMatch(/\b[ABC][12](\.\d)?\b/);
   });
 
@@ -117,6 +117,13 @@ describe("ProgressReport", () => {
 
     const b1 = yearsToReach("B1", 15)!;
     expect(screen.getByText(copy.doseYears(b1.minYears, b1.maxYears))).toBeDefined();
+  });
+
+  it("uses fit tables without nested horizontal scroll on destination pages", () => {
+    const { container } = render(<ProgressReport reading={withHistory} />);
+
+    expect(container.querySelector(".overflow-x-auto")).toBeNull();
+    expect(screen.getAllByRole("table")).toHaveLength(3);
   });
 
   it("names what is still missing for language-wide levels", () => {

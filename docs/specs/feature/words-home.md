@@ -54,6 +54,9 @@ Server page with `ok | error | no-language` outcomes.
       to `srs-session`.
 - [ ] Given the starter deck, when the page renders, then a 30-day horizon is
       present and the full atlas is reachable via **Show list**.
+- [ ] Given viewport &lt; `md`, when the horizon renders, then all 30 day bars
+      fit the content width — no horizontal scroll region (document vertical
+      scroll only; see [`page-layout.md`](page-layout.md) § Destination scroll).
 - [ ] Given an Account with no language chosen, then the page routes to the
       picker — an all-zero snapshot would read as a learner who has done
       nothing rather than one who has not been asked.
