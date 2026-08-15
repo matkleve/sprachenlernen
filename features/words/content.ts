@@ -33,6 +33,8 @@ export const copy = {
   horizonSummaryPeakWeek: (week: number, avgPerDay: number) =>
     `Peak in week ${week} (~${Math.round(avgPerDay)} scheduled per day).`,
   horizonWeekLabel: (week: number) => `Week ${week}`,
+  horizonWeekScheduled: (total: number) => (total === 1 ? "1 scheduled" : `${total} scheduled`),
+  horizonWeekAvgPerDay: (avgPerDay: number) => `~${Math.round(avgPerDay)}/day`,
   horizonWeekStats: (total: number, avgPerDay: number) =>
     `${total} scheduled · ~${Math.round(avgPerDay)}/day`,
   horizonWeekAria: (week: number, total: number, avgPerDay: number) =>

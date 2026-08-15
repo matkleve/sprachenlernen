@@ -80,21 +80,27 @@ function WeekColumn({
   const isPeak = peakWeekIndex === week.weekIndex;
 
   return (
-    <div className="min-w-[4.5rem] flex-1">
+    <div className="min-w-0">
       <Button
         type="button"
         variant="secondary"
-        className="h-auto w-full flex-col items-stretch rounded-card p-2 text-left"
+        className="h-auto w-full flex-col items-stretch whitespace-normal rounded-card p-2 text-left"
         aria-expanded={open}
         aria-label={copy.horizonWeekAria(weekNumber, week.total, week.avgPerDay)}
         onClick={onToggle}
       >
-        <span className="text-xs font-medium text-muted">{copy.horizonWeekLabel(weekNumber)}</span>
-        <div className="mt-2 flex min-h-24 flex-1 flex-col justify-end">
+        <span className="text-center text-xs font-medium text-muted">{copy.horizonWeekLabel(weekNumber)}</span>
+        <div className="mt-2 flex min-h-16 flex-1 flex-col justify-end sm:min-h-24">
           <TileStack count={week.total} />
         </div>
-        <span className={cn("mt-2 text-[11px] leading-snug text-muted", isPeak && "text-ink")}>
-          {copy.horizonWeekStats(week.total, week.avgPerDay)}
+        <span
+          className={cn(
+            "mt-2 block text-center text-[10px] leading-tight text-muted sm:text-[11px]",
+            isPeak && "text-ink",
+          )}
+        >
+          <span className="block">{copy.horizonWeekScheduled(week.total)}</span>
+          <span className="mt-0.5 block tabular-nums">{copy.horizonWeekAvgPerDay(week.avgPerDay)}</span>
         </span>
       </Button>
     </div>
@@ -103,9 +109,11 @@ function WeekColumn({
 
 function DayColumn({ dayOffset, count, now }: { dayOffset: number; count: number; now: number }) {
   return (
-    <div className="min-w-[2.75rem] flex-1">
+    <div className="min-w-0 flex-1">
       <div className="flex flex-col rounded-card border border-line bg-surface-raised p-1.5">
-        <span className="text-[10px] font-medium text-muted">{formatDayLabel(dayOffset, now)}</span>
+        <span className="text-center text-[10px] font-medium leading-tight text-muted">
+          {formatDayLabel(dayOffset, now)}
+        </span>
         <div className="mt-1 flex min-h-16 flex-col justify-end">
           <TileStack count={count} />
         </div>
@@ -141,7 +149,7 @@ export function ReviewHorizonField({ horizon, display, now }: ReviewHorizonField
         {expanded ? (
           <div className="mt-4">
             <p className="mb-4 max-w-2xl text-sm text-muted">{copy.horizonScheduledNote}</p>
-            <div className="flex gap-2 overflow-x-auto pb-1" role="group" aria-label={copy.horizonCaption}>
+            <div className="grid w-full grid-cols-4 gap-1 sm:gap-2" role="group" aria-label={copy.horizonCaption}>
               {display.weeks.map((week) => (
                 <WeekColumn
                   key={week.weekIndex}
@@ -156,7 +164,7 @@ export function ReviewHorizonField({ horizon, display, now }: ReviewHorizonField
             </div>
 
             {openWeek !== null ? (
-              <div className="mt-4 flex gap-1 overflow-x-auto pb-1">
+              <div className="mt-4 grid grid-cols-7 gap-1">
                 {display.weeks[openWeek]?.dayOffsets.map((dayOffset) => (
                   <DayColumn
                     key={dayOffset}
