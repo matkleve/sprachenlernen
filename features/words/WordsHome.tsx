@@ -56,6 +56,13 @@ export function WordsHome({ snapshot, blocks, languageCode, translations }: Word
       <section className="mt-page-content">
         <h2 className="text-xl font-semibold text-ink">{copy.countsHeading}</h2>
         <p className="mt-4 max-w-2xl text-base leading-relaxed text-muted">{copy.countsCaption}</p>
+        <aside
+          aria-label={copy.lemmaCalloutTitle}
+          className="mt-4 max-w-2xl rounded-card border border-accent-soft bg-accent-soft px-4 py-3 text-sm leading-relaxed text-ink"
+        >
+          <p className="font-medium">{copy.lemmaCalloutTitle}</p>
+          <p className="mt-1 text-muted">{copy.lemmaCalloutBody}</p>
+        </aside>
         <dl className="mt-6 grid gap-4 sm:grid-cols-3">
           {(
             [

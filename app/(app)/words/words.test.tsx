@@ -50,6 +50,14 @@ describe("WordsHome", () => {
     expect(screen.getByRole("heading", { name: copy.reviewHeading })).toBeDefined();
   });
 
+  it("explains that held counts meaning recall and what a lemma is", () => {
+    render(<WordsHome {...homeProps} />);
+    expect(screen.getByText(copy.countsCaption)).toBeDefined();
+    expect(screen.getByLabelText(copy.lemmaCalloutTitle)).toBeDefined();
+    expect(screen.getByText(copy.lemmaCalloutBody)).toBeDefined();
+    expect(screen.getByText(copy.heldDescription)).toBeDefined();
+  });
+
   it("renders held, fragile, new, bands, horizon and vocabulary orbit", () => {
     const { container } = render(<WordsHome {...homeProps} />);
     expect(screen.getByRole("heading", { name: copy.countsHeading })).toBeDefined();
