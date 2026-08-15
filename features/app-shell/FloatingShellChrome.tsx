@@ -9,6 +9,7 @@ import { routes } from "@/lib/routes";
 import { cn } from "@/lib/utils";
 
 import { shellBackTarget } from "./back-target";
+import { AppVersionLabel } from "./AppVersionLabel";
 import { DestinationNavItems } from "./DestinationNavItems";
 import { FooterScrim } from "./FooterScrim";
 import { LanguageSwitcher, type LanguageSwitcherOption } from "./LanguageSwitcher";
@@ -74,16 +75,19 @@ export function FloatingShellChrome({
       </HeaderScrim>
 
       <FooterScrim className="md:hidden">
-        <nav aria-label={copy.mobileNavLabel} className="flex w-full justify-center">
-          <ul
-            className={cn(
-              "inline-flex list-none items-center gap-1.5 rounded-pill border border-line",
-              "bg-surface p-1.5 shadow-raised",
-            )}
-          >
-            <DestinationNavItems layout="pill" />
-          </ul>
-        </nav>
+        <div className="flex w-full flex-col items-center gap-0.5">
+          <nav aria-label={copy.mobileNavLabel} className="flex w-full justify-center">
+            <ul
+              className={cn(
+                "inline-flex list-none items-center gap-1.5 rounded-pill border border-line",
+                "bg-surface p-1.5 shadow-raised",
+              )}
+            >
+              <DestinationNavItems layout="pill" />
+            </ul>
+          </nav>
+          <AppVersionLabel />
+        </div>
       </FooterScrim>
     </>
   );

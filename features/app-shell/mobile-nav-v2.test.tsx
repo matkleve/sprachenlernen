@@ -6,6 +6,7 @@ import { expectNoA11yViolations } from "@/tests/axe";
 
 import { AppShell } from "./AppShell";
 import { FloatingShellChrome } from "./FloatingShellChrome";
+import { APP_VERSION_LABEL } from "@/lib/pride-version";
 import { copy as profileCopy } from "@/features/profile/content";
 
 import { copy, holding } from "./content";
@@ -63,6 +64,7 @@ describe("SPEC-feature-mobile-nav-v2", () => {
     for (const link of links) {
       expect(link.textContent?.trim()).toBe("");
     }
+    expect(screen.getByText(APP_VERSION_LABEL)).toBeDefined();
   });
 
   it("shows the account icon chip and one Words link on a destination root", () => {
