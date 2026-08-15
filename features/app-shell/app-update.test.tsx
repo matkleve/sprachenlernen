@@ -2,10 +2,23 @@ import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
-import { APP_VERSION_LABEL } from "@/lib/pride-version";
+import packageJson from "@/package.json";
+import {
+  APP_VERSION_LABEL,
+  bumpPrideVersion,
+  formatPrideVersion,
+  parsePrideVersion,
+} from "@/lib/pride-version";
 
 import { AppVersionLabel } from "./AppVersionLabel";
 import { copy } from "./content";
+
+const bundledVersion = packageJson.version;
+const bundledLabel = APP_VERSION_LABEL;
+const deployedVersion = formatPrideVersion(
+  bumpPrideVersion(parsePrideVersion(bundledVersion), "default"),
+);
+const deployedLabel = `v${deployedVersion}`;
 
 describe("SPEC-feature-app-update", () => {
   beforeEach(() => {
@@ -20,17 +33,17 @@ describe("SPEC-feature-app-update", () => {
   it("shows the version label when the deployed version matches the bundle", async () => {
     vi.mocked(fetch).mockResolvedValue({
       ok: true,
-      json: async () => ({ version: "0.3.0" }),
+      json: async () => ({ version: bundledVersion }),
     } as Response);
 
     render(<AppVersionLabel />);
 
     await waitFor(() => {
-      expect(screen.getByText(APP_VERSION_LABEL)).toBeDefined();
+      expect(screen.getByText(bundledLabel)).toBeDefined();
     });
     expect(
       screen.queryByRole("button", {
-        name: copy.appUpdate.reloadAria("v0.4.0", APP_VERSION_LABEL),
+        name: copy.appUpdate.reloadAria(deployedLabel, bundledLabel),
       }),
     ).toBeNull();
   });
@@ -38,18 +51,18 @@ describe("SPEC-feature-app-update", () => {
   it("shows the deployed version in success styling when an update is available", async () => {
     vi.mocked(fetch).mockResolvedValue({
       ok: true,
-      json: async () => ({ version: "0.4.0" }),
+      json: async () => ({ version: deployedVersion }),
     } as Response);
 
     const { container } = render(<AppVersionLabel />);
 
     const control = await screen.findByRole("button", {
-      name: copy.appUpdate.reloadAria("v0.4.0", APP_VERSION_LABEL),
+      name: copy.appUpdate.reloadAria(deployedLabel, bundledLabel),
     });
 
     expect(control).toBeDefined();
-    expect(screen.getByText("v0.4.0")).toBeDefined();
-    expect(screen.queryByText(APP_VERSION_LABEL)).toBeNull();
+    expect(screen.getByText(deployedLabel)).toBeDefined();
+    expect(screen.queryByText(bundledLabel)).toBeNull();
     expect(container.querySelector(".text-success")).not.toBeNull();
   });
 
@@ -62,7 +75,7 @@ describe("SPEC-feature-app-update", () => {
 
     vi.mocked(fetch).mockResolvedValue({
       ok: true,
-      json: async () => ({ version: "0.4.0" }),
+      json: async () => ({ version: deployedVersion }),
     } as Response);
 
     const user = userEvent.setup();
@@ -70,7 +83,7 @@ describe("SPEC-feature-app-update", () => {
 
     await user.click(
       await screen.findByRole("button", {
-        name: copy.appUpdate.reloadAria("v0.4.0", APP_VERSION_LABEL),
+        name: copy.appUpdate.reloadAria(deployedLabel, bundledLabel),
       }),
     );
 
@@ -83,11 +96,11 @@ describe("SPEC-feature-app-update", () => {
     render(<AppVersionLabel />);
 
     await waitFor(() => {
-      expect(screen.getByText(APP_VERSION_LABEL)).toBeDefined();
+      expect(screen.getByText(bundledLabel)).toBeDefined();
     });
     expect(
       screen.queryByRole("button", {
-        name: copy.appUpdate.reloadAria("v0.4.0", APP_VERSION_LABEL),
+        name: copy.appUpdate.reloadAria(deployedLabel, bundledLabel),
       }),
     ).toBeNull();
   });
