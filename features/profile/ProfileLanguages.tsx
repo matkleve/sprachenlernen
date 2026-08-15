@@ -1,6 +1,7 @@
 import { ActionLink } from "@/components/ui/ActionLink";
 import { LanguageListRow } from "@/components/ui/LanguageListRow";
 import { SubmitButton } from "@/components/ui/SubmitButton";
+import { switchProfileLanguageAction } from "@/features/profile/actions";
 import { copy } from "@/features/profile/content";
 import type { LanguageHoldings } from "@/lib/db/language-holdings";
 import type { ListLanguagesOutcome } from "@/lib/db/learning-languages";
@@ -19,10 +20,9 @@ export type ProfileLanguagesProps = {
   holdings?: Record<string, LanguageHoldings>;
   /** A switch that failed, so the learner is told rather than left guessing. */
   switchFailed?: boolean;
-  switchTo: (code: string) => Promise<void>;
 };
 
-export function ProfileLanguages({ outcome, holdings, switchFailed, switchTo }: ProfileLanguagesProps) {
+export function ProfileLanguages({ outcome, holdings, switchFailed }: ProfileLanguagesProps) {
   const learningCodes =
     outcome.status === "ok" ? outcome.languages.map((language) => language.languageCode) : [];
   const showAddLanguage =
@@ -74,18 +74,15 @@ export function ProfileLanguages({ outcome, holdings, switchFailed, switchTo }: 
                     standingLabel={copy.standing}
                     viewProgressHref={routes.progress}
                     viewProgressLabel={copy.viewProgress}
-                    actionSlot={
-                      language.isActive
-                        ? undefined
-                        : (
-                          <form action={switchTo.bind(null, language.languageCode)}>
-                            <SubmitButton variant="secondary" size="sm">
-                              {copy.makeActive}
-                            </SubmitButton>
-                          </form>
-                        )
-                    }
-                  />
+                  >
+                    {language.isActive ? null : (
+                      <form action={switchProfileLanguageAction.bind(null, language.languageCode)}>
+                        <SubmitButton variant="secondary" size="sm">
+                          {copy.makeActive}
+                        </SubmitButton>
+                      </form>
+                    )}
+                  </LanguageListRow>
                 </li>
               );
             })}

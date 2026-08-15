@@ -12,6 +12,8 @@ describe("RouteErrorSurface", () => {
         userMessage="Could not start your review session."
         nextStep="Try again in a moment."
         referenceId="abc12345"
+        code="render/boundary"
+        developerMessage="stack trace"
         onRetry={() => {}}
       />,
     );
@@ -30,6 +32,8 @@ describe("RouteErrorSurface", () => {
       <RouteErrorSurface
         userMessage="Could not load your vocabulary."
         referenceId="ref00001"
+        code="render/boundary"
+        developerMessage="boom"
         onRetry={onRetry}
       />,
     );

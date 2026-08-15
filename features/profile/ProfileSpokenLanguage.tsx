@@ -1,5 +1,6 @@
 import { LanguageListRow } from "@/components/ui/LanguageListRow";
 import { SubmitButton } from "@/components/ui/SubmitButton";
+import { changeSpokenLanguageAction } from "@/features/profile/actions";
 import { copy } from "@/features/profile/content";
 import type { SpokenLanguageOutcome } from "@/lib/db/profiles";
 import { shippedSpokenLanguages, spokenLanguageLabel } from "@/lib/spoken-language";
@@ -12,13 +13,11 @@ import { shippedSpokenLanguages, spokenLanguageLabel } from "@/lib/spoken-langua
 export type ProfileSpokenLanguageProps = {
   outcome: SpokenLanguageOutcome;
   changeFailed?: boolean;
-  changeTo: (code: string) => Promise<void>;
 };
 
 export function ProfileSpokenLanguage({
   outcome,
   changeFailed,
-  changeTo,
 }: ProfileSpokenLanguageProps) {
   return (
     <section className="mt-page-content">
@@ -48,18 +47,15 @@ export function ProfileSpokenLanguage({
                   names={{ endonym: language.endonym, english: language.english }}
                   isActive={isCurrent}
                   activeLabel={copy.active}
-                  actionSlot={
-                    isCurrent
-                      ? undefined
-                      : (
-                        <form action={changeTo.bind(null, language.code)}>
-                          <SubmitButton variant="secondary" size="sm">
-                            {copy.makeActive}
-                          </SubmitButton>
-                        </form>
-                      )
-                  }
-                />
+                >
+                  {isCurrent ? null : (
+                    <form action={changeSpokenLanguageAction.bind(null, language.code)}>
+                      <SubmitButton variant="secondary" size="sm">
+                        {copy.makeActive}
+                      </SubmitButton>
+                    </form>
+                  )}
+                </LanguageListRow>
               </li>
             );
           })}

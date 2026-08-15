@@ -25,9 +25,11 @@ fed by [`../service/errors.md`](../service/errors.md).
 | # | User action | System response |
 | --- | --- | --- |
 | 1 | A parent passes a `HandledError` (or its user-facing fields) | The callout renders with danger styling; happy-path content on that surface is absent |
-| 2 | Reads the callout | They see what failed, an optional next step, and `Reference: {id}` in muted mono |
-| 3 | Activates retry (when provided) | The parent re-runs the failed operation — the callout does not own retry logic |
-| 4 | Screen reader focuses the region | The message is announced as an alert |
+| 2 | Reads the callout | They see what failed, an optional next step, `Reference: {id}` in muted mono, and a short note that the id matches server logs |
+| 3 | Taps **Copy details** | The clipboard receives user copy, next step, reference id, and any technical fields |
+| 4 | Expands **Technical details** (when code or developer message exists) | Stable `code` and `developerMessage` appear in monospace — not in the headline |
+| 5 | Activates retry (when provided) | The parent re-runs the failed operation — the callout does not own retry logic |
+| 6 | Screen reader focuses the region | The message is announced as an alert |
 
 ## States
 
@@ -41,8 +43,9 @@ Loading and error are mutually exclusive on the same surface — same rule as
 
 ## Data
 
-Receives only user-facing fields from `HandledError` — never `developerMessage`
-or raw `context`. The parent is responsible for mapping.
+Receives user-facing fields from `HandledError`. Optional `code` and
+`developerMessage` render only inside **Technical details** and the copy
+payload — never as the headline.
 
 ## Accessibility
 
@@ -60,7 +63,10 @@ or raw `context`. The parent is responsible for mapping.
 - [ ] Given `nextStep` is omitted, when rendered, then no empty "next step"
       placeholder appears.
 - [ ] Given `developerMessage` is passed, when rendered, then it does **not**
-      appear in the DOM.
+      appear in the headline and only shows inside **Technical details**.
+- [ ] Given **Copy details** is activated, when the clipboard API succeeds, then
+      the payload includes `userMessage`, `referenceId`, and any supplied
+      `code` / `developerMessage`.
 - [ ] Given a retry action, when activated, then the parent's handler runs and
       the callout does not implement fetch itself.
 - [ ] No axe-core violations.

@@ -43,6 +43,7 @@ developer dashboards later.
 | --- | --- | --- | --- |
 | **Global** | `app/global-error.tsx` | Root layout / `html` failures | Full-page recovery; no app shell |
 | **Route** | `app/error.tsx` | Uncaught errors in a route segment's tree | `RouteErrorSurface` inside shell |
+| **Signed-in** | `app/(app)/error.tsx` | Profile, picker, and other gated routes | `RouteErrorSurface` inside shell — navigation survives |
 | **Destination** | `app/(app)/{words,methods,progress}/error.tsx` | One destination without killing the shell | `RouteErrorSurface` in content area; header nav survives |
 | **Loader** | feature `reading.ts` | Expected I/O failures | `ErrorCallout` with `HandledError` |
 | **Inline** | forms, review sync | Single action failed | Field error or sync status line |
@@ -80,6 +81,7 @@ no caller can show the failure inline and the route boundary should recover.
 | `/methods/` | load this method |
 | `/methods` | load the method menu |
 | `/progress` | load your progress |
+| `/profile` | load your profile |
 | *(default)* | load this page |
 
 ## Correlation
