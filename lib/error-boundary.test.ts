@@ -17,6 +17,7 @@ describe("error-boundary", () => {
     expect(routeOperation("/words/review")).toBe("start your review session");
     expect(routeOperation("/words")).toBe("load your vocabulary");
     expect(routeOperation("/methods/srs-session")).toBe("load this method");
+    expect(routeOperation("/profile")).toBe("load your profile");
     expect(routeOperation("/unknown")).toBe("load this page");
   });
 
@@ -51,6 +52,14 @@ describe("error-boundary", () => {
     expect(error.referenceId).toBe("deadbeef");
     expect(error.developerMessage).toContain("89458791");
     expect(error.userMessage).not.toMatch(/something went wrong/i);
+  });
+
+  it("names the profile operation for uncaught errors on /profile", () => {
+    const error = boundaryErrorFromUnknown(new Error("action serialization failed"), {
+      route: "/profile",
+    });
+
+    expect(error.userMessage).toBe("Could not load your profile.");
   });
 
   it("classifies network failures", () => {

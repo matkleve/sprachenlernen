@@ -4,11 +4,11 @@ import { useTransition } from "react";
 
 import { Button } from "@/components/ui/Button";
 import { ErrorCallout } from "@/components/ui/ErrorCallout";
-import type { UserFacingError } from "@/lib/errors";
+import type { HandledError } from "@/lib/errors";
 
 import { copy } from "./route-error-surface-content";
 
-export type RouteErrorSurfaceProps = UserFacingError & {
+export type RouteErrorSurfaceProps = HandledError & {
   onRetry: () => void;
 };
 
@@ -20,6 +20,8 @@ export function RouteErrorSurface({
   userMessage,
   nextStep,
   referenceId,
+  code,
+  developerMessage,
   onRetry,
 }: RouteErrorSurfaceProps) {
   const [isPending, startTransition] = useTransition();
@@ -30,6 +32,8 @@ export function RouteErrorSurface({
         userMessage={userMessage}
         nextStep={nextStep}
         referenceId={referenceId}
+        code={code}
+        developerMessage={developerMessage}
         retry={
           <Button
             type="button"

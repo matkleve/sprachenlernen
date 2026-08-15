@@ -13,8 +13,6 @@ vi.mock("next/navigation", () => ({
 
 /** Contract: docs/specs/page/profile.md */
 
-const switchTo = vi.fn();
-
 const language = (code: string, isActive: boolean) => ({
   languageCode: code,
   isActive,
@@ -26,7 +24,6 @@ describe("ProfileLanguages", () => {
     render(
       <ProfileLanguages
         outcome={{ status: "ok", languages: [language("es", true)] }}
-        switchTo={switchTo}
       />,
     );
 
@@ -42,7 +39,6 @@ describe("ProfileLanguages", () => {
     render(
       <ProfileLanguages
         outcome={{ status: "ok", languages: [language("es", true), language("it", false)] }}
-        switchTo={switchTo}
       />,
     );
 
@@ -52,7 +48,7 @@ describe("ProfileLanguages", () => {
   it("routes to the picker instead of rendering an empty table", () => {
     // A learner who has not chosen is not a learner with zero languages, and
     // the difference between those two is a route.
-    render(<ProfileLanguages outcome={{ status: "ok", languages: [] }} switchTo={switchTo} />);
+    render(<ProfileLanguages outcome={{ status: "ok", languages: [] }} />);
 
     expect(screen.getByText(copy.noneYet)).toBeDefined();
     expect(screen.getByRole("link", { name: copy.chooseFirst })).toBeDefined();
@@ -64,7 +60,6 @@ describe("ProfileLanguages", () => {
       <ProfileLanguages
         outcome={{ status: "ok", languages: [language("es", true)] }}
         switchFailed
-        switchTo={switchTo}
       />,
     );
 
@@ -73,7 +68,7 @@ describe("ProfileLanguages", () => {
 
   it("renders its own failure so the rest of the page survives", () => {
     render(
-      <ProfileLanguages outcome={{ status: "error", error: "boom" }} switchTo={switchTo} />,
+      <ProfileLanguages outcome={{ status: "error", error: "boom" }} />,
     );
 
     expect(screen.getByRole("alert").textContent).toBe(copy.languagesError);
@@ -84,7 +79,6 @@ describe("ProfileLanguages", () => {
       <ProfileLanguages
         outcome={{ status: "ok", languages: [language("es", true)] }}
         holdings={{ es: { poolSize: SHIPPED_ES_POOL_SIZE, heldCount: 347 } }}
-        switchTo={switchTo}
       />,
     );
 
@@ -97,7 +91,6 @@ describe("ProfileLanguages", () => {
       <ProfileLanguages
         outcome={{ status: "ok", languages: [language("it", true)] }}
         holdings={{ it: { poolSize: SHIPPED_ES_POOL_SIZE, heldCount: null } }}
-        switchTo={switchTo}
       />,
     );
 
@@ -108,7 +101,6 @@ describe("ProfileLanguages", () => {
     render(
       <ProfileLanguages
         outcome={{ status: "ok", languages: [language("es", true), language("it", false)] }}
-        switchTo={switchTo}
       />,
     );
 
@@ -119,7 +111,6 @@ describe("ProfileLanguages", () => {
     render(
       <ProfileLanguages
         outcome={{ status: "ok", languages: [language("es", true)] }}
-        switchTo={switchTo}
       />,
     );
 
@@ -130,7 +121,6 @@ describe("ProfileLanguages", () => {
     const { container } = render(
       <ProfileLanguages
         outcome={{ status: "ok", languages: [language("es", true)] }}
-        switchTo={switchTo}
       />,
     );
     const text = (container.textContent ?? "").toLowerCase();
@@ -141,14 +131,9 @@ describe("ProfileLanguages", () => {
 });
 
 describe("ProfileSpokenLanguage", () => {
-  const changeTo = vi.fn();
-
   it("marks the current spoken language and offers a switch for the other", () => {
     render(
-      <ProfileSpokenLanguage
-        outcome={{ status: "ok", spokenLanguage: "en" }}
-        changeTo={changeTo}
-      />,
+      <ProfileSpokenLanguage outcome={{ status: "ok", spokenLanguage: "en" }} />,
     );
 
     expect(screen.getByText("Deutsch")).toBeDefined();

@@ -38,8 +38,13 @@ export type LanguageListRowProps = {
   standingLabel?: (held: number, pool: number) => string;
   viewProgressHref?: string;
   viewProgressLabel?: string;
-  /** Profile: form + SubmitButton. Switcher: omit and use `onSelect`. */
+  /**
+   * Profile: form + SubmitButton. Prefer `children` for server actions — the
+   * composition slot keeps actions on the server side of the boundary.
+   */
   actionSlot?: ReactNode;
+  /** Profile action area when `actionSlot` is not used. */
+  children?: ReactNode;
   onSelect?: () => void;
   disabled?: boolean;
   className?: string;
@@ -55,6 +60,7 @@ export function LanguageListRow({
   viewProgressHref,
   viewProgressLabel,
   actionSlot,
+  children,
   onSelect,
   disabled = false,
   className,
@@ -86,7 +92,7 @@ export function LanguageListRow({
           {activeLabel}
         </Chip>
       ) : (
-        actionSlot ?? null
+        actionSlot ?? children ?? null
       )}
     </>
   );

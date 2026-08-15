@@ -30,6 +30,7 @@ const ROUTE_OPERATIONS: readonly { prefix: string; operation: string }[] = [
   { prefix: "/methods/", operation: "load this method" },
   { prefix: "/methods", operation: "load the method menu" },
   { prefix: "/progress", operation: "load your progress" },
+  { prefix: "/profile", operation: "load your profile" },
 ];
 
 /** Maps a pathname to the operation phrase used in user copy. */

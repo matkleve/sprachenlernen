@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { redirect } from "next/navigation";
 
 import { AccountDataPanel } from "@/features/account-data/AccountDataPanel";
 import { copy as accountCopy } from "@/features/account-data/content";
@@ -10,9 +9,8 @@ import { ProfileSpokenLanguage } from "@/features/profile/ProfileSpokenLanguage"
 import { copy } from "@/features/profile/content";
 import { SubmitButton } from "@/components/ui/SubmitButton";
 import { readLanguageHoldings } from "@/lib/db/language-holdings";
-import { listLearningLanguages, setActiveLanguage } from "@/lib/db/learning-languages";
-import { getSpokenLanguage, setSpokenLanguage } from "@/lib/db/profiles";
-import { routes } from "@/lib/routes";
+import { listLearningLanguages } from "@/lib/db/learning-languages";
+import { getSpokenLanguage } from "@/lib/db/profiles";
 
 export const metadata: Metadata = {
   title: copy.title,
@@ -34,31 +32,14 @@ export default async function ProfilePage({
       ? await readLanguageHoldings(languages.languages.map((language) => language.languageCode))
       : { status: "error" as const, error: "" };
 
-  async function switchTo(code: string) {
-    "use server";
-    const switched = await setActiveLanguage(code);
-    if (switched.status === "error") redirect(`${routes.profile}?failed`);
-  }
-
-  async function changeSpoken(code: string) {
-    "use server";
-    const changed = await setSpokenLanguage(code);
-    if (changed.status === "error") redirect(`${routes.profile}?spoken`);
-  }
-
   return (
     <ShellPageContent width="narrow">
-      <ProfileSpokenLanguage
-        outcome={spoken}
-        changeFailed={spokenFailed}
-        changeTo={changeSpoken}
-      />
+      <ProfileSpokenLanguage outcome={spoken} changeFailed={spokenFailed} />
 
       <ProfileLanguages
         outcome={languages}
         holdings={holdings.status === "ok" ? holdings.byCode : undefined}
         switchFailed={switchFailed}
-        switchTo={switchTo}
       />
 
       <section className="mt-page-content">
