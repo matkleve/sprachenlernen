@@ -1,5 +1,10 @@
+"use client";
+
+import { useRouter } from "next/navigation";
+import { useState, useTransition } from "react";
+
+import { Button } from "@/components/ui/Button";
 import { LanguageListRow } from "@/components/ui/LanguageListRow";
-import { SubmitButton } from "@/components/ui/SubmitButton";
 import { changeSpokenLanguageAction } from "@/features/profile/actions";
 import { copy } from "@/features/profile/content";
 import type { SpokenLanguageOutcome } from "@/lib/db/profiles";
@@ -8,6 +13,9 @@ import { shippedSpokenLanguages, spokenLanguageLabel } from "@/lib/spoken-langua
 /**
  * Spoken-language block on the profile. Contract:
  * docs/specs/service/spoken-language.md
+ *
+ * Client for the same reason as ProfileLanguages — server actions must not
+ * cross the LanguageListRow boundary via bound form actions.
  */
 
 export type ProfileSpokenLanguageProps = {
@@ -17,8 +25,28 @@ export type ProfileSpokenLanguageProps = {
 
 export function ProfileSpokenLanguage({
   outcome,
-  changeFailed,
+  changeFailed: changeFailedProp,
 }: ProfileSpokenLanguageProps) {
+  const router = useRouter();
+  const [pending, startTransition] = useTransition();
+  const [changeFailed, setChangeFailed] = useState(changeFailedProp ?? false);
+  const [pendingCode, setPendingCode] = useState<string | null>(null);
+
+  const onChange = (code: string) => {
+    setChangeFailed(false);
+    setPendingCode(code);
+    startTransition(async () => {
+      try {
+        await changeSpokenLanguageAction(code);
+        router.refresh();
+      } catch {
+        setChangeFailed(true);
+      } finally {
+        setPendingCode(null);
+      }
+    });
+  };
+
   return (
     <section className="mt-page-content">
       <h2 className="text-xl font-semibold text-ink">{copy.spokenHeading}</h2>
@@ -47,15 +75,23 @@ export function ProfileSpokenLanguage({
                   names={{ endonym: language.endonym, english: language.english }}
                   isActive={isCurrent}
                   activeLabel={copy.active}
-                >
-                  {isCurrent ? null : (
-                    <form action={changeSpokenLanguageAction.bind(null, language.code)}>
-                      <SubmitButton variant="secondary" size="sm">
-                        {copy.makeActive}
-                      </SubmitButton>
-                    </form>
-                  )}
-                </LanguageListRow>
+                  actionSlot={
+                    isCurrent
+                      ? undefined
+                      : (
+                        <Button
+                          type="button"
+                          variant="secondary"
+                          size="sm"
+                          pending={pending && pendingCode === language.code}
+                          disabled={pending}
+                          onClick={() => onChange(language.code)}
+                        >
+                          {copy.makeActive}
+                        </Button>
+                      )
+                  }
+                />
               </li>
             );
           })}
