@@ -1,7 +1,7 @@
 # UC-063 — Get to my cards without going through today's menu
 
 <!-- id: UC-063 -->
-<!-- specs: SPEC-feature-app-shell, SPEC-component-nav-link, SPEC-page-words-review, SPEC-page-words, SPEC-feature-words-home, SPEC-feature-mobile-nav, SPEC-feature-mobile-nav-v2 -->
+<!-- specs: SPEC-feature-app-shell, SPEC-component-nav-link, SPEC-page-words-review, SPEC-page-words, SPEC-feature-words-home, SPEC-feature-vocabulary-orbit, SPEC-feature-mobile-nav, SPEC-feature-mobile-nav-v2 -->
 
 **Who:** a learner who reviews every day and knows exactly what they came for.
 **Wants to:** reach their due cards in one tap, from anywhere in the app.

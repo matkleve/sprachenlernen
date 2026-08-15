@@ -64,6 +64,14 @@
   --color-grade-easy-deep: #b8e6ce;
   --color-grade-easy-ink: #1f5c3f;
 
+  /* Language center stripes — decorative fills on the vocabulary orbit only. */
+  --color-lang-es-1: #c60b1e;
+  --color-lang-es-2: #ffc400;
+  --color-lang-es-3: #c60b1e;
+  --color-lang-it-1: #009246;
+  --color-lang-it-2: #ffffff;
+  --color-lang-it-3: #ce2b37;
+
   /* Radius */
   --radius-card: 1rem;
   --radius-pill: 9999px;
@@ -279,6 +287,29 @@
     color-mix(in srgb, var(--color-surface) 38%, transparent) 52%,
     transparent 100%
   );
+}
+
+/* Vocabulary orbit — one slow rotation; disabled under prefers-reduced-motion in base. */
+@keyframes orbit-spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.orbit-spin {
+  animation: orbit-spin 120s linear infinite;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .orbit-spin {
+    animation: none;
+  }
 }
 
 /* Language switcher popover — full-viewport scrim behind stacked language cards. */

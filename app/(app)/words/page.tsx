@@ -32,5 +32,12 @@ export default async function WordsPage() {
     );
   }
 
-  return <WordsHome snapshot={outcome.snapshot} blocks={outcome.blocks} />;
+  return (
+    <WordsHome
+      snapshot={outcome.snapshot}
+      blocks={outcome.blocks}
+      languageCode={outcome.languageCode}
+      translations={outcome.translations}
+    />
+  );
 }
