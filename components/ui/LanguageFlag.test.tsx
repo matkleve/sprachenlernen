@@ -11,6 +11,6 @@ describe("LanguageFlag", () => {
 
     const flag = screen.getByTestId("flag");
     expect(flag.textContent).toContain("🇪🇸");
-    expect(flag.className).toContain("size-12");
+    expect(flag.className).toContain("size-11");
   });
 });

@@ -32,7 +32,7 @@ Progress (ADR-0009). **No due-count badges** (UC-063).
 | # | User action | System response |
 | --- | --- | --- |
 | 1 | Viewport ≥ `md` | Horizontal nav + inline account link in header; no floating chrome |
-| 2 | Viewport &lt; `md` on a destination root | Bottom pill visible (full width, ≥ 48px segments); top-right account icon chip; **top-left language icon chip** when the account has at least one learning language |
+| 2 | Viewport &lt; `md` on a destination root | Bottom pill visible (compact horizontal segments, 44px tall); top-right account icon chip; **top-left language icon chip** when the account has at least one learning language |
 | 3 | Viewport &lt; `md` on a drill-in route | **Icon-only** back chip (round, same size as the language chip) in the top-left corner; **no language chip** — target is the parent destination (`aria-label` names it) |
 | 4 | Taps a pill segment | Navigates; current segment marked with `aria-current="page"` |
 | 5 | Taps the account chip | `/profile`, where sign out now lives ([`../page/profile.md`](../page/profile.md)) |
