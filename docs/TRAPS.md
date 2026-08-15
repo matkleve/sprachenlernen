@@ -56,6 +56,12 @@ taps on the pill, session state in one tab). No web API to force it per URL
 ([Ionic #19081 — Apple](https://github.com/ionic-team/ionic-framework/issues/19081#issuecomment-948987368)).
 A fixed `3rem` lift was wrong when the toolbar was absent.
 
+**Owner QA (2026-08-15, true PWA):** asymmetry persisted — Methods/mirror OK,
+Words/Progress not. That is **not** session-only: mirror shares Methods body.
+In standalone PWA there is no Safari toolbar; the lift was a **phantom
+visualViewport inset**. Fix: force `0px` inset when `isStandaloneDisplay()` —
+see [`study/31-ios-safari-pwa-test-report.md`](study/31-ios-safari-pwa-test-report.md).
+
 **The fix (keep):** `useVisualViewportBottomInset` —
 `max(0, innerHeight - visualViewport.height - visualViewport.offsetTop)` →
 `--shell-visual-viewport-bottom-inset`. Pill lifts when measured inset > 0; sits
