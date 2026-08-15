@@ -16,6 +16,7 @@ import { ShellPageTitle, shellHeaderStartsCompact } from "./ShellPageTitle";
 import { HeaderScrim } from "./HeaderScrim";
 import { copy } from "./content";
 import { useHeaderCollapse } from "./useHeaderCollapse";
+import { useVisualViewportBottomInset } from "./useVisualViewportBottomInset";
 
 const safeTop = "pt-[max(1rem,env(safe-area-inset-top))]";
 
@@ -34,6 +35,7 @@ export function FloatingShellChrome({
   const back = shellBackTarget(pathname);
   const collapse = useHeaderCollapse();
   const pinnedCompact = shellHeaderStartsCompact(pathname);
+  useVisualViewportBottomInset();
 
   return (
     <>

@@ -29,7 +29,7 @@ export function AppShell({
   languageHoldings?: Record<string, LanguageHoldings>;
 }) {
   return (
-    <div className="min-h-dvh">
+    <div className="min-h-svh">
       <DesktopShellHeader languages={languages} languageHoldings={languageHoldings} />
 
       <FloatingShellChrome languages={languages} languageHoldings={languageHoldings} />

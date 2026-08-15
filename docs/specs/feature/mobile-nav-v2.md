@@ -64,9 +64,11 @@ from the URL.
 The shell owns mobile inset padding on `<main>` so pages do not each account for
 float height. Tokens: `--spacing-shell-float-top`, `--spacing-shell-float-top-expanded`,
 `--shell-float-top-active`, `--spacing-shell-float-bottom`,
-`--spacing-shell-float-browser-lift`, and `--spacing-shell-float-nav-height` in
-`app/globals.css`. The bottom pill uses `.shell-float-nav-bottom` to sit above
-iOS Safari's bottom toolbar (which cannot be hidden in-browser). When the mobile
+`--shell-visual-viewport-bottom-inset`, and `--spacing-shell-float-nav-height` in
+`app/globals.css`. `useVisualViewportBottomInset` measures iOS Safari's bottom
+toolbar when it is visible (often on `/words` and `/progress`, not `/methods`)
+and sets the inset — the bottom pill uses `.shell-float-nav-bottom` to sit just
+above whatever chrome is actually present. When the mobile
 title wraps to two lines, `ShellPageTitle` sets
 `--shell-float-top-active` to the expanded value.
 

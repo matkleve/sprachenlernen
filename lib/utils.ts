@@ -66,7 +66,7 @@ const twMerge = extendTailwindMerge({
         "shell-float-top-compact",
         "shell-float-top-expanded",
         "shell-float-nav-height",
-        "shell-float-browser-lift",
+        "shell-float-nav-gap",
         "shell-float-bottom",
       ],
       ease: ["out-soft"],
