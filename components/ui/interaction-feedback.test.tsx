@@ -111,7 +111,7 @@ describe("interaction-feedback contract", () => {
 
     const link = screen.getByRole("link");
     expect(link.className).toContain("rounded-full");
-    expect(link.className).toContain("size-11");
+    expect(link.className).toContain("size-12");
   });
 
   it("SubmitButton renders a submit button inside a form", () => {
