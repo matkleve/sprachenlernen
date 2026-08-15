@@ -56,7 +56,7 @@ Update this file in the same PR as any new control or migration.
 
 | Control | File | Primitive | Variant | P |
 | --- | --- | --- | --- | --- |
-| Method card link | `MethodCard.tsx` | `SurfaceLink` | inside `<article>` | ✓ |
+| Method card link | `MethodCard.tsx` | `SurfaceLink` | `cardPressable` on the card shell (border + header + body) | ✓ |
 | Filter pills | `MethodFilter.tsx`, `RefineFilter.tsx` | `FilterPill` | `aria-pressed` | — |
 | Refine panel toggle | `RefineFilter.tsx` | `Disclosure` / `DisclosureSummary` | native `<details>` | — |
 | Time slider | `TimeSlider.tsx` | `<input type="range">` | focus ring | — |

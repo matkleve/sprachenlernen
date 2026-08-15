@@ -11,6 +11,16 @@ applying is still evidence about how this codebase misleads people.
 
 ---
 
+## Card press scaled the link, not the shell
+
+Method cards wrapped `SurfaceLink` (`cardPressable` → `active:scale-[0.98]`) inside
+an `<article>` that owned the border, shadow, and section tint. On press the
+inner content shrank while the frame stayed put.
+
+**The fix:** one element — `SurfaceLink` carries `methodSectionSurface` + `shadow-soft`.
+`PressableCard` and `LanguageListRow` already did this. **The check:** the
+navigating element's class list includes both `border-line` and `active:scale`.
+
 ## `interactive-widget=resizes-content` made Safari's bottom toolbar appear on every page except Methods
 
 Words and Progress showed Safari's back/share/refresh bar under the app nav;

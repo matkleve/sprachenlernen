@@ -73,6 +73,8 @@ describe("method surfaces", () => {
   it("shows badge row above tag chips on cards", () => {
     render(<MethodCard method={method} />);
     const link = screen.getByRole("link", { name: new RegExp(method.name) });
+    expect(link.className).toContain("border-line");
+    expect(link.className).toContain("active:scale-");
     expect(link.textContent).toContain(evidenceCard.C);
     expect(link.textContent).toContain(effortCard[1]);
     expect(link.textContent).not.toContain("plausible and widespread");
