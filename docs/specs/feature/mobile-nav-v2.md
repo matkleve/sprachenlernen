@@ -25,7 +25,9 @@ Progress (ADR-0009). **No due-count badges** (UC-063).
   (decorative glyph from `lib/languages.ts`, not the identifier) that opens a
   popover of [`language-list-row.md`](../component/language-list-row.md) cards.
 - **Out:** hamburger and drawer; full-width mobile header bar; hiding the pill on
-  review; profile destination; notification badges; marketing shell.
+  review; profile destination; notification badges; marketing shell; **per-route
+  bottom inset** to normalise Safari toolbar visibility (impossible — see
+  [`page-layout.md`](page-layout.md) § Safari bottom toolbar).
 
 **Reuse:** `IconLink` (mobile pill segments), `NavLink` (desktop header),
 `Button`, `shellDestinations` in `destinations.ts`.
@@ -70,7 +72,10 @@ themselves. Tokens: `--spacing-shell-float-top`, `--shell-float-top-active`,
 `--spacing-shell-float-bottom`, `--shell-visual-viewport-bottom-inset`,
 `--spacing-shell-float-nav-height` in `app/globals.css`.
 `useVisualViewportBottomInset` measures iOS Safari's bottom toolbar when visible;
-`.shell-float-nav-bottom` positions the pill above measured chrome.
+`.shell-float-nav-pill` positions the pill above measured chrome (legacy
+`.shell-float-nav-bottom` is pill-only). Toolbar show/hide is **Safari-controlled**
+— same measurement on every route; do not add pathname-specific inset. Study:
+[`../../study/29-ios-inset-by-route.md`](../../study/29-ios-inset-by-route.md).
 `ShellPageTitle` sets `--shell-float-top-active` to the expanded value when the
 title wraps to two lines.
 
@@ -94,6 +99,9 @@ title wraps to two lines.
 - [ ] Given viewport &lt; `md` and no Safari bottom toolbar, when the shell
       renders, then the footer scrim extends to the viewport bottom and the pill
       has visible padding above and below inside the scrim band (not flush).
+- [ ] Given viewport &lt; `md` on `/methods` with Safari toolbar hidden, when the
+      shell renders, then inset is `0` and the pill sits low — **expected**, not
+      a missing inset bug (same code as `/words`).
 - [ ] Given viewport &lt; `md` on any drill-in route, then the top-left shows
       **either** a back chip **or** a language chip — never both.
 - [ ] Given viewport &lt; `md` on `/methods/[id]`, then a back chip links to

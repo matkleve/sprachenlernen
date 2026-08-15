@@ -21,19 +21,33 @@ inner content shrank while the frame stayed put.
 `PressableCard` and `LanguageListRow` already did this. **The check:** the
 navigating element's class list includes both `border-line` and `active:scale`.
 
-## `interactive-widget=resizes-content` made Safari's bottom toolbar appear on every page except Methods
+## Safari bottom toolbar looks route-specific but is session state, not page code
 
-Words and Progress showed Safari's back/share/refresh bar under the app nav;
-Methods did not. A fixed `3rem` bottom lift was also wrong on Methods — the nav
-floated too high when Safari had no toolbar.
+`/methods` often shows no iOS Safari bottom inset; `/words` and `/progress` often
+do. That is **not** different shell code per route and **not** page length —
+`/methods` is ~10× taller (~18k px vs ~1.8k). Same hook, same CSS on every route.
 
-**The fix:** `useVisualViewportBottomInset` measures
-`window.innerHeight - visualViewport.height - visualViewport.offsetTop` and sets
-`--shell-visual-viewport-bottom-inset` so the pill sits just above whatever
-chrome is actually present (0 on Methods, ~50px when Safari's bar is showing).
-Remove `interactiveWidget: resizes-content` too — it reserves layout space for
-the toolbar. **The check:** compare `/methods` and `/words` in iOS Safari with
-the bottom toolbar visible on one and not the other.
+**What looked true:** Methods needs a fixed bottom lift; Words needs more inset.
+**What was actually true:** Safari decides toolbar visibility (gestures, bottom
+taps on the pill, session state in one tab). No web API to force it per URL
+([Ionic #19081 — Apple](https://github.com/ionic-team/ionic-framework/issues/19081#issuecomment-948987368)).
+A fixed `3rem` lift was wrong when the toolbar was absent.
+
+**The fix (keep):** `useVisualViewportBottomInset` —
+`max(0, innerHeight - visualViewport.height - visualViewport.offsetTop)` →
+`--shell-visual-viewport-bottom-inset`. Pill lifts when measured inset > 0; sits
+low when 0. **Do not** add per-route inset. Study:
+[`study/29-ios-inset-by-route.md`](study/29-ios-inset-by-route.md).
+
+**`interactive-widget: resizes-content` nuance:** removed from `app/layout.tsx`
+during mobile-nav work, but iOS Safari **does not implement** `interactive-widget`
+([WebKit #259770](https://bugs.webkit.org/show_bug.cgi?id=259770)). Any
+asymmetry observed on iOS was from Safari session/gesture state or the old fixed
+lift — not from that meta tag on iPhone.
+
+**The check:** fresh tab on `/methods` (inset 0) → tap bottom pill to Words
+without scrolling → inset may flip non-zero from the tap → return to Methods →
+inset may stay non-zero. Same formula on both routes; only the variable changes.
 
 ## Every adapter called `getUser()` independently, and every navigation paid for it
 
