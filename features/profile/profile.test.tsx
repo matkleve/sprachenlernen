@@ -162,7 +162,7 @@ describe("ProfileAppSection", () => {
   it("shows the running version and a check-for-updates control", async () => {
     vi.mocked(fetch).mockResolvedValue({
       ok: true,
-      json: async () => ({ version: "0.2.1" }),
+      json: async () => ({ version: "0.3.0" }),
     } as Response);
 
     render(<ProfileAppSection />);
@@ -176,17 +176,17 @@ describe("ProfileAppSection", () => {
   it("shows a green reload row when a newer version is available", async () => {
     vi.mocked(fetch).mockResolvedValue({
       ok: true,
-      json: async () => ({ version: "0.3.0" }),
+      json: async () => ({ version: "0.4.0" }),
     } as Response);
 
     render(<ProfileAppSection />);
 
     await waitFor(() => {
-      expect(screen.getByText(copy.updateAvailable("v0.3.0"))).toBeDefined();
+      expect(screen.getByText(copy.updateAvailable("v0.4.0"))).toBeDefined();
     });
     expect(
       screen.getByRole("button", {
-        name: copy.reloadAria("v0.3.0", APP_VERSION_LABEL),
+        name: copy.reloadAria("v0.4.0", APP_VERSION_LABEL),
       }),
     ).toBeDefined();
   });
@@ -195,7 +195,7 @@ describe("ProfileAppSection", () => {
     const user = userEvent.setup();
     vi.mocked(fetch).mockResolvedValue({
       ok: true,
-      json: async () => ({ version: "0.2.1" }),
+      json: async () => ({ version: "0.3.0" }),
     } as Response);
 
     render(<ProfileAppSection />);
