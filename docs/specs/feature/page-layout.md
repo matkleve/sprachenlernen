@@ -38,9 +38,14 @@ bottom toolbar — that needs the **`visualViewport` API**
 
 **Rejected for this app:**
 
-- `interactive-widget: resizes-content` — reserves space for Safari's toolbar on
-  every page; see [`../../TRAPS.md`](../../TRAPS.md).
-- A fixed `3rem` bottom lift — wrong when the toolbar is absent (`/methods`).
+- Per-route bottom inset or padding — same shell on all signed-in routes; see
+  § Safari bottom toolbar.
+- A fixed `rem` bottom lift — wrong when the toolbar is absent.
+- Scroll hacks to hide Safari's in-browser toolbar — no reliable API; Apple
+  documents **aA → Hide Toolbar** as the user workaround
+  ([Ionic #19081](https://github.com/ionic-team/ionic-framework/issues/19081#issuecomment-948987368)).
+- `interactive-widget: resizes-content` — not on iOS Safari (WebKit bug 259770);
+  removed from viewport export.
 - Flex-only shell without overlays — conflicts with floating pill + scrim design.
 - `position: fixed` on `body` — iOS clips nested scrollers; our scroll stays on
   `document` / `<main>`.
@@ -108,6 +113,16 @@ destination pill or Safari toolbar.
 When the mobile title wraps to two lines, `ShellPageTitle` sets
 `--shell-float-top-active` to `--spacing-shell-float-top-expanded`.
 
+## Safari bottom toolbar (iOS in-browser)
+
+Browser chrome — not app-controlled. Shell **measures** via
+`useVisualViewportBottomInset` and lifts `.shell-float-nav-pill`; scrim stays
+`bottom: 0`. `/methods` often shows inset `0` on first load; asymmetry vs
+Words/Progress is Safari session/gesture state, not page length (Methods is
+longest). **No per-route inset fixes.** Detail:
+[`page-layout.layers.md`](page-layout.layers.md) § Safari toolbar policy;
+[`../../study/29-ios-inset-by-route.md`](../../study/29-ios-inset-by-route.md).
+
 ## Scrims and tap shield
 
 | Surface | Component | Behaviour |
@@ -150,6 +165,9 @@ iPad Safari in manual QA. Floating chrome does not extend to tablet width.
 - [ ] Given iOS Safari with its bottom toolbar visible, when the shell renders,
       then the destination pill sits above the toolbar (measured inset) and the
       footer scrim still bleeds to the viewport bottom behind the toolbar.
+- [ ] Given iOS Safari with its bottom toolbar **hidden**, when the shell renders
+      on any signed-in route, then `--shell-visual-viewport-bottom-inset` is `0`
+      and the pill uses only safe-area + gap — not a defect on `/methods`.
 
 ## Check
 
