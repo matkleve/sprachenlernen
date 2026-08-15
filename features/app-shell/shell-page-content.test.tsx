@@ -5,7 +5,8 @@ import { shellPageContentVariants } from "./shell-page-content";
 describe("shellPageContentVariants", () => {
   it("applies scrollable rhythm for destination pages", () => {
     const classes = shellPageContentVariants({ mode: "scrollable-destination", width: "wide" });
-    expect(classes).toContain("pt-page-top");
+    expect(classes).toContain("md:pt-page-top");
+    expect(classes.split(" ")).not.toContain("pt-page-top");
     expect(classes).toContain("pb-page-bottom");
     expect(classes).toContain("max-w-5xl");
     expect(classes).not.toContain("h-review-session");
@@ -22,7 +23,8 @@ describe("shellPageContentVariants", () => {
 
   it("treats drill-in like scrollable for rhythm", () => {
     const classes = shellPageContentVariants({ mode: "scrollable-drill-in", width: "narrow" });
-    expect(classes).toContain("pt-page-top");
+    expect(classes).toContain("md:pt-page-top");
+    expect(classes.split(" ")).not.toContain("pt-page-top");
     expect(classes).toContain("pb-page-bottom");
   });
 });

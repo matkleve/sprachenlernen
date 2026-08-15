@@ -29,7 +29,7 @@ Breakpoint: Tailwind `md` (768px). Below = **floating** mobile chrome; at and ab
 
 | Dimension | Mobile | Desktop |
 | --- | --- | --- |
-| **Default pages** | Document scroll inside `<main>`; `pt-page-top` / `pb-page-bottom` | Same rhythm tokens; more horizontal room (`max-w-5xl` on wide surfaces) |
+| **Default pages** | Document scroll inside `<main>`; shell float top reserve + `pb-page-bottom` (no mobile `pt-page-top`) | `md:pt-page-top` / `pb-page-bottom` rhythm; more horizontal room (`max-w-5xl` on wide surfaces) |
 | **Review session** | **One-screen runner** — `h-review-session`, no page scroll; title pinned small | **Scrollable** — runner height constraint dropped; normal page padding |
 | **Horizontal padding** | `px-6` (runner uses `px-4` on small screens) | `px-6` |
 | **Safari toolbar** | `visualViewport` JS lifts bottom pill when browser chrome appears | N/A |

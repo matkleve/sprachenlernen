@@ -20,6 +20,7 @@ longer gets skimmed instead of read.
 npm run dev       # dev server
 npm run verify    # ← the gate. Runs typecheck, lint, check:specs, check:tokens,
                   #   check:contrast, test and build. Run before every commit.
+npm run version:default  # bump Pride version before merge — docs/VERSIONING.md
 ```
 
 Never report work as done without a green `verify` — paste the output. To re-run

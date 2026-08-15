@@ -5,8 +5,10 @@ import type { ShellPageLayoutMode } from "@/lib/shell-page-layout";
 export const shellPageContentVariants = cva("mx-auto", {
   variants: {
     mode: {
-      "scrollable-destination": "px-6 pt-page-top pb-page-bottom",
-      "scrollable-drill-in": "px-6 pt-page-top pb-page-bottom",
+      // Mobile: shell float reserve on <main> already clears the header title —
+      // no pt-page-top (was ghost space after titles moved to ShellPageTitle).
+      "scrollable-destination": "px-6 pb-page-bottom md:pt-page-top",
+      "scrollable-drill-in": "px-6 pb-page-bottom md:pt-page-top",
       "one-screen-runner":
         "flex h-review-session flex-col overflow-hidden px-4 md:h-auto md:overflow-visible md:px-6 md:pt-page-top md:pb-page-bottom",
     },
