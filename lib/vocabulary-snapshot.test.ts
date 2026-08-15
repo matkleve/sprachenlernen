@@ -78,6 +78,20 @@ describe("buildVocabularySnapshot", () => {
       (heldTask.stability ?? 0) >= DEFAULT_CONFIG.matureStabilityThreshold,
     );
   });
+
+  it("excludes overdue tasks from horizon bins", () => {
+    const card = cards[0]!;
+    let overdueTask = schedulerNewTask(card.taskId, card.wordId);
+    overdueTask = applyReview(overdueTask, "good", now - 20 * DAY).task;
+    expect(overdueTask.due).toBeLessThan(now);
+
+    const snapshot = buildVocabularySnapshot(cards, { [card.taskId]: overdueTask }, now);
+    const todayBin = snapshot.horizon[0]?.count ?? -1;
+    const futureTotal = snapshot.horizon.slice(1).reduce((sum, bin) => sum + bin.count, 0);
+
+    expect(todayBin).toBe(0);
+    expect(futureTotal).toBe(0);
+  });
 });
 
 describe("bucketForTask", () => {

@@ -23,6 +23,9 @@ the existing RLS policy. A reviewer may escalate.
   language's frequency list (F17, narrowed — see Data); the **pool-local
   form-mastery reading** — how many form-recall Tasks are held stably
   ([`form-mastery-signal.md`](../service/form-mastery-signal.md)).
+- **In, V2:** **This week** entry row for the weekly reflection deck
+  ([`weekly-reflection.md`](../feature/weekly-reflection.md)) — teaser only on
+  the page; full 1–5 card popover on tap.
 - **Out:** language-wide vocabulary extrapolation and the CEFR level display it
   would feed (F18–F22) — see Open questions; trend over 30/90/365 days (V1) and every other
   comparison in [`study/03`](../../study/03-level-model.md) V2–V4; the dose
@@ -31,8 +34,9 @@ the existing RLS policy. A reviewer may escalate.
   horizon, and per-word list on `/words`; goals; the cold-start test; any
   language beyond the one in focus.
 
-**Reuse: `Table`** for the skills, as `/languages` does — same shape of claim,
-same reason not to invent a card.
+**Reuse: `Table` with `layout="fit"`** — columns wrap on narrow viewports so
+`/progress` stays document-scroll-only (no nested horizontal scroller; see
+[`page-layout.md`](../feature/page-layout.md) § Destination scroll).
 
 ## Behavior
 

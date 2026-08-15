@@ -7,6 +7,8 @@ import type { LevelReading } from "@/lib/level-model";
 import { cardEngineSessionHref } from "@/lib/method-session";
 
 import { copy, routeToMeasuring, signalNames, skillNames, statusNames } from "./content";
+import { WeeklyReflectionEntry } from "./weekly-reflection/WeeklyReflectionEntry";
+import type { WeeklyReflectionModel } from "@/lib/weekly-reflection";
 
 /**
  * Where the learner stands. Contract: docs/specs/page/progress.md
@@ -27,7 +29,13 @@ import { copy, routeToMeasuring, signalNames, skillNames, statusNames } from "./
  */
 const HABIT_MINUTES_PER_DAY = 15;
 
-export function ProgressReport({ reading }: { reading: LevelReading }) {
+export function ProgressReport({
+  reading,
+  reflection,
+}: {
+  reading: LevelReading;
+  reflection: WeeklyReflectionModel;
+}) {
   const stability = reading.signals.find((signal) => signal.id === "recall-stability");
   const vocabulary = reading.signals.find((signal) => signal.id === "vocabulary-size");
   const formMastery = reading.signals.find((signal) => signal.id === "form-mastery");
@@ -37,9 +45,11 @@ export function ProgressReport({ reading }: { reading: LevelReading }) {
     <ShellPageContent width="wide">
       <p className="max-w-2xl text-base leading-relaxed text-muted">{copy.intro}</p>
 
+      {reflection.status !== "hidden" ? <WeeklyReflectionEntry reflection={reflection} /> : null}
+
       <section className="mt-page-content">
         <h2 className="text-xl font-semibold text-ink">{copy.skillsHeading}</h2>
-        <Table caption={copy.skillsCaption} className="mt-4">
+        <Table caption={copy.skillsCaption} layout="fit" className="mt-4">
           <thead>
             <tr>
               <Th scope="col">{copy.skillColumns.skill}</Th>
@@ -68,7 +78,7 @@ export function ProgressReport({ reading }: { reading: LevelReading }) {
         ) : null}
       </section>
 
-      <section className="mt-page-content">
+      <section id="signals" className="mt-page-content">
         <h2 className="text-xl font-semibold text-ink">{copy.signalsHeading}</h2>
         <p className="mt-4 max-w-2xl text-base leading-relaxed text-muted">{copy.signalsIntro}</p>
 
@@ -81,7 +91,7 @@ export function ProgressReport({ reading }: { reading: LevelReading }) {
           </div>
         ) : null}
 
-        <Table caption={copy.signalsCaption} className="mt-6">
+        <Table caption={copy.signalsCaption} layout="fit" className="mt-6">
           <thead>
             <tr>
               <Th scope="col">{copy.signalColumns.signal}</Th>
@@ -120,7 +130,7 @@ export function ProgressReport({ reading }: { reading: LevelReading }) {
           {copy.doseHabit(hoursPerYear(HABIT_MINUTES_PER_DAY))}
         </p>
 
-        <Table caption={copy.doseCaption} className="mt-6">
+        <Table caption={copy.doseCaption} layout="fit" className="mt-6">
           <thead>
             <tr>
               <Th scope="col">{copy.doseColumns.level}</Th>

@@ -1,8 +1,11 @@
 import { listTaskStatesForTaskIds } from "@/lib/db/task-state";
+import { listReviewsForTaskIds } from "@/lib/db/review-log";
 import { internalUnexpected, logHandledError, type HandledError } from "@/lib/errors";
 import { poolForActiveLanguage } from "@/lib/db/learner-pools";
 import { isMeaningRecallTaskId } from "@/lib/form-recall-pool";
 import { buildFrequencyBlocks, type FrequencyBlock } from "@/lib/frequency-blocks";
+import { buildHorizonDisplay, type HorizonDisplay } from "@/lib/review-horizon";
+import { newTask } from "@/lib/scheduler";
 import { tasksByTaskIdForCards } from "@/lib/task-from-state";
 import { buildVocabularySnapshot, type VocabularySnapshot } from "@/lib/vocabulary-snapshot";
 
@@ -20,6 +23,8 @@ export type WordsHomeOutcome =
       blocks: readonly FrequencyBlock[];
       languageCode: string;
       translations: Readonly<Record<string, string>>;
+      horizonDisplay: HorizonDisplay;
+      now: number;
     }
   | { status: "error"; error: HandledError };
 
@@ -58,12 +63,43 @@ async function read(now: number): Promise<WordsHomeOutcome> {
   const tasksByTaskId = tasksByTaskIdForCards(cards, statesResult.rows);
   const translations = Object.fromEntries(cards.map((card) => [card.lemma, card.back]));
 
+  const reviewsResult = await listReviewsForTaskIds(cards.map((card) => card.taskId));
+  if (reviewsResult.status === "error") {
+    return { status: "error", error: fail(new Error(reviewsResult.error)) };
+  }
+
+  const reviewTimestamps: number[] = [];
+  const firstReviewByTaskId = new Map<string, number>();
+  for (const row of reviewsResult.reviews) {
+    const at = Date.parse(row.reviewedAt);
+    reviewTimestamps.push(at);
+    const previous = firstReviewByTaskId.get(row.taskId);
+    if (previous === undefined || at < previous) {
+      firstReviewByTaskId.set(row.taskId, at);
+    }
+  }
+
+  const snapshot = buildVocabularySnapshot(cards, tasksByTaskId, now);
+  const taskHorizonMeta = cards.map((card) => {
+    const task = tasksByTaskId[card.taskId] ?? newTask(card.taskId, card.wordId);
+    return {
+      taskId: card.taskId,
+      due: task.due,
+      firstReviewAt: firstReviewByTaskId.get(card.taskId) ?? null,
+    };
+  });
+
   return {
     status: "ok",
-    snapshot: buildVocabularySnapshot(cards, tasksByTaskId, now),
+    snapshot,
     blocks: buildFrequencyBlocks(cards, tasksByTaskId),
     languageCode: pool.languageCodes[0] ?? "es",
     translations,
+    horizonDisplay: buildHorizonDisplay(snapshot.horizon, now, {
+      reviewTimestamps,
+      firstReviewByTaskId,
+    }, taskHorizonMeta),
+    now,
   };
 }
 

@@ -2,19 +2,20 @@ import type { Metadata, Viewport } from "next";
 
 import { CookieConsent } from "@/features/privacy/CookieConsent";
 import { fontClassNames } from "@/lib/fonts";
+import { buildPageMetadata, site } from "@/lib/site-metadata";
 
 import "./globals.css";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildPageMetadata({
   // Was "Grundriss". Every page inherited the starter's name, which is the same
   // defect T-04 exists to fix one level up from the home route.
-  title: { default: "Sprachenlernen", template: "%s · Sprachenlernen" },
-  description: "Evidence-driven language learning.",
+  title: { default: site.name, template: `%s · ${site.name}` },
+  description: site.description,
   appleWebApp: {
     capable: true,
-    title: "Sprachenlernen",
+    title: site.name,
   },
-};
+});
 
 export const viewport: Viewport = {
   // These must be literal hex: Next emits them as a <meta> tag that the browser

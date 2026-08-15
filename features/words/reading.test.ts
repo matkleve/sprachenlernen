@@ -1,6 +1,7 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
 import { poolForActiveLanguage } from "@/lib/db/learner-pools";
+import { listReviewsForTaskIds } from "@/lib/db/review-log";
 import { listTaskStatesForTaskIds } from "@/lib/db/task-state";
 import type { StarterCard } from "@/lib/starter-deck";
 
@@ -13,6 +14,11 @@ import { readWordsHome } from "./reading";
 vi.mock("@/lib/db/task-state", async (importOriginal) => ({
   ...(await importOriginal<typeof import("@/lib/db/task-state")>()),
   listTaskStatesForTaskIds: vi.fn(),
+}));
+
+vi.mock("@/lib/db/review-log", async (importOriginal) => ({
+  ...(await importOriginal<typeof import("@/lib/db/review-log")>()),
+  listReviewsForTaskIds: vi.fn(),
 }));
 
 vi.mock("@/lib/db/learner-pools", () => ({ poolForActiveLanguage: vi.fn() }));
@@ -40,6 +46,8 @@ const formCard: StarterCard = {
 beforeEach(() => {
   vi.mocked(listTaskStatesForTaskIds).mockClear();
   vi.mocked(listTaskStatesForTaskIds).mockResolvedValue({ status: "ok", rows: [] });
+  vi.mocked(listReviewsForTaskIds).mockClear();
+  vi.mocked(listReviewsForTaskIds).mockResolvedValue({ status: "ok", reviews: [] });
   vi.mocked(poolForActiveLanguage).mockResolvedValue({
     status: "ok",
     cards: [meaningCard, formCard],

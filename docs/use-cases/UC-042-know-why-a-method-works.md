@@ -26,19 +26,20 @@ So they optimise for what feels productive, which is reliably not what works.
   finishing.
 - It states the **mechanism** in plain language — not "helps your listening" but
   why it does, and what would be different if it worked.
-- It states **how confident anyone is**, using the same grades as the study
-  behind this product, with one line on what that grade rests on — visible as a
-  **plain evidence label** on the card (e.g. "Thin evidence") and the full graded
-  sentence on the detail page (not a multi-line chip).
+- It states **how confident anyone is**, using plain labels on the card (e.g.
+  "Thin evidence") and a **collapsed disclosure** on the detail page with plain
+  prose — no "Evidence C" letter-grade prefix in the UI.
 - It states **what skills the method mainly serves**, with contribution level
-  per skill (primary, secondary, slight) — visible on the card at a glance.
+  per skill (primary, secondary, slight) — visible on the **card** at a glance;
+  on detail, a prose line under Trains when marks exist.
 - It states **how demanding it is to perform** (intensity), as a plain effort
-  label on the card and anchor text on the detail page.
+  label on the card and one sentence in the detail **Practical** section.
 - It states **what the method does not do**. This section is mandatory; a page
   without it is an advertisement. On the card it appears as clamped prose below
   the chips; on detail it uses a callout surface.
 - The detail page shows the **full method name** as an in-page hero even when the
-  shell title truncates on narrow viewports.
+  shell title truncates on narrow viewports, and reads as an **article** — not a
+  second card with a badge row.
 - It lists **variants** — shorter, harder, on paper, with other people, away from
   the screen.
 - Where a claim rests on the product's own measurements rather than research,

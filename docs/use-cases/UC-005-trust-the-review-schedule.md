@@ -1,7 +1,7 @@
 # UC-005 — Understand why a card is in front of me right now
 
 <!-- id: UC-005 -->
-<!-- specs: SPEC-service-scheduler, SPEC-service-review-log, SPEC-service-vocabulary-snapshot, SPEC-service-task-state -->
+<!-- specs: SPEC-service-scheduler, SPEC-service-review-log, SPEC-service-vocabulary-snapshot, SPEC-service-task-state, SPEC-feature-review-horizon, SPEC-feature-words-home -->
 
 **Who:** anyone using spaced repetition, from the first week onward.
 **Wants to:** see what the scheduler is doing and what it will do next.
@@ -22,8 +22,16 @@ out when the queue grows.
 - From any card, one action reveals: when it was last seen, how it went, its
   current stability, today's recall probability, and **what each possible answer
   will do to the next interval**.
-- A 30-day forecast of upcoming reviews, with one plain sentence explaining what
-  causes the peaks.
+- A 30-day forecast of **scheduled** review dates (deterministic FSRS `due`
+  bins — not random appearance, not retrievability as the chart), grouped in
+  four week columns with discrete tiles, plus one plain sentence explaining what
+  causes a peak when that is derivable (study/04 G2 causal line).
+- The forecast is **collapsed by default** for learners in a daily routine; it
+  expands when return-after-gap, bulk new cards, a peak week, or first week
+  makes the plan worth seeing — or when the learner asks (UC-063).
+- The forecast does **not** include overdue tasks in its bins and does not read
+  as "everything due today"; the session builder still picks up `due <= now`
+  silently.
 - A weekly summary of what moved from shaky to solid, in words.
 - The explanation never requires leaving the session or losing the current card.
 - Nothing in these surfaces is an adjustable knob. Showing the schedule and

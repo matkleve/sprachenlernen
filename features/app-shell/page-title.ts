@@ -16,6 +16,7 @@ import { methodTitlesById } from "./method-titles";
  */
 export function shellPageTitle(pathname: string): string {
   if (pathname === routes.methods) return methodMenuCopy.title;
+  if (pathname === routes.methodsMirror) return methodMenuCopy.mirrorTitle;
   if (pathname === routes.words) return holding.words.title;
   if (pathname === routes.progress) return progressCopy.title;
   if (pathname === routes.wordsReview) return reviewCopy.title;

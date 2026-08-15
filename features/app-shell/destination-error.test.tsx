@@ -48,7 +48,7 @@ describe("DestinationError", () => {
 });
 
 describe("destination errors inside the shell", () => {
-  it("keeps the three destination links visible when content fails", () => {
+  it("keeps destination links visible when content fails", () => {
     vi.mocked(usePathname).mockReturnValue("/words/review");
     const reset = vi.fn();
 
@@ -65,9 +65,17 @@ describe("destination errors inside the shell", () => {
       screen
         .getAllByRole("link")
         .map((link) => link.getAttribute("href"))
-        .filter((href): href is string => href === "/methods" || href === "/words" || href === "/progress"),
+        .filter(
+          (href): href is string =>
+            href === "/methods" ||
+            href === "/methods-mirror" ||
+            href === "/words" ||
+            href === "/progress",
+        ),
     );
-    expect(destinationHrefs).toEqual(new Set(["/methods", "/words", "/progress"]));
+    expect(destinationHrefs).toEqual(
+      new Set(["/methods", "/methods-mirror", "/words", "/progress"]),
+    );
     expect(screen.getByText("Could not start your review session.")).toBeDefined();
   });
 });

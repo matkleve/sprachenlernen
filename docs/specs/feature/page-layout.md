@@ -113,15 +113,16 @@ destination pill or Safari toolbar.
 When the mobile title wraps to two lines, `ShellPageTitle` sets
 `--shell-float-top-active` to `--spacing-shell-float-top-expanded`.
 
-## Safari bottom toolbar (iOS in-browser)
+## Destination scroll and Safari toolbar (mobile)
 
-Browser chrome — not app-controlled. Shell **measures** via
-`useVisualViewportBottomInset` and lifts `.shell-float-nav-pill`; scrim stays
-`bottom: 0`. `/methods` often shows inset `0` on first load; asymmetry vs
-Words/Progress is Safari session/gesture state, not page length (Methods is
-longest). **No per-route inset fixes.** Detail:
-[`page-layout.layers.md`](page-layout.layers.md) § Safari toolbar policy;
-[`../../study/29-ios-inset-by-route.md`](../../study/29-ios-inset-by-route.md).
+`/methods`, `/words`, `/progress` use **document vertical scroll** only — feature
+bodies must not nest `overflow-x-auto` or `overflow-y-auto` (popover overlays
+excepted); see [`../../study/29-ios-inset-by-route.md`](../../study/29-ios-inset-by-route.md).
+Wide tables: `Table layout="fit"`; Words horizon: four week columns (collapsed
+default; see [`review-horizon.md`](review-horizon.md)). iOS
+in-browser toolbar is browser-controlled — shell measures via
+`useVisualViewportBottomInset`; **no per-route inset fixes**
+([`page-layout.layers.md`](page-layout.layers.md) § Safari toolbar policy).
 
 ## Scrims and tap shield
 
@@ -168,6 +169,8 @@ iPad Safari in manual QA. Floating chrome does not extend to tablet width.
 - [ ] Given iOS Safari with its bottom toolbar **hidden**, when the shell renders
       on any signed-in route, then `--shell-visual-viewport-bottom-inset` is `0`
       and the pill uses only safe-area + gap — not a defect on `/methods`.
+- [ ] Given a scrollable destination on viewport &lt; `md`, then no feature body
+      uses `overflow-x-auto` or `overflow-y-auto` (popover/modal excepted).
 
 ## Check
 

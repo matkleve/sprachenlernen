@@ -6,6 +6,7 @@ import { expectNoA11yViolations } from "@/tests/axe";
 
 import { AppShell } from "./AppShell";
 import { FloatingShellChrome } from "./FloatingShellChrome";
+import { APP_VERSION_LABEL } from "@/lib/pride-version";
 import { copy as profileCopy } from "@/features/profile/content";
 
 import { copy, holding } from "./content";
@@ -43,7 +44,7 @@ beforeEach(() => {
 });
 
 describe("SPEC-feature-mobile-nav-v2", () => {
-  it("shows three pill destinations without a hamburger", () => {
+  it("shows pill destinations without a hamburger", () => {
     vi.mocked(usePathname).mockReturnValue("/words");
     const { container } = render(<FloatingShellChrome languages={oneLanguage} />);
 
@@ -55,7 +56,7 @@ describe("SPEC-feature-mobile-nav-v2", () => {
 
     const nav = screen.getByRole("navigation", { name: copy.mobileNavLabel });
     const links = nav.querySelectorAll<HTMLAnchorElement>("a[href]");
-    expect(links).toHaveLength(3);
+    expect(links).toHaveLength(4);
     expect(nav.querySelector("ul")?.className).toContain("inline-flex");
     expect(screen.getByRole("link", { name: copy.destinations.methods })).toBeDefined();
     expect(screen.getByRole("link", { name: copy.destinations.words })).toBeDefined();
@@ -63,6 +64,7 @@ describe("SPEC-feature-mobile-nav-v2", () => {
     for (const link of links) {
       expect(link.textContent?.trim()).toBe("");
     }
+    expect(screen.getByText(APP_VERSION_LABEL)).toBeDefined();
   });
 
   it("shows the account icon chip and one Words link on a destination root", () => {

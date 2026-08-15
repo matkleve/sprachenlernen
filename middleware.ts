@@ -3,7 +3,8 @@ import { NextResponse, type NextRequest } from "next/server";
 
 import { readSupabaseEnv } from "@/lib/db/env";
 import { createReferenceId } from "@/lib/errors";
-import { requiresAccount, routes } from "@/lib/routes";
+import { isPublicRoute, requiresAccount, routes } from "@/lib/routes";
+import { requestHasSupabaseAuthCookie } from "@/lib/supabase-auth-cookie";
 
 /**
  * Refreshes the Supabase auth session cookie on every request. Contract:
@@ -53,6 +54,12 @@ export async function middleware(request: NextRequest) {
       signIn.search = "";
       return withRequestId(NextResponse.redirect(signIn));
     }
+    return withRequestId(NextResponse.next());
+  }
+
+  // Anonymous visitors on public pages do not need a Supabase round-trip — bots
+  // and cold landing traffic hit this path on every crawl.
+  if (isPublicRoute(pathname) && !requestHasSupabaseAuthCookie(request)) {
     return withRequestId(NextResponse.next());
   }
 

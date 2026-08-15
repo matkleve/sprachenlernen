@@ -333,7 +333,7 @@ low-inference agent would silently invent.
 | ~~**T-B3a**~~ | ~~Held-stability taxonomy~~ — **shipped 2026-08-12** | **Standard.** Separate held vs graduation thresholds; fragile buckets; `isTaskHeld` for counts and form staging |
 | **T-B3** | Vocabulary estimate and the level display (F17–F22) | **Pool-local vocabulary shipped** (F17 narrowed). Language-wide extrapolation + CEFR skill/overall levels (F18–F22) blocked — anchor table [C], pool too small |
 | **T-B10b** | Method menu learner half | **Standing + daily three shipped**; demonstration sentence, readiness still out |
-| **T-B10c** | Method surfaces UX — badges, card headers, detail layout, chip fix | **Shipped 2026-08-15.** study/27. Skill/evidence/effort badge row (plain labels on cards), section header graphics, detail hero + At a glance panel |
+| **T-B10c** | Method surfaces UX — badges, card headers, detail layout, chip fix | **Shipped 2026-08-15.** study/27. Skill/evidence/effort badge row (plain labels on cards), section header graphics, detail article layout (Practical → Trains → doesNotDo; evidence in disclosure) |
 | **T-B4** | Dose ledger (F184) | **Denominator shipped** on `/progress` (question 19, first branch). **Numerator** (hours you practised) still out — needs practice-time logging beyond card `latency_ms` |
 | ~~**T-B7**~~ | ~~The landing page~~ — **shipped 2026-08-11** | Thesis 1 headline + thesis 12 time honesty in body |
 | ~~**T-B10**~~ | ~~The method menu — the product's front door~~ — **shipped 2026-08-09** | Filters, time scale, hosted routing. Learner half continued in T-B10b |
@@ -366,7 +366,7 @@ honest Spanish/Italian; offline unlocks commute practice.
 
 **Still partial in Track B:** T-B3 (pool-local only), T-B10b (standing + daily
 three shipped; T-B10c shipped 2026-08-15), T-B4 (denominator only), T-B9 (multi-device share works; full
-offline does not).
+offline does not). **T-W16** review horizon v2 shipped 2026-08-15.
 
 ### Track B · Words domain — hygiene, decisions, then stage-2 slices
 
@@ -388,6 +388,7 @@ Work in four phases; do not skip phase 0:
 | **1 · Decisions** | W-1 lemma-rank recomputation, W-2 pool atlas vs full map, W-3 `vocabulary` skill, W-4 sibling gap, W-5 incomplete paradigms | Owner — blocks T-W1–T-W6 |
 | **2 · Stage-2 display** | Frequency blocks → word detail → pool-local map → T-B3 remainder → per-cell forms → form-practice | **T-W1** after W-1/W-2 |
 | **3 · Stage-3 loop** | Coverage calculator → content gaps → word capture → reading | After phase 2 map is honest |
+| **4 · Stage-1 remainder** | Break return, leech diagnosis, i18n slices | T-W12 next; **T-W16 shipped** |
 
 **Relationship to existing queue rows:** T-W4 *is* T-B3 remainder (same work,
 words-framed). T-W6 *is* UC-041 full engine (blocked on W-4). T-W13 *is* T-B14

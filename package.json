@@ -17,7 +17,10 @@
     "check:neighbors": "node scripts/check-neighbor-candidates.mjs",
     "verify": "node scripts/verify.mjs",
     "new:spec": "node scripts/new-spec.mjs",
-    "build:starter-deck": "node scripts/build-starter-deck.mjs"
+    "build:starter-deck": "node scripts/build-starter-deck.mjs",
+    "version:proud": "node scripts/bump-pride-version.mjs proud",
+    "version:default": "node scripts/bump-pride-version.mjs default",
+    "version:shame": "node scripts/bump-pride-version.mjs shame"
   },
   "dependencies": {
     "@supabase/ssr": "0.12.4",

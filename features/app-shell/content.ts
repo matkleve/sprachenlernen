@@ -22,6 +22,7 @@ export const copy = {
   backTo: (destination: string) => `Back to ${destination}`,
   destinations: {
     methods: "Methods",
+    methodsMirror: "Methods mirror",
     words: "Words",
     progress: "Progress",
   },

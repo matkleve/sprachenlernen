@@ -66,6 +66,8 @@ only this table.
 | [26 · Readiness & difficulty](26-readiness-and-difficulty.md) | Who decides what — why a form nobody may skip argues for targeting rather than gating, how difficulty rises with nobody setting it, and how a method is tested |
 | [27 · Method badges](27-method-badges.md) | Three badge families for cards and detail — skill, evidence, effort — and why not one gold medal per method |
 | [28 · Mobile & desktop layout](28-mobile-desktop-layout.md) | What differs between phone and laptop chrome, what the industry does, and what we should not change |
+| [29 · iOS inset by route](29-ios-inset-by-route.md) | Why Safari's bottom toolbar looks route-specific when it is session state |
+| [30 · Notifications & reflections](30-notifications-and-reflections.md) | Weekly digests, push, and “how am I doing?” without Duolingo-style guilt |
 | [Sources](sources.md) | Literature, honestly marked by how far each was checked |
 
 Chapters 12–26 were written after the roadmap and are appended at the end. By
