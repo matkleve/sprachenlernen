@@ -2,7 +2,7 @@
 
 <!-- id: SPEC-component-method-badge -->
 <!-- use-case: UC-046 -->
-<!-- status: draft -->
+<!-- status: active -->
 
 Three non-interactive badge families for method cards and detail pages: **skill
 contribution**, **evidence grade**, and **effort load**. Replaces long-sentence
@@ -18,8 +18,8 @@ accent chips for evidence and intensity. Contract:
   requirements — those stay tag chips or prose. Interactive badges. Global
   quality metals (one gold/silver/copper per method). Counts on navigation.
 
-**Reuse: none** — new primitive. **Chip** remains for short nowrap tags only
-([`chip.md`](chip.md)).
+Implementation: `features/method-menu/MethodBadge.tsx` (feature-local because
+badge copy lives in `features/method-menu/content.ts`).
 
 ## Behavior
 

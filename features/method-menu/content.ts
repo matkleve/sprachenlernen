@@ -35,6 +35,7 @@ export const copy = {
   timeScaleHint: "Short steps at the start — drag right for longer, up to a day or endless",
   skillLabel: "What do you want to train?",
   anySkill: "Any skill",
+  skillsHeading: "Skills",
   energyLabel: "How much energy do you have?",
   anyEnergy: "Any energy",
   refineLabel: "Refine further",
@@ -61,7 +62,21 @@ export const copy = {
     intensity: "Effort",
     doesNotDo: "What it does not do",
     properties: "Method properties",
+    atAGlance: "At a glance",
+    badges: "Method badges",
+    effort: "Effort",
   },
+  skillLabels: {
+    reading: "Reading",
+    listening: "Listening",
+    speaking: "Speaking",
+    writing: "Writing",
+  } as const,
+  contributionLabels: {
+    primary: "primary",
+    secondary: "secondary",
+    slight: "slight",
+  } as const,
   hosted: "The app runs this",
   notHosted: "You do this yourself — the app does not run it",
   hostedShort: "App runs this",
@@ -83,6 +98,9 @@ export const copy = {
   /** Alternative requirement sets: any one of them suffices. */
   eitherOr: "or",
 } as const;
+
+export const skillLabels = copy.skillLabels;
+export const contributionLabels = copy.contributionLabels;
 
 export const sections: Record<Section, string> = {
   reading: "Reading",

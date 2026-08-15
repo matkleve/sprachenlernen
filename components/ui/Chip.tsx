@@ -10,7 +10,7 @@ import { cn } from "@/lib/utils";
  * leave it as a span.
  */
 const chip = cva(
-  "inline-flex items-center rounded-pill px-2.5 py-0.5 text-xs font-medium",
+  "inline-flex items-center whitespace-nowrap rounded-pill px-2.5 py-0.5 text-xs font-medium",
   {
     variants: {
       tone: {

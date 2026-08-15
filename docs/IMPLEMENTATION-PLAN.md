@@ -332,7 +332,7 @@ low-inference agent would silently invent.
 | ~~**T-B3a**~~ | ~~Held-stability taxonomy~~ — **shipped 2026-08-12** | **Standard.** Separate held vs graduation thresholds; fragile buckets; `isTaskHeld` for counts and form staging |
 | **T-B3** | Vocabulary estimate and the level display (F17–F22) | **Pool-local vocabulary shipped** (F17 narrowed). Language-wide extrapolation + CEFR skill/overall levels (F18–F22) blocked — anchor table [C], pool too small |
 | **T-B10b** | Method menu learner half | **Standing + daily three shipped**; demonstration sentence, readiness still out |
-| **T-B10c** | Method surfaces UX — badges, detail layout, chip fix | **Standard.** study/27 + [`method-badge.md`](specs/component/method-badge.md). Skill/evidence/effort badge row on cards; detail hero + At a glance panel; evidence/intensity out of pills; `whitespace-nowrap` on tag chips. v1 derived skill marks; v2 optional `skillContribution` in catalogue. Blocks on owner: skill mark visual (letters vs icons). **After T-B10c:** readiness line can sit under badge row (T-B10b remainder) |
+| **T-B10c** | Method surfaces UX — badges, detail layout, chip fix | **Shipped 2026-08-15.** study/27. Skill/evidence/effort badge row, section tints, detail hero + At a glance panel |
 | **T-B4** | Dose ledger (F184) | **Denominator shipped** on `/progress` (question 19, first branch). **Numerator** (hours you practised) still out — needs practice-time logging beyond card `latency_ms` |
 | ~~**T-B7**~~ | ~~The landing page~~ — **shipped 2026-08-11** | Thesis 1 headline + thesis 12 time honesty in body |
 | ~~**T-B10**~~ | ~~The method menu — the product's front door~~ — **shipped 2026-08-09** | Filters, time scale, hosted routing. Learner half continued in T-B10b |
@@ -359,12 +359,12 @@ honest Spanish/Italian; offline unlocks commute practice.
 | **3** | ~~**T-B3a Held-stability taxonomy**~~ — **shipped 2026-08-12**: `heldStabilityThreshold` (7d) separate from graduation; `isTaskHeld`; fragile replaces shaky; mature on atlas | Honest held counts; form-recall staging; UC-064 vocabulary branch |
 | **4** | **T-B3 remainder** — extrapolation + per-skill levels once (1) and calibration exist | F18–F22; demonstration sentence |
 | **5** | **T-B9 / offline-PWA** — cache deck + scheduler; flush queue on reconnect (ADR-0011 Option B) | UC-018 commute practice; installable PWA |
-| **6** | **T-B10c** — method badges + detail layout ([`study/27`](study/27-method-badges.md), [`method-badge.md`](specs/component/method-badge.md)) | Scannable catalogue; fixes two-line chip + truncated-title UX |
+| **6** | ~~**T-B10c** — method badges + detail layout~~ — **shipped 2026-08-15** | Scannable catalogue; fixes two-line chip + truncated-title UX |
 | **7** | **T-B10b remainder** — demonstration sentence, readiness ([`study/24`](study/24-speaking-as-the-goal.md), [`study/26`](study/26-readiness-and-difficulty.md)) | Methods front door complete |
 | **8** | **T-B4 numerator** — guided hours practised (thesis 9: not card time alone) | Progress per hour invested (study/03 V3) |
 
 **Still partial in Track B:** T-B3 (pool-local only), T-B10b (standing + daily
-three shipped; T-B10c queued for badge/layout UX), T-B4 (denominator only), T-B9 (multi-device share works; full
+three shipped; T-B10c shipped 2026-08-15), T-B4 (denominator only), T-B9 (multi-device share works; full
 offline does not).
 
 ### Track B · Words domain — hygiene, decisions, then stage-2 slices
