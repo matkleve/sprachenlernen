@@ -4,9 +4,11 @@
 
 export const ORBIT_VIEW_SIZE = 400;
 export const ORBIT_CENTER = ORBIT_VIEW_SIZE / 2;
-export const ORBIT_CENTER_RADIUS = 28;
+export const ORBIT_CENTER_RADIUS = 24;
+/** Compact flag badge inside the hub disc. */
+export const ORBIT_BADGE_RADIUS = 9;
 /** Stroke thickness for each ring band. */
-export const ORBIT_RING_WIDTH = 7;
+export const ORBIT_RING_WIDTH = 8;
 export const ORBIT_RING_GAP = 6;
 
 export function ringRadii(ringIndex: number): { inner: number; outer: number } {

@@ -5,10 +5,11 @@
 <!-- use-case: UC-063 -->
 <!-- status: active -->
 
-App-Clip-style radial code on `/words`: language stripes at a **fixed** center,
-eight concentric rings of rounded ink dashes and dots that light up from the core
-outward as vocabulary is held. Replaces the vocabulary atlas **table** as the
-default view; the full deck remains reachable via **Show list**.
+App-Clip-style radial code on `/words`: a fixed **surface hub** with a compact
+language-stripe badge at the center, eight concentric rings of rounded ink dashes
+and dots that light up from the core outward as vocabulary is held. Replaces the
+vocabulary atlas **table** as the default view; the full deck remains reachable
+via **Show list**.
 
 ## Scope
 
@@ -26,7 +27,7 @@ default view; the full deck remains reachable via **Show list**.
 
 | # | User action | System response |
 | --- | --- | --- |
-| 1 | Opens `/words` | Orbit below counts/horizon; **center stripes stay fixed**; each of the eight rings spins at its own speed and direction unless reduced motion |
+| 1 | Opens `/words` | Orbit below counts/horizon; **center hub and stripe badge stay fixed**; each of the eight rings spins at its own speed and direction unless reduced motion |
 | 2 | Taps a word segment | Detail card under the orbit: lemma, translation, rank, stability, status |
 | 3 | Taps an aggregate segment | Detail card names the rank range and held count |
 | 4 | Taps **Show list** | Scrollable popover with the full frequency-sorted deck (word, rank, status) |
@@ -37,12 +38,17 @@ default view; the full deck remains reachable via **Show list**.
 Eight rings, inner = highest frequency band. Segments are **rounded-cap stroke
 arcs** (dots and dashes), ink on light — not filled wedges. Brightness follows
 bucket: mature/held dark, fragile muted, new ghost. Decorative ghost ticks fill
-sparse slots (**8–16** per ring). Rings are **phase-offset** so ticks do not line
+sparse slots (**5–8** per ring). Rings are **phase-offset** so ticks do not line
 up radially.
+
+### Center hub
+
+A `surface` disc with a `line` stroke and a small inset stripe badge (not a
+full-bleed flag fill) so the hub matches the minimal dash rings.
 
 ### Collapse
 
-Each ring shows at most **12** individual word segments; remaining words in the
+Each ring shows at most **8** individual word segments; remaining words in the
 band collapse into one aggregate segment.
 
 ## States
@@ -52,7 +58,8 @@ Client-only selection: `selectedSegmentId | null`. List popover `open | closed`.
 ## Acceptance criteria
 
 - [ ] Given a starter deck, when `/words` renders, then an SVG orbit with eight
-      rings and a fixed striped center is present instead of the atlas table.
+      rings and a fixed surface hub with stripe badge is present instead of the
+      atlas table.
 - [ ] Given a held lemma in the inner band, when the orbit renders, then its
       segment uses a dark ink stroke.
 - [ ] Given a fragile lemma, when rendered, then its segment is muted relative to
