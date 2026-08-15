@@ -1,6 +1,6 @@
 # 31 · iOS Safari / PWA — Issue report & test plan
 
-**Status:** open — PWA asymmetry unresolved · **Created:** 2026-08-15 · **Build:** `v0.5.1` (revert of failed `v0.5.0` fix)
+**Status:** open — test navigation A/B first · **Build:** `v0.6.0`+
 
 This document consolidates everything we investigated, shipped, rejected, and
 still need to verify on a **real iPhone**. It supersedes scattered chat notes;
@@ -9,6 +9,8 @@ technical detail also lives in [`29-ios-inset-by-route.md`](29-ios-inset-by-rout
 ---
 
 ## Owner QA result (2026-08-15)
+
+### Round 1 — destination routes
 
 Tested in **true PWA** (Home Screen icon):
 
@@ -19,9 +21,22 @@ Tested in **true PWA** (Home Screen icon):
 | `/words` | Appears — pill sits higher ✗ |
 | `/progress` | Appears — pill sits higher ✗ |
 
-**Conclusion:** Not session-only. Methods and mirror share the same body; Words
-and Progress share different bodies. The asymmetry is **real** in true PWA — still
-open.
+### Round 2 — bisect hub (`v0.6.0`)
+
+| Route | Result |
+| --- | --- |
+| `/safari-bisect` | No toolbar — pill low ✓ |
+| `/methods`, `/methods-mirror`, `/words`, `/progress` | Toolbar / lifted pill ✗ |
+
+**Revised reading:** The hub is a **short page** opened by **typing the URL** —
+not a production destination in the pill. If production routes (including
+Methods, which previously looked fine) now all show the problem while the hub
+does not, the cause is likely **not** Words/Progress body sections alone. Test
+**navigation A/B** on `/safari-bisect` (direct link vs bottom pill) before
+continuing body bisect levels.
+
+**Conclusion (open):** Body bisect still useful, but **navigation path** must be
+ruled in or out first.
 
 ### Failed fix (reverted on main, `v0.5.0` → `v0.5.1`)
 
@@ -177,11 +192,16 @@ shows a live **`Bottom inset`** readout (`--shell-visual-viewport-bottom-inset`)
 
 ### LIVE CHECK — bisect (owner, PWA)
 
-1. Open PWA → **Methods** (baseline — pill low, note inset readout if on bisect page).
-2. Open **`/safari-bisect`** or **`/words-bisect?level=0`** directly (type URL or bookmark).
-3. Compare pill height + **Bottom inset** value to Methods.
-4. If **level 0 is already wrong** → cause is **route/shell title**, not body sections below.
-5. Tap **Next level** until pill jumps — **report the first failing level** and inset value.
+**Do navigation A/B first** (section on `/safari-bisect`):
+
+1. Open **`/safari-bisect`** directly — note **Bottom inset** and pill height.
+2. Tap **Open /methods directly** on the hub — same after full load?
+3. Return to hub, then open **Methods via bottom pill** — same or worse?
+4. Report: `direct OK / pill bad` or `both bad` or `both OK`.
+
+Then body bisect (if direct and pill behave the same):
+
+5. **`/words-bisect?level=0`** — compare to hub; increment levels until pill jumps.
 6. Repeat for **`/progress-bisect?level=0`** … `5`.
 
 Record: `Words breaks at level N (inset Xpx)` / `Progress breaks at level N`.
