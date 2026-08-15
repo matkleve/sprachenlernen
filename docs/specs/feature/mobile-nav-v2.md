@@ -14,8 +14,9 @@ Progress (ADR-0009). **No due-count badges** (UC-063).
 
 ## Scope
 
-- **In:** `< md` floating bottom pill (three equal segments, icon + micro-label);
-  floating top-right **icon-only** account chip (round, ≥ 44px) linking to
+- **In:** `< md` floating bottom pill (three **icon-only** round segments matching the
+  corner chips — `IconLink`, 44px, labels in `aria-label` only); floating top-right
+  **icon-only** account chip (round, ≥ 44px) linking to
   `/profile`; floating top-left **either** a back chip on drill-in routes **or**
   the emoji language chip on destination roots — never both; safe-area insets on
   shell `main`; token surfaces only; desktop `≥ md` unchanged. The language chip
@@ -32,7 +33,7 @@ Progress (ADR-0009). **No due-count badges** (UC-063).
 | # | User action | System response |
 | --- | --- | --- |
 | 1 | Viewport ≥ `md` | Horizontal nav + inline account link in header; no floating chrome |
-| 2 | Viewport &lt; `md` on a destination root | Bottom pill visible (compact horizontal segments, 44px tall); top-right account icon chip; **top-left language icon chip** when the account has at least one learning language |
+| 2 | Viewport &lt; `md` on a destination root | Bottom pill visible (three icon-only round chips in a compact pill, same size as corner chips); top-right account icon chip; **top-left language icon chip** when the account has at least one learning language |
 | 3 | Viewport &lt; `md` on a drill-in route | **Icon-only** back chip (round, same size as the language chip) in the top-left corner; **no language chip** — target is the parent destination (`aria-label` names it) |
 | 4 | Taps a pill segment | Navigates; current segment marked with `aria-current="page"` |
 | 5 | Taps the account chip | `/profile`, where sign out now lives ([`../page/profile.md`](../page/profile.md)) |
@@ -75,8 +76,8 @@ When the mobile title wraps to two lines, `ShellPageTitle` sets
 ## Acceptance criteria
 
 - [ ] Given viewport &lt; `md` and a signed-in session, when the shell renders,
-      then a bottom pill shows three destinations with icon + label and no
-      hamburger.
+      then a bottom pill shows three icon-only destination chips (no visible text
+      labels) and no hamburger.
 - [ ] Given viewport &lt; `md` on any drill-in route, then the top-left shows
       **either** a back chip **or** a language chip — never both.
 - [ ] Given viewport &lt; `md` on `/methods/[id]`, then a back chip links to
