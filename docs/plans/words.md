@@ -12,7 +12,7 @@ order lives in [`study/11-roadmap-open-questions.md`](../study/11-roadmap-open-q
 
 | Layer | State |
 | --- | --- |
-| `/words` home | held/fragile/new counts, frequency bands, 30-day horizon, vocabulary orbit (+ **Show list**) |
+| `/words` home | held/fragile/new counts, frequency bands, review horizon (collapsed default; week columns + causal line per [`review-horizon.md`](../specs/feature/review-horizon.md)), vocabulary orbit (+ **Show list**) |
 | `/words/review?method=srs-session` | meaning-recall + form-recall SRS, FSRS, requeue |
 | Data | es + it: 2000-lemma pools, lemma tables (tier B), form-recall pools |
 | `lib/lexicon.ts` | tested; **not wired into any app route** |
@@ -128,7 +128,8 @@ table. Queue after phase 0 hygiene, parallel to phase 2 where independent.
 | ID | Work | Serves | Notes |
 | --- | --- | --- | --- |
 | **T-W11** | **UC-012 spec only** (stage 2 implement) | UC-012 | Write spec + AC; defer implementation until T-W7 lexicon can auto-fill |
-| **T-W12** | **UC-006 break return** — overdue prioritisation by frequency + urgency | UC-006 | Extends session-builder; no new surface |
+| **T-W12** | **UC-006 break return** — overdue prioritisation by frequency + urgency | UC-006 | Extends session-builder; pairs with horizon expand-on-return |
+| **T-W16** | **Review horizon v2** — collapsed default, relevance triggers, four week tile columns, causal peak line, week drill-down. **Owner go required before code.** | UC-005, UC-006, UC-063 | Spec: [`review-horizon.md`](../specs/feature/review-horizon.md). Standard class. Independent of T-W12. |
 | **T-W13** | **UC-013 remainder** — tier-2/3 leech diagnosis | UC-013 | T-B14 remainder in main queue |
 | **T-W14** | **UC-069 slice 2** — `next-intl` chrome | UC-069 | T-B11 remainder |
 | **T-W15** | **UC-069 slice 3** — `app_texts` description tables | UC-069 | Unblocks non-English glosses; closes starter-deck SPEC GAP |
@@ -141,7 +142,8 @@ Quick reference: where each vocabulary-heavy use case lands.
 
 | UC | Title | Stage | Spec today | Code today | Next slice |
 | --- | --- | --- | --- | --- | --- |
-| UC-005 | Trust the schedule | 1 | ✓ | partial (horizon, not per-card why) | extend review-session |
+| UC-005 | Trust the schedule | 1 | ✓ | partial (bar chart; no causal line, no collapse) | **T-W16** + review-session G1 |
+| UC-006 | Come back after break | 1 | ✓ partial | session only | **T-W12**, **T-W16** expand + plan copy |
 | UC-011 | Start in first minute | 1 | ✓ | ✓ | — |
 | UC-012 | Capture a word | 1 | — | — | T-W11 spec, T-W9 build |
 | UC-031 | Map of the language | 2 | ✓ partial | partial (bands + orbit) | T-W3 |
@@ -149,7 +151,7 @@ Quick reference: where each vocabulary-heavy use case lands.
 | UC-034 | Missing for this episode | 3 | — | — | T-W8 |
 | UC-038 | Why this word | 2 | — | — | T-W2 |
 | UC-041 | Forms not just words | 0/2 | ✓ partial | partial (form-recall) | T-W6 |
-| UC-063 | Get to cards | 1 | ✓ | ✓ | — |
+| UC-063 | Get to cards | 1 | ✓ | ✓ (horizon v1 bar chart) | **T-W16** collapse + week tiles |
 | UC-069 | App in my language | 1 | ✓ | partial | T-W14, T-W15 |
 | UC-007 | Read at my level | 3 | — | — | T-W10 |
 

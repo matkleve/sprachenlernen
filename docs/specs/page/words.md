@@ -2,6 +2,8 @@
 
 <!-- id: SPEC-page-words -->
 <!-- use-case: UC-063 -->
+<!-- use-case: UC-005 -->
+<!-- use-case: UC-006 -->
 <!-- status: active -->
 
 The `/words` destination — **home for the card engine**, not for every Method
@@ -19,7 +21,8 @@ Mobile layer stack: [`../feature/page-layout.layers.md`](../feature/page-layout.
 ## Scope
 
 - **In:** `app/(app)/words/page.tsx` — ADR-0009 intent copy, **Start review**,
-  held/fragile/new counts, frequency bands, 30-day horizon, vocabulary orbit.
+  held/fragile/new counts, frequency bands, review horizon
+  ([`review-horizon.md`](../feature/review-horizon.md)), vocabulary orbit.
   See [`words-home.md`](../feature/words-home.md) and
   [`vocabulary-orbit.md`](../feature/vocabulary-orbit.md).
 - **Out:** due count anywhere; session-length picker; choosing a method other
@@ -44,7 +47,8 @@ No client machine.
 - [ ] Given a signed-in Account on `/words`, when the page renders, then a Start
       review control is present linking to `srs-session` review.
 - [ ] Given the starter deck, when the page renders, then held, fragile, new,
-      frequency bands, horizon and vocabulary orbit sections are present.
+      frequency bands, horizon (per [`review-horizon.md`](../feature/review-horizon.md))
+      and vocabulary orbit sections are present.
 - [ ] **The negative UC-063 exists for:** given `/words`, then no due count,
       badge or backlog figure appears anywhere.
 
