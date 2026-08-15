@@ -7,15 +7,12 @@ import { NavLink } from "@/components/ui/NavLink";
 import { NavigationPendingProvider, useNavigationPending } from "@/components/ui/navigation-pending-context";
 import { cn } from "@/lib/utils";
 
-import { isDestinationCurrent, shellDestinations } from "./destinations";
+import { isDestinationCurrent, shellDestinations, shellIconCurrentClass } from "./destinations";
 
 type DestinationNavItemsProps = {
   /** Header row on desktop; bottom icon pill on mobile. */
   layout?: "header" | "pill";
 };
-
-const pillCurrentClass =
-  "bg-accent text-accent-ink border-accent shadow-soft hover:bg-accent-deep hover:text-accent-ink";
 
 function DestinationNavItemsInner({ layout = "header" }: DestinationNavItemsProps) {
   const pathname = usePathname();
@@ -35,7 +32,7 @@ function DestinationNavItemsInner({ layout = "header" }: DestinationNavItemsProp
                 href={href}
                 aria-label={label}
                 aria-current={visuallyCurrent ? "page" : undefined}
-                className={cn(visuallyCurrent && pillCurrentClass)}
+                className={cn(visuallyCurrent && shellIconCurrentClass)}
               >
                 <Icon aria-hidden className="size-5 shrink-0" />
               </IconLink>

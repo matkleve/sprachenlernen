@@ -47,6 +47,7 @@ sign-out control that had no signed-in navigation to live in. That control is no
 | 7 | A destination's content throws | The shell header and navigation remain; only the destination content area shows the error surface ([`errors-boundaries.md`](../service/errors-boundaries.md)) |
 | 8 | Viewport &lt; `md` while signed in | Floating bottom pill + top-right account chip; no full-width header bar ([`mobile-nav-v2.md`](mobile-nav-v2.md)) |
 | 9 | Viewport ≥ `md` while signed in | Horizontal destination nav + inline account link in header; no floating chrome |
+| 9a | Is on `/profile` | Account link carries `aria-current="page"` and accent fill |
 | 10 | Has more than one learning language on any viewport | A circular flag switcher opens a popover: blurred scrim, stacked language cards with gaps, plus **Add a language** — one action to switch (UC-025) |
 | 11 | Scrolls page content on desktop | A header scrim (blur + tint) fades in at the top and out toward the bottom; the page title scales down while staying centered |
 | 12 | On any signed-in route | The page title is centered in the header — large at scroll top, smaller after scrolling down; on mobile it may wrap to two lines within a fixed max width; if it wraps at rest, line count stays fixed while the size scales |
@@ -125,6 +126,8 @@ visual one: the shell is never given a number, so it cannot render one.
 - [ ] Given a signed-in Account, then an account link to `/profile` is present,
       and the shell itself renders no sign-out control — signing out is reached
       through the account link ([`../page/profile.md`](../page/profile.md)).
+- [ ] Given a signed-in Account on `/profile`, then the account link is marked
+      as the current page with accent fill.
 - [ ] Given a `(marketing)` route, then no destination navigation renders on it.
 - [ ] Given a signed-in Account and viewport &lt; `md`, then the shell renders a
       floating destination pill and a top-right account chip (no hamburger).

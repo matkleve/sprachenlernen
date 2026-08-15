@@ -8,6 +8,7 @@ import type { LanguageHoldings } from "@/lib/db/language-holdings";
 import { routes } from "@/lib/routes";
 import { cn } from "@/lib/utils";
 
+import { isProfileCurrent, shellIconCurrentClass } from "./destinations";
 import { shellBackTarget } from "./back-target";
 import { AppVersionLabel } from "./AppVersionLabel";
 import { DestinationNavItems } from "./DestinationNavItems";
@@ -33,6 +34,7 @@ export function FloatingShellChrome({
   languageHoldings?: Record<string, LanguageHoldings>;
 }) {
   const pathname = usePathname();
+  const profileCurrent = isProfileCurrent(pathname);
   const back = shellBackTarget(pathname);
   const collapse = useHeaderCollapse();
   const pinnedCompact = shellHeaderStartsCompact(pathname);
@@ -67,7 +69,12 @@ export function FloatingShellChrome({
           <ShellPageTitle variant="mobile" pinnedCompact={pinnedCompact} />
 
           <div className="col-start-2 justify-self-end">
-            <IconLink href={routes.profile} aria-label={copy.account}>
+            <IconLink
+              href={routes.profile}
+              aria-label={copy.account}
+              aria-current={profileCurrent ? "page" : undefined}
+              className={cn(profileCurrent && shellIconCurrentClass)}
+            >
               <UserRound aria-hidden className="size-5 shrink-0" />
             </IconLink>
           </div>

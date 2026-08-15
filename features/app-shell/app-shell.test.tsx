@@ -166,9 +166,20 @@ describe("the destinations", () => {
     if (!header) throw new Error("expected desktop header");
     const account = within(header as HTMLElement).getByRole("link", { name: copy.account });
     expect(account.getAttribute("href")).toBe("/profile");
+    expect(account.getAttribute("aria-current")).toBeNull();
     expect(
       within(header as HTMLElement).queryByRole("button", { name: profileCopy.signOut }),
     ).toBeNull();
+  });
+
+  it("marks the account link as current on /profile", () => {
+    showAt("/profile");
+
+    const header = document.querySelector("header");
+    if (!header) throw new Error("expected desktop header");
+    const account = within(header as HTMLElement).getByRole("link", { name: copy.account });
+    expect(account.getAttribute("aria-current")).toBe("page");
+    expect(account.className).toContain("bg-accent");
   });
 
   it("shows the page title centered in the desktop header", () => {

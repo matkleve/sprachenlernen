@@ -42,6 +42,7 @@ Progress (ADR-0009). **No due-count badges** (UC-063).
 | 3 | Viewport &lt; `md` on a drill-in route | **Icon-only** back chip (round, same size as the language chip) in the top-left corner; **no language chip** — target is the parent destination (`aria-label` names it) |
 | 4 | Taps a pill segment | Navigates; current segment marked with `aria-current="page"` |
 | 5 | Taps the account chip | `/profile`, where sign out now lives ([`../page/profile.md`](../page/profile.md)) |
+| 5a | Is on `/profile` | Account chip carries `aria-current="page"` and accent fill, same as a current pill segment |
 | 6 | Taps back float | Navigates to parent destination (`href`, not blind history) |
 | 7 | Has more than one learning language | Language emoji chip opens a popover: blurred scrim over the page, stacked language cards (gap between each), then **Add a language**; choosing a row makes it active and refreshes — one action (UC-025) |
 | 8 | Has exactly one learning language | Top-left shows a non-interactive flag circle with the endonym in `aria-label` |
@@ -115,6 +116,8 @@ title wraps to two lines.
 - [ ] Given viewport &lt; `md`, then a top-right **account** icon chip is always
       present (no text label), linking to `/profile`, and no sign-out control
       renders in the shell.
+- [ ] Given viewport &lt; `md` on `/profile`, then the account icon chip is
+      marked as the current page with accent fill.
 - [ ] Given viewport &lt; `md` on `/words/review` with `?method=srs-session`,
       then the review session fits one screen without vertical scroll at default
       phone height (card + grades visible together).

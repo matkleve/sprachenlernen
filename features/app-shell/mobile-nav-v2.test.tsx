@@ -90,6 +90,7 @@ describe("SPEC-feature-mobile-nav-v2", () => {
 
     const account = screen.getByRole("link", { name: copy.account });
     expect(account.getAttribute("href")).toBe("/profile");
+    expect(account.getAttribute("aria-current")).toBeNull();
     expect(account.textContent?.trim()).toBe("");
     expect(screen.queryByRole("button", { name: profileCopy.signOut })).toBeNull();
     const wordsLinks = screen
@@ -97,6 +98,15 @@ describe("SPEC-feature-mobile-nav-v2", () => {
       .filter((link) => link.getAttribute("href") === "/words");
     expect(wordsLinks).toHaveLength(1);
     expect(screen.getByRole("heading", { level: 1, name: holding.words.title })).toBeDefined();
+  });
+
+  it("marks the account icon chip as current on /profile", () => {
+    vi.mocked(usePathname).mockReturnValue("/profile");
+    renderChrome(<FloatingShellChrome languages={oneLanguage} />);
+
+    const account = screen.getByRole("link", { name: copy.account });
+    expect(account.getAttribute("aria-current")).toBe("page");
+    expect(account.className).toContain("bg-accent");
   });
 
   it("shows the language emoji on a destination root", () => {

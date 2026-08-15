@@ -13,8 +13,8 @@ Update this file in the same PR as any new control or migration.
 | Destination nav (mobile pill) | `DestinationNavItems.tsx` | `IconLink` | `layout="pill"`; `aria-label` only; accent fill when current | ring |
 | Mobile back chip | `FloatingShellChrome.tsx` | `IconLink` | drill-in only; `pendingPolicy="nav"` | ring |
 | Mobile language chip | `FloatingShellChrome.tsx` | `LanguageSwitcher` | destination roots only (`layout="floating"`) | ring |
-| Mobile profile icon | `FloatingShellChrome.tsx` | `IconLink` | `nav` | ring |
-| Desktop account | `DesktopShellHeader.tsx` | `ActionLink` | `ghost sm` | ✓ |
+| Mobile profile icon | `FloatingShellChrome.tsx` | `IconLink` | `nav`; accent fill when on `/profile` | ring |
+| Desktop account | `DesktopShellHeader.tsx` | `ActionLink` | `ghost sm`; accent fill when on `/profile` | ✓ |
 | Language trigger | `LanguageSwitcher.tsx` | `IconButton` | `nav`; disabled while switching | ring |
 | Language menu row | `LanguageSwitcher.tsx` | `LanguageListRow` | disabled while `pending` | — |
 | Add language (menu) | `LanguageSwitcher.tsx` | `ActionLink` | `secondary sm` | ✓ |
