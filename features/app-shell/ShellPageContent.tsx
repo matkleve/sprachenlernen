@@ -20,7 +20,8 @@ type ShellPageContentProps = {
  * Contract: docs/specs/feature/page-layout.md
  *
  * Shell (`AppShell`) owns float reserves on `<main>`; this owns page rhythm
- * (`pt-page-top` / `pb-page-bottom`) and runner height (`h-review-session`).
+ * (`md:pt-page-top` / `pb-page-bottom` on mobile the float reserve is enough)
+ * and runner height (`h-review-session`).
  */
 export function ShellPageContent({
   mode = "scrollable-destination",
