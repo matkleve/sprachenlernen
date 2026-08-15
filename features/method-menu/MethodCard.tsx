@@ -25,44 +25,48 @@ export function MethodCard({ method, returnQuery = "" }: MethodCardProps) {
   const skillMarks = skillMarksForMethod(method);
 
   return (
-    <article className={methodSectionSurface(method.section, "h-full rounded-card shadow-soft")}>
-      <SurfaceLink href={href} className="flex h-full flex-col focus-visible:ring-offset-2">
-        <MethodCardHeader section={method.section} />
+    <SurfaceLink
+      href={href}
+      className={methodSectionSurface(
+        method.section,
+        "flex h-full flex-col shadow-soft focus-visible:ring-offset-2",
+      )}
+    >
+      <MethodCardHeader section={method.section} />
 
-        <div className="flex flex-1 flex-col p-4">
-          <h3 className="text-base font-semibold text-ink">{method.name}</h3>
-          <p className="mt-1 line-clamp-2 text-sm text-muted">{method.summary}</p>
+      <div className="flex flex-1 flex-col p-4">
+        <h3 className="text-base font-semibold text-ink">{method.name}</h3>
+        <p className="mt-1 line-clamp-2 text-sm text-muted">{method.summary}</p>
 
-          <MethodBadgeRow
-            className="mt-3"
-            skillMarks={skillMarks}
-            evidence={method.evidence}
-            intensity={method.intensity}
-            inLink
-          />
+        <MethodBadgeRow
+          className="mt-3"
+          skillMarks={skillMarks}
+          evidence={method.evidence}
+          intensity={method.intensity}
+          inLink
+        />
 
-          <ul className="mt-3 flex flex-wrap gap-1.5" aria-label={copy.card.properties}>
-            {durationChips(method.durations).map((label) => (
-              <li key={`duration-${label}`}>
-                <Chip>{label}</Chip>
-              </li>
-            ))}
-            {requirements.map((label) => (
-              <li key={`need-${label}`}>
-                <Chip>{label}</Chip>
-              </li>
-            ))}
-            <li>
-              <Chip>{method.hosted ? copy.hostedShort : copy.notHostedShort}</Chip>
+        <ul className="mt-3 flex flex-wrap gap-1.5" aria-label={copy.card.properties}>
+          {durationChips(method.durations).map((label) => (
+            <li key={`duration-${label}`}>
+              <Chip>{label}</Chip>
             </li>
-          </ul>
+          ))}
+          {requirements.map((label) => (
+            <li key={`need-${label}`}>
+              <Chip>{label}</Chip>
+            </li>
+          ))}
+          <li>
+            <Chip>{method.hosted ? copy.hostedShort : copy.notHostedShort}</Chip>
+          </li>
+        </ul>
 
-          <p className="mt-3 line-clamp-2 text-sm text-muted">
-            <span className="font-medium text-ink">{copy.card.doesNotDo}: </span>
-            {method.doesNotDo}
-          </p>
-        </div>
-      </SurfaceLink>
-    </article>
+        <p className="mt-3 line-clamp-2 text-sm text-muted">
+          <span className="font-medium text-ink">{copy.card.doesNotDo}: </span>
+          {method.doesNotDo}
+        </p>
+      </div>
+    </SurfaceLink>
   );
 }
