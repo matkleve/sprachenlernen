@@ -25,7 +25,8 @@ Progress (ADR-0009). **No due-count badges** (UC-063).
 - **Out:** hamburger and drawer; full-width mobile header bar; hiding the pill on
   review; profile destination; notification badges; marketing shell.
 
-**Reuse:** `NavLink`, `Button`, `shellDestinations` in `destinations.ts`.
+**Reuse:** `IconLink` (mobile pill segments), `NavLink` (desktop header),
+`Button`, `shellDestinations` in `destinations.ts`.
 **Gap:** `Button` `floating` variant for corner chips (bordered surface float).
 
 ## Behavior
@@ -83,6 +84,11 @@ title wraps to two lines, `ShellPageTitle` sets
 - [ ] Given viewport &lt; `md` and a signed-in session, when the shell renders,
       then a bottom pill shows three icon-only destination chips (no visible text
       labels) and no hamburger.
+- [ ] Given viewport &lt; `md`, when the learner taps the pill's dead zones or
+      scrim, then page content underneath does not receive the tap.
+- [ ] Given viewport &lt; `md` and iOS Safari's bottom toolbar is visible, when
+      the shell renders, then the bottom pill sits above the toolbar (measured via
+      `useVisualViewportBottomInset`, not a fixed offset).
 - [ ] Given viewport &lt; `md` on any drill-in route, then the top-left shows
       **either** a back chip **or** a language chip — never both.
 - [ ] Given viewport &lt; `md` on `/methods/[id]`, then a back chip links to
