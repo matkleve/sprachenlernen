@@ -1,28 +1,22 @@
 import { ActionLink } from "@/components/ui/ActionLink";
-import { Table, Td, Th } from "@/components/ui/Table";
 import { holding } from "@/features/app-shell/content";
 import { copy as reviewCopy } from "@/features/review-session/content";
 import { copy } from "@/features/words/content";
+import { VocabularyOrbitField } from "@/features/words/VocabularyOrbitField";
 import { cardEngineSessionHref } from "@/lib/method-session";
 import type { FrequencyBlock } from "@/lib/frequency-blocks";
+import { buildVocabularyOrbit } from "@/lib/vocabulary-orbit";
 import type { VocabularySnapshot } from "@/lib/vocabulary-snapshot";
 import { cn } from "@/lib/utils";
 
 type WordsHomeProps = {
   snapshot: VocabularySnapshot;
   blocks: readonly FrequencyBlock[];
+  languageCode: string;
+  translations: Readonly<Record<string, string>>;
 };
 
 const CHART_HEIGHT_PX = 96;
-
-/**
- * The atlas is ordered by frequency, so the head of it is the part a learner
- * can act on; the tail is 400 rows of "New" that push the page's other
- * sections out of reach. Capped rather than paginated because paging controls
- * would be a second interactive surface for a table nobody scrolls to the end
- * of — revisit if the pool grows again (stage 2).
- */
-const ATLAS_ROW_LIMIT = 100;
 
 function maxHorizonCount(snapshot: VocabularySnapshot): number {
   return Math.max(1, ...snapshot.horizon.map((bin) => bin.count));
@@ -39,17 +33,10 @@ const countCardStyles = {
   new: "border-line bg-surface",
 } as const;
 
-export function WordsHome({ snapshot, blocks }: WordsHomeProps) {
+export function WordsHome({ snapshot, blocks, languageCode, translations }: WordsHomeProps) {
   const reviewHref = cardEngineSessionHref();
   const horizonMax = maxHorizonCount(snapshot);
-  const atlasRows = snapshot.atlas.slice(0, ATLAS_ROW_LIMIT);
-  const atlasTruncated = atlasRows.length < snapshot.atlas.length;
-  // The caption is the table's accessible name, so it has to carry the limit
-  // too — a screen-reader user who hears "for each word in your deck" over 100
-  // of 500 rows has been told the deck is smaller than the counts above say.
-  const atlasCaption = atlasTruncated
-    ? `${copy.atlasCaption} ${copy.atlasTruncated(atlasRows.length, snapshot.atlas.length)}`
-    : copy.atlasCaption;
+  const orbit = buildVocabularyOrbit(snapshot.atlas, translations);
 
   return (
     <div className="mx-auto max-w-5xl px-6 pt-page-top pb-page-bottom">
@@ -158,37 +145,9 @@ export function WordsHome({ snapshot, blocks }: WordsHomeProps) {
         </div>
       </section>
 
-      <section className="mt-page-content">
-        <h2 className="text-xl font-semibold text-ink">{copy.atlasHeading}</h2>
-        <p className="mt-4 max-w-2xl text-base leading-relaxed text-muted">{copy.atlasCaption}</p>
-        {atlasTruncated ? (
-          <p className="mt-2 max-w-2xl text-base leading-relaxed text-muted">
-            {copy.atlasTruncated(atlasRows.length, snapshot.atlas.length)}
-          </p>
-        ) : null}
-        <Table caption={atlasCaption} className="mt-6">
-          <thead>
-            <tr>
-              <Th scope="col">{copy.atlasColumns.word}</Th>
-              <Th scope="col">{copy.atlasColumns.rank}</Th>
-              <Th scope="col">{copy.atlasColumns.stability}</Th>
-              <Th scope="col">{copy.atlasColumns.status}</Th>
-            </tr>
-          </thead>
-          <tbody>
-            {atlasRows.map((point) => (
-              <tr key={`${point.lemma}-${point.frequencyRank}`}>
-                <Th scope="row">{point.lemma}</Th>
-                <Td>{point.frequencyRank}</Td>
-                <Td>{point.stability !== null ? point.stability.toFixed(1) : copy.noStability}</Td>
-                <Td>
-                  {point.mature ? copy.bucketNames.mature : copy.bucketNames[point.bucket]}
-                </Td>
-              </tr>
-            ))}
-          </tbody>
-        </Table>
-      </section>
+      <div className="mt-page-content">
+        <VocabularyOrbitField orbit={orbit} languageCode={languageCode} atlas={snapshot.atlas} />
+      </div>
     </div>
   );
 }

@@ -14,7 +14,13 @@ import { buildVocabularySnapshot, type VocabularySnapshot } from "@/lib/vocabula
 export type WordsHomeOutcome =
   /** Signed in, no language chosen — the page routes to the picker. */
   | { status: "no-language" }
-  | { status: "ok"; snapshot: VocabularySnapshot; blocks: readonly FrequencyBlock[] }
+  | {
+      status: "ok";
+      snapshot: VocabularySnapshot;
+      blocks: readonly FrequencyBlock[];
+      languageCode: string;
+      translations: Readonly<Record<string, string>>;
+    }
   | { status: "error"; error: HandledError };
 
 export async function readWordsHome(now: number = Date.now()): Promise<WordsHomeOutcome> {
@@ -50,11 +56,14 @@ async function read(now: number): Promise<WordsHomeOutcome> {
   }
 
   const tasksByTaskId = tasksByTaskIdForCards(cards, statesResult.rows);
+  const translations = Object.fromEntries(cards.map((card) => [card.lemma, card.back]));
 
   return {
     status: "ok",
     snapshot: buildVocabularySnapshot(cards, tasksByTaskId, now),
     blocks: buildFrequencyBlocks(cards, tasksByTaskId),
+    languageCode: pool.languageCodes[0] ?? "es",
+    translations,
   };
 }
 

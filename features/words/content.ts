@@ -25,10 +25,6 @@ export const copy = {
   horizonHeading: "Review horizon",
   horizonCaption: "When scheduled reviews fall over the next 30 days.",
   horizonDay: (offset: number) => (offset === 0 ? "Today" : `Day ${offset + 1}`),
-  atlasHeading: "Vocabulary atlas",
-  atlasCaption: "Frequency rank and stability for each word in your deck.",
-  atlasTruncated: (shown: number, total: number) =>
-    `Showing the ${shown} most frequent of ${total} words in your deck.`,
   atlasColumns: {
     word: "Word",
     rank: "Rank",
@@ -42,4 +38,16 @@ export const copy = {
     mature: "Mature",
   } as const,
   noStability: "—",
+  orbitHeading: "Your vocabulary orbit",
+  orbitCaption:
+    "Common words sit near the center. Segments light up as you hold them — brighter means more stable.",
+  orbitAriaLabel: "Vocabulary progress shown as concentric rings",
+  orbitShowList: "Show list",
+  orbitListTitle: "All words",
+  orbitListCaption: "Frequency rank and status for every word in your deck.",
+  orbitAggregateLabel: (start: number, end: number, count: number) =>
+    `${count} words, ranks ${start}–${end}`,
+  orbitAggregateHeading: (start: number, end: number) => `Ranks ${start}–${end}`,
+  orbitAggregateBody: (count: number, held: number) =>
+    `${count} words in this band on the outer ring. ${held} held stably.`,
 } as const;
