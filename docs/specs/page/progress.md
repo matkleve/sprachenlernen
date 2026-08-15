@@ -27,8 +27,9 @@ the existing RLS policy. A reviewer may escalate.
   would feed (F18–F22) — see Open questions; trend over 30/90/365 days (V1) and every other
   comparison in [`study/03`](../../study/03-level-model.md) V2–V4; the dose
   ledger's **numerator** (hours practised — see
-  [`../service/dose-band.md`](../service/dose-band.md)); the vocabulary atlas and
-  horizon; goals; the cold-start test; any language beyond the one in focus.
+  [`../service/dose-band.md`](../service/dose-band.md)); the vocabulary orbit,
+  horizon, and per-word list on `/words`; goals; the cold-start test; any
+  language beyond the one in focus.
 
 **Reuse: `Table`** for the skills, as `/languages` does — same shape of claim,
 same reason not to invent a card.

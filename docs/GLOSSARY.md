@@ -103,7 +103,7 @@ requires a `⚠ SPEC GAP` line, not a guess.
 | **Method engine** | The runnable implementation that turns one catalogue Method into a session — content pool, grading, persistence. One engine may serve more than one Method; each Method has at most one engine. | a Method, the catalogue |
 | **Hosted method** | A catalogue entry with `hosted: true` — the product intends to run it in-app. **Does not mean the session is built today.** | built, in-app-only |
 | **Card engine** | The Method engine that ships first: FSRS scheduling over lemma Tasks. Today: `srs-session` on `/words/review`. | flashcards, the whole app |
-| **Words destination** | The navigation surface for the card engine's material — holdings, horizon, atlas — not the home for every Method. | Methods, Home |
+| **Words destination** | The navigation surface for the card engine's material — holdings, horizon, vocabulary orbit — not the home for every Method. | Methods, Home |
 | **Method card** | The user-facing presentation of a Method. | a Card (that is a Task) |
 | **Daily menu** | The three Methods offered today, given budget, setting, floors, effect and preference. | a plan, a course |
 | **Intensity** | Cognitive load of a Method, in three steps. Answers "can I manage this now?" | duration, difficulty of the material |

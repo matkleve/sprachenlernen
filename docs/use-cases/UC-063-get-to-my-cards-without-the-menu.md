@@ -31,7 +31,7 @@ encouragement.
   destination's identity.
 - It carries the surfaces that belong to the card engine rather than to any
   method: why this card is due now, the horizon of what is coming, and the
-  vocabulary atlas.
+  vocabulary orbit (with **Show list** for the full deck).
 - **No count anywhere in the navigation.** No badge, no dot, no "12 due". A3
   forbids the backlog counter, UC-006 forbids an overdue count as a primary
   figure anywhere, and a tab badge is the most primary figure a phone has.

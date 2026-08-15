@@ -12,7 +12,7 @@ order lives in [`study/11-roadmap-open-questions.md`](../study/11-roadmap-open-q
 
 | Layer | State |
 | --- | --- |
-| `/words` home | held/fragile/new counts, 30-day horizon, atlas (top 100 of pool) |
+| `/words` home | held/fragile/new counts, frequency bands, 30-day horizon, vocabulary orbit (+ **Show list**) |
 | `/words/review?method=srs-session` | meaning-recall + form-recall SRS, FSRS, requeue |
 | Data | es + it: 2000-lemma pools, lemma tables (tier B), form-recall pools |
 | `lib/lexicon.ts` | tested; **not wired into any app route** |
@@ -66,7 +66,7 @@ decision from you" — same session as the answer, per project rules.
 | # | Question | Blocks | Notes |
 | --- | --- | --- | --- |
 | **W-1** | ~~Lemma-frequency ranks~~ **Answered 2026-08-12:** keep form-based ranks in starter pool | — |
-| **W-2** | ~~Pool atlas vs full map~~ **Answered 2026-08-12:** pool-local bands on `/words` v1 | — |
+| **W-2** | ~~Pool orbit vs full map~~ **Answered 2026-08-12:** pool-local bands + orbit on `/words` v1 | — |
 | **W-3** | `SKILLS` vocabulary value | method-catalogue coherence | Open |
 | **W-4** | ~~Sibling spacing~~ **Answered 2026-08-12:** FSRS `due` between sessions; one Task per Word per session; UC-071 requeue is same Task only | — |
 | **W-5** | Incomplete paradigms → form mastery | UC-062 | Open |
@@ -144,7 +144,7 @@ Quick reference: where each vocabulary-heavy use case lands.
 | UC-005 | Trust the schedule | 1 | ✓ | partial (horizon, not per-card why) | extend review-session |
 | UC-011 | Start in first minute | 1 | ✓ | ✓ | — |
 | UC-012 | Capture a word | 1 | — | — | T-W11 spec, T-W9 build |
-| UC-031 | Map of the language | 2 | — | partial (pool atlas) | T-W3 |
+| UC-031 | Map of the language | 2 | ✓ partial | partial (bands + orbit) | T-W3 |
 | UC-032 | Vocabulary milestone | 2 | — | — | T-W1 |
 | UC-034 | Missing for this episode | 3 | — | — | T-W8 |
 | UC-038 | Why this word | 2 | — | — | T-W2 |

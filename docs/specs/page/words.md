@@ -18,8 +18,9 @@ Product contract: [`../service/practice-model.md`](../service/practice-model.md)
 ## Scope
 
 - **In:** `app/(app)/words/page.tsx` — ADR-0009 intent copy, **Start review**,
-  held/fragile/new counts, 30-day horizon, vocabulary atlas. See
-  [`words-home.md`](../feature/words-home.md).
+  held/fragile/new counts, frequency bands, 30-day horizon, vocabulary orbit.
+  See [`words-home.md`](../feature/words-home.md) and
+  [`vocabulary-orbit.md`](../feature/vocabulary-orbit.md).
 - **Out:** due count anywhere; session-length picker; choosing a method other
   than a **built card-engine** Method from this page; surfaces for Methods whose
   engines live elsewhere (when those engines ship).
@@ -42,10 +43,10 @@ No client machine.
 - [ ] Given a signed-in Account on `/words`, when the page renders, then a Start
       review control is present linking to `srs-session` review.
 - [ ] Given the starter deck, when the page renders, then held, fragile, new,
-      horizon and atlas sections are present.
+      frequency bands, horizon and vocabulary orbit sections are present.
 - [ ] **The negative UC-063 exists for:** given `/words`, then no due count,
       badge or backlog figure appears anywhere.
 
 ## Check
 
-`npm test -- words vocabulary-snapshot`
+`npm test -- words vocabulary-orbit vocabulary-snapshot`

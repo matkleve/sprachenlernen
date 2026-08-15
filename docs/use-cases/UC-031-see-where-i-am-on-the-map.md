@@ -1,7 +1,7 @@
 # UC-031 — See where I am on the map of the language
 
 <!-- id: UC-031 -->
-<!-- specs: SPEC-feature-words-home, SPEC-service-frequency-blocks -->
+<!-- specs: SPEC-feature-words-home, SPEC-feature-vocabulary-orbit, SPEC-service-frequency-blocks -->
 
 **Who:** a learner months in, who knows they are progressing but not what that
 means.
@@ -35,13 +35,20 @@ sense that any of it adds up.
 - Everything shown has a textual equivalent — a scatter plot must not be the only
   way to read the core information (UC-021, and `CONSTITUTION` §3).
 
-## v1 scope (decided 2026-08-12)
+## v1 scope (decided 2026-08-12, orbit shipped 2026-08-15)
 
-The first map is **pool-local**: frequency bands over the starter deck on
-`/words`, not language-wide coverage. Bands show how many words the learner holds
-stably in each chunk of the 2,000-word pool. Language-wide holes, content
-traceability, and coverage payoff lines ship with the coverage calculator
-(stage 3).
+The first map is **pool-local** on `/words`:
+
+- **Frequency bands** — how many starter-pool lemmas the learner holds stably in
+  each rank chunk (1–1000, 1001–2000).
+- **Vocabulary orbit** — App-Clip-style radial code: language stripes at the
+  center (fixed), eight rings of ink dashes and dots that light up from the core
+  as words are held; each ring drifts at its own speed. Tap a segment for rank,
+  stability, and bucket; **Show list** opens the full deck in a scrollable
+  popover (textual equivalent — UC-021, `CONSTITUTION` §3).
+
+Language-wide holes, content traceability, and coverage payoff lines ship with
+the coverage calculator (stage 3).
 
 ## Out of scope
 
