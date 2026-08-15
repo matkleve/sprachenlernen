@@ -11,8 +11,10 @@ const CHECK_INTERVAL_MS = 5 * 60 * 1000;
 export function useAppUpdateAvailable() {
   const [stale, setStale] = useState(false);
   const [deployedLabel, setDeployedLabel] = useState<string | null>(null);
+  const [checking, setChecking] = useState(false);
 
   const check = useCallback(async () => {
+    setChecking(true);
     try {
       const response = await fetch("/api/app-version", { cache: "no-store" });
       if (!response.ok) return;
@@ -23,6 +25,8 @@ export function useAppUpdateAvailable() {
       setDeployedLabel(newer ? `v${payload.version}` : null);
     } catch {
       // Fail silent — version label stays; no false prompt on offline.
+    } finally {
+      setChecking(false);
     }
   }, []);
 
@@ -50,5 +54,5 @@ export function useAppUpdateAvailable() {
     };
   }, [check]);
 
-  return { stale, deployedLabel, reload };
+  return { stale, deployedLabel, reload, check, checking };
 }

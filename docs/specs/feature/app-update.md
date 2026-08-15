@@ -15,11 +15,12 @@ Parent: [`mobile-nav-v2.md`](mobile-nav-v2.md) (version label slot). Versioning:
 - **In:** `GET /api/app-version` returning the deployed Pride version;
   client-side compare against the bundled version; tappable footer row showing
   the **deployed** Pride version in `text-success` with an `ArrowDownCircle`
-  icon when stale (replaces the muted current label); checks on mount,
-  `visibilitychange`, and a five-minute interval; `location.reload()` on tap.
-- **Out:** service worker; auto-reload; desktop header chrome; profile-page
-  duplicate (mobile footer is enough for v1); build-id / git SHA (Pride version
-  only).
+  icon when stale (replaces the muted current label); an **App** block on
+  `/profile` with running version, **Check for updates**, and a green reload
+  row when stale; checks on mount, `visibilitychange`, and a five-minute
+  interval; `location.reload()` on tap.
+- **Out:** service worker; auto-reload; a separate Settings destination;
+  build-id / git SHA (Pride version only).
 
 **Reuse:** `Button` (`ghost`, `sm`), `APP_PRIDE_VERSION` / `formatPrideVersion`
 from `lib/pride-version.ts`, `AppVersionLabel` slot in `FloatingShellChrome`.
@@ -34,6 +35,8 @@ from `lib/pride-version.ts`, `AppVersionLabel` slot in `FloatingShellChrome`.
 | 4 | Taps Reload | Full page reload |
 | 5 | Returns to tab / app (`visibilitychange` → visible) | Re-check; prompt appears if a deploy happened while away |
 | 6 | Fetch fails | No prompt; version label unchanged (fail silent) |
+| 7 | Opens `/profile` | **App** section shows running version and **Check for updates** |
+| 8 | Taps Check for updates on `/profile` | Re-fetches `/api/app-version`; shows green reload row when stale |
 
 ## States
 
@@ -64,7 +67,11 @@ from `lib/pride-version.ts`, `AppVersionLabel` slot in `FloatingShellChrome`.
       `{ "version": "PROUD.DEFAULT.SHAME" }` with `Cache-Control: no-store`.
 - [ ] Given a failed version fetch, when the shell renders, then no error
       callout — the version label stays (negative: no false-positive prompt).
+- [ ] Given `/profile`, when the page renders, then an **App** section shows the
+      running Pride version and a **Check for updates** control.
+- [ ] Given a higher deployed version, when the learner opens `/profile` or taps
+      **Check for updates**, then a green reload row names the deployed version.
 
 ## Check
 
-`npm test -- app-update app-version mobile-nav-v2`
+`npm test -- app-update app-version mobile-nav-v2 profile`

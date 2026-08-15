@@ -12,7 +12,7 @@ export const copy = {
     "How many starter lemmas you can recall the meaning of — not every inflected form, and not a backlog.",
   lemmaCalloutTitle: "What is a lemma?",
   lemmaCalloutBody:
-    "The dictionary form of a word — correr, not corriendo. Each card here is one lemma. Held means you would still know what it means after about a week without seeing it again. Producing inflected forms is tracked separately on Progress.",
+    "The dictionary form of a word — run, not running; child, not children. Each card here is one lemma. Held means you would still know what it means after about a week without seeing it again. Producing inflected forms is tracked separately on Progress.",
   held: "Held",
   fragile: "Fragile",
   newWords: "New",
