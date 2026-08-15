@@ -89,7 +89,9 @@ title wraps to two lines.
 
 - [ ] Given viewport &lt; `md` and a signed-in session, when the shell renders,
       then a bottom pill shows three icon-only destination chips (no visible text
-      labels) and no hamburger.
+      labels), a **Pride version label** (`vPROUD.DEFAULT.SHAME`) centred under
+      the pill in `text-shell-version`, and no hamburger. Versioning:
+      [`../../VERSIONING.md`](../../VERSIONING.md).
 - [ ] Given viewport &lt; `md`, when the learner taps the pill's dead zones or
       scrim, then page content underneath does not receive the tap.
 - [ ] Given viewport &lt; `md` and iOS Safari's bottom toolbar is visible, when

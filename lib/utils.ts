@@ -92,6 +92,7 @@ const twMerge = extendTailwindMerge({
         "shell-float-nav-height",
         "shell-float-nav-gap",
         "shell-float-nav-pad-y",
+        "shell-float-version",
         "shell-footer-scrim-fade",
         "shell-float-bottom",
       ],
