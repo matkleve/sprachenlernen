@@ -77,11 +77,39 @@ describe("ReviewHorizonField", () => {
       [],
     );
 
-    render(<ReviewHorizonField horizon={horizon} display={display} now={now} />);
+    const { container } = render(
+      <ReviewHorizonField horizon={horizon} display={display} now={now} />,
+    );
 
     await user.click(screen.getByRole("button", { name: copy.horizonExpand }));
 
     expect(screen.getByText(copy.horizonWeekLabel(1))).toBeDefined();
     expect(screen.queryByText(/\bbacklog\b/i)).toBeNull();
+    expect(container.querySelector(".overflow-x-auto")).toBeNull();
+  });
+
+  it("fits week and day drill-down without horizontal scroll regions", async () => {
+    const user = userEvent.setup();
+    const display = buildHorizonDisplay(
+      horizon,
+      now,
+      {
+        reviewTimestamps: [now - 10 * 86_400_000],
+        firstReviewByTaskId: new Map([["t1", now - 10 * 86_400_000]]),
+      },
+      [],
+    );
+
+    const { container } = render(
+      <ReviewHorizonField horizon={horizon} display={display} now={now} />,
+    );
+
+    expect(container.querySelector(".overflow-x-auto")).toBeNull();
+
+    await user.click(
+      screen.getByRole("button", { name: copy.horizonWeekAria(1, 21, 3) }),
+    );
+
+    expect(container.querySelector(".overflow-x-auto")).toBeNull();
   });
 });

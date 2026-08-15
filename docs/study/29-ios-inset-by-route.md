@@ -84,6 +84,14 @@ one twin while comparing Safari bottom-toolbar behaviour on the other.
 **LIVE CHECK:** alternate between the two pill icons without changing Words/Progress.
 If toolbar differs while HTML is identical, cause is navigation/session — not page body.
 
+**Result (2026-08-15):** both `/methods` and `/methods-mirror` show **no** toolbar
+problem. Twin rules out route-specific Methods CSS/URL — the asymmetry tracks
+**page body** on Words/Progress (nested horizontal scroll), not Methods identity.
+
+**Regression:** review-horizon v2 reintroduced `overflow-x-auto` on expanded week
+and day rows in `ReviewHorizonField` — fix by restoring equal-width `flex-1`
+columns without a horizontal scroll wrapper.
+
 ---
 
 ## Page length (corrected)

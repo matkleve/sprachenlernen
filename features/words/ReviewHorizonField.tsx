@@ -80,7 +80,7 @@ function WeekColumn({
   const isPeak = peakWeekIndex === week.weekIndex;
 
   return (
-    <div className="min-w-[4.5rem] flex-1">
+    <div className="min-w-0 flex-1">
       <Button
         type="button"
         variant="secondary"
@@ -103,7 +103,7 @@ function WeekColumn({
 
 function DayColumn({ dayOffset, count, now }: { dayOffset: number; count: number; now: number }) {
   return (
-    <div className="min-w-[2.75rem] flex-1">
+    <div className="min-w-0 flex-1">
       <div className="flex flex-col rounded-card border border-line bg-surface-raised p-1.5">
         <span className="text-[10px] font-medium text-muted">{formatDayLabel(dayOffset, now)}</span>
         <div className="mt-1 flex min-h-16 flex-col justify-end">
@@ -141,7 +141,7 @@ export function ReviewHorizonField({ horizon, display, now }: ReviewHorizonField
         {expanded ? (
           <div className="mt-4">
             <p className="mb-4 max-w-2xl text-sm text-muted">{copy.horizonScheduledNote}</p>
-            <div className="flex gap-2 overflow-x-auto pb-1" role="group" aria-label={copy.horizonCaption}>
+            <div className="flex min-w-0 gap-2" role="group" aria-label={copy.horizonCaption}>
               {display.weeks.map((week) => (
                 <WeekColumn
                   key={week.weekIndex}
@@ -156,7 +156,7 @@ export function ReviewHorizonField({ horizon, display, now }: ReviewHorizonField
             </div>
 
             {openWeek !== null ? (
-              <div className="mt-4 flex gap-1 overflow-x-auto pb-1">
+              <div className="mt-4 flex min-w-0 gap-1">
                 {display.weeks[openWeek]?.dayOffsets.map((dayOffset) => (
                   <DayColumn
                     key={dayOffset}

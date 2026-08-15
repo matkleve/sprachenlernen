@@ -61,9 +61,8 @@ outcomes.
       present (collapsed or expanded per [`review-horizon.md`](review-horizon.md))
       and the full atlas is reachable via **Show list**.
 - [ ] Given viewport &lt; `md`, when the expanded horizon renders week or day
-      columns, then the primary summary and four week columns fit the content
-      width without a page-level horizontal scroll trap (day drill-down may
-      scroll inside the week row only).
+      columns, then week and day rows use equal `flex-1` share inside the
+      content width without nested `overflow-x-auto` (document scroll only).
 - [ ] Given an Account with no language chosen, then the page routes to the
       picker — an all-zero snapshot would read as a learner who has done
       nothing rather than one who has not been asked.

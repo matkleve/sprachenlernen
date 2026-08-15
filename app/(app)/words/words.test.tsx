@@ -90,13 +90,14 @@ describe("WordsHome", () => {
 
   it("uses a four-column week row when the horizon is expanded", async () => {
     const user = userEvent.setup();
-    render(<WordsHome {...homeProps} />);
+    const { container } = render(<WordsHome {...homeProps} />);
 
     await user.click(screen.getByRole("button", { name: copy.horizonExpand }));
 
     expect(screen.getByRole("group", { name: copy.horizonCaption })).toBeDefined();
     expect(screen.getAllByText(copy.horizonWeekLabel(1)).length).toBeGreaterThan(0);
     expect(screen.getAllByText(copy.horizonWeekLabel(4)).length).toBeGreaterThan(0);
+    expect(container.querySelector(".overflow-x-auto")).toBeNull();
   });
 
   it("opens the full word list from the quiet show-list control", async () => {
