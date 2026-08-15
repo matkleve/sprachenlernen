@@ -25,6 +25,8 @@ export const routes = {
   appHome: "/methods",
   /** The three destinations of ADR-0009, in the order they are shown. */
   methods: "/methods",
+  /** Safari toolbar A/B twin of Methods — same catalogue, separate route. */
+  methodsMirror: "/methods-mirror",
   method: (id: string) => `/methods/${id}`,
   words: "/words",
   wordsReview: "/words/review",

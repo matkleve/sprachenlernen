@@ -44,7 +44,7 @@ beforeEach(() => {
 });
 
 describe("SPEC-feature-mobile-nav-v2", () => {
-  it("shows three pill destinations without a hamburger", () => {
+  it("shows pill destinations without a hamburger", () => {
     vi.mocked(usePathname).mockReturnValue("/words");
     const { container } = render(<FloatingShellChrome languages={oneLanguage} />);
 
@@ -56,7 +56,7 @@ describe("SPEC-feature-mobile-nav-v2", () => {
 
     const nav = screen.getByRole("navigation", { name: copy.mobileNavLabel });
     const links = nav.querySelectorAll<HTMLAnchorElement>("a[href]");
-    expect(links).toHaveLength(3);
+    expect(links).toHaveLength(4);
     expect(nav.querySelector("ul")?.className).toContain("inline-flex");
     expect(screen.getByRole("link", { name: copy.destinations.methods })).toBeDefined();
     expect(screen.getByRole("link", { name: copy.destinations.words })).toBeDefined();

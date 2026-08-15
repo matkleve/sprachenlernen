@@ -76,17 +76,23 @@ beforeEach(() => {
   mockDesktopViewport();
 });
 
-describe("the three destinations", () => {
-  it("renders exactly three, in ADR-0009's order, each linking to its route", () => {
+describe("the destinations", () => {
+  it("renders shell destinations in order, each linking to its route", () => {
     showAt("/methods");
 
     const links = [...destinationLinks()];
     expect(links.map((a) => a.textContent)).toEqual([
       copy.destinations.methods,
+      copy.destinations.methodsMirror,
       copy.destinations.words,
       copy.destinations.progress,
     ]);
-    expect(links.map((a) => a.getAttribute("href"))).toEqual(["/methods", "/words", "/progress"]);
+    expect(links.map((a) => a.getAttribute("href"))).toEqual([
+      "/methods",
+      "/methods-mirror",
+      "/words",
+      "/progress",
+    ]);
   });
 
   it("marks the destination you are on, and marks no other", () => {
