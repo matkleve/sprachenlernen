@@ -141,6 +141,53 @@ Replaces reliance on Safari toolbar for reload after deploy.
 
 ---
 
+## Body bisect (2026-08-15)
+
+Progressive routes isolate which page section triggers the PWA bottom asymmetry.
+Each level adds one more section from the real Words/Progress body. The banner
+shows a live **`Bottom inset`** readout (`--shell-visual-viewport-bottom-inset`).
+
+| Route | Purpose |
+| --- | --- |
+| `/safari-bisect` | Hub with links |
+| `/words-bisect?level=0` … `?level=5` | Words body bisect |
+| `/progress-bisect?level=0` … `?level=5` | Progress body bisect |
+
+### Words levels
+
+| Level | Adds |
+| --- | --- |
+| 0 | Intro paragraph only (Methods-shaped) |
+| 1 | Review CTA card |
+| 2 | Vocabulary counts |
+| 3 | Frequency blocks |
+| 4 | Review horizon |
+| 5 | Vocabulary orbit (full Words) |
+
+### Progress levels
+
+| Level | Adds |
+| --- | --- |
+| 0 | Intro paragraph only |
+| 1 | Weekly reflection entry |
+| 2 | Skills table |
+| 3 | Signals table |
+| 4 | Dose bands table |
+| 5 | Gap section (full Progress) |
+
+### LIVE CHECK — bisect (owner, PWA)
+
+1. Open PWA → **Methods** (baseline — pill low, note inset readout if on bisect page).
+2. Open **`/safari-bisect`** or **`/words-bisect?level=0`** directly (type URL or bookmark).
+3. Compare pill height + **Bottom inset** value to Methods.
+4. If **level 0 is already wrong** → cause is **route/shell title**, not body sections below.
+5. Tap **Next level** until pill jumps — **report the first failing level** and inset value.
+6. Repeat for **`/progress-bisect?level=0`** … `5`.
+
+Record: `Words breaks at level N (inset Xpx)` / `Progress breaks at level N`.
+
+---
+
 ## Open items (not done)
 
 | # | Item | Priority |
@@ -148,7 +195,7 @@ Replaces reliance on Safari toolbar for reload after deploy.
 | 1 | **Owner LIVE CHECK** on real iPhone with `v0.4.1` (matrix below) | **Blocker** |
 | 2 | Remove `/methods-mirror` from nav when QA passes | Cleanup |
 | 3 | Optional: Profile hint “Add to Home Screen” under App section | Nice-to-have |
-| 4 | If true standalone PWA still asymmetric after cache clear → bisect Words/Progress body components | Contingency |
+| 4 | If true standalone PWA still asymmetric after cache clear → bisect Words/Progress body components | **In progress** — `/words-bisect`, `/progress-bisect` |
 | 5 | Update study/29 executive summary with “toolbar hidden preferred; updates via App” | Docs |
 
 ---

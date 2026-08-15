@@ -18,7 +18,10 @@ export function shellPageTitle(pathname: string): string {
   if (pathname === routes.methods) return methodMenuCopy.title;
   if (pathname === routes.methodsMirror) return methodMenuCopy.mirrorTitle;
   if (pathname === routes.words) return holding.words.title;
+  if (pathname === routes.wordsBisect) return "Words bisect";
   if (pathname === routes.progress) return progressCopy.title;
+  if (pathname === routes.progressBisect) return "Progress bisect";
+  if (pathname === routes.safariBisect) return "Safari bisect";
   if (pathname === routes.wordsReview) return reviewCopy.title;
   if (pathname === routes.profile) return profileCopy.title;
   if (pathname === routes.chooseLanguage) return languagePickerCopy.title;

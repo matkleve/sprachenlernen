@@ -29,8 +29,14 @@ export const routes = {
   methodsMirror: "/methods-mirror",
   method: (id: string) => `/methods/${id}`,
   words: "/words",
+  /** Progressive Words body — Safari/PWA bisect (study/31). */
+  wordsBisect: "/words-bisect",
   wordsReview: "/words/review",
   progress: "/progress",
+  /** Progressive Progress body — Safari/PWA bisect (study/31). */
+  progressBisect: "/progress-bisect",
+  /** Hub for bisect routes. */
+  safariBisect: "/safari-bisect",
   /** The signed-in profile — languages, data, sign out. */
   profile: "/profile",
   /** Where a learner chooses what to learn (UC-025). */
