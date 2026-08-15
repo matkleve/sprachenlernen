@@ -79,8 +79,8 @@ export function FloatingShellChrome({
         >
           <ul
             className={cn(
-              "flex w-full max-w-sm list-none rounded-pill border border-line",
-              "bg-surface p-0.5 shadow-raised",
+              "inline-flex list-none items-center gap-1.5 rounded-pill border border-line",
+              "bg-surface p-1.5 shadow-raised",
             )}
           >
             <DestinationNavItems layout="pill" />
