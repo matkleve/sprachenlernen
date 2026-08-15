@@ -31,6 +31,10 @@ contribution, evidence grade, effort dots — above nowrap tag chips (duration,
 requirements, hosted). Study/27; component
 [`method-badge.md`](../component/method-badge.md).
 
+**Card graphics (UX, 2026-08-15):** each card shows a **section header graphic**
+(one abstract image per catalogue section, decorative) with a soft gradient into
+the card body. No accent left border — uniform `rounded-card` only.
+
 ## Scope
 
 - **In:** stepped time slider ([`../service/time-scale.md`](../service/time-scale.md));

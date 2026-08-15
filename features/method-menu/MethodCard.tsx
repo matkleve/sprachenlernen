@@ -5,6 +5,7 @@ import { skillMarksForMethod } from "@/lib/method-skill-badges";
 import { cardHrefForMethod } from "@/lib/method-session";
 
 import { MethodBadgeRow } from "./MethodBadge";
+import { MethodCardHeader } from "./MethodCardHeader";
 import { copy } from "./content";
 import { durationChips, requirementChips } from "./requirements";
 import { methodSectionSurface } from "./section-surface";
@@ -24,41 +25,43 @@ export function MethodCard({ method, returnQuery = "" }: MethodCardProps) {
   const skillMarks = skillMarksForMethod(method);
 
   return (
-    <article
-      className={methodSectionSurface(method.section, "h-full rounded-card shadow-soft")}
-    >
-      <SurfaceLink href={href} className="p-4 focus-visible:ring-offset-2">
-        <h3 className="text-base font-semibold text-ink">{method.name}</h3>
-        <p className="mt-1 line-clamp-2 text-sm text-muted">{method.summary}</p>
+    <article className={methodSectionSurface(method.section, "h-full rounded-card shadow-soft")}>
+      <SurfaceLink href={href} className="flex h-full flex-col focus-visible:ring-offset-2">
+        <MethodCardHeader section={method.section} />
 
-        <MethodBadgeRow
-          className="mt-3"
-          skillMarks={skillMarks}
-          evidence={method.evidence}
-          intensity={method.intensity}
-          inLink
-        />
+        <div className="flex flex-1 flex-col p-4">
+          <h3 className="text-base font-semibold text-ink">{method.name}</h3>
+          <p className="mt-1 line-clamp-2 text-sm text-muted">{method.summary}</p>
 
-        <ul className="mt-3 flex flex-wrap gap-1.5" aria-label={copy.card.properties}>
-          {durationChips(method.durations).map((label) => (
-            <li key={`duration-${label}`}>
-              <Chip>{label}</Chip>
+          <MethodBadgeRow
+            className="mt-3"
+            skillMarks={skillMarks}
+            evidence={method.evidence}
+            intensity={method.intensity}
+            inLink
+          />
+
+          <ul className="mt-3 flex flex-wrap gap-1.5" aria-label={copy.card.properties}>
+            {durationChips(method.durations).map((label) => (
+              <li key={`duration-${label}`}>
+                <Chip>{label}</Chip>
+              </li>
+            ))}
+            {requirements.map((label) => (
+              <li key={`need-${label}`}>
+                <Chip>{label}</Chip>
+              </li>
+            ))}
+            <li>
+              <Chip>{method.hosted ? copy.hostedShort : copy.notHostedShort}</Chip>
             </li>
-          ))}
-          {requirements.map((label) => (
-            <li key={`need-${label}`}>
-              <Chip>{label}</Chip>
-            </li>
-          ))}
-          <li>
-            <Chip>{method.hosted ? copy.hostedShort : copy.notHostedShort}</Chip>
-          </li>
-        </ul>
+          </ul>
 
-        <p className="mt-3 line-clamp-2 text-sm text-muted">
-          <span className="font-medium text-ink">{copy.card.doesNotDo}: </span>
-          {method.doesNotDo}
-        </p>
+          <p className="mt-3 line-clamp-2 text-sm text-muted">
+            <span className="font-medium text-ink">{copy.card.doesNotDo}: </span>
+            {method.doesNotDo}
+          </p>
+        </div>
       </SurfaceLink>
     </article>
   );
