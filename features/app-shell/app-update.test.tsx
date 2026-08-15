@@ -20,7 +20,7 @@ describe("SPEC-feature-app-update", () => {
   it("shows the version label when the deployed version matches the bundle", async () => {
     vi.mocked(fetch).mockResolvedValue({
       ok: true,
-      json: async () => ({ version: "0.2.0" }),
+      json: async () => ({ version: "0.2.1" }),
     } as Response);
 
     render(<AppVersionLabel />);
