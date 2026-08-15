@@ -4,6 +4,7 @@ import { AccountDataPanel } from "@/features/account-data/AccountDataPanel";
 import { copy as accountCopy } from "@/features/account-data/content";
 import { signOutAction } from "@/features/app-shell/actions";
 import { ShellPageContent } from "@/features/app-shell/ShellPageContent";
+import { ProfileAppSection } from "@/features/profile/ProfileAppSection";
 import { ProfileLanguages } from "@/features/profile/ProfileLanguages";
 import { ProfileSpokenLanguage } from "@/features/profile/ProfileSpokenLanguage";
 import { copy } from "@/features/profile/content";
@@ -47,6 +48,8 @@ export default async function ProfilePage({
         <p className="mt-4 max-w-2xl text-base leading-relaxed text-muted">{accountCopy.intro}</p>
         <AccountDataPanel />
       </section>
+
+      <ProfileAppSection />
 
       <form action={signOutAction} className="mt-page-content">
         <SubmitButton variant="secondary">{copy.signOut}</SubmitButton>
