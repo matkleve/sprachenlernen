@@ -39,7 +39,7 @@ describe("pride-version", () => {
   });
 
   it("reads the app version from package.json", () => {
-    expect(APP_PRIDE_VERSION).toEqual({ proud: 0, default: 1, shame: 0 });
-    expect(APP_VERSION_LABEL).toBe("v0.1.0");
+    expect(APP_PRIDE_VERSION).toEqual({ proud: 0, default: 2, shame: 0 });
+    expect(APP_VERSION_LABEL).toBe("v0.2.0");
   });
 });

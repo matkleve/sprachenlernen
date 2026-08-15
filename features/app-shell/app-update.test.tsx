@@ -20,7 +20,7 @@ describe("SPEC-feature-app-update", () => {
   it("shows the version label when the deployed version matches the bundle", async () => {
     vi.mocked(fetch).mockResolvedValue({
       ok: true,
-      json: async () => ({ version: "0.1.0" }),
+      json: async () => ({ version: "0.2.0" }),
     } as Response);
 
     render(<AppVersionLabel />);
@@ -30,7 +30,7 @@ describe("SPEC-feature-app-update", () => {
     });
     expect(
       screen.queryByRole("button", {
-        name: copy.appUpdate.reloadAria("v0.2.0", APP_VERSION_LABEL),
+        name: copy.appUpdate.reloadAria("v0.3.0", APP_VERSION_LABEL),
       }),
     ).toBeNull();
   });
@@ -38,17 +38,17 @@ describe("SPEC-feature-app-update", () => {
   it("shows the deployed version in success styling when an update is available", async () => {
     vi.mocked(fetch).mockResolvedValue({
       ok: true,
-      json: async () => ({ version: "0.2.0" }),
+      json: async () => ({ version: "0.3.0" }),
     } as Response);
 
     const { container } = render(<AppVersionLabel />);
 
     const control = await screen.findByRole("button", {
-      name: copy.appUpdate.reloadAria("v0.2.0", APP_VERSION_LABEL),
+      name: copy.appUpdate.reloadAria("v0.3.0", APP_VERSION_LABEL),
     });
 
     expect(control).toBeDefined();
-    expect(screen.getByText("v0.2.0")).toBeDefined();
+    expect(screen.getByText("v0.3.0")).toBeDefined();
     expect(screen.queryByText(APP_VERSION_LABEL)).toBeNull();
     expect(container.querySelector(".text-success")).not.toBeNull();
   });
@@ -62,7 +62,7 @@ describe("SPEC-feature-app-update", () => {
 
     vi.mocked(fetch).mockResolvedValue({
       ok: true,
-      json: async () => ({ version: "0.2.0" }),
+      json: async () => ({ version: "0.3.0" }),
     } as Response);
 
     const user = userEvent.setup();
@@ -70,7 +70,7 @@ describe("SPEC-feature-app-update", () => {
 
     await user.click(
       await screen.findByRole("button", {
-        name: copy.appUpdate.reloadAria("v0.2.0", APP_VERSION_LABEL),
+        name: copy.appUpdate.reloadAria("v0.3.0", APP_VERSION_LABEL),
       }),
     );
 
@@ -87,7 +87,7 @@ describe("SPEC-feature-app-update", () => {
     });
     expect(
       screen.queryByRole("button", {
-        name: copy.appUpdate.reloadAria("v0.2.0", APP_VERSION_LABEL),
+        name: copy.appUpdate.reloadAria("v0.3.0", APP_VERSION_LABEL),
       }),
     ).toBeNull();
   });
