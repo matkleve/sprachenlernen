@@ -85,7 +85,7 @@ built) use **`scrollable-drill-in`** rhythm — they scroll like a drill-in page
                     │
 ┌───────────────────▼─────────────────────────┐
 │  Feature component (`ShellPageContent`)       │
-│  · scrollable: max-width + pt-page-top        │
+│  · scrollable: max-width + md:pt-page-top     │
 │    pb-page-bottom (horizontal px-6)           │
 │  · runner: h-review-session + overflow      │
 │    hidden on < md                           │
@@ -96,15 +96,16 @@ built) use **`scrollable-drill-in`** rhythm — they scroll like a drill-in page
 wrapper layer below.
 
 **Shell owns** top/bottom **reserve** so floats never cover content.
-**Features own** horizontal padding and **page rhythm** (`pt-page-top`,
-`pb-page-bottom`). Features must **not** add their own bottom padding for the
-destination pill or Safari toolbar.
+**Features own** horizontal padding and **page rhythm** (`md:pt-page-top` below
+the flat header on desktop; on mobile the shell float reserve is the top rhythm,
+`pb-page-bottom` at the bottom). Features must **not** add their own bottom
+padding for the destination pill or Safari toolbar.
 
 ## Tokens (`app/globals.css`)
 
 | Token | Owner | Purpose |
 | --- | --- | --- |
-| `--spacing-page-top`, `--spacing-page-bottom` | Feature wrappers | Vertical rhythm inside the scroll area |
+| `--spacing-page-top`, `--spacing-page-bottom` | Feature wrappers | Vertical rhythm inside the scroll area (`page-top` on `≥ md` only for signed-in scrollable pages; mobile uses shell float reserve) |
 | `--spacing-shell-float-top`, `--shell-float-top-active` | Shell | Top reserve under floating title/chips |
 | `--spacing-shell-float-bottom` | Shell | Bottom reserve above pill + browser chrome |
 | `--shell-visual-viewport-bottom-inset` | `useVisualViewportBottomInset` | Dynamic Safari toolbar height |
@@ -161,8 +162,9 @@ iPad Safari in manual QA. Floating chrome does not extend to tablet width.
 - [ ] Given viewport &lt; `md`, when the learner taps the bottom pill's scrim
       dead zone, then underlying page content does not receive the tap.
 - [ ] Given any signed-in feature page using scrollable mode, then content uses
-      `pt-page-top pb-page-bottom` and does **not** add extra bottom padding for
-      shell chrome.
+      `pb-page-bottom` and `md:pt-page-top`, does **not** add mobile `pt-page-top`
+      (shell float reserve is enough), and does **not** add extra bottom padding
+      for shell chrome.
 - [ ] Given iOS Safari with its bottom toolbar visible, when the shell renders,
       then the destination pill sits above the toolbar (measured inset) and the
       footer scrim still bleeds to the viewport bottom behind the toolbar.
