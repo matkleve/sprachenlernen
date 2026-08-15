@@ -6,6 +6,8 @@
 
 Phone-width signed-in chrome: a **floating destination pill** at the bottom and
 **floating corner chips** at the top (back when drill-in, account always).
+**Applies only below `md`** — iPad and desktop use flat top nav
+([`page-layout.md`](page-layout.md), [`../../study/28-mobile-desktop-layout.md`](../../study/28-mobile-desktop-layout.md)).
 Desktop keeps the horizontal header from [`app-shell.md`](app-shell.md).
 
 **Parent:** [`app-shell.md`](app-shell.md). Supersedes

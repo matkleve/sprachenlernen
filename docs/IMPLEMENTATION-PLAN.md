@@ -425,10 +425,10 @@ behaviour lived only in scattered specs.
 | Safari bottom toolbar | `useVisualViewportBottomInset`; cannot hide in-browser |
 
 **UX study:** [`study/28-mobile-desktop-layout.md`](study/28-mobile-desktop-layout.md)
-— what differs by breakpoint, industry patterns, and what to defer (tablet rail,
-immersive review, sidebar).
+— mobile floating vs desktop/iPad flat top nav; owner decisions 2026-08-15
+(floating phone, flat `≥ md`, pill visible in review, iPad first-class).
 
-**Track A follow-up (optional):** T-SHELL-02 — lint that features do not add
+**Track A follow-up (optional):** T-SHELL-03 iPad shell QA; T-SHELL-02 lint that features do not add
 `pb-shell-float-bottom` (double reserve). `ShellPageContent` + route registry
 shipped 2026-08-15.
 

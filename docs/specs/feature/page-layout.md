@@ -122,7 +122,17 @@ When the mobile title wraps to two lines, `ShellPageTitle` sets
 | 2 | Opens `/words/review?method=srs-session` on mobile | Session body height is `--height-review-session`; no vertical page scroll |
 | 3 | Opens `/words/review` without a session | Scrollable drill-in layout; unknown-method copy scrolls normally |
 | 4 | Resizes visual viewport (Safari toolbar, keyboard) | Bottom pill repositions via `--shell-visual-viewport-bottom-inset` |
-| 5 | Viewport ≥ `md` | No shell float padding on `<main>`; desktop header only; runner may scroll on desktop |
+| 5 | Viewport ≥ `md` | Flat sticky top header (desktop **and iPad**); no floating pill; runner may scroll on desktop/tablet |
+
+## Breakpoints (owner 2026-08-15)
+
+| Viewport | Chrome | Nav style |
+| --- | --- | --- |
+| `< md` (phone) | Floating overlay | Bottom icon pill + corner chips |
+| `≥ md` (desktop, iPad) | Flat sticky header | Labelled top links; no bottom pill |
+
+iPad is a **first-class** target at the `≥ md` tier — same shell as desktop, with
+iPad Safari in manual QA. Floating chrome does not extend to tablet width.
 
 ## Acceptance criteria
 

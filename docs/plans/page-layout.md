@@ -16,6 +16,9 @@ Contract: [`../specs/feature/page-layout.md`](../specs/feature/page-layout.md).
 4. **Safari toolbar** — cannot be hidden in-browser; `useVisualViewportBottomInset`
    adapts pill position. Home Screen PWA may differ; not a separate mode.
 5. **Runner height** — `--height-review-session` on mobile; desktop may scroll.
+6. **Chrome families (owner 2026-08-15)** — floating pill `< md` only; flat top
+   nav `≥ md` (desktop + iPad). Review keeps destination pill visible.
+7. **iPad** — first-class at `≥ md`; no separate rail layout in v1.
 
 ## Files
 
@@ -32,6 +35,13 @@ Contract: [`../specs/feature/page-layout.md`](../specs/feature/page-layout.md).
 
 ## Follow-up (optional, Track A)
 
+**T-SHELL-03 · iPad shell QA**
+
+- **Class:** Standard
+- **Scope:** iPad Safari portrait + landscape — flat top nav, touch targets on
+  `NavLink`, review runner height, language popover
+- **Done when:** LIVE CHECK steps pass on iPad; any failures filed as bugs
+
 **T-SHELL-02 · Lint against double bottom padding**
 
 - **Class:** Trivial
@@ -45,3 +55,5 @@ Contract: [`../specs/feature/page-layout.md`](../specs/feature/page-layout.md).
 3. `/words/review` with no `method` — page scrolls; back chip present.
 4. `/methods` vs `/words` in iOS Safari — pill sits above toolbar when visible,
    normal bottom when not.
+5. **iPad** (`≥ md`) — flat top nav with labelled Methods / Words / Progress; no
+   bottom pill; review session scrolls; language switcher inline in header.

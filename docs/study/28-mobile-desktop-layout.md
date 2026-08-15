@@ -9,8 +9,8 @@ chapter is the reasoning layer for changes to that spec.
 
 ## What we ship today
 
-Breakpoint: Tailwind `md` (768px). Below = mobile chrome; at and above = desktop
-chrome. There is no separate tablet layout.
+Breakpoint: Tailwind `md` (768px). Below = **floating** mobile chrome; at and above =
+**flat** top-nav chrome (desktop and iPad). There is no third shell variant yet.
 
 ### Navigation and chrome
 
@@ -137,12 +137,13 @@ left **icon rail** (Methods / Words / Progress) instead of only the top header.
 **Pros:** More vertical space for content on iPad; thumb-friendly on tablet
 portrait without bottom pill + Safari toolbar fights.
 
-**Cons:** Third chrome variant; 768–1024px is a narrow band for this product
-today; rail without labels repeats the mobile icon-only discoverability problem
-unless tooltips are excellent.
+**Cons:** Third chrome variant; rail without labels repeats the mobile icon-only
+discoverability problem unless tooltips are excellent; **conflicts with owner
+direction (2026-08-15): flat top nav from `md` up, floating only below.**
 
-**Verdict:** **Defer** until analytics or user tests show tablet is a meaningful
-share of sessions. Not worth three nav layouts for v1.
+**Verdict:** **Reject** for v1. iPad is first-class at the **flat top-nav**
+tier (`≥ md`), not via a separate rail. Revisit only if iPad usability testing
+shows top-nav reach failures in portrait.
 
 ---
 
@@ -160,8 +161,9 @@ a menu — hiding nav makes Words/Progress a two-step exit (back → destination
 Contradicts "flashcards is one method among many" ([IMPLEMENTATION-PLAN](../IMPLEMENTATION-PLAN.md)
 settlement): the learner should remain oriented in the three-destination frame.
 
-**Verdict:** **Reject** for default behaviour. **Optional** later: a learner
-setting "focus mode" that hides chrome — not the default.
+**Verdict:** **Reject** as default behaviour. **Owner 2026-08-15: keep pill
+visible during review** — one-tap destination access (UC-063). Optional later:
+learner setting "focus mode" that hides chrome.
 
 ---
 
@@ -192,6 +194,8 @@ reads as **attached** not **floating** — a visual redesign, not a layout tweak
 this).
 
 **Verdict:** **Reject** unless visual design explicitly moves to flat chrome.
+**Owner 2026-08-15: floating pill on `< md` is permanent**; desktop/tablet flat
+top nav is the other pole of the system.
 
 ---
 
@@ -239,28 +243,24 @@ layout — track in feature specs, not shell.
 
 | Priority | Action | Class |
 | --- | --- | --- |
-| **Now** | Keep mobile bottom pill + desktop top header; document in page-layout spec | Done |
-| **Now** | Runner one-screen on `< md` only | Done |
-| **Next** | Owner review: floating pill vs flat tab bar aesthetic ([22](22-visual-design.md)) | **[D]** product |
-| **Later** | Tablet rail if iPad usage &gt; ~15% of sessions | **[D]** data-gated |
+| **Now** | Floating pill `< md`; flat labelled top nav `≥ md` | Done |
+| **Now** | Runner one-screen on `< md` only; pill stays visible in review | Done |
+| **Now** | iPad first-class: same flat top nav as desktop; iPad Safari in LIVE CHECK | Standard |
 | **Later** | Desktop shortcut keys for destinations | Trivial / Standard |
-| **Do not** | Sidebar for three items; immersive nav hide on review; `interactive-widget` | Spec + TRAPS |
+| **Do not** | Sidebar; navigation rail; immersive nav hide on review; flat mobile bar | Owner + spec |
 
-### Open questions for the owner
+### Decided 2026-08-15 (owner)
 
-1. **Floating vs flat mobile nav** — Is the floating pill a permanent brand
-   choice, or a prototype aesthetic? Flat bottom bar is easier to maintain and
-   matches user expectations; floating matches "calm tool with depth" if scrims
-   stay subtle.
+1. **Chrome families** — **Floating** bottom pill + corner chips on **phone**
+   (`< md`). **Flat** sticky top nav on **desktop and iPad** (`≥ md`). Not
+   floating on large screens.
+2. **Review** — **Keep** the destination pill visible during an active session.
+   One-tap escape to Methods / Words / Progress outweighs immersive focus.
+3. **iPad** — **First-class target** for v1. Uses the flat top-nav shell, not a
+   deferred third layout. QA must include iPad Safari (portrait and landscape).
 
-2. **Review chrome** — Should mid-session exit always be one tap (current: pill
-   visible) or is focus worth two taps (back chip only)?
-
-3. **Tablet** — Is iPad a first-class target for v1, or phone + laptop only?
-
-4. **Profile** — Desktop exposes account in header; mobile uses icon only.
-   Acceptable asymmetry, or add "Profile" as a fourth pill? (**Rejected** by
-   ADR-0009 — profile stays a corner link.)
+4. **Profile** — Stays a corner / header link, not a fourth pill (ADR-0009).
+   Mobile icon-only vs desktop labelled link remains acceptable.
 
 ---
 
