@@ -94,7 +94,7 @@
   --spacing-shell-float-top-expanded: 6.5rem;
   --spacing-shell-float-top: 5.5rem;
   --shell-float-top-active: var(--spacing-shell-float-top);
-  --spacing-shell-float-bottom: 6rem;
+  --spacing-shell-float-bottom: 3.75rem;
   /* Active review session — one screen between floating chrome on mobile.
      Must match main's pt-shell-float-top + pb-shell-float-bottom or the page scrolls. */
   --height-review-session: calc(

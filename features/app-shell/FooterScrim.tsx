@@ -20,7 +20,7 @@ export function FooterScrim({ className, children }: FooterScrimProps) {
     <div className={cn("relative isolate w-full", className)}>
       <div
         aria-hidden
-        className="pointer-events-auto absolute inset-x-0 -top-10 bottom-0"
+        className="pointer-events-auto absolute inset-x-0 -top-6 bottom-0"
       >
         <div className="footer-scrim-blur absolute inset-0" />
         <div className="footer-scrim-tint absolute inset-0" />

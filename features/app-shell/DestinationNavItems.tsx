@@ -30,13 +30,13 @@ function DestinationNavItemsInner({ layout = "header" }: DestinationNavItemsProp
             pendingPolicy="nav"
             className={cn(
               pill && [
-                "h-auto w-full min-h-14 flex-col gap-1.5 rounded-pill px-2 py-3 text-sm font-bold",
+                "h-11 w-full min-h-11 flex-row gap-1.5 rounded-pill px-2 py-0 text-xs font-semibold",
                 hitAreaExpandNavPill,
               ],
               !pill && "gap-2",
             )}
           >
-            <Icon aria-hidden className={cn("shrink-0", pill ? "size-6" : "size-4")} />
+            <Icon aria-hidden className={cn("shrink-0", pill ? "size-4" : "size-4")} />
             {label}
           </NavLink>
         </li>

@@ -26,8 +26,6 @@ export const viewport: Viewport = {
     { media: "(prefers-color-scheme: light)", color: "#f7f4ef" }, // token-check-ignore: mirrors --color-canvas (light)
     { media: "(prefers-color-scheme: dark)", color: "#1c1814" }, // token-check-ignore: mirrors --color-canvas (dark)
   ],
-  viewportFit: "cover",
-  interactiveWidget: "resizes-content",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

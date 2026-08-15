@@ -204,7 +204,7 @@ export function LanguageSwitcher({
 
   return (
     <div className="relative flex flex-col gap-1">
-      <div className="relative size-12 shrink-0 min-w-12">
+      <div className="relative size-11 shrink-0 min-w-11">
         <IconButton
           ref={triggerRef}
           className={cn(open && triggerPosition && "fixed z-language-switcher-trigger")}

@@ -11,6 +11,20 @@ applying is still evidence about how this codebase misleads people.
 
 ---
 
+## `interactive-widget=resizes-content` made Safari's bottom toolbar appear on every page except Methods
+
+Words and Progress showed Safari's back/share/refresh bar under the app nav;
+Methods did not. The viewport meta `interactiveWidget: "resizes-content"` was
+added to "help with mobile chrome" — it tells the browser to **reserve layout
+space** for its own bottom toolbar. That made the toolbar visible and persistent
+on scrollable destinations while Methods (shorter initial layout) sometimes
+did not trigger it.
+
+**The fix:** remove `interactiveWidget` (default `overlays-content` lets the
+browser chrome float over the page without stealing height). **The check:**
+open `/words` and `/methods` in iOS Safari and confirm the bottom toolbar
+behaviour matches before shipping viewport meta changes.
+
 ## Every adapter called `getUser()` independently, and every navigation paid for it
 
 Production felt slow on every navbar click and language switch. The client
