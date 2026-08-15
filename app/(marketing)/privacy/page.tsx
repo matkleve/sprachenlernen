@@ -1,10 +1,18 @@
 import type { Metadata } from "next";
 
 import { privacyContent } from "@/features/privacy/content";
+import { absoluteUrl, indexablePageMetadata } from "@/lib/site-metadata";
+import { routes } from "@/lib/routes";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = indexablePageMetadata({
   title: privacyContent.title,
-};
+  description: privacyContent.intro,
+  openGraph: {
+    title: `${privacyContent.title} · Sprachenlernen`,
+    description: privacyContent.intro,
+    url: absoluteUrl(routes.privacy),
+  },
+});
 
 export default function PrivacyPage() {
   return (

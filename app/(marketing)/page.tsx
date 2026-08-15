@@ -1,8 +1,11 @@
 import { redirect } from "next/navigation";
+import type { Metadata } from "next";
 
 import { LandingHero } from "@/features/marketing/LandingHero";
+import { copy } from "@/features/marketing/content";
 import { getAccount } from "@/lib/db/auth";
 import { routes } from "@/lib/routes";
+import { absoluteUrl, indexablePageMetadata } from "@/lib/site-metadata";
 
 /**
  * The public landing page. Contract: docs/specs/page/landing.md
@@ -17,6 +20,16 @@ import { routes } from "@/lib/routes";
 // Branches on sign-in state, so it cannot be prerendered — same reason and
 // the same failure mode as app/(app)/layout.tsx, which carries the full note.
 export const dynamic = "force-dynamic";
+
+export const metadata: Metadata = indexablePageMetadata({
+  title: copy.landing.eyebrow,
+  description: `${copy.landing.headline} ${copy.landing.subhead}`,
+  openGraph: {
+    title: copy.landing.headline,
+    description: copy.landing.subhead,
+    url: absoluteUrl(routes.landing),
+  },
+});
 
 export default async function Home({
   searchParams,

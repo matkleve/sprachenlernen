@@ -1,9 +1,11 @@
 import { redirect } from "next/navigation";
+import type { Metadata } from "next";
 
 import { authContent } from "@/features/auth/content";
 import { SignUpForm } from "@/features/auth/SignUpForm";
 import { getAccount } from "@/lib/db/auth";
 import { routes } from "@/lib/routes";
+import { noIndexPageMetadata } from "@/lib/site-metadata";
 import { safeDecodeURIComponent } from "@/lib/utils";
 
 /**
@@ -14,6 +16,10 @@ import { safeDecodeURIComponent } from "@/lib/utils";
 // Branches on sign-in state, so it cannot be prerendered — same reason and
 // the same failure mode as app/(app)/layout.tsx, which carries the full note.
 export const dynamic = "force-dynamic";
+
+export const metadata: Metadata = noIndexPageMetadata({
+  title: authContent.signUp.heading,
+});
 
 export default async function SignUpPage({
   searchParams,
