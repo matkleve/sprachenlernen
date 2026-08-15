@@ -5,6 +5,7 @@ import type { CSSProperties } from "react";
 import { copy } from "@/features/words/content";
 import { languageStripes } from "@/lib/language-stripes";
 import {
+  ORBIT_BADGE_RADIUS,
   ORBIT_CENTER,
   ORBIT_CENTER_RADIUS,
   ORBIT_RING_WIDTH,
@@ -63,24 +64,38 @@ function ringSpinStyle(ringIndex: number): CSSProperties {
 
 function LanguageCenter({ languageCode }: { languageCode: string }) {
   const stripes = languageStripes(languageCode);
-  const size = ORBIT_CENTER_RADIUS * 2;
-  const third = size / 3;
+  const badgeSize = ORBIT_BADGE_RADIUS * 2;
+  const band = badgeSize / 3;
 
   return (
     <g>
-      <circle cx={CENTER} cy={CENTER} r={ORBIT_CENTER_RADIUS} className="fill-ink" />
+      <circle
+        cx={CENTER}
+        cy={CENTER}
+        r={ORBIT_CENTER_RADIUS}
+        className="fill-surface stroke-line"
+        strokeWidth={1}
+      />
+      <circle
+        cx={CENTER}
+        cy={CENTER}
+        r={ORBIT_BADGE_RADIUS + 2}
+        fill="none"
+        className="stroke-line opacity-50"
+        strokeWidth={1}
+      />
       <clipPath id={`orbit-center-clip-${languageCode}`}>
-        <circle cx={CENTER} cy={CENTER} r={ORBIT_CENTER_RADIUS - 1} />
+        <circle cx={CENTER} cy={CENTER} r={ORBIT_BADGE_RADIUS} />
       </clipPath>
       <g clipPath={`url(#orbit-center-clip-${languageCode})`}>
         {stripes.orientation === "horizontal" ? (
           stripes.fills.map((fill, index) => (
             <rect
               key={fill}
-              x={CENTER - ORBIT_CENTER_RADIUS}
-              y={CENTER - ORBIT_CENTER_RADIUS + index * third}
-              width={size}
-              height={third}
+              x={CENTER - ORBIT_BADGE_RADIUS}
+              y={CENTER - ORBIT_BADGE_RADIUS + index * band}
+              width={badgeSize}
+              height={band}
               className={fill}
             />
           ))
@@ -88,10 +103,10 @@ function LanguageCenter({ languageCode }: { languageCode: string }) {
           stripes.fills.map((fill, index) => (
             <rect
               key={fill}
-              x={CENTER - ORBIT_CENTER_RADIUS + index * third}
-              y={CENTER - ORBIT_CENTER_RADIUS}
-              width={third}
-              height={size}
+              x={CENTER - ORBIT_BADGE_RADIUS + index * band}
+              y={CENTER - ORBIT_BADGE_RADIUS}
+              width={band}
+              height={badgeSize}
               className={fill}
             />
           ))

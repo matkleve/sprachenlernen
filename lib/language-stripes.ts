@@ -1,5 +1,5 @@
 /**
- * Center-circle flag stripes for the vocabulary orbit. Decorative fills only —
+ * Compact center-badge flag stripes for the vocabulary orbit. Decorative fills only —
  * token names, never raw hex in components. Contract:
  * docs/specs/feature/vocabulary-orbit.md
  */
