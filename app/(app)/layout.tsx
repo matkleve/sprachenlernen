@@ -1,13 +1,17 @@
 import type { ReactNode } from "react";
 import { Suspense } from "react";
+import type { Metadata } from "next";
 
 import { AppShell } from "@/features/app-shell/AppShell";
 import { requireAccount } from "@/features/app-shell/gate";
 import { switcherOptionsFrom } from "@/features/app-shell/reading";
 import { readLanguageHoldings } from "@/lib/db/language-holdings";
 import { listLearningLanguages } from "@/lib/db/learning-languages";
+import { noIndexPageMetadata } from "@/lib/site-metadata";
 
 import AppLoading from "./loading";
+
+export const metadata: Metadata = noIndexPageMetadata();
 
 /**
  * The signed-in half of the app (ADR-0010). Every route in this group is
