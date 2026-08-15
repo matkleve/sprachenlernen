@@ -1,7 +1,7 @@
 # UC-046 — Discover a way of practising I never knew existed
 
 <!-- id: UC-046 -->
-<!-- specs: SPEC-service-method-catalogue, SPEC-page-method-menu, SPEC-service-method-engines, SPEC-service-practice-model, SPEC-component-method-badge -->
+<!-- specs: SPEC-service-method-catalogue, SPEC-page-method-menu, SPEC-service-method-engines, SPEC-service-practice-model, SPEC-component-method-badge, SPEC-component-method-card-header -->
 
 **Who:** a learner whose idea of "studying a language" is whatever their app has
 shown them.
@@ -28,6 +28,8 @@ them.
 - Each entry shows **at a glance** what skills it serves (with contribution
   level), how strong the evidence is, and how much effort it takes — on the card
   before opening detail.
+- Section **header graphics** (one per catalogue section, not per method) help
+  scan the full range without implying a quality rank.
 - Each entry says what it trains, what it requires, how demanding it is, and
   how good the evidence is (UC-042).
 - Methods the app does not host are listed alongside those it does, without

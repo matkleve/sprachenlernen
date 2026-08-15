@@ -27,6 +27,8 @@
 - [ ] Given a hosted Method card for any other id, then it links to
       `/methods/{id}` (detail), not `/words/review`.
 - [ ] Given an off-app Method card, then it links to `/methods/{id}`.
+- [ ] Given any rendered Method card, then a section header graphic appears above
+      the title; the card has uniform border radius with no left accent stripe.
 - [ ] Given any rendered Method card, then the badge row (skill marks, evidence,
       effort) appears above tag chips; `doesNotDo` prose appears below.
 - [ ] Given any rendered Method card, then evidence and intensity are not

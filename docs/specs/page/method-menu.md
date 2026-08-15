@@ -50,8 +50,10 @@ the card body. No accent left border — uniform `rounded-card` only.
   demonstration sentence; readiness; CEFR skill or overall level on this
   surface.
 
-**Reuse: MethodBadge** (`features/method-menu/MethodBadge.tsx` — skill, evidence,
-effort), **Reuse: Chip** (short tags only), **Reuse: NavLink** (card links only).
+**Reuse: MethodCardHeader** ([`method-card-header.md`](../component/method-card-header.md)
+— section graphic), **Reuse: MethodBadge** (`features/method-menu/MethodBadge.tsx`
+— skill, evidence, effort), **Reuse: Chip** (short tags only), **Reuse: NavLink**
+(card links only).
 **FilterPill** toggles filters in place — button geometry matching Chip, because
 toggling a filter is not navigation. **MethodMenu** is a client island; the route
 stays a Server Component.

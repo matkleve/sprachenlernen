@@ -182,10 +182,13 @@ Intensity 1–3 maps to ●○○, ●●○, ●●● with anchor text from `i
 
 ```
 ┌──────────────────────────────────────┐
+│ ░░ section graphic (h-20) ░░░░░░░░░░ │  ← one asset per section; gradient fade
+│ LISTENING                             │  ← section label on overlay
+├──────────────────────────────────────┤
 │  Background listening with no task     │
 │  Leave it playing while you do…      │
 │                                      │
-│  [L̲] [R] [S] [W]   A  ●○○           │  ← badge row (skills, evidence, effort)
+│  [🎧] [📖] [🎤] [✎]   C  ●○○         │  ← badge row (icons, evidence, effort)
 │                                      │
 │  [20 min] [45 min] [headphones] …    │  ← tag chips (nowrap)
 │                                      │
@@ -193,9 +196,11 @@ Intensity 1–3 maps to ●○○, ●●○, ●●● with anchor text from `i
 └──────────────────────────────────────┘
 ```
 
-- Badge row: fixed height, no wrap.
+- **No left accent border** — uniform `rounded-card` border only (owner: stripe
+  clashed with corner radius). Soft section background tint on the card shell.
+- Header graphic: decorative; section label on overlay; eight shared assets.
+- Badge row: fixed order, Lucide skill icons; `sr-only` summary inside card link.
 - Tag chips: wrap; **never** multi-line pills (see chip spec).
-- Skill marks: icon or two-letter abbrev in consistent order.
 
 ### Method detail (expanded)
 
@@ -247,6 +252,8 @@ Shell title may shorten on mobile; **in-page hero** always shows full `name`.
 
 - Component: [`method-badge.md`](../specs/component/method-badge.md) — three
   families, geometry, tokens, a11y.
+- Component: [`method-card-header.md`](../specs/component/method-card-header.md)
+  — section graphics, gradient, label.
 - Pages: [`method-menu.md`](../specs/page/method-menu.md),
   [`method-detail.md`](../specs/page/method-detail.md) — placement, hero title,
   chip vs badge split.
@@ -258,11 +265,11 @@ Shell title may shorten on mobile; **in-page hero** always shows full `name`.
 
 ## Open questions for the owner
 
-1. **Skill mark visual:** abstract shapes (R/L/S/W) vs icons — icons need a spec'd
-   set and `check:tokens` coverage.
+1. ~~**Skill mark visual:** abstract shapes (R/L/S/W) vs icons~~ — **resolved:**
+   Lucide icons shipped 2026-08-15.
 2. **v1 derivation vs wait for v2 data:** shipping derived marks risks wrong
    primary on edge cases (e.g. reading aloud → speaking + reading). Prefer v2
    authoring for ~10 borderline methods, or ship v1 with known limitations
    documented?
-3. **Section tinting:** optional accent band per section — visual interest from
-   prior review; needs explicit approval ([`DESIGN-SYSTEM.md`](../DESIGN-SYSTEM.md)).
+3. ~~**Section tinting:** optional accent band per section~~ — **resolved:**
+   soft section background + header graphic; no left accent stripe.

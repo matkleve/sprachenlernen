@@ -27,7 +27,7 @@ badge copy lives in `features/method-menu/content.ts`).
 | --- | --- | --- |
 | 1 | Sees a method card | Badge row shows skill marks, evidence grade, effort dots in fixed order |
 | 2 | Opens method detail | Same three families in an "At a glance" panel plus tag chips for takes/needs |
-| 3 | Focuses a badge (keyboard) | `aria-label` states skill + level, evidence sentence stub, or effort anchor |
+| 3 | Focuses a card link (keyboard) | `sr-only` summary states skills, evidence, and effort; individual marks use `title` tooltips |
 
 ## Families
 
@@ -35,8 +35,8 @@ badge copy lives in `features/method-menu/content.ts`).
 
 | Level | Visual | When |
 | --- | --- | --- |
-| Primary | Filled skill mark | Main target skill for the method |
-| Secondary | Outlined / half fill | Listed in `skills[]` but not primary |
+| Primary | Filled skill mark (Lucide icon) | Main target skill for the method |
+| Secondary | Outlined / dashed border | Listed in `skills[]` but not primary |
 | Slight | Dim mark | Weak contribution; detail may add the word "slight" |
 
 Skills fixed order: reading, listening, speaking, writing. Only skills with
@@ -62,6 +62,10 @@ dots + `intensity` sentence as prose.
 Non-interactive — one visual state per family. No hover requirement beyond
 focus-visible on the enclosing card link.
 
+On cards inside a link (`inLink`), the visible badge row is `aria-hidden` and a
+single `sr-only` line carries the full summary — avoids nested interactive
+semantics and duplicate announcements.
+
 ## Data
 
 | Prop / input | Source |
@@ -80,8 +84,9 @@ Optional `className` via `cn()`.
       short gloss — not a multi-line pill.
 - [ ] Given intensity 1, when the card renders, then exactly one effort dot is
       filled.
-- [ ] Given a primary listening mark, when a screen reader announces it, then the
-      accessible name includes "listening" and "primary".
+- [ ] Given a card link with skill marks, when a screen reader announces the
+      link, then the `sr-only` summary includes skill names, contribution levels,
+      evidence gloss, and effort.
 - [ ] Given any badge, when it renders, then only token utilities are used — no
       raw colors or radii.
 - [ ] Given detail page, when evidence is shown, then the full sentence is prose
