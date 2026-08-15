@@ -16,12 +16,15 @@ const extensiveReading = findMethod(catalogue, "extensive-reading")!;
 const srsSession = findMethod(catalogue, "srs-session")!;
 
 describe("MethodDetail", () => {
-  it("shows a shipped method", () => {
+  it("shows article sections for a shipped method", () => {
     render(
       <MethodDetail method={extensiveReading} searchParams={{ minutes: "15", skill: "reading" }} />,
     );
 
     expect(screen.getByRole("heading", { level: 1, name: extensiveReading.name })).toBeDefined();
+    expect(screen.getByRole("heading", { level: 2, name: copy.detail.practical })).toBeDefined();
+    expect(screen.getByRole("heading", { level: 2, name: copy.card.trains })).toBeDefined();
+    expect(screen.getByRole("heading", { level: 2, name: copy.card.doesNotDo })).toBeDefined();
     expect(document.body.textContent).toContain(extensiveReading.summary);
     expect(document.body.textContent).toContain(extensiveReading.doesNotDo);
     expect(screen.queryByRole("link", { name: copy.startSession })).toBeNull();

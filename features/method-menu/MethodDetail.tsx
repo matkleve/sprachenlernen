@@ -1,5 +1,6 @@
 import { ActionLink } from "@/components/ui/ActionLink";
 import { Chip } from "@/components/ui/Chip";
+import { disclosureSummaryClass } from "@/components/ui/Disclosure";
 import { ShellPageContent } from "@/features/app-shell/ShellPageContent";
 import { byId, type MethodEntry } from "@/lib/method-catalogue";
 import type { SearchParams } from "@/lib/method-menu-filter";
@@ -9,8 +10,16 @@ import { sessionHrefForMethod, usesWordsReview } from "@/lib/method-session";
 import { routes } from "@/lib/routes";
 import { cn } from "@/lib/utils";
 
-import { MethodAtAGlance } from "./MethodBadge";
-import { copy, evidence, intensity, sections } from "./content";
+import {
+  contributionLabels,
+  copy,
+  effortCard,
+  evidenceCard,
+  evidenceProse,
+  intensity,
+  sections,
+  skillLabels,
+} from "./content";
 import { durationChips, requirementChips } from "./requirements";
 
 export type MethodDetailProps = {
@@ -42,6 +51,15 @@ export function MethodDetail({ method, searchParams = {} }: MethodDetailProps) {
 
   const requirements = requirementChips(method.requires);
   const skillMarks = skillMarksForMethod(method);
+  const skillLine =
+    skillMarks.length > 0
+      ? skillMarks
+          .map(
+            (mark) =>
+              `${skillLabels[mark.skill]} (${contributionLabels[mark.level]})`,
+          )
+          .join(" · ")
+      : null;
 
   return (
     <ShellPageContent mode="scrollable-drill-in" width="narrow">
@@ -55,14 +73,12 @@ export function MethodDetail({ method, searchParams = {} }: MethodDetailProps) {
       <h1 className="mt-2 text-3xl font-semibold tracking-tight text-ink">{method.name}</h1>
       <p className="mt-2 text-base leading-relaxed text-muted">{method.summary}</p>
 
-      <MethodAtAGlance
-        skillMarks={skillMarks}
-        evidence={method.evidence}
-        evidenceDetail={evidence[method.evidence]}
-        intensity={method.intensity}
-        intensityDetail={intensity[method.intensity]}
-      >
-        <dl className="grid gap-3 text-sm">
+      <section className="mt-8">
+        <h2 className="text-base font-semibold text-ink">{copy.detail.practical}</h2>
+        <p className="mt-2 text-base text-muted">
+          {effortCard[method.intensity]} — {intensity[method.intensity]}
+        </p>
+        <dl className="mt-4 grid gap-3 text-sm">
           <div>
             <dt className="font-medium text-ink">{copy.card.duration}</dt>
             <dd className="mt-1 flex flex-wrap gap-1.5">
@@ -88,17 +104,30 @@ export function MethodDetail({ method, searchParams = {} }: MethodDetailProps) {
             </dd>
           </div>
         </dl>
-      </MethodAtAGlance>
+      </section>
 
       <section className="mt-8">
         <h2 className="text-base font-semibold text-ink">{copy.card.trains}</h2>
-        <p className="mt-1 text-base text-muted">{method.trains}</p>
+        <p className="mt-2 text-base leading-relaxed text-muted">{method.trains}</p>
+        {skillLine ? (
+          <p className="mt-2 text-sm text-muted">
+            <span className="font-medium text-ink">{copy.detail.mainly}: </span>
+            {skillLine}
+          </p>
+        ) : null}
       </section>
 
       <section className="mt-8 rounded-card border border-line bg-surface-raised p-4 shadow-soft">
         <h2 className="text-base font-semibold text-ink">{copy.card.doesNotDo}</h2>
         <p className="mt-2 text-base leading-relaxed text-muted">{method.doesNotDo}</p>
       </section>
+
+      <details className="mt-8">
+        <summary className={disclosureSummaryClass}>{copy.detail.researchConfidence}</summary>
+        <p className="mt-2 text-sm leading-relaxed text-muted">
+          {evidenceCard[method.evidence]} — {evidenceProse[method.evidence]}
+        </p>
+      </details>
 
       <p className="mt-6 text-sm text-muted">
         {method.hosted ? copy.hosted : copy.notHosted}
