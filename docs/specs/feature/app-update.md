@@ -23,7 +23,8 @@ Parent: [`mobile-nav-v2.md`](mobile-nav-v2.md) (version label slot). Versioning:
   build-id / git SHA (Pride version only).
 
 **Reuse:** `Button` (`ghost`, `sm`), `APP_PRIDE_VERSION` / `formatPrideVersion`
-from `lib/pride-version.ts`, `AppVersionLabel` slot in `FloatingShellChrome`.
+from `lib/pride-version.ts`, `AppUpdateProvider` (one shared check for footer +
+profile), `AppVersionLabel` slot in `FloatingShellChrome`.
 
 ## Behavior
 
@@ -34,6 +35,7 @@ from `lib/pride-version.ts`, `AppVersionLabel` slot in `FloatingShellChrome`.
 | 3 | Server version is newer | Deployed `vPROUD.DEFAULT.SHAME` in `text-success` with download icon; tap reloads |
 | 4 | Taps Reload | Full page reload |
 | 5 | Returns to tab / app (`visibilitychange` → visible) | Re-check; prompt appears if a deploy happened while away |
+| 5b | iOS PWA resumes (`pageshow` / `focus`) | Same re-check as visibility |
 | 6 | Fetch fails | No prompt; version label unchanged (fail silent) |
 | 7 | Opens `/profile` | **App** section shows running version and **Check for updates** |
 | 8 | Taps Check for updates on `/profile` | Re-fetches `/api/app-version`; shows green reload row when stale |
@@ -70,7 +72,8 @@ from `lib/pride-version.ts`, `AppVersionLabel` slot in `FloatingShellChrome`.
 - [ ] Given `/profile`, when the page renders, then an **App** section shows the
       running Pride version and a **Check for updates** control.
 - [ ] Given a higher deployed version, when the learner opens `/profile` or taps
-      **Check for updates**, then a green reload row names the deployed version.
+      **Check for updates**, then a green reload row names the deployed version
+      **and** the mobile footer label shows the same deployed version.
 
 ## Check
 

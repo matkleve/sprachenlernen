@@ -12,6 +12,7 @@ import {
 
 import { AppVersionLabel } from "./AppVersionLabel";
 import { copy } from "./content";
+import { renderWithAppUpdate } from "./test-utils";
 
 const bundledVersion = packageJson.version;
 const bundledLabel = APP_VERSION_LABEL;
@@ -36,7 +37,7 @@ describe("SPEC-feature-app-update", () => {
       json: async () => ({ version: bundledVersion }),
     } as Response);
 
-    render(<AppVersionLabel />);
+    renderWithAppUpdate(<AppVersionLabel />);
 
     await waitFor(() => {
       expect(screen.getByText(bundledLabel)).toBeDefined();
@@ -54,7 +55,7 @@ describe("SPEC-feature-app-update", () => {
       json: async () => ({ version: deployedVersion }),
     } as Response);
 
-    const { container } = render(<AppVersionLabel />);
+    const { container } = renderWithAppUpdate(<AppVersionLabel />);
 
     const control = await screen.findByRole("button", {
       name: copy.appUpdate.reloadAria(deployedLabel, bundledLabel),
@@ -79,7 +80,7 @@ describe("SPEC-feature-app-update", () => {
     } as Response);
 
     const user = userEvent.setup();
-    render(<AppVersionLabel />);
+    renderWithAppUpdate(<AppVersionLabel />);
 
     await user.click(
       await screen.findByRole("button", {
@@ -93,7 +94,7 @@ describe("SPEC-feature-app-update", () => {
   it("keeps the version label when the version check fails", async () => {
     vi.mocked(fetch).mockRejectedValue(new Error("offline"));
 
-    render(<AppVersionLabel />);
+    renderWithAppUpdate(<AppVersionLabel />);
 
     await waitFor(() => {
       expect(screen.getByText(bundledLabel)).toBeDefined();

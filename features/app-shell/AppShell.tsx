@@ -3,6 +3,7 @@ import type { ReactNode } from "react";
 import type { LanguageHoldings } from "@/lib/db/language-holdings";
 import { cn } from "@/lib/utils";
 
+import { AppShellProviders } from "./AppShellProviders";
 import { DesktopShellHeader } from "./DesktopShellHeader";
 import { FloatingShellChrome } from "./FloatingShellChrome";
 import type { LanguageSwitcherOption } from "./LanguageSwitcher";
@@ -30,19 +31,21 @@ export function AppShell({
   languageHoldings?: Record<string, LanguageHoldings>;
 }) {
   return (
-    <div className="min-h-svh">
-      <DesktopShellHeader languages={languages} languageHoldings={languageHoldings} />
+    <AppShellProviders>
+      <div className="min-h-svh">
+        <DesktopShellHeader languages={languages} languageHoldings={languageHoldings} />
 
-      <FloatingShellChrome languages={languages} languageHoldings={languageHoldings} />
+        <FloatingShellChrome languages={languages} languageHoldings={languageHoldings} />
 
-      <main
-        id="main"
-        className={cn(
-          "pt-[var(--shell-float-top-active)] pb-shell-float-bottom md:pt-0 md:pb-0",
-        )}
-      >
-        {children}
-      </main>
-    </div>
+        <main
+          id="main"
+          className={cn(
+            "pt-[var(--shell-float-top-active)] pb-shell-float-bottom md:pt-0 md:pb-0",
+          )}
+        >
+          {children}
+        </main>
+      </div>
+    </AppShellProviders>
   );
 }
