@@ -2,10 +2,12 @@ import { ActionLink } from "@/components/ui/ActionLink";
 import { ShellPageContent } from "@/features/app-shell/ShellPageContent";
 import { holding } from "@/features/app-shell/content";
 import { copy as reviewCopy } from "@/features/review-session/content";
+import { ReviewHorizonField } from "@/features/words/ReviewHorizonField";
 import { copy } from "@/features/words/content";
 import { VocabularyOrbitField } from "@/features/words/VocabularyOrbitField";
 import { cardEngineSessionHref } from "@/lib/method-session";
 import type { FrequencyBlock } from "@/lib/frequency-blocks";
+import type { HorizonDisplay } from "@/lib/review-horizon";
 import { buildVocabularyOrbit } from "@/lib/vocabulary-orbit";
 import type { VocabularySnapshot } from "@/lib/vocabulary-snapshot";
 import { cn } from "@/lib/utils";
@@ -15,18 +17,9 @@ type WordsHomeProps = {
   blocks: readonly FrequencyBlock[];
   languageCode: string;
   translations: Readonly<Record<string, string>>;
+  horizonDisplay: HorizonDisplay;
+  now: number;
 };
-
-const CHART_HEIGHT_PX = 96;
-
-function maxHorizonCount(snapshot: VocabularySnapshot): number {
-  return Math.max(1, ...snapshot.horizon.map((bin) => bin.count));
-}
-
-function horizonBarHeight(count: number, max: number): number {
-  if (count === 0) return 2;
-  return Math.max(4, (count / max) * CHART_HEIGHT_PX);
-}
 
 const countCardStyles = {
   held: "border-success-soft bg-success-soft",
@@ -34,9 +27,15 @@ const countCardStyles = {
   new: "border-line bg-surface",
 } as const;
 
-export function WordsHome({ snapshot, blocks, languageCode, translations }: WordsHomeProps) {
+export function WordsHome({
+  snapshot,
+  blocks,
+  languageCode,
+  translations,
+  horizonDisplay,
+  now,
+}: WordsHomeProps) {
   const reviewHref = cardEngineSessionHref();
-  const horizonMax = maxHorizonCount(snapshot);
   const orbit = buildVocabularyOrbit(snapshot.atlas, translations);
 
   return (
@@ -115,36 +114,7 @@ export function WordsHome({ snapshot, blocks, languageCode, translations }: Word
         </dl>
       </section>
 
-      <section className="mt-page-content">
-        <h2 className="text-xl font-semibold text-ink">{copy.horizonHeading}</h2>
-        <p className="mt-4 max-w-2xl text-base leading-relaxed text-muted">{copy.horizonCaption}</p>
-        <div className="mt-6 overflow-x-auto" role="img" aria-label={copy.horizonCaption}>
-          <div
-            className="flex min-w-max items-end gap-1"
-            style={{ height: CHART_HEIGHT_PX }}
-          >
-            {snapshot.horizon.map((bin) => (
-              <div
-                key={bin.dayOffset}
-                className="flex h-full w-4 flex-col justify-end"
-                title={`${copy.horizonDay(bin.dayOffset)}: ${bin.count}`}
-              >
-                <div
-                  className="w-full rounded-pill bg-accent"
-                  style={{ height: `${horizonBarHeight(bin.count, horizonMax)}px` }}
-                />
-              </div>
-            ))}
-          </div>
-          <div className="mt-2 flex min-w-max gap-1">
-            {snapshot.horizon.map((bin) => (
-              <span key={bin.dayOffset} className="w-4 text-center text-[10px] text-muted">
-                {bin.dayOffset % 5 === 0 ? bin.dayOffset + 1 : ""}
-              </span>
-            ))}
-          </div>
-        </div>
-      </section>
+      <ReviewHorizonField horizon={snapshot.horizon} display={horizonDisplay} now={now} />
 
       <div className="mt-page-content">
         <VocabularyOrbitField orbit={orbit} languageCode={languageCode} atlas={snapshot.atlas} />

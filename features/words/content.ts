@@ -23,8 +23,27 @@ export const copy = {
   blockHeld: (held: number, poolSize: number) => `${held} of ${poolSize} held`,
   blockHeldDescription: "Stable enough to count as known — same rules as Held above.",
   horizonHeading: "Review horizon",
-  horizonCaption: "When scheduled reviews fall over the next 30 days.",
+  horizonCaption:
+    "How your scheduled reviews are spread over the next 30 days — not what is due in today's session.",
   horizonDay: (offset: number) => (offset === 0 ? "Today" : `Day ${offset + 1}`),
+  horizonExpand: "Show four-week plan",
+  horizonCollapse: "Hide plan",
+  horizonSummaryLight: "The next four weeks look light.",
+  horizonSummarySteady: "A steady spread of scheduled reviews over the next four weeks.",
+  horizonSummaryPeakWeek: (week: number, avgPerDay: number) =>
+    `Peak in week ${week} (~${Math.round(avgPerDay)} scheduled per day).`,
+  horizonWeekLabel: (week: number) => `Week ${week}`,
+  horizonWeekStats: (total: number, avgPerDay: number) =>
+    `${total} scheduled · ~${Math.round(avgPerDay)}/day`,
+  horizonWeekAria: (week: number, total: number, avgPerDay: number) =>
+    `Week ${week}: ${total} scheduled reviews, about ${Math.round(avgPerDay)} per day`,
+  horizonTileOverflow: (overflow: number) => `+${overflow}`,
+  horizonCausal: (week: number, count: number, dateLabel: string) =>
+    `The peak in week ${week} comes from the ${count} cards you added on ${dateLabel}.`,
+  horizonReturnPlan:
+    "You were away for a while. Your next session is the usual length — the plan below shows how scheduled reviews spread out.",
+  horizonScheduledNote:
+    "Each tile is a scheduled review date from the memory schedule — not a task you must finish that day.",
   atlasColumns: {
     word: "Word",
     rank: "Rank",

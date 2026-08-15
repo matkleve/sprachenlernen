@@ -4,7 +4,7 @@
 <!-- use-case: UC-005 -->
 <!-- use-case: UC-006 -->
 <!-- use-case: UC-063 -->
-<!-- status: draft -->
+<!-- status: active -->
 
 The 30-day **scheduled-review forecast** on `/words` — informational, not a
 backlog counter. Shows when the scheduler has placed future reviews, with a
