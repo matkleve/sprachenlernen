@@ -1,10 +1,34 @@
 # 31 · iOS Safari / PWA — Issue report & test plan
 
-**Status:** open (owner QA) · **Created:** 2026-08-15 · **Build under test:** `v0.4.1`
+**Status:** fix shipped (`cursor/pwa-inset-fix-0087`) · **Created:** 2026-08-15 · **Build under test:** `v0.4.1`+
 
 This document consolidates everything we investigated, shipped, rejected, and
 still need to verify on a **real iPhone**. It supersedes scattered chat notes;
 technical detail also lives in [`29-ios-inset-by-route.md`](29-ios-inset-by-route.md).
+
+---
+
+## Owner QA result (2026-08-15)
+
+Tested in **true PWA** (Home Screen icon):
+
+| Route | Safari toolbar / phantom inset |
+| --- | --- |
+| `/methods` | Never appears — pill low ✓ |
+| `/methods-mirror` | Never appears — pill low ✓ |
+| `/words` | Appears — pill sits higher ✗ |
+| `/progress` | Appears — pill sits higher ✗ |
+
+**Conclusion:** Not session-only. Methods and mirror share the same body; Words
+and Progress share different bodies. In standalone PWA there is **no Safari
+toolbar** — the pill lifting is a **false positive** from `visualViewport`
+measurement on those pages.
+
+**Fix (shipped):** `useVisualViewportBottomInset` forces `0px` inset when
+`isStandaloneDisplay()` is true. Destination wrappers also use `overflow-x-clip`
+to block accidental horizontal overflow.
+
+**Re-test after deploy:** sections C1–C6 below — all routes should match Methods.
 
 ---
 
@@ -165,10 +189,10 @@ Record for each route: **Safari toolbar visible?** · **Nav pill visible?** · *
 | C5 | On Words: expand horizon + open a week column | ☐ hidden ☐ visible | ☐ yes | vs C1 | ☐ |
 | C6 | On Progress: open weekly reflection deck | ☐ hidden ☐ visible | ☐ yes | vs C1 | ☐ |
 
-**Pass criterion for C:** In standalone PWA, all routes show **no Safari toolbar**
-and **nav pill visible** at the same vertical position.
+**Pass criterion for C:** In standalone PWA, all routes show **no extra bottom
+gap** and **nav pill visible** at the **same vertical position as Methods**.
 
-**If C fails only in Safari tab:** expected limitation — document and skip to § E.
+**After `v0.4.1` + PWA inset fix:** expect all C rows to pass.
 
 ### D · App update flow
 
@@ -244,6 +268,21 @@ Green update prompt never appears?
 | Profile App section | PR #87 | Merged |
 | AppUpdateProvider sync fix | main | Merged |
 | This test report | study/31 | This doc |
+| PWA standalone inset fix | `lib/is-standalone-display.ts`, hook | Shipped |
+
+---
+
+## Fix detail — standalone PWA inset
+
+When `navigator.standalone` or `display-mode: standalone|fullscreen`:
+
+- `--shell-visual-viewport-bottom-inset` is always `0px`
+- Rationale: no Safari bottom toolbar exists; phantom `visualViewport` gaps on
+  Words/Progress were lifting the pill incorrectly (owner-confirmed)
+- In-browser Safari tabs still use dynamic measurement
+
+Also: `ShellPageContent` scrollable modes use `overflow-x-clip` on destination
+pages to prevent nested horizontal overflow from widening the document.
 
 ---
 
