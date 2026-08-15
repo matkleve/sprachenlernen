@@ -28,7 +28,7 @@ via **Show list**.
 | # | User action | System response |
 | --- | --- | --- |
 | 1 | Opens `/words` | Orbit below counts/horizon; **center hub and stripe badge stay fixed**; each of the eight rings spins at its own speed and direction unless reduced motion |
-| 2 | Taps a word segment | Detail card under the orbit: lemma, translation, rank, stability, status |
+| 2 | Taps a word segment | [`orbit-detail-card.md`](../component/orbit-detail-card.md) under the orbit |
 | 3 | Taps an aggregate segment | Detail card names the rank range and held count |
 | 4 | Taps **Show list** | Scrollable popover with the full frequency-sorted deck (word, rank, status) |
 | 5 | `prefers-reduced-motion` | All rings static; segments still tappable |
@@ -51,6 +51,22 @@ full-bleed flag fill) so the hub matches the minimal dash rings.
 Each ring shows at most **8** individual word segments; remaining words in the
 band collapse into one aggregate segment.
 
+### Size
+
+The SVG fills the content column width up to **42rem** on large screens so the
+orbit reads as the page hero, not a small inset graphic.
+
+### Segment focus
+
+Tapping or keyboard-focusing a segment highlights the **dash stroke** in accent.
+No rectangular browser focus ring — `outline-none` on the interactive group;
+`focus-visible` thickens/recolors the arc only.
+
+### Detail card
+
+Selection opens [`orbit-detail-card.md`](../component/orbit-detail-card.md)
+below the orbit.
+
 ## States
 
 Client-only selection: `selectedSegmentId | null`. List popover `open | closed`.
@@ -67,7 +83,7 @@ Client-only selection: `selectedSegmentId | null`. List popover `open | closed`.
 - [ ] Given `prefers-reduced-motion`, when rendered, then no ring spins and the
       center stripes do not move.
 - [ ] Given a tap on a word segment, when the detail card opens, then lemma,
-      translation, rank, and bucket are shown below the orbit.
+      translation, rank, stability, and bucket chip are shown below the orbit.
 - [ ] Given **Show list**, when opened, then all atlas rows are reachable in a
       scrollable popover.
 

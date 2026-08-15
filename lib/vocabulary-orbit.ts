@@ -113,6 +113,12 @@ function ringFillRatio(points: readonly AtlasPoint[]): number {
   return held / points.length;
 }
 
+export function orbitBandForRank(
+  rank: number,
+): { rankStart: number; rankEnd: number } | null {
+  return ORBIT_RING_BANDS.find((band) => rank >= band.rankStart && rank <= band.rankEnd) ?? null;
+}
+
 export function buildVocabularyOrbit(
   atlas: readonly AtlasPoint[],
   translations: Readonly<Record<string, string>>,

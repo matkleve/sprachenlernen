@@ -55,7 +55,7 @@ export function VocabularyOrbitField({ orbit, languageCode, atlas }: VocabularyO
       </div>
 
       {selected ? (
-        <div className="mt-6">
+        <div className="mt-6" aria-live="polite">
           <OrbitDetailCard segment={selected} />
         </div>
       ) : null}

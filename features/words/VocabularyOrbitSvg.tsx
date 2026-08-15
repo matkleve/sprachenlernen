@@ -138,39 +138,49 @@ function RingLayer({ ringIndex, segments, selectedId, onSelect }: RingLayerProps
         const selected = selectedId === segment.id;
 
         return (
-          <g key={segment.id}>
-            {interactive ? (
-              <path
-                d={path}
-                fill="none"
-                stroke="transparent"
-                strokeWidth={18}
-                strokeLinecap="round"
-                className="cursor-pointer"
-                tabIndex={0}
-                role="button"
-                aria-label={segmentLabel(segment)}
-                onClick={() => onSelect(segment)}
-                onKeyDown={(event) => {
-                  if (event.key === "Enter" || event.key === " ") {
-                    event.preventDefault();
-                    onSelect(segment);
+          <g
+            key={segment.id}
+            role={interactive ? "button" : undefined}
+            tabIndex={interactive ? 0 : undefined}
+            className={cn(
+              interactive &&
+                "group orbit-segment cursor-pointer outline-none focus:outline-none focus-visible:outline-none",
+            )}
+            aria-label={interactive ? segmentLabel(segment) : undefined}
+            onClick={interactive ? () => onSelect(segment) : undefined}
+            onKeyDown={
+              interactive
+                ? (event) => {
+                    if (event.key === "Enter" || event.key === " ") {
+                      event.preventDefault();
+                      onSelect(segment);
+                    }
                   }
-                }}
-              />
-            ) : null}
+                : undefined
+            }
+          >
             <path
               d={path}
               fill="none"
               className={cn(
                 segmentStrokeClass(segment.lit, segment.kind),
-                selected && "stroke-accent",
-                interactive && "pointer-events-none",
+                (selected || false) && "stroke-accent",
+                interactive && "pointer-events-none group-focus-visible:stroke-accent",
               )}
-              strokeWidth={selected ? ORBIT_RING_WIDTH + 1 : ORBIT_RING_WIDTH}
+              strokeWidth={selected ? ORBIT_RING_WIDTH + 2 : ORBIT_RING_WIDTH}
               strokeLinecap="round"
               pointerEvents="none"
             />
+            {interactive ? (
+              <path
+                d={path}
+                fill="none"
+                stroke="transparent"
+                strokeWidth={24}
+                strokeLinecap="round"
+                pointerEvents="stroke"
+              />
+            ) : null}
           </g>
         );
       })}
@@ -194,7 +204,7 @@ export function VocabularyOrbitSvg({
   return (
     <svg
       viewBox={`0 0 ${ORBIT_VIEW_SIZE} ${ORBIT_VIEW_SIZE}`}
-      className="mx-auto w-full max-w-md"
+      className="mx-auto w-full max-w-[min(100%,42rem)]"
       role="img"
       aria-label={copy.orbitAriaLabel}
     >

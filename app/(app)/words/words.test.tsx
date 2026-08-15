@@ -70,4 +70,16 @@ describe("WordsHome", () => {
     expect(screen.getByRole("dialog", { name: copy.orbitListTitle })).toBeDefined();
     expect(screen.getByRole("rowheader", { name: "de" })).toBeDefined();
   });
+
+  it("shows the upgraded detail card when a word segment is selected", async () => {
+    const user = userEvent.setup();
+    render(<WordsHome {...homeProps} />);
+
+    await user.click(screen.getByRole("button", { name: /de, rank 1/i }));
+
+    const detailCard = screen.getByRole("heading", { name: "de" }).closest("article");
+    expect(detailCard).toBeDefined();
+    expect(screen.getByText("of, from")).toBeDefined();
+    expect(detailCard?.textContent).toContain(copy.bucketNames.new);
+  });
 });
