@@ -1,7 +1,7 @@
 # UC-045 — Find a way to practise that fits right now
 
 <!-- id: UC-045 -->
-<!-- specs: SPEC-page-method-menu, SPEC-service-time-scale, SPEC-component-chip -->
+<!-- specs: SPEC-page-method-menu, SPEC-service-time-scale, SPEC-component-chip, SPEC-component-method-badge -->
 
 **Who:** someone with a specific window — ten minutes on the sofa, half an hour
 before bed, a tired commute.
@@ -30,6 +30,8 @@ to the top make browsing worse, not better.
   in place — no full reload, no scroll jump. Only choosing a method navigates away.
 - **Refine only when needed:** hands-free, silent, eyes elsewhere — not eight
   dimensions on the front door.
+- Each card shows **at a glance**: which skills it mainly serves, its evidence
+  grade, and its effort load — before the learner opens the detail page.
 - Methods that do not fit are **absent**, not greyed out.
 - Physical constraints are **stated by the learner**, never inferred.
 - Hosted methods open in one tap; off-app methods show honest detail.

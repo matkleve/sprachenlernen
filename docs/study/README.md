@@ -64,6 +64,7 @@ only this table.
 | [24 · Speaking as the goal](24-speaking-as-the-goal.md) | Serving one goal without corrupting the measurement, the demonstration sentence on Home, stalling, and the honest use of a microphone |
 | [25 · Why none of it feels productive](25-why-it-does-not-feel-productive.md) | What is actually wrong with the competition, sorted by defect — and when the feeling of getting nowhere is an illusion versus a correct reading |
 | [26 · Readiness & difficulty](26-readiness-and-difficulty.md) | Who decides what — why a form nobody may skip argues for targeting rather than gating, how difficulty rises with nobody setting it, and how a method is tested |
+| [27 · Method badges](27-method-badges.md) | Three badge families for cards and detail — skill, evidence, effort — and why not one gold medal per method |
 | [Sources](sources.md) | Literature, honestly marked by how far each was checked |
 
 Chapters 12–26 were written after the roadmap and are appended at the end. By

@@ -27,7 +27,10 @@
 - [ ] Given a hosted Method card for any other id, then it links to
       `/methods/{id}` (detail), not `/words/review`.
 - [ ] Given an off-app Method card, then it links to `/methods/{id}`.
-- [ ] Given any rendered Method card, then chips and `doesNotDo` prose appear.
+- [ ] Given any rendered Method card, then the badge row (skill marks, evidence,
+      effort) appears above tag chips; `doesNotDo` prose appears below.
+- [ ] Given any rendered Method card, then evidence and intensity are not
+      rendered as multi-line accent chips.
 - [ ] Given filters that match nothing, then the gap is named and no list renders.
 - [ ] Given the route `app/(app)/methods/page.tsx`, then it has no `"use client"`;
       `MethodMenu` is a client island that filters in memory. Filter pills are

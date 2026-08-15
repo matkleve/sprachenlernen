@@ -1,7 +1,7 @@
 # UC-042 — Know why a method is supposed to work
 
 <!-- id: UC-042 -->
-<!-- specs: SPEC-page-method-detail -->
+<!-- specs: SPEC-page-method-detail, SPEC-component-method-badge -->
 
 **Who:** anyone being asked to spend fifteen minutes on an exercise they did not
 choose to invent.
@@ -27,7 +27,13 @@ So they optimise for what feels productive, which is reliably not what works.
 - It states the **mechanism** in plain language — not "helps your listening" but
   why it does, and what would be different if it worked.
 - It states **how confident anyone is**, using the same grades as the study
-  behind this product, with one line on what that grade rests on.
+  behind this product, with one line on what that grade rests on — visible as an
+  **evidence badge** on the card and expanded prose on the detail page (not a
+  multi-line chip).
+- It states **what skills the method mainly serves**, with contribution level
+  per skill (primary, secondary, slight) — visible on the card at a glance.
+- It states **how demanding it is to perform** (intensity), as effort dots on
+  the card and anchor text on the detail page.
 - It states **what the method does not do**. This section is mandatory; a page
   without it is an advertisement.
 - It lists **variants** — shorter, harder, on paper, with other people, away from

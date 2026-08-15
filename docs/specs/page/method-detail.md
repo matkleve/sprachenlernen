@@ -12,12 +12,19 @@ works for bookmarks and links.
 
 ## Scope
 
-- **In:** full catalogue fields; on desktop (`≥ md`), a back link preserving
+- **In:** full catalogue fields; **method badge row** and **At a glance** panel
+  ([`method-badge.md`](../component/method-badge.md), study/27); in-page **hero
+  title** (`name`, full width); tag chips for duration and requirements only
+  (nowrap); evidence and intensity as prose in the panel, not multi-line pills;
+  `doesNotDo` as a callout surface; on desktop (`≥ md`), a back link preserving
   filter query; on mobile the shell back chip replaces it
   ([`mobile-nav-v2.md`](../feature/mobile-nav-v2.md)); for `srs-session`
   reached directly, a primary control that opens Words review.
 - **Out:** measured effect; variants beyond durations; starting non-hosted
   methods; Start control for hosted methods whose engine is not built yet.
+
+**UX revision 2026-08-15:** layout and badge system — study/27. Shell title may
+truncate; the in-page hero always shows the full `name`.
 
 ## Not-built and off-app copy
 
@@ -29,8 +36,9 @@ One table — implementation in `features/method-menu/content.ts`:
 | Hosted, engine not built | None | `sessionNotBuilt` — session will run here once built; try off-app meanwhile |
 | Off-app (`hosted: false`) | None | `notHosted` — learner does this themselves |
 
-The detail page always shows `doesNotDo` and evidence. Hosting status is a chip,
-not a rank — off-app Methods are not demoted visually.
+The detail page always shows `doesNotDo` and evidence. Hosting status is a tag
+chip, not a rank — off-app Methods are not demoted visually. Evidence and
+intensity are **badges + prose**, never sentence-length accent chips.
 
 ## Behavior
 
@@ -43,9 +51,14 @@ not a rank — off-app Methods are not demoted visually.
 
 ## Acceptance criteria
 
-- [ ] Given a shipped method id, when the page renders, then it shows name,
-      summary, trains, durations, intensity, requirements, evidence, hosted
-      status, and `doesNotDo`.
+- [ ] Given a shipped method id, when the page renders, then it shows the full
+      `name` in the page body, summary, badge row (skills, evidence, effort),
+      trains, durations, requirements, hosted status, and `doesNotDo`.
+- [ ] Given a long method name, when the page renders on mobile, then the
+      in-page hero shows the full name even if the shell title truncates.
+- [ ] Given evidence or intensity copy longer than one line, when the page
+      renders, then it appears as prose in the At a glance panel — not a
+      wrapping pill chip.
 - [ ] Given an unknown id, when the page renders, then it does not claim the
       method exists.
 - [ ] Given `srs-session`, when Start is tapped, then Words review opens.

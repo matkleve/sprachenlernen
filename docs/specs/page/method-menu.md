@@ -26,11 +26,16 @@ implementation: [`lib/time-scale.ts`](../../../lib/time-scale.ts).
 catalogue **in place** — no full page navigation, no scroll jump to the top. The
 catalogue is already in memory; only method-card links navigate away.
 
+**Method badges (UX, 2026-08-15):** each card shows a **badge row** — skill
+contribution, evidence grade, effort dots — above nowrap tag chips (duration,
+requirements, hosted). Study/27; component
+[`method-badge.md`](../component/method-badge.md).
+
 ## Scope
 
 - **In:** stepped time slider ([`../service/time-scale.md`](../service/time-scale.md));
-  skill and energy filter pills; optional refine (hands, voice, eyes); compact
-  chip cards; **card-engine hosted** (`srs-session`) → Words review; other hosted
+  skill and energy filter pills; optional refine (hands, voice, eyes); method
+  cards with badge row + tag chips; **card-engine hosted** (`srs-session`) → Words review; other hosted
   → detail until built; off-app → detail; client-side filtering with URL
   sync (`history.replaceState`); **current standing** — one honest sentence from
   the progress reading, above the filters (T-B10 follow-up, narrowed); **daily
@@ -41,7 +46,8 @@ catalogue is already in memory; only method-card links navigate away.
   demonstration sentence; readiness; CEFR skill or overall level on this
   surface.
 
-**Reuse: Chip** (card facts), **Reuse: NavLink** (card links only).
+**Reuse: MethodBadge** (skill, evidence, effort), **Reuse: Chip** (short tags
+only), **Reuse: NavLink** (card links only).
 **FilterPill** toggles filters in place — button geometry matching Chip, because
 toggling a filter is not navigation. **MethodMenu** is a client island; the route
 stays a Server Component.

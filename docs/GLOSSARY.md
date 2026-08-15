@@ -105,6 +105,8 @@ requires a `⚠ SPEC GAP` line, not a guess.
 | **Card engine** | The Method engine that ships first: FSRS scheduling over lemma Tasks. Today: `srs-session` on `/words/review`. | flashcards, the whole app |
 | **Words destination** | The navigation surface for the card engine's material — holdings, horizon, atlas — not the home for every Method. | Methods, Home |
 | **Method card** | The user-facing presentation of a Method. | a Card (that is a Task) |
+| **Method badge** | One of three non-interactive marks on a Method card or detail page: **skill contribution** (per skill), **evidence grade** (A–D), or **effort load** (intensity dots). Never combined into one score. | a Chip, a quality tier, a streak |
+| **Skill contribution** | How much a Method serves one of the four Skills: primary, secondary, or slight. Shown as skill marks — not a global gold/silver/copper rank. | evidence grade, effect estimate |
 | **Daily menu** | The three Methods offered today, given budget, setting, floors, effect and preference. | a plan, a course |
 | **Intensity** | Cognitive load of a Method, in three steps. Answers "can I manage this now?" | duration, difficulty of the material |
 | **Context** | What is available to the learner right now, across eight dimensions: eyes, hands, voice, writing surface, sound, attention, time, company. **Filters the menu before anything else** — a Method that cannot be performed now has an effect of zero. Always stated by the learner, never inferred. | a place, a preference, a time of day |

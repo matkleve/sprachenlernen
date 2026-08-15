@@ -4,14 +4,19 @@
 <!-- use-case: UC-045 -->
 <!-- status: active -->
 
-A compact label for a single fact — duration, a requirement, evidence grade,
-effort level. Used on **method cards** as non-interactive labels. Filter
-controls on the method menu use the same pill geometry via **FilterPill**
-(buttons), not Chip wrapped in a link.
+A compact label for a **short, single-line** fact — duration, a requirement,
+hosted/off-app. Used on **method cards** as non-interactive labels. **Evidence,
+intensity, and skill contribution** use **MethodBadge** instead
+([`method-badge.md`](method-badge.md)). Filter controls on the method menu use
+the same pill geometry via **FilterPill** (buttons), not Chip wrapped in a link.
+
+Multi-line copy must not use pill geometry — chips are `whitespace-nowrap` on
+method surfaces.
 
 ## Scope
 
-- **In:** pill geometry, `default`, `accent`, and `selected` tones, and text children only.
+- **In:** pill geometry, `default`, `accent`, and `selected` tones, nowrap text
+  children only.
 - **Out:** dismiss buttons, counts, icons, and filter toggles — filter pills are
   buttons in `features/method-menu/`, not Chip instances.
 
