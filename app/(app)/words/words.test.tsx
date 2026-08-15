@@ -61,6 +61,16 @@ describe("WordsHome", () => {
     expect(bars.length).toBe(30);
   });
 
+  it("fits the horizon chart in the content width without horizontal scroll", () => {
+    const { container } = render(<WordsHome {...homeProps} />);
+    const horizon = screen.getByRole("img", { name: copy.horizonCaption });
+
+    expect(horizon.className).not.toContain("overflow-x-auto");
+    expect(horizon.querySelector(".min-w-max")).toBeNull();
+    expect(horizon.querySelectorAll(".flex-1").length).toBeGreaterThanOrEqual(30);
+    expect(container.querySelector(".overflow-x-auto")).toBeNull();
+  });
+
   it("opens the full word list from the quiet show-list control", async () => {
     const user = userEvent.setup();
     render(<WordsHome {...homeProps} />);

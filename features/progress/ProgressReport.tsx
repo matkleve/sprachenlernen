@@ -39,7 +39,7 @@ export function ProgressReport({ reading }: { reading: LevelReading }) {
 
       <section className="mt-page-content">
         <h2 className="text-xl font-semibold text-ink">{copy.skillsHeading}</h2>
-        <Table caption={copy.skillsCaption} className="mt-4">
+        <Table caption={copy.skillsCaption} layout="fit" className="mt-4">
           <thead>
             <tr>
               <Th scope="col">{copy.skillColumns.skill}</Th>
@@ -81,7 +81,7 @@ export function ProgressReport({ reading }: { reading: LevelReading }) {
           </div>
         ) : null}
 
-        <Table caption={copy.signalsCaption} className="mt-6">
+        <Table caption={copy.signalsCaption} layout="fit" className="mt-6">
           <thead>
             <tr>
               <Th scope="col">{copy.signalColumns.signal}</Th>
@@ -120,7 +120,7 @@ export function ProgressReport({ reading }: { reading: LevelReading }) {
           {copy.doseHabit(hoursPerYear(HABIT_MINUTES_PER_DAY))}
         </p>
 
-        <Table caption={copy.doseCaption} className="mt-6">
+        <Table caption={copy.doseCaption} layout="fit" className="mt-6">
           <thead>
             <tr>
               <Th scope="col">{copy.doseColumns.level}</Th>

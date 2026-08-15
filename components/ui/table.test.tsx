@@ -59,13 +59,31 @@ describe("Table", () => {
     expect(screen.getAllByRole("rowheader")).toHaveLength(1);
   });
 
-  it("makes the scroll region focusable and labelled", () => {
+  it("makes the scroll region focusable and labelled when layout is scroll", () => {
     // A scrollable box only a mouse can pan is a WCAG failure, not a nicety.
     render(<Example />);
     const region = screen.getByRole("region", { name: "Open invoices" });
 
     expect(region.getAttribute("tabindex")).toBe("0");
     expect(region.className).toContain("overflow-x-auto");
+  });
+
+  it("does not create a horizontal scroll region when layout is fit", () => {
+    const { container } = render(
+      <Table caption="Skills" layout="fit">
+        <tbody>
+          <tr>
+            <Th scope="row">Reading</Th>
+            <Td>Not measured</Td>
+          </tr>
+        </tbody>
+      </Table>,
+    );
+
+    const wrapper = container.firstElementChild as HTMLElement;
+    expect(wrapper.className).not.toContain("overflow-x-auto");
+    expect(screen.queryByRole("region", { name: "Skills" })).toBeNull();
+    expect(screen.getByRole("table", { name: "Skills" })).toBeDefined();
   });
 
   it("has no accessibility violations", async () => {

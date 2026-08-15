@@ -9,7 +9,9 @@ signed-in route. The difference is **Safari's toolbar state in that browser
 session** — not different shell code and **not** page length.
 
 **Policy:** **do not** add per-route inset hacks. **Do** keep
-`useVisualViewportBottomInset` and the footer-scrim split. See
+`useVisualViewportBottomInset` and the footer-scrim split. **Do** keep
+destination pages on document vertical scroll only — no nested horizontal
+overflow (shipped 2026-08-15). See
 [`../specs/feature/page-layout.md`](../specs/feature/page-layout.md) § Safari
 bottom toolbar.
 
@@ -58,6 +60,15 @@ scrim **grows** with that inset but stays anchored to `bottom: 0`.
 
 - **Add to Home Screen** — standalone mode has no in-browser Safari toolbar; different chrome, not a bug in in-browser shell.
 - **iPad `≥ md`** — flat top nav; footer pill hidden.
+
+### Shipped fix (2026-08-15) — unify destination scroll
+
+Nested `overflow-x-auto` on `/words` (30-day horizon) and `/progress`
+(`Table` default) created horizontal scroll regions that iOS Safari treats
+differently from `/methods` (document scroll only). **Fix:** horizon bars use
+equal `flex-1` columns inside the content width; Progress tables use
+`Table layout="fit"` (`table-fixed`, wrapping cells, no scroll wrapper). All
+three destinations now share one scroll model.
 
 ---
 
