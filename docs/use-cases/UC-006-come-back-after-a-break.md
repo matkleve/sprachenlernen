@@ -1,7 +1,7 @@
 # UC-006 — Come back after two weeks away without drowning
 
 <!-- id: UC-006 -->
-<!-- specs:  -->
+<!-- specs: SPEC-feature-review-horizon, SPEC-feature-words-home, SPEC-service-session-builder -->
 
 **Who:** someone who was ill, travelling, or simply busy.
 **Wants to:** resume learning.
@@ -24,8 +24,11 @@ number is fine; the number is the problem.
   backlog.
 - One sentence states what happened and what the plan is: which cards come
   first, and over how many days the rest is absorbed.
-- No overdue count appears as a primary figure anywhere. The full picture stays
-  available in the forecast (UC-005).
+- The review horizon on `/words` **opens expanded** after a gap (≥ 7 days
+  without a session) with week columns and, when detectable, a causal peak
+  sentence — not a shame counter (UC-005).
+- No overdue count appears as a primary figure anywhere. Overdue work is
+  absorbed by the session; the forecast shows **future** scheduled bins only.
 - Overdue cards are prioritised by urgency and frequency, so the most valuable
   words are recovered first.
 - Nothing is lost, and the app says so.

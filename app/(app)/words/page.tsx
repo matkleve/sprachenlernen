@@ -39,6 +39,8 @@ export default async function WordsPage() {
       blocks={outcome.blocks}
       languageCode={outcome.languageCode}
       translations={outcome.translations}
+      horizonDisplay={outcome.horizonDisplay}
+      now={outcome.now}
     />
   );
 }

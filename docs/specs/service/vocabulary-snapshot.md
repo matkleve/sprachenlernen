@@ -2,6 +2,7 @@
 
 <!-- id: SPEC-service-vocabulary-snapshot -->
 <!-- use-case: UC-005 -->
+<!-- use-case: UC-006 -->
 <!-- status: active -->
 
 Pure derivation of held/fragile/new counts, a 30-day review horizon, and atlas
@@ -16,7 +17,9 @@ means stable enough to count as known — see `heldStabilityThreshold` in
 
 - **In:** `lib/vocabulary-snapshot.ts` — `buildVocabularySnapshot`,
   `bucketForTask`, `isTaskHeld`; consumed by `features/words/reading.ts`.
-- **Out:** causal horizon copy; chart interactivity; second decks; CEFR mapping.
+  Horizon bins feed [`review-horizon.md`](../feature/review-horizon.md).
+- **Out:** horizon UI, collapsed/expanded rules, causal copy generation;
+  chart interactivity; second decks; CEFR mapping.
 
 ## Behavior
 
@@ -24,6 +27,20 @@ means stable enough to count as known — see `heldStabilityThreshold` in
 | --- | --- | --- |
 | 1 | Starter cards + reviews by task | Counts: `held`, `fragile` (reviewed but not held), `new` (no reviews) |
 | 2 | Rebuilt tasks + `now` | 30 bins of scheduled review counts by day offset from `now` |
+
+### Horizon bins
+
+Each bin counts tasks whose scheduler **`due` date** falls on that calendar day
+(offset `floor((due − now) / 1 day)`). This is the deterministic FSRS schedule
+— not retrievability and not session composition.
+
+| Rule | Detail |
+| --- | --- |
+| **Included** | `dayOffset` 0 … 29, task has ≥ 1 review, state not `suspended` / `retired` |
+| **Excluded** | `dayOffset < 0` (overdue) — session builder owns `due <= now` |
+| **New tasks** | `due` immediately → bin 0 |
+| **Aggregation** | UI sums bins into four week columns (0–6, 7–13, 14–20, 21–29) |
+
 | 3 | Each card | Atlas point: lemma, frequency rank, stability, bucket, `mature` flag |
 
 ### Held (counts toward vocabulary size and form-recall staging)
@@ -67,6 +84,10 @@ Not applicable — pure function.
       it counts as `fragile`.
 - [ ] Given a held task with stability ≥ mature threshold, when the atlas is
       built, then `mature` is true on that point.
+- [ ] Given a task with `due` before `now`, when the horizon is built, then it
+      is not counted in any bin.
+- [ ] Given two tasks due on the same future day, when the horizon is built,
+      then that day's bin count is 2.
 
 ## Check
 
