@@ -4,10 +4,12 @@
 <!-- use-case: UC-063 -->
 <!-- status: active -->
 
-A link that can be **the one you are on**. The primitive behind both the app
-shell's three destinations and the method menu's context chips — two surfaces
-that both need "a set of links, one of which is current", which is what earned
-it a place in `components/ui/` rather than a copy in each feature.
+A link that can be **the one you are on**. The primitive behind the app shell's
+desktop destination row and the method menu's context chips — two surfaces that
+both need "a set of links, one of which is current", which is what earned it a
+place in `components/ui/` rather than a copy in each feature. Mobile shell
+destinations use `IconLink` instead — see
+[`mobile-nav-v2.md`](../feature/mobile-nav-v2.md).
 
 ## Scope
 

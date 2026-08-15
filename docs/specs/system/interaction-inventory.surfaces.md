@@ -9,7 +9,8 @@ Update this file in the same PR as any new control or migration.
 
 | Control | File | Primitive | Variant / policy | P |
 | --- | --- | --- | --- | --- |
-| Destination nav ×4 | `DestinationNavItems.tsx` | `NavLink` | `current` from pathname | ✓ |
+| Destination nav (desktop) | `DestinationNavItems.tsx` | `NavLink` | `layout="header"`; `current` from pathname | ✓ |
+| Destination nav (mobile pill) | `DestinationNavItems.tsx` | `IconLink` | `layout="pill"`; `aria-label` only; accent fill when current | ring |
 | Mobile back chip | `FloatingShellChrome.tsx` | `IconLink` | drill-in only; `pendingPolicy="nav"` | ring |
 | Mobile language chip | `FloatingShellChrome.tsx` | `LanguageSwitcher` | destination roots only (`layout="floating"`) | ring |
 | Mobile profile icon | `FloatingShellChrome.tsx` | `IconLink` | `nav` | ring |
