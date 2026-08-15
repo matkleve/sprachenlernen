@@ -69,10 +69,11 @@ Shell chrome, scroll modes, and who owns padding:
 themselves. Tokens: `--spacing-shell-float-top`, `--shell-float-top-active`,
 `--spacing-shell-float-bottom`, `--shell-visual-viewport-bottom-inset`,
 `--spacing-shell-float-nav-height` in `app/globals.css`.
-`useVisualViewportBottomInset` measures iOS Safari's bottom toolbar when visible;
-`.shell-float-nav-bottom` positions the pill above measured chrome.
-`ShellPageTitle` sets `--shell-float-top-active` to the expanded value when the
-title wraps to two lines.
+`useVisualViewportBottomInset` measures iOS Safari's bottom toolbar on **resize**
+when visible; in **standalone PWA** the inset stays `0`. The footer scrim root is
+`fixed bottom-0`; only the pill uses `.shell-float-nav-pill-lift` to sit above
+measured browser chrome. `ShellPageTitle` sets `--shell-float-top-active` to the
+expanded value when the title wraps to two lines.
 
 ## Accessibility
 

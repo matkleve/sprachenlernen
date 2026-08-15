@@ -31,6 +31,11 @@ describe("useVisualViewportBottomInset", () => {
 
     vi.stubGlobal("innerHeight", 750);
     vi.stubGlobal("visualViewport", viewport);
+    vi.stubGlobal(
+      "matchMedia",
+      vi.fn(() => ({ matches: false }) as MediaQueryList),
+    );
+    vi.stubGlobal("navigator", { standalone: false });
 
     const { unmount } = renderHook(() => useVisualViewportBottomInset());
 
@@ -48,5 +53,20 @@ describe("useVisualViewportBottomInset", () => {
     expect(document.documentElement.style.getPropertyValue(VISUAL_VIEWPORT_BOTTOM_INSET_VAR)).toBe(
       "",
     );
+  });
+
+  it("keeps inset at zero in standalone PWA display mode", () => {
+    vi.stubGlobal(
+      "matchMedia",
+      vi.fn(() => ({ matches: true }) as MediaQueryList),
+    );
+
+    const { unmount } = renderHook(() => useVisualViewportBottomInset());
+
+    expect(
+      document.documentElement.style.getPropertyValue(VISUAL_VIEWPORT_BOTTOM_INSET_VAR),
+    ).toBe("0px");
+
+    unmount();
   });
 });

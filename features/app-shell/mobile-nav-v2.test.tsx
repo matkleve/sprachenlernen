@@ -50,6 +50,8 @@ describe("SPEC-feature-mobile-nav-v2", () => {
     expect(screen.queryByRole("button", { name: /menu/i })).toBeNull();
     expect(container.querySelector(".footer-scrim-blur")).not.toBeNull();
     expect(container.querySelector(".pointer-events-auto.absolute.inset-x-0")).not.toBeNull();
+    expect(container.querySelector(".fixed.inset-x-0.bottom-0")).not.toBeNull();
+    expect(container.querySelector(".shell-float-nav-pill-lift")).not.toBeNull();
 
     const nav = screen.getByRole("navigation", { name: copy.mobileNavLabel });
     const links = nav.querySelectorAll<HTMLAnchorElement>("a[href]");

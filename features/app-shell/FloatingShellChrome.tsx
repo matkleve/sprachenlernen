@@ -73,18 +73,23 @@ export function FloatingShellChrome({
         </div>
       </HeaderScrim>
 
-      <FooterScrim className="shell-float-nav-bottom fixed inset-x-0 z-50 md:hidden">
-        <nav aria-label={copy.mobileNavLabel} className="flex w-full justify-center px-4">
-          <ul
-            className={cn(
-              "inline-flex list-none items-center gap-1.5 rounded-pill border border-line",
-              "bg-surface p-1.5 shadow-raised",
-            )}
+      <div className="fixed inset-x-0 bottom-0 z-50 pb-[env(safe-area-inset-bottom,0px)] md:hidden">
+        <FooterScrim>
+          <nav
+            aria-label={copy.mobileNavLabel}
+            className="shell-float-nav-pill-lift flex w-full justify-center px-4"
           >
-            <DestinationNavItems layout="pill" />
-          </ul>
-        </nav>
-      </FooterScrim>
+            <ul
+              className={cn(
+                "inline-flex list-none items-center gap-1.5 rounded-pill border border-line",
+                "bg-surface p-1.5 shadow-raised",
+              )}
+            >
+              <DestinationNavItems layout="pill" />
+            </ul>
+          </nav>
+        </FooterScrim>
+      </div>
     </>
   );
 }

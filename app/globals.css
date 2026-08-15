@@ -129,7 +129,7 @@
   --shell-visual-viewport-bottom-inset: 0px;
   --spacing-shell-float-bottom: calc(
     var(--spacing-shell-float-nav-height) + var(--shell-visual-viewport-bottom-inset) +
-      var(--spacing-shell-float-nav-gap)
+      var(--spacing-shell-float-nav-gap) + env(safe-area-inset-bottom, 0px)
   );
   /* Active review session — one screen between floating chrome on mobile.
      Must match main's pt-shell-float-top + pb-shell-float-bottom or the page scrolls. */
@@ -380,17 +380,16 @@
   );
 }
 
-/* Sit above browser chrome when present — measured per viewport, not a fixed guess. */
-.shell-float-nav-bottom {
-  bottom: calc(
-    env(safe-area-inset-bottom, 0px) + var(--shell-visual-viewport-bottom-inset) +
-      var(--spacing-shell-float-nav-gap)
+/* Sit above browser chrome when present — pill only; scrim root stays bottom: 0. */
+.shell-float-nav-pill-lift {
+  margin-bottom: calc(
+    var(--shell-visual-viewport-bottom-inset) + var(--spacing-shell-float-nav-gap)
   );
 }
 
 @media (min-width: 48rem) {
-  .shell-float-nav-bottom {
-    bottom: auto;
+  .shell-float-nav-pill-lift {
+    margin-bottom: 0;
   }
 }
 

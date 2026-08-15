@@ -11,6 +11,19 @@ applying is still evidence about how this codebase misleads people.
 
 ---
 
+## Footer scrim detached from the bottom while scrolling
+
+The whole footer block (scrim + pill) used `bottom: calc(safe-area + visual inset)`.
+`useVisualViewportBottomInset` also listened to **scroll** events — while the
+page moved, `visualViewport.offsetTop` jittered, the inset jumped, and the scrim
+floated up leaving a gap above the home indicator. In standalone PWA there is no
+Safari toolbar anyway.
+
+**The fix:** scrim root is `fixed bottom-0` always; only the pill gets
+`.shell-float-nav-pill-lift`. Measure inset on **resize** only; force `0` in
+standalone display mode. **The check:** scroll `/methods` on an iPhone — scrim
+stays flush with the bottom; pill still clears Safari's toolbar on `/words`.
+
 ## `interactive-widget=resizes-content` made Safari's bottom toolbar appear on every page except Methods
 
 Words and Progress showed Safari's back/share/refresh bar under the app nav;
