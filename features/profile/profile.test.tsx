@@ -7,8 +7,20 @@ import { ProfileLanguages } from "@/features/profile/ProfileLanguages";
 import { ProfileSpokenLanguage } from "@/features/profile/ProfileSpokenLanguage";
 import { copy } from "@/features/profile/content";
 import { renderWithAppUpdate } from "@/features/app-shell/test-utils";
-import { APP_VERSION_LABEL } from "@/lib/pride-version";
+import packageJson from "@/package.json";
+import {
+  APP_VERSION_LABEL,
+  bumpPrideVersion,
+  formatPrideVersion,
+  parsePrideVersion,
+} from "@/lib/pride-version";
 import { SHIPPED_ES_POOL_SIZE } from "@/lib/starter-deck";
+
+const bundledVersion = packageJson.version;
+const deployedVersion = formatPrideVersion(
+  bumpPrideVersion(parsePrideVersion(bundledVersion), "default"),
+);
+const deployedLabel = `v${deployedVersion}`;
 
 vi.mock("next/navigation", () => ({
   usePathname: vi.fn(() => "/profile"),
@@ -163,7 +175,7 @@ describe("ProfileAppSection", () => {
   it("shows the running version and a check-for-updates control", async () => {
     vi.mocked(fetch).mockResolvedValue({
       ok: true,
-      json: async () => ({ version: "0.3.0" }),
+      json: async () => ({ version: bundledVersion }),
     } as Response);
 
     renderWithAppUpdate(<ProfileAppSection />);
@@ -177,17 +189,17 @@ describe("ProfileAppSection", () => {
   it("shows a green reload row when a newer version is available", async () => {
     vi.mocked(fetch).mockResolvedValue({
       ok: true,
-      json: async () => ({ version: "0.4.0" }),
+      json: async () => ({ version: deployedVersion }),
     } as Response);
 
     renderWithAppUpdate(<ProfileAppSection />);
 
     await waitFor(() => {
-      expect(screen.getByText(copy.updateAvailable("v0.4.0"))).toBeDefined();
+      expect(screen.getByText(copy.updateAvailable(deployedLabel))).toBeDefined();
     });
     expect(
       screen.getByRole("button", {
-        name: copy.reloadAria("v0.4.0", APP_VERSION_LABEL),
+        name: copy.reloadAria(deployedLabel, APP_VERSION_LABEL),
       }),
     ).toBeDefined();
   });
@@ -196,7 +208,7 @@ describe("ProfileAppSection", () => {
     const user = userEvent.setup();
     vi.mocked(fetch).mockResolvedValue({
       ok: true,
-      json: async () => ({ version: "0.3.0" }),
+      json: async () => ({ version: bundledVersion }),
     } as Response);
 
     renderWithAppUpdate(<ProfileAppSection />);
