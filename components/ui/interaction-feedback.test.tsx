@@ -114,6 +114,42 @@ describe("interaction-feedback contract", () => {
     expect(link.className).toContain("size-11");
   });
 
+  it("IconLink applies accent fill and aria-current when current", () => {
+    render(
+      <IconLink href="/profile" aria-label="Profile" current>
+        P
+      </IconLink>,
+    );
+
+    const link = screen.getByRole("link");
+    expect(link.getAttribute("aria-current")).toBe("page");
+    expect(link.className).toContain("bg-accent");
+  });
+
+  it("IconLink applies accent fill without aria-current when emphasized", () => {
+    render(
+      <IconLink href="/words" aria-label="Back to Words" emphasized>
+        ←
+      </IconLink>,
+    );
+
+    const link = screen.getByRole("link");
+    expect(link.hasAttribute("aria-current")).toBe(false);
+    expect(link.className).toContain("bg-accent");
+  });
+
+  it("ActionLink applies accent fill and aria-current when current", () => {
+    render(
+      <ActionLink href="/profile" variant="ghost" size="sm" current>
+        Account
+      </ActionLink>,
+    );
+
+    const link = screen.getByRole("link");
+    expect(link.getAttribute("aria-current")).toBe("page");
+    expect(link.className).toContain("bg-accent");
+  });
+
   it("SubmitButton renders a submit button inside a form", () => {
     render(
       <form>

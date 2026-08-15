@@ -10,11 +10,11 @@ Update this file in the same PR as any new control or migration.
 | Control | File | Primitive | Variant / policy | P |
 | --- | --- | --- | --- | --- |
 | Destination nav (desktop) | `DestinationNavItems.tsx` | `NavLink` | `layout="header"`; `current` from pathname | ✓ |
-| Destination nav (mobile pill) | `DestinationNavItems.tsx` | `IconLink` | `layout="pill"`; `aria-label` only; accent fill when current | ring |
-| Mobile back chip | `FloatingShellChrome.tsx` | `IconLink` | drill-in only; `pendingPolicy="nav"` | ring |
+| Destination nav (mobile pill) | `DestinationNavItems.tsx` | `IconLink` | `layout="pill"`; `current` from pathname | ring |
+| Mobile back chip | `FloatingShellChrome.tsx` | `IconLink` | drill-in only; `emphasized`; `pendingPolicy="nav"` | ring |
 | Mobile language chip | `FloatingShellChrome.tsx` | `LanguageSwitcher` | destination roots only (`layout="floating"`) | ring |
-| Mobile profile icon | `FloatingShellChrome.tsx` | `IconLink` | `nav`; accent fill when on `/profile` | ring |
-| Desktop account | `DesktopShellHeader.tsx` | `ActionLink` | `ghost sm`; accent fill when on `/profile` | ✓ |
+| Mobile profile icon | `FloatingShellChrome.tsx` | `IconLink` | `current` on `/profile`; `nav` | ring |
+| Desktop account | `DesktopShellHeader.tsx` | `ActionLink` | `ghost sm`; `current` on `/profile` | ✓ |
 | Language trigger | `LanguageSwitcher.tsx` | `IconButton` | `nav`; disabled while switching | ring |
 | Language menu row | `LanguageSwitcher.tsx` | `LanguageListRow` | disabled while `pending` | — |
 | Add language (menu) | `LanguageSwitcher.tsx` | `ActionLink` | `secondary sm` | ✓ |

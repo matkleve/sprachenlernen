@@ -6,10 +6,9 @@ import { usePathname } from "next/navigation";
 import { ActionLink } from "@/components/ui/ActionLink";
 import type { LanguageHoldings } from "@/lib/db/language-holdings";
 import { routes } from "@/lib/routes";
-import { cn } from "@/lib/utils";
 
 import { Destinations } from "./Destinations";
-import { isProfileCurrent, shellNavCurrentClass } from "./destinations";
+import { isProfileCurrent } from "./destinations";
 import { LanguageSwitcher, type LanguageSwitcherOption } from "./LanguageSwitcher";
 import { ShellPageTitle } from "./ShellPageTitle";
 import { HeaderScrim } from "./HeaderScrim";
@@ -51,8 +50,8 @@ export function DesktopShellHeader({
             href={routes.profile}
             variant="ghost"
             size="sm"
-            aria-current={profileCurrent ? "page" : undefined}
-            className={cn("gap-1.5", profileCurrent && shellNavCurrentClass)}
+            current={profileCurrent}
+            className="gap-1.5"
           >
             <UserRound aria-hidden className="size-4 shrink-0" />
             {copy.account}

@@ -5,9 +5,8 @@ import { usePathname } from "next/navigation";
 import { IconLink } from "@/components/ui/IconLink";
 import { NavLink } from "@/components/ui/NavLink";
 import { NavigationPendingProvider, useNavigationPending } from "@/components/ui/navigation-pending-context";
-import { cn } from "@/lib/utils";
 
-import { isDestinationCurrent, shellDestinations, shellIconCurrentClass } from "./destinations";
+import { isDestinationCurrent, shellDestinations } from "./destinations";
 
 type DestinationNavItemsProps = {
   /** Header row on desktop; bottom icon pill on mobile. */
@@ -31,8 +30,7 @@ function DestinationNavItemsInner({ layout = "header" }: DestinationNavItemsProp
               <IconLink
                 href={href}
                 aria-label={label}
-                aria-current={visuallyCurrent ? "page" : undefined}
-                className={cn(visuallyCurrent && shellIconCurrentClass)}
+                current={visuallyCurrent}
               >
                 <Icon aria-hidden className="size-5 shrink-0" />
               </IconLink>
