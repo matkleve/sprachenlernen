@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest";
 
 import {
   buildVocabularyOrbit,
+  orbitBandForRank,
   orbitLitForPoint,
   ORBIT_RING_COUNT,
 } from "@/lib/vocabulary-orbit";
@@ -41,5 +42,11 @@ describe("vocabulary-orbit", () => {
     const inner = orbit.rings[0]!;
     expect(inner.segments.some((s) => s.kind === "tick")).toBe(true);
     expect(inner.segments.some((s) => s.kind === "word")).toBe(true);
+  });
+
+  it("maps a rank to its orbit band", () => {
+    expect(orbitBandForRank(1)).toEqual({ rankStart: 1, rankEnd: 25 });
+    expect(orbitBandForRank(500)).toEqual({ rankStart: 301, rankEnd: 500 });
+    expect(orbitBandForRank(9999)).toBeNull();
   });
 });

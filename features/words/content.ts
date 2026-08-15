@@ -50,4 +50,10 @@ export const copy = {
   orbitAggregateHeading: (start: number, end: number) => `Ranks ${start}–${end}`,
   orbitAggregateBody: (count: number, held: number) =>
     `${count} words in this band on the outer ring. ${held} held stably.`,
+  orbitDetailRankLabel: "Frequency rank",
+  orbitDetailStabilityLabel: "Stability",
+  orbitDetailBandLabel: "Band",
+  orbitDetailBandCaption: (start: number, end: number) => `Ranks ${start}–${end}`,
+  orbitDetailWordsInBandLabel: "Words in band",
+  orbitDetailHeldSummary: (held: number, total: number) => `${held} of ${total} held`,
 } as const;

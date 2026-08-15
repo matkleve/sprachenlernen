@@ -449,6 +449,11 @@
   }
 }
 
+.orbit-segment {
+  -webkit-tap-highlight-color: transparent;
+  outline: none;
+}
+
 /* Language switcher popover — full-viewport scrim behind stacked language cards. */
 .language-switcher-scrim {
   background: color-mix(in srgb, var(--color-ink) 35%, transparent);
