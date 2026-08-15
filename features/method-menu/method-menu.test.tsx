@@ -9,7 +9,7 @@ import { expectNoA11yViolations } from "@/tests/axe";
 
 import { MethodMenu } from "./MethodMenu";
 import { loadMethodCatalogue } from "./catalogue";
-import { copy, evidenceShort, sections } from "./content";
+import { copy, evidenceCard, sections } from "./content";
 
 const loaded = loadMethodCatalogue();
 const catalogue = loaded.catalogue ?? { entries: [] };
@@ -115,7 +115,7 @@ describe("cards", () => {
     show();
     const text = document.body.textContent ?? "";
     for (const method of catalogue.entries.filter(isMethod)) {
-      expect(text).toContain(evidenceShort[method.evidence]);
+      expect(text).toContain(evidenceCard[method.evidence]);
     }
   });
 });

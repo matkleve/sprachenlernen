@@ -120,11 +120,25 @@ export const evidence: Record<EvidenceGrade, string> = {
   D: "Evidence D — a product decision, not a finding",
 };
 
-export const evidenceShort: Record<EvidenceGrade, string> = {
-  A: "Evidence A",
-  B: "Evidence B",
-  C: "Evidence C",
-  D: "Evidence D",
+/**
+ * Plain-language evidence labels on cards — no letter grades (study/27).
+ * Detail page uses the full `evidence` sentence; grade letter stays in prose only.
+ */
+export const evidenceCard: Record<EvidenceGrade, string> = {
+  A: "Strong evidence",
+  B: "Solid evidence",
+  C: "Thin evidence",
+  D: "Not researched",
+};
+
+/**
+ * Plain-language effort labels on cards — replaces dot scales (study/27).
+ * Detail page adds the `intensity` anchor sentence after the label.
+ */
+export const effortCard: Record<1 | 2 | 3, string> = {
+  1: "Light effort",
+  2: "Needs focus",
+  3: "Draining",
 };
 
 /**

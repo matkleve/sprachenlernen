@@ -78,6 +78,10 @@ responsible for the question of what works.
 └─────────────────────────────────────────────┘
 ```
 
+> **Shipped (2026-08-15, [27](27-method-badges.md)):** method cards show plain
+> effort and evidence labels ("Light effort", "Thin evidence") — not ●●○ scales
+> or letter grades on the card face.
+
 Seven fields, each with a reason:
 
 | Field | Why |

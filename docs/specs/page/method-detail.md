@@ -15,7 +15,8 @@ works for bookmarks and links.
 - **In:** full catalogue fields; **method badge row** and **At a glance** panel
   ([`method-badge.md`](../component/method-badge.md), study/27); in-page **hero
   title** (`name`, full width); tag chips for duration and requirements only
-  (nowrap); evidence and intensity as prose in the panel, not multi-line pills;
+  (nowrap); evidence and intensity as plain labels in the badge row plus full
+  sentences in the At a glance panel — not multi-line pills;
   `doesNotDo` as a callout surface; on desktop (`≥ md`), a back link preserving
   filter query; on mobile the shell back chip replaces it
   ([`mobile-nav-v2.md`](../feature/mobile-nav-v2.md)); for `srs-session`
@@ -37,8 +38,9 @@ One table — implementation in `features/method-menu/content.ts`:
 | Off-app (`hosted: false`) | None | `notHosted` — learner does this themselves |
 
 The detail page always shows `doesNotDo` and evidence. Hosting status is a tag
-chip, not a rank — off-app Methods are not demoted visually. Evidence and
-intensity are **badges + prose**, never sentence-length accent chips.
+chip, not a rank — off-app Methods are not demoted visually. Card badges use
+plain labels (`evidenceCard`, `effortCard`); detail adds full `evidence` and
+`intensity` sentences in the panel — never sentence-length accent chips.
 
 ## Behavior
 
@@ -56,9 +58,13 @@ intensity are **badges + prose**, never sentence-length accent chips.
       trains, durations, requirements, hosted status, and `doesNotDo`.
 - [ ] Given a long method name, when the page renders on mobile, then the
       in-page hero shows the full name even if the shell title truncates.
-- [ ] Given evidence or intensity copy longer than one line, when the page
-      renders, then it appears as prose in the At a glance panel — not a
-      wrapping pill chip.
+- [ ] Given evidence C on a card, when it renders, then the badge shows "Thin
+      evidence" — not a letter grade.
+- [ ] Given intensity 1 on a card, when it renders, then the effort badge shows
+      "Light effort" — not a dot scale.
+- [ ] Given evidence or intensity on detail, when the page renders, then the At a
+      glance panel shows the plain label as heading and the full graded sentence
+      as prose.
 - [ ] Given an unknown id, when the page renders, then it does not claim the
       method exists.
 - [ ] Given `srs-session`, when Start is tapped, then Words review opens.
