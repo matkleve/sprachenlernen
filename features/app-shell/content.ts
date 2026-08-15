@@ -20,6 +20,10 @@ export const copy = {
     `${held} of ${poolSize} starter words held stably`,
   viewProgress: "View on Progress",
   backTo: (destination: string) => `Back to ${destination}`,
+  appUpdate: {
+    reloadAria: (nextVersion: string, currentVersion: string) =>
+      `Reload to update from ${currentVersion} to ${nextVersion}`,
+  },
   destinations: {
     methods: "Methods",
     methodsMirror: "Methods mirror",
