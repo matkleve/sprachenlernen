@@ -126,10 +126,12 @@
   /* Icon pill height + measured browser chrome below (see useVisualViewportBottomInset). */
   --spacing-shell-float-nav-height: 3.25rem;
   --spacing-shell-float-nav-gap: 0.5rem;
+  --spacing-shell-float-nav-pad-y: 0.5rem;
+  --spacing-shell-footer-scrim-fade: 1.5rem;
   --shell-visual-viewport-bottom-inset: 0px;
   --spacing-shell-float-bottom: calc(
-    var(--spacing-shell-float-nav-height) + var(--shell-visual-viewport-bottom-inset) +
-      var(--spacing-shell-float-nav-gap)
+    var(--spacing-shell-float-nav-height) + 2 * var(--spacing-shell-float-nav-pad-y) +
+      var(--shell-visual-viewport-bottom-inset) + var(--spacing-shell-float-nav-gap)
   );
   /* Active review session — one screen between floating chrome on mobile.
      Must match main's pt-shell-float-top + pb-shell-float-bottom or the page scrolls. */
@@ -380,7 +382,33 @@
   );
 }
 
-/* Sit above browser chrome when present — measured per viewport, not a fixed guess. */
+/* Footer scrim — full-bleed to viewport bottom; grows with Safari toolbar inset. */
+.shell-float-footer-scrim {
+  height: calc(
+    env(safe-area-inset-bottom, 0px) + var(--shell-visual-viewport-bottom-inset) +
+      var(--spacing-shell-float-nav-gap) + 2 * var(--spacing-shell-float-nav-pad-y) +
+      var(--spacing-shell-float-nav-height) + var(--spacing-shell-footer-scrim-fade)
+  );
+  pointer-events: none;
+}
+
+.shell-float-nav-pill {
+  bottom: calc(
+    env(safe-area-inset-bottom, 0px) + var(--shell-visual-viewport-bottom-inset) +
+      var(--spacing-shell-float-nav-gap)
+  );
+  padding-block: var(--spacing-shell-float-nav-pad-y);
+  pointer-events: auto;
+}
+
+@media (min-width: 48rem) {
+  .shell-float-footer-scrim,
+  .shell-float-nav-pill {
+    display: none;
+  }
+}
+
+/* Legacy — pill-only lift; prefer .shell-float-nav-pill inside footer scrim zone. */
 .shell-float-nav-bottom {
   bottom: calc(
     env(safe-area-inset-bottom, 0px) + var(--shell-visual-viewport-bottom-inset) +

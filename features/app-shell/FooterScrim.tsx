@@ -10,22 +10,20 @@ type FooterScrimProps = {
 };
 
 /**
- * Scrim behind the mobile bottom destination pill — blur + tint fading upward,
- * matching the header scrim at the top. The full-width tap shield stops presses
- * on the pill's dead zones from reaching page content underneath.
- * Contract: mobile-nav-v2.md, page-layout.md
+ * Mobile footer chrome: scrim bleeds to the viewport bottom (behind Safari toolbar);
+ * the destination pill sits above measured browser chrome with vertical padding.
+ * Contract: mobile-nav-v2.md, page-layout.layers.md
  */
 export function FooterScrim({ className, children }: FooterScrimProps) {
   return (
-    <div className={cn("relative isolate w-full", className)}>
-      <div
-        aria-hidden
-        className="pointer-events-auto absolute inset-x-0 -top-6 bottom-0"
-      >
+    <div className={cn("shell-float-footer-scrim fixed inset-x-0 bottom-0 z-50", className)}>
+      <div aria-hidden className="pointer-events-auto absolute inset-0">
         <div className="footer-scrim-blur absolute inset-0" />
         <div className="footer-scrim-tint absolute inset-0" />
       </div>
-      <div className="relative z-10 w-full">{children}</div>
+      <div className={cn("shell-float-nav-pill absolute inset-x-0 z-10 flex justify-center px-4")}>
+        {children}
+      </div>
     </div>
   );
 }

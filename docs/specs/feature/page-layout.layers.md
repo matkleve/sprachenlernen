@@ -155,12 +155,12 @@ Z-order increases downward. **Scrim and pill use different `bottom` anchors.**
 
 ### Current (broken) vs intended
 
-| | **Current** | **Intended** |
+| | **Before** | **After (2026-08-15)** |
 | --- | --- | --- |
-| Scrim `bottom` | Same as pill (`shell-float-nav-bottom`) | `0` (+ safe-area only) |
-| Pill `bottom` | `shell-float-nav-bottom` | unchanged |
-| Scrim height | Wraps pill only | Fixed band (token); pill padded inside |
-| Safari toolbar | Scrim stops above it | Scrim continues behind it |
+| Scrim `bottom` | Same as pill (`shell-float-nav-bottom`) | `0` — `.shell-float-footer-scrim` |
+| Scrim height | Wraps pill only | Grows with `--shell-visual-viewport-bottom-inset` |
+| Pill `bottom` | Shared wrapper | `.shell-float-nav-pill` + pad-y tokens |
+| Safari toolbar | Scrim stopped above it | Scrim continues behind it |
 
 ### Scroll vs fixed
 
