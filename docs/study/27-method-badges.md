@@ -121,8 +121,8 @@ text label for accessibility.
 | Family | Answers | Card | Detail | Data today |
 | --- | --- | --- | --- | --- |
 | **Skill contribution** | What is this mainly for? | Up to four skill marks with contribution level | Same + one line from `trains` | `skills[]`, `section`, `trains` (v1 derived); `skillContribution` (v2 explicit) |
-| **Evidence grade** | How sure is the research? | Plain label (e.g. "Thin evidence") | Label + full sentence from `content.ts` | `evidence` |
-| **Effort load** | Can I manage this now? | Plain label (e.g. "Light effort") | Label + `intensity` sentence | `intensity` |
+| **Evidence grade** | How sure is the research? | Plain label (e.g. "Thin evidence") | Collapsed disclosure with plain prose | `evidence` |
+| **Effort load** | Can I manage this now? | Plain label (e.g. "Light effort") | Practical section sentence | `intensity` |
 
 **Not badges** (stay as nowrap **tag chips**): duration, requirements, hosted/off-app.
 
@@ -159,21 +159,21 @@ authored explicitly. Validator requires consistency with `skills[]`.
 
 ### Evidence grade — plain words on cards
 
-| Grade | Card label | Detail |
+| Grade | Card label | Detail (disclosure) |
 | --- | --- | --- |
-| A | Strong evidence | Full sentence with grade letter in prose |
+| A | Strong evidence | Plain prose from `evidenceProse` |
 | B | Solid evidence | Same |
 | C | Thin evidence | Same |
 | D | Not researched | Same |
 
-Card: plain label only — no "Evidence A" or bare letter. Detail: label as
-heading + full sentence from `content.ts`.
+Card: plain label only — no "Evidence A" or bare letter. Detail: label + prose in
+a collapsed disclosure — no letter-grade prefix.
 
 ### Effort load — plain words on cards
 
 | Intensity | Card label | Detail |
 | --- | --- | --- |
-| 1 | Light effort | Label + anchor sentence from `intensity` in `content.ts` |
+| 1 | Light effort | Practical section: label + anchor sentence |
 | 2 | Needs focus | Same |
 | 3 | Draining | Same |
 
@@ -207,25 +207,34 @@ No dot scales — they read as ratings without a legend.
 - Badge row: fixed order, Lucide skill icons; `sr-only` summary inside card link.
 - Tag chips: wrap; **never** multi-line pills (see chip spec).
 
-### Method detail (expanded)
+### Method detail (article)
 
 ```
 LISTENING
 Background listening with no task        ← hero title (full name)
 Leave it playing while you do something else
 
-┌─ At a glance ────────────────────────┐
-│ Skills    Listening (slight)           │
-│ Evidence  C — plausible, thinly…       │
-│ Effort    ●○○  can be done tired…      │
-│ Takes     20 min · 45 min              │
-│ Needs     speaker · headphones         │
-│ Runs      Off-app                      │
-└──────────────────────────────────────┘
+Practical
+Light effort — can be done tired or distracted
+Takes     20 min · 45 min
+Needs     speaker · headphones
+Runs      Off-app
 
 Trains …
-What it does not do …                  ← callout surface (emphasis)
+Mainly    Listening (slight)             ← optional when skill marks exist
+
+┌ What it does not do ─────────────────┐  ← single callout surface
+│ Honestly: barely anything.            │
+└──────────────────────────────────────┘
+
+▸ How sure is the research?             ← collapsed disclosure
+  Thin evidence — plausible and widespread, but thinly evidenced
 ```
+
+- **No badge row** — badges are catalogue-only; detail does not repeat them.
+- **No raised "At a glance" panel** — flat sections on canvas.
+- Research confidence: disclosure at bottom; plain label + `evidenceProse` — no
+  "Evidence C" prefix.
 
 Shell title may shorten on mobile; **in-page hero** always shows full `name`.
 

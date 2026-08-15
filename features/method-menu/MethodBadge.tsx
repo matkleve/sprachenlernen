@@ -1,9 +1,7 @@
 import { BookOpen, Headphones, Mic, PenLine, type LucideIcon } from "lucide-react";
-import type { ReactNode } from "react";
 
-import type { EvidenceGrade } from "@/lib/method-catalogue";
+import type { EvidenceGrade, Skill } from "@/lib/method-catalogue";
 import type { ContributionLevel, SkillMark } from "@/lib/method-skill-badges";
-import type { Skill } from "@/lib/method-catalogue";
 import { cn } from "@/lib/utils";
 
 import {
@@ -150,65 +148,5 @@ export function MethodBadgeRow({
         <EffortBadge intensity={intensity} />
       </div>
     </div>
-  );
-}
-
-export type MethodAtAGlanceProps = {
-  skillMarks: SkillMark[];
-  evidence: EvidenceGrade;
-  evidenceDetail: string;
-  intensity: 1 | 2 | 3;
-  intensityDetail: string;
-  children?: ReactNode;
-};
-
-export function MethodAtAGlance({
-  skillMarks,
-  evidence,
-  evidenceDetail,
-  intensity,
-  intensityDetail,
-  children,
-}: MethodAtAGlanceProps) {
-  return (
-    <section
-      className="mt-6 rounded-card border border-line bg-surface-raised p-4 shadow-soft"
-      aria-label={copy.card.atAGlance}
-    >
-      <MethodBadgeRow
-        skillMarks={skillMarks}
-        evidence={evidence}
-        intensity={intensity}
-        className="mb-4"
-      />
-
-      <dl className="grid gap-3 text-sm">
-        {skillMarks.length > 0 ? (
-          <div>
-            <dt className="font-medium text-ink">{copy.skillsHeading}</dt>
-            <dd className="mt-0.5 text-muted">
-              {skillMarks
-                .map(
-                  (mark) =>
-                    `${skillLabels[mark.skill]} (${contributionLabels[mark.level]})`,
-                )
-                .join(" · ")}
-            </dd>
-          </div>
-        ) : null}
-        <div>
-          <dt className="font-medium text-ink">{copy.card.effort}</dt>
-          <dd className="mt-0.5 text-muted">
-            {effortCard[intensity]} — {intensityDetail}
-          </dd>
-        </div>
-        <div>
-          <dt className="font-medium text-ink">{evidenceCard[evidence]}</dt>
-          <dd className="mt-0.5 text-muted">{evidenceDetail}</dd>
-        </div>
-      </dl>
-
-      {children ? <div className="mt-4 border-t border-line pt-4">{children}</div> : null}
-    </section>
   );
 }

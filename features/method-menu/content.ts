@@ -62,7 +62,6 @@ export const copy = {
     intensity: "Effort",
     doesNotDo: "What it does not do",
     properties: "Method properties",
-    atAGlance: "At a glance",
     badges: "Method badges",
     effort: "Effort",
   },
@@ -81,6 +80,11 @@ export const copy = {
   notHosted: "You do this yourself — the app does not run it",
   hostedShort: "App runs this",
   notHostedShort: "Off-app",
+  detail: {
+    practical: "Practical",
+    mainly: "Mainly",
+    researchConfidence: "How sure is the research?",
+  },
   startSession: "Start",
   sessionNotBuilt:
     "The app will run this method here once its session is built. For now, read what it does and try it off-app if you can.",
@@ -122,13 +126,21 @@ export const evidence: Record<EvidenceGrade, string> = {
 
 /**
  * Plain-language evidence labels on cards — no letter grades (study/27).
- * Detail page uses the full `evidence` sentence; grade letter stays in prose only.
+ * Detail disclosure uses `evidenceProse` after the label.
  */
 export const evidenceCard: Record<EvidenceGrade, string> = {
   A: "Strong evidence",
   B: "Solid evidence",
   C: "Thin evidence",
   D: "Not researched",
+};
+
+/** Plain prose for detail disclosure — no "Evidence A" prefix. */
+export const evidenceProse: Record<EvidenceGrade, string> = {
+  A: "Replicated, with the effect shown outside the lab",
+  B: "Well supported, with limits",
+  C: "Plausible and widespread, but thinly evidenced",
+  D: "A product decision, not a finding",
 };
 
 /**

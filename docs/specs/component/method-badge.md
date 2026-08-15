@@ -4,16 +4,17 @@
 <!-- use-case: UC-046 -->
 <!-- status: active -->
 
-Three non-interactive badge families for method cards and detail pages: **skill
-contribution**, **evidence** (plain label), and **effort** (plain label). Replaces
-long-sentence accent chips for evidence and intensity. Contract:
-[`../../study/27-method-badges.md`](../../study/27-method-badges.md).
+Three non-interactive badge families for **method cards** (catalogue scanning):
+**skill contribution**, **evidence** (plain label), and **effort** (plain label).
+Replaces long-sentence accent chips for evidence and intensity. Detail pages use
+prose sections instead — see [`method-detail.md`](../page/method-detail.md).
+Contract: [`../../study/27-method-badges.md`](../../study/27-method-badges.md).
 
 ## Scope
 
 - **In:** skill marks (four skills, three contribution levels), plain-language
-  evidence and effort text badges; placement on `MethodCard` and `MethodDetail`;
-  token-only styling; accessible names.
+  evidence and effort text badges; placement on `MethodCard` only; token-only
+  styling; accessible names.
 - **Out:** readiness state, per-learner effect, hosted/off-app, duration,
   requirements — those stay tag chips or prose. Interactive badges. Global
   quality metals (one gold/silver/copper per method). Counts on navigation.
@@ -26,7 +27,7 @@ badge copy lives in `features/method-menu/content.ts`).
 | # | User action | System response |
 | --- | --- | --- |
 | 1 | Sees a method card | Badge row shows skill marks, evidence label, effort label in fixed order |
-| 2 | Opens method detail | Same three families in an "At a glance" panel plus tag chips for takes/needs |
+| 2 | Opens method detail | Detail uses article prose — badges are not repeated |
 | 3 | Focuses a card link (keyboard) | `sr-only` summary states skills, evidence, and effort; individual marks use `title` tooltips |
 
 ## Families
@@ -50,14 +51,14 @@ derivation.
 
 Renders `evidence` as a **plain-language card label** (`evidenceCard` from
 `features/method-menu/content.ts` — e.g. "Thin evidence", not "Evidence C").
-Letter grades (A–D) appear only in the full `evidence` sentence on the detail
-page — never on cards.
+Letter grades (A–D) never appear on cards. Detail uses `evidenceProse` inside
+a collapsed disclosure — still no "Evidence C" prefix in the UI.
 
 ### Effort load
 
 Renders `intensity` 1–3 as a **plain-language card label** (`effortCard` — e.g.
-"Light effort", "Needs focus", "Draining"). Detail page adds the `intensity`
-anchor sentence after the label.
+"Light effort", "Needs focus", "Draining"). Detail page states effort in the
+Practical section as label + `intensity` anchor sentence.
 
 ## States
 
@@ -91,8 +92,8 @@ Optional `className` via `cn()`.
       evidence gloss, and effort.
 - [ ] Given any badge, when it renders, then only token utilities are used — no
       raw colors or radii.
-- [ ] Given detail page, when evidence is shown, then the full sentence is prose
-      outside the badge row, not a wrapping chip.
+- [ ] Given detail page, when evidence is shown in the disclosure, then prose
+      uses plain labels — not letter-grade prefixes or multi-line chips.
 - [ ] The rendered component tree has no axe-core violations in isolation.
 
 ## Check
