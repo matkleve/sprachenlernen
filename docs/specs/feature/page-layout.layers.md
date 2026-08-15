@@ -2,194 +2,239 @@
 
 <!-- parent: SPEC-feature-page-layout -->
 
-Reference page: **`/words`** in **`scrollable-destination`** mode on **mobile Safari
-in-browser** (`< md`). Screenshot context: Vercel preview, Italian active,
-review card visible, "Your vocabulary" heading at the bottom edge, Safari bottom
-toolbar present under the app pill.
+**Scope:** every signed-in route on **mobile Safari in-browser** (`< md`) —
+`/methods`, `/words`, `/progress`, drill-ins, review. Screenshots: `/words` and
+`/progress` with Safari bottom toolbar visible.
 
-Use this file when fixing **vertical budget**, **chrome stacking**, or **first-screen
-composition** — not when changing destination IA or nav count.
+Use this file when fixing **footer scrim vs pill positioning** or **nav pill
+padding** — not destination IA or nav count.
 
 ---
 
 ## Issue brief (for the next agent)
 
-### What the screenshot shows
+### Symptom (all mobile pages)
 
-On `/words` in iOS Safari (not Home Screen PWA), the learner sees **four vertical
-bands** competing for height:
+On any `(app)` page in iOS Safari, the learner sees:
 
-1. **Safari URL bar** (browser — not app code)
-2. **App floating header** — language chip, centred title "Words", account chip, header scrim
-3. **Scrollable page body** — review action card + start of vocabulary sections
-4. **App bottom destination pill** + **Safari bottom toolbar** (back / share / refresh)
+1. Safari URL bar (browser)
+2. App floating header (title + corner chips + header scrim)
+3. Scrollable page body
+4. App destination pill **above** Safari’s bottom toolbar (back / share / refresh)
 
-The app pill sits **above** Safari's toolbar via `useVisualViewportBottomInset`
-([`TRAPS.md`](../../TRAPS.md)). That is **working as designed**, but it reads as
-**two bottom bars** — learners may think the layout is broken.
+**Two separate problems.** Only the second is a bug to fix.
 
-### What is wrong vs what is environmental
+### A · Pill lifts with Safari toolbar — **correct, keep**
 
-| Observation | Bug? | Owner |
+When Safari’s bottom toolbar appears, the **destination pill moves up** with it
+(via `useVisualViewportBottomInset` + `.shell-float-nav-bottom`). The pill and
+Safari controls read as one band — **that is acceptable** and may even be
+desirable. Do **not** pin the pill to the physical bottom of the screen when
+Safari chrome is present.
+
+**Owner:** `useVisualViewportBottomInset.ts`, pill positioning only.
+
+### B · Footer scrim tied to pill container — **bug, fix**
+
+Today `FooterScrim` and the pill share one positioned wrapper:
+
+```tsx
+<FooterScrim className="shell-float-nav-bottom fixed inset-x-0 z-50 md:hidden">
+```
+
+Because `.shell-float-nav-bottom` sets `bottom` on the **whole** `FooterScrim`
+root, the **blur/tint scrim moves up with the pill** and **stops above Safari’s
+toolbar**. It does not bleed to the physical bottom of the viewport.
+
+**Expected:**
+
+| Layer | Anchors to | Moves with Safari toolbar? |
 | --- | --- | --- |
-| Safari URL bar and bottom toolbar visible | **No** — cannot hide in in-browser Safari; only absent in standalone PWA | Document / accept |
-| App pill floats above Safari toolbar | **No** — `visualViewport` inset | `useVisualViewportBottomInset.ts` |
-| `/words` often has Safari toolbar; `/methods` often does not | **No** — page-dependent Safari behaviour | Compare routes in LIVE CHECK |
-| First screen is mostly review CTA; counts/orbit below fold | **Maybe** — product/UX, not shell bug | `WordsHome.tsx`, `words-home.md` |
-| "Your vocabulary" heading tight against bottom chrome | **Maybe** — check `pb-page-bottom` + `--spacing-shell-float-bottom` | `ShellPageContent`, `AppShell` |
-| Double bottom bar aesthetic | **Maybe** — visual polish (scrim, spacing), not removal of pill | `FooterScrim`, tokens |
+| **Footer scrim** (blur + tint + tap shield) | `bottom: 0` of the **layout viewport** | **No** — extends behind Safari toolbar |
+| **Destination pill** | `bottom: calc(safe-area + visualViewport inset + gap)` | **Yes** — sits just above Safari bar |
+
+The scrim must **not** live inside the same positioned box as the pill. Split
+into two fixed siblings (or scrim `fixed bottom-0` + pill `fixed` with inset).
+
+**Files:** `FooterScrim.tsx`, `FloatingShellChrome.tsx`, `app/globals.css`
+(`.shell-float-nav-bottom`, new scrim height tokens if needed).
+
+### C · No vertical padding around pill in scrim — **bug, fix**
+
+When Safari toolbar is **absent** (idle / `/methods`), the pill sits at its
+lowest position but the **scrim box is exactly the pill height** — no breathing
+room above or below the pill inside the scrim band.
+
+**Expected:** the scrim zone is taller than the pill; the pill is centred (or
+inset) with **tokenised padding** above and below (`--spacing-shell-float-nav-gap`
+already exists for bottom offset — may need a matching **scrim pad** token for
+top/bottom inside the bleed area).
+
+**Visible on:** every destination page; worst when `visualViewport` inset is `0`.
+
+### What is **not** a bug
+
+| Observation | Verdict |
+| --- | --- |
+| Safari URL / bottom toolbar visible | Environmental — cannot hide in-browser |
+| Pill rises when Safari toolbar appears | **Correct** |
+| Double-bar look (pill + Safari) | Acceptable trade-off; scrim full-bleed should soften it |
+| Per-page content below fold | Feature layout, not shell (unless `pb` wrong) |
 
 ### Invariants — do not break
 
-From [`28-mobile-desktop-layout.md`](../../study/28-mobile-desktop-layout.md) (owner 2026-08-15):
+From [`28-mobile-desktop-layout.md`](../../study/28-mobile-desktop-layout.md):
 
-- **Phone (`< md`):** floating pill + corner chips — permanent.
-- **Desktop + iPad (`≥ md`):** flat sticky top nav — no bottom pill.
-- **Review:** destination pill **stays visible** during session (UC-063).
-- **No** due-count badges in nav.
-
-### Suggested task framing
-
-> **Reduce perceived chrome weight on `/words` first screen** without removing
-> floating nav or hiding Safari toolbar. Verify scroll end clears pill + Safari
-> inset; optionally tighten review card vertical rhythm so counts enter the fold
-> on common phone heights (e.g. iPhone 15, 390×844).
-
-**Files likely in scope:** `features/words/WordsHome.tsx`, `app/globals.css`
-(page/shell tokens), `FooterScrim.tsx`. **Out of scope:** `interactive-widget`,
-fixed `rem` lifts, flex-only shell, immersive nav hide.
-
-**Verify:** `npm run verify`; LIVE CHECK on `/words` and `/methods` in iOS Safari
-with toolbar on/off.
+- Phone (`< md`): floating pill + corner chips.
+- Desktop + iPad (`≥ md`): flat top nav, no bottom pill.
+- Review: pill **stays visible** during session (UC-063).
+- No due-count badges in nav.
+- Tap shield: dead zones around pill still block clicks to content underneath.
 
 ---
 
-## Layer stack (mobile, scrollable destination)
+## Copy-paste prompt for implementer
 
-Z-order increases downward. Only **app layers** are controllable.
+```
+Task: Fix mobile footer scrim vs destination pill layering (all signed-in pages)
+
+Invariant: The destination pill MAY move up with iOS Safari's bottom toolbar
+(useVisualViewportBottomInset) — keep that.
+
+Bug 1 — Scrim must full-bleed to viewport bottom:
+- Footer blur/tint/tap-shield anchors to bottom: 0 of the layout viewport.
+- Scrim extends BEHIND Safari's toolbar; it must NOT move up when the pill moves.
+- Today FooterScrim and pill share .shell-float-nav-bottom on one element — split them.
+
+Bug 2 — Pill padding inside scrim:
+- When the pill is at its lowest position (inset 0), the scrim band is taller than
+  the pill with visible padding above and below the pill (use tokens, not magic px).
+
+Files: FooterScrim.tsx, FloatingShellChrome.tsx, app/globals.css, mobile-nav-v2.md,
+page-layout.layers.md, tests in mobile-nav-v2.test.tsx or shell-page-content.
+
+Verify: npm run verify
+LIVE CHECK (iOS Safari):
+1. /methods (often no Safari toolbar) — scrim to bottom; pill padded in scrim.
+2. /words or /progress (toolbar often visible) — pill above toolbar; scrim still
+   bleeds to physical bottom behind toolbar.
+3. Tap scrim dead zone — content does not receive tap.
+```
+
+---
+
+## Layer stack (mobile — intended after fix)
+
+Z-order increases downward. **Scrim and pill use different `bottom` anchors.**
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│ L7  Language switcher popover (when open)     z: 100–102    │
+│ L7  Language popover (when open)              z: 100–102    │
 ├─────────────────────────────────────────────────────────────┤
-│ L6  Safari URL / status bar (browser)         not app code  │
+│ L6  Safari URL bar                            [browser]       │
 ├─────────────────────────────────────────────────────────────┤
-│ L5  App floating header (HeaderScrim)         fixed z-50    │
-│     · safe-area-inset-top padding                           │
-│     · language chip | ShellPageTitle | account chip         │
+│ L5  App floating header                       fixed z-50    │
+│     HeaderScrim + title + corner chips                      │
 ├─────────────────────────────────────────────────────────────┤
-│ L4  SCROLL — document / <main id="main">                    │
-│     · pt: var(--shell-float-top-active)                     │
-│     · pb: var(--spacing-shell-float-bottom)                 │
-│     └─ ShellPageContent (scrollable-destination)            │
-│        · pt-page-top / pb-page-bottom                       │
-│        └─ WordsHome sections (review card, counts, …)       │
+│ L4  SCROLL — <main> → ShellPageContent → feature            │
+│     pt: --shell-float-top-active                            │
+│     pb: --spacing-shell-float-bottom  (clears pill + pad)   │
 ├─────────────────────────────────────────────────────────────┤
-│ L3  FooterScrim tap shield + blur/tint        fixed z-50    │
-│ L2  App destination pill (IconLink × 3)       inside scrim  │
+│ L3  Footer scrim ONLY                         fixed z-50    │
+│     bottom: 0  (FULL viewport — behind Safari toolbar)      │
+│     blur + tint + tap shield; taller than pill               │
 ├─────────────────────────────────────────────────────────────┤
-│ L1  Safari bottom toolbar (browser)           visualViewport│
-│     inset → --shell-visual-viewport-bottom-inset            │
+│ L2  Destination pill                          fixed z-50    │
+│     bottom: safe-area + visualViewport inset + gap          │
+│     pill centred in scrim band with pad top/bottom          │
+├─────────────────────────────────────────────────────────────┤
+│ L1  Safari bottom toolbar                     [browser]       │
+│     (--shell-visual-viewport-bottom-inset measures this)    │
 └─────────────────────────────────────────────────────────────┘
 ```
+
+### Current (broken) vs intended
+
+| | **Current** | **Intended** |
+| --- | --- | --- |
+| Scrim `bottom` | Same as pill (`shell-float-nav-bottom`) | `0` (+ safe-area only) |
+| Pill `bottom` | `shell-float-nav-bottom` | unchanged |
+| Scrim height | Wraps pill only | Fixed band (token); pill padded inside |
+| Safari toolbar | Scrim stops above it | Scrim continues behind it |
 
 ### Scroll vs fixed
 
-| Region | Scrolls? | Component |
-| --- | --- | --- |
-| Safari chrome | No (browser) | — |
-| Floating header | No | `FloatingShellChrome` → `HeaderScrim` |
-| `<main>` content | **Yes** | `AppShell` → route → `ShellPageContent` → feature |
-| Footer scrim + pill | No | `FooterScrim` + `DestinationNavItems` `layout="pill"` |
-| Safari bottom bar | No (browser) | Measured only |
-
----
-
-## `/words` content structure (inside L4)
-
-Top to bottom inside `ShellPageContent width="wide"`:
-
-| # | Block | Component | Notes |
-| --- | --- | --- | --- |
-| 1 | Intent + review CTA | `WordsHome` §1 `section` | Raised card; full-width Start review on mobile |
-| 2 | Held / fragile / new counts | `WordsHome` §2 | `sm:grid-cols-3` |
-| 3 | Frequency blocks | `WordsHome` §3 | |
-| 4 | 30-day horizon chart | `WordsHome` §4 | horizontal scroll |
-| 5 | Vocabulary orbit | `VocabularyOrbitField` | |
-
-Mode: `shellPageLayout("/words")` → `scrollable-destination`
-([`lib/shell-page-layout.ts`](../../../lib/shell-page-layout.ts)).
-
----
-
-## Token contract (mobile `/words`)
-
-| Token | Typical role on `/words` |
+| Region | Scrolls? |
 | --- | --- |
-| `--shell-float-top-active` | ~5.5rem (6.5rem if title wraps two lines) |
-| `--spacing-shell-float-bottom` | pill height + Safari inset + gap |
-| `--shell-visual-viewport-bottom-inset` | ~0 on `/methods`, ~44–50px when Safari toolbar shown |
-| `--spacing-page-top` | First content breathing room inside scroll area |
-| `--spacing-page-bottom` | Last section clears app pill (not Safari — shell pb handles pill) |
-
-**Invariant:** `pb-page-bottom` on `ShellPageContent` + `pb-shell-float-bottom` on
-`<main>` must together clear the pill; do not add a third bottom pad in
-`WordsHome`.
+| `<main>` content | **Yes** |
+| Header chrome | No |
+| Footer scrim | No — **viewport bottom** |
+| Destination pill | No — **above Safari inset** |
+| Safari chrome | No |
 
 ---
 
-## Desktop / iPad (`≥ md`) — same route, different chrome
+## Page content (example routes)
 
-Layers collapse to:
+All use `ShellPageContent` + `scrollable-destination` or drill-in unless review
+runner. Shell fix applies **equally** — no per-route exception.
 
-```
-┌─────────────────────────────────────────────────────────────┐
-│ L3  Language popover (if open)                z: 100–102    │
-├─────────────────────────────────────────────────────────────┤
-│ L2  Sticky flat header (DesktopShellHeader)   sticky z-50   │
-│     · inline language + NavLink row + account               │
-│     · ShellPageTitle centred (single line)                  │
-├─────────────────────────────────────────────────────────────┤
-│ L1  SCROLL — <main> (no shell float pt/pb)                  │
-│     └─ ShellPageContent → WordsHome (same sections)         │
-└─────────────────────────────────────────────────────────────┘
-```
-
-No L2/L3 footer layers. Runner mode on `/words/review` is separate — see
-[`page-layout.md`](page-layout.md) `one-screen-runner`.
+| Route | Feature body |
+| --- | --- |
+| `/methods` | `MethodMenu` |
+| `/words` | `WordsHome` |
+| `/progress` | `ProgressReport` |
+| `/methods/[id]` | `MethodDetail` |
+| `/words/review` (active) | `ReviewSession` — `one-screen-runner`; pill still visible |
 
 ---
 
-## Mermaid (mobile scrollable destination)
+## Token notes
+
+| Token | Role |
+| --- | --- |
+| `--shell-visual-viewport-bottom-inset` | Pill lift only — **not** scrim `bottom` |
+| `--spacing-shell-float-nav-gap` | Gap between pill and Safari toolbar |
+| `--spacing-shell-float-nav-height` | Pill row height (icon chips) |
+| `--spacing-shell-float-bottom` | `<main>` pb — reserves space for pill + inset |
+| *TBD* | Scrim band height and/or pill pad inside scrim |
+
+---
+
+## Desktop / iPad (`≥ md`)
+
+No footer scrim or bottom pill. Sticky flat `DesktopShellHeader` only. This
+handoff does not apply.
+
+---
+
+## Mermaid (intended)
 
 ```mermaid
 flowchart TB
-  subgraph browser["Browser chrome (not controllable)"]
-    SAFARI_TOP[Safari URL bar]
-    SAFARI_BOT[Safari bottom toolbar]
+  subgraph browser["Browser"]
+    SAFARI_TOP[URL bar]
+    SAFARI_BOT[Bottom toolbar]
   end
 
-  subgraph shell["App shell — fixed"]
-    HDR[HeaderScrim + title + chips]
-    FTR[FooterScrim + destination pill]
-  end
+  HDR[Header — fixed top]
+  SCROLL[Main scroll]
+  SCRIM[Footer scrim — fixed bottom 0]
+  PILL[Pill — fixed above inset]
 
-  subgraph scroll["Scroll — main + ShellPageContent"]
-    WH[WordsHome sections]
-  end
-
-  SAFARI_TOP --- HDR
-  HDR --> scroll
-  scroll --> FTR
-  FTR --> SAFARI_BOT
+  SAFARI_TOP --> HDR
+  HDR --> SCROLL
+  SCROLL --> SCRIM
+  SCRIM --> SAFARI_BOT
+  PILL -.->|above toolbar| SAFARI_BOT
+  SCRIM -.->|behind toolbar| SAFARI_BOT
 ```
 
 ---
 
 ## Related specs
 
-- [`page-layout.md`](page-layout.md) — modes and acceptance criteria
-- [`mobile-nav-v2.md`](mobile-nav-v2.md) — pill and scrim behaviour
-- [`../page/words.md`](../page/words.md) — Words destination contract
-- [`../feature/words-home.md`](../feature/words-home.md) — section content
-- [`../../study/28-mobile-desktop-layout.md`](../../study/28-mobile-desktop-layout.md) — breakpoint decisions
+- [`page-layout.md`](page-layout.md)
+- [`mobile-nav-v2.md`](mobile-nav-v2.md) — behaviour #9 (update when fixed)
+- [`../../TRAPS.md`](../../TRAPS.md) — Safari / visualViewport
+- [`../../study/28-mobile-desktop-layout.md`](../../study/28-mobile-desktop-layout.md)

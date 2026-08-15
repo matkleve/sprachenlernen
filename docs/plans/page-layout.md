@@ -36,6 +36,15 @@ Layer diagram: [`../specs/feature/page-layout.layers.md`](../specs/feature/page-
 
 ## Follow-up (optional, Track A)
 
+**T-SHELL-04 · Decouple footer scrim from pill** — **spec ready**
+
+- **Class:** Standard
+- **Handoff:** [`page-layout.layers.md`](../specs/feature/page-layout.layers.md)
+- **Fix:** scrim `bottom: 0` full bleed; pill keeps `visualViewport` lift; pad
+  inside scrim band
+- **Files:** `FooterScrim.tsx`, `FloatingShellChrome.tsx`, `globals.css`,
+  `mobile-nav-v2.test.tsx`
+
 **T-SHELL-03 · iPad shell QA**
 
 - **Class:** Standard

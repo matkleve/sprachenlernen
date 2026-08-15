@@ -148,8 +148,8 @@ iPad Safari in manual QA. Floating chrome does not extend to tablet width.
       `pt-page-top pb-page-bottom` and does **not** add extra bottom padding for
       shell chrome.
 - [ ] Given iOS Safari with its bottom toolbar visible, when the shell renders,
-      then the destination pill sits above the toolbar (measured inset, not a
-      fixed offset).
+      then the destination pill sits above the toolbar (measured inset) and the
+      footer scrim still bleeds to the viewport bottom behind the toolbar.
 
 ## Check
 
