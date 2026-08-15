@@ -38,8 +38,8 @@ stripes do not rotate**; each ring has its own speed and direction.
 
 ### Collapse
 
-Each ring shows at most **24** individual segments; remaining words in the band
-collapse into one aggregate segment.
+Each ring shows at most **12** individual segments; remaining words in the band
+collapse into one aggregate segment. **8–16** decorative slots per ring.
 
 ## States
 

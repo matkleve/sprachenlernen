@@ -19,15 +19,15 @@ export const ORBIT_RING_BANDS: readonly { rankStart: number; rankEnd: number }[]
   { rankStart: 1201, rankEnd: 2000 },
 ] as const;
 
-/** Decorative ticks per ring — dense App Clip-style band. */
-export const ORBIT_SLOTS_PER_RING = [24, 28, 32, 36, 40, 44, 48, 52] as const;
+/** Decorative ticks per ring — sparse enough to read at a glance. */
+export const ORBIT_SLOTS_PER_RING = [8, 9, 10, 11, 12, 13, 14, 16] as const;
 
 /** Each ring starts at a different phase so ticks never line up radially. */
 export function ringPhaseOffset(ringIndex: number): number {
   return (ringIndex * 23.7 + 11) % 360;
 }
 
-export const ORBIT_MAX_INDIVIDUALS = 24;
+export const ORBIT_MAX_INDIVIDUALS = 12;
 
 export type OrbitLit = "ghost" | "half" | "lit" | "bright";
 
@@ -177,12 +177,12 @@ export function buildVocabularyOrbit(
   return { rings };
 }
 
-/** Deterministic slot angular width — dots, short dashes, and long dashes mixed. */
+/** Deterministic slot angular width — fewer, larger dots and dashes. */
 export function slotAngularWidth(ringIndex: number, slotIndex: number, slotCount: number): number {
   const hash = (ringIndex * 31 + slotIndex * 17) % 11;
-  if (hash <= 2) return 1.8;
-  if (hash <= 6) return 4.2 + (hash % 3) * 0.8;
-  return 7.5 + (hash % 4) * 1.1;
+  if (hash <= 2) return 5;
+  if (hash <= 6) return 11 + (hash % 3) * 1.5;
+  return 18 + (hash % 4) * 2;
 }
 
 export function slotStartAngle(
@@ -191,7 +191,7 @@ export function slotStartAngle(
   slotCount: number,
 ): number {
   const phase = ringPhaseOffset(ringIndex);
-  const gap = 2.8;
+  const gap = 6;
   let angle = phase;
   for (let i = 0; i < slotIndex; i++) {
     angle += slotAngularWidth(ringIndex, i, slotCount) + gap;

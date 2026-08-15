@@ -129,7 +129,7 @@ function RingLayer({ ringIndex, segments, selectedId, onSelect }: RingLayerProps
                 d={path}
                 fill="none"
                 stroke="transparent"
-                strokeWidth={14}
+                strokeWidth={18}
                 strokeLinecap="round"
                 className="cursor-pointer"
                 tabIndex={0}

@@ -5,9 +5,9 @@
 export const ORBIT_VIEW_SIZE = 400;
 export const ORBIT_CENTER = ORBIT_VIEW_SIZE / 2;
 export const ORBIT_CENTER_RADIUS = 28;
-/** Thin bands with breathing room — App Clip codes are tight concentric strokes. */
-export const ORBIT_RING_WIDTH = 5;
-export const ORBIT_RING_GAP = 5;
+/** Stroke thickness for each ring band. */
+export const ORBIT_RING_WIDTH = 7;
+export const ORBIT_RING_GAP = 6;
 
 export function ringRadii(ringIndex: number): { inner: number; outer: number } {
   const inner = ORBIT_CENTER_RADIUS + 8 + ringIndex * (ORBIT_RING_WIDTH + ORBIT_RING_GAP);
