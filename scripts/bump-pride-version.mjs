@@ -10,14 +10,6 @@ import { readFileSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
-const kind = process.argv[2];
-const allowed = new Set(["proud", "default", "shame"]);
-
-if (!allowed.has(kind)) {
-  console.error("Usage: node scripts/bump-pride-version.mjs <proud|default|shame>");
-  process.exit(1);
-}
-
 function parsePrideVersion(raw) {
   const parts = raw.trim().split(".");
   if (parts.length !== 3 || parts.some((part) => !/^\d+$/.test(part))) {
@@ -47,12 +39,34 @@ function bumpPrideVersion(version, bump) {
   }
 }
 
+function writePrideVersion(root, next) {
+  const packagePath = join(root, "package.json");
+  const lockPath = join(root, "package-lock.json");
+
+  const pkg = JSON.parse(readFileSync(packagePath, "utf8"));
+  pkg.version = next;
+  writeFileSync(packagePath, `${JSON.stringify(pkg, null, 2)}\n`);
+
+  const lock = JSON.parse(readFileSync(lockPath, "utf8"));
+  lock.version = next;
+  if (lock.packages?.[""]) {
+    lock.packages[""].version = next;
+  }
+  writeFileSync(lockPath, `${JSON.stringify(lock, null, 2)}\n`);
+}
+
+const kind = process.argv[2];
+const allowed = new Set(["proud", "default", "shame"]);
+
+if (!allowed.has(kind)) {
+  console.error("Usage: node scripts/bump-pride-version.mjs <proud|default|shame>");
+  process.exit(1);
+}
+
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const packagePath = join(root, "package.json");
 const pkg = JSON.parse(readFileSync(packagePath, "utf8"));
 const next = formatPrideVersion(bumpPrideVersion(parsePrideVersion(pkg.version), kind));
-
-pkg.version = next;
-writeFileSync(packagePath, `${JSON.stringify(pkg, null, 2)}\n`);
+writePrideVersion(root, next);
 
 console.log(next);

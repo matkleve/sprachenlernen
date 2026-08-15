@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 
+import packageJson from "../package.json";
 import {
   APP_PRIDE_VERSION,
   APP_VERSION_LABEL,
@@ -39,7 +40,8 @@ describe("pride-version", () => {
   });
 
   it("reads the app version from package.json", () => {
-    expect(APP_PRIDE_VERSION).toEqual({ proud: 0, default: 1, shame: 0 });
-    expect(APP_VERSION_LABEL).toBe("v0.1.0");
+    const parsed = parsePrideVersion(packageJson.version);
+    expect(APP_PRIDE_VERSION).toEqual(parsed);
+    expect(APP_VERSION_LABEL).toBe(`v${formatPrideVersion(parsed)}`);
   });
 });
