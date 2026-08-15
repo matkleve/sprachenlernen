@@ -7,14 +7,20 @@ import { ProfileLanguages } from "@/features/profile/ProfileLanguages";
 import { ProfileSpokenLanguage } from "@/features/profile/ProfileSpokenLanguage";
 import { copy } from "@/features/profile/content";
 import { renderWithAppUpdate } from "@/features/app-shell/test-utils";
+import packageJson from "@/package.json";
 import {
   APP_VERSION_LABEL,
   bumpPrideVersion,
   formatPrideVersion,
   parsePrideVersion,
 } from "@/lib/pride-version";
-import packageJson from "@/package.json";
 import { SHIPPED_ES_POOL_SIZE } from "@/lib/starter-deck";
+
+const bundledVersion = packageJson.version;
+const deployedVersion = formatPrideVersion(
+  bumpPrideVersion(parsePrideVersion(bundledVersion), "default"),
+);
+const deployedLabel = `v${deployedVersion}`;
 
 vi.mock("next/navigation", () => ({
   usePathname: vi.fn(() => "/profile"),
@@ -22,12 +28,6 @@ vi.mock("next/navigation", () => ({
 }));
 
 /** Contract: docs/specs/page/profile.md */
-
-const bundledVersion = packageJson.version;
-const deployedVersion = formatPrideVersion(
-  bumpPrideVersion(parsePrideVersion(bundledVersion), "default"),
-);
-const deployedLabel = `v${deployedVersion}`;
 
 const language = (code: string, isActive: boolean) => ({
   languageCode: code,
@@ -175,7 +175,7 @@ describe("ProfileAppSection", () => {
   it("shows the running version and a check-for-updates control", async () => {
     vi.mocked(fetch).mockResolvedValue({
       ok: true,
-      json: async () => ({ version: "0.3.0" }),
+      json: async () => ({ version: bundledVersion }),
     } as Response);
 
     renderWithAppUpdate(<ProfileAppSection />);
@@ -208,7 +208,7 @@ describe("ProfileAppSection", () => {
     const user = userEvent.setup();
     vi.mocked(fetch).mockResolvedValue({
       ok: true,
-      json: async () => ({ version: "0.3.0" }),
+      json: async () => ({ version: bundledVersion }),
     } as Response);
 
     renderWithAppUpdate(<ProfileAppSection />);

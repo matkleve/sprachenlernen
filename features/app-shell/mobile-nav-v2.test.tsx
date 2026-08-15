@@ -9,6 +9,7 @@ import { AppUpdateProvider } from "./AppUpdateProvider";
 import { AppShell } from "./AppShell";
 import { FloatingShellChrome } from "./FloatingShellChrome";
 import { APP_VERSION_LABEL } from "@/lib/pride-version";
+import packageJson from "@/package.json";
 import { copy as profileCopy } from "@/features/profile/content";
 
 import { copy, holding } from "./content";
@@ -47,7 +48,7 @@ beforeEach(() => {
     "fetch",
     vi.fn().mockResolvedValue({
       ok: true,
-      json: async () => ({ version: "0.3.0" }),
+      json: async () => ({ version: packageJson.version }),
     } as Response),
   );
 });
