@@ -70,6 +70,20 @@ equal `flex-1` columns inside the content width; Progress tables use
 `Table layout="fit"` (`table-fixed`, wrapping cells, no scroll wrapper). All
 three destinations now share one scroll model.
 
+### Methods mirror (2026-08-15) — Safari A/B route
+
+`/methods-mirror` is a **second pill** in the mobile nav: same catalogue and
+scroll model as `/methods`, different URL. Use it to make **small diffs** on
+one twin while comparing Safari bottom-toolbar behaviour on the other.
+
+| Route | Pill icon | Purpose |
+| --- | --- | --- |
+| `/methods` | Library | Production Methods |
+| `/methods-mirror` | Copy | Debug twin — edit `methods-mirror/page.tsx` only |
+
+**LIVE CHECK:** alternate between the two pill icons without changing Words/Progress.
+If toolbar differs while HTML is identical, cause is navigation/session — not page body.
+
 ---
 
 ## Page length (corrected)

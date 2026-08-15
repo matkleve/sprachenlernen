@@ -79,8 +79,8 @@ export function FloatingShellChrome({
           <nav aria-label={copy.mobileNavLabel} className="flex w-full justify-center">
             <ul
               className={cn(
-                "inline-flex list-none items-center gap-1.5 rounded-pill border border-line",
-                "bg-surface p-1.5 shadow-raised",
+                "inline-flex list-none items-center gap-1 rounded-pill border border-line",
+                "bg-surface p-1 shadow-raised",
               )}
             >
               <DestinationNavItems layout="pill" />
