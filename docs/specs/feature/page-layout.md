@@ -118,7 +118,8 @@ When the mobile title wraps to two lines, `ShellPageTitle` sets
 `/methods`, `/words`, `/progress` use **document vertical scroll** only — feature
 bodies must not nest `overflow-x-auto` or `overflow-y-auto` (popover overlays
 excepted); see [`../../study/29-ios-inset-by-route.md`](../../study/29-ios-inset-by-route.md).
-Wide tables: `Table layout="fit"`; Words horizon: equal-width bars. iOS
+Wide tables: `Table layout="fit"`; Words horizon: four week columns (collapsed
+default; see [`review-horizon.md`](review-horizon.md)). iOS
 in-browser toolbar is browser-controlled — shell measures via
 `useVisualViewportBottomInset`; **no per-route inset fixes**
 ([`page-layout.layers.md`](page-layout.layers.md) § Safari toolbar policy).
