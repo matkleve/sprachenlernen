@@ -1,7 +1,7 @@
 # UC-004 — Know where I stand, and whether I am getting better
 
 <!-- id: UC-004 -->
-<!-- specs: SPEC-page-progress, SPEC-service-dose-band -->
+<!-- specs: SPEC-page-progress, SPEC-service-dose-band, SPEC-component-reflection-deck, SPEC-feature-weekly-reflection -->
 
 **Who:** someone learning a language on their own, weeks or months in.
 **Wants to:** see their current level and whether it moved.
@@ -27,6 +27,8 @@ it is rare, discouraging, and gives no direction.
 - With too little data, the display says so — a range and "few data yet", never
   a precise-looking number.
 - Every number can be opened to show which measured signals produced it.
+- Once a week, a short **reflection deck** — one to five swipeable cards, each
+  with a personal sentence and the chart behind it ([`weekly-reflection`](../specs/feature/weekly-reflection.md)).
 - Each skill carries one of four statuses — measured, uncertain, not measured,
   not in profile — defined in
   [`../study/03-level-model.md`](../study/03-level-model.md) and nowhere

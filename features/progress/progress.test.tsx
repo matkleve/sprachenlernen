@@ -6,6 +6,7 @@ import { copy, statusNames } from "@/features/progress/content";
 import { hoursPerYear, yearsToReach } from "@/lib/dose-band";
 import { readLevel } from "@/lib/level-model";
 import { rebuild, type Review } from "@/lib/scheduler";
+import type { WeeklyReflectionModel } from "@/lib/weekly-reflection";
 
 /**
  * Contract: docs/specs/page/progress.md
@@ -55,28 +56,30 @@ function leafText(container: HTMLElement): string {
     .join(" | ");
 }
 
+const hiddenReflection: WeeklyReflectionModel = { status: "hidden" };
+
 describe("ProgressReport", () => {
   it("shows all four skills as not measured when nothing has been reviewed", () => {
-    render(<ProgressReport reading={empty} />);
+    render(<ProgressReport reading={empty} reflection={hiddenReflection} />);
 
     expect(screen.getAllByText(statusNames["not-measured"])).toHaveLength(4);
     expect(screen.getByText(copy.emptyState)).toBeDefined();
   });
 
   it("still shows all four as not measured once there is review history", () => {
-    render(<ProgressReport reading={withHistory} />);
+    render(<ProgressReport reading={withHistory} reflection={hiddenReflection} />);
 
     expect(screen.getAllByText(statusNames["not-measured"])).toHaveLength(4);
   });
 
   it("withholds the overall level and says which rule withholds it", () => {
-    render(<ProgressReport reading={empty} />);
+    render(<ProgressReport reading={empty} reflection={hiddenReflection} />);
 
     expect(screen.getByText(copy.overallWithheld)).toBeDefined();
   });
 
   it("shows recall stability as a value with its derivation, and no CEFR level", () => {
-    render(<ProgressReport reading={withHistory} />);
+    render(<ProgressReport reading={withHistory} reflection={hiddenReflection} />);
 
     const stability = withHistory.signals.find((signal) => signal.id === "recall-stability")!;
     expect(screen.getByText(copy.stabilityValue(stability.value!, stability.taskCount))).toBeDefined();
@@ -91,7 +94,7 @@ describe("ProgressReport", () => {
   });
 
   it("shows form mastery when form-recall tasks have been reviewed", () => {
-    render(<ProgressReport reading={withFormHistory} />);
+    render(<ProgressReport reading={withFormHistory} reflection={hiddenReflection} />);
 
     const formMastery = withFormHistory.signals.find((signal) => signal.id === "form-mastery")!;
     expect(
@@ -100,7 +103,7 @@ describe("ProgressReport", () => {
   });
 
   it("shows the dose band with its borrowed label, and no numerator", () => {
-    render(<ProgressReport reading={withHistory} />);
+    render(<ProgressReport reading={withHistory} reflection={hiddenReflection} />);
 
     // The band is the point of F184, and the caveat is question 19's answer —
     // a figure from an uncalibrated table shown without it is the claim the
@@ -111,7 +114,7 @@ describe("ProgressReport", () => {
   });
 
   it("reproduces the chapter's arithmetic rather than inventing a second one", () => {
-    render(<ProgressReport reading={empty} />);
+    render(<ProgressReport reading={empty} reflection={hiddenReflection} />);
 
     expect(screen.getByText(copy.doseHabit(hoursPerYear(15)))).toBeDefined();
 
@@ -120,14 +123,16 @@ describe("ProgressReport", () => {
   });
 
   it("uses fit tables without nested horizontal scroll on destination pages", () => {
-    const { container } = render(<ProgressReport reading={withHistory} />);
+    const { container } = render(
+      <ProgressReport reading={withHistory} reflection={hiddenReflection} />,
+    );
 
     expect(container.querySelector(".overflow-x-auto")).toBeNull();
     expect(screen.getAllByRole("table")).toHaveLength(3);
   });
 
   it("names what is still missing for language-wide levels", () => {
-    render(<ProgressReport reading={withHistory} />);
+    render(<ProgressReport reading={withHistory} reflection={hiddenReflection} />);
 
     expect(screen.getByText(copy.gapBody)).toBeDefined();
   });
@@ -137,7 +142,9 @@ describe("ProgressReport", () => {
     // this page must never grow, and they are cheap to add by accident the
     // moment somebody wants it to feel rewarding.
     for (const reading of [empty, withHistory]) {
-      const { container, unmount } = render(<ProgressReport reading={reading} />);
+      const { container, unmount } = render(
+        <ProgressReport reading={reading} reflection={hiddenReflection} />,
+      );
       expect(leafText(container)).not.toMatch(/\bstreak\b|\bXP\b|\bpoints\b|\bday streak\b/i);
       unmount();
     }
