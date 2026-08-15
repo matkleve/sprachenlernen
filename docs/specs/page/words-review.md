@@ -5,7 +5,8 @@
 <!-- status: active -->
 
 Thin route at `/words/review`. Dispatches to the hosted session for a method id
-in the query string. **Standard**.
+in the query string. Layout modes: [`../feature/page-layout.md`](../feature/page-layout.md).
+**Standard**.
 
 ## Scope
 

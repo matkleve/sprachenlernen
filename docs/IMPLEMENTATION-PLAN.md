@@ -49,6 +49,7 @@ wins and this file is stale. Nothing normative may live only here.
 | `lib/db/review-log.ts` + `lib/installation-id.ts` | **Shipped 2026-08-09** (T-B2). Append-only adapter, owner taken from the session, payload migration applied live. Spec **active** |
 | `lib/starter-deck.ts` + `lib/session-builder.ts` | **Shipped 2026-08-09** (T-B1). Spanish **expanded 2026-08-12** to 2000 lemmas; **Italian shipped 2026-08-12** at the same tier (2000 lemmas) — see [`starter-deck.second-language.md`](specs/service/starter-deck.second-language.md). 15-card queue, due-before-new, one language per session (T-B12). Specs **active** |
 | `features/review-session/` | **Shipped 2026-08-09** (T-B1). The FSM, the card, the summary. Grades persist one row each. Specs **active** |
+| `lib/shell-page-layout.ts` | **Shipped 2026-08-15**. Route → layout mode registry (`scrollable-destination`, `scrollable-drill-in`, `one-screen-runner`). Spec [`page-layout.md`](specs/feature/page-layout.md) **active** |
 
 **Track B core shipped 2026-08-11.** A signed-in learner can sign up, open
 `/methods`, review a 15-card SRS session, see pool-local standing on Methods and
@@ -405,6 +406,27 @@ the language picker / switcher answered the third. Detail:
 Both languages are fully isolated per [UC-025](use-cases/UC-025-learn-multiple-languages.md) —
 own pool, own scheduling, own progress, never mixed in a session.
 
+
+## Page layout — shell, scrims, and scroll modes
+
+**Added 2026-08-15** after mobile-nav iterations exposed gaps: padding was split
+across shell and features without a single contract, and scroll vs one-screen
+behaviour lived only in scattered specs.
+
+**Normative spec:** [`specs/feature/page-layout.md`](specs/feature/page-layout.md).
+**Plan and follow-ups:** [`plans/page-layout.md`](plans/page-layout.md).
+
+| Decision | Choice |
+| --- | --- |
+| Mobile chrome | Fixed overlay (floating pill + scrims), not flex-child nav |
+| Who reserves float space | `AppShell` `<main>` padding on `< md` |
+| Who sets page rhythm | Feature wrappers: `pt-page-top` / `pb-page-bottom` |
+| One-screen routes | `one-screen-runner` — `--height-review-session`, no page scroll on `< md` |
+| Safari bottom toolbar | `useVisualViewportBottomInset`; cannot hide in-browser |
+
+**Track A follow-up (optional):** T-SHELL-02 — lint that features do not add
+`pb-shell-float-bottom` (double reserve). T-SHELL-01 (wire registry on routes)
+shipped with the spec.
 
 ## Interaction and design-system audit
 

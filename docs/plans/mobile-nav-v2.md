@@ -5,6 +5,7 @@
 **Change class:** Standard.
 
 Contract: [`../specs/feature/mobile-nav-v2.md`](../specs/feature/mobile-nav-v2.md).
+Page layout modes: [`../specs/feature/page-layout.md`](../specs/feature/page-layout.md).
 
 ## Files
 

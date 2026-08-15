@@ -62,16 +62,15 @@ from the URL.
 
 ## Layout
 
-The shell owns mobile inset padding on `<main>` so pages do not each account for
-float height. Tokens: `--spacing-shell-float-top`, `--spacing-shell-float-top-expanded`,
-`--shell-float-top-active`, `--spacing-shell-float-bottom`,
-`--shell-visual-viewport-bottom-inset`, and `--spacing-shell-float-nav-height` in
-`app/globals.css`. `useVisualViewportBottomInset` measures iOS Safari's bottom
-toolbar when it is visible (often on `/words` and `/progress`, not `/methods`)
-and sets the inset — the bottom pill uses `.shell-float-nav-bottom` to sit just
-above whatever chrome is actually present. When the mobile
-title wraps to two lines, `ShellPageTitle` sets
-`--shell-float-top-active` to the expanded value.
+Shell chrome, scroll modes, and who owns padding:
+[`page-layout.md`](page-layout.md). This spec owns only the floating controls
+themselves. Tokens: `--spacing-shell-float-top`, `--shell-float-top-active`,
+`--spacing-shell-float-bottom`, `--shell-visual-viewport-bottom-inset`,
+`--spacing-shell-float-nav-height` in `app/globals.css`.
+`useVisualViewportBottomInset` measures iOS Safari's bottom toolbar when visible;
+`.shell-float-nav-bottom` positions the pill above measured chrome.
+`ShellPageTitle` sets `--shell-float-top-active` to the expanded value when the
+title wraps to two lines.
 
 ## Accessibility
 

@@ -36,7 +36,7 @@ recall or form-recall), grades that append to the review log (T-B2).
 | 4 | Taps a grade (with or without flipping) | Grade queued locally; **next card immediately** (`advancing` → `prompting` or `complete`); server flush runs in the background ([`review-write-queue`](../service/review-write-queue.md)). **`again`** re-inserts the card five positions ahead (or at end if fewer than five remain); **`hard`** re-inserts at end of the remaining queue; **`good`** / **`easy`** do not requeue ([ADR-0012](../../adr/0012-ux-decisions-requeue-i18n-leech-nav.md), UC-071) |
 | 5 | Background flush fails | Session does not rewind; non-blocking status with Retry |
 | 6 | Session `complete` | Summary: cards graded this session; link back to Words and Methods |
-| 7 | Viewport &lt; `md` during an active card | Method name and progress share one line; card and grade row fit without page scroll |
+| 7 | Viewport &lt; `md` during an active card | Method name and progress share one line; card and grade row fit without page scroll ([`page-layout.md`](page-layout.md) `one-screen-runner`) |
 | 8 | Taps **Report** on a card | Card is flagged for this learner and spoken language; confirmation shown; card stays in the current queue ([`broken-card-detection`](../service/broken-card-detection.md), UC-023) |
 
 ## States

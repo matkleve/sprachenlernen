@@ -20,8 +20,10 @@ destination is built once and every screen inherits it.
   which [ADR-0009](../../adr/0009-three-destinations.md) rejected as "a link in
   a corner, not a fifth of the screen"; the runner, which is a surface pushed
   over a destination rather than one of them; and the marketing half, which has
-  no shell at all. Responsive mobile navigation:
+  no shell at all.   Responsive mobile navigation:
   [`mobile-nav-v2.md`](mobile-nav-v2.md) (`< md` floating chrome; `≥ md` header).
+  Page construction (scroll vs one-screen, padding ownership):
+  [`page-layout.md`](page-layout.md).
 
 **Reuse: `ActionLink`.** The account control is a link, not a form — sign out moved onto `/profile`. The
 destinations are anchors, not buttons — they navigate, so they must be

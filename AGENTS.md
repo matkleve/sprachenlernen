@@ -117,6 +117,7 @@ feature needs it — not in anticipation of one.
 | Writing a spec | [`docs/SPEC-FORMAT.md`](docs/SPEC-FORMAT.md) |
 | **Anything with states, or a selection driving two surfaces** | [`docs/STATE.md`](docs/STATE.md) |
 | Touching styles or tokens | [`docs/DESIGN-SYSTEM.md`](docs/DESIGN-SYSTEM.md) |
+| **Building or changing a signed-in page** | [`docs/specs/feature/page-layout.md`](docs/specs/feature/page-layout.md) |
 | Naming anything | [`docs/GLOSSARY.md`](docs/GLOSSARY.md) |
 | A "fix" isn't working | [`docs/TRAPS.md`](docs/TRAPS.md) ← read this before your second attempt |
 | Adding a database, or another learning language | [`docs/BACKEND.md`](docs/BACKEND.md), [`docs/I18N.md`](docs/I18N.md) |

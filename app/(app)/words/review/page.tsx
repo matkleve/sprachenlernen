@@ -6,8 +6,8 @@ import { findMethod } from "@/features/method-menu/MethodDetail";
 import { buildSessionAction } from "@/features/review-session/actions";
 import { ReviewSession } from "@/features/review-session/ReviewSession";
 import { copy } from "@/features/review-session/content";
-import { CARD_ENGINE_METHOD_ID } from "@/lib/method-session";
 import { routes } from "@/lib/routes";
+import { isActiveReviewSession } from "@/lib/shell-page-layout";
 import { cn } from "@/lib/utils";
 
 /**
@@ -24,12 +24,15 @@ export default async function WordsReviewPage({
   searchParams: Promise<{ method?: string }>;
 }) {
   const { method: methodId } = await searchParams;
-  const isActiveSession = methodId === CARD_ENGINE_METHOD_ID;
+  const runnerLayout = isActiveReviewSession(
+    "/words/review",
+    new URLSearchParams(methodId ? { method: methodId } : {}),
+  );
 
   let session: ReactNode;
   if (!methodId) {
     session = <p className="mt-4 text-base text-muted">{copy.unknownMethod}</p>;
-  } else if (isActiveSession) {
+  } else if (runnerLayout) {
     const outcome = await buildSessionAction();
     if (outcome.status === "no-language") {
       redirect(routes.chooseLanguage);
@@ -59,9 +62,10 @@ export default async function WordsReviewPage({
   return (
     <div
       className={cn(
-        "mx-auto max-w-2xl px-4 md:px-6 md:pt-page-top md:pb-page-bottom",
-        isActiveSession &&
+        "mx-auto max-w-2xl px-4 md:px-6",
+        runnerLayout &&
           "flex h-review-session flex-col overflow-hidden md:h-auto md:overflow-visible",
+        !runnerLayout && "md:pt-page-top md:pb-page-bottom",
       )}
     >
       {session}

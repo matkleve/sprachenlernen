@@ -9,7 +9,8 @@ import type { LanguageSwitcherOption } from "./LanguageSwitcher";
 
 /**
  * The frame every signed-in screen renders inside. Contract:
- * docs/specs/feature/app-shell.md, docs/specs/feature/mobile-nav-v2.md
+ * docs/specs/feature/app-shell.md, docs/specs/feature/mobile-nav-v2.md,
+ * docs/specs/feature/page-layout.md
  *
  * A Server Component: it holds nothing. The one fact that changes between
  * renders — which destination you are on — lives in the URL and is read by

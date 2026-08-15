@@ -13,7 +13,7 @@ type FooterScrimProps = {
  * Scrim behind the mobile bottom destination pill — blur + tint fading upward,
  * matching the header scrim at the top. The full-width tap shield stops presses
  * on the pill's dead zones from reaching page content underneath.
- * Contract: mobile-nav-v2.md
+ * Contract: mobile-nav-v2.md, page-layout.md
  */
 export function FooterScrim({ className, children }: FooterScrimProps) {
   return (
