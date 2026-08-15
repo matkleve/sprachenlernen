@@ -21,6 +21,30 @@ Tested in **true PWA** (Home Screen icon):
 | `/words` | Appears — pill sits higher ✗ |
 | `/progress` | Appears — pill sits higher ✗ |
 
+### Round 3 — leaving bisect hub (`v0.6.1`, owner-corrected)
+
+**Owner:** tested **only in PWA** (Home Screen icon) — not Safari tabs. Do not
+attribute results to browser mode.
+
+| Observation | Detail |
+| --- | --- |
+| `/safari-bisect` | Bottom inset `0px`, pill low — OK |
+| Any navigation away (pill or link) | Toolbar / lifted pill — including `/methods`, `/methods-mirror`, `/words`, `/progress` |
+
+**Working theory — PWA install URL (start URL):** iOS may tie bottom-chrome
+behaviour to the **page that was open when “Add to Home Screen” was tapped**, not
+to each route’s body. If the icon was created while on `/safari-bisect`, only
+that URL looks correct until the learner navigates away.
+
+**Why Methods mirror “worked when we created it”:** the Home Screen icon was
+almost certainly created from **`/methods`** (or mirror) during that experiment —
+not from bisect. Mirror shares Methods’ body; both behaved the same because the
+**install URL** was in the Methods family, not because mirror is special code.
+
+**Shipped response:** `app/manifest.ts` sets `start_url: /methods` and
+`scope: /` so reinstall has an explicit contract. Bisect hub shows **Display mode**
++ **Bottom inset** for reporting. **Reinstall** from `/methods` after deploy.
+
 ### Round 2 — bisect hub (`v0.6.0`)
 
 | Route | Result |
@@ -205,6 +229,23 @@ Then body bisect (if direct and pill behave the same):
 6. Repeat for **`/progress-bisect?level=0`** … `5`.
 
 Record: `Words breaks at level N (inset Xpx)` / `Progress breaks at level N`.
+
+---
+
+## PWA install (owner)
+
+**Critical:** note which URL was open when you tapped **Add to Home Screen**.
+
+After manifest ships (`v0.6.2`+):
+
+1. **Delete** the existing Home Screen icon.
+2. Open the PWA’s entry in Safari → navigate to **`/methods`** (not bisect).
+3. Share → **Add to Home Screen** → Add.
+4. Open **only** from the new icon.
+5. Test: Methods → Words → Progress via pill — compare to bisect inset readout.
+
+Report: install URL used, and whether asymmetry persists after reinstall from
+`/methods`.
 
 ---
 

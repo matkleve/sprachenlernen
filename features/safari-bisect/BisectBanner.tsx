@@ -4,6 +4,7 @@ import { TextLink } from "@/components/ui/TextLink";
 import { bisectLevelHref } from "@/lib/safari-bisect";
 
 import { InsetReadout } from "./InsetReadout";
+import { StandaloneModeReadout } from "./StandaloneModeReadout";
 import { copy } from "./content";
 
 type BisectBannerProps = {
@@ -24,6 +25,7 @@ export function BisectBanner({ basePath, level, maxLevel, levelLabels }: BisectB
       <p className="font-medium text-ink">{copy.bannerTitle}</p>
       <p className="mt-1">{copy.levelLabel(level, maxLevel, description)}</p>
       <InsetReadout />
+      <StandaloneModeReadout />
       <div className="mt-2 flex flex-wrap items-center justify-center gap-x-4 gap-y-1">
         {level > 0 ? (
           <TextLink href={bisectLevelHref(basePath, level - 1)} className="text-xs">

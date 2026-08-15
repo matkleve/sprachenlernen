@@ -8,6 +8,10 @@ vi.mock("./InsetReadout", () => ({
   InsetReadout: () => <div data-testid="inset-readout" />,
 }));
 
+vi.mock("./StandaloneModeReadout", () => ({
+  StandaloneModeReadout: () => <div data-testid="mode-readout" />,
+}));
+
 describe("BisectBanner", () => {
   it("shows the active level and navigation links", () => {
     render(

@@ -21,6 +21,11 @@ export const copy = {
   next: "Next level",
   hubLink: "Bisect hub",
   insetLabel: "Bottom inset",
+  modeLabel: "Display mode",
+  modeStandalone: "Standalone (Home Screen)",
+  modeBrowser: "In-browser (not Home Screen)",
+  modeWarning:
+    "Note which URL was open when you added this app to the Home Screen — iOS may tie bottom chrome to that page (study/31 § Round 3).",
   wordsMinimal:
     "Bisect level 0 — one paragraph inside ShellPageContent, same shape as Methods intro. If this already looks wrong vs Methods, the cause is route/title not body sections below.",
   progressMinimal:
