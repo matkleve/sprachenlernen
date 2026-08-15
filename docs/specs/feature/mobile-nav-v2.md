@@ -40,7 +40,7 @@ Progress (ADR-0009). **No due-count badges** (UC-063).
 | 6 | Taps back float | Navigates to parent destination (`href`, not blind history) |
 | 7 | Has more than one learning language | Language emoji chip opens a popover: blurred scrim over the page, stacked language cards (gap between each), then **Add a language**; choosing a row makes it active and refreshes — one action (UC-025) |
 | 8 | Has exactly one learning language | Top-left shows a non-interactive flag circle with the endonym in `aria-label` |
-| 9 | Scrolls page content | Floats stay fixed; the page title stays centered and scales down; a scrim (blur + tint) fades in at the top and out toward the bottom of the header; a matching scrim sits behind the bottom pill and **blocks taps from reaching content underneath** |
+| 9 | Scrolls page content | Floats stay fixed; the page title stays centered and scales down; a scrim (blur + tint) fades in at the top and out toward the bottom of the header; a matching scrim sits behind the bottom pill, **lifted above Safari's bottom toolbar**, and **blocks taps from reaching content underneath** |
 | 10 | On any signed-in route | The page title is centered between the corner chips — large at scroll top, smaller after scrolling down; on mobile it may wrap to **two lines** within a fixed max width, never overlapping the chips; **if it wraps to two lines at rest, it stays two lines while scaling down** (no reflow to one line on scroll); when it wraps, `main` uses `--spacing-shell-float-top-expanded` so content does not sit under the corner chips |
 
 ## Back targets
@@ -63,8 +63,11 @@ from the URL.
 
 The shell owns mobile inset padding on `<main>` so pages do not each account for
 float height. Tokens: `--spacing-shell-float-top`, `--spacing-shell-float-top-expanded`,
-`--shell-float-top-active`, and `--spacing-shell-float-bottom` in `app/globals.css`.
-When the mobile title wraps to two lines, `ShellPageTitle` sets
+`--shell-float-top-active`, `--spacing-shell-float-bottom`,
+`--spacing-shell-float-browser-lift`, and `--spacing-shell-float-nav-height` in
+`app/globals.css`. The bottom pill uses `.shell-float-nav-bottom` to sit above
+iOS Safari's bottom toolbar (which cannot be hidden in-browser). When the mobile
+title wraps to two lines, `ShellPageTitle` sets
 `--shell-float-top-active` to the expanded value.
 
 ## Accessibility

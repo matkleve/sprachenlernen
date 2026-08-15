@@ -94,7 +94,12 @@
   --spacing-shell-float-top-expanded: 6.5rem;
   --spacing-shell-float-top: 5.5rem;
   --shell-float-top-active: var(--spacing-shell-float-top);
-  --spacing-shell-float-bottom: 3.5rem;
+  /* Icon pill height + lift above Safari's bottom toolbar (not removable in-browser). */
+  --spacing-shell-float-nav-height: 3.25rem;
+  --spacing-shell-float-browser-lift: 3rem;
+  --spacing-shell-float-bottom: calc(
+    var(--spacing-shell-float-nav-height) + var(--spacing-shell-float-browser-lift)
+  );
   /* Active review session — one screen between floating chrome on mobile.
      Must match main's pt-shell-float-top + pb-shell-float-bottom or the page scrolls. */
   --height-review-session: calc(
@@ -288,6 +293,19 @@
     color-mix(in srgb, var(--color-surface) 38%, transparent) 52%,
     transparent 100%
   );
+}
+
+/* Sit above iOS Safari's bottom toolbar — env(safe-area) alone does not include it. */
+.shell-float-nav-bottom {
+  bottom: calc(
+    env(safe-area-inset-bottom, 0px) + var(--spacing-shell-float-browser-lift)
+  );
+}
+
+@media (min-width: 48rem) {
+  .shell-float-nav-bottom {
+    bottom: auto;
+  }
 }
 
 /* Vocabulary orbit — each ring spins on its own; center stays fixed. */

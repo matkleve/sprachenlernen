@@ -18,7 +18,6 @@ import { copy } from "./content";
 import { useHeaderCollapse } from "./useHeaderCollapse";
 
 const safeTop = "pt-[max(1rem,env(safe-area-inset-top))]";
-const safeBottomNav = "pb-[max(0.5rem,env(safe-area-inset-bottom))]";
 
 /**
  * Mobile floating chrome: corner chips + bottom destination pill.
@@ -72,11 +71,8 @@ export function FloatingShellChrome({
         </div>
       </HeaderScrim>
 
-      <FooterScrim className="fixed inset-x-0 bottom-0 z-50 md:hidden">
-        <nav
-          aria-label={copy.mobileNavLabel}
-          className={cn("flex w-full justify-center px-4", safeBottomNav)}
-        >
+      <FooterScrim className="shell-float-nav-bottom fixed inset-x-0 z-50 md:hidden">
+        <nav aria-label={copy.mobileNavLabel} className="flex w-full justify-center px-4">
           <ul
             className={cn(
               "inline-flex list-none items-center gap-1.5 rounded-pill border border-line",
