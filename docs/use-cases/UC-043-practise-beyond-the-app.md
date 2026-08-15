@@ -1,7 +1,7 @@
 # UC-043 — Do something in the language that is not in the app
 
 <!-- id: UC-043 -->
-<!-- specs:  -->
+<!-- specs: SPEC-page-method-menu, SPEC-page-method-detail, SPEC-component-method-badge, SPEC-component-method-card-header -->
 
 **Who:** a learner who senses, correctly, that tapping a screen is not the whole
 of learning a language.
@@ -24,8 +24,8 @@ and blame themselves for it.
 ## Success looks like
 
 - The method catalogue contains activities the app **does not host**, presented
-  as full method cards with the same info page and evidence grade as any other.
-  Drama has research behind it and says so.
+  as full method cards — same header graphic, badge row, and info page as any
+  hosted method. Drama has research behind it and says so.
 - For each, the app **prepares**: the vocabulary and phrases the activity will
   need, at the learner's level, printable and listenable.
 - Afterwards it **debriefs**: "what could you not say?" — three lines typed in

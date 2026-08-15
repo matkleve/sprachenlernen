@@ -3,10 +3,12 @@ import { Chip } from "@/components/ui/Chip";
 import { byId, type MethodEntry } from "@/lib/method-catalogue";
 import type { SearchParams } from "@/lib/method-menu-filter";
 import { menuQueryString } from "@/lib/method-menu-filter";
+import { skillMarksForMethod } from "@/lib/method-skill-badges";
 import { sessionHrefForMethod, usesWordsReview } from "@/lib/method-session";
 import { routes } from "@/lib/routes";
 import { cn } from "@/lib/utils";
 
+import { MethodAtAGlance } from "./MethodBadge";
 import { copy, evidence, intensity, sections } from "./content";
 import { durationChips, requirementChips } from "./requirements";
 
@@ -38,6 +40,7 @@ export function MethodDetail({ method, searchParams = {} }: MethodDetailProps) {
   }
 
   const requirements = requirementChips(method.requires);
+  const skillMarks = skillMarksForMethod(method);
 
   return (
     <div className="mx-auto max-w-2xl px-6 pt-page-top pb-page-bottom">
@@ -48,38 +51,52 @@ export function MethodDetail({ method, searchParams = {} }: MethodDetailProps) {
       <p className="mt-6 text-sm font-medium uppercase tracking-widest text-muted">
         {sections[method.section]}
       </p>
+      <h1 className="mt-2 text-3xl font-semibold tracking-tight text-ink">{method.name}</h1>
       <p className="mt-2 text-base leading-relaxed text-muted">{method.summary}</p>
 
-      <ul className="mt-6 flex flex-wrap gap-1.5" aria-label={copy.card.properties}>
-        {durationChips(method.durations).map((label) => (
-          <li key={`duration-${label}`}>
-            <Chip>{label}</Chip>
-          </li>
-        ))}
-        {requirements.map((label) => (
-          <li key={`need-${label}`}>
-            <Chip>{label}</Chip>
-          </li>
-        ))}
-        <li>
-          <Chip tone="accent">{intensity[method.intensity]}</Chip>
-        </li>
-        <li>
-          <Chip tone="accent">{evidence[method.evidence]}</Chip>
-        </li>
-        <li>
-          <Chip>{method.hosted ? copy.hostedShort : copy.notHostedShort}</Chip>
-        </li>
-      </ul>
+      <MethodAtAGlance
+        skillMarks={skillMarks}
+        evidence={method.evidence}
+        evidenceDetail={evidence[method.evidence]}
+        intensity={method.intensity}
+        intensityDetail={intensity[method.intensity]}
+      >
+        <dl className="grid gap-3 text-sm">
+          <div>
+            <dt className="font-medium text-ink">{copy.card.duration}</dt>
+            <dd className="mt-1 flex flex-wrap gap-1.5">
+              {durationChips(method.durations).map((label) => (
+                <Chip key={`duration-${label}`}>{label}</Chip>
+              ))}
+            </dd>
+          </div>
+          {requirements.length > 0 ? (
+            <div>
+              <dt className="font-medium text-ink">{copy.card.needs}</dt>
+              <dd className="mt-1 flex flex-wrap gap-1.5">
+                {requirements.map((label) => (
+                  <Chip key={`need-${label}`}>{label}</Chip>
+                ))}
+              </dd>
+            </div>
+          ) : null}
+          <div>
+            <dt className="font-medium text-ink">{copy.hosted}</dt>
+            <dd className="mt-1">
+              <Chip>{method.hosted ? copy.hostedShort : copy.notHostedShort}</Chip>
+            </dd>
+          </div>
+        </dl>
+      </MethodAtAGlance>
 
       <section className="mt-8">
-        <h2 className="text-sm font-medium text-ink">{copy.card.trains}</h2>
+        <h2 className="text-base font-semibold text-ink">{copy.card.trains}</h2>
         <p className="mt-1 text-base text-muted">{method.trains}</p>
       </section>
 
-      <section className="mt-6">
-        <h2 className="text-sm font-medium text-ink">{copy.card.doesNotDo}</h2>
-        <p className="mt-1 text-base text-muted">{method.doesNotDo}</p>
+      <section className="mt-8 rounded-card border border-line bg-surface-raised p-4 shadow-soft">
+        <h2 className="text-base font-semibold text-ink">{copy.card.doesNotDo}</h2>
+        <p className="mt-2 text-base leading-relaxed text-muted">{method.doesNotDo}</p>
       </section>
 
       <p className="mt-6 text-sm text-muted">
