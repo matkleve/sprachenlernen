@@ -1,8 +1,8 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
 
-import { isStandaloneDisplayMode } from "./StandaloneModeReadout";
+import { isStandaloneDisplay } from "./is-standalone-display";
 
-describe("isStandaloneDisplayMode", () => {
+describe("isStandaloneDisplay", () => {
   afterEach(() => {
     vi.unstubAllGlobals();
   });
@@ -11,13 +11,13 @@ describe("isStandaloneDisplayMode", () => {
     vi.stubGlobal("navigator", { standalone: true });
     vi.stubGlobal("matchMedia", () => ({ matches: false }));
 
-    expect(isStandaloneDisplayMode()).toBe(true);
+    expect(isStandaloneDisplay()).toBe(true);
   });
 
   it("returns false in a normal browser tab", () => {
     vi.stubGlobal("navigator", { standalone: false });
     vi.stubGlobal("matchMedia", () => ({ matches: false }));
 
-    expect(isStandaloneDisplayMode()).toBe(false);
+    expect(isStandaloneDisplay()).toBe(false);
   });
 });

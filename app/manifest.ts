@@ -11,7 +11,7 @@ export default function manifest(): MetadataRoute.Manifest {
     name: site.name,
     short_name: site.name,
     description: site.description,
-    start_url: "/methods",
+    start_url: "/",
     scope: "/",
     display: "standalone",
     background_color: "#f7f4ef", // token-check-ignore: mirrors --color-canvas (light)

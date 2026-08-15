@@ -19,6 +19,8 @@ export const routes = {
   primitives: "/primitives",
   /** Public. Design-direction comparison — dev tooling, no account. */
   designExplorer: "/dev/design",
+  /** Public Home Screen install instructions (iPhone PWA scope). */
+  install: "/install",
   privacy: "/privacy",
 
   /** The app's default route — signing in lands here (ADR-0010). */
@@ -59,6 +61,7 @@ export const publicRoutes = [
   routes.primitives,
   routes.designExplorer,
   routes.privacy,
+  routes.install,
 ] as const;
 
 /** The three destinations the shell renders — a subset of the gated half. */

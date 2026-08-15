@@ -28,4 +28,11 @@ export const copy = {
   reload: "Reload",
   reloadAria: (nextVersion: string, currentVersion: string) =>
     `Reload to update from ${currentVersion} to ${nextVersion}`,
+  homeScreenHeading: "Home screen app (iPhone)",
+  homeScreenCaption:
+    "Add this app from the main website address so Methods, Words, and Progress all open without Safari's bottom toolbar. Apple does not allow an install button — you use Share → Add to Home Screen.",
+  homeScreenActive: "You opened this from a Home Screen icon.",
+  homeScreenReinstall:
+    "If the bottom toolbar appears on some pages, remove the icon and follow the install steps again — from the main website, not from a section page.",
+  homeScreenInstallLink: "How to add to Home Screen",
 } as const;

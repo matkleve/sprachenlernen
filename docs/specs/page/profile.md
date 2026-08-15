@@ -15,7 +15,9 @@ language actions, which belong to
 - **In:** `/profile` (today's `/account`, renamed), the language list and
   `Add a language`, spoken-language setting ([`spoken-language.md`](../service/spoken-language.md)),
   an **App** block ([`app-update.md`](../feature/app-update.md)) with running
-  version and update check, and the existing export and delete blocks from
+  version and update check, a **Home screen app (iPhone)** block
+  ([`pwa-install.md`](../feature/pwa-install.md)), and the existing export and
+  delete blocks from
   [`account-data.md`](../feature/account-data.md). Sign out moves in here.
 - **Out:** measured progress — that stays on [`progress.md`](progress.md) and
   remains a destination. Profile links to it and never restates its numbers;
@@ -48,6 +50,7 @@ page — the affordance ADR-0009 described, finally built.
 | 8 | Language read fails | The error surface for that block only; export and delete still work |
 | 9 | Views **App** | Running Pride version on this device; **Check for updates** re-fetches the server |
 | 10 | Update available | Green reload row names the deployed version; tap reloads the page |
+| 11 | Views **Home screen app** | Link to `/install`; note if already opened from Home Screen icon |
 
 ## States
 
@@ -98,6 +101,8 @@ the learner's list ([`starter-deck.md`](../service/starter-deck.md)).
       ([`study/25`](../../study/25-why-it-does-not-feel-productive.md) C3).
 - [ ] Given `/profile`, when the page renders, then the **App** section shows the
       running version and **Check for updates** per [`app-update.md`](../feature/app-update.md).
+- [ ] Given `/profile`, when the page renders, then a **Home screen app (iPhone)**
+      section links to [`pwa-install.md`](../feature/pwa-install.md) `/install`.
 
 ## Check
 

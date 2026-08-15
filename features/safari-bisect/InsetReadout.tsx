@@ -3,10 +3,11 @@
 import { useEffect, useState } from "react";
 
 import { VISUAL_VIEWPORT_BOTTOM_INSET_VAR } from "@/features/app-shell/useVisualViewportBottomInset";
+import { isStandaloneDisplay } from "@/lib/is-standalone-display";
 import { copy } from "@/features/safari-bisect/content";
 
 /**
- * Live readout of --shell-visual-viewport-bottom-inset for owner PWA QA.
+ * Live readout for owner PWA QA on bisect routes.
  */
 export function InsetReadout() {
   const [inset, setInset] = useState("—");

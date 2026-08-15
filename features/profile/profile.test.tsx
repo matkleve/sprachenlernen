@@ -3,6 +3,7 @@ import userEvent from "@testing-library/user-event";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 import { ProfileAppSection } from "@/features/profile/ProfileAppSection";
+import { ProfileHomeScreenSection } from "@/features/profile/ProfileHomeScreenSection";
 import { ProfileLanguages } from "@/features/profile/ProfileLanguages";
 import { ProfileSpokenLanguage } from "@/features/profile/ProfileSpokenLanguage";
 import { copy } from "@/features/profile/content";
@@ -218,5 +219,19 @@ describe("ProfileAppSection", () => {
     await waitFor(() => {
       expect(fetch).toHaveBeenCalled();
     });
+  });
+});
+
+describe("ProfileHomeScreenSection", () => {
+  it("links to install instructions", () => {
+    vi.stubGlobal("navigator", { standalone: false });
+    vi.stubGlobal("matchMedia", () => ({ matches: false }));
+
+    render(<ProfileHomeScreenSection />);
+
+    expect(screen.getByRole("heading", { name: copy.homeScreenHeading })).toBeDefined();
+    expect(screen.getByRole("link", { name: copy.homeScreenInstallLink }).getAttribute("href")).toBe(
+      "/install",
+    );
   });
 });

@@ -232,20 +232,19 @@ Record: `Words breaks at level N (inset Xpx)` / `Progress breaks at level N`.
 
 ---
 
-## PWA install (owner)
+## PWA install (owner — confirmed)
 
-**Critical:** note which URL was open when you tapped **Add to Home Screen**.
+**Root cause:** iOS scopes the Home Screen app to the path open at **Add to Home
+Screen**. Install from **`/`** → all sections work without bottom toolbar.
+Install from **`/methods`** (or bisect) → only that path tree is clean.
 
-After manifest ships (`v0.6.2`+):
+**No install button on iPhone** — Apple does not expose Add to Home Screen to
+JavaScript. Instructions only.
 
-1. **Delete** the existing Home Screen icon.
-2. Open the PWA’s entry in Safari → navigate to **`/methods`** (not bisect).
-3. Share → **Add to Home Screen** → Add.
-4. Open **only** from the new icon.
-5. Test: Methods → Words → Progress via pill — compare to bisect inset readout.
+**Shipped:** `manifest` `start_url: /`; `/install`; Profile → **Home screen app
+(iPhone)**.
 
-Report: install URL used, and whether asymmetry persists after reinstall from
-`/methods`.
+**Reinstall:** delete icon → open **`/`** in Safari → Share → Add to Home Screen.
 
 ---
 
@@ -255,8 +254,8 @@ Report: install URL used, and whether asymmetry persists after reinstall from
 | --- | --- | --- |
 | 1 | **Owner LIVE CHECK** on real iPhone with `v0.4.1` (matrix below) | **Blocker** |
 | 2 | Remove `/methods-mirror` from nav when QA passes | Cleanup |
-| 3 | Optional: Profile hint “Add to Home Screen” under App section | Nice-to-have |
-| 4 | If true standalone PWA still asymmetric after cache clear → bisect Words/Progress body components | **In progress** — `/words-bisect`, `/progress-bisect` |
+| 3 | Profile **Home screen app** + `/install` | **Shipped** |
+| 4 | Body bisect (if reinstall from `/` still fails) | `/words-bisect`, `/progress-bisect` |
 | 5 | Update study/29 executive summary with “toolbar hidden preferred; updates via App” | Docs |
 
 ---

@@ -5,6 +5,7 @@ import { copy as accountCopy } from "@/features/account-data/content";
 import { signOutAction } from "@/features/app-shell/actions";
 import { ShellPageContent } from "@/features/app-shell/ShellPageContent";
 import { ProfileAppSection } from "@/features/profile/ProfileAppSection";
+import { ProfileHomeScreenSection } from "@/features/profile/ProfileHomeScreenSection";
 import { ProfileLanguages } from "@/features/profile/ProfileLanguages";
 import { ProfileSpokenLanguage } from "@/features/profile/ProfileSpokenLanguage";
 import { copy } from "@/features/profile/content";
@@ -50,6 +51,8 @@ export default async function ProfilePage({
       </section>
 
       <ProfileAppSection />
+
+      <ProfileHomeScreenSection />
 
       <form action={signOutAction} className="mt-page-content">
         <SubmitButton variant="secondary">{copy.signOut}</SubmitButton>

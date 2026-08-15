@@ -1,7 +1,7 @@
 # UC-072 — Get the latest app after a deploy
 
 <!-- id: UC-072 -->
-<!-- specs: SPEC-feature-app-update -->
+<!-- specs: SPEC-feature-app-update, SPEC-feature-pwa-install -->
 
 **Who:** someone who added Sprachenlernen to the Home Screen or keeps a Safari tab
 open for days.

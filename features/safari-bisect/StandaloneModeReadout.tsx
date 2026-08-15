@@ -2,32 +2,19 @@
 
 import { useEffect, useState } from "react";
 
+import { isStandaloneDisplay } from "@/lib/is-standalone-display";
 import { copy } from "@/features/safari-bisect/content";
 
 type DisplayMode = "standalone" | "browser";
 
-function readDisplayMode(): DisplayMode {
-  const navigatorWithStandalone = window.navigator as Navigator & { standalone?: boolean };
-  const matchMedia = typeof window.matchMedia === "function" ? window.matchMedia : null;
-
-  if (
-    navigatorWithStandalone.standalone === true ||
-    matchMedia?.("(display-mode: standalone)").matches ||
-    matchMedia?.("(display-mode: fullscreen)").matches
-  ) {
-    return "standalone";
-  }
-  return "browser";
-}
-
 /**
- * Shows whether the page runs in standalone PWA or an in-browser Safari tab.
+ * Shows whether the page runs from the Home Screen icon or a browser tab.
  */
 export function StandaloneModeReadout() {
   const [mode, setMode] = useState<DisplayMode | null>(null);
 
   useEffect(() => {
-    setMode(readDisplayMode());
+    setMode(isStandaloneDisplay() ? "standalone" : "browser");
   }, []);
 
   if (mode === null) return null;
@@ -35,14 +22,9 @@ export function StandaloneModeReadout() {
   return (
     <p className="mt-1 text-[11px] text-ink">
       {copy.modeLabel}:{" "}
-      <span className={mode === "standalone" ? "font-medium text-success" : "font-medium text-danger"}>
+      <span className={mode === "standalone" ? "font-medium text-success" : "font-medium text-muted"}>
         {mode === "standalone" ? copy.modeStandalone : copy.modeBrowser}
       </span>
     </p>
   );
-}
-
-export function isStandaloneDisplayMode(): boolean {
-  if (typeof window === "undefined") return false;
-  return readDisplayMode() === "standalone";
 }
