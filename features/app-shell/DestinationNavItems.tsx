@@ -2,17 +2,20 @@
 
 import { usePathname } from "next/navigation";
 
+import { IconLink } from "@/components/ui/IconLink";
 import { NavLink } from "@/components/ui/NavLink";
-import { hitAreaExpandNavPill } from "@/components/ui/interaction-kernel";
 import { NavigationPendingProvider, useNavigationPending } from "@/components/ui/navigation-pending-context";
 import { cn } from "@/lib/utils";
 
 import { isDestinationCurrent, shellDestinations } from "./destinations";
 
 type DestinationNavItemsProps = {
-  /** Header row on desktop; bottom pill segments on mobile. */
+  /** Header row on desktop; bottom icon pill on mobile. */
   layout?: "header" | "pill";
 };
+
+const pillCurrentClass =
+  "bg-accent text-accent-ink border-accent shadow-soft hover:bg-accent-deep hover:text-accent-ink";
 
 function DestinationNavItemsInner({ layout = "header" }: DestinationNavItemsProps) {
   const pathname = usePathname();
@@ -22,25 +25,38 @@ function DestinationNavItemsInner({ layout = "header" }: DestinationNavItemsProp
 
   return (
     <>
-      {shellDestinations.map(({ href, label, icon: Icon }) => (
-        <li key={href} className={cn(pill && "flex min-w-0 flex-1")}>
-          <NavLink
-            href={href}
-            current={isDestinationCurrent(effectivePath, href)}
-            pendingPolicy="nav"
-            className={cn(
-              pill && [
-                "h-auto w-full min-h-12 flex-col gap-1 rounded-pill px-2 py-3 text-xs",
-                hitAreaExpandNavPill,
-              ],
-              !pill && "gap-2",
-            )}
-          >
-            <Icon aria-hidden className={cn("shrink-0", pill ? "size-5" : "size-4")} />
-            {label}
-          </NavLink>
-        </li>
-      ))}
+      {shellDestinations.map(({ href, label, icon: Icon }) => {
+        const visuallyCurrent = isDestinationCurrent(effectivePath, href);
+
+        if (pill) {
+          return (
+            <li key={href}>
+              <IconLink
+                href={href}
+                aria-label={label}
+                aria-current={visuallyCurrent ? "page" : undefined}
+                className={cn(visuallyCurrent && pillCurrentClass)}
+              >
+                <Icon aria-hidden className="size-5 shrink-0" />
+              </IconLink>
+            </li>
+          );
+        }
+
+        return (
+          <li key={href}>
+            <NavLink
+              href={href}
+              current={visuallyCurrent}
+              pendingPolicy="nav"
+              className="gap-2"
+            >
+              <Icon aria-hidden className="size-4 shrink-0" />
+              {label}
+            </NavLink>
+          </li>
+        );
+      })}
     </>
   );
 }

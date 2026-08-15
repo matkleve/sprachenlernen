@@ -49,15 +49,18 @@ describe("SPEC-feature-mobile-nav-v2", () => {
 
     expect(screen.queryByRole("button", { name: /menu/i })).toBeNull();
     expect(container.querySelector(".footer-scrim-blur")).not.toBeNull();
+    expect(container.querySelector(".pointer-events-auto.absolute.inset-x-0")).not.toBeNull();
 
     const nav = screen.getByRole("navigation", { name: copy.mobileNavLabel });
     const links = nav.querySelectorAll<HTMLAnchorElement>("a[href]");
     expect(links).toHaveLength(3);
-    expect([...links].map((link) => link.textContent?.replace(/\s+/g, " ").trim())).toEqual([
-      `${copy.destinations.methods}`,
-      `${copy.destinations.words}`,
-      `${copy.destinations.progress}`,
-    ]);
+    expect(nav.querySelector("ul")?.className).toContain("inline-flex");
+    expect(screen.getByRole("link", { name: copy.destinations.methods })).toBeDefined();
+    expect(screen.getByRole("link", { name: copy.destinations.words })).toBeDefined();
+    expect(screen.getByRole("link", { name: copy.destinations.progress })).toBeDefined();
+    for (const link of links) {
+      expect(link.textContent?.trim()).toBe("");
+    }
   });
 
   it("shows the account icon chip and one Words link on a destination root", () => {

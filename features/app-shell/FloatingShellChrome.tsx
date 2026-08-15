@@ -16,9 +16,9 @@ import { ShellPageTitle, shellHeaderStartsCompact } from "./ShellPageTitle";
 import { HeaderScrim } from "./HeaderScrim";
 import { copy } from "./content";
 import { useHeaderCollapse } from "./useHeaderCollapse";
+import { useVisualViewportBottomInset } from "./useVisualViewportBottomInset";
 
 const safeTop = "pt-[max(1rem,env(safe-area-inset-top))]";
-const safeBottom = "pb-[max(1rem,env(safe-area-inset-bottom))]";
 
 /**
  * Mobile floating chrome: corner chips + bottom destination pill.
@@ -35,6 +35,7 @@ export function FloatingShellChrome({
   const back = shellBackTarget(pathname);
   const collapse = useHeaderCollapse();
   const pinnedCompact = shellHeaderStartsCompact(pathname);
+  useVisualViewportBottomInset();
 
   return (
     <>
@@ -44,7 +45,7 @@ export function FloatingShellChrome({
       >
         <div
           className={cn(
-            "pointer-events-auto relative grid min-h-11 grid-cols-[1fr_1fr] items-center gap-x-2 px-4 pb-3",
+            "pointer-events-auto relative grid min-h-12 grid-cols-[1fr_1fr] items-center gap-x-2 px-4 pb-3",
             safeTop,
           )}
         >
@@ -72,14 +73,11 @@ export function FloatingShellChrome({
         </div>
       </HeaderScrim>
 
-      <FooterScrim className="fixed inset-x-0 bottom-0 z-50 md:hidden">
-        <nav
-          aria-label={copy.mobileNavLabel}
-          className={cn("flex justify-center px-4", safeBottom)}
-        >
+      <FooterScrim className="shell-float-nav-bottom fixed inset-x-0 z-50 md:hidden">
+        <nav aria-label={copy.mobileNavLabel} className="flex w-full justify-center px-4">
           <ul
             className={cn(
-              "flex w-[min(85%,24rem)] list-none rounded-pill border border-line",
+              "inline-flex list-none items-center gap-1.5 rounded-pill border border-line",
               "bg-surface p-1.5 shadow-raised",
             )}
           >

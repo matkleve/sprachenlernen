@@ -10,6 +10,10 @@ export const metadata: Metadata = {
   // defect T-04 exists to fix one level up from the home route.
   title: { default: "Sprachenlernen", template: "%s · Sprachenlernen" },
   description: "Evidence-driven language learning.",
+  appleWebApp: {
+    capable: true,
+    title: "Sprachenlernen",
+  },
 };
 
 export const viewport: Viewport = {

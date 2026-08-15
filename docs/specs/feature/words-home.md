@@ -6,7 +6,7 @@
 <!-- status: active -->
 
 The `/words` vocabulary home — held/fragile/new counts, a 30-day review horizon,
-and the vocabulary atlas. Reviewing is one action here, not the page's identity
+and the vocabulary orbit. Reviewing is one action here, not the page's identity
 (ADR-0009, UC-063).
 
 **Not the home for all Methods.** Words shows card-engine material only
@@ -15,46 +15,45 @@ reading, listening, speaking, and off-app Methods are reached from `/methods`.
 
 ## Scope
 
-- **In:** `features/words/` — `WordsHome`, `reading.ts`, `content.ts`; wired on
-  `app/(app)/words/page.tsx`. Derives from
+- **In:** `features/words/` — `WordsHome`, `VocabularyOrbitField`, `reading.ts`,
+  `content.ts`; wired on `app/(app)/words/page.tsx`. Derives from
   [`vocabulary-snapshot.md`](../service/vocabulary-snapshot.md),
-  [`frequency-blocks.md`](../service/frequency-blocks.md), and **only**
-  Reviews from built card-engine Methods (today: `srs-session`); `reading.ts`
-  filters `poolForActiveLanguage()`'s cards down to **meaning-recall only**
-  before building the snapshot — one atlas row per word, never one per Task.
+  [`frequency-blocks.md`](../service/frequency-blocks.md),
+  [`vocabulary-orbit.md`](vocabulary-orbit.md), and **only** Reviews from built
+  card-engine Methods (today: `srs-session`); `reading.ts` filters
+  `poolForActiveLanguage()`'s cards down to **meaning-recall only** before
+  building the snapshot — one atlas row per word, never one per Task.
 - **Out:** due counts anywhere (A3); skills and level display (Progress);
   session-length picker; choosing a method other than a built card-engine Method
   from this page; holdings or horizon for Methods without a card engine;
   form-recall progress (that's [`form-mastery-signal.md`](../service/form-mastery-signal.md),
   on Progress).
 
-**Reuse: `Button`, `Table`** — same primitives as Progress.
+**Reuse: `Button`, `Table`** — list popover and detail patterns.
 
 ## Behavior
 
 | # | User action | System response |
 | --- | --- | --- |
-| 1 | Opens `/words` | Intent copy and Start review in a raised action card; held/fragile/new counts, frequency bands, horizon, atlas below |
-| 1a | Deck is larger than the atlas cap | Atlas lists the **100** most frequent words and says how many of how many it is showing |
+| 1 | Opens `/words` | Intent copy and Start review in a raised action card; held/fragile/new counts, frequency bands, horizon, vocabulary orbit below |
 | 2 | Taps Start review | Navigates to `/words/review?method=srs-session` |
-| 3 | History load fails | Error callout; no fake empty snapshot |
-| 4 | No language chosen yet | Redirects to the picker rather than rendering an all-zero snapshot |
+| 3 | Taps a segment or **Show list** | See [`vocabulary-orbit.md`](vocabulary-orbit.md) |
+| 4 | History load fails | Error callout; no fake empty snapshot |
+| 5 | No language chosen yet | Redirects to the picker rather than rendering an all-zero snapshot |
 
 ## States
 
-No client machine. Server page with `ok | error | no-language` outcomes.
+No page-level client machine. Orbit selection and list popover are client-local.
+Server page with `ok | error | no-language` outcomes.
 
 ## Acceptance criteria
 
 - [ ] Given a signed-in learner on `/words`, when the page renders, then held,
       fragile and new counts are shown, frequency bands name each rank range and
-      stable-held count, and Start review links to `srs-session`.
-- [ ] Given the starter deck, when the page renders, then a 30-day horizon and
-      atlas table are present.
-- [ ] Given a deck larger than 100 lemmas, when the page renders, then the atlas
-      shows the 100 most frequent rows and names both numbers — the tail is 400
-      rows of "New" that push the rest of the page out of reach, and a silent
-      truncation would read as a smaller deck than the counts above it claim.
+      stable-held count, the vocabulary orbit is present, and Start review links
+      to `srs-session`.
+- [ ] Given the starter deck, when the page renders, then a 30-day horizon is
+      present and the full atlas is reachable via **Show list**.
 - [ ] Given an Account with no language chosen, then the page routes to the
       picker — an all-zero snapshot would read as a learner who has done
       nothing rather than one who has not been asked.
@@ -63,4 +62,4 @@ No client machine. Server page with `ok | error | no-language` outcomes.
 
 ## Check
 
-`npm test -- words vocabulary-snapshot`
+`npm test -- words vocabulary-orbit vocabulary-snapshot`

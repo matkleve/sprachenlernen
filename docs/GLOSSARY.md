@@ -103,7 +103,7 @@ requires a `⚠ SPEC GAP` line, not a guess.
 | **Method engine** | The runnable implementation that turns one catalogue Method into a session — content pool, grading, persistence. One engine may serve more than one Method; each Method has at most one engine. | a Method, the catalogue |
 | **Hosted method** | A catalogue entry with `hosted: true` — the product intends to run it in-app. **Does not mean the session is built today.** | built, in-app-only |
 | **Card engine** | The Method engine that ships first: FSRS scheduling over lemma Tasks. Today: `srs-session` on `/words/review`. | flashcards, the whole app |
-| **Words destination** | The navigation surface for the card engine's material — holdings, horizon, atlas — not the home for every Method. | Methods, Home |
+| **Words destination** | The navigation surface for the card engine's material — holdings, horizon, vocabulary orbit — not the home for every Method. | Methods, Home |
 | **Method card** | The user-facing presentation of a Method — section header graphic, badge row, tag chips, and summary. | a Card (that is a Task) |
 | **Method card header** | Decorative top band on a Method card: one abstract graphic per catalogue **section**, gradient fade, section label. Not shown on the detail page. | a per-method illustration, a quality badge |
 | **Method badge** | One of three non-interactive marks on a Method card or detail page: **skill contribution** (per skill), **evidence grade** (A–D), or **effort load** (intensity dots). Never combined into one score. | a Chip, a quality tier, a streak |

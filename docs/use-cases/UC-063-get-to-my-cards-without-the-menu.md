@@ -1,7 +1,7 @@
 # UC-063 — Get to my cards without going through today's menu
 
 <!-- id: UC-063 -->
-<!-- specs: SPEC-feature-app-shell, SPEC-component-nav-link, SPEC-page-words-review, SPEC-page-words, SPEC-feature-words-home, SPEC-feature-mobile-nav, SPEC-feature-mobile-nav-v2 -->
+<!-- specs: SPEC-feature-app-shell, SPEC-component-nav-link, SPEC-page-words-review, SPEC-page-words, SPEC-feature-words-home, SPEC-feature-vocabulary-orbit, SPEC-feature-mobile-nav, SPEC-feature-mobile-nav-v2 -->
 
 **Who:** a learner who reviews every day and knows exactly what they came for.
 **Wants to:** reach their due cards in one tap, from anywhere in the app.
@@ -31,7 +31,7 @@ encouragement.
   destination's identity.
 - It carries the surfaces that belong to the card engine rather than to any
   method: why this card is due now, the horizon of what is coming, and the
-  vocabulary atlas.
+  vocabulary orbit (with **Show list** for the full deck).
 - **No count anywhere in the navigation.** No badge, no dot, no "12 due". A3
   forbids the backlog counter, UC-006 forbids an overdue count as a primary
   figure anywhere, and a tab badge is the most primary figure a phone has.

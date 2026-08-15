@@ -86,4 +86,12 @@ export const COMPOSITE_PAIRS = [
 ];
 
 /** Tokens that are backgrounds/decoration only and need no contrast pair. */
-export const EXEMPT = new Set(["line"]);
+export const EXEMPT = new Set([
+  "line",
+  "lang-es-1",
+  "lang-es-2",
+  "lang-es-3",
+  "lang-it-1",
+  "lang-it-2",
+  "lang-it-3",
+]);
