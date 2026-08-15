@@ -31,7 +31,9 @@ Each command updates `package.json` and prints the new version.
 ## Where it appears
 
 - **Mobile shell:** tiny muted label centred under the destination pill
-  (`AppVersionLabel`, `docs/specs/feature/mobile-nav-v2.md`).
+  (`AppVersionLabel`, `docs/specs/feature/mobile-nav-v2.md`). When the server
+  ships a newer Pride version, the label becomes a **Reload** button — see
+  [`specs/feature/app-update.md`](specs/feature/app-update.md).
 - **Code:** `lib/pride-version.ts` — `APP_VERSION_LABEL` for display;
   `parsePrideVersion` / `bumpPrideVersion` for tooling.
 
