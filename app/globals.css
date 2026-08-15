@@ -94,16 +94,18 @@
   --spacing-shell-float-top-expanded: 6.5rem;
   --spacing-shell-float-top: 5.5rem;
   --shell-float-top-active: var(--spacing-shell-float-top);
-  /* Icon pill height + lift above Safari's bottom toolbar (not removable in-browser). */
+  /* Icon pill height + measured browser chrome below (see useVisualViewportBottomInset). */
   --spacing-shell-float-nav-height: 3.25rem;
-  --spacing-shell-float-browser-lift: 3rem;
+  --spacing-shell-float-nav-gap: 0.5rem;
+  --shell-visual-viewport-bottom-inset: 0px;
   --spacing-shell-float-bottom: calc(
-    var(--spacing-shell-float-nav-height) + var(--spacing-shell-float-browser-lift)
+    var(--spacing-shell-float-nav-height) + var(--shell-visual-viewport-bottom-inset) +
+      var(--spacing-shell-float-nav-gap)
   );
   /* Active review session — one screen between floating chrome on mobile.
      Must match main's pt-shell-float-top + pb-shell-float-bottom or the page scrolls. */
   --height-review-session: calc(
-    100dvh - var(--spacing-shell-float-top) - var(--spacing-shell-float-bottom)
+    100svh - var(--spacing-shell-float-top) - var(--spacing-shell-float-bottom)
   );
 
   /* Type. next/font on <html> overrides these fallbacks at runtime. */
@@ -295,10 +297,11 @@
   );
 }
 
-/* Sit above iOS Safari's bottom toolbar — env(safe-area) alone does not include it. */
+/* Sit above browser chrome when present — measured per viewport, not a fixed guess. */
 .shell-float-nav-bottom {
   bottom: calc(
-    env(safe-area-inset-bottom, 0px) + var(--spacing-shell-float-browser-lift)
+    env(safe-area-inset-bottom, 0px) + var(--shell-visual-viewport-bottom-inset) +
+      var(--spacing-shell-float-nav-gap)
   );
 }
 
