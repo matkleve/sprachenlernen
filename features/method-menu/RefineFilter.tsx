@@ -2,7 +2,7 @@ import { Disclosure, DisclosureSummary } from "@/components/ui/Disclosure";
 import { FilterPill } from "@/components/ui/FilterPill";
 import type { MenuFilter } from "@/lib/method-menu-filter";
 
-import { copy, refineOptions } from "./content";
+import { useMethodMenuCopy } from "./use-method-menu-copy";
 
 type RefineFilterProps = {
   filter: MenuFilter;
@@ -10,16 +10,18 @@ type RefineFilterProps = {
 };
 
 export function RefineFilter({ filter, onFilterChange }: RefineFilterProps) {
+  const { t, refineOptions } = useMethodMenuCopy();
+
   return (
     <Disclosure>
-      <DisclosureSummary>{copy.refineLabel}</DisclosureSummary>
-      <p className="mt-2 text-sm text-muted">{copy.refineHint}</p>
+      <DisclosureSummary>{t("refineLabel")}</DisclosureSummary>
+      <p className="mt-2 text-sm text-muted">{t("refineHint")}</p>
 
       <div className="mt-4 space-y-4">
         {(Object.keys(refineOptions) as Array<keyof typeof refineOptions>).map((dimension) => (
-          <section key={dimension} aria-label={copy.refineDimension[dimension]}>
+          <section key={dimension} aria-label={t(`refineDimension.${dimension}`)}>
             <h3 className="mb-2 text-xs font-medium uppercase tracking-widest text-muted">
-              {copy.refineDimension[dimension]}
+              {t(`refineDimension.${dimension}`)}
             </h3>
             <ul className="flex flex-wrap gap-1">
               <li>
@@ -27,7 +29,7 @@ export function RefineFilter({ filter, onFilterChange }: RefineFilterProps) {
                   current={filter.refine[dimension] === undefined}
                   onClick={() => onFilterChange({ [dimension]: undefined })}
                 >
-                  {copy.refineAny}
+                  {t("refineAny")}
                 </FilterPill>
               </li>
               {refineOptions[dimension].map(({ value, label }) => {

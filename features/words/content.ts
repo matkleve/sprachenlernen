@@ -1,3 +1,5 @@
+// Legacy English copy — use next-intl messages instead. Kept for reference during migration.
+
 /**
  * Copy for the Words home. Contracts:
  * - docs/specs/feature/words-home.md

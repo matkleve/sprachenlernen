@@ -9,7 +9,7 @@ import {
   type TimeBudget,
 } from "@/lib/time-scale";
 
-import { copy, formatTimeBudget } from "./content";
+import { useMethodMenuCopy } from "./use-method-menu-copy";
 
 type TimeSliderProps = {
   value: TimeBudget;
@@ -17,6 +17,7 @@ type TimeSliderProps = {
 };
 
 export function TimeSlider({ value, onChange }: TimeSliderProps) {
+  const { t, formatTimeBudget } = useMethodMenuCopy();
   const [step, setStep] = useState(() => stepIndexFromBudget(value));
 
   useEffect(() => {
@@ -41,7 +42,7 @@ export function TimeSlider({ value, onChange }: TimeSliderProps) {
         >
           {formatTimeBudget(budget)}
         </output>
-        <span className="text-right text-sm leading-snug text-muted">{copy.timeScaleHint}</span>
+        <span className="text-right text-sm leading-snug text-muted">{t("timeScaleHint")}</span>
       </div>
       <input
         id="time-slider"
@@ -58,7 +59,7 @@ export function TimeSlider({ value, onChange }: TimeSliderProps) {
           }
         }}
         className="mt-3 h-2 w-full cursor-pointer appearance-none rounded-pill bg-accent-soft accent-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-canvas"
-        aria-label={copy.timeLabel}
+        aria-label={t("timeLabel")}
         aria-valuemin={0}
         aria-valuemax={TIME_SCALE_STEP_COUNT - 1}
         aria-valuenow={step}

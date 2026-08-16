@@ -1,8 +1,9 @@
-import { render, screen } from "@testing-library/react";
+import { renderWithIntl as render, formatMessage, en } from "@/tests/i18n-test-utils";
+import {screen} from "@testing-library/react";
+
 import { describe, expect, it } from "vitest";
 
 import { OrbitDetailCard } from "@/features/words/OrbitDetailCard";
-import { copy } from "@/features/words/content";
 import type { OrbitAggregateSegment, OrbitWordSegment } from "@/lib/vocabulary-orbit";
 
 const wordSegment: OrbitWordSegment = {
@@ -39,14 +40,14 @@ describe("OrbitDetailCard", () => {
     expect(screen.getByText("the")).toBeDefined();
     expect(screen.getByText("#1")).toBeDefined();
     expect(screen.getByText("0.5")).toBeDefined();
-    expect(screen.getByText(copy.bucketNames.fragile)).toBeDefined();
-    expect(screen.getByText(copy.orbitDetailBandCaption(1, 25))).toBeDefined();
+    expect(screen.getByText(en.words.bucketNames.fragile)).toBeDefined();
+    expect(screen.getByText(formatMessage(en.words.orbitDetailBandCaption, { start: 1, end: 25 }))).toBeDefined();
   });
 
   it("shows aggregate range and held count", () => {
     render(<OrbitDetailCard segment={aggregateSegment} />);
 
-    expect(screen.getByRole("heading", { name: copy.orbitAggregateHeading(26, 75) })).toBeDefined();
-    expect(screen.getByText(copy.orbitAggregateBody(40, 12))).toBeDefined();
+    expect(screen.getByRole("heading", { name: formatMessage(en.words.orbitAggregateHeading, { start: 26, end: 75 }) })).toBeDefined();
+    expect(screen.getByText(formatMessage(en.words.orbitAggregateBody, { count: 40, held: 12 }))).toBeDefined();
   });
 });

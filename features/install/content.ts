@@ -1,3 +1,5 @@
+// Legacy English copy — use next-intl messages instead. Kept for reference during migration.
+
 /** Copy for the Home Screen install surface. Contract: docs/specs/feature/pwa-install.md */
 export const copy = {
   title: "Add to Home Screen",

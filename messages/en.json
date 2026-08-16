@@ -1,0 +1,599 @@
+{
+  "profile": {
+    "title": "Profile",
+    "sectionsNavLabel": "Profile sections",
+    "sectionLanguages": "Languages",
+    "sectionData": "Your data",
+    "sectionDevice": "This device",
+    "spokenHeading": "Language you speak",
+    "spokenCaption": "Menus, buttons, and the text that describes words on cards. Changing this does not reset your learning progress.",
+    "spokenError": "Could not load your spoken language.",
+    "spokenChangeError": "Could not change your spoken language. Nothing changed.",
+    "languagesHeading": "Languages",
+    "languagesCaption": "What you are learning. The one in focus decides what the app shows you.",
+    "active": "Active",
+    "makeActive": "Switch to this",
+    "addLanguage": "Add a language",
+    "noneYet": "You have not chosen a language yet.",
+    "chooseFirst": "Choose a language",
+    "languagesError": "Could not load your languages.",
+    "switchError": "Could not switch language. Nothing changed.",
+    "standing": "{held} of {poolSize} starter words held stably",
+    "viewProgress": "View on Progress",
+    "signOut": "Sign out",
+    "appHeading": "App",
+    "appCaption": "The version running on this device. Check after a deploy if something looks out of date.",
+    "runningVersion": "Running version",
+    "checkForUpdates": "Check for updates",
+    "updateAvailable": "Update available ({version})",
+    "reload": "Reload",
+    "reloadAria": "Reload to update from {currentVersion} to {nextVersion}",
+    "homeScreenHeading": "Home screen app (iPhone)",
+    "homeScreenCaption": "On iPhone, add this app from the main website address so Methods, Words, and Progress all work without Safari's bottom toolbar. Apple does not allow an install button — you use Share → Add to Home Screen.",
+    "homeScreenActive": "Opened from your Home Screen icon",
+    "homeScreenScopeHeading": "Which address to use",
+    "homeScreenScopeCaption": "The path in Safari when you tap Add to Home Screen decides which sections stay clean. Use the main website only.",
+    "homeScreenScopeRows": [
+      {
+        "path": "/",
+        "covers": "Methods, Words, and Progress",
+        "recommended": true
+      },
+      {
+        "path": "/methods",
+        "covers": "Methods only",
+        "recommended": false
+      },
+      {
+        "path": "/words",
+        "covers": "Words only",
+        "recommended": false
+      },
+      {
+        "path": "/progress",
+        "covers": "Progress only",
+        "recommended": false
+      }
+    ],
+    "homeScreenInstallButton": "Install instructions",
+    "homeScreenMainSiteButton": "Open main website",
+    "homeScreenReinstall": "If the bottom toolbar appears on some pages, remove the Home Screen icon, open the main website in Safari, and add the app again from there — not from a section page."
+  },
+  "appShell": {
+    "navLabel": "Destinations",
+    "mobileNavLabel": "Switch destination",
+    "account": "Account",
+    "switchLanguage": "Switch learning language",
+    "switchError": "Could not switch language. Nothing changed.",
+    "currentLanguage": "{endonym}, current learning language",
+    "active": "Active",
+    "addLanguage": "Add a language",
+    "standing": "{held} of {poolSize} starter words held stably",
+    "viewProgress": "View on Progress",
+    "backTo": "Back to {destination}",
+    "appUpdate": {
+      "reloadAria": "Reload to update from {currentVersion} to {nextVersion}"
+    },
+    "destinations": {
+      "methods": "Methods",
+      "words": "Words",
+      "progress": "Progress"
+    },
+    "holding": {
+      "words": {
+        "title": "Words",
+        "intent": "Everything about your vocabulary: what is due now, what is held, what is fragile. Reviewing is one of the things you do here, not what this place is."
+      }
+    }
+  },
+  "words": {
+    "reviewCardHeaderLabel": "Vocabulary",
+    "reviewHeading": "Review",
+    "reviewCaption": "One session at a time — tap when you are ready.",
+    "countsHeading": "Your vocabulary",
+    "countsCaption": "How many starter words you can recall the meaning of — not every inflected form, and not a backlog.",
+    "lemmaCalloutTitle": "What is a lemma?",
+    "lemmaCalloutBody": "The dictionary form of a word — run, not running; child, not children. On this page, each card is one word in that form (a lemma). Held means you would still know what it means after about a week without seeing it again. Producing inflected forms is tracked separately on Progress.",
+    "held": "Held",
+    "fragile": "Fragile",
+    "newWords": "New",
+    "heldDescription": "You reliably recall what this word means — at least two spaced successes in review, stable for about a week.",
+    "fragileDescription": "You've seen the meaning in review but it is not yet stable enough to count as known.",
+    "newDescription": "Meaning not reviewed yet.",
+    "blocksHeading": "Frequency bands",
+    "blocksCaption": "How many of the most common words in your starter deck you hold stably by meaning — by rank band, not the whole language yet.",
+    "blockLabel": "Ranks {start}–{end}",
+    "blockHeld": "{held} of {poolSize} meanings held",
+    "blockHeldDescription": "Stable meaning recall — same rules as Held above.",
+    "horizonHeading": "Review horizon",
+    "horizonCaption": "How your scheduled reviews are spread over the next 30 days — not what is due in today's session.",
+    "horizonDayToday": "Today",
+    "horizonDay": "Day {day}",
+    "horizonExpand": "Show four-week plan",
+    "horizonCollapse": "Hide plan",
+    "horizonSummaryLight": "The next four weeks look light.",
+    "horizonSummarySteady": "A steady spread of scheduled reviews over the next four weeks.",
+    "horizonSummaryPeakWeek": "Peak in week {week} (~{avgPerDay} scheduled per day).",
+    "horizonWeekLabel": "Week {week}",
+    "horizonWeekScheduledOne": "1 scheduled",
+    "horizonWeekScheduled": "{total} scheduled",
+    "horizonWeekAvgPerDay": "~{avgPerDay}/day",
+    "horizonWeekStats": "{total} scheduled · ~{avgPerDay}/day",
+    "horizonWeekAria": "Week {week}: {total} scheduled reviews, about {avgPerDay} per day",
+    "horizonTileOverflow": "+{overflow}",
+    "horizonCausal": "The peak in week {week} comes from the {count} cards you added on {dateLabel}.",
+    "horizonReturnPlan": "You were away for a while. Your next session is the usual length — the plan below shows how scheduled reviews spread out.",
+    "horizonScheduledNote": "Each tile is a scheduled review date from the memory schedule — not a task you must finish that day.",
+    "atlasColumns": {
+      "word": "Word",
+      "rank": "Rank",
+      "stability": "Stability (days)",
+      "status": "Status"
+    },
+    "bucketNames": {
+      "held": "Held",
+      "fragile": "Fragile",
+      "new": "New",
+      "mature": "Mature"
+    },
+    "noStability": "—",
+    "orbitHeading": "Your vocabulary orbit",
+    "orbitCaption": "Common words sit near the center. Dark dashes light up as you hold them — each ring drifts on its own.",
+    "orbitAriaLabel": "Vocabulary progress shown as concentric rings",
+    "orbitShowList": "Show list",
+    "orbitListTitle": "All words",
+    "orbitListCaption": "Frequency rank and status for every word in your deck.",
+    "orbitAggregateLabel": "{count} words, ranks {start}–{end}",
+    "orbitAggregateHeading": "Ranks {start}–{end}",
+    "orbitAggregateBody": "{count} words in this band on the outer ring. {held} meanings held stably.",
+    "orbitDetailRankLabel": "Frequency rank",
+    "orbitDetailStabilityLabel": "Stability",
+    "orbitDetailBandLabel": "Band",
+    "orbitDetailBandCaption": "Ranks {start}–{end}",
+    "orbitDetailWordsInBandLabel": "Words in band",
+    "orbitDetailHeldSummary": "{held} of {total} held"
+  },
+  "reviewSession": {
+    "title": "Review",
+    "backToMethods": "Back to methods",
+    "backToWords": "Back to Words",
+    "unknownMethod": "That method does not exist in the catalogue.",
+    "notBuilt": "This method is listed as hosted, but its session is not built yet. The catalogue is honest about what exists.",
+    "prompt": "What does it mean?",
+    "formRecallPrompt": "Did you recall the form?",
+    "formRecallInstruction": "Write the {language} form.",
+    "formRecallInstructionFallback": "Write the form.",
+    "cellLabelWithPerson": "{person} · {form}",
+    "cellLabelFormOnly": "{form}",
+    "flipHint": "Tap to turn",
+    "graded": "Saved.",
+    "saveError": "Your grade could not be saved.",
+    "saving": "Saving…",
+    "loading": "Preparing your session…",
+    "loadError": "Could not prepare your review session.",
+    "emptySession": "Nothing to review right now.",
+    "again": "Again",
+    "hard": "Hard",
+    "good": "Good",
+    "easy": "Easy",
+    "progress": "{position} of {total}",
+    "completeTitle": "Session complete",
+    "completeBodyOne": "You reviewed 1 card.",
+    "completeBody": "You reviewed {count} cards.",
+    "startReview": "Start review",
+    "srsSessionName": "Spaced repetition session",
+    "languageLabel": "{name}",
+    "syncingOne": "Syncing 1 review…",
+    "syncing": "Syncing {count} reviews…",
+    "syncFailed": "Your grade could not be saved.",
+    "syncRetry": "Retry",
+    "report": "Report a problem with this card",
+    "reportDone": "Thanks — we will stop scheduling this card in your next session. You can finish this one.",
+    "reportPopoverTitle": "Report this card",
+    "reportPopoverOutcome": "We will stop scheduling this card from your next session. You can finish it today.",
+    "reportCategoryLegend": "What is wrong? (optional)",
+    "reportCategories": {
+      "wrong-translation": "Wrong translation",
+      "audio": "Audio issue",
+      "confusing": "Confusing",
+      "not-relevant": "Not relevant to me",
+      "other": "Other"
+    },
+    "reportNoteLabel": "Anything else? (optional)",
+    "reportNotePlaceholder": "A short note helps us fix it faster.",
+    "reportCancel": "Cancel",
+    "reportSubmit": "Report",
+    "reportSuccessTitle": "Report received.",
+    "reportSuccessBody": "We will not schedule this card again after today. You can finish reviewing it now."
+  },
+  "progress": {
+    "title": "Where you stand",
+    "intro": "This page shows what has actually been measured about your language, and says so plainly where nothing has been. A level you have not been tested on is not a level, so you will not find one here yet.",
+    "skillsHeading": "Your four skills",
+    "skillsCaption": "Each skill, its measurement status, and what would measure it",
+    "skillColumns": {
+      "skill": "Skill",
+      "status": "Status",
+      "route": "What would measure it"
+    },
+    "overallHeading": "Overall level",
+    "overallWithheld": "There is no overall level, and inventing one would be the whole problem. The overall level is the second-lowest of the skills that count, and today no skill counts — so there is nothing to take the second-lowest of.",
+    "signalsHeading": "What is actually recorded",
+    "signalsIntro": "These are the seven quantities the level model is built from. A signal has a value and a status; only a skill can have a level, so you will not see a letter and a number next to any of these.",
+    "signalsCaption": "The seven layer-1 signals and whether anything has been recorded for each",
+    "signalColumns": {
+      "signal": "Signal",
+      "status": "Status",
+      "value": "Value"
+    },
+    "noData": "Nothing recorded yet",
+    "hasData": "Recorded",
+    "noValue": "—",
+    "stabilityValue": "{days} days, averaged over {taskCount, plural, one {# card} other {# cards}} you have reviewed",
+    "vocabularyValue": "{held} of {poolSize} starter words held stably — not extrapolated to the language",
+    "formMasteryValue": "{held} of {poolSize} starter forms held stably — separate from vocabulary size",
+    "emptyState": "You have not reviewed anything yet, so nothing below has a value. That is the honest starting state, not a failure.",
+    "startReview": "Start a review session",
+    "doseHeading": "What a level costs",
+    "doseIntro": "The hours below are the denominator nobody in this category publishes. They are guided learning hours from a standing start — the total to reach that level, not the cost of the step.",
+    "doseCaption": "Cumulative guided hours per level, and what a daily habit reaches",
+    "doseColumns": {
+      "level": "Level",
+      "hours": "Guided hours",
+      "atFifteen": "At 15 minutes a day"
+    },
+    "doseHours": "{min}–{max} hours",
+    "doseYears": "{minYears}–{maxYears} years",
+    "doseHabit": "Fifteen minutes a day, every day without missing one, is about {hours} hours a year.",
+    "doseBorrowedUncalibrated": "These figures are borrowed and uncalibrated: {name}, English-derived institutional estimates used here for a different language pair. Treat them as an order of magnitude, not a measurement. A guided hour is also instructed time with feedback, which app minutes only partly are — so the comparison flatters the app rather than the reverse.",
+    "doseBorrowedCalibrated": "These figures come from {name}, calibrated for {calibratedFor}. A guided hour is instructed time with feedback, which app minutes only partly are.",
+    "doseNoNumerator": "There is no line here for the hours you have practised, because the app does not count them. It records how long each card took, which is time inside review sessions and nothing else — and roughly a third to a half of the practice this app recommends happens away from it. A total built only from card time would be wrong by an unknowable amount, and dividing it into the hours above would make the error look precise.",
+    "gapHeading": "What is missing, and why",
+    "gapBody": "A language-wide vocabulary estimate and any CEFR level it would feed are not built. Extrapolation needs a frequency-ranked pool large enough to estimate a boundary rank — the shipped starter set is two thousand words. The anchor table that maps vocabulary to a level is also still uncalibrated for this language pair. Both are named here rather than approximated.",
+    "skillNames": {
+      "reading": "Reading",
+      "listening": "Listening",
+      "speaking": "Speaking",
+      "writing": "Writing"
+    },
+    "statusNames": {
+      "measured": "Measured",
+      "uncertain": "Uncertain — few data yet",
+      "not-measured": "Not measured",
+      "not-in-profile": "Not part of your profile"
+    },
+    "signalNames": {
+      "vocabulary-size": "Estimated vocabulary size",
+      "form-mastery": "Form mastery",
+      "recall-stability": "Recall stability",
+      "lexical-coverage": "Lexical coverage",
+      "response-time": "Response time on correct recall",
+      "success-by-difficulty": "Success by task difficulty",
+      "production-quality": "Production quality"
+    },
+    "routeToMeasuring": {
+      "reading": "Reading texts whose words this app knows — none are shipped yet.",
+      "listening": "Nothing yet. No signal in the level model is assigned to listening, which is a gap in the model rather than in your practice.",
+      "speaking": "Speaking that the app records and scores — not built.",
+      "writing": "Free writing or dictation the app can score — not built."
+    }
+  },
+  "methodMenu": {
+    "title": "Ways of practising",
+    "drillInShellTitle": "Methods",
+    "intro": "Sixty-odd ways people actually learn languages. Three questions narrow the list — how long you have, what you want to train, and how much energy you have. Refine only if you need to.",
+    "timeLabel": "How much time do you have?",
+    "timeScaleHint": "Short steps at the start — drag right for longer, up to a day or endless",
+    "skillLabel": "What do you want to train?",
+    "anySkill": "Any skill",
+    "skillsHeading": "Skills",
+    "energyLabel": "How much energy do you have?",
+    "anyEnergy": "Any energy",
+    "refineLabel": "Refine further",
+    "refineHint": "Only if the list still feels too broad — hands, voice, or whether you need your eyes.",
+    "refineAny": "Does not matter",
+    "refineDimension": {
+      "hands": "Hands",
+      "voice": "Voice",
+      "eyes": "Eyes"
+    },
+    "nothingFits": "Nothing in the catalogue fits those filters. Try more time, a different skill, or fewer refinements.",
+    "dailyHeading": "Three to try today",
+    "dailyIntro": "Real choice without decision load — one easy option, one well-evidenced option, and one for variety. The full list is still below.",
+    "catalogueUnavailable": "The method catalogue could not be read, so nothing below is being hidden from you — there is nothing to show. What went wrong:",
+    "card": {
+      "trains": "Trains",
+      "needs": "Needs",
+      "needsNothing": "Nothing in particular",
+      "duration": "Takes",
+      "openEnded": "Open-ended",
+      "intensity": "Effort",
+      "doesNotDo": "What it does not do",
+      "properties": "Method properties",
+      "badges": "Method badges",
+      "effort": "Effort"
+    },
+    "skillLabels": {
+      "reading": "Reading",
+      "listening": "Listening",
+      "speaking": "Speaking",
+      "writing": "Writing"
+    },
+    "contributionLabels": {
+      "primary": "primary",
+      "secondary": "secondary",
+      "slight": "slight"
+    },
+    "hosted": "The app runs this",
+    "notHosted": "You do this yourself — the app does not run it",
+    "hostedShort": "App runs this",
+    "notHostedShort": "Off-app",
+    "detail": {
+      "practical": "Practical",
+      "practicalDetails": "Practical details",
+      "mainly": "Mainly",
+      "researchConfidence": "How sure is the research?"
+    },
+    "startSession": "Start",
+    "sessionNotBuilt": "The app will run this method here once its session is built. For now, read what it does and try it off-app if you can.",
+    "backToMethods": "Back to methods",
+    "methodNotFound": "No method with that name exists in the catalogue.",
+    "standingLabel": "Current standing",
+    "standingEmpty": "Nothing recorded yet — your standing appears here once you have reviewed a few cards.",
+    "standingStartReview": "Start a review session",
+    "standingRecorded": "{held} of {poolSize} starter words held stably. No skill levels yet — meaning-recall does not measure reading, listening, speaking or writing.",
+    "standingSeeProgress": "See the full progress report",
+    "minutes": "min",
+    "or": "or",
+    "eitherOr": "or",
+    "sections": {
+      "reading": "Reading",
+      "listening": "Listening",
+      "speaking": "Speaking",
+      "writing": "Writing",
+      "form": "Grammar and form",
+      "vocabulary": "Vocabulary",
+      "world": "Out in the world",
+      "commitments": "Standing commitments"
+    },
+    "evidence": {
+      "A": "Evidence A — replicated, with the effect shown outside the lab",
+      "B": "Evidence B — well supported, with limits",
+      "C": "Evidence C — plausible and widespread, but thinly evidenced",
+      "D": "Evidence D — a product decision, not a finding"
+    },
+    "evidenceCard": {
+      "A": "Strong evidence",
+      "B": "Solid evidence",
+      "C": "Thin evidence",
+      "D": "Not researched"
+    },
+    "evidenceProse": {
+      "A": "Replicated, with the effect shown outside the lab",
+      "B": "Well supported, with limits",
+      "C": "Plausible and widespread, but thinly evidenced",
+      "D": "A product decision, not a finding"
+    },
+    "effortCard": {
+      "1": "Light effort",
+      "2": "Needs focus",
+      "3": "Draining"
+    },
+    "intensity": {
+      "1": "can be done tired or distracted",
+      "2": "needs attention, but not effort",
+      "3": "you will be tired afterwards"
+    },
+    "dimensionValues": {
+      "eyes": {
+        "free": "eyes free",
+        "occupied": "eyes busy"
+      },
+      "hands": {
+        "free": "both hands",
+        "one": "one hand",
+        "none": "no hands"
+      },
+      "voice": {
+        "aloud": "speaking aloud",
+        "quiet": "speaking quietly",
+        "none": "no voice"
+      },
+      "writingSurface": {
+        "paper": "paper",
+        "keyboard": "a keyboard",
+        "touch": "a touchscreen",
+        "none": "nothing to write on"
+      },
+      "sound": {
+        "speaker": "a speaker",
+        "headphones": "headphones",
+        "silent": "no sound"
+      },
+      "attention": {
+        "full": "full attention",
+        "divided": "divided attention",
+        "fragmented": "fragmented attention"
+      },
+      "company": {
+        "alone": "alone",
+        "speakers": "people who speak the language",
+        "others": "other people"
+      }
+    },
+    "refineOptions": {
+      "hands": [
+        {
+          "value": "none",
+          "label": "Hands-free"
+        },
+        {
+          "value": "one",
+          "label": "One hand"
+        },
+        {
+          "value": "free",
+          "label": "Both hands"
+        }
+      ],
+      "voice": [
+        {
+          "value": "none",
+          "label": "Silent"
+        },
+        {
+          "value": "quiet",
+          "label": "Quiet voice"
+        },
+        {
+          "value": "aloud",
+          "label": "Speaking aloud"
+        }
+      ],
+      "eyes": [
+        {
+          "value": "free",
+          "label": "Eyes on screen"
+        },
+        {
+          "value": "occupied",
+          "label": "Eyes elsewhere"
+        }
+      ]
+    },
+    "timeBudget": {
+      "endless": "Endless",
+      "hour1": "1 hour",
+      "hour1half": "1½ hours",
+      "hour2": "2 hours",
+      "hour3": "3 hours",
+      "hour4": "4 hours",
+      "hour6": "6 hours",
+      "hour8": "8 hours",
+      "hour12": "12 hours",
+      "day1": "1 day",
+      "hours": "{count} hours",
+      "minutes": "{count} min"
+    }
+  },
+  "languagePicker": {
+    "title": "Which language do you want to learn?",
+    "intro": "You can add another later. Nothing here locks you in.",
+    "notStarted": "{poolSize} words in the starter set",
+    "held": "{held} of {poolSize} starter words held stably",
+    "unavailable": "Not available yet — we don't have a word set for {name} we'd stand behind",
+    "alreadyLearning": "Already learning",
+    "active": "Active",
+    "choose": "Start with this language",
+    "footnote": "These counts are about the starter set only. Nothing here is a claim about the language as a whole.",
+    "error": "Could not add that language."
+  },
+  "accountData": {
+    "title": "Your data",
+    "intro": "Download everything the app has stored about your learning, or delete your account and all associated data.",
+    "exportHeading": "Download",
+    "exportCaption": "Plain JSON you can read without this app. The review log is enough to rebuild your schedule elsewhere.",
+    "scopeLabel": "What to include",
+    "scopeComplete": "Complete archive",
+    "scopeReviews": "Review log only",
+    "download": "Download JSON",
+    "deleteHeading": "Delete account",
+    "deleteCaption": "Permanently removes your account and every review you recorded. This cannot be undone.",
+    "deleteAction": "Delete account",
+    "confirmTitle": "Delete your account?",
+    "confirmBody": "Your account, review history, and all learning data will be permanently deleted. You will be signed out immediately.",
+    "confirmAction": "Yes, delete everything",
+    "cancel": "Cancel",
+    "exportFileName": "sprachenlernen-export.json"
+  },
+  "auth": {
+    "emailLabel": "Email",
+    "passwordLabel": "Password",
+    "passwordHint": "At least 6 characters.",
+    "signUp": {
+      "heading": "Create your account",
+      "submit": "Create account",
+      "confirmationSent": "Check your email for a confirmation link, then come back and sign in.",
+      "switchPrompt": "Already have an account?",
+      "switchLinkLabel": "Sign in"
+    },
+    "signIn": {
+      "heading": "Sign in",
+      "submit": "Sign in",
+      "switchPrompt": "Don't have an account?",
+      "switchLinkLabel": "Create one"
+    },
+    "oauthDivider": "or continue with",
+    "oauthGoogle": "Google",
+    "oauthApple": "Apple"
+  },
+  "privacy": {
+    "bannerTitle": "Cookies and storage",
+    "bannerBody": "We use essential cookies to keep you signed in. Optional analytics stay off until you accept.",
+    "bannerLink": "Privacy policy",
+    "acceptAll": "Accept",
+    "essentialOnly": "Essential only",
+    "title": "Privacy",
+    "intro": "This page will hold the full Datenschutzerklärung. Until legal review, this is what the app actually stores today.",
+    "stores": [
+      "Account: email and user id (Supabase Auth), required to sign in.",
+      "Session cookie: keeps you signed in.",
+      "Review log (when built): your grades and card ids, append-only, owned by your account.",
+      "Cookie choice: your accept/essential-only decision in this browser only."
+    ],
+    "contact": "Questions: use the address in the imprint when it is published.",
+    "accountLink": "Signed in? Open Account in the app menu to download or delete your data."
+  },
+  "notFound": {
+    "title": "Page not found",
+    "body": "That address does not exist. It may have moved, or the link may be old.",
+    "back": "Back to the start"
+  },
+  "install": {
+    "title": "Add to Home Screen",
+    "intro": "On iPhone, the Home Screen app only works correctly when you add it from the main website address — not from Methods, Words, or Progress.",
+    "whyHeading": "Why the main address",
+    "whyBody": "Apple ties the Home Screen app to the page you were on when you tapped Add to Home Screen. Add from the site root and every section works without Safari's bottom toolbar. Add from a sub-page and only that section (and its sub-pages) stay clean.",
+    "noButton": "iPhone does not allow websites to show an install button. You use Safari's Share menu → Add to Home Screen.",
+    "stepsHeading": "Steps (iPhone)",
+    "steps": [
+      "Remove any existing Home Screen icon for this app.",
+      "Open the main website in Safari (button below — not a bookmark to Methods or Words).",
+      "Tap Share (square with arrow) → Add to Home Screen → Add.",
+      "Open the app only from the new icon. Sign in if prompted."
+    ],
+    "openSite": "Open main website in Safari",
+    "openSiteAria": "Open the main website to add this app to your Home Screen",
+    "alreadySignedIn": "If you are signed in here in the browser, you can still add to Home Screen from this page — the Home Screen app will ask you to sign in again.",
+    "backToApp": "Back to the app"
+  },
+  "marketing": {
+    "header": {
+      "brand": "Sprachenlernen",
+      "signIn": "Sign in",
+      "signUp": "Create account"
+    },
+    "landing": {
+      "eyebrow": "Evidence-driven language learning",
+      "headline": "Progress is shown as measured competence, never as activity.",
+      "subhead": "Sixty-odd ways people actually learn languages, not the handful an app happens to implement.",
+      "timeHonesty": "Fifteen minutes a day, every day without missing one, is about {hours} hours a year — roughly a quarter of the way to B1 from a standing start. Feeling slow at that pace is arithmetic, not failure.",
+      "pillarsHeading": "What follows from that",
+      "pillars": [
+        {
+          "text": "The scheduler is a visible surface, not a black box."
+        },
+        {
+          "text": "Two equal pillars: SRS and reading/listening."
+        },
+        {
+          "text": "A level model with sub-levels per skill, plus an honest overall figure."
+        }
+      ],
+      "primaryCta": "Create account",
+      "secondaryCta": "Sign in",
+      "languagesLink": "What the app claims for each language",
+      "designExplorerLink": "Compare five design directions"
+    }
+  }
+}

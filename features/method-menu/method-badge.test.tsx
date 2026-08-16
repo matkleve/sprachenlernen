@@ -1,4 +1,6 @@
-import { render, screen } from "@testing-library/react";
+import { renderWithIntl as render, formatMessage, en } from "@/tests/i18n-test-utils";
+import {screen} from "@testing-library/react";
+
 import { describe, expect, it } from "vitest";
 
 import type { MethodEntry } from "@/lib/method-catalogue";
@@ -15,7 +17,6 @@ import {
 import { MethodCard } from "./MethodCard";
 import { MethodDetail, findMethod } from "./MethodDetail";
 import { loadMethodCatalogue } from "./catalogue";
-import { copy, effortCard, evidenceCard } from "./content";
 
 const method: MethodEntry = {
   id: "background-listening",
@@ -42,15 +43,15 @@ describe("MethodBadgeRow", () => {
     render(<MethodBadgeRow skillMarks={marks} evidence="C" intensity={1} />);
 
     expect(screen.getByTitle("Listening, slight")).toBeDefined();
-    expect(screen.getByText(evidenceCard.C)).toBeDefined();
-    expect(screen.getByText(effortCard[1])).toBeDefined();
+    expect(screen.getByText(en.methodMenu.evidenceCard.C)).toBeDefined();
+    expect(screen.getByText(en.methodMenu.effortCard[1])).toBeDefined();
   });
 });
 
 describe("EvidenceBadge", () => {
   it("shows plain-language evidence without a letter grade", () => {
     render(<EvidenceBadge grade="C" />);
-    expect(screen.getByText(evidenceCard.C)).toBeDefined();
+    expect(screen.getByText(en.methodMenu.evidenceCard.C)).toBeDefined();
     expect(screen.queryByText("Evidence C")).toBeNull();
     expect(screen.queryByText(/^C$/)).toBeNull();
   });
@@ -59,7 +60,7 @@ describe("EvidenceBadge", () => {
 describe("EffortBadge", () => {
   it("shows Effort label with a three-step scale on detail", () => {
     render(<EffortScale intensity={1} />);
-    expect(screen.getByText(copy.card.effort)).toBeDefined();
+    expect(screen.getByText(en.methodMenu.card.effort)).toBeDefined();
     expect(screen.getByText(/Light effort \(1 of 3\)/)).toBeDefined();
   });
 });
@@ -77,20 +78,20 @@ describe("method surfaces", () => {
     const link = screen.getByRole("link", { name: new RegExp(method.name) });
     expect(link.className).toContain("border-line");
     expect(link.className).toContain("active:scale-");
-    expect(link.textContent).toContain(evidenceCard.C);
-    expect(link.textContent).toContain(effortCard[1]);
+    expect(link.textContent).toContain(en.methodMenu.evidenceCard.C);
+    expect(link.textContent).toContain(en.methodMenu.effortCard[1]);
     expect(link.textContent).not.toContain("plausible and widespread");
   });
 
-  it("shows article layout on detail without badge row", () => {
-    render(<MethodDetail method={method} />);
+  it("shows article layout on detail without badge row", async () => {
+    render(await MethodDetail({ method }));
     expect(screen.getByRole("heading", { level: 1, name: method.name })).toBeDefined();
-    expect(screen.getByText(copy.card.effort)).toBeDefined();
+    expect(screen.getByText(en.methodMenu.card.effort)).toBeDefined();
     expect(screen.getAllByText("Thin evidence").length).toBeGreaterThan(0);
     expect(document.body.textContent).toContain(method.trains);
     expect(document.body.textContent).toContain(method.doesNotDo);
     expect(screen.queryByTitle("Listening, slight")).toBeNull();
-    expect(screen.getAllByText(copy.detail.researchConfidence).length).toBeGreaterThan(0);
+    expect(screen.getAllByText(en.methodMenu.detail.researchConfidence).length).toBeGreaterThan(0);
     expect(screen.queryByText(/Evidence C/i)).toBeNull();
   });
 

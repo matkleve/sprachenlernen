@@ -20,8 +20,7 @@ longer gets skimmed instead of read.
 npm run dev       # dev server
 npm run verify    # ← the gate. Runs typecheck, lint, check:specs, check:tokens,
                   #   check:contrast, test and build. Run before every commit.
-# After merge to main only — docs/VERSIONING.md (never on feature branches):
-npm run version:shame  # bugfix · npm run version:ship  # feature
+# After merge to main — docs/VERSIONING.md: version:shame (bugfix) or version:ship (feature)
 ```
 
 Never report work as done without a green `verify` — paste the output. To re-run
@@ -126,6 +125,7 @@ feature needs it — not in anticipation of one.
 | Making a call you'll have to defend later | [`docs/adr/`](docs/adr/) |
 | Product rules you may not break | [`docs/CONSTITUTION.md`](docs/CONSTITUTION.md) |
 | **Why a feature exists at all** | [`docs/study/`](docs/study/) — the research this product is derived from |
+| **Cursor agent / model choice** | [`docs/AGENT-PITFALLS.md`](docs/AGENT-PITFALLS.md) §19–§20 — no Substrate + Sonnet; no subagents without permission |
 | **Version bump or merge** | [`docs/VERSIONING.md`](docs/VERSIONING.md) — never bump on a feature branch |
 
 ---

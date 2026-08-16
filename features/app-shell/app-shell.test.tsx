@@ -1,7 +1,9 @@
 import { readFileSync, readdirSync } from "node:fs";
 import { join } from "node:path";
 
-import { render, within } from "@testing-library/react";
+import { renderWithIntl as render, formatMessage, en } from "@/tests/i18n-test-utils";
+import {within} from "@testing-library/react";
+
 import { redirect } from "next/navigation";
 import { usePathname } from "next/navigation";
 import { beforeEach, describe, expect, it, vi } from "vitest";
@@ -11,9 +13,7 @@ import { expectNoA11yViolations } from "@/tests/axe";
 
 import { AppShell } from "./AppShell";
 import { signOutAction } from "./actions";
-import { copy as profileCopy } from "@/features/profile/content";
 
-import { copy, holding } from "./content";
 import { requireAccount } from "./gate";
 
 /**
@@ -65,7 +65,7 @@ const destinationLinks = () => {
   const header = document.querySelector("header");
   if (!header) throw new Error("expected desktop header");
   return within(header as HTMLElement)
-    .getByRole("navigation", { name: copy.navLabel })
+    .getByRole("navigation", { name: en.appShell.navLabel })
     .querySelectorAll<HTMLAnchorElement>("a[href]");
 };
 
@@ -82,9 +82,9 @@ describe("the destinations", () => {
 
     const links = [...destinationLinks()];
     expect(links.map((a) => a.textContent)).toEqual([
-      copy.destinations.methods,
-      copy.destinations.words,
-      copy.destinations.progress,
+      en.appShell.destinations.methods,
+      en.appShell.destinations.words,
+      en.appShell.destinations.progress,
     ]);
     expect(links.map((a) => a.getAttribute("href"))).toEqual([
       "/methods",
@@ -99,7 +99,7 @@ describe("the destinations", () => {
     const current = [...destinationLinks()].filter(
       (a) => a.getAttribute("aria-current") === "page",
     );
-    expect(current.map((a) => a.textContent)).toEqual([copy.destinations.methods]);
+    expect(current.map((a) => a.textContent)).toEqual([en.appShell.destinations.methods]);
   });
 
   it("moves the marker with the route, leaving no residue on the previous one", () => {
@@ -108,10 +108,10 @@ describe("the destinations", () => {
     const marked = [...destinationLinks()].filter(
       (a) => a.getAttribute("aria-current") === "page",
     );
-    expect(marked.map((a) => a.textContent)).toEqual([copy.destinations.words]);
+    expect(marked.map((a) => a.textContent)).toEqual([en.appShell.destinations.words]);
     // The negative half: the destination we are NOT on must carry nothing.
     const methods = [...destinationLinks()].find(
-      (a) => a.textContent === copy.destinations.methods,
+      (a) => a.textContent === en.appShell.destinations.methods,
     );
     expect(methods?.getAttribute("aria-current")).toBeNull();
   });
@@ -122,7 +122,7 @@ describe("the destinations", () => {
     const marked = [...destinationLinks()].filter(
       (a) => a.getAttribute("aria-current") === "page",
     );
-    expect(marked.map((a) => a.textContent)).toEqual([copy.destinations.words]);
+    expect(marked.map((a) => a.textContent)).toEqual([en.appShell.destinations.words]);
   });
 
   it("renders no digit anywhere in the navigation — UC-063's whole point", () => {
@@ -134,7 +134,7 @@ describe("the destinations", () => {
 
     const header = document.querySelector("header");
     if (!header) throw new Error("expected desktop header");
-    const nav = within(header as HTMLElement).getByRole("navigation", { name: copy.navLabel });
+    const nav = within(header as HTMLElement).getByRole("navigation", { name: en.appShell.navLabel });
     expect(nav.textContent).not.toMatch(/\d/);
   });
 
@@ -153,7 +153,7 @@ describe("the destinations", () => {
     const header = document.querySelector("header");
     if (!header) throw new Error("expected desktop header");
     expect(
-      within(header as HTMLElement).getByRole("button", { name: copy.switchLanguage }),
+      within(header as HTMLElement).getByRole("button", { name: en.appShell.switchLanguage }),
     ).toBeDefined();
   });
 
@@ -162,11 +162,11 @@ describe("the destinations", () => {
 
     const header = document.querySelector("header");
     if (!header) throw new Error("expected desktop header");
-    const account = within(header as HTMLElement).getByRole("link", { name: copy.account });
+    const account = within(header as HTMLElement).getByRole("link", { name: en.appShell.account });
     expect(account.getAttribute("href")).toBe("/profile");
     expect(account.getAttribute("aria-current")).toBeNull();
     expect(
-      within(header as HTMLElement).queryByRole("button", { name: profileCopy.signOut }),
+      within(header as HTMLElement).queryByRole("button", { name: en.profile.signOut }),
     ).toBeNull();
   });
 
@@ -175,7 +175,7 @@ describe("the destinations", () => {
 
     const header = document.querySelector("header");
     if (!header) throw new Error("expected desktop header");
-    const account = within(header as HTMLElement).getByRole("link", { name: copy.account });
+    const account = within(header as HTMLElement).getByRole("link", { name: en.appShell.account });
     expect(account.getAttribute("aria-current")).toBe("page");
     expect(account.className).toContain("bg-accent");
   });
@@ -186,7 +186,7 @@ describe("the destinations", () => {
     const header = document.querySelector("header");
     if (!header) throw new Error("expected desktop header");
     expect(
-      within(header as HTMLElement).getByRole("heading", { level: 1, name: holding.words.title }),
+      within(header as HTMLElement).getByRole("heading", { level: 1, name: en.appShell.holding.words.title }),
     ).toBeDefined();
   });
 });

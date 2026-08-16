@@ -1,9 +1,9 @@
-import { render, screen } from "@testing-library/react";
+import { renderWithIntl as render, en } from "@/tests/i18n-test-utils";
+import { screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { describe, expect, it, vi } from "vitest";
 
 import { ReviewCard } from "@/features/review-session/ReviewCard";
-import { copy } from "@/features/review-session/content";
 
 vi.mock("@/features/review-session/session-machine", () => ({
   canFlip: () => true,
@@ -35,8 +35,8 @@ describe("ReviewCard", () => {
       />,
     );
 
-    expect(screen.getByText(copy.prompt)).toBeDefined();
-    expect(screen.queryByText(copy.formRecallPrompt)).toBeNull();
+    expect(screen.getByText(en.reviewSession.prompt)).toBeDefined();
+    expect(screen.queryByText(en.reviewSession.formRecallPrompt)).toBeNull();
   });
 
   it("says nothing about a cell on a card that has none", () => {
@@ -72,8 +72,8 @@ describe("ReviewCard", () => {
       />,
     );
 
-    expect(screen.getByText(copy.formRecallPrompt)).toBeDefined();
-    expect(screen.queryByText(copy.prompt)).toBeNull();
+    expect(screen.getByText(en.reviewSession.formRecallPrompt)).toBeDefined();
+    expect(screen.queryByText(en.reviewSession.prompt)).toBeNull();
   });
 
   it("names the cell it is asking for, so the prompt has one answer", () => {
@@ -132,9 +132,9 @@ describe("ReviewCard", () => {
       />,
     );
 
-    await user.click(screen.getByRole("button", { name: copy.report }));
+    await user.click(screen.getByRole("button", { name: en.reviewSession.report }));
 
-    expect(screen.getByRole("dialog", { name: copy.reportPopoverTitle })).toBeDefined();
+    expect(screen.getByRole("dialog", { name: en.reviewSession.reportPopoverTitle })).toBeDefined();
   });
 
   it("tightens grade controls in compact mobile layout", () => {
@@ -150,7 +150,7 @@ describe("ReviewCard", () => {
       />,
     );
 
-    const gradeButton = screen.getByRole("button", { name: copy.good });
+    const gradeButton = screen.getByRole("button", { name: en.reviewSession.good });
     expect(gradeButton.className).toContain("h-7");
     expect(gradeButton.className).toContain("text-xs");
 

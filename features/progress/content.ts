@@ -1,3 +1,5 @@
+// Legacy English copy — use next-intl messages instead. Kept for reference during migration.
+
 import { DOSE_BAND_SOURCE } from "@/lib/dose-band";
 
 /**

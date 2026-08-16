@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
 
@@ -7,7 +8,6 @@ import {
   buildSessionAction,
   reportCardAction,
 } from "@/features/review-session/actions";
-import { copy } from "@/features/review-session/content";
 import { routes } from "@/lib/routes";
 import { getReviewQueue } from "@/features/review-session/review-queue";
 import {
@@ -70,6 +70,7 @@ function initialPhaseFromData(data: ReviewSessionInitialData | undefined): Sessi
 }
 
 export function useReviewSession(options: UseReviewSessionOptions = {}): UseReviewSessionResult {
+  const t = useTranslations("reviewSession");
   const { initialData } = options;
   const router = useRouter();
   const [status, setStatus] = useState<ReviewSessionStatus>(() => initialStatusFromData(initialData));
@@ -128,7 +129,7 @@ export function useReviewSession(options: UseReviewSessionOptions = {}): UseRevi
       } catch {
         if (cancelled) return;
         setStatus("error");
-        setLoadError(copy.loadError);
+        setLoadError(t('loadError'));
       }
     }
 

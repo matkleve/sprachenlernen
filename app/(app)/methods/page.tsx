@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
+import { getTranslations } from "next-intl/server";
 
 import { MethodMenu } from "@/features/method-menu/MethodMenu";
-import { copy } from "@/features/method-menu/content";
 import { loadMethodsDestination } from "@/features/method-menu/loadMethodsDestination";
 
-export const metadata: Metadata = {
-  title: copy.title,
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const t = await getTranslations("methodMenu");
+  return { title: t("title") };
+}
 
 export default async function MethodsPage({
   searchParams,

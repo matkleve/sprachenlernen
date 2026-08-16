@@ -2,12 +2,14 @@ import { NextResponse } from "next/server";
 
 import { createServerSupabaseClient } from "@/lib/db/client";
 import { ensureProfileFromAcceptLanguage } from "@/lib/db/profiles";
+import { getSpokenLanguage } from "@/lib/db/profiles";
 import {
   authConfirmationFailed,
   authConfirmationMissing,
   logHandledError,
   toUserFacing,
 } from "@/lib/errors";
+import { LOCALE_COOKIE, LOCALE_COOKIE_MAX_AGE } from "@/lib/i18n/locale-cookie";
 import { routes } from "@/lib/routes";
 
 function loginRedirect(origin: string, handled: ReturnType<typeof authConfirmationMissing>) {
@@ -29,7 +31,6 @@ export async function GET(request: Request) {
   const code = url.searchParams.get("code");
   const next = url.searchParams.get("next") ?? routes.appHome;
 
-  // Reject open redirects — only same-origin paths are allowed.
   const destination = next.startsWith("/") ? next : routes.appHome;
 
   if (!code) {
@@ -45,5 +46,16 @@ export async function GET(request: Request) {
 
   await ensureProfileFromAcceptLanguage(request.headers.get("accept-language"));
 
-  return NextResponse.redirect(new URL(destination, url.origin));
+  const spoken = await getSpokenLanguage(supabase);
+  const response = NextResponse.redirect(new URL(destination, url.origin));
+
+  if (spoken.status === "ok") {
+    response.cookies.set(LOCALE_COOKIE, spoken.spokenLanguage, {
+      path: "/",
+      maxAge: LOCALE_COOKIE_MAX_AGE,
+      sameSite: "lax",
+    });
+  }
+
+  return response;
 }

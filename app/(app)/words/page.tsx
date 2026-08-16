@@ -1,18 +1,19 @@
 import type { Metadata } from "next";
+import { getTranslations } from "next-intl/server";
 import { redirect } from "next/navigation";
 
 import { routes } from "@/lib/routes";
 
 import { ErrorCallout } from "@/components/ui/ErrorCallout";
-import { holding } from "@/features/app-shell/content";
 import { ShellPageContent } from "@/features/app-shell/ShellPageContent";
 import { readWordsHome } from "@/features/words/reading";
 import { WordsHome } from "@/features/words/WordsHome";
 import { toUserFacing } from "@/lib/errors";
 
-export const metadata: Metadata = {
-  title: holding.words.title,
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const t = await getTranslations("appShell");
+  return { title: t("holding.words.title") };
+}
 
 /**
  * Words destination — vocabulary home and one-tap review entry (UC-063).
@@ -21,8 +22,6 @@ export const metadata: Metadata = {
 export default async function WordsPage() {
   const outcome = await readWordsHome();
 
-  // Nothing chosen yet is not an error and not an empty page — it is a
-  // question the learner has not been asked.
   if (outcome.status === "no-language") redirect(routes.chooseLanguage);
 
   if (outcome.status === "error") {

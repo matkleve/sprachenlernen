@@ -1,3 +1,4 @@
+import "./server-intl-mock";
 import { cleanup } from "@testing-library/react";
 import { afterEach, beforeAll, vi } from "vitest";
 

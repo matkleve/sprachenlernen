@@ -9,14 +9,14 @@ import { routes } from "@/lib/routes";
 import { cn } from "@/lib/utils";
 
 import { isProfileCurrent } from "./destinations";
-import { shellBackTarget } from "./back-target";
+import { useShellBackTarget } from "./use-shell-back-target";
 import { AppVersionLabel } from "./AppVersionLabel";
 import { DestinationNavItems } from "./DestinationNavItems";
 import { FooterScrim } from "./FooterScrim";
 import { LanguageSwitcher, type LanguageSwitcherOption } from "./LanguageSwitcher";
 import { ShellPageTitle, shellHeaderStartsCompact } from "./ShellPageTitle";
 import { HeaderScrim } from "./HeaderScrim";
-import { copy } from "./content";
+import { useTranslations } from "next-intl";
 import { useHeaderCollapse } from "./useHeaderCollapse";
 import { useVisualViewportBottomInset } from "./useVisualViewportBottomInset";
 
@@ -34,8 +34,9 @@ export function FloatingShellChrome({
   languageHoldings?: Record<string, LanguageHoldings>;
 }) {
   const pathname = usePathname();
+  const t = useTranslations("appShell");
   const profileCurrent = isProfileCurrent(pathname);
-  const back = shellBackTarget(pathname);
+  const back = useShellBackTarget(pathname);
   const collapse = useHeaderCollapse();
   const pinnedCompact = shellHeaderStartsCompact(pathname);
   useVisualViewportBottomInset();
@@ -54,7 +55,7 @@ export function FloatingShellChrome({
         >
           <div className="col-start-1 flex min-w-0 items-center gap-2 justify-self-start">
             {back ? (
-              <IconLink href={back.href} aria-label={copy.backTo(back.label)}>
+              <IconLink href={back.href} aria-label={t("backTo", { destination: back.label })}>
                 <ArrowLeft aria-hidden className="size-5 shrink-0" />
               </IconLink>
             ) : (
@@ -69,7 +70,7 @@ export function FloatingShellChrome({
           <ShellPageTitle variant="mobile" pinnedCompact={pinnedCompact} />
 
           <div className="col-start-2 justify-self-end">
-            <IconLink href={routes.profile} aria-label={copy.account} current={profileCurrent}>
+            <IconLink href={routes.profile} aria-label={t("account")} current={profileCurrent}>
               <UserRound aria-hidden className="size-5 shrink-0" />
             </IconLink>
           </div>
@@ -78,7 +79,7 @@ export function FloatingShellChrome({
 
       <FooterScrim className="md:hidden">
         <div className="flex w-full flex-col items-center gap-0.5">
-          <nav aria-label={copy.mobileNavLabel} className="flex w-full justify-center">
+          <nav aria-label={t("mobileNavLabel")} className="flex w-full justify-center">
             <ul
               className={cn(
                 "inline-flex list-none items-center gap-1 rounded-pill border border-line",

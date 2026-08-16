@@ -2,7 +2,7 @@ import { beforeEach, describe, expect, it, vi } from "vitest";
 
 import { buildSessionAction } from "@/features/review-session/actions";
 import * as taskState from "@/lib/db/task-state";
-import { copy } from "@/features/review-session/content";
+import { en } from "@/tests/i18n-test-utils";
 
 vi.mock("@/lib/db/task-state", async (importOriginal) => {
   const actual = await importOriginal<typeof taskState>();
@@ -26,7 +26,7 @@ describe("buildSessionAction", () => {
 
     expect(outcome).toEqual({
       status: "error",
-      error: copy.loadError,
+      error: en.reviewSession.loadError,
     });
   });
 });

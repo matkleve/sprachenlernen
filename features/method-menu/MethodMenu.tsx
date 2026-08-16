@@ -20,9 +20,9 @@ import type { SearchParams } from "@/lib/method-menu-filter";
 import { MethodCard } from "./MethodCard";
 import { MethodFilter } from "./MethodFilter";
 import { CurrentStanding } from "./CurrentStanding";
-import { copy, sections } from "./content";
 import type { StandingSummary } from "./standing";
 import { useMenuFilter } from "./useMenuFilter";
+import { useMethodMenuCopy } from "./use-method-menu-copy";
 
 /**
  * The app's front door: the catalogue, filtered by three questions. Contract:
@@ -56,6 +56,7 @@ export function MethodMenu({
   standing,
   dayKey = new Date().toISOString().slice(0, 10),
 }: MethodMenuProps) {
+  const { t, sections } = useMethodMenuCopy();
   const { filter, returnQuery, updateSearchParams } = useMenuFilter(initialSearchParams);
   const methods = catalogue ? filterMethods(catalogue, filter) : [];
   const dailyThree = useMemo(
@@ -65,14 +66,14 @@ export function MethodMenu({
 
   return (
     <ShellPageContent width="wide">
-      <p className="max-w-2xl text-base leading-relaxed text-muted">{copy.intro}</p>
+      <p className="max-w-2xl text-base leading-relaxed text-muted">{t("intro")}</p>
 
       {standing ? <CurrentStanding summary={standing} /> : null}
 
       {!loadError && dailyThree.length > 0 ? (
-        <section className="mt-6" aria-label={copy.dailyHeading}>
-          <h2 className="text-xl font-semibold text-ink">{copy.dailyHeading}</h2>
-          <p className="mt-2 max-w-2xl text-base leading-relaxed text-muted">{copy.dailyIntro}</p>
+        <section className="mt-6" aria-label={t("dailyHeading")}>
+          <h2 className="text-xl font-semibold text-ink">{t("dailyHeading")}</h2>
+          <p className="mt-2 max-w-2xl text-base leading-relaxed text-muted">{t("dailyIntro")}</p>
           <ul className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
             {dailyThree.map((method) => (
               <li key={method.id}>
@@ -91,7 +92,7 @@ export function MethodMenu({
         </div>
       ) : methods.length === 0 ? (
         <p className="mt-page-content max-w-2xl text-base leading-relaxed text-muted">
-          {copy.nothingFits}
+          {t("nothingFits")}
         </p>
       ) : (
         bySection(methods).map(([section, inSection]) => (

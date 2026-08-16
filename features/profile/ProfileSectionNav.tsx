@@ -1,20 +1,14 @@
 "use client";
 
-import { useCallback, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
+import { useTranslations } from "next-intl";
 
 import { FilterPill } from "@/components/ui/FilterPill";
-import { copy } from "@/features/profile/content";
 import {
   PROFILE_SECTIONS,
   profilePanelId,
   type ProfileSection,
 } from "@/lib/profile-section";
-
-const SECTION_COPY: Record<ProfileSection, string> = {
-  languages: copy.sectionLanguages,
-  data: copy.sectionData,
-  device: copy.sectionDevice,
-};
 
 function sectionUrl(section: ProfileSection) {
   const url = new URL(window.location.href);
@@ -39,7 +33,17 @@ export type ProfileSectionNavProps = {
  * Contract: docs/study/33-profile-section-navigation.md
  */
 export function ProfileSectionNav({ initialSection = "languages" }: ProfileSectionNavProps) {
+  const t = useTranslations("profile");
   const [section, setSection] = useState<ProfileSection>(initialSection);
+
+  const sectionCopy = useMemo(
+    (): Record<ProfileSection, string> => ({
+      languages: t("sectionLanguages"),
+      data: t("sectionData"),
+      device: t("sectionDevice"),
+    }),
+    [t],
+  );
 
   const selectSection = useCallback((next: ProfileSection) => {
     setSection(next);
@@ -48,7 +52,7 @@ export function ProfileSectionNav({ initialSection = "languages" }: ProfileSecti
   }, []);
 
   return (
-    <nav aria-label={copy.sectionsNavLabel} className="mb-page-content">
+    <nav aria-label={t("sectionsNavLabel")} className="mb-page-content">
       <ul className="flex flex-wrap items-center gap-1">
         {PROFILE_SECTIONS.map((id) => (
           <li key={id}>
@@ -58,7 +62,7 @@ export function ProfileSectionNav({ initialSection = "languages" }: ProfileSecti
               aria-controls={profilePanelId(id)}
               onClick={() => selectSection(id)}
             >
-              {SECTION_COPY[id]}
+              {sectionCopy[id]}
             </FilterPill>
           </li>
         ))}

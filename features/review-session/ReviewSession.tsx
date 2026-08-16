@@ -1,11 +1,11 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { useTransition } from "react";
 
 import { TextLink } from "@/components/ui/TextLink";
 import { Button } from "@/components/ui/Button";
 import { StatusBanner } from "@/components/ui/StatusBanner";
-import { copy } from "@/features/review-session/content";
 import { ReviewCard } from "@/features/review-session/ReviewCard";
 import { SessionComplete } from "@/features/review-session/SessionComplete";
 import { useReviewSession, type ReviewSessionInitialData } from "@/features/review-session/useReviewSession";
@@ -25,6 +25,7 @@ function showsActiveCard(phase: string): boolean {
 }
 
 export function ReviewSession({ methodName, compact = false, initialData }: ReviewSessionProps) {
+  const t = useTranslations("reviewSession");
   const [retryPending, startRetry] = useTransition();
   const {
     status,
@@ -51,7 +52,7 @@ export function ReviewSession({ methodName, compact = false, initialData }: Revi
   if (status === "loading") {
     return (
       <p className={cn(rootClass, "text-base text-muted")} aria-live="polite">
-        {copy.loading}
+        {t('loading')}
       </p>
     );
   }
@@ -60,7 +61,7 @@ export function ReviewSession({ methodName, compact = false, initialData }: Revi
     return (
       <div className={rootClass}>
         <p className="text-base text-danger" aria-live="polite">
-          {loadError ?? copy.loadError}
+          {loadError ?? t('loadError')}
         </p>
         <TextLink
           href={routes.methods}
@@ -68,7 +69,7 @@ export function ReviewSession({ methodName, compact = false, initialData }: Revi
           size="sm"
           className="mt-4 hidden md:inline-block"
         >
-          ← {copy.backToMethods}
+          ← {t('backToMethods')}
         </TextLink>
       </div>
     );
@@ -79,7 +80,7 @@ export function ReviewSession({ methodName, compact = false, initialData }: Revi
       <div className="flex shrink-0 items-baseline justify-between gap-3 text-sm text-muted">
         <span className="min-w-0 truncate">{methodName}</span>
         <span className="shrink-0 tabular-nums" aria-live="polite">
-          {copy.progress(currentCard.position, currentCard.total)}
+          {t('progress', { position: currentCard.position, total: currentCard.total })}
         </span>
       </div>
     ) : (
@@ -98,14 +99,14 @@ export function ReviewSession({ methodName, compact = false, initialData }: Revi
           )}
           aria-live="polite"
         >
-          {copy.syncing(pendingCount)}
+          {t('syncing', { count: pendingCount })}
         </p>
       ) : null}
 
       {syncError ? (
         <div className={cn("flex flex-wrap items-center gap-3", compact ? "mt-1 shrink-0" : "mt-2")}>
           <p className="text-sm text-danger" aria-live="polite">
-            {copy.syncFailed}
+            {t('syncFailed')}
           </p>
           <Button
             type="button"
@@ -114,7 +115,7 @@ export function ReviewSession({ methodName, compact = false, initialData }: Revi
             pending={retryPending}
             onClick={() => startRetry(() => retrySync())}
           >
-            {copy.syncRetry}
+            {t('syncRetry')}
           </Button>
         </div>
       ) : null}
@@ -122,8 +123,8 @@ export function ReviewSession({ methodName, compact = false, initialData }: Revi
       {reportAck?.variant === "success" ? (
         <StatusBanner
           variant="success"
-          title={copy.reportSuccessTitle}
-          body={copy.reportSuccessBody}
+          title={t("reportSuccessTitle")}
+          body={t("reportSuccessBody")}
           className={cn(compact ? "mt-1 shrink-0" : "mt-2")}
         />
       ) : null}

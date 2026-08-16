@@ -1,14 +1,15 @@
+import { getTranslations } from "next-intl/server";
 import Image from "next/image";
 
-import { copy } from "./content";
 import { wordsReviewGraphicAlt, wordsReviewGraphicSrc } from "./words-home-graphic";
 
 /**
  * Abstract review graphic — decorative only. Contract:
  * docs/specs/feature/words-home.md
  */
-export function WordsReviewCardHeader() {
-  const label = copy.reviewCardHeaderLabel;
+export async function WordsReviewCardHeader() {
+  const t = await getTranslations("words");
+  const label = t("reviewCardHeaderLabel");
 
   return (
     <div className="relative h-20 w-full shrink-0 bg-surface">
