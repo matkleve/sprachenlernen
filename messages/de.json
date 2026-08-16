@@ -1,0 +1,583 @@
+{
+  "profile": {
+    "title": "Profil",
+    "sectionsNavLabel": "Profilbereiche",
+    "sectionLanguages": "Sprachen",
+    "sectionData": "Deine Daten",
+    "sectionDevice": "Dieses Gerät",
+    "spokenHeading": "Sprache, die du sprichst",
+    "spokenCaption": "Menüs, Schaltflächen und der Text, der Wörter auf Karten beschreibt. Eine Änderung setzt deinen Lernfortschritt nicht zurück.",
+    "spokenError": "Deine Sprache konnte nicht geladen werden.",
+    "spokenChangeError": "Deine Sprache konnte nicht geändert werden. Es wurde nichts geändert.",
+    "languagesHeading": "Sprachen",
+    "languagesCaption": "Was du lernst. Die aktive Sprache bestimmt, was die App dir zeigt.",
+    "active": "Aktiv",
+    "makeActive": "Hier wechseln",
+    "addLanguage": "Sprache hinzufügen",
+    "noneYet": "Du hast noch keine Sprache gewählt.",
+    "chooseFirst": "Sprache wählen",
+    "languagesError": "Deine Sprachen konnten nicht geladen werden.",
+    "switchError": "Sprache konnte nicht gewechselt werden. Es wurde nichts geändert.",
+    "standing": "{held} von {poolSize} Starterwörtern stabil behalten",
+    "viewProgress": "Auf Fortschritt ansehen",
+    "signOut": "Abmelden",
+    "appHeading": "App",
+    "appCaption": "Die Version auf diesem Gerät. Nach einem Update prüfen, falls etwas veraltet wirkt.",
+    "runningVersion": "Laufende Version",
+    "checkForUpdates": "Nach Updates suchen",
+    "updateAvailable": "Update verfügbar ({version})",
+    "reload": "Neu laden",
+    "reloadAria": "Neu laden, um von {currentVersion} auf {nextVersion} zu aktualisieren",
+    "homeScreenHeading": "Home-Screen-App (iPhone)",
+    "homeScreenCaption": "Auf dem iPhone fügen Sie die App über die Hauptadresse der Website hinzu, damit Methoden, Wörter und Fortschritt ohne Safaris untere Symbolleiste funktionieren. Apple erlaubt keinen Installationsbutton — Sie nutzen Teilen → Zum Home-Bildschirm.",
+    "homeScreenActive": "Über Ihr Home-Screen-Symbol geöffnet",
+    "homeScreenScopeHeading": "Welche Adresse verwenden",
+    "homeScreenScopeCaption": "Der Pfad in Safari beim Tippen auf „Zum Home-Bildschirm“ bestimmt, welche Bereiche sauber bleiben. Nur die Hauptwebsite verwenden.",
+    "homeScreenScopeRows": [
+      {
+        "path": "/",
+        "covers": "Methoden, Wörter und Fortschritt",
+        "recommended": true
+      },
+      {
+        "path": "/methods",
+        "covers": "Nur Methoden",
+        "recommended": false
+      },
+      {
+        "path": "/words",
+        "covers": "Nur Wörter",
+        "recommended": false
+      },
+      {
+        "path": "/progress",
+        "covers": "Nur Fortschritt",
+        "recommended": false
+      }
+    ],
+    "homeScreenInstallButton": "Installationsanleitung",
+    "homeScreenMainSiteButton": "Hauptwebsite öffnen",
+    "homeScreenReinstall": "Wenn die untere Symbolleiste auf einigen Seiten erscheint, entfernen Sie das Home-Screen-Symbol, öffnen die Hauptwebsite in Safari und fügen die App erneut von dort hinzu — nicht von einer Unterseite."
+  },
+  "appShell": {
+    "navLabel": "Bereiche",
+    "mobileNavLabel": "Bereich wechseln",
+    "account": "Konto",
+    "switchLanguage": "Lernsprache wechseln",
+    "switchError": "Sprache konnte nicht gewechselt werden. Es wurde nichts geändert.",
+    "currentLanguage": "{endonym}, aktuelle Lernsprache",
+    "active": "Aktiv",
+    "addLanguage": "Sprache hinzufügen",
+    "standing": "{held} von {poolSize} Starterwörtern stabil behalten",
+    "viewProgress": "Auf Fortschritt ansehen",
+    "backTo": "Zurück zu {destination}",
+    "appUpdate": {
+      "reloadAria": "Neu laden, um von {currentVersion} auf {nextVersion} zu aktualisieren"
+    },
+    "destinations": {
+      "methods": "Methoden",
+      "words": "Wörter",
+      "progress": "Fortschritt"
+    },
+    "holding": {
+      "words": {
+        "title": "Wörter",
+        "intent": "Alles zu Ihrem Wortschatz: was jetzt fällig ist, was behalten ist, was fragil ist. Wiederholen ist eine von mehreren Tätigkeiten hier — nicht der Name dieses Bereichs."
+      }
+    }
+  },
+  "words": {
+    "reviewCardHeaderLabel": "Wortschatz",
+    "reviewHeading": "Wiederholen",
+    "reviewCaption": "Eine Sitzung nach der anderen — tippen, wenn Sie bereit sind.",
+    "countsHeading": "Ihr Wortschatz",
+    "countsCaption": "Wie viele Starterwörter Sie an die Bedeutung erinnern — nicht jede flektierte Form und kein Rückstau.",
+    "lemmaCalloutTitle": "Was ist ein Lemma?",
+    "lemmaCalloutBody": "Die Wörterbuchform — laufen, nicht laufend; Kind, nicht Kinder. Auf dieser Seite ist jede Karte ein Wort in dieser Form (ein Lemma). „Behalten“ heißt: Sie wüssten die Bedeutung auch nach etwa einer Woche ohne erneutes Sehen. Flektierte Formen werden auf Fortschritt separat erfasst.",
+    "held": "Behalten",
+    "fragile": "Fragil",
+    "newWords": "Neu",
+    "heldDescription": "Sie erinnern zuverlässig an die Bedeutung — mindestens zwei Abstände in der Wiederholung, etwa eine Woche stabil.",
+    "fragileDescription": "Sie haben die Bedeutung in der Wiederholung gesehen, sie ist aber noch nicht stabil genug, um als bekannt zu gelten.",
+    "newDescription": "Bedeutung noch nicht wiederholt.",
+    "blocksHeading": "Frequenzbänder",
+    "blocksCaption": "Wie viele der häufigsten Wörter in Ihrem Starterdeck Sie stabil nach Bedeutung behalten — nach Rangband, noch nicht die ganze Sprache.",
+    "blockLabel": "Ränge {start}–{end}",
+    "blockHeld": "{held} von {poolSize} Bedeutungen behalten",
+    "blockHeldDescription": "Stabile Bedeutungserinnerung — gleiche Regeln wie „Behalten“ oben.",
+    "horizonHeading": "Wiederholungshorizont",
+    "horizonCaption": "Wie Ihre geplanten Wiederholungen über die nächsten 30 Tage verteilt sind — nicht, was in der heutigen Sitzung fällig ist.",
+    "horizonDayToday": "Heute",
+    "horizonDay": "Tag {day}",
+    "horizonExpand": "Vier-Wochen-Plan anzeigen",
+    "horizonCollapse": "Plan ausblenden",
+    "horizonSummaryLight": "Die nächsten vier Wochen sehen leicht aus.",
+    "horizonSummarySteady": "Gleichmäßige Verteilung geplanter Wiederholungen über die nächsten vier Wochen.",
+    "horizonSummaryPeakWeek": "Höhepunkt in Woche {week} (~{avgPerDay} geplant pro Tag).",
+    "horizonWeekLabel": "Woche {week}",
+    "horizonWeekScheduledOne": "1 geplant",
+    "horizonWeekScheduled": "{total} geplant",
+    "horizonWeekAvgPerDay": "~{avgPerDay}/Tag",
+    "horizonWeekStats": "{total} geplant · ~{avgPerDay}/Tag",
+    "horizonWeekAria": "Woche {week}: {total} geplante Wiederholungen, etwa {avgPerDay} pro Tag",
+    "horizonTileOverflow": "+{overflow}",
+    "horizonCausal": "Der Höhepunkt in Woche {week} kommt von den {count} Karten, die Sie am {dateLabel} hinzugefügt haben.",
+    "horizonReturnPlan": "Sie waren eine Weile weg. Ihre nächste Sitzung hat die übliche Länge — der Plan unten zeigt, wie sich geplante Wiederholungen verteilen.",
+    "horizonScheduledNote": "Jede Kachel ist ein geplantes Wiederholungsdatum aus dem Gedächtnisplan — keine Aufgabe, die Sie an diesem Tag erledigen müssen.",
+    "atlasColumns": {
+      "word": "Wort",
+      "rank": "Rang",
+      "stability": "Stabilität (Tage)",
+      "status": "Status"
+    },
+    "bucketNames": {
+      "held": "Behalten",
+      "fragile": "Fragil",
+      "new": "Neu",
+      "mature": "Ausgereift"
+    },
+    "noStability": "—",
+    "orbitHeading": "Ihr Wortschatz-Orbit",
+    "orbitCaption": "Häufige Wörter liegen nahe der Mitte. Dunkle Striche leuchten auf, wenn Sie sie behalten — jeder Ring driftet für sich.",
+    "orbitAriaLabel": "Wortschatzfortschritt als konzentrische Ringe",
+    "orbitShowList": "Liste anzeigen",
+    "orbitListTitle": "Alle Wörter",
+    "orbitListCaption": "Frequenzrang und Status für jedes Wort in Ihrem Deck.",
+    "orbitAggregateLabel": "{count} Wörter, Ränge {start}–{end}",
+    "orbitAggregateHeading": "Ränge {start}–{end}",
+    "orbitAggregateBody": "{count} Wörter in diesem Band am äußeren Ring. {held} Bedeutungen stabil behalten.",
+    "orbitDetailRankLabel": "Frequenzrang",
+    "orbitDetailStabilityLabel": "Stabilität",
+    "orbitDetailBandLabel": "Band",
+    "orbitDetailBandCaption": "Ränge {start}–{end}",
+    "orbitDetailWordsInBandLabel": "Wörter im Band",
+    "orbitDetailHeldSummary": "{held} von {total} behalten"
+  },
+  "reviewSession": {
+    "title": "Wiederholen",
+    "backToMethods": "Zurück zu Methoden",
+    "backToWords": "Zurück zu Wörter",
+    "unknownMethod": "Diese Methode gibt es im Katalog nicht.",
+    "notBuilt": "Diese Methode ist als in der App geführt gelistet, ihre Sitzung ist aber noch nicht gebaut. Der Katalog sagt ehrlich, was existiert.",
+    "prompt": "Was bedeutet es?",
+    "formRecallPrompt": "Haben Sie sich an die Form erinnert?",
+    "formRecallInstruction": "Schreiben Sie die {language}-Form.",
+    "formRecallInstructionFallback": "Schreiben Sie die Form.",
+    "cellLabelWithPerson": "{person} · {form}",
+    "cellLabelFormOnly": "{form}",
+    "flipHint": "Tippen zum Umdrehen",
+    "graded": "Gespeichert.",
+    "saveError": "Ihre Bewertung konnte nicht gespeichert werden.",
+    "saving": "Speichern…",
+    "loading": "Sitzung wird vorbereitet…",
+    "loadError": "Wiederholungssitzung konnte nicht vorbereitet werden.",
+    "emptySession": "Derzeit nichts zu wiederholen.",
+    "again": "Nochmal",
+    "hard": "Schwer",
+    "good": "Gut",
+    "easy": "Leicht",
+    "progress": "{position} von {total}",
+    "completeTitle": "Sitzung abgeschlossen",
+    "completeBodyOne": "Sie haben 1 Karte wiederholt.",
+    "completeBody": "Sie haben {count} Karten wiederholt.",
+    "startReview": "Wiederholung starten",
+    "srsSessionName": "Abstands-Wiederholungssitzung",
+    "languageLabel": "{name}",
+    "syncingOne": "1 Wiederholung wird synchronisiert…",
+    "syncing": "{count} Wiederholungen werden synchronisiert…",
+    "syncFailed": "Ihre Bewertung konnte nicht gespeichert werden.",
+    "syncRetry": "Erneut versuchen",
+    "report": "Problem mit dieser Karte melden",
+    "reportDone": "Danke — wir planen diese Karte in Ihrer nächsten Sitzung nicht mehr ein. Diese können Sie zu Ende führen."
+  },
+  "progress": {
+    "title": "Wo Sie stehen",
+    "intro": "Diese Seite zeigt, was tatsächlich über Ihre Sprache gemessen wurde — und sagt klar, wo noch nichts gemessen wurde. Ein Niveau, auf dem Sie nicht geprüft wurden, ist kein Niveau; Sie finden hier also noch keines.",
+    "skillsHeading": "Ihre vier Fertigkeiten",
+    "skillsCaption": "Jede Fertigkeit, ihr Messstatus und was sie messen würde",
+    "skillColumns": {
+      "skill": "Fertigkeit",
+      "status": "Status",
+      "route": "Was sie messen würde"
+    },
+    "overallHeading": "Gesamtniveau",
+    "overallWithheld": "Es gibt kein Gesamtniveau — eines zu erfinden wäre genau das Problem. Das Gesamtniveau ist das zweitniedrigste der zählenden Fertigkeiten, und heute zählt keine — es gibt also nichts, von dem man das Zweitniedrigste nehmen könnte.",
+    "signalsHeading": "Was tatsächlich erfasst ist",
+    "signalsIntro": "Dies sind die sieben Größen, aus denen das Niveaumodell aufgebaut ist. Ein Signal hat Wert und Status; nur eine Fertigkeit kann ein Niveau haben — Sie sehen deshalb neben keinem Signal Buchstabe und Zahl.",
+    "signalsCaption": "Die sieben Signale der ersten Ebene und ob für jedes etwas erfasst wurde",
+    "signalColumns": {
+      "signal": "Signal",
+      "status": "Status",
+      "value": "Wert"
+    },
+    "noData": "Noch nichts erfasst",
+    "hasData": "Erfasst",
+    "noValue": "—",
+    "stabilityValue": "{days} Tage, gemittelt über {taskCount, plural, one {# Karte} other {# Karten}}, die Sie wiederholt haben",
+    "vocabularyValue": "{held} von {poolSize} Starterwörtern stabil behalten — nicht auf die ganze Sprache hochgerechnet",
+    "formMasteryValue": "{held} von {poolSize} Starterformen stabil behalten — getrennt von der Wortschatzgröße",
+    "emptyState": "Sie haben noch nichts wiederholt, deshalb hat nichts unten einen Wert. Das ist der ehrliche Ausgangszustand, kein Versagen.",
+    "startReview": "Wiederholungssitzung starten",
+    "doseHeading": "Was ein Niveau kostet",
+    "doseIntro": "Die Stunden unten sind der Nenner, den niemand in dieser Kategorie veröffentlicht. Es sind geführte Lernstunden ab Null — die Summe bis zu diesem Niveau, nicht die Kosten des einzelnen Schritts.",
+    "doseCaption": "Kumulative geführte Stunden pro Niveau und was eine tägliche Gewohnheit erreicht",
+    "doseColumns": {
+      "level": "Niveau",
+      "hours": "Geführte Stunden",
+      "atFifteen": "Bei 15 Minuten pro Tag"
+    },
+    "doseHours": "{min}–{max} Stunden",
+    "doseYears": "{minYears}–{maxYears} Jahre",
+    "doseHabit": "Fünfzehn Minuten täglich, jeden Tag ohne Auslassen, sind etwa {hours} Stunden im Jahr.",
+    "doseBorrowedUncalibrated": "Diese Zahlen sind entliehen und nicht kalibriert: {name}, englischsprachige institutionelle Schätzungen, hier für ein anderes Sprachenpaar verwendet. Als Größenordnung behandeln, nicht als Messung. Eine geführte Stunde ist angeleitete Zeit mit Rückmeldung; App-Minuten sind das nur teilweise — der Vergleich schmeichelt der App eher als umgekehrt.",
+    "doseBorrowedCalibrated": "Diese Zahlen stammen aus {name}, kalibriert für {calibratedFor}. Eine geführte Stunde ist angeleitete Zeit mit Rückmeldung; App-Minuten sind das nur teilweise.",
+    "doseNoNumerator": "Es gibt hier keine Zeile für die Stunden, die Sie geübt haben, weil die App sie nicht zählt. Sie erfasst, wie lange jede Karte dauerte — Zeit innerhalb von Wiederholungssitzungen und nichts anderes — und etwa ein Drittel bis die Hälfte der empfohlenen Übung passiert außerhalb der App. Eine Summe nur aus Kartenzeit wäre um einen unbekannten Betrag falsch; durch die Stunden oben zu teilen, würde den Fehler präzise wirken lassen.",
+    "gapHeading": "Was fehlt und warum",
+    "gapBody": "Eine sprachweite Wortschatzschätzung und jedes GER-Niveau, das sie speisen würde, sind nicht gebaut. Hochrechnung braucht einen frequenzsortierten Pool groß genug, um einen Grenzrang zu schätzen — das ausgelieferte Starterset hat zweitausend Wörter. Die Ankertabelle, die Wortschatz einem Niveau zuordnet, ist für dieses Sprachenpaar ebenfalls noch nicht kalibriert. Beides wird hier benannt statt geschätzt.",
+    "skillNames": {
+      "reading": "Lesen",
+      "listening": "Hören",
+      "speaking": "Sprechen",
+      "writing": "Schreiben"
+    },
+    "statusNames": {
+      "measured": "Gemessen",
+      "uncertain": "Unsicher — noch wenig Daten",
+      "not-measured": "Nicht gemessen",
+      "not-in-profile": "Nicht Teil Ihres Profils"
+    },
+    "signalNames": {
+      "vocabulary-size": "Geschätzte Wortschatzgröße",
+      "form-mastery": "Formbeherrschung",
+      "recall-stability": "Erinnerungsstabilität",
+      "lexical-coverage": "Lexikalische Abdeckung",
+      "response-time": "Reaktionszeit bei korrekter Erinnerung",
+      "success-by-difficulty": "Erfolg nach Aufgabenschwierigkeit",
+      "production-quality": "Produktionsqualität"
+    },
+    "routeToMeasuring": {
+      "reading": "Texte lesen, deren Wörter diese App kennt — noch keine ausgeliefert.",
+      "listening": "Noch nichts. Kein Signal im Niveaumodell ist dem Hören zugeordnet — eine Lücke im Modell, nicht in Ihrer Übung.",
+      "speaking": "Sprechen, das die App aufzeichnet und bewertet — nicht gebaut.",
+      "writing": "Freies Schreiben oder Diktat, das die App bewerten kann — nicht gebaut."
+    }
+  },
+  "methodMenu": {
+    "title": "Übungsweisen",
+    "drillInShellTitle": "Methoden",
+    "intro": "Über sechzig Wege, wie Menschen tatsächlich Sprachen lernen. Drei Fragen grenzen die Liste ein — wie viel Zeit Sie haben, was Sie trainieren wollen und wie viel Energie Sie haben. Nur verfeinern, wenn nötig.",
+    "timeLabel": "Wie viel Zeit haben Sie?",
+    "timeScaleHint": "Kurze Schritte am Anfang — nach rechts ziehen für länger, bis zu einem Tag oder endlos",
+    "skillLabel": "Was möchten Sie trainieren?",
+    "anySkill": "Beliebige Fertigkeit",
+    "skillsHeading": "Fertigkeiten",
+    "energyLabel": "Wie viel Energie haben Sie?",
+    "anyEnergy": "Beliebige Energie",
+    "refineLabel": "Weiter eingrenzen",
+    "refineHint": "Nur wenn die Liste noch zu breit wirkt — Hände, Stimme oder ob Sie die Augen brauchen.",
+    "refineAny": "Egal",
+    "refineDimension": {
+      "hands": "Hände",
+      "voice": "Stimme",
+      "eyes": "Augen"
+    },
+    "nothingFits": "Nichts im Katalog passt zu diesen Filtern. Versuchen Sie mehr Zeit, eine andere Fertigkeit oder weniger Verfeinerungen.",
+    "dailyHeading": "Drei für heute",
+    "dailyIntro": "Echte Wahl ohne Entscheidungslast — eine leichte Option, eine gut belegte und eine zur Abwechslung. Die vollständige Liste steht weiter unten.",
+    "catalogueUnavailable": "Der Methodenkatalog konnte nicht gelesen werden — unten wird Ihnen nichts vorenthalten, es gibt nichts anzuzeigen. Was schiefging:",
+    "card": {
+      "trains": "Trainiert",
+      "needs": "Braucht",
+      "needsNothing": "Nichts Besonderes",
+      "duration": "Dauert",
+      "openEnded": "Ohne festes Ende",
+      "intensity": "Anstrengung",
+      "doesNotDo": "Was sie nicht leistet",
+      "properties": "Methodeneigenschaften",
+      "badges": "Methoden-Badges",
+      "effort": "Anstrengung"
+    },
+    "skillLabels": {
+      "reading": "Lesen",
+      "listening": "Hören",
+      "speaking": "Sprechen",
+      "writing": "Schreiben"
+    },
+    "contributionLabels": {
+      "primary": "primär",
+      "secondary": "sekundär",
+      "slight": "gering"
+    },
+    "hosted": "Die App führt das aus",
+    "notHosted": "Sie machen das selbst — die App führt es nicht aus",
+    "hostedShort": "App führt aus",
+    "notHostedShort": "Außerhalb der App",
+    "detail": {
+      "practical": "Praktisch",
+      "practicalDetails": "Praktische Details",
+      "mainly": "Hauptsächlich",
+      "researchConfidence": "Wie sicher ist die Forschung?"
+    },
+    "startSession": "Starten",
+    "sessionNotBuilt": "Die App wird diese Methode hier ausführen, sobald ihre Sitzung gebaut ist. Lesen Sie vorerst, was sie tut, und probieren Sie sie außerhalb der App, wenn möglich.",
+    "backToMethods": "Zurück zu Methoden",
+    "methodNotFound": "Keine Methode mit diesem Namen im Katalog.",
+    "standingLabel": "Aktueller Stand",
+    "standingEmpty": "Noch nichts erfasst — Ihr Stand erscheint hier, sobald Sie einige Karten wiederholt haben.",
+    "standingStartReview": "Wiederholungssitzung starten",
+    "standingRecorded": "{held} von {poolSize} Starterwörtern stabil behalten. Noch keine Fertigkeitsniveaus — Bedeutungserinnerung misst nicht Lesen, Hören, Sprechen oder Schreiben.",
+    "standingSeeProgress": "Vollständigen Fortschrittsbericht ansehen",
+    "minutes": "Min.",
+    "or": "oder",
+    "eitherOr": "oder",
+    "sections": {
+      "reading": "Lesen",
+      "listening": "Hören",
+      "speaking": "Sprechen",
+      "writing": "Schreiben",
+      "form": "Grammatik und Form",
+      "vocabulary": "Wortschatz",
+      "world": "Draußen in der Welt",
+      "commitments": "Laufende Verpflichtungen"
+    },
+    "evidence": {
+      "A": "Evidenz A — repliziert, Wirkung auch außerhalb des Labors gezeigt",
+      "B": "Evidenz B — gut gestützt, mit Grenzen",
+      "C": "Evidenz C — plausibel und verbreitet, aber dünn belegt",
+      "D": "Evidenz D — eine Produktentscheidung, kein Befund"
+    },
+    "evidenceCard": {
+      "A": "Starke Evidenz",
+      "B": "Solide Evidenz",
+      "C": "Dünne Evidenz",
+      "D": "Nicht erforscht"
+    },
+    "evidenceProse": {
+      "A": "Repliziert, Wirkung auch außerhalb des Labors gezeigt",
+      "B": "Gut gestützt, mit Grenzen",
+      "C": "Plausibel und verbreitet, aber dünn belegt",
+      "D": "Eine Produktentscheidung, kein Befund"
+    },
+    "effortCard": {
+      "1": "Leichte Anstrengung",
+      "2": "Braucht Konzentration",
+      "3": "Erschöpfend"
+    },
+    "intensity": {
+      "1": "geht auch müde oder abgelenkt",
+      "2": "braucht Aufmerksamkeit, aber keine Anstrengung",
+      "3": "danach sind Sie müde"
+    },
+    "dimensionValues": {
+      "eyes": {
+        "free": "Augen frei",
+        "occupied": "Augen beschäftigt"
+      },
+      "hands": {
+        "free": "beide Hände",
+        "one": "eine Hand",
+        "none": "keine Hände"
+      },
+      "voice": {
+        "aloud": "laut sprechen",
+        "quiet": "leise sprechen",
+        "none": "keine Stimme"
+      },
+      "writingSurface": {
+        "paper": "Papier",
+        "keyboard": "eine Tastatur",
+        "touch": "ein Touchscreen",
+        "none": "nichts zum Schreiben"
+      },
+      "sound": {
+        "speaker": "einen Lautsprecher",
+        "headphones": "Kopfhörer",
+        "silent": "kein Ton"
+      },
+      "attention": {
+        "full": "volle Aufmerksamkeit",
+        "divided": "geteilte Aufmerksamkeit",
+        "fragmented": "fragmentierte Aufmerksamkeit"
+      },
+      "company": {
+        "alone": "allein",
+        "speakers": "Menschen, die die Sprache sprechen",
+        "others": "andere Menschen"
+      }
+    },
+    "refineOptions": {
+      "hands": [
+        {
+          "value": "none",
+          "label": "Freihändig"
+        },
+        {
+          "value": "one",
+          "label": "Eine Hand"
+        },
+        {
+          "value": "free",
+          "label": "Beide Hände"
+        }
+      ],
+      "voice": [
+        {
+          "value": "none",
+          "label": "Stumm"
+        },
+        {
+          "value": "quiet",
+          "label": "Leise Stimme"
+        },
+        {
+          "value": "aloud",
+          "label": "Laut sprechen"
+        }
+      ],
+      "eyes": [
+        {
+          "value": "free",
+          "label": "Augen auf dem Bildschirm"
+        },
+        {
+          "value": "occupied",
+          "label": "Augen woanders"
+        }
+      ]
+    },
+    "timeBudget": {
+      "endless": "Endlos",
+      "hour1": "1 Stunde",
+      "hour1half": "1½ Stunden",
+      "hour2": "2 Stunden",
+      "hour3": "3 Stunden",
+      "hour4": "4 Stunden",
+      "hour6": "6 Stunden",
+      "hour8": "8 Stunden",
+      "hour12": "12 Stunden",
+      "day1": "1 Tag",
+      "hours": "{count} Stunden",
+      "minutes": "{count} Min."
+    }
+  },
+  "languagePicker": {
+    "title": "Welche Sprache möchten Sie lernen?",
+    "intro": "Sie können später eine weitere hinzufügen. Hier sind Sie nicht gebunden.",
+    "notStarted": "{poolSize} Wörter im Starterset",
+    "held": "{held} von {poolSize} Starterwörtern stabil behalten",
+    "unavailable": "Noch nicht verfügbar — wir haben noch kein Wortset für {name}, hinter dem wir stehen",
+    "alreadyLearning": "Bereits in Lernliste",
+    "active": "Aktiv",
+    "choose": "Mit dieser Sprache starten",
+    "footnote": "Diese Zahlen beziehen sich nur auf das Starterset. Nichts hier ist eine Aussage über die Sprache insgesamt.",
+    "error": "Diese Sprache konnte nicht hinzugefügt werden."
+  },
+  "accountData": {
+    "title": "Deine Daten",
+    "intro": "Laden Sie alles herunter, was die App über Ihr Lernen gespeichert hat, oder löschen Sie Ihr Konto und alle zugehörigen Daten.",
+    "exportHeading": "Herunterladen",
+    "exportCaption": "Klares JSON, das Sie ohne diese App lesen können. Das Wiederholungsprotokoll reicht, um Ihren Plan woanders neu aufzubauen.",
+    "scopeLabel": "Was einschließen",
+    "scopeComplete": "Vollständiges Archiv",
+    "scopeReviews": "Nur Wiederholungsprotokoll",
+    "download": "JSON herunterladen",
+    "deleteHeading": "Konto löschen",
+    "deleteCaption": "Entfernt dauerhaft Ihr Konto und jede von Ihnen erfasste Wiederholung. Das kann nicht rückgängig gemacht werden.",
+    "deleteAction": "Konto löschen",
+    "confirmTitle": "Konto löschen?",
+    "confirmBody": "Ihr Konto, Wiederholungsverlauf und alle Lerndaten werden dauerhaft gelöscht. Sie werden sofort abgemeldet.",
+    "confirmAction": "Ja, alles löschen",
+    "cancel": "Abbrechen",
+    "exportFileName": "sprachenlernen-export.json"
+  },
+  "auth": {
+    "emailLabel": "E-Mail",
+    "passwordLabel": "Passwort",
+    "passwordHint": "Mindestens 6 Zeichen.",
+    "signUp": {
+      "heading": "Konto erstellen",
+      "submit": "Konto erstellen",
+      "confirmationSent": "Prüfen Sie Ihre E-Mail auf den Bestätigungslink und melden Sie sich danach an.",
+      "switchPrompt": "Haben Sie bereits ein Konto?",
+      "switchLinkLabel": "Anmelden"
+    },
+    "signIn": {
+      "heading": "Anmelden",
+      "submit": "Anmelden",
+      "switchPrompt": "Noch kein Konto?",
+      "switchLinkLabel": "Konto erstellen"
+    },
+    "oauthDivider": "oder fortfahren mit",
+    "oauthGoogle": "Google",
+    "oauthApple": "Apple"
+  },
+  "privacy": {
+    "bannerTitle": "Cookies und Speicher",
+    "bannerBody": "Wir verwenden notwendige Cookies, damit Sie angemeldet bleiben. Optionale Analysen bleiben aus, bis Sie zustimmen.",
+    "bannerLink": "Datenschutzerklärung",
+    "acceptAll": "Akzeptieren",
+    "essentialOnly": "Nur notwendige",
+    "title": "Datenschutz",
+    "intro": "Diese Seite wird die vollständige Datenschutzerklärung enthalten. Bis zur rechtlichen Prüfung: Das speichert die App heute tatsächlich.",
+    "stores": [
+      "Konto: E-Mail und Benutzer-ID (Supabase Auth), erforderlich zur Anmeldung.",
+      "Sitzungs-Cookie: hält Sie angemeldet.",
+      "Wiederholungsprotokoll (wenn gebaut): Ihre Bewertungen und Karten-IDs, nur anhängend, Ihrem Konto zugeordnet.",
+      "Cookie-Wahl: Ihre Entscheidung Akzeptieren/nur Notwendige nur in diesem Browser."
+    ],
+    "contact": "Fragen: Nutzen Sie die Adresse im Impressum, sobald es veröffentlicht ist.",
+    "accountLink": "Angemeldet? Öffnen Sie Konto im App-Menü, um Ihre Daten herunterzuladen oder zu löschen."
+  },
+  "notFound": {
+    "title": "Seite nicht gefunden",
+    "body": "Diese Adresse existiert nicht. Sie wurde vielleicht verschoben, oder der Link ist alt.",
+    "back": "Zurück zum Start"
+  },
+  "install": {
+    "title": "Zum Home-Bildschirm hinzufügen",
+    "intro": "Auf dem iPhone funktioniert die Home-Screen-App nur korrekt, wenn Sie sie von der Hauptadresse der Website hinzufügen — nicht von Methoden, Wörter oder Fortschritt.",
+    "whyHeading": "Warum die Hauptadresse",
+    "whyBody": "Apple bindet die Home-Screen-App an die Seite, auf der Sie „Zum Home-Bildschirm“ getippt haben. Von der Startseite hinzugefügt funktionieren alle Bereiche ohne Safaris untere Symbolleiste. Von einer Unterseite bleibt nur dieser Bereich (und seine Unterseiten) sauber.",
+    "noButton": "Das iPhone erlaubt Websites keinen Installationsbutton. Sie nutzen Safaris Teilen-Menü → Zum Home-Bildschirm.",
+    "stepsHeading": "Schritte (iPhone)",
+    "steps": [
+      "Entfernen Sie ein vorhandenes Home-Screen-Symbol für diese App.",
+      "Öffnen Sie die Hauptwebsite in Safari (Schaltfläche unten — kein Lesezeichen zu Methoden oder Wörter).",
+      "Tippen Sie Teilen (Quadrat mit Pfeil) → Zum Home-Bildschirm → Hinzufügen.",
+      "Öffnen Sie die App nur über das neue Symbol. Melden Sie sich bei Aufforderung an."
+    ],
+    "openSite": "Hauptwebsite in Safari öffnen",
+    "openSiteAria": "Hauptwebsite öffnen, um diese App zum Home-Bildschirm hinzuzufügen",
+    "alreadySignedIn": "Wenn Sie hier im Browser angemeldet sind, können Sie trotzdem vom Home-Bildschirm hinzufügen — die Home-Screen-App fordert Sie erneut zur Anmeldung auf.",
+    "backToApp": "Zurück zur App"
+  },
+  "marketing": {
+    "header": {
+      "brand": "Sprachenlernen",
+      "signIn": "Anmelden",
+      "signUp": "Konto erstellen"
+    },
+    "landing": {
+      "eyebrow": "Evidenzbasiertes Sprachenlernen",
+      "headline": "Fortschritt wird als gemessene Kompetenz gezeigt, nie als Aktivität.",
+      "subhead": "Über sechzig Wege, wie Menschen tatsächlich Sprachen lernen — nicht die Handvoll, die eine App zufällig umsetzt.",
+      "timeHonesty": "Fünfzehn Minuten täglich, jeden Tag ohne Auslassen, sind etwa {hours} Stunden im Jahr — grob ein Viertel des Wegs zu B1 ab Null. Langsam zu wirken in diesem Tempo ist Arithmetik, kein Versagen.",
+      "pillarsHeading": "Was daraus folgt",
+      "pillars": [
+        {
+          "text": "Der Planer ist eine sichtbare Oberfläche, keine Blackbox."
+        },
+        {
+          "text": "Zwei gleichwertige Säulen: SRS und Lesen/Hören."
+        },
+        {
+          "text": "Ein Niveaumodell mit Teilniveaus pro Fertigkeit plus einer ehrlichen Gesamtzahl."
+        }
+      ],
+      "primaryCta": "Konto erstellen",
+      "secondaryCta": "Anmelden",
+      "languagesLink": "Was die App für jede Sprache behauptet",
+      "designExplorerLink": "Fünf Designrichtungen vergleichen"
+    }
+  }
+}
