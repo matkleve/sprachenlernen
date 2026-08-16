@@ -8,7 +8,7 @@ import { wordsReviewGraphicAlt, wordsReviewGraphicSrc } from "./words-home-graph
  * docs/specs/feature/words-home.md
  */
 export function WordsReviewCardHeader() {
-  const label = copy.reviewHeading;
+  const label = copy.reviewCardHeaderLabel;
 
   return (
     <div className="relative h-20 w-full shrink-0 bg-surface">

@@ -5,6 +5,7 @@ import { describe, expect, it, vi } from "vitest";
 import { copy as reviewCopy } from "@/features/review-session/content";
 import { copy } from "@/features/words/content";
 import { WordsHome } from "@/features/words/WordsHome";
+import { wordsReviewGraphicAlt, wordsReviewGraphicSrc } from "@/features/words/words-home-graphic";
 import { DEFAULT_FREQUENCY_BANDS } from "@/lib/frequency-blocks";
 import { buildHorizonDisplay } from "@/lib/review-horizon";
 import type { VocabularySnapshot } from "@/lib/vocabulary-snapshot";
@@ -69,6 +70,12 @@ describe("WordsHome", () => {
     expect(link.getAttribute("href")).toContain("method=srs-session");
     expect(screen.queryByText(/\d+\s+due/i)).toBeNull();
     expect(screen.getByRole("heading", { name: copy.reviewHeading })).toBeDefined();
+    const headerImage = screen.getByRole("img", {
+      name: wordsReviewGraphicAlt(copy.reviewCardHeaderLabel),
+    });
+    expect(headerImage.getAttribute("src")).toContain(
+      encodeURIComponent(wordsReviewGraphicSrc),
+    );
   });
 
   it("explains that held counts meaning recall and what a lemma is", () => {

@@ -57,8 +57,11 @@ outcomes.
 ## Acceptance criteria
 
 - [ ] Given a signed-in learner on `/words`, when the page renders, then the
-      review card shows a decorative header graphic (`h-20`) above the intent
-      copy, held, fragile and new counts are shown with copy that they track **meaning
+      review card shows a decorative header graphic (`h-20`) with a vocabulary
+      section label on the overlay and **Review** as the in-card action heading
+      below the intent copy.
+- [ ] Given a signed-in learner on `/words`, when the page renders, then held,
+      fragile and new counts are shown with copy that they track **meaning
       recall** (not inflected forms), a lemma callout explains what a **lemma** is
       (collapsed in a disclosure below `md`, always visible from `md` up),
       frequency bands name each rank range and stable-held count, the vocabulary

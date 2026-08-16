@@ -13,6 +13,7 @@ import type { HorizonDisplay } from "@/lib/review-horizon";
 import { buildVocabularyOrbit } from "@/lib/vocabulary-orbit";
 import type { VocabularySnapshot } from "@/lib/vocabulary-snapshot";
 import { cn } from "@/lib/utils";
+import { methodSectionSurface } from "@/features/method-menu/section-surface";
 
 type WordsHomeProps = {
   snapshot: VocabularySnapshot;
@@ -42,7 +43,7 @@ export function WordsHome({
 
   return (
     <ShellPageContent width="wide">
-      <section className="overflow-hidden rounded-card border border-line bg-section-vocabulary-soft shadow-soft">
+      <section className={methodSectionSurface("vocabulary", "rounded-card shadow-soft")}>
         <WordsReviewCardHeader />
         <div className="p-6">
           <p className="max-w-2xl text-base leading-relaxed text-muted">{holding.words.intent}</p>

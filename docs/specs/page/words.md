@@ -20,8 +20,9 @@ Mobile layer stack: [`../feature/page-layout.layers.md`](../feature/page-layout.
 
 ## Scope
 
-- **In:** `app/(app)/words/page.tsx` — ADR-0009 intent copy, **Start review**,
-  held/fragile/new counts, frequency bands, review horizon
+- **In:** `app/(app)/words/page.tsx` — ADR-0009 intent copy, decorative review
+  header graphic on the raised action card, **Start review**, held/fragile/new
+  counts, frequency bands, review horizon
   ([`review-horizon.md`](../feature/review-horizon.md)), vocabulary orbit.
   See [`words-home.md`](../feature/words-home.md) and
   [`vocabulary-orbit.md`](../feature/vocabulary-orbit.md).
@@ -35,7 +36,7 @@ Mobile layer stack: [`../feature/page-layout.layers.md`](../feature/page-layout.
 
 | # | User action | System response |
 | --- | --- | --- |
-| 1 | Opens `/words` | Title, intent copy, Start review, snapshot sections |
+| 1 | Opens `/words` | Title, intent copy in a vocabulary-tinted raised card with a decorative header graphic, Start review, snapshot sections |
 | 2 | Taps Start review | Navigates to `/words/review?method=srs-session` without passing through Methods |
 
 ## States

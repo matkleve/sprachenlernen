@@ -8,15 +8,15 @@ import { WordsReviewCardHeader } from "./WordsReviewCardHeader";
 import { wordsReviewGraphicAlt, wordsReviewGraphicSrc } from "./words-home-graphic";
 
 describe("WordsReviewCardHeader", () => {
-  it("shows the review label on the header overlay", () => {
+  it("shows the vocabulary label on the header overlay", () => {
     render(<WordsReviewCardHeader />);
-    expect(screen.getByText(copy.reviewHeading)).toBeDefined();
+    expect(screen.getByText(copy.reviewCardHeaderLabel)).toBeDefined();
   });
 
   it("uses the words review asset and decorative alt text", () => {
     render(<WordsReviewCardHeader />);
     const image = screen.getByRole("img", {
-      name: wordsReviewGraphicAlt(copy.reviewHeading),
+      name: wordsReviewGraphicAlt(copy.reviewCardHeaderLabel),
     });
     expect(image.getAttribute("src")).toContain(
       encodeURIComponent(wordsReviewGraphicSrc),
