@@ -62,11 +62,16 @@ Wordmark stays **Source Serif 4** semibold, `text-ink`. Mono mark on
 
 | Asset | Path | Notes |
 | --- | --- | --- |
-| SVG icon | `public/icon.svg` | `purpose: maskable` in manifest |
+| SVG icon | `public/icon.svg` | Favicon; Android fallback |
+| PNG icons | `public/icon-192.png`, `public/icon-512.png` | Web manifest (iOS/Android ignore SVG) |
+| Apple Home Screen | `public/apple-touch-icon.png` (180×180) | **Required** for iOS Add to Home Screen |
 | Next favicon | `app/icon.svg` | Must match `public/icon.svg` |
-| Apple | `app/icon.svg` via Next metadata | iOS reads favicon chain |
 
-Promote a direction: `node scripts/sync-brand-assets.mjs <direction-id>`.
+**iOS never updates an existing Home Screen icon in place.** After deploy, delete
+the old icon and Add to Home Screen again from `/` in Safari.
+
+Promote a direction: `node scripts/sync-brand-assets.mjs <direction-id>` (also
+runs `scripts/generate-pwa-icons.mjs`).
 
 ---
 
@@ -83,7 +88,7 @@ Promote a direction: `node scripts/sync-brand-assets.mjs <direction-id>`.
 ## Open for designer
 
 - [ ] Dark-canvas mark variant for `prefers-color-scheme: dark` Home Screen?
-- [ ] PNG fallbacks (192, 512) for Android install UI?
+- [ ] PNG fallbacks (192, 512) for Android install UI — **shipped** (`generate-pwa-icons.mjs`)
 - [ ] Replace text wordmark in `PublicHeader` with mark + text lockup?
 - [ ] Wordmark as custom SVG paths (currently text in explorer mock only)?
 

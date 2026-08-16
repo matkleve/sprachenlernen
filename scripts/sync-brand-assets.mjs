@@ -5,6 +5,7 @@
  * Example: node scripts/sync-brand-assets.mjs warm-scholar-bars
  */
 import { copyFileSync, existsSync, readFileSync, writeFileSync } from "node:fs";
+import { execSync } from "node:child_process";
 import { join } from "node:path";
 
 const ROOT = join(import.meta.dirname, "..");
@@ -43,10 +44,12 @@ for (const target of targets) {
 const publicDirection = join(ROOT, "public/design/logo/directions", sourceName);
 copyFileSync(source, publicDirection);
 
+execSync("node scripts/generate-pwa-icons.mjs", { stdio: "inherit", cwd: ROOT });
+
 const updated = directions.map((entry) => ({
   ...entry,
   shipped: entry.id === id,
 }));
 writeFileSync(directionsPath, `${JSON.stringify(updated, null, 2)}\n`);
 
-console.log(`Shipped ${id} → public/icon.svg, app/icon.svg`);
+console.log(`Shipped ${id} → public/icon.svg, app/icon.svg, and PWA PNGs`);

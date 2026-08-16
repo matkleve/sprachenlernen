@@ -18,16 +18,28 @@ export default function manifest(): MetadataRoute.Manifest {
     theme_color: "#f7f4ef", // token-check-ignore: mirrors --color-canvas (light)
     icons: [
       {
-        src: "/icon.svg",
-        sizes: "any",
-        type: "image/svg+xml",
+        src: "/icon-192.png",
+        sizes: "192x192",
+        type: "image/png",
         purpose: "any",
+      },
+      {
+        src: "/icon-512.png",
+        sizes: "512x512",
+        type: "image/png",
+        purpose: "any",
+      },
+      {
+        src: "/icon-512.png",
+        sizes: "512x512",
+        type: "image/png",
+        purpose: "maskable",
       },
       {
         src: "/icon.svg",
         sizes: "any",
         type: "image/svg+xml",
-        purpose: "maskable",
+        purpose: "any",
       },
     ],
   };

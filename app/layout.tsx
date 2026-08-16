@@ -13,6 +13,10 @@ export const metadata: Metadata = buildPageMetadata({
   // defect T-04 exists to fix one level up from the home route.
   title: { default: site.name, template: `%s · ${site.name}` },
   description: site.description,
+  icons: {
+    icon: [{ url: "/icon.svg", type: "image/svg+xml" }],
+    apple: [{ url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" }],
+  },
   appleWebApp: {
     capable: true,
     title: site.name,
