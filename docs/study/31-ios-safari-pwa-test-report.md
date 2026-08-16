@@ -1,6 +1,6 @@
 # 31 · iOS Safari / PWA — Issue report & test plan
 
-**Status:** open — test navigation A/B first · **Build:** `v0.6.0`+
+**Status:** install-URL root cause confirmed · owner reinstall from `/` pending · **Build:** `v0.8.0`+
 
 This document consolidates everything we investigated, shipped, rejected, and
 still need to verify on a **real iPhone**. It supersedes scattered chat notes;
@@ -247,15 +247,20 @@ JavaScript. Instructions only.
 
 ---
 
-## Open items (not done)
+## Resolved (was open)
+
+| # | Item | Closed |
+| --- | --- | --- |
+| 2 | Remove `/methods-mirror` from nav | `v0.8.0` |
+| 3 | Profile **Home screen app** + `/install` | `v0.7.0` |
+| 5 | study/29 executive summary — toolbar hidden preferred; updates via App | study/29 |
+
+## Open items
 
 | # | Item | Priority |
 | --- | --- | --- |
-| 1 | **Owner LIVE CHECK** on real iPhone with `v0.4.1` (matrix below) | **Blocker** |
-| 2 | ~~Remove `/methods-mirror` from nav when QA passes~~ | **Done** (`v0.7.1`) |
-| 3 | Profile **Home screen app** + `/install` | **Shipped** |
-| 4 | Body bisect (if reinstall from `/` still fails) | `/words-bisect`, `/progress-bisect` |
-| 5 | Update study/29 executive summary with “toolbar hidden preferred; updates via App” | Docs |
+| 1 | **Owner LIVE CHECK** — reinstall PWA from `/`, then pill all destinations (matrix § C) | **Blocker** |
+| 4 | Body bisect only if reinstall from `/` still shows toolbar asymmetry | `/words-bisect`, `/progress-bisect` |
 
 ---
 
@@ -375,7 +380,7 @@ Green update prompt never appears?
 | Change | Ref | Status |
 | --- | --- | --- |
 | Scroll unification | PR #76 | Merged |
-| Methods mirror debug | PR #81 | Merged — remove after QA |
+| Methods mirror debug | PR #81 | Merged — **removed** `v0.8.0` |
 | Horizon `overflow-x-auto` regression | `23e51db` | Merged |
 | App update prompt | PR #84 | Merged |
 | Profile App section | PR #87 | Merged |

@@ -1,6 +1,6 @@
 # 32 · PWA install — Profile UX (designer review)
 
-**Status:** draft for owner/designer sign-off · **2026-08-15**
+**Status:** shipped · designer tweaks optional · **2026-08-15** (updated 2026-08-16)
 
 Companion to [`31-ios-safari-pwa-test-report.md`](31-ios-safari-pwa-test-report.md) and
 [`../specs/feature/pwa-install.md`](../specs/feature/pwa-install.md).
@@ -52,7 +52,7 @@ Home screen (iPhone)
 | **Open main website** | Secondary `ActionLink` | `/` — the only safe install address |
 | Section path links | **Out of scope** — do not add buttons to `/methods` etc.; they invite wrong installs |
 
-### Open for designer
+### Open for designer (optional — not blockers)
 
 - [ ] Merge **App** + **Home screen** under one heading **On this device**?
 - [ ] Show scope table on `/install` only (shorter profile)?
