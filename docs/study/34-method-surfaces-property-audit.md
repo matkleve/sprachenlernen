@@ -1,19 +1,18 @@
 # 34 · Method surfaces — property audit (UX designer review)
 
-**Status:** recommendation — pending owner **go** before implementation.
-Written 2026-08-16 after owner flagged drift: cards look leaner (badges + chips),
-detail grew a badge band again, and the **effort dot scale** reappeared on detail
-while study/27 shipped plain labels on cards.
+**Status:** owner go 2026-08-16 — **T-B10d shipped**. Card chips show all requirements;
+detail band: tiers + plain effort; evidence disclosure-only; full-bleed hero kept.
 
-This chapter audits **every catalogue field and every UI property** on method
-cards and detail pages, decides what belongs where, and resolves tensions between
-[27](27-method-badges.md), [33](33-skill-tier-badges-exploration.md), and what
-shipped on 2026-08-16.
+---
 
-Implementation contracts updated in the same session:
-[`method-menu.md`](../specs/page/method-menu.md),
-[`method-detail.md`](../specs/page/method-detail.md),
-[`method-badge.md`](../specs/component/method-badge.md) — **draft until go**.
+## Owner decisions (2026-08-16 go)
+
+| # | Topic | Decision |
+| --- | --- | --- |
+| 1 | Effort on detail | Plain badge on band (right) **and** anchor sentence in Practical |
+| 2 | Card requirement chips | **Display all** — no cap |
+| 3 | Tier art | **No update** — Lucide on cards; placeholder tier SVGs on detail |
+| 4 | Hero | **Full-bleed** — text-mask deferred |
 
 ---
 
@@ -42,7 +41,7 @@ limits, research prose) — not a fourth badge family.
 | `evidence` | Research grade A–D | plain label badge | disclosure prose | **Show** — never letter grade in UI |
 | `intensity` 1–3 | Cognitive load | plain label badge | label + anchor sentence | **Show** — **never dot scale** |
 | `durations` | Session lengths (pick one) | one range chip | one chip + optional list in Practical | **Show** — one chip, not three |
-| `requires` | Context dimensions | ≤2 blocking chips | full needs list | **Reduce on card** — see § Logistics |
+| `requires` | Context dimensions | all requirement chips | full needs list | **Show all on card** (owner go) |
 | `hosted` | App runs session | chip | chip + sentence | **Show** — routing honesty |
 | `doesNotDo` | Mandatory limits | clamped 2 lines | callout | **Show** — constitution rule |
 | `demanding` | Catalogue flag | — | — | **Do not surface** — overlaps effort + `doesNotDo` |
@@ -111,25 +110,12 @@ info page).
 
 ### Requirements (`requires`)
 
-**Problem today:** every dimension value becomes a chip — `eyes free`, `full
-attention`, `both hands`, `alone`, … — often five or more on one card. The
-screenshot shows duration + eyes + attention + hosted; **attention overlaps
-intensity** (full attention ≈ needs focus / draining).
+**Owner go (2026-08-16): display all.** Every dimension value from the catalogue
+appears as a chip on the card (duration + hosted + all `requires` labels). Detail
+Practical lists the same set under **Needs**.
 
-**Card rule (proposed):**
-
-1. Always: duration + hosted (2 chips minimum).
-2. Plus up to **two** **blocking** constraint chips from:
-   - **sound** — when not performable with only a speaker (headphones or silent)
-   - **hands** — when not performable hands-free (`free` or `one` required)
-   - **voice** — when aloud required, or when voice must be silent (`none`)
-   - **eyes** — when eyes must be on screen (`occupied` not allowed) or when
-     eyes-busy is the headline affordance (`occupied` only)
-   - **writingSurface** — when paper or keyboard required (not touch-only default)
-3. **Never on card:** `attention`, `company` — filter/refine or effort covers these.
-
-**Detail rule:** full flattened list in Practical **Needs** — the card is a
-filter hint, detail is the checklist.
+*UX note (not adopted):* capping at two "blocking" chips was proposed to reduce
+noise when `attention` overlaps intensity — owner preferred completeness.
 
 ### `doesNotDo` on card
 
@@ -183,22 +169,23 @@ expands. Removing it from cards would hide the product's distinguishing rule
 | study/27 "no badge row on detail" vs study/33 tier band | Detail band **only** for skill tiers + effort text — not a repeat of the full card row |
 | Plain effort labels vs dot scale | Plain labels everywhere; dots **removed** |
 | Evidence on card vs detail | Card label + detail disclosure; **not** detail band |
-| Many requirement chips vs scanability | Card: max 2 blocking needs; detail: full list |
+| Many requirement chips vs scanability | Owner chose **display all** on cards |
 | Section label on card vs text-mask hero | Keep section on card; detail hero may drop uppercase label when graphic is tall (optional polish) |
 
 ---
 
-## Open for owner at **go**
+## Resolved at go
 
-1. **Effort on detail band** — plain badge right (recommended) vs Practical only
-   (sparser band). Recommendation: **both** band + Practical sentence (band =
-   scan, Practical = anchor).
-2. **Blocking-chip priority** — when >2 constraints qualify, prefer sound → hands →
-   voice → eyes → writingSurface. Confirm or reorder.
-3. **Tier assets** — placeholder SVGs until final art; cards stay Lucide until
-   owner approves card-tier art ([33](33-skill-tier-badges-exploration.md)).
-4. **Text-mask hero** — deferred; full-bleed hero shipped; revisit after property
-   audit lands.
+1. ~~Effort on detail band~~ — plain badge right + Practical anchor (shipped).
+2. ~~Card chips~~ — display all requirements (shipped).
+3. ~~Tier assets~~ — no update until owner approves final art.
+4. ~~Text-mask hero~~ — full-bleed retained.
+
+---
+
+## Open (unchanged)
+
+- Replace placeholder tier SVGs with final art from approved grid.
 
 ---
 

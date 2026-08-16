@@ -33,9 +33,9 @@ to the top make browsing worse, not better.
 - Each card shows **at a glance**: which skills it mainly serves (contribution
   level), a plain **evidence label** (e.g. "Thin evidence"), and a plain **effort
   label** (e.g. "Light effort") — before the learner opens the detail page.
-- Logistics chips show **duration** (one range chip), **hosted/off-app**, and up
-  to **two blocking needs** — not every context dimension (`attention` and
-  `company` never appear as card chips). Study/34.
+- Logistics chips show **duration** (one range chip), **hosted/off-app**, and
+  **all** requirement values from the catalogue — owner chose display all over
+  capping (study/34).
 - Each card shows a **section header graphic** (one abstract image per catalogue
   section) so browsing sixty entries has visual rhythm without ranking methods.
 - Methods that do not fit are **absent**, not greyed out.

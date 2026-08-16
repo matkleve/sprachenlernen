@@ -2,7 +2,7 @@ import type { MethodEntry } from "@/lib/method-catalogue";
 import { visibleSkillTiers, type SkillTier } from "@/lib/skill-tier";
 import { cn } from "@/lib/utils";
 
-import { EvidenceBadge, EffortScale } from "./MethodBadge";
+import { EffortBadge } from "./MethodBadge";
 import { SkillTierBadge } from "./SkillTierBadge";
 
 export type MethodDetailBadgeBandProps = {
@@ -15,7 +15,7 @@ function isRenderableTier(tier: SkillTier): tier is Exclude<SkillTier, "wood"> {
 }
 
 /**
- * Skill tier icons, evidence, and effort scale — always visible on detail.
+ * Skill tier icons and plain effort label — evidence stays in Practical disclosure.
  * Contract: docs/specs/page/method-detail.md
  */
 export function MethodDetailBadgeBand({ method, className }: MethodDetailBadgeBandProps) {
@@ -30,8 +30,7 @@ export function MethodDetailBadgeBand({ method, className }: MethodDetailBadgeBa
         ) : null,
       )}
       <span className={cn("inline-flex flex-wrap items-center gap-2", hasTiers && "sm:ml-auto")}>
-        <EvidenceBadge grade={method.evidence} />
-        <EffortScale intensity={method.intensity} />
+        <EffortBadge intensity={method.intensity} />
       </span>
     </div>
   );

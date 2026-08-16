@@ -32,11 +32,10 @@ works for bookmarks and links.
 **UX revision 2026-08-16:** study/33 — tier badges on detail; duration as one
 range chip; hero matches card graphic; facts move to sidebar.
 
-**Property audit (UX, 2026-08-16 — pending owner go):** study/34 — detail badge
-band shows **skill tier icons + plain effort text only** (effort right at `≥ sm`);
-**no evidence badge** in the band (disclosure only); **no effort dot scale**;
-effort anchor sentence stays in Practical. Aligns study/27 plain labels with
-study/33 layout.
+**Property audit (UX, 2026-08-16):** study/34 — detail badge band shows **skill tier
+icons + plain effort text only** (effort right at `≥ sm`); **no evidence badge**
+in the band (disclosure only); **no effort dot scale**; effort anchor sentence in
+Practical. Full-bleed hero retained (text-mask deferred). Owner go 2026-08-16.
 
 ## Layout order
 

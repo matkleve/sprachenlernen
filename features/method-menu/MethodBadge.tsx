@@ -103,39 +103,6 @@ export function EffortBadge({ intensity }: EffortBadgeProps) {
   );
 }
 
-export type EffortScaleProps = {
-  intensity: 1 | 2 | 3;
-  className?: string;
-};
-
-/** Detail badge band — "Effort" label plus 1–3 filled dots (not plain-language chip). */
-export function EffortScale({ intensity, className }: EffortScaleProps) {
-  const label = effortCard[intensity];
-
-  return (
-    <span
-      className={cn("inline-flex shrink-0 items-center gap-2 text-xs font-medium text-ink", className)}
-      title={label}
-    >
-      <span>{copy.card.effort}</span>
-      <span className="inline-flex items-center gap-1" aria-hidden>
-        {([1, 2, 3] as const).map((step) => (
-          <span
-            key={step}
-            className={cn(
-              "size-2 rounded-full",
-              step <= intensity ? "bg-ink" : "border border-line bg-surface",
-            )}
-          />
-        ))}
-      </span>
-      <span className="sr-only">
-        {label} ({intensity} of 3)
-      </span>
-    </span>
-  );
-}
-
 export type MethodBadgeRowProps = {
   skillMarks: SkillMark[];
   evidence: EvidenceGrade;

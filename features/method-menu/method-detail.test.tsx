@@ -5,7 +5,7 @@ import { expectNoA11yViolations } from "@/tests/axe";
 
 import { loadMethodCatalogue } from "./catalogue";
 import { MethodDetail, findMethod } from "./MethodDetail";
-import { copy } from "./content";
+import { copy, effortCard } from "./content";
 import { skillTierAriaLabel } from "./skill-tier-badges";
 
 vi.mock("next/navigation", () => ({
@@ -14,10 +14,24 @@ vi.mock("next/navigation", () => ({
 
 const { catalogue } = loadMethodCatalogue();
 const extensiveReading = findMethod(catalogue, "extensive-reading")!;
+const intensiveReading = findMethod(catalogue, "intensive-reading")!;
 const narrowListening = findMethod(catalogue, "narrow-listening")!;
 const srsSession = findMethod(catalogue, "srs-session")!;
 
 describe("MethodDetail", () => {
+  it("shows plain effort in the badge band without a dot scale", () => {
+    render(<MethodDetail method={intensiveReading} />);
+
+    expect(screen.getByText(effortCard[3])).toBeDefined();
+    expect(screen.queryByText(/3 of 3/)).toBeNull();
+  });
+
+  it("shows effort anchor sentence in practical details", () => {
+    render(<MethodDetail method={intensiveReading} />);
+
+    expect(document.body.textContent).toContain("you will be tired afterwards");
+  });
+
   it("shows a single duration chip in the facts panel", () => {
     render(<MethodDetail method={narrowListening} />);
     expect(screen.getAllByText("10–45 min").length).toBeGreaterThan(0);

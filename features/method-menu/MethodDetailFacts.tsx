@@ -3,7 +3,7 @@ import { Disclosure, DisclosureSummary } from "@/components/ui/Disclosure";
 import type { MethodEntry } from "@/lib/method-catalogue";
 import { cn } from "@/lib/utils";
 
-import { copy, evidenceCard, evidenceProse } from "./content";
+import { copy, effortCard, evidenceCard, evidenceProse, intensity } from "./content";
 import { formatDurationLabel, requirementChips } from "./requirements";
 
 export type MethodDetailFactsProps = {
@@ -41,6 +41,12 @@ function PracticalDetails({ method }: { method: MethodEntry }) {
         <dt className="font-medium text-ink">{copy.hosted}</dt>
         <dd className="mt-1.5">
           <Chip>{method.hosted ? copy.hostedShort : copy.notHostedShort}</Chip>
+        </dd>
+      </div>
+      <div>
+        <dt className="font-medium text-ink">{copy.card.effort}</dt>
+        <dd className="mt-1.5 text-sm leading-relaxed text-muted">
+          {effortCard[method.intensity]} — {intensity[method.intensity]}
         </dd>
       </div>
       <div>

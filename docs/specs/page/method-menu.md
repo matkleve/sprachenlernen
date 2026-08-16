@@ -28,13 +28,13 @@ catalogue is already in memory; only method-card links navigate away.
 
 **Method badges (UX, 2026-08-15):** each card shows a **badge row** — skill
 contribution, evidence label, effort label — above logistics chips (duration,
-blocking needs, hosted). Study/27; component
+all requirements, hosted). Study/27; component
 [`method-badge.md`](../component/method-badge.md).
 
-**Property audit (UX, 2026-08-16 — pending owner go):** study/34 caps logistics
-chips and removes effort dot scales everywhere. Card chips: duration + hosted +
-up to two **blocking** requirement chips (`attention` and `company` never on
-cards). Effort is always plain text ("Draining"), never a dot scale.
+**Property audit (UX, 2026-08-16):** study/34 — detail badge band shows skill tiers +
+plain effort text only; evidence in Practical disclosure; effort anchor sentence in
+Practical; **all** requirement chips on cards (owner: display all). Effort is always
+plain text — never a dot scale.
 
 **Card graphics (UX, 2026-08-15):** each card shows a **section header graphic**
 (one abstract image per catalogue section, decorative) with a soft gradient into
@@ -45,7 +45,7 @@ No accent left border — uniform `rounded-card` only.
 
 - **In:** stepped time slider ([`../service/time-scale.md`](../service/time-scale.md));
   skill and energy filter pills; optional refine (hands, voice, eyes); method
-  cards with badge row + logistics chips (duration, ≤2 blocking needs, hosted);
+  cards with badge row + logistics chips (duration, all requirements, hosted);
   **card-engine hosted** (`srs-session`) → Words review; other hosted → detail
   until built; off-app → detail; client-side filtering with URL sync
   (`history.replaceState`); **current standing** — one honest sentence from the
