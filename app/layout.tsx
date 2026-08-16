@@ -48,8 +48,10 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         {/* `#main` lives in each route group's layout — marketing on the page,
             signed-in on the shell's content below the header — so the skip link
             never lands inside navigation. */}
-        <AppIntlProvider>{children}</AppIntlProvider>
-        <CookieConsent />
+        <AppIntlProvider>
+          {children}
+          <CookieConsent />
+        </AppIntlProvider>
       </body>
     </html>
   );
