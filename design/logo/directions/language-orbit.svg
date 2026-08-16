@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Sprachenlernen  language orbit">
+  <rect width="512" height="512" rx="96" fill="#f7f4ef"/>
+  <circle cx="256" cy="256" r="24" fill="#b4532a"/>
+  <path fill="none" stroke="#b4532a" stroke-width="28" stroke-linecap="round" d="M256 168a88 88 0 0 1 0 176"/>
+  <path fill="none" stroke="#8f3f1f" stroke-width="24" stroke-linecap="round" d="M256 136a120 120 0 0 1 0 240"/>
+  <path fill="none" stroke="#b4532a" stroke-width="20" stroke-linecap="round" stroke-opacity="0.55" d="M168 256a88 88 0 0 1 176 0"/>
+</svg>

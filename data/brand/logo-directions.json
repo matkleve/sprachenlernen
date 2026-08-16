@@ -1,0 +1,52 @@
+[
+  {
+    "id": "warm-scholar-bars",
+    "name": "Scholar bars",
+    "tagline": "Three vertical strokes — the refined shipped mark",
+    "rationale": "Descended from the PWA placeholder: three columns suggest text, a bookshelf, and the rhythm of study. Proportions tuned for legibility at 32px and maskable safe zone.",
+    "basis": "Current public/icon.svg + Warm Scholar accent",
+    "markSrc": "/design/logo/directions/warm-scholar-bars.svg",
+    "monoSrc": "/design/logo/directions/warm-scholar-bars-mono.svg",
+    "shipped": true
+  },
+  {
+    "id": "open-folio",
+    "name": "Open folio",
+    "tagline": "Literary warmth without sterility",
+    "rationale": "An open book from above — aligns with Warm Scholar's serif headings and the 'well-made tool' promise from study/22. The spine uses accent-deep for depth.",
+    "basis": "Warm Scholar rationale in data/design-themes/presets.json",
+    "markSrc": "/design/logo/directions/open-folio.svg",
+    "monoSrc": "/design/logo/directions/open-folio-mono.svg",
+    "shipped": false
+  },
+  {
+    "id": "monogram-sl",
+    "name": "SL monogram",
+    "tagline": "Compact serif initials for header lockups",
+    "rationale": "S and L in a square mark that pairs with the Source Serif wordmark. Best when the name appears beside the icon; less legible alone at favicon size.",
+    "basis": "Warm Scholar type pairing (Source Serif 4 + DM Sans)",
+    "markSrc": "/design/logo/directions/monogram-sl.svg",
+    "monoSrc": "/design/logo/directions/monogram-sl-mono.svg",
+    "shipped": false
+  },
+  {
+    "id": "language-orbit",
+    "name": "Language orbit",
+    "tagline": "Layers of vocabulary, one centre",
+    "rationale": "Concentric arcs echo the Words atlas orbit motif. Reads as motion and depth without game-like energy — calm, evidence-driven.",
+    "basis": "Vocabulary orbit UI + study/22 G1 (colour carries meaning)",
+    "markSrc": "/design/logo/directions/language-orbit.svg",
+    "monoSrc": "/design/logo/directions/language-orbit-mono.svg",
+    "shipped": false
+  },
+  {
+    "id": "text-stack",
+    "name": "Text stack",
+    "tagline": "Reading-first, editorial calm",
+    "rationale": "Descending horizontal rules mimic a paragraph block — text-heavy product, no mascot. Strong at large sizes; test at 32px before shipping.",
+    "basis": "study/22 — text-heavy interface promise",
+    "markSrc": "/design/logo/directions/text-stack.svg",
+    "monoSrc": "/design/logo/directions/text-stack-mono.svg",
+    "shipped": false
+  }
+]
