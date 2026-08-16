@@ -1,0 +1,28 @@
+{
+  "sentences": [
+    {
+      "id": "es-hoy-quiero-ir",
+      "text": "Hoy quiero ir.",
+      "tokens": ["Hoy", "quiero", "ir."],
+      "lemmaIds": ["es:hoy", "es:querer", "es:ir"]
+    },
+    {
+      "id": "es-yo-tengo-mucho",
+      "text": "Yo tengo mucho.",
+      "tokens": ["Yo", "tengo", "mucho."],
+      "lemmaIds": ["es:yo", "es:tener", "es:mucho"]
+    },
+    {
+      "id": "es-hoy-leo-libro",
+      "text": "Hoy leo el libro.",
+      "tokens": ["Hoy", "leo", "el", "libro."],
+      "lemmaIds": ["es:hoy", "es:leer", "es:el", "es:libro"]
+    },
+    {
+      "id": "es-yo-quiero-libro",
+      "text": "Yo quiero el libro hoy.",
+      "tokens": ["Yo", "quiero", "el", "libro", "hoy."],
+      "lemmaIds": ["es:yo", "es:querer", "es:el", "es:libro", "es:hoy"]
+    }
+  ]
+}

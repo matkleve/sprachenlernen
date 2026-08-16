@@ -23,8 +23,8 @@ describe("practice-model counts", () => {
     const hosted = methods.filter((entry) => entry.hosted === true);
 
     expect(methods).toHaveLength(53);
-    expect(hosted).toHaveLength(39);
-    expect(methods.length - hosted.length).toBe(14);
+    expect(hosted).toHaveLength(34);
+    expect(methods.length - hosted.length).toBe(19);
   });
 
   it("has exactly one built engine, and it is the card engine", () => {

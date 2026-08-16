@@ -51,11 +51,12 @@ No accent left border — uniform `rounded-card` only.
   (`history.replaceState`); **current standing** — one honest sentence from the
   progress reading, above the filters (T-B10 follow-up, narrowed); **daily
   three** — three method cards composed from the filtered catalogue (study/12,
-  narrowed — evidence grade proxies for measured effect).
+  narrowed — evidence grade proxies for measured effect); **demonstration
+  sentence** below standing ([`demonstration-sentence.md`](../feature/demonstration-sentence.md)).
 - **Out:** situation presets ("kitchen", "transit", …); saved custom situations;
   daily menu; learner-specific card fields; Commitments on this list;
-  demonstration sentence; readiness; CEFR skill or overall level on this
-  surface.
+  CEFR skill or overall level on this surface; level-labelled demonstration
+  feedback (tier C until calibration).
 
 **Reuse: MethodCardHeader** ([`method-card-header.md`](../component/method-card-header.md)
 — section graphic), **Reuse: MethodBadge** (`features/method-menu/MethodBadge.tsx`

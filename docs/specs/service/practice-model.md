@@ -43,7 +43,7 @@ Research: [`study/12`](../../study/12-method-cards.md) (methods and floors),
 | | Count |
 | --- | ---: |
 | Catalogue methods | 53 |
-| Hosted (`hosted: true`) | 39 |
+| Hosted (`hosted: true`) | 34 |
 | Built engines | 1 (`srs-session`) |
 | Off-app | 14 |
 

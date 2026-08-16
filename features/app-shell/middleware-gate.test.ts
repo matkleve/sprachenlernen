@@ -97,7 +97,7 @@ describe("the route model", () => {
   });
 
   it("gates a nested route under a destination", () => {
-    expect(requiresAccount("/words/atlas")).toBe(true);
+    expect(requiresAccount("/words/review")).toBe(true);
   });
 });
 

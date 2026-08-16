@@ -1,8 +1,10 @@
 import { redirect } from "next/navigation";
 
 import { catalogueLoadFailed, logHandledError, toUserFacing } from "@/lib/errors";
-import type { Catalogue, Preset } from "@/lib/method-catalogue";
 import type { UserFacingError } from "@/lib/errors";
+import type { DemonstrationSentencePick } from "@/lib/demonstration-sentence";
+import { readDemonstrationSentence } from "@/lib/demonstration-sentence";
+import type { Catalogue, Preset } from "@/lib/method-catalogue";
 import { routes } from "@/lib/routes";
 
 import { loadMethodCatalogue } from "./catalogue";
@@ -15,6 +17,7 @@ export type MethodsDestinationData = {
   loadError?: UserFacingError;
   initialSearchParams: Record<string, string | string[] | undefined>;
   standing?: StandingSummary;
+  demonstration?: DemonstrationSentencePick;
   dayKey: string;
 };
 
@@ -25,9 +28,11 @@ export async function loadMethodsDestination(
   searchParams: Promise<Record<string, string | string[] | undefined>>,
 ): Promise<MethodsDestinationData> {
   const params = await searchParams;
-  const [{ catalogue, presets, errors }, standing] = await Promise.all([
+  const dayKey = new Date().toISOString().slice(0, 10);
+  const [{ catalogue, presets, errors }, standing, demonstration] = await Promise.all([
     Promise.resolve(loadMethodCatalogue()),
     readStanding(),
+    readDemonstrationSentence(dayKey),
   ]);
 
   if (standing.status === "no-language") redirect(routes.chooseLanguage);
@@ -45,6 +50,8 @@ export async function loadMethodsDestination(
     loadError,
     initialSearchParams: params,
     standing: standing.status === "ok" ? standing.summary : undefined,
-    dayKey: new Date().toISOString().slice(0, 10),
+    demonstration:
+      demonstration.status === "ok" ? demonstration.pick : undefined,
+    dayKey,
   };
 }

@@ -44,7 +44,7 @@
       "targetSignal": "recallStability",
       "evidence": "B",
       "demanding": false,
-      "hosted": true,
+      "hosted": false,
       "intensity": 2,
       "durations": [
         5,
@@ -75,7 +75,7 @@
       "targetSignal": "vocabularySize",
       "evidence": "C",
       "demanding": false,
-      "hosted": true,
+      "hosted": false,
       "intensity": 2,
       "durations": [
         5,
@@ -99,7 +99,7 @@
       "targetSignal": "recallStability",
       "evidence": "B",
       "demanding": false,
-      "hosted": true,
+      "hosted": false,
       "intensity": 2,
       "durations": [
         5,
@@ -126,7 +126,7 @@
       "targetSignal": "lexicalCoverage",
       "evidence": "A",
       "demanding": false,
-      "hosted": true,
+      "hosted": false,
       "intensity": 2,
       "durations": [
         10,
@@ -153,7 +153,7 @@
       "targetSignal": "recallStability",
       "evidence": "B",
       "demanding": true,
-      "hosted": true,
+      "hosted": false,
       "intensity": 2,
       "durations": [
         10,

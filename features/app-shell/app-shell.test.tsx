@@ -117,7 +117,7 @@ describe("the destinations", () => {
   });
 
   it("marks a nested route under a destination as that destination", () => {
-    showAt("/words/atlas");
+    showAt("/words/review");
 
     const marked = [...destinationLinks()].filter(
       (a) => a.getAttribute("aria-current") === "page",

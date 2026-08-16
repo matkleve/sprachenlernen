@@ -100,6 +100,12 @@ export const copy = {
   standingRecorded: (held: number, poolSize: number) =>
     `${held} of ${poolSize} starter words held stably. No skill levels yet — meaning-recall does not measure reading, listening, speaking or writing.`,
   standingSeeProgress: "See the full progress report",
+  demonstrationLabel: "Can you read this?",
+  demonstrationHint: "Tap any word you are not sure about.",
+  demonstrationConfirm: "I've got this",
+  demonstrationReadClean: "You read that without marking anything unsure.",
+  demonstrationMarked: (count: number) =>
+    `You marked ${count} word${count === 1 ? "" : "s"} — worth a closer look when you review.`,
   minutes: "min",
   or: "or",
   /** Alternative requirement sets: any one of them suffices. */

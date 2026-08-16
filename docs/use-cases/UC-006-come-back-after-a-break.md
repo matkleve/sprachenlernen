@@ -1,7 +1,7 @@
 # UC-006 — Come back after two weeks away without drowning
 
 <!-- id: UC-006 -->
-<!-- specs: SPEC-feature-review-horizon, SPEC-feature-words-home, SPEC-service-session-builder -->
+<!-- specs: SPEC-feature-review-horizon, SPEC-feature-words-home, SPEC-service-session-builder, SPEC-service-vocabulary-snapshot, SPEC-page-words -->
 
 **Who:** someone who was ill, travelling, or simply busy.
 **Wants to:** resume learning.

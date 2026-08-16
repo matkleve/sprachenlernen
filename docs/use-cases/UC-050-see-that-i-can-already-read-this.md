@@ -1,7 +1,7 @@
 # UC-050 — See for myself that I can already read this
 
 <!-- id: UC-050 -->
-<!-- specs:  -->
+<!-- specs: SPEC-page-method-menu, SPEC-feature-demonstration-sentence -->
 
 **Who:** anyone opening the app, on any day.
 **Wants to:** see one real sentence in the language and find out, on the spot,

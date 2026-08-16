@@ -11,6 +11,9 @@ vi.mock("./catalogue", () => ({
   loadMethodCatalogue: vi.fn(() => ({ catalogue: [], presets: [], errors: [] })),
 }));
 vi.mock("./readStanding", () => ({ readStanding: vi.fn() }));
+vi.mock("@/lib/demonstration-sentence", () => ({
+  readDemonstrationSentence: vi.fn(async () => ({ status: "omit" })),
+}));
 
 describe("loadMethodsDestination", () => {
   it("redirects when no language is chosen", async () => {
