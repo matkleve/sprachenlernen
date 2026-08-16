@@ -4,6 +4,7 @@ import { holding } from "@/features/app-shell/content";
 import { copy as reviewCopy } from "@/features/review-session/content";
 import { ReviewHorizonField } from "@/features/words/ReviewHorizonField";
 import { LemmaCallout } from "@/features/words/LemmaCallout";
+import { WordsReviewCardHeader } from "@/features/words/WordsReviewCardHeader";
 import { copy } from "@/features/words/content";
 import { VocabularyOrbitField } from "@/features/words/VocabularyOrbitField";
 import { cardEngineSessionHref } from "@/lib/method-session";
@@ -41,15 +42,18 @@ export function WordsHome({
 
   return (
     <ShellPageContent width="wide">
-      <section className="rounded-card border border-line bg-surface-raised p-6 shadow-soft">
-        <p className="max-w-2xl text-base leading-relaxed text-muted">{holding.words.intent}</p>
+      <section className="overflow-hidden rounded-card border border-line bg-section-vocabulary-soft shadow-soft">
+        <WordsReviewCardHeader />
+        <div className="p-6">
+          <p className="max-w-2xl text-base leading-relaxed text-muted">{holding.words.intent}</p>
 
-        <div className="mt-6">
-          <h2 className="text-lg font-semibold text-ink">{copy.reviewHeading}</h2>
-          <p className="mt-1 max-w-2xl text-sm leading-relaxed text-muted">{copy.reviewCaption}</p>
-          <ActionLink href={reviewHref} variant="primary" size="lg" className="mt-4 w-full sm:w-auto">
-            {reviewCopy.startReview}
-          </ActionLink>
+          <div className="mt-6">
+            <h2 className="text-lg font-semibold text-ink">{copy.reviewHeading}</h2>
+            <p className="mt-1 max-w-2xl text-sm leading-relaxed text-muted">{copy.reviewCaption}</p>
+            <ActionLink href={reviewHref} variant="primary" size="lg" className="mt-4 w-full sm:w-auto">
+              {reviewCopy.startReview}
+            </ActionLink>
+          </div>
         </div>
       </section>
 
