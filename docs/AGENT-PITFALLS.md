@@ -333,6 +333,23 @@ actually needs.
 
 If none of those apply, do not pick Substrate + Sonnet "just in case."
 
+## 20. Launching a subagent without permission
+
+**The failure:** delegating work to a Task subagent (`explore`, `generalPurpose`,
+`computerUse`, `debug`, etc.) because the task looks big, without stopping to
+ask the user first. The parent agent loses control of quality, cost, and model
+choice — and may violate §19 on the user's behalf.
+
+**The rule:** **never launch a subagent without explicit user permission.** Stop
+the current turn, explain why you want one (what it would do, which type, which
+model if relevant), and wait for a yes. No "I'll spin up an agent in the
+background" as a default.
+
+**The only exception:** tool descriptions that *require* a specific subagent
+(e.g. `computerUse` for manual GUI testing when the testing instructions mandate
+it). Even then, prefer doing the work yourself when you can; ask if the user
+would rather you did not delegate.
+
 ---
 
 ## For you, writing the prompt
