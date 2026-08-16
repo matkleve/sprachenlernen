@@ -5,10 +5,10 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { ProfileAppSection } from "@/features/profile/ProfileAppSection";
 import { ProfileHomeScreenSection } from "@/features/profile/ProfileHomeScreenSection";
 import { ProfileLanguages } from "@/features/profile/ProfileLanguages";
-import { ProfileSections } from "@/features/profile/ProfileSections";
+import { ProfileSectionNav } from "@/features/profile/ProfileSectionNav";
 import { ProfileSpokenLanguage } from "@/features/profile/ProfileSpokenLanguage";
 import { copy } from "@/features/profile/content";
-import { Button } from "@/components/ui/Button";
+import { profilePanelId } from "@/lib/profile-section";
 import { renderWithAppUpdate } from "@/features/app-shell/test-utils";
 import packageJson from "@/package.json";
 import { isStandaloneDisplay } from "@/lib/is-standalone-display";
@@ -255,48 +255,42 @@ describe("ProfileHomeScreenSection", () => {
   });
 });
 
-describe("ProfileSections", () => {
-  const renderSections = (initialSection?: "languages" | "data" | "device") =>
-    render(
-      <ProfileSections
-        initialSection={initialSection}
-        languages={<p>Languages panel</p>}
-        data={<p>Data panel</p>}
-        device={<p>Device panel</p>}
-        signOut={<Button type="button">Sign out</Button>}
-      />,
-    );
-
-  const panel = (id: "languages" | "data" | "device") =>
-    document.getElementById(`profile-panel-${id}`);
+describe("ProfileSectionNav", () => {
+  const renderNav = (initialSection?: "languages" | "data" | "device") => {
+    const active = initialSection ?? "languages";
+    document.body.innerHTML = `
+      <div id="${profilePanelId("languages")}"${active === "languages" ? "" : " hidden"}>Languages panel</div>
+      <div id="${profilePanelId("data")}"${active === "data" ? "" : " hidden"}>Data panel</div>
+      <div id="${profilePanelId("device")}"${active === "device" ? "" : " hidden"}>Device panel</div>
+    `;
+    return render(<ProfileSectionNav initialSection={initialSection} />);
+  };
 
   it("shows section pills with Languages active by default", () => {
-    renderSections();
+    renderNav();
 
     expect(screen.getByRole("navigation", { name: copy.sectionsNavLabel })).toBeDefined();
     expect(screen.getByRole("button", { name: copy.sectionLanguages, pressed: true })).toBeDefined();
-    expect(panel("languages")?.hidden).toBe(false);
-    expect(panel("data")?.hidden).toBe(true);
-    expect(screen.getByRole("button", { name: copy.signOut })).toBeDefined();
+    expect(document.getElementById(profilePanelId("languages"))?.hidden).toBe(false);
+    expect(document.getElementById(profilePanelId("data"))?.hidden).toBe(true);
   });
 
   it("switches panels instantly when a pill is tapped", async () => {
     const user = userEvent.setup();
-    renderSections();
+    renderNav();
 
     await user.click(screen.getByRole("button", { name: copy.sectionData }));
 
     expect(screen.getByRole("button", { name: copy.sectionData, pressed: true })).toBeDefined();
-    expect(panel("data")?.hidden).toBe(false);
-    expect(panel("languages")?.hidden).toBe(true);
-    expect(screen.getByRole("button", { name: copy.signOut })).toBeDefined();
+    expect(document.getElementById(profilePanelId("data"))?.hidden).toBe(false);
+    expect(document.getElementById(profilePanelId("languages"))?.hidden).toBe(true);
   });
 
   it("opens on the requested section when initialSection is data", () => {
-    renderSections("data");
+    renderNav("data");
 
     expect(screen.getByRole("button", { name: copy.sectionData, pressed: true })).toBeDefined();
-    expect(panel("data")?.hidden).toBe(false);
-    expect(panel("languages")?.hidden).toBe(true);
+    expect(document.getElementById(profilePanelId("data"))?.hidden).toBe(false);
+    expect(document.getElementById(profilePanelId("languages"))?.hidden).toBe(true);
   });
 });

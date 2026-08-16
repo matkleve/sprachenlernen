@@ -22,6 +22,28 @@ read `package.json` dynamically; `verify` runs `check-version-branch` on feature
 branches. **The check:** feature-branch PRs must not touch `version` in
 `package.json`.
 
+## Profile section panels passed as client props crashed in production
+
+`ProfileSections` accepted `languages`, `data`, and `device` slot props from the
+server page. The `data` slot wrapped server-rendered `<section>` / heading markup
+around `AccountDataPanel`. In production Next.js threw `render/boundary` with
+digest `3227379777` and the profile showed *Could not load your profile.*
+
+**The fix:** `ProfileSectionNav` is client-only (pills + `hidden` toggle by panel
+id). Panels stay server siblings in `page.tsx`. **The check:** no profile panel
+markup inside client component props; grep for `ProfileSections`.
+
+## Sign-out form inside ProfileSections crashed in production
+
+`signOutAction` on a `<form>` passed as the `signOut` prop to client
+`ProfileSections` looked fine in dev. In production Next.js threw
+`render/boundary` and the profile showed *Could not load your profile.*
+
+**The fix:** keep the sign-out form in the server `page.tsx`, as a sibling after
+`ProfileSections` — never pass server actions through the client section shell.
+**The check:** profile page has no `action={signOutAction}` inside
+`ProfileSections` props.
+
 ## Profile bound server actions inside LanguageListRow crashed in production
 
 Forms with `action={serverAction.bind(null, code)}` rendered as `LanguageListRow`

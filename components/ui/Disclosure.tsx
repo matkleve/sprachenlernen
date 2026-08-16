@@ -1,5 +1,6 @@
 import type { DetailsHTMLAttributes, HTMLAttributes, ReactNode } from "react";
 
+import { DisclosureChevron } from "@/components/ui/DisclosureChevron";
 import {
   focusRing,
   interactiveEmphasis,
@@ -18,7 +19,7 @@ import { cn } from "@/lib/utils";
  */
 export const disclosureSummaryClass = cn(
   touchTarget,
-  "cursor-pointer list-none text-sm text-ink",
+  "cursor-pointer list-none text-sm font-semibold text-ink",
   "rounded-pill px-1 -mx-1",
   "marker:content-none [&::-webkit-details-marker]:hidden",
   interactionMotion,
@@ -32,7 +33,7 @@ export type DisclosureProps = DetailsHTMLAttributes<HTMLDetailsElement>;
 export function Disclosure({ className, children, ...props }: DisclosureProps) {
   return (
     <details
-      className={cn("rounded-card border border-line bg-surface p-4", className)}
+      className={cn("group rounded-card border border-line bg-surface p-4", className)}
       {...props}
     >
       {children}
@@ -47,7 +48,10 @@ export type DisclosureSummaryProps = HTMLAttributes<HTMLElement> & {
 export function DisclosureSummary({ className, children, ...props }: DisclosureSummaryProps) {
   return (
     <summary className={cn(disclosureSummaryClass, className)} {...props}>
-      {children}
+      <span className="flex items-center justify-between gap-3">
+        <span className="min-w-0">{children}</span>
+        <DisclosureChevron />
+      </span>
     </summary>
   );
 }

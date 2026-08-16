@@ -16,12 +16,12 @@ export function LemmaCallout() {
         aria-label={copy.lemmaCalloutTitle}
         className={cn(calloutClass, "px-4 py-3 md:hidden")}
       >
-        <DisclosureSummary className="font-medium text-ink">{copy.lemmaCalloutTitle}</DisclosureSummary>
+        <DisclosureSummary>{copy.lemmaCalloutTitle}</DisclosureSummary>
         <p className="mt-2 text-muted">{copy.lemmaCalloutBody}</p>
       </Disclosure>
 
       <aside aria-label={copy.lemmaCalloutTitle} className={cn(calloutClass, "hidden px-4 py-3 md:block")}>
-        <p className="font-medium">{copy.lemmaCalloutTitle}</p>
+        <p className="font-semibold">{copy.lemmaCalloutTitle}</p>
         <p className="mt-1 text-muted">{copy.lemmaCalloutBody}</p>
       </aside>
     </>

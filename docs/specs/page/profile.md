@@ -47,8 +47,9 @@ Contract: [`study/33-profile-section-navigation.md`](../../study/33-profile-sect
 | `data` | Your data | Export + delete |
 | `device` | This device | App version + Home screen (iPhone) |
 
-Sign out stays below the panels, always visible. Optional `?section=` on first
-load deep-links; switching updates the URL with `history.replaceState` only.
+Sign out stays below the panels, always visible. Section panels are server
+siblings toggled by `ProfileSectionNav` via element ids — panel markup is never
+passed as props to the client nav (see [`TRAPS.md`](../../TRAPS.md)).
 
 ## Behavior
 

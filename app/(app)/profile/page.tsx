@@ -1,19 +1,19 @@
 import type { Metadata } from "next";
 
-import { AccountDataPanel } from "@/features/account-data/AccountDataPanel";
-import { copy as accountCopy } from "@/features/account-data/content";
 import { signOutAction } from "@/features/app-shell/actions";
 import { ShellPageContent } from "@/features/app-shell/ShellPageContent";
 import { ProfileAppSection } from "@/features/profile/ProfileAppSection";
 import { ProfileHomeScreenSection } from "@/features/profile/ProfileHomeScreenSection";
 import { ProfileLanguages } from "@/features/profile/ProfileLanguages";
-import { ProfileSections, isProfileSection } from "@/features/profile/ProfileSections";
+import { ProfileSectionNav } from "@/features/profile/ProfileSectionNav";
 import { ProfileSpokenLanguage } from "@/features/profile/ProfileSpokenLanguage";
+import { ProfileYourDataSection } from "@/features/profile/ProfileYourDataSection";
 import { copy } from "@/features/profile/content";
 import { SubmitButton } from "@/components/ui/SubmitButton";
 import { readLanguageHoldings } from "@/lib/db/language-holdings";
 import { listLearningLanguages } from "@/lib/db/learning-languages";
 import { getSpokenLanguage } from "@/lib/db/profiles";
+import { isProfileSection, profilePanelId } from "@/lib/profile-section";
 
 export const metadata: Metadata = {
   title: copy.title,
@@ -39,37 +39,46 @@ export default async function ProfilePage({
 
   return (
     <ShellPageContent width="narrow">
-      <ProfileSections
-        initialSection={initialSection}
-        languages={
-          <>
-            <ProfileSpokenLanguage outcome={spoken} changeFailed={spokenFailed} />
-            <ProfileLanguages
-              outcome={languages}
-              holdings={holdings.status === "ok" ? holdings.byCode : undefined}
-              switchFailed={switchFailed}
-            />
-          </>
-        }
-        data={
-          <section>
-            <h2 className="text-xl font-semibold text-ink">{accountCopy.title}</h2>
-            <p className="mt-4 max-w-2xl text-base leading-relaxed text-muted">{accountCopy.intro}</p>
-            <AccountDataPanel />
-          </section>
-        }
-        device={
-          <>
-            <ProfileAppSection />
-            <ProfileHomeScreenSection />
-          </>
-        }
-        signOut={
-          <form action={signOutAction}>
-            <SubmitButton variant="secondary">{copy.signOut}</SubmitButton>
-          </form>
-        }
-      />
+      <ProfileSectionNav initialSection={initialSection} />
+
+      <div
+        id={profilePanelId("languages")}
+        role="tabpanel"
+        aria-labelledby="profile-section-languages"
+        hidden={initialSection !== "languages"}
+        className="[&>section:first-child]:mt-0"
+      >
+        <ProfileSpokenLanguage outcome={spoken} changeFailed={spokenFailed} />
+        <ProfileLanguages
+          outcome={languages}
+          holdings={holdings.status === "ok" ? holdings.byCode : undefined}
+          switchFailed={switchFailed}
+        />
+      </div>
+
+      <div
+        id={profilePanelId("data")}
+        role="tabpanel"
+        aria-labelledby="profile-section-data"
+        hidden={initialSection !== "data"}
+      >
+        <ProfileYourDataSection />
+      </div>
+
+      <div
+        id={profilePanelId("device")}
+        role="tabpanel"
+        aria-labelledby="profile-section-device"
+        hidden={initialSection !== "device"}
+        className="[&>section:first-child]:mt-0"
+      >
+        <ProfileAppSection />
+        <ProfileHomeScreenSection />
+      </div>
+
+      <form action={signOutAction} className="mt-page-content">
+        <SubmitButton variant="secondary">{copy.signOut}</SubmitButton>
+      </form>
     </ShellPageContent>
   );
 }
