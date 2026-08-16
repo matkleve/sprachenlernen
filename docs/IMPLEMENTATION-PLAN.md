@@ -334,6 +334,7 @@ low-inference agent would silently invent.
 | **T-B3** | Vocabulary estimate and the level display (F17–F22) | **Pool-local vocabulary shipped** (F17 narrowed). Language-wide extrapolation + CEFR skill/overall levels (F18–F22) blocked — anchor table [C], pool too small |
 | **T-B10b** | Method menu learner half | **Standing + daily three shipped**; demonstration sentence, readiness still out |
 | **T-B10c** | Method surfaces UX — badges, card headers, detail layout, chip fix | **Shipped 2026-08-15.** study/27. Skill/evidence/effort badge row (plain labels on cards), section header graphics, detail article layout (Practical → Trains → doesNotDo; evidence in disclosure) |
+| **T-B10d** | Method detail badge band + hero fade — study/33 | **Standard.** Spec: [`method-detail.md`](specs/page/method-detail.md). Badge band **after summary** (shields + effort only; evidence in facts panel). Hero fades to `canvas`. Wood-tier shields on detail. Replace placeholder SVGs with final ChatGPT grid exports. Depends on owner grid sign-off |
 | **T-B4** | Dose ledger (F184) | **Denominator shipped** on `/progress` (question 19, first branch). **Numerator** (hours you practised) still out — needs practice-time logging beyond card `latency_ms` |
 | ~~**T-B7**~~ | ~~The landing page~~ — **shipped 2026-08-11** | Thesis 1 headline + thesis 12 time honesty in body |
 | ~~**T-B10**~~ | ~~The method menu — the product's front door~~ — **shipped 2026-08-09** | Filters, time scale, hosted routing. Learner half continued in T-B10b |
@@ -361,6 +362,7 @@ honest Spanish/Italian; offline unlocks commute practice.
 | **4** | **T-B3 remainder** — extrapolation + per-skill levels once (1) and calibration exist | F18–F22; demonstration sentence |
 | **5** | **T-B9 / offline-PWA** — cache deck + scheduler; flush queue on reconnect (ADR-0011 Option B) | UC-018 commute practice; installable PWA |
 | **6** | ~~**T-B10c** — method badges + detail layout~~ — **shipped 2026-08-15** | Scannable catalogue; fixes two-line chip + truncated-title UX |
+| **6b** | **T-B10d** — detail badge band placement, hero fade, wood shields, final tier assets | Honest weak-method badges; no hard hero cut; study/33 |
 | **7** | **T-B10b remainder** — demonstration sentence, readiness ([`study/24`](study/24-speaking-as-the-goal.md), [`study/26`](study/26-readiness-and-difficulty.md)) | Methods front door complete |
 | **8** | **T-B4 numerator** — guided hours practised (thesis 9: not card time alone) | Progress per hour invested (study/03 V3) |
 
