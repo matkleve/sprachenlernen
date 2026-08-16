@@ -100,13 +100,19 @@ and ChatGPT prompt.
 
 - New component: `SkillTierBadge` (detail first; cards later optional).
 - Registry: `features/method-menu/skill-tier-badges.ts` — maps `(skill, tier)` →
-  `{ label, assetSrc, alt }`.
-- Data v1: derive tier from `skillMarksForMethod()` + mapping table in study/33.
-- Data v2: optional `skillContribution` with explicit tier per skill on catalogue entry.
+  `{ assetSrc, ariaLabel }` (20 assets: 4 skills × 5 tiers; wood assets exist for
+  metric completeness but are never rendered).
+- Metric: `skillTierForMethod(method)` → per-skill tier (wood–platinum); see
+  study/33 § Skill tier metric.
+- **Display filter:** render badge only when `tier ≥ bronze`.
+- **No visible text** on badges — shield icon only; `aria-label` e.g. “Gold
+  listening contribution”.
+- Data v2: optional `skillContribution` override on catalogue entry.
 
 **Out of scope**
 
 - Global method rank badge
+- Wood tier on any visible surface (metric only)
 - Learner unlock / progression tied to tiers
 - Evidence grade in the badge band (stays in disclosure)
 
