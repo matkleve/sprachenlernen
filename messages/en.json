@@ -24,6 +24,8 @@
     "appHeading": "App",
     "appCaption": "The version running on this device. Check after a deploy if something looks out of date.",
     "runningVersion": "Running version",
+    "lastChecked": "Last checked",
+    "lastCheckedPending": "—",
     "checkForUpdates": "Check for updates",
     "updateAvailable": "Update available ({version})",
     "reload": "Reload",

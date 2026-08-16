@@ -19,6 +19,13 @@ export const focusRing =
 /** Default press — scale down slightly. */
 export const pressScale = "active:translate-y-0 active:scale-[0.98]";
 
+/** Whole-card press for native `<details>` — summary is the hit target, shell scales. */
+export const disclosureShellPress = [
+  touchTarget,
+  interactionMotion,
+  "[&:has(summary:active)]:translate-y-0 [&:has(summary:active)]:scale-[0.98] [&:has(summary:active)]:border-line-strong",
+] as const;
+
 /** Stronger press for large surfaces and icon chips where scale alone is subtle. */
 export const pressFill = "active:bg-accent-soft active:border-line-strong";
 

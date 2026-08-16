@@ -3,7 +3,7 @@
 import { useState, type ReactNode } from "react";
 
 import { Button } from "@/components/ui/Button";
-import { Disclosure, DisclosureSummary } from "@/components/ui/Disclosure";
+import { Disclosure, DisclosurePanel, DisclosureSummary } from "@/components/ui/Disclosure";
 import type { ErrorCode, UserFacingError } from "@/lib/errors";
 import { cn } from "@/lib/utils";
 
@@ -78,18 +78,20 @@ export function ErrorCallout({
       <p className="mt-2 text-xs text-muted">{copy.referenceHint}</p>
 
       {hasTechnicalDetails ? (
-        <Disclosure className="mt-4 border-line bg-surface p-0">
-          <DisclosureSummary className="px-4 py-3">{copy.technicalDetails}</DisclosureSummary>
-          <div className="space-y-2 border-t border-line px-4 py-3 font-mono text-xs text-muted">
-            {code ? (
-              <p>
-                {copy.codeLabel}: {code}
-              </p>
-            ) : null}
-            {developerMessage ? (
-              <p className="whitespace-pre-wrap break-words">{developerMessage}</p>
-            ) : null}
-          </div>
+        <Disclosure className="mt-4 border-line bg-surface p-0 shadow-none">
+          <DisclosureSummary>{copy.technicalDetails}</DisclosureSummary>
+          <DisclosurePanel>
+            <div className="space-y-2 border-t border-line px-4 py-3 font-mono text-xs text-muted">
+              {code ? (
+                <p>
+                  {copy.codeLabel}: {code}
+                </p>
+              ) : null}
+              {developerMessage ? (
+                <p className="whitespace-pre-wrap break-words">{developerMessage}</p>
+              ) : null}
+            </div>
+          </DisclosurePanel>
         </Disclosure>
       ) : null}
 

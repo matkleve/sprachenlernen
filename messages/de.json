@@ -24,6 +24,8 @@
     "appHeading": "App",
     "appCaption": "Die Version auf diesem Gerät. Nach einem Update prüfen, falls etwas veraltet wirkt.",
     "runningVersion": "Laufende Version",
+    "lastChecked": "Zuletzt geprüft",
+    "lastCheckedPending": "—",
     "checkForUpdates": "Nach Updates suchen",
     "updateAvailable": "Update verfügbar ({version})",
     "reload": "Neu laden",

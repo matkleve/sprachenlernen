@@ -29,6 +29,8 @@ export const copy = {
   appCaption:
     "The version running on this device. Check after a deploy if something looks out of date.",
   runningVersion: "Running version",
+  lastChecked: "Last checked",
+  lastCheckedPending: "—",
   checkForUpdates: "Check for updates",
   updateAvailable: (version: string) => `Update available (${version})`,
   reload: "Reload",

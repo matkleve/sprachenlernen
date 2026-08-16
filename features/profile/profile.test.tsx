@@ -201,8 +201,25 @@ describe("ProfileAppSection", () => {
 
     expect(screen.getByRole("heading", { name: en.profile.appHeading })).toBeDefined();
     expect(screen.getByText(en.profile.runningVersion)).toBeDefined();
+    expect(screen.getByText(en.profile.lastChecked)).toBeDefined();
     expect(screen.getAllByText(APP_VERSION_LABEL).length).toBeGreaterThan(0);
     expect(screen.getByRole("button", { name: en.profile.checkForUpdates })).toBeDefined();
+  });
+
+  it("shows last checked after a successful version fetch", async () => {
+    vi.mocked(fetch).mockResolvedValue({
+      ok: true,
+      json: async () => ({ version: bundledVersion }),
+    } as Response);
+
+    renderWithAppUpdate(<ProfileAppSection />);
+
+    await waitFor(() => {
+      const row = screen.getByText(en.profile.lastChecked).closest("div");
+      const value = row?.querySelector("dd");
+      expect(value?.textContent).toBeTruthy();
+      expect(value?.textContent).not.toBe(en.profile.lastCheckedPending);
+    });
   });
 
   it("shows a green reload row when a newer version is available", async () => {

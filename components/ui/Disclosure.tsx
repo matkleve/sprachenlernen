@@ -2,40 +2,41 @@ import type { DetailsHTMLAttributes, HTMLAttributes, ReactNode } from "react";
 
 import { DisclosureChevron } from "@/components/ui/DisclosureChevron";
 import {
+  disclosureShellPress,
   focusRing,
-  interactiveEmphasis,
-  interactionMotion,
-  pressScale,
   touchTarget,
 } from "@/components/ui/interaction-kernel";
 import { cn } from "@/lib/utils";
 
 /**
  * Native `<details>` disclosure with a styled summary. Contract:
- * docs/specs/system/interaction-inventory.md
+ * docs/specs/component/disclosure.md
  *
  * Native on purpose — same rationale as Select: the platform owns expand/collapse
- * keyboard behaviour. We only style the summary trigger.
+ * keyboard behaviour. Press feedback applies to the shell; the panel animates open.
  */
+export const disclosureShellClass = cn(
+  "group rounded-card border border-line bg-surface-raised shadow-soft",
+  disclosureShellPress,
+);
+
 export const disclosureSummaryClass = cn(
   touchTarget,
-  "cursor-pointer list-none text-sm font-semibold text-ink",
-  "rounded-pill px-1 -mx-1",
+  "block w-full cursor-pointer list-none px-4 py-3 text-sm font-semibold text-ink",
   "marker:content-none [&::-webkit-details-marker]:hidden",
-  interactionMotion,
-  "hover:bg-accent-soft hover:text-ink",
   focusRing,
-  pressScale,
+);
+
+const disclosurePanelMotion = cn(
+  "grid grid-rows-[0fr] transition-[grid-template-rows] duration-150 ease-out-soft",
+  "group-open:grid-rows-[1fr]",
 );
 
 export type DisclosureProps = DetailsHTMLAttributes<HTMLDetailsElement>;
 
 export function Disclosure({ className, children, ...props }: DisclosureProps) {
   return (
-    <details
-      className={cn("group rounded-card border border-line bg-surface p-4", className)}
-      {...props}
-    >
+    <details className={cn(disclosureShellClass, className)} {...props}>
       {children}
     </details>
   );
@@ -53,5 +54,20 @@ export function DisclosureSummary({ className, children, ...props }: DisclosureS
         <DisclosureChevron />
       </span>
     </summary>
+  );
+}
+
+export type DisclosurePanelProps = HTMLAttributes<HTMLDivElement> & {
+  children: ReactNode;
+};
+
+/** Animated expand/collapse wrapper — required for body content. */
+export function DisclosurePanel({ className, children, ...props }: DisclosurePanelProps) {
+  return (
+    <div className={disclosurePanelMotion}>
+      <div className={cn("overflow-hidden", className)} {...props}>
+        {children}
+      </div>
+    </div>
   );
 }
