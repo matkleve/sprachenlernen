@@ -45,6 +45,7 @@ is a sixth layer for async work — see [`interaction-feedback.md`](../feature/i
 | `interactionMotion` | Named-property transitions, 150ms |
 | `focusRing` | `focus-visible:ring-2 ring-accent ring-offset-2` |
 | `pressScale` | `active:scale-[0.98]` |
+| `disclosureShellPress` | shell scale + border deepen when summary is `:active` |
 | `pressFill` | `active:bg-accent-soft` — icon chips, card links |
 | `navCurrentFill` | accent fill at rest for text nav links (`NavLink`, `ActionLink` `current`) |
 | `iconChipCurrentFill` | accent fill at rest for bordered icon chips (`IconLink` `current`) |
@@ -79,7 +80,7 @@ Per-primitive state matrix:
 | `PressableCard` | flip `<button>` | none |
 | `GradeButton` | grade `<button>` | none (spec exemption) |
 | `LanguageListRow` | row `<button>` or card | disabled while parent pending |
-| `Disclosure` | `<details>` + `<summary>` | none (instant toggle) |
+| `Disclosure` | `<details>` + `<summary>` + `DisclosurePanel` | none (instant toggle; 150ms panel motion) |
 | `Input` / `Textarea` / `Select` | native | platform H/A; F + X styled |
 
 Non-interactive: `Chip`, `LanguageFlag` (decorative), `ErrorCallout` (container;

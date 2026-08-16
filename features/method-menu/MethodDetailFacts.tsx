@@ -1,5 +1,5 @@
 import { Chip } from "@/components/ui/Chip";
-import { Disclosure, DisclosureSummary } from "@/components/ui/Disclosure";
+import { Disclosure, DisclosurePanel, DisclosureSummary } from "@/components/ui/Disclosure";
 import type { MethodEntry } from "@/lib/method-catalogue";
 import { cn } from "@/lib/utils";
 
@@ -13,7 +13,7 @@ export type MethodDetailFactsProps = {
 };
 
 const panelClass =
-  "rounded-card border border-line bg-surface-raised p-4 shadow-soft md:sticky md:top-28";
+  "rounded-card border border-line bg-surface-raised shadow-soft md:sticky md:top-28";
 
 function PracticalDetails({ method }: { method: MethodEntry }) {
   const requirements = requirementChips(method.requires);
@@ -46,14 +46,16 @@ function PracticalDetails({ method }: { method: MethodEntry }) {
       <div>
         <dt className="font-medium text-ink">{copy.detail.researchConfidence}</dt>
         <dd className="mt-1.5">
-          <details>
-            <summary className="cursor-pointer text-sm font-medium text-ink underline decoration-line underline-offset-2">
+          <Disclosure className="border-0 bg-transparent p-0 shadow-none">
+            <DisclosureSummary className="px-0 py-2 text-sm font-medium underline decoration-line underline-offset-2">
               {evidenceCard[method.evidence]}
-            </summary>
-            <p className="mt-2 text-sm leading-relaxed text-muted">
-              {evidenceProse[method.evidence]}
-            </p>
-          </details>
+            </DisclosureSummary>
+            <DisclosurePanel>
+              <p className="pb-2 text-sm leading-relaxed text-muted">
+                {evidenceProse[method.evidence]}
+              </p>
+            </DisclosurePanel>
+          </Disclosure>
         </dd>
       </div>
     </dl>
@@ -67,13 +69,13 @@ function PracticalDetails({ method }: { method: MethodEntry }) {
 export function MethodDetailFacts({ method, variant, className }: MethodDetailFactsProps) {
   if (variant === "mobile") {
     return (
-      <Disclosure className={cn(panelClass, className)}>
-        <DisclosureSummary className="font-medium text-ink">
-          {copy.detail.practicalDetails}
-        </DisclosureSummary>
-        <div className="mt-4 border-t border-line pt-4">
-          <PracticalDetails method={method} />
-        </div>
+      <Disclosure className={cn(panelClass, "mt-4 p-0", className)}>
+        <DisclosureSummary>{copy.detail.practicalDetails}</DisclosureSummary>
+        <DisclosurePanel>
+          <div className="border-t border-line px-4 pb-4 pt-4">
+            <PracticalDetails method={method} />
+          </div>
+        </DisclosurePanel>
       </Disclosure>
     );
   }
@@ -81,7 +83,7 @@ export function MethodDetailFacts({ method, variant, className }: MethodDetailFa
   return (
     <aside
       aria-label={copy.detail.practicalDetails}
-      className={cn(panelClass, className)}
+      className={cn(panelClass, "p-4", className)}
     >
       <p className="text-sm font-semibold text-ink">{copy.detail.practicalDetails}</p>
       <div className="mt-4 border-t border-line pt-4">

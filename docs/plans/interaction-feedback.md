@@ -55,6 +55,13 @@ background.
 - Script or ESLint: flag `<button` outside `components/ui/` without exemption comment.
 - `check:specs` already links UC-068 ↔ spec.
 
+### Phase 5 — Disclosure shell press + panel motion (shipped)
+
+**Status:** shipped — standard `surface-raised` card shell, shell press via
+`:has(summary:active)`, `DisclosurePanel` grid animation. Call sites:
+`LemmaCallout`, `MethodDetailFacts`, `RefineFilter`, `ErrorCallout`.
+**Contract:** [`../specs/component/disclosure.md`](../specs/component/disclosure.md)
+
 **Will not touch:** grade-button spinners (explicit exemption), filter-chip pending,
 UC-063 nav counts, visual redesign beyond feedback states.
 

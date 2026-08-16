@@ -1,9 +1,9 @@
-import { Disclosure, DisclosureSummary } from "@/components/ui/Disclosure";
+import { Disclosure, DisclosurePanel, DisclosureSummary } from "@/components/ui/Disclosure";
 import { copy } from "@/features/words/content";
 import { cn } from "@/lib/utils";
 
-const calloutClass =
-  "mt-4 max-w-2xl rounded-card border border-accent-soft bg-accent-soft text-sm leading-relaxed text-ink";
+const calloutShellClass =
+  "mt-4 max-w-2xl rounded-card border border-line bg-surface-raised shadow-soft";
 
 /**
  * Lemma explainer — collapsed on mobile, always visible from md up.
@@ -14,15 +14,22 @@ export function LemmaCallout() {
     <>
       <Disclosure
         aria-label={copy.lemmaCalloutTitle}
-        className={cn(calloutClass, "px-4 py-3 md:hidden")}
+        className={cn(calloutShellClass, "p-0 md:hidden")}
       >
         <DisclosureSummary>{copy.lemmaCalloutTitle}</DisclosureSummary>
-        <p className="mt-2 text-muted">{copy.lemmaCalloutBody}</p>
+        <DisclosurePanel>
+          <p className="border-t border-line px-4 pb-4 pt-3 text-sm leading-relaxed text-muted">
+            {copy.lemmaCalloutBody}
+          </p>
+        </DisclosurePanel>
       </Disclosure>
 
-      <aside aria-label={copy.lemmaCalloutTitle} className={cn(calloutClass, "hidden px-4 py-3 md:block")}>
-        <p className="font-semibold">{copy.lemmaCalloutTitle}</p>
-        <p className="mt-1 text-muted">{copy.lemmaCalloutBody}</p>
+      <aside
+        aria-label={copy.lemmaCalloutTitle}
+        className={cn(calloutShellClass, "hidden p-4 md:block")}
+      >
+        <p className="text-sm font-semibold text-ink">{copy.lemmaCalloutTitle}</p>
+        <p className="mt-1 text-sm leading-relaxed text-muted">{copy.lemmaCalloutBody}</p>
       </aside>
     </>
   );
