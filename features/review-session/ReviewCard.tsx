@@ -131,12 +131,29 @@ export function ReviewCard({
       </div>
 
       {gradesEnabled && (
-        <div className={cn(compact && "mt-3 shrink-0 md:mt-6")}>
-          <p className={cn("text-sm text-muted", !compact && "mt-6")}>{gradePrompt}</p>
+        <div
+          className={cn(
+            compact && "mt-2 shrink-0 pb-3 md:mt-6 md:pb-0",
+            !compact && "mt-6",
+          )}
+        >
+          <p className={cn("text-muted", compact ? "text-xs md:text-sm" : "text-sm")}>
+            {gradePrompt}
+          </p>
 
-          <div className={cn("grid w-full grid-cols-4 gap-2", compact ? "mt-2 md:mt-4" : "mt-4")}>
+          <div
+            className={cn(
+              "grid w-full grid-cols-4",
+              compact ? "mt-1.5 gap-1.5 md:mt-4 md:gap-2" : "mt-4 gap-2",
+            )}
+          >
             {GRADES.map((grade) => (
-              <GradeButton key={grade} grade={grade} onClick={() => onGrade(grade)}>
+              <GradeButton
+                key={grade}
+                grade={grade}
+                onClick={() => onGrade(grade)}
+                className={compact ? "h-7 px-2 text-xs md:h-8 md:px-3 md:text-sm" : undefined}
+              >
                 {copy[grade]}
               </GradeButton>
             ))}

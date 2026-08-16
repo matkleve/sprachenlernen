@@ -128,4 +128,25 @@ describe("ReviewCard", () => {
 
     expect(screen.getByRole("button", { name: copy.report })).toBeDefined();
   });
+
+  it("tightens grade controls in compact mobile layout", () => {
+    const { container } = render(
+      <ReviewCard
+        card={{ ...baseCard, taskId: "es:hablar:meaning-recall" }}
+        languageName="Spanish"
+        phase="revealed"
+        compact
+        onFlip={() => {}}
+        onGrade={() => {}}
+        onReport={() => {}}
+      />,
+    );
+
+    const gradeButton = screen.getByRole("button", { name: copy.good });
+    expect(gradeButton.className).toContain("h-7");
+    expect(gradeButton.className).toContain("text-xs");
+
+    const gradeSection = container.querySelector(".pb-3");
+    expect(gradeSection).not.toBeNull();
+  });
 });
