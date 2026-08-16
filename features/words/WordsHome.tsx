@@ -1,10 +1,14 @@
 import { ActionLink } from "@/components/ui/ActionLink";
 import { ShellPageContent } from "@/features/app-shell/ShellPageContent";
 import { holding } from "@/features/app-shell/content";
+import { MethodCardHeader } from "@/features/method-menu/MethodCardHeader";
+import { methodSectionSurface } from "@/features/method-menu/section-surface";
 import { copy as reviewCopy } from "@/features/review-session/content";
 import { ReviewHorizonField } from "@/features/words/ReviewHorizonField";
 import { LemmaCallout } from "@/features/words/LemmaCallout";
+import { WordsCountDefinitions } from "@/features/words/WordsCountDefinitions";
 import { WordsReviewCardHeader } from "@/features/words/WordsReviewCardHeader";
+import { WordsSectionLabel } from "@/features/words/WordsSectionLabel";
 import { copy } from "@/features/words/content";
 import { VocabularyOrbitField } from "@/features/words/VocabularyOrbitField";
 import { cardEngineSessionHref } from "@/lib/method-session";
@@ -12,8 +16,6 @@ import type { FrequencyBlock } from "@/lib/frequency-blocks";
 import type { HorizonDisplay } from "@/lib/review-horizon";
 import { buildVocabularyOrbit } from "@/lib/vocabulary-orbit";
 import type { VocabularySnapshot } from "@/lib/vocabulary-snapshot";
-import { cn } from "@/lib/utils";
-import { methodSectionSurface } from "@/features/method-menu/section-surface";
 
 type WordsHomeProps = {
   snapshot: VocabularySnapshot;
@@ -24,11 +26,8 @@ type WordsHomeProps = {
   now: number;
 };
 
-const countCardStyles = {
-  held: "border-success-soft bg-success-soft",
-  fragile: "border-accent-soft bg-accent-soft",
-  new: "border-line bg-surface",
-} as const;
+const countTileClass =
+  "rounded-card border border-line bg-surface p-4 shadow-soft";
 
 export function WordsHome({
   snapshot,
@@ -41,81 +40,62 @@ export function WordsHome({
   const reviewHref = cardEngineSessionHref();
   const orbit = buildVocabularyOrbit(snapshot.atlas, translations);
 
+  const countItems = [
+    { key: "held", label: copy.held, value: snapshot.counts.held },
+    { key: "fragile", label: copy.fragile, value: snapshot.counts.fragile },
+    { key: "new", label: copy.newWords, value: snapshot.counts.new },
+  ] as const;
+
   return (
     <ShellPageContent width="wide">
-      <section className={methodSectionSurface("vocabulary", "rounded-card shadow-soft")}>
+      <p className="max-w-2xl text-base leading-relaxed text-muted">{holding.words.intent}</p>
+
+      <section className={methodSectionSurface("vocabulary", "mt-6 rounded-card shadow-soft")}>
         <WordsReviewCardHeader />
         <div className="p-6">
-          <p className="max-w-2xl text-base leading-relaxed text-muted">{holding.words.intent}</p>
-
-          <div className="mt-6">
-            <h2 className="text-lg font-semibold text-ink">{copy.reviewHeading}</h2>
-            <p className="mt-1 max-w-2xl text-sm leading-relaxed text-muted">{copy.reviewCaption}</p>
-            <ActionLink href={reviewHref} variant="primary" size="lg" className="mt-4 w-full sm:w-auto">
-              {reviewCopy.startReview}
-            </ActionLink>
-          </div>
+          <h2 className="text-lg font-semibold text-ink">{copy.reviewHeading}</h2>
+          <p className="mt-1 max-w-2xl text-sm leading-relaxed text-muted">{copy.reviewCaption}</p>
+          <ActionLink href={reviewHref} variant="primary" size="lg" className="mt-4 w-full sm:w-auto">
+            {reviewCopy.startReview}
+          </ActionLink>
         </div>
       </section>
 
       <section className="mt-page-content">
-        <h2 className="text-xl font-semibold text-ink">{copy.countsHeading}</h2>
-        <p className="mt-4 max-w-2xl text-base leading-relaxed text-muted">{copy.countsCaption}</p>
-        <LemmaCallout />
-        <dl className="mt-6 grid gap-4 sm:grid-cols-3">
-          {(
-            [
-              {
-                key: "held" as const,
-                label: copy.held,
-                value: snapshot.counts.held,
-                description: copy.heldDescription,
-              },
-              {
-                key: "fragile" as const,
-                label: copy.fragile,
-                value: snapshot.counts.fragile,
-                description: copy.fragileDescription,
-              },
-              {
-                key: "new" as const,
-                label: copy.newWords,
-                value: snapshot.counts.new,
-                description: copy.newDescription,
-              },
-            ] as const
-          ).map((item) => (
-            <div
-              key={item.key}
-              className={cn(
-                "rounded-card border p-4 shadow-soft",
-                countCardStyles[item.key],
-              )}
-            >
-              <dt className="text-sm font-medium text-muted">{item.label}</dt>
-              <dd className="mt-2 text-3xl font-semibold tabular-nums text-ink">{item.value}</dd>
-              <dd className="mt-2 text-sm text-muted">{item.description}</dd>
-            </div>
-          ))}
-        </dl>
+        <WordsSectionLabel>{copy.countsHeading}</WordsSectionLabel>
+        <section className={methodSectionSurface("vocabulary", "rounded-card shadow-soft")}>
+          <MethodCardHeader section="vocabulary" />
+          <div className="p-6">
+            <p className="max-w-2xl text-base leading-relaxed text-muted">{copy.countsCaption}</p>
+            <LemmaCallout />
+            <dl className="mt-6 grid gap-3 sm:grid-cols-3" aria-label={copy.countsHeading}>
+              {countItems.map((item) => (
+                <div key={item.key} className={countTileClass}>
+                  <dt className="text-sm font-medium text-muted">{item.label}</dt>
+                  <dd className="mt-2 text-3xl font-semibold tabular-nums text-ink">{item.value}</dd>
+                </div>
+              ))}
+            </dl>
+            <WordsCountDefinitions />
+          </div>
+        </section>
       </section>
 
       <section className="mt-page-content">
-        <h2 className="text-xl font-semibold text-ink">{copy.blocksHeading}</h2>
-        <p className="mt-4 max-w-2xl text-base leading-relaxed text-muted">{copy.blocksCaption}</p>
-        <dl className="mt-6 grid gap-4 sm:grid-cols-2">
+        <WordsSectionLabel>{copy.blocksHeading}</WordsSectionLabel>
+        <p className="mb-4 max-w-2xl text-base leading-relaxed text-muted">{copy.blocksCaption}</p>
+        <dl className="grid gap-3 sm:grid-cols-2">
           {blocks.map((block) => (
             <div
               key={`${block.rankStart}-${block.rankEnd}`}
-              className="rounded-card border border-line bg-surface p-4 shadow-soft"
+              className={methodSectionSurface("vocabulary", "rounded-card p-4 shadow-soft")}
             >
               <dt className="text-sm font-medium text-muted">
                 {copy.blockLabel(block.rankStart, block.rankEnd)}
               </dt>
-              <dd className="mt-2 text-3xl font-semibold text-ink">
+              <dd className="mt-2 text-3xl font-semibold tabular-nums text-ink">
                 {copy.blockHeld(block.held, block.poolSize)}
               </dd>
-              <dd className="mt-2 text-sm text-muted">{copy.blockHeldDescription}</dd>
             </div>
           ))}
         </dl>

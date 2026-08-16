@@ -4,6 +4,7 @@ import { useState } from "react";
 
 import { Button } from "@/components/ui/Button";
 import { copy } from "@/features/words/content";
+import { WordsSectionLabel } from "@/features/words/WordsSectionLabel";
 import {
   tileCountForReviews,
   type HorizonDisplay,
@@ -130,10 +131,10 @@ export function ReviewHorizonField({ horizon, display, now }: ReviewHorizonField
 
   return (
     <section className="mt-page-content">
-      <h2 className="text-xl font-semibold text-ink">{copy.horizonHeading}</h2>
-      <p className="mt-4 max-w-2xl text-base leading-relaxed text-muted">{copy.horizonCaption}</p>
+      <WordsSectionLabel>{copy.horizonHeading}</WordsSectionLabel>
+      <p className="mb-4 max-w-2xl text-base leading-relaxed text-muted">{copy.horizonCaption}</p>
 
-      <div className="mt-4 rounded-card border border-line bg-surface-raised p-4 shadow-soft">
+      <div className="rounded-card border border-line bg-surface-raised p-4 shadow-soft">
         <p className="max-w-2xl text-sm leading-relaxed text-ink">{summaryLine(display)}</p>
         <Button
           type="button"

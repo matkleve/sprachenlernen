@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { describe, expect, it, vi } from "vitest";
 
@@ -70,7 +70,9 @@ describe("WordsHome", () => {
     expect(link.getAttribute("href")).toContain("method=srs-session");
     expect(screen.queryByText(/\d+\s+due/i)).toBeNull();
     expect(screen.getByRole("heading", { name: copy.reviewHeading })).toBeDefined();
-    const headerImage = screen.getByRole("img", {
+    const reviewCard = screen.getByRole("heading", { name: copy.reviewHeading }).closest("section");
+    expect(reviewCard).toBeDefined();
+    const headerImage = within(reviewCard as HTMLElement).getByRole("img", {
       name: wordsReviewGraphicAlt(copy.reviewCardHeaderLabel),
     });
     expect(headerImage.getAttribute("src")).toContain(
@@ -78,12 +80,22 @@ describe("WordsHome", () => {
     );
   });
 
-  it("explains that held counts meaning recall and what a lemma is", () => {
+  it("explains that held counts meaning recall and what a lemma is", async () => {
+    const user = userEvent.setup();
     render(<WordsHome {...homeProps} />);
     expect(screen.getByText(copy.countsCaption)).toBeDefined();
     expect(screen.getAllByLabelText(copy.lemmaCalloutTitle).length).toBeGreaterThan(0);
     expect(screen.getAllByText(copy.lemmaCalloutBody).length).toBeGreaterThan(0);
+    await user.click(screen.getByText(copy.countsDefinitionsSummary));
     expect(screen.getByText(copy.heldDescription)).toBeDefined();
+  });
+
+  it("shows count numbers on the card face without per-tile descriptions", () => {
+    render(<WordsHome {...homeProps} />);
+    const countGrid = screen.getByLabelText(copy.countsHeading);
+    const heldTile = within(countGrid).getByText(copy.held).closest("div");
+    expect(heldTile?.textContent).not.toContain("reliably recall");
+    expect(heldTile?.textContent).not.toContain("not yet stable");
   });
 
   it("renders held, fragile, new, bands, horizon and vocabulary orbit", () => {

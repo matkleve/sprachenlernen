@@ -12,7 +12,7 @@ order lives in [`study/11-roadmap-open-questions.md`](../study/11-roadmap-open-q
 
 | Layer | State |
 | --- | --- |
-| `/words` home | held/fragile/new counts, frequency bands, review horizon (collapsed default; week columns + causal line per [`review-horizon.md`](../specs/feature/review-horizon.md)), vocabulary orbit (+ **Show list**) |
+| `/words` home | held/fragile/new counts (methods-style section cards), frequency bands, review horizon (collapsed default; week columns + causal line per [`review-horizon.md`](../specs/feature/review-horizon.md)), vocabulary orbit (+ **Show list**) |
 | `/words/review?method=srs-session` | meaning-recall + form-recall SRS, FSRS, requeue |
 | Data | es + it: 2000-lemma pools, lemma tables (tier B), form-recall pools |
 | `lib/lexicon.ts` | tested; **not wired into any app route** |
@@ -130,6 +130,7 @@ table. Queue after phase 0 hygiene, parallel to phase 2 where independent.
 | **T-W11** | **UC-012 spec only** (stage 2 implement) | UC-012 | Write spec + AC; defer implementation until T-W7 lexicon can auto-fill |
 | **T-W12** | **UC-006 break return** — overdue prioritisation by frequency + urgency | UC-006 | Extends session-builder; pairs with horizon expand-on-return |
 | **T-W16** | ~~**Review horizon v2**~~ — **shipped 2026-08-15** | UC-005, UC-006, UC-063 | Collapsed default, week tile columns, relevance triggers, causal line |
+| **T-W17** | ~~**Words home layout parity with Methods**~~ — **shipped 2026-08-16** | UC-063, UC-031 | Canvas intent; `methodSectionSurface` cards; section labels; stat disclosure; reuse `MethodCardHeader` |
 | **T-W13** | **UC-013 remainder** — tier-2/3 leech diagnosis | UC-013 | T-B14 remainder in main queue |
 | **T-W14** | **UC-069 slice 2** — `next-intl` chrome | UC-069 | T-B11 remainder |
 | **T-W15** | **UC-069 slice 3** — `app_texts` description tables | UC-069 | Unblocks non-English glosses; closes starter-deck SPEC GAP |

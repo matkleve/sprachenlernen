@@ -388,7 +388,7 @@ Work in four phases; do not skip phase 0:
 | **1 · Decisions** | W-1 lemma-rank recomputation, W-2 pool atlas vs full map, W-3 `vocabulary` skill, W-4 sibling gap, W-5 incomplete paradigms | Owner — blocks T-W1–T-W6 |
 | **2 · Stage-2 display** | Frequency blocks → word detail → pool-local map → T-B3 remainder → per-cell forms → form-practice | **T-W1** after W-1/W-2 |
 | **3 · Stage-3 loop** | Coverage calculator → content gaps → word capture → reading | After phase 2 map is honest |
-| **4 · Stage-1 remainder** | Break return, leech diagnosis, i18n slices | T-W12 next; **T-W16 shipped** |
+| **4 · Stage-1 remainder** | Break return, leech diagnosis, i18n slices | T-W12 next; **T-W16** and **T-W17** shipped |
 
 **Relationship to existing queue rows:** T-W4 *is* T-B3 remainder (same work,
 words-framed). T-W6 *is* UC-041 full engine (blocked on W-4). T-W13 *is* T-B14
