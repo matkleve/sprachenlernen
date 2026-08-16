@@ -139,11 +139,10 @@ toolbar seems absent. On `/words` and `/progress`, the Safari bottom toolbar
 **Regression fix (commit `23e51db`):** horizon v2 had reintroduced
 `overflow-x-auto` — restored grid layout.
 
-### Methods mirror debug route (PR #81, main)
+### Methods mirror debug route (PR #81) — **removed 2026-08-16**
 
-- `/methods-mirror` — fourth nav pill (Copy icon), same catalogue as `/methods`
-- Purpose: A/B Safari toolbar behaviour without changing page body
-- **Cleanup pending:** remove when investigation closes (see § Open items)
+Was `/methods-mirror` (fourth nav pill). Removed after install-URL scope confirmed;
+bisect hub remains for body A/B.
 
 ### App update system (PR #84 + #87, main — `v0.4.1`)
 
@@ -253,7 +252,7 @@ JavaScript. Instructions only.
 | # | Item | Priority |
 | --- | --- | --- |
 | 1 | **Owner LIVE CHECK** on real iPhone with `v0.4.1` (matrix below) | **Blocker** |
-| 2 | Remove `/methods-mirror` from nav when QA passes | Cleanup |
+| 2 | ~~Remove `/methods-mirror` from nav when QA passes~~ | **Done** (`v0.7.1`) |
 | 3 | Profile **Home screen app** + `/install` | **Shipped** |
 | 4 | Body bisect (if reinstall from `/` still fails) | `/words-bisect`, `/progress-bisect` |
 | 5 | Update study/29 executive summary with “toolbar hidden preferred; updates via App” | Docs |

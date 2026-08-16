@@ -14,7 +14,6 @@ export default function robots(): MetadataRoute.Robots {
       allow: "/",
       disallow: [
         routes.methods,
-        routes.methodsMirror,
         routes.words,
         routes.progress,
         routes.profile,

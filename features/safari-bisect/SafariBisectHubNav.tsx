@@ -37,9 +37,6 @@ export function SafariBisectHubNav({ bisectWordsHref, bisectProgressHref }: Safa
             <TextLink href={routes.methods}>{copy.hubDirectMethods}</TextLink>
           </li>
           <li>
-            <TextLink href={routes.methodsMirror}>{copy.hubDirectMethodsMirror}</TextLink>
-          </li>
-          <li>
             <TextLink href={routes.words}>{copy.hubDirectWords}</TextLink>
           </li>
           <li>

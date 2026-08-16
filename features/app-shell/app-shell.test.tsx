@@ -83,13 +83,11 @@ describe("the destinations", () => {
     const links = [...destinationLinks()];
     expect(links.map((a) => a.textContent)).toEqual([
       copy.destinations.methods,
-      copy.destinations.methodsMirror,
       copy.destinations.words,
       copy.destinations.progress,
     ]);
     expect(links.map((a) => a.getAttribute("href"))).toEqual([
       "/methods",
-      "/methods-mirror",
       "/words",
       "/progress",
     ]);
