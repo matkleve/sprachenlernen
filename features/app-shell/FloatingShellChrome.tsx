@@ -54,7 +54,7 @@ export function FloatingShellChrome({
         >
           <div className="col-start-1 flex min-w-0 items-center gap-2 justify-self-start">
             {back ? (
-              <IconLink href={back.href} emphasized aria-label={copy.backTo(back.label)}>
+              <IconLink href={back.href} aria-label={copy.backTo(back.label)}>
                 <ArrowLeft aria-hidden className="size-5 shrink-0" />
               </IconLink>
             ) : (

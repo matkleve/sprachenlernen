@@ -17,8 +17,11 @@ reading, listening, speaking, and off-app Methods are reached from `/methods`.
 
 ## Scope
 
-- **In:** `features/words/` — `WordsHome`, `VocabularyOrbitField`, `reading.ts`,
-  `content.ts`; wired on `app/(app)/words/page.tsx`. Derives from
+- **In:** `features/words/` — `WordsHome`, `WordsReviewCardHeader`,
+  `VocabularyOrbitField`, `reading.ts`, `content.ts`; wired on
+  `app/(app)/words/page.tsx`. One abstract header graphic in
+  `public/assets/words/words-home-review.webp` on the raised review card.
+  Derives from
   [`vocabulary-snapshot.md`](../service/vocabulary-snapshot.md),
   [`frequency-blocks.md`](../service/frequency-blocks.md),
   [`vocabulary-orbit.md`](vocabulary-orbit.md), and **only** Reviews from built
@@ -38,7 +41,7 @@ reading, listening, speaking, and off-app Methods are reached from `/methods`.
 
 | # | User action | System response |
 | --- | --- | --- |
-| 1 | Opens `/words` | Intent copy and Start review in a raised action card; held/fragile/new counts (meaning recall only) with a collapsible lemma callout on mobile (always visible from `md` up), frequency bands, horizon (per review-horizon collapsed/expanded rules), vocabulary orbit below |
+| 1 | Opens `/words` | Intent copy and Start review in a raised action card with a decorative review header graphic; held/fragile/new counts (meaning recall only) with a collapsible lemma callout on mobile (always visible from `md` up), frequency bands, horizon (per review-horizon collapsed/expanded rules), vocabulary orbit below |
 | 2 | Taps Start review | Navigates to `/words/review?method=srs-session` |
 | 3 | Taps a segment or **Show list** | See [`vocabulary-orbit.md`](vocabulary-orbit.md) |
 | 4 | Expands or collapses horizon | See [`review-horizon.md`](review-horizon.md) |
@@ -53,6 +56,10 @@ outcomes.
 
 ## Acceptance criteria
 
+- [ ] Given a signed-in learner on `/words`, when the page renders, then the
+      review card shows a decorative header graphic (`h-20`) with a vocabulary
+      section label on the overlay and **Review** as the in-card action heading
+      below the intent copy.
 - [ ] Given a signed-in learner on `/words`, when the page renders, then held,
       fragile and new counts are shown with copy that they track **meaning
       recall** (not inflected forms), a lemma callout explains what a **lemma** is

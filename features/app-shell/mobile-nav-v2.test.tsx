@@ -74,7 +74,7 @@ describe("SPEC-feature-mobile-nav-v2", () => {
 
     const nav = screen.getByRole("navigation", { name: copy.mobileNavLabel });
     const links = nav.querySelectorAll<HTMLAnchorElement>("a[href]");
-    expect(links).toHaveLength(4);
+    expect(links).toHaveLength(3);
     expect(nav.querySelector("ul")?.className).toContain("inline-flex");
     expect(screen.getByRole("link", { name: copy.destinations.methods })).toBeDefined();
     expect(screen.getByRole("link", { name: copy.destinations.words })).toBeDefined();
@@ -125,7 +125,7 @@ describe("SPEC-feature-mobile-nav-v2", () => {
     const back = screen.getByRole("link", { name: copy.backTo(copy.destinations.methods) });
     expect(back.getAttribute("href")).toBe("/methods");
     expect(back.getAttribute("aria-current")).toBeNull();
-    expect(back.className).toContain("bg-accent");
+    expect(back.className.split(/\s+/)).not.toContain("bg-accent");
     expect(back.textContent?.trim()).toBe("");
     expect(screen.queryByRole("button", { name: copy.switchLanguage })).toBeNull();
     expect(screen.queryByText("🇪🇸")).toBeNull();

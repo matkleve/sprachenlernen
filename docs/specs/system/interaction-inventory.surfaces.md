@@ -11,7 +11,7 @@ Update this file in the same PR as any new control or migration.
 | --- | --- | --- | --- | --- |
 | Destination nav (desktop) | `DestinationNavItems.tsx` | `NavLink` | `layout="header"`; `current` from pathname | ✓ |
 | Destination nav (mobile pill) | `DestinationNavItems.tsx` | `IconLink` | `layout="pill"`; `current` from pathname | ring |
-| Mobile back chip | `FloatingShellChrome.tsx` | `IconLink` | drill-in only; `emphasized`; `pendingPolicy="nav"` | ring |
+| Mobile back chip | `FloatingShellChrome.tsx` | `IconLink` | drill-in only; neutral at rest; `pendingPolicy="nav"` | ring |
 | Mobile language chip | `FloatingShellChrome.tsx` | `LanguageSwitcher` | destination roots only (`layout="floating"`) | ring |
 | Mobile profile icon | `FloatingShellChrome.tsx` | `IconLink` | `current` on `/profile`; `nav` | ring |
 | Desktop account | `DesktopShellHeader.tsx` | `ActionLink` | `ghost sm`; `current` on `/profile` | ✓ |
@@ -76,6 +76,7 @@ Update this file in the same PR as any new control or migration.
 
 | Control | File | Primitive | Variant | P |
 | --- | --- | --- | --- | --- |
+| Section pills | `ProfileSections.tsx` | `FilterPill` | `aria-pressed`; in-page tab panels | — |
 | Spoken language row | `ProfileSpokenLanguage.tsx` | `LanguageListRow` | `names` override | — |
 | Spoken make active | `ProfileSpokenLanguage.tsx` | `SubmitButton` | `secondary sm` | auto |
 | Choose first | `ProfileLanguages.tsx` | `ActionLink` | primary (default) | ✓ |
@@ -114,6 +115,7 @@ Update this file in the same PR as any new control or migration.
 
 | Control | File | Primitive | Variant | P |
 | --- | --- | --- | --- | --- |
-| Try again | `RouteErrorSurface.tsx` | `Button` | `secondary`, `useTransition` | ✓ |
+| Try again | `RouteErrorSurface.tsx` | `Button` | `secondary`, `useTransition`; hard reload on `render/boundary` | ✓ |
+| Back to Methods | `RouteErrorSurface.tsx` | `ActionLink` | `secondary`; non-destination routes only | ✓ |
 | Route / global error | `error.tsx`, `global-error.tsx` | via `RouteErrorSurface` | — | ✓ |
 | Destination error | `DestinationError.tsx` | via `RouteErrorSurface` | — | ✓ |

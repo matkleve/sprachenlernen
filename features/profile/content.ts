@@ -1,6 +1,10 @@
 /** Copy for the profile surface. Contract: docs/specs/page/profile.md */
 export const copy = {
   title: "Profile",
+  sectionsNavLabel: "Profile sections",
+  sectionLanguages: "Languages",
+  sectionData: "Your data",
+  sectionDevice: "This device",
   spokenHeading: "Language you speak",
   spokenCaption:
     "Menus, buttons, and the text that describes words on cards. Changing this does not reset your learning progress.",

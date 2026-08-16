@@ -9,7 +9,6 @@ export const copy = {
   hubNavAbIntro:
     "If only this hub looks correct but Methods / Words / Progress do not, test whether the trigger is how you arrive on the page — typed link vs bottom pill tap.",
   hubDirectMethods: "Open /methods directly (full page load)",
-  hubDirectMethodsMirror: "Open /methods-mirror directly",
   hubDirectWords: "Open /words directly",
   hubDirectProgress: "Open /progress directly",
   hubNavAbSteps:

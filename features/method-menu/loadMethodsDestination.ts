@@ -19,8 +19,7 @@ export type MethodsDestinationData = {
 };
 
 /**
- * Shared server loader for `/methods` and `/methods-mirror` (Safari A/B).
- * Contract: docs/study/29-ios-inset-by-route.md § Methods mirror.
+ * Shared server loader for `/methods`.
  */
 export async function loadMethodsDestination(
   searchParams: Promise<Record<string, string | string[] | undefined>>,

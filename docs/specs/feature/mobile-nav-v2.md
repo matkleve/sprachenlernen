@@ -39,7 +39,7 @@ Progress (ADR-0009). **No due-count badges** (UC-063).
 | --- | --- | --- |
 | 1 | Viewport ≥ `md` | Horizontal nav + inline account link in header; no floating chrome |
 | 2 | Viewport &lt; `md` on a destination root | Bottom pill visible (three icon-only round chips in a compact pill, same size as corner chips); top-right account icon chip; **top-left language icon chip** when the account has at least one learning language |
-| 3 | Viewport &lt; `md` on a drill-in route | **Icon-only** back chip (round, same size as the language chip) in the top-left corner; **no language chip** — target is the parent destination (`aria-label` names it); back chip carries accent fill |
+| 3 | Viewport &lt; `md` on a drill-in route | **Icon-only** back chip (round, same size as the language chip) in the top-left corner; **no language chip** — target is the parent destination (`aria-label` names it); neutral surface at rest, accent on press |
 | 4 | Taps a pill segment | Navigates; current segment marked with `aria-current="page"` |
 | 5 | Taps the account chip | `/profile`, where sign out now lives ([`../page/profile.md`](../page/profile.md)) |
 | 5a | Is on `/profile` | Account chip carries `aria-current="page"` and accent fill, same as a current pill segment |
@@ -63,9 +63,8 @@ On drill-in routes it returns `{ href, label }` for the parent destination.
 ## States
 
 No open/closed machine. Pill segments and the account chip are `current` or
-`default`, derived from the URL. The back chip on drill-in routes is
-`emphasized` (accent fill, no `aria-current`) — see
-[`interaction-feedback.md`](interaction-feedback.md) § Current navigation.
+`default`, derived from the URL. The back chip on drill-in routes is neutral at
+rest — see [`interaction-feedback.md`](interaction-feedback.md) § Current navigation.
 
 ## Layout
 
@@ -112,11 +111,9 @@ title wraps to two lines.
 - [ ] Given viewport &lt; `md` on any drill-in route, then the top-left shows
       **either** a back chip **or** a language chip — never both.
 - [ ] Given viewport &lt; `md` on `/methods/[id]`, then a back chip links to
-      `/methods`, **no** language chip appears in the top-left corner, and the
-      back chip has accent fill.
+      `/methods` and **no** language chip appears in the top-left corner.
 - [ ] Given viewport &lt; `md` on `/words/review`, then a back chip links to
-      `/words`, **no** language chip appears, the back chip has accent fill, and
-      the bottom pill remains visible.
+      `/words`, **no** language chip appears, and the bottom pill remains visible.
 - [ ] Given viewport &lt; `md`, then a top-right **account** icon chip is always
       present (no text label), linking to `/profile`, and no sign-out control
       renders in the shell.

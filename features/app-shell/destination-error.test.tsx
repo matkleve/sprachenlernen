@@ -1,7 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { usePathname } from "next/navigation";
-import { beforeEach, describe, expect, it, vi } from "vitest";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 import { copy as routeErrorCopy } from "@/components/ui/route-error-surface-content";
 
@@ -24,6 +24,10 @@ beforeEach(() => {
   vi.mocked(usePathname).mockReset();
 });
 
+afterEach(() => {
+  vi.unstubAllGlobals();
+});
+
 describe("DestinationError", () => {
   it("names the review operation on /words/review", () => {
     renderDestinationError("/words/review");
@@ -38,12 +42,23 @@ describe("DestinationError", () => {
     expect(screen.getByText("Could not load your vocabulary.")).toBeDefined();
   });
 
-  it("calls reset when Try again is clicked", async () => {
+  it("reloads when Try again is clicked on a render boundary", async () => {
+    const reload = vi.fn();
+    vi.stubGlobal("location", { ...window.location, reload });
     const { reset } = renderDestinationError("/progress");
     const user = userEvent.setup();
 
     await user.click(screen.getByRole("button", { name: routeErrorCopy.tryAgain }));
-    expect(reset).toHaveBeenCalledOnce();
+    expect(reload).toHaveBeenCalledOnce();
+    expect(reset).not.toHaveBeenCalled();
+  });
+
+  it("shows Back to Methods on profile errors", () => {
+    renderDestinationError("/profile");
+
+    expect(screen.getByRole("link", { name: "Back to Methods" }).getAttribute("href")).toBe(
+      "/methods",
+    );
   });
 });
 
@@ -68,13 +83,12 @@ describe("destination errors inside the shell", () => {
         .filter(
           (href): href is string =>
             href === "/methods" ||
-            href === "/methods-mirror" ||
             href === "/words" ||
             href === "/progress",
         ),
     );
     expect(destinationHrefs).toEqual(
-      new Set(["/methods", "/methods-mirror", "/words", "/progress"]),
+      new Set(["/methods", "/words", "/progress"]),
     );
     expect(screen.getByText("Could not start your review session.")).toBeDefined();
   });

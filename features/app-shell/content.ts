@@ -26,7 +26,6 @@ export const copy = {
   },
   destinations: {
     methods: "Methods",
-    methodsMirror: "Methods mirror",
     words: "Words",
     progress: "Progress",
   },
