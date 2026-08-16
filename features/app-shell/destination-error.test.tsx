@@ -1,9 +1,10 @@
-import { render, screen } from "@testing-library/react";
+import { renderWithIntl as render, formatMessage, en } from "@/tests/i18n-test-utils";
+import {screen} from "@testing-library/react";
+
 import userEvent from "@testing-library/user-event";
 import { usePathname } from "next/navigation";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
-import { copy as routeErrorCopy } from "@/components/ui/route-error-surface-content";
 
 import { AppShell } from "./AppShell";
 import { DestinationError } from "./DestinationError";
@@ -48,7 +49,7 @@ describe("DestinationError", () => {
     const { reset } = renderDestinationError("/progress");
     const user = userEvent.setup();
 
-    await user.click(screen.getByRole("button", { name: routeErrorCopy.tryAgain }));
+    await user.click(screen.getByRole("button", { name: "Try again" }));
     expect(reload).toHaveBeenCalledOnce();
     expect(reset).not.toHaveBeenCalled();
   });

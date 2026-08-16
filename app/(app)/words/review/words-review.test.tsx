@@ -1,8 +1,9 @@
-import { render, screen } from "@testing-library/react";
+import { renderWithIntl as render, formatMessage, en } from "@/tests/i18n-test-utils";
+import {screen} from "@testing-library/react";
+
 import { describe, expect, it, vi } from "vitest";
 
 import WordsReviewPage from "@/app/(app)/words/review/page";
-import { copy } from "@/features/review-session/content";
 
 vi.mock("@/features/review-session/ReviewSession", () => ({
   ReviewSession: ({
@@ -34,13 +35,13 @@ describe("WordsReviewPage", () => {
     const page = await WordsReviewPage({ searchParams: Promise.resolve({ method: "srs-session" }) });
     render(page);
     expect(screen.getByTestId("review-session")).toBeDefined();
-    expect(screen.getByText(copy.srsSessionName)).toBeDefined();
+    expect(screen.getByText(en.reviewSession.srsSessionName)).toBeDefined();
     expect(screen.getByTestId("queue-ready").textContent).toBe("1");
   });
 
   it("shows unknown-method copy when method is missing", async () => {
     const page = await WordsReviewPage({ searchParams: Promise.resolve({}) });
     render(page);
-    expect(screen.getByText(copy.unknownMethod)).toBeDefined();
+    expect(screen.getByText(en.reviewSession.unknownMethod)).toBeDefined();
   });
 });

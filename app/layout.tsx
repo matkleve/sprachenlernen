@@ -1,5 +1,7 @@
 import type { Metadata, Viewport } from "next";
+import { getLocale } from "next-intl/server";
 
+import { AppIntlProvider } from "@/app/AppIntlProvider";
 import { CookieConsent } from "@/features/privacy/CookieConsent";
 import { fontClassNames } from "@/lib/fonts";
 import { buildPageMetadata, site } from "@/lib/site-metadata";
@@ -29,9 +31,11 @@ export const viewport: Viewport = {
   ],
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
+  const locale = await getLocale();
+
   return (
-    <html lang="en" className={fontClassNames}>
+    <html lang={locale} className={fontClassNames}>
       <body>
         {/* Visible only on keyboard focus. Without it, every keyboard user tabs
             through the whole header on every page before reaching content. */}
@@ -44,7 +48,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         {/* `#main` lives in each route group's layout — marketing on the page,
             signed-in on the shell's content below the header — so the skip link
             never lands inside navigation. */}
-        {children}
+        <AppIntlProvider>{children}</AppIntlProvider>
         <CookieConsent />
       </body>
     </html>

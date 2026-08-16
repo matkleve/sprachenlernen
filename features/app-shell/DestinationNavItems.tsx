@@ -6,7 +6,8 @@ import { IconLink } from "@/components/ui/IconLink";
 import { NavLink } from "@/components/ui/NavLink";
 import { NavigationPendingProvider, useNavigationPending } from "@/components/ui/navigation-pending-context";
 
-import { isDestinationCurrent, shellDestinations } from "./destinations";
+import { isDestinationCurrent } from "./destinations";
+import { useShellDestinations } from "./use-shell-destinations";
 
 type DestinationNavItemsProps = {
   /** Header row on desktop; bottom icon pill on mobile. */
@@ -15,6 +16,7 @@ type DestinationNavItemsProps = {
 
 function DestinationNavItemsInner({ layout = "header" }: DestinationNavItemsProps) {
   const pathname = usePathname();
+  const shellDestinations = useShellDestinations();
   const navigationPending = useNavigationPending();
   const effectivePath = navigationPending?.pendingHref ?? pathname;
   const pill = layout === "pill";

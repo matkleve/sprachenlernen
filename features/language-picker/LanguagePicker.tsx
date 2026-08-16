@@ -1,7 +1,8 @@
+import { getTranslations } from "next-intl/server";
+
 import { Chip } from "@/components/ui/Chip";
 import { SubmitButton } from "@/components/ui/SubmitButton";
 import { ShellPageContent } from "@/features/app-shell/ShellPageContent";
-import { copy } from "@/features/language-picker/content";
 import { languageLabel } from "@/lib/languages";
 
 /**
@@ -31,20 +32,22 @@ export type LanguagePickerProps = {
   choose: (code: string) => Promise<void>;
 };
 
-function statusLine(tile: LanguageTile): string {
-  if (tile.poolSize === null) {
-    return copy.unavailable(languageLabel(tile.code).english);
-  }
-  if (tile.heldCount === null) {
-    return copy.notStarted(tile.poolSize);
-  }
-  return copy.held(tile.heldCount, tile.poolSize);
-}
+export async function LanguagePicker({ tiles, error, choose }: LanguagePickerProps) {
+  const t = await getTranslations("languagePicker");
 
-export function LanguagePicker({ tiles, error, choose }: LanguagePickerProps) {
+  function statusLine(tile: LanguageTile): string {
+    if (tile.poolSize === null) {
+      return t("unavailable", { name: languageLabel(tile.code).english });
+    }
+    if (tile.heldCount === null) {
+      return t("notStarted", { poolSize: tile.poolSize });
+    }
+    return t("held", { held: tile.heldCount, poolSize: tile.poolSize });
+  }
+
   return (
     <ShellPageContent width="default">
-      <p className="max-w-2xl text-base leading-relaxed text-muted">{copy.intro}</p>
+      <p className="max-w-2xl text-base leading-relaxed text-muted">{t("intro")}</p>
 
       {error ? (
         <p role="alert" className="mt-6 text-base leading-relaxed text-danger">
@@ -74,7 +77,7 @@ export function LanguagePicker({ tiles, error, choose }: LanguagePickerProps) {
                     className="shrink-0 border border-accent"
                     aria-current="true"
                   >
-                    {copy.active}
+                    {t("active")}
                   </Chip>
                 ) : null}
               </div>
@@ -89,19 +92,19 @@ export function LanguagePicker({ tiles, error, choose }: LanguagePickerProps) {
                   }}
                   className="mt-6"
                 >
-                  <SubmitButton>{copy.choose}</SubmitButton>
+                  <SubmitButton>{t("choose")}</SubmitButton>
                 </form>
               ) : null}
 
               {tile.alreadyLearning && !tile.isActive ? (
-                <p className="mt-6 text-base font-medium text-ink">{copy.alreadyLearning}</p>
+                <p className="mt-6 text-base font-medium text-ink">{t("alreadyLearning")}</p>
               ) : null}
             </li>
           );
         })}
       </ul>
 
-      <p className="mt-8 max-w-2xl text-base leading-relaxed text-muted">{copy.footnote}</p>
+      <p className="mt-8 max-w-2xl text-base leading-relaxed text-muted">{t("footnote")}</p>
     </ShellPageContent>
   );
 }

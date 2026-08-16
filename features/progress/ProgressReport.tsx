@@ -1,68 +1,63 @@
+import { getTranslations } from "next-intl/server";
+
 import { ActionLink } from "@/components/ui/ActionLink";
-import { TextLink } from "@/components/ui/TextLink";
-import { Table, Td, Th } from "@/components/ui/Table";
 import { ShellPageContent } from "@/features/app-shell/ShellPageContent";
-import { DOSE_BANDS, hoursPerYear, yearsToReach } from "@/lib/dose-band";
+import { DOSE_BANDS, DOSE_BAND_SOURCE, hoursPerYear, yearsToReach } from "@/lib/dose-band";
 import type { LevelReading } from "@/lib/level-model";
 import { cardEngineSessionHref } from "@/lib/method-session";
 
-import { copy, routeToMeasuring, signalNames, skillNames, statusNames } from "./content";
 import { WeeklyReflectionEntry } from "./weekly-reflection/WeeklyReflectionEntry";
 import type { WeeklyReflectionModel } from "@/lib/weekly-reflection";
+import { Table, Td, Th } from "@/components/ui/Table";
 
 /**
  * Where the learner stands. Contract: docs/specs/page/progress.md
- *
- * A Server Component with no state: every value is derived per request from the
- * review log. `Reuse: Table` — the same shape of claim as /languages, and the
- * same reason not to reach for a card.
- *
- * The one design rule this surface must not break is study/25 C3: nothing here
- * may be a count that only rises. The card count next to recall stability is
- * that number's derivation — honesty rule 3, "every number opens" — and is
- * deliberately never shown on its own as an achievement.
- */
-/**
- * study/25 C4's own worked example, so the page reproduces the chapter's
- * arithmetic rather than a second one. Not a setting: a habit picker is a goal
- * feature (V2) and nobody has specced one.
  */
 const HABIT_MINUTES_PER_DAY = 15;
 
-export function ProgressReport({
+export async function ProgressReport({
   reading,
   reflection,
 }: {
   reading: LevelReading;
   reflection: WeeklyReflectionModel;
 }) {
+  const t = await getTranslations("progress");
   const stability = reading.signals.find((signal) => signal.id === "recall-stability");
   const vocabulary = reading.signals.find((signal) => signal.id === "vocabulary-size");
   const formMastery = reading.signals.find((signal) => signal.id === "form-mastery");
   const hasAnyData = reading.signals.some((signal) => signal.status === "has-data");
 
+  const doseBorrowed =
+    DOSE_BAND_SOURCE.calibratedFor === null
+      ? t("doseBorrowedUncalibrated", { name: DOSE_BAND_SOURCE.name })
+      : t("doseBorrowedCalibrated", {
+          name: DOSE_BAND_SOURCE.name,
+          calibratedFor: DOSE_BAND_SOURCE.calibratedFor,
+        });
+
   return (
     <ShellPageContent width="wide">
-      <p className="max-w-2xl text-base leading-relaxed text-muted">{copy.intro}</p>
+      <p className="max-w-2xl text-base leading-relaxed text-muted">{t("intro")}</p>
 
       {reflection.status !== "hidden" ? <WeeklyReflectionEntry reflection={reflection} /> : null}
 
       <section className="mt-page-content">
-        <h2 className="text-xl font-semibold text-ink">{copy.skillsHeading}</h2>
-        <Table caption={copy.skillsCaption} layout="fit" className="mt-4">
+        <h2 className="text-xl font-semibold text-ink">{t("skillsHeading")}</h2>
+        <Table caption={t("skillsCaption")} layout="fit" className="mt-4">
           <thead>
             <tr>
-              <Th scope="col">{copy.skillColumns.skill}</Th>
-              <Th scope="col">{copy.skillColumns.status}</Th>
-              <Th scope="col">{copy.skillColumns.route}</Th>
+              <Th scope="col">{t("skillColumns.skill")}</Th>
+              <Th scope="col">{t("skillColumns.status")}</Th>
+              <Th scope="col">{t("skillColumns.route")}</Th>
             </tr>
           </thead>
           <tbody>
             {reading.skills.map((skill) => (
               <tr key={skill.skill}>
-                <Th scope="row">{skillNames[skill.skill]}</Th>
-                <Td className="font-medium text-ink">{statusNames[skill.status]}</Td>
-                <Td>{routeToMeasuring[skill.skill]}</Td>
+                <Th scope="row">{t(`skillNames.${skill.skill}`)}</Th>
+                <Td className="font-medium text-ink">{t(`statusNames.${skill.status}`)}</Td>
+                <Td>{t(`routeToMeasuring.${skill.skill}`)}</Td>
               </tr>
             ))}
           </tbody>
@@ -70,52 +65,61 @@ export function ProgressReport({
       </section>
 
       <section className="mt-page-content">
-        <h2 className="text-xl font-semibold text-ink">{copy.overallHeading}</h2>
+        <h2 className="text-xl font-semibold text-ink">{t("overallHeading")}</h2>
         {reading.overall.status === "withheld" ? (
           <p className="mt-4 max-w-2xl text-base leading-relaxed text-muted">
-            {copy.overallWithheld}
+            {t("overallWithheld")}
           </p>
         ) : null}
       </section>
 
       <section id="signals" className="mt-page-content">
-        <h2 className="text-xl font-semibold text-ink">{copy.signalsHeading}</h2>
-        <p className="mt-4 max-w-2xl text-base leading-relaxed text-muted">{copy.signalsIntro}</p>
+        <h2 className="text-xl font-semibold text-ink">{t("signalsHeading")}</h2>
+        <p className="mt-4 max-w-2xl text-base leading-relaxed text-muted">{t("signalsIntro")}</p>
 
         {!hasAnyData ? (
           <div className="mt-6">
-            <p className="max-w-2xl text-base leading-relaxed text-muted">{copy.emptyState}</p>
+            <p className="max-w-2xl text-base leading-relaxed text-muted">{t("emptyState")}</p>
             <ActionLink href={cardEngineSessionHref()} className="mt-6">
-              {copy.startReview}
+              {t("startReview")}
             </ActionLink>
           </div>
         ) : null}
 
-        <Table caption={copy.signalsCaption} layout="fit" className="mt-6">
+        <Table caption={t("signalsCaption")} layout="fit" className="mt-6">
           <thead>
             <tr>
-              <Th scope="col">{copy.signalColumns.signal}</Th>
-              <Th scope="col">{copy.signalColumns.status}</Th>
-              <Th scope="col">{copy.signalColumns.value}</Th>
+              <Th scope="col">{t("signalColumns.signal")}</Th>
+              <Th scope="col">{t("signalColumns.status")}</Th>
+              <Th scope="col">{t("signalColumns.value")}</Th>
             </tr>
           </thead>
           <tbody>
             {reading.signals.map((signal) => (
               <tr key={signal.id}>
-                <Th scope="row">{signalNames[signal.id]}</Th>
-                <Td>{signal.status === "has-data" ? copy.hasData : copy.noData}</Td>
+                <Th scope="row">{t(`signalNames.${signal.id}`)}</Th>
+                <Td>{signal.status === "has-data" ? t("hasData") : t("noData")}</Td>
                 <Td>
                   {signal.id === "recall-stability" && stability?.value !== null && stability
-                    ? copy.stabilityValue(stability.value, stability.taskCount)
+                    ? t("stabilityValue", {
+                        days: stability.value,
+                        taskCount: stability.taskCount,
+                      })
                     : signal.id === "vocabulary-size" &&
                         vocabulary?.status === "has-data" &&
                         vocabulary.value !== null
-                      ? copy.vocabularyValue(vocabulary.value, vocabulary.taskCount)
+                      ? t("vocabularyValue", {
+                          held: vocabulary.value,
+                          poolSize: vocabulary.taskCount,
+                        })
                       : signal.id === "form-mastery" &&
                           formMastery?.status === "has-data" &&
                           formMastery.value !== null
-                        ? copy.formMasteryValue(formMastery.value, formMastery.taskCount)
-                        : copy.noValue}
+                        ? t("formMasteryValue", {
+                            held: formMastery.value,
+                            poolSize: formMastery.taskCount,
+                          })
+                        : t("noValue")}
                 </Td>
               </tr>
             ))}
@@ -124,18 +128,18 @@ export function ProgressReport({
       </section>
 
       <section className="mt-page-content">
-        <h2 className="text-xl font-semibold text-ink">{copy.doseHeading}</h2>
-        <p className="mt-4 max-w-2xl text-base leading-relaxed text-muted">{copy.doseIntro}</p>
+        <h2 className="text-xl font-semibold text-ink">{t("doseHeading")}</h2>
+        <p className="mt-4 max-w-2xl text-base leading-relaxed text-muted">{t("doseIntro")}</p>
         <p className="mt-4 max-w-2xl text-base leading-relaxed text-muted">
-          {copy.doseHabit(hoursPerYear(HABIT_MINUTES_PER_DAY))}
+          {t("doseHabit", { hours: Math.round(hoursPerYear(HABIT_MINUTES_PER_DAY)) })}
         </p>
 
-        <Table caption={copy.doseCaption} layout="fit" className="mt-6">
+        <Table caption={t("doseCaption")} layout="fit" className="mt-6">
           <thead>
             <tr>
-              <Th scope="col">{copy.doseColumns.level}</Th>
-              <Th scope="col">{copy.doseColumns.hours}</Th>
-              <Th scope="col">{copy.doseColumns.atFifteen}</Th>
+              <Th scope="col">{t("doseColumns.level")}</Th>
+              <Th scope="col">{t("doseColumns.hours")}</Th>
+              <Th scope="col">{t("doseColumns.atFifteen")}</Th>
             </tr>
           </thead>
           <tbody>
@@ -145,9 +149,11 @@ export function ProgressReport({
               return (
                 <tr key={band.level}>
                   <Th scope="row">{band.level}</Th>
-                  <Td>{copy.doseHours(band.minHours, band.maxHours)}</Td>
+                  <Td>{t("doseHours", { min: band.minHours, max: band.maxHours })}</Td>
                   <Td>
-                    {years === null ? copy.noValue : copy.doseYears(years.minYears, years.maxYears)}
+                    {years === null
+                      ? t("noValue")
+                      : t("doseYears", { minYears: years.minYears, maxYears: years.maxYears })}
                   </Td>
                 </tr>
               );
@@ -155,17 +161,15 @@ export function ProgressReport({
           </tbody>
         </Table>
 
-        {/* Not a footnote. The band is uncalibrated for this language pair, and
-            question 19's answer is that a surface showing it says so. */}
-        <p className="mt-6 max-w-2xl text-base leading-relaxed text-muted">{copy.doseBorrowed}</p>
+        <p className="mt-6 max-w-2xl text-base leading-relaxed text-muted">{doseBorrowed}</p>
         <p className="mt-4 max-w-2xl text-base leading-relaxed text-muted">
-          {copy.doseNoNumerator}
+          {t("doseNoNumerator")}
         </p>
       </section>
 
       <section className="mt-page-content">
-        <h2 className="text-xl font-semibold text-ink">{copy.gapHeading}</h2>
-        <p className="mt-4 max-w-2xl text-base leading-relaxed text-muted">{copy.gapBody}</p>
+        <h2 className="text-xl font-semibold text-ink">{t("gapHeading")}</h2>
+        <p className="mt-4 max-w-2xl text-base leading-relaxed text-muted">{t("gapBody")}</p>
       </section>
     </ShellPageContent>
   );

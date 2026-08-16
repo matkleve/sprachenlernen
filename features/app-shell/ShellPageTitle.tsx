@@ -6,7 +6,7 @@ import { usePathname } from "next/navigation";
 import { routes } from "@/lib/routes";
 import { cn } from "@/lib/utils";
 
-import { shellPageTitle } from "./page-title";
+import { useShellPageTitle } from "./use-shell-page-title";
 import { useHeaderCollapse } from "./useHeaderCollapse";
 import {
   MOBILE_TITLE_LARGE_PX,
@@ -40,7 +40,7 @@ type ShellPageTitleProps = {
  */
 export function ShellPageTitle({ variant, pinnedCompact = false, className }: ShellPageTitleProps) {
   const pathname = usePathname();
-  const title = shellPageTitle(pathname);
+  const title = useShellPageTitle(pathname);
   const scrollCollapse = useHeaderCollapse();
   const collapse = pinnedCompact ? 1 : scrollCollapse;
   const { large, small } = TITLE_SIZES[variant];

@@ -1,3 +1,4 @@
+// Legacy English copy — use next-intl messages instead. Kept for reference during migration.
 import type { RequirementSet, Requirements } from "@/lib/method-catalogue";
 
 import { copy, dimensionOrder, dimensionValues } from "./content";

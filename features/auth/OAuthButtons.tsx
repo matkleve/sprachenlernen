@@ -1,17 +1,19 @@
+import { getTranslations } from "next-intl/server";
+
 import { SubmitButton } from "@/components/ui/SubmitButton";
 import { signInWithOAuthAction } from "@/features/auth/actions";
-import { authContent } from "@/features/auth/content";
-
-const providers = [
-  { id: "google" as const, label: authContent.oauthGoogle },
-  { id: "apple" as const, label: authContent.oauthApple },
-];
 
 /** OAuth entry points — contract: docs/specs/service/auth.md */
-export function OAuthButtons() {
+export async function OAuthButtons() {
+  const t = await getTranslations("auth");
+  const providers = [
+    { id: "google" as const, label: t("oauthGoogle") },
+    { id: "apple" as const, label: t("oauthApple") },
+  ];
+
   return (
     <div className="mt-6">
-      <p className="text-center text-sm text-muted">{authContent.oauthDivider}</p>
+      <p className="text-center text-sm text-muted">{t("oauthDivider")}</p>
       <div className="mt-3 flex flex-col gap-2">
         {providers.map((provider) => (
           <form key={provider.id} action={signInWithOAuthAction}>

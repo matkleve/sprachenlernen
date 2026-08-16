@@ -1,10 +1,11 @@
-import { render, screen } from "@testing-library/react";
+import { renderWithIntl as render, formatMessage, en } from "@/tests/i18n-test-utils";
+import {screen} from "@testing-library/react";
+
 import userEvent from "@testing-library/user-event";
 import { usePathname, useRouter } from "next/navigation";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
 import { DestinationNavItems } from "./DestinationNavItems";
-import { copy } from "./content";
 
 vi.mock("next/navigation", () => ({
   usePathname: vi.fn(),
@@ -37,8 +38,8 @@ describe("DestinationNavItems", () => {
       </nav>,
     );
 
-    const methods = screen.getByRole("link", { name: copy.destinations.methods });
-    const words = screen.getByRole("link", { name: copy.destinations.words });
+    const methods = screen.getByRole("link", { name: en.appShell.destinations.methods });
+    const words = screen.getByRole("link", { name: en.appShell.destinations.words });
 
     expect(methods.getAttribute("aria-current")).toBe("page");
     expect(words.getAttribute("aria-current")).toBeNull();
@@ -60,7 +61,7 @@ describe("DestinationNavItems", () => {
       </nav>,
     );
 
-    const words = screen.getByRole("link", { name: copy.destinations.words });
+    const words = screen.getByRole("link", { name: en.appShell.destinations.words });
     await user.click(words);
 
     expect(words.className).not.toContain("opacity-70");

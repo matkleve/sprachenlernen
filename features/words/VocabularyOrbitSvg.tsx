@@ -1,8 +1,8 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import type { CSSProperties } from "react";
 
-import { copy } from "@/features/words/content";
 import { languageStripes } from "@/lib/language-stripes";
 import {
   ORBIT_BADGE_RADIUS,
@@ -39,15 +39,15 @@ function segmentStrokeClass(lit: OrbitLit, kind: OrbitSegment["kind"]): string {
   }
 }
 
-function segmentLabel(segment: OrbitSegment): string {
+function segmentLabel(segment: OrbitSegment, t: ReturnType<typeof useTranslations<"words">>): string {
   if (segment.kind === "tick") return "";
   if (segment.kind === "word") {
     const status = segment.mature
-      ? copy.bucketNames.mature
-      : copy.bucketNames[segment.bucket];
+      ? t('bucketNames.mature')
+      : t(`bucketNames.${segment.bucket}`);
     return `${segment.lemma}, rank ${segment.frequencyRank}, ${status}`;
   }
-  return copy.orbitAggregateLabel(segment.rankStart, segment.rankEnd, segment.wordCount);
+  return t('orbitAggregateLabel', { start: segment.rankStart, end: segment.rankEnd, count: segment.wordCount });
 }
 
 function ringSpinStyle(ringIndex: number): CSSProperties {
@@ -121,9 +121,10 @@ type RingLayerProps = {
   segments: readonly OrbitSegment[];
   selectedId: string | null;
   onSelect: (segment: OrbitSegment) => void;
+  t: ReturnType<typeof useTranslations<"words">>;
 };
 
-function RingLayer({ ringIndex, segments, selectedId, onSelect }: RingLayerProps) {
+function RingLayer({ ringIndex, segments, selectedId, onSelect, t }: RingLayerProps) {
   const mid = ringMidRadius(ringIndex);
   const slotCount = ORBIT_SLOTS_PER_RING[ringIndex] ?? 40;
 
@@ -146,7 +147,7 @@ function RingLayer({ ringIndex, segments, selectedId, onSelect }: RingLayerProps
               interactive &&
                 "group orbit-segment cursor-pointer outline-none focus:outline-none focus-visible:outline-none",
             )}
-            aria-label={interactive ? segmentLabel(segment) : undefined}
+            aria-label={interactive ? segmentLabel(segment, t) : undefined}
             onClick={interactive ? () => onSelect(segment) : undefined}
             onKeyDown={
               interactive
@@ -201,12 +202,13 @@ export function VocabularyOrbitSvg({
   selectedId,
   onSelect,
 }: VocabularyOrbitSvgProps) {
+  const t = useTranslations("words");
   return (
     <svg
       viewBox={`0 0 ${ORBIT_VIEW_SIZE} ${ORBIT_VIEW_SIZE}`}
       className="mx-auto w-full max-w-[min(100%,42rem)]"
       role="img"
-      aria-label={copy.orbitAriaLabel}
+      aria-label={t('orbitAriaLabel')}
     >
       {orbit.rings.map((ring) => (
         <RingLayer
@@ -215,6 +217,7 @@ export function VocabularyOrbitSvg({
           segments={ring.segments}
           selectedId={selectedId}
           onSelect={onSelect}
+          t={t}
         />
       ))}
       <LanguageCenter languageCode={languageCode} />

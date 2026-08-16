@@ -1,4 +1,6 @@
-import { render, screen, waitFor } from "@testing-library/react";
+import { renderWithIntl as render, formatMessage, en } from "@/tests/i18n-test-utils";
+import {screen, waitFor} from "@testing-library/react";
+
 import userEvent from "@testing-library/user-event";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
@@ -7,7 +9,6 @@ import { ProfileHomeScreenSection } from "@/features/profile/ProfileHomeScreenSe
 import { ProfileLanguages } from "@/features/profile/ProfileLanguages";
 import { ProfileSectionNav } from "@/features/profile/ProfileSectionNav";
 import { ProfileSpokenLanguage } from "@/features/profile/ProfileSpokenLanguage";
-import { copy } from "@/features/profile/content";
 import { profilePanelId } from "@/lib/profile-section";
 import { renderWithAppUpdate } from "@/features/app-shell/test-utils";
 import packageJson from "@/package.json";
@@ -53,7 +54,7 @@ describe("ProfileLanguages", () => {
 
     expect(screen.getByText("Español")).toBeDefined();
     expect(screen.getByText("Spanish")).toBeDefined();
-    const activeChip = screen.getByText(copy.active);
+    const activeChip = screen.getByText(en.profile.active);
     expect(activeChip.tagName).toBe("SPAN");
     expect(activeChip.className).toContain("bg-accent");
     expect(activeChip.className).toContain("text-accent-ink");
@@ -66,7 +67,7 @@ describe("ProfileLanguages", () => {
       />,
     );
 
-    expect(screen.getAllByRole("button", { name: copy.makeActive })).toHaveLength(1);
+    expect(screen.getAllByRole("button", { name: en.profile.makeActive })).toHaveLength(1);
   });
 
   it("routes to the picker instead of rendering an empty table", () => {
@@ -74,8 +75,8 @@ describe("ProfileLanguages", () => {
     // the difference between those two is a route.
     render(<ProfileLanguages outcome={{ status: "ok", languages: [] }} />);
 
-    expect(screen.getByText(copy.noneYet)).toBeDefined();
-    expect(screen.getByRole("link", { name: copy.chooseFirst })).toBeDefined();
+    expect(screen.getByText(en.profile.noneYet)).toBeDefined();
+    expect(screen.getByRole("link", { name: en.profile.chooseFirst })).toBeDefined();
     expect(screen.queryByRole("table")).toBeNull();
   });
 
@@ -87,7 +88,7 @@ describe("ProfileLanguages", () => {
       />,
     );
 
-    expect(screen.getByRole("alert").textContent).toBe(copy.switchError);
+    expect(screen.getByRole("alert").textContent).toBe(en.profile.switchError);
   });
 
   it("renders its own failure so the rest of the page survives", () => {
@@ -95,7 +96,7 @@ describe("ProfileLanguages", () => {
       <ProfileLanguages outcome={{ status: "error", error: "boom" }} />,
     );
 
-    expect(screen.getByRole("alert").textContent).toBe(copy.languagesError);
+    expect(screen.getByRole("alert").textContent).toBe(en.profile.languagesError);
   });
 
   it("shows a standing line with a link to progress when holdings exist", () => {
@@ -106,8 +107,8 @@ describe("ProfileLanguages", () => {
       />,
     );
 
-    expect(screen.getByText(copy.standing(347, SHIPPED_ES_POOL_SIZE))).toBeDefined();
-    expect(screen.getByRole("link", { name: copy.viewProgress })).toBeDefined();
+    expect(screen.getByText(formatMessage(en.profile.standing, { held: 347, poolSize: SHIPPED_ES_POOL_SIZE }))).toBeDefined();
+    expect(screen.getByRole("link", { name: en.profile.viewProgress })).toBeDefined();
   });
 
   it("shows zero held before the first review when a pool ships", () => {
@@ -118,7 +119,7 @@ describe("ProfileLanguages", () => {
       />,
     );
 
-    expect(screen.getByText(copy.standing(0, SHIPPED_ES_POOL_SIZE))).toBeDefined();
+    expect(screen.getByText(formatMessage(en.profile.standing, { held: 0, poolSize: SHIPPED_ES_POOL_SIZE }))).toBeDefined();
   });
 
   it("hides Add a language when every shipped pool is already being learned", () => {
@@ -128,7 +129,7 @@ describe("ProfileLanguages", () => {
       />,
     );
 
-    expect(screen.queryByRole("link", { name: copy.addLanguage })).toBeNull();
+    expect(screen.queryByRole("link", { name: en.profile.addLanguage })).toBeNull();
   });
 
   it("shows Add a language when a shipped pool is not on the list yet", () => {
@@ -138,7 +139,7 @@ describe("ProfileLanguages", () => {
       />,
     );
 
-    expect(screen.getByRole("link", { name: copy.addLanguage })).toBeDefined();
+    expect(screen.getByRole("link", { name: en.profile.addLanguage })).toBeDefined();
   });
 
   it("shows no streak, XP, or review total", () => {
@@ -162,11 +163,11 @@ describe("ProfileSpokenLanguage", () => {
 
     expect(screen.getByText("Deutsch")).toBeDefined();
     expect(screen.getAllByText("English").length).toBeGreaterThanOrEqual(1);
-    const activeChip = screen.getByText(copy.active);
+    const activeChip = screen.getByText(en.profile.active);
     expect(activeChip.tagName).toBe("SPAN");
     expect(activeChip.className).toContain("bg-accent");
     expect(activeChip.className).toContain("text-accent-ink");
-    expect(screen.getAllByRole("button", { name: copy.makeActive })).toHaveLength(1);
+    expect(screen.getAllByRole("button", { name: en.profile.makeActive })).toHaveLength(1);
   });
 });
 
@@ -188,10 +189,10 @@ describe("ProfileAppSection", () => {
 
     renderWithAppUpdate(<ProfileAppSection />);
 
-    expect(screen.getByRole("heading", { name: copy.appHeading })).toBeDefined();
-    expect(screen.getByText(copy.runningVersion)).toBeDefined();
+    expect(screen.getByRole("heading", { name: en.profile.appHeading })).toBeDefined();
+    expect(screen.getByText(en.profile.runningVersion)).toBeDefined();
     expect(screen.getAllByText(APP_VERSION_LABEL).length).toBeGreaterThan(0);
-    expect(screen.getByRole("button", { name: copy.checkForUpdates })).toBeDefined();
+    expect(screen.getByRole("button", { name: en.profile.checkForUpdates })).toBeDefined();
   });
 
   it("shows a green reload row when a newer version is available", async () => {
@@ -203,11 +204,11 @@ describe("ProfileAppSection", () => {
     renderWithAppUpdate(<ProfileAppSection />);
 
     await waitFor(() => {
-      expect(screen.getByText(copy.updateAvailable(deployedLabel))).toBeDefined();
+      expect(screen.getByText(formatMessage(en.profile.updateAvailable, { version: deployedLabel }))).toBeDefined();
     });
     expect(
       screen.getByRole("button", {
-        name: copy.reloadAria(deployedLabel, APP_VERSION_LABEL),
+        name: formatMessage(en.profile.reloadAria, { nextVersion: deployedLabel, currentVersion: APP_VERSION_LABEL }),
       }),
     ).toBeDefined();
   });
@@ -221,7 +222,7 @@ describe("ProfileAppSection", () => {
 
     renderWithAppUpdate(<ProfileAppSection />);
 
-    await user.click(screen.getByRole("button", { name: copy.checkForUpdates }));
+    await user.click(screen.getByRole("button", { name: en.profile.checkForUpdates }));
 
     await waitFor(() => {
       expect(fetch).toHaveBeenCalled();
@@ -235,13 +236,13 @@ describe("ProfileHomeScreenSection", () => {
 
     render(<ProfileHomeScreenSection />);
 
-    expect(screen.getByRole("heading", { name: copy.homeScreenHeading })).toBeDefined();
-    expect(screen.getByText(copy.homeScreenScopeHeading)).toBeDefined();
+    expect(screen.getByRole("heading", { name: en.profile.homeScreenHeading })).toBeDefined();
+    expect(screen.getByText(en.profile.homeScreenScopeHeading)).toBeDefined();
     expect(screen.getByText("/")).toBeDefined();
-    expect(screen.getByRole("link", { name: copy.homeScreenInstallButton }).getAttribute("href")).toBe(
+    expect(screen.getByRole("link", { name: en.profile.homeScreenInstallButton }).getAttribute("href")).toBe(
       "/install",
     );
-    expect(screen.getByRole("link", { name: copy.homeScreenMainSiteButton }).getAttribute("href")).toBe(
+    expect(screen.getByRole("link", { name: en.profile.homeScreenMainSiteButton }).getAttribute("href")).toBe(
       "/",
     );
   });
@@ -251,7 +252,7 @@ describe("ProfileHomeScreenSection", () => {
 
     render(<ProfileHomeScreenSection />);
 
-    expect(await screen.findByText(copy.homeScreenActive)).toBeDefined();
+    expect(await screen.findByText(en.profile.homeScreenActive)).toBeDefined();
   });
 });
 
@@ -269,8 +270,8 @@ describe("ProfileSectionNav", () => {
   it("shows section pills with Languages active by default", () => {
     renderNav();
 
-    expect(screen.getByRole("navigation", { name: copy.sectionsNavLabel })).toBeDefined();
-    expect(screen.getByRole("button", { name: copy.sectionLanguages, pressed: true })).toBeDefined();
+    expect(screen.getByRole("navigation", { name: en.profile.sectionsNavLabel })).toBeDefined();
+    expect(screen.getByRole("button", { name: en.profile.sectionLanguages, pressed: true })).toBeDefined();
     expect(document.getElementById(profilePanelId("languages"))?.hidden).toBe(false);
     expect(document.getElementById(profilePanelId("data"))?.hidden).toBe(true);
   });
@@ -279,9 +280,9 @@ describe("ProfileSectionNav", () => {
     const user = userEvent.setup();
     renderNav();
 
-    await user.click(screen.getByRole("button", { name: copy.sectionData }));
+    await user.click(screen.getByRole("button", { name: en.profile.sectionData }));
 
-    expect(screen.getByRole("button", { name: copy.sectionData, pressed: true })).toBeDefined();
+    expect(screen.getByRole("button", { name: en.profile.sectionData, pressed: true })).toBeDefined();
     expect(document.getElementById(profilePanelId("data"))?.hidden).toBe(false);
     expect(document.getElementById(profilePanelId("languages"))?.hidden).toBe(true);
   });
@@ -289,7 +290,7 @@ describe("ProfileSectionNav", () => {
   it("opens on the requested section when initialSection is data", () => {
     renderNav("data");
 
-    expect(screen.getByRole("button", { name: copy.sectionData, pressed: true })).toBeDefined();
+    expect(screen.getByRole("button", { name: en.profile.sectionData, pressed: true })).toBeDefined();
     expect(document.getElementById(profilePanelId("data"))?.hidden).toBe(false);
     expect(document.getElementById(profilePanelId("languages"))?.hidden).toBe(true);
   });

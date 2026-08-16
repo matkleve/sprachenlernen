@@ -1,9 +1,10 @@
-import { render, screen } from "@testing-library/react";
+import { renderWithIntl as render, formatMessage, en } from "@/tests/i18n-test-utils";
+import {screen} from "@testing-library/react";
+
 import userEvent from "@testing-library/user-event";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
 import { LanguageSwitcher } from "./LanguageSwitcher";
-import { copy } from "./content";
 
 const switchActiveLanguageAction = vi.fn();
 
@@ -34,9 +35,11 @@ describe("LanguageSwitcher", () => {
       />,
     );
 
-    expect(screen.getByLabelText(copy.currentLanguage("Español"))).toBeDefined();
+    expect(
+      screen.getByLabelText(formatMessage(en.appShell.currentLanguage, { endonym: "Español" })),
+    ).toBeDefined();
     expect(screen.getByText("🇪🇸")).toBeDefined();
-    expect(screen.queryByRole("button", { name: copy.switchLanguage })).toBeNull();
+    expect(screen.queryByRole("button", { name: en.appShell.switchLanguage })).toBeNull();
   });
 
   it("shows endonym text on desktop when only one language is being learned", () => {
@@ -60,15 +63,15 @@ describe("LanguageSwitcher", () => {
       />,
     );
 
-    await user.click(screen.getByRole("button", { name: copy.switchLanguage }));
+    await user.click(screen.getByRole("button", { name: en.appShell.switchLanguage }));
 
-    const menu = screen.getByRole("menu", { name: copy.switchLanguage });
+    const menu = screen.getByRole("menu", { name: en.appShell.switchLanguage });
     expect(menu.className).toContain("gap-3");
     expect(menu.className).toContain("inset-x-6");
     expect(menu.querySelector(".language-switcher-scrim")).toBeNull();
     expect(document.querySelector(".language-switcher-scrim")).not.toBeNull();
     expect(screen.getByText("Active")).toBeDefined();
-    expect(screen.queryByRole("link", { name: copy.addLanguage })).toBeNull();
+    expect(screen.queryByRole("link", { name: en.appShell.addLanguage })).toBeNull();
 
     await user.click(screen.getByRole("button", { name: /Italiano/i }));
 

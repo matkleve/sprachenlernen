@@ -1,3 +1,4 @@
+// Legacy English copy — use next-intl messages instead. Kept for reference during migration.
 import { copy as languagePickerCopy } from "@/features/language-picker/content";
 import { copy as methodMenuCopy } from "@/features/method-menu/content";
 import { copy as profileCopy } from "@/features/profile/content";

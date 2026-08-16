@@ -1,12 +1,12 @@
-import { render, screen } from "@testing-library/react";
+import { renderWithIntl as render, en } from "@/tests/i18n-test-utils";
+import { screen } from "@testing-library/react";
+
 import { describe, expect, it, vi } from "vitest";
 
 import { expectNoA11yViolations } from "@/tests/axe";
 
 import { loadMethodCatalogue } from "./catalogue";
 import { MethodDetail, findMethod } from "./MethodDetail";
-import { copy } from "./content";
-import { skillTierAriaLabel } from "./skill-tier-badges";
 
 vi.mock("next/navigation", () => ({
   useRouter: vi.fn(() => ({ push: vi.fn() })),
@@ -18,69 +18,75 @@ const narrowListening = findMethod(catalogue, "narrow-listening")!;
 const srsSession = findMethod(catalogue, "srs-session")!;
 
 describe("MethodDetail", () => {
-  it("shows a single duration chip in the facts panel", () => {
-    render(<MethodDetail method={narrowListening} />);
+  it("shows a single duration chip in the facts panel", async () => {
+    render(await MethodDetail({ method: narrowListening }));
     expect(screen.getAllByText("10–45 min").length).toBeGreaterThan(0);
   });
 
-  it("shows skill tier badges for improving skills", () => {
-    render(<MethodDetail method={narrowListening} />);
+  it("shows skill tier badges for improving skills", async () => {
+    render(await MethodDetail({ method: narrowListening }));
 
     expect(
       screen.getByRole("img", {
-        name: skillTierAriaLabel("listening", "gold"),
+        name: `Gold ${en.methodMenu.skillLabels.listening} contribution`,
       }),
     ).toBeDefined();
   });
 
-  it("shows article prose for a shipped method", () => {
+  it("shows article prose for a shipped method", async () => {
     render(
-      <MethodDetail method={extensiveReading} searchParams={{ minutes: "15", skill: "reading" }} />,
+      await MethodDetail({
+        method: extensiveReading,
+        searchParams: { minutes: "15", skill: "reading" },
+      }),
     );
 
     expect(screen.getByRole("heading", { level: 1, name: extensiveReading.name })).toBeDefined();
     expect(document.body.textContent).toContain(extensiveReading.summary);
     expect(document.body.textContent).toContain(extensiveReading.trains);
     expect(document.body.textContent).toContain(extensiveReading.doesNotDo);
-    expect(screen.queryByRole("link", { name: copy.startSession })).toBeNull();
-    expect(screen.getByText(copy.sessionNotBuilt)).toBeDefined();
+    expect(screen.queryByRole("link", { name: en.methodMenu.startSession })).toBeNull();
+    expect(screen.getByText(en.methodMenu.sessionNotBuilt)).toBeDefined();
   });
 
-  it("uses the same section graphic as cards in a full-bleed hero", () => {
-    render(<MethodDetail method={extensiveReading} />);
+  it("uses the same section graphic as cards in a full-bleed hero", async () => {
+    render(await MethodDetail({ method: extensiveReading }));
 
     const hero = document.querySelector(".w-screen");
     expect(hero).not.toBeNull();
-    expect(hero?.textContent).toContain("Reading");
+    expect(hero?.textContent).toContain(en.methodMenu.sections.reading);
   });
 
-  it("shows Start for srs-session", () => {
-    render(<MethodDetail method={srsSession} />);
+  it("shows Start for srs-session", async () => {
+    render(await MethodDetail({ method: srsSession }));
 
-    expect(screen.getByRole("link", { name: copy.startSession }).getAttribute("href")).toBe(
+    expect(screen.getByRole("link", { name: en.methodMenu.startSession }).getAttribute("href")).toBe(
       "/words/review?method=srs-session",
     );
   });
 
-  it("preserves filter on back link", () => {
+  it("preserves filter on back link", async () => {
     render(
-      <MethodDetail method={extensiveReading} searchParams={{ minutes: "15", skill: "reading" }} />,
+      await MethodDetail({
+        method: extensiveReading,
+        searchParams: { minutes: "15", skill: "reading" },
+      }),
     );
 
-    const back = screen.getByRole("link", { name: new RegExp(copy.backToMethods) });
+    const back = screen.getByRole("link", { name: new RegExp(en.methodMenu.backToMethods) });
     expect(back.getAttribute("href")).toBe("/methods?minutes=15&skill=reading");
     expect(back.className).toContain("hidden");
     expect(back.className).toContain("md:inline-flex");
   });
 
-  it("shows not-found for an unknown id", () => {
-    render(<MethodDetail method={undefined} />);
+  it("shows not-found for an unknown id", async () => {
+    render(await MethodDetail({ method: undefined }));
 
-    expect(screen.getByText(copy.methodNotFound)).toBeDefined();
+    expect(screen.getByText(en.methodMenu.methodNotFound)).toBeDefined();
   });
 
   it("has no accessibility violations", async () => {
-    const { container } = render(<MethodDetail method={extensiveReading} />);
+    const { container } = render(await MethodDetail({ method: extensiveReading }));
     await expectNoA11yViolations(container);
   });
 });

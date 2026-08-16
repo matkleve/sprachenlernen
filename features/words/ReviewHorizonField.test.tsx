@@ -1,9 +1,10 @@
-import { render, screen } from "@testing-library/react";
+import { renderWithIntl as render, formatMessage, en } from "@/tests/i18n-test-utils";
+import {screen} from "@testing-library/react";
+
 import userEvent from "@testing-library/user-event";
 import { describe, expect, it } from "vitest";
 
 import { ReviewHorizonField } from "@/features/words/ReviewHorizonField";
-import { copy } from "@/features/words/content";
 import { buildHorizonDisplay } from "@/lib/review-horizon";
 import { HORIZON_DAYS } from "@/lib/vocabulary-snapshot";
 
@@ -36,8 +37,8 @@ describe("ReviewHorizonField", () => {
 
     render(<ReviewHorizonField horizon={horizon} display={display} now={now} />);
 
-    expect(screen.getByText(copy.horizonExpand)).toBeDefined();
-    expect(screen.queryByText(copy.horizonWeekLabel(1))).toBeNull();
+    expect(screen.getByText(en.words.horizonExpand)).toBeDefined();
+    expect(screen.queryByText(formatMessage(en.words.horizonWeekLabel, { week: 1 }))).toBeNull();
   });
 
   it("starts expanded after a gap and shows week columns", () => {
@@ -53,8 +54,8 @@ describe("ReviewHorizonField", () => {
 
     render(<ReviewHorizonField horizon={horizon} display={display} now={now} />);
 
-    expect(screen.getByText(copy.horizonWeekLabel(1))).toBeDefined();
-    expect(screen.getByText(copy.horizonReturnPlan)).toBeDefined();
+    expect(screen.getByText(formatMessage(en.words.horizonWeekLabel, { week: 1 }))).toBeDefined();
+    expect(screen.getByText(en.words.horizonReturnPlan)).toBeDefined();
   });
 
   it("expands when the learner asks", async () => {
@@ -79,9 +80,9 @@ describe("ReviewHorizonField", () => {
 
     render(<ReviewHorizonField horizon={horizon} display={display} now={now} />);
 
-    await user.click(screen.getByRole("button", { name: copy.horizonExpand }));
+    await user.click(screen.getByRole("button", { name: en.words.horizonExpand }));
 
-    expect(screen.getByText(copy.horizonWeekLabel(1))).toBeDefined();
+    expect(screen.getByText(formatMessage(en.words.horizonWeekLabel, { week: 1 }))).toBeDefined();
     expect(screen.queryByText(/\bbacklog\b/i)).toBeNull();
   });
 });

@@ -1,8 +1,9 @@
-import { render, screen } from "@testing-library/react";
+import { renderWithIntl as render, formatMessage, en } from "@/tests/i18n-test-utils";
+import {screen} from "@testing-library/react";
+
 import { describe, expect, it, vi } from "vitest";
 
 import { ReviewCard } from "@/features/review-session/ReviewCard";
-import { copy } from "@/features/review-session/content";
 
 vi.mock("@/features/review-session/session-machine", () => ({
   canFlip: () => true,
@@ -41,8 +42,8 @@ describe("ReviewCard", () => {
       />,
     );
 
-    expect(screen.getByText(copy.prompt)).toBeDefined();
-    expect(screen.queryByText(copy.formRecallPrompt)).toBeNull();
+    expect(screen.getByText(en.reviewSession.prompt)).toBeDefined();
+    expect(screen.queryByText(en.reviewSession.formRecallPrompt)).toBeNull();
   });
 
   it("says nothing about a cell on a card that has none", () => {
@@ -72,8 +73,8 @@ describe("ReviewCard", () => {
       />,
     );
 
-    expect(screen.getByText(copy.formRecallPrompt)).toBeDefined();
-    expect(screen.queryByText(copy.prompt)).toBeNull();
+    expect(screen.getByText(en.reviewSession.formRecallPrompt)).toBeDefined();
+    expect(screen.queryByText(en.reviewSession.prompt)).toBeNull();
   });
 
   it("names the cell it is asking for, so the prompt has one answer", () => {
@@ -126,6 +127,6 @@ describe("ReviewCard", () => {
       />,
     );
 
-    expect(screen.getByRole("button", { name: copy.report })).toBeDefined();
+    expect(screen.getByRole("button", { name: en.reviewSession.report })).toBeDefined();
   });
 });

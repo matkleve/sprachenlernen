@@ -1,5 +1,7 @@
 import type { ReactElement } from "react";
-import { render, screen } from "@testing-library/react";
+import { renderWithIntl as render, formatMessage, en } from "@/tests/i18n-test-utils";
+import {screen} from "@testing-library/react";
+
 import { usePathname } from "next/navigation";
 import { beforeEach, describe, expect, it, vi, afterEach } from "vitest";
 
@@ -10,9 +12,7 @@ import { AppShell } from "./AppShell";
 import { FloatingShellChrome } from "./FloatingShellChrome";
 import { APP_VERSION_LABEL } from "@/lib/pride-version";
 import packageJson from "@/package.json";
-import { copy as profileCopy } from "@/features/profile/content";
 
-import { copy, holding } from "./content";
 
 const oneLanguage = [{ code: "es", endonym: "Español", isActive: true }] as const;
 const twoLanguages = [
@@ -72,13 +72,13 @@ describe("SPEC-feature-mobile-nav-v2", () => {
     expect(container.querySelector(".shell-float-nav-pill")).not.toBeNull();
     expect(container.querySelector(".pointer-events-auto.absolute.inset-0")).not.toBeNull();
 
-    const nav = screen.getByRole("navigation", { name: copy.mobileNavLabel });
+    const nav = screen.getByRole("navigation", { name: en.appShell.mobileNavLabel });
     const links = nav.querySelectorAll<HTMLAnchorElement>("a[href]");
     expect(links).toHaveLength(3);
     expect(nav.querySelector("ul")?.className).toContain("inline-flex");
-    expect(screen.getByRole("link", { name: copy.destinations.methods })).toBeDefined();
-    expect(screen.getByRole("link", { name: copy.destinations.words })).toBeDefined();
-    expect(screen.getByRole("link", { name: copy.destinations.progress })).toBeDefined();
+    expect(screen.getByRole("link", { name: en.appShell.destinations.methods })).toBeDefined();
+    expect(screen.getByRole("link", { name: en.appShell.destinations.words })).toBeDefined();
+    expect(screen.getByRole("link", { name: en.appShell.destinations.progress })).toBeDefined();
     for (const link of links) {
       expect(link.textContent?.trim()).toBe("");
     }
@@ -89,23 +89,23 @@ describe("SPEC-feature-mobile-nav-v2", () => {
     vi.mocked(usePathname).mockReturnValue("/words");
     renderChrome(<FloatingShellChrome languages={oneLanguage} />);
 
-    const account = screen.getByRole("link", { name: copy.account });
+    const account = screen.getByRole("link", { name: en.appShell.account });
     expect(account.getAttribute("href")).toBe("/profile");
     expect(account.getAttribute("aria-current")).toBeNull();
     expect(account.textContent?.trim()).toBe("");
-    expect(screen.queryByRole("button", { name: profileCopy.signOut })).toBeNull();
+    expect(screen.queryByRole("button", { name: en.profile.signOut })).toBeNull();
     const wordsLinks = screen
       .getAllByRole("link")
       .filter((link) => link.getAttribute("href") === "/words");
     expect(wordsLinks).toHaveLength(1);
-    expect(screen.getByRole("heading", { level: 1, name: holding.words.title })).toBeDefined();
+    expect(screen.getByRole("heading", { level: 1, name: en.appShell.holding.words.title })).toBeDefined();
   });
 
   it("marks the account icon chip as current on /profile", () => {
     vi.mocked(usePathname).mockReturnValue("/profile");
     renderChrome(<FloatingShellChrome languages={oneLanguage} />);
 
-    const account = screen.getByRole("link", { name: copy.account });
+    const account = screen.getByRole("link", { name: en.appShell.account });
     expect(account.getAttribute("aria-current")).toBe("page");
     expect(account.className).toContain("bg-accent");
   });
@@ -114,7 +114,7 @@ describe("SPEC-feature-mobile-nav-v2", () => {
     vi.mocked(usePathname).mockReturnValue("/words");
     renderChrome(<FloatingShellChrome languages={twoLanguages} />);
 
-    expect(screen.getByRole("button", { name: copy.switchLanguage })).toBeDefined();
+    expect(screen.getByRole("button", { name: en.appShell.switchLanguage })).toBeDefined();
     expect(screen.getByText("🇪🇸")).toBeDefined();
   });
 
@@ -122,12 +122,14 @@ describe("SPEC-feature-mobile-nav-v2", () => {
     vi.mocked(usePathname).mockReturnValue("/methods/srs-session");
     renderChrome(<FloatingShellChrome languages={twoLanguages} />);
 
-    const back = screen.getByRole("link", { name: copy.backTo(copy.destinations.methods) });
+    const back = screen.getByRole("link", {
+      name: formatMessage(en.appShell.backTo, { destination: en.appShell.destinations.methods }),
+    });
     expect(back.getAttribute("href")).toBe("/methods");
     expect(back.getAttribute("aria-current")).toBeNull();
     expect(back.className.split(/\s+/)).not.toContain("bg-accent");
     expect(back.textContent?.trim()).toBe("");
-    expect(screen.queryByRole("button", { name: copy.switchLanguage })).toBeNull();
+    expect(screen.queryByRole("button", { name: en.appShell.switchLanguage })).toBeNull();
     expect(screen.queryByText("🇪🇸")).toBeNull();
   });
 
@@ -139,9 +141,9 @@ describe("SPEC-feature-mobile-nav-v2", () => {
       .getAllByRole("link")
       .filter((link) => link.getAttribute("href") === "/words");
     expect(wordsLinks).toHaveLength(2);
-    expect(screen.queryByRole("button", { name: copy.switchLanguage })).toBeNull();
+    expect(screen.queryByRole("button", { name: en.appShell.switchLanguage })).toBeNull();
     expect(screen.queryByText("🇪🇸")).toBeNull();
-    expect(screen.getByRole("navigation", { name: copy.mobileNavLabel })).toBeDefined();
+    expect(screen.getByRole("navigation", { name: en.appShell.mobileNavLabel })).toBeDefined();
   });
 
   it("anchors the footer scrim to the viewport bottom, not the pill lift", () => {

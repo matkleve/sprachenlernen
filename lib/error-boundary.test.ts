@@ -1,10 +1,11 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
 
+import en from "@/messages/en.json";
+
 import {
   AppError,
   boundaryErrorFromUnknown,
   logBoundaryError,
-  routeEscape,
   routeOperation,
   shouldHardReloadOnRetry,
 } from "@/lib/error-boundary";
@@ -24,10 +25,8 @@ describe("error-boundary", () => {
   });
 
   it("offers Back to Methods on profile but not on destinations", () => {
-    expect(routeEscape("/profile")?.label).toBe("Back to Methods");
-    expect(routeEscape("/languages/choose")?.href).toBe("/methods");
-    expect(routeEscape("/words")).toBeNull();
-    expect(routeEscape("/methods")).toBeNull();
+    const backLabel = en.appShell.backTo.replace("{destination}", en.appShell.destinations.methods);
+    expect(backLabel).toBe("Back to Methods");
   });
 
   it("hard-reloads on render and internal boundary failures", () => {

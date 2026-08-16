@@ -8,16 +8,17 @@ import { ProfileLanguages } from "@/features/profile/ProfileLanguages";
 import { ProfileSectionNav } from "@/features/profile/ProfileSectionNav";
 import { ProfileSpokenLanguage } from "@/features/profile/ProfileSpokenLanguage";
 import { ProfileYourDataSection } from "@/features/profile/ProfileYourDataSection";
-import { copy } from "@/features/profile/content";
+import { getTranslations } from "next-intl/server";
 import { SubmitButton } from "@/components/ui/SubmitButton";
 import { readLanguageHoldings } from "@/lib/db/language-holdings";
 import { listLearningLanguages } from "@/lib/db/learning-languages";
 import { getSpokenLanguage } from "@/lib/db/profiles";
 import { isProfileSection, profilePanelId } from "@/lib/profile-section";
 
-export const metadata: Metadata = {
-  title: copy.title,
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const t = await getTranslations("profile");
+  return { title: t("title") };
+}
 
 /** Contract: docs/specs/page/profile.md */
 export default async function ProfilePage({
@@ -25,6 +26,7 @@ export default async function ProfilePage({
 }: {
   searchParams: Promise<Record<string, string | string[] | undefined>>;
 }) {
+  const t = await getTranslations("profile");
   const params = await searchParams;
   const switchFailed = params.failed !== undefined;
   const spokenFailed = params.spoken !== undefined;
@@ -77,7 +79,7 @@ export default async function ProfilePage({
       </div>
 
       <form action={signOutAction} className="mt-page-content">
-        <SubmitButton variant="secondary">{copy.signOut}</SubmitButton>
+        <SubmitButton variant="secondary">{t("signOut")}</SubmitButton>
       </form>
     </ShellPageContent>
   );

@@ -1,4 +1,4 @@
-import { render, screen, waitFor } from "@testing-library/react";
+import { screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
@@ -9,9 +9,9 @@ import {
   formatPrideVersion,
   parsePrideVersion,
 } from "@/lib/pride-version";
+import { en, formatMessage } from "@/tests/i18n-test-utils";
 
 import { AppVersionLabel } from "./AppVersionLabel";
-import { copy } from "./content";
 import { renderWithAppUpdate } from "./test-utils";
 
 const bundledVersion = packageJson.version;
@@ -44,7 +44,10 @@ describe("SPEC-feature-app-update", () => {
     });
     expect(
       screen.queryByRole("button", {
-        name: copy.appUpdate.reloadAria(deployedLabel, bundledLabel),
+        name: formatMessage(en.appShell.appUpdate.reloadAria, {
+          nextVersion: deployedLabel,
+          currentVersion: bundledLabel,
+        }),
       }),
     ).toBeNull();
   });
@@ -58,7 +61,10 @@ describe("SPEC-feature-app-update", () => {
     const { container } = renderWithAppUpdate(<AppVersionLabel />);
 
     const control = await screen.findByRole("button", {
-      name: copy.appUpdate.reloadAria(deployedLabel, bundledLabel),
+      name: formatMessage(en.appShell.appUpdate.reloadAria, {
+        nextVersion: deployedLabel,
+        currentVersion: bundledLabel,
+      }),
     });
 
     expect(control).toBeDefined();
@@ -84,7 +90,10 @@ describe("SPEC-feature-app-update", () => {
 
     await user.click(
       await screen.findByRole("button", {
-        name: copy.appUpdate.reloadAria(deployedLabel, bundledLabel),
+        name: formatMessage(en.appShell.appUpdate.reloadAria, {
+          nextVersion: deployedLabel,
+          currentVersion: bundledLabel,
+        }),
       }),
     );
 
@@ -101,7 +110,10 @@ describe("SPEC-feature-app-update", () => {
     });
     expect(
       screen.queryByRole("button", {
-        name: copy.appUpdate.reloadAria(deployedLabel, bundledLabel),
+        name: formatMessage(en.appShell.appUpdate.reloadAria, {
+          nextVersion: deployedLabel,
+          currentVersion: bundledLabel,
+        }),
       }),
     ).toBeNull();
   });

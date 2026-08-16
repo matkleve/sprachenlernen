@@ -1,9 +1,11 @@
+"use client";
+
+import { useTranslations } from "next-intl";
 import { Flag } from "lucide-react";
 
 import { GradeButton } from "@/components/ui/GradeButton";
 import { IconButton } from "@/components/ui/IconButton";
 import { PressableCard } from "@/components/ui/PressableCard";
-import { copy } from "@/features/review-session/content";
 import {
   canFlip,
   canGrade,
@@ -37,11 +39,12 @@ export function ReviewCard({
   reportPending = false,
   compact = false,
 }: ReviewCardProps) {
+  const t = useTranslations("reviewSession");
   const flipEnabled = canFlip(phase);
   const gradesEnabled = canGrade(phase);
   const revealBack = showsBack(phase);
   const isFormRecall = isFormRecallTaskId(card.taskId);
-  const gradePrompt = isFormRecall ? copy.formRecallPrompt : copy.prompt;
+  const gradePrompt = isFormRecall ? t('formRecallPrompt') : t('prompt');
   const cell = card.paradigmCell ? paradigmCellLabel(card.paradigmCell) : null;
 
   return (
@@ -53,7 +56,7 @@ export function ReviewCard({
     >
       {!compact ? (
         <p className="text-sm text-muted" aria-live="polite">
-          {copy.progress(card.position, card.total)}
+          {t('progress', { position: card.position, total: card.total })}
         </p>
       ) : null}
 
@@ -64,7 +67,7 @@ export function ReviewCard({
           pending={reportPending}
           pendingPolicy="none"
           onClick={onReport}
-          aria-label={copy.report}
+          aria-label={t('report')}
           className="absolute top-3 right-3 z-10 text-muted hover:text-ink"
         >
           <Flag className="size-4" aria-hidden />
@@ -74,14 +77,14 @@ export function ReviewCard({
           onClick={onFlip}
           interactive={flipEnabled}
           aria-expanded={revealBack}
-          aria-label={flipEnabled ? copy.flipHint : undefined}
+          aria-label={flipEnabled ? t('flipHint') : undefined}
           className={cn(
             compact ? "flex min-h-0 flex-1 flex-col justify-center p-5 md:mt-6 md:flex-none md:p-8" : "mt-6 p-8",
           )}
         >
           {languageName && (
             <p className="text-xs font-medium uppercase tracking-widest text-muted">
-              {copy.languageLabel(languageName)}
+              {t('languageLabel', { name: languageName })}
             </p>
           )}
 
@@ -98,13 +101,17 @@ export function ReviewCard({
 
           {cell && (
             <p className={cn("font-medium text-ink", compact ? "mt-2 text-sm md:text-base" : "mt-3 text-base")}>
-              {copy.cellLabel(cell)}
+              {cell.person
+                ? t("cellLabelWithPerson", { person: cell.person, form: cell.form })
+                : t("cellLabelFormOnly", { form: cell.form })}
             </p>
           )}
 
           {isFormRecall && (
             <p className={cn("text-muted", compact ? "mt-1 text-xs md:mt-2 md:text-sm" : "mt-2 text-sm")}>
-              {copy.formRecallInstruction(languageName)}
+              {languageName
+                ? t("formRecallInstruction", { language: languageName })
+                : t("formRecallInstructionFallback")}
             </p>
           )}
 
@@ -124,7 +131,7 @@ export function ReviewCard({
               <span aria-hidden className="text-sm leading-none">
                 ↻
               </span>
-              {copy.flipHint}
+              {t('flipHint')}
             </p>
           )}
         </PressableCard>
@@ -137,7 +144,7 @@ export function ReviewCard({
           <div className={cn("grid w-full grid-cols-4 gap-2", compact ? "mt-2 md:mt-4" : "mt-4")}>
             {GRADES.map((grade) => (
               <GradeButton key={grade} grade={grade} onClick={() => onGrade(grade)}>
-                {copy[grade]}
+                {t(grade)}
               </GradeButton>
             ))}
           </div>

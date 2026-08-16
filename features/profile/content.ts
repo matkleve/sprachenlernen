@@ -1,3 +1,5 @@
+// Legacy English copy — use next-intl messages instead. Kept for reference during migration.
+
 /** Copy for the profile surface. Contract: docs/specs/page/profile.md */
 export const copy = {
   title: "Profile",

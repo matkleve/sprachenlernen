@@ -1,4 +1,6 @@
-import { render, screen, waitFor } from "@testing-library/react";
+import { renderWithIntl as render, formatMessage, en } from "@/tests/i18n-test-utils";
+import {screen, waitFor} from "@testing-library/react";
+
 import userEvent from "@testing-library/user-event";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
@@ -12,7 +14,6 @@ import {
   createReviewWriteQueue,
 } from "@/lib/db/review-write-queue";
 import { setReviewQueueForTests } from "@/features/review-session/review-queue";
-import { copy } from "@/features/review-session/content";
 
 vi.mock("next/navigation", () => ({
   useRouter: vi.fn(() => ({ push: vi.fn() })),
@@ -117,7 +118,7 @@ describe("ReviewSession", () => {
     );
 
     expect(screen.getByText("de")).toBeDefined();
-    expect(screen.queryByText(copy.loading)).toBeNull();
+    expect(screen.queryByText(en.reviewSession.loading)).toBeNull();
   });
 
   it("shows the first card with grades, flips on tap, then persists a grade", async () => {
@@ -132,15 +133,15 @@ describe("ReviewSession", () => {
     expect(screen.getByText("de")).toBeDefined();
 
     expect(screen.getByText("Spanish")).toBeDefined();
-    expect(screen.getByRole("button", { name: copy.good })).toBeDefined();
+    expect(screen.getByRole("button", { name: en.reviewSession.good })).toBeDefined();
 
-    await user.click(screen.getByRole("button", { name: copy.flipHint }));
+    await user.click(screen.getByRole("button", { name: en.reviewSession.flipHint }));
 
     await waitFor(() => {
       expect(screen.getByText("of, from")).toBeDefined();
     });
 
-    await user.click(screen.getByRole("button", { name: copy.good }));
+    await user.click(screen.getByRole("button", { name: en.reviewSession.good }));
 
     await waitFor(() => {
       expect(appendReviewAction).toHaveBeenCalledWith(
@@ -162,7 +163,7 @@ describe("ReviewSession", () => {
     await waitFor(() => expect(screen.getByText("de")).toBeDefined());
     expect(screen.queryByText("of, from")).toBeNull();
 
-    await user.click(screen.getByRole("button", { name: copy.good }));
+    await user.click(screen.getByRole("button", { name: en.reviewSession.good }));
 
     await waitFor(() => {
       expect(appendReviewAction).toHaveBeenCalledWith(
@@ -193,8 +194,8 @@ describe("ReviewSession", () => {
     );
 
     expect(screen.getByText("de")).toBeDefined();
-    await user.click(screen.getByRole("button", { name: copy.flipHint }));
-    await user.click(screen.getByRole("button", { name: copy.good }));
+    await user.click(screen.getByRole("button", { name: en.reviewSession.flipHint }));
+    await user.click(screen.getByRole("button", { name: en.reviewSession.good }));
 
     await waitFor(() => expect(screen.getByText("que")).toBeDefined());
     resolveAppend!({ status: "appended", id: "row-1" });
@@ -206,7 +207,7 @@ describe("ReviewSession", () => {
         listener({
           pending: 0,
           failed: 1,
-          lastError: copy.syncFailed,
+          lastError: en.reviewSession.syncFailed,
           pendingSince: null,
         });
         return () => {};
@@ -217,7 +218,7 @@ describe("ReviewSession", () => {
       getState: () => ({
         pending: 0,
         failed: 1,
-        lastError: copy.syncFailed,
+        lastError: en.reviewSession.syncFailed,
         pendingSince: null,
       }),
     });
@@ -231,10 +232,10 @@ describe("ReviewSession", () => {
     );
 
     expect(screen.getByText("de")).toBeDefined();
-    await user.click(screen.getByRole("button", { name: copy.flipHint }));
-    await user.click(screen.getByRole("button", { name: copy.good }));
+    await user.click(screen.getByRole("button", { name: en.reviewSession.flipHint }));
+    await user.click(screen.getByRole("button", { name: en.reviewSession.good }));
 
-    await waitFor(() => expect(screen.getByText(copy.syncFailed)).toBeDefined());
+    await waitFor(() => expect(screen.getByText(en.reviewSession.syncFailed)).toBeDefined());
     expect(screen.getByText("que")).toBeDefined();
   });
 
@@ -247,7 +248,7 @@ describe("ReviewSession", () => {
     );
 
     expect(screen.getByText("Not signed in.")).toBeDefined();
-    const back = screen.getByRole("link", { name: new RegExp(copy.backToMethods) });
+    const back = screen.getByRole("link", { name: new RegExp(en.reviewSession.backToMethods) });
     expect(back.className).toContain("hidden");
     expect(back.className).toContain("md:inline-block");
   });
@@ -258,7 +259,7 @@ describe("ReviewSession", () => {
     render(<ReviewSession methodName="Spaced repetition session" />);
 
     await waitFor(() => {
-      expect(screen.getByText(copy.loadError)).toBeDefined();
+      expect(screen.getByText(en.reviewSession.loadError)).toBeDefined();
     });
     expect(screen.queryByText("Could not start your review session.")).toBeNull();
   });
@@ -273,19 +274,19 @@ describe("ReviewSession", () => {
     );
 
     expect(screen.getByText("de")).toBeDefined();
-    await user.click(screen.getByRole("button", { name: copy.flipHint }));
-    await user.click(screen.getByRole("button", { name: copy.good }));
+    await user.click(screen.getByRole("button", { name: en.reviewSession.flipHint }));
+    await user.click(screen.getByRole("button", { name: en.reviewSession.good }));
 
     await waitFor(() => expect(screen.getByText("que")).toBeDefined());
-    await user.click(screen.getByRole("button", { name: copy.flipHint }));
-    await user.click(screen.getByRole("button", { name: copy.good }));
+    await user.click(screen.getByRole("button", { name: en.reviewSession.flipHint }));
+    await user.click(screen.getByRole("button", { name: en.reviewSession.good }));
 
-    await waitFor(() => expect(screen.getByText(copy.completeTitle)).toBeDefined());
+    await waitFor(() => expect(screen.getByText(en.reviewSession.completeTitle)).toBeDefined());
 
-    for (const grade of [copy.again, copy.hard, copy.good, copy.easy]) {
+    for (const grade of [en.reviewSession.again, en.reviewSession.hard, en.reviewSession.good, en.reviewSession.easy]) {
       expect(screen.queryByRole("button", { name: grade }), `${grade} must be gone`).toBeNull();
     }
-    expect(screen.getByText(copy.completeBody(2))).toBeDefined();
+    expect(screen.getByText(formatMessage(en.reviewSession.completeBody, { count: 2 }))).toBeDefined();
   });
 
   it("never shows a due count, a backlog figure or a badge", async () => {
@@ -309,16 +310,16 @@ describe("ReviewSession", () => {
         .join(" | ");
 
     expect(leafText()).not.toMatch(forbidden);
-    expect(screen.getByText(copy.progress(1, 2))).toBeDefined();
+    expect(screen.getByText(formatMessage(en.reviewSession.progress, { position: 1, total: 2 }))).toBeDefined();
 
-    await user.click(screen.getByRole("button", { name: copy.flipHint }));
-    await user.click(screen.getByRole("button", { name: copy.good }));
+    await user.click(screen.getByRole("button", { name: en.reviewSession.flipHint }));
+    await user.click(screen.getByRole("button", { name: en.reviewSession.good }));
     await waitFor(() => expect(screen.getByText("que")).toBeDefined());
     expect(leafText()).not.toMatch(forbidden);
 
-    await user.click(screen.getByRole("button", { name: copy.flipHint }));
-    await user.click(screen.getByRole("button", { name: copy.good }));
-    await waitFor(() => expect(screen.getByText(copy.completeTitle)).toBeDefined());
+    await user.click(screen.getByRole("button", { name: en.reviewSession.flipHint }));
+    await user.click(screen.getByRole("button", { name: en.reviewSession.good }));
+    await waitFor(() => expect(screen.getByText(en.reviewSession.completeTitle)).toBeDefined());
     expect(leafText()).not.toMatch(forbidden);
   });
 
@@ -332,13 +333,13 @@ describe("ReviewSession", () => {
     );
 
     expect(screen.getByText("de")).toBeDefined();
-    await user.click(screen.getByRole("button", { name: copy.flipHint }));
-    await user.click(screen.getByRole("button", { name: copy.again }));
+    await user.click(screen.getByRole("button", { name: en.reviewSession.flipHint }));
+    await user.click(screen.getByRole("button", { name: en.reviewSession.again }));
 
     await waitFor(() => expect(screen.getByText("que")).toBeDefined());
 
-    await user.click(screen.getByRole("button", { name: copy.flipHint }));
-    await user.click(screen.getByRole("button", { name: copy.good }));
+    await user.click(screen.getByRole("button", { name: en.reviewSession.flipHint }));
+    await user.click(screen.getByRole("button", { name: en.reviewSession.good }));
 
     await waitFor(() => expect(screen.getByText("de")).toBeDefined());
     await waitFor(() => expect(appendReviewAction).toHaveBeenCalledTimes(2));

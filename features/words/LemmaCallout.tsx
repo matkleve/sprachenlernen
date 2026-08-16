@@ -1,5 +1,6 @@
+import { getTranslations } from "next-intl/server";
+
 import { Disclosure, DisclosureSummary } from "@/components/ui/Disclosure";
-import { copy } from "@/features/words/content";
 import { cn } from "@/lib/utils";
 
 const calloutClass =
@@ -9,20 +10,22 @@ const calloutClass =
  * Lemma explainer — collapsed on mobile, always visible from md up.
  * Reuse: Disclosure. Contract: docs/specs/feature/words-home.md
  */
-export function LemmaCallout() {
+export async function LemmaCallout() {
+  const t = await getTranslations("words");
+
   return (
     <>
       <Disclosure
-        aria-label={copy.lemmaCalloutTitle}
+        aria-label={t("lemmaCalloutTitle")}
         className={cn(calloutClass, "px-4 py-3 md:hidden")}
       >
-        <DisclosureSummary>{copy.lemmaCalloutTitle}</DisclosureSummary>
-        <p className="mt-2 text-muted">{copy.lemmaCalloutBody}</p>
+        <DisclosureSummary>{t("lemmaCalloutTitle")}</DisclosureSummary>
+        <p className="mt-2 text-muted">{t("lemmaCalloutBody")}</p>
       </Disclosure>
 
-      <aside aria-label={copy.lemmaCalloutTitle} className={cn(calloutClass, "hidden px-4 py-3 md:block")}>
-        <p className="font-semibold">{copy.lemmaCalloutTitle}</p>
-        <p className="mt-1 text-muted">{copy.lemmaCalloutBody}</p>
+      <aside aria-label={t("lemmaCalloutTitle")} className={cn(calloutClass, "hidden px-4 py-3 md:block")}>
+        <p className="font-semibold">{t("lemmaCalloutTitle")}</p>
+        <p className="mt-1 text-muted">{t("lemmaCalloutBody")}</p>
       </aside>
     </>
   );

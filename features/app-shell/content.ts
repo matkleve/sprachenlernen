@@ -1,3 +1,5 @@
+// Legacy English copy — use next-intl messages instead. Kept for reference during migration.
+
 /**
  * Copy for the app shell. Contract: docs/specs/feature/app-shell.md
  *

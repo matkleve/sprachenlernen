@@ -1,11 +1,10 @@
+import { getTranslations } from "next-intl/server";
+
 import { ActionLink } from "@/components/ui/ActionLink";
 import { ShellPageContent } from "@/features/app-shell/ShellPageContent";
-import { holding } from "@/features/app-shell/content";
-import { copy as reviewCopy } from "@/features/review-session/content";
 import { ReviewHorizonField } from "@/features/words/ReviewHorizonField";
 import { LemmaCallout } from "@/features/words/LemmaCallout";
 import { WordsReviewCardHeader } from "@/features/words/WordsReviewCardHeader";
-import { copy } from "@/features/words/content";
 import { VocabularyOrbitField } from "@/features/words/VocabularyOrbitField";
 import { cardEngineSessionHref } from "@/lib/method-session";
 import type { FrequencyBlock } from "@/lib/frequency-blocks";
@@ -30,7 +29,7 @@ const countCardStyles = {
   new: "border-line bg-surface",
 } as const;
 
-export function WordsHome({
+export async function WordsHome({
   snapshot,
   blocks,
   languageCode,
@@ -38,50 +37,55 @@ export function WordsHome({
   horizonDisplay,
   now,
 }: WordsHomeProps) {
+  const t = await getTranslations("words");
+  const tReview = await getTranslations("reviewSession");
+  const tShell = await getTranslations("appShell");
   const reviewHref = cardEngineSessionHref();
   const orbit = buildVocabularyOrbit(snapshot.atlas, translations);
 
   return (
     <ShellPageContent width="wide">
       <section className={methodSectionSurface("vocabulary", "rounded-card shadow-soft")}>
-        <WordsReviewCardHeader />
+        {await WordsReviewCardHeader()}
         <div className="p-6">
-          <p className="max-w-2xl text-base leading-relaxed text-muted">{holding.words.intent}</p>
+          <p className="max-w-2xl text-base leading-relaxed text-muted">
+            {tShell("holding.words.intent")}
+          </p>
 
           <div className="mt-6">
-            <h2 className="text-lg font-semibold text-ink">{copy.reviewHeading}</h2>
-            <p className="mt-1 max-w-2xl text-sm leading-relaxed text-muted">{copy.reviewCaption}</p>
+            <h2 className="text-lg font-semibold text-ink">{t("reviewHeading")}</h2>
+            <p className="mt-1 max-w-2xl text-sm leading-relaxed text-muted">{t("reviewCaption")}</p>
             <ActionLink href={reviewHref} variant="primary" size="lg" className="mt-4 w-full sm:w-auto">
-              {reviewCopy.startReview}
+              {tReview("startReview")}
             </ActionLink>
           </div>
         </div>
       </section>
 
       <section className="mt-page-content">
-        <h2 className="text-xl font-semibold text-ink">{copy.countsHeading}</h2>
-        <p className="mt-4 max-w-2xl text-base leading-relaxed text-muted">{copy.countsCaption}</p>
-        <LemmaCallout />
+        <h2 className="text-xl font-semibold text-ink">{t("countsHeading")}</h2>
+        <p className="mt-4 max-w-2xl text-base leading-relaxed text-muted">{t("countsCaption")}</p>
+        {await LemmaCallout()}
         <dl className="mt-6 grid gap-4 sm:grid-cols-3">
           {(
             [
               {
                 key: "held" as const,
-                label: copy.held,
+                label: t("held"),
                 value: snapshot.counts.held,
-                description: copy.heldDescription,
+                description: t("heldDescription"),
               },
               {
                 key: "fragile" as const,
-                label: copy.fragile,
+                label: t("fragile"),
                 value: snapshot.counts.fragile,
-                description: copy.fragileDescription,
+                description: t("fragileDescription"),
               },
               {
                 key: "new" as const,
-                label: copy.newWords,
+                label: t("newWords"),
                 value: snapshot.counts.new,
-                description: copy.newDescription,
+                description: t("newDescription"),
               },
             ] as const
           ).map((item) => (
@@ -101,8 +105,8 @@ export function WordsHome({
       </section>
 
       <section className="mt-page-content">
-        <h2 className="text-xl font-semibold text-ink">{copy.blocksHeading}</h2>
-        <p className="mt-4 max-w-2xl text-base leading-relaxed text-muted">{copy.blocksCaption}</p>
+        <h2 className="text-xl font-semibold text-ink">{t("blocksHeading")}</h2>
+        <p className="mt-4 max-w-2xl text-base leading-relaxed text-muted">{t("blocksCaption")}</p>
         <dl className="mt-6 grid gap-4 sm:grid-cols-2">
           {blocks.map((block) => (
             <div
@@ -110,12 +114,12 @@ export function WordsHome({
               className="rounded-card border border-line bg-surface p-4 shadow-soft"
             >
               <dt className="text-sm font-medium text-muted">
-                {copy.blockLabel(block.rankStart, block.rankEnd)}
+                {t("blockLabel", { start: block.rankStart, end: block.rankEnd })}
               </dt>
               <dd className="mt-2 text-3xl font-semibold text-ink">
-                {copy.blockHeld(block.held, block.poolSize)}
+                {t("blockHeld", { held: block.held, poolSize: block.poolSize })}
               </dd>
-              <dd className="mt-2 text-sm text-muted">{copy.blockHeldDescription}</dd>
+              <dd className="mt-2 text-sm text-muted">{t("blockHeldDescription")}</dd>
             </div>
           ))}
         </dl>
