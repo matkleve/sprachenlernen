@@ -4,6 +4,7 @@ import { useTransition } from "react";
 
 import { TextLink } from "@/components/ui/TextLink";
 import { Button } from "@/components/ui/Button";
+import { StatusBanner } from "@/components/ui/StatusBanner";
 import { copy } from "@/features/review-session/content";
 import { ReviewCard } from "@/features/review-session/ReviewCard";
 import { SessionComplete } from "@/features/review-session/SessionComplete";
@@ -35,11 +36,11 @@ export function ReviewSession({ methodName, compact = false, initialData }: Revi
     pendingCount,
     showSyncStatus,
     gradedCount,
-    reportMessage,
+    reportAck,
     reportPending,
     flip,
     grade,
-    report,
+    submitReport,
     retrySync,
   } = useReviewSession({ initialData });
 
@@ -118,16 +119,25 @@ export function ReviewSession({ methodName, compact = false, initialData }: Revi
         </div>
       ) : null}
 
-      {reportMessage ? (
+      {reportAck?.variant === "success" ? (
+        <StatusBanner
+          variant="success"
+          title={copy.reportSuccessTitle}
+          body={copy.reportSuccessBody}
+          className={cn(compact ? "mt-1 shrink-0" : "mt-2")}
+        />
+      ) : null}
+
+      {reportAck?.variant === "error" ? (
         <p
           className={cn(
-            "text-sm text-ink",
+            "text-sm text-danger",
             compact ? "mt-1 shrink-0" : "mt-2",
           )}
           role="status"
           aria-live="polite"
         >
-          {reportMessage}
+          {reportAck.message}
         </p>
       ) : null}
 
@@ -139,12 +149,13 @@ export function ReviewSession({ methodName, compact = false, initialData }: Revi
         />
       ) : showsActiveCard(phase) && currentCard ? (
         <ReviewCard
+          key={currentCard.wordId}
           card={currentCard}
           languageName={languageName}
           phase={phase}
           onFlip={flip}
           onGrade={grade}
-          onReport={report}
+          onSubmitReport={submitReport}
           reportPending={reportPending}
           compact={compact}
         />

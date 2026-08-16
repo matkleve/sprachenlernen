@@ -25,7 +25,7 @@ Parent: [`IDEAS.md`](../../IDEAS.md) three-tier model,
 
 | # | Input | Output |
 | --- | --- | --- |
-| 1 | Learner taps **Report** on a card during review | One row in `card_content_flag` keyed by (`user_id`, `word_id`, `spoken_language`); confirmation copy shown |
+| 1 | Learner taps **Report** on a card during review | One row in `card_content_flag` keyed by (`user_id`, `word_id`, `spoken_language`); optional `category` and `note`; confirmation banner shown |
 | 2 | Same card in the **current** session | Stays in the fixed queue — no mid-session removal |
 | 3 | Next session build | Cards whose `word_id` is flagged for the account's current `spoken_language` are excluded from scheduling |
 | 4 | Repeat report on same key | Idempotent — no error, same confirmation |
@@ -38,6 +38,8 @@ create table public.card_content_flag (
   word_id text not null,
   spoken_language text not null,
   flagged_at timestamptz not null default now(),
+  category text,
+  note text,
   primary key (user_id, word_id, spoken_language)
 );
 ```

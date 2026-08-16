@@ -86,7 +86,7 @@ because it is interesting.
 | [UC-020](UC-020-learn-without-relying-on-hearing.md) | Learn the language without relying on hearing | 2 | [14](../study/14-accessibility.md) |
 | [UC-007](UC-007-read-something-at-my-level.md) | Read something I can almost understand | 3 | [05](../study/05-input-reading-listening.md) |
 | [UC-022](UC-022-understand-a-rule-when-i-get-it-wrong.md) | Understand a rule at the moment I get it wrong | 3 | [02](../study/02-evidence.md) E5 |
-| [UC-023](UC-023-report-something-wrong.md) | Report something the app got wrong | 3 · Querschnitt | [10](../study/10-antipatterns.md) A5 |
+| [UC-023](UC-023-report-something-wrong.md) | Report something the app got wrong | 3 · Querschnitt | [10](../study/10-antipatterns.md) A5; children [UC-073](UC-073-explain-what-is-wrong-with-a-card.md), [UC-074](UC-074-know-my-report-was-received.md) |
 | [UC-014](UC-014-hear-a-difference-i-cannot-hear.md) | Hear a difference I currently cannot hear | 4 (first) | [13](../study/13-pronunciation-perception.md) |
 | [UC-008](UC-008-listen-while-my-hands-are-busy.md) | Listen while walking, cooking or commuting | 4 | [05](../study/05-input-reading-listening.md) |
 | [UC-018](UC-018-keep-learning-with-no-connection.md) | Keep learning with no connection | 4 | F82 |
@@ -139,6 +139,9 @@ because it is interesting.
 | [UC-064](UC-064-understand-what-one-sub-metric-says-about-me.md) | Understand what one sub-metric says about me | 2 | [03](../study/03-level-model.md), [25](../study/25-why-it-does-not-feel-productive.md) |
 | [UC-069](UC-069-use-the-app-in-my-own-language.md) | Use the app in the language I speak — chrome and card glosses, one setting | 1 · Querschnitt | [`I18N.md`](../I18N.md), [`data/README.md`](../../data/README.md), UC-041 |
 | [UC-071](UC-071-get-a-wrong-card-back-before-the-session-ends.md) | Get a wrong card back before the session ends | 4b — with UC-013 | [`IDEAS.md`](../IDEAS.md) |
+| [UC-072](UC-072-get-the-latest-app-after-a-deploy.md) | Get the latest app after a deploy | 1 · PWA | [31](../study/31-ios-safari-pwa-test-report.md), [32](../study/32-pwa-profile-ux.md) |
+| [UC-073](UC-073-explain-what-is-wrong-with-a-card.md) | Explain what is wrong with a card | 3 · Querschnitt — child of UC-023 | [34](../study/34-review-report-and-acknowledgement-ux.md) |
+| [UC-074](UC-074-know-my-report-was-received.md) | Know my report was received | 3 · Querschnitt — child of UC-023 | [34](../study/34-review-report-and-acknowledgement-ux.md) |
 
 **Not yet written**, and deliberately: use cases for content production (adding a
 language pair, recording a talker pool, curating texts). Those are operator

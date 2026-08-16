@@ -1,14 +1,19 @@
+"use client";
+
 import { Flag } from "lucide-react";
+import { useRef, useState } from "react";
 
 import { GradeButton } from "@/components/ui/GradeButton";
 import { IconButton } from "@/components/ui/IconButton";
 import { PressableCard } from "@/components/ui/PressableCard";
+import { CardReportPopover } from "@/features/review-session/CardReportPopover";
 import { copy } from "@/features/review-session/content";
 import {
   canFlip,
   canGrade,
   showsBack,
 } from "@/features/review-session/session-machine";
+import type { ReportCardInput } from "@/lib/card-report";
 import type { SessionCard } from "@/lib/session-builder";
 import { isFormRecallTaskId } from "@/lib/form-recall-pool";
 import { paradigmCellLabel } from "@/lib/paradigm-cells";
@@ -21,7 +26,7 @@ type ReviewCardProps = {
   phase: Parameters<typeof canGrade>[0];
   onFlip: () => void;
   onGrade: (grade: Grade) => void;
-  onReport: () => void;
+  onSubmitReport: (input: ReportCardInput) => Promise<void>;
   reportPending?: boolean;
   /** Hides progress line and tightens spacing for mobile one-screen layout. */
   compact?: boolean;
@@ -33,16 +38,23 @@ export function ReviewCard({
   phase,
   onFlip,
   onGrade,
-  onReport,
+  onSubmitReport,
   reportPending = false,
   compact = false,
 }: ReviewCardProps) {
+  const flagRef = useRef<HTMLButtonElement>(null);
+  const [reportOpen, setReportOpen] = useState(false);
   const flipEnabled = canFlip(phase);
   const gradesEnabled = canGrade(phase);
   const revealBack = showsBack(phase);
   const isFormRecall = isFormRecallTaskId(card.taskId);
   const gradePrompt = isFormRecall ? copy.formRecallPrompt : copy.prompt;
   const cell = card.paradigmCell ? paradigmCellLabel(card.paradigmCell) : null;
+
+  const handleSubmitReport = async (input: ReportCardInput) => {
+    await onSubmitReport(input);
+    setReportOpen(false);
+  };
 
   return (
     <div
@@ -59,16 +71,27 @@ export function ReviewCard({
 
       <div className={cn("relative", compact && "flex min-h-0 flex-1 flex-col")}>
         <IconButton
+          ref={flagRef}
           type="button"
           size="sm"
           pending={reportPending}
           pendingPolicy="none"
-          onClick={onReport}
+          onClick={() => setReportOpen((open) => !open)}
           aria-label={copy.report}
+          aria-expanded={reportOpen}
+          aria-haspopup="dialog"
           className="absolute top-3 right-3 z-10 text-muted hover:text-ink"
         >
           <Flag className="size-4" aria-hidden />
         </IconButton>
+
+        <CardReportPopover
+          open={reportOpen}
+          onClose={() => setReportOpen(false)}
+          onSubmit={handleSubmitReport}
+          pending={reportPending}
+          triggerRef={flagRef}
+        />
 
         <PressableCard
           onClick={onFlip}
@@ -131,12 +154,29 @@ export function ReviewCard({
       </div>
 
       {gradesEnabled && (
-        <div className={cn(compact && "mt-3 shrink-0 md:mt-6")}>
-          <p className={cn("text-sm text-muted", !compact && "mt-6")}>{gradePrompt}</p>
+        <div
+          className={cn(
+            compact && "mt-2 shrink-0 pb-3 md:mt-6 md:pb-0",
+            !compact && "mt-6",
+          )}
+        >
+          <p className={cn("text-muted", compact ? "text-xs md:text-sm" : "text-sm")}>
+            {gradePrompt}
+          </p>
 
-          <div className={cn("grid w-full grid-cols-4 gap-2", compact ? "mt-2 md:mt-4" : "mt-4")}>
+          <div
+            className={cn(
+              "grid w-full grid-cols-4",
+              compact ? "mt-1.5 gap-1.5 md:mt-4 md:gap-2" : "mt-4 gap-2",
+            )}
+          >
             {GRADES.map((grade) => (
-              <GradeButton key={grade} grade={grade} onClick={() => onGrade(grade)}>
+              <GradeButton
+                key={grade}
+                grade={grade}
+                onClick={() => onGrade(grade)}
+                className={compact ? "h-7 px-2 text-xs md:h-8 md:px-3 md:text-sm" : undefined}
+              >
                 {copy[grade]}
               </GradeButton>
             ))}

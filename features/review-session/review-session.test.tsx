@@ -322,6 +322,43 @@ describe("ReviewSession", () => {
     expect(leafText()).not.toMatch(forbidden);
   });
 
+  it("shows a success banner after submitting a report", async () => {
+    const user = userEvent.setup();
+    const { reportCardAction } = await import("@/features/review-session/actions");
+
+    render(
+      <ReviewSession
+        methodName="Spaced repetition session"
+        initialData={testInitialData}
+      />,
+    );
+
+    await user.click(screen.getByRole("button", { name: copy.report }));
+    await user.click(screen.getByRole("button", { name: copy.reportSubmit }));
+
+    await waitFor(() => expect(screen.getByText(copy.reportSuccessTitle)).toBeDefined());
+    expect(reportCardAction).toHaveBeenCalledWith("es:de", { category: null, note: null });
+  });
+
+  it("clears the report popover when the active card changes", async () => {
+    const user = userEvent.setup();
+    render(
+      <ReviewSession
+        methodName="Spaced repetition session"
+        initialData={testInitialData}
+      />,
+    );
+
+    await user.click(screen.getByRole("button", { name: copy.report }));
+    expect(screen.getByRole("dialog", { name: copy.reportPopoverTitle })).toBeDefined();
+
+    await user.click(screen.getByRole("button", { name: copy.flipHint }));
+    await user.click(screen.getByRole("button", { name: copy.good }));
+
+    await waitFor(() => expect(screen.getByText("que")).toBeDefined());
+    expect(screen.queryByRole("dialog", { name: copy.reportPopoverTitle })).toBeNull();
+  });
+
   it("requeues an again grade to the end when the queue is too short for five ahead", async () => {
     const user = userEvent.setup();
     render(

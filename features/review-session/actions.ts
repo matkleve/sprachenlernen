@@ -3,6 +3,7 @@
 import { appendReview } from "@/lib/db/review-log";
 import { listTaskStatesForTaskIds } from "@/lib/db/task-state";
 import { flagCardContent, listFlaggedWordIds } from "@/lib/db/card-content-flags";
+import type { ReportCardInput } from "@/lib/card-report";
 import { getSpokenLanguage } from "@/lib/db/profiles";
 import {
   catalogueLoadFailed,
@@ -48,8 +49,8 @@ export type BuildSessionOutcome =
   | { status: "no-language" }
   | { status: "error"; error: string };
 
-export async function reportCardAction(wordId: string) {
-  return flagCardContent(wordId);
+export async function reportCardAction(wordId: string, input: ReportCardInput = {}) {
+  return flagCardContent(wordId, input);
 }
 
 export async function buildSessionAction(): Promise<BuildSessionOutcome> {

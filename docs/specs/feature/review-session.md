@@ -23,7 +23,7 @@ recall or form-recall), grades that append to the review log (T-B2).
   Persistence blocking the UI — see
   [`../service/review-write-queue.md`](../service/review-write-queue.md).
 
-**Reuse: `Button`** for grade controls.
+**Reuse: `Button`, `StatusBanner`** for grade controls and report acknowledgement.
 
 ## Behavior
 
@@ -37,7 +37,7 @@ recall or form-recall), grades that append to the review log (T-B2).
 | 5 | Background flush fails | Session does not rewind; non-blocking status with Retry |
 | 6 | Session `complete` | Summary: cards graded this session; link back to Words and Methods |
 | 7 | Viewport &lt; `md` during an active card | Method name and progress share one line; card and grade row fit without page scroll ([`page-layout.md`](page-layout.md) `one-screen-runner`) |
-| 8 | Taps **Report** on a card | Card is flagged for this learner and spoken language; confirmation shown; card stays in the current queue ([`broken-card-detection`](../service/broken-card-detection.md), UC-023) |
+| 8 | Taps **Report** on a card | Popover opens; optional category and note; card is flagged for this learner and spoken language; success banner shown; card stays in the current queue ([`broken-card-detection`](../service/broken-card-detection.md), UC-023, UC-073, UC-074) |
 
 ## States
 
