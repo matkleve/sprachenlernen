@@ -64,12 +64,11 @@ export default async function ProfilePage({
             <ProfileHomeScreenSection />
           </>
         }
-        signOut={
-          <form action={signOutAction}>
-            <SubmitButton variant="secondary">{copy.signOut}</SubmitButton>
-          </form>
-        }
       />
+
+      <form action={signOutAction} className="mt-page-content">
+        <SubmitButton variant="secondary">{copy.signOut}</SubmitButton>
+      </form>
     </ShellPageContent>
   );
 }

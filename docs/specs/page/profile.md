@@ -47,8 +47,9 @@ Contract: [`study/33-profile-section-navigation.md`](../../study/33-profile-sect
 | `data` | Your data | Export + delete |
 | `device` | This device | App version + Home screen (iPhone) |
 
-Sign out stays below the panels, always visible. Optional `?section=` on first
-load deep-links; switching updates the URL with `history.replaceState` only.
+Sign out stays below the panels, always visible. The sign-out form stays in
+`page.tsx` as a server sibling of `ProfileSections` — never inside the client
+section shell (see [`TRAPS.md`](../../TRAPS.md)).
 
 ## Behavior
 

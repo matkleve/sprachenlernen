@@ -18,7 +18,6 @@ export type ProfileSectionsProps = {
   languages: ReactNode;
   data: ReactNode;
   device: ReactNode;
-  signOut: ReactNode;
 };
 
 const SECTION_COPY: Record<ProfileSection, string> = {
@@ -38,7 +37,6 @@ export function ProfileSections({
   languages,
   data,
   device,
-  signOut,
 }: ProfileSectionsProps) {
   const [section, setSection] = useState<ProfileSection>(initialSection);
 
@@ -84,8 +82,6 @@ export function ProfileSections({
           {panels[id]}
         </div>
       ))}
-
-      <div className="mt-page-content">{signOut}</div>
     </>
   );
 }

@@ -8,7 +8,6 @@ import { ProfileLanguages } from "@/features/profile/ProfileLanguages";
 import { ProfileSections } from "@/features/profile/ProfileSections";
 import { ProfileSpokenLanguage } from "@/features/profile/ProfileSpokenLanguage";
 import { copy } from "@/features/profile/content";
-import { Button } from "@/components/ui/Button";
 import { renderWithAppUpdate } from "@/features/app-shell/test-utils";
 import packageJson from "@/package.json";
 import { isStandaloneDisplay } from "@/lib/is-standalone-display";
@@ -263,7 +262,6 @@ describe("ProfileSections", () => {
         languages={<p>Languages panel</p>}
         data={<p>Data panel</p>}
         device={<p>Device panel</p>}
-        signOut={<Button type="button">Sign out</Button>}
       />,
     );
 
@@ -277,7 +275,6 @@ describe("ProfileSections", () => {
     expect(screen.getByRole("button", { name: copy.sectionLanguages, pressed: true })).toBeDefined();
     expect(panel("languages")?.hidden).toBe(false);
     expect(panel("data")?.hidden).toBe(true);
-    expect(screen.getByRole("button", { name: copy.signOut })).toBeDefined();
   });
 
   it("switches panels instantly when a pill is tapped", async () => {
@@ -289,7 +286,6 @@ describe("ProfileSections", () => {
     expect(screen.getByRole("button", { name: copy.sectionData, pressed: true })).toBeDefined();
     expect(panel("data")?.hidden).toBe(false);
     expect(panel("languages")?.hidden).toBe(true);
-    expect(screen.getByRole("button", { name: copy.signOut })).toBeDefined();
   });
 
   it("opens on the requested section when initialSection is data", () => {
