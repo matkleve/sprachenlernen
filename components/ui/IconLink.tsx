@@ -10,11 +10,6 @@ import { cn } from "@/lib/utils";
 type IconLinkProps = Omit<ComponentPropsWithoutRef<typeof ActionLink>, "current"> & {
   /** Accent fill when this link is the active route (`aria-current="page"`). */
   current?: boolean;
-  /**
-   * Accent fill without `aria-current` — active shell corner affordance
-   * (e.g. back chip on drill-in routes).
-   */
-  emphasized?: boolean;
 };
 
 /**
@@ -24,7 +19,6 @@ type IconLinkProps = Omit<ComponentPropsWithoutRef<typeof ActionLink>, "current"
 export function IconLink({
   className,
   current,
-  emphasized,
   pendingPolicy = "nav",
   ...props
 }: IconLinkProps) {
@@ -34,11 +28,7 @@ export function IconLink({
       size="sm"
       pendingPolicy={pendingPolicy}
       aria-current={current ? "page" : undefined}
-      className={cn(
-        iconButtonClass,
-        (current || emphasized) && iconChipCurrentFill,
-        className,
-      )}
+      className={cn(iconButtonClass, current && iconChipCurrentFill, className)}
       {...props}
     />
   );

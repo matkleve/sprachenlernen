@@ -11,7 +11,7 @@ Update this file in the same PR as any new control or migration.
 | --- | --- | --- | --- | --- |
 | Destination nav (desktop) | `DestinationNavItems.tsx` | `NavLink` | `layout="header"`; `current` from pathname | ✓ |
 | Destination nav (mobile pill) | `DestinationNavItems.tsx` | `IconLink` | `layout="pill"`; `current` from pathname | ring |
-| Mobile back chip | `FloatingShellChrome.tsx` | `IconLink` | drill-in only; `emphasized`; `pendingPolicy="nav"` | ring |
+| Mobile back chip | `FloatingShellChrome.tsx` | `IconLink` | drill-in only; neutral at rest; `pendingPolicy="nav"` | ring |
 | Mobile language chip | `FloatingShellChrome.tsx` | `LanguageSwitcher` | destination roots only (`layout="floating"`) | ring |
 | Mobile profile icon | `FloatingShellChrome.tsx` | `IconLink` | `current` on `/profile`; `nav` | ring |
 | Desktop account | `DesktopShellHeader.tsx` | `ActionLink` | `ghost sm`; `current` on `/profile` | ✓ |

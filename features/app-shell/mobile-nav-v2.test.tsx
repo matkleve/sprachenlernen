@@ -125,7 +125,7 @@ describe("SPEC-feature-mobile-nav-v2", () => {
     const back = screen.getByRole("link", { name: copy.backTo(copy.destinations.methods) });
     expect(back.getAttribute("href")).toBe("/methods");
     expect(back.getAttribute("aria-current")).toBeNull();
-    expect(back.className).toContain("bg-accent");
+    expect(back.className.split(/\s+/)).not.toContain("bg-accent");
     expect(back.textContent?.trim()).toBe("");
     expect(screen.queryByRole("button", { name: copy.switchLanguage })).toBeNull();
     expect(screen.queryByText("🇪🇸")).toBeNull();
