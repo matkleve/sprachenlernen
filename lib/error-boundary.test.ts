@@ -4,7 +4,9 @@ import {
   AppError,
   boundaryErrorFromUnknown,
   logBoundaryError,
+  routeEscape,
   routeOperation,
+  shouldHardReloadOnRetry,
 } from "@/lib/error-boundary";
 import { internalUnexpected, sessionBuildFailed, setReferenceIdFactory } from "@/lib/errors";
 
@@ -19,6 +21,19 @@ describe("error-boundary", () => {
     expect(routeOperation("/methods/srs-session")).toBe("load this method");
     expect(routeOperation("/profile")).toBe("load your profile");
     expect(routeOperation("/unknown")).toBe("load this page");
+  });
+
+  it("offers Back to Methods on profile but not on destinations", () => {
+    expect(routeEscape("/profile")?.label).toBe("Back to Methods");
+    expect(routeEscape("/languages/choose")?.href).toBe("/methods");
+    expect(routeEscape("/words")).toBeNull();
+    expect(routeEscape("/methods")).toBeNull();
+  });
+
+  it("hard-reloads on render and internal boundary failures", () => {
+    expect(shouldHardReloadOnRetry("render/boundary")).toBe(true);
+    expect(shouldHardReloadOnRetry("internal/unexpected")).toBe(true);
+    expect(shouldHardReloadOnRetry("network/offline")).toBe(false);
   });
 
   it("uses embedded HandledError from AppError", () => {

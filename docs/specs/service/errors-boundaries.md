@@ -66,8 +66,9 @@ no caller can show the failure inline and the route boundary should recover.
 | 2 | Uncaught throw in route tree | Nearest `error.tsx` → `boundaryErrorFromUnknown` → `RouteErrorSurface` |
 | 3 | Root layout throws | `global-error.tsx` — same copy rules, minimal chrome |
 | 4 | `AppError` thrown | Boundary uses embedded `HandledError` unchanged |
-| 5 | User taps Try again | `reset()` re-renders the route segment |
-| 6 | Any boundary shown | Structured log: `code`, `referenceId`, `route`, `digest`, `developerMessage` |
+| 5 | User taps Try again | `render/boundary` / `internal/unexpected` → full page reload; `network/offline` → `reset()` |
+| 6 | User on `/profile` (or other non-destination) | **Back to Methods** escape link on `RouteErrorSurface` |
+| 7 | Any boundary shown | Structured log: `code`, `referenceId`, `route`, `digest`, `developerMessage` |
 
 ## Route context
 

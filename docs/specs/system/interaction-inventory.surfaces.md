@@ -115,6 +115,7 @@ Update this file in the same PR as any new control or migration.
 
 | Control | File | Primitive | Variant | P |
 | --- | --- | --- | --- | --- |
-| Try again | `RouteErrorSurface.tsx` | `Button` | `secondary`, `useTransition` | ✓ |
+| Try again | `RouteErrorSurface.tsx` | `Button` | `secondary`, `useTransition`; hard reload on `render/boundary` | ✓ |
+| Back to Methods | `RouteErrorSurface.tsx` | `ActionLink` | `secondary`; non-destination routes only | ✓ |
 | Route / global error | `error.tsx`, `global-error.tsx` | via `RouteErrorSurface` | — | ✓ |
 | Destination error | `DestinationError.tsx` | via `RouteErrorSurface` | — | ✓ |

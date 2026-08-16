@@ -6,6 +6,7 @@ import { RouteErrorSurface } from "@/components/ui/RouteErrorSurface";
 import {
   boundaryErrorFromUnknown,
   logBoundaryError,
+  routeEscape,
 } from "@/lib/error-boundary";
 
 import "@/app/globals.css";
@@ -37,7 +38,7 @@ export default function GlobalError({
   return (
     <html lang="en">
       <body className="bg-canvas text-ink antialiased">
-        <RouteErrorSurface {...handled} onRetry={reset} />
+        <RouteErrorSurface {...handled} onRetry={reset} escape={routeEscape("/")} />
       </body>
     </html>
   );

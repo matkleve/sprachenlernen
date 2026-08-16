@@ -7,6 +7,7 @@ import { RouteErrorSurface } from "@/components/ui/RouteErrorSurface";
 import {
   boundaryErrorFromUnknown,
   logBoundaryError,
+  routeEscape,
 } from "@/lib/error-boundary";
 
 /**
@@ -32,5 +33,5 @@ export default function Error({
     logBoundaryError(handled, pathname);
   }, [handled, pathname]);
 
-  return <RouteErrorSurface {...handled} onRetry={reset} />;
+  return <RouteErrorSurface {...handled} onRetry={reset} escape={routeEscape(pathname)} />;
 }
