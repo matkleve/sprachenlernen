@@ -1,4 +1,4 @@
-import { renderWithIntl as render, formatMessage, en } from "@/tests/i18n-test-utils";
+import { renderWithIntl as render, renderWithIntlDe, formatMessage, en, de } from "@/tests/i18n-test-utils";
 import {screen, waitFor} from "@testing-library/react";
 
 import userEvent from "@testing-library/user-event";
@@ -168,6 +168,16 @@ describe("ProfileSpokenLanguage", () => {
     expect(activeChip.className).toContain("bg-accent");
     expect(activeChip.className).toContain("text-accent-ink");
     expect(screen.getAllByRole("button", { name: en.profile.makeActive })).toHaveLength(1);
+  });
+
+  it("renders German chrome when locale is de", () => {
+    renderWithIntlDe(
+      <ProfileSpokenLanguage outcome={{ status: "ok", spokenLanguage: "de" }} />,
+    );
+
+    expect(screen.getByRole("heading", { name: de.profile.spokenHeading })).toBeDefined();
+    expect(screen.getByText(de.profile.active)).toBeDefined();
+    expect(screen.getAllByRole("button", { name: de.profile.makeActive })).toHaveLength(1);
   });
 });
 

@@ -4,6 +4,7 @@ import type { ReactNode } from "react";
 import { describe, expect, it } from "vitest";
 
 import en from "@/messages/en.json";
+import de from "@/messages/de.json";
 import { routes } from "@/lib/routes";
 
 import { shellHeaderStartsCompact } from "./ShellPageTitle";
@@ -41,5 +42,23 @@ describe("useShellPageTitle", () => {
   it("starts compact on the review route", () => {
     expect(shellHeaderStartsCompact(routes.wordsReview)).toBe(true);
     expect(shellHeaderStartsCompact(routes.words)).toBe(false);
+  });
+
+  it("returns German destination titles when locale is de", () => {
+    const wrapperDe = ({ children }: { children: ReactNode }) => (
+      <NextIntlClientProvider locale="de" messages={de}>
+        {children}
+      </NextIntlClientProvider>
+    );
+
+    const { result: methods } = renderHook(() => useShellPageTitle(routes.methods), {
+      wrapper: wrapperDe,
+    });
+    const { result: profile } = renderHook(() => useShellPageTitle(routes.profile), {
+      wrapper: wrapperDe,
+    });
+
+    expect(methods.current).toBe(de.methodMenu.title);
+    expect(profile.current).toBe(de.profile.title);
   });
 });

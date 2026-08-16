@@ -1,6 +1,7 @@
 import { NextIntlClientProvider, createTranslator } from "next-intl";
 import { render, type RenderOptions } from "@testing-library/react";
 
+import de from "@/messages/de.json";
 import en from "@/messages/en.json";
 
 export { screen, within, waitFor, fireEvent } from "@testing-library/react";
@@ -24,4 +25,11 @@ export function renderWithIntl(ui: React.ReactElement, options?: RenderOptions) 
   );
 }
 
-export { en };
+export function renderWithIntlDe(ui: React.ReactElement, options?: RenderOptions) {
+  return render(
+    <NextIntlClientProvider locale="de" messages={de}>{ui}</NextIntlClientProvider>,
+    options,
+  );
+}
+
+export { de, en };
