@@ -6,8 +6,8 @@ import { usePathname } from "next/navigation";
 import { routes } from "@/lib/routes";
 import { cn } from "@/lib/utils";
 
-import { useHeaderCollapse } from "./useHeaderCollapse";
 import { shellPageTitle } from "./page-title";
+import { useHeaderCollapse } from "./useHeaderCollapse";
 import {
   MOBILE_TITLE_LARGE_PX,
   MOBILE_TITLE_SMALL_PX,
@@ -77,13 +77,17 @@ export function ShellPageTitle({ variant, pinnedCompact = false, className }: Sh
 
   if (!title) return null;
 
+  const isMethodDetail =
+    pathname.startsWith(`${routes.methods}/`) && pathname.length > routes.methods.length + 1;
+  const TitleTag = isMethodDetail ? "p" : "h1";
+
   if (variant === "mobile") {
     const maxWidth = mobileShellTitleClampedMaxWidth(
       mobileShellTitleMaxWidth(wrapsTwoLines, fontSize, collapse),
     );
 
     return (
-      <h1
+      <TitleTag
         className={cn(
           "pointer-events-none absolute top-1/2 left-1/2 z-0 w-max -translate-x-1/2 -translate-y-1/2 text-center font-semibold leading-tight tracking-tight text-ink line-clamp-2",
           className,
@@ -107,12 +111,12 @@ export function ShellPageTitle({ variant, pinnedCompact = false, className }: Sh
           {title}
         </span>
         {title}
-      </h1>
+      </TitleTag>
     );
   }
 
   return (
-    <h1
+    <TitleTag
       className={cn(
         "pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 truncate text-center font-semibold tracking-tight text-ink",
         className,
@@ -124,7 +128,7 @@ export function ShellPageTitle({ variant, pinnedCompact = false, className }: Sh
       title={title}
     >
       {title}
-    </h1>
+    </TitleTag>
   );
 }
 

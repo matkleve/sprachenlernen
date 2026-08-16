@@ -12,90 +12,65 @@ works for bookmarks and links.
 
 ## Scope
 
-- **In:** full catalogue fields as an **article layout** — not a second card.
-  In-page **hero title** (`name`, full width) and summary; **Practical** section
-  (effort sentence, duration and requirement chips, hosted status); **Trains**
-  prose with optional skill contribution line; **`doesNotDo`** as the single
-  emphasized callout; **research confidence** in a collapsed disclosure at the
-  bottom (plain label + prose — no letter grade in primary UI). Badges stay on
-  [`MethodCard`](method-menu.md) only ([`method-badge.md`](../component/method-badge.md)).
-  On desktop (`≥ md`), a back link preserving filter query; on mobile the shell
-  back chip replaces it ([`mobile-nav-v2.md`](../feature/mobile-nav-v2.md)); for
-  `srs-session` reached directly, a primary control that opens Words review.
-- **Out:** measured effect; variants beyond durations; starting non-hosted
-  methods; Start control for hosted methods whose engine is not built yet;
-  badge row or raised "At a glance" panel on detail.
+- **In:** **article layout** with a **text-mask hero** (section graphic +
+  in-page `<h1>`); summary; **badge band** — skill tier icons (bronze+ only,
+  left) and effort label (right); **Practical** (effort sentence, single duration
+  chip, requirement chips, hosted); **Trains** prose (no redundant skill line when
+  tier badges show); **`doesNotDo`** callout; research-confidence disclosure.
+  Cards keep Lucide badge row ([`method-badge.md`](../component/method-badge.md)).
+  Tier badges: [`skill-tier-badge.md`](../component/skill-tier-badge.md). Shell
+  title truncates; in-page hero owns the document `<h1>` (shell uses `<p>` on
+  drill-in). Desktop back link preserves filters; mobile shell back chip.
+- **Out:** measured effect; wood tier on UI; visible tier/skill text on badges;
+  badge row on cards changing in this slice; Start for unbuilt hosted engines.
 
-**UX revision 2026-08-15 (badges):** study/27 — shell title may truncate; hero
-shows full `name`.
-
-**UX revision 2026-08-15 (article layout):** detail reads as a briefing, not a
-larger card. Catalogue owns comparison badges; detail owns mechanism, limits,
-and logistics.
-
-## Not-built and off-app copy
-
-One table — implementation in `features/method-menu/content.ts`:
-
-| Case | Start control | Footer / session line |
-| --- | --- | --- |
-| Hosted, engine built (`srs-session`) | **Start** → `/words/review?method=srs-session` | "The app runs this" |
-| Hosted, engine not built | None | `sessionNotBuilt` — session will run here once built; try off-app meanwhile |
-| Off-app (`hosted: false`) | None | `notHosted` — learner does this themselves |
-
-The detail page always shows `doesNotDo`. Research confidence is available in a
-disclosure — not promoted to a spec-sheet row. Hosting status is a tag chip in
-Practical, not a rank — off-app Methods are not demoted visually.
+**UX revision 2026-08-16:** study/33 — tier badges on detail; duration as one
+range chip; hero replaces muted section label.
 
 ## Layout order
 
-1. Section label (muted)
-2. Hero title + summary
-3. **Practical** — effort sentence; Takes / Needs / hosted chips
-4. **Trains** — mechanism prose; skill contribution line when marks exist
-5. **What it does not do** — single callout surface
-6. **How sure is the research?** — `<details>` disclosure (collapsed by default)
-7. Session footer copy + Start when applicable
+1. Text-mask hero (`name`)
+2. Summary
+3. Badge band (skill tier icons + effort)
+4. Practical
+5. Trains
+6. What it does not do (callout)
+7. Research confidence (`<details>`)
+8. Session footer + Start when applicable
 
 ## Behavior
 
 | # | User action | System response |
 | --- | --- | --- |
-| 1 | Opens `/methods/{id}` | Full entry or not-found |
+| 1 | Opens `/methods/{id}` | Hero, summary, badges, sections, or not-found |
 | 2 | `srs-session`, taps Start | Navigates to `/words/review?method=srs-session` |
-| 3 | Other hosted method | No Start control; honest not-built copy |
-| 4 | Taps back (desktop) or shell back chip (mobile) | `/methods` with filter query preserved |
-| 5 | Expands research confidence | Plain evidence label + prose — no "Evidence A" prefix |
+| 3 | Other hosted method | No Start; not-built copy |
+| 4 | Back (desktop or shell chip) | `/methods` with filter query preserved |
+| 5 | Expands research confidence | Plain evidence label + prose |
 
 ## Acceptance criteria
 
-- [ ] Given a shipped method id, when the page renders, then it shows the full
-      `name` in the page body, summary, Practical block, trains, `doesNotDo`,
-      and research-confidence disclosure.
-- [ ] Given a long method name, when the page renders on mobile, then the
-      in-page hero shows the full name even if the shell title truncates.
-- [ ] Given method detail, when it renders, then there is no badge row and no
-      raised "At a glance" panel.
-- [ ] Given evidence C on detail, when the disclosure is expanded, then the
-      content shows "Thin evidence" and plain prose — not "Evidence C" or a bare
-      letter grade in the primary UI.
-- [ ] Given intensity 1 on detail, when Practical renders, then the effort line
-      shows "Light effort" and the intensity anchor sentence — not a dot scale.
-- [ ] Given an unknown id, when the page renders, then it does not claim the
-      method exists.
+- [ ] Given a shipped method, when detail renders, then the in-page `<h1>` shows
+      the full `name` on the hero and summary, Practical, Trains, and `doesNotDo`
+      appear below.
+- [ ] Given bronze+ skill tiers, when the badge band renders, then tier icons
+      appear without visible text labels and effort shows on the right at `≥ sm`.
+- [ ] Given wood-only skills, when detail renders, then no skill tier icons appear.
+- [ ] Given multiple durations, when Practical renders, then one range chip is
+      shown (e.g. `10–45 min`), not separate chips per value.
+- [ ] Given tier badges, when Trains renders, then there is no redundant "Mainly:"
+      skill line.
+- [ ] Given method detail, when the shell header renders, then it is not a second
+      `<h1>` (truncated title in `<p>`).
+- [ ] Given evidence C expanded, when disclosure opens, then plain "Thin evidence"
+      prose appears — no letter grade prefix.
+- [ ] Given unknown id, when the page renders, then it does not claim the method
+      exists.
 - [ ] Given `srs-session`, when Start is tapped, then Words review opens.
-- [ ] Given a hosted method other than `srs-session`, when the page renders,
-      then no Start control appears and not-built copy is shown.
-- [ ] Given a not-hosted method, when the page renders, then no start control
-      appears.
-- [ ] Given the learner arrived from a filtered `/methods`, when they follow
-      back on desktop or the shell back chip on mobile, then the same filter is
-      still active.
-- [ ] Given viewport &lt; `md`, when the page renders, then no in-page back
-      link appears (shell back chip only).
-- [ ] The page tree contains no `"use client"` at the page root.
+- [ ] Given viewport &lt; `md`, when the page renders, then no in-page back link.
+- [ ] The page root has no `"use client"`.
 - [ ] The rendered surface has no axe-core violations.
 
 ## Check
 
-`npm test -- method-detail`
+`npm test -- method-detail skill-tier`
