@@ -37,8 +37,10 @@ profile), `AppVersionLabel` slot in `FloatingShellChrome`.
 | 5 | Returns to tab / app (`visibilitychange` → visible) | Re-check; prompt appears if a deploy happened while away |
 | 5b | iOS PWA resumes (`pageshow` / `focus`) | Same re-check as visibility |
 | 6 | Fetch fails | No prompt; version label unchanged (fail silent) |
-| 7 | Opens `/profile` | **App** section shows running version and **Check for updates** |
-| 8 | Taps Check for updates on `/profile` | Re-fetches `/api/app-version`; shows green reload row when stale |
+| 7 | Opens `/profile` | **App** section shows running version, **Last checked** (after the
+  first successful fetch), and **Check for updates** |
+| 8 | Taps Check for updates on `/profile` | Re-fetches `/api/app-version`; updates **Last checked**; shows green
+  reload row when stale |
 
 ## States
 
@@ -70,7 +72,8 @@ profile), `AppVersionLabel` slot in `FloatingShellChrome`.
 - [ ] Given a failed version fetch, when the shell renders, then no error
       callout — the version label stays (negative: no false-positive prompt).
 - [ ] Given `/profile`, when the page renders, then an **App** section shows the
-      running Pride version and a **Check for updates** control.
+      running Pride version, **Last checked** (locale date/time after the first
+      successful fetch, em dash before that), and a **Check for updates** control.
 - [ ] Given a higher deployed version, when the learner opens `/profile` or taps
       **Check for updates**, then a green reload row names the deployed version
       **and** the mobile footer label shows the same deployed version.

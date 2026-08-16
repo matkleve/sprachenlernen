@@ -7,12 +7,20 @@ import { useAppUpdateAvailable } from "@/features/app-shell/useAppUpdateAvailabl
 import { copy } from "@/features/profile/content";
 import { APP_VERSION_LABEL } from "@/lib/pride-version";
 
+function formatLastChecked(timestamp: number): string {
+  return new Intl.DateTimeFormat(undefined, {
+    dateStyle: "medium",
+    timeStyle: "short",
+  }).format(timestamp);
+}
+
 /**
  * App version and update check on /profile.
  * Contract: docs/specs/page/profile.md, docs/specs/feature/app-update.md
  */
 export function ProfileAppSection() {
-  const { stale, deployedLabel, reload, check, checking } = useAppUpdateAvailable();
+  const { stale, deployedLabel, reload, check, checking, lastCheckedAt } =
+    useAppUpdateAvailable();
 
   return (
     <section className="mt-page-content">
@@ -23,6 +31,12 @@ export function ProfileAppSection() {
         <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
           <dt className="text-muted">{copy.runningVersion}</dt>
           <dd className="font-medium tabular-nums text-ink">{APP_VERSION_LABEL}</dd>
+        </div>
+        <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
+          <dt className="text-muted">{copy.lastChecked}</dt>
+          <dd className="font-medium tabular-nums text-ink">
+            {lastCheckedAt ? formatLastChecked(lastCheckedAt) : copy.lastCheckedPending}
+          </dd>
         </div>
       </dl>
 
