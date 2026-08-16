@@ -52,6 +52,7 @@ describe("interaction-feedback contract", () => {
   it("DisclosureSummary includes press and focus feedback classes", () => {
     expect(disclosureSummaryClass).toContain("active:scale");
     expect(disclosureSummaryClass).toContain("focus-visible:ring-accent");
+    expect(disclosureSummaryClass).toContain("font-semibold");
   });
 
   it("cardPressable includes lift hover and accent fill on press", () => {

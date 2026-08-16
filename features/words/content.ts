@@ -10,21 +10,21 @@ export const copy = {
   reviewCaption: "One session at a time — tap when you are ready.",
   countsHeading: "Your vocabulary",
   countsCaption:
-    "How many starter lemmas you can recall the meaning of — not every inflected form, and not a backlog.",
+    "How many starter words you can recall the meaning of — not every inflected form, and not a backlog.",
   lemmaCalloutTitle: "What is a lemma?",
   lemmaCalloutBody:
-    "The dictionary form of a word — run, not running; child, not children. Each card here is one lemma. Held means you would still know what it means after about a week without seeing it again. Producing inflected forms is tracked separately on Progress.",
+    "The dictionary form of a word — run, not running; child, not children. On this page, each card is one word in that form (a lemma). Held means you would still know what it means after about a week without seeing it again. Producing inflected forms is tracked separately on Progress.",
   held: "Held",
   fragile: "Fragile",
   newWords: "New",
   heldDescription:
-    "You reliably recall what this lemma means — at least two spaced successes in review, stable for about a week.",
+    "You reliably recall what this word means — at least two spaced successes in review, stable for about a week.",
   fragileDescription:
     "You've seen the meaning in review but it is not yet stable enough to count as known.",
   newDescription: "Meaning not reviewed yet.",
   blocksHeading: "Frequency bands",
   blocksCaption:
-    "How many of the most common lemmas in your starter deck you hold stably by meaning — by rank band, not the whole language yet.",
+    "How many of the most common words in your starter deck you hold stably by meaning — by rank band, not the whole language yet.",
   blockLabel: (start: number, end: number) => `Ranks ${start}–${end}`,
   blockHeld: (held: number, poolSize: number) => `${held} of ${poolSize} meanings held`,
   blockHeldDescription: "Stable meaning recall — same rules as Held above.",
@@ -76,7 +76,7 @@ export const copy = {
     `${count} words, ranks ${start}–${end}`,
   orbitAggregateHeading: (start: number, end: number) => `Ranks ${start}–${end}`,
   orbitAggregateBody: (count: number, held: number) =>
-    `${count} lemmas in this band on the outer ring. ${held} meanings held stably.`,
+    `${count} words in this band on the outer ring. ${held} meanings held stably.`,
   orbitDetailRankLabel: "Frequency rank",
   orbitDetailStabilityLabel: "Stability",
   orbitDetailBandLabel: "Band",

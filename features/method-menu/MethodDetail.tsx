@@ -1,6 +1,6 @@
 import { ActionLink } from "@/components/ui/ActionLink";
 import { Chip } from "@/components/ui/Chip";
-import { disclosureSummaryClass } from "@/components/ui/Disclosure";
+import { Disclosure, DisclosureSummary } from "@/components/ui/Disclosure";
 import { ShellPageContent } from "@/features/app-shell/ShellPageContent";
 import { byId, type MethodEntry } from "@/lib/method-catalogue";
 import type { SearchParams } from "@/lib/method-menu-filter";
@@ -102,12 +102,12 @@ export function MethodDetail({ method, searchParams = {} }: MethodDetailProps) {
         <p className="mt-2 text-base leading-relaxed text-muted">{method.doesNotDo}</p>
       </section>
 
-      <details className="mt-8">
-        <summary className={disclosureSummaryClass}>{copy.detail.researchConfidence}</summary>
+      <Disclosure className="mt-8 border-0 bg-transparent p-0 shadow-none">
+        <DisclosureSummary>{copy.detail.researchConfidence}</DisclosureSummary>
         <p className="mt-2 text-sm leading-relaxed text-muted">
           {evidenceCard[method.evidence]} — {evidenceProse[method.evidence]}
         </p>
-      </details>
+      </Disclosure>
 
       <p className="mt-6 text-sm text-muted">
         {method.hosted ? copy.hosted : copy.notHosted}

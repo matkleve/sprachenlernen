@@ -44,8 +44,8 @@ export const tierCopy: Record<QualityTier, TierCopy> = {
   C: {
     claims: "Cards and reading work, ranked by a frequency list.",
     notClaims:
-      "At this tier no level is claimed: without a lemma table there is no defined unit to count, so every skill reads 'not measured'.",
-    nextTier: "a lemma table",
+      "At this tier no level is claimed: without a word list there is no defined unit to count, so every skill reads 'not measured'.",
+    nextTier: "a word list",
   },
   B: {
     claims: "A level, reported with a widened uncertainty band.",
