@@ -36,11 +36,27 @@ whole argument two taps away. So the three destinations are unchanged, and the
 existing top-right sign-out float becomes an **account chip** that opens this
 page — the affordance ADR-0009 described, finally built.
 
+## Section navigation
+
+Three in-page sections, switched with **FilterPill** buttons — no nested routes.
+Contract: [`study/33-profile-section-navigation.md`](../../study/33-profile-section-navigation.md).
+
+| Section | Label | Content |
+| --- | --- | --- |
+| `languages` | Languages | Spoken language + learning languages (default) |
+| `data` | Your data | Export + delete |
+| `device` | This device | App version + Home screen (iPhone) |
+
+Sign out stays below the panels, always visible. Optional `?section=` on first
+load deep-links; switching updates the URL with `history.replaceState` only.
+
 ## Behavior
 
 | # | User action | System response |
 | --- | --- | --- |
-| 1 | Taps the account chip | `/profile` — email, spoken language, learning languages, export, delete, sign out |
+| 1 | Taps the account chip | `/profile` — section pills, then the active bucket; sign out below |
+| 1b | Taps a section pill | That panel shows instantly; others are hidden, not unmounted |
+| 1c | Opens `/profile?section=data` | Your data panel is active on first paint |
 | 1a | Is already on `/profile` | Shell account chip (mobile icon or desktop link) carries `aria-current="page"` and accent fill |
 | 2 | Views spoken language | Every shipped spoken language, the current one marked |
 | 3 | Changes spoken language | Preference updates; learning languages and review history unchanged |
@@ -107,6 +123,10 @@ the learner's list ([`starter-deck.md`](../service/starter-deck.md)).
       **Open main website** → `/` per [`pwa-install.md`](../feature/pwa-install.md).
 - [ ] Given `/profile`, then the shell account control is marked as the current
       page with accent fill (mobile icon chip and desktop account link).
+- [ ] Given `/profile`, when the page renders, then **Languages**, **Your data**,
+      and **This device** pills appear and **Languages** is active by default.
+- [ ] Given a tap on **Your data**, then only the export and delete blocks show
+      and sign out remains visible below.
 
 ## Check
 
