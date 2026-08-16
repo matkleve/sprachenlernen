@@ -54,5 +54,4 @@ the same plain-text pattern (errors use danger colour only).
 
 ## Undecided
 
-- **Persistence across cards** — show until next grade vs until next report vs
-  timed fade. Study doc recommends clear on next grade.
+Resolved 2026-08-16: banner clears on the next grade (study/34 §4).

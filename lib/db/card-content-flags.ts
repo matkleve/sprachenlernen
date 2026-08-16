@@ -1,5 +1,10 @@
 import type { SupabaseClient } from "@supabase/supabase-js";
 
+import {
+  isReportCategory,
+  normalizeReportNote,
+  type ReportCardInput,
+} from "@/lib/card-report";
 import { getAccount } from "@/lib/db/auth";
 import { createServerSupabaseClient } from "@/lib/db/client";
 import { getSpokenLanguage } from "@/lib/db/profiles";
@@ -26,6 +31,7 @@ async function resolveClient(client?: SupabaseClient): Promise<SupabaseClient> {
 
 export async function flagCardContent(
   wordId: string,
+  input: ReportCardInput = {},
   client?: SupabaseClient,
 ): Promise<FlagCardOutcome> {
   const supabase = await resolveClient(client);
@@ -41,10 +47,16 @@ export async function flagCardContent(
     return { status: "error", error: spoken.error };
   }
 
+  const category =
+    input.category && isReportCategory(input.category) ? input.category : null;
+  const note = normalizeReportNote(input.note);
+
   const { error } = await supabase.from("card_content_flag").insert({
     user_id: account.id,
     word_id: wordId,
     spoken_language: spoken.spokenLanguage,
+    category,
+    note,
   });
 
   // Duplicate report on the same key is success — idempotent per spec.

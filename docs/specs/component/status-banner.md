@@ -2,7 +2,7 @@
 
 <!-- id: SPEC-component-status-banner -->
 <!-- use-case: UC-074 -->
-<!-- status: draft -->
+<!-- status: active -->
 
 Non-error inline acknowledgement — success or informational feedback inside a
 page or session. Distinct from [`error-callout.md`](error-callout.md) (failures)
@@ -55,4 +55,4 @@ Copy from parent `content.ts` — never inline in JSX per design system.
 
 ## Check
 
-Pending — draft spec (owner GO required). Gate after T-B14a: vitest pattern `status-banner`.
+`npm test -- status-banner`

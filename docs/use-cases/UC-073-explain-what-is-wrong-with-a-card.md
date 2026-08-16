@@ -56,7 +56,5 @@ is only (`user_id`, `word_id`, `spoken_language`, `flagged_at`).
 
 ## Undecided
 
-- **Scheduling intent toggle** — see study doc recommendation; needs owner **GO**
-  before the schema accepts a non-flag feedback row.
-- **Category list** — v1 proposal in study doc; may shrink after first month of
-  stored reports.
+Resolved 2026-08-16: v1 is flag-only — popover states scheduling outcome in copy;
+no "keep scheduling" toggle until a feedback-only path is spec'd (study/34 §3).

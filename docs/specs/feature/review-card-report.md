@@ -2,7 +2,7 @@
 
 <!-- id: SPEC-feature-review-card-report -->
 <!-- use-case: UC-073 -->
-<!-- status: draft -->
+<!-- status: active -->
 
 Popover on the review-session flag control: optional category + note, submit
 to flag per [`broken-card-detection.md`](../service/broken-card-detection.md),
@@ -59,8 +59,8 @@ Reads `word_id`, spoken language from session. Writes `card_content_flag` (+ opt
 
 ## Open questions
 
-- Scheduling-intent toggle — blocked on owner GO ([`study/34`](../../study/34-review-report-and-acknowledgement-ux.md) §3).
+None for v1 — scheduling-intent toggle deferred per study/34 §3.
 
 ## Check
 
-Pending — draft spec (owner GO required). Gate after T-B14b: vitest pattern `review-card-report`.
+`npm test -- card-report-popover review-session`
