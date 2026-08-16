@@ -107,12 +107,33 @@ same failure mode as study/27's rejected global medal.
   legibility.
 - After mask ships, evaluate full-bleed fade as v2 (see supplement).
 
+### Owner feedback on v1 grid (2026-08-16)
+
+First ChatGPT grid landed the right **skill motifs** (book, headphones, mic, pen)
+and **material progression** (wood grain → metals). Gap: from Bronze through
+Platinum the **shield silhouette stays identical** — only the finish changes.
+
+**Required for v2 assets:** both **material** and **shield frame** must level up:
+
+| Tier | Shield frame (evolves each row) | Material / finish |
+| --- | --- | --- |
+| Wood | Plain rounded plaque, no point, rough edges | Matte wood grain |
+| Bronze | Simple shield, single bottom point | Warm bronze metal |
+| Silver | Same family, slightly taller, subtle side curves | Polished silver |
+| Gold | Ornate shield, stronger point, small corner detail | Rich gold |
+| Platinum | Most elaborate frame, crown or wing hints (subtle) | Luminous platinum |
+
+Skill icon stays centered and recognizable; the **frame** carries tier prestige,
+not a recoloured copy of the Bronze shape.
+
 ---
 
 ## ChatGPT image-generation prompt
 
 Copy everything between the lines into ChatGPT (DALL·E / image gen) or similar.
 Ask for **one composite image** — a 4×5 grid of badge concepts.
+
+**v2 prompt** (use this if v1 shields did not change enough between tiers):
 
 ---
 
@@ -121,37 +142,75 @@ Create ONE composite reference image: a 4-column × 5-row grid of app badge
 icons for a language-learning product. Each cell is a distinct badge design.
 
 COLUMNS (skill class — each column has a unique art motif woven into every tier):
-1. Reading — book / page / letterform motif
-2. Listening — headphone / ear / sound-wave motif
-3. Speaking — microphone / speech / voice motif
-4. Writing — pen / ink / line motif
+1. Reading — open book motif
+2. Listening — over-ear headphones motif
+3. Speaking — studio microphone motif
+4. Writing — fountain pen / ink line motif
 
-ROWS (contribution tier — visual quality and prestige increase top to bottom):
-Row 1 (lowest): Wood — raw, matte, simple craft, muted browns
-Row 2: Bronze — warm metal, basic polish
-Row 3: Silver — refined metal, subtle shine
-Row 4: Gold — rich metal, gem accents optional
-Row 5 (highest): Platinum — highest polish, luminous, premium feel
+ROWS (contribution tier — BOTH shield shape AND material must change per row):
+
+Row 1 — WOOD:
+- Shield: simple flat rounded square plaque, NO point, rough hand-carved edges
+- Material: matte wood grain, muted brown
+- Skill icon: embossed, simple
+
+Row 2 — BRONZE:
+- Shield: classic shield shape with a single bottom point (visibly different
+  from wood — not the same outline recoloured)
+- Material: warm bronze metal, basic polish
+- Skill icon: embossed, slightly more detail
+
+Row 3 — SILVER:
+- Shield: taller shield, subtle side curves or flutes — clearly more elaborate
+  than bronze, not the same silhouette
+- Material: polished silver, cool reflections
+- Skill icon: sharper emboss, more depth
+
+Row 4 — GOLD:
+- Shield: ornate heraldic shield, stronger point, small corner flourishes
+- Material: rich gold, warm highlights, optional tiny gem accents at corners
+- Skill icon: highly detailed emboss
+
+Row 5 — PLATINUM:
+- Shield: most elaborate frame — crown ridge, wing hints, or layered border
+  (still calm, not game-cartoon)
+- Material: luminous platinum / white-gold, highest gloss
+- Skill icon: maximum detail, still readable at 64px
+
+CRITICAL — do NOT reuse the same shield outline for bronze, silver, gold, and
+platinum with only a colour swap. Each row must have a visibly different
+frame geometry. Wood row must NOT be a metal shield — it is a wooden plaque.
 
 Requirements:
-- Each badge is a rounded squircle or shield suitable for mobile UI (~64–96px).
-- Skill motif must remain recognizable at every tier (e.g. headphones shape
-  evolves but stays identifiable in the listening column).
-- Higher tiers add detail, depth, lighting, and material quality — not just a
-  color swap.
-- Style: modern, calm, editorial — NOT cartoon game rank icons, NOT military
-  medals, NOT emoji. Think premium fintech or craft-app quality.
-- Palette: restrained; skill columns may have subtle hue families (reading =
-  warm paper, listening = cool teal, speaking = coral, writing = slate).
-- No text, no numbers, no letters inside badges.
+- Skill motif must remain recognizable in every cell of its column.
+- Style: modern, calm, editorial 3D — NOT cartoon game rank, NOT military medal,
+  NOT emoji. Premium craft-app quality.
+- Palette: restrained hue families per column (reading warm paper, listening cool
+  teal, speaking coral, writing slate) on the skill icon only; metals stay true
+  to tier.
+- No text, numbers, or letters inside badges.
 - Consistent lighting direction across all 20 cells.
-- White or very light neutral background; thin gutters between cells.
-- Label each row and column OUTSIDE the badge art with tiny captions only
-  (Wood, Bronze, Silver, Gold, Platinum; Reading, Listening, Speaking, Writing).
+- White background; thin gutters between cells.
+- Label rows and columns OUTSIDE the art only: Wood, Bronze, Silver, Gold,
+  Platinum; Reading, Listening, Speaking, Writing.
 
-Deliverable: one clean mood-board grid a product designer can pick from before
-vectorizing winners.
+Deliverable: one mood-board grid where a designer can see 5 distinct shield
+families × 4 skill motifs before vectorizing.
 ```
+
+**v1 prompt** (archived — same as first iteration; shield shape not emphasised):
+
+<details>
+<summary>v1 prompt (click to expand)</summary>
+
+```
+Create ONE composite reference image: a 4-column × 5-row grid …
+(higher tiers add detail, depth, lighting, and material quality — not just a
+color swap.)
+…
+```
+
+</details>
 
 ---
 
@@ -170,19 +229,29 @@ wood→platinum as the approved display vocabulary.
 
 ---
 
-## Open questions
+## Defaults (unless owner says otherwise)
 
-1. Show **all four** skill columns on every method (dimmed wood for inactive
-   skills) or **only skills with tier ≥ bronze**?
-2. Platinum: catalogue field or derived only for `primary` + demanding methods?
-3. Do tier badges appear on **cards** eventually, or detail-only forever?
-4. Asset pipeline: one SVG set with tier variants, or raster webp per badge?
+These replace the earlier open questions — simpler working assumptions:
+
+| Topic | Default |
+| --- | --- |
+| Which skills to show | **Only skills this method trains** (no empty dimmed slots) |
+| Tier labels | **Art + short text** under badge ("Gold · Listening") |
+| Cards vs detail | **Detail first**; cards keep Lucide until final assets exist |
+| Shield + material | **Both evolve per tier** (owner 2026-08-16) |
+
+---
+
+## Open questions (only if defaults wrong)
+
+1. Platinum: rare catalogue flag, or derived from `primary` + demanding?
+2. Asset pipeline: SVG components (frame + icon layers) vs flat webp per cell?
 
 ---
 
 ## Next steps
 
-1. Owner runs ChatGPT prompt → picks 1–2 directions per skill column.
+1. Owner re-runs **v2 ChatGPT prompt** above → confirms shields change per row.
 2. Designer vectorizes winners against design tokens (`text-skill-*` hues).
 3. Update [`method-detail.supplement.md`](../specs/page/method-detail.supplement.md)
    → promote sections to active spec when accepted.

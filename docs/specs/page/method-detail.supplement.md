@@ -99,7 +99,7 @@ and ChatGPT prompt.
 - New component: `SkillTierBadge` (detail first; cards later optional).
 - Registry: `features/method-menu/skill-tier-badges.ts` — maps `(skill, tier)` →
   `{ label, assetSrc, alt }`.
-- Data v1: derive tier from `skillMarksForMethod()` + mapping table in study/28.
+- Data v1: derive tier from `skillMarksForMethod()` + mapping table in study/33.
 - Data v2: optional `skillContribution` with explicit tier per skill on catalogue entry.
 
 **Out of scope**
