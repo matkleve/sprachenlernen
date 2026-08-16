@@ -21,6 +21,7 @@ type AppUpdateContextValue = {
   reload: () => void;
   check: () => Promise<void>;
   checking: boolean;
+  lastCheckedAt: number | null;
 };
 
 const AppUpdateContext = createContext<AppUpdateContextValue | null>(null);
@@ -34,6 +35,7 @@ export function AppUpdateProvider({ children }: { children: ReactNode }) {
   const [stale, setStale] = useState(false);
   const [deployedLabel, setDeployedLabel] = useState<string | null>(null);
   const [checking, setChecking] = useState(false);
+  const [lastCheckedAt, setLastCheckedAt] = useState<number | null>(null);
 
   const check = useCallback(async () => {
     setChecking(true);
@@ -45,6 +47,7 @@ export function AppUpdateProvider({ children }: { children: ReactNode }) {
       const newer = isDeployedVersionNewer(APP_PRIDE_VERSION, payload.version);
       setStale(newer);
       setDeployedLabel(newer ? `v${payload.version}` : null);
+      setLastCheckedAt(Date.now());
     } catch {
       // Fail silent — version label stays; no false prompt on offline.
     } finally {
@@ -90,8 +93,8 @@ export function AppUpdateProvider({ children }: { children: ReactNode }) {
   }, [check]);
 
   const value = useMemo(
-    () => ({ stale, deployedLabel, reload, check, checking }),
-    [stale, deployedLabel, reload, check, checking],
+    () => ({ stale, deployedLabel, reload, check, checking, lastCheckedAt }),
+    [stale, deployedLabel, reload, check, checking, lastCheckedAt],
   );
 
   return <AppUpdateContext.Provider value={value}>{children}</AppUpdateContext.Provider>;
