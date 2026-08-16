@@ -72,6 +72,7 @@ only this table.
 | [32 · PWA profile UX](32-pwa-profile-ux.md) | Profile Home screen block — scope table, buttons, designer review |
 | [33 · Skill-tier badges](33-skill-tier-badges-exploration.md) | Wood→platinum per-skill badges, detail layout, v3 asset brief (repo only) |
 | [34 · Review report UX](34-review-report-and-acknowledgement-ux.md) | Flag popover, status banner, scheduling-intent options (UC-073/074) |
+| [35 · Logo & PWA icon](35-logo-and-pwa-icon-exploration.md) | App mark directions, favicon/Home Screen review, sync workflow |
 | [Sources](sources.md) | Literature, honestly marked by how far each was checked |
 
 Chapters 12–26 were written after the roadmap and are appended at the end. By
