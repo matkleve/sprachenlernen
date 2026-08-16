@@ -312,6 +312,27 @@ concrete example of it firing, not just the one-line paraphrase.
 Applies to any project-specific ID a reader cannot be assumed to have
 memorized — spec IDs, ADR numbers, task IDs — not only use cases.
 
+## 19. Substrate + Sonnet by default
+
+**The failure:** running Cursor Cloud Agents on the **Substrate** environment with
+the **Sonnet** model for routine work in this repo. Boot is slow, cost is high,
+and most tasks here are already bounded by specs, `npm run verify`, and a
+prebuilt environment — the heavier stack adds little.
+
+**The rule:** do **not** use Substrate + Sonnet unless there is a **very good
+reason** you can state up front. Default to the lighter agent/model the task
+actually needs.
+
+**Good reasons (examples — not an exhaustive list):**
+
+| Reason | Example |
+| --- | --- |
+| A smaller/faster model already failed | Document what was tried; Sonnet is the escalation, not the default |
+| You are debugging Substrate itself | Environment build, snapshot, egress, or setup for this repo |
+| The user asked for it | Explicit instruction for this run |
+
+If none of those apply, do not pick Substrate + Sonnet "just in case."
+
 ---
 
 ## For you, writing the prompt
