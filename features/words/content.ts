@@ -5,6 +5,7 @@
  */
 
 export const copy = {
+  reviewCardHeaderLabel: "Vocabulary",
   reviewHeading: "Review",
   reviewCaption: "One session at a time — tap when you are ready.",
   countsHeading: "Your vocabulary",
