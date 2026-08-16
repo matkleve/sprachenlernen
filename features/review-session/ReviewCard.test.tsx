@@ -137,7 +137,7 @@ describe("ReviewCard", () => {
     expect(screen.getByRole("dialog", { name: en.reviewSession.reportPopoverTitle })).toBeDefined();
   });
 
-  it("tightens grade controls in compact mobile layout", () => {
+  it("keeps wcag-sized grade controls in compact mobile layout", () => {
     const { container } = render(
       <ReviewCard
         card={baseCard}
@@ -151,8 +151,8 @@ describe("ReviewCard", () => {
     );
 
     const gradeButton = screen.getByRole("button", { name: en.reviewSession.good });
-    expect(gradeButton.className).toContain("h-7");
-    expect(gradeButton.className).toContain("text-xs");
+    expect(gradeButton.className).toContain("h-11");
+    expect(gradeButton.className).not.toContain("text-xs");
 
     const gradeSection = container.querySelector(".pb-3");
     expect(gradeSection).not.toBeNull();

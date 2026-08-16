@@ -13,4 +13,9 @@ describe("gradeButtonVariants", () => {
   it("includes press feedback classes", () => {
     expect(gradeButtonVariants({ grade: "good" })).toContain("active:scale");
   });
+
+  it("meets the 44px touch target at rest", () => {
+    expect(gradeButtonVariants({ grade: "good" })).toContain("h-11");
+    expect(gradeButtonVariants({ grade: "good" })).toContain("after:inset-y-0");
+  });
 });
