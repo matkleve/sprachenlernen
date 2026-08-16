@@ -16,7 +16,7 @@ Per-primitive state matrix. Symbols: D H A F X P C — see parent
 | `FilterPill` | ✓ | ✓ | ✓ | ✓ | ✓ | — | via `aria-pressed` | Same classes as `navLinkVariants` |
 | `TextLink` | ✓ | ✓ | ✓ | ✓ | — | — | — | Tones: `accent`, `muted`, `ink`. No nav pending |
 | `IconButton` | ✓ | ✓ | ✓+fill | ✓ | ✓ | ✓ ring | — | 44×44 round floating. Default policy `nav` |
-| `IconLink` | ✓ | ✓ | ✓+fill | ✓ | — | ✓ ring | ✓ | `current` → accent fill + `aria-current`; `emphasized` → fill only (back chip) |
+| `IconLink` | ✓ | ✓ | ✓+fill | ✓ | — | ✓ ring | ✓ | `current` → accent fill + `aria-current="page"` |
 | `SurfaceLink` | ✓ | ✓ lift | ✓+fill | ✓ | — | ✓ | — | Card block link; `cardPressable`; P ≥180ms |
 | `PressableCard` | ✓ | ✓ lift | ✓+fill | ✓ | ✓ | — | — | `interactive={false}` → static, no H/A |
 | `GradeButton` | ✓ | ✓ | ✓ | ✓ | ✓ | — | — | Grade-tinted; no spinner (exemption) |

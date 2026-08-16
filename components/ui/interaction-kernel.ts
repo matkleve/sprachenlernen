@@ -54,7 +54,7 @@ export const interactiveEmphasis = "font-semibold [&_svg]:stroke-[2.5]";
 export const navCurrentFill =
   "bg-accent text-accent-ink shadow-soft hover:bg-accent-deep hover:text-accent-ink";
 
-/** Accent fill for bordered icon chips (`IconLink` current / emphasized). */
+/** Accent fill for bordered icon chips (`IconLink` `current`). */
 export const iconChipCurrentFill =
   "bg-accent text-accent-ink border-accent shadow-soft hover:bg-accent-deep hover:text-accent-ink";
 

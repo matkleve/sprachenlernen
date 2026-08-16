@@ -62,10 +62,10 @@ Sixth layer on nav links only — distinct from press and pending. Classes:
 | Prop | Primitive | When | Visual | ARIA |
 | --- | --- | --- | --- | --- |
 | `current` | `NavLink`, `ActionLink`, `IconLink` | `href` matches the active route | accent fill | `aria-current="page"` |
-| `emphasized` | `IconLink` only | active shell corner affordance that is not the current page (back chip on drill-in) | accent fill | none |
 
 Shell surfaces derive `current` from the pathname; never hand-roll accent classes
-on `IconLink` or `ActionLink`.
+on `IconLink` or `ActionLink`. The back chip on drill-in routes is **not**
+`current` — it links to the parent destination; press feedback only at rest.
 
 ## Exemptions
 

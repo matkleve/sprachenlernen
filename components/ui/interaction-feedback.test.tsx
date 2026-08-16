@@ -126,18 +126,6 @@ describe("interaction-feedback contract", () => {
     expect(link.className).toContain("bg-accent");
   });
 
-  it("IconLink applies accent fill without aria-current when emphasized", () => {
-    render(
-      <IconLink href="/words" aria-label="Back to Words" emphasized>
-        ←
-      </IconLink>,
-    );
-
-    const link = screen.getByRole("link");
-    expect(link.hasAttribute("aria-current")).toBe(false);
-    expect(link.className).toContain("bg-accent");
-  });
-
   it("ActionLink applies accent fill and aria-current when current", () => {
     render(
       <ActionLink href="/profile" variant="ghost" size="sm" current>
