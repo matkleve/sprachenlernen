@@ -94,7 +94,7 @@ full name — worse for sighted users.
 ## Skill tier badge band (draft)
 
 See [study/33](../../study/33-skill-tier-badges-exploration.md) for tier semantics
-and ChatGPT prompt.
+and the v3 asset brief (repo only — not for chat paste).
 
 **In scope when promoted**
 

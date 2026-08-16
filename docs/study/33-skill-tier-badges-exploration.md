@@ -17,8 +17,9 @@ methods detail redesign discussion. Supersedes nothing yet; tensions with
 4. **Detail layout under the in-page title** (not the shell header):
    - **Left:** skill-tier badges for this method
    - **Right:** effort load
-5. **Image exploration** — generate a reference grid (4 skills × 5 tiers) via
-   ChatGPT before committing to assets or code.
+5. **Image exploration** — reference grid (4 skills × 5 tiers) before committing
+   to production assets. Brief lives **in this file only** — not pasted into
+   ChatGPT or other chat UIs (owner 2026-08-16).
 
 Duration chip format (single range vs OR prose) deferred to UX review in
 [`method-detail.supplement.md`](../specs/page/method-detail.supplement.md).
@@ -175,12 +176,13 @@ clashing. Rules for asset authoring and ChatGPT prompts:
 
 ---
 
-## ChatGPT image-generation prompt
+## Asset brief (v3 — repo only)
 
-Copy everything between the lines into ChatGPT (DALL·E / image gen) or similar.
-Ask for **one composite image** — a 4×5 grid of badge concepts.
+**Do not paste this brief into ChatGPT or any chat UI** — owner direction
+2026-08-16. Use for designer handoff, direct image-gen tools, or in-repo
+reference when vectorizing. Current target: **v3** (shields + motifs + tokens).
 
-**v3 prompt** (shields + skill motifs + design tokens — use after v2):
+**v3 brief** (shields + skill motifs + design tokens):
 
 ---
 
@@ -374,7 +376,8 @@ icons (B — wood never appears). No phased “four tiers then add platinum late
 
 ## Next steps
 
-1. Owner re-runs **v3 ChatGPT prompt** → shields AND center motifs upgrade per row.
+1. Owner / designer produces v3 grid from § Asset brief (outside chat) → shields
+   AND center motifs upgrade per row.
 2. Designer checks **cohesion checklist** (§ Design-system alignment) → vectorizes.
 3. Export 20 SVGs (or layered frame + motif) mapped to `skill-tier-badges.ts`.
 4. Update [`method-detail.supplement.md`](../specs/page/method-detail.supplement.md)
