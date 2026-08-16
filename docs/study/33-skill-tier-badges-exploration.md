@@ -17,9 +17,8 @@ methods detail redesign discussion. Supersedes nothing yet; tensions with
 4. **Detail layout under the in-page title** (not the shell header):
    - **Left:** skill-tier badges for this method
    - **Right:** effort load
-5. **Image exploration** — reference grid (4 skills × 5 tiers) before committing
-   to production assets. Brief lives **in this file only** — not pasted into
-   ChatGPT or other chat UIs (owner 2026-08-16).
+5. **Image exploration** — reference grid (4 skills × 5 tiers) before production
+   assets. v3 brief in § Asset brief (use in a **new** ChatGPT chat).
 
 Duration chip format (single range vs OR prose) deferred to UX review in
 [`method-detail.supplement.md`](../specs/page/method-detail.supplement.md).
@@ -176,11 +175,12 @@ clashing. Rules for asset authoring and ChatGPT prompts:
 
 ---
 
-## Asset brief (v3 — repo only)
+## Asset brief (v3)
 
-**Do not paste this brief into ChatGPT or any chat UI** — owner direction
-2026-08-16. Use for designer handoff, direct image-gen tools, or in-repo
-reference when vectorizing. Current target: **v3** (shields + motifs + tokens).
+Current target for image exploration: **v3** (shields + motifs + design tokens).
+Self-contained — v1/v2 were longer but repeated the same gaps; v3 is enough for
+a new ChatGPT chat. Attach your latest grid image plus one line of critique if
+iterating.
 
 **v3 brief** (shields + skill motifs + design tokens):
 
