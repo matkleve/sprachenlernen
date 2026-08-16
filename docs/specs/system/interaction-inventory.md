@@ -79,7 +79,7 @@ Per-primitive state matrix:
 | `PressableCard` | flip `<button>` | none |
 | `GradeButton` | grade `<button>` | none (spec exemption) |
 | `LanguageListRow` | row `<button>` or card | disabled while parent pending |
-| `Disclosure` | `<details>` + `<summary>` | none (instant toggle) |
+| `Disclosure` | `<details>` + `<summary>` + `DisclosurePanel` | none (instant toggle; 150ms panel motion) |
 | `Input` / `Textarea` / `Select` | native | platform H/A; F + X styled |
 
 Non-interactive: `Chip`, `LanguageFlag` (decorative), `ErrorCallout` (container;

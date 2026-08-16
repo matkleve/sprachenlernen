@@ -38,7 +38,7 @@ Press is CSS via `interaction-kernel.ts`. Pending is React state (`useTransition
 
 | # | User action | System response |
 | --- | --- | --- |
-| 1 | Presses any control | Press state visible before release |
+| 1 | Presses any control | Press state visible before release; card-shaped disclosures scale the whole shell, not the summary text alone |
 | 2 | Releases on instant action (filter chip, grade) | Press ends; surface updates in the same frame — no pending |
 | 3 | Releases on async action (form, server action, slow nav) | Pending state until success, error, or route change |
 | 4 | Taps again while pending | Ignored — no double submit |
@@ -94,6 +94,9 @@ outside `components/ui/`.
 
 - [x] Given any `Button`, when pressed, then `active:scale` (or equivalent) is
       visible before release.
+- [ ] Given a card-shaped `Disclosure`, when the summary is pressed, then the
+      shell (`<details>`) scales before release — see
+      [`disclosure.md`](../component/disclosure.md).
 - [x] Given a `Button` with an async handler, when released, then it enters
       pending until the handler settles and ignores duplicate taps.
 - [x] Given Start review (`/words` → `/words/review`), when tapped, then the
