@@ -350,6 +350,33 @@ background" as a default.
 it). Even then, prefer doing the work yourself when you can; ask if the user
 would rather you did not delegate.
 
+## 21. Shipped ≠ merged ≠ verify-green
+
+**The failure:** reporting a learner-facing fix as done when `npm run verify` is
+green on a feature branch, or when a PR exists, or when code is on `main` but
+not deployed. The user tests production, still sees the old footer version (e.g.
+`v0.10.0`), and every agent in the chain thought someone else had shipped it.
+
+**The rule:** learner-facing work has **three layers**. State which layer you
+reached — never collapse them into "done":
+
+| Layer | Meaning | How to prove it |
+| --- | --- | --- |
+| **1 · Verified** | Code is correct somewhere | `npm run verify` green, output pasted |
+| **2 · Merged** | `origin/main` has the commit | `git log origin/main -1` names your commit |
+| **3 · Deployed** | Learners can get it | Footer / Profile **App** shows the new Pride version from `package.json` on `main` |
+
+**Ship protocol** (see [`VERSIONING.md`](VERSIONING.md)):
+
+1. Merge to `main` — resolve conflicts; do not leave fixes in an open PR.
+2. On `main` only: `npm run version:shame` (bugfix) or `npm run version:ship` (feature).
+3. Commit `chore: ship vX.Y.Z`, push `main`.
+4. Wait for deploy; tell the user to hard-refresh or tap the green version label.
+5. End with **LIVE CHECK (you)** — footer version must match what you shipped.
+
+Never bump `package.json` `version` on a feature branch (`check-version-branch`
+enforces this). A green verify on a branch is **layer 1 only**.
+
 ---
 
 ## For you, writing the prompt

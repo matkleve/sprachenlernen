@@ -34,6 +34,12 @@ Walk each item and state the evidence. "Looks fine" is not evidence.
       `docs/specs/component/`.
 - [ ] **Anything that cost you time is in `docs/TRAPS.md`.** If you were
       surprised, the next person will be too.
+- [ ] **Learner-facing — three layers** (`docs/AGENT-PITFALLS.md` §21). Report
+      each layer explicitly; never say "shipped" for layer 1 only:
+      - **Verified:** `npm run verify` green (paste output).
+      - **Merged:** commit is on `origin/main`.
+      - **Deployed:** footer / Profile **App** shows the bumped Pride version;
+        user gets **LIVE CHECK (you)** steps if you could not observe deploy.
 - [ ] **Version bumped on `main` after merge** (not on the feature branch):
       checkout `main`, pull, then `npm run version:shame` for bugfixes/regressions
       or `npm run version:ship` for features; commit `chore: ship vX.Y.Z`, push.

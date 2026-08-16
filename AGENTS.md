@@ -125,8 +125,7 @@ feature needs it — not in anticipation of one.
 | Making a call you'll have to defend later | [`docs/adr/`](docs/adr/) |
 | Product rules you may not break | [`docs/CONSTITUTION.md`](docs/CONSTITUTION.md) |
 | **Why a feature exists at all** | [`docs/study/`](docs/study/) — the research this product is derived from |
-| **Cursor agent / model choice** | [`docs/AGENT-PITFALLS.md`](docs/AGENT-PITFALLS.md) §19–§20 — no Substrate + Sonnet; no subagents without permission |
-| **Version bump or merge** | [`docs/VERSIONING.md`](docs/VERSIONING.md) — never bump on a feature branch |
+| **Agent pitfalls (model, subagents, ship)** | [`docs/AGENT-PITFALLS.md`](docs/AGENT-PITFALLS.md) §19–§21; version: [`docs/VERSIONING.md`](docs/VERSIONING.md) |
 
 ---
 

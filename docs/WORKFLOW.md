@@ -57,6 +57,9 @@ Fails DoR → back to Shape. Do not "just start and see".
 - [ ] **Change-completeness** holds: grep-to-zero for every removed symbol across
       code *and* `docs/specs/`.
 - [ ] Spec synced to the final behavior. No new component without a reuse decision.
+- [ ] **Learner-facing:** merged to `origin/main`, version bumped on `main` per
+      [`VERSIONING.md`](VERSIONING.md), deploy noted — footer version is the
+      proof (`docs/AGENT-PITFALLS.md` §21).
 - [ ] Anything surprising that cost you time is in [`TRAPS.md`](TRAPS.md).
 
 Acceptance criteria are per-story. The DoD is the universal checklist that
