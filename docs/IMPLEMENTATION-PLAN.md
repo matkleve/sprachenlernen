@@ -342,7 +342,7 @@ low-inference agent would silently invent.
 | **T-B11** | Spoken-language setting — `profiles` table, `next-intl` chrome, description-text records ([UC-069](use-cases/UC-069-use-the-app-in-my-own-language.md)) | **Slice 1 shipped 2026-08-12** — [`spoken-language.md`](specs/service/spoken-language.md), `profiles` migration + adapter + profile UI. **Remaining:** `next-intl` chrome (slice 2), stage-3 description tables |
 | **T-B12** | ~~Scope `poolForScheduling` to the active language only~~ — **done 2026-08-12** ([UC-025](use-cases/UC-025-learn-multiple-languages.md)) | `poolForScheduling` and `poolForDisplay` (`lib/db/learner-pools.ts`) merged into one `poolForActiveLanguage()`, since the reason they differed — a cross-language budget — was rejected. `buildSessionAction` now calls it; a session can no longer contain more than one language's cards, and the `languageName` label is always correct as a result. Regression test: `learner-pools.test.ts` |
 | **T-B13** | ~~Same-session card requeue ([UC-071](use-cases/UC-071-get-a-wrong-card-back-before-the-session-ends.md))~~ — **shipped 2026-08-12** | **Sensitive.** [`lib/review-session-requeue.ts`](../lib/review-session-requeue.ts), `useReviewSession` re-insert on `again`/`hard`; [ADR-0012](adr/0012-ux-decisions-requeue-i18n-leech-nav.md) decisions 12–13 |
-| **T-B14** | Broken-card flagging + leech diagnosis ([UC-023](use-cases/UC-023-report-something-wrong.md), [UC-013](use-cases/UC-013-stop-losing-time-on-one-card.md)) | **UC-023 report UI shipped 2026-08-12** — `card_content_flag` + review report button. **Remaining:** UC-013 tier-2/3 diagnosis. **Sensitive** |
+| **T-B14** | Broken-card flagging + leech diagnosis ([UC-023](use-cases/UC-023-report-something-wrong.md), [UC-013](use-cases/UC-013-stop-losing-time-on-one-card.md)) | **Tier 1 + one-tap flag shipped 2026-08-12** (`card_content_flag` + review flag button). **UX plan 2026-08-16** — [study/34](study/34-review-report-and-acknowledgement-ux.md); child UCs [UC-073](use-cases/UC-073-explain-what-is-wrong-with-a-card.md), [UC-074](use-cases/UC-074-know-my-report-was-received.md). **Queued (blocked on owner GO):** T-B14a `StatusBanner` + review confirmation · T-B14b report popover + optional `category`/`note` columns · T-B14c scheduling-intent toggle (optional). **Remaining:** UC-013 tier-2/3 diagnosis. **Sensitive** |
 | **T-B15** | Maintenance mode per language ([UC-025](use-cases/UC-025-learn-multiple-languages.md)) | **Not spec-ready** — no per-language flag exists. Moved 2026-08-12 from [`plans/multi-language.md`](plans/multi-language.md) table item 10, so it has exactly one tracked home. The best-evidenced item in that plan's 2026-08-11 review (Cepeda et al. 2008, Bahrick et al. 1993: 10–20% of the retention interval as the review gap) and the one piece of that review's recommendation not yet built |
 ---
 
@@ -708,6 +708,17 @@ list, when implementing.
     [`session-builder.md`](specs/service/session-builder.md) behaviour #6.
 22. **Incomplete paradigms in form-mastery reporting** — round, omit, or flag?
     Blocks per-cell breakdown (UC-062). Open in [`lexicon.md`](specs/service/lexicon.md).
+
+**Added 2026-08-16**, from [study/34](study/34-review-report-and-acknowledgement-ux.md)
+(T-B14a/b/c). Resolve before implementing report popover or DB columns.
+
+23. **Report popover + acknowledgement banner (T-B14a/b)** — owner **GO** on:
+    (a) scheduling-intent toggle vs flag-only v1; (b) five category chips;
+    (c) banner clears on next grade; (d) implement order — banner before popover.
+    Draft specs: [`status-banner.md`](specs/component/status-banner.md),
+    [`review-card-report.md`](specs/feature/review-card-report.md). UCs:
+    [UC-073](use-cases/UC-073-explain-what-is-wrong-with-a-card.md),
+    [UC-074](use-cases/UC-074-know-my-report-was-received.md).
 
 **Added 2026-08-12**, moved from [`plans/multi-language.md`](plans/multi-language.md)
 so open items live in exactly one queue:
