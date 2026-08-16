@@ -74,7 +74,7 @@ describe("SPEC-feature-mobile-nav-v2", () => {
 
     const nav = screen.getByRole("navigation", { name: copy.mobileNavLabel });
     const links = nav.querySelectorAll<HTMLAnchorElement>("a[href]");
-    expect(links).toHaveLength(4);
+    expect(links).toHaveLength(3);
     expect(nav.querySelector("ul")?.className).toContain("inline-flex");
     expect(screen.getByRole("link", { name: copy.destinations.methods })).toBeDefined();
     expect(screen.getByRole("link", { name: copy.destinations.words })).toBeDefined();

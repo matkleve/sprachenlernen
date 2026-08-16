@@ -68,13 +68,12 @@ describe("destination errors inside the shell", () => {
         .filter(
           (href): href is string =>
             href === "/methods" ||
-            href === "/methods-mirror" ||
             href === "/words" ||
             href === "/progress",
         ),
     );
     expect(destinationHrefs).toEqual(
-      new Set(["/methods", "/methods-mirror", "/words", "/progress"]),
+      new Set(["/methods", "/words", "/progress"]),
     );
     expect(screen.getByText("Could not start your review session.")).toBeDefined();
   });
