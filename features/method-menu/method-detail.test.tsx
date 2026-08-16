@@ -18,9 +18,9 @@ const narrowListening = findMethod(catalogue, "narrow-listening")!;
 const srsSession = findMethod(catalogue, "srs-session")!;
 
 describe("MethodDetail", () => {
-  it("shows a single duration chip", () => {
+  it("shows a single duration chip in the facts panel", () => {
     render(<MethodDetail method={narrowListening} />);
-    expect(screen.getByText("10–45 min")).toBeDefined();
+    expect(screen.getAllByText("10–45 min").length).toBeGreaterThan(0);
   });
 
   it("shows skill tier badges for improving skills", () => {
@@ -33,19 +33,25 @@ describe("MethodDetail", () => {
     ).toBeDefined();
   });
 
-  it("shows article sections for a shipped method", () => {
+  it("shows article prose for a shipped method", () => {
     render(
       <MethodDetail method={extensiveReading} searchParams={{ minutes: "15", skill: "reading" }} />,
     );
 
     expect(screen.getByRole("heading", { level: 1, name: extensiveReading.name })).toBeDefined();
-    expect(screen.getByRole("heading", { level: 2, name: copy.detail.practical })).toBeDefined();
-    expect(screen.getByRole("heading", { level: 2, name: copy.card.trains })).toBeDefined();
-    expect(screen.getByRole("heading", { level: 2, name: copy.card.doesNotDo })).toBeDefined();
     expect(document.body.textContent).toContain(extensiveReading.summary);
+    expect(document.body.textContent).toContain(extensiveReading.trains);
     expect(document.body.textContent).toContain(extensiveReading.doesNotDo);
     expect(screen.queryByRole("link", { name: copy.startSession })).toBeNull();
     expect(screen.getByText(copy.sessionNotBuilt)).toBeDefined();
+  });
+
+  it("uses the same section graphic as cards in a full-bleed hero", () => {
+    render(<MethodDetail method={extensiveReading} />);
+
+    const hero = document.querySelector(".w-screen");
+    expect(hero).not.toBeNull();
+    expect(hero?.textContent).toContain("Reading");
   });
 
   it("shows Start for srs-session", () => {

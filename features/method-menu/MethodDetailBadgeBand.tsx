@@ -22,7 +22,7 @@ export function MethodDetailBadgeBand({ method, className }: MethodDetailBadgeBa
   const tiers = visibleSkillTiers(method);
 
   return (
-    <div className={cn("mt-6 flex flex-wrap items-center gap-2", className)}>
+    <div className={cn("flex flex-wrap items-center gap-2", className)}>
       {tiers.map(({ skill, tier }) =>
         isRenderableTier(tier) ? (
           <SkillTierBadge key={skill} skill={skill} tier={tier} />

@@ -1,6 +1,4 @@
 import { ActionLink } from "@/components/ui/ActionLink";
-import { Chip } from "@/components/ui/Chip";
-import { disclosureSummaryClass } from "@/components/ui/Disclosure";
 import { ShellPageContent } from "@/features/app-shell/ShellPageContent";
 import { byId, type MethodEntry } from "@/lib/method-catalogue";
 import type { SearchParams } from "@/lib/method-menu-filter";
@@ -10,15 +8,9 @@ import { routes } from "@/lib/routes";
 import { cn } from "@/lib/utils";
 
 import { MethodDetailBadgeBand } from "./MethodDetailBadgeBand";
+import { MethodDetailFacts } from "./MethodDetailFacts";
 import { MethodDetailHero } from "./MethodDetailHero";
-import {
-  copy,
-  effortCard,
-  evidenceCard,
-  evidenceProse,
-  intensity,
-} from "./content";
-import { formatDurationLabel, requirementChips } from "./requirements";
+import { copy } from "./content";
 
 export type MethodDetailProps = {
   method?: MethodEntry;
@@ -47,85 +39,61 @@ export function MethodDetail({ method, searchParams = {} }: MethodDetailProps) {
     );
   }
 
-  const requirements = requirementChips(method.requires);
-  const durationLabel = formatDurationLabel(method.durations);
-
   return (
-    <ShellPageContent mode="scrollable-drill-in" width="narrow">
-      <ActionLink href={backHref} variant="ghost" size="sm" className={cn(backLinkClass, "mb-2")}>
-        ← {copy.backToMethods}
-      </ActionLink>
-
+    <>
       <MethodDetailHero section={method.section} />
-      <h1 className="mt-6 text-2xl font-semibold tracking-tight text-ink sm:text-3xl">
-        {method.name}
-      </h1>
-      <p className="mt-3 text-base leading-relaxed text-muted">{method.summary}</p>
 
-      <MethodDetailBadgeBand method={method} />
-
-      <section className="mt-8">
-        <h2 className="text-base font-semibold text-ink">{copy.detail.practical}</h2>
-        <p className="mt-2 text-base text-muted">
-          {effortCard[method.intensity]} — {intensity[method.intensity]}
-        </p>
-        <dl className="mt-4 grid gap-3 text-sm">
-          <div>
-            <dt className="font-medium text-ink">{copy.card.duration}</dt>
-            <dd className="mt-1">
-              <Chip>{durationLabel}</Chip>
-            </dd>
-          </div>
-          {requirements.length > 0 ? (
-            <div>
-              <dt className="font-medium text-ink">{copy.card.needs}</dt>
-              <dd className="mt-1 flex flex-wrap gap-1.5">
-                {requirements.map((label) => (
-                  <Chip key={`need-${label}`}>{label}</Chip>
-                ))}
-              </dd>
-            </div>
-          ) : null}
-          <div>
-            <dt className="font-medium text-ink">{copy.hosted}</dt>
-            <dd className="mt-1">
-              <Chip>{method.hosted ? copy.hostedShort : copy.notHostedShort}</Chip>
-            </dd>
-          </div>
-        </dl>
-      </section>
-
-      <section className="mt-8">
-        <h2 className="text-base font-semibold text-ink">{copy.card.trains}</h2>
-        <p className="mt-2 text-base leading-relaxed text-muted">{method.trains}</p>
-      </section>
-
-      <section className="mt-8 rounded-card border border-line bg-surface-raised p-4 shadow-soft">
-        <h2 className="text-base font-semibold text-ink">{copy.card.doesNotDo}</h2>
-        <p className="mt-2 text-base leading-relaxed text-muted">{method.doesNotDo}</p>
-      </section>
-
-      <details className="mt-8">
-        <summary className={disclosureSummaryClass}>{copy.detail.researchConfidence}</summary>
-        <p className="mt-2 text-sm leading-relaxed text-muted">
-          {evidenceCard[method.evidence]} — {evidenceProse[method.evidence]}
-        </p>
-      </details>
-
-      <p className="mt-6 text-sm text-muted">
-        {method.hosted ? copy.hosted : copy.notHosted}
-      </p>
-
-      {usesWordsReview(method) && (
-        <ActionLink href={sessionHrefForMethod(method)} variant="primary" size="lg" className="mt-8">
-          {copy.startSession}
+      <ShellPageContent mode="scrollable-drill-in" width="wide">
+        <ActionLink href={backHref} variant="ghost" size="sm" className={cn(backLinkClass, "mb-4")}>
+          ← {copy.backToMethods}
         </ActionLink>
-      )}
 
-      {method.hosted && !usesWordsReview(method) && (
-        <p className="mt-8 text-sm text-muted">{copy.sessionNotBuilt}</p>
-      )}
-    </ShellPageContent>
+        <div className="grid gap-8 md:grid-cols-[minmax(0,1fr)_15rem] lg:grid-cols-[minmax(0,1fr)_17rem] lg:gap-10">
+          <article className="min-w-0">
+            <h1 className="text-3xl font-semibold tracking-tight text-ink sm:text-4xl">
+              {method.name}
+            </h1>
+            <p className="mt-4 text-lg leading-relaxed text-muted">{method.summary}</p>
+
+            <MethodDetailBadgeBand method={method} className="mt-6" />
+
+            <MethodDetailFacts method={method} variant="mobile" className="md:hidden" />
+
+            <p className="mt-8 text-lg leading-relaxed text-ink">{method.trains}</p>
+
+            <div className="mt-8 rounded-card border border-line bg-surface-raised p-5 shadow-soft">
+              <p className="text-base leading-relaxed text-muted">
+                <span className="font-semibold text-ink">{copy.card.doesNotDo}. </span>
+                {method.doesNotDo}
+              </p>
+            </div>
+
+            <p className="mt-6 text-sm text-muted">
+              {method.hosted ? copy.hosted : copy.notHosted}
+            </p>
+
+            {usesWordsReview(method) && (
+              <ActionLink
+                href={sessionHrefForMethod(method)}
+                variant="primary"
+                size="lg"
+                className="mt-8"
+              >
+                {copy.startSession}
+              </ActionLink>
+            )}
+
+            {method.hosted && !usesWordsReview(method) && (
+              <p className="mt-8 text-sm text-muted">{copy.sessionNotBuilt}</p>
+            )}
+          </article>
+
+          <div className="hidden md:block">
+            <MethodDetailFacts method={method} variant="desktop" />
+          </div>
+        </div>
+      </ShellPageContent>
+    </>
   );
 }
 

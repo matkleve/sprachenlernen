@@ -26,6 +26,11 @@ describe("MethodCardHeader", () => {
     expect(container.firstElementChild?.className).toContain("h-20");
   });
 
+  it("supports a taller hero variant for method detail", () => {
+    const { container } = render(<MethodCardHeader section="reading" size="hero" />);
+    expect(container.firstElementChild?.className).toContain("h-44");
+  });
+
   it("has no accessibility violations in isolation", async () => {
     const { container } = render(<MethodCardHeader section="writing" />);
     await expectNoA11yViolations(container);

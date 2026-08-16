@@ -82,6 +82,7 @@ export const copy = {
   notHostedShort: "Off-app",
   detail: {
     practical: "Practical",
+    practicalDetails: "Practical details",
     mainly: "Mainly",
     researchConfidence: "How sure is the research?",
   },

@@ -15,8 +15,9 @@ assets. Contract: [`../../study/27-method-badges.md`](../../study/27-method-badg
 - **In:** `MethodCardHeader` on `MethodCard`; eight SVG assets in
   `public/assets/method-sections/`; gradient overlay; uppercase section label;
   `alt` text naming the section as decorative; fixed height (`h-20`).
-- **Out:** per-method illustrations; interactive header; header on method detail
-  (detail uses section prose label only); accent left border on cards.
+- **Out:** per-method illustrations; interactive header; accent left border on
+  cards. Method detail reuses this component at `size="hero"` inside a
+  full-bleed wrapper — see [`../page/method-detail.md`](../page/method-detail.md).
 
 Implementation: `features/method-menu/MethodCardHeader.tsx`,
 `features/method-menu/section-graphic.ts`. Card shell uses

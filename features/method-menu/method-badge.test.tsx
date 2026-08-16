@@ -83,11 +83,11 @@ describe("method surfaces", () => {
   it("shows article layout on detail without badge row", () => {
     render(<MethodDetail method={method} />);
     expect(screen.getByRole("heading", { level: 1, name: method.name })).toBeDefined();
-    expect(screen.getByRole("heading", { level: 2, name: copy.detail.practical })).toBeDefined();
-    expect(screen.getByText(/Light effort — can be done tired/i)).toBeDefined();
+    expect(screen.getByText(/Light effort/i)).toBeDefined();
+    expect(document.body.textContent).toContain(method.trains);
+    expect(document.body.textContent).toContain(method.doesNotDo);
     expect(screen.queryByTitle("Listening, slight")).toBeNull();
-    const disclosure = screen.getByText(copy.detail.researchConfidence).closest("details");
-    expect(disclosure?.textContent).toMatch(/plausible and widespread/i);
+    expect(screen.getAllByText(copy.detail.researchConfidence).length).toBeGreaterThan(0);
     expect(screen.queryByText(/Evidence C/i)).toBeNull();
   });
 

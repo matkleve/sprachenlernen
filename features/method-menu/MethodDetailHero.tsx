@@ -1,9 +1,7 @@
-import Image from "next/image";
-
 import type { Section } from "@/lib/method-catalogue";
 import { cn } from "@/lib/utils";
 
-import { sectionGraphicAlt, sectionGraphicSrc } from "./section-graphic";
+import { MethodCardHeader } from "./MethodCardHeader";
 
 export type MethodDetailHeroProps = {
   section: Section;
@@ -11,32 +9,13 @@ export type MethodDetailHeroProps = {
 };
 
 /**
- * Full-width section graphic with fade into the page — title lives below, not on
- * the image. Contract: docs/specs/page/method-detail.md
+ * Edge-to-edge section graphic — same asset and overlay as method cards.
+ * Contract: docs/specs/page/method-detail.md
  */
 export function MethodDetailHero({ section, className }: MethodDetailHeroProps) {
-  const src = sectionGraphicSrc[section];
-  const label = sectionGraphicAlt(section, "");
-
   return (
-    <div
-      className={cn(
-        "relative -mx-6 h-44 overflow-hidden sm:-mx-0 sm:rounded-card",
-        className,
-      )}
-    >
-      <Image
-        src={src}
-        alt={label}
-        fill
-        priority
-        sizes="(max-width: 640px) 100vw, 42rem"
-        className="object-cover object-center"
-      />
-      <div
-        className="pointer-events-none absolute inset-0 bg-gradient-to-t from-canvas via-canvas/40 to-transparent"
-        aria-hidden
-      />
+    <div className={cn("relative left-1/2 w-screen max-w-[100vw] -translate-x-1/2", className)}>
+      <MethodCardHeader section={section} size="hero" />
     </div>
   );
 }
