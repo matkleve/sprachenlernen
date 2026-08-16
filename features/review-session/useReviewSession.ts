@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
 
@@ -7,7 +8,6 @@ import {
   buildSessionAction,
   reportCardAction,
 } from "@/features/review-session/actions";
-import { copy } from "@/features/review-session/content";
 import { routes } from "@/lib/routes";
 import { getReviewQueue } from "@/features/review-session/review-queue";
 import {
@@ -18,6 +18,7 @@ import {
 } from "@/features/review-session/session-machine";
 import { getInstallationId } from "@/lib/installation-id";
 import { requeueInsertIndex } from "@/lib/review-session-requeue";
+import type { ReportCardInput } from "@/lib/card-report";
 import type { SessionCard } from "@/lib/session-builder";
 import type { Grade } from "@/lib/scheduler";
 
@@ -31,6 +32,10 @@ export type UseReviewSessionOptions = {
   initialData?: ReviewSessionInitialData;
 };
 
+export type ReportAck =
+  | { variant: "success" }
+  | { variant: "error"; message: string };
+
 export type UseReviewSessionResult = {
   status: ReviewSessionStatus;
   loadError: string | null;
@@ -42,11 +47,11 @@ export type UseReviewSessionResult = {
   pendingCount: number;
   showSyncStatus: boolean;
   gradedCount: number;
-  reportMessage: string | null;
+  reportAck: ReportAck | null;
   reportPending: boolean;
   flip: () => void;
   grade: (value: Grade) => void;
-  report: () => void;
+  submitReport: (input: ReportCardInput) => Promise<void>;
   retrySync: () => void;
 };
 
@@ -65,6 +70,7 @@ function initialPhaseFromData(data: ReviewSessionInitialData | undefined): Sessi
 }
 
 export function useReviewSession(options: UseReviewSessionOptions = {}): UseReviewSessionResult {
+  const t = useTranslations("reviewSession");
   const { initialData } = options;
   const router = useRouter();
   const [status, setStatus] = useState<ReviewSessionStatus>(() => initialStatusFromData(initialData));
@@ -83,7 +89,7 @@ export function useReviewSession(options: UseReviewSessionOptions = {}): UseRevi
   const [pendingCount, setPendingCount] = useState(0);
   const [showSyncStatus, setShowSyncStatus] = useState(false);
   const [gradedCount, setGradedCount] = useState(0);
-  const [reportMessage, setReportMessage] = useState<string | null>(null);
+  const [reportAck, setReportAck] = useState<ReportAck | null>(null);
   const [reportPending, setReportPending] = useState(false);
   const shownAtRef = useRef(Date.now());
   const gradingRef = useRef(false);
@@ -123,7 +129,7 @@ export function useReviewSession(options: UseReviewSessionOptions = {}): UseRevi
       } catch {
         if (cancelled) return;
         setStatus("error");
-        setLoadError(copy.loadError);
+        setLoadError(t('loadError'));
       }
     }
 
@@ -165,6 +171,7 @@ export function useReviewSession(options: UseReviewSessionOptions = {}): UseRevi
       if (!currentCard || !canGrade(phase) || gradingRef.current) return;
 
       gradingRef.current = true;
+      setReportAck(null);
       const reviewedAtMs = Date.now();
 
       void getReviewQueue().enqueue({
@@ -208,20 +215,22 @@ export function useReviewSession(options: UseReviewSessionOptions = {}): UseRevi
     void getReviewQueue().retryFailed();
   }, []);
 
-  const report = useCallback(() => {
-    if (!currentCard || reportPending) return;
+  const submitReport = useCallback(
+    async (input: ReportCardInput) => {
+      if (!currentCard || reportPending) return;
 
-    setReportPending(true);
-    setReportMessage(null);
-    void reportCardAction(currentCard.wordId).then((outcome) => {
+      setReportPending(true);
+      setReportAck(null);
+      const outcome = await reportCardAction(currentCard.wordId, input);
       setReportPending(false);
       if (outcome.status === "error") {
-        setReportMessage(outcome.error);
+        setReportAck({ variant: "error", message: outcome.error });
         return;
       }
-      setReportMessage(copy.reportDone);
-    });
-  }, [currentCard, reportPending]);
+      setReportAck({ variant: "success" });
+    },
+    [currentCard, reportPending],
+  );
 
   return {
     status,
@@ -234,11 +243,11 @@ export function useReviewSession(options: UseReviewSessionOptions = {}): UseRevi
     pendingCount,
     showSyncStatus,
     gradedCount,
-    reportMessage,
+    reportAck,
     reportPending,
     flip,
     grade,
-    report,
+    submitReport,
     retrySync,
   };
 }

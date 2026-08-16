@@ -1,3 +1,6 @@
+"use client";
+
+import { useMethodMenuCopy } from "./use-method-menu-copy";
 import { Chip } from "@/components/ui/Chip";
 import { SurfaceLink } from "@/components/ui/SurfaceLink";
 import type { MethodEntry } from "@/lib/method-catalogue";
@@ -6,8 +9,7 @@ import { cardHrefForMethod } from "@/lib/method-session";
 
 import { MethodBadgeRow } from "./MethodBadge";
 import { MethodCardHeader } from "./MethodCardHeader";
-import { copy } from "./content";
-import { durationChips, requirementChips } from "./requirements";
+import { useRequirementHelpers } from "./use-requirement-helpers";
 import { methodSectionSurface } from "./section-surface";
 
 export type MethodCardProps = {
@@ -20,6 +22,8 @@ export type MethodCardProps = {
  * One Method, compact and tappable. Contract: docs/specs/page/method-menu.md
  */
 export function MethodCard({ method, returnQuery = "" }: MethodCardProps) {
+  const { t } = useMethodMenuCopy();
+  const { requirementChips, durationChips } = useRequirementHelpers();
   const href = cardHrefForMethod(method, returnQuery);
   const requirements = requirementChips(method.requires);
   const skillMarks = skillMarksForMethod(method);
@@ -46,7 +50,7 @@ export function MethodCard({ method, returnQuery = "" }: MethodCardProps) {
           inLink
         />
 
-        <ul className="mt-3 flex flex-wrap gap-1.5" aria-label={copy.card.properties}>
+        <ul className="mt-3 flex flex-wrap gap-1.5" aria-label={t('card.properties')}>
           {durationChips(method.durations).map((label) => (
             <li key={`duration-${label}`}>
               <Chip>{label}</Chip>
@@ -58,12 +62,12 @@ export function MethodCard({ method, returnQuery = "" }: MethodCardProps) {
             </li>
           ))}
           <li>
-            <Chip>{method.hosted ? copy.hostedShort : copy.notHostedShort}</Chip>
+            <Chip>{method.hosted ? t('hostedShort') : t('notHostedShort')}</Chip>
           </li>
         </ul>
 
         <p className="mt-3 line-clamp-2 text-sm text-muted">
-          <span className="font-medium text-ink">{copy.card.doesNotDo}: </span>
+          <span className="font-medium text-ink">{t('card.doesNotDo')}: </span>
           {method.doesNotDo}
         </p>
       </div>

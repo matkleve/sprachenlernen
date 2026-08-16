@@ -2,7 +2,7 @@
 
 **Status:** exploration — directions shipped to `/dev/brand` · **2026-08-16**
 
-Companion to [UC-073](../use-cases/UC-073-choose-a-logo-and-app-icon.md) and
+Companion to [UC-075](../use-cases/UC-075-choose-a-logo-and-app-icon.md) and
 [`brand-explorer.md`](../specs/page/brand-explorer.md). Visual tokens from
 **Warm Scholar** (chosen 2026-08-09 via `/dev/design`).
 

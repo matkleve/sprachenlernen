@@ -1,13 +1,13 @@
 # Brand explorer — compare logo and PWA icon directions
 
 <!-- id: SPEC-page-brand-explorer -->
-<!-- use-case: UC-073 -->
+<!-- use-case: UC-075 -->
 <!-- status: active -->
 
 A dev-facing page at `/dev/brand` where a product owner or designer compares
 five app-mark directions at favicon, header, and Home Screen sizes before
 promoting one to `public/icon.svg`. Serves
-[UC-073](../../use-cases/UC-073-choose-a-logo-and-app-icon.md).
+[UC-075](../../use-cases/UC-075-choose-a-logo-and-app-icon.md).
 
 **Reuse: Button** — choose control matches the design explorer pattern.
 

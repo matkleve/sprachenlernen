@@ -21,7 +21,7 @@ Per-primitive state matrix. Symbols: D H A F X P C — see parent
 | `PressableCard` | ✓ | ✓ lift | ✓+fill | ✓ | ✓ | — | — | `interactive={false}` → static, no H/A |
 | `GradeButton` | ✓ | ✓ | ✓ | ✓ | ✓ | — | — | Grade-tinted; no spinner (exemption) |
 | `LanguageListRow` | ✓ | ✓ lift | ✓+fill | ✓ | ✓ | — | active=div | Switcher rows use `cardPressable`; active row is non-interactive `<div>` |
-| `Disclosure` | ✓ | ✓ | ✓ | ✓ | — | — | open state | Summary only; `<details>` toggle is platform |
+| `Disclosure` | ✓ | ✓ shell | ✓ shell | ✓ summary | — | — | open state | Shell press via `:has(summary:active)`; panel animates 150ms; see [`disclosure.md`](../component/disclosure.md) |
 
 ## Native form controls (DESIGN-SYSTEM exemption)
 

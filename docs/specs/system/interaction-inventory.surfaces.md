@@ -46,6 +46,7 @@ Update this file in the same PR as any new control or migration.
 | Control | File | Primitive | Variant | P |
 | --- | --- | --- | --- | --- |
 | Start review | `WordsHome.tsx` | `ActionLink` | `primary lg` | ✓ |
+| Lemma callout | `LemmaCallout.tsx` | `Disclosure` / `DisclosureSummary` / `DisclosurePanel` | accent-soft shell; mobile only | — |
 | Flip card | `ReviewCard.tsx` | `PressableCard` | interactive when flippable | — |
 | Report flag | `ReviewCard.tsx` | `IconButton` `sm` | `pendingPolicy="none"` | on report |
 | Sync retry | `ReviewSession.tsx` | `Button` | `secondary sm`, manual pending | ✓ |

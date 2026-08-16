@@ -38,6 +38,27 @@ describe("card-content-flags", () => {
         user_id: "u1",
         word_id: "es:perro",
         spoken_language: "en",
+        category: null,
+        note: null,
+      }),
+    );
+  });
+
+  it("stores optional category and note when provided", async () => {
+    const insert = vi.fn().mockResolvedValue({ error: null });
+    const from = vi.fn(() => ({ insert }));
+    const { createServerSupabaseClient } = await import("@/lib/db/client");
+    vi.mocked(createServerSupabaseClient).mockResolvedValue({ from } as never);
+
+    const outcome = await flagCardContent("es:perro", {
+      category: "wrong-translation",
+      note: "  Should be perro, not pero  ",
+    });
+    expect(outcome).toEqual({ status: "ok" });
+    expect(insert).toHaveBeenCalledWith(
+      expect.objectContaining({
+        category: "wrong-translation",
+        note: "Should be perro, not pero",
       }),
     );
   });

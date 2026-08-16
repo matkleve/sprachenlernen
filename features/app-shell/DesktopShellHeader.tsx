@@ -12,7 +12,7 @@ import { isProfileCurrent } from "./destinations";
 import { LanguageSwitcher, type LanguageSwitcherOption } from "./LanguageSwitcher";
 import { ShellPageTitle } from "./ShellPageTitle";
 import { HeaderScrim } from "./HeaderScrim";
-import { copy } from "./content";
+import { useTranslations } from "next-intl";
 import { useHeaderCollapse } from "./useHeaderCollapse";
 
 /**
@@ -27,6 +27,7 @@ export function DesktopShellHeader({
   languageHoldings?: Record<string, LanguageHoldings>;
 }) {
   const pathname = usePathname();
+  const t = useTranslations("appShell");
   const profileCurrent = isProfileCurrent(pathname);
   const collapse = useHeaderCollapse();
 
@@ -54,7 +55,7 @@ export function DesktopShellHeader({
             className="gap-1.5"
           >
             <UserRound aria-hidden className="size-4 shrink-0" />
-            {copy.account}
+            {t("account")}
           </ActionLink>
         </div>
         </div>

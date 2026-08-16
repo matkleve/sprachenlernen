@@ -1,15 +1,16 @@
 import type { Metadata } from "next";
+import { getTranslations } from "next-intl/server";
 import { redirect } from "next/navigation";
 
 import { LanguagePicker } from "@/features/language-picker/LanguagePicker";
-import { copy } from "@/features/language-picker/content";
 import { readPicker } from "@/features/language-picker/reading";
 import { addLearningLanguage } from "@/lib/db/learning-languages";
 import { routes } from "@/lib/routes";
 
-export const metadata: Metadata = {
-  title: copy.title,
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const t = await getTranslations("languagePicker");
+  return { title: t("title") };
+}
 
 /** Contract: docs/specs/page/language-picker.md */
 export default async function ChooseLanguagePage({
@@ -17,11 +18,8 @@ export default async function ChooseLanguagePage({
 }: {
   searchParams: Promise<Record<string, string | string[] | undefined>>;
 }) {
+  const t = await getTranslations("languagePicker");
   const outcome = await readPicker();
-  // A failed add redirects back here with a marker rather than returning a
-  // value: a server action that redirects on success cannot also hand state to
-  // the page it did not navigate to, and silently swallowing the failure left
-  // the learner tapping a button that repainted an identical screen.
   const failed = (await searchParams).failed !== undefined;
 
   async function choose(code: string) {
@@ -37,7 +35,7 @@ export default async function ChooseLanguagePage({
   return (
     <LanguagePicker
       tiles={outcome.tiles}
-      error={failed ? copy.error : null}
+      error={failed ? t("error") : null}
       choose={choose}
     />
   );

@@ -1,3 +1,4 @@
+// Legacy English copy — use next-intl messages instead. Kept for reference during migration.
 import { shellDestinations } from "./destinations";
 
 export type ShellBackTarget = {

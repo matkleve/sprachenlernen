@@ -1,3 +1,5 @@
+import { getTranslations } from "next-intl/server";
+
 import { ActionLink } from "@/components/ui/ActionLink";
 import { ShellPageContent } from "@/features/app-shell/ShellPageContent";
 import { byId, type MethodEntry } from "@/lib/method-catalogue";
@@ -10,7 +12,6 @@ import { cn } from "@/lib/utils";
 import { MethodDetailBadgeBand } from "./MethodDetailBadgeBand";
 import { MethodDetailFacts } from "./MethodDetailFacts";
 import { MethodDetailHero } from "./MethodDetailHero";
-import { copy } from "./content";
 
 export type MethodDetailProps = {
   method?: MethodEntry;
@@ -20,20 +21,21 @@ export type MethodDetailProps = {
 const backLinkClass =
   "hidden h-auto px-0 text-sm font-medium text-muted hover:bg-transparent hover:text-ink md:inline-flex";
 
-export function MethodDetail({ method, searchParams = {} }: MethodDetailProps) {
+export async function MethodDetail({ method, searchParams = {} }: MethodDetailProps) {
+  const t = await getTranslations("methodMenu");
   const backHref = `${routes.methods}${menuQueryString(searchParams)}`;
 
   if (!method) {
     return (
       <ShellPageContent mode="scrollable-drill-in" width="narrow">
-        <p className="text-base text-muted">{copy.methodNotFound}</p>
+        <p className="text-base text-muted">{t("methodNotFound")}</p>
         <ActionLink
           href={backHref}
           variant="ghost"
           size="sm"
           className={cn(backLinkClass, "mt-4")}
         >
-          {copy.backToMethods}
+          {t("backToMethods")}
         </ActionLink>
       </ShellPageContent>
     );
@@ -45,7 +47,7 @@ export function MethodDetail({ method, searchParams = {} }: MethodDetailProps) {
 
       <ShellPageContent mode="scrollable-drill-in" width="wide">
         <ActionLink href={backHref} variant="ghost" size="sm" className={cn(backLinkClass, "mb-4")}>
-          ← {copy.backToMethods}
+          ← {t("backToMethods")}
         </ActionLink>
 
         <div className="grid gap-8 md:grid-cols-[minmax(0,1fr)_15rem] lg:grid-cols-[minmax(0,1fr)_17rem] lg:gap-10">
@@ -64,13 +66,13 @@ export function MethodDetail({ method, searchParams = {} }: MethodDetailProps) {
 
             <div className="mt-8 rounded-card border border-line bg-surface-raised p-5 shadow-soft">
               <p className="text-base leading-relaxed text-muted">
-                <span className="font-semibold text-ink">{copy.card.doesNotDo}. </span>
+                <span className="font-semibold text-ink">{t("card.doesNotDo")}. </span>
                 {method.doesNotDo}
               </p>
             </div>
 
             <p className="mt-6 text-sm text-muted">
-              {method.hosted ? copy.hosted : copy.notHosted}
+              {method.hosted ? t("hosted") : t("notHosted")}
             </p>
 
             {usesWordsReview(method) && (
@@ -80,12 +82,12 @@ export function MethodDetail({ method, searchParams = {} }: MethodDetailProps) {
                 size="lg"
                 className="mt-8"
               >
-                {copy.startSession}
+                {t("startSession")}
               </ActionLink>
             )}
 
             {method.hosted && !usesWordsReview(method) && (
-              <p className="mt-8 text-sm text-muted">{copy.sessionNotBuilt}</p>
+              <p className="mt-8 text-sm text-muted">{t("sessionNotBuilt")}</p>
             )}
           </article>
 

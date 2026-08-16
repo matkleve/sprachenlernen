@@ -1,6 +1,6 @@
 # UC-073 — choose a logo and app icon
 
-<!-- id: UC-073 -->
+<!-- id: UC-075 -->
 <!-- specs: SPEC-page-brand-explorer -->
 
 **Who:** a product owner or designer deciding the app's mark and PWA icon

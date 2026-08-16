@@ -1,12 +1,17 @@
+"use client";
+
+import { useTranslations } from "next-intl";
 import { Chip } from "@/components/ui/Chip";
-import { copy } from "@/features/words/content";
 import { orbitBandForRank } from "@/lib/vocabulary-orbit";
 import type { OrbitSegment, OrbitTickSegment } from "@/lib/vocabulary-orbit";
 
 type DetailSegment = Exclude<OrbitSegment, OrbitTickSegment>;
 
-function statusChip(segment: Extract<DetailSegment, { kind: "word" }>) {
-  const label = segment.mature ? copy.bucketNames.mature : copy.bucketNames[segment.bucket];
+function statusChip(
+  segment: Extract<DetailSegment, { kind: "word" }>,
+  t: ReturnType<typeof useTranslations<"words">>,
+) {
+  const label = segment.mature ? t("bucketNames.mature") : t(`bucketNames.${segment.bucket}`);
 
   if (segment.mature || segment.bucket === "held") {
     return <Chip tone="accent">{label}</Chip>;
@@ -33,21 +38,22 @@ function StatCell({ label, value }: { label: string; value: string }) {
 }
 
 export function OrbitDetailCard({ segment }: { segment: DetailSegment }) {
+  const t = useTranslations("words");
   if (segment.kind === "aggregate") {
     return (
       <article className="rounded-card border border-line bg-surface-raised p-5 shadow-soft sm:p-6">
         <h3 className="text-2xl font-semibold text-ink">
-          {copy.orbitAggregateHeading(segment.rankStart, segment.rankEnd)}
+          {t('orbitAggregateHeading', { start: segment.rankStart, end: segment.rankEnd })}
         </h3>
         <p className="mt-3 text-base leading-relaxed text-muted">
-          {copy.orbitAggregateBody(segment.wordCount, segment.heldCount)}
+          {t('orbitAggregateBody', { count: segment.wordCount, held: segment.heldCount })}
         </p>
         <dl className="mt-5 flex flex-col gap-4 border-t border-line pt-5 sm:flex-row sm:items-center">
-          <StatCell label={copy.orbitDetailWordsInBandLabel} value={`${segment.wordCount}`} />
+          <StatCell label={t('orbitDetailWordsInBandLabel')} value={`${segment.wordCount}`} />
           <div className="hidden h-10 w-px bg-line sm:block" aria-hidden />
           <StatCell
-            label={copy.bucketNames.held}
-            value={copy.orbitDetailHeldSummary(segment.heldCount, segment.wordCount)}
+            label={t('bucketNames.held')}
+            value={t('orbitDetailHeldSummary', { held: segment.heldCount, total: segment.wordCount })}
           />
         </dl>
       </article>
@@ -56,7 +62,7 @@ export function OrbitDetailCard({ segment }: { segment: DetailSegment }) {
 
   const band = orbitBandForRank(segment.frequencyRank);
   const stability =
-    segment.stability !== null ? segment.stability.toFixed(1) : copy.noStability;
+    segment.stability !== null ? segment.stability.toFixed(1) : t('noStability');
 
   return (
     <article className="rounded-card border border-line bg-surface-raised p-5 shadow-soft sm:p-6">
@@ -67,19 +73,19 @@ export function OrbitDetailCard({ segment }: { segment: DetailSegment }) {
             <p className="mt-1 text-lg text-muted">{segment.translation}</p>
           ) : null}
         </div>
-        {statusChip(segment)}
+        {statusChip(segment, t)}
       </div>
 
       <dl className="mt-5 flex flex-col gap-4 border-t border-line pt-5 sm:flex-row sm:items-center">
-        <StatCell label={copy.orbitDetailRankLabel} value={`#${segment.frequencyRank}`} />
+        <StatCell label={t('orbitDetailRankLabel')} value={`#${segment.frequencyRank}`} />
         <div className="hidden h-10 w-px bg-line sm:block" aria-hidden />
-        <StatCell label={copy.orbitDetailStabilityLabel} value={stability} />
+        <StatCell label={t('orbitDetailStabilityLabel')} value={stability} />
         {band ? (
           <>
             <div className="hidden h-10 w-px bg-line sm:block" aria-hidden />
             <StatCell
-              label={copy.orbitDetailBandLabel}
-              value={copy.orbitDetailBandCaption(band.rankStart, band.rankEnd)}
+              label={t('orbitDetailBandLabel')}
+              value={t('orbitDetailBandCaption', { start: band.rankStart, end: band.rankEnd })}
             />
           </>
         ) : null}

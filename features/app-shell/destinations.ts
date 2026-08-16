@@ -1,3 +1,4 @@
+// Legacy English copy — use next-intl messages instead. Kept for reference during migration.
 import { BookOpen, Library, TrendingUp, type LucideIcon } from "lucide-react";
 
 import { routes } from "@/lib/routes";

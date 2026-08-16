@@ -9,7 +9,7 @@ import { Button } from "./Button";
 import { IconButton } from "./IconButton";
 import { IconLink } from "./IconLink";
 import { NavLink, navLinkVariants } from "./NavLink";
-import { disclosureSummaryClass } from "./Disclosure";
+import { disclosureShellClass, disclosureSummaryClass } from "./Disclosure";
 import { cardPressable } from "./interaction-kernel";
 import { SubmitButton } from "./SubmitButton";
 import { textLinkVariants } from "./TextLink";
@@ -49,10 +49,12 @@ describe("interaction-feedback contract", () => {
     expect(textLinkVariants()).toContain("active:scale");
   });
 
-  it("DisclosureSummary includes press and focus feedback classes", () => {
-    expect(disclosureSummaryClass).toContain("active:scale");
+  it("Disclosure shell includes press and focus feedback classes", () => {
+    expect(disclosureShellClass).toContain("[&:has(summary:active)]:scale-[0.98]");
+    expect(disclosureShellClass).toContain("shadow-soft");
     expect(disclosureSummaryClass).toContain("focus-visible:ring-accent");
     expect(disclosureSummaryClass).toContain("font-semibold");
+    expect(disclosureSummaryClass).not.toContain("active:scale");
   });
 
   it("cardPressable includes lift hover and accent fill on press", () => {

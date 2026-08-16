@@ -1,7 +1,9 @@
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
 
-import { render, screen, within } from "@testing-library/react";
+import { renderWithIntl as render, formatMessage, en } from "@/tests/i18n-test-utils";
+import {screen, within} from "@testing-library/react";
+
 import { describe, expect, it } from "vitest";
 
 import { commitments, isMethod, type Catalogue } from "@/lib/method-catalogue";
@@ -9,7 +11,6 @@ import { expectNoA11yViolations } from "@/tests/axe";
 
 import { MethodMenu } from "./MethodMenu";
 import { loadMethodCatalogue } from "./catalogue";
-import { copy, evidenceCard, sections } from "./content";
 
 const loaded = loadMethodCatalogue();
 const catalogue = loaded.catalogue ?? { entries: [] };
@@ -28,7 +29,7 @@ const show = (
 
 const catalogueCardTitles = () => {
   const titles: string[] = [];
-  for (const sectionName of Object.values(sections)) {
+  for (const sectionName of Object.values(en.methodMenu.sections)) {
     const heading = screen.queryByRole("heading", { level: 2, name: sectionName });
     const section = heading?.closest("section");
     if (!section) continue;
@@ -53,10 +54,10 @@ describe("with no filter", () => {
 
   it("shows three daily picks", () => {
     show({}, { dayKey: "2026-08-11" });
-    const heading = screen.getByRole("heading", { level: 2, name: copy.dailyHeading });
+    const heading = screen.getByRole("heading", { level: 2, name: en.methodMenu.dailyHeading });
     const list = heading.closest("section")?.querySelector(":scope > ul");
     expect(list?.children).toHaveLength(3);
-    expect(screen.getByText(copy.dailyIntro)).toBeDefined();
+    expect(screen.getByText(en.methodMenu.dailyIntro)).toBeDefined();
   });
 });
 
@@ -81,7 +82,7 @@ describe("filters", () => {
 
   it("shows time slider", () => {
     show();
-    expect(screen.getByRole("slider", { name: copy.timeLabel })).toBeDefined();
+    expect(screen.getByRole("slider", { name: en.methodMenu.timeLabel })).toBeDefined();
   });
 });
 
@@ -115,7 +116,7 @@ describe("cards", () => {
     show();
     const text = document.body.textContent ?? "";
     for (const method of catalogue.entries.filter(isMethod)) {
-      expect(text).toContain(evidenceCard[method.evidence]);
+      expect(text).toContain(en.methodMenu.evidenceCard[method.evidence]);
     }
   });
 });

@@ -1,3 +1,5 @@
+// Legacy English copy — use next-intl messages instead. Kept for reference during migration.
+
 export const privacyContent = {
   bannerTitle: "Cookies and storage",
   bannerBody:

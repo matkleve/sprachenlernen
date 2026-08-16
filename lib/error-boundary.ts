@@ -9,8 +9,9 @@ import {
   type ErrorCode,
   type HandledError,
 } from "@/lib/errors";
-import { copy as shellCopy } from "@/features/app-shell/content";
 import { routes } from "@/lib/routes";
+
+export type { RouteEscape } from "@/features/app-shell/use-route-escape";
 
 /** Throw from server or client when you already have a full HandledError. */
 export class AppError extends Error {
@@ -44,29 +45,6 @@ export function routeOperation(pathname: string): string {
     if (pathname.startsWith(`${prefix}/`)) return operation;
   }
   return "load this page";
-}
-
-export type RouteEscape = {
-  href: string;
-  label: string;
-};
-
-/** Escape hatch when the shell does not already show destination nav as the primary recovery. */
-export function routeEscape(pathname: string): RouteEscape | null {
-  const onDestination =
-    pathname === routes.methods ||
-    pathname.startsWith("/methods/") ||
-    pathname === routes.words ||
-    pathname.startsWith("/words/") ||
-    pathname === routes.progress ||
-    pathname.startsWith("/progress/");
-
-  if (onDestination) return null;
-
-  return {
-    href: routes.appHome,
-    label: shellCopy.backTo(shellCopy.destinations.methods),
-  };
 }
 
 /** Hard reload recovers from stale RSC state; reset() is enough for transient network failures. */

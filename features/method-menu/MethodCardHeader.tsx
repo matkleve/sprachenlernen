@@ -4,7 +4,7 @@ import { cva, type VariantProps } from "class-variance-authority";
 import type { Section } from "@/lib/method-catalogue";
 import { cn } from "@/lib/utils";
 
-import { sections } from "./content";
+import { useMethodMenuCopy } from "./use-method-menu-copy";
 import { sectionGraphicAlt, sectionGraphicSrc } from "./section-graphic";
 
 const methodCardHeaderVariants = cva("relative w-full shrink-0 bg-surface", {
@@ -30,6 +30,7 @@ export type MethodCardHeaderProps = {
  * the same asset at `size="hero"`.
  */
 export function MethodCardHeader({ section, size, className }: MethodCardHeaderProps) {
+  const { sections } = useMethodMenuCopy();
   const label = sections[section];
 
   return (

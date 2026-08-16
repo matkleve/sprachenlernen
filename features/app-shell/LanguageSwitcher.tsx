@@ -14,8 +14,9 @@ import { languageLabel } from "@/lib/languages";
 import { hasUnaddedShippedLanguage } from "@/lib/starter-deck";
 import { cn } from "@/lib/utils";
 
+import { useTranslations } from "next-intl";
+
 import { switchActiveLanguageAction } from "./actions";
-import { copy } from "./content";
 
 export type LanguageSwitcherOption = {
   code: string;
@@ -39,6 +40,7 @@ export function LanguageSwitcher({
   layout = "floating",
 }: LanguageSwitcherProps) {
   const router = useRouter();
+  const t = useTranslations("appShell");
   const triggerRef = useRef<HTMLButtonElement>(null);
   const popoverRef = useRef<HTMLDivElement>(null);
   const [open, setOpen] = useState(false);
@@ -136,7 +138,7 @@ export function LanguageSwitcher({
     }
 
     return (
-      <span role="img" aria-label={copy.currentLanguage(activeEndonym)}>
+      <span role="img" aria-label={t("currentLanguage", { endonym: activeEndonym })}>
         <LanguageFlag code={active} size="header" />
       </span>
     );
@@ -156,7 +158,7 @@ export function LanguageSwitcher({
 
             <div
               role="menu"
-              aria-label={copy.switchLanguage}
+              aria-label={t("switchLanguage")}
               className="fixed z-language-switcher-menu inset-x-6 flex flex-col gap-3"
               style={{ top: menuTop }}
             >
@@ -168,15 +170,15 @@ export function LanguageSwitcher({
                     key={language.code}
                     code={language.code}
                     isActive={language.code === active}
-                    activeLabel={copy.active}
+                    activeLabel={t("active")}
                     standing={
                       poolSize !== null && poolSize !== undefined
                         ? { held: standing?.heldCount ?? 0, pool: poolSize }
                         : null
                     }
-                    standingLabel={copy.standing}
+                    standingLabel={(held, pool) => t("standing", { held, poolSize: pool })}
                     viewProgressHref={routes.progress}
-                    viewProgressLabel={copy.viewProgress}
+                    viewProgressLabel={t("viewProgress")}
                     disabled={pending}
                     onSelect={
                       language.code === active ? undefined : () => onSwitch(language.code)
@@ -193,7 +195,7 @@ export function LanguageSwitcher({
                   className="w-full"
                   onClick={() => setOpen(false)}
                 >
-                  {copy.addLanguage}
+                  {t("addLanguage")}
                 </ActionLink>
               ) : null}
             </div>
@@ -213,7 +215,7 @@ export function LanguageSwitcher({
               ? { top: triggerPosition.top, left: triggerPosition.left }
               : undefined
           }
-          aria-label={copy.switchLanguage}
+          aria-label={t("switchLanguage")}
           aria-expanded={open}
           aria-haspopup="menu"
           pending={pending}
@@ -229,7 +231,7 @@ export function LanguageSwitcher({
       {popover}
 
       {switchFailed ? (
-        <p role="alert" className="max-w-full text-sm text-danger">{copy.switchError}</p>
+        <p role="alert" className="max-w-full text-sm text-danger">{t("switchError")}</p>
       ) : null}
     </div>
   );

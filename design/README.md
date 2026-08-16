@@ -19,7 +19,7 @@ design/
    `data/brand/logo-directions.json`; source SVGs live in
    `design/logo/directions/`.
 2. **Review** — UX notes and constraints are in
-   [`docs/study/34-logo-and-pwa-icon-exploration.md`](../docs/study/34-logo-and-pwa-icon-exploration.md).
+   [`docs/study/35-logo-and-pwa-icon-exploration.md`](../docs/study/35-logo-and-pwa-icon-exploration.md).
 3. **Choose** — pick a direction on `/dev/brand` (persisted in `localStorage`).
 4. **Ship** — run `node scripts/sync-brand-assets.mjs <direction-id>` to copy
    the chosen mark to `public/icon.svg` and `app/icon.svg`.

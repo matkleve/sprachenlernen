@@ -41,7 +41,7 @@ reading, listening, speaking, and off-app Methods are reached from `/methods`.
 
 | # | User action | System response |
 | --- | --- | --- |
-| 1 | Opens `/words` | Intent copy and Start review in a raised action card with a decorative review header graphic; held/fragile/new counts (meaning recall only) with a collapsible lemma callout on mobile (always visible from `md` up), frequency bands, horizon (per review-horizon collapsed/expanded rules), vocabulary orbit below |
+| 1 | Opens `/words` | Intent copy and Start review in a raised action card with a decorative review header graphic; held/fragile/new counts (meaning recall only) with a collapsible lemma callout on mobile (always visible from `md` up; whole callout shell shows standard press feedback and 150ms expand motion per [`disclosure.md`](../component/disclosure.md)), frequency bands, horizon (per review-horizon collapsed/expanded rules), vocabulary orbit below |
 | 2 | Taps Start review | Navigates to `/words/review?method=srs-session` |
 | 3 | Taps a segment or **Show list** | See [`vocabulary-orbit.md`](vocabulary-orbit.md) |
 | 4 | Expands or collapses horizon | See [`review-horizon.md`](review-horizon.md) |
@@ -63,7 +63,8 @@ outcomes.
 - [ ] Given a signed-in learner on `/words`, when the page renders, then held,
       fragile and new counts are shown with copy that they track **meaning
       recall** (not inflected forms), a lemma callout explains what a **lemma** is
-      (collapsed in a disclosure below `md`, always visible from `md` up),
+      (collapsed in a disclosure below `md`, always visible from `md` up; press
+      scales the whole callout shell; expand/collapse animates over 150ms),
       frequency bands name each rank range and stable-held count, the vocabulary
       orbit is present, and Start review links to `srs-session`.
 - [ ] Given the starter deck, when the page renders, then the horizon is

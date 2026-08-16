@@ -1,9 +1,10 @@
-import { render, screen } from "@testing-library/react";
+import { renderWithIntl as render, en, serverT } from "@/tests/i18n-test-utils";
+import { screen } from "@testing-library/react";
+
 import { describe, expect, it } from "vitest";
 
 import { ProgressReport } from "@/features/progress/ProgressReport";
-import { copy, statusNames } from "@/features/progress/content";
-import { hoursPerYear, yearsToReach } from "@/lib/dose-band";
+import { DOSE_BAND_SOURCE, hoursPerYear, yearsToReach } from "@/lib/dose-band";
 import { readLevel } from "@/lib/level-model";
 import { rebuild, type Review } from "@/lib/scheduler";
 import type { WeeklyReflectionModel } from "@/lib/weekly-reflection";
@@ -11,6 +12,8 @@ import type { WeeklyReflectionModel } from "@/lib/weekly-reflection";
 /**
  * Contract: docs/specs/page/progress.md
  */
+
+const t = serverT("progress");
 
 const DAY = 86_400_000;
 const now = Date.UTC(2026, 7, 9);
@@ -58,93 +61,106 @@ function leafText(container: HTMLElement): string {
 
 const hiddenReflection: WeeklyReflectionModel = { status: "hidden" };
 
+async function renderProgress(reading: typeof empty) {
+  return render(await ProgressReport({ reading, reflection: hiddenReflection }));
+}
+
 describe("ProgressReport", () => {
-  it("shows all four skills as not measured when nothing has been reviewed", () => {
-    render(<ProgressReport reading={empty} reflection={hiddenReflection} />);
+  it("shows all four skills as not measured when nothing has been reviewed", async () => {
+    await renderProgress(empty);
 
-    expect(screen.getAllByText(statusNames["not-measured"])).toHaveLength(4);
-    expect(screen.getByText(copy.emptyState)).toBeDefined();
+    expect(screen.getAllByText(en.progress.statusNames["not-measured"])).toHaveLength(4);
+    expect(screen.getByText(en.progress.emptyState)).toBeDefined();
   });
 
-  it("still shows all four as not measured once there is review history", () => {
-    render(<ProgressReport reading={withHistory} reflection={hiddenReflection} />);
+  it("still shows all four as not measured once there is review history", async () => {
+    await renderProgress(withHistory);
 
-    expect(screen.getAllByText(statusNames["not-measured"])).toHaveLength(4);
+    expect(screen.getAllByText(en.progress.statusNames["not-measured"])).toHaveLength(4);
   });
 
-  it("withholds the overall level and says which rule withholds it", () => {
-    render(<ProgressReport reading={empty} reflection={hiddenReflection} />);
+  it("withholds the overall level and says which rule withholds it", async () => {
+    await renderProgress(empty);
 
-    expect(screen.getByText(copy.overallWithheld)).toBeDefined();
+    expect(screen.getByText(en.progress.overallWithheld)).toBeDefined();
   });
 
-  it("shows recall stability as a value with its derivation, and no CEFR level", () => {
-    render(<ProgressReport reading={withHistory} reflection={hiddenReflection} />);
+  it("shows recall stability as a value with its derivation, and no CEFR level", async () => {
+    await renderProgress(withHistory);
 
     const stability = withHistory.signals.find((signal) => signal.id === "recall-stability")!;
-    expect(screen.getByText(copy.stabilityValue(stability.value!, stability.taskCount))).toBeDefined();
+    expect(
+      screen.getByText(
+        t("stabilityValue", {
+          days: stability.value!,
+          taskCount: stability.taskCount,
+        }),
+      ),
+    ).toBeDefined();
 
     const vocabulary = withHistory.signals.find((signal) => signal.id === "vocabulary-size")!;
     expect(
-      screen.getByText(copy.vocabularyValue(vocabulary.value!, vocabulary.taskCount)),
+      screen.getByText(
+        t("vocabularyValue", {
+          held: vocabulary.value!,
+          poolSize: vocabulary.taskCount,
+        }),
+      ),
     ).toBeDefined();
 
-    const signalsTable = screen.getByRole("table", { name: copy.signalsCaption });
+    const signalsTable = screen.getByRole("table", { name: en.progress.signalsCaption });
     expect(leafText(signalsTable)).not.toMatch(/\b[ABC][12](\.\d)?\b/);
   });
 
-  it("shows form mastery when form-recall tasks have been reviewed", () => {
-    render(<ProgressReport reading={withFormHistory} reflection={hiddenReflection} />);
+  it("shows form mastery when form-recall tasks have been reviewed", async () => {
+    await renderProgress(withFormHistory);
 
     const formMastery = withFormHistory.signals.find((signal) => signal.id === "form-mastery")!;
     expect(
-      screen.getByText(copy.formMasteryValue(formMastery.value!, formMastery.taskCount)),
+      screen.getByText(
+        t("formMasteryValue", {
+          held: formMastery.value!,
+          poolSize: formMastery.taskCount,
+        }),
+      ),
     ).toBeDefined();
   });
 
-  it("shows the dose band with its borrowed label, and no numerator", () => {
-    render(<ProgressReport reading={withHistory} reflection={hiddenReflection} />);
+  it("shows the dose band with its borrowed label, and no numerator", async () => {
+    await renderProgress(withHistory);
 
-    // The band is the point of F184, and the caveat is question 19's answer —
-    // a figure from an uncalibrated table shown without it is the claim the
-    // study spends C4 refusing to make.
-    expect(screen.getByText(copy.doseHours(350, 400))).toBeDefined();
-    expect(screen.getByText(copy.doseBorrowed)).toBeDefined();
-    expect(screen.getByText(copy.doseNoNumerator)).toBeDefined();
+    expect(screen.getByText(t("doseHours", { min: 350, max: 400 }))).toBeDefined();
+    expect(
+      screen.getByText(t("doseBorrowedUncalibrated", { name: DOSE_BAND_SOURCE.name })),
+    ).toBeDefined();
+    expect(screen.getByText(en.progress.doseNoNumerator)).toBeDefined();
   });
 
-  it("reproduces the chapter's arithmetic rather than inventing a second one", () => {
-    render(<ProgressReport reading={empty} reflection={hiddenReflection} />);
+  it("reproduces the chapter's arithmetic rather than inventing a second one", async () => {
+    await renderProgress(empty);
 
-    expect(screen.getByText(copy.doseHabit(hoursPerYear(15)))).toBeDefined();
+    expect(screen.getByText(t("doseHabit", { hours: Math.round(hoursPerYear(15)) }))).toBeDefined();
 
     const b1 = yearsToReach("B1", 15)!;
-    expect(screen.getByText(copy.doseYears(b1.minYears, b1.maxYears))).toBeDefined();
+    expect(screen.getByText(t("doseYears", { minYears: b1.minYears, maxYears: b1.maxYears }))).toBeDefined();
   });
 
-  it("uses fit tables without nested horizontal scroll on destination pages", () => {
-    const { container } = render(
-      <ProgressReport reading={withHistory} reflection={hiddenReflection} />,
-    );
+  it("uses fit tables without nested horizontal scroll on destination pages", async () => {
+    const { container } = await renderProgress(withHistory);
 
     expect(container.querySelector(".overflow-x-auto")).toBeNull();
     expect(screen.getAllByRole("table")).toHaveLength(3);
   });
 
-  it("names what is still missing for language-wide levels", () => {
-    render(<ProgressReport reading={withHistory} reflection={hiddenReflection} />);
+  it("names what is still missing for language-wide levels", async () => {
+    await renderProgress(withHistory);
 
-    expect(screen.getByText(copy.gapBody)).toBeDefined();
+    expect(screen.getByText(en.progress.gapBody)).toBeDefined();
   });
 
-  it("presents no count that can only rise as progress", () => {
-    // study/25 C3. Streak, XP and a cards-reviewed total are the three shapes
-    // this page must never grow, and they are cheap to add by accident the
-    // moment somebody wants it to feel rewarding.
+  it("presents no count that can only rise as progress", async () => {
     for (const reading of [empty, withHistory]) {
-      const { container, unmount } = render(
-        <ProgressReport reading={reading} reflection={hiddenReflection} />,
-      );
+      const { container, unmount } = await renderProgress(reading);
       expect(leafText(container)).not.toMatch(/\bstreak\b|\bXP\b|\bpoints\b|\bday streak\b/i);
       unmount();
     }

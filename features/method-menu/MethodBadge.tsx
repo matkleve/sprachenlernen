@@ -1,17 +1,12 @@
+"use client";
+
 import { BookOpen, Headphones, Mic, PenLine, type LucideIcon } from "lucide-react";
 
 import type { EvidenceGrade, Skill } from "@/lib/method-catalogue";
 import type { ContributionLevel, SkillMark } from "@/lib/method-skill-badges";
 import { cn } from "@/lib/utils";
 
-import {
-  contributionLabels,
-  copy,
-  effortCard,
-  evidence,
-  evidenceCard,
-  skillLabels,
-} from "./content";
+import { useMethodMenuCopy } from "./use-method-menu-copy";
 
 const skillIcons: Record<Skill, LucideIcon> = {
   reading: BookOpen,
@@ -42,6 +37,7 @@ export type SkillMarkBadgeProps = {
 };
 
 export function SkillMarkBadge({ mark }: SkillMarkBadgeProps) {
+  const { skillLabels, contributionLabels } = useMethodMenuCopy();
   const Icon = skillIcons[mark.skill];
   const label = `${skillLabels[mark.skill]}, ${contributionLabels[mark.level]}`;
 
@@ -80,6 +76,7 @@ export type EvidenceBadgeProps = {
 };
 
 export function EvidenceBadge({ grade }: EvidenceBadgeProps) {
+  const { evidenceCard, evidence } = useMethodMenuCopy();
   const label = evidenceCard[grade];
 
   return (
@@ -94,6 +91,7 @@ export type EffortBadgeProps = {
 };
 
 export function EffortBadge({ intensity }: EffortBadgeProps) {
+  const { effortCard } = useMethodMenuCopy();
   const label = effortCard[intensity];
 
   return (
@@ -110,6 +108,7 @@ export type EffortScaleProps = {
 
 /** Detail badge band — "Effort" label plus 1–3 filled dots (not plain-language chip). */
 export function EffortScale({ intensity, className }: EffortScaleProps) {
+  const { t, effortCard } = useMethodMenuCopy();
   const label = effortCard[intensity];
 
   return (
@@ -117,7 +116,7 @@ export function EffortScale({ intensity, className }: EffortScaleProps) {
       className={cn("inline-flex shrink-0 items-center gap-2 text-xs font-medium text-ink", className)}
       title={label}
     >
-      <span>{copy.card.effort}</span>
+      <span>{t("card.effort")}</span>
       <span className="inline-flex items-center gap-1" aria-hidden>
         {([1, 2, 3] as const).map((step) => (
           <span
@@ -149,6 +148,10 @@ function badgeSummary(
   skillMarks: SkillMark[],
   evidenceGrade: EvidenceGrade,
   intensity: 1 | 2 | 3,
+  skillLabels: ReturnType<typeof useMethodMenuCopy>["skillLabels"],
+  contributionLabels: ReturnType<typeof useMethodMenuCopy>["contributionLabels"],
+  evidenceCard: ReturnType<typeof useMethodMenuCopy>["evidenceCard"],
+  effortCard: ReturnType<typeof useMethodMenuCopy>["effortCard"],
 ): string {
   const skills =
     skillMarks.length > 0
@@ -167,10 +170,14 @@ export function MethodBadgeRow({
   className,
   inLink = false,
 }: MethodBadgeRowProps) {
+  const { skillLabels, contributionLabels, evidenceCard, effortCard } = useMethodMenuCopy();
+
   return (
     <div className={cn("flex flex-wrap items-center gap-2", className)}>
       {inLink ? (
-        <span className="sr-only">{badgeSummary(skillMarks, evidence, intensity)}</span>
+        <span className="sr-only">
+          {badgeSummary(skillMarks, evidence, intensity, skillLabels, contributionLabels, evidenceCard, effortCard)}
+        </span>
       ) : null}
       <div
         className={cn("flex flex-wrap items-center gap-2", inLink && "aria-hidden")}

@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { useState, useTransition } from "react";
 
 import { Button } from "@/components/ui/Button";
@@ -10,12 +11,13 @@ import {
   deleteAccountAction,
   exportAccountDataAction,
 } from "@/features/account-data/actions";
-import { copy, type ExportScope } from "@/features/account-data/content";
+import type { ExportScope } from "@/features/account-data/content";
 
 /**
  * Export + delete controls. Contract: docs/specs/feature/account-data.md
  */
 export function AccountDataPanel() {
+  const t = useTranslations("accountData");
   const [scope, setScope] = useState<ExportScope>("complete");
   const [exportError, setExportError] = useState<string | null>(null);
   const [deleteError, setDeleteError] = useState<string | null>(null);
@@ -36,7 +38,7 @@ export function AccountDataPanel() {
       const url = URL.createObjectURL(blob);
       const anchor = document.createElement("a");
       anchor.href = url;
-      anchor.download = copy.exportFileName;
+      anchor.download = t("exportFileName");
       anchor.click();
       URL.revokeObjectURL(url);
     });
@@ -56,16 +58,16 @@ export function AccountDataPanel() {
   return (
     <div className="mt-page-content flex flex-col gap-page-content">
       <section>
-        <h2 className="text-xl font-semibold text-ink">{copy.exportHeading}</h2>
-        <p className="mt-2 max-w-2xl text-base text-muted">{copy.exportCaption}</p>
+        <h2 className="text-xl font-semibold text-ink">{t("exportHeading")}</h2>
+        <p className="mt-2 max-w-2xl text-base text-muted">{t("exportCaption")}</p>
         <div className="mt-6 max-w-md">
-          <Field label={copy.scopeLabel}>
+          <Field label={t("scopeLabel")}>
             <Select
               value={scope}
               onChange={(event) => setScope(event.target.value as ExportScope)}
             >
-              <option value="complete">{copy.scopeComplete}</option>
-              <option value="reviews">{copy.scopeReviews}</option>
+              <option value="complete">{t("scopeComplete")}</option>
+              <option value="reviews">{t("scopeReviews")}</option>
             </Select>
           </Field>
           {exportError ? (
@@ -80,14 +82,14 @@ export function AccountDataPanel() {
             pending={exportPending}
             onClick={downloadExport}
           >
-            {copy.download}
+            {t("download")}
           </Button>
         </div>
       </section>
 
       <section>
-        <h2 className="text-xl font-semibold text-ink">{copy.deleteHeading}</h2>
-        <p className="mt-2 max-w-2xl text-base text-muted">{copy.deleteCaption}</p>
+        <h2 className="text-xl font-semibold text-ink">{t("deleteHeading")}</h2>
+        <p className="mt-2 max-w-2xl text-base text-muted">{t("deleteCaption")}</p>
         {deleteError ? (
           <p className="mt-3 text-sm text-danger" role="alert">
             {deleteError}
@@ -99,7 +101,7 @@ export function AccountDataPanel() {
           className="mt-4"
           onClick={() => setConfirmOpen(true)}
         >
-          {copy.deleteAction}
+          {t("deleteAction")}
         </Button>
       </section>
 
@@ -108,8 +110,8 @@ export function AccountDataPanel() {
         onClose={() => {
           if (!deletePending) setConfirmOpen(false);
         }}
-        title={copy.confirmTitle}
-        description={copy.confirmBody}
+        title={t("confirmTitle")}
+        description={t("confirmBody")}
         dismissOnBackdrop={false}
         footer={
           <>
@@ -119,10 +121,10 @@ export function AccountDataPanel() {
               disabled={deletePending}
               onClick={() => setConfirmOpen(false)}
             >
-              {copy.cancel}
+              {t("cancel")}
             </Button>
             <Button type="button" variant="danger" pending={deletePending} onClick={confirmDelete}>
-              {copy.confirmAction}
+              {t("confirmAction")}
             </Button>
           </>
         }

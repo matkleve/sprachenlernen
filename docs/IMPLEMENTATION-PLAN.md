@@ -334,6 +334,7 @@ low-inference agent would silently invent.
 | **T-B3** | Vocabulary estimate and the level display (F17–F22) | **Pool-local vocabulary shipped** (F17 narrowed). Language-wide extrapolation + CEFR skill/overall levels (F18–F22) blocked — anchor table [C], pool too small |
 | **T-B10b** | Method menu learner half | **Standing + daily three shipped**; demonstration sentence, readiness still out |
 | **T-B10c** | Method surfaces UX — badges, card headers, detail layout, chip fix | **Shipped 2026-08-15.** study/27. Skill/evidence/effort badge row (plain labels on cards), section header graphics, detail article layout (Practical → Trains → doesNotDo; evidence in disclosure) |
+| **T-B10d** | Method detail badge band + hero fade — study/33 | **Standard.** Spec: [`method-detail.md`](specs/page/method-detail.md). Badge band **after summary** (shields + effort only; evidence in facts panel). Hero fades to `canvas`. Wood-tier shields on detail. Replace placeholder SVGs with final ChatGPT grid exports. Depends on owner grid sign-off |
 | **T-B4** | Dose ledger (F184) | **Denominator shipped** on `/progress` (question 19, first branch). **Numerator** (hours you practised) still out — needs practice-time logging beyond card `latency_ms` |
 | ~~**T-B7**~~ | ~~The landing page~~ — **shipped 2026-08-11** | Thesis 1 headline + thesis 12 time honesty in body |
 | ~~**T-B10**~~ | ~~The method menu — the product's front door~~ — **shipped 2026-08-09** | Filters, time scale, hosted routing. Learner half continued in T-B10b |
@@ -342,7 +343,7 @@ low-inference agent would silently invent.
 | **T-B11** | Spoken-language setting — `profiles` table, `next-intl` chrome, description-text records ([UC-069](use-cases/UC-069-use-the-app-in-my-own-language.md)) | **Slice 1 shipped 2026-08-12** — [`spoken-language.md`](specs/service/spoken-language.md), `profiles` migration + adapter + profile UI. **Remaining:** `next-intl` chrome (slice 2), stage-3 description tables |
 | **T-B12** | ~~Scope `poolForScheduling` to the active language only~~ — **done 2026-08-12** ([UC-025](use-cases/UC-025-learn-multiple-languages.md)) | `poolForScheduling` and `poolForDisplay` (`lib/db/learner-pools.ts`) merged into one `poolForActiveLanguage()`, since the reason they differed — a cross-language budget — was rejected. `buildSessionAction` now calls it; a session can no longer contain more than one language's cards, and the `languageName` label is always correct as a result. Regression test: `learner-pools.test.ts` |
 | **T-B13** | ~~Same-session card requeue ([UC-071](use-cases/UC-071-get-a-wrong-card-back-before-the-session-ends.md))~~ — **shipped 2026-08-12** | **Sensitive.** [`lib/review-session-requeue.ts`](../lib/review-session-requeue.ts), `useReviewSession` re-insert on `again`/`hard`; [ADR-0012](adr/0012-ux-decisions-requeue-i18n-leech-nav.md) decisions 12–13 |
-| **T-B14** | Broken-card flagging + leech diagnosis ([UC-023](use-cases/UC-023-report-something-wrong.md), [UC-013](use-cases/UC-013-stop-losing-time-on-one-card.md)) | **UC-023 report UI shipped 2026-08-12** — `card_content_flag` + review report button. **Remaining:** UC-013 tier-2/3 diagnosis. **Sensitive** |
+| **T-B14** | Broken-card flagging + leech diagnosis ([UC-023](use-cases/UC-023-report-something-wrong.md), [UC-013](use-cases/UC-013-stop-losing-time-on-one-card.md)) | **T-B14a/b shipped 2026-08-16** — [`StatusBanner`](../components/ui/StatusBanner.tsx), [`CardReportPopover`](../features/review-session/CardReportPopover.tsx), optional `category`/`note` on `card_content_flag` ([UC-073](use-cases/UC-073-explain-what-is-wrong-with-a-card.md), [UC-074](use-cases/UC-074-know-my-report-was-received.md), [study/34](study/34-review-report-and-acknowledgement-ux.md)). **Remaining:** T-B14c scheduling-intent toggle (deferred); UC-013 tier-2/3 diagnosis. **Sensitive** |
 | **T-B15** | Maintenance mode per language ([UC-025](use-cases/UC-025-learn-multiple-languages.md)) | **Not spec-ready** — no per-language flag exists. Moved 2026-08-12 from [`plans/multi-language.md`](plans/multi-language.md) table item 10, so it has exactly one tracked home. The best-evidenced item in that plan's 2026-08-11 review (Cepeda et al. 2008, Bahrick et al. 1993: 10–20% of the retention interval as the review gap) and the one piece of that review's recommendation not yet built |
 ---
 
@@ -361,6 +362,7 @@ honest Spanish/Italian; offline unlocks commute practice.
 | **4** | **T-B3 remainder** — extrapolation + per-skill levels once (1) and calibration exist | F18–F22; demonstration sentence |
 | **5** | **T-B9 / offline-PWA** — cache deck + scheduler; flush queue on reconnect (ADR-0011 Option B) | UC-018 commute practice; installable PWA |
 | **6** | ~~**T-B10c** — method badges + detail layout~~ — **shipped 2026-08-15** | Scannable catalogue; fixes two-line chip + truncated-title UX |
+| **6b** | **T-B10d** — detail badge band placement, hero fade, wood shields, final tier assets | Honest weak-method badges; no hard hero cut; study/33 |
 | **7** | **T-B10b remainder** — demonstration sentence, readiness ([`study/24`](study/24-speaking-as-the-goal.md), [`study/26`](study/26-readiness-and-difficulty.md)) | Methods front door complete |
 | **8** | **T-B4 numerator** — guided hours practised (thesis 9: not card time alone) | Progress per hour invested (study/03 V3) |
 
@@ -708,6 +710,14 @@ list, when implementing.
     [`session-builder.md`](specs/service/session-builder.md) behaviour #6.
 22. **Incomplete paradigms in form-mastery reporting** — round, omit, or flag?
     Blocks per-cell breakdown (UC-062). Open in [`lexicon.md`](specs/service/lexicon.md).
+
+**Added 2026-08-16**, from [study/34](study/34-review-report-and-acknowledgement-ux.md)
+(T-B14a/b/c). Resolve before implementing report popover or DB columns.
+
+23. ~~**Report popover + acknowledgement banner (T-B14a/b)**~~ **Shipped 2026-08-16.**
+    Flag-only v1 (no scheduling toggle); five category chips; banner clears on
+    next grade. Study: [study/34](study/34-review-report-and-acknowledgement-ux.md).
+    T-B14c (scheduling-intent toggle) remains deferred.
 
 **Added 2026-08-12**, moved from [`plans/multi-language.md`](plans/multi-language.md)
 so open items live in exactly one queue:

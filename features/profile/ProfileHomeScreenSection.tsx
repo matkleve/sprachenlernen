@@ -1,19 +1,27 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useTranslations } from "next-intl";
 
 import { ActionLink } from "@/components/ui/ActionLink";
-import { copy } from "@/features/profile/content";
 import { isStandaloneDisplay } from "@/lib/is-standalone-display";
 import { routes } from "@/lib/routes";
 import { cn } from "@/lib/utils";
+
+type HomeScreenScopeRow = {
+  path: string;
+  covers: string;
+  recommended: boolean;
+};
 
 /**
  * Home Screen install guidance on /profile (iPhone PWA scope).
  * Contract: docs/specs/feature/pwa-install.md, docs/study/32-pwa-profile-ux.md
  */
 export function ProfileHomeScreenSection() {
+  const t = useTranslations("profile");
   const [standalone, setStandalone] = useState<boolean | null>(null);
+  const scopeRows = t.raw("homeScreenScopeRows") as HomeScreenScopeRow[];
 
   useEffect(() => {
     setStandalone(isStandaloneDisplay());
@@ -22,24 +30,24 @@ export function ProfileHomeScreenSection() {
   return (
     <section className="mt-page-content" aria-labelledby="profile-home-screen-heading">
       <h2 id="profile-home-screen-heading" className="text-xl font-semibold text-ink">
-        {copy.homeScreenHeading}
+        {t("homeScreenHeading")}
       </h2>
-      <p className="mt-4 max-w-2xl text-base leading-relaxed text-muted">{copy.homeScreenCaption}</p>
+      <p className="mt-4 max-w-2xl text-base leading-relaxed text-muted">{t("homeScreenCaption")}</p>
 
       {standalone === true ? (
         <p
           className="mt-4 inline-flex rounded-pill border border-success bg-success-soft px-3 py-1 text-sm font-medium text-success"
           role="status"
         >
-          {copy.homeScreenActive}
+          {t("homeScreenActive")}
         </p>
       ) : null}
 
       <div className="mt-6 rounded-card border border-line bg-surface-raised p-4 shadow-soft">
-        <h3 className="text-sm font-semibold text-ink">{copy.homeScreenScopeHeading}</h3>
-        <p className="mt-2 text-sm leading-relaxed text-muted">{copy.homeScreenScopeCaption}</p>
+        <h3 className="text-sm font-semibold text-ink">{t("homeScreenScopeHeading")}</h3>
+        <p className="mt-2 text-sm leading-relaxed text-muted">{t("homeScreenScopeCaption")}</p>
         <dl className="mt-4 grid gap-3 text-sm">
-          {copy.homeScreenScopeRows.map((row) => (
+          {scopeRows.map((row) => (
             <div
               key={row.path}
               className={cn(
@@ -56,14 +64,14 @@ export function ProfileHomeScreenSection() {
 
       <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
         <ActionLink href={routes.install} variant="primary" className="w-full sm:w-auto">
-          {copy.homeScreenInstallButton}
+          {t("homeScreenInstallButton")}
         </ActionLink>
         <ActionLink href={routes.landing} variant="secondary" className="w-full sm:w-auto">
-          {copy.homeScreenMainSiteButton}
+          {t("homeScreenMainSiteButton")}
         </ActionLink>
       </div>
 
-      <p className="mt-4 max-w-2xl text-sm leading-relaxed text-muted">{copy.homeScreenReinstall}</p>
+      <p className="mt-4 max-w-2xl text-sm leading-relaxed text-muted">{t("homeScreenReinstall")}</p>
     </section>
   );
 }

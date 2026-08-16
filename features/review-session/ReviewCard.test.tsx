@@ -1,8 +1,9 @@
-import { render, screen } from "@testing-library/react";
+import { renderWithIntl as render, en } from "@/tests/i18n-test-utils";
+import { screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import { describe, expect, it, vi } from "vitest";
 
 import { ReviewCard } from "@/features/review-session/ReviewCard";
-import { copy } from "@/features/review-session/content";
 
 vi.mock("@/features/review-session/session-machine", () => ({
   canFlip: () => true,
@@ -18,42 +19,35 @@ const baseCard = {
   frequencyRank: 10,
   position: 1,
   total: 1,
-};
-
-const formCard = {
-  ...baseCard,
-  taskId: "es:hablar:habla:form-recall",
-  front: "to speak",
-  back: "habla",
-  paradigmCell: "ind.pres.3sg",
+  taskId: "es:hablar:meaning-recall",
 };
 
 describe("ReviewCard", () => {
   it("asks what the lemma means on a meaning-recall card", () => {
     render(
       <ReviewCard
-        card={{ ...baseCard, taskId: "es:hablar:meaning-recall" }}
+        card={baseCard}
         languageName="Spanish"
         phase="revealed"
         onFlip={() => {}}
         onGrade={() => {}}
-        onReport={() => {}}
+        onSubmitReport={async () => {}}
       />,
     );
 
-    expect(screen.getByText(copy.prompt)).toBeDefined();
-    expect(screen.queryByText(copy.formRecallPrompt)).toBeNull();
+    expect(screen.getByText(en.reviewSession.prompt)).toBeDefined();
+    expect(screen.queryByText(en.reviewSession.formRecallPrompt)).toBeNull();
   });
 
   it("says nothing about a cell on a card that has none", () => {
     const { container } = render(
       <ReviewCard
-        card={{ ...baseCard, taskId: "es:hablar:meaning-recall" }}
+        card={baseCard}
         languageName="Spanish"
         phase="revealed"
         onFlip={() => {}}
         onGrade={() => {}}
-        onReport={() => {}}
+        onSubmitReport={async () => {}}
       />,
     );
 
@@ -63,69 +57,104 @@ describe("ReviewCard", () => {
   it("asks whether the form was recalled on a form-recall card", () => {
     render(
       <ReviewCard
-        card={formCard}
+        card={{
+          ...baseCard,
+          taskId: "es:hablar:habla:form-recall",
+          front: "to speak",
+          back: "habla",
+          paradigmCell: "ind.pres.3sg",
+        }}
         languageName="Spanish"
         phase="revealed"
         onFlip={() => {}}
         onGrade={() => {}}
-        onReport={() => {}}
+        onSubmitReport={async () => {}}
       />,
     );
 
-    expect(screen.getByText(copy.formRecallPrompt)).toBeDefined();
-    expect(screen.queryByText(copy.prompt)).toBeNull();
+    expect(screen.getByText(en.reviewSession.formRecallPrompt)).toBeDefined();
+    expect(screen.queryByText(en.reviewSession.prompt)).toBeNull();
   });
 
   it("names the cell it is asking for, so the prompt has one answer", () => {
-    // "to speak" alone admits hablo, hablas, habla, hablé… The card is only
-    // answerable because it says which cell, and it says so from the code the
-    // row carries — never from a sentence baked into the data.
     render(
       <ReviewCard
-        card={formCard}
+        card={{
+          ...baseCard,
+          taskId: "es:hablar:habla:form-recall",
+          front: "to speak",
+          back: "habla",
+          paradigmCell: "ind.pres.3sg",
+        }}
         languageName="Spanish"
         phase="prompting"
         onFlip={() => {}}
         onGrade={() => {}}
-        onReport={() => {}}
+        onSubmitReport={async () => {}}
       />,
     );
 
     expect(screen.getByText("to speak")).toBeDefined();
     expect(screen.getByText("he/she · present")).toBeDefined();
     expect(screen.getByText("Write the Spanish form.")).toBeDefined();
-    // Presentation, not payload: nothing on screen came from the row verbatim
-    // except the meaning and the answer.
     expect(screen.queryByText("ind.pres.3sg")).toBeNull();
   });
 
   it("falls back to a plain instruction when the language is unknown", () => {
     render(
       <ReviewCard
-        card={formCard}
+        card={{
+          ...baseCard,
+          taskId: "es:hablar:habla:form-recall",
+          paradigmCell: "ind.pres.3sg",
+        }}
         languageName={null}
         phase="prompting"
         onFlip={() => {}}
         onGrade={() => {}}
-        onReport={() => {}}
+        onSubmitReport={async () => {}}
       />,
     );
 
     expect(screen.getByText("Write the form.")).toBeDefined();
   });
 
-  it("exposes a report control on every card", () => {
+  it("opens the report popover from the flag control", async () => {
+    const user = userEvent.setup();
     render(
       <ReviewCard
-        card={{ ...baseCard, taskId: "es:hablar:meaning-recall" }}
+        card={baseCard}
         languageName="Spanish"
         phase="prompting"
         onFlip={() => {}}
         onGrade={() => {}}
-        onReport={() => {}}
+        onSubmitReport={async () => {}}
       />,
     );
 
-    expect(screen.getByRole("button", { name: copy.report })).toBeDefined();
+    await user.click(screen.getByRole("button", { name: en.reviewSession.report }));
+
+    expect(screen.getByRole("dialog", { name: en.reviewSession.reportPopoverTitle })).toBeDefined();
+  });
+
+  it("tightens grade controls in compact mobile layout", () => {
+    const { container } = render(
+      <ReviewCard
+        card={baseCard}
+        languageName="Spanish"
+        phase="revealed"
+        compact
+        onFlip={() => {}}
+        onGrade={() => {}}
+        onSubmitReport={async () => {}}
+      />,
+    );
+
+    const gradeButton = screen.getByRole("button", { name: en.reviewSession.good });
+    expect(gradeButton.className).toContain("h-7");
+    expect(gradeButton.className).toContain("text-xs");
+
+    const gradeSection = container.querySelector(".pb-3");
+    expect(gradeSection).not.toBeNull();
   });
 });

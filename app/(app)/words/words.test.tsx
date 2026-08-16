@@ -1,9 +1,9 @@
-import { render, screen } from "@testing-library/react";
+import { renderWithIntl as render, formatMessage, en } from "@/tests/i18n-test-utils";
+import { screen } from "@testing-library/react";
+
 import userEvent from "@testing-library/user-event";
 import { describe, expect, it, vi } from "vitest";
 
-import { copy as reviewCopy } from "@/features/review-session/content";
-import { copy } from "@/features/words/content";
 import { WordsHome } from "@/features/words/WordsHome";
 import { wordsReviewGraphicAlt, wordsReviewGraphicSrc } from "@/features/words/words-home-graphic";
 import { DEFAULT_FREQUENCY_BANDS } from "@/lib/frequency-blocks";
@@ -63,76 +63,80 @@ const homeProps = {
   now,
 };
 
+async function renderWordsHome() {
+  return render(await WordsHome(homeProps));
+}
+
 describe("WordsHome", () => {
-  it("offers a start review link without a due count", () => {
-    render(<WordsHome {...homeProps} />);
-    const link = screen.getByRole("link", { name: reviewCopy.startReview });
+  it("offers a start review link without a due count", async () => {
+    await renderWordsHome();
+    const link = screen.getByRole("link", { name: en.reviewSession.startReview });
     expect(link.getAttribute("href")).toContain("method=srs-session");
     expect(screen.queryByText(/\d+\s+due/i)).toBeNull();
-    expect(screen.getByRole("heading", { name: copy.reviewHeading })).toBeDefined();
+    expect(screen.getByRole("heading", { name: en.words.reviewHeading })).toBeDefined();
     const headerImage = screen.getByRole("img", {
-      name: wordsReviewGraphicAlt(copy.reviewCardHeaderLabel),
+      name: wordsReviewGraphicAlt(en.words.reviewCardHeaderLabel),
     });
     expect(headerImage.getAttribute("src")).toContain(
       encodeURIComponent(wordsReviewGraphicSrc),
     );
   });
 
-  it("explains that held counts meaning recall and what a lemma is", () => {
-    render(<WordsHome {...homeProps} />);
-    expect(screen.getByText(copy.countsCaption)).toBeDefined();
-    expect(screen.getAllByLabelText(copy.lemmaCalloutTitle).length).toBeGreaterThan(0);
-    expect(screen.getAllByText(copy.lemmaCalloutBody).length).toBeGreaterThan(0);
-    expect(screen.getByText(copy.heldDescription)).toBeDefined();
+  it("explains that held counts meaning recall and what a lemma is", async () => {
+    await renderWordsHome();
+    expect(screen.getByText(en.words.countsCaption)).toBeDefined();
+    expect(screen.getAllByLabelText(en.words.lemmaCalloutTitle).length).toBeGreaterThan(0);
+    expect(screen.getAllByText(en.words.lemmaCalloutBody).length).toBeGreaterThan(0);
+    expect(screen.getByText(en.words.heldDescription)).toBeDefined();
   });
 
-  it("renders held, fragile, new, bands, horizon and vocabulary orbit", () => {
-    render(<WordsHome {...homeProps} />);
-    expect(screen.getByRole("heading", { name: copy.countsHeading })).toBeDefined();
-    expect(screen.getByRole("heading", { name: copy.blocksHeading })).toBeDefined();
-    expect(screen.getByRole("heading", { name: copy.horizonHeading })).toBeDefined();
-    expect(screen.getByRole("button", { name: copy.horizonExpand })).toBeDefined();
-    expect(screen.getByRole("heading", { name: copy.orbitHeading })).toBeDefined();
-    expect(screen.getByRole("img", { name: copy.orbitAriaLabel })).toBeDefined();
+  it("renders held, fragile, new, bands, horizon and vocabulary orbit", async () => {
+    await renderWordsHome();
+    expect(screen.getByRole("heading", { name: en.words.countsHeading })).toBeDefined();
+    expect(screen.getByRole("heading", { name: en.words.blocksHeading })).toBeDefined();
+    expect(screen.getByRole("heading", { name: en.words.horizonHeading })).toBeDefined();
+    expect(screen.getByRole("button", { name: en.words.horizonExpand })).toBeDefined();
+    expect(screen.getByRole("heading", { name: en.words.orbitHeading })).toBeDefined();
+    expect(screen.getByRole("img", { name: en.words.orbitAriaLabel })).toBeDefined();
   });
 
-  it("fits the collapsed horizon summary in the content width without horizontal scroll", () => {
-    const { container } = render(<WordsHome {...homeProps} />);
+  it("fits the collapsed horizon summary in the content width without horizontal scroll", async () => {
+    const { container } = await renderWordsHome();
 
-    expect(screen.getByRole("button", { name: copy.horizonExpand })).toBeDefined();
+    expect(screen.getByRole("button", { name: en.words.horizonExpand })).toBeDefined();
     expect(container.querySelector(".overflow-x-auto")).toBeNull();
   });
 
   it("uses a four-column week row when the horizon is expanded", async () => {
     const user = userEvent.setup();
-    render(<WordsHome {...homeProps} />);
+    await renderWordsHome();
 
-    await user.click(screen.getByRole("button", { name: copy.horizonExpand }));
+    await user.click(screen.getByRole("button", { name: en.words.horizonExpand }));
 
-    expect(screen.getByRole("group", { name: copy.horizonCaption })).toBeDefined();
-    expect(screen.getAllByText(copy.horizonWeekLabel(1)).length).toBeGreaterThan(0);
-    expect(screen.getAllByText(copy.horizonWeekLabel(4)).length).toBeGreaterThan(0);
+    expect(screen.getByRole("group", { name: en.words.horizonCaption })).toBeDefined();
+    expect(screen.getAllByText(formatMessage(en.words.horizonWeekLabel, { week: 1 })).length).toBeGreaterThan(0);
+    expect(screen.getAllByText(formatMessage(en.words.horizonWeekLabel, { week: 4 })).length).toBeGreaterThan(0);
   });
 
   it("opens the full word list from the quiet show-list control", async () => {
     const user = userEvent.setup();
-    render(<WordsHome {...homeProps} />);
+    await renderWordsHome();
 
-    await user.click(screen.getByRole("button", { name: copy.orbitShowList }));
+    await user.click(screen.getByRole("button", { name: en.words.orbitShowList }));
 
-    expect(screen.getByRole("dialog", { name: copy.orbitListTitle })).toBeDefined();
+    expect(screen.getByRole("dialog", { name: en.words.orbitListTitle })).toBeDefined();
     expect(screen.getByRole("rowheader", { name: "de" })).toBeDefined();
   });
 
   it("shows the upgraded detail card when a word segment is selected", async () => {
     const user = userEvent.setup();
-    render(<WordsHome {...homeProps} />);
+    await renderWordsHome();
 
     await user.click(screen.getByRole("button", { name: /de, rank 1/i }));
 
     const detailCard = screen.getByRole("heading", { name: "de" }).closest("article");
     expect(detailCard).toBeDefined();
     expect(screen.getByText("of, from")).toBeDefined();
-    expect(detailCard?.textContent).toContain(copy.bucketNames.new);
+    expect(detailCard?.textContent).toContain(en.words.bucketNames.new);
   });
 });

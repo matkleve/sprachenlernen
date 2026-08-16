@@ -7,11 +7,11 @@ import { ActionLink } from "@/components/ui/ActionLink";
 import { Button } from "@/components/ui/Button";
 import { LanguageListRow } from "@/components/ui/LanguageListRow";
 import { switchProfileLanguageAction } from "@/features/profile/actions";
-import { copy } from "@/features/profile/content";
 import type { LanguageHoldings } from "@/lib/db/language-holdings";
 import type { ListLanguagesOutcome } from "@/lib/db/learning-languages";
 import { routes } from "@/lib/routes";
 import { hasUnaddedShippedLanguage } from "@/lib/starter-deck";
+import { useTranslations } from "next-intl";
 
 /**
  * The languages block on the profile. Contract: docs/specs/page/profile.md
@@ -30,6 +30,7 @@ export type ProfileLanguagesProps = {
 
 export function ProfileLanguages({ outcome, holdings, switchFailed: switchFailedProp }: ProfileLanguagesProps) {
   const router = useRouter();
+  const t = useTranslations("profile");
   const [pending, startTransition] = useTransition();
   const [switchFailed, setSwitchFailed] = useState(switchFailedProp ?? false);
   const [pendingCode, setPendingCode] = useState<string | null>(null);
@@ -56,26 +57,26 @@ export function ProfileLanguages({ outcome, holdings, switchFailed: switchFailed
 
   return (
     <section className="mt-page-content">
-      <h2 className="text-xl font-semibold text-ink">{copy.languagesHeading}</h2>
+      <h2 className="text-xl font-semibold text-ink">{t("languagesHeading")}</h2>
       <p className="mt-4 max-w-2xl text-base leading-relaxed text-muted">
-        {copy.languagesCaption}
+        {t("languagesCaption")}
       </p>
 
       {switchFailed ? (
         <p role="alert" className="mt-6 text-base leading-relaxed text-danger">
-          {copy.switchError}
+          {t("switchError")}
         </p>
       ) : null}
 
       {outcome.status === "error" ? (
         <p role="alert" className="mt-6 text-base leading-relaxed text-danger">
-          {copy.languagesError}
+          {t("languagesError")}
         </p>
       ) : outcome.languages.length === 0 ? (
         <div className="mt-6">
-          <p className="text-base leading-relaxed text-muted">{copy.noneYet}</p>
+          <p className="text-base leading-relaxed text-muted">{t("noneYet")}</p>
           <ActionLink href={routes.chooseLanguage} className="mt-4">
-            {copy.chooseFirst}
+            {t("chooseFirst")}
           </ActionLink>
         </div>
       ) : (
@@ -89,15 +90,15 @@ export function ProfileLanguages({ outcome, holdings, switchFailed: switchFailed
                   <LanguageListRow
                     code={language.languageCode}
                     isActive={language.isActive}
-                    activeLabel={copy.active}
+                    activeLabel={t("active")}
                     standing={
                       poolSize !== null && poolSize !== undefined
                         ? { held: standing?.heldCount ?? 0, pool: poolSize }
                         : null
                     }
-                    standingLabel={copy.standing}
+                    standingLabel={(held, pool) => t("standing", { held, poolSize: pool })}
                     viewProgressHref={routes.progress}
-                    viewProgressLabel={copy.viewProgress}
+                    viewProgressLabel={t("viewProgress")}
                     actionSlot={
                       language.isActive
                         ? undefined
@@ -110,7 +111,7 @@ export function ProfileLanguages({ outcome, holdings, switchFailed: switchFailed
                             disabled={pending}
                             onClick={() => onSwitch(language.languageCode)}
                           >
-                            {copy.makeActive}
+                            {t("makeActive")}
                           </Button>
                         )
                     }
@@ -122,7 +123,7 @@ export function ProfileLanguages({ outcome, holdings, switchFailed: switchFailed
 
           {showAddLanguage ? (
             <ActionLink href={routes.chooseLanguage} variant="secondary" className="mt-4">
-              {copy.addLanguage}
+              {t("addLanguage")}
             </ActionLink>
           ) : null}
         </>

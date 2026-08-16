@@ -1,3 +1,5 @@
+// Legacy English copy — use next-intl messages instead. Kept for reference during migration.
+
 /** Copy for signup and sign-in. Contract: docs/specs/service/auth.md */
 export const authContent = {
   emailLabel: "Email",

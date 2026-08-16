@@ -1,11 +1,12 @@
 "use server";
 
-import { headers } from "next/headers";
+import { cookies, headers } from "next/headers";
 import { redirect } from "next/navigation";
 
 import { signIn, signUp, signInWithOAuth, type OAuthProvider } from "@/lib/db/auth";
-import { ensureProfileFromAcceptLanguage } from "@/lib/db/profiles";
+import { ensureProfileFromAcceptLanguage, getSpokenLanguage } from "@/lib/db/profiles";
 import { fromAuthError, logHandledError, type HandledError } from "@/lib/errors";
+import { LOCALE_COOKIE, LOCALE_COOKIE_MAX_AGE } from "@/lib/i18n/locale-cookie";
 import { routes } from "@/lib/routes";
 
 /**
@@ -31,6 +32,18 @@ function redirectWithHandledError(path: string, handled: HandledError): never {
   redirect(`${path}?${params}`);
 }
 
+async function syncLocaleCookieFromProfile(): Promise<void> {
+  const spoken = await getSpokenLanguage();
+  if (spoken.status !== "ok") return;
+
+  const cookieStore = await cookies();
+  cookieStore.set(LOCALE_COOKIE, spoken.spokenLanguage, {
+    path: "/",
+    maxAge: LOCALE_COOKIE_MAX_AGE,
+    sameSite: "lax",
+  });
+}
+
 export async function signUpAction(formData: FormData): Promise<void> {
   const { email, password } = readCredentials(formData);
   const result = await signUp(email, password);
@@ -47,6 +60,7 @@ export async function signUpAction(formData: FormData): Promise<void> {
 
   const acceptLanguage = (await headers()).get("accept-language");
   await ensureProfileFromAcceptLanguage(acceptLanguage);
+  await syncLocaleCookieFromProfile();
   redirect(routes.chooseLanguage);
 }
 
@@ -60,6 +74,7 @@ export async function signInAction(formData: FormData): Promise<void> {
       fromAuthError(result.error, { operation: "sign you in" }),
     );
   }
+  await syncLocaleCookieFromProfile();
   redirect(routes.appHome);
 }
 

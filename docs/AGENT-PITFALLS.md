@@ -312,6 +312,44 @@ concrete example of it firing, not just the one-line paraphrase.
 Applies to any project-specific ID a reader cannot be assumed to have
 memorized — spec IDs, ADR numbers, task IDs — not only use cases.
 
+## 19. Substrate + Sonnet by default
+
+**The failure:** running Cursor Cloud Agents on the **Substrate** environment with
+the **Sonnet** model for routine work in this repo. Boot is slow, cost is high,
+and most tasks here are already bounded by specs, `npm run verify`, and a
+prebuilt environment — the heavier stack adds little.
+
+**The rule:** do **not** use Substrate + Sonnet unless there is a **very good
+reason** you can state up front. Default to the lighter agent/model the task
+actually needs.
+
+**Good reasons (examples — not an exhaustive list):**
+
+| Reason | Example |
+| --- | --- |
+| A smaller/faster model already failed | Document what was tried; Sonnet is the escalation, not the default |
+| You are debugging Substrate itself | Environment build, snapshot, egress, or setup for this repo |
+| The user asked for it | Explicit instruction for this run |
+
+If none of those apply, do not pick Substrate + Sonnet "just in case."
+
+## 20. Launching a subagent without permission
+
+**The failure:** delegating work to a Task subagent (`explore`, `generalPurpose`,
+`computerUse`, `debug`, etc.) because the task looks big, without stopping to
+ask the user first. The parent agent loses control of quality, cost, and model
+choice — and may violate §19 on the user's behalf.
+
+**The rule:** **never launch a subagent without explicit user permission.** Stop
+the current turn, explain why you want one (what it would do, which type, which
+model if relevant), and wait for a yes. No "I'll spin up an agent in the
+background" as a default.
+
+**The only exception:** tool descriptions that *require* a specific subagent
+(e.g. `computerUse` for manual GUI testing when the testing instructions mandate
+it). Even then, prefer doing the work yourself when you can; ask if the user
+would rather you did not delegate.
+
 ---
 
 ## For you, writing the prompt

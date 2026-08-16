@@ -6,9 +6,9 @@ import { useState, useTransition } from "react";
 import { Button } from "@/components/ui/Button";
 import { LanguageListRow } from "@/components/ui/LanguageListRow";
 import { changeSpokenLanguageAction } from "@/features/profile/actions";
-import { copy } from "@/features/profile/content";
 import type { SpokenLanguageOutcome } from "@/lib/db/profiles";
 import { shippedSpokenLanguages, spokenLanguageLabel } from "@/lib/spoken-language";
+import { useTranslations } from "next-intl";
 
 /**
  * Spoken-language block on the profile. Contract:
@@ -28,6 +28,7 @@ export function ProfileSpokenLanguage({
   changeFailed: changeFailedProp,
 }: ProfileSpokenLanguageProps) {
   const router = useRouter();
+  const t = useTranslations("profile");
   const [pending, startTransition] = useTransition();
   const [changeFailed, setChangeFailed] = useState(changeFailedProp ?? false);
   const [pendingCode, setPendingCode] = useState<string | null>(null);
@@ -49,20 +50,20 @@ export function ProfileSpokenLanguage({
 
   return (
     <section className="mt-page-content">
-      <h2 className="text-xl font-semibold text-ink">{copy.spokenHeading}</h2>
+      <h2 className="text-xl font-semibold text-ink">{t("spokenHeading")}</h2>
       <p className="mt-4 max-w-2xl text-base leading-relaxed text-muted">
-        {copy.spokenCaption}
+        {t("spokenCaption")}
       </p>
 
       {changeFailed ? (
         <p role="alert" className="mt-6 text-base leading-relaxed text-danger">
-          {copy.spokenChangeError}
+          {t("spokenChangeError")}
         </p>
       ) : null}
 
       {outcome.status === "error" ? (
         <p role="alert" className="mt-6 text-base leading-relaxed text-danger">
-          {copy.spokenError}
+          {t("spokenError")}
         </p>
       ) : (
         <ul className="mt-6 grid gap-3">
@@ -74,7 +75,7 @@ export function ProfileSpokenLanguage({
                   code={language.code}
                   names={{ endonym: language.endonym, english: language.english }}
                   isActive={isCurrent}
-                  activeLabel={copy.active}
+                  activeLabel={t("active")}
                   actionSlot={
                     isCurrent
                       ? undefined
@@ -87,7 +88,7 @@ export function ProfileSpokenLanguage({
                           disabled={pending}
                           onClick={() => onChange(language.code)}
                         >
-                          {copy.makeActive}
+                          {t("makeActive")}
                         </Button>
                       )
                   }

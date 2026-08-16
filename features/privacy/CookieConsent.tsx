@@ -1,12 +1,11 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useTranslations } from "next-intl";
 
 import { TextLink } from "@/components/ui/TextLink";
 import { Button } from "@/components/ui/Button";
 import { routes } from "@/lib/routes";
-
-import { privacyContent } from "./content";
 
 const STORAGE_KEY = "sprachenlernen:cookie-consent";
 
@@ -14,6 +13,7 @@ type Consent = "all" | "essential";
 
 /** Contract: docs/specs/feature/privacy-consent.md */
 export function CookieConsent() {
+  const t = useTranslations("privacy");
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
@@ -38,21 +38,21 @@ export function CookieConsent() {
       <div className="mx-auto flex max-w-3xl flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <p id="cookie-consent-title" className="text-sm font-medium text-ink">
-            {privacyContent.bannerTitle}
+            {t("bannerTitle")}
           </p>
           <p className="mt-1 text-sm text-muted">
-            {privacyContent.bannerBody}{" "}
+            {t("bannerBody")}{" "}
             <TextLink href={routes.privacy} size="sm">
-              {privacyContent.bannerLink}
+              {t("bannerLink")}
             </TextLink>
           </p>
         </div>
         <div className="flex shrink-0 flex-wrap gap-2">
           <Button type="button" variant="secondary" onClick={() => choose("essential")}>
-            {privacyContent.essentialOnly}
+            {t("essentialOnly")}
           </Button>
           <Button type="button" onClick={() => choose("all")}>
-            {privacyContent.acceptAll}
+            {t("acceptAll")}
           </Button>
         </div>
       </div>

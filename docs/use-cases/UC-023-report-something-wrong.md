@@ -1,7 +1,7 @@
 # UC-023 — Report something the app got wrong
 
 <!-- id: UC-023 -->
-<!-- specs: SPEC-service-broken-card-detection -->
+<!-- specs: SPEC-service-broken-card-detection, SPEC-feature-review-card-report, SPEC-component-status-banner -->
 
 **Who:** any learner who hits a sentence that is odd, a translation that is
 wrong, or audio that does not match its text.
@@ -41,7 +41,10 @@ where a report button exists, nothing visibly comes back.
   a flagged card never disappears out from under an in-progress session — can
   likely still hold, but it will need a new reason (an explicit rule in the
   requeue spec), not this one, which will no longer be true.
-- The learner is told what happened to their report.
+- The learner is told what happened to their report — see
+  [UC-074](UC-074-know-my-report-was-received.md) for the acknowledgement
+  surface; [UC-073](UC-073-explain-what-is-wrong-with-a-card.md) for the
+  optional report popover.
 - Content is marked with where it came from, so a learner can weigh a generated
   sentence differently from a checked one.
 - Reports accumulate into a signal that is actually looked at — repeated reports

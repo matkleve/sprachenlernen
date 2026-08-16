@@ -1,12 +1,12 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { useRef, useState } from "react";
 
 import { Button } from "@/components/ui/Button";
 import { OrbitDetailCard } from "@/features/words/OrbitDetailCard";
 import { OrbitListPopover } from "@/features/words/OrbitListPopover";
 import { VocabularyOrbitSvg } from "@/features/words/VocabularyOrbitSvg";
-import { copy } from "@/features/words/content";
 import type { AtlasPoint } from "@/lib/vocabulary-snapshot";
 import type { OrbitSegment, OrbitTickSegment, VocabularyOrbit } from "@/lib/vocabulary-orbit";
 
@@ -19,6 +19,7 @@ type VocabularyOrbitFieldProps = {
 };
 
 export function VocabularyOrbitField({ orbit, languageCode, atlas }: VocabularyOrbitFieldProps) {
+  const t = useTranslations("words");
   const [selected, setSelected] = useState<DetailSegment | null>(null);
   const [listOpen, setListOpen] = useState(false);
   const listTriggerRef = useRef<HTMLButtonElement>(null);
@@ -27,8 +28,8 @@ export function VocabularyOrbitField({ orbit, languageCode, atlas }: VocabularyO
     <section>
       <div className="flex items-start justify-between gap-4">
         <div>
-          <h2 className="text-xl font-semibold text-ink">{copy.orbitHeading}</h2>
-          <p className="mt-2 max-w-2xl text-base leading-relaxed text-muted">{copy.orbitCaption}</p>
+          <h2 className="text-xl font-semibold text-ink">{t('orbitHeading')}</h2>
+          <p className="mt-2 max-w-2xl text-base leading-relaxed text-muted">{t('orbitCaption')}</p>
         </div>
         <Button
           ref={listTriggerRef}
@@ -39,7 +40,7 @@ export function VocabularyOrbitField({ orbit, languageCode, atlas }: VocabularyO
           aria-expanded={listOpen}
           onClick={() => setListOpen((open) => !open)}
         >
-          {copy.orbitShowList}
+          {t('orbitShowList')}
         </Button>
       </div>
 

@@ -1,3 +1,5 @@
+// Legacy English copy — use next-intl messages instead. Kept for reference during migration.
+
 /**
  * Copy for the review session. Contracts:
  * - docs/specs/feature/review-session.md
@@ -49,6 +51,22 @@ export const copy = {
   syncFailed: "Your grade could not be saved.",
   syncRetry: "Retry",
   report: "Report a problem with this card",
-  reportDone:
-    "Thanks — we will stop scheduling this card in your next session. You can finish this one.",
+  reportPopoverTitle: "Report this card",
+  reportPopoverOutcome:
+    "We will stop scheduling this card from your next session. You can finish it today.",
+  reportCategoryLegend: "What is wrong? (optional)",
+  reportCategories: {
+    "wrong-translation": "Wrong translation",
+    audio: "Audio issue",
+    confusing: "Confusing",
+    "not-relevant": "Not relevant to me",
+    other: "Other",
+  },
+  reportNoteLabel: "Anything else? (optional)",
+  reportNotePlaceholder: "A short note helps us fix it faster.",
+  reportCancel: "Cancel",
+  reportSubmit: "Report",
+  reportSuccessTitle: "Report received.",
+  reportSuccessBody:
+    "We will not schedule this card again after today. You can finish reviewing it now.",
 } as const;

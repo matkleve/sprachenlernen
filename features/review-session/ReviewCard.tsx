@@ -1,14 +1,19 @@
+"use client";
+
+import { useTranslations } from "next-intl";
 import { Flag } from "lucide-react";
+import { useRef, useState } from "react";
 
 import { GradeButton } from "@/components/ui/GradeButton";
 import { IconButton } from "@/components/ui/IconButton";
 import { PressableCard } from "@/components/ui/PressableCard";
-import { copy } from "@/features/review-session/content";
+import { CardReportPopover } from "@/features/review-session/CardReportPopover";
 import {
   canFlip,
   canGrade,
   showsBack,
 } from "@/features/review-session/session-machine";
+import type { ReportCardInput } from "@/lib/card-report";
 import type { SessionCard } from "@/lib/session-builder";
 import { isFormRecallTaskId } from "@/lib/form-recall-pool";
 import { paradigmCellLabel } from "@/lib/paradigm-cells";
@@ -21,7 +26,7 @@ type ReviewCardProps = {
   phase: Parameters<typeof canGrade>[0];
   onFlip: () => void;
   onGrade: (grade: Grade) => void;
-  onReport: () => void;
+  onSubmitReport: (input: ReportCardInput) => Promise<void>;
   reportPending?: boolean;
   /** Hides progress line and tightens spacing for mobile one-screen layout. */
   compact?: boolean;
@@ -33,16 +38,24 @@ export function ReviewCard({
   phase,
   onFlip,
   onGrade,
-  onReport,
+  onSubmitReport,
   reportPending = false,
   compact = false,
 }: ReviewCardProps) {
+  const t = useTranslations("reviewSession");
+  const flagRef = useRef<HTMLButtonElement>(null);
+  const [reportOpen, setReportOpen] = useState(false);
   const flipEnabled = canFlip(phase);
   const gradesEnabled = canGrade(phase);
   const revealBack = showsBack(phase);
   const isFormRecall = isFormRecallTaskId(card.taskId);
-  const gradePrompt = isFormRecall ? copy.formRecallPrompt : copy.prompt;
+  const gradePrompt = isFormRecall ? t("formRecallPrompt") : t("prompt");
   const cell = card.paradigmCell ? paradigmCellLabel(card.paradigmCell) : null;
+
+  const handleSubmitReport = async (input: ReportCardInput) => {
+    await onSubmitReport(input);
+    setReportOpen(false);
+  };
 
   return (
     <div
@@ -53,35 +66,46 @@ export function ReviewCard({
     >
       {!compact ? (
         <p className="text-sm text-muted" aria-live="polite">
-          {copy.progress(card.position, card.total)}
+          {t("progress", { position: card.position, total: card.total })}
         </p>
       ) : null}
 
       <div className={cn("relative", compact && "flex min-h-0 flex-1 flex-col")}>
         <IconButton
+          ref={flagRef}
           type="button"
           size="sm"
           pending={reportPending}
           pendingPolicy="none"
-          onClick={onReport}
-          aria-label={copy.report}
+          onClick={() => setReportOpen((open) => !open)}
+          aria-label={t("report")}
+          aria-expanded={reportOpen}
+          aria-haspopup="dialog"
           className="absolute top-3 right-3 z-10 text-muted hover:text-ink"
         >
           <Flag className="size-4" aria-hidden />
         </IconButton>
 
+        <CardReportPopover
+          open={reportOpen}
+          onClose={() => setReportOpen(false)}
+          onSubmit={handleSubmitReport}
+          pending={reportPending}
+          triggerRef={flagRef}
+        />
+
         <PressableCard
           onClick={onFlip}
           interactive={flipEnabled}
           aria-expanded={revealBack}
-          aria-label={flipEnabled ? copy.flipHint : undefined}
+          aria-label={flipEnabled ? t("flipHint") : undefined}
           className={cn(
             compact ? "flex min-h-0 flex-1 flex-col justify-center p-5 md:mt-6 md:flex-none md:p-8" : "mt-6 p-8",
           )}
         >
           {languageName && (
             <p className="text-xs font-medium uppercase tracking-widest text-muted">
-              {copy.languageLabel(languageName)}
+              {t("languageLabel", { name: languageName })}
             </p>
           )}
 
@@ -98,13 +122,17 @@ export function ReviewCard({
 
           {cell && (
             <p className={cn("font-medium text-ink", compact ? "mt-2 text-sm md:text-base" : "mt-3 text-base")}>
-              {copy.cellLabel(cell)}
+              {cell.person
+                ? t("cellLabelWithPerson", { person: cell.person, form: cell.form })
+                : t("cellLabelFormOnly", { form: cell.form })}
             </p>
           )}
 
           {isFormRecall && (
             <p className={cn("text-muted", compact ? "mt-1 text-xs md:mt-2 md:text-sm" : "mt-2 text-sm")}>
-              {copy.formRecallInstruction(languageName)}
+              {languageName
+                ? t("formRecallInstruction", { language: languageName })
+                : t("formRecallInstructionFallback")}
             </p>
           )}
 
@@ -124,20 +152,37 @@ export function ReviewCard({
               <span aria-hidden className="text-sm leading-none">
                 ↻
               </span>
-              {copy.flipHint}
+              {t("flipHint")}
             </p>
           )}
         </PressableCard>
       </div>
 
       {gradesEnabled && (
-        <div className={cn(compact && "mt-3 shrink-0 md:mt-6")}>
-          <p className={cn("text-sm text-muted", !compact && "mt-6")}>{gradePrompt}</p>
+        <div
+          className={cn(
+            compact && "mt-2 shrink-0 pb-3 md:mt-6 md:pb-0",
+            !compact && "mt-6",
+          )}
+        >
+          <p className={cn("text-muted", compact ? "text-xs md:text-sm" : "text-sm")}>
+            {gradePrompt}
+          </p>
 
-          <div className={cn("grid w-full grid-cols-4 gap-2", compact ? "mt-2 md:mt-4" : "mt-4")}>
+          <div
+            className={cn(
+              "grid w-full grid-cols-4",
+              compact ? "mt-1.5 gap-1.5 md:mt-4 md:gap-2" : "mt-4 gap-2",
+            )}
+          >
             {GRADES.map((grade) => (
-              <GradeButton key={grade} grade={grade} onClick={() => onGrade(grade)}>
-                {copy[grade]}
+              <GradeButton
+                key={grade}
+                grade={grade}
+                onClick={() => onGrade(grade)}
+                className={compact ? "h-7 px-2 text-xs md:h-8 md:px-3 md:text-sm" : undefined}
+              >
+                {t(grade)}
               </GradeButton>
             ))}
           </div>
