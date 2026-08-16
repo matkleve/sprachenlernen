@@ -38,6 +38,7 @@ export function MethodCardHeader({ section, size, className }: MethodCardHeaderP
         src={sectionGraphicSrc[section]}
         alt={sectionGraphicAlt(section, label)}
         fill
+        unoptimized
         priority={size === "hero"}
         sizes={
           size === "hero"

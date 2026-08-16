@@ -273,6 +273,17 @@ hits means production will fail. The fix is `outputFileTracingIncludes` in
 `next.config.ts` for each route that reads disk. Do not switch to importing
 every JSON unless you want them in the JS bundle — tracing is the intended fix.
 
+## `next/image` with local SVG on method detail crashes in production
+
+`SkillTierBadge` and `MethodCardHeader` use `next/image` for local SVG/webp
+assets. In production Next.js threw `render/boundary` with a digest-only
+message and method detail showed *Could not load this method.*
+
+**The fix:** `unoptimized` on those decorative images — the default optimizer
+does not handle local SVG and can fail SSR for static assets. **The check:**
+grep method-menu for `next/image` without `unoptimized` on local `/assets/`
+paths; zero hits.
+
 ---
 
 ## `hover:` cannot be observed in this environment, and it is not your CSS

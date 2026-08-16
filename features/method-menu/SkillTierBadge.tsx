@@ -25,6 +25,7 @@ export function SkillTierBadge({ skill, tier }: SkillTierBadgeProps) {
         alt={label}
         width={48}
         height={48}
+        unoptimized
         className="size-12 object-contain"
       />
     </span>

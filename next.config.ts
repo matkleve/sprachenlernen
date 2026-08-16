@@ -6,7 +6,7 @@ const nextConfig: NextConfig = {
   // Vercel's file tracer does not follow those paths — without this, /methods
   // shows "Could not load the method catalogue" in production. See TRAPS.md.
   outputFileTracingIncludes: {
-    "/methods": ["./data/methods/**/*"],
+    "/methods": ["./data/methods/**/*", "./data/demonstration-sentences/**/*"],
     "/methods/[id]": ["./data/methods/**/*"],
     "/words/review": ["./data/methods/**/*"],
     "/languages": ["./data/languages/**/*"],
