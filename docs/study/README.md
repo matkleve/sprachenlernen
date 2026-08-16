@@ -70,6 +70,7 @@ only this table.
 | [30 · Notifications & reflections](30-notifications-and-reflections.md) | Weekly digests, push, and “how am I doing?” without Duolingo-style guilt |
 | [31 · iOS Safari / PWA test report](31-ios-safari-pwa-test-report.md) | Consolidated issue report, shipped fixes, and owner LIVE CHECK matrix (`v0.4.1`) |
 | [32 · PWA profile UX](32-pwa-profile-ux.md) | Profile Home screen block — scope table, buttons, designer review |
+| [33 · Skill-tier badges](33-skill-tier-badges-exploration.md) | Wood→platinum per-skill badges, detail layout, ChatGPT grid prompt (exploration) |
 | [Sources](sources.md) | Literature, honestly marked by how far each was checked |
 
 Chapters 12–26 were written after the roadmap and are appended at the end. By

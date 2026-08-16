@@ -10,6 +10,11 @@ is built open a session from the card ([`method-engines.md`](../service/method-e
 today: `srs-session` → Words review). Direct navigation to `/methods/{id}` still
 works for bookmarks and links.
 
+**Draft exploration (2026-08-16):** text-mask hero, skill-tier badge band,
+duration chip UX — [`method-detail.supplement.md`](method-detail.supplement.md),
+[`study/33`](../../study/33-skill-tier-badges-exploration.md). Not normative until
+merged here.
+
 ## Scope
 
 - **In:** full catalogue fields as an **article layout** — not a second card.
