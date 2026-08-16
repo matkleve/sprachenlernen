@@ -126,6 +126,53 @@ Platinum the **shield silhouette stays identical** — only the finish changes.
 Skill icon stays centered and recognizable; the **frame** carries tier prestige,
 not a recoloured copy of the Bronze shape.
 
+### Owner feedback on v2 grid (2026-08-16)
+
+v2 improved **material** (wood grain → metals) and kept **skill motifs** stable
+per column. Gaps remaining:
+
+1. **Shield frame** — Bronze through Platinum still share the same outer
+   silhouette; only finish changes.
+2. **Skill icon** — book / headphones / mic / pen are **identical** at every tier;
+   only the plaque material changes. Owner wants the **motif itself to upgrade**
+   too (simpler → more refined → more detailed), while staying recognizable.
+
+**Required for v3 assets — three things level up per row:**
+
+| Tier | Shield frame | Plaque material | Skill motif (center) |
+| --- | --- | --- | --- |
+| Wood | Flat rounded plaque, no point | Raw wood grain | Carved/simple (e.g. line-art book) |
+| Bronze | First true shield, one point | Bronze metal | Slightly more detail, bronze-tinted |
+| Silver | Taller shield, side curves | Polished silver | Clearer form, cool highlights |
+| Gold | Ornate heraldic frame | Rich gold | Fine detail, warm accent on icon |
+| Platinum | Most elaborate frame | Luminous platinum | Richest detail; still readable at 48px |
+
+All 20 cells must feel like **one family** — same lighting, same 3D style, same
+proportions — not 20 unrelated illustrations.
+
+### Design-system alignment (v3+)
+
+Badges must sit beside section graphics, method cards, and token-based UI without
+clashing. Rules for asset authoring and ChatGPT prompts:
+
+| Rule | Source | Application |
+| --- | --- | --- |
+| Calm, editorial — not game medals | study/22 G1 | No cartoon shine bursts, no rank numbers |
+| Colour carries meaning | study/22 G1, DESIGN-SYSTEM | Skill icon **hue family** per column; metals stay neutral |
+| Never colour alone | study/22 G2, Constitution §3 | Shape + tier must differ even in greyscale; `aria-label` carries words |
+| Skill token hues | `app/globals.css` | Reading warm brown `#6b5344`, listening cool slate `#44566b`, speaking warm `#6b4f44`, writing sage `#4f6b52` — use as **accent on the motif**, not flat fills |
+| Section graphics | `method-section-*` webp | Same abstract/editorial 3D language; badges are the **micro** version of section headers |
+| Dark mode | DESIGN-SYSTEM | Assets are mostly metal + embossed icons; avoid pure white hotspots that blow out on dark `canvas` |
+
+**Cohesion checklist** (designer signs off before vectorizing):
+
+- [ ] Same camera angle and light direction across all 20 cells
+- [ ] Skill column hue matches token family at every tier
+- [ ] Wood row is clearly **not** a recoloured metal shield
+- [ ] Each row’s shield outline is visibly different from the row above
+- [ ] Each row’s center motif is visibly more detailed than the row above (same column)
+- [ ] Platinum is premium, not “video game legendary item”
+
 ---
 
 ## ChatGPT image-generation prompt
@@ -133,9 +180,64 @@ not a recoloured copy of the Bronze shape.
 Copy everything between the lines into ChatGPT (DALL·E / image gen) or similar.
 Ask for **one composite image** — a 4×5 grid of badge concepts.
 
-**v2 prompt** (use this if v1 shields did not change enough between tiers):
+**v3 prompt** (shields + skill motifs + design tokens — use after v2):
 
 ---
+
+```
+Create ONE composite reference image: a 4-column × 5-row grid of app badge
+icons for a calm, editorial language-learning product (not a game).
+
+COLUMNS — skill motif must UPGRADE in detail each row (same column, richer each tier):
+1. Reading — book / pages (warm brown accent #6B5344 on the motif)
+2. Listening — over-ear headphones (cool slate accent #44566B)
+3. Speaking — studio microphone (warm terracotta accent #6B4F44)
+4. Writing — fountain pen / ink (sage green accent #4F6B52)
+
+ROWS — THREE things must change every row: (1) shield FRAME geometry,
+(2) plaque MATERIAL, (3) center MOTIF detail level:
+
+Row 1 WOOD:
+- Frame: flat rounded wooden plaque, NO shield point, hand-carved edges
+- Material: matte wood grain
+- Motif: simplest carved version (minimal lines, low relief)
+
+Row 2 BRONZE:
+- Frame: NEW shape — classic shield with single bottom point (not wood plaque)
+- Material: warm bronze metal
+- Motif: same object, slightly more defined emboss
+
+Row 3 SILVER:
+- Frame: NEW shape — taller shield, subtle side curves (not same as bronze)
+- Material: polished silver, cool reflections
+- Motif: clearer detail, sharper edges
+
+Row 4 GOLD:
+- Frame: NEW shape — ornate heraldic shield, corner flourishes
+- Material: rich gold
+- Motif: fine detail, warm highlights on the skill object
+
+Row 5 PLATINUM:
+- Frame: NEW shape — most elaborate (subtle crown ridge or layered border)
+- Material: luminous platinum / white-gold
+- Motif: maximum detail, still readable at 48px — not overcrowded
+
+CRITICAL:
+- Do NOT reuse the same shield outline for bronze/silver/gold/platinum.
+- Do NOT reuse the exact same center icon at every tier — the SKILL OBJECT
+  must visibly gain detail and refinement each row (like leveling up craft).
+- Do NOT make it look like a mobile game rank badge or military medal.
+- One cohesive 3D style: same lighting direction, same camera, same proportions
+  across all 20 cells so they feel like one set.
+- Skill accent colours only on the center motif; metal frames stay true to tier.
+- No text, numbers, or letters inside badges.
+- White background; label rows/columns outside only.
+
+Deliverable: mood-board grid for a designer to vectorize into SVG layers
+(frame + motif) aligned with a muted, trustworthy learning app.
+```
+
+**v2 prompt** (shields only — archived; motifs did not upgrade):
 
 ```
 Create ONE composite reference image: a 4-column × 5-row grid of app badge
@@ -272,8 +374,9 @@ icons (B — wood never appears). No phased “four tiers then add platinum late
 
 ## Next steps
 
-1. Owner re-runs **v2 ChatGPT prompt** above → confirms shields change per row.
-2. Designer vectorizes winners against design tokens (`text-skill-*` hues).
-3. Update [`method-detail.supplement.md`](../specs/page/method-detail.supplement.md)
+1. Owner re-runs **v3 ChatGPT prompt** → shields AND center motifs upgrade per row.
+2. Designer checks **cohesion checklist** (§ Design-system alignment) → vectorizes.
+3. Export 20 SVGs (or layered frame + motif) mapped to `skill-tier-badges.ts`.
+4. Update [`method-detail.supplement.md`](../specs/page/method-detail.supplement.md)
    → promote sections to active spec when accepted.
-4. Implement text-mask hero (code) independent of badge assets.
+5. Implement text-mask hero (code) independent of badge assets.
