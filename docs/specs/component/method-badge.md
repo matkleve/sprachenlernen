@@ -6,8 +6,8 @@
 
 Three non-interactive badge families for **method cards** (catalogue scanning):
 **skill contribution**, **evidence** (plain label), and **effort** (plain label).
-Replaces long-sentence accent chips for evidence and intensity. Detail pages use
-prose sections instead — see [`method-detail.md`](../page/method-detail.md).
+Detail pages use **skill tier icons** ([`skill-tier-badge.md`](skill-tier-badge.md))
+and effort in the badge band — see [`method-detail.md`](../page/method-detail.md).
 Contract: [`../../study/27-method-badges.md`](../../study/27-method-badges.md).
 
 ## Scope

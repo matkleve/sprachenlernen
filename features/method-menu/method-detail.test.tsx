@@ -6,6 +6,7 @@ import { expectNoA11yViolations } from "@/tests/axe";
 import { loadMethodCatalogue } from "./catalogue";
 import { MethodDetail, findMethod } from "./MethodDetail";
 import { copy } from "./content";
+import { skillTierAriaLabel } from "./skill-tier-badges";
 
 vi.mock("next/navigation", () => ({
   useRouter: vi.fn(() => ({ push: vi.fn() })),
@@ -13,9 +14,25 @@ vi.mock("next/navigation", () => ({
 
 const { catalogue } = loadMethodCatalogue();
 const extensiveReading = findMethod(catalogue, "extensive-reading")!;
+const narrowListening = findMethod(catalogue, "narrow-listening")!;
 const srsSession = findMethod(catalogue, "srs-session")!;
 
 describe("MethodDetail", () => {
+  it("shows a single duration chip", () => {
+    render(<MethodDetail method={narrowListening} />);
+    expect(screen.getByText("10–45 min")).toBeDefined();
+  });
+
+  it("shows skill tier badges for improving skills", () => {
+    render(<MethodDetail method={narrowListening} />);
+
+    expect(
+      screen.getByRole("img", {
+        name: skillTierAriaLabel("listening", "gold"),
+      }),
+    ).toBeDefined();
+  });
+
   it("shows article sections for a shipped method", () => {
     render(
       <MethodDetail method={extensiveReading} searchParams={{ minutes: "15", skill: "reading" }} />,

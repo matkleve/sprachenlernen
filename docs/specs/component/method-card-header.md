@@ -12,7 +12,7 @@ assets. Contract: [`../../study/27-method-badges.md`](../../study/27-method-badg
 
 ## Scope
 
-- **In:** `MethodCardHeader` on `MethodCard`; eight webp assets in
+- **In:** `MethodCardHeader` on `MethodCard`; eight SVG assets in
   `public/assets/method-sections/`; gradient overlay; uppercase section label;
   `alt` text naming the section as decorative; fixed height (`h-20`).
 - **Out:** per-method illustrations; interactive header; header on method detail

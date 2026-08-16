@@ -5,22 +5,20 @@ import { ShellPageContent } from "@/features/app-shell/ShellPageContent";
 import { byId, type MethodEntry } from "@/lib/method-catalogue";
 import type { SearchParams } from "@/lib/method-menu-filter";
 import { menuQueryString } from "@/lib/method-menu-filter";
-import { skillMarksForMethod } from "@/lib/method-skill-badges";
 import { sessionHrefForMethod, usesWordsReview } from "@/lib/method-session";
 import { routes } from "@/lib/routes";
 import { cn } from "@/lib/utils";
 
+import { MethodDetailBadgeBand } from "./MethodDetailBadgeBand";
+import { MethodDetailHero } from "./MethodDetailHero";
 import {
-  contributionLabels,
   copy,
   effortCard,
   evidenceCard,
   evidenceProse,
   intensity,
-  sections,
-  skillLabels,
 } from "./content";
-import { durationChips, requirementChips } from "./requirements";
+import { formatDurationLabel, requirementChips } from "./requirements";
 
 export type MethodDetailProps = {
   method?: MethodEntry;
@@ -50,28 +48,18 @@ export function MethodDetail({ method, searchParams = {} }: MethodDetailProps) {
   }
 
   const requirements = requirementChips(method.requires);
-  const skillMarks = skillMarksForMethod(method);
-  const skillLine =
-    skillMarks.length > 0
-      ? skillMarks
-          .map(
-            (mark) =>
-              `${skillLabels[mark.skill]} (${contributionLabels[mark.level]})`,
-          )
-          .join(" · ")
-      : null;
+  const durationLabel = formatDurationLabel(method.durations);
 
   return (
     <ShellPageContent mode="scrollable-drill-in" width="narrow">
-      <ActionLink href={backHref} variant="ghost" size="sm" className={backLinkClass}>
+      <ActionLink href={backHref} variant="ghost" size="sm" className={cn(backLinkClass, "mb-2")}>
         ← {copy.backToMethods}
       </ActionLink>
 
-      <p className="mt-6 text-sm font-medium uppercase tracking-widest text-muted">
-        {sections[method.section]}
-      </p>
-      <h1 className="mt-2 text-3xl font-semibold tracking-tight text-ink">{method.name}</h1>
-      <p className="mt-2 text-base leading-relaxed text-muted">{method.summary}</p>
+      <MethodDetailHero section={method.section} name={method.name} />
+      <p className="mt-4 text-base leading-relaxed text-muted">{method.summary}</p>
+
+      <MethodDetailBadgeBand method={method} />
 
       <section className="mt-8">
         <h2 className="text-base font-semibold text-ink">{copy.detail.practical}</h2>
@@ -81,10 +69,8 @@ export function MethodDetail({ method, searchParams = {} }: MethodDetailProps) {
         <dl className="mt-4 grid gap-3 text-sm">
           <div>
             <dt className="font-medium text-ink">{copy.card.duration}</dt>
-            <dd className="mt-1 flex flex-wrap gap-1.5">
-              {durationChips(method.durations).map((label) => (
-                <Chip key={`duration-${label}`}>{label}</Chip>
-              ))}
+            <dd className="mt-1">
+              <Chip>{durationLabel}</Chip>
             </dd>
           </div>
           {requirements.length > 0 ? (
@@ -109,12 +95,6 @@ export function MethodDetail({ method, searchParams = {} }: MethodDetailProps) {
       <section className="mt-8">
         <h2 className="text-base font-semibold text-ink">{copy.card.trains}</h2>
         <p className="mt-2 text-base leading-relaxed text-muted">{method.trains}</p>
-        {skillLine ? (
-          <p className="mt-2 text-sm text-muted">
-            <span className="font-medium text-ink">{copy.detail.mainly}: </span>
-            {skillLine}
-          </p>
-        ) : null}
       </section>
 
       <section className="mt-8 rounded-card border border-line bg-surface-raised p-4 shadow-soft">

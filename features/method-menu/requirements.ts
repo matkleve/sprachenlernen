@@ -39,8 +39,18 @@ export function describeRequirements(requires: Requirements): string[] {
 }
 
 export function durationChips(durations: number[] | null): string[] {
-  if (durations === null || durations.length === 0) return [copy.card.openEnded];
-  return durations.map((minutes) => `${minutes} ${copy.minutes}`);
+  const label = formatDurationLabel(durations);
+  return [label];
+}
+
+/** One chip label for duration — range when multiple session lengths exist. */
+export function formatDurationLabel(durations: number[] | null): string {
+  if (durations === null || durations.length === 0) return copy.card.openEnded;
+  if (durations.length === 1) return `${durations[0]} ${copy.minutes}`;
+  const min = Math.min(...durations);
+  const max = Math.max(...durations);
+  if (min === max) return `${min} ${copy.minutes}`;
+  return `${min}–${max} ${copy.minutes}`;
 }
 
 /** @deprecated Use durationChips — kept for any external callers. */

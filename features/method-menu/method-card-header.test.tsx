@@ -18,9 +18,7 @@ describe("MethodCardHeader", () => {
     const image = screen.getByRole("img", {
       name: sectionGraphicAlt("listening", sections.listening),
     });
-    expect(image.getAttribute("src")).toContain(
-      encodeURIComponent(sectionGraphicSrc.listening),
-    );
+    expect(image.getAttribute("src")).toContain(sectionGraphicSrc.listening);
   });
 
   it("keeps a fixed header height for catalogue scanability", () => {

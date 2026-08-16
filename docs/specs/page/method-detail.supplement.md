@@ -1,6 +1,6 @@
 # Method detail — UX exploration supplement
 
-<!-- status: draft — not enforced by check:specs -->
+<!-- status: superseded — merged into method-detail.md 2026-08-16 -->
 <!-- parent: docs/specs/page/method-detail.md -->
 <!-- study: docs/study/33-skill-tier-badges-exploration.md -->
 

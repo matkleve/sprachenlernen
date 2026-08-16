@@ -20,12 +20,20 @@ describe("ShellPageTitle", () => {
   it("viewport-centers long mobile titles with absolute positioning", () => {
     render(<ShellPageTitle variant="mobile" />);
 
-    const title = screen.getByRole("heading", { level: 1 });
+    const title = screen.getByTitle("Spaced repetition session");
+    expect(title.tagName).toBe("P");
     expect(title.className).toContain("line-clamp-2");
     expect(title.className).toContain("absolute");
     expect(title.className).toContain("left-1/2");
     expect(title.className).toContain("-translate-x-1/2");
     expect(title.className).not.toContain("truncate");
+  });
+
+  it("uses h1 on list routes", () => {
+    vi.mocked(usePathname).mockReturnValue("/methods");
+    render(<ShellPageTitle variant="mobile" />);
+
+    expect(screen.getByRole("heading", { level: 1, name: "Ways of practising" })).toBeDefined();
   });
 
   it("expands shell top padding when the mobile title wraps to two lines", () => {
