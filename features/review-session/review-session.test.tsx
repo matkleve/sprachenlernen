@@ -334,10 +334,10 @@ describe("ReviewSession", () => {
       />,
     );
 
-    await user.click(screen.getByRole("button", { name: copy.report }));
-    await user.click(screen.getByRole("button", { name: copy.reportSubmit }));
+    await user.click(screen.getByRole("button", { name: en.reviewSession.report }));
+    await user.click(screen.getByRole("button", { name: en.reviewSession.reportSubmit }));
 
-    await waitFor(() => expect(screen.getByText(copy.reportSuccessTitle)).toBeDefined());
+    await waitFor(() => expect(screen.getByText(en.reviewSession.reportSuccessTitle)).toBeDefined());
     expect(reportCardAction).toHaveBeenCalledWith("es:de", { category: null, note: null });
   });
 
@@ -350,14 +350,14 @@ describe("ReviewSession", () => {
       />,
     );
 
-    await user.click(screen.getByRole("button", { name: copy.report }));
-    expect(screen.getByRole("dialog", { name: copy.reportPopoverTitle })).toBeDefined();
+    await user.click(screen.getByRole("button", { name: en.reviewSession.report }));
+    expect(screen.getByRole("dialog", { name: en.reviewSession.reportPopoverTitle })).toBeDefined();
 
-    await user.click(screen.getByRole("button", { name: copy.flipHint }));
-    await user.click(screen.getByRole("button", { name: copy.good }));
+    await user.click(screen.getByRole("button", { name: en.reviewSession.flipHint }));
+    await user.click(screen.getByRole("button", { name: en.reviewSession.good }));
 
     await waitFor(() => expect(screen.getByText("que")).toBeDefined());
-    expect(screen.queryByRole("dialog", { name: copy.reportPopoverTitle })).toBeNull();
+    expect(screen.queryByRole("dialog", { name: en.reviewSession.reportPopoverTitle })).toBeNull();
   });
 
   it("requeues an again grade to the end when the queue is too short for five ahead", async () => {
