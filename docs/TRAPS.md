@@ -11,13 +11,25 @@ applying is still evidence about how this codebase misleads people.
 
 ---
 
+## Agents used `version:ship` for bugfixes
+
+Method-detail regressions (wrong assets, layout, header title) were shipped with
+`version:ship` (`0.14.0` → `0.15.0` → `0.16.0`) because `AGENTS.md` only named
+`version:ship`. Pride versioning treats bugfixes as **shame** bumps
+(`0.14.0` → `0.14.1`), not default bumps.
+
+**The fix:** `docs/VERSIONING.md` and `AGENTS.md` now require `version:shame` for
+bugfixes. **The check:** before bumping on `main`, ask whether the merge fixes
+something broken — if yes, shame; if it adds capability, ship.
+
 ## Parallel agents bumped `package.json` on feature branches
 
 Two agents shipped overlapping PRs. Each ran a “release” bump (`0.1.1`, `0.2.0`)
 on its own branch, `pride-version.test.ts` pinned a literal version, and every
 merge became a three-way fight over `package.json`.
 
-**The fix:** version changes only on `main` via `npm run version:ship`; tests
+**The fix:** version changes only on `main` via `version:shame` (bugfix) or
+`version:ship` (feature); tests
 read `package.json` dynamically; `verify` runs `check-version-branch` on feature
 branches. **The check:** feature-branch PRs must not touch `version` in
 `package.json`.

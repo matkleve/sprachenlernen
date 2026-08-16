@@ -20,14 +20,18 @@ Current version: read `package.json` or the label under the mobile nav pill.
 ## Commands
 
 ```bash
-npm run version:ship     # ← after merge to main (default bump). Agents use this.
+npm run version:ship     # default bump after merge (features, normal ships)
+npm run version:shame    # shame bump — bugfixes, regressions, small corrections
 npm run version:proud    # proud bump (human decision)
 npm run version:default  # default bump (low-level; prefer version:ship on main)
-npm run version:shame    # shame bump
 ```
 
-`version:ship` refuses to run off `main` (unless `--allow-branch` for emergencies).
-Each bump updates **both** `package.json` and `package-lock.json`.
+`version:ship` and `version:shame` refuse to run off `main` (unless `--allow-branch`
+for emergencies). Each bump updates **both** `package.json` and `package-lock.json`.
+
+**Not semver:** `0.14.1` is not a "patch release" — it is proud `0`, default `14`,
+shame `1`. Bugfixes increment **shame** (`0.14.0` → `0.14.1`). Features increment
+**default** (`0.14.0` → `0.15.0`).
 
 ## Agent protocol (parallel agents)
 
@@ -41,17 +45,21 @@ to different numbers, hardcoded version tests, and merge conflicts on every ship
    with `origin/main`.
 2. **Never hardcode the version in tests.** `lib/pride-version.test.ts` asserts
    against `package.json` at runtime — bumps do not require test edits.
-3. **One bump, on `main`, after merge:** checkout `main`, pull, `npm run version:ship`,
-   commit, push. Not in the feature PR.
-4. **Do not use semver patch bumps.** `0.1.0` → `0.1.1` is a *shame* bump in
-   Pride versioning (`0.1.1` = proud 0, default 1, shame **1**). A normal ship
-   is `0.1.0` → `0.2.0` via `version:ship` / `version:default`.
+3. **One bump, on `main`, after merge:** checkout `main`, pull, pick the command
+   from the table below, commit, push. Not in the feature PR.
+4. **Pick shame for bugfixes.** Regressions, layout fixes, restored assets, and
+   other corrections use `version:shame` (`0.14.0` → `0.14.1`). Do **not** use
+   `version:ship` for those — that is for features and normal ships
+   (`0.14.0` → `0.15.0`).
+5. **Do not use semver intuition.** `0.1.0` → `0.1.1` is a *shame* bump in Pride
+   versioning (`0.1.1` = proud 0, default 1, shame **1**). A normal ship is
+   `0.1.0` → `0.2.0` via `version:ship` / `version:default`.
 
-| Change | Command (on `main` only, after merge) |
-| --- | --- |
-| Bugfix, small correction | `npm run version:shame` |
-| Normal feature or ship | `npm run version:ship` |
-| Milestone you are proud of | `npm run version:proud` |
+| Change | Command (on `main` only, after merge) | Example |
+| --- | --- | --- |
+| Bugfix, regression, small correction | `npm run version:shame` | `0.14.0` → `0.14.1` |
+| Normal feature or ship | `npm run version:ship` | `0.14.0` → `0.15.0` |
+| Milestone you are proud of | `npm run version:proud` | `0.14.2` → `1.0.0` |
 
 ## How it works end-to-end
 

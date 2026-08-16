@@ -35,9 +35,10 @@ Walk each item and state the evidence. "Looks fine" is not evidence.
 - [ ] **Anything that cost you time is in `docs/TRAPS.md`.** If you were
       surprised, the next person will be too.
 - [ ] **Version bumped on `main` after merge** (not on the feature branch):
-      checkout `main`, pull, `npm run version:ship`, commit `chore: ship vX.Y.Z`,
-      push. Skip only for changes that do not ship to learners (e.g. CI-only).
-      See `docs/VERSIONING.md`.
+      checkout `main`, pull, then `npm run version:shame` for bugfixes/regressions
+      or `npm run version:ship` for features; commit `chore: ship vX.Y.Z`, push.
+      See `docs/VERSIONING.md`. Skip only when nothing ships to learners (e.g.
+      CI-only).
 
 ## Then say plainly
 
