@@ -7,6 +7,7 @@ import { ShellPageContent } from "@/features/app-shell/ShellPageContent";
 import { ProfileAppSection } from "@/features/profile/ProfileAppSection";
 import { ProfileHomeScreenSection } from "@/features/profile/ProfileHomeScreenSection";
 import { ProfileLanguages } from "@/features/profile/ProfileLanguages";
+import { ProfileSections, isProfileSection } from "@/features/profile/ProfileSections";
 import { ProfileSpokenLanguage } from "@/features/profile/ProfileSpokenLanguage";
 import { copy } from "@/features/profile/content";
 import { SubmitButton } from "@/components/ui/SubmitButton";
@@ -27,6 +28,8 @@ export default async function ProfilePage({
   const params = await searchParams;
   const switchFailed = params.failed !== undefined;
   const spokenFailed = params.spoken !== undefined;
+  const sectionParam = typeof params.section === "string" ? params.section : undefined;
+  const initialSection = isProfileSection(sectionParam) ? sectionParam : "languages";
   const languages = await listLearningLanguages();
   const spoken = await getSpokenLanguage();
   const holdings =
@@ -36,27 +39,37 @@ export default async function ProfilePage({
 
   return (
     <ShellPageContent width="narrow">
-      <ProfileSpokenLanguage outcome={spoken} changeFailed={spokenFailed} />
-
-      <ProfileLanguages
-        outcome={languages}
-        holdings={holdings.status === "ok" ? holdings.byCode : undefined}
-        switchFailed={switchFailed}
+      <ProfileSections
+        initialSection={initialSection}
+        languages={
+          <>
+            <ProfileSpokenLanguage outcome={spoken} changeFailed={spokenFailed} />
+            <ProfileLanguages
+              outcome={languages}
+              holdings={holdings.status === "ok" ? holdings.byCode : undefined}
+              switchFailed={switchFailed}
+            />
+          </>
+        }
+        data={
+          <section>
+            <h2 className="text-xl font-semibold text-ink">{accountCopy.title}</h2>
+            <p className="mt-4 max-w-2xl text-base leading-relaxed text-muted">{accountCopy.intro}</p>
+            <AccountDataPanel />
+          </section>
+        }
+        device={
+          <>
+            <ProfileAppSection />
+            <ProfileHomeScreenSection />
+          </>
+        }
+        signOut={
+          <form action={signOutAction}>
+            <SubmitButton variant="secondary">{copy.signOut}</SubmitButton>
+          </form>
+        }
       />
-
-      <section className="mt-page-content">
-        <h2 className="text-xl font-semibold text-ink">{accountCopy.title}</h2>
-        <p className="mt-4 max-w-2xl text-base leading-relaxed text-muted">{accountCopy.intro}</p>
-        <AccountDataPanel />
-      </section>
-
-      <ProfileAppSection />
-
-      <ProfileHomeScreenSection />
-
-      <form action={signOutAction} className="mt-page-content">
-        <SubmitButton variant="secondary">{copy.signOut}</SubmitButton>
-      </form>
     </ShellPageContent>
   );
 }

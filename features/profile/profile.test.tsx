@@ -5,8 +5,10 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { ProfileAppSection } from "@/features/profile/ProfileAppSection";
 import { ProfileHomeScreenSection } from "@/features/profile/ProfileHomeScreenSection";
 import { ProfileLanguages } from "@/features/profile/ProfileLanguages";
+import { ProfileSections } from "@/features/profile/ProfileSections";
 import { ProfileSpokenLanguage } from "@/features/profile/ProfileSpokenLanguage";
 import { copy } from "@/features/profile/content";
+import { Button } from "@/components/ui/Button";
 import { renderWithAppUpdate } from "@/features/app-shell/test-utils";
 import packageJson from "@/package.json";
 import { isStandaloneDisplay } from "@/lib/is-standalone-display";
@@ -250,5 +252,51 @@ describe("ProfileHomeScreenSection", () => {
     render(<ProfileHomeScreenSection />);
 
     expect(await screen.findByText(copy.homeScreenActive)).toBeDefined();
+  });
+});
+
+describe("ProfileSections", () => {
+  const renderSections = (initialSection?: "languages" | "data" | "device") =>
+    render(
+      <ProfileSections
+        initialSection={initialSection}
+        languages={<p>Languages panel</p>}
+        data={<p>Data panel</p>}
+        device={<p>Device panel</p>}
+        signOut={<Button type="button">Sign out</Button>}
+      />,
+    );
+
+  const panel = (id: "languages" | "data" | "device") =>
+    document.getElementById(`profile-panel-${id}`);
+
+  it("shows section pills with Languages active by default", () => {
+    renderSections();
+
+    expect(screen.getByRole("navigation", { name: copy.sectionsNavLabel })).toBeDefined();
+    expect(screen.getByRole("button", { name: copy.sectionLanguages, pressed: true })).toBeDefined();
+    expect(panel("languages")?.hidden).toBe(false);
+    expect(panel("data")?.hidden).toBe(true);
+    expect(screen.getByRole("button", { name: copy.signOut })).toBeDefined();
+  });
+
+  it("switches panels instantly when a pill is tapped", async () => {
+    const user = userEvent.setup();
+    renderSections();
+
+    await user.click(screen.getByRole("button", { name: copy.sectionData }));
+
+    expect(screen.getByRole("button", { name: copy.sectionData, pressed: true })).toBeDefined();
+    expect(panel("data")?.hidden).toBe(false);
+    expect(panel("languages")?.hidden).toBe(true);
+    expect(screen.getByRole("button", { name: copy.signOut })).toBeDefined();
+  });
+
+  it("opens on the requested section when initialSection is data", () => {
+    renderSections("data");
+
+    expect(screen.getByRole("button", { name: copy.sectionData, pressed: true })).toBeDefined();
+    expect(panel("data")?.hidden).toBe(false);
+    expect(panel("languages")?.hidden).toBe(true);
   });
 });

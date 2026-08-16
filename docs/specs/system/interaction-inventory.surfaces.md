@@ -76,6 +76,7 @@ Update this file in the same PR as any new control or migration.
 
 | Control | File | Primitive | Variant | P |
 | --- | --- | --- | --- | --- |
+| Section pills | `ProfileSections.tsx` | `FilterPill` | `aria-pressed`; in-page tab panels | — |
 | Spoken language row | `ProfileSpokenLanguage.tsx` | `LanguageListRow` | `names` override | — |
 | Spoken make active | `ProfileSpokenLanguage.tsx` | `SubmitButton` | `secondary sm` | auto |
 | Choose first | `ProfileLanguages.tsx` | `ActionLink` | primary (default) | ✓ |
