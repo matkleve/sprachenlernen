@@ -14,21 +14,29 @@ works for bookmarks and links.
 
 - **In:** **full-bleed hero** reusing the same section graphic as method cards
   ([`method-card-header.md`](../component/method-card-header.md), taller variant);
-  **two-column layout** at `≥ md` — main article (large `<h1>`, summary, tier +
-  effort badges, **how/why prose** from `trains`, **does-not-do** paragraph) and a
-  **practical-details panel** (duration, needs, hosted, research disclosure).
-  On `< md` the panel collapses into a `Disclosure`. Cards keep Lucide badge row
+  **two-column layout** at `≥ md` — main article (large `<h1>`, summary, **badge
+  band** with tier icons + plain effort text, **how/why prose** from `trains`,
+  **does-not-do** paragraph) and a **practical-details panel** (duration, full
+  needs list, hosted, effort anchor sentence, research disclosure). On `< md` the
+  panel collapses into a `Disclosure`. Cards keep Lucide badge row
   ([`method-badge.md`](../component/method-badge.md)). Tier badges:
   [`skill-tier-badge.md`](../component/skill-tier-badge.md). Shell header keeps
   the methods list title on drill-in (not the method name; shell uses `<p>` so the
   in-page `<h1>` is unique). Desktop back link preserves filters; mobile shell
   back chip.
 - **Out:** measured effect; wood tier on UI; visible tier/skill text on badges;
-  badge row on cards changing in this slice; Start for unbuilt hosted engines;
-  a list of labelled micro-sections in the main column.
+  evidence badge in the detail band; effort dot scale; duplicate "Mainly …"
+  prose when tiers show the same fact; Start for unbuilt hosted engines; a list
+  of labelled micro-sections in the main column.
 
 **UX revision 2026-08-16:** study/33 — tier badges on detail; duration as one
 range chip; hero matches card graphic; facts move to sidebar.
+
+**Property audit (UX, 2026-08-16 — pending owner go):** study/34 — detail badge
+band shows **skill tier icons + plain effort text only** (effort right at `≥ sm`);
+**no evidence badge** in the band (disclosure only); **no effort dot scale**;
+effort anchor sentence stays in Practical. Aligns study/27 plain labels with
+study/33 layout.
 
 ## Layout order
 
@@ -57,7 +65,8 @@ range chip; hero matches card graphic; facts move to sidebar.
       section graphic as its card, spans the viewport width, and the in-page
       `<h1>` shows the full `name` in the main column below the hero.
 - [ ] Given bronze+ skill tiers, when the badge band renders, then tier icons
-      appear without visible text labels and effort shows on the right at `≥ sm`.
+      appear without visible text labels and a **plain effort label** (e.g.
+      "Draining") shows on the right at `≥ sm` — not a dot scale.
 - [ ] Given wood-only skills, when detail renders, then no skill tier icons appear.
 - [ ] Given any method, when detail renders, then `trains` and `doesNotDo` appear
       as prose in the main column — not as a stack of small labelled list rows.
@@ -69,8 +78,12 @@ range chip; hero matches card graphic; facts move to sidebar.
       a sticky aside beside the article.
 - [ ] Given method detail, when the shell header renders, then it shows **Methods**
       (not the method name) and is not a second `<h1>` (`<p>`).
-- [ ] Given method detail, when the badge band renders, then evidence and an
-      **Effort** label with a 1–3 dot scale are visible outside practical details.
+- [ ] Given method detail, when the badge band renders, then **no evidence badge**
+      appears — evidence is only in the Practical research disclosure.
+- [ ] Given intensity 3, when the badge band renders, then effort shows as plain
+      text ("Draining") — not a 1–3 dot scale.
+- [ ] Given any method, when Practical details render, then the effort anchor
+      sentence from `INTENSITY` appears (e.g. "you will be tired afterwards").
 - [ ] Given viewport `< md`, when the hero renders, then the section graphic
       extends under the floating shell header to the top of the viewport.
 - [ ] Given evidence C expanded, when disclosure opens, then plain "Thin evidence"

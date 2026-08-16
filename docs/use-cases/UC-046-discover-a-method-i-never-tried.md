@@ -26,8 +26,8 @@ them.
 - It can be filtered by how much time the learner has, what skill they want to
   train, how much energy they have, and — optionally — hands, voice, and eyes.
 - Each entry shows **at a glance** what skills it serves (with contribution
-  level), how strong the evidence is, and how much effort it takes — on the card
-  before opening detail.
+  level), how strong the evidence is, and how much effort it takes — plain text
+  badges on the card, not dot scales or letter grades (study/34).
 - Section **header graphics** (one per catalogue section, not per method) help
   scan the full range without implying a quality rank.
 - Each entry says what it trains, what it requires, how demanding it is, and

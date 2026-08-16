@@ -71,6 +71,7 @@ only this table.
 | [31 · iOS Safari / PWA test report](31-ios-safari-pwa-test-report.md) | Consolidated issue report, shipped fixes, and owner LIVE CHECK matrix (`v0.4.1`) |
 | [32 · PWA profile UX](32-pwa-profile-ux.md) | Profile Home screen block — scope table, buttons, designer review |
 | [33 · Skill-tier badges](33-skill-tier-badges-exploration.md) | Wood→platinum per-skill badges, detail layout, v3 asset brief (repo only) |
+| [34 · Method surfaces property audit](34-method-surfaces-property-audit.md) | UX designer review of every card/detail property — badges, chips, effort dots — pending owner go |
 | [Sources](sources.md) | Literature, honestly marked by how far each was checked |
 
 Chapters 12–26 were written after the roadmap and are appended at the end. By

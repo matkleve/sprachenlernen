@@ -26,14 +26,16 @@ So they optimise for what feels productive, which is reliably not what works.
   finishing.
 - It states the **mechanism** in plain language — not "helps your listening" but
   why it does, and what would be different if it worked.
-- It states **how confident anyone is**, using plain labels on the card (e.g.
-  "Thin evidence") and a **collapsed disclosure** on the detail page with plain
-  prose — no "Evidence C" letter-grade prefix in the UI.
+- It states **how confident anyone is**, using a plain label on the **card**
+  (e.g. "Thin evidence") and a **collapsed disclosure** on the detail Practical
+  panel with plain prose — not in the detail badge band, and no "Evidence C"
+  letter-grade prefix in the UI.
 - It states **what skills the method mainly serves**, with contribution level
-  per skill (primary, secondary, slight) — visible on the **card** at a glance;
-  on detail, a prose line under Trains when marks exist.
+  per skill — Lucide marks on the **card**; tier shield icons (bronze+) on
+  detail. No duplicate "Mainly …" prose when tiers already show the fact.
 - It states **how demanding it is to perform** (intensity), as a plain effort
-  label on the card and one sentence in the detail **Practical** section.
+  label on the card and detail badge band, plus one anchor sentence in the
+  detail **Practical** section — **never** a three-dot scale (study/27, study/34).
 - It states **what the method does not do**. This section is mandatory; a page
   without it is an advertisement. On the card it appears as clamped prose below
   the chips; on detail it uses a callout surface.
