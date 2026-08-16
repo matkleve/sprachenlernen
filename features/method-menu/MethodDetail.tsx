@@ -56,8 +56,11 @@ export function MethodDetail({ method, searchParams = {} }: MethodDetailProps) {
         ← {copy.backToMethods}
       </ActionLink>
 
-      <MethodDetailHero section={method.section} name={method.name} />
-      <p className="mt-4 text-base leading-relaxed text-muted">{method.summary}</p>
+      <MethodDetailHero section={method.section} />
+      <h1 className="mt-6 text-2xl font-semibold tracking-tight text-ink sm:text-3xl">
+        {method.name}
+      </h1>
+      <p className="mt-3 text-base leading-relaxed text-muted">{method.summary}</p>
 
       <MethodDetailBadgeBand method={method} />
 

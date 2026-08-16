@@ -6,7 +6,6 @@ import { copy as reviewCopy } from "@/features/review-session/content";
 import { routes } from "@/lib/routes";
 
 import { holding } from "./content";
-import { methodTitlesById } from "./method-titles";
 
 /**
  * The visible page title for the shell header. Contract:
@@ -26,8 +25,7 @@ export function shellPageTitle(pathname: string): string {
   if (pathname === routes.chooseLanguage) return languagePickerCopy.title;
 
   if (pathname.startsWith(`${routes.methods}/`)) {
-    const id = pathname.slice(routes.methods.length + 1).split("/")[0];
-    if (id) return methodTitlesById[id] ?? methodMenuCopy.title;
+    return methodMenuCopy.title;
   }
 
   return "";

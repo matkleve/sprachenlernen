@@ -20,7 +20,7 @@ describe("ShellPageTitle", () => {
   it("viewport-centers long mobile titles with absolute positioning", () => {
     render(<ShellPageTitle variant="mobile" />);
 
-    const title = screen.getByTitle("Spaced repetition session");
+    const title = screen.getByTitle("Ways of practising");
     expect(title.tagName).toBe("P");
     expect(title.className).toContain("line-clamp-2");
     expect(title.className).toContain("absolute");

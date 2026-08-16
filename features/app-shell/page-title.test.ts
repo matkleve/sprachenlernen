@@ -20,8 +20,8 @@ describe("shellPageTitle", () => {
     expect(shellPageTitle(routes.wordsReview)).toBe(reviewCopy.title);
   });
 
-  it("returns the method name on a method detail route", () => {
-    expect(shellPageTitle("/methods/srs-session")).toBe("Spaced repetition session");
+  it("returns the methods list title on a method detail route", () => {
+    expect(shellPageTitle("/methods/srs-session")).toBe(methodMenuCopy.title);
   });
 
   it("starts compact on the review route", () => {

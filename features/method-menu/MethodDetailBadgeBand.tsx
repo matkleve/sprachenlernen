@@ -15,31 +15,22 @@ function isRenderableTier(tier: SkillTier): tier is Exclude<SkillTier, "wood"> {
 }
 
 /**
- * Skill tier icons (left) and effort (right) under the detail hero.
+ * Skill tier icons (left) and effort chip (right) under the detail hero.
  * Contract: docs/specs/page/method-detail.md
  */
 export function MethodDetailBadgeBand({ method, className }: MethodDetailBadgeBandProps) {
   const tiers = visibleSkillTiers(method);
 
   return (
-    <div
-      className={cn(
-        "mt-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between",
-        className,
+    <div className={cn("mt-6 flex flex-wrap items-center gap-2", className)}>
+      {tiers.map(({ skill, tier }) =>
+        isRenderableTier(tier) ? (
+          <SkillTierBadge key={skill} skill={skill} tier={tier} />
+        ) : null,
       )}
-    >
-      {tiers.length > 0 ? (
-        <div className="flex flex-wrap items-center gap-2">
-          {tiers.map(({ skill, tier }) =>
-            isRenderableTier(tier) ? (
-              <SkillTierBadge key={skill} skill={skill} tier={tier} />
-            ) : null,
-          )}
-        </div>
-      ) : (
-        <div />
-      )}
-      <EffortBadge intensity={method.intensity} />
+      <span className={cn(tiers.length > 0 && "sm:ml-auto")}>
+        <EffortBadge intensity={method.intensity} />
+      </span>
     </div>
   );
 }
