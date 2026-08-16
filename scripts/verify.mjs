@@ -14,6 +14,7 @@ const CHECKS = [
   ["typecheck", "npm", ["run", "--silent", "typecheck"]],
   ["lint", "npm", ["run", "--silent", "lint"]],
   ["specs", "node", ["scripts/check-specs.mjs"]],
+  ["i18n", "node", ["scripts/check-i18n-keys.mjs"]],
   ["tokens", "node", ["scripts/check-tokens.mjs"]],
   ["contrast", "node", ["scripts/check-contrast.mjs"]],
   ["interaction", "node", ["scripts/check-interaction-surfaces.mjs"]],

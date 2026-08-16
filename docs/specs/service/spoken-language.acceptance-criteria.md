@@ -10,7 +10,9 @@
       language on `/profile`, then `spoken_language` stays `de`.
 - [ ] Given Account B signed in, when B reads or writes A's `profiles` row,
       then zero rows are returned and the write is refused (§8 test).
+- [ ] Given `/profile` with `spoken_language` `de`, when the page loads, then
+      menus, headings, and buttons render in German (not English).
 - [ ] Given `/profile`, when the learner changes spoken language to `de`, then
-      the page shows Deutsch as the current value.
+      the page shows Deutsch as the current value and chrome strings update to German.
 - [ ] Given a profile read failure, then the outcome is `error`, not a guessed
       default.
