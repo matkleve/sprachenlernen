@@ -223,29 +223,50 @@ color swap.)
 | [method-detail.md](../specs/page/method-detail.md) | No badge row on detail | Proposes badge band under hero title |
 | [GLOSSARY.md](../GLOSSARY.md) | primary / secondary / slight | May add tier names as display layer over same data |
 
-**Before implementation:** owner picks grid winners, confirms 5-tier mapping, and
-explicitly revises study/27 § "Do not use copper, silver, gold" or documents
-wood→platinum as the approved display vocabulary.
+**Before implementation:** owner picks grid winners; tier **metric** and **display
+rules** below are decided (2026-08-16).
 
 ---
 
-## Defaults (unless owner says otherwise)
+## Owner decisions (2026-08-16, confirmed)
 
-These replace the earlier open questions — simpler working assumptions:
-
-| Topic | Default |
+| Topic | Decision |
 | --- | --- |
-| Which skills to show | **Only skills this method trains** (no empty dimmed slots) |
-| Tier labels | **Art + short text** under badge ("Gold · Listening") |
-| Cards vs detail | **Detail first**; cards keep Lucide until final assets exist |
-| Shield + material | **Both evolve per tier** (owner 2026-08-16) |
+| **Which badges to show** | **Only skills the method improves** — bronze tier or higher. Wood and “none” are **not shown** (no dimmed slots, no empty columns). |
+| **Tier metric** | **Five tiers** (wood → platinum) computed per skill per method from catalogue data **from day one**. Wood exists in the metric but stays **off the UI**. |
+| **Why hide wood** | A method can be excellent overall while contributing little to one skill. Showing a wood badge would read as “bad method” and discourage use. The metric is honest; the display is selective. |
+| **Badge labels** | **Icons only** — shield + skill motif, no “Gold · Listening” text. Screen readers get `aria-label` / `title` with tier + skill in words. |
+| **Shield + material** | Both evolve per tier (see v2 prompt). |
+| **Cards vs detail** | Detail first; cards keep Lucide until final assets exist. |
+
+### Skill tier metric (v1)
+
+Computed once per method from catalogue fields (`section`, `skills[]`, `trains`,
+`intensity`, optional future `skillContribution`). Internal only — learners
+never see “wood” on a badge.
+
+| Tier | Shown on UI? | Meaning | Derivation (v1) |
+| --- | --- | --- | --- |
+| Wood | **No** | Barely touches this skill | `slight` + weak `trains` pattern |
+| Bronze | Yes | Minor but real benefit | `slight` without weak trains |
+| Silver | Yes | Clear secondary training | `secondary` |
+| Gold | Yes | Primary reason to do this | `primary` |
+| Platinum | Yes | Exceptional focus on this skill | `primary` + section-primary skill + `intensity` 3, or explicit catalogue flag (v2) |
+
+**Display rule:** render a tier badge only when `tier ≥ bronze` for that skill.
+If no skill qualifies, the left side of the badge band is empty (effort still
+shows on the right).
+
+**Phase note (owner: “do B, then immediately A”):** ship the **full five-step
+metric** in data/code first (A); the **UI** only ever renders bronze–platinum
+icons (B — wood never appears). No phased “four tiers then add platinum later”.
 
 ---
 
-## Open questions (only if defaults wrong)
+## Open questions (remaining)
 
-1. Platinum: rare catalogue flag, or derived from `primary` + demanding?
-2. Asset pipeline: SVG components (frame + icon layers) vs flat webp per cell?
+1. Asset pipeline: SVG components (frame + icon layers) vs flat webp per cell?
+2. Platinum v1: derive from rule above, or require explicit `skillContribution` on ~10 borderline methods?
 
 ---
 

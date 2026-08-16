@@ -16,8 +16,10 @@ by the owner.
 | --- | --- | --- |
 | 1 | Hero style | **Text-mask first** — section graphic integrated with in-page title; full-bleed fade hero deferred |
 | 2 | Duration chips | **Deferred** — UX recommendation below; owner asked for designer input |
-| 3 | Skill marks on detail | **Exploring** tier badges (wood→platinum) per skill — see study/33 |
+| 3 | Skill marks on detail | **Tier badges** (wood→platinum metric; show bronze+ only; icons only) — see study/33 |
 | 4 | Layout | Skill tier badges **left**, effort **right**, under in-page title (not shell header) |
+| 5 | Which skills shown | **Only improving** — bronze tier or higher; wood hidden |
+| 6 | Badge labels | **Icons only** — no visible tier/skill text; `aria-label` for a11y |
 
 ---
 
@@ -28,7 +30,7 @@ by the owner.
 │  [Text-mask hero: section graphic + method name]        │
 │  Summary (muted, full width)                            │
 │                                                         │
-│  [🎧 Gold listening] [📖 Silver reading]    Draining →  │  ← badge band
+│  [🎧] [📖]                              Draining →  │  ← tier icons only (bronze+)
 │                                                         │
 │  Practical                                              │
 │  … effort sentence …                                    │
