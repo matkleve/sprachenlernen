@@ -7,6 +7,7 @@ import { expectNoA11yViolations } from "@/tests/axe";
 
 import {
   EffortBadge,
+  EffortScale,
   EvidenceBadge,
   MethodBadgeRow,
   SkillMarkBadge,
@@ -56,9 +57,10 @@ describe("EvidenceBadge", () => {
 });
 
 describe("EffortBadge", () => {
-  it("shows a plain-language effort label instead of dots", () => {
-    render(<EffortBadge intensity={1} />);
-    expect(screen.getByText(effortCard[1])).toBeDefined();
+  it("shows Effort label with a three-step scale on detail", () => {
+    render(<EffortScale intensity={1} />);
+    expect(screen.getByText(copy.card.effort)).toBeDefined();
+    expect(screen.getByText(/Light effort \(1 of 3\)/)).toBeDefined();
   });
 });
 
@@ -83,7 +85,8 @@ describe("method surfaces", () => {
   it("shows article layout on detail without badge row", () => {
     render(<MethodDetail method={method} />);
     expect(screen.getByRole("heading", { level: 1, name: method.name })).toBeDefined();
-    expect(screen.getByText(/Light effort/i)).toBeDefined();
+    expect(screen.getByText(copy.card.effort)).toBeDefined();
+    expect(screen.getAllByText("Thin evidence").length).toBeGreaterThan(0);
     expect(document.body.textContent).toContain(method.trains);
     expect(document.body.textContent).toContain(method.doesNotDo);
     expect(screen.queryByTitle("Listening, slight")).toBeNull();

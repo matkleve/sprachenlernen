@@ -53,9 +53,10 @@ export function MethodDetail({ method, searchParams = {} }: MethodDetailProps) {
             <h1 className="text-3xl font-semibold tracking-tight text-ink sm:text-4xl">
               {method.name}
             </h1>
-            <p className="mt-4 text-lg leading-relaxed text-muted">{method.summary}</p>
 
-            <MethodDetailBadgeBand method={method} className="mt-6" />
+            <MethodDetailBadgeBand method={method} className="mt-4" />
+
+            <p className="mt-4 text-lg leading-relaxed text-muted">{method.summary}</p>
 
             <MethodDetailFacts method={method} variant="mobile" className="md:hidden" />
 

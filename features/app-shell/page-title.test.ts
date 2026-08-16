@@ -20,8 +20,8 @@ describe("shellPageTitle", () => {
     expect(shellPageTitle(routes.wordsReview)).toBe(reviewCopy.title);
   });
 
-  it("returns the methods list title on a method detail route", () => {
-    expect(shellPageTitle("/methods/srs-session")).toBe(methodMenuCopy.title);
+  it("returns Methods on a method detail route", () => {
+    expect(shellPageTitle("/methods/srs-session")).toBe(methodMenuCopy.drillInShellTitle);
   });
 
   it("starts compact on the review route", () => {

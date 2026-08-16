@@ -67,8 +67,12 @@ range chip; hero matches card graphic; facts move to sidebar.
       a collapsed disclosure — not inline list sections in the main column.
 - [ ] Given viewport `≥ md`, when detail renders, then practical facts appear in
       a sticky aside beside the article.
-- [ ] Given method detail, when the shell header renders, then it shows the
-      methods list title (not the method name) and is not a second `<h1>` (`<p>`).
+- [ ] Given method detail, when the shell header renders, then it shows **Methods**
+      (not the method name) and is not a second `<h1>` (`<p>`).
+- [ ] Given method detail, when the badge band renders, then evidence and an
+      **Effort** label with a 1–3 dot scale are visible outside practical details.
+- [ ] Given viewport `< md`, when the hero renders, then the section graphic
+      extends under the floating shell header to the top of the viewport.
 - [ ] Given evidence C expanded, when disclosure opens, then plain "Thin evidence"
       prose appears — no letter grade prefix.
 - [ ] Given unknown id, when the page renders, then it does not claim the method

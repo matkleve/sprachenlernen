@@ -29,6 +29,8 @@ export function formatTimeBudget(budget: TimeBudget): string {
 
 export const copy = {
   title: "Ways of practising",
+  /** Shell header on method drill-in routes — short, fits mobile header. */
+  drillInShellTitle: "Methods",
   intro:
     "Sixty-odd ways people actually learn languages. Three questions narrow the list — how long you have, what you want to train, and how much energy you have. Refine only if you need to.",
   timeLabel: "How much time do you have?",

@@ -25,7 +25,7 @@ export function shellPageTitle(pathname: string): string {
   if (pathname === routes.chooseLanguage) return languagePickerCopy.title;
 
   if (pathname.startsWith(`${routes.methods}/`)) {
-    return methodMenuCopy.title;
+    return methodMenuCopy.drillInShellTitle;
   }
 
   return "";
