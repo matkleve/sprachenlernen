@@ -14,18 +14,18 @@ Parent contract: [`practice-model.md`](practice-model.md). Catalogue schema:
 ## Scope
 
 - **In:** the engine concept; the shipped **card engine** (`srs-session` on
-  `/words/review`); routing rules (`lib/method-session.ts`); what feeds Progress
-  and Words today.
-- **Out:** menu composition (method-menu); individual session FSM
-  (review-session); building engines not yet queued in
-  [`IMPLEMENTATION-PLAN.md`](../../IMPLEMENTATION-PLAN.md).
+  `/words/review`); the **exercise runner** (draft —
+  [`exercise-runner.md`](../feature/exercise-runner.md) on `/practice`);
+  routing rules (`lib/method-session.ts`); what feeds Progress and Words today.
+- **Out:** menu composition (method-menu); individual session FSMs
+  (review-session, exercise-runner); building every catalogue Method.
 
 ## The three layers
 
 | Layer | What it is | Ships today |
 | --- | --- | --- |
 | **Method catalogue** | Data — every named way to practise, hosted or off-app | 53 methods, browsable at `/methods` |
-| **Method engine** | Code that turns one Method into a session — pool, grading, persistence | **One:** card engine (`srs-session`) |
+| **Method engine** | Code that turns one Method into a session | **One built:** card engine (`srs-session`). **One specced:** exercise runner (UC-049) |
 | **Destination** | Where a learner goes for a kind of work — Methods, Words, Progress | Three (ADR-0009) |
 
 A **hosted** catalogue entry (`hosted: true`) means the product intends to run it
@@ -48,11 +48,24 @@ engine on the same route. **Form-recall** Tasks ship in
 [`form-recall-pool.md`](form-recall-pool.md) — staged after meaning-recall is
 held for the same Word.
 
+## Exercise runner (draft)
+
+| Field | Value |
+| --- | --- |
+| Methods | Multi-step: dictation, free writing, 4/3/2, … |
+| Route | `/practice?method=…` ([`practice.md`](../page/practice.md)) |
+| Step model | prepare · do · wait · submit · review · decide |
+| Recipes | Data — ordered steps + components ([`exercise-runner.md`](../feature/exercise-runner.md)) |
+| Writes | Session log (future); `decide` may create cards — never silently |
+
+Build order: [`plans/exercise-runner.md`](../../plans/exercise-runner.md).
+
 ## Routing
 
 | Catalogue state | From method menu card | From method detail |
 | --- | --- | --- |
-| Hosted, engine built (`srs-session`) | Opens Words review directly | Start → Words review |
+| Hosted, card engine (`srs-session`) | Opens Words review directly | Start → Words review |
+| Hosted, exercise runner (when built) | Detail page (or direct if daily three) | Start → `/practice?method=…` |
 | Hosted, engine not built | Detail page | Honest not-built copy; no Start |
 | Off-app (`hosted: false`) | Detail page | Off-app copy; no Start |
 
@@ -73,19 +86,18 @@ until their engines ship — not a bug in the catalogue.
 
 ## Engine queue
 
-Order is load-bearing — see IMPLEMENTATION-PLAN § Track B engine phase:
+Order is load-bearing — see IMPLEMENTATION-PLAN § Track B engine phase and
+[`plans/exercise-runner.md`](../../plans/exercise-runner.md):
 
 1. ~~Spanish starter pool (2000 lemmas)~~ — shipped
-2. Form→lemma tables with paradigm cells — pool and signal shipped
-   ([`form-recall-pool.md`](form-recall-pool.md),
-   [`form-mastery-signal.md`](form-mastery-signal.md)). The **practice design**
-   — introduction order, session mixing, answer routes — is
-   [`form-practice.md`](form-practice.md), and it is still blocked on two
-   decisions named there
-3. T-B3 remainder (extrapolation + per-skill levels)
-4. Offline / PWA
-5. T-B10b remainder (demonstration sentence, readiness)
-6. T-B4 numerator (guided hours practised)
+2. Form→lemma tables — pool and signal shipped. Card-side form practice:
+   [`form-practice.md`](form-practice.md) (still blocked on inverse index)
+3. **Exercise runner** (T-E1–E8) — platform for dictation, writing, listening
+   drills; first real method after T-W7 coverage
+4. T-B3 remainder (extrapolation + per-skill levels)
+5. Offline / PWA
+6. T-B10b remainder (readiness)
+7. T-B4 numerator (guided hours practised)
 
 ## Acceptance criteria
 

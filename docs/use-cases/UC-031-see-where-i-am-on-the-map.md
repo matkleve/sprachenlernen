@@ -48,7 +48,8 @@ The first map is **pool-local** on `/words`:
   popover (textual equivalent — UC-021, `CONSTITUTION` §3).
 
 Language-wide holes, content traceability, and coverage payoff lines ship with
-the coverage calculator (stage 3).
+the coverage calculator (stage 3) — see
+[`content-traceability.md`](../specs/feature/content-traceability.md).
 
 ## Out of scope
 

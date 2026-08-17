@@ -5,5 +5,5 @@
 import { describe, it } from "vitest";
 
 describe("method-material-setup", () => {
-  it.todo("AC-1: setup panel renders for methods with materialModes");
+  it.todo("AC-1: topic chip row renders for methods with materialTopics");
 });

@@ -6,8 +6,8 @@ implements what is written here.
 Format and size rules: [`../SPEC-FORMAT.md`](../SPEC-FORMAT.md).
 Scaffold one: `npm run new:spec`.
 
-**Index synced 2026-08-17.** 78 canonical specs — 71 active,
-2 superseded, 5 draft. `npm run check:specs` verifies
+**Index synced 2026-08-17.** 80 canonical specs — 71 active,
+2 superseded, 7 draft. `npm run check:specs` verifies
 bidirectional traceability to use cases; this index is for navigation. Regenerate
 after adding specs: `node scripts/generate-specs-index.mjs`.
 
@@ -60,7 +60,7 @@ that first.
 | `SPEC-component-status-banner` | [status-banner.md](component/status-banner.md) | UC-074 | active |
 | `SPEC-component-table` | [table.md](component/table.md) | UC-003 | active |
 
-### feature/ (21)
+### feature/ (22)
 
 | ID | Spec | Use case | Status |
 | --- | --- | --- | --- |
@@ -70,6 +70,7 @@ that first.
 | `SPEC-feature-content-gap` | [content-gap.md](feature/content-gap.md) | UC-034 | draft |
 | `SPEC-feature-content-traceability` | [content-traceability.md](feature/content-traceability.md) | UC-031 | draft |
 | `SPEC-feature-demonstration-sentence` | [demonstration-sentence.md](feature/demonstration-sentence.md) | UC-050 | active |
+| `SPEC-feature-exercise-runner` | [exercise-runner.md](feature/exercise-runner.md) | UC-049 | draft |
 | `SPEC-feature-interaction-feedback` | [interaction-feedback.md](feature/interaction-feedback.md) | UC-068 | active |
 | `SPEC-feature-item-picker` | [item-picker.md](feature/item-picker.md) | UC-001 | superseded |
 | `SPEC-feature-method-material-setup` | [method-material-setup.md](feature/method-material-setup.md) | UC-046 | draft |
@@ -86,7 +87,7 @@ that first.
 | `SPEC-feature-word-detail` | [word-detail.md](feature/word-detail.md) | UC-038 | active |
 | `SPEC-feature-words-home` | [words-home.md](feature/words-home.md) | UC-063 | active |
 
-### page/ (11)
+### page/ (12)
 
 | ID | Spec | Use case | Status |
 | --- | --- | --- | --- |
@@ -97,6 +98,7 @@ that first.
 | `SPEC-page-language-status` | [language-status.md](page/language-status.md) | UC-036 | active |
 | `SPEC-page-method-detail` | [method-detail.md](page/method-detail.md) | UC-042 | active |
 | `SPEC-page-method-menu` | [method-menu.md](page/method-menu.md) | UC-045 | active |
+| `SPEC-page-practice` | [practice.md](page/practice.md) | UC-049 | draft |
 | `SPEC-page-profile` | [profile.md](page/profile.md) | UC-024 | active |
 | `SPEC-page-progress` | [progress.md](page/progress.md) | UC-004 | active |
 | `SPEC-page-words` | [words.md](page/words.md) | UC-063 | active |

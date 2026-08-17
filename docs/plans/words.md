@@ -108,7 +108,9 @@ gaps for content (UC-034) — those are stage 1 capture / stage 3 reading.
 
 Specs: [`content-traceability.md`](../specs/feature/content-traceability.md)
 (loop), [`coverage.md`](../specs/service/coverage.md) (T-W7),
-[`content-gap.md`](../specs/feature/content-gap.md) (T-W8).
+[`content-gap.md`](../specs/feature/content-gap.md) (T-W8),
+[`method-material-setup.md`](../specs/feature/method-material-setup.md) (T-W10a).
+Study: [`37-content-and-method-setup-ux.md`](../study/37-content-and-method-setup-ux.md).
 
 Do not queue these until phase 2 map is honest at pool scope.
 
@@ -118,7 +120,7 @@ Do not queue these until phase 2 map is honest at pool scope.
 | **T-W8b** | **Word trace block** — content appearances on orbit/word detail; loop copy `contentTrace.word.*`; empty state. | UC-038, UC-031 | `content-traceability.md` | Standard | T-W7 |
 | **T-W8** | **Content gap list** — per source: missing lemmas, learn-as-set, time estimate, too-large guard. | UC-034, UC-059 | `content-gap.md` | Standard | T-W7 |
 | **T-W8c** | **Sources shell** — `/content` index + source detail with coverage and gap section. | UC-033, UC-034, UC-007 | `content-traceability.md` | Standard | T-W7, T-W8 |
-| **T-W10a** | **Method material setup** — topic field, upload/paste, app-pick; Start gating. | UC-046, UC-029, UC-007 | `method-material-setup.md` | Standard | T-W7, T-W8c (catalogue stub ok) |
+| **T-W10a** | **Method material setup** — topic chips + Your own upload; Start gating. | UC-046, UC-029, UC-007 | `method-material-setup.md` | Standard | T-W7, T-W8c (catalogue stub ok) |
 | **T-W9** | **Word capture** — persist learner sources; full library intake. | UC-012 | `word-capture.md` (new) | **Sensitive** | persistence model |
 | **T-W10** | **Reading surface** — graded texts, tap word/sentence, post-read comprehension. | UC-007, UC-030 | reading specs (new) | Standard / Sensitive | T-W8c, T-W9 |
 | **T-W11** | **Session loop line (K4)** — extend `SessionComplete`: lemmas newly held + coverage delta; link to `/words` or `/content`. | UC-031 | `content-traceability.md` | Standard | T-W7 |
@@ -158,15 +160,15 @@ Quick reference: where each vocabulary-heavy use case lands.
 | UC-005 | Trust the schedule | 1 | ✓ | partial (horizon v2; per-card why pending) | review-session G1 |
 | UC-006 | Come back after break | 1 | ✓ partial | session + horizon expand | **T-W12** session prioritisation |
 | UC-011 | Start in first minute | 1 | ✓ | ✓ | — |
-| UC-012 | Capture a word | 1 | — | — | T-W11 spec, T-W9 build |
-| UC-031 | Map of the language | 2 | ✓ partial | partial (bands + orbit) | T-W3 |
-| UC-032 | Vocabulary milestone | 2 | — | — | T-W1 |
-| UC-034 | Missing for this episode | 3 | — | — | T-W8 |
-| UC-038 | Why this word | 2 | — | — | T-W2 |
+| UC-012 | Capture a word | 1 | — | — | T-W9 (spec in queue) |
+| UC-031 | Map of the language | 2/3 | ✓ partial | partial (bands + orbit + word detail) | **T-W8b**, T-W11 (loop) |
+| UC-032 | Vocabulary milestone | 2 | ✓ | ✓ (T-W1) | — |
+| UC-034 | Missing for this episode | 3 | ✓ draft | — | **T-W8** |
+| UC-038 | Why this word | 2/3 | ✓ | partial (word detail) | **T-W8b** (content block) |
 | UC-041 | Forms not just words | 0/2 | ✓ partial | partial (form-recall) | T-W6 |
 | UC-063 | Get to cards | 1 | ✓ | ✓ | — |
 | UC-069 | App in my language | 1 | ✓ | partial | T-W14, T-W15 |
-| UC-007 | Read at my level | 3 | — | — | T-W10 |
+| UC-007 | Read at my level | 3 | ✓ draft | — | T-W10 (+ T-W10a setup) |
 
 Full list: 43 vocabulary-touching use cases; 15 with spec links; 8 with meaningful
 code. Do not try to link all 28 unlinked use cases until their specs exist —

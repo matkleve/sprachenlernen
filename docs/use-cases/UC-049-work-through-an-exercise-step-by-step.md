@@ -1,7 +1,7 @@
 # UC-049 — Work through an exercise one step at a time
 
 <!-- id: UC-049 -->
-<!-- specs:  -->
+<!-- specs: SPEC-feature-exercise-runner, SPEC-page-practice -->
 
 **Who:** anyone doing an exercise with more than one part — a dictation, a piece
 of writing, a 4/3/2 round.
@@ -23,9 +23,11 @@ optimistic.
 
 ## Success looks like
 
-- An exercise runs as a sequence of typed steps: **prepare** (a checklist of what
-  it physically needs), **do**, **wait** (a timer), **check** (against the answer),
-  **decide** (an offer).
+- An exercise runs as a sequence of typed steps: **prepare** (checklist),
+  **do**, **wait** (timer), **submit** (photo or text), **review** (check or
+  feedback), **decide** (an offer).
+- Each step type is filled by a **step component** (audio player, capture,
+  self-mark, …) — one runner, many Methods.
 - The learner can move back and forth freely between steps, and a running timer
   keeps running.
 - **Navigating is not completing.** Swiping past a step never marks it done;

@@ -22,8 +22,10 @@ Research: [`study/12`](../../study/12-method-cards.md) (methods and floors),
 1. **The catalogue is the full honest set** — ~53 Methods plus Commitments.
    Off-app Methods are listed alongside hosted ones without visual demotion
    (UC-046, thesis 9).
-2. **Engines ship one at a time** — stage 1 runs the **card engine** only
-   (`srs-session`). `hosted: true` is intent, not capability.
+2. **Engines ship one at a time** — stage 1 runs the **card engine**
+   (`srs-session`). The **exercise runner** (prepare → submit → review → …)
+   is specced for multi-step Methods ([`exercise-runner.md`](../feature/exercise-runner.md)).
+   `hosted: true` is intent, not capability.
 3. **Three destinations, three questions** (ADR-0009):
    - **Methods** (`/methods`) — *what could I do today?* Filters the catalogue.
    - **Words** (`/words`) — *how are my cards doing?* Card-engine home only.
@@ -45,6 +47,7 @@ Research: [`study/12`](../../study/12-method-cards.md) (methods and floors),
 | Catalogue methods | 53 |
 | Hosted (`hosted: true`) | 34 |
 | Built engines | 1 (`srs-session`) |
+| Exercise runner | specced, not built (UC-049) |
 | Off-app | 19 |
 
 ## Where detail lives
@@ -53,6 +56,7 @@ Research: [`study/12`](../../study/12-method-cards.md) (methods and floors),
 | --- | --- |
 | Catalogue schema and validation | [`method-catalogue.md`](method-catalogue.md) |
 | Which engines exist and how they route | [`method-engines.md`](method-engines.md) |
+| Exercise step runner (UC-049) | [`exercise-runner.md`](../feature/exercise-runner.md) |
 | Menu filters, standing, daily three | [`page/method-menu.md`](../page/method-menu.md) |
 | Words snapshot and Start review | [`words-home.md`](../feature/words-home.md) |
 | Progress signals and pool-local vocab | [`page/progress.md`](../page/progress.md) |

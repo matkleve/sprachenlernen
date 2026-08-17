@@ -7,66 +7,75 @@
 <!-- use-case: UC-030 -->
 <!-- status: draft -->
 
-The **What to practise with** panel on method detail: how the learner steers
-topic and own material before **Start**. Study/26 still holds — the app picks
-gaps, sentences, and band; the learner picks method + material mode.
+The **Topic** chip row on method detail: learner picks from topics this method
+supports, or **Your own** for upload/paste. Study/26 still holds — the app picks
+the passage, gaps, and band inside the choice.
 
-UX source: [`../../study/37-content-and-method-setup-ux.md`](../../study/37-content-and-method-setup-ux.md).
-Resolved Source feeds [`coverage.md`](../service/coverage.md) and the reading /
-dictation runners (T-W10+).
+UX source: [`../../study/37-content-and-method-setup-ux.md`](../../study/37-content-and-method-setup-ux.md)
+(owner correction 2026-08-17: chips, not free-text topic).
 
 ## Scope
 
-- **In:** setup panel on [`method-detail.md`](../page/method-detail.md) when
-  `materialModes` is non-empty; three modes (app pick · topic · own material);
-  optional **Keep in my library**; Start gating until a Source resolves;
-  coverage preview before Start for learner material.
-- **Out:** menu card fields; catalogue authoring; LLM topic generation; RSS
-  sync; runner steps (study/23); gap scheduling ( [`content-gap.md`](content-gap.md) ).
+- **In:** chip row on [`method-detail.md`](../page/method-detail.md) when
+  `materialTopics` is set; built-in **App picks** + **Your own** chips;
+  catalogue preview per topic chip; upload/paste/link **only** when Your own is
+  selected; optional **Keep in my library**; Start gating until Source resolves.
+- **Out:** free-text topic search; menu card fields; catalogue authoring; LLM
+  generation; RSS sync; runner step UI ([`exercise-runner.md`](exercise-runner.md));
+  gap scheduling ([`content-gap.md`](content-gap.md)).
 
-**Reuse: `Field`, `Button`, `Disclosure`** — topic input, upload actions, ladder
-preview.
+**Reuse: `Chip` (selectable), `Button`, `Field`** — topic chips, intake controls.
 
-## Material modes
+## Topic chips
 
-Declared per method in catalogue data (`materialModes`). Subset of:
+Declared per method: `materialTopics: [{ id, labelKey }]`. UI always adds:
 
-| Mode | Learner sees | App does on Start |
+| Chip | `id` | Effect |
 | --- | --- | --- |
-| `catalogue` | *App picks for me* + coverage hint | Readiness picks catalogue Source in comfortable band |
-| `topic` | Free-text topic field + best-match line | Rank catalogue Sources by tag/title fit + coverage |
-| `learner` | Upload / paste / link | Intake → coverage → optional support ladder (UC-030) |
+| App picks | `app-pick` | Readiness picks best catalogue Source (comfortable band) |
+| *(method topics)* | e.g. `news`, `environment` | Best catalogue Source tagged with that `id` |
+| Your own | `own` | Reveals upload / paste / link |
 
-Methods omit the panel when `materialModes` is absent or empty (`srs-session`).
+Methods omit the panel when `materialTopics` is absent or empty (`srs-session`).
+
+Upload controls are **hidden** until `own` is selected — never under catalogue
+topic chips.
 
 ## Behavior
 
 | # | User action | System response |
 | --- | --- | --- |
-| 1 | Opens method with `materialModes` | Setup panel below badge band; `catalogue` selected if listed |
-| 2 | Leaves *App picks* selected | Start enabled; no extra fields |
-| 3 | Selects *About a topic* | Topic `Field` appears; debounced best-match line with coverage % |
-| 4 | Topic matches nothing within 20 pts of comfortable | Inline copy + learner intake affordance (no LLM text gen) |
-| 5 | Selects *My own material* | Upload / paste / link controls; coverage after parse |
-| 6 | Material &lt; 95 % | Support-ladder preview (lowest rung to comfortable); does not block Start |
-| 7 | Checks **Keep in my library** | On Start, persists `learner` Source to `/content` |
-| 8 | Unchecked keep | Session-only Source — no `/content` row; no word-trace link after |
-| 9 | Taps Start with resolved Source | Navigates to runner with `sourceId` (and `supportRung` if set) |
-| 10 | Opens method without `materialModes` | No panel; Start behaves as today |
+| 1 | Opens method with `materialTopics` | Chip row below badge band; `app-pick` selected |
+| 2 | Leaves **App picks** selected | Preview line after resolve; Start enabled |
+| 3 | Taps a catalogue topic chip | Filters Sources by topic `id`; preview with coverage % |
+| 4 | Topic has no catalogue Sources | Chip disabled or empty-state; suggests **Your own** |
+| 5 | Taps **Your own** | Upload / paste / link appear; catalogue preview hidden |
+| 6 | Parses own material &lt; 95 % | Support-ladder preview; Start enabled when parsed |
+| 7 | Checks **Keep in my library** (own only) | On Start, persists `learner` Source to `/content` |
+| 8 | Taps Start | Navigates to `/practice?method=…` with `sourceId`, `topicId`, optional `supportRung` |
+| 9 | Method without `materialTopics` | No panel; Start as today |
 
 ## States
 
 | State | Trigger | Effect | Terminal? |
 | --- | --- | --- | --- |
-| `idle` | page load | Default mode selected | no |
-| `resolving` | paste/upload | Spinner; Start disabled | no |
-| `ready` | Source + coverage known | Start enabled | no |
-| `error` | parse failed | Inline error; Start disabled | no |
+| `app-pick` | default | No intake UI | no |
+| `topic` | catalogue chip | Preview from tagged Sources | no |
+| `own` | Your own chip | Intake controls visible | no |
+| `resolving` | paste/upload | Start disabled | no |
+| `ready` | Source known | Start enabled | no |
 
 ## Data
 
-Reads method entry `materialModes`, catalogue Sources, coverage service. Writes
-optional new `learner` Source when keep checked.
+Reads `materialTopics`, catalogue Sources (`tags[]` includes topic `id` — same
+ids as method chips), coverage service. Writes optional `learner` Source when
+keep checked.
+
+## Copy keys
+
+Chip labels and preview strings under `methodMaterial.*` in `messages/en.json`
+and `messages/de.json` — see study/37 wireframe labels (*App picks*, *Your own*,
+topic `labelKey`s).
 
 ## Acceptance criteria
 
@@ -78,4 +87,4 @@ In [`method-material-setup.acceptance-criteria.md`](method-material-setup.accept
 
 ## Open
 
-- Catalogue `tags[]` schema — defer until first catalogue batch (study/37).
+- Exact chip labels per method — ship with first catalogue batch (study/37).

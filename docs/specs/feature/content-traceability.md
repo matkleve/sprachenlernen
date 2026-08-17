@@ -41,7 +41,7 @@ A **Source** is one saved text or one audio item with a transcript
 | `origin` | yes | `catalogue` \| `fixture` \| `learner` — see below |
 | `body` | yes for `text` | raw text to tokenise |
 | `transcript` | yes for `audio` | without transcript **unusable** ([`../../study/17-own-content.md`](../../study/17-own-content.md)) |
-| `tags` | no | topic hints for catalogue search (study/37) |
+| `tags` | no | topic ids matching `materialTopics[].id` on methods (study/37) |
 | `series` | no | podcast/show or narrow-reading series name |
 | `episodeLabel` | no | e.g. `214` |
 | `sourceUrl` | no | link back for learner-owned items |
@@ -55,6 +55,10 @@ A **Source** is one saved text or one audio item with a transcript
 | `catalogue` | *Nachrichten: Chile-Wahlen* (app reading pool) | yes |
 | `fixture` | Demo text in `data/content/es.json` | yes |
 | `learner` | Uploaded article, pasted link, RSS episode | yes when **Keep in library**; else ephemeral |
+
+**Topic alignment:** catalogue Source `tags[]` uses the same `id` strings as
+`materialTopics` on methods — e.g. tag `news` matches the **News** chip on
+partial dictation ([`method-material-setup.md`](method-material-setup.md)).
 
 **v1 minimum:** `fixture` + `catalogue` JSON in `data/content/`; learner intake
 UI on method detail (T-W10a) before full persistence (T-W9).

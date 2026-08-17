@@ -364,11 +364,34 @@ honest Spanish/Italian; offline unlocks commute practice.
 | **6** | ~~**T-B10c** — method badges + detail layout~~ — **shipped 2026-08-15** | Scannable catalogue; fixes two-line chip + truncated-title UX |
 | **6b** | ~~**T-B10d** — property audit alignment ([`study/36`](study/36-method-surfaces-property-audit.md))~~ — **shipped 2026-08-16** | Plain effort everywhere; all requirement chips on cards; evidence disclosure-only on detail |
 | **7** | **T-B10b remainder** — ~~demonstration sentence~~ **shipped 2026-08-16**; readiness ([`study/26`](study/26-readiness-and-difficulty.md)) | Methods front door complete |
+| **7b** | **Exercise runner** (T-E1–E8) — cooking-app steps for dictation, writing, … | UC-049; first method after T-W7 |
 | **8** | **T-B4 numerator** — guided hours practised (thesis 9: not card time alone) | Progress per hour invested (study/03 V3) |
 
 **Still partial in Track B:** T-B3 (pool-local only), T-B10b (standing + daily
 three shipped; T-B10c shipped 2026-08-15), T-B4 (denominator only), T-B9 (multi-device share works; full
 offline does not). **T-W16** review horizon v2 shipped 2026-08-15.
+
+### Track B · Exercise runner (UC-049) — specced 2026-08-17
+
+Cooking-app runner for multi-step Methods (dictation, writing, listening drills).
+**Specs:** [`exercise-runner.md`](specs/feature/exercise-runner.md),
+[`practice.md`](specs/page/practice.md). **Plan:**
+[`plans/exercise-runner.md`](plans/exercise-runner.md).
+
+| ID | Work | Class | Depends on |
+| --- | --- | --- | --- |
+| **T-E0** | ~~Specs + AC + plan~~ — **shipped 2026-08-17** | Standard | study/23 refined (submit/review) |
+| **T-E1** | Runner skeleton + chrome (nav, duration bar, stop, seen/done) | Standard | T-E0 |
+| **T-E2** | Steps: prepare · do · wait | Standard | T-E1 |
+| **T-E3** | Steps: submit (photo+text) · review (self-mark, compare, feedback v1) | Standard | T-E2 |
+| **T-E4** | Step decide + complete surface | Standard | T-E3 |
+| **T-E5** | Route `/practice` + method-session routing | Standard | T-E1 |
+| **T-E6** | Recipe loader + fixture method end-to-end | Standard | T-E4, T-E5 |
+| **T-E7** | Method material setup chips (detail panel) | Standard | T-E5; [`method-material-setup.md`](specs/feature/method-material-setup.md) |
+| **T-E8** | First real method — partial dictation | **Sensitive** | T-E6, **T-W7** coverage |
+
+**Not this runner:** `srs-session` and card-engine form practice (T-W6) stay on
+`/words/review`.
 
 ### Track B · Words domain — hygiene, decisions, then stage-2 slices
 
@@ -389,7 +412,7 @@ Work in four phases; do not skip phase 0:
 | **0 · Hygiene** | Link repair, catalogue honesty (`hosted` vs built), test drift | **T-W0b/c shipped 2026-08-17** — vocabulary methods `hosted: false` except `srs-session`; `/words/atlas` test drift fixed. **T-W0a** if `check:specs` warns |
 | **1 · Decisions** | W-1 lemma-rank recomputation, W-2 pool atlas vs full map, W-3 `vocabulary` skill, W-4 sibling gap, W-5 incomplete paradigms | **W-3 answered 2026-08-17:** `vocabulary` skill. **W-5 answered 2026-08-17:** flag partial paradigms. W-1, W-2, W-4 already answered |
 | **2 · Stage-2 display** | Frequency blocks → word detail → pool-local map → T-B3 remainder → per-cell forms → form-practice | **T-W1/T-W3/T-W2 shipped** — next: T-W5 form breakdown or content-loop spec (T-W7+) |
-| **3 · Stage-3 loop** | Coverage calculator → content gaps → word capture → reading | **T-W7** after phase 2 map honest — see [`plans/words.md`](plans/words.md) § Phase 3 |
+| **3 · Stage-3 loop** | Coverage → trace + gaps → `/content` → method setup (study/37) → reading | **T-W7** — [`plans/words.md`](plans/words.md) § Phase 3 |
 | **4 · Stage-1 remainder** | Break return, leech diagnosis, i18n slices | T-W12 next; **T-W16** and **T-W17** shipped |
 
 **Relationship to existing queue rows:** T-W4 *is* T-B3 remainder (same work,

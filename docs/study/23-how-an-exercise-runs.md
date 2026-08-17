@@ -29,18 +29,24 @@ competence level from those measurements.
 
 ---
 
-## The five kinds of step **[D]**
+## The six kinds of step **[D]**
+
+> **Refined 2026-08-17.** *Check* split into **Submit** (hand in work) and
+> **Review** (compare, correct, feedback). Spec:
+> [`specs/feature/exercise-runner.md`](../specs/feature/exercise-runner.md).
 
 | Step | What it is | Example |
 | --- | --- | --- |
 | **Prepare** | A checklist of what the exercise physically needs | Paper and pen · headphones · somewhere you can speak aloud |
 | **Do** | One task, one screen | "Write for five minutes about your day" |
 | **Wait** | A timer belonging to the step, not to the screen | The five minutes; the pause between dictation readings |
-| **Check** | Compare against the answer, mark what was wrong | The dictation key; the corrected text |
+| **Submit** | Hand in the work product — photo and/or typed text | Photograph the handwritten dictation; paste from the editor |
+| **Review** | Compare, mark errors, or show feedback | The dictation key; side-by-side diff; correction comments |
 | **Decide** | An offer, never an automatic action | "Add these six errors as cards, or explain one of them first?" |
 
-Not every exercise has all five. A card session is one long **Do**. A dictation
-is Prepare → Do → Wait → Do → Check → Decide. The point is that the shape is
+Not every exercise has all six. A card session is one long **Do**. A dictation
+is Prepare → Do → Wait → Do → Submit → Review → Decide. Free writing adds
+Submit (photo) before Review (feedback). The point is that the shape is
 declared, so the runner is one component rather than a bespoke screen per
 method — which matters when the catalogue holds sixty of them
 ([21](21-method-catalogue-and-context.md)).
@@ -183,13 +189,17 @@ about the fit, not about the person.
 
 ## What goes into a spec
 
-- The step model as a small state machine per step: `seen → doing → done`, plus
-  `skipped`. See [`../STATE.md`](../STATE.md) — and note that `seen` is
-  explicitly not a completion state.
-- The exercise as **data**: an ordered list of typed steps, so a new method is a
-  catalogue entry rather than a screen ([21](21-method-catalogue-and-context.md)).
-- Timer ownership: which step, what happens on expiry, what is recorded when
-  paused.
+Shipped as [`specs/feature/exercise-runner.md`](../specs/feature/exercise-runner.md)
+(2026-08-17):
+
+- Six step types; **step components** per type (`capture`, `self-mark`,
+  `feedback`, …).
+- Per-step status: `unseen → seen → done` (+ `skipped` later). See
+  [`../STATE.md`](../STATE.md) — `seen` is not completion.
+- Recipe as **data**: ordered steps, so a new method is configuration not a new
+  screen ([21](21-method-catalogue-and-context.md)).
+- Timer ownership, pause, expiry — in
+  [`exercise-runner.states.md`](../specs/feature/exercise-runner.states.md).
 - Interruption: leaving mid-exercise loses nothing and creates no backlog
   ([06](06-production.md) and UC-006's rule applies here too).
 - **⚠ SPEC GAP:** whether an exercise abandoned halfway counts partially toward

@@ -103,6 +103,10 @@ requires a `⚠ SPEC GAP` line, not a guess.
 | **Method engine** | The runnable implementation that turns one catalogue Method into a session — content pool, grading, persistence. One engine may serve more than one Method; each Method has at most one engine. | a Method, the catalogue |
 | **Hosted method** | A catalogue entry with `hosted: true` — the product intends to run it in-app. **Does not mean the session is built today.** | built, in-app-only |
 | **Card engine** | The Method engine that ships first: FSRS scheduling over lemma Tasks. Today: `srs-session` on `/words/review`. | flashcards, the whole app |
+| **Exercise runner** | The second engine family: cooking-app step flow (prepare → submit → review → …) on `/practice`. One shell; Methods supply **recipes** of typed steps. Spec: [`exercise-runner.md`](specs/feature/exercise-runner.md). | a bespoke screen per method |
+| **Step type** | One of six roles in an exercise recipe: `prepare`, `do`, `wait`, `submit`, `review`, `decide`. | a screen, a route |
+| **Step component** | The UI widget for a step (`capture`, `self-mark`, `audio-play`, …). Methods pick components; the runner renders them. | a Method |
+| **Exercise recipe** | Ordered list of steps + config that turns a catalogue Method into a runnable session. Data, not code. | a session builder |
 | **Words destination** | The navigation surface for the card engine's material — holdings, horizon, vocabulary orbit — not the home for every Method. | Methods, Home |
 | **Method card** | The user-facing presentation of a Method — section header graphic, badge row, tag chips, and summary. | a Card (that is a Task) |
 | **Method card header** | Decorative top band on a Method card: one abstract graphic per catalogue **section**, gradient fade, section label. Not shown on the detail page. | a per-method illustration, a quality badge |

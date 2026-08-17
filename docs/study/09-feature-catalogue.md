@@ -286,7 +286,7 @@ be gone through and cut — the list is deliberately longer than what gets built
 
 | # | Feature | Ev. | Eff. | Verdict |
 | --- | --- | --- | --- | --- |
-| F159 | Exercise as an ordered list of typed steps (prepare · do · wait · check · decide) | D | M | **V2** — one runner instead of a bespoke screen per method |
+| F159 | Exercise as an ordered list of typed steps (prepare · do · wait · submit · review · decide) + step components | D | M | **V2** — [`exercise-runner.md`](../specs/feature/exercise-runner.md) specced 2026-08-17; build T-E1+ |
 | F160 | **Seen and done are separate states.** Swiping never marks anything done | D | S | **V2** — only *done* feeds the level model |
 | F161 | Prepare step as a checklist of what the method physically requires | D | S | **V2** — makes the context model tangible |
 | F162 | Timer belongs to the step, keeps running while navigating, pausing is recorded | D | M | **V2** |

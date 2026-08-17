@@ -100,7 +100,7 @@ because it is interesting.
 | [UC-047](UC-047-choose-something-demanding.md) | Choose something demanding, on purpose | 4b | [21](../study/21-method-catalogue-and-context.md) |
 | [UC-048](UC-048-use-two-free-hours.md) | Use two free hours well | 4b | [21](../study/21-method-catalogue-and-context.md) |
 | [UC-044](UC-044-speak-the-same-thing-three-times.md) | Say the same thing three times and hear myself get better | 4 | [20](../study/20-speaking-and-sentences.md) |
-| [UC-049](UC-049-work-through-an-exercise-step-by-step.md) | Work through an exercise one step at a time | 4b | [23](../study/23-how-an-exercise-runs.md) |
+| [UC-049](UC-049-work-through-an-exercise-step-by-step.md) | Work through an exercise one step at a time | 4b | [23](../study/23-how-an-exercise-runs.md), [exercise-runner](../specs/feature/exercise-runner.md) |
 | [UC-015](UC-015-speak-without-being-judged.md) | Say something in the language without an audience | 5 | [06](../study/06-production.md) |
 | [UC-017](UC-017-get-a-correction-i-can-act-on.md) | Write something and get a correction I can act on | 5 | [06](../study/06-production.md) |
 | [UC-009](UC-009-practise-away-from-the-screen.md) | Practise on paper, and have it count | 5 | [07](../study/07-offline-and-paper.md) |

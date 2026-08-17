@@ -101,7 +101,7 @@ presets — a floor the learner has no way to act on is worse than no floor.
 | `requires` | dimension → permitted values, or a list of alternative sets of those. **Non-empty** | method |
 | `offerEveryDays` | the floor, in days, or `null` | method |
 | `reviewAfterDays` | when the one quiet "still doing this?" fires | commitment |
-| `materialModes` | optional subset of `catalogue topic learner` — when set, method detail shows [`method-material-setup.md`](../feature/method-material-setup.md). Omit for methods with fixed material (e.g. `srs-session`) | method |
+| `materialTopics` | optional `[{ id, labelKey }]` — catalogue topic chips for this method. UI adds `app-pick` and `own` automatically. See [`method-material-setup.md`](../feature/method-material-setup.md) | method |
 
 Context dimensions: `eyes hands voice writingSurface sound attention company`,
 plus `time` on a context but never on an entry. Seven presets ship; a preset is

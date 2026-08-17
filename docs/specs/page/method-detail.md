@@ -18,8 +18,8 @@ works for bookmarks and links.
   article (large `<h1>`, summary, **badge band** with tier icons + plain effort
   text, **how/why prose** from `trains`, **does-not-do** paragraph) and a
   **practical-details panel** (duration, full needs list, hosted, effort anchor
-  sentence, research disclosure). **Material setup** panel when
-  `materialModes` is set ([`method-material-setup.md`](../feature/method-material-setup.md)).
+  sentence, research disclosure). **Topic chip row** when `materialTopics` is set
+  ([`method-material-setup.md`](../feature/method-material-setup.md)).
   On `< md` the panel collapses into a
   `Disclosure`. Cards keep Lucide badge row
   ([`method-badge.md`](../component/method-badge.md)). Tier badges:
@@ -39,8 +39,8 @@ icons + plain effort text only** (effort right at `≥ sm`); **no evidence badge
 in the band (disclosure only); **no effort dot scale**; effort anchor sentence in
 Practical. Full-bleed hero retained (text-mask deferred). Owner go 2026-08-16.
 
-**Material setup (UX, 2026-08-17):** study/37 — methods with `materialModes` show
-the **What to practise with** panel via
+**Material setup (UX, 2026-08-17):** study/37 — methods with `materialTopics`
+show a **topic chip row** (selectable themes + **Your own** for upload) via
 [`method-material-setup.md`](../feature/method-material-setup.md).
 
 ## Badge band — UX placement (decided 2026-08-16)
@@ -74,8 +74,9 @@ Designer reviewed four placements. **Rejected:**
 1. Full-bleed section-graphic hero (same asset as cards; fades to `canvas`)
 2. Back link (desktop only, in content column)
 3. Two columns at `≥ md`:
-   - **Main:** `<h1>` → summary → badge band → `trains` prose → `doesNotDo`
-     callout → session footer + Start when applicable
+   - **Main:** `<h1>` → summary → badge band → **topic chip row** (when
+     `materialTopics`) → `trains` prose → `doesNotDo` callout → session footer
+     + Start when applicable
    - **Aside:** practical details (duration, needs, hosted, effort anchor, research disclosure)
 4. On `< md`: practical details in a collapsed `Disclosure` below the badge band
 
@@ -85,12 +86,13 @@ Designer reviewed four placements. **Rejected:**
 | --- | --- | --- |
 | 1 | Opens `/methods/{id}` | Hero, article, facts panel, or not-found |
 | 2 | `srs-session`, taps Start | Navigates to `/words/review?method=srs-session` |
-| 3 | Other hosted method | No Start; not-built copy |
+| 2b | Exercise-runner method (when built), taps Start | Navigates to `/practice?method={id}` (+ `sourceId` when setup resolved) |
+| 3 | Other hosted method, engine not built | No Start; not-built copy |
 | 4 | Back (desktop or shell chip) | `/methods` with filter query preserved |
 | 5 | Expands practical details (`< md`) | Duration, needs, hosted, effort anchor, evidence appear |
 | 6 | Expands research confidence | Plain evidence label + prose appear |
-| 7 | Method has `materialModes` | Setup panel below badge band; Start gated until Source resolves |
-| 8 | Method has no `materialModes` | Start unchanged (e.g. `srs-session`) |
+| 7 | Method has `materialTopics` | Topic chip row below badge band; upload only when **Your own** selected |
+| 8 | Method has no `materialTopics` | Start unchanged (e.g. `srs-session`) |
 
 ## Acceptance criteria
 

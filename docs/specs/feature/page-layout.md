@@ -60,7 +60,7 @@ Each `(app)` route declares exactly one mode. The registry lives in
 | --- | --- | --- | --- |
 | `scrollable-destination` | `/methods`, `/words`, `/progress` | Page scrolls inside `<main>` | Language chip + pill; header scrim on scroll |
 | `scrollable-drill-in` | `/methods/[id]` | Page scrolls | Back chip + pill; no language chip |
-| `one-screen-runner` | `/words/review` while `?method=srs-session` is active | **No page scroll** on `< md` | Back chip + pill; session uses `--height-review-session` |
+| `one-screen-runner` | `/words/review` while `?method=srs-session` is active; `/practice` while exercise runner phase is `active` | **No page scroll** on `< md` | Back chip + pill; session uses `--height-review-session` |
 
 Marketing routes and error-only states on `/words/review` (unknown method, not
 built) use **`scrollable-drill-in`** rhythm — they scroll like a drill-in page.

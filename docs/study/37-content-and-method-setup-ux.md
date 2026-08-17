@@ -71,94 +71,93 @@ the app still picks sentences, gaps, and coverage band.
 
 | Method | Material shape | Setup modes |
 | --- | --- | --- |
-| Extensive reading | Text | catalogue · topic · learner |
-| Partial dictation | Audio + transcript passage | catalogue · topic · learner |
-| Intensive reading | Short text | catalogue · learner |
-| Narrow reading | Series (4–6 texts, one topic) | topic (required) · catalogue series |
+| Extensive reading | Text | app-pick + topic chips + own |
+| Partial dictation | Audio + transcript passage | app-pick + topic chips + own |
+| Intensive reading | Short text | app-pick + own (fewer topic chips) |
+| Narrow reading | Series (4–6 texts, one topic) | one topic chip required + own |
 
 ---
 
 ## The setup panel — recommended pattern
 
 Placed on method detail **below the badge band**, above **Start**. Only rendered
-when the method declares `materialModes` (see spec).
+when the method declares `materialTopics` (see spec). The learner **selects**
+from topics the method can use — not a free-text search box. **Own material** is
+the **last chip** in the same row; upload appears only when that chip is selected.
+
+**Owner correction 2026-08-17:** not *type a topic → upload appears*; but
+*pick a topic from the list, or pick **Your own** → then upload*.
 
 ```
 ┌─────────────────────────────────────────────────────────┐
 │  Partial dictation                                      │
 │  … summary, badges …                                    │
 ├─────────────────────────────────────────────────────────┤
-│  What to practise with                                  │
+│  Topic                                                  │
 │                                                         │
-│  ● App picks for me          ← default                  │
-│    A passage at ~96% for you today                      │
+│  [ App picks ] [ News ] [ Daily life ] [ Environment ]  │
+│  [ Your own ▾ ]                                         │
+│       ↑ selected                                        │
+│    ┌──────────────────────────────────────────────┐   │
+│    │  [ Upload file ]  [ Paste text ]  [ Link ]     │   │
+│    └──────────────────────────────────────────────┘   │
 │                                                         │
-│  ○ About a topic                                        │
-│    ┌──────────────────────────────┐                     │
-│    │ climate change, B1 interviews │  ← free text       │
-│    └──────────────────────────────┘                     │
-│    Best match: *Ambiente · ep. 12* (93%) · or upload ↓  │
+│  Preview (when a catalogue topic is selected):          │
+│    *Ambiente · ep. 12* — 94 % known · ~8 min            │
 │                                                         │
-│  ○ My own material                                      │
-│    [ Upload file ]  [ Paste text ]  [ Paste link ]      │
-│    Coverage shown after paste — before Start            │
-│                                                         │
-│  ☐ Keep in my library                                   │
+│  ☐ Keep in my library          (only for Your own)      │
 ├─────────────────────────────────────────────────────────┤
-│  [ Start ]  (enabled when material resolves)            │
+│  [ Start ]                                              │
 └─────────────────────────────────────────────────────────┘
 ```
 
-### Mode behaviour (concrete)
+### Selection behaviour (concrete)
 
-**1. App picks (default)**  
-No fields. On Start, readiness service picks catalogue Source in 95–98 % band
-([study/26](../study/26-readiness-and-difficulty.md)). Copy: *"A passage at
-~96% for you today"* — number from coverage, not a level label.
+**1. App picks (first chip, default)**  
+No extra fields. On Start, readiness picks catalogue Source in 95–98 % band
+([study/26](../study/26-readiness-and-difficulty.md)). Preview after selection:
+*"A passage at ~96% for you today"*.
 
-**2. Topic**  
-Learner types e.g. *"Klimawandel, Nachrichten, B1"*. App:
+**2. A catalogue topic chip** (e.g. *News*, *Environment*)  
+Learner taps one chip. App:
 
-1. Searches **catalogue** Sources (metadata tags + title) for best coverage fit.
-2. If best is 88 % — shows it with honest label *"Still demanding — 31 words
-   to comfortable"* and offers gap set (UC-034).
-3. If nothing within 20 points of comfortable — shows upload affordance inline:
-   *"Nothing close in the library — add your own article?"*
+1. Filters catalogue Sources tagged for that topic on this method.
+2. Picks best coverage fit for this learner; shows preview line (title, %, time).
+3. If best is 88 % — honest label *"Still demanding — 31 words to comfortable"*
+   (gap link, does not block Start).
+4. If **no** catalogue item exists for that topic — chip shows disabled state or
+   inline *"Nothing in the library yet for this topic"* — learner may switch to
+   **Your own**. No LLM generation ([study/10](../study/10-antipatterns.md) A5).
 
-Topic does **not** call an LLM to invent text in v1. Generation is catalogue +
-upload only ([study/10](../study/10-antipatterns.md) A5).
-
-**3. My own material**  
-Reveals intake controls (file / paste / link). Flow:
+**3. Your own (last chip)**  
+Upload / paste / link controls **appear only here** — not under other topics.
 
 1. Parse locally where possible ([study/17](../study/17-own-content.md)).
 2. Show **coverage before Start** (F30).
-3. If &lt; 95 %, offer support ladder preview (UC-030) — lowest rung that reaches
-   band; learner can change rung on first screen of runner.
-4. Optional **Keep in library** → saves as `learner` Source on `/content`.
+3. If &lt; 95 %, support-ladder preview (UC-030).
+4. Optional **Keep in library** → `learner` Source on `/content`.
+
+**Rejected:** free-text topic field as primary control — discoverability comes
+from the chip list the method declares, not from guessing keywords.
 
 ---
 
-## Worked example: partial dictation + topic
+## Worked example: partial dictation + topic chip
 
-**Learner:** Opens *Partial dictation* → selects *About a topic* → types
-*"Spanish news, slow, environment"*.
+**Learner:** Opens *Partial dictation* → taps chip **Environment**.
 
 **App:**
 
-1. Finds catalogue audio *Radio Ambulante · clip 2* (window coverage 94 %).
-2. Setup panel shows: *"6 sentences · 94 % known · ~8 min"* + link *"23 words
-   to comfortable"* (opens gap list, does not block Start).
-3. Start → runner: Prepare (headphones) → Do (gap sentences from **their**
-   holdings) → Check → Decide (cards).
+1. Finds catalogue audio *Radio Ambulante · clip 2* tagged `environment` (window
+   coverage 94 %).
+2. Preview: *"6 sentences · 94 % known · ~8 min"* + link *"23 words to
+   comfortable"*.
+3. Start → `/practice`: Prepare → Do → Wait → Submit → Review → Decide.
 
-If they instead upload a `.txt` interview:
+If they tap **Your own** instead and upload a `.txt` interview:
 
-1. Coverage 78 % → panel shows demanding band + *"Pre-teach 8 words (20 s)?"*
-   (rung 1 preview).
-2. Start → same runner shape, different Source id.
-
-**Same method, same runner — different Source origin.**
+1. Upload area appears; coverage 78 % → demanding band + ladder preview.
+2. Start → same runner, `learner` Source.
 
 ---
 
@@ -214,8 +213,9 @@ setup (*"From my library"*) — not a replacement for inline upload.
 | 1 | Route for source library | **`/content`** — top-level nav when stage 3 ships |
 | 2 | Gap-set cap (UC-034) | **40 lemmas** — above that, name closest source instead of listing |
 | 3 | Ephemeral session material | **Allowed** — unchecked "Keep in library" does not persist; no trace block link after session unless saved |
-| 4 | Topic without catalogue match | **Upload affordance inline** — no silent LLM generation in v1 |
+| 4 | Topic without catalogue match | Chip disabled or empty-state copy — switch to **Your own**; no LLM |
 | 5 | App catalogue vs learner | **Same Source model** — `origin: catalogue \| fixture \| learner` |
+| 6 | Topic input shape | **Selectable chips** — `App picks` + method topics + `Your own`; no free-text topic field in v1 |
 
 ---
 
@@ -241,7 +241,7 @@ T-W10a can ship with catalogue-only + topic search stub before T-W9.
   UX, modes, Start gating, link to coverage + support ladder.
 - [`method-detail.md`](../specs/page/method-detail.md) — hosts setup section.
 - [`method-catalogue.md`](../specs/service/method-catalogue.md) — optional
-  `materialModes` on method entries (data only in v1).
+  `materialTopics` on method entries (chip ids + labels; see spec).
 
 ---
 
