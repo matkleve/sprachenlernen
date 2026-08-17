@@ -11,6 +11,11 @@ The `/words` vocabulary home — held/fragile/new counts, the review horizon
 ([`review-horizon.md`](review-horizon.md)), and the vocabulary orbit. Reviewing
 is one action here, not the page's identity (ADR-0009, UC-063).
 
+**Layout parity with `/methods` (2026-08-16):** canvas intent copy; raised section
+cards with `methodSectionSurface` + header graphics; uppercase section labels;
+short stat faces with definitions in a collapsed disclosure — not repeated on
+every tile. Study/27 card-density rationale applied to vocabulary stats.
+
 **Not the home for all Methods.** Words shows card-engine material only
 ([`method-engines.md`](../service/method-engines.md)). The catalogue's
 reading, listening, speaking, and off-app Methods are reached from `/methods`.
@@ -18,10 +23,10 @@ reading, listening, speaking, and off-app Methods are reached from `/methods`.
 ## Scope
 
 - **In:** `features/words/` — `WordsHome`, `WordsReviewCardHeader`,
-  `VocabularyOrbitField`, `reading.ts`, `content.ts`; wired on
-  `app/(app)/words/page.tsx`. One abstract header graphic in
-  `public/assets/words/words-home-review.webp` on the raised review card.
-  Derives from
+  `WordsSectionLabel`, `WordsCountDefinitions`, `VocabularyOrbitField`,
+  `reading.ts`, `content.ts`; wired on `app/(app)/words/page.tsx`. Review card
+  uses `words-home-review.webp`; vocabulary counts card reuses
+  `MethodCardHeader` (`vocabulary` section). Derives from
   [`vocabulary-snapshot.md`](../service/vocabulary-snapshot.md),
   [`frequency-blocks.md`](../service/frequency-blocks.md),
   [`vocabulary-orbit.md`](vocabulary-orbit.md), and **only** Reviews from built
@@ -36,12 +41,14 @@ reading, listening, speaking, and off-app Methods are reached from `/methods`.
   [`review-horizon.md`](review-horizon.md).
 
 **Reuse: `Button`, `Table`, `Disclosure`** — list popover and detail patterns.
+**Reuse: `MethodCardHeader`, `methodSectionSurface`** — vocabulary section card
+shell and header graphic ([`method-card-header.md`](../component/method-card-header.md)).
 
 ## Behavior
 
 | # | User action | System response |
 | --- | --- | --- |
-| 1 | Opens `/words` | Intent copy and Start review in a raised action card with a decorative review header graphic; held/fragile/new counts (meaning recall only) with a collapsible lemma callout on mobile (always visible from `md` up; whole callout shell shows standard press feedback and 150ms expand motion per [`disclosure.md`](../component/disclosure.md)), frequency bands, horizon (per review-horizon collapsed/expanded rules), vocabulary orbit below |
+| 1 | Opens `/words` | Canvas intent copy; review action card with header graphic; vocabulary counts in a raised vocabulary-section card (header graphic, caption, lemma callout, three stat tiles with numbers only, collapsed count definitions); frequency bands as vocabulary-tinted cards; horizon and orbit with uppercase section labels |
 | 2 | Taps Start review | Navigates to `/words/review?method=srs-session` |
 | 3 | Taps a segment or **Show list** | See [`vocabulary-orbit.md`](vocabulary-orbit.md) |
 | 4 | Expands or collapses horizon | See [`review-horizon.md`](review-horizon.md) |
@@ -56,12 +63,14 @@ outcomes.
 
 ## Acceptance criteria
 
-- [ ] Given a signed-in learner on `/words`, when the page renders, then the
-      review card shows a decorative header graphic (`h-20`) with a vocabulary
-      section label on the overlay and **Review** as the in-card action heading
-      below the intent copy.
+- [ ] Given a signed-in learner on `/words`, when the page renders, then intent
+      copy appears on the canvas above the review card, the review card shows a
+      decorative header graphic (`h-20`) with a vocabulary section label on the
+      overlay and **Review** as the in-card action heading.
 - [ ] Given a signed-in learner on `/words`, when the page renders, then held,
-      fragile and new counts are shown with copy that they track **meaning
+      fragile and new appear as stat tiles (label + number only) inside a
+      vocabulary-section card with header graphic; per-bucket definitions live in
+      a collapsed disclosure — not on each tile. **meaning
       recall** (not inflected forms), a lemma callout explains what a **lemma** is
       (collapsed in a disclosure below `md`, always visible from `md` up; press
       scales the whole callout shell; expand/collapse animates over 150ms),

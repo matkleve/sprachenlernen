@@ -1,8 +1,8 @@
-import { render, screen } from "@testing-library/react";
+import { renderWithIntl as render, en } from "@/tests/i18n-test-utils";
+import { screen } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 
 import { loadMethodCatalogue } from "./catalogue";
-import { effortCard, evidenceCard } from "./content";
 import { findMethod } from "./MethodDetail";
 import { MethodDetailBadgeBand } from "./MethodDetailBadgeBand";
 
@@ -13,8 +13,8 @@ describe("MethodDetailBadgeBand", () => {
   it("shows plain effort without evidence or dot scale", () => {
     render(<MethodDetailBadgeBand method={intensiveReading} />);
 
-    expect(screen.getByText(effortCard[3])).toBeDefined();
-    expect(screen.queryByText(evidenceCard.B)).toBeNull();
+    expect(screen.getByText(en.methodMenu.effortCard[3])).toBeDefined();
+    expect(screen.queryByText(en.methodMenu.evidenceCard.B)).toBeNull();
     expect(screen.queryByText(/3 of 3/)).toBeNull();
   });
 });

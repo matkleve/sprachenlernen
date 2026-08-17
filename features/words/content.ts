@@ -12,7 +12,8 @@ export const copy = {
   reviewCaption: "One session at a time — tap when you are ready.",
   countsHeading: "Your vocabulary",
   countsCaption:
-    "How many starter words you can recall the meaning of — not every inflected form, and not a backlog.",
+    "How many starter lemmas you can recall the meaning of — not every inflected form, and not a backlog.",
+  countsDefinitionsSummary: "What held, fragile, and new mean",
   lemmaCalloutTitle: "What is a lemma?",
   lemmaCalloutBody:
     "The dictionary form of a word — run, not running; child, not children. On this page, each card is one word in that form (a lemma). Held means you would still know what it means after about a week without seeing it again. Producing inflected forms is tracked separately on Progress.",

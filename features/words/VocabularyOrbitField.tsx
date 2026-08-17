@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/Button";
 import { OrbitDetailCard } from "@/features/words/OrbitDetailCard";
 import { OrbitListPopover } from "@/features/words/OrbitListPopover";
 import { VocabularyOrbitSvg } from "@/features/words/VocabularyOrbitSvg";
+import { WordsSectionLabel } from "@/features/words/WordsSectionLabel";
 import type { AtlasPoint } from "@/lib/vocabulary-snapshot";
 import type { OrbitSegment, OrbitTickSegment, VocabularyOrbit } from "@/lib/vocabulary-orbit";
 
@@ -28,8 +29,8 @@ export function VocabularyOrbitField({ orbit, languageCode, atlas }: VocabularyO
     <section>
       <div className="flex items-start justify-between gap-4">
         <div>
-          <h2 className="text-xl font-semibold text-ink">{t('orbitHeading')}</h2>
-          <p className="mt-2 max-w-2xl text-base leading-relaxed text-muted">{t('orbitCaption')}</p>
+          <WordsSectionLabel>{t("orbitHeading")}</WordsSectionLabel>
+          <p className="max-w-2xl text-base leading-relaxed text-muted">{t("orbitCaption")}</p>
         </div>
         <Button
           ref={listTriggerRef}

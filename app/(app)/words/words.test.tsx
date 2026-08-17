@@ -1,6 +1,5 @@
 import { renderWithIntl as render, formatMessage, en } from "@/tests/i18n-test-utils";
-import { screen } from "@testing-library/react";
-
+import { screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { describe, expect, it, vi } from "vitest";
 
@@ -74,7 +73,9 @@ describe("WordsHome", () => {
     expect(link.getAttribute("href")).toContain("method=srs-session");
     expect(screen.queryByText(/\d+\s+due/i)).toBeNull();
     expect(screen.getByRole("heading", { name: en.words.reviewHeading })).toBeDefined();
-    const headerImage = screen.getByRole("img", {
+    const reviewCard = screen.getByRole("heading", { name: en.words.reviewHeading }).closest("section");
+    expect(reviewCard).toBeDefined();
+    const headerImage = within(reviewCard as HTMLElement).getByRole("img", {
       name: wordsReviewGraphicAlt(en.words.reviewCardHeaderLabel),
     });
     expect(headerImage.getAttribute("src")).toContain(
@@ -83,11 +84,21 @@ describe("WordsHome", () => {
   });
 
   it("explains that held counts meaning recall and what a lemma is", async () => {
+    const user = userEvent.setup();
     await renderWordsHome();
     expect(screen.getByText(en.words.countsCaption)).toBeDefined();
     expect(screen.getAllByLabelText(en.words.lemmaCalloutTitle).length).toBeGreaterThan(0);
     expect(screen.getAllByText(en.words.lemmaCalloutBody).length).toBeGreaterThan(0);
+    await user.click(screen.getByText(en.words.countsDefinitionsSummary));
     expect(screen.getByText(en.words.heldDescription)).toBeDefined();
+  });
+
+  it("shows count numbers on the card face without per-tile descriptions", async () => {
+    await renderWordsHome();
+    const countGrid = screen.getByLabelText(en.words.countsHeading);
+    const heldTile = within(countGrid).getByText(en.words.held).closest("div");
+    expect(heldTile?.textContent).not.toContain("reliably recall");
+    expect(heldTile?.textContent).not.toContain("not yet stable");
   });
 
   it("renders held, fragile, new, bands, horizon and vocabulary orbit", async () => {
