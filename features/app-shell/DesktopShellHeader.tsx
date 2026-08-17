@@ -3,9 +3,11 @@
 import { UserRound } from "lucide-react";
 import { usePathname } from "next/navigation";
 
+import { BrandMark } from "@/components/brand/BrandMark";
 import { ActionLink } from "@/components/ui/ActionLink";
 import type { LanguageHoldings } from "@/lib/db/language-holdings";
 import { routes } from "@/lib/routes";
+import { site } from "@/lib/site-metadata";
 
 import { Destinations } from "./Destinations";
 import { isProfileCurrent } from "./destinations";
@@ -39,6 +41,15 @@ export function DesktopShellHeader({
 
         <div className="relative z-10 flex min-h-11 items-center justify-between gap-4">
           <div className="flex min-w-0 flex-1 items-center gap-4">
+            <ActionLink
+              href={routes.methods}
+              variant="ghost"
+              size="sm"
+              className="shrink-0 px-2"
+              aria-label={site.name}
+            >
+              <BrandMark size="sm" />
+            </ActionLink>
             <LanguageSwitcher
               languages={languages}
               languageHoldings={languageHoldings}

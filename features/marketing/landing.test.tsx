@@ -25,12 +25,6 @@ vi.mock("next/navigation", () => ({
   useRouter: vi.fn(() => ({ push: vi.fn() })),
 }));
 vi.mock("@/lib/db/auth", () => ({ getAccount: vi.fn() }));
-vi.mock("next/image", () => ({
-  default: ({ alt, ...props }: { alt: string }) => (
-    // eslint-disable-next-line @next/next/no-img-element -- test stub
-    <img alt={alt} {...props} />
-  ),
-}));
 
 const showHeaderAt = (pathname: string) => {
   vi.mocked(usePathname).mockReturnValue(pathname);
@@ -43,8 +37,9 @@ beforeEach(() => {
 
 describe("PublicHeader", () => {
   it("shows sign-in and create-account on every marketing route", () => {
-    showHeaderAt("/login");
+    const { container } = showHeaderAt("/login");
 
+    expect(container.querySelector('img[src*="fanned-pages"]')).toBeTruthy();
     expect(screen.getByRole("link", { name: en.marketing.header.signIn }).getAttribute("href")).toBe(
       "/login",
     );

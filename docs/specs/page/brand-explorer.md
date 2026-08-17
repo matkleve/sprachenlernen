@@ -5,7 +5,7 @@
 <!-- status: active -->
 
 A dev-facing page at `/dev/brand` where a product owner or designer compares
-five app-mark directions at favicon, header, and Home Screen sizes before
+six app-mark directions at favicon, header, and Home Screen sizes before
 promoting one to `public/icon.svg`. Serves
 [UC-075](../../use-cases/UC-075-choose-a-logo-and-app-icon.md).
 
@@ -13,7 +13,7 @@ promoting one to `public/icon.svg`. Serves
 
 ## Scope
 
-- **In:** five logo directions from `data/brand/logo-directions.json`; per-direction
+- **In:** six logo directions from `data/brand/logo-directions.json`; per-direction
   preview at four sizes; mono mark in a header lockup mock; maskable safe-zone
   overlay; one selectable direction in `localStorage`; shipped badge on the
   current production mark.
@@ -26,7 +26,7 @@ promoting one to `public/icon.svg`. Serves
 
 | # | User action | System response |
 | --- | --- | --- |
-| 1 | Opens `/dev/brand` | Five direction cards in a responsive grid |
+| 1 | Opens `/dev/brand` | Six direction cards in a responsive grid |
 | 2 | Reads a card | Sees name, tagline, rationale, basis chip, size previews, header lockup |
 | 3 | Clicks **Choose this direction** | Card shows selected state; choice persists in `localStorage` |
 | 4 | Returns later | Previously chosen card is still selected |
@@ -53,7 +53,7 @@ Loading, error and empty do not apply — directions are static data.
 
 - [ ] Given a signed-out visitor, when `/dev/brand` is requested, then the page
   renders without redirecting to sign-in.
-- [ ] Given a first visit, when `/dev/brand` loads, then five direction cards
+- [ ] Given a first visit, when `/dev/brand` loads, then six direction cards
   are visible.
 - [ ] Given any direction card, when the user reads it, then favicon, header,
   Home Screen, and store size previews are visible.
