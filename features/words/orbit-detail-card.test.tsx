@@ -4,6 +4,8 @@ import { screen } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 
 import { OrbitDetailCard } from "@/features/words/OrbitDetailCard";
+import type { ContentTraceIndex } from "@/lib/content-traceability";
+import { routes } from "@/lib/routes";
 import type { OrbitAggregateSegment, OrbitWordSegment } from "@/lib/vocabulary-orbit";
 
 const now = Date.UTC(2026, 7, 12);
@@ -86,5 +88,26 @@ describe("OrbitDetailCard", () => {
     expect(
       screen.getByText(formatMessage(en.words.orbitAggregateBody, { count: 40, held: 12 })),
     ).toBeDefined();
+  });
+
+  it("shows linked source titles in the word trace block", () => {
+    const contentTraceIndex: ContentTraceIndex = {
+      sourcesById: {
+        "es-fixture-cafe": { id: "es-fixture-cafe", title: "En el café" },
+      },
+      lemmaSources: { casa: ["es-fixture-cafe"] },
+    };
+
+    render(
+      <OrbitDetailCard
+        segment={{ ...wordSegment, lemma: "casa", translation: "house" }}
+        now={now}
+        contentTraceIndex={contentTraceIndex}
+      />,
+    );
+
+    const link = screen.getByRole("link", { name: "En el café" });
+    expect(link.getAttribute("href")).toBe(routes.contentDetail("es-fixture-cafe"));
+    expect(screen.getByText("In 1 saved text or episode")).toBeDefined();
   });
 });

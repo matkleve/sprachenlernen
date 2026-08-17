@@ -8,6 +8,8 @@ import { buildHorizonDisplay, type HorizonDisplay } from "@/lib/review-horizon";
 import { newTask } from "@/lib/scheduler";
 import { tasksByTaskIdForCards } from "@/lib/task-from-state";
 import { buildVocabularySnapshot, type VocabularySnapshot } from "@/lib/vocabulary-snapshot";
+import type { ContentTraceIndex } from "@/lib/content-traceability";
+import { loadContentTraceIndex } from "@/features/words/content-trace-reading";
 
 /**
  * Loads the Words home snapshot for the signed-in learner. Contract:
@@ -25,6 +27,7 @@ export type WordsHomeOutcome =
       translations: Readonly<Record<string, string>>;
       horizonDisplay: HorizonDisplay;
       now: number;
+      contentTraceIndex: ContentTraceIndex | null;
     }
   | { status: "error"; error: HandledError };
 
@@ -100,6 +103,7 @@ async function read(now: number): Promise<WordsHomeOutcome> {
       firstReviewByTaskId,
     }, taskHorizonMeta),
     now,
+    contentTraceIndex: loadContentTraceIndex(pool.languageCodes[0] ?? "es"),
   };
 }
 

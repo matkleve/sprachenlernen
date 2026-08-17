@@ -4,7 +4,10 @@ import { useTranslations } from "next-intl";
 
 import { Chip } from "@/components/ui/Chip";
 import { WordDetailActions } from "@/features/words/WordDetailActions";
+import { WordTraceBlock } from "@/features/words/WordTraceBlock";
 import { buildScheduleReason } from "@/lib/schedule-reason";
+import type { ContentTraceIndex } from "@/lib/content-traceability";
+import { wordTraceForLemma } from "@/lib/content-traceability";
 import type { Grade } from "@/lib/scheduler";
 import type { OrbitSegment, OrbitTickSegment } from "@/lib/vocabulary-orbit";
 
@@ -90,7 +93,15 @@ function ScheduleReasonLine({
   return <p className="mt-4 text-sm leading-relaxed text-muted">{text}</p>;
 }
 
-export function OrbitDetailCard({ segment, now }: { segment: DetailSegment; now: number }) {
+export function OrbitDetailCard({
+  segment,
+  now,
+  contentTraceIndex = null,
+}: {
+  segment: DetailSegment;
+  now: number;
+  contentTraceIndex?: ContentTraceIndex | null;
+}) {
   const t = useTranslations("words");
   if (segment.kind === "aggregate") {
     return (
@@ -143,6 +154,10 @@ export function OrbitDetailCard({ segment, now }: { segment: DetailSegment; now:
           })}
         />
       </dl>
+
+      {contentTraceIndex ? (
+        <WordTraceBlock trace={wordTraceForLemma(segment.lemma, contentTraceIndex)} />
+      ) : null}
 
       <WordDetailActions segment={segment} />
     </article>

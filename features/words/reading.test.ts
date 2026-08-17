@@ -80,6 +80,15 @@ describe("readWordsHome", () => {
     expect(outcome.status).toBe("no-language");
   });
 
+  it("loads a content trace index for the active language", async () => {
+    const outcome = await readWordsHome(now);
+
+    expect(outcome.status).toBe("ok");
+    if (outcome.status !== "ok") return;
+    expect(outcome.contentTraceIndex).not.toBeNull();
+    expect(outcome.contentTraceIndex?.lemmaSources["uno"]?.length).toBe(2);
+  });
+
   it("returns a handled error when task state cannot be read", async () => {
     vi.mocked(listTaskStatesForTaskIds).mockResolvedValue({
       status: "error",

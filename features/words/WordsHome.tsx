@@ -16,6 +16,7 @@ import type { FrequencyBlock } from "@/lib/frequency-blocks";
 import type { HorizonDisplay } from "@/lib/review-horizon";
 import { buildVocabularyOrbit } from "@/lib/vocabulary-orbit";
 import type { VocabularySnapshot } from "@/lib/vocabulary-snapshot";
+import type { ContentTraceIndex } from "@/lib/content-traceability";
 
 type WordsHomeProps = {
   snapshot: VocabularySnapshot;
@@ -24,6 +25,7 @@ type WordsHomeProps = {
   translations: Readonly<Record<string, string>>;
   horizonDisplay: HorizonDisplay;
   now: number;
+  contentTraceIndex: ContentTraceIndex | null;
 };
 
 const countTileClass =
@@ -36,6 +38,7 @@ export async function WordsHome({
   translations,
   horizonDisplay,
   now,
+  contentTraceIndex,
 }: WordsHomeProps) {
   const t = await getTranslations("words");
   const tReview = await getTranslations("reviewSession");
@@ -97,6 +100,7 @@ export async function WordsHome({
           atlas={snapshot.atlas}
           translations={translations}
           now={now}
+          contentTraceIndex={contentTraceIndex}
         />
       </div>
     </ShellPageContent>

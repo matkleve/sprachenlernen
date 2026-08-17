@@ -173,6 +173,16 @@
     "wordDetailRetireHelpOnly": "Keine weiteren Wiederholungen. Ihre Historie bleibt auf dem Konto.",
     "wordDetailActionFootnote": "Aussetzen pausiert; Entfernen beendet die Planung. Die Historie wird nie gelöscht."
   },
+  "contentTrace": {
+    "word": {
+      "sectionLabel": "Wo dieses Wort in Ihren Inhalten vorkommt",
+      "summary": "In {count, plural, one {# gespeichertem Text oder einer Episode} other {# gespeicherten Texten oder Episoden}}",
+      "next": "Kommt in {count, plural, one {# Quelle} other {# Quellen}} vor — sehen, was es freischaltet",
+      "emptyHeading": "Keine Inhalts-Treffer",
+      "empty": "Dieses Wort kommt in keinem Ihrer gespeicherten Texte oder Episoden vor.",
+      "emptyLink": "Inhaltsbibliothek öffnen"
+    }
+  },
   "reviewSession": {
     "title": "Wiederholen",
     "backToMethods": "Zurück zu Methoden",
@@ -225,6 +235,39 @@
     "reportSubmit": "Melden",
     "reportSuccessTitle": "Meldung erhalten.",
     "reportSuccessBody": "Nach heute planen wir diese Karte nicht mehr ein. Sie können sie jetzt noch zu Ende wiederholen."
+  },
+  "exerciseRunner": {
+    "progress": "Schritt {current} von {total}",
+    "prevStep": "Vorheriger Schritt",
+    "nextStep": "Nächster Schritt",
+    "stop": "Übung beenden",
+    "stopConfirmTitle": "Übung beenden?",
+    "stopConfirmBody": "Der Fortschritt in diesem Durchlauf geht verloren. Nichts wird in Ihrem Backlog gespeichert.",
+    "stopConfirm": "Beenden",
+    "stopCancel": "Weitermachen",
+    "timerRunning": "{seconds}s",
+    "timerExpired": "Die Zeit ist um — Sie entscheiden, wann Sie weitermachen.",
+    "timerPause": "Pause",
+    "timerResume": "Fortsetzen",
+    "primaryPrepare": "Weiter",
+    "primaryDo": "Fertig mit diesem Schritt",
+    "primaryWait": "Weiter",
+    "primarySubmit": "Eingereicht",
+    "primaryReview": "Durchgesehen",
+    "primaryDecide": "Auswählen",
+    "submitNeedsInput": "Fügen Sie ein Foto oder Text hinzu, bevor Sie einreichen.",
+    "abandonedTitle": "Übung beendet",
+    "abandonedBody": "Aus diesem Durchlauf wurde nichts gespeichert.",
+    "completeTitle": "Übung abgeschlossen",
+    "completeBody": "Sie haben diese Übung beendet.",
+    "decline": "Nicht jetzt — fertig",
+    "prepareChecklist": "Bevor Sie starten",
+    "submitPhoto": "Foto",
+    "submitText": "Text",
+    "submitTextPlaceholder": "Eingefügten oder getippten Text hier einfügen…",
+    "reviewAnswerKey": "Lösung",
+    "reviewMarkErrors": "Tippen Sie auf Wörter, die falsch waren",
+    "feedbackPlaceholder": "Automatische Korrektur ist noch nicht verfügbar — vergleichen Sie mit der Lösung und markieren Sie eigene Fehler."
   },
   "progress": {
     "title": "Wo Sie stehen",

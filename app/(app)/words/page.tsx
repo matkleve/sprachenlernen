@@ -40,6 +40,7 @@ export default async function WordsPage() {
       translations={outcome.translations}
       horizonDisplay={outcome.horizonDisplay}
       now={outcome.now}
+      contentTraceIndex={outcome.contentTraceIndex}
     />
   );
 }

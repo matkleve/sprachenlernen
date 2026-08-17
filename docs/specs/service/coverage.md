@@ -5,7 +5,7 @@
 <!-- use-case: UC-034 -->
 <!-- use-case: UC-033 -->
 <!-- use-case: UC-059 -->
-<!-- status: draft -->
+<!-- status: active -->
 
 Lemma-level **coverage** over a Source: what fraction of tokens resolve to lemmas
 the learner holds. Framework-free. Built on

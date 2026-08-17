@@ -173,6 +173,16 @@
     "wordDetailRetireHelpOnly": "Stop scheduling this word. Your review history stays on your account.",
     "wordDetailActionFootnote": "Suspend pauses scheduling; Remove stops it. History is never deleted."
   },
+  "contentTrace": {
+    "word": {
+      "sectionLabel": "Where this word appears in your content",
+      "summary": "In {count, plural, one {# saved text or episode} other {# saved texts or episodes}}",
+      "next": "Appears in {count, plural, one {# source} other {# sources}} — see what it unlocks",
+      "emptyHeading": "No content appearances",
+      "empty": "This word does not appear in any of your saved texts or episodes yet.",
+      "emptyLink": "Browse your content library"
+    }
+  },
   "reviewSession": {
     "title": "Review",
     "backToMethods": "Back to methods",
@@ -225,6 +235,39 @@
     "reportSubmit": "Report",
     "reportSuccessTitle": "Report received.",
     "reportSuccessBody": "We will not schedule this card again after today. You can finish reviewing it now."
+  },
+  "exerciseRunner": {
+    "progress": "Step {current} of {total}",
+    "prevStep": "Previous step",
+    "nextStep": "Next step",
+    "stop": "Stop exercise",
+    "stopConfirmTitle": "Stop this exercise?",
+    "stopConfirmBody": "Your progress in this run will be lost. Nothing is added to your backlog.",
+    "stopConfirm": "Stop",
+    "stopCancel": "Keep going",
+    "timerRunning": "{seconds}s",
+    "timerExpired": "Time is up — you decide when to move on.",
+    "timerPause": "Pause",
+    "timerResume": "Resume",
+    "primaryPrepare": "Continue",
+    "primaryDo": "Done with this step",
+    "primaryWait": "Continue",
+    "primarySubmit": "Submitted",
+    "primaryReview": "Reviewed",
+    "primaryDecide": "Choose",
+    "submitNeedsInput": "Add a photo or some text before submitting.",
+    "abandonedTitle": "Exercise stopped",
+    "abandonedBody": "Nothing was saved from this run.",
+    "completeTitle": "Exercise complete",
+    "completeBody": "You finished this exercise.",
+    "decline": "Not now — done",
+    "prepareChecklist": "Before you start",
+    "submitPhoto": "Photo",
+    "submitText": "Text",
+    "submitTextPlaceholder": "Paste or type what you wrote…",
+    "reviewAnswerKey": "Answer",
+    "reviewMarkErrors": "Tap words you got wrong",
+    "feedbackPlaceholder": "Automatic correction is not available yet — compare against the answer and mark your own errors."
   },
   "progress": {
     "title": "Where you stand",

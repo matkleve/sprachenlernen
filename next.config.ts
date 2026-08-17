@@ -11,6 +11,12 @@ const nextConfig: NextConfig = {
   outputFileTracingIncludes: {
     "/methods": ["./data/methods/**/*", "./data/demonstration-sentences/**/*"],
     "/methods/[id]": ["./data/methods/**/*"],
+    "/words": [
+      "./data/content/**/*",
+      "./data/languages/**/*",
+      "./data/frequency/**/*",
+      "./data/lemma/**/*",
+    ],
     "/words/review": ["./data/methods/**/*"],
     "/languages": ["./data/languages/**/*"],
   },

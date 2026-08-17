@@ -65,6 +65,7 @@ const homeProps = {
     [],
   ),
   now,
+  contentTraceIndex: null,
 };
 
 async function renderWordsHome() {

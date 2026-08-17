@@ -10,6 +10,7 @@ import { VocabularyOrbitSvg } from "@/features/words/VocabularyOrbitSvg";
 import { WordsSectionLabel } from "@/features/words/WordsSectionLabel";
 import { frequencyBandForRank } from "@/lib/frequency-blocks";
 import type { AtlasPoint } from "@/lib/vocabulary-snapshot";
+import type { ContentTraceIndex } from "@/lib/content-traceability";
 import type { OrbitSegment, OrbitTickSegment, OrbitWordSegment, VocabularyOrbit } from "@/lib/vocabulary-orbit";
 
 type DetailSegment = Exclude<OrbitSegment, OrbitTickSegment>;
@@ -20,6 +21,7 @@ type VocabularyOrbitFieldProps = {
   atlas: readonly AtlasPoint[];
   translations: Readonly<Record<string, string>>;
   now: number;
+  contentTraceIndex?: ContentTraceIndex | null;
 };
 
 function wordSegmentFromAtlas(point: AtlasPoint, translations: Readonly<Record<string, string>>): OrbitWordSegment {
@@ -52,6 +54,7 @@ export function VocabularyOrbitField({
   atlas,
   translations,
   now,
+  contentTraceIndex = null,
 }: VocabularyOrbitFieldProps) {
   const t = useTranslations("words");
   const [selected, setSelected] = useState<DetailSegment | null>(null);
@@ -91,7 +94,7 @@ export function VocabularyOrbitField({
 
       {selected ? (
         <div className="mt-6" aria-live="polite">
-          <OrbitDetailCard segment={selected} now={now} />
+          <OrbitDetailCard segment={selected} now={now} contentTraceIndex={contentTraceIndex} />
         </div>
       ) : null}
 

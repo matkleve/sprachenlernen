@@ -29,6 +29,9 @@ export const routes = {
   methods: "/methods",
   method: (id: string) => `/methods/${id}`,
   words: "/words",
+  /** Saved texts and episodes — content library (T-W8c). */
+  content: "/content",
+  contentDetail: (id: string) => `/content/${id}`,
   /** Progressive Words body — Safari/PWA bisect (study/31). */
   wordsBisect: "/words-bisect",
   wordsReview: "/words/review",
