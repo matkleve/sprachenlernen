@@ -30,7 +30,7 @@ describe("BrandExplorer", () => {
     render(<BrandExplorer />);
 
     const cards = screen.getAllByRole("article");
-    expect(cards).toHaveLength(5);
+    expect(cards).toHaveLength(6);
 
     for (const direction of logoDirections) {
       const card = cards.find((entry) =>
@@ -103,7 +103,7 @@ describe("BrandExplorer", () => {
     await waitFor(() => {
       const banner = screen.getByTestId("brand-explorer-banner");
       expect(banner.textContent).toContain(languageOrbit.name);
-      expect(banner.textContent).not.toContain("Scholar bars");
+      expect(banner.textContent).not.toContain("Fanned pages");
     });
   });
 });

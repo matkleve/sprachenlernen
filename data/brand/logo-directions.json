@@ -1,5 +1,15 @@
 [
   {
+    "id": "fanned-pages",
+    "name": "Fanned pages",
+    "tagline": "Layered reading — pages fanning open",
+    "rationale": "Four angled pages fan from a spine point. Reading and depth without a literal open book. Owner pick from ChatGPT exploration grid #5.",
+    "basis": "ChatGPT mood-board exploration 2026-08-16, cell #5",
+    "markSrc": "/design/logo/directions/fanned-pages.svg",
+    "monoSrc": "/design/logo/directions/fanned-pages-mono.svg",
+    "shipped": true
+  },
+  {
     "id": "warm-scholar-bars",
     "name": "Scholar bars",
     "tagline": "Three vertical strokes — the refined shipped mark",
@@ -7,7 +17,7 @@
     "basis": "Current public/icon.svg + Warm Scholar accent",
     "markSrc": "/design/logo/directions/warm-scholar-bars.svg",
     "monoSrc": "/design/logo/directions/warm-scholar-bars-mono.svg",
-    "shipped": true
+    "shipped": false
   },
   {
     "id": "open-folio",
