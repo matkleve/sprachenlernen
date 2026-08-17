@@ -73,6 +73,7 @@ only this table.
 | [33 · Skill-tier badges](33-skill-tier-badges-exploration.md) | Wood→platinum per-skill badges, detail layout, v3 asset brief (repo only) |
 | [34 · Review report UX](34-review-report-and-acknowledgement-ux.md) | Flag popover, status banner, scheduling-intent options (UC-073/074) |
 | [35 · Logo & PWA icon](35-logo-and-pwa-icon-exploration.md) | App mark directions, favicon/Home Screen review, sync workflow |
+| [36 · Method surfaces property audit](36-method-surfaces-property-audit.md) | UX designer review of every card/detail property — badges, chips, effort dots |
 | [Sources](sources.md) | Literature, honestly marked by how far each was checked |
 
 Chapters 12–26 were written after the roadmap and are appended at the end. By

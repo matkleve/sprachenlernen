@@ -94,11 +94,7 @@ outside `components/ui/`.
 
 - [x] Given any `Button`, when pressed, then `active:scale` (or equivalent) is
       visible before release.
-<<<<<<< HEAD
 - [x] Given a card-shaped `Disclosure`, when the summary is pressed, then the
-=======
-- [ ] Given a card-shaped `Disclosure`, when the summary is pressed, then the
->>>>>>> origin/cursor/disclosure-press-spec-0b3f
       shell (`<details>`) scales before release — see
       [`disclosure.md`](../component/disclosure.md).
 - [x] Given a `Button` with an async handler, when released, then it enters

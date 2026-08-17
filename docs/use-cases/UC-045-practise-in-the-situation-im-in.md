@@ -30,9 +30,12 @@ to the top make browsing worse, not better.
   in place — no full reload, no scroll jump. Only choosing a method navigates away.
 - **Refine only when needed:** hands-free, silent, eyes elsewhere — not eight
   dimensions on the front door.
-- Each card shows **at a glance**: which skills it mainly serves, a plain
-  **evidence label** (e.g. "Thin evidence"), and a plain **effort label** (e.g.
-  "Light effort") — before the learner opens the detail page.
+- Each card shows **at a glance**: which skills it mainly serves (contribution
+  level), a plain **evidence label** (e.g. "Thin evidence"), and a plain **effort
+  label** (e.g. "Light effort") — before the learner opens the detail page.
+- Logistics chips show **duration** (one range chip), **hosted/off-app**, and
+  **all** requirement values from the catalogue — owner chose display all over
+  capping (study/34).
 - Each card shows a **section header graphic** (one abstract image per catalogue
   section) so browsing sixty entries has visual rhythm without ranking methods.
 - Methods that do not fit are **absent**, not greyed out.

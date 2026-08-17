@@ -18,7 +18,7 @@ const panelClass =
   "rounded-card border border-line bg-surface-raised shadow-soft md:sticky md:top-28";
 
 function PracticalDetails({ method }: { method: MethodEntry }) {
-  const { t, evidenceCard, evidenceProse } = useMethodMenuCopy();
+  const { t, evidenceCard, evidenceProse, effortCard, intensity } = useMethodMenuCopy();
   const { requirementChips, formatDurationLabel } = useRequirementHelpers();
   const requirements = requirementChips(method.requires);
   const durationLabel = formatDurationLabel(method.durations);
@@ -45,6 +45,12 @@ function PracticalDetails({ method }: { method: MethodEntry }) {
         <dt className="font-medium text-ink">{t("hosted")}</dt>
         <dd className="mt-1.5">
           <Chip>{method.hosted ? t("hostedShort") : t("notHostedShort")}</Chip>
+        </dd>
+      </div>
+      <div>
+        <dt className="font-medium text-ink">{t("card.effort")}</dt>
+        <dd className="mt-1.5 text-sm leading-relaxed text-muted">
+          {effortCard[method.intensity]} — {intensity[method.intensity]}
         </dd>
       </div>
       <div>

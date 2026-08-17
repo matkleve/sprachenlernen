@@ -14,10 +14,24 @@ vi.mock("next/navigation", () => ({
 
 const { catalogue } = loadMethodCatalogue();
 const extensiveReading = findMethod(catalogue, "extensive-reading")!;
+const intensiveReading = findMethod(catalogue, "intensive-reading")!;
 const narrowListening = findMethod(catalogue, "narrow-listening")!;
 const srsSession = findMethod(catalogue, "srs-session")!;
 
 describe("MethodDetail", () => {
+  it("shows plain effort in the badge band without a dot scale", async () => {
+    render(await MethodDetail({ method: intensiveReading }));
+
+    expect(screen.getByText(en.methodMenu.effortCard[3])).toBeDefined();
+    expect(screen.queryByText(/3 of 3/)).toBeNull();
+  });
+
+  it("shows effort anchor sentence in practical details", async () => {
+    render(await MethodDetail({ method: intensiveReading }));
+
+    expect(document.body.textContent).toContain(en.methodMenu.intensity[3]);
+  });
+
   it("shows a single duration chip in the facts panel", async () => {
     render(await MethodDetail({ method: narrowListening }));
     expect(screen.getAllByText("10–45 min").length).toBeGreaterThan(0);

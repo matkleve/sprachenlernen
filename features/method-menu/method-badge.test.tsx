@@ -9,7 +9,6 @@ import { expectNoA11yViolations } from "@/tests/axe";
 
 import {
   EffortBadge,
-  EffortScale,
   EvidenceBadge,
   MethodBadgeRow,
   SkillMarkBadge,
@@ -58,10 +57,10 @@ describe("EvidenceBadge", () => {
 });
 
 describe("EffortBadge", () => {
-  it("shows Effort label with a three-step scale on detail", () => {
-    render(<EffortScale intensity={1} />);
-    expect(screen.getByText(en.methodMenu.card.effort)).toBeDefined();
-    expect(screen.getByText(/Light effort \(1 of 3\)/)).toBeDefined();
+  it("shows plain-language effort without a dot scale", () => {
+    render(<EffortBadge intensity={1} />);
+    expect(screen.getByText(en.methodMenu.effortCard[1])).toBeDefined();
+    expect(screen.queryByText(/1 of 3/)).toBeNull();
   });
 });
 
@@ -83,16 +82,18 @@ describe("method surfaces", () => {
     expect(link.textContent).not.toContain("plausible and widespread");
   });
 
-  it("shows article layout on detail without badge row", async () => {
+  it("shows article layout on detail with effort badge band and practical facts", async () => {
     render(await MethodDetail({ method }));
     expect(screen.getByRole("heading", { level: 1, name: method.name })).toBeDefined();
-    expect(screen.getByText(en.methodMenu.card.effort)).toBeDefined();
+    expect(screen.getByText(en.methodMenu.effortCard[1])).toBeDefined();
     expect(screen.getAllByText("Thin evidence").length).toBeGreaterThan(0);
+    expect(document.body.textContent).toContain("can be done tired or distracted");
     expect(document.body.textContent).toContain(method.trains);
     expect(document.body.textContent).toContain(method.doesNotDo);
     expect(screen.queryByTitle("Listening, slight")).toBeNull();
     expect(screen.getAllByText(en.methodMenu.detail.researchConfidence).length).toBeGreaterThan(0);
     expect(screen.queryByText(/Evidence C/i)).toBeNull();
+    expect(screen.queryByText(/1 of 3/)).toBeNull();
   });
 
   it("has no accessibility violations in isolation", async () => {

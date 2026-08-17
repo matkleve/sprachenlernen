@@ -2,11 +2,7 @@
 
 <!-- id: SPEC-component-disclosure -->
 <!-- use-case: UC-068 -->
-<<<<<<< HEAD
 <!-- status: active -->
-=======
-<!-- status: draft -->
->>>>>>> origin/cursor/disclosure-press-spec-0b3f
 
 Native `<details>` disclosure with a styled summary and animated panel. Used for
 collapsible help (lemma callout), refine filters, error technical details, and
@@ -81,7 +77,6 @@ the visual height is animated.
 
 ## Acceptance criteria
 
-<<<<<<< HEAD
 - [x] Given a card-shaped `Disclosure` (e.g. lemma callout), when the learner
       presses anywhere on the summary row, then the **entire shell** scales to
       `0.98` before release — not the label text alone.
@@ -93,20 +88,6 @@ the visual height is animated.
 - [x] Given `DisclosurePanel` wraps body content, when the disclosure test suite
       runs, then panel motion classes are asserted.
 - [x] Given `LemmaCallout` on viewport &lt; `md`, when the learner taps the
-=======
-- [ ] Given a card-shaped `Disclosure` (e.g. lemma callout), when the learner
-      presses anywhere on the summary row, then the **entire shell** scales to
-      `0.98` before release — not the label text alone.
-- [ ] Given a `Disclosure`, when it opens or closes, then the panel height
-      animates over 150ms with `ease-out-soft` and the chevron rotates in the
-      same window.
-- [ ] Given keyboard focus on the summary, when Enter or Space is pressed, then
-      the panel toggles with the same motion as pointer activation.
-- [ ] Given `DisclosurePanel` is omitted, when `check:specs` or the disclosure
-      test suite runs, then call sites are caught (lint or test failure on
-      unwrapped body content).
-- [ ] Given `LemmaCallout` on viewport &lt; `md`, when the learner taps the
->>>>>>> origin/cursor/disclosure-press-spec-0b3f
       callout, then press feedback matches other card controls on `/words`
       (Start review card, held/fragile tiles).
 

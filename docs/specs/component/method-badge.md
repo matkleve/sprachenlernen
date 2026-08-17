@@ -7,8 +7,10 @@
 Three non-interactive badge families for **method cards** (catalogue scanning):
 **skill contribution**, **evidence** (plain label), and **effort** (plain label).
 Detail pages use **skill tier icons** ([`skill-tier-badge.md`](skill-tier-badge.md))
-and effort in the badge band — see [`method-detail.md`](../page/method-detail.md).
-Contract: [`../../study/27-method-badges.md`](../../study/27-method-badges.md).
+and the **same plain effort label** in the badge band — see
+[`method-detail.md`](../page/method-detail.md). Contract:
+[`../../study/27-method-badges.md`](../../study/27-method-badges.md),
+[`../../study/36-method-surfaces-property-audit.md`](../../study/36-method-surfaces-property-audit.md).
 
 ## Scope
 
@@ -27,7 +29,7 @@ badge copy lives in `features/method-menu/content.ts`).
 | # | User action | System response |
 | --- | --- | --- |
 | 1 | Sees a method card | Badge row shows skill marks, evidence label, effort label in fixed order |
-| 2 | Opens method detail | Detail uses article prose — badges are not repeated |
+| 2 | Opens method detail | Detail badge band: tier icons + plain effort text; evidence only in disclosure |
 | 3 | Focuses a card link (keyboard) | `sr-only` summary states skills, evidence, and effort; individual marks use `title` tooltips |
 
 ## Families
@@ -56,9 +58,10 @@ a collapsed disclosure — still no "Evidence C" prefix in the UI.
 
 ### Effort load
 
-Renders `intensity` 1–3 as a **plain-language card label** (`effortCard` — e.g.
-"Light effort", "Needs focus", "Draining"). Detail page states effort in the
-Practical section as label + `intensity` anchor sentence.
+Renders `intensity` 1–3 as a **plain-language label** (`effortCard` — e.g.
+"Light effort", "Needs focus", "Draining") on **cards and the detail badge band**.
+Detail **Practical** adds the `INTENSITY` anchor sentence after the label. **No dot
+scale anywhere** — study/27, study/34.
 
 ## States
 
@@ -87,6 +90,8 @@ Optional `className` via `cn()`.
       evidence" — not a letter grade or multi-line pill.
 - [ ] Given intensity 1, when the card renders, then the effort badge shows
       "Light effort" — not a dot scale.
+- [ ] Given intensity 3 on detail, when the badge band renders, then effort shows
+      "Draining" as plain text — not a dot scale.
 - [ ] Given a card link with skill marks, when a screen reader announces the
       link, then the `sr-only` summary includes skill names, contribution levels,
       evidence gloss, and effort.
