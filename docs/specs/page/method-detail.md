@@ -18,7 +18,9 @@ works for bookmarks and links.
   article (large `<h1>`, summary, **badge band** with tier icons + plain effort
   text, **how/why prose** from `trains`, **does-not-do** paragraph) and a
   **practical-details panel** (duration, full needs list, hosted, effort anchor
-  sentence, research disclosure). On `< md` the panel collapses into a
+  sentence, research disclosure). **Material setup** panel when
+  `materialModes` is set ([`method-material-setup.md`](../feature/method-material-setup.md)).
+  On `< md` the panel collapses into a
   `Disclosure`. Cards keep Lucide badge row
   ([`method-badge.md`](../component/method-badge.md)). Tier badges:
   [`skill-tier-badge.md`](../component/skill-tier-badge.md). Shell header shows
@@ -36,6 +38,10 @@ range chip; hero matches card graphic; facts move to sidebar.
 icons + plain effort text only** (effort right at `≥ sm`); **no evidence badge**
 in the band (disclosure only); **no effort dot scale**; effort anchor sentence in
 Practical. Full-bleed hero retained (text-mask deferred). Owner go 2026-08-16.
+
+**Material setup (UX, 2026-08-17):** study/37 — methods with `materialModes` show
+the **What to practise with** panel via
+[`method-material-setup.md`](../feature/method-material-setup.md).
 
 ## Badge band — UX placement (decided 2026-08-16)
 
@@ -82,7 +88,9 @@ Designer reviewed four placements. **Rejected:**
 | 3 | Other hosted method | No Start; not-built copy |
 | 4 | Back (desktop or shell chip) | `/methods` with filter query preserved |
 | 5 | Expands practical details (`< md`) | Duration, needs, hosted, effort anchor, evidence appear |
-| 6 | Expands research confidence | Plain evidence label + prose |
+| 6 | Expands research confidence | Plain evidence label + prose appear |
+| 7 | Method has `materialModes` | Setup panel below badge band; Start gated until Source resolves |
+| 8 | Method has no `materialModes` | Start unchanged (e.g. `srs-session`) |
 
 ## Acceptance criteria
 

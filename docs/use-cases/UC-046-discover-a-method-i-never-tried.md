@@ -1,7 +1,7 @@
 # UC-046 — Discover a way of practising I never knew existed
 
 <!-- id: UC-046 -->
-<!-- specs: SPEC-service-method-catalogue, SPEC-page-method-menu, SPEC-service-method-engines, SPEC-service-practice-model, SPEC-component-method-badge, SPEC-component-method-card-header -->
+<!-- specs: SPEC-service-method-catalogue, SPEC-page-method-menu, SPEC-service-method-engines, SPEC-service-practice-model, SPEC-component-method-badge, SPEC-component-method-card-header, SPEC-feature-method-material-setup -->
 
 **Who:** a learner whose idea of "studying a language" is whatever their app has
 shown them.

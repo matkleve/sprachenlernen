@@ -23,8 +23,8 @@ in [`content-traceability.md`](content-traceability.md).
 | # | User action | System response |
 | --- | --- | --- |
 | 1 | Opens a demanding source | Gap section: “{n} words to comfortable (95 %)” + ordered list (lemma, rank, gloss) |
-| 2 | Gap count ≤ cap | **Learn as a set** schedules those lemmas ahead of other new cards (ordinary cards afterwards) |
-| 3 | Gap count &gt; cap | No full list — plain copy: gap too large; names the closest lower-demand source instead |
+| 2 | Gap count ≤ **40** | **Learn as a set** schedules those lemmas ahead of other new cards |
+| 3 | Gap count &gt; **40** | No full list — plain copy + closest lower-demand source |
 | 4 | Taps a gap lemma | Navigates to word on `/words` (orbit/list selection when wired) |
 | 5 | Finishes a gap set | Source detail shows updated coverage; offers the item — payoff is experienced (UC-034) |
 
@@ -46,7 +46,7 @@ flat number without basis.
 | --- | --- | --- | --- |
 | `no-gap` | coverage ≥ 95 % | Gap section hidden; comfortable copy only | no |
 | `gap-list` | below 95 %, count ≤ cap | Full list + CTA | no |
-| `gap-too-large` | below 95 %, count &gt; cap | Summary + alternate source link | no |
+| `gap-too-large` | below 95 %, count &gt; **40** | Summary + alternate source link | no |
 | `set-active` | learner started set | CTA shows progress “{k} of {n}” | no |
 | `set-complete` | all gap lemmas held | Congratulations + open source | yes |
 
@@ -54,7 +54,7 @@ flat number without basis.
 
 - [ ] Given a source at 91 % with 23 lemmas to 95 %, when detail renders, then
       all 23 are listed in frequency order and the demanding loop line is shown.
-- [ ] Given gap count above the cap, when detail renders, then **no** 400-word
+- [ ] Given gap count above **40**, when detail renders, then **no** 400-word
       list appears and an alternate source is named.
 - [ ] Given **Learn as a set**, when confirmed, then only starter-pool cards are
       created or prioritised — **no** parallel card system.

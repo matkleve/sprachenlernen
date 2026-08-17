@@ -47,9 +47,9 @@ Gap list UI: [`content-gap.md`](../feature/content-gap.md).
 
 ### Fixture sources (read-only stub)
 
-Ship `data/content/{lang}/*.json` — validated against the Source shape in
-content-traceability. At least one short text per shipped learning language.
-`origin: "fixture"`. Lets T-W7/T-W8 run before T-W9.
+Ship `data/content/{lang}/*.json` — `catalogue` and `fixture` entries. At least
+one short text per shipped learning language. `learner` entries from intake when
+T-W9 ships; session-only paste may omit persistence (study/37).
 
 ## Data
 
@@ -66,9 +66,3 @@ In [`coverage.acceptance-criteria.md`](coverage.acceptance-criteria.md).
 ## Check
 
 `npm test -- coverage`
-
-## Open
-
-- **⚠ SPEC GAP: maximum gap-set size before “suggest something closer”.**
-  UC-034 requires plain refusal above a reasonable set. Proposed default: **40**
-  lemmas — confirm or set another cap before T-W8 implements scheduling CTA.

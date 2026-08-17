@@ -14,16 +14,18 @@ words. Serves K2–K4 from
 K1 (pool map) is already on `/words`.
 
 Child specs: [`coverage.md`](../service/coverage.md) (calculator),
-[`content-gap.md`](content-gap.md) (missing-word set per item).
+[`content-gap.md`](content-gap.md) (gap list),
+[`method-material-setup.md`](method-material-setup.md) (pick material on method
+detail). UX: [`../../study/37-content-and-method-setup-ux.md`](../../study/37-content-and-method-setup-ux.md).
 
 ## Scope
 
-- **In:** the **Source** data model v1; where word→content and content→word links
-  render; loop copy (one forward-pointing line per surface); textual equivalents
-  (UC-021); read-only **fixture sources** before word capture ships.
-- **Out:** intake UI (T-W9), reading runner (T-W10), RSS sync, ASR, support
-  ladder, simplification, method-gap copy (UC-059 — same arithmetic, separate
-  spec), notification feed of unlock events.
+- **In:** the **Source** data model v1 (catalogue + fixture + learner); where
+  word→content and content→word links render; `/content` library; loop copy;
+  textual equivalents (UC-021); fixture + catalogue seeds before full intake.
+- **Out:** method setup panel UI (method-material-setup); reading runner (T-W10);
+  RSS sync; ASR; support-ladder implementation (UC-030); method-gap copy
+  (UC-059); notification feed of unlock events.
 
 ## What “content” is in v1
 
@@ -36,18 +38,26 @@ A **Source** is one saved text or one audio item with a transcript
 | `languageCode` | yes | learning language |
 | `kind` | yes | `text` \| `audio` |
 | `title` | yes | display name |
-| `origin` | yes | `fixture` \| `file` \| `url` \| `rss` |
+| `origin` | yes | `catalogue` \| `fixture` \| `learner` — see below |
 | `body` | yes for `text` | raw text to tokenise |
-| `transcript` | yes for `audio` | without transcript the item is **unusable** — no coverage, no gap list ([`../../study/17-own-content.md`](../../study/17-own-content.md)) |
-| `series` | no | podcast/show name |
+| `transcript` | yes for `audio` | without transcript **unusable** ([`../../study/17-own-content.md`](../../study/17-own-content.md)) |
+| `tags` | no | topic hints for catalogue search (study/37) |
+| `series` | no | podcast/show or narrow-reading series name |
 | `episodeLabel` | no | e.g. `214` |
 | `sourceUrl` | no | link back for learner-owned items |
 | `addedAt` | yes | ISO timestamp |
+| `ephemeral` | no | `true` = session-only (no `/content` row, no trace links) |
 
-**v1 minimum that ships:** `fixture` sources in `data/content/` (one short text
-per learning language) plus coverage computed from them. Learner intake
-(`file` / `url` / `rss`) waits for T-W9; fixtures unblock T-W7/T-W8 and the
-word trace block before capture.
+**Origins (decided study/37):**
+
+| Origin | Example | Listed on `/content`? |
+| --- | --- | --- |
+| `catalogue` | *Nachrichten: Chile-Wahlen* (app reading pool) | yes |
+| `fixture` | Demo text in `data/content/es.json` | yes |
+| `learner` | Uploaded article, pasted link, RSS episode | yes when **Keep in library**; else ephemeral |
+
+**v1 minimum:** `fixture` + `catalogue` JSON in `data/content/`; learner intake
+UI on method detail (T-W10a) before full persistence (T-W9).
 
 **Known-lemma set:** held lemmas from
 [`vocabulary-snapshot.md`](../service/vocabulary-snapshot.md) for the active
@@ -75,7 +85,8 @@ itself; it is the index into surface 2.
 | Orbit word segment selected | yes, below stats row | extends [`orbit-detail-card.md`](../component/orbit-detail-card.md) |
 | Word detail (T-W2) from atlas or review card | yes, same block | reuse one component; schedule reason stays a separate section above |
 | Orbit aggregate segment | no | band summary only |
-| Lemma not in any saved source | yes — empty state | “Not in your saved content yet” + link to `/content` |
+| Lemma not in any **persisted** source | yes — empty state | link to `/content` |
+| Source is ephemeral (session-only) | no trace link | word still counts in session coverage delta |
 | No sources exist at all | hidden | no fake appearances; orbit card unchanged from today |
 | Review session (in-card) | no | payoff is on session complete, not mid-session |
 
@@ -131,24 +142,24 @@ Every visual connection has a prose or list form:
 | 1 | Selects a word on `/words` with sources loaded | Trace block lists appearances or empty state |
 | 2 | Taps a source title in the trace block | Navigates to `/content/[id]` |
 | 3 | Opens a demanding source | Coverage %, band label, gap summary; link to gap list |
-| 4 | Completes a review session with ≥1 newly held lemma | Session complete adds loop line when any fixture source’s coverage changed |
-| 5 | Opens `/content` with no learner sources | Fixture sources listed with coverage; no upload CTA until T-W9 |
+| 4 | Completes a review session with ≥1 newly held lemma | Session complete adds loop line when any **persisted** source's coverage changed |
+| 5 | Opens `/content` | Catalogue + fixture + kept learner sources listed with coverage % |
 
 ## Dependencies and build order
 
 ```
-T-W7  coverage service + fixture sources
-  → T-W8b word trace block (this spec § word block)
-  → T-W8  content gap list
-T-W9  word capture (adds learner sources; not required for fixture-only stub)
-  → T-W10 reading surface
-T-W11 K4 session loop line — after T-W7; can ship with T-W8b
-T-W11b K2 history + monthly rollup (UC-033) — after T-W8c
+T-W7   coverage (+ catalogue/fixture/learner origins)
+  → T-W8b word trace block
+  → T-W8  content gap list (cap 40 lemmas)
+  → T-W8c /content library
+T-W10a method material setup (study/37)
+  → T-W10 reading runner
+T-W9   learner persistence (optional for session-only paste)
+T-W11  K4 session loop line
+T-W11b K2 unlock rollup (Sensitive)
 ```
 
-T-W7 **before** T-W8 (gap list is reverse coverage). T-W8b can ship with T-W7
-when fixtures exist. T-W9 **not** required for read-only stub. Scheduling a gap
-set uses existing starter-pool cards only — no capture.
+T-W7 **before** T-W8. T-W10a can ship catalogue-only before T-W9.
 
 ## Acceptance criteria
 
@@ -156,10 +167,4 @@ In [`content-traceability.acceptance-criteria.md`](content-traceability.acceptan
 
 ## Check
 
-`npm test -- coverage content-traceability content-gap`
-
-## Open
-
-- **⚠ SPEC GAP: route slug for the sources library.** `/content` vs `/sources`
-  vs a tab under `/methods` — which URL owns saved items? Blocks route files
-  only; behaviour in this spec is route-agnostic (`/content/[id]` placeholder).
+`npm test -- coverage content-traceability content-gap method-material-setup`
