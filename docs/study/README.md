@@ -74,6 +74,7 @@ only this table.
 | [34 · Review report UX](34-review-report-and-acknowledgement-ux.md) | Flag popover, status banner, scheduling-intent options (UC-073/074) |
 | [35 · Logo & PWA icon](35-logo-and-pwa-icon-exploration.md) | App mark directions, favicon/Home Screen review, sync workflow |
 | [36 · Method surfaces property audit](36-method-surfaces-property-audit.md) | UX designer review of every card/detail property — badges, chips, effort dots |
+| [37 · Content & method setup UX](37-content-and-method-setup-ux.md) | Catalogue + learner sources, topic/upload on method detail, `/content` library |
 | [Sources](sources.md) | Literature, honestly marked by how far each was checked |
 
 Chapters 12–26 were written after the roadmap and are appended at the end. By

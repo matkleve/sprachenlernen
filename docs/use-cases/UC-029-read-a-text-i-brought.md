@@ -1,7 +1,7 @@
 # UC-029 — Read a text I brought myself
 
 <!-- id: UC-029 -->
-<!-- specs:  -->
+<!-- specs: SPEC-feature-content-traceability, SPEC-feature-method-material-setup -->
 
 **Who:** anyone holding a text in the target language they actually need or want
 to read — an article, a letter, a contract, a chapter.

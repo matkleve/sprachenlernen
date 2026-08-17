@@ -1,7 +1,7 @@
 # UC-030 — Make a text I care about readable, without gutting it
 
 <!-- id: UC-030 -->
-<!-- specs:  -->
+<!-- specs: SPEC-feature-method-material-setup, SPEC-feature-content-traceability -->
 
 **Who:** a learner facing a text that matters to them and sits well above their
 level.
