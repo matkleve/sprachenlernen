@@ -33,6 +33,14 @@ Update this file in the same PR as any new control or migration.
 | Footer links ×2 | `LandingHero.tsx` | `TextLink` | `accent` | — |
 | 404 back | `not-found.tsx` | `ActionLink` | `secondary` | ✓ |
 
+## Marketing (signed in)
+
+| Control | File | Primitive | Variant | P |
+| --- | --- | --- | --- | --- |
+| Sign out | `PublicHeader.tsx` | `SubmitButton` in `<form>` | `ghost sm` | auto |
+| To app | `PublicHeader.tsx` | `ActionLink` | `primary sm` | ✓ |
+| Hero CTA | `LandingHero.tsx` | `ActionLink` | `primary lg` | ✓ |
+
 ## Auth
 
 | Control | File | Primitive | Variant | P |

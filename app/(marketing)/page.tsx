@@ -3,7 +3,6 @@ import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 
 import { LandingHero } from "@/features/marketing/LandingHero";
-import { getAccount } from "@/lib/db/auth";
 import { routes } from "@/lib/routes";
 import { absoluteUrl, indexablePageMetadata } from "@/lib/site-metadata";
 
@@ -31,9 +30,6 @@ export default async function Home({
   if (code) {
     redirect(`${routes.authCallback}?code=${encodeURIComponent(code)}`);
   }
-
-  const account = await getAccount();
-  if (account) redirect(routes.appHome);
 
   return <LandingHero />;
 }

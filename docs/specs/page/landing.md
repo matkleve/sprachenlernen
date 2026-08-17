@@ -15,8 +15,10 @@ public page.
 ## Scope
 
 - **In:** the `/` route; the public header on every `(marketing)` route; sign-in
-  and sign-up calls to action; a short statement of what the product optimises
-  for, quoted from the study; signed-in visitors redirected to `/methods`.
+  and sign-up calls to action (signed out) or **To app** and **Sign out**
+  (signed in); a short statement of what the product optimises for, quoted from
+  the study. Signed-in visitors may read `/` — e.g. from **Open main website**
+  on `/profile` when installing to the Home Screen.
 - **Out:** full positioning copy and marketing argument (T-B7); OAuth; a fourth
   public route; anything that reads learner data.
 
@@ -45,8 +47,10 @@ rejected the prior pattern for four reasons:
 
 | Control | Primitive | Variant / size | Notes |
 | --- | --- | --- | --- |
-| **Sign in** | `ActionLink` | `ghost sm` | intrinsic width; no fill at rest |
-| **Create account** | `ActionLink` | `primary sm` | the **only** primary in the header |
+| **Sign in** | `ActionLink` | `ghost sm` | signed out only; intrinsic width; no fill at rest |
+| **Create account** | `ActionLink` | `primary sm` | signed out only; the **only** primary in the header |
+| **Sign out** | `SubmitButton` in `<form>` | `ghost sm` | signed in only; POST via `signOutAction` |
+| **To app** | `ActionLink` | `primary sm` | signed in only; navigates to `/methods` |
 
 On `/login` or `/signup`, the matching link sets `aria-current="page"` but
 **keeps its variant styling** — ghost stays ghost, primary stays primary. The
@@ -60,11 +64,13 @@ Header auth links use `gap-3` so expanded `sm` hit targets do not overlap.
 | # | User action | System response |
 | --- | --- | --- |
 | 1 | Opens `/` while signed out | The public header and landing hero render |
-| 2 | Opens `/` while signed in | Redirected to `/methods` before the hero renders |
-| 3 | Taps **Create account** | Navigates to `/signup` |
-| 4 | Taps **Sign in** (hero or header) | Navigates to `/login` |
-| 5 | Opens any other `(marketing)` route | The same public header renders; the hero does not |
-| 6 | Taps the product name in the header | Navigates to `/` |
+| 2 | Opens `/` while signed in | The public header shows **To app** and **Sign out**; the hero renders with a single **To app** CTA instead of sign-up / sign-in |
+| 3 | Taps **Create account** (signed out) | Navigates to `/signup` |
+| 4 | Taps **Sign in** (signed out, hero or header) | Navigates to `/login` |
+| 5 | Taps **To app** (signed in) | Navigates to `/methods` |
+| 6 | Taps **Sign out** (signed in) | POST `signOutAction`; lands on `/` signed out |
+| 7 | Opens any other `(marketing)` route | The same public header renders; the hero does not |
+| 8 | Taps the product name in the header | Navigates to `/` |
 
 ## States
 
@@ -73,14 +79,15 @@ read server-side per request, same as [`../service/auth.md`](../service/auth.md)
 
 | State | Trigger | Effect | Terminal? |
 | --- | --- | --- | --- |
-| `signed-out` | no session | Header + hero shown on `/` | no |
-| `signed-in` | a session on `/` | Redirect to `/methods` | no |
+| `signed-out` | no session | Header shows sign-in controls; hero shows sign-up / sign-in CTAs | no |
+| `signed-in` | a session | Header shows **To app** / **Sign out**; hero shows **To app** only | no |
 
 ## Data
 
-Reads the session via `getAccount()` on `/` only. Writes nothing.
+Reads the session via `getAccount()` in the marketing layout (header) and on `/`
+(hero CTAs). **Sign out** writes via `signOutAction`.
 
-Copy lives in `features/marketing/content.ts`. Sentences quoted from the study
+Copy lives in `messages/{locale}.json` (`marketing` namespace). Sentences quoted from the study
 are marked there with their source; nothing is invented for positioning.
 
 ## Acceptance criteria
@@ -94,8 +101,12 @@ are marked there with their source; nothing is invented for positioning.
 - [ ] Given a visitor on `/login`, when the header renders, then **Sign in**
       carries `aria-current="page"` and does **not** carry an accent fill class
       at rest.
-- [ ] Given a signed-in visitor on `/`, when the page is requested, then the
-      response is a redirect to `/methods` and the hero does not render.
+- [ ] Given a signed-in visitor on `/`, when the page renders, then the header
+      shows **To app** and **Sign out** (not sign-in controls), and the hero's
+      only CTA is **To app**.
+- [ ] Given a signed-in visitor on any `(marketing)` route, when the header
+      renders, then **To app** is the only `primary` control and **Sign out**
+      uses `ghost`.
 - [ ] Given any `(marketing)` route, when it renders, then the public header is
       present and no app-shell destination navigation is present.
 - [ ] When the landing page is rendered, then thesis 1 leads the headline and a

@@ -4,17 +4,19 @@ import { BrandLockup } from "@/components/brand/BrandLockup";
 import { ActionLink } from "@/components/ui/ActionLink";
 import { TextLink } from "@/components/ui/TextLink";
 import { hoursPerYear } from "@/lib/dose-band";
+import { getAccount } from "@/lib/db/auth";
 import { routes } from "@/lib/routes";
 
 /**
- * The signed-out view of `/`. Contract: docs/specs/page/landing.md
+ * The `/` hero. Contract: docs/specs/page/landing.md
  *
- * A Server Component: the signed-in redirect lives in the page, not here, so
- * this stays testable without mocking the router.
+ * A Server Component: signed-in vs signed-out CTAs are chosen here from the
+ * session so the page route stays a thin redirect handler for auth callbacks.
  */
 export async function LandingHero() {
   const t = await getTranslations("marketing");
   const pillars = t.raw("landing.pillars") as { text: string }[];
+  const signedIn = (await getAccount()) !== null;
 
   return (
     <div className="mx-auto max-w-3xl px-6 pt-page-top pb-page-bottom">
@@ -31,12 +33,20 @@ export async function LandingHero() {
       </p>
 
       <div className="mt-page-content flex flex-wrap items-center gap-3">
-        <ActionLink href={routes.signUp} variant="primary" size="lg">
-          {t("landing.primaryCta")}
-        </ActionLink>
-        <ActionLink href={routes.signIn} variant="secondary" size="lg">
-          {t("landing.secondaryCta")}
-        </ActionLink>
+        {signedIn ? (
+          <ActionLink href={routes.appHome} variant="primary" size="lg">
+            {t("header.toApp")}
+          </ActionLink>
+        ) : (
+          <>
+            <ActionLink href={routes.signUp} variant="primary" size="lg">
+              {t("landing.primaryCta")}
+            </ActionLink>
+            <ActionLink href={routes.signIn} variant="secondary" size="lg">
+              {t("landing.secondaryCta")}
+            </ActionLink>
+          </>
+        )}
       </div>
 
       <section

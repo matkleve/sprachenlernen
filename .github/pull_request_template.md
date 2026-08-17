@@ -22,6 +22,10 @@
 - [ ] Spec matches the final behavior, including anything changed mid-review
 - [ ] No new component without a reuse decision against `docs/specs/component/`
 - [ ] Anything that cost time is written down in `docs/TRAPS.md`
+- [ ] **Learner-facing:** after merge to `main`, run `npm run release:shame` or
+      `npm run release:ship` (not on this branch — see `docs/VERSIONING.md`).
+      Use `--no-push` if GitHub is unavailable; push the commit when billing is
+      restored.
 
 ## Deliberately not done
 

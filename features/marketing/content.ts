@@ -15,6 +15,8 @@ export const copy = {
     brand: "Sprachenlernen",
     signIn: "Sign in",
     signUp: "Create account",
+    toApp: "To app",
+    signOut: "Sign out",
   },
   landing: {
     eyebrow: "Evidence-driven language learning",

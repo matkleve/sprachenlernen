@@ -21,7 +21,10 @@
     "version:proud": "node scripts/bump-pride-version.mjs proud",
     "version:default": "node scripts/bump-pride-version.mjs default",
     "version:shame": "node scripts/bump-pride-version.mjs shame",
-    "version:ship": "node scripts/ship-version.mjs"
+    "version:ship": "node scripts/ship-version.mjs",
+    "release:shame": "node scripts/release-version.mjs shame",
+    "release:ship": "node scripts/release-version.mjs ship",
+    "release:proud": "node scripts/release-version.mjs proud"
   },
   "dependencies": {
     "@supabase/ssr": "0.12.4",

@@ -369,8 +369,9 @@ reached — never collapse them into "done":
 **Ship protocol** (see [`VERSIONING.md`](VERSIONING.md)):
 
 1. Merge to `main` — resolve conflicts; do not leave fixes in an open PR.
-2. On `main` only: `npm run version:shame` (bugfix) or `npm run version:ship` (feature).
-3. Commit `chore: ship vX.Y.Z`, push `main`.
+2. On `main` only: `npm run release:shame` (bugfix) or `npm run release:ship` (feature).
+   Use `--no-push` when GitHub is unavailable; push when billing is restored.
+3. Commit message is automatic: `chore: ship vX.Y.Z` (or `--no-push` leaves it local).
 4. Wait for deploy; tell the user to hard-refresh or tap the green version label.
 5. End with **LIVE CHECK (you)** — footer version must match what you shipped.
 

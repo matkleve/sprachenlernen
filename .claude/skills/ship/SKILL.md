@@ -40,11 +40,11 @@ Walk each item and state the evidence. "Looks fine" is not evidence.
       - **Merged:** commit is on `origin/main`.
       - **Deployed:** footer / Profile **App** shows the bumped Pride version;
         user gets **LIVE CHECK (you)** steps if you could not observe deploy.
-- [ ] **Version bumped on `main` after merge** (not on the feature branch):
-      checkout `main`, pull, then `npm run version:shame` for bugfixes/regressions
-      or `npm run version:ship` for features; commit `chore: ship vX.Y.Z`, push.
+- [ ] **Version released on `main` after merge** (not on the feature branch):
+      checkout `main`, pull, then `npm run release:shame` for bugfixes/regressions
+      or `npm run release:ship` for features; add `--no-push` if GitHub is down.
       See `docs/VERSIONING.md`. Skip only when nothing ships to learners (e.g.
-      CI-only).
+      CI-only). `verify` on `main` fails until the version is bumped.
 
 ## Then say plainly
 

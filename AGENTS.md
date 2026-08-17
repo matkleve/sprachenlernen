@@ -20,7 +20,7 @@ longer gets skimmed instead of read.
 npm run dev       # dev server
 npm run verify    # ← the gate. Runs typecheck, lint, check:specs, check:tokens,
                   #   check:contrast, test and build. Run before every commit.
-# After merge to main — docs/VERSIONING.md: version:shame (bugfix) or version:ship (feature)
+# After merge to main — docs/VERSIONING.md: release:shame (bugfix) or release:ship (feature)
 ```
 
 Never report work as done without a green `verify` — paste the output. To re-run

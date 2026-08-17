@@ -593,7 +593,9 @@
     "header": {
       "brand": "Sprachenlernen",
       "signIn": "Anmelden",
-      "signUp": "Konto erstellen"
+      "signUp": "Konto erstellen",
+      "toApp": "Zur App",
+      "signOut": "Abmelden"
     },
     "landing": {
       "eyebrow": "Evidenzbasiertes Sprachenlernen",

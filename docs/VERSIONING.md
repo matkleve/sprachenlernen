@@ -19,15 +19,31 @@ Current version: read `package.json` or the label under the mobile nav pill.
 
 ## Commands
 
+**Prefer `release:*` on `main`** — one command bumps, commits, and pushes (or
+commits locally with `--no-push` when GitHub is down):
+
 ```bash
-npm run version:ship     # default bump after merge (features, normal ships)
-npm run version:shame    # shame bump — bugfixes, regressions, small corrections
-npm run version:proud    # proud bump (human decision)
-npm run version:default  # default bump (low-level; prefer version:ship on main)
+npm run release:ship     # feature / normal ship (default bump)
+npm run release:shame    # bugfix, regression, small correction
+npm run release:proud    # milestone you are proud of
+npm run release:ship -- --no-push   # bump + commit only; push later
 ```
 
-`version:ship` and `version:shame` refuse to run off `main` (unless `--allow-branch`
-for emergencies). Each bump updates **both** `package.json` and `package-lock.json`.
+Low-level bumps (when you only need `package.json` changed, not commit/push):
+
+```bash
+npm run version:ship     # default bump on main only
+npm run version:shame    # shame bump (any branch — but verify blocks feature branches)
+npm run version:proud    # proud bump (human decision)
+npm run version:default  # default bump (low-level; prefer release:ship on main)
+```
+
+`version:ship` refuses to run off `main` (unless `--allow-branch` for emergencies).
+Each bump updates **both** `package.json` and `package-lock.json`.
+
+**Local gate:** `verify` runs `check-version-shipped` on `main`. If learner-facing
+files changed since the last version bump but `package.json` did not increase,
+verify fails — run the matching `release:*` command. Works without GitHub CI.
 
 **Not semver:** `0.14.1` is not a "patch release" — it is proud `0`, default `14`,
 shame `1`. Bugfixes increment **shame** (`0.14.0` → `0.14.1`). Features increment
@@ -45,8 +61,10 @@ to different numbers, hardcoded version tests, and merge conflicts on every ship
    with `origin/main`.
 2. **Never hardcode the version in tests.** `lib/pride-version.test.ts` asserts
    against `package.json` at runtime — bumps do not require test edits.
-3. **One bump, on `main`, after merge:** checkout `main`, pull, pick the command
-   from the table below, commit, push. Not in the feature PR.
+3. **One release, on `main`, after merge:** checkout `main`, pull, run
+   `npm run release:shame` or `npm run release:ship` from the table below.
+   Not in the feature PR. Add `--no-push` if GitHub is unavailable; push when
+   billing is restored.
 4. **Pick shame for bugfixes.** Regressions, layout fixes, restored assets, and
    other corrections use `version:shame` (`0.14.0` → `0.14.1`). Do **not** use
    `version:ship` for those — that is for features and normal ships
@@ -57,9 +75,9 @@ to different numbers, hardcoded version tests, and merge conflicts on every ship
 
 | Change | Command (on `main` only, after merge) | Example |
 | --- | --- | --- |
-| Bugfix, regression, small correction | `npm run version:shame` | `0.14.0` → `0.14.1` |
-| Normal feature or ship | `npm run version:ship` | `0.14.0` → `0.15.0` |
-| Milestone you are proud of | `npm run version:proud` | `0.14.2` → `1.0.0` |
+| Bugfix, regression, small correction | `npm run release:shame` | `0.14.0` → `0.14.1` |
+| Normal feature or ship | `npm run release:ship` | `0.14.0` → `0.15.0` |
+| Milestone you are proud of | `npm run release:proud` | `0.14.2` → `1.0.0` |
 
 ## How it works end-to-end
 
@@ -103,7 +121,9 @@ Copy these files into a Grundriss-based repo to get the same system:
 | `lib/app-version.ts` | Compare bundled vs deployed |
 | `scripts/bump-pride-version.mjs` | CLI bump |
 | `scripts/ship-version.mjs` | Post-merge ship (main only) |
+| `scripts/release-version.mjs` | Bump + commit + push (prefer over manual steps) |
 | `scripts/check-version-branch.mjs` | Blocks version bumps on feature branches |
+| `scripts/check-version-shipped.mjs` | On `main`: ship paths since last bump need newer version |
 | `app/api/app-version/route.ts` | Deployed version endpoint |
 | `features/app-shell/AppVersionLabel.tsx` | UI label |
 | `features/app-shell/useAppUpdateAvailable.ts` | Client check |

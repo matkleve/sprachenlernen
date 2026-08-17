@@ -26,17 +26,18 @@ vi.mock("next/navigation", () => ({
 }));
 vi.mock("@/lib/db/auth", () => ({ getAccount: vi.fn() }));
 
-const showHeaderAt = (pathname: string) => {
+const showHeaderAt = (pathname: string, signedIn = false) => {
   vi.mocked(usePathname).mockReturnValue(pathname);
-  return render(<PublicHeader />);
+  return render(<PublicHeader signedIn={signedIn} />);
 };
 
 beforeEach(() => {
   vi.mocked(usePathname).mockClear();
+  vi.mocked(getAccount).mockResolvedValue(null);
 });
 
 describe("PublicHeader", () => {
-  it("shows sign-in and create-account on every marketing route", () => {
+  it("shows sign-in and create-account on every marketing route when signed out", () => {
     const { container } = showHeaderAt("/login");
 
     expect(container.querySelector('img[src*="steady-path"]')).toBeTruthy();
@@ -62,7 +63,7 @@ describe("PublicHeader", () => {
     ).toBeNull();
   });
 
-  it("uses ghost sign-in and a single primary create-account control", () => {
+  it("uses ghost sign-in and a single primary create-account control when signed out", () => {
     showHeaderAt("/");
 
     const signIn = screen.getByRole("link", { name: en.marketing.header.signIn });
@@ -80,6 +81,35 @@ describe("PublicHeader", () => {
     expect(primaryLinks).toHaveLength(1);
   });
 
+  it("shows to-app and sign-out when signed in", () => {
+    showHeaderAt("/", true);
+
+    expect(screen.getByRole("link", { name: en.marketing.header.toApp }).getAttribute("href")).toBe(
+      "/methods",
+    );
+    expect(screen.getByRole("button", { name: en.marketing.header.signOut })).toBeTruthy();
+    expect(screen.queryByRole("link", { name: en.marketing.header.signIn })).toBeNull();
+    expect(screen.queryByRole("link", { name: en.marketing.header.signUp })).toBeNull();
+  });
+
+  it("uses ghost sign-out and a single primary to-app control when signed in", () => {
+    showHeaderAt("/", true);
+
+    const signOut = screen.getByRole("button", { name: en.marketing.header.signOut });
+    const toApp = screen.getByRole("link", { name: en.marketing.header.toApp });
+    const signOutClasses = signOut.className.split(/\s+/);
+    const toAppClasses = toApp.className.split(/\s+/);
+
+    expect(signOutClasses).toContain("hover:bg-accent-soft");
+    expect(signOutClasses).not.toContain("bg-accent");
+    expect(toAppClasses).toContain("bg-accent");
+
+    const primaryLinks = screen
+      .getAllByRole("link")
+      .filter((link) => link.className.split(/\s+/).includes("bg-accent"));
+    expect(primaryLinks).toHaveLength(1);
+  });
+
   it("does not render app-shell destination navigation", () => {
     showHeaderAt("/");
 
@@ -88,7 +118,8 @@ describe("PublicHeader", () => {
 });
 
 describe("LandingHero", () => {
-  it("puts create account first and sign in second in the hero", async () => {
+  it("puts create account first and sign in second in the hero when signed out", async () => {
+    vi.mocked(getAccount).mockResolvedValue(null);
     render(await LandingHero());
 
     const hero = screen.getByRole("heading", { level: 1 }).closest("div");
@@ -104,6 +135,22 @@ describe("LandingHero", () => {
     ]);
     expect(ctaLinks[0]?.getAttribute("href")).toBe("/signup");
     expect(ctaLinks[1]?.getAttribute("href")).toBe("/login");
+  });
+
+  it("shows only to-app in the hero when signed in", async () => {
+    vi.mocked(getAccount).mockResolvedValue({ id: "u1", email: "a@example.com" });
+    render(await LandingHero());
+
+    const hero = screen.getByRole("heading", { level: 1 }).closest("div");
+    expect(hero).toBeTruthy();
+    const ctaLinks = within(hero!).getAllByRole("link").filter((a) =>
+      [en.marketing.header.toApp, en.marketing.landing.primaryCta, en.marketing.landing.secondaryCta].some(
+        (label) => a.textContent === label,
+      ),
+    );
+    expect(ctaLinks).toHaveLength(1);
+    expect(ctaLinks[0]?.textContent).toBe(en.marketing.header.toApp);
+    expect(ctaLinks[0]?.getAttribute("href")).toBe("/methods");
   });
 
   it("quotes the study pillars without inventing a fourth", async () => {
@@ -140,13 +187,14 @@ describe("the / route", () => {
     );
   });
 
-  it("redirects signed-in visitors to /methods", async () => {
+  it("renders the landing hero for signed-in visitors", async () => {
     vi.mocked(redirect).mockClear();
     vi.mocked(getAccount).mockResolvedValue({ id: "u1", email: "a@example.com" });
 
     const Home = (await import("@/app/(marketing)/page")).default;
-    await Home({ searchParams: Promise.resolve({}) });
+    const result = await Home({ searchParams: Promise.resolve({}) });
 
-    expect(redirect).toHaveBeenCalledWith("/methods");
+    expect(redirect).not.toHaveBeenCalled();
+    expect(result).toBeTruthy();
   });
 });
