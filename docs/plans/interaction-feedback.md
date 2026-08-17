@@ -55,6 +55,7 @@ background.
 - Script or ESLint: flag `<button` outside `components/ui/` without exemption comment.
 - `check:specs` already links UC-068 ↔ spec.
 
+<<<<<<< HEAD
 ### Phase 5 — Disclosure shell press + panel motion (shipped)
 
 **Status:** shipped — standard `surface-raised` card shell, shell press via
@@ -62,6 +63,27 @@ background.
 `LemmaCallout`, `MethodDetailFacts`, `RefineFilter`, `ErrorCallout`.
 **Contract:** [`../specs/component/disclosure.md`](../specs/component/disclosure.md)
 
+=======
+### Phase 5 — Disclosure shell press + panel motion (queued)
+
+**Status:** spec written; awaiting owner **go** before code.
+**Trigger:** lemma callout on `/words` — only the summary text shrank on press;
+expand/collapse was instant while the chevron already animated.
+**Change class:** Standard.
+**Contract:** [`../specs/component/disclosure.md`](../specs/component/disclosure.md)
+
+| Area | Today | Target |
+| --- | --- | --- |
+| `Disclosure.tsx` | `pressScale` on `<summary>` only | Shell press via `[&:has(summary:active)]`; summary stays full-width, no local scale |
+| `Disclosure.tsx` | body children unwrapped | export `DisclosurePanel` with grid `0fr → 1fr` + `interactionMotion` |
+| `interaction-kernel.ts` | — | optional `disclosureShellPress` composed stack (or reuse `cardPressable` subset) |
+| Call sites | raw `<p>` / `<div>` siblings | wrap in `DisclosurePanel`: `LemmaCallout`, `RefineFilter`, `ErrorCallout`, `MethodDetailFacts` |
+| Tests | summary class smoke test | shell press classes; panel motion classes; `lemma-callout` press AC |
+| Inventory + `words-home.md` | "instant toggle" | shell press + 150ms panel motion documented |
+
+**Reuse:** `Disclosure` primitive — extend, do not fork `LemmaCallout`.
+
+>>>>>>> origin/cursor/disclosure-press-spec-0b3f
 **Will not touch:** grade-button spinners (explicit exemption), filter-chip pending,
 UC-063 nav counts, visual redesign beyond feedback states.
 

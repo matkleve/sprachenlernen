@@ -182,11 +182,7 @@ export function ReviewCard({
                 onClick={() => onGrade(grade)}
                 className={compact ? "h-7 px-2 text-xs md:h-8 md:px-3 md:text-sm" : undefined}
               >
-<<<<<<< HEAD
                 {t(grade)}
-=======
-                {copy[grade]}
->>>>>>> origin/cursor/review-grade-spacing-5765
               </GradeButton>
             ))}
           </div>
