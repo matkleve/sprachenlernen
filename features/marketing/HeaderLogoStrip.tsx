@@ -1,9 +1,11 @@
+"use client";
+
+import Image from "next/image";
+
 import { logoDirections } from "@/lib/brand-mark";
 
-/** Dev-only: all brand marks in the public header for quick side-by-side comparison. */
+/** Temporary: all brand marks in the public header for side-by-side comparison. */
 export function HeaderLogoStrip() {
-  if (process.env.NODE_ENV !== "development") return null;
-
   return (
     <div
       className="flex flex-wrap items-end gap-3"
@@ -12,8 +14,7 @@ export function HeaderLogoStrip() {
     >
       {logoDirections.map((direction) => (
         <div key={direction.id} className="flex flex-col items-center gap-1">
-          {/* eslint-disable-next-line @next/next/no-img-element -- dev preview of static SVG marks */}
-          <img
+          <Image
             src={direction.markSrc}
             alt=""
             width={32}
