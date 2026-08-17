@@ -181,6 +181,39 @@
       "emptyHeading": "No content appearances",
       "empty": "This word does not appear in any of your saved texts or episodes yet.",
       "emptyLink": "Browse your content library"
+    },
+    "library": {
+      "title": "Content",
+      "caption": "Texts and episodes you have saved — with how much of each you already know.",
+      "empty": "No saved content yet for this language.",
+      "back": "Back to content",
+      "gapSummary": "{count, plural, one {# word to comfortable} other {# words to comfortable}}",
+      "origin": {
+        "fixture": "Demo text",
+        "catalogue": "App catalogue",
+        "learner": "Your upload"
+      }
+    },
+    "source": {
+      "coverage": "{pct} % known",
+      "comfortable": "At {pct} % — comfortable to read. Words you learn next show up here.",
+      "demanding": "{gapCount, plural, one {# word stands between you and comfortable — learn them as a set?} other {# words stand between you and comfortable — learn them as a set?}}",
+      "speed": "At {pct} % — you can read for speed. New words will still appear as you go.",
+      "bandComfortable": "Comfortable",
+      "bandDemanding": "Demanding",
+      "bandSpeed": "Speed reading",
+      "notFound": "That saved item was not found."
+    },
+    "gap": {
+      "heading": "{count, plural, one {# word to comfortable (95 %)} other {# words to comfortable (95 %)}}",
+      "rank": "Rank {rank}",
+      "learnSet": "Learn as a set",
+      "paceSingle": "About {days, plural, one {# day} other {# days}} at your recent pace",
+      "paceRange": "About {min}–{max} days at your recent pace",
+      "progress": "{held} of {total} learned in this set",
+      "complete": "This set is complete — open the text when you are ready.",
+      "tooLarge": "More than 40 words stand between you and comfortable here — try a closer source first.",
+      "alternate": "Try {title} instead"
     }
   },
   "reviewSession": {

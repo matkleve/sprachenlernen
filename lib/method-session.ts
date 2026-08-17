@@ -1,4 +1,5 @@
 import type { MethodEntry } from "@/lib/method-catalogue";
+import { hasExerciseRecipe } from "@/lib/exercise-recipe";
 import { routes } from "@/lib/routes";
 
 /**
@@ -24,18 +25,37 @@ export function usesWordsReview(method: MethodEntry): boolean {
   return WORDS_REVIEW_METHOD_IDS.has(method.id);
 }
 
-/** Where a card-engine session lives. No duration picker — open directly. */
-export function sessionHrefForMethod(method: MethodEntry): string {
-  return `${routes.wordsReview}?method=${encodeURIComponent(method.id)}`;
+export function usesExerciseRunner(method: MethodEntry): boolean {
+  return method.hosted && !usesWordsReview(method) && hasExerciseRecipe(method.id);
+}
+
+export function exerciseSessionHref(methodId: string, sourceId?: string | null): string {
+  const params = new URLSearchParams({ method: methodId });
+  if (sourceId) params.set("sourceId", sourceId);
+  return `${routes.practice}?${params.toString()}`;
+}
+
+/** Where a hosted session lives — card engine or exercise runner. */
+export function sessionHrefForMethod(
+  method: MethodEntry,
+  options?: { sourceId?: string | null },
+): string {
+  if (usesWordsReview(method)) {
+    return `${routes.wordsReview}?method=${encodeURIComponent(method.id)}`;
+  }
+  if (usesExerciseRunner(method)) {
+    return exerciseSessionHref(method.id, options?.sourceId);
+  }
+  return detailHrefForMethod(method);
 }
 
 export function detailHrefForMethod(method: MethodEntry, returnQuery = ""): string {
   return `/methods/${method.id}${returnQuery}`;
 }
 
-/** Menu card destination: Words review for the card engine, detail otherwise. */
+/** Menu card destination: runnable sessions open directly; else detail. */
 export function cardHrefForMethod(method: MethodEntry, returnQuery = ""): string {
-  if (usesWordsReview(method)) {
+  if (usesWordsReview(method) || usesExerciseRunner(method)) {
     return sessionHrefForMethod(method);
   }
   return detailHrefForMethod(method, returnQuery);

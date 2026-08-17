@@ -2,16 +2,23 @@ import { globSync, readFileSync } from "node:fs";
 
 import { describe, expect, it } from "vitest";
 
-import { routes } from "@/lib/routes";
-
+import { resolveExerciseRecipe } from "@/lib/exercise-recipe";
+import { FIXTURE_EXERCISE_RECIPE } from "@/lib/exercise-runner/fixture-recipe";
 import type { MethodEntry } from "@/lib/method-catalogue";
 import {
   CARD_ENGINE_METHOD_ID,
   cardEngineSessionHref,
   cardHrefForMethod,
+  exerciseSessionHref,
   sessionHrefForMethod,
+  usesExerciseRunner,
   usesWordsReview,
 } from "@/lib/method-session";
+import { routes } from "@/lib/routes";
+import {
+  isActiveExerciseSession,
+  shellPageLayout,
+} from "@/lib/shell-page-layout";
 
 function method(over: Partial<MethodEntry> & Pick<MethodEntry, "id">): MethodEntry {
   return {
@@ -41,10 +48,35 @@ describe("usesWordsReview", () => {
   });
 });
 
+describe("usesExerciseRunner", () => {
+  it("is true only for built exercise methods", () => {
+    expect(usesExerciseRunner(method({ id: "partial-dictation" }))).toBe(true);
+    expect(usesExerciseRunner(method({ id: "full-dictation" }))).toBe(false);
+    expect(usesExerciseRunner(method({ id: "srs-session" }))).toBe(false);
+  });
+});
+
+describe("exerciseSessionHref", () => {
+  it("builds practice URL with optional sourceId", () => {
+    expect(exerciseSessionHref("partial-dictation")).toBe(
+      `${routes.practice}?method=partial-dictation`,
+    );
+    expect(exerciseSessionHref("partial-dictation", "src-1")).toBe(
+      `${routes.practice}?method=partial-dictation&sourceId=src-1`,
+    );
+  });
+});
+
 describe("cardHrefForMethod", () => {
   it("links srs-session to Words review", () => {
     expect(cardHrefForMethod(method({ id: "srs-session" }))).toBe(
       sessionHrefForMethod(method({ id: "srs-session" })),
+    );
+  });
+
+  it("links partial-dictation to practice", () => {
+    expect(cardHrefForMethod(method({ id: "partial-dictation" }))).toBe(
+      exerciseSessionHref("partial-dictation"),
     );
   });
 
@@ -59,12 +91,34 @@ describe("cardHrefForMethod", () => {
   });
 });
 
+describe("resolveExerciseRecipe", () => {
+  it("returns fixture recipe for partial-dictation", () => {
+    const recipe = resolveExerciseRecipe("partial-dictation");
+    expect(recipe?.methodId).toBe("partial-dictation");
+    expect(recipe?.steps).toHaveLength(FIXTURE_EXERCISE_RECIPE.steps.length);
+  });
+
+  it("returns null for unbuilt methods", () => {
+    expect(resolveExerciseRecipe("full-dictation")).toBeNull();
+  });
+});
+
+describe("shellPageLayout practice", () => {
+  it("uses one-screen-runner for built exercise method", () => {
+    const params = new URLSearchParams({ method: "partial-dictation" });
+    expect(isActiveExerciseSession(routes.practice, params)).toBe(true);
+    expect(shellPageLayout(routes.practice, params)).toBe("one-screen-runner");
+  });
+
+  it("uses drill-in for unknown exercise method", () => {
+    const params = new URLSearchParams({ method: "full-dictation" });
+    expect(isActiveExerciseSession(routes.practice, params)).toBe(false);
+    expect(shellPageLayout(routes.practice, params)).toBe("scrollable-drill-in");
+  });
+});
+
 describe("the card engine has one id", () => {
-  it("is the only thing that opens a runner — no surface builds the href by hand", () => {
-    // method-engines.md: "no code path may assume a session exists — only
-    // usesWordsReview may open a runner". Three surfaces used to interpolate
-    // `?method=srs-session` themselves, which put the id in five places and
-    // made that criterion false the day it was written.
+  it("is the only thing that opens a card runner — no surface builds the href by hand", () => {
     const files = globSync("{app,features}/**/*.{ts,tsx}", { cwd: process.cwd() })
       .filter((file) => !file.includes(".test."));
 

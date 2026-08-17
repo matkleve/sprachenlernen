@@ -1,5 +1,7 @@
 "use server";
 
+import { cookies } from "next/headers";
+
 import { appendReview } from "@/lib/db/review-log";
 import { listTaskStatesForTaskIds } from "@/lib/db/task-state";
 import { flagCardContent, listFlaggedWordIds } from "@/lib/db/card-content-flags";
@@ -14,6 +16,7 @@ import { buildSession, type SessionCard } from "@/lib/session-builder";
 import { filterSchedulableCards } from "@/lib/form-recall-staging";
 import { poolForActiveLanguage } from "@/lib/db/learner-pools";
 import { languageLabel } from "@/lib/languages";
+import { parseGapSetCookie, GAP_SET_COOKIE } from "@/lib/gap-set-cookie";
 import { tasksByTaskIdForCards } from "@/lib/task-from-state";
 import type { Grade } from "@/lib/scheduler";
 
@@ -94,7 +97,12 @@ export async function buildSessionAction(): Promise<BuildSessionOutcome> {
 
     const tasksByTaskId = tasksByTaskIdForCards(poolCards, statesResult.rows);
     const schedulable = filterSchedulableCards(poolCards, tasksByTaskId);
-    const queue = buildSession(schedulable, tasksByTaskId, Date.now());
+    const cookieStore = await cookies();
+    const gapSet = parseGapSetCookie(cookieStore.get(GAP_SET_COOKIE)?.value);
+    const priorityLemmas = gapSet ? new Set(gapSet.lemmas) : undefined;
+    const queue = buildSession(schedulable, tasksByTaskId, Date.now(), undefined, {
+      priorityLemmas,
+    });
     return { status: "ok", queue, languageName };
   } catch (cause) {
     const handled = sessionBuildFailed(

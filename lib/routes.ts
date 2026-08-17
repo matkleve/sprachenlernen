@@ -35,6 +35,8 @@ export const routes = {
   /** Progressive Words body — Safari/PWA bisect (study/31). */
   wordsBisect: "/words-bisect",
   wordsReview: "/words/review",
+  /** Multi-step exercise runner (dictation, writing, …). Not a nav destination. */
+  practice: "/practice",
   progress: "/progress",
   /** Progressive Progress body — Safari/PWA bisect (study/31). */
   progressBisect: "/progress-bisect",

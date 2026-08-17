@@ -30,6 +30,7 @@ export function buildSession(
   tasksByTaskId: Record<string, Task>,
   now: number,
   sessionLength: number = DEFAULT_SESSION_LENGTH,
+  options?: { priorityLemmas?: ReadonlySet<string> },
 ): SessionCard[] {
   const scored: ScoredCard[] = [];
 
@@ -49,7 +50,12 @@ export function buildSession(
     .sort((a, b) => a.due - b.due || a.frequencyRank - b.frequencyRank);
   const fresh = scored
     .filter((card) => card.isNew)
-    .sort((a, b) => a.frequencyRank - b.frequencyRank);
+    .sort((a, b) => {
+      const aPriority = options?.priorityLemmas?.has(a.lemma) ? 0 : 1;
+      const bPriority = options?.priorityLemmas?.has(b.lemma) ? 0 : 1;
+      if (aPriority !== bPriority) return aPriority - bPriority;
+      return a.frequencyRank - b.frequencyRank;
+    });
 
   const picked: ScoredCard[] = [];
   const seenWordIds = new Set<string>();

@@ -3,7 +3,7 @@
 <!-- id: SPEC-feature-content-gap -->
 <!-- use-case: UC-034 -->
 <!-- use-case: UC-059 -->
-<!-- status: draft -->
+<!-- status: active -->
 
 For a demanding Source, lists the **specific lemmas** that stand between the
 learner and the comfortable band (95 % coverage), and offers them as a

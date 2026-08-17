@@ -1,7 +1,7 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 
 import { Button } from "@/components/ui/Button";
 import { OrbitDetailCard } from "@/features/words/OrbitDetailCard";
@@ -22,6 +22,7 @@ type VocabularyOrbitFieldProps = {
   translations: Readonly<Record<string, string>>;
   now: number;
   contentTraceIndex?: ContentTraceIndex | null;
+  initialLemma?: string | null;
 };
 
 function wordSegmentFromAtlas(point: AtlasPoint, translations: Readonly<Record<string, string>>): OrbitWordSegment {
@@ -55,11 +56,18 @@ export function VocabularyOrbitField({
   translations,
   now,
   contentTraceIndex = null,
+  initialLemma = null,
 }: VocabularyOrbitFieldProps) {
   const t = useTranslations("words");
   const [selected, setSelected] = useState<DetailSegment | null>(null);
   const [listOpen, setListOpen] = useState(false);
   const listTriggerRef = useRef<HTMLButtonElement>(null);
+
+  useEffect(() => {
+    if (!initialLemma) return;
+    const point = atlas.find((entry) => entry.lemma === initialLemma);
+    if (point) setSelected(wordSegmentFromAtlas(point, translations));
+  }, [atlas, initialLemma, translations]);
 
   return (
     <section>

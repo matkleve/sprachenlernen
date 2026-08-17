@@ -5,7 +5,7 @@ import { ShellPageContent } from "@/features/app-shell/ShellPageContent";
 import { byId, type MethodEntry } from "@/lib/method-catalogue";
 import type { SearchParams } from "@/lib/method-menu-filter";
 import { menuQueryString } from "@/lib/method-menu-filter";
-import { sessionHrefForMethod, usesWordsReview } from "@/lib/method-session";
+import { sessionHrefForMethod, usesExerciseRunner, usesWordsReview } from "@/lib/method-session";
 import { routes } from "@/lib/routes";
 import { cn } from "@/lib/utils";
 
@@ -75,7 +75,7 @@ export async function MethodDetail({ method, searchParams = {} }: MethodDetailPr
               {method.hosted ? t("hosted") : t("notHosted")}
             </p>
 
-            {usesWordsReview(method) && (
+            {(usesWordsReview(method) || usesExerciseRunner(method)) && (
               <ActionLink
                 href={sessionHrefForMethod(method)}
                 variant="primary"
@@ -86,7 +86,7 @@ export async function MethodDetail({ method, searchParams = {} }: MethodDetailPr
               </ActionLink>
             )}
 
-            {method.hosted && !usesWordsReview(method) && (
+            {method.hosted && !usesWordsReview(method) && !usesExerciseRunner(method) && (
               <p className="mt-8 text-sm text-muted">{t("sessionNotBuilt")}</p>
             )}
           </article>

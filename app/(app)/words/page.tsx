@@ -19,7 +19,12 @@ export async function generateMetadata(): Promise<Metadata> {
  * Words destination — vocabulary home and one-tap review entry (UC-063).
  * Contract: docs/specs/page/words.md, docs/specs/feature/words-home.md
  */
-export default async function WordsPage() {
+export default async function WordsPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ lemma?: string }>;
+}) {
+  const { lemma } = await searchParams;
   const outcome = await readWordsHome();
 
   if (outcome.status === "no-language") redirect(routes.chooseLanguage);
@@ -41,6 +46,7 @@ export default async function WordsPage() {
       horizonDisplay={outcome.horizonDisplay}
       now={outcome.now}
       contentTraceIndex={outcome.contentTraceIndex}
+      initialLemma={lemma ?? null}
     />
   );
 }

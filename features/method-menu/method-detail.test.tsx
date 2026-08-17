@@ -102,6 +102,16 @@ describe("MethodDetail", () => {
     );
   });
 
+  it("shows Start for partial-dictation on practice", async () => {
+    const partialDictation = findMethod(catalogue, "partial-dictation")!;
+    render(await MethodDetail({ method: partialDictation }));
+
+    expect(screen.getByRole("link", { name: en.methodMenu.startSession }).getAttribute("href")).toBe(
+      "/practice?method=partial-dictation",
+    );
+    expect(screen.queryByText(en.methodMenu.sessionNotBuilt)).toBeNull();
+  });
+
   it("preserves filter on back link", async () => {
     render(
       await MethodDetail({

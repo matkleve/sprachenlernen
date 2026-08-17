@@ -10,11 +10,10 @@ then supporting stats. Wired from [`vocabulary-orbit.md`](../feature/vocabulary-
 
 ## Scope
 
-- **In:** `features/words/OrbitDetailCard.tsx`, `WordDetailActions.tsx`; copy in
-  `messages/<locale>.json`. Contract: [`word-detail.md`](../feature/word-detail.md).
+- **In:** `features/words/OrbitDetailCard.tsx`, `WordDetailActions.tsx`,
+  `WordTraceBlock.tsx`; copy in `messages/<locale>.json`. Contract:
+  [`word-detail.md`](../feature/word-detail.md).
 - **Out:** review actions on aggregate segments; navigation to a lemma page.
-  **Content trace block** — [`content-traceability.md`](../feature/content-traceability.md)
-  § word trace block; ships T-W8b after T-W7, not with T-W2.
 
 **Reuse: `Chip`** — bucket status badge.
 
@@ -22,7 +21,7 @@ then supporting stats. Wired from [`vocabulary-orbit.md`](../feature/vocabulary-
 
 | # | User action | System response |
 | --- | --- | --- |
-| 1 | Taps a word segment | Card appears below the orbit with lemma, translation, rank, stability, frequency block, schedule line with grade context, lifecycle actions, and a status chip |
+| 1 | Taps a word segment | Card appears below the orbit with lemma, translation, rank, stability, frequency block, schedule line with grade context, **content trace block** (when sources exist), lifecycle actions, and a status chip |
 | 2 | Taps an aggregate segment | Card names the rank range, word count, and held count |
 | 3 | Selection changes | Card content updates in place (`aria-live="polite"`) |
 
@@ -35,6 +34,11 @@ then supporting stats. Wired from [`vocabulary-orbit.md`](../feature/vocabulary-
 3. **Stats row** — three equal columns separated by `border-line` dividers on
    `sm+`: frequency rank (with `#` prefix), stability (days, one decimal, or em
    dash), and a short rank-band caption derived from the lemma's rank.
+4. **Content trace block** — when persisted sources exist for the language:
+   appearance summary, loop line, and up to three linked source titles; empty
+   state links to `/content`. Hidden when no sources exist. See
+   [`content-traceability.md`](../feature/content-traceability.md).
+5. **Lifecycle actions** — suspend / retire row (`WordDetailActions`).
 
 Chip tone follows bucket: **accent** for held/mature, **accent-soft fill** for
 fragile (via `className` override), **default** for new.

@@ -181,6 +181,39 @@
       "emptyHeading": "Keine Inhalts-Treffer",
       "empty": "Dieses Wort kommt in keinem Ihrer gespeicherten Texte oder Episoden vor.",
       "emptyLink": "Inhaltsbibliothek öffnen"
+    },
+    "library": {
+      "title": "Inhalte",
+      "caption": "Gespeicherte Texte und Episoden — mit dem Anteil, den Sie schon kennen.",
+      "empty": "Für diese Sprache sind noch keine Inhalte gespeichert.",
+      "back": "Zurück zu Inhalten",
+      "gapSummary": "{count, plural, one {# Wort bis komfortabel} other {# Wörter bis komfortabel}}",
+      "origin": {
+        "fixture": "Demo-Text",
+        "catalogue": "App-Katalog",
+        "learner": "Ihr Upload"
+      }
+    },
+    "source": {
+      "coverage": "{pct} % bekannt",
+      "comfortable": "Bei {pct} % — angenehm lesbar. Wörter, die Sie als Nächstes lernen, tauchen hier auf.",
+      "demanding": "{gapCount, plural, one {# Wort trennt Sie noch vom komfortablen Lesen — als Set lernen?} other {# Wörter trennen Sie noch vom komfortablen Lesen — als Set lernen?}}",
+      "speed": "Bei {pct} % — Sie können auf Tempo lesen. Neue Wörter kommen trotzdem dazu.",
+      "bandComfortable": "Komfortabel",
+      "bandDemanding": "Anspruchsvoll",
+      "bandSpeed": "Tempo-Lesen",
+      "notFound": "Dieser gespeicherte Eintrag wurde nicht gefunden."
+    },
+    "gap": {
+      "heading": "{count, plural, one {# Wort bis komfortabel (95 %)} other {# Wörter bis komfortabel (95 %)}}",
+      "rank": "Rang {rank}",
+      "learnSet": "Als Set lernen",
+      "paceSingle": "Etwa {days, plural, one {# Tag} other {# Tage}} in Ihrem aktuellen Tempo",
+      "paceRange": "Etwa {min}–{max} Tage in Ihrem aktuellen Tempo",
+      "progress": "{held} von {total} in diesem Set gelernt",
+      "complete": "Dieses Set ist fertig — öffnen Sie den Text, wenn Sie bereit sind.",
+      "tooLarge": "Mehr als 40 Wörter trennen Sie hier vom komfortablen Lesen — probieren Sie zuerst eine nähere Quelle.",
+      "alternate": "Stattdessen {title} versuchen"
     }
   },
   "reviewSession": {

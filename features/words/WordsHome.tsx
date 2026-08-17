@@ -26,6 +26,7 @@ type WordsHomeProps = {
   horizonDisplay: HorizonDisplay;
   now: number;
   contentTraceIndex: ContentTraceIndex | null;
+  initialLemma?: string | null;
 };
 
 const countTileClass =
@@ -39,6 +40,7 @@ export async function WordsHome({
   horizonDisplay,
   now,
   contentTraceIndex,
+  initialLemma = null,
 }: WordsHomeProps) {
   const t = await getTranslations("words");
   const tReview = await getTranslations("reviewSession");
@@ -101,6 +103,7 @@ export async function WordsHome({
           translations={translations}
           now={now}
           contentTraceIndex={contentTraceIndex}
+          initialLemma={initialLemma}
         />
       </div>
     </ShellPageContent>

@@ -75,4 +75,12 @@ describe("session-builder", () => {
     expect(new Set(wordIds).size).toBe(wordIds.length);
     expect(session).toHaveLength(1);
   });
+
+  it("prioritises gap-set lemmas among new cards", () => {
+    const priority = new Set([cards[5]!.lemma, cards[6]!.lemma]);
+    const session = buildSession(cards.slice(0, 20), {}, Date.now(), 5, {
+      priorityLemmas: priority,
+    });
+    expect(priority.has(session[0]!.lemma)).toBe(true);
+  });
 });
