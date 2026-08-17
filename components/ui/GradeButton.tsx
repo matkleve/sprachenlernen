@@ -5,7 +5,6 @@ import {
   disabledState,
   focusRing,
   hitAreaAnchor,
-  hitAreaExpandSm,
   hitAreaPseudo,
   hoverLift,
   interactiveEmphasis,
@@ -25,12 +24,12 @@ import { cn } from "@/lib/utils";
 export const gradeButtonVariants = cva(
   [
     hitAreaAnchor,
-    "inline-flex h-8 w-full items-center justify-center whitespace-nowrap",
+    "inline-flex h-11 w-full items-center justify-center whitespace-nowrap",
     touchTarget,
     "rounded-pill px-3 text-sm",
     interactiveEmphasis,
     hitAreaPseudo,
-    hitAreaExpandSm,
+    "after:inset-y-0",
     "border shadow-soft",
     interactionMotion,
     focusRing,

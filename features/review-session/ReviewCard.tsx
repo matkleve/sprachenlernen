@@ -180,7 +180,6 @@ export function ReviewCard({
                 key={grade}
                 grade={grade}
                 onClick={() => onGrade(grade)}
-                className={compact ? "h-7 px-2 text-xs md:h-8 md:px-3 md:text-sm" : undefined}
               >
                 {t(grade)}
               </GradeButton>
