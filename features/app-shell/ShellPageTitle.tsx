@@ -35,8 +35,8 @@ type ShellPageTitleProps = {
  * Centered page title for the shell header. Contract:
  * docs/specs/feature/app-shell.md
  *
- * Mobile: in-flow between corner chips, up to two lines. Desktop: absolutely
- * centered, single line with ellipsis.
+ * Mobile: in-flow between corner chips, up to two lines. Desktop: centered in a
+ * three-column header grid, single line with ellipsis.
  */
 export function ShellPageTitle({ variant, pinnedCompact = false, className }: ShellPageTitleProps) {
   const pathname = usePathname();
@@ -118,7 +118,7 @@ export function ShellPageTitle({ variant, pinnedCompact = false, className }: Sh
   return (
     <TitleTag
       className={cn(
-        "pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 truncate text-center font-semibold tracking-tight text-ink",
+        "pointer-events-none min-w-0 max-w-full justify-self-center truncate text-center font-semibold tracking-tight text-ink",
         className,
       )}
       style={{

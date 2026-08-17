@@ -189,6 +189,18 @@ describe("the destinations", () => {
       within(header as HTMLElement).getByRole("heading", { level: 1, name: en.appShell.holding.words.title }),
     ).toBeDefined();
   });
+
+  it("lays out the desktop header in three columns so nav and title do not overlap", () => {
+    showAt("/methods");
+
+    const header = document.querySelector("header");
+    if (!header) throw new Error("expected desktop header");
+    const grid = header.querySelector(".grid-cols-\\[1fr_auto_1fr\\]");
+    expect(grid).not.toBeNull();
+    expect(
+      within(header as HTMLElement).getByRole("heading", { level: 1, name: en.methodMenu.title }),
+    ).toBeDefined();
+  });
 });
 
 describe("the account gate", () => {
