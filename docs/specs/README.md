@@ -6,8 +6,8 @@ implements what is written here.
 Format and size rules: [`../SPEC-FORMAT.md`](../SPEC-FORMAT.md).
 Scaffold one: `npm run new:spec`.
 
-**Index synced 2026-08-17.** 76 canonical specs — 70 active,
-2 superseded, 4 draft. `npm run check:specs` verifies
+**Index synced 2026-08-17.** 78 canonical specs — 71 active,
+2 superseded, 5 draft. `npm run check:specs` verifies
 bidirectional traceability to use cases; this index is for navigation. Regenerate
 after adding specs: `node scripts/generate-specs-index.mjs`.
 
@@ -60,7 +60,7 @@ that first.
 | `SPEC-component-status-banner` | [status-banner.md](component/status-banner.md) | UC-074 | active |
 | `SPEC-component-table` | [table.md](component/table.md) | UC-003 | active |
 
-### feature/ (19)
+### feature/ (21)
 
 | ID | Spec | Use case | Status |
 | --- | --- | --- | --- |
@@ -69,8 +69,10 @@ that first.
 | `SPEC-feature-app-update` | [app-update.md](feature/app-update.md) | UC-072 | active |
 | `SPEC-feature-content-gap` | [content-gap.md](feature/content-gap.md) | UC-034 | draft |
 | `SPEC-feature-content-traceability` | [content-traceability.md](feature/content-traceability.md) | UC-031 | draft |
+| `SPEC-feature-demonstration-sentence` | [demonstration-sentence.md](feature/demonstration-sentence.md) | UC-050 | active |
 | `SPEC-feature-interaction-feedback` | [interaction-feedback.md](feature/interaction-feedback.md) | UC-068 | active |
 | `SPEC-feature-item-picker` | [item-picker.md](feature/item-picker.md) | UC-001 | superseded |
+| `SPEC-feature-method-material-setup` | [method-material-setup.md](feature/method-material-setup.md) | UC-046 | draft |
 | `SPEC-feature-mobile-nav` | [mobile-nav.md](feature/mobile-nav.md) | UC-063 | superseded |
 | `SPEC-feature-mobile-nav-v2` | [mobile-nav-v2.md](feature/mobile-nav-v2.md) | UC-063 | active |
 | `SPEC-feature-page-layout` | [page-layout.md](feature/page-layout.md) | UC-063 | active |
