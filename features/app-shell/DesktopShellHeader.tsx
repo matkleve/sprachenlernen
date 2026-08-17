@@ -36,11 +36,8 @@ export function DesktopShellHeader({
   return (
     <header className="sticky top-0 z-50 hidden md:block">
       <HeaderScrim collapse={collapse}>
-        <div className="relative mx-auto max-w-5xl px-6 py-3">
-        <ShellPageTitle variant="desktop" />
-
-        <div className="relative z-10 flex min-h-11 items-center justify-between gap-4">
-          <div className="flex min-w-0 flex-1 items-center gap-4">
+        <div className="mx-auto grid min-h-11 max-w-5xl grid-cols-[1fr_auto_1fr] items-center gap-x-4 px-6 py-3">
+          <div className="flex min-w-0 items-center gap-4 justify-self-start">
             <ActionLink
               href={routes.methods}
               variant="ghost"
@@ -58,17 +55,18 @@ export function DesktopShellHeader({
             <Destinations />
           </div>
 
+          <ShellPageTitle variant="desktop" />
+
           <ActionLink
             href={routes.profile}
             variant="ghost"
             size="sm"
             current={profileCurrent}
-            className="gap-1.5"
+            className="shrink-0 justify-self-end gap-1.5"
           >
             <UserRound aria-hidden className="size-4 shrink-0" />
             {t("account")}
           </ActionLink>
-        </div>
         </div>
       </HeaderScrim>
     </header>

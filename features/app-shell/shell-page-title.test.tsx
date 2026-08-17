@@ -2,7 +2,7 @@ import { renderWithIntl as render, formatMessage, en } from "@/tests/i18n-test-u
 import {screen} from "@testing-library/react";
 
 import { usePathname } from "next/navigation";
-import { beforeEach, describe, expect, it, vi } from "vitest";
+import { beforeEach, afterEach, describe, expect, it, vi } from "vitest";
 
 import { ShellPageTitle } from "./ShellPageTitle";
 
@@ -17,6 +17,10 @@ vi.mock("./useHeaderCollapse", () => ({
 describe("ShellPageTitle", () => {
   beforeEach(() => {
     vi.mocked(usePathname).mockReturnValue("/methods/srs-session");
+  });
+
+  afterEach(() => {
+    vi.restoreAllMocks();
   });
 
   it("viewport-centers long mobile titles with absolute positioning", () => {
@@ -50,5 +54,15 @@ describe("ShellPageTitle", () => {
     expect(document.documentElement.style.getPropertyValue("--shell-float-top-active")).toBe(
       "var(--spacing-shell-float-top-expanded)",
     );
+  });
+
+  it("keeps the desktop title in-flow inside the header grid", () => {
+    vi.mocked(usePathname).mockReturnValue("/methods");
+    render(<ShellPageTitle variant="desktop" />);
+
+    const title = screen.getByTitle("Ways of practising");
+    expect(title.className).toContain("truncate");
+    expect(title.className).not.toContain("absolute");
+    expect(title.className).toContain("justify-self-center");
   });
 });
