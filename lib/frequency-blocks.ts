@@ -43,6 +43,13 @@ function incrementBucket(block: FrequencyBlock, bucket: VocabularyBucket): void 
   block[bucket] += 1;
 }
 
+export function frequencyBandForRank(
+  rank: number,
+  bands: readonly FrequencyBlockBand[] = DEFAULT_FREQUENCY_BANDS,
+): FrequencyBlockBand | null {
+  return bands.find((band) => rank >= band.rankStart && rank <= band.rankEnd) ?? null;
+}
+
 export function buildFrequencyBlocks(
   cards: readonly StarterCard[],
   tasksByTaskId: Record<string, Task>,

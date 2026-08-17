@@ -48,7 +48,7 @@ background.
 | `MethodDetail.tsx` | text links | `NavLink` or link styles with active |
 | `MethodFilter` / `RefineFilter` | `FilterPill` ✓ | verify active on touch |
 | `FloatingShellChrome` | `Button floating` ✓ | wire sign-out pending (phase 2) |
-| Marketing `PublicHeader` / `LandingHero` | partial active | align with NavLink pattern |
+| Marketing `PublicHeader` / `LandingHero` | done | header: ghost + primary `ActionLink`; hero: primary + secondary |
 
 ### Phase 4 — Gate (optional, after manual pass)
 

@@ -59,6 +59,12 @@ export type SignalReading = {
   value: number | null;
   /** How many Tasks the value was computed from — the derivation, not a score. */
   taskCount: number;
+  /** Form-mastery only: held verb lemmas whose paradigm table is incomplete (W-5). */
+  partialParadigmLemmaCount?: number;
+};
+
+export type LevelModelOptions = {
+  isLemmaParadigmIncomplete?: (lemma: string) => boolean;
 };
 
 export type SkillReading = {
@@ -147,7 +153,10 @@ export function readVocabularySize(tasks: readonly Task[]): SignalReading {
  * Pool-local form mastery — surface forms held stably in the form-recall deck.
  * Contract: docs/specs/service/form-mastery-signal.md
  */
-function readFormMastery(tasks: readonly Task[]): SignalReading {
+function readFormMastery(
+  tasks: readonly Task[],
+  options?: LevelModelOptions,
+): SignalReading {
   const formTasks = tasks.filter((task) => isFormRecallTaskId(task.id));
 
   if (formTasks.length === 0) {
@@ -161,17 +170,34 @@ function readFormMastery(tasks: readonly Task[]): SignalReading {
 
   const held = formTasks.filter((task) => bucketForTask(task) === "held").length;
 
+  let partialParadigmLemmaCount: number | undefined;
+  if (options?.isLemmaParadigmIncomplete) {
+    const flagged = new Set<string>();
+    for (const task of formTasks) {
+      if (bucketForTask(task) !== "held") continue;
+      const lemma = task.wordId.includes(":")
+        ? task.wordId.slice(task.wordId.indexOf(":") + 1)
+        : task.wordId;
+      if (options.isLemmaParadigmIncomplete(lemma)) flagged.add(lemma);
+    }
+    if (flagged.size > 0) partialParadigmLemmaCount = flagged.size;
+  }
+
   return {
     id: "form-mastery",
     status: "has-data",
     value: held,
     taskCount: formTasks.length,
+    partialParadigmLemmaCount,
   };
 }
 
-function readSignals(tasks: readonly Task[]): readonly SignalReading[] {
+function readSignals(
+  tasks: readonly Task[],
+  options?: LevelModelOptions,
+): readonly SignalReading[] {
   const vocabularySize = readVocabularySize(tasks);
-  const formMastery = readFormMastery(tasks);
+  const formMastery = readFormMastery(tasks, options);
   const recallStability = readRecallStability(tasks);
 
   return LAYER_1_SIGNALS.map((id) => {
@@ -208,10 +234,14 @@ function readSkill(skill: Skill, signals: readonly SignalReading[]): SkillReadin
  * silently uses the wall clock cannot be tested at a chosen moment. Nothing
  * derived today depends on it; the trend views (study/03 V1) will.
  */
-export function readLevel(tasks: readonly Task[], now: number): LevelReading {
+export function readLevel(
+  tasks: readonly Task[],
+  now: number,
+  options?: LevelModelOptions,
+): LevelReading {
   void now;
 
-  const signals = readSignals(tasks);
+  const signals = readSignals(tasks, options);
   const skills = SKILLS.map((skill) => readSkill(skill, signals));
   const counting = countingSkills(skills);
 

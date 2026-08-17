@@ -230,4 +230,15 @@ describe("layer-1 signals", () => {
     expect(formMastery.status).toBe("no-data");
     expect(formMastery.value).toBeNull();
   });
+
+  it("flags held lemmas with incomplete paradigms without changing the held count", () => {
+    const tasks = [reviewedForm("es:ser:es:form-recall", ["easy", "easy", "easy"])];
+
+    const formMastery = readLevel(tasks, now, {
+      isLemmaParadigmIncomplete: (lemma) => lemma === "ser",
+    }).signals.find((s) => s.id === "form-mastery")!;
+
+    expect(formMastery.value).toBe(1);
+    expect(formMastery.partialParadigmLemmaCount).toBe(1);
+  });
 });

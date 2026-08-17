@@ -19,6 +19,11 @@ describe("Button", () => {
     expect(screen.getByRole("button").getAttribute("type")).toBe("button");
   });
 
+  it("shows a pointer cursor when enabled", () => {
+    render(<Button>Save</Button>);
+    expect(screen.getByRole("button").className).toContain("cursor-pointer");
+  });
+
   it("does not fire onClick when disabled", async () => {
     const onClick = vi.fn();
     const user = userEvent.setup();

@@ -22,6 +22,7 @@ const SECTION_PRIMARY_SKILL: Partial<Record<Section, Skill>> = {
   listening: "listening",
   speaking: "speaking",
   writing: "writing",
+  vocabulary: "vocabulary",
 };
 
 /** Weak-yield methods downgrade every skill mark (study/21 background listening). */

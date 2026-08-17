@@ -31,13 +31,14 @@ const SECTION_PRIMARY_SKILL: Partial<Record<Section, Skill>> = {
   listening: "listening",
   speaking: "speaking",
   writing: "writing",
+  vocabulary: "vocabulary",
 };
 
 export function tierRank(tier: SkillTier): number {
   return TIER_ORDER.indexOf(tier);
 }
 
-/** Wood exists in the metric but is never shown — avoids discouraging valid methods. */
+/** Wood exists in the metric; hidden on cards, shown on detail. */
 export function isDisplayTier(tier: SkillTier): boolean {
   return tierRank(tier) >= tierRank("bronze");
 }
@@ -74,7 +75,12 @@ export function skillTiersForMethod(method: MethodEntry): SkillTierMark[] {
   }));
 }
 
-/** Bronze and above only — what the detail badge band renders. */
+/** Wood included — detail page shows honest weak-method shields (study/33). */
+export function detailSkillTiers(method: MethodEntry): SkillTierMark[] {
+  return skillTiersForMethod(method);
+}
+
+/** Bronze and above only — what method cards render. */
 export function visibleSkillTiers(method: MethodEntry): SkillTierMark[] {
   return skillTiersForMethod(method).filter(({ tier }) => isDisplayTier(tier));
 }

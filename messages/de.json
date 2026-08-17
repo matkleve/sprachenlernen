@@ -104,10 +104,16 @@
     "fragileDescription": "Sie haben die Bedeutung in der Wiederholung gesehen, sie ist aber noch nicht stabil genug, um als bekannt zu gelten.",
     "newDescription": "Bedeutung noch nicht wiederholt.",
     "blocksHeading": "Frequenzbänder",
-    "blocksCaption": "Wie viele der häufigsten Wörter in Ihrem Starterdeck Sie stabil nach Bedeutung behalten — nach Rangband, noch nicht die ganze Sprache.",
+    "blocksCaption": "Wie sich Ihr Starterdeck nach Frequenzrang aufteilt — behalten, fragil und was noch fehlt. Im Kernband (Ränge 1–1000) heißen ungeprüfte Wörter Lücken: die wertvollsten Lücken auf Ihrer Karte.",
     "blockLabel": "Ränge {start}–{end}",
-    "blockHeld": "{held} von {poolSize} Bedeutungen behalten",
-    "blockHeldDescription": "Stabile Bedeutungserinnerung — gleiche Regeln wie „Behalten“ oben.",
+    "blockPoolSize": "{poolSize, plural, one {# Wort in diesem Band} other {# Wörter in diesem Band}}",
+    "blockHeldRowDescription": "Stabile Bedeutungserinnerung in diesem Band.",
+    "blockFragileRowDescription": "In diesem Band wiederholt, aber noch nicht stabil.",
+    "blockNewDescription": "Bedeutung in diesem Band noch nicht wiederholt.",
+    "blockHoles": "Lücken",
+    "blockHolesDescription": "Häufige Wörter noch nicht wiederholt — die wertvollsten Lücken.",
+    "blockDistributionSummary": "{held} behalten · {fragile} fragil · {unreviewed} {unreviewedLabel} — {poolSize} Wörter im Band",
+    "blockBandAria": "Ränge {start} bis {end}: {held} behalten, {fragile} fragil, {unreviewed} {unreviewedLabel}, von {poolSize} Wörtern",
     "horizonHeading": "Wiederholungshorizont",
     "horizonCaption": "Wie Ihre geplanten Wiederholungen über die nächsten 30 Tage verteilt sind — nicht, was in der heutigen Sitzung fällig ist.",
     "horizonDayToday": "Heute",
@@ -154,7 +160,18 @@
     "orbitDetailBandLabel": "Band",
     "orbitDetailBandCaption": "Ränge {start}–{end}",
     "orbitDetailWordsInBandLabel": "Wörter im Band",
-    "orbitDetailHeldSummary": "{held} von {total} behalten"
+    "orbitDetailHeldSummary": "{held} von {total} behalten",
+    "wordDetailScheduleNew": "Noch nicht geplant — Sie haben dieses Wort noch nicht wiederholt.",
+    "wordDetailScheduleSuspended": "Ausgesetzt — erscheint nicht in Wiederholungssitzungen.",
+    "wordDetailScheduleRetired": "Aus Ihrem Deck entfernt — Ihre Wiederholungshistorie bleibt erhalten.",
+    "wordDetailScheduleDueToday": "Heute geplant — zuletzt „{grade}“ gewählt.",
+    "wordDetailScheduleDueFuture": "Nächste Wiederholung in {days, plural, one {# Tag} other {# Tagen}} — zuletzt „{grade}“ gewählt.",
+    "wordDetailScheduleNoGrade": "Ihre letzte Antwort",
+    "wordDetailSuspend": "Aussetzen",
+    "wordDetailRetire": "Aus Deck entfernen",
+    "wordDetailSuspendHelp": "Wiederholungen pausieren. Ihre Historie bleibt auf dem Konto.",
+    "wordDetailRetireHelpOnly": "Keine weiteren Wiederholungen. Ihre Historie bleibt auf dem Konto.",
+    "wordDetailActionFootnote": "Aussetzen pausiert; Entfernen beendet die Planung. Die Historie wird nie gelöscht."
   },
   "reviewSession": {
     "title": "Wiederholen",
@@ -235,6 +252,7 @@
     "stabilityValue": "{days} Tage, gemittelt über {taskCount, plural, one {# Karte} other {# Karten}}, die Sie wiederholt haben",
     "vocabularyValue": "{held} von {poolSize} Starterwörtern stabil behalten — nicht auf die ganze Sprache hochgerechnet",
     "formMasteryValue": "{held} von {poolSize} Starterformen stabil behalten — getrennt von der Wortschatzgröße",
+    "formMasteryPartialParadigmNote": "{count, plural, one {# gehaltenes Verb hat ein unvollständiges Paradigmata-Tableau — Formbeherrschung für dieses Lemma ist unsicher} other {# gehaltene Verben haben unvollständige Paradigmata-Tableaus — Formbeherrschung für diese Lemmata ist unsicher}}",
     "emptyState": "Sie haben noch nichts wiederholt, deshalb hat nichts unten einen Wert. Das ist der ehrliche Ausgangszustand, kein Versagen.",
     "startReview": "Wiederholungssitzung starten",
     "doseHeading": "Was ein Niveau kostet",
@@ -320,7 +338,8 @@
       "reading": "Lesen",
       "listening": "Hören",
       "speaking": "Sprechen",
-      "writing": "Schreiben"
+      "writing": "Schreiben",
+      "vocabulary": "Wortschatz"
     },
     "contributionLabels": {
       "primary": "primär",
@@ -527,8 +546,8 @@
       "switchLinkLabel": "Konto erstellen"
     },
     "oauthDivider": "oder fortfahren mit",
-    "oauthGoogle": "Google",
-    "oauthApple": "Apple"
+    "oauthGoogleAria": "Mit Google fortfahren",
+    "oauthAppleAria": "Mit Apple fortfahren"
   },
   "privacy": {
     "bannerTitle": "Cookies und Speicher",

@@ -39,7 +39,7 @@ describe("PublicHeader", () => {
   it("shows sign-in and create-account on every marketing route", () => {
     const { container } = showHeaderAt("/login");
 
-    expect(container.querySelector('img[src*="fanned-pages"]')).toBeTruthy();
+    expect(container.querySelector('img[src*="steady-path"]')).toBeTruthy();
     expect(screen.getByRole("link", { name: en.marketing.header.signIn }).getAttribute("href")).toBe(
       "/login",
     );
@@ -48,11 +48,11 @@ describe("PublicHeader", () => {
     );
   });
 
-  it("marks sign-in as current on /login", () => {
+  it("marks sign-in as current on /login without accent fill", () => {
     showHeaderAt("/login");
-    expect(screen.getByRole("link", { name: en.marketing.header.signIn }).getAttribute("aria-current")).toBe(
-      "page",
-    );
+    const signIn = screen.getByRole("link", { name: en.marketing.header.signIn });
+    expect(signIn.getAttribute("aria-current")).toBe("page");
+    expect(signIn.className.split(/\s+/)).not.toContain("bg-accent");
   });
 
   it("does not mark sign-in as current off /login", () => {
@@ -60,6 +60,24 @@ describe("PublicHeader", () => {
     expect(
       screen.getByRole("link", { name: en.marketing.header.signIn }).getAttribute("aria-current"),
     ).toBeNull();
+  });
+
+  it("uses ghost sign-in and a single primary create-account control", () => {
+    showHeaderAt("/");
+
+    const signIn = screen.getByRole("link", { name: en.marketing.header.signIn });
+    const signUp = screen.getByRole("link", { name: en.marketing.header.signUp });
+    const signInClasses = signIn.className.split(/\s+/);
+    const signUpClasses = signUp.className.split(/\s+/);
+
+    expect(signInClasses).toContain("hover:bg-accent-soft");
+    expect(signInClasses).not.toContain("bg-accent");
+    expect(signUpClasses).toContain("bg-accent");
+
+    const primaryLinks = screen
+      .getAllByRole("link")
+      .filter((link) => link.className.split(/\s+/).includes("bg-accent"));
+    expect(primaryLinks).toHaveLength(1);
   });
 
   it("does not render app-shell destination navigation", () => {

@@ -7,11 +7,11 @@ import { cn } from "@/lib/utils";
 import { useMethodMenuCopy } from "./use-method-menu-copy";
 import { sectionGraphicAlt, sectionGraphicSrc } from "./section-graphic";
 
-const methodCardHeaderVariants = cva("relative w-full shrink-0 bg-surface", {
+const methodCardHeaderVariants = cva("relative w-full shrink-0", {
   variants: {
     size: {
-      card: "h-20",
-      hero: "h-44 sm:h-52",
+      card: "h-20 bg-surface",
+      hero: "h-44 bg-canvas sm:h-52",
     },
   },
   defaultVariants: {
@@ -49,7 +49,12 @@ export function MethodCardHeader({ section, size, className }: MethodCardHeaderP
         className="object-cover object-center"
       />
       <div
-        className="pointer-events-none absolute inset-0 bg-gradient-to-t from-surface/90 via-surface/20 to-transparent"
+        className={cn(
+          "pointer-events-none absolute inset-0 bg-gradient-to-t to-transparent",
+          size === "hero"
+            ? "from-canvas/90 via-canvas/20"
+            : "from-surface/90 via-surface/20",
+        )}
         aria-hidden
       />
       <p className="absolute bottom-2 left-3 text-[0.65rem] font-medium uppercase tracking-widest text-muted sm:bottom-3 sm:left-6 sm:text-xs">

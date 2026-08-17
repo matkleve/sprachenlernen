@@ -18,7 +18,7 @@ export async function LandingHero() {
 
   return (
     <div className="mx-auto max-w-3xl px-6 pt-page-top pb-page-bottom">
-      <BrandLockup href={routes.landing} wordmark={t("header.brand")} size="lg" className="mb-6" />
+      <BrandLockup href={routes.landing} wordmark={t("header.brand")} size="lg" tone="full" className="mb-6" />
       <p className="text-sm font-medium uppercase tracking-widest text-accent">
         {t("landing.eyebrow")}
       </p>

@@ -38,6 +38,19 @@
   --color-accent-soft: #f5ebe4;
   --color-accent-ink: #ffffff;
 
+  /* Brand tones — logo palette (exploration grid 2026-08-17, Steady Path).
+     earth + warm come from the mark; calm is the new scholarly blue. */
+  --color-brand-earth: #382810;
+  --color-brand-earth-deep: #2a1e0c;
+  --color-brand-earth-soft: #ede8e2;
+  --color-brand-warm: #c05020;
+  --color-brand-warm-deep: #9a3f18;
+  --color-brand-warm-soft: #f8ebe3;
+  --color-brand-calm: #456882;
+  --color-brand-calm-deep: #354f63;
+  --color-brand-calm-soft: #e6eef4;
+  --color-brand-calm-ink: #ffffff;
+
   /* Danger — destructive actions, errors */
   --color-danger: #a32e26;
   --color-danger-deep: #7d221c;
@@ -191,6 +204,17 @@
     --color-accent-soft: #3a2a22;
     --color-accent-ink: #1c1814;
 
+    --color-brand-earth: #c4a88a;
+    --color-brand-earth-deep: #d8c0a8;
+    --color-brand-earth-soft: #2a221c;
+    --color-brand-warm: #e8956a;
+    --color-brand-warm-deep: #f0ad85;
+    --color-brand-warm-soft: #3a2a22;
+    --color-brand-calm: #8ab4d4;
+    --color-brand-calm-deep: #a8c8e0;
+    --color-brand-calm-soft: #1e2a33;
+    --color-brand-calm-ink: #1c1814;
+
     --color-danger: #f0a09a;
     --color-danger-deep: #f5bbb6;
     --color-danger-soft: #3d2420;
@@ -258,6 +282,16 @@
   --color-accent-deep: #f0ad85;
   --color-accent-soft: #3a2a22;
   --color-accent-ink: #1c1814;
+  --color-brand-earth: #c4a88a;
+  --color-brand-earth-deep: #d8c0a8;
+  --color-brand-earth-soft: #2a221c;
+  --color-brand-warm: #e8956a;
+  --color-brand-warm-deep: #f0ad85;
+  --color-brand-warm-soft: #3a2a22;
+  --color-brand-calm: #8ab4d4;
+  --color-brand-calm-deep: #a8c8e0;
+  --color-brand-calm-soft: #1e2a33;
+  --color-brand-calm-ink: #1c1814;
   --color-danger: #f0a09a;
   --color-danger-deep: #f5bbb6;
   --color-danger-soft: #3d2420;

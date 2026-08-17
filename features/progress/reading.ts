@@ -1,9 +1,14 @@
 import { listTaskStatesForTaskIds } from "@/lib/db/task-state";
 import { internalUnexpected, logHandledError, type HandledError } from "@/lib/errors";
+import { loadLemmaTable } from "@/lib/lexicon";
 import { readLevel, type LevelReading } from "@/lib/level-model";
+import { createParadigmCompletenessChecker } from "@/lib/paradigm-completeness";
 import { newTask, type Task } from "@/lib/scheduler";
 import { poolForActiveLanguage } from "@/lib/db/learner-pools";
 import { tasksByTaskIdForCards } from "@/lib/task-from-state";
+
+import esLemmaRaw from "@/data/lemma/es.json";
+import itLemmaRaw from "@/data/lemma/it.json";
 
 /**
  * Assembles the progress reading for the signed-in learner. Contract:
@@ -63,7 +68,18 @@ async function read(now: number): Promise<ProgressOutcome> {
     (card) => tasksByTaskId[card.taskId] ?? newTask(card.taskId, card.wordId),
   );
 
-  return { status: "ok", reading: readLevel(tasks, now) };
+  const language = pool.languageCodes[0];
+  const lemmaTable =
+    language === "es"
+      ? loadLemmaTable(esLemmaRaw, "es").table
+      : language === "it"
+        ? loadLemmaTable(itLemmaRaw, "it").table
+        : undefined;
+  const options = lemmaTable
+    ? { isLemmaParadigmIncomplete: createParadigmCompletenessChecker(lemmaTable) }
+    : undefined;
+
+  return { status: "ok", reading: readLevel(tasks, now, options) };
 }
 
 function fail(cause: unknown): HandledError {

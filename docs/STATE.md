@@ -155,8 +155,7 @@ negative criterion this section is about: after grading, **no text from the
 previous card appears anywhere** in the output.
 
 It replaced [`specs/feature/item-picker.md`](specs/feature/item-picker.md) here
-on 2026-08-09 (T-B5). The picker is the Grundriss starter's example and still
-demonstrates the derived-selection pattern; the review session is this
+on 2026-08-09 (T-B5). The picker demo is retired; the review session is this
 product's own, and it exercises the harder half — transitions, a terminal
 state, and an illegal-transition no-op — which a selection alone cannot show.
 

@@ -4,6 +4,7 @@ import type { ComponentPropsWithoutRef } from "react";
 
 import {
   focusRing,
+  interactiveCursor,
   interactionMotion,
   pressScale,
   touchTarget,
@@ -17,6 +18,7 @@ import { cn } from "@/lib/utils";
 export const textLinkVariants = cva(
   [
     touchTarget,
+    interactiveCursor,
     "rounded-pill underline underline-offset-4",
     interactionMotion,
     focusRing,

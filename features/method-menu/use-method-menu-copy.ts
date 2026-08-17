@@ -92,6 +92,7 @@ export function useMethodMenuCopy() {
       listening: t("skillLabels.listening"),
       speaking: t("skillLabels.speaking"),
       writing: t("skillLabels.writing"),
+      vocabulary: t("skillLabels.vocabulary"),
     } as const;
 
     const dimensionOrder = Object.keys(CONTEXT_DIMENSIONS) as Dimension[];

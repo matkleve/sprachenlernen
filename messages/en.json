@@ -104,10 +104,16 @@
     "fragileDescription": "You've seen the meaning in review but it is not yet stable enough to count as known.",
     "newDescription": "Meaning not reviewed yet.",
     "blocksHeading": "Frequency bands",
-    "blocksCaption": "How many of the most common words in your starter deck you hold stably by meaning — by rank band, not the whole language yet.",
+    "blocksCaption": "How your starter deck splits by frequency rank — held, fragile, and what is still missing. The core band (ranks 1–1000) calls unreviewed words holes: the highest-value gaps in your map.",
     "blockLabel": "Ranks {start}–{end}",
-    "blockHeld": "{held} of {poolSize} meanings held",
-    "blockHeldDescription": "Stable meaning recall — same rules as Held above.",
+    "blockPoolSize": "{poolSize, plural, one {# word in this band} other {# words in this band}}",
+    "blockHeldRowDescription": "Stable meaning recall in this band.",
+    "blockFragileRowDescription": "Reviewed in this band but not yet stable.",
+    "blockNewDescription": "Meaning not reviewed yet in this band.",
+    "blockHoles": "Holes",
+    "blockHolesDescription": "Frequent words not reviewed yet — the highest-value gaps.",
+    "blockDistributionSummary": "{held} held · {fragile} fragile · {unreviewed} {unreviewedLabel} — {poolSize} words in band",
+    "blockBandAria": "Ranks {start} to {end}: {held} held, {fragile} fragile, {unreviewed} {unreviewedLabel}, out of {poolSize} words",
     "horizonHeading": "Review horizon",
     "horizonCaption": "How your scheduled reviews are spread over the next 30 days — not what is due in today's session.",
     "horizonDayToday": "Today",
@@ -154,7 +160,18 @@
     "orbitDetailBandLabel": "Band",
     "orbitDetailBandCaption": "Ranks {start}–{end}",
     "orbitDetailWordsInBandLabel": "Words in band",
-    "orbitDetailHeldSummary": "{held} of {total} held"
+    "orbitDetailHeldSummary": "{held} of {total} held",
+    "wordDetailScheduleNew": "Not scheduled yet — you have not reviewed this word.",
+    "wordDetailScheduleSuspended": "Suspended — not included in review sessions.",
+    "wordDetailScheduleRetired": "Removed from your deck — your review history is kept.",
+    "wordDetailScheduleDueToday": "Scheduled for today — you last chose {grade}.",
+    "wordDetailScheduleDueFuture": "Next review in {days, plural, one {# day} other {# days}} — you last chose {grade}.",
+    "wordDetailScheduleNoGrade": "your last answer",
+    "wordDetailSuspend": "Suspend",
+    "wordDetailRetire": "Remove from deck",
+    "wordDetailSuspendHelp": "Pause scheduling. Your review history stays on your account.",
+    "wordDetailRetireHelpOnly": "Stop scheduling this word. Your review history stays on your account.",
+    "wordDetailActionFootnote": "Suspend pauses scheduling; Remove stops it. History is never deleted."
   },
   "reviewSession": {
     "title": "Review",
@@ -235,6 +252,7 @@
     "stabilityValue": "{days} days, averaged over {taskCount, plural, one {# card} other {# cards}} you have reviewed",
     "vocabularyValue": "{held} of {poolSize} starter words held stably — not extrapolated to the language",
     "formMasteryValue": "{held} of {poolSize} starter forms held stably — separate from vocabulary size",
+    "formMasteryPartialParadigmNote": "{count, plural, one {# held verb has a partial paradigm table — form mastery for that lemma is uncertain} other {# held verbs have partial paradigm tables — form mastery for those lemmas is uncertain}}",
     "emptyState": "You have not reviewed anything yet, so nothing below has a value. That is the honest starting state, not a failure.",
     "startReview": "Start a review session",
     "doseHeading": "What a level costs",
@@ -320,7 +338,8 @@
       "reading": "Reading",
       "listening": "Listening",
       "speaking": "Speaking",
-      "writing": "Writing"
+      "writing": "Writing",
+      "vocabulary": "Vocabulary"
     },
     "contributionLabels": {
       "primary": "primary",
@@ -527,8 +546,8 @@
       "switchLinkLabel": "Create one"
     },
     "oauthDivider": "or continue with",
-    "oauthGoogle": "Google",
-    "oauthApple": "Apple"
+    "oauthGoogleAria": "Continue with Google",
+    "oauthAppleAria": "Continue with Apple"
   },
   "privacy": {
     "bannerTitle": "Cookies and storage",

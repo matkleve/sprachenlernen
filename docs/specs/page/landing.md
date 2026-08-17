@@ -20,10 +20,40 @@ public page.
 - **Out:** full positioning copy and marketing argument (T-B7); OAuth; a fourth
   public route; anything that reads learner data.
 
-**Reuse: `Button` variants on `Link`.** Primary and secondary CTAs navigate, so
-they are anchors styled with the button contract — not `<button>` elements.
-**Reuse: `NavLink`.** The header's text links use the same primitive as the app
-shell's destinations.
+**Reuse: `ActionLink`.** Header and hero CTAs navigate, so they are anchors
+styled with the button contract — not `<button>` elements.
+
+### Public header — auth controls
+
+The header is persistent wayfinding, not a second hero. A UX review (2026-08-17)
+rejected the prior pattern for four reasons:
+
+1. **`NavLink` is the wrong primitive.** It exists for app-shell destinations
+   (Methods, Words, …) where `current` means *selected section*. Auth routes are
+   one-off flows; treating **Sign in** like a shell tab made it a filled pill
+   on `/login` — a second accent control beside **Create account**.
+2. **Two primaries on auth pages.** `NavLink` `current` uses the same accent
+   fill as `ActionLink` `primary`, violating
+   [`button.md`](../component/button.md) ("at most one `primary` per surface") and
+   erasing hierarchy.
+3. **Mismatched geometry.** `NavLink` is `h-11` with `px-4` (shell nav sizing);
+   **Create account** is `ActionLink` `sm` (`h-8`, `px-3`). Different heights,
+   but similar pill widths because short labels inherit large horizontal padding
+   — so the pair looked like two equal buttons.
+4. **Hero already carries the CTA pair.** The header must stay lighter: one
+   ghost control and one primary, not a duplicate button row.
+
+| Control | Primitive | Variant / size | Notes |
+| --- | --- | --- | --- |
+| **Sign in** | `ActionLink` | `ghost sm` | intrinsic width; no fill at rest |
+| **Create account** | `ActionLink` | `primary sm` | the **only** primary in the header |
+
+On `/login` or `/signup`, the matching link sets `aria-current="page"` but
+**keeps its variant styling** — ghost stays ghost, primary stays primary. The
+form heading carries "you are here"; the header does not add a second accent
+fill.
+
+Header auth links use `gap-3` so expanded `sm` hit targets do not overlap.
 
 ## Behavior
 
@@ -58,6 +88,12 @@ are marked there with their source; nothing is invented for positioning.
 - [ ] Given a signed-out visitor on `/`, when the page renders, then **Sign in**
       and **Create account** links are visible in the header and the hero's
       primary action is **Create account**.
+- [ ] Given the public header on any `(marketing)` route, when it renders, then
+      **Create account** is the only `primary` control, **Sign in** uses
+      `ghost`, and the two links do not share the same button variant.
+- [ ] Given a visitor on `/login`, when the header renders, then **Sign in**
+      carries `aria-current="page"` and does **not** carry an accent fill class
+      at rest.
 - [ ] Given a signed-in visitor on `/`, when the page is requested, then the
       response is a redirect to `/methods` and the hero does not render.
 - [ ] Given any `(marketing)` route, when it renders, then the public header is

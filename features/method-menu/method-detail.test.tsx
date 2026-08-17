@@ -1,5 +1,5 @@
 import { renderWithIntl as render, en } from "@/tests/i18n-test-utils";
-import { screen } from "@testing-library/react";
+import { screen, within } from "@testing-library/react";
 
 import { describe, expect, it, vi } from "vitest";
 
@@ -16,6 +16,7 @@ const { catalogue } = loadMethodCatalogue();
 const extensiveReading = findMethod(catalogue, "extensive-reading")!;
 const intensiveReading = findMethod(catalogue, "intensive-reading")!;
 const narrowListening = findMethod(catalogue, "narrow-listening")!;
+const backgroundListening = findMethod(catalogue, "background-listening")!;
 const srsSession = findMethod(catalogue, "srs-session")!;
 
 describe("MethodDetail", () => {
@@ -43,6 +44,28 @@ describe("MethodDetail", () => {
     expect(
       screen.getByRole("img", {
         name: `Gold ${en.methodMenu.skillLabels.listening} contribution`,
+      }),
+    ).toBeDefined();
+  });
+
+  it("places summary before the badge band and keeps evidence out of the band", async () => {
+    render(await MethodDetail({ method: narrowListening }));
+
+    const heading = screen.getByRole("heading", { level: 1, name: narrowListening.name });
+    const summary = heading.nextElementSibling;
+    expect(summary?.textContent).toBe(narrowListening.summary);
+
+    const band = summary?.nextElementSibling;
+    expect(band).toBeTruthy();
+    expect(within(band as HTMLElement).queryByText(en.methodMenu.evidenceCard.B)).toBeNull();
+  });
+
+  it("shows wood tier shields on detail for weak methods", async () => {
+    render(await MethodDetail({ method: backgroundListening }));
+
+    expect(
+      screen.getByRole("img", {
+        name: `Wood ${en.methodMenu.skillLabels.listening} contribution`,
       }),
     ).toBeDefined();
   });

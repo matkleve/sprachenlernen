@@ -5,7 +5,6 @@ import { usePathname } from "next/navigation";
 
 import { BrandLockup } from "@/components/brand/BrandLockup";
 import { ActionLink } from "@/components/ui/ActionLink";
-import { NavLink } from "@/components/ui/NavLink";
 import { routes } from "@/lib/routes";
 
 /**
@@ -22,12 +21,22 @@ export function PublicHeader() {
   return (
     <header className="border-b border-line bg-surface">
       <div className="mx-auto flex max-w-5xl flex-wrap items-center justify-between gap-4 px-6 py-3">
-        <BrandLockup href={routes.landing} wordmark={t("header.brand")} />
-        <nav className="flex items-center gap-1" aria-label="Account">
-          <NavLink href={routes.signIn} current={pathname === routes.signIn}>
+        <BrandLockup href={routes.landing} wordmark={t("header.brand")} tone="full" />
+        <nav className="flex items-center gap-3" aria-label="Account">
+          <ActionLink
+            href={routes.signIn}
+            variant="ghost"
+            size="sm"
+            aria-current={pathname === routes.signIn ? "page" : undefined}
+          >
             {t("header.signIn")}
-          </NavLink>
-          <ActionLink href={routes.signUp} variant="primary" size="sm">
+          </ActionLink>
+          <ActionLink
+            href={routes.signUp}
+            variant="primary"
+            size="sm"
+            aria-current={pathname === routes.signUp ? "page" : undefined}
+          >
             {t("header.signUp")}
           </ActionLink>
         </nav>

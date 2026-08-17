@@ -3,6 +3,7 @@
 <!-- id: SPEC-feature-words-home -->
 <!-- use-case: UC-063 -->
 <!-- use-case: UC-031 -->
+<!-- use-case: UC-038 -->
 <!-- use-case: UC-005 -->
 <!-- use-case: UC-006 -->
 <!-- status: active -->
@@ -23,10 +24,11 @@ reading, listening, speaking, and off-app Methods are reached from `/methods`.
 ## Scope
 
 - **In:** `features/words/` — `WordsHome`, `WordsReviewCardHeader`,
-  `WordsSectionLabel`, `WordsCountDefinitions`, `VocabularyOrbitField`,
-  `reading.ts`, `content.ts`; wired on `app/(app)/words/page.tsx`. Review card
-  uses `words-home-review.webp`; vocabulary counts card reuses
-  `MethodCardHeader` (`vocabulary` section). Derives from
+  `WordsSectionLabel`, `WordsCountDefinitions`, `FrequencyBlocksField`,
+  `VocabularyOrbitField`, `OrbitDetailCard`, `WordDetailActions`, `reading.ts`,
+  `actions.ts`; wired on `app/(app)/words/page.tsx`. Review card uses
+  `words-home-review.webp`; vocabulary counts card reuses `MethodCardHeader`
+  (`vocabulary` section). Derives from
   [`vocabulary-snapshot.md`](../service/vocabulary-snapshot.md),
   [`frequency-blocks.md`](../service/frequency-blocks.md),
   [`vocabulary-orbit.md`](vocabulary-orbit.md), and **only** Reviews from built
@@ -48,7 +50,7 @@ shell and header graphic ([`method-card-header.md`](../component/method-card-hea
 
 | # | User action | System response |
 | --- | --- | --- |
-| 1 | Opens `/words` | Canvas intent copy; review action card with header graphic; vocabulary counts in a raised vocabulary-section card (header graphic, caption, lemma callout, three stat tiles with numbers only, collapsed count definitions); frequency bands as vocabulary-tinted cards; horizon and orbit with uppercase section labels |
+| 1 | Opens `/words` | Canvas intent copy; review action card with header graphic; vocabulary counts in a raised vocabulary-section card (header graphic, caption, lemma callout, three stat tiles with numbers only, collapsed count definitions); frequency bands with held/fragile/new (or holes in the core band) per band; horizon and orbit with uppercase section labels |
 | 2 | Taps Start review | Navigates to `/words/review?method=srs-session` |
 | 3 | Taps a segment or **Show list** | See [`vocabulary-orbit.md`](vocabulary-orbit.md) |
 | 4 | Expands or collapses horizon | See [`review-horizon.md`](review-horizon.md) |
@@ -74,7 +76,9 @@ outcomes.
       recall** (not inflected forms), a lemma callout explains what a **lemma** is
       (collapsed in a disclosure below `md`, always visible from `md` up; press
       scales the whole callout shell; expand/collapse animates over 150ms),
-      frequency bands name each rank range and stable-held count, the vocabulary
+      frequency bands name each rank range and show **held, fragile, and new**
+      counts per band (core band 1–1000 labels unreviewed words as **holes** —
+      the textual equivalent of the orbit map, UC-021), the vocabulary
       orbit is present, and Start review links to `srs-session`.
 - [ ] Given the starter deck, when the page renders, then the horizon is
       present (collapsed or expanded per [`review-horizon.md`](review-horizon.md))

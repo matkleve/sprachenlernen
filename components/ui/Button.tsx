@@ -9,6 +9,7 @@ import {
   hitAreaExpandSm,
   hitAreaPseudo,
   hoverLift,
+  interactiveCursor,
   interactiveEmphasis,
   interactionMotion,
   pendingBusy,
@@ -34,6 +35,7 @@ export const buttonVariants = cva(
     hitAreaAnchor,
     "inline-flex items-center justify-center gap-2 whitespace-nowrap",
     touchTarget,
+    interactiveCursor,
     "rounded-pill",
     interactiveEmphasis,
     hitAreaPseudo,
@@ -124,6 +126,12 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
     </button>
   );
 });
+
+/** Round icon-only secondary control — OAuth provider buttons on auth forms. */
+export const oauthIconButtonClass = cn(
+  buttonVariants({ variant: "secondary", size: "sm" }),
+  "size-11 min-h-11 min-w-11 rounded-full p-0",
+);
 
 /** Icon-only chip sizing — floating shell corners, language trigger. */
 export const iconButtonClass = cn(

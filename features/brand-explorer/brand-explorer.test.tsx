@@ -26,11 +26,11 @@ describe("BrandExplorer", () => {
     window.localStorage.clear();
   });
 
-  it("shows five direction cards with size previews and header lockups", () => {
+  it("shows direction cards with size previews and header lockups", () => {
     render(<BrandExplorer />);
 
     const cards = screen.getAllByRole("article");
-    expect(cards).toHaveLength(6);
+    expect(cards).toHaveLength(logoDirections.length);
 
     for (const direction of logoDirections) {
       const card = cards.find((entry) =>

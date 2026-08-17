@@ -1,7 +1,7 @@
 # UC-038 — Know why this word is worth my time
 
 <!-- id: UC-038 -->
-<!-- specs:  -->
+<!-- specs: SPEC-feature-word-detail, SPEC-feature-content-traceability -->
 
 **Who:** a learner looking at a card and wondering whether it earns its place.
 **Wants to:** see what this word gets them.

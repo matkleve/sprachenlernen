@@ -40,7 +40,19 @@ user cannot read another Account's rows. **Sensitive** (`AGENTS.md`).
 | 3 | Submits either form with invalid input | The page re-renders with the error Supabase reported next to the password field; no account or session is created |
 | 4 | Opens `/login` or `/signup` while already signed in | Redirected to `/methods`; the form is never shown |
 | 5 | (Any signed-in request) | `middleware.ts` revalidates and refreshes the session cookie before any Server Component runs. Server code reads the session with `getSession()` (local cookie, no second Auth round trip) via `getAccount()` — `getUser()` runs in middleware only |
-| 6 | Taps "Continue with Google" or "Continue with Apple" on `/login` or `/signup` | Redirected to the provider; on success, a session is created and they land on `/methods` without a separate email-confirmation step. An account with no learning language is sent to the picker by the destination itself, so OAuth needs no special case |
+| 6 | Taps the Google or Apple OAuth control on `/login` or `/signup` | Redirected to the provider; on success, a session is created and they land on `/methods` without a separate email-confirmation step. An account with no learning language is sent to the picker by the destination itself, so OAuth needs no special case |
+
+### OAuth controls
+
+**Reuse: `SubmitButton`.** Each provider is its own `<form>` posting to
+`signInWithOAuthAction`.
+
+The two providers sit **side by side**, centred under the divider — not stacked.
+Each control is a **round, icon-only** `secondary` button (`size-11`, 44×44px
+target): the provider logo inside, no visible label. The accessible name comes
+from `aria-label` ("Continue with Google" / "Continue with Apple"). Stacked
+full-width text buttons duplicated the email submit and read as a second form
+rather than alternate entry points.
 | 7 | Signs up with email and password | Email confirmation remains required before a session exists (project setting) |
 
 ## States
@@ -99,6 +111,9 @@ to signed-out; a successful sign-in moves the other way.
       nothing".
 - [ ] Given a signed-in Account, when it opens `/login` or `/signup`, then it
       is redirected to `/methods` and never shown the form.
+- [ ] Given `/login` or `/signup`, when the OAuth row renders, then Google and
+      Apple appear as two round icon buttons in one horizontal row, each with an
+      `aria-label` and no visible provider name.
 
 ## Open questions
 
@@ -113,4 +128,5 @@ off for email signup is a product decision for UC-011; OAuth does not need it.
 BACKEND.md §8 policy test and runs against the real Supabase project; it
 `describe.skipIf`s, visibly, when the three Supabase secrets are absent.
 `npm test -- auth` also runs `lib/db/auth.test.ts`, the offline unit coverage
-for the adapter's outcome mapping.
+for the adapter's outcome mapping, and `features/auth/oauth-buttons.test.tsx`
+for OAuth control layout.

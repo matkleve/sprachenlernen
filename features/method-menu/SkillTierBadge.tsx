@@ -8,7 +8,8 @@ import type { SkillTier } from "@/lib/skill-tier";
 import { useMethodMenuCopy } from "./use-method-menu-copy";
 import { skillTierBadgeSrc } from "./skill-tier-badges";
 
-const TIER_LABEL: Record<Exclude<SkillTier, "wood">, string> = {
+const TIER_LABEL: Record<SkillTier, string> = {
+  wood: "Wood",
   bronze: "Bronze",
   silver: "Silver",
   gold: "Gold",
@@ -17,12 +18,13 @@ const TIER_LABEL: Record<Exclude<SkillTier, "wood">, string> = {
 
 export type SkillTierBadgeProps = {
   skill: Skill;
-  tier: Exclude<SkillTier, "wood">;
+  tier: SkillTier;
 };
 
 /**
  * One arts tier badge — icon only on screen, words in aria-label.
- * Contract: docs/specs/component/skill-tier-badge.md
+ * Wood renders on detail only; cards never pass wood. Contract:
+ * docs/specs/component/skill-tier-badge.md
  */
 export function SkillTierBadge({ skill, tier }: SkillTierBadgeProps) {
   const { skillLabels } = useMethodMenuCopy();

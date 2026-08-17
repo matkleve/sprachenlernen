@@ -1,13 +1,23 @@
 [
   {
+    "id": "steady-path",
+    "name": "Steady path",
+    "tagline": "Calm progression — balanced stones on the journey",
+    "rationale": "Owner pick from exploration grid 2026-08-17, cell #1. Earth and warm stones; calm blue is the third brand tone in tokens.",
+    "basis": "ChatGPT mood-board exploration 2026-08-17, cell #1",
+    "markSrc": "/design/logo/directions/steady-path.svg",
+    "monoSrc": "/design/logo/directions/steady-path-mono.svg",
+    "shipped": true
+  },
+  {
     "id": "fanned-pages",
     "name": "Fanned pages",
     "tagline": "Layered reading — pages fanning open",
-    "rationale": "Four angled pages fan from a spine point. Reading and depth without a literal open book. Owner pick from ChatGPT exploration grid #5.",
+    "rationale": "Grid #5 from the earlier ChatGPT exploration. Orange pages only in the mark SVG; cream canvas is added only for the PWA app-icon variant.",
     "basis": "ChatGPT mood-board exploration 2026-08-16, cell #5",
     "markSrc": "/design/logo/directions/fanned-pages.svg",
     "monoSrc": "/design/logo/directions/fanned-pages-mono.svg",
-    "shipped": true
+    "shipped": false
   },
   {
     "id": "warm-scholar-bars",

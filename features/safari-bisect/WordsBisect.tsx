@@ -133,7 +133,13 @@ export function WordsBisect({
 
       {level >= 5 ? (
         <div className="mt-page-content">
-          <VocabularyOrbitField orbit={orbit} languageCode={languageCode} atlas={snapshot.atlas} />
+          <VocabularyOrbitField
+            orbit={orbit}
+            languageCode={languageCode}
+            atlas={snapshot.atlas}
+            translations={translations}
+            now={now}
+          />
         </div>
       ) : null}
     </ShellPageContent>

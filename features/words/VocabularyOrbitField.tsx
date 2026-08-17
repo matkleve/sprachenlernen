@@ -8,8 +8,9 @@ import { OrbitDetailCard } from "@/features/words/OrbitDetailCard";
 import { OrbitListPopover } from "@/features/words/OrbitListPopover";
 import { VocabularyOrbitSvg } from "@/features/words/VocabularyOrbitSvg";
 import { WordsSectionLabel } from "@/features/words/WordsSectionLabel";
+import { frequencyBandForRank } from "@/lib/frequency-blocks";
 import type { AtlasPoint } from "@/lib/vocabulary-snapshot";
-import type { OrbitSegment, OrbitTickSegment, VocabularyOrbit } from "@/lib/vocabulary-orbit";
+import type { OrbitSegment, OrbitTickSegment, OrbitWordSegment, VocabularyOrbit } from "@/lib/vocabulary-orbit";
 
 type DetailSegment = Exclude<OrbitSegment, OrbitTickSegment>;
 
@@ -17,9 +18,41 @@ type VocabularyOrbitFieldProps = {
   orbit: VocabularyOrbit;
   languageCode: string;
   atlas: readonly AtlasPoint[];
+  translations: Readonly<Record<string, string>>;
+  now: number;
 };
 
-export function VocabularyOrbitField({ orbit, languageCode, atlas }: VocabularyOrbitFieldProps) {
+function wordSegmentFromAtlas(point: AtlasPoint, translations: Readonly<Record<string, string>>): OrbitWordSegment {
+  const frequencyBand = frequencyBandForRank(point.frequencyRank);
+  return {
+    kind: "word",
+    id: `word:${point.lemma}:${point.frequencyRank}`,
+    ringIndex: 0,
+    slotIndex: 0,
+    lemma: point.lemma,
+    translation: translations[point.lemma] ?? "",
+    taskId: point.taskId,
+    frequencyRank: point.frequencyRank,
+    stability: point.stability,
+    bucket: point.bucket,
+    mature: point.mature,
+    lit: "ghost",
+    taskState: point.taskState,
+    due: point.due,
+    lastGrade: point.lastGrade,
+    reviewCount: point.reviewCount,
+    frequencyBandStart: frequencyBand?.rankStart ?? point.frequencyRank,
+    frequencyBandEnd: frequencyBand?.rankEnd ?? point.frequencyRank,
+  };
+}
+
+export function VocabularyOrbitField({
+  orbit,
+  languageCode,
+  atlas,
+  translations,
+  now,
+}: VocabularyOrbitFieldProps) {
   const t = useTranslations("words");
   const [selected, setSelected] = useState<DetailSegment | null>(null);
   const [listOpen, setListOpen] = useState(false);
@@ -41,7 +74,7 @@ export function VocabularyOrbitField({ orbit, languageCode, atlas }: VocabularyO
           aria-expanded={listOpen}
           onClick={() => setListOpen((open) => !open)}
         >
-          {t('orbitShowList')}
+          {t("orbitShowList")}
         </Button>
       </div>
 
@@ -58,7 +91,7 @@ export function VocabularyOrbitField({ orbit, languageCode, atlas }: VocabularyO
 
       {selected ? (
         <div className="mt-6" aria-live="polite">
-          <OrbitDetailCard segment={selected} />
+          <OrbitDetailCard segment={selected} now={now} />
         </div>
       ) : null}
 
@@ -67,6 +100,7 @@ export function VocabularyOrbitField({ orbit, languageCode, atlas }: VocabularyO
         onClose={() => setListOpen(false)}
         atlas={atlas}
         triggerRef={listTriggerRef}
+        onSelectWord={(point) => setSelected(wordSegmentFromAtlas(point, translations))}
       />
     </section>
   );

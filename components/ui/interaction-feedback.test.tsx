@@ -22,9 +22,11 @@ vi.mock("next/navigation", () => ({
 /** Contract smoke tests for docs/specs/feature/interaction-feedback.md */
 
 describe("interaction-feedback contract", () => {
-  it("Button includes press (active) feedback classes", () => {
+  it("includes press (active) feedback classes", () => {
     render(<Button>Go</Button>);
-    expect(screen.getByRole("button").className).toContain("active:scale");
+    const cls = screen.getByRole("button").className;
+    expect(cls).toContain("active:scale");
+    expect(cls).toContain("cursor-pointer");
   });
 
   it("floating Button includes active fill for touch-visible press", () => {
@@ -43,10 +45,12 @@ describe("interaction-feedback contract", () => {
 
   it("NavLink variants include press (active) feedback classes", () => {
     expect(navLinkVariants()).toContain("active:scale");
+    expect(navLinkVariants()).toContain("cursor-pointer");
   });
 
   it("TextLink variants include press (active) feedback classes", () => {
     expect(textLinkVariants()).toContain("active:scale");
+    expect(textLinkVariants()).toContain("cursor-pointer");
   });
 
   it("Disclosure shell includes press and focus feedback classes", () => {
@@ -58,8 +62,10 @@ describe("interaction-feedback contract", () => {
   });
 
   it("cardPressable includes lift hover and accent fill on press", () => {
-    expect(cardPressable.join(" ")).toContain("hover:-translate-y-px");
-    expect(cardPressable.join(" ")).toContain("active:bg-accent-soft");
+    const classes = cardPressable.join(" ");
+    expect(classes).toContain("hover:-translate-y-px");
+    expect(classes).toContain("active:bg-accent-soft");
+    expect(classes).toContain("cursor-pointer");
   });
 
   it("Button sets aria-busy and disables when pending", () => {

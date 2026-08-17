@@ -23,9 +23,7 @@ export const PressableCard = forwardRef<HTMLButtonElement, PressableCardProps>(
         disabled={disabled || !interactive}
         className={cn(
           "group relative w-full rounded-card border border-line bg-surface text-center shadow-soft",
-          interactive
-            ? cn(cardPressable, "cursor-pointer", disabledState)
-            : "cursor-default",
+          interactive ? cn(cardPressable, disabledState) : "cursor-default",
           !interactive && "pointer-events-none",
           className,
         )}

@@ -1,7 +1,7 @@
 # UC-059 — Find out what stands between me and a method I want
 
 <!-- id: UC-059 -->
-<!-- specs:  -->
+<!-- specs: SPEC-service-coverage, SPEC-feature-content-gap -->
 
 **Who:** a learner who wants to do extensive reading, or mixed paradigm tables,
 and the app has nothing it can build for them yet.

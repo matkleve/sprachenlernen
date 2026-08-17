@@ -26,7 +26,7 @@ Update this file in the same PR as any new control or migration.
 | Control | File | Primitive | Variant | P |
 | --- | --- | --- | --- | --- |
 | Brand | `PublicHeader.tsx` | `TextLink` | `ink sm` | — |
-| Sign in | `PublicHeader.tsx` | `NavLink` | current-aware | ✓ |
+| Sign in | `PublicHeader.tsx` | `ActionLink` | `ghost sm`; `aria-current` on `/login` | ✓ |
 | Sign up | `PublicHeader.tsx` | `ActionLink` | `primary sm` | ✓ |
 | Primary CTA | `LandingHero.tsx` | `ActionLink` | `primary lg` | ✓ |
 | Secondary CTA | `LandingHero.tsx` | `ActionLink` | `secondary lg` | muted |
@@ -38,7 +38,7 @@ Update this file in the same PR as any new control or migration.
 | Control | File | Primitive | Variant | P |
 | --- | --- | --- | --- | --- |
 | Sign in / up submit | `SignInForm.tsx`, `SignUpForm.tsx` | `SubmitButton` | default | auto |
-| OAuth ×2 | `OAuthButtons.tsx` | `SubmitButton` | `secondary` | auto |
+| OAuth ×2 | `OAuthButtons.tsx` | `SubmitButton` | `secondary`, round icon-only, row | auto |
 | Switch link | `SignInForm.tsx`, `SignUpForm.tsx` | `TextLink` | `sm` | — |
 
 ## Words / review

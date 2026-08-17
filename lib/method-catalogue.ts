@@ -54,7 +54,7 @@ export const SECTIONS = [
 ] as const;
 export type Section = (typeof SECTIONS)[number];
 
-export const SKILLS = ["reading", "listening", "speaking", "writing"] as const;
+export const SKILLS = ["reading", "listening", "speaking", "writing", "vocabulary"] as const;
 export type Skill = (typeof SKILLS)[number];
 
 /** The seven layer-1 signals of study/03. Nothing else is measured. */

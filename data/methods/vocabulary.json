@@ -7,7 +7,7 @@
       "summary": "The cards the schedule says are due today",
       "type": "method",
       "trains": "retention",
-      "skills": [],
+      "skills": ["vocabulary"],
       "targetSignal": "recallStability",
       "evidence": "A",
       "demanding": false,
@@ -40,7 +40,7 @@
       "summary": "The same cards, spoken, with your eyes free",
       "type": "method",
       "trains": "retention while your eyes are elsewhere",
-      "skills": [],
+      "skills": ["vocabulary"],
       "targetSignal": "recallStability",
       "evidence": "B",
       "demanding": false,
@@ -70,7 +70,8 @@
       "type": "method",
       "trains": "words you have demonstrably needed",
       "skills": [
-        "reading"
+        "reading",
+        "vocabulary"
       ],
       "targetSignal": "vocabularySize",
       "evidence": "C",
@@ -95,7 +96,7 @@
       "summary": "Learn the word with the words it travels with",
       "type": "method",
       "trains": "fluency — the word with what it goes with",
-      "skills": [],
+      "skills": ["vocabulary"],
       "targetSignal": "recallStability",
       "evidence": "B",
       "demanding": false,
@@ -121,7 +122,8 @@
       "type": "method",
       "trains": "coverage",
       "skills": [
-        "reading"
+        "reading",
+        "vocabulary"
       ],
       "targetSignal": "lexicalCoverage",
       "evidence": "A",

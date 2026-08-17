@@ -4,6 +4,7 @@ import { ActionLink } from "@/components/ui/ActionLink";
 import { ShellPageContent } from "@/features/app-shell/ShellPageContent";
 import { MethodCardHeader } from "@/features/method-menu/MethodCardHeader";
 import { methodSectionSurface } from "@/features/method-menu/section-surface";
+import { FrequencyBlocksField } from "@/features/words/FrequencyBlocksField";
 import { ReviewHorizonField } from "@/features/words/ReviewHorizonField";
 import { LemmaCallout } from "@/features/words/LemmaCallout";
 import { WordsCountDefinitions } from "@/features/words/WordsCountDefinitions";
@@ -85,30 +86,18 @@ export async function WordsHome({
         </section>
       </section>
 
-      <section className="mt-page-content">
-        <WordsSectionLabel>{t("blocksHeading")}</WordsSectionLabel>
-        <p className="mb-4 max-w-2xl text-base leading-relaxed text-muted">{t("blocksCaption")}</p>
-        <dl className="grid gap-3 sm:grid-cols-2">
-          {blocks.map((block) => (
-            <div
-              key={`${block.rankStart}-${block.rankEnd}`}
-              className={methodSectionSurface("vocabulary", "rounded-card p-4 shadow-soft")}
-            >
-              <dt className="text-sm font-medium text-muted">
-                {t("blockLabel", { start: block.rankStart, end: block.rankEnd })}
-              </dt>
-              <dd className="mt-2 text-3xl font-semibold tabular-nums text-ink">
-                {t("blockHeld", { held: block.held, poolSize: block.poolSize })}
-              </dd>
-            </div>
-          ))}
-        </dl>
-      </section>
+      {await FrequencyBlocksField({ blocks })}
 
       <ReviewHorizonField horizon={snapshot.horizon} display={horizonDisplay} now={now} />
 
       <div className="mt-page-content">
-        <VocabularyOrbitField orbit={orbit} languageCode={languageCode} atlas={snapshot.atlas} />
+        <VocabularyOrbitField
+          orbit={orbit}
+          languageCode={languageCode}
+          atlas={snapshot.atlas}
+          translations={translations}
+          now={now}
+        />
       </div>
     </ShellPageContent>
   );

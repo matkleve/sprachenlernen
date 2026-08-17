@@ -19,7 +19,8 @@ Data model: [ADR-0004](../../adr/0004-word-task-data-model.md).
   tokenising text; normalising a token; resolving a form to its analyses —
   lemma, part of speech and paradigm cell; decomposing fused forms; frequency
   rank; deriving the quality tier.
-- **Out:** coverage calculation over a text (stage 3), the vocabulary estimate
+- **Out:** coverage calculation over a text — see [`coverage.md`](coverage.md);
+  the vocabulary estimate
   and level model (stage 2), scheduling, translation, and **running a
   morphological analyser at runtime**.
 
@@ -160,8 +161,10 @@ In [`lexicon.acceptance-criteria.md`](lexicon.acceptance-criteria.md).
   (stage 3), when it becomes a dated calibration event with a migration plan.
 - **⚠ SPEC GAP: what an incomplete paradigm means for form mastery.** A verb
   whose table has 12 of 50 cells is not a verb the learner knows 12 cells of.
-  Reporting mastery over a partial paradigm, or excluding such verbs, are both
-  defensible; guessing would put an invented rule inside a measurement.
+  **Decided 2026-08-17 (owner): flag, do not omit.** Held forms on lemmas whose
+  verb paradigm table has fewer than 30 cells report
+  `partialParadigmLemmaCount` on the form-mastery signal and a footnote on
+  `/progress` — the held count stays visible; uncertainty is named separately.
 - Missing forms are **not** generated from regular patterns, even where the
   pattern is obvious. A generated form is a model output in a table that claims
   to be a lookup, and it would be wrong for exactly the irregular verbs a learner

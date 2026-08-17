@@ -9,9 +9,10 @@ import { join } from "node:path";
 
 const ROOT = join(import.meta.dirname, "..");
 
-const SKILLS = ["reading", "listening", "speaking", "writing"];
-const TIERS = ["bronze", "silver", "gold", "platinum"];
+const SKILLS = ["reading", "listening", "speaking", "writing", "vocabulary"];
+const TIERS = ["wood", "bronze", "silver", "gold", "platinum"];
 const TIER_FILL = {
+  wood: "#8b6914",
   bronze: "#b87333",
   silver: "#c0c5ce",
   gold: "#d4af37",

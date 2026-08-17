@@ -45,7 +45,7 @@ Research: [`study/12`](../../study/12-method-cards.md) (methods and floors),
 | Catalogue methods | 53 |
 | Hosted (`hosted: true`) | 34 |
 | Built engines | 1 (`srs-session`) |
-| Off-app | 14 |
+| Off-app | 19 |
 
 ## Where detail lives
 

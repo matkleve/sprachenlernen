@@ -147,12 +147,10 @@ In [`method-catalogue.acceptance-criteria.md`](method-catalogue.acceptance-crite
   [12](../../study/12-method-cards.md) ("a method without a named target signal
   cannot be admitted"). Either the signal list is short by two or three, or that
   rule applies only to hosted methods. Both are decisions; neither is made.
-- **⚠ SPEC GAP: `SKILLS` has no `vocabulary` value**, so the three vocabulary
-  methods and *label the flat* ship with an empty skill set — which contradicts
-  [12](../../study/12-method-cards.md) ("a method without a named target skill
-  does not belong in the catalogue") and makes `bySkill` silently omit the app's
-  core loop. Structurally the same decision as the signal gap above: extend the
-  vocabulary of what a method can target, or narrow the rule. Both are open.
+- ~~**⚠ SPEC GAP: `SKILLS` has no `vocabulary` value**~~ **Decided 2026-08-17:**
+  `vocabulary` is a fifth skill value. Vocabulary-section methods carry it;
+  `bySkill` includes the app's core loop. Methods without a built engine set
+  `hosted: false` rather than advertising a dead Start button.
 - **⚠ SPEC GAP: chapter 21 contradicts itself about the kitchen.** Cooking from
   a recipe is given the context "kitchen", and the kitchen preset is defined as
   eyes and hands gone. Reading a recipe needs eyes, so the one entry the chapter

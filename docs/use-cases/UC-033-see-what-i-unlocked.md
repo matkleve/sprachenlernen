@@ -1,7 +1,7 @@
 # UC-033 — See what my learning has unlocked
 
 <!-- id: UC-033 -->
-<!-- specs:  -->
+<!-- specs: SPEC-feature-content-traceability, SPEC-service-coverage -->
 
 **Who:** a learner who has put in a month and wants to know what it bought.
 **Wants to:** see the content that has moved from "too hard" into reach.

@@ -22,25 +22,30 @@ const emptySnapshot: VocabularySnapshot = {
   atlas: [
     {
       lemma: "de",
+      taskId: "es:de:meaning-recall",
       frequencyRank: 1,
       stability: null,
       bucket: "new",
       mature: false,
+      taskState: "new",
+      due: now,
+      lastGrade: null,
+      reviewCount: 0,
     },
   ],
 };
 
-const emptyBlocks = DEFAULT_FREQUENCY_BANDS.map((band) => ({
+const sampleBlocks = DEFAULT_FREQUENCY_BANDS.map((band, index) => ({
   ...band,
-  poolSize: 0,
-  held: 0,
-  fragile: 0,
-  new: 0,
+  poolSize: index === 0 ? 1000 : 500,
+  held: index === 0 ? 12 : 3,
+  fragile: index === 0 ? 5 : 1,
+  new: index === 0 ? 983 : 496,
 }));
 
 const homeProps = {
   snapshot: emptySnapshot,
-  blocks: emptyBlocks,
+  blocks: sampleBlocks,
   languageCode: "es",
   translations: { de: "of, from" },
   horizonDisplay: buildHorizonDisplay(
@@ -109,6 +114,49 @@ describe("WordsHome", () => {
     expect(screen.getByRole("button", { name: en.words.horizonExpand })).toBeDefined();
     expect(screen.getByRole("heading", { name: en.words.orbitHeading })).toBeDefined();
     expect(screen.getByRole("img", { name: en.words.orbitAriaLabel })).toBeDefined();
+  });
+
+  it("shows the full band distribution with holes in the core band", async () => {
+    await renderWordsHome();
+
+    expect(
+      screen.getByLabelText(
+        formatMessage(en.words.blockBandAria, {
+          start: 1,
+          end: 1000,
+          held: 12,
+          fragile: 5,
+          unreviewed: 983,
+          unreviewedLabel: en.words.blockHoles,
+          poolSize: 1000,
+        }),
+      ),
+    ).toBeDefined();
+    expect(screen.getByText(en.words.blockHoles)).toBeDefined();
+    expect(
+      screen.getByText(
+        formatMessage(en.words.blockDistributionSummary, {
+          held: 12,
+          fragile: 5,
+          unreviewed: 983,
+          unreviewedLabel: en.words.blockHoles.toLowerCase(),
+          poolSize: 1000,
+        }),
+      ),
+    ).toBeDefined();
+    expect(
+      screen.getByLabelText(
+        formatMessage(en.words.blockBandAria, {
+          start: 1001,
+          end: 2000,
+          held: 3,
+          fragile: 1,
+          unreviewed: 496,
+          unreviewedLabel: en.words.newWords,
+          poolSize: 500,
+        }),
+      ),
+    ).toBeDefined();
   });
 
   it("fits the collapsed horizon summary in the content width without horizontal scroll", async () => {

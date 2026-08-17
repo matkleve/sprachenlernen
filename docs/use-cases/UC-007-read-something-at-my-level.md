@@ -1,7 +1,7 @@
 # UC-007 — Read something I can almost understand
 
 <!-- id: UC-007 -->
-<!-- specs:  -->
+<!-- specs: SPEC-service-coverage, SPEC-feature-content-traceability -->
 
 **Who:** a learner past the first few hundred words.
 **Wants to:** read real, connected text where they know nearly every word — and

@@ -125,6 +125,13 @@ export async function ProgressReport({
             ))}
           </tbody>
         </Table>
+        {formMastery?.partialParadigmLemmaCount ? (
+          <p className="mt-3 max-w-2xl text-sm leading-relaxed text-muted">
+            {t("formMasteryPartialParadigmNote", {
+              count: formMastery.partialParadigmLemmaCount,
+            })}
+          </p>
+        ) : null}
       </section>
 
       <section className="mt-page-content">

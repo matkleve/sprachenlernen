@@ -19,6 +19,6 @@ export const authContent = {
     switchLinkLabel: "Create one",
   },
   oauthDivider: "or continue with",
-  oauthGoogle: "Google",
-  oauthApple: "Apple",
+  oauthGoogleAria: "Continue with Google",
+  oauthAppleAria: "Continue with Apple",
 } as const;

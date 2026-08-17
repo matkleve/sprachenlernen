@@ -14,7 +14,18 @@ function point(
   bucket: AtlasPoint["bucket"],
   mature = false,
 ): AtlasPoint {
-  return { lemma, frequencyRank, stability: bucket === "new" ? null : 8, bucket, mature };
+  return {
+    lemma,
+    taskId: `es:${lemma}:meaning-recall`,
+    frequencyRank,
+    stability: bucket === "new" ? null : 8,
+    bucket,
+    mature,
+    taskState: bucket === "new" ? "new" : "review",
+    due: Date.UTC(2026, 7, 12),
+    lastGrade: bucket === "new" ? null : "good",
+    reviewCount: bucket === "new" ? 0 : 2,
+  };
 }
 
 describe("vocabulary-orbit", () => {
@@ -37,7 +48,20 @@ describe("vocabulary-orbit", () => {
   });
 
   it("fills empty slots with decorative ghost ticks", () => {
-    const atlas = [{ lemma: "el", frequencyRank: 1, stability: null, bucket: "new" as const, mature: false }];
+    const atlas: AtlasPoint[] = [
+      {
+        lemma: "el",
+        taskId: "es:el:meaning-recall",
+        frequencyRank: 1,
+        stability: null,
+        bucket: "new",
+        mature: false,
+        taskState: "new",
+        due: Date.UTC(2026, 7, 12),
+        lastGrade: null,
+        reviewCount: 0,
+      },
+    ];
     const orbit = buildVocabularyOrbit(atlas, { el: "the" });
     const inner = orbit.rings[0]!;
     expect(inner.segments.some((s) => s.kind === "tick")).toBe(true);

@@ -1,6 +1,6 @@
 "use client";
 
-import { BookOpen, Headphones, Mic, PenLine, type LucideIcon } from "lucide-react";
+import { BookA, BookOpen, Headphones, Mic, PenLine, type LucideIcon } from "lucide-react";
 
 import type { EvidenceGrade, Skill } from "@/lib/method-catalogue";
 import type { ContributionLevel, SkillMark } from "@/lib/method-skill-badges";
@@ -13,6 +13,7 @@ const skillIcons: Record<Skill, LucideIcon> = {
   listening: Headphones,
   speaking: Mic,
   writing: PenLine,
+  vocabulary: BookA,
 };
 
 const skillTone: Record<Skill, string> = {
@@ -20,6 +21,7 @@ const skillTone: Record<Skill, string> = {
   listening: "text-skill-listening bg-skill-listening-soft border-skill-listening",
   speaking: "text-skill-speaking bg-skill-speaking-soft border-skill-speaking",
   writing: "text-skill-writing bg-skill-writing-soft border-skill-writing",
+  vocabulary: "text-section-vocabulary bg-section-vocabulary-soft border-section-vocabulary",
 };
 
 const textBadgeClass =

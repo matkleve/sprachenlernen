@@ -3,6 +3,8 @@
  * docs/specs/feature/vocabulary-orbit.md
  */
 
+import { frequencyBandForRank } from "@/lib/frequency-blocks";
+import type { Grade, TaskState } from "@/lib/scheduler";
 import type { AtlasPoint, VocabularyBucket } from "@/lib/vocabulary-snapshot";
 
 export const ORBIT_RING_COUNT = 8;
@@ -41,11 +43,18 @@ export type OrbitWordSegment = {
   slotIndex: number;
   lemma: string;
   translation: string;
+  taskId: string;
   frequencyRank: number;
   stability: number | null;
   bucket: VocabularyBucket;
   mature: boolean;
   lit: OrbitLit;
+  taskState: TaskState;
+  due: number;
+  lastGrade: Grade | null;
+  reviewCount: number;
+  frequencyBandStart: number;
+  frequencyBandEnd: number;
 };
 
 export type OrbitAggregateSegment = {
@@ -131,19 +140,29 @@ export function buildVocabularyOrbit(
     const slotBudget = Math.min(ORBIT_MAX_INDIVIDUALS, ORBIT_SLOTS_PER_RING[ringIndex]!);
     const individuals = points.slice(0, Math.max(0, slotBudget - 1));
     const remainder = points.slice(individuals.length);
-    const segments: OrbitSegment[] = individuals.map((point, slotIndex) => ({
-      kind: "word",
-      id: `word:${point.lemma}:${point.frequencyRank}`,
-      ringIndex,
-      slotIndex,
-      lemma: point.lemma,
-      translation: translations[point.lemma] ?? "",
-      frequencyRank: point.frequencyRank,
-      stability: point.stability,
-      bucket: point.bucket,
-      mature: point.mature,
-      lit: orbitLitForPoint(point),
-    }));
+    const segments: OrbitSegment[] = individuals.map((point, slotIndex) => {
+      const frequencyBand = frequencyBandForRank(point.frequencyRank);
+      return {
+        kind: "word",
+        id: `word:${point.lemma}:${point.frequencyRank}`,
+        ringIndex,
+        slotIndex,
+        lemma: point.lemma,
+        translation: translations[point.lemma] ?? "",
+        taskId: point.taskId,
+        frequencyRank: point.frequencyRank,
+        stability: point.stability,
+        bucket: point.bucket,
+        mature: point.mature,
+        lit: orbitLitForPoint(point),
+        taskState: point.taskState,
+        due: point.due,
+        lastGrade: point.lastGrade,
+        reviewCount: point.reviewCount,
+        frequencyBandStart: frequencyBand?.rankStart ?? band.rankStart,
+        frequencyBandEnd: frequencyBand?.rankEnd ?? band.rankEnd,
+      };
+    });
 
     if (remainder.length > 0) {
       const heldCount = remainder.filter((p) => p.bucket === "held" || p.mature).length;

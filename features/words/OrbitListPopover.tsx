@@ -4,6 +4,7 @@ import { useTranslations } from "next-intl";
 import { useEffect, useId, useRef } from "react";
 import { createPortal } from "react-dom";
 
+import { Button } from "@/components/ui/Button";
 import { Table, Td, Th } from "@/components/ui/Table";
 import type { AtlasPoint } from "@/lib/vocabulary-snapshot";
 
@@ -12,9 +13,16 @@ type OrbitListPopoverProps = {
   onClose: () => void;
   atlas: readonly AtlasPoint[];
   triggerRef: React.RefObject<HTMLButtonElement | null>;
+  onSelectWord: (point: AtlasPoint) => void;
 };
 
-export function OrbitListPopover({ open, onClose, atlas, triggerRef }: OrbitListPopoverProps) {
+export function OrbitListPopover({
+  open,
+  onClose,
+  atlas,
+  triggerRef,
+  onSelectWord,
+}: OrbitListPopoverProps) {
   const t = useTranslations("words");
   const popoverRef = useRef<HTMLDivElement>(null);
   const titleId = useId();
@@ -56,26 +64,39 @@ export function OrbitListPopover({ open, onClose, atlas, triggerRef }: OrbitList
     >
       <div className="border-b border-line px-4 py-3">
         <h3 id={titleId} className="text-sm font-semibold text-ink">
-          {t('orbitListTitle')}
+          {t("orbitListTitle")}
         </h3>
-        <p className="mt-1 text-xs text-muted">{t('orbitListCaption')}</p>
+        <p className="mt-1 text-xs text-muted">{t("orbitListCaption")}</p>
       </div>
       <div className="max-h-[min(60vh,24rem)] overflow-y-auto p-2">
-        <Table caption={t('orbitListTitle')}>
+        <Table caption={t("orbitListTitle")}>
           <thead>
             <tr>
-              <Th scope="col">{t('atlasColumns.word')}</Th>
-              <Th scope="col">{t('atlasColumns.rank')}</Th>
-              <Th scope="col">{t('atlasColumns.status')}</Th>
+              <Th scope="col">{t("atlasColumns.word")}</Th>
+              <Th scope="col">{t("atlasColumns.rank")}</Th>
+              <Th scope="col">{t("atlasColumns.status")}</Th>
             </tr>
           </thead>
           <tbody>
             {atlas.map((point) => (
               <tr key={`${point.lemma}-${point.frequencyRank}`}>
-                <Th scope="row">{point.lemma}</Th>
+                <Th scope="row">
+                  <Button
+                    type="button"
+                    variant="ghost"
+                    size="sm"
+                    className="h-auto w-full justify-start px-1 py-0.5 font-medium text-ink"
+                    onClick={() => {
+                      onSelectWord(point);
+                      onClose();
+                    }}
+                  >
+                    {point.lemma}
+                  </Button>
+                </Th>
                 <Td>{point.frequencyRank}</Td>
                 <Td>
-                  {point.mature ? t('bucketNames.mature') : t(`bucketNames.${point.bucket}`)}
+                  {point.mature ? t("bucketNames.mature") : t(`bucketNames.${point.bucket}`)}
                 </Td>
               </tr>
             ))}

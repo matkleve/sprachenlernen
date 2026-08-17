@@ -47,15 +47,28 @@ drills — generated from your own weak spots, and fed back in when you are done
 
 ## Status
 
-Study and repository setup. **No feature code yet** — what is in `app/`,
-`components/ui/` and `features/` is the Grundriss starter's worked example and
-its primitives, kept until this project's own features replace them.
+**Stage 1 core shipped (2026-08-11).** A signed-in learner can sign up, choose
+Spanish or Italian, open the method menu, run a 15-card SRS review session, see
+pool-local standing on Methods and Progress, and export or delete their account.
+
+| Shipped | Where |
+| --- | --- |
+| Accounts & auth | Supabase — `/signup`, `/login` |
+| Three destinations | `/methods`, `/words`, `/progress` |
+| SRS review | `/words/review` — FSRS, flip-then-grade |
+| Method catalogue | 53 methods, context filter, standing |
+| Languages | Spanish + Italian — 2000-lemma pools, form-recall staging |
+| Public surfaces | `/` landing, `/languages` quality tiers |
 
 | Next | Where |
 | --- | --- |
-| Answer the blocking questions (audience, language pair, web vs. native, data model) | [`docs/study/11-roadmap-open-questions.md`](docs/study/11-roadmap-open-questions.md) |
-| Turn UC-004 … UC-026 into specs, in roadmap-stage order | [`docs/use-cases/`](docs/use-cases/) → [`docs/SPEC-FORMAT.md`](docs/SPEC-FORMAT.md) |
-| ADR for the Word/Task data model | [`docs/adr/`](docs/adr/) |
+| CEFR skill levels (F18–F22) | [`docs/IMPLEMENTATION-PLAN.md`](docs/IMPLEMENTATION-PLAN.md) — T-B3 remainder |
+| Offline / PWA practice | T-B9 |
+| Method menu learner half | T-B10b — demonstration sentence, readiness |
+| Vocabulary map (stage 2) | [`docs/plans/words.md`](docs/plans/words.md) |
+
+Full queue: [`docs/IMPLEMENTATION-PLAN.md`](docs/IMPLEMENTATION-PLAN.md).
+72 specs, 74 use cases — index in [`docs/specs/README.md`](docs/specs/README.md).
 
 ---
 

@@ -1,7 +1,7 @@
 # UC-034 — Find out exactly what is missing between me and this episode
 
 <!-- id: UC-034 -->
-<!-- specs:  -->
+<!-- specs: SPEC-service-coverage, SPEC-feature-content-gap, SPEC-feature-content-traceability -->
 
 **Who:** a learner who has a specific thing they want to understand — an episode,
 an article, a song.

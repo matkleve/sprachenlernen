@@ -386,10 +386,10 @@ Work in four phases; do not skip phase 0:
 
 | Phase | What | Next up |
 | --- | --- | --- |
-| **0 · Hygiene** | Link repair, catalogue honesty (`hosted` vs built), test drift | **T-W0a–T-W0d** — safe for a low-reasoning agent |
-| **1 · Decisions** | W-1 lemma-rank recomputation, W-2 pool atlas vs full map, W-3 `vocabulary` skill, W-4 sibling gap, W-5 incomplete paradigms | Owner — blocks T-W1–T-W6 |
-| **2 · Stage-2 display** | Frequency blocks → word detail → pool-local map → T-B3 remainder → per-cell forms → form-practice | **T-W1** after W-1/W-2 |
-| **3 · Stage-3 loop** | Coverage calculator → content gaps → word capture → reading | After phase 2 map is honest |
+| **0 · Hygiene** | Link repair, catalogue honesty (`hosted` vs built), test drift | **T-W0b/c shipped 2026-08-17** — vocabulary methods `hosted: false` except `srs-session`; `/words/atlas` test drift fixed. **T-W0a** if `check:specs` warns |
+| **1 · Decisions** | W-1 lemma-rank recomputation, W-2 pool atlas vs full map, W-3 `vocabulary` skill, W-4 sibling gap, W-5 incomplete paradigms | **W-3 answered 2026-08-17:** `vocabulary` skill. **W-5 answered 2026-08-17:** flag partial paradigms. W-1, W-2, W-4 already answered |
+| **2 · Stage-2 display** | Frequency blocks → word detail → pool-local map → T-B3 remainder → per-cell forms → form-practice | **T-W1/T-W3/T-W2 shipped** — next: T-W5 form breakdown or content-loop spec (T-W7+) |
+| **3 · Stage-3 loop** | Coverage calculator → content gaps → word capture → reading | **T-W7** after phase 2 map honest — see [`plans/words.md`](plans/words.md) § Phase 3 |
 | **4 · Stage-1 remainder** | Break return, leech diagnosis, i18n slices | T-W12 next; **T-W16** and **T-W17** shipped |
 
 **Relationship to existing queue rows:** T-W4 *is* T-B3 remainder (same work,
@@ -699,17 +699,17 @@ list, when implementing.
 19. ~~**Is the starter-pool atlas on `/words` the stage-2 map v1**~~
     **Answered 2026-08-12 (owner). Yes — pool-local bands and atlas on `/words`
     first.** Language-wide map ships with coverage (stage 3).
-20. **`SKILLS` vocabulary value** — add `vocabulary` to the skill enum, or
-    document why vocabulary methods keep `skills: []`? See
-    [`method-catalogue.md`](specs/service/method-catalogue.md) SPEC GAP.
+20. ~~**`SKILLS` vocabulary value**~~ **Answered 2026-08-17:** `vocabulary` added;
+    vocabulary-section methods tagged; unbuilt engines use `hosted: false`.
 21. ~~**Scheduler sibling gap** — minimum spacing between sibling tasks?~~
     **Answered 2026-08-12 (owner + FSRS).** FSRS sets each Task's `due` date —
     no fixed-day override. **One Task per Word per session** when building the
     queue; the sibling stays due for the next session. UC-071 requeue repeats the
     **same** Task within a session after a bad grade — separate rule. See
     [`session-builder.md`](specs/service/session-builder.md) behaviour #6.
-22. **Incomplete paradigms in form-mastery reporting** — round, omit, or flag?
-    Blocks per-cell breakdown (UC-062). Open in [`lexicon.md`](specs/service/lexicon.md).
+22. ~~**Incomplete paradigms in form-mastery reporting**~~ **Answered 2026-08-17
+    (owner): flag** — `partialParadigmLemmaCount` on Progress; held count unchanged.
+    See [`form-mastery-signal.md`](specs/service/form-mastery-signal.md).
 
 **Added 2026-08-16**, from [study/34](study/34-review-report-and-acknowledgement-ux.md)
 (T-B14a/b/c). Resolve before implementing report popover or DB columns.

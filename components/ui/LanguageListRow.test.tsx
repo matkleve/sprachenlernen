@@ -55,6 +55,7 @@ describe("LanguageListRow", () => {
     const className = screen.getByRole("button").className;
     expect(className).toContain("hover:-translate-y-px");
     expect(className).toContain("active:bg-accent-soft");
+    expect(className).toContain("cursor-pointer");
     expect(className).not.toContain("hover:bg-accent-soft");
   });
 

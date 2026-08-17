@@ -2,17 +2,26 @@
 /**
  * Promote a chosen logo direction to the shipped PWA / favicon assets.
  * Usage: node scripts/sync-brand-assets.mjs <direction-id>
- * Example: node scripts/sync-brand-assets.mjs warm-scholar-bars
+ * Example: node scripts/sync-brand-assets.mjs fanned-pages
  */
 import { copyFileSync, existsSync, readFileSync, writeFileSync } from "node:fs";
 import { execSync } from "node:child_process";
 import { join } from "node:path";
 
 const ROOT = join(import.meta.dirname, "..");
+
+const LOGO_BUILDERS = {
+  "fanned-pages": "scripts/build-fanned-pages-logo.py",
+  "steady-path": "scripts/build-steady-path-logo.py",
+};
+
+const id = process.argv[2];
+if (id && LOGO_BUILDERS[id]) {
+  execSync(`python3 ${LOGO_BUILDERS[id]}`, { stdio: "inherit", cwd: ROOT });
+}
 const directionsPath = join(ROOT, "data/brand/logo-directions.json");
 const directions = JSON.parse(readFileSync(directionsPath, "utf8"));
 
-const id = process.argv[2];
 if (!id) {
   console.error("Usage: node scripts/sync-brand-assets.mjs <direction-id>");
   console.error("Directions:", directions.map((d) => d.id).join(", "));
@@ -27,6 +36,8 @@ if (!direction) {
 
 const sourceName = `${id}.svg`;
 const source = join(ROOT, "design/logo/directions", sourceName);
+const appIconSource = join(ROOT, "design/logo/directions", `${id}-app-icon.svg`);
+const iconSource = existsSync(appIconSource) ? appIconSource : source;
 if (!existsSync(source)) {
   console.error(`Missing source: ${source}`);
   process.exit(1);
@@ -38,7 +49,7 @@ const targets = [
 ];
 
 for (const target of targets) {
-  copyFileSync(source, target);
+  copyFileSync(iconSource, target);
 }
 
 const publicDirection = join(ROOT, "public/design/logo/directions", sourceName);

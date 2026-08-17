@@ -6,7 +6,7 @@
  */
 
 import type { StarterCard } from "@/lib/starter-deck";
-import { DEFAULT_CONFIG, newTask, type Config, type Review, type Task } from "@/lib/scheduler";
+import { DEFAULT_CONFIG, newTask, type Config, type Grade, type Review, type Task } from "@/lib/scheduler";
 
 const DAY_MS = 86_400_000;
 export const HORIZON_DAYS = 30;
@@ -27,11 +27,16 @@ export type HorizonBin = {
 
 export type AtlasPoint = {
   lemma: string;
+  taskId: string;
   frequencyRank: number;
   stability: number | null;
   bucket: VocabularyBucket;
   /** Held tasks at or above matureStabilityThreshold — atlas display tier only. */
   mature: boolean;
+  taskState: Task["state"];
+  due: number;
+  lastGrade: Task["reviews"][number]["grade"] | null;
+  reviewCount: number;
 };
 
 export type VocabularySnapshot = {
@@ -97,10 +102,15 @@ export function buildVocabularySnapshot(
 
     atlas.push({
       lemma: card.lemma,
+      taskId: card.taskId,
       frequencyRank: card.frequencyRank,
       stability: task.stability ?? null,
       bucket,
       mature: isTaskMature(task, config),
+      taskState: task.state,
+      due: task.due,
+      lastGrade: task.reviews[task.reviews.length - 1]?.grade ?? null,
+      reviewCount: task.reviews.length,
     });
 
     if (task.reviews.length > 0) {

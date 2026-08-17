@@ -42,6 +42,7 @@ is a sixth layer for async work — see [`interaction-feedback.md`](../feature/i
 | Export | Role |
 | --- | --- |
 | `touchTarget` | `touch-manipulation` — reliable `:active` on touch |
+| `interactiveCursor` | `cursor-pointer` — every clickable primitive except platform-native controls |
 | `interactionMotion` | Named-property transitions, 150ms |
 | `focusRing` | `focus-visible:ring-2 ring-accent ring-offset-2` |
 | `pressScale` | `active:scale-[0.98]` |

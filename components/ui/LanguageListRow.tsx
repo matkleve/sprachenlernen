@@ -16,12 +16,7 @@ import { cn } from "@/lib/utils";
 export const languageListRowSurfaceClass =
   "flex w-full items-start justify-between gap-4 rounded-card border border-line bg-surface p-4 text-left";
 
-const interactiveSurfaceClass = cn(
-  languageListRowSurfaceClass,
-  cardPressable,
-  "cursor-pointer",
-  disabledState,
-);
+const interactiveSurfaceClass = cn(languageListRowSurfaceClass, cardPressable, disabledState);
 
 export type LanguageListRowStanding = {
   held: number;

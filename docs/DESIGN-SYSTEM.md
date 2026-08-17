@@ -64,7 +64,7 @@ interface feels broken even when it works.
 
 | State | When | What happens |
 | --- | --- | --- |
-| **default** | at rest | base look |
+| **default** | at rest | base look; `cursor-pointer` on hover-capable pointers |
 | **hover** | pointer over | color deepens (`hover:bg-accent-deep`) + slight lift (`hover:-translate-y-px`) |
 | **active** | pressed | back to `translate-y-0` + `active:scale-[0.98]` — it feels pressed |
 | **focus-visible** | keyboard focus | `focus-visible:ring-2 ring-accent ring-offset-2`. **Never** `outline: none` without a replacement |

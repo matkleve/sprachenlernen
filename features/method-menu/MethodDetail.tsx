@@ -56,11 +56,11 @@ export async function MethodDetail({ method, searchParams = {} }: MethodDetailPr
               {method.name}
             </h1>
 
-            <MethodDetailBadgeBand method={method} className="mt-4" />
-
             <p className="mt-4 text-lg leading-relaxed text-muted">{method.summary}</p>
 
-            <MethodDetailFacts method={method} variant="mobile" className="md:hidden" />
+            <MethodDetailBadgeBand method={method} className="mt-4" />
+
+            <MethodDetailFacts method={method} variant="mobile" className="mt-6 md:hidden" />
 
             <p className="mt-8 text-lg leading-relaxed text-ink">{method.trains}</p>
 

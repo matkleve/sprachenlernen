@@ -71,7 +71,7 @@ export function isPublicRoute(pathname: string): boolean {
   return publicRoutes.some((route) => pathname === route);
 }
 
-/** Whether a pathname is inside the signed-in half. `/words/atlas` is. */
+/** Whether a pathname is inside the signed-in half. Nested routes like `/words/review` are. */
 export function requiresAccount(pathname: string): boolean {
   return !isPublicRoute(pathname);
 }

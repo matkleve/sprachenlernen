@@ -9,6 +9,9 @@
 /** Reliable `:active` on touch — no 300ms delay. */
 export const touchTarget = "touch-manipulation";
 
+/** Pointer affordance on hover-capable devices — `<button>` defaults to arrow. */
+export const interactiveCursor = "cursor-pointer";
+
 /** Name the properties; never animate every CSS property at once. */
 export const interactionMotion =
   "transition-[background-color,box-shadow,transform,border-color,color] duration-150 ease-out-soft";
@@ -69,6 +72,7 @@ export const iconChipCurrentFill =
 export const interactiveBase = [
   hitAreaAnchor,
   touchTarget,
+  interactiveCursor,
   interactionMotion,
   focusRing,
   pressScale,
@@ -77,6 +81,7 @@ export const interactiveBase = [
 
 export const cardInteractive = [
   touchTarget,
+  interactiveCursor,
   interactionMotion,
   focusRing,
   pressScale,

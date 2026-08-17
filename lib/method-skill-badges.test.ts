@@ -58,7 +58,7 @@ describe("skillMarksForMethod", () => {
     ]);
   });
 
-  it("returns empty when no skills can be inferred", () => {
+  it("marks vocabulary section primary when skills array is empty", () => {
     const method: MethodEntry = {
       ...base,
       id: "srs-session",
@@ -67,7 +67,7 @@ describe("skillMarksForMethod", () => {
       skills: [],
       trains: "retention",
     };
-    expect(skillMarksForMethod(method)).toEqual([]);
+    expect(skillMarksForMethod(method)).toEqual([{ skill: "vocabulary", level: "primary" }]);
   });
 });
 

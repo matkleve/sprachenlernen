@@ -45,6 +45,7 @@ export const SKILL_LABELS: Record<Skill, string> = {
   listening: "Listening",
   speaking: "Speaking",
   writing: "Writing",
+  vocabulary: "Vocabulary",
 };
 
 export const ENERGY_LABELS: Record<Energy, string> = {

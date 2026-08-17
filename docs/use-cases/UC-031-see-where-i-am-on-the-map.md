@@ -1,7 +1,7 @@
 # UC-031 — See where I am on the map of the language
 
 <!-- id: UC-031 -->
-<!-- specs: SPEC-feature-words-home, SPEC-feature-vocabulary-orbit, SPEC-component-orbit-detail-card, SPEC-service-frequency-blocks -->
+<!-- specs: SPEC-feature-words-home, SPEC-feature-vocabulary-orbit, SPEC-component-orbit-detail-card, SPEC-service-frequency-blocks, SPEC-feature-word-detail, SPEC-feature-content-traceability -->
 
 **Who:** a learner months in, who knows they are progressing but not what that
 means.

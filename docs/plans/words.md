@@ -67,9 +67,9 @@ decision from you" — same session as the answer, per project rules.
 | --- | --- | --- | --- |
 | **W-1** | ~~Lemma-frequency ranks~~ **Answered 2026-08-12:** keep form-based ranks in starter pool | — |
 | **W-2** | ~~Pool orbit vs full map~~ **Answered 2026-08-12:** pool-local bands + orbit on `/words` v1 | — |
-| **W-3** | `SKILLS` vocabulary value | method-catalogue coherence | Open |
+| **W-3** | ~~`SKILLS` vocabulary value~~ **Answered 2026-08-17:** `vocabulary` added | — |
 | **W-4** | ~~Sibling spacing~~ **Answered 2026-08-12:** FSRS `due` between sessions; one Task per Word per session; UC-071 requeue is same Task only | — |
-| **W-5** | Incomplete paradigms → form mastery | UC-062 | Open |
+| **W-5** | ~~Incomplete paradigms → form mastery~~ **Answered 2026-08-17:** flag partial paradigms on Progress | — |
 
 Do not start T-W2–T-W6 until W-1 and W-2 are answered. W-4 blocks T-W6 only.
 
@@ -93,8 +93,8 @@ frequency blocks (derivation)
 | ID | Work | Serves | New spec | Class | Depends on |
 | --- | --- | --- | --- | --- | --- |
 | **T-W1** | ~~**Frequency blocks**~~ — **shipped 2026-08-12** | UC-032 (partial), UC-031 | `frequency-blocks.md`, `lib/frequency-blocks.ts`, `/words` bands UI |
-| **T-W2** | **Word detail** — tap an atlas row (or review card) → rank, block, stability, schedule reason, one-action suspend/drop (history preserved). | UC-038 | `docs/specs/feature/word-detail.md` or `docs/specs/page/word.md` | Standard | T-W1 for block label |
-| **T-W3** | **Vocabulary map (pool-local v1)** — extend `/words`: show distribution of held/fragile/new/new-hole across frequency bands; textual equivalent required (UC-021). Not language-wide until lexicon runtime. | UC-031 (partial) | extend [`words-home.md`](../specs/feature/words-home.md) | Standard | T-W1, W-2 answered |
+| **T-W2** | **Word detail** — tap an atlas row (or review card) → rank, block, stability, schedule reason, one-action suspend/drop (history preserved). | UC-038 | `docs/specs/feature/word-detail.md` | Standard | T-W1 for block label | **Shipped 2026-08-17** — inline `OrbitDetailCard` + suspend/retire |
+| **T-W3** | **Vocabulary map (pool-local v1)** — extend `/words`: show distribution of held/fragile/new/new-hole across frequency bands; textual equivalent required (UC-021). Not language-wide until lexicon runtime. | UC-031 (partial) | extend [`words-home.md`](../specs/feature/words-home.md) | Standard | T-W1, W-2 answered | **Shipped 2026-08-17** — `FrequencyBlocksField`, core band labels unreviewed as holes |
 | **T-W4** | **T-B3 remainder** — language-wide vocabulary extrapolation, per-skill levels, demonstration sentence. | UC-004, UC-031, UC-054, UC-050 | existing [`progress.md`](../specs/page/progress.md), level-model specs | Standard / Sensitive | calibration (tier A) or widened band; anchor table [C] |
 | **T-W5** | **Per-cell form breakdown** — Progress drill-down: held forms by paradigm cell pattern. | UC-062, UC-064 (forms branch) | extend [`form-mastery-signal.md`](../specs/service/form-mastery-signal.md) | Standard | W-5 answered |
 | **T-W6** | **Form practice engine** — promote [`form-practice.md`](../specs/service/form-practice.md) from draft; inverse index; session mixing rules. | UC-041 | existing draft + AC file | **Sensitive** | W-4, red-test-first |
@@ -104,16 +104,27 @@ gaps for content (UC-034) — those are stage 1 capture / stage 3 reading.
 
 ---
 
-## Phase 3 · Lexicon runtime and the reading loop (roadmap stage 3)
+## Phase 3 · Lexicon runtime and the content loop (roadmap stage 3)
+
+Specs: [`content-traceability.md`](../specs/feature/content-traceability.md)
+(loop), [`coverage.md`](../specs/service/coverage.md) (T-W7),
+[`content-gap.md`](../specs/feature/content-gap.md) (T-W8).
 
 Do not queue these until phase 2 map is honest at pool scope.
 
-| ID | Work | Serves | New spec | Class |
-| --- | --- | --- | --- | --- |
-| **T-W7** | **Coverage calculator** — wire `buildLexicon()` into a service; tokenise text, resolve forms, compute % known at lemma level. | UC-007, UC-034, UC-059, UC-029 | `docs/specs/service/coverage.md` | Standard |
-| **T-W8** | **Content gap list** — per episode/text: missing word set → schedulable cards with time estimate. | UC-034, UC-059 | `docs/specs/feature/content-gap.md` | Standard |
-| **T-W9** | **Word capture** — one-tap add from reading/audio; learner-added words in DB; auto-fill from lexicon. | UC-012 | `docs/specs/service/word-capture.md`, `docs/specs/feature/word-capture-ui.md` | **Sensitive** |
-| **T-W10** | **Reading surface** — graded texts, tap word, tap sentence, post-read comprehension. | UC-007, UC-030 | reading feature specs (new) | Standard / Sensitive |
+| ID | Work | Serves | Spec | Class | Depends on |
+| --- | --- | --- | --- | --- | --- |
+| **T-W7** | **Coverage calculator** — wire `buildLexicon()`; tokenise, resolve, % known; fixture sources in `data/content/`; reverse index lemma→sources; comfort band; history rows for K2. | UC-007, UC-034, UC-033, UC-059 | `coverage.md` | Standard | T-W1, lexicon |
+| **T-W8b** | **Word trace block** — content appearances on orbit/word detail; loop copy `contentTrace.word.*`; empty state. | UC-038, UC-031 | `content-traceability.md` | Standard | T-W7 |
+| **T-W8** | **Content gap list** — per source: missing lemmas, learn-as-set, time estimate, too-large guard. | UC-034, UC-059 | `content-gap.md` | Standard | T-W7 |
+| **T-W8c** | **Sources shell** — `/content` index + source detail with coverage and gap section (route slug ⚠ SPEC GAP in traceability spec). | UC-033, UC-034, UC-007 | `content-traceability.md` | Standard | T-W7, T-W8 |
+| **T-W9** | **Word capture** — one-tap add from reading/audio; learner-owned sources in DB. | UC-012 | `word-capture.md` (new) | **Sensitive** | persistence model |
+| **T-W10** | **Reading surface** — graded texts, tap word/sentence, post-read comprehension. | UC-007, UC-030 | reading specs (new) | Standard / Sensitive | T-W8c, T-W9 |
+| **T-W11** | **Session loop line (K4)** — extend `SessionComplete`: lemmas newly held + coverage delta; link to `/words` or `/content`. | UC-031 | `content-traceability.md` | Standard | T-W7 |
+| **T-W11b** | **Unlock rollup (K2)** — monthly “moved to comfortable” on `/content`; before→after lines on source detail; history snapshots. | UC-033 | `content-traceability.md`, `coverage.md` | **Sensitive** | T-W7, T-W8c |
+
+**Build order:** T-W7 → T-W8b ∥ T-W8 → T-W8c → T-W11; T-W11b after history
+table; T-W9/T-W10 after sources shell. Fixture-only stub needs no T-W9.
 
 **T-W9 blocks on:** persistence model for learner-owned words (not in starter
 pool), dedup by `wordId`, source-sentence storage — all Sensitive.

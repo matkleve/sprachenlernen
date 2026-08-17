@@ -51,7 +51,7 @@ Interaction states for the canonical table.
 
 | State | Effect |
 | --- | --- |
-| default | variant's resting fill |
+| default | variant's resting fill; `cursor-pointer` |
 | hover | fill deepens to the `-deep` token, lifts by 1px |
 | active | returns to `translate-y-0`, scales to `0.98` |
 | focus-visible | `ring-2 ring-accent ring-offset-2` |
@@ -89,6 +89,7 @@ wrong way.
 - [ ] Every variant/size combination has no axe-core violations.
 - [ ] Given `pending={true}`, when clicked, then `onClick` is not called and
       `aria-busy` is true.
+- [ ] When rendered enabled, the button shall include `cursor-pointer`.
 
 ## Check
 

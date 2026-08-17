@@ -41,8 +41,8 @@ unkept promise, a spec with no use case is a solution looking for a problem.
 ## Index
 
 **UC-001 to UC-003 are the Grundriss starter's worked examples.** They document
-the primitives in `components/ui/` and stay until this project's own features
-demonstrate the same patterns.
+the primitives in `components/ui/`. The demos that exercised them are retired
+(T-B5, 2026-08-10); product features now do.
 
 **Retirement status, checked 2026-08-10 (T-B5).** Complete — Grundriss demos
 retired; product features now exercise all primitives:
@@ -64,9 +64,10 @@ retired; product features now exercise all primitives:
 | [UC-002](UC-002-fill-in-a-form-without-getting-stuck.md) | Fill in a form without getting stuck | `SPEC-component-field`, `SPEC-component-select`, `SPEC-component-dialog` |
 | [UC-003](UC-003-scan-a-table-of-records.md) | Scan a table of records | `SPEC-component-table` |
 
-Ours, derived from [`../study/`](../study/). All are **drafts** — none has a
-spec yet, which is why `check:specs` warns about them. That warning is correct
-and should stay until each is specified.
+Ours, derived from [`../study/`](../study/). **34 use cases have specs**
+(as of 2026-08-17); the rest are roadmap promises — `check:specs` warns on
+those without a `specs:` comment, and that warning should stay until each is
+specified.
 
 The **Stage** column is the roadmap stage in
 [`../study/11-roadmap-open-questions.md`](../study/11-roadmap-open-questions.md).

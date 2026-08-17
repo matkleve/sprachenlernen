@@ -29,6 +29,7 @@ Parent: [`form-recall-pool.md`](form-recall-pool.md),
 | 3 | At least one form-recall Task reviewed | Status `has-data`; `value` = held count; `taskCount` = form-recall pool size |
 | 4 | Vocabulary-size signal | Counts meaning-recall Tasks only — form-recall Tasks excluded from both value and pool size |
 | 5 | Recall-stability signal | Unchanged — averages stability across all reviewed Tasks |
+| 6 | Verb lemma with an incomplete paradigm table (< 30 cells) and at least one held form-recall Task | `partialParadigmLemmaCount` increments; held count unchanged; Progress names the uncertainty |
 
 ## Acceptance criteria
 
@@ -42,7 +43,10 @@ Parent: [`form-recall-pool.md`](form-recall-pool.md),
 - [ ] Given zero held forms after reviews, when form mastery renders, then the
       held count may be zero and the signal still reads *recorded*.
 - [ ] **Negative:** form-mastery value never includes meaning-recall Tasks.
+- [ ] Given a held form-recall Task on a verb lemma whose paradigm table is
+      incomplete, when `/progress` renders, then the held count is unchanged and
+      a footnote names how many held lemmas have partial paradigms.
 
 ## Check
 
-`npm test -- level-model progress form-recall-pool`
+`npm test -- level-model progress form-recall-pool paradigm-completeness`

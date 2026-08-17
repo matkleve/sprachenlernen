@@ -10,8 +10,11 @@ then supporting stats. Wired from [`vocabulary-orbit.md`](../feature/vocabulary-
 
 ## Scope
 
-- **In:** `features/words/OrbitDetailCard.tsx`; copy in `features/words/content.ts`.
-- **Out:** review actions, edit controls, navigation to a lemma page.
+- **In:** `features/words/OrbitDetailCard.tsx`, `WordDetailActions.tsx`; copy in
+  `messages/<locale>.json`. Contract: [`word-detail.md`](../feature/word-detail.md).
+- **Out:** review actions on aggregate segments; navigation to a lemma page.
+  **Content trace block** — [`content-traceability.md`](../feature/content-traceability.md)
+  § word trace block; ships T-W8b after T-W7, not with T-W2.
 
 **Reuse: `Chip`** — bucket status badge.
 
@@ -19,7 +22,7 @@ then supporting stats. Wired from [`vocabulary-orbit.md`](../feature/vocabulary-
 
 | # | User action | System response |
 | --- | --- | --- |
-| 1 | Taps a word segment | Card appears below the orbit with lemma, translation, rank, stability, and a status chip |
+| 1 | Taps a word segment | Card appears below the orbit with lemma, translation, rank, stability, frequency block, schedule line with grade context, lifecycle actions, and a status chip |
 | 2 | Taps an aggregate segment | Card names the rank range, word count, and held count |
 | 3 | Selection changes | Card content updates in place (`aria-live="polite"`) |
 
