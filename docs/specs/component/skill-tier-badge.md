@@ -13,6 +13,7 @@ only — no visible tier or skill text. Contract:
 - **In:** `SkillTierBadge` on method detail; assets under
   `public/assets/skill-tier-badges/{skill}-{tier}.svg`; `aria-label` with tier
   and skill in words; bronze–platinum only (wood computed but never shown).
+  Images use `unoptimized` — SVG assets must not fail SSR via the optimizer.
 - **Out:** cards (Lucide marks until arts assets ship to cards); learner
   progression; global method rank; visible wood tier.
 

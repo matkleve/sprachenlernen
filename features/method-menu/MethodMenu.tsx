@@ -5,6 +5,7 @@ import { useMemo } from "react";
 import { ErrorCallout } from "@/components/ui/ErrorCallout";
 import { ShellPageContent } from "@/features/app-shell/ShellPageContent";
 import { pickDailyThree } from "@/lib/daily-three";
+import type { DemonstrationSentencePick } from "@/lib/demonstration-sentence";
 import type { UserFacingError } from "@/lib/errors";
 import {
   SECTIONS,
@@ -17,6 +18,7 @@ import {
 import { filterMethods } from "@/lib/method-menu-filter";
 import type { SearchParams } from "@/lib/method-menu-filter";
 
+import { DemonstrationSentence } from "./DemonstrationSentence";
 import { MethodCard } from "./MethodCard";
 import { MethodFilter } from "./MethodFilter";
 import { CurrentStanding } from "./CurrentStanding";
@@ -38,6 +40,7 @@ export type MethodMenuProps = {
   loadError?: UserFacingError;
   initialSearchParams?: SearchParams;
   standing?: StandingSummary;
+  demonstration?: DemonstrationSentencePick;
   /** ISO date `YYYY-MM-DD` — stabilises daily-three picks for the day. */
   dayKey?: string;
 };
@@ -54,6 +57,7 @@ export function MethodMenu({
   loadError,
   initialSearchParams = {},
   standing,
+  demonstration,
   dayKey = new Date().toISOString().slice(0, 10),
 }: MethodMenuProps) {
   const { t, sections } = useMethodMenuCopy();
@@ -69,6 +73,8 @@ export function MethodMenu({
       <p className="max-w-2xl text-base leading-relaxed text-muted">{t("intro")}</p>
 
       {standing ? <CurrentStanding summary={standing} /> : null}
+
+      {demonstration ? <DemonstrationSentence pick={demonstration} /> : null}
 
       {!loadError && dailyThree.length > 0 ? (
         <section className="mt-6" aria-label={t("dailyHeading")}>

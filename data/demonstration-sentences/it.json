@@ -1,0 +1,22 @@
+{
+  "sentences": [
+    {
+      "id": "it-oggi-voglio-andare",
+      "text": "Oggi voglio andare.",
+      "tokens": ["Oggi", "voglio", "andare."],
+      "lemmaIds": ["it:oggi", "it:volere", "it:andare"]
+    },
+    {
+      "id": "it-io-ho-molto",
+      "text": "Io ho molto.",
+      "tokens": ["Io", "ho", "molto."],
+      "lemmaIds": ["it:io", "it:avere", "it:molto"]
+    },
+    {
+      "id": "it-oggi-leggo-libro",
+      "text": "Oggi leggo il libro.",
+      "tokens": ["Oggi", "leggo", "il", "libro."],
+      "lemmaIds": ["it:oggi", "it:leggere", "it:il", "it:libro"]
+    }
+  ]
+}

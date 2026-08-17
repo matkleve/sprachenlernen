@@ -29,7 +29,7 @@ Parent contract: [`practice-model.md`](practice-model.md). Catalogue schema:
 | **Destination** | Where a learner goes for a kind of work — Methods, Words, Progress | Three (ADR-0009) |
 
 A **hosted** catalogue entry (`hosted: true`) means the product intends to run it
-in-app. It does **not** mean a session exists yet. Thirty-nine methods are
+in-app. It does **not** mean a session exists yet. Thirty-four methods are
 hosted; one engine is built.
 
 ## Card engine (shipped)

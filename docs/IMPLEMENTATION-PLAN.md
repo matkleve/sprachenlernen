@@ -332,7 +332,7 @@ low-inference agent would silently invent.
 | ~~**T-B1**~~ | ~~The review session surface~~ — **shipped 2026-08-09** | **Sensitive.** [`specs/feature/review-session.md`](specs/feature/review-session.md) + [`.states.md`](specs/feature/review-session.states.md), `features/review-session/`, `/words/review`. Flip-then-grade (back before grade) matches FSRS semantics; spec AC updated 2026-08-10 |
 | ~~**T-B3a**~~ | ~~Held-stability taxonomy~~ — **shipped 2026-08-12** | **Standard.** Separate held vs graduation thresholds; fragile buckets; `isTaskHeld` for counts and form staging |
 | **T-B3** | Vocabulary estimate and the level display (F17–F22) | **Pool-local vocabulary shipped** (F17 narrowed). Language-wide extrapolation + CEFR skill/overall levels (F18–F22) blocked — anchor table [C], pool too small |
-| **T-B10b** | Method menu learner half | **Standing + daily three shipped**; demonstration sentence, readiness still out |
+| **T-B10b** | Method menu learner half | **Standing + daily three + demonstration sentence shipped**; readiness still out |
 | **T-B10c** | Method surfaces UX — badges, card headers, detail layout, chip fix | **Shipped 2026-08-15.** study/27. Skill/evidence/effort badge row (plain labels on cards), section header graphics, detail article layout (Practical → Trains → doesNotDo; evidence in disclosure) |
 | **T-B10d** | Method surfaces property audit — align UI to study/36 | **Shipped 2026-08-16.** Plain effort on detail band; evidence disclosure-only; effort anchor in Practical; all requirement chips on cards; full-bleed hero kept |
 | **T-B4** | Dose ledger (F184) | **Denominator shipped** on `/progress` (question 19, first branch). **Numerator** (hours you practised) still out — needs practice-time logging beyond card `latency_ms` |
@@ -363,7 +363,7 @@ honest Spanish/Italian; offline unlocks commute practice.
 | **5** | **T-B9 / offline-PWA** — cache deck + scheduler; flush queue on reconnect (ADR-0011 Option B) | UC-018 commute practice; installable PWA |
 | **6** | ~~**T-B10c** — method badges + detail layout~~ — **shipped 2026-08-15** | Scannable catalogue; fixes two-line chip + truncated-title UX |
 | **6b** | ~~**T-B10d** — property audit alignment ([`study/36`](study/36-method-surfaces-property-audit.md))~~ — **shipped 2026-08-16** | Plain effort everywhere; all requirement chips on cards; evidence disclosure-only on detail |
-| **7** | **T-B10b remainder** — demonstration sentence, readiness ([`study/24`](study/24-speaking-as-the-goal.md), [`study/26`](study/26-readiness-and-difficulty.md)) | Methods front door complete |
+| **7** | **T-B10b remainder** — ~~demonstration sentence~~ **shipped 2026-08-16**; readiness ([`study/26`](study/26-readiness-and-difficulty.md)) | Methods front door complete |
 | **8** | **T-B4 numerator** — guided hours practised (thesis 9: not card time alone) | Progress per hour invested (study/03 V3) |
 
 **Still partial in Track B:** T-B3 (pool-local only), T-B10b (standing + daily
