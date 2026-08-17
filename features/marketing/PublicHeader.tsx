@@ -8,6 +8,8 @@ import { NavLink } from "@/components/ui/NavLink";
 import { TextLink } from "@/components/ui/TextLink";
 import { routes } from "@/lib/routes";
 
+import { HeaderLogoStrip } from "./HeaderLogoStrip";
+
 /**
  * The frame every public page renders inside. Contract:
  * docs/specs/page/landing.md
@@ -21,10 +23,13 @@ export function PublicHeader() {
 
   return (
     <header className="border-b border-line bg-surface">
-      <div className="mx-auto flex max-w-5xl items-center justify-between gap-4 px-6 py-3">
-        <TextLink href={routes.landing} tone="ink" size="sm" className="no-underline hover:underline">
-          {t("header.brand")}
-        </TextLink>
+      <div className="mx-auto flex max-w-5xl flex-wrap items-center justify-between gap-4 px-6 py-3">
+        <div className="flex flex-wrap items-center gap-4">
+          <HeaderLogoStrip />
+          <TextLink href={routes.landing} tone="ink" size="sm" className="no-underline hover:underline">
+            {t("header.brand")}
+          </TextLink>
+        </div>
         <nav className="flex items-center gap-1" aria-label="Account">
           <NavLink href={routes.signIn} current={pathname === routes.signIn}>
             {t("header.signIn")}
