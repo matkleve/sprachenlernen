@@ -6,8 +6,6 @@ import {
 } from "@/lib/method-menu-filter";
 import { SKILLS } from "@/lib/method-catalogue";
 import { timeBudgetToParam } from "@/lib/time-scale";
-import { useTranslations } from "next-intl";
-
 import { FilterPill } from "@/components/ui/FilterPill";
 import { RefineFilter } from "./RefineFilter";
 import { TimeSlider } from "./TimeSlider";
@@ -18,8 +16,6 @@ type MethodFilterProps = {
   onFilterChange: (updates: Record<string, string | undefined>) => void;
   /** Landing preview omits refine constraints — time, skill, energy only. */
   mode?: "full" | "basic";
-  listeningDeferred?: boolean;
-  onCantListenNow?: () => void;
 };
 
 const ENERGIES = ["low", "medium", "high"] as const;
@@ -28,11 +24,8 @@ export function MethodFilter({
   filter,
   onFilterChange,
   mode = "full",
-  listeningDeferred = false,
-  onCantListenNow,
 }: MethodFilterProps) {
   const { t } = useMethodMenuCopy();
-  const tDefer = useTranslations("listeningDefer");
 
   return (
     <div className="mt-page-content space-y-8">
@@ -102,24 +95,7 @@ export function MethodFilter({
         </ul>
       </section>
 
-      {mode === "full" ? (
-        <>
-          <RefineFilter filter={filter} onFilterChange={onFilterChange} />
-          <section aria-label={tDefer("sectionLabel")}>
-            <h2 className="mb-3 text-sm font-medium uppercase tracking-widest text-muted">
-              {tDefer("sectionLabel")}
-            </h2>
-            <FilterPill
-              current={listeningDeferred}
-              onClick={() => {
-                if (!listeningDeferred && onCantListenNow) onCantListenNow();
-              }}
-            >
-              {tDefer("cantListenNow")}
-            </FilterPill>
-          </section>
-        </>
-      ) : null}
+      {mode === "full" ? <RefineFilter filter={filter} onFilterChange={onFilterChange} /> : null}
     </div>
   );
 }

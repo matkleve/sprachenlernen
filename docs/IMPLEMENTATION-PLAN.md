@@ -408,7 +408,7 @@ Cooking-app runner for multi-step Methods (dictation, writing, listening drills)
 | **T-MU0** | ~~Specs + study/39~~ — material units, gap rules, listening defer — **shipped 2026-08-18** | Standard | round-table + owner |
 | **T-MU1** | ~~`lib/material-unit.ts`~~ — sentence / paragraph / window / full — **shipped 2026-08-18** | Standard | T-W7, [`material-unit.md`](specs/service/material-unit.md) |
 | **T-MU2** | Principled gap selection — replace alternating-word placeholder | **Shipped 2026-08-18** | T-MU1, UC-028 |
-| **T-LD1** | ~~Listening defer UI + menu filter~~ — UC-077 — **shipped 2026-08-18** | Standard | [`listening-defer.md`](specs/feature/listening-defer.md) |
+| **T-LD1** | Listening defer — infra shipped; **menu UI removed** 2026-08-18; UI on mixed stacks — UC-077 | Standard | [`listening-defer.md`](specs/feature/listening-defer.md) |
 | **T-E12** | ~~**Practice-surface UX + anchored layout**~~ — **shipped 2026-08-18** | Standard | T-E1 | [`practice-surface.md`](specs/feature/practice-surface.md), [`exercise-runner.layout.md`](specs/feature/exercise-runner.layout.md) AC |
 
 **Not this runner:** `srs-session` and card-engine form practice (T-W6) stay on

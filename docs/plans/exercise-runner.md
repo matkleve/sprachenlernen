@@ -39,7 +39,7 @@ Load-bearing — do not skip skeleton before components.
 | **T-E8** | ~~**First real method**~~ — partial dictation from catalogue Source — **shipped 2026-08-18** | Sensitive | T-E6, T-W7 | `lib/exercise-recipe/partial-dictation.ts` |
 | **T-E9** | ~~**Gap-fill** step — half-filled listen, type/speak, defer fallback~~ — **shipped 2026-08-18** | Standard | T-E3, T-MU2, T-LD1 | UC-028 |
 | **T-MU1** | ~~Material unit resolver~~ — **shipped 2026-08-18** | Standard | T-W7 | `material-unit.md` AC |
-| **T-LD1** | ~~**Can't listen now**~~ — **shipped 2026-08-18** | Standard | method menu | UC-077 |
+| **T-LD1** | **Can't listen now** — infra shipped; menu UI removed 2026-08-18; UI on mixed stacks | Standard | session chrome | UC-077 |
 | **T-E10** | ~~**Component registry**~~ — **shipped 2026-08-18** | Standard | T-E1 | `exercise-step-components.md` AC |
 | **T-E11** | ~~**Recipe composer**~~ — **shipped 2026-08-18** | Standard | T-E6 | `exercise-recipe-composer.md` AC |
 | **T-E12** | ~~**Practice-surface UX + anchored layout**~~ — **shipped 2026-08-18** | Standard | T-E1 | [`practice-surface.md`](../specs/feature/practice-surface.md), [`exercise-runner.layout.md`](../specs/feature/exercise-runner.layout.md) AC |

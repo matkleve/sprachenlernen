@@ -228,3 +228,36 @@ this app does not have and is not adding.
   never auto-diagnoses.
 - **Threshold:** Levenshtein distance **1**, both lemmas length **3–8**.
   Distance 2 rejected for v1. Build gate script required before merge.
+
+---
+
+## 2026-08-18 — Mixed stacks + listening defer entry point
+
+**Status:** **🔍 in evaluation** (mixed stacks); listening defer UI **deferred**
+until mixed stacks ship.
+
+**Source:** owner — *Can't listen now* on `/methods` does not fit today's model
+(one method = one session, no interleaved listening steps). The control only
+earns its place when sessions can mix listening and non-listening work.
+
+### The mechanism
+
+- A **mixed stack** is a single practice run that interleaves steps from more
+  than one method or modality — e.g. read a paragraph, then gap-fill from the
+  same source without audio, then a short recall card.
+- **Listening defer** (UC-077) belongs on **that session's chrome**: one tap
+  hides or downgrades upcoming listening steps for 15 minutes, with a clear
+  resume time — not as a catalogue-wide filter on `/methods`.
+- **Already shipped (dormant):** `lib/listening-defer.ts`, exercise-runner
+  `type-only` gap-fill when defer is active in client storage.
+
+### What graduates when
+
+- Mixed-stack session model spec + use case(s) named.
+- Defer UI on session chrome re-ships with mixed stacks; menu **Ton** row stays
+  out unless owner revisits.
+
+### Rejected for now
+
+- Method-menu **Ton** refine row — removed 2026-08-18; wrong surface before
+  mixed stacks exist.

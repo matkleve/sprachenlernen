@@ -17,12 +17,17 @@ Listening methods stay in the menu or open broken sessions. Learners skip or
 abandon. This is not the same as UC-020 (permanent skill profile) — it is a
 **short situational defer**.
 
+**2026-08-18 (owner):** method-menu **Ton** row removed — entry point belongs on
+**mixed-stack session chrome**, not the catalogue filter. `lib/listening-defer.ts`
+and runner `type-only` fallback remain for that build.
+
 ## Success looks like
 
 - One tap: **Can't listen now** — listening not offered for **15 minutes**
-  (default), with a clear resume time.
-- Sound-requiring methods disappear from the filtered catalogue while defer is
-  active — absent, not disabled.
+  (default), with a clear resume time — **in mixed-stack session chrome** (not
+  `/methods` refine).
+- Sound-requiring **steps** in a mixed stack are skipped or fall back to
+  `type-only` while defer is active.
 - Open listening exercises fall back to **type-only** gap-fill (same text, no
   audio) when defer is active.
 - Defer can be cleared early; nothing is written to the progress model as a

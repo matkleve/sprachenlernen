@@ -75,8 +75,9 @@ writing but not by ear; recent lemmas; optional phonological contrast targets
 *"I can't listen now"* — situational, not a profile exclusion (UC-020).
 
 - **Duration:** 15 minutes (session preference, default).
-- **Effect:** sound-requiring methods **absent** from menu filter; in-session
-  listening steps offer **type-only** variant; copy confirms defer end time.
+- **Effect:** in mixed-stack sessions, listening steps offer **type-only** variant
+  or are skipped; copy confirms defer end time. Method-menu filter removed
+  2026-08-18 — premature without mixed stacks.
 - **Not:** scoring listening skills low; permanent opt-out.
 
 Inspired by Duolingo-style honesty when environment cannot use audio.

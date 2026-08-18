@@ -76,7 +76,7 @@ that first.
 | `SPEC-feature-practice-surface` | [practice-surface.md](feature/practice-surface.md) | UC-049 | active |
 | `SPEC-feature-interaction-feedback` | [interaction-feedback.md](feature/interaction-feedback.md) | UC-068 | active |
 | `SPEC-feature-item-picker` | [item-picker.md](feature/item-picker.md) | UC-001 | superseded |
-| `SPEC-feature-listening-defer` | [listening-defer.md](feature/listening-defer.md) | UC-077 | active |
+| `SPEC-feature-listening-defer` | [listening-defer.md](feature/listening-defer.md) | UC-077 | draft |
 | `SPEC-feature-method-material-setup` | [method-material-setup.md](feature/method-material-setup.md) | UC-046 | active |
 | `SPEC-feature-mobile-nav` | [mobile-nav.md](feature/mobile-nav.md) | UC-063 | superseded |
 | `SPEC-feature-mobile-nav-v2` | [mobile-nav-v2.md](feature/mobile-nav-v2.md) | UC-063 | active |

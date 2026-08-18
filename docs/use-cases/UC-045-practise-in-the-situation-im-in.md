@@ -40,8 +40,8 @@ to the top make browsing worse, not better.
 - Each card shows a **section header graphic** (one abstract image per catalogue
   section) so browsing sixty entries has visual rhythm without ranking methods.
 - Methods that do not fit are **absent**, not greyed out.
-- **Can't listen now** (UC-077) temporarily removes sound-requiring methods for
-  15 minutes — absent like other context filters.
+- **Can't listen now** (UC-077) is **deferred** until mixed-stack sessions ship —
+  not on the method menu (owner 2026-08-18); see [`../IDEAS.md`](../IDEAS.md).
 - Physical constraints are **stated by the learner**, never inferred.
 - Runnable methods open in one tap (**Start** on card); others show **Info** and
   open honest detail.
