@@ -48,8 +48,6 @@ export const copy = {
   languageLabel: (name: string) => name,
   syncing: (count: number) =>
     count === 1 ? "Syncing 1 review…" : `Syncing ${count} reviews…`,
-  syncFailed: "Your grade could not be saved.",
-  syncRetry: "Retry",
   report: "Report a problem with this card",
   reportPopoverTitle: "Report this card",
   reportPopoverOutcome:

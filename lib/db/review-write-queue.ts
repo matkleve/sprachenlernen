@@ -157,7 +157,20 @@ export function createReviewWriteQueue(options: {
     if (retryTimer) return;
     retryTimer = setTimeout(() => {
       retryTimer = null;
-      void flushAll();
+      void (async () => {
+        await reload();
+        for (const row of cache) {
+          if (row.state !== "failed") continue;
+          await options.storage.put({
+            ...row,
+            state: "pending",
+            attempts: 0,
+            lastError: undefined,
+          });
+        }
+        await reload();
+        await flushAll();
+      })();
     }, RETRY_MS);
   }
 

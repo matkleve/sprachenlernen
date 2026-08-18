@@ -68,7 +68,7 @@ describe("review-write-queue", () => {
     expect(queue.getState().lastError).toBe("Your grade could not be saved.");
   });
 
-  it("resets attempt count when the learner taps retry", async () => {
+  it("resets attempt count on scheduled retry", async () => {
     const flush = vi.fn().mockResolvedValue({ status: "error", error: "offline" });
     const queue = createReviewWriteQueue({
       storage: createInMemoryReviewQueueStorage(),

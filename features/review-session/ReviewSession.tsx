@@ -1,10 +1,8 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { useTransition } from "react";
 
 import { TextLink } from "@/components/ui/TextLink";
-import { Button } from "@/components/ui/Button";
 import { StatusBanner } from "@/components/ui/StatusBanner";
 import { SessionRunStatusStrip } from "@/features/review-session/SessionRunStatusStrip";
 import { ReviewCard } from "@/features/review-session/ReviewCard";
@@ -27,15 +25,13 @@ function showsActiveCard(phase: string): boolean {
 
 export function ReviewSession({ methodName, compact = false, initialData }: ReviewSessionProps) {
   const t = useTranslations("reviewSession");
-  const [retryPending, startRetry] = useTransition();
   const {
     status,
     loadError,
     phase,
     currentCard,
     languageName,
-    syncError,
-    pendingCount,
+    syncCount,
     showSyncStatus,
     gradedCount,
     runSegments,
@@ -45,7 +41,6 @@ export function ReviewSession({ methodName, compact = false, initialData }: Revi
     flip,
     grade,
     submitReport,
-    retrySync,
   } = useReviewSession({ initialData });
 
   const rootClass = cn(
@@ -94,7 +89,7 @@ export function ReviewSession({ methodName, compact = false, initialData }: Revi
     <div className={rootClass}>
       {sessionHeader}
 
-      {showSyncStatus && pendingCount > 0 ? (
+      {showSyncStatus && syncCount > 0 ? (
         <p
           className={cn(
             "text-sm text-muted",
@@ -102,25 +97,8 @@ export function ReviewSession({ methodName, compact = false, initialData }: Revi
           )}
           aria-live="polite"
         >
-          {t('syncing', { count: pendingCount })}
+          {t('syncing', { count: syncCount })}
         </p>
-      ) : null}
-
-      {syncError ? (
-        <div className={cn("flex flex-wrap items-center gap-3", compact ? "mt-1 shrink-0" : "mt-2")}>
-          <p className="text-sm text-danger" aria-live="polite">
-            {t('syncFailed')}
-          </p>
-          <Button
-            type="button"
-            variant="secondary"
-            size="sm"
-            pending={retryPending}
-            onClick={() => startRetry(() => retrySync())}
-          >
-            {t('syncRetry')}
-          </Button>
-        </div>
       ) : null}
 
       {reportAck?.variant === "success" ? (
@@ -148,7 +126,7 @@ export function ReviewSession({ methodName, compact = false, initialData }: Revi
       {phase === "complete" ? (
         <SessionComplete
           gradedCount={gradedCount}
-          pendingCount={pendingCount}
+          pendingCount={syncCount}
           compact={compact}
         />
       ) : showsActiveCard(phase) && currentCard ? (

@@ -50,8 +50,7 @@ export type UseReviewSessionResult = {
   queue: SessionCard[];
   currentCard: SessionCard | null;
   languageName: string | null;
-  syncError: string | null;
-  pendingCount: number;
+  syncCount: number;
   showSyncStatus: boolean;
   gradedCount: number;
   runSegments: RunSegment[];
@@ -61,7 +60,6 @@ export type UseReviewSessionResult = {
   flip: () => void;
   grade: (value: Grade) => void;
   submitReport: (input: ReportCardInput) => Promise<void>;
-  retrySync: () => void;
 };
 
 const SYNC_STATUS_DELAY_MS = 500;
@@ -95,8 +93,7 @@ export function useReviewSession(options: UseReviewSessionOptions = {}): UseRevi
     initialData?.status === "ok" ? initialData.languageName : null,
   );
   const [sessionIndex, setSessionIndex] = useState(0);
-  const [syncError, setSyncError] = useState<string | null>(null);
-  const [pendingCount, setPendingCount] = useState(0);
+  const [syncCount, setSyncCount] = useState(0);
   const [showSyncStatus, setShowSyncStatus] = useState(false);
   const [gradedCount, setGradedCount] = useState(0);
   const [runSegments, setRunSegments] = useState<RunSegment[]>(() =>
@@ -157,22 +154,21 @@ export function useReviewSession(options: UseReviewSessionOptions = {}): UseRevi
   useEffect(() => {
     const queueClient = getReviewQueue();
     const unsubscribe = queueClient.subscribe((state) => {
-      setPendingCount(state.pending);
-      setSyncError(state.failed > 0 ? state.lastError : null);
+      setSyncCount(state.pending + state.failed);
     });
     void queueClient.flushAll();
     return unsubscribe;
   }, []);
 
   useEffect(() => {
-    if (pendingCount === 0) {
+    if (syncCount === 0) {
       setShowSyncStatus(false);
       return;
     }
 
     const timer = setTimeout(() => setShowSyncStatus(true), SYNC_STATUS_DELAY_MS);
     return () => clearTimeout(timer);
-  }, [pendingCount]);
+  }, [syncCount]);
 
   const currentCard = queue[sessionIndex] ?? null;
   const visibleRunSegments = displayRunSegments(
@@ -234,10 +230,6 @@ export function useReviewSession(options: UseReviewSessionOptions = {}): UseRevi
     [currentCard, phase, queue, sessionIndex],
   );
 
-  const retrySync = useCallback(() => {
-    void getReviewQueue().retryFailed();
-  }, []);
-
   const submitReport = useCallback(
     async (input: ReportCardInput) => {
       if (!currentCard || reportPending || cardExiting) return;
@@ -290,8 +282,7 @@ export function useReviewSession(options: UseReviewSessionOptions = {}): UseRevi
     queue,
     currentCard,
     languageName,
-    syncError,
-    pendingCount,
+    syncCount,
     showSyncStatus,
     gradedCount,
     runSegments: visibleRunSegments,
@@ -301,6 +292,5 @@ export function useReviewSession(options: UseReviewSessionOptions = {}): UseRevi
     flip,
     grade,
     submitReport,
-    retrySync,
   };
 }
