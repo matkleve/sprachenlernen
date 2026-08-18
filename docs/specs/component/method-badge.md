@@ -30,13 +30,13 @@ Implementation: `features/method-menu/MethodBadge.tsx`.
 
 ## Effort load
 
-Short **effort label** from `effortCard` (e.g. "Light effort", "Leichte
-Anstrengung") in an **accent pill** — `bg-accent-soft text-accent
-font-semibold`,
-`rounded-pill`. On **cards:** `size="card"` — `text-sm`, `min-h-8`,
-**right-aligned** (`ml-auto`); shields stay left. No dot scale; the words carry
-the level. `aria-label` adds `(N of 3)` and the `intensity` anchor sentence;
-`title` shows the anchor.
+Fixed **"Effort"** / localized label (e.g. Anstrengung) + **three-dot scale** in
+an accent pill — `bg-accent-soft text-accent font-semibold`, `rounded-pill`. Dots
+**grow left to right** (`size-1.5` → `size-2` → `size-2.5`); filled through
+`intensity` use `bg-accent`, rest `bg-line`. On **cards:** `size="card"` —
+`text-sm`, `min-h-8`, **right-aligned** (`ml-auto`); shields stay left. No
+`effortCard` words on the surface — anchor sentence in `aria-label` and
+`title`.
 
 ## States
 
@@ -47,8 +47,8 @@ Non-interactive. Inside card links (`inLink`), visible row is `aria-hidden`;
 
 - [ ] Given a method card, when it renders, then tier shields and effort dots
       appear in that order above logistics chips.
-- [ ] Given intensity 2, when the card renders, then effort shows the
-      `effortCard` short label (e.g. "Needs focus") in an accent pill.
+- [ ] Given intensity 2, when the card renders, then effort shows the localized
+      effort label and **two** filled accent dots (third empty).
 - [ ] Given a card link, when a screen reader announces it, then the summary
       includes tier and effort — not evidence text.
 - [ ] Given any badge, when it renders, then only token utilities are used.
