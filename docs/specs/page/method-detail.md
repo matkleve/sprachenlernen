@@ -4,11 +4,11 @@
 <!-- use-case: UC-042 -->
 <!-- status: active -->
 
-One method, fully described. **Off-app methods** and **hosted methods whose
-session is not built** reach this page from the menu. Only Methods whose engine
-is built open a session from the card ([`method-engines.md`](../service/method-engines.md) —
-today: `srs-session` → Words review). Direct navigation to `/methods/{id}` still
-works for bookmarks and links.
+One method, fully described. **Methods whose engine is not built** reach this
+page from the menu when the card does not open a session directly
+([`method-engines.md`](../service/method-engines.md)). **Graded** and **guided**
+sessions both use Start → `/practice` when the recipe ships; **card** methods
+→ Words review. Direct navigation to `/methods/{id}` still works.
 
 ## Scope
 
@@ -86,8 +86,10 @@ Designer reviewed four placements. **Rejected:**
 | --- | --- | --- |
 | 1 | Opens `/methods/{id}` | Hero, article, facts panel, or not-found |
 | 2 | `srs-session`, taps Start | Navigates to `/words/review?method=srs-session` |
-| 2b | Exercise-runner method (when built), taps Start | Navigates to `/practice?method={id}` (+ `sourceId` when setup resolved) |
-| 3 | Other hosted method, engine not built | No Start; not-built copy |
+| 2b | Graded or guided method (when built), taps Start | Navigates to `/practice?method={id}` (+ setup query params) |
+| 2c | Commitment check-in (when built), taps Start | Navigates to `/practice?method={id}&checkIn=1` |
+| 3 | Recipe not built | No Start; not-built copy |
+| 3b | `hosted: false` with built guided recipe | Start shown — guided session, not prose-only |
 | 4 | Back (desktop or shell chip) | `/methods` with filter query preserved |
 | 5 | Expands practical details (`< md`) | Duration, needs, hosted, effort anchor, evidence appear |
 | 6 | Expands research confidence | Plain evidence label + prose appear |

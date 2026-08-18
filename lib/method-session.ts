@@ -26,7 +26,7 @@ export function usesWordsReview(method: MethodEntry): boolean {
 }
 
 export function usesExerciseRunner(method: MethodEntry): boolean {
-  return method.hosted && !usesWordsReview(method) && hasExerciseRecipe(method.id);
+  return !usesWordsReview(method) && hasExerciseRecipe(method.id);
 }
 
 export function exerciseSessionHref(methodId: string, sourceId?: string | null): string {

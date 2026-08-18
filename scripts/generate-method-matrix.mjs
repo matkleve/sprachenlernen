@@ -7,7 +7,40 @@ import { readFileSync, readdirSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 
 const ROOT = join(import.meta.dirname, "..");
-const BUILT = new Set(["srs-session", "partial-dictation", "full-dictation", "extensive-reading", "reading-aloud"]);
+const GUIDED = [
+  "book-you-know",
+  "background-listening",
+  "self-talk",
+  "voice-message",
+  "role-play",
+  "singing-along",
+  "interpreting",
+  "translate-a-song",
+  "write-and-perform-a-play",
+  "mine-your-own-sentences",
+  "handwriting-shakiest",
+  "cook-from-a-recipe",
+  "video-game-in-target-language",
+  "tandem-or-language-cafe",
+  "order-ask-complain",
+  "film-you-know-by-heart",
+];
+const BUILT = new Set([
+  "srs-session",
+  "partial-dictation",
+  "full-dictation",
+  "extensive-reading",
+  "reading-aloud",
+  "listening-level-1",
+  "build-a-sentence",
+  "cloze-sentences",
+  "minimal-pairs",
+  "free-production",
+  "dictogloss",
+  "four-three-two",
+  "diary-three-sentences",
+  ...GUIDED,
+]);
 const PARTIAL = new Set([]);
 
 const ENGINE = {
@@ -50,6 +83,25 @@ const PRIORITY = {
   "listening-level-1": "P3",
 };
 
+const BUILT_CARD_I4 = new Set(["srs-session"]);
+const ADAPTIVE_COMPOSE = new Set([
+  "partial-dictation",
+  "full-dictation",
+  "extensive-reading",
+  "reading-aloud",
+]);
+
+/** Keep in sync with lib/method-implementation-maturity.ts */
+function maturityTier(entry, recipeSpecced = true) {
+  if (!recipeSpecced) return "I0";
+  if (!BUILT.has(entry.id) && !BUILT_CARD_I4.has(entry.id)) return "I1";
+  if (BUILT_CARD_I4.has(entry.id) && entry.targetSignal) return "I4";
+  if (ADAPTIVE_COMPOSE.has(entry.id) || (entry.materialTopics?.length ?? 0) > 0) {
+    return "I3";
+  }
+  return "I2";
+}
+
 const dir = join(ROOT, "data/methods");
 const files = readdirSync(dir).filter((f) => f.endsWith(".json") && f !== "presets.json").sort();
 const bySection = {};
@@ -63,11 +115,12 @@ for (const file of files) {
     const type = e.type || "method";
     let engine = "—";
     if (type === "commitment") engine = "commitment";
-    else if (!e.hosted) engine = "off";
+    else if (!e.hosted) engine = ENGINE[id] || "guided";
     else engine = ENGINE[id] || "runner";
 
     let built = "—";
     if (BUILT.has(id)) built = PARTIAL.has(id) ? "◐ partial" : "✅";
+    else if (engine === "guided") built = "guided";
     else if (engine === "off") built = "off-app";
     else if (engine === "card") built = "pool only";
     else built = "❌";
@@ -79,7 +132,8 @@ for (const file of files) {
       engine,
       mat: e.materialTopics?.length ? "Y" : "—",
       built,
-      comps: COMPONENTS[id] || (engine === "off" ? "debrief" : "see recipe doc"),
+      i: maturityTier(e),
+      comps: COMPONENTS[id] || (engine === "guided" || engine === "commitment" ? "see recipe doc" : "see recipe doc"),
       pri: PRIORITY[id] || (e.hosted && e.evidence === "A" ? "P2–P3" : e.hosted ? "P3–P4" : "defer"),
       type,
     });
@@ -93,7 +147,8 @@ let md = `# Method implementation matrix
 Single view of every catalogue Method: **evidence**, **hosting**, **planned engine**,
 **recipe** (specced in [\`exercise-recipe-composer.methods.md\`](specs/service/exercise-recipe-composer.methods.md)),
 and **build status** (code in [\`lib/exercise-recipe-built.ts\`](../lib/exercise-recipe-built.ts),
-[\`lib/method-session.ts\`](../lib/method-session.ts)).
+[\`lib/method-session.ts\`](../lib/method-session.ts)). **I-tier** = implementation
+maturity ([\`method-implementation-maturity.md\`](specs/service/method-implementation-maturity.md)).
 
 ## Summary
 
@@ -113,9 +168,10 @@ and **build status** (code in [\`lib/exercise-recipe-built.ts\`](../lib/exercise
 | --- | --- |
 | **Ev** | Evidence grade A–D ([study/21](study/21-method-catalogue-and-context.md)) |
 | **Host** | \`hosted: true\` — product intends to run in-app |
-| **Engine** | \`card\` → \`/words/review\`; \`runner\` → \`/practice\`; \`off\` → detail + optional debrief |
+| **Engine** | \`card\` · \`graded\` · \`guided\` · \`check-in\` — see method-guided-sessions |
 | **Mat.** | Material setup on detail (\`materialTopics\`) |
-| **Built** | ✅ runnable · ◐ partial · ❌ specced not built · off-app · pool only |
+| **Built** | ✅ runnable · ◐ partial · ❌ specced · guided-only · pool only |
+| **I** | Implementation maturity I0–I4 — not learner level |
 | **Pri** | Suggested build order (this doc) — not a spec |
 
 `;
@@ -138,10 +194,10 @@ for (const section of sectionOrder) {
       ? `${rows.length} commitments`
       : `${rows.filter((r) => r.type === "method").length}`;
   md += `## ${section.charAt(0).toUpperCase() + section.slice(1)} (${label})\n\n`;
-  md += `| id | Ev | Host | Engine | Mat. | Built | Pri | Components still needed |\n`;
-  md += `| --- | --- | --- | --- | --- | --- | --- | --- |\n`;
+  md += `| id | Ev | Host | Engine | Mat. | Built | I | Pri | Components still needed |\n`;
+  md += `| --- | --- | --- | --- | --- | --- | --- | --- | --- |\n`;
   for (const r of rows) {
-    md += `| \`${r.id}\` | ${r.ev} | ${r.host} | ${r.engine} | ${r.mat} | ${r.built} | ${r.pri} | ${r.comps} |\n`;
+    md += `| \`${r.id}\` | ${r.ev} | ${r.host} | ${r.engine} | ${r.mat} | ${r.built} | ${r.i} | ${r.pri} | ${r.comps} |\n`;
   }
   md += "\n";
 }
@@ -155,12 +211,14 @@ md += `## Recommended build order
 | **P3** | \`dictogloss\`, \`four-three-two\`, \`diary-three-sentences\`, \`listening-level-1\` | Needs audio + production components |
 | **P4** | Remaining hosted runners | Shared components from P1–P3 |
 | **Card** | Form-recall practice, \`close-a-frequency-block\` | Extend card engine |
-| **Defer** | Off-app, thin-evidence hosted, commitments | No session or low ROI |
+| **Defer** | Thin-evidence hosted, unbuilt components | Low ROI until P1–P3 land |
 
 ## Related docs
 
 | Doc | Owns |
 | --- | --- |
+| [\`method-implementation-maturity.md\`](specs/service/method-implementation-maturity.md) | I0–I4 implementation quality |
+| [\`method-guided-sessions.md\`](specs/service/method-guided-sessions.md) | Every method has a guided path |
 | [\`playbooks/wire-a-method.md\`](playbooks/wire-a-method.md) | Wire a catalogue Method to a runnable session |
 | [\`data/methods/\`](../data/methods/) | Catalogue source of truth |
 | [\`exercise-recipe-composer.methods.md\`](specs/service/exercise-recipe-composer.methods.md) | Specced step sequence |

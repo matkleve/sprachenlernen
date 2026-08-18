@@ -38,6 +38,7 @@ export type TimerState = {
 export type SubmitDraft = {
   text: string;
   photoDataUrl: string | null;
+  audioDataUrl: string | null;
 };
 
 export type ExerciseRunnerState = {

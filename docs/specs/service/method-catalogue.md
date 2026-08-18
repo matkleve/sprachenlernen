@@ -94,7 +94,7 @@ presets — a floor the learner has no way to act on is worse than no floor.
 | `targetSignal` | one of the seven layer-1 signals, or `null` | ● |
 | `evidence` | `A B C D` | ● |
 | `demanding` | "avoided by engagement-optimised apps", not "hard for you" | ● |
-| `hosted` | whether the app runs it | ● |
+| `hosted` | app supplies/scores material (`true`) or guided off-screen work (`false`) — both may use `/practice` when built | ● |
 | `doesNotDo` | the honest half of the info page. **Required** | ● |
 | `intensity` | `1 2 3`, anchored below | method |
 | `durations` | ascending minutes, or `null` for open-ended | method |
@@ -151,7 +151,8 @@ In [`method-catalogue.acceptance-criteria.md`](method-catalogue.acceptance-crite
 - ~~**⚠ SPEC GAP: `SKILLS` has no `vocabulary` value**~~ **Decided 2026-08-17:**
   `vocabulary` is a fifth skill value. Vocabulary-section methods carry it;
   `bySkill` includes the app's core loop. Methods without a built engine set
-  `hosted: false` rather than advertising a dead Start button.
+  `hosted: false` on unbuilt card Methods. Guided off-app sessions:
+  [`method-guided-sessions.md`](method-guided-sessions.md).
 - **⚠ SPEC GAP: chapter 21 contradicts itself about the kitchen.** Cooking from
   a recipe is given the context "kitchen", and the kitchen preset is defined as
   eyes and hands gone. Reading a recipe needs eyes, so the one entry the chapter

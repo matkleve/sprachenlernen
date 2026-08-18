@@ -9,6 +9,7 @@ import {
   createRunnerState,
   declineDecide,
   navigateRelative,
+  setSubmitAudio,
   setSubmitPhoto,
   setSubmitText,
   tickTimer,
@@ -28,6 +29,7 @@ type RunnerAction =
   | { type: "togglePause"; now: number }
   | { type: "setText"; text: string }
   | { type: "setPhoto"; photoDataUrl: string | null }
+  | { type: "setAudio"; audioDataUrl: string | null }
   | { type: "toggleError"; token: string };
 
 function reducer(state: ExerciseRunnerState, action: RunnerAction): ExerciseRunnerState {
@@ -50,6 +52,8 @@ function reducer(state: ExerciseRunnerState, action: RunnerAction): ExerciseRunn
       return setSubmitText(state, action.text);
     case "setPhoto":
       return setSubmitPhoto(state, action.photoDataUrl);
+    case "setAudio":
+      return setSubmitAudio(state, action.audioDataUrl);
     case "toggleError":
       return toggleMarkedError(state, action.token);
     default:
@@ -80,6 +84,7 @@ export type UseExerciseRunnerResult = {
   togglePause: () => void;
   setText: (text: string) => void;
   setPhoto: (photoDataUrl: string | null) => void;
+  setAudio: (audioDataUrl: string | null) => void;
   toggleError: (token: string) => void;
 };
 
@@ -149,6 +154,10 @@ export function useExerciseRunner({
     dispatch({ type: "toggleError", token });
   }, []);
 
+  const setAudio = useCallback((audioDataUrl: string | null) => {
+    dispatch({ type: "setAudio", audioDataUrl });
+  }, []);
+
   return {
     state,
     methodName,
@@ -167,6 +176,7 @@ export function useExerciseRunner({
     togglePause,
     setText,
     setPhoto,
+    setAudio,
     toggleError,
   };
 }
