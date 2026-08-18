@@ -4,10 +4,13 @@ import { useTranslations } from "next-intl";
 import { usePathname } from "next/navigation";
 
 import { BrandLockup } from "@/components/brand/BrandLockup";
+import { BrandMark } from "@/components/brand/BrandMark";
 import { ActionLink } from "@/components/ui/ActionLink";
-import { SubmitButton } from "@/components/ui/SubmitButton";
-import { signOutAction } from "@/features/app-shell/actions";
 import { routes } from "@/lib/routes";
+import { site } from "@/lib/site-metadata";
+
+import { PublicHeaderAuthControls } from "./PublicHeaderAuthControls";
+import { PublicHeaderMenu } from "./PublicHeaderMenu";
 
 type PublicHeaderProps = {
   signedIn: boolean;
@@ -27,40 +30,32 @@ export function PublicHeader({ signedIn }: PublicHeaderProps) {
 
   return (
     <header className="border-b border-line bg-surface">
-      <div className="mx-auto flex max-w-5xl flex-wrap items-center justify-between gap-4 px-6 py-3">
+      <div className="relative grid min-h-12 grid-cols-[1fr_1fr] items-center gap-x-2 px-4 py-3 md:hidden">
+        <div className="col-start-1 flex min-w-0 items-center justify-self-start">
+          <ActionLink
+            href={routes.landing}
+            variant="ghost"
+            size="sm"
+            className="shrink-0 px-2"
+            aria-label={site.name}
+          >
+            <BrandMark size="sm" tone="full" />
+          </ActionLink>
+        </div>
+
+        <p className="pointer-events-none absolute top-1/2 left-1/2 max-w-[calc(100%-7rem)] -translate-x-1/2 -translate-y-1/2 truncate text-center text-sm font-semibold tracking-tight text-ink">
+          {t("header.brand")}
+        </p>
+
+        <div className="col-start-2 justify-self-end">
+          <PublicHeaderMenu signedIn={signedIn} />
+        </div>
+      </div>
+
+      <div className="mx-auto hidden max-w-5xl flex-wrap items-center justify-between gap-4 px-6 py-3 md:flex">
         <BrandLockup href={routes.landing} wordmark={t("header.brand")} tone="full" />
         <nav className="flex items-center gap-3" aria-label="Account">
-          {signedIn ? (
-            <>
-              <form action={signOutAction}>
-                <SubmitButton variant="ghost" size="sm">
-                  {t("header.signOut")}
-                </SubmitButton>
-              </form>
-              <ActionLink href={routes.appHome} variant="primary" size="sm">
-                {t("header.toApp")}
-              </ActionLink>
-            </>
-          ) : (
-            <>
-              <ActionLink
-                href={routes.signIn}
-                variant="ghost"
-                size="sm"
-                aria-current={pathname === routes.signIn ? "page" : undefined}
-              >
-                {t("header.signIn")}
-              </ActionLink>
-              <ActionLink
-                href={routes.signUp}
-                variant="primary"
-                size="sm"
-                aria-current={pathname === routes.signUp ? "page" : undefined}
-              >
-                {t("header.signUp")}
-              </ActionLink>
-            </>
-          )}
+          <PublicHeaderAuthControls signedIn={signedIn} pathname={pathname} layout="inline" />
         </nav>
       </div>
     </header>

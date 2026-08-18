@@ -59,6 +59,24 @@ fill.
 
 Header auth links use `gap-3` so expanded `sm` hit targets do not overlap.
 
+### Public header — mobile layout (`< md`)
+
+On phone-width viewports the header matches the signed-in shell's top row
+([`../feature/app-shell.md`](../feature/app-shell.md)): one line, no wrap.
+
+| Zone | Primitive | Notes |
+| --- | --- | --- |
+| Left | `ActionLink` `ghost sm` + `BrandMark` | links to `/`; `aria-label` = product name |
+| Centre | brand wordmark text | not a heading — the page hero owns `h1` on `/` |
+| Right | `IconButton` + menu popover | `Menu` icon; opens auth controls in a `role="menu"` panel |
+
+Auth controls move into the menu popover on mobile. The same variant rules
+apply: one `primary`, one `ghost` (or `SubmitButton` ghost for sign-out). Desktop
+(`≥ md`) keeps the inline header row from the table above.
+
+The menu trigger uses `aria-expanded`, `aria-haspopup="menu"`, and a scrim to
+dismiss. Escape closes the menu.
+
 ## Behavior
 
 | # | User action | System response |
@@ -71,6 +89,8 @@ Header auth links use `gap-3` so expanded `sm` hit targets do not overlap.
 | 6 | Taps **Sign out** (signed in) | POST `signOutAction`; lands on `/` signed out |
 | 7 | Opens any other `(marketing)` route | The same public header renders; the hero does not |
 | 8 | Taps the product name in the header | Navigates to `/` |
+| 9 | Viewport `< md` | Header shows logo chip, centred brand name, and a menu icon; auth controls are inside the menu |
+| 10 | Taps the menu icon on mobile | Auth controls appear in a popover; scrim or Escape closes it |
 
 ## States
 
@@ -109,6 +129,11 @@ are marked there with their source; nothing is invented for positioning.
       uses `ghost`.
 - [ ] Given any `(marketing)` route, when it renders, then the public header is
       present and no app-shell destination navigation is present.
+- [ ] Given viewport `< md` on any `(marketing)` route, when the header renders,
+      then the brand name is centred, the logo chip is on the left, and auth
+      controls are reachable only through the menu icon on the right.
+- [ ] Given viewport `≥ md` on any `(marketing)` route, when the header renders,
+      then auth controls are inline (no hamburger menu).
 - [ ] When the landing page is rendered, then thesis 1 leads the headline and a
       thesis-12 time-honesty sentence appears in the body (study/25 C4).
 - [ ] When the landing page is rendered, it has no axe-core violations.

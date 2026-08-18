@@ -106,6 +106,7 @@ Per-route control list:
 | Location | Pattern | Reason |
 | --- | --- | --- |
 | `LanguageSwitcher.tsx` | `language-switcher-scrim` | Full-screen dismiss overlay |
+| `PublicHeaderMenu.tsx` | `language-switcher-scrim` | Full-screen dismiss overlay |
 | `app/layout.tsx` | Skip to content `<a>` | Focus-only keyboard skip link |
 | `error-callout.test.tsx` | `<button` | Test fixture only |
 
