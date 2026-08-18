@@ -13,7 +13,7 @@ export type MethodDetailBadgeBandProps = {
 };
 
 /**
- * Ranked skill tier shields (≤3 + overflow) and effort dots.
+ * Ranked skill tier shields (≤3 + overflow) and effort pill.
  * Contract: docs/specs/page/method-detail.md
  */
 export function MethodDetailBadgeBand({ method, className }: MethodDetailBadgeBandProps) {
