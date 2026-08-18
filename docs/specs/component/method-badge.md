@@ -31,7 +31,8 @@ Implementation: `features/method-menu/MethodBadge.tsx`.
 ## Effort load
 
 Short **effort label** from `effortCard` (e.g. "Light effort", "Leichte
-Anstrengung") in an **accent pill** — `bg-accent-soft text-accent`,
+Anstrengung") in an **accent pill** — `bg-accent-soft text-accent
+font-semibold`,
 `rounded-pill`. On **cards:** `size="card"` — `text-sm`, `min-h-8`,
 **right-aligned** (`ml-auto`); shields stay left. No dot scale; the words carry
 the level. `aria-label` adds `(N of 3)` and the `intensity` anchor sentence;

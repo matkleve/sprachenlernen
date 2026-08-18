@@ -10,7 +10,7 @@ import { useMethodMenuCopy } from "./use-method-menu-copy";
 import { SkillTierBadgeRow } from "./SkillTierBadge";
 
 const effortBadgeVariants = cva(
-  "inline-flex shrink-0 items-center whitespace-nowrap rounded-pill bg-accent-soft font-medium text-accent",
+  "inline-flex shrink-0 items-center whitespace-nowrap rounded-pill bg-accent-soft font-semibold text-accent",
   {
     variants: {
       size: {
