@@ -4,6 +4,7 @@ import Image from "next/image";
 import { cva, type VariantProps } from "class-variance-authority";
 
 import type { Section } from "@/lib/method-catalogue";
+import type { CardDestinationMarker } from "@/lib/method-session";
 import { cn } from "@/lib/utils";
 
 import { sectionSoftBackground } from "./section-surface";
@@ -31,7 +32,7 @@ const sectionHeaderFade: Record<Section, string> = {
 const methodCardHeaderVariants = cva("relative w-full shrink-0 overflow-hidden", {
   variants: {
     size: {
-      card: "h-24",
+      card: "h-24 md:h-28 lg:h-24",
       hero: "h-44 bg-canvas sm:h-52",
     },
   },
@@ -40,8 +41,26 @@ const methodCardHeaderVariants = cva("relative w-full shrink-0 overflow-hidden",
   },
 });
 
+const headerScrimPocket =
+  "rounded-sm bg-surface/70 px-1.5 py-0.5 text-ink backdrop-blur-[2px]";
+
+/** Button-shaped label inside the card link — not a nested control. */
+const destinationMarkerVariants = cva(
+  "inline-flex items-center rounded-pill border px-2.5 py-1 text-sm font-medium shadow-soft",
+  {
+    variants: {
+      destination: {
+        info: "border-line bg-surface text-muted",
+        start: "border-line-strong bg-surface text-ink font-semibold",
+      },
+    },
+  },
+);
+
 export type MethodCardHeaderProps = {
   section: Section;
+  /** Card variant only — Start opens session; Info opens detail. */
+  destination?: CardDestinationMarker;
   className?: string;
 } & VariantProps<typeof methodCardHeaderVariants>;
 
@@ -50,10 +69,17 @@ export type MethodCardHeaderProps = {
  * so the catalogue stays scannable without 53 unique assets. Detail hero reuses
  * the same asset at `size="hero"`.
  */
-export function MethodCardHeader({ section, size, className }: MethodCardHeaderProps) {
-  const { sections } = useMethodMenuCopy();
+export function MethodCardHeader({
+  section,
+  size,
+  destination,
+  className,
+}: MethodCardHeaderProps) {
+  const { t, sections } = useMethodMenuCopy();
   const label = sections[section];
   const isCard = size !== "hero";
+  const markerLabel =
+    isCard && destination ? t(`card.destination.${destination}` as "card.destination.start") : null;
 
   return (
     <div
@@ -88,13 +114,16 @@ export function MethodCardHeader({ section, size, className }: MethodCardHeaderP
         )}
         aria-hidden
       />
+      {markerLabel && destination ? (
+        <p className="absolute right-3 top-1.5 sm:right-4 sm:top-2">
+          <span className={destinationMarkerVariants({ destination })}>{markerLabel}</span>
+        </p>
+      ) : null}
       <p className="absolute bottom-1.5 left-3 sm:bottom-2 sm:left-4">
         <span
           className={cn(
             "text-[0.65rem] font-medium uppercase tracking-widest sm:text-xs",
-            isCard
-              ? "rounded-sm bg-surface/70 px-1.5 py-0.5 text-ink backdrop-blur-[2px]"
-              : "text-muted",
+            isCard ? headerScrimPocket : "text-muted",
           )}
         >
           {label}

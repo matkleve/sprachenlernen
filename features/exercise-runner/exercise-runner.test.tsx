@@ -19,7 +19,7 @@ describe("ExerciseRunner", () => {
 
     expect(screen.getByText("Methods")).toBeDefined();
     expect(screen.getByRole("heading", { name: "Partial dictation" })).toBeDefined();
-    expect(screen.getByText("Get ready")).toBeDefined();
+    expect(screen.getByText("Before you start")).toBeDefined();
     expect(screen.getByText(/Step 1 of 6/)).toBeDefined();
   });
 

@@ -68,6 +68,10 @@ export const copy = {
     properties: "Method properties",
     badges: "Method badges",
     effort: "Effort",
+    destination: {
+      start: "Start",
+      info: "Info",
+    },
   },
   skillLabels: {
     reading: "Reading",

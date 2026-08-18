@@ -14,12 +14,6 @@ const PROMPT_KEYS = [
   "freeProductionPromptWeekend",
 ] as const;
 
-const CHECKLIST_ITEMS = [
-  "Pen and paper or keyboard",
-  "A quiet few minutes",
-  "Write in your target language — say what you mean, not a translation exercise",
-] as const;
-
 async function meaningRecallCardsForPractice(): Promise<
   readonly import("@/lib/starter-deck").StarterCard[]
 > {
@@ -55,17 +49,17 @@ export function composeFreeProductionRecipe(
         id: "prepare-1",
         type: "prepare",
         component: "checklist",
-        label: "Get ready",
+        labelKey: "stepLabelPrepare",
         config: {
           introKey: "introFreeProduction",
-          items: [...CHECKLIST_ITEMS],
+          itemKeys: ["prepareItemKeyboard", "prepareItemQuiet", "prepareItemTargetLang"],
         },
       },
       {
         id: "write-1",
         type: "do",
         component: "timed-write",
-        label: "Write",
+        labelKey: "stepLabelWrite",
         config: {
           promptKey,
           durationSec: writingDurationSec(ctx),
@@ -76,21 +70,21 @@ export function composeFreeProductionRecipe(
         id: "submit-1",
         type: "submit",
         component: "capture",
-        label: "Your writing",
+        labelKey: "stepLabelYourWriting",
         config: { accept: ["photo", "text"], required: true },
       },
       {
         id: "review-1",
         type: "review",
         component: "feedback",
-        label: "Review",
+        labelKey: "stepLabelReview",
         config: {},
       },
       {
         id: "decide-1",
         type: "decide",
         component: "offers",
-        label: "Next",
+        labelKey: "stepLabelDecide",
         config: {
           offers: ["Add errors as cards", "Explain one error"],
           declineLabel: "Not now — done",

@@ -13,10 +13,12 @@ assets. Contract: [`../../study/27-method-badges.md`](../../study/27-method-badg
 ## Scope
 
 - **In:** `MethodCardHeader` on `MethodCard`; eight webp assets in
-  `public/assets/method-sections/`; gradient overlay; uppercase section label;
-  `alt` text naming the section as decorative. Client component (`"use client"`)
-  — section labels use `useMethodMenuCopy`. Images use `unoptimized`.
-- **Out:** per-method illustrations; interactive header; accent left border.
+  `public/assets/method-sections/`; gradient overlay; section label (bottom-left);
+  **destination marker** (top-right) on card variant; `alt` text naming the
+  section as decorative. Client component (`"use client"`) — labels and marker
+  use `useMethodMenuCopy`. Images use `unoptimized`.
+- **Out:** per-method illustrations; interactive header; accent left border;
+  destination marker on detail hero (`size="hero"`).
   Detail hero reuses `size="hero"` — see [`../page/method-detail.md`](../page/method-detail.md).
 
 Implementation: `features/method-menu/MethodCardHeader.tsx`,
@@ -35,7 +37,8 @@ closing this spec.
 | Height | `h-24` (96px) |
 | Image fit | **`object-cover object-top`** on card — crop, never stretch |
 | Fade | Three stops into **section soft** tint — matches card body |
-| Label | Uppercase **`text-ink`**; **scrim pocket** `bg-surface/70` + light blur |
+| Section label | Bottom-left; uppercase **`text-ink`**; scrim pocket |
+| Destination marker | Top-right; **secondary button shape** (`border`, `rounded-pill`, `shadow-soft`) — **not** a chip scrim; not a nested control |
 
 ## Hero variant (`size="hero"`)
 
@@ -46,7 +49,7 @@ into `canvas`. Unchanged from card polish (T-B10f).
 
 | # | User action | System response |
 | --- | --- | --- |
-| 1 | Sees a method card | Header shows the graphic for the method's `section` |
+| 1 | Sees a method card | Header shows section graphic, label, and destination marker |
 | 2 | Scans the catalogue | Same section → same graphic motif (gestalt grouping) |
 | 3 | Screen reader inside card link | Badge `sr-only` summary carries facts; header `alt` is decorative |
 

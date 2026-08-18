@@ -5,7 +5,7 @@ import { useLocalizedMethod } from "./use-localized-method";
 import { Chip } from "@/components/ui/Chip";
 import { SurfaceLink } from "@/components/ui/SurfaceLink";
 import type { MethodEntry } from "@/lib/method-catalogue";
-import { cardHrefForMethod } from "@/lib/method-session";
+import { cardDestinationMarker, cardHrefForMethod } from "@/lib/method-session";
 
 import { MethodBadgeRow } from "./MethodBadge";
 import { MethodCardHeader } from "./MethodCardHeader";
@@ -36,34 +36,40 @@ export function MethodCard({ method, returnQuery = "" }: MethodCardProps) {
         "flex h-full flex-col shadow-soft focus-visible:ring-offset-2",
       )}
     >
-      <MethodCardHeader section={method.section} />
+      <MethodCardHeader
+        section={method.section}
+        destination={cardDestinationMarker(method)}
+      />
 
       <div className="flex flex-1 flex-col p-3">
         <div>
           <h3 className="text-3xl font-semibold leading-tight text-ink">{localized.name}</h3>
-          <p className="mt-0.5 line-clamp-2 text-sm text-muted">{localized.summary}</p>
+          <p className="mt-0.5 line-clamp-2 text-sm text-ink">{localized.summary}</p>
         </div>
 
-        <MethodBadgeRow className="mt-2 shrink-0" method={method} inLink />
-
-        <ul className="mt-2 flex flex-wrap gap-1.5" aria-label={t('card.properties')}>
-          {durationChips(method.durations).map((label) => (
-            <li key={`duration-${label}`}>
-              <Chip size="card">{label}</Chip>
-            </li>
-          ))}
-          {requirements.map((label) => (
-            <li key={`need-${label}`}>
-              <Chip size="card">{label}</Chip>
-            </li>
-          ))}
-          <li>
-            <Chip size="card">{method.hosted ? t('hostedShort') : t('notHostedShort')}</Chip>
-          </li>
-        </ul>
+        <MethodBadgeRow
+          className="mt-2 shrink-0"
+          method={method}
+          inLink
+          layout="stacked"
+          shieldCompanion={
+            <ul className="flex flex-wrap gap-1.5 max-md:mt-2" aria-label={t("card.properties")}>
+              {durationChips(method.durations).map((label) => (
+                <li key={`duration-${label}`}>
+                  <Chip size="card">{label}</Chip>
+                </li>
+              ))}
+              {requirements.map((label) => (
+                <li key={`need-${label}`}>
+                  <Chip size="card">{label}</Chip>
+                </li>
+              ))}
+            </ul>
+          }
+        />
 
         <p className="mt-2 line-clamp-2 text-sm text-muted">
-          <span className="font-medium text-ink">{t('card.doesNotDo')}: </span>
+          <span className="font-medium text-ink">{t("card.doesNotDo")}: </span>
           {localized.doesNotDo}
         </p>
       </div>

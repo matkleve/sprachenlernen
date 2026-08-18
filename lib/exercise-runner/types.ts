@@ -17,6 +17,8 @@ export type ExerciseStep = {
   type: StepType;
   component?: string;
   label?: string;
+  /** i18n key under `exerciseRunner` — preferred over `label`. */
+  labelKey?: string;
   config: Record<string, unknown>;
 };
 

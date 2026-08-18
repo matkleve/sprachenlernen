@@ -38,8 +38,8 @@ describe("MethodBadgeRow", () => {
     expect(screen.queryByText(en.methodMenu.evidenceCard.C)).toBeNull();
   });
 
-  it("right-aligns effort with label plus growing accent dots", () => {
-    render(<MethodBadgeRow method={method} />);
+  it("right-aligns effort with label plus growing accent dots in row layout", () => {
+    render(<MethodBadgeRow method={method} layout="row" />);
     const effort = screen.getByLabelText(/Effort: 1 of 3/i);
     expect(effort.className).toContain("ml-auto");
     expect(effort.className).toContain("text-sm");
@@ -53,6 +53,30 @@ describe("MethodBadgeRow", () => {
     expect(dots[2]?.className).toContain("size-2.5");
     expect(dots[0]?.className).toContain("bg-accent");
     expect(dots[1]?.className).toContain("bg-line");
+  });
+
+  it("stacks effort above shields on catalogue cards", () => {
+    render(<MethodBadgeRow method={method} layout="stacked" />);
+    const effort = screen.getByLabelText(/Effort: 1 of 3/i);
+    const shield = screen.getByRole("img", { name: /Wood Listening/i });
+    expect(effort.className).not.toContain("ml-auto");
+    expect(effort.compareDocumentPosition(shield) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
+  });
+
+  it("places shield companion beside shields from md breakpoint in stacked layout", () => {
+    render(
+      <MethodBadgeRow
+        method={method}
+        layout="stacked"
+        shieldCompanion={<span data-testid="companion">chips</span>}
+      />,
+    );
+    const companion = screen.getByTestId("companion");
+    const shield = screen.getByRole("img", { name: /Wood Listening/i });
+    const band = companion.parentElement;
+    expect(band?.className).toContain("md:flex");
+    expect(band?.contains(shield)).toBe(true);
+    expect(band?.contains(companion)).toBe(true);
   });
 });
 

@@ -4,12 +4,13 @@ import { useTranslations } from "next-intl";
 
 import {
   ExerciseRunnerFooter,
-  ExerciseRunnerHeader,
+  ExerciseRunnerProgress,
   primaryLabelForStep,
 } from "@/features/exercise-runner/ExerciseRunnerChrome";
+import { ExerciseRunnerHero } from "@/features/exercise-runner/ExerciseRunnerHero";
 import { ExerciseStepBody } from "@/features/exercise-runner/ExerciseStepBody";
+import { resolveExerciseStepLabel } from "@/features/exercise-runner/step-label";
 import { useExerciseRunner } from "@/features/exercise-runner/useExerciseRunner";
-import { MethodCardHeader } from "@/features/method-menu/MethodCardHeader";
 import { useListeningDefer } from "@/features/method-menu/useListeningDefer";
 import type { ExerciseRecipe } from "@/lib/exercise-runner";
 import type { Section } from "@/lib/method-catalogue";
@@ -62,20 +63,23 @@ export function ExerciseRunner({
     return null;
   }
 
+  const stepLabel = resolveExerciseStepLabel(activeStep, (key) => t(key as "stepLabelPrepare"));
+
   return (
     <div className={cn(rootClass, "flex min-h-0 flex-col gap-4")}>
-      <MethodCardHeader section={section} size="card" className="h-28 rounded-card" />
-
-      <ExerciseRunnerHeader
+      <ExerciseRunnerHero
+        section={section}
         sectionLabel={sectionLabel}
         methodName={methodName}
-        state={state}
-        activeLabel={activeStep.label}
+        stepLabel={stepLabel}
+        compact={compact}
+        stopLabel={t("stop")}
         onStop={runner.requestStop}
-        onTogglePause={runner.togglePause}
       />
 
-      <div className="min-h-0 flex-1 overflow-y-auto">
+      <ExerciseRunnerProgress state={state} onTogglePause={runner.togglePause} />
+
+      <div className="min-h-0 flex-1 overflow-y-auto px-0.5">
         <ExerciseStepBody
           step={activeStep}
           submitDraft={state.submitDraft}

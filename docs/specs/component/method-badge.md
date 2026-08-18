@@ -4,9 +4,9 @@
 <!-- use-case: UC-046 -->
 <!-- status: active -->
 
-Badge row on **method cards**: **skill-tier shields** + **effort** (label + dot
-scale). Detail uses the same effort control plus tier shields in the badge band —
-see [`method-detail.md`](../page/method-detail.md). Tier metric:
+Badge layout on **method cards**: effort directly under `summary`, skill-tier
+shields on the next row — not on one horizontal band. Detail badge band keeps
+effort right — see [`method-detail.md`](../page/method-detail.md). Tier metric:
 [`../service/skill-tier.md`](../service/skill-tier.md). Card shield sizing:
 [`skill-tier-badge.md`](skill-tier-badge.md); row polish:
 [`../../study/40-method-card-visual-polish.md`](../../study/40-method-card-visual-polish.md).
@@ -24,7 +24,7 @@ Implementation: `features/method-menu/MethodBadge.tsx`.
 
 | # | User action | System response |
 | --- | --- | --- |
-| 1 | Sees a method card | Badge row shows tier shields and effort dots |
+| 1 | Sees a method card | Effort under summary; shields on the next row; property chips beside shields from `md:` |
 | 2 | Opens method detail | Same tier rules at detail size + effort dots |
 | 3 | Focuses a card link | `sr-only` summary states tiers and effort |
 
@@ -34,8 +34,12 @@ Fixed **"Effort"** / localized label (e.g. Anstrengung) + **three-dot scale** in
 an accent pill — `bg-accent-soft text-accent font-semibold`, `rounded-pill`. Dots
 **grow left to right** (`size-1.5` → `size-2` → `size-2.5`); filled through
 `intensity` use `bg-accent`, rest `bg-line`. On **cards:** `size="card"` —
-`text-sm`, `min-h-8`, **right-aligned** (`ml-auto`); shields stay left. No
-`effortCard` words on the surface — anchor sentence in `aria-label` and
+`text-sm`, `min-h-8`, **left-aligned under summary** in `layout="stacked"`.
+**Stacked + `shieldCompanion`:** shields and companion (property chips) share a
+row from `md:` (`md:flex md:gap-4`) — fills wide 2-col tablet cards without
+putting effort and shields on one line.
+On **dialog preview:** `layout="row"` — shields left, effort right (`ml-auto`).
+No `effortCard` words on the surface — anchor sentence in `aria-label` and
 `title`.
 
 ## States

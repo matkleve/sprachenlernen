@@ -24,9 +24,9 @@ Implementation: `features/method-menu/SkillTierBadge.tsx`,
 
 | Surface | Size | Notes |
 | --- | --- | --- |
-| **Card** | `h-16` (64px tall) | Width follows PNG silhouette (`w-auto`); ornate tiers may be wider but **never shorter** |
+| **Card** | `h-16` (64px) at mobile and `lg+`; `md:h-20` (80px) in the tablet 2-col band | Width follows PNG silhouette (`w-auto`); ornate tiers may be wider but **never shorter** |
 | **Detail** | `h-14` (56px tall) | Same height rule as card — no per-tier frame width |
-| **Overflow `+`** | `size-16` on cards | matches badge height |
+| **Overflow `+`** | matches badge height per breakpoint | card: `size-16 md:size-20 lg:size-16` |
 
 Height is the single sizing axis. Wider gold/platinum silhouettes must not be
 scaled down to fit a fixed-width box — that made higher tiers look smaller than

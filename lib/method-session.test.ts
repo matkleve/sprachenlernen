@@ -5,9 +5,11 @@ import { describe, expect, it } from "vitest";
 import type { MethodEntry } from "@/lib/method-catalogue";
 import {
   CARD_ENGINE_METHOD_ID,
+  cardDestinationMarker,
   cardEngineSessionHref,
   cardHrefForMethod,
   exerciseSessionHref,
+  isRunnableFromMenu,
   sessionHrefForMethod,
   usesExerciseRunner,
   usesWordsReview,
@@ -65,6 +67,29 @@ describe("exerciseSessionHref", () => {
     expect(exerciseSessionHref("partial-dictation", "src-1")).toBe(
       `${routes.practice}?method=partial-dictation&sourceId=src-1`,
     );
+  });
+});
+
+describe("cardDestinationMarker", () => {
+  it("is start for runnable methods", () => {
+    expect(cardDestinationMarker(method({ id: "srs-session" }))).toBe("start");
+    expect(cardDestinationMarker(method({ id: "partial-dictation" }))).toBe("start");
+  });
+
+  it("is info for detail-only methods", () => {
+    expect(cardDestinationMarker(method({ id: "narrow-reading" }))).toBe("info");
+    expect(cardDestinationMarker(method({ id: "tandem", hosted: false }))).toBe("info");
+  });
+});
+
+describe("isRunnableFromMenu", () => {
+  it("matches cardHrefForMethod session branch", () => {
+    const runnable = method({ id: "extensive-reading" });
+    const detail = method({ id: "narrow-listening" });
+    expect(isRunnableFromMenu(runnable)).toBe(true);
+    expect(isRunnableFromMenu(detail)).toBe(false);
+    expect(cardHrefForMethod(runnable).startsWith(routes.practice)).toBe(true);
+    expect(cardHrefForMethod(detail).startsWith("/methods/")).toBe(true);
   });
 });
 

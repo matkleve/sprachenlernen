@@ -41,8 +41,10 @@ plain text — never a dot scale.
 the card body. Component [`method-card-header.md`](../component/method-card-header.md).
 
 **Card visual polish (UX, 2026-08-18):** study/40 — T-B10f-a code shipped;
-**T-B10f-b blocked** on designer assets (shields still clipped, header crop).
-Component [`method-card.md`](../component/method-card.md).
+**T-B10f-b blocked** on designer assets. Component [`method-card.md`](../component/method-card.md).
+
+**Card tap clarity (UX, 2026-08-18):** destination marker **Start** / **Info** on
+card header; `summary` in ink; hosted chip removed from cards (T-B10g).
 
 No accent left border — uniform `rounded-card` only.
 
@@ -50,9 +52,8 @@ No accent left border — uniform `rounded-card` only.
 
 - **In:** stepped time slider ([`../service/time-scale.md`](../service/time-scale.md));
   skill and energy filter pills; optional refine (hands, voice, eyes); method
-  cards with badge row + logistics chips (duration, all requirements, hosted);
-  **card-engine hosted** (`srs-session`) → Words review; other hosted → detail
-  until built; off-app → detail; client-side filtering with URL sync
+  cards with badge row + logistics chips (duration, all requirements — **not**
+  hosted); runnable cards open session directly; others open detail; client-side filtering with URL sync
   (`history.replaceState`); **current standing** — one honest sentence from the
   progress reading, above the filters (T-B10 follow-up, narrowed); **daily
   three** — three method cards composed from the filtered catalogue (study/12,
@@ -81,9 +82,8 @@ stays a Server Component.
 | 2 | Moves time slider | URL `?minutes=` updates to the nearest scale step (or `endless`); list shows methods whose shortest variant fits |
 | 3 | Taps skill, energy, or refine | List intersects that dimension **without reloading the page**; scroll position preserved |
 | 4 | Opens refine | Optional hands / voice / eyes constraints |
-| 5 | Taps hosted card that uses the card engine (`srs-session`) | `/words/review?method=srs-session` opens directly |
-| 6 | Taps other hosted card | Detail page — session not built yet |
-| 7 | Taps off-app card | Detail page |
+| 5 | Taps a **runnable** card | Session opens; card showed **Start** |
+| 6 | Taps a **non-runnable** card | Detail page; card showed **Info** |
 
 ## Current standing
 

@@ -73,6 +73,7 @@ that first.
 | `SPEC-feature-content-traceability` | [content-traceability.md](feature/content-traceability.md) | UC-031 | draft |
 | `SPEC-feature-demonstration-sentence` | [demonstration-sentence.md](feature/demonstration-sentence.md) | UC-050 | active |
 | `SPEC-feature-exercise-runner` | [exercise-runner.md](feature/exercise-runner.md) | UC-049 | active |
+| `SPEC-feature-practice-surface` | [practice-surface.md](feature/practice-surface.md) | UC-049 | active |
 | `SPEC-feature-interaction-feedback` | [interaction-feedback.md](feature/interaction-feedback.md) | UC-068 | active |
 | `SPEC-feature-item-picker` | [item-picker.md](feature/item-picker.md) | UC-001 | superseded |
 | `SPEC-feature-listening-defer` | [listening-defer.md](feature/listening-defer.md) | UC-077 | active |

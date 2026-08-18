@@ -120,7 +120,7 @@ export function MethodMenu({
             <h2 className="mb-4 text-sm font-medium uppercase tracking-widest text-muted">
               {sections[section]}
             </h2>
-            <ul className="grid gap-5 sm:grid-cols-2">
+            <ul className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
               {inSection.map((method) => (
                 <li key={method.id}>
                   <MethodCard method={method} returnQuery={returnQuery} />

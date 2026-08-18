@@ -53,9 +53,21 @@ export function detailHrefForMethod(method: MethodEntry, returnQuery = ""): stri
   return `/methods/${method.id}${returnQuery}`;
 }
 
+/** Whether the method menu card opens a session directly. */
+export function isRunnableFromMenu(method: MethodEntry): boolean {
+  return usesWordsReview(method) || usesExerciseRunner(method);
+}
+
+/** Visible header marker on catalogue cards — contract: method-card.md */
+export type CardDestinationMarker = "start" | "info";
+
+export function cardDestinationMarker(method: MethodEntry): CardDestinationMarker {
+  return isRunnableFromMenu(method) ? "start" : "info";
+}
+
 /** Menu card destination: runnable sessions open directly; else detail. */
 export function cardHrefForMethod(method: MethodEntry, returnQuery = ""): string {
-  if (usesWordsReview(method) || usesExerciseRunner(method)) {
+  if (isRunnableFromMenu(method)) {
     return sessionHrefForMethod(method);
   }
   return detailHrefForMethod(method, returnQuery);

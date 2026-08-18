@@ -274,6 +274,16 @@
   "exerciseRunner": {
     "progress": "Step {current} of {total}",
     "pageSection": "Methods",
+    "stepLabelPrepare": "Before you start",
+    "stepLabelHowItWorks": "How it works",
+    "stepLabelWrite": "Write",
+    "stepLabelCompare": "Compare",
+    "stepLabelDo": "Your task",
+    "stepLabelWait": "Pause",
+    "stepLabelSubmit": "Hand in",
+    "stepLabelReview": "Review",
+    "stepLabelDecide": "Next",
+    "stepLabelYourWriting": "Your writing",
     "prevStep": "Previous step",
     "nextStep": "Next step",
     "stop": "Stop exercise",
@@ -298,6 +308,9 @@
     "completeBody": "You finished this exercise.",
     "decline": "Not now — done",
     "prepareChecklist": "Before you start",
+    "prepareItemKeyboard": "Pen and paper or keyboard",
+    "prepareItemQuiet": "A quiet few minutes",
+    "prepareItemTargetLang": "Write in your target language — not English",
     "introBuildASentence": "You get one word from your vocabulary. Write exactly one sentence in the language you are learning that uses that word naturally — like something you would actually say.",
     "introFreeProduction": "Write freely for a few minutes in your target language. There is no text to copy and no single right answer — only practice saying what you mean.",
     "freeProductionPromptRecent": "Write about something that happened to you recently.",
@@ -463,7 +476,11 @@
       "doesNotDo": "What it does not do",
       "properties": "Method properties",
       "badges": "Method badges",
-      "effort": "Effort"
+      "effort": "Effort",
+      "destination": {
+        "start": "Start",
+        "info": "Info"
+      }
     },
     "skillLabels": {
       "reading": "Reading",

@@ -33,16 +33,18 @@ to the top make browsing worse, not better.
 - Each card shows **at a glance**: which skills it mainly serves (contribution
   level), a plain **evidence label** (e.g. "Thin evidence"), and a plain **effort
   label** (e.g. "Light effort") — before the learner opens the detail page.
-- Logistics chips show **duration** (one range chip), **hosted/off-app**, and
-  **all** requirement values from the catalogue — owner chose display all over
-  capping (study/34).
+- Logistics chips show **duration** (one range chip) and **all** requirement
+  values — not hosted/off-app on cards (requirements suffice).
+- Each card shows a **destination marker** — **Start** when tap opens a session,
+  **Info** when tap opens detail.
 - Each card shows a **section header graphic** (one abstract image per catalogue
   section) so browsing sixty entries has visual rhythm without ranking methods.
 - Methods that do not fit are **absent**, not greyed out.
 - **Can't listen now** (UC-077) temporarily removes sound-requiring methods for
   15 minutes — absent like other context filters.
 - Physical constraints are **stated by the learner**, never inferred.
-- Hosted methods open in one tap; off-app methods show honest detail.
+- Runnable methods open in one tap (**Start** on card); others show **Info** and
+  open honest detail.
 
 ## Out of scope
 

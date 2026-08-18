@@ -111,6 +111,28 @@ describe("cards", () => {
     expect(link.getAttribute("href")).not.toContain("/words/review");
   });
 
+  it("shows Start on runnable cards and Info on detail-only cards", () => {
+    show();
+    const srs = findMethod(catalogue, "srs-session")!;
+    const narrow = findMethod(catalogue, "narrow-listening")!;
+    const tandem = findMethod(catalogue, "tandem-or-language-cafe")!;
+
+    const srsCard = screen.getByRole("link", { name: new RegExp(srs.name) });
+    expect(within(srsCard).getByText(en.methodMenu.card.destination.start)).toBeDefined();
+
+    const narrowCard = screen.getByRole("link", { name: new RegExp(narrow.name) });
+    expect(within(narrowCard).getByText(en.methodMenu.card.destination.info)).toBeDefined();
+
+    const tandemCard = screen.getByRole("link", { name: new RegExp(tandem.name) });
+    expect(within(tandemCard).getByText(en.methodMenu.card.destination.info)).toBeDefined();
+  });
+
+  it("does not show hosted/off-app chips on cards", () => {
+    show();
+    expect(screen.queryByText(en.methodMenu.hostedShort)).toBeNull();
+    expect(screen.queryByText(en.methodMenu.notHostedShort)).toBeNull();
+  });
+
   it("states doesNotDo on every card", () => {
     show();
     const text = document.body.textContent ?? "";

@@ -49,41 +49,24 @@ function primaryLabelKey(stepType: ExerciseRunnerState["recipe"]["steps"][number
   }
 }
 
-export function ExerciseRunnerHeader({
-  sectionLabel,
-  methodName,
+export function ExerciseRunnerProgress({
   state,
-  activeLabel,
-  onStop,
   onTogglePause,
-}: Pick<
-  ExerciseRunnerChromeProps,
-  "sectionLabel" | "methodName" | "state" | "activeLabel" | "onStop" | "onTogglePause"
->) {
+}: Pick<ExerciseRunnerChromeProps, "state" | "onTogglePause">) {
   const t = useTranslations("exerciseRunner");
 
   return (
-    <header className="space-y-2 border-b border-line pb-3">
-      <div className="flex items-start justify-between gap-3">
-        <div className="min-w-0">
-          <p className="text-xs font-medium uppercase tracking-widest text-muted">
-            {sectionLabel}
-          </p>
-          <h1 className="truncate text-lg font-semibold text-ink">{methodName}</h1>
-          {activeLabel ? (
-            <p className="truncate text-sm text-muted">{activeLabel}</p>
-          ) : null}
-        </div>
-        <Button type="button" variant="secondary" size="sm" onClick={onStop} className="shrink-0">
-          {t("stop")}
-        </Button>
-      </div>
+    <div className="space-y-2 shrink-0">
       <div
-        className="h-1.5 w-full rounded-full bg-line"
+        className="h-2 w-full rounded-full bg-line"
         role="progressbar"
         aria-valuenow={state.activeStepIndex + 1}
         aria-valuemin={1}
         aria-valuemax={state.recipe.steps.length}
+        aria-label={t("progress", {
+          current: state.activeStepIndex + 1,
+          total: state.recipe.steps.length,
+        })}
       >
         <div
           className="h-full rounded-full bg-accent transition-[width]"
@@ -92,18 +75,18 @@ export function ExerciseRunnerHeader({
           }}
         />
       </div>
-      <p className="text-xs text-muted">
+      <p className="text-xs font-medium text-muted">
         {t("progress", {
           current: state.activeStepIndex + 1,
           total: state.recipe.steps.length,
-        })}{" "}
-        ({progressLabel(state)})
+        })}
+        <span className="text-muted/80"> · {progressLabel(state)}</span>
       </p>
       {state.timer ? (
         <div className="flex items-center gap-2">
           <span
             className={cn(
-              "rounded-full px-2 py-0.5 text-xs font-medium",
+              "rounded-full px-2.5 py-1 text-xs font-medium",
               state.timer.expired
                 ? "bg-surface-raised text-ink ring-1 ring-line"
                 : "bg-accent-soft text-ink",
@@ -118,8 +101,16 @@ export function ExerciseRunnerHeader({
           </Button>
         </div>
       ) : null}
-    </header>
+    </div>
   );
+}
+
+/** @deprecated Titles live on ExerciseRunnerHero; use ExerciseRunnerProgress */
+export function ExerciseRunnerHeader({
+  state,
+  onTogglePause,
+}: Pick<ExerciseRunnerChromeProps, "state" | "onTogglePause">) {
+  return <ExerciseRunnerProgress state={state} onTogglePause={onTogglePause} />;
 }
 
 export function ExerciseRunnerFooter({
@@ -154,26 +145,28 @@ export function ExerciseRunnerFooter({
 
   return (
     <>
-      <footer className="mt-auto shrink-0 border-t border-line pt-3">
-        <div className="flex flex-col items-end gap-2">
+      <footer className="mt-auto shrink-0 border-t border-line pt-3 pb-[max(0.75rem,env(safe-area-inset-bottom))]">
+        <div className="flex flex-col items-end gap-3">
           <div className="flex items-center gap-2">
             <Button
               type="button"
               variant="secondary"
-              size="sm"
+              size="md"
               disabled={!canGoBack}
               onClick={onBack}
               aria-label={t("prevStep")}
+              className="min-w-11 px-3"
             >
               ◀
             </Button>
             <Button
               type="button"
               variant="secondary"
-              size="sm"
+              size="md"
               disabled={!canGoForward}
               onClick={onForward}
               aria-label={t("nextStep")}
+              className="min-w-11 px-3"
             >
               ▶
             </Button>
@@ -181,7 +174,8 @@ export function ExerciseRunnerFooter({
           {showPrimary ? (
             <Button
               type="button"
-              className="w-auto max-w-full"
+              size="lg"
+              className="w-auto max-w-full min-w-[11rem]"
               disabled={!canComplete}
               onClick={onComplete}
             >
@@ -210,18 +204,11 @@ export function ExerciseRunnerFooter({
   );
 }
 
-/** @deprecated Use ExerciseRunnerHeader + ExerciseRunnerFooter */
+/** @deprecated Use ExerciseRunnerHero + ExerciseRunnerProgress + ExerciseRunnerFooter */
 export function ExerciseRunnerChrome(props: ExerciseRunnerChromeProps) {
   return (
     <>
-      <ExerciseRunnerHeader
-        sectionLabel={props.sectionLabel}
-        methodName={props.methodName}
-        state={props.state}
-        activeLabel={props.activeLabel}
-        onStop={props.onStop}
-        onTogglePause={props.onTogglePause}
-      />
+      <ExerciseRunnerProgress state={props.state} onTogglePause={props.onTogglePause} />
       <ExerciseRunnerFooter
         state={props.state}
         canGoBack={props.canGoBack}

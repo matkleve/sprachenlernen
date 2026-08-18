@@ -274,6 +274,16 @@
   "exerciseRunner": {
     "progress": "Schritt {current} von {total}",
     "pageSection": "Methoden",
+    "stepLabelPrepare": "Bevor Sie starten",
+    "stepLabelHowItWorks": "So geht's",
+    "stepLabelWrite": "Schreiben",
+    "stepLabelCompare": "Vergleichen",
+    "stepLabelDo": "Ihre Aufgabe",
+    "stepLabelWait": "Pause",
+    "stepLabelSubmit": "Abgeben",
+    "stepLabelReview": "Durchsehen",
+    "stepLabelDecide": "Weiter",
+    "stepLabelYourWriting": "Ihr Text",
     "prevStep": "Vorheriger Schritt",
     "nextStep": "Nächster Schritt",
     "stop": "Übung beenden",
@@ -298,6 +308,9 @@
     "completeBody": "Sie haben diese Übung beendet.",
     "decline": "Nicht jetzt — fertig",
     "prepareChecklist": "Bevor Sie starten",
+    "prepareItemKeyboard": "Stift und Papier oder Tastatur",
+    "prepareItemQuiet": "Ein paar ruhige Minuten",
+    "prepareItemTargetLang": "In Ihrer Zielsprache schreiben — nicht auf Englisch",
     "introBuildASentence": "Sie bekommen ein Wort aus Ihrem Vokabular. Schreiben Sie genau einen Satz in der Sprache, die Sie lernen, und verwenden Sie das Wort natürlich — so, wie Sie es wirklich sagen würden.",
     "introFreeProduction": "Schreiben Sie ein paar Minuten frei in Ihrer Zielsprache. Es gibt keinen Text zum Ablesen und keine einzige richtige Antwort — nur Übung, das zu sagen, was Sie meinen.",
     "freeProductionPromptRecent": "Schreiben Sie über etwas, das Ihnen kürzlich passiert ist.",
@@ -463,7 +476,11 @@
       "doesNotDo": "Was sie nicht leistet",
       "properties": "Methodeneigenschaften",
       "badges": "Methoden-Badges",
-      "effort": "Anstrengung"
+      "effort": "Anstrengung",
+      "destination": {
+        "start": "Starten",
+        "info": "Info"
+      }
     },
     "skillLabels": {
       "reading": "Lesen",

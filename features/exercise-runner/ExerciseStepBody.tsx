@@ -16,5 +16,9 @@ type ExerciseStepBodyProps = {
 };
 
 export function ExerciseStepBody(props: ExerciseStepBodyProps) {
-  return renderExerciseStep(props);
+  return (
+    <div className="practice-surface">
+      {renderExerciseStep(props)}
+    </div>
+  );
 }

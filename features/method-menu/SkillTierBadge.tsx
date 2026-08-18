@@ -22,7 +22,7 @@ const TIER_LABEL: Record<SkillTier, string> = {
 const skillTierBadgeVariants = cva("inline-flex shrink-0 items-end justify-center", {
   variants: {
     size: {
-      card: "h-16",
+      card: "h-16 md:h-20 lg:h-16",
       detail: "h-14",
     },
   },
@@ -34,7 +34,7 @@ const skillTierBadgeVariants = cva("inline-flex shrink-0 items-end justify-cente
 const skillTierImageVariants = cva("w-auto object-contain", {
   variants: {
     size: {
-      card: "h-16 max-h-16",
+      card: "h-16 max-h-16 md:h-20 md:max-h-20 lg:h-16 lg:max-h-16",
       detail: "h-14 max-h-14",
     },
   },
@@ -95,7 +95,9 @@ export function SkillTierOverflow({
     <span
       className={cn(
         "inline-flex shrink-0 items-center justify-center rounded-chip border border-line bg-surface font-medium text-muted",
-        size === "card" ? "size-16 text-xs" : "size-14 text-sm",
+        size === "card"
+          ? "size-16 text-xs md:size-20 md:text-sm lg:size-16 lg:text-xs"
+          : "size-14 text-sm",
         className,
       )}
       title={label}

@@ -32,17 +32,17 @@ export function composeBuildASentenceRecipe(
         id: "prepare-1",
         type: "prepare",
         component: "checklist",
-        label: "How it works",
+        labelKey: "stepLabelHowItWorks",
         config: {
           introKey: "introBuildASentence",
-          items: ["Pen and paper or keyboard", "Your target language — not English"],
+          itemKeys: ["prepareItemKeyboard", "prepareItemTargetLang"],
         },
       },
       {
         id: "write-1",
         type: "do",
         component: "type-with-word",
-        label: "Write",
+        labelKey: "stepLabelWrite",
         config: {
           word: target.word,
           gloss: target.gloss,
@@ -53,7 +53,7 @@ export function composeBuildASentenceRecipe(
         id: "review-1",
         type: "review",
         component: "reveal-answer",
-        label: "Compare",
+        labelKey: "stepLabelCompare",
         config: {
           word: target.word,
           gloss: target.gloss,
@@ -63,7 +63,7 @@ export function composeBuildASentenceRecipe(
         id: "decide-1",
         type: "decide",
         component: "offers",
-        label: "Next",
+        labelKey: "stepLabelDecide",
         config: {
           offers: ["Schedule this word for review"],
           declineLabel: "Not now — done",

@@ -1,5 +1,6 @@
 "use client";
 
+import type { ReactNode } from "react";
 import { cva, type VariantProps } from "class-variance-authority";
 
 import type { MethodEntry } from "@/lib/method-catalogue";
@@ -86,6 +87,13 @@ export type MethodBadgeRowProps = {
   className?: string;
   /** When true, visuals are aria-hidden and a single sr-only line carries the facts (inside links). */
   inLink?: boolean;
+  /**
+   * `stacked` — catalogue cards: effort under summary, shields on the next row.
+   * `row` — dialog preview: shields left, effort right.
+   */
+  layout?: "row" | "stacked";
+  /** Stacked only — beside shields from `md:` (e.g. property chips on wide 2-col cards). */
+  shieldCompanion?: ReactNode;
 };
 
 function badgeSummary(
@@ -112,8 +120,13 @@ function tierSummary(
     .join(", ");
 }
 
-/** Tier shields left, effort right — fixed order per skill-tier spec. */
-export function MethodBadgeRow({ method, className, inLink = false }: MethodBadgeRowProps) {
+export function MethodBadgeRow({
+  method,
+  className,
+  inLink = false,
+  layout = "row",
+  shieldCompanion,
+}: MethodBadgeRowProps) {
   const { skillLabels, intensity: intensityAnchors } = useMethodMenuCopy();
   const { visible, overflow } = displaySkillTierMarks(method);
   const visibleLabel = tierSummary(visible, skillLabels);
@@ -122,13 +135,37 @@ export function MethodBadgeRow({ method, className, inLink = false }: MethodBadg
       ? `${overflow.length} more skills: ${tierSummary(overflow, skillLabels)}`
       : "";
 
+  const srOnly = inLink ? (
+    <span className="sr-only">
+      {badgeSummary(visibleLabel, overflowLabel, method.intensity, intensityAnchors)}
+    </span>
+  ) : null;
+
+  if (layout === "stacked") {
+    return (
+      <div className={cn("w-full", className)}>
+        {srOnly}
+        <div {...(inLink ? { "aria-hidden": true } : {})}>
+          <EffortBadge intensity={method.intensity} size="card" />
+          <div
+            className={cn(
+              "mt-1.5",
+              shieldCompanion && "md:mt-2 md:flex md:items-start md:gap-4",
+            )}
+          >
+            <SkillTierBadgeRow visible={visible} overflow={overflow} size="card" />
+            {shieldCompanion ? (
+              <div className="mt-2 min-w-0 md:mt-0 md:flex-1">{shieldCompanion}</div>
+            ) : null}
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className={cn("w-full", className)}>
-      {inLink ? (
-        <span className="sr-only">
-          {badgeSummary(visibleLabel, overflowLabel, method.intensity, intensityAnchors)}
-        </span>
-      ) : null}
+      {srOnly}
       <div
         className={cn("flex w-full items-center gap-2", inLink && "aria-hidden")}
         {...(inLink ? { "aria-hidden": true } : {})}

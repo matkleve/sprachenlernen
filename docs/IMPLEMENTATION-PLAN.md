@@ -338,6 +338,7 @@ low-inference agent would silently invent.
 | **T-B10e** | Composite skill-tier badges + effort dots | **Shipped 2026-08-18.** Evidence+value tiers, wood/cap/`+`, PNG assets from grid, cards + detail |
 | **T-B10f-a** | Method card polish — code | **Shipped 2026-08-18** — header layout, title, badge wrapper; owner LIVE CHECK **failed** on art |
 | **T-B10f-b** | Method card polish — assets + layout v2 | **In progress 2026-08-18** — `object-contain` header, 48px shields, padded PNGs |
+| **T-B10g** | Method card destination marker — Start / Info, summary ink | **Shipped 2026-08-18** — [`plans/method-card-destination.md`](plans/method-card-destination.md) |
 | **T-B4** | Dose ledger (F184) | **Denominator shipped** on `/progress` (question 19, first branch). **Numerator** (hours you practised) still out — needs practice-time logging beyond card `latency_ms` |
 | ~~**T-B7**~~ | ~~The landing page~~ — **shipped 2026-08-11** | Thesis 1 headline + thesis 12 time honesty in body |
 | ~~**T-B10**~~ | ~~The method menu — the product's front door~~ — **shipped 2026-08-09** | Filters, time scale, hosted routing. Learner half continued in T-B10b |
@@ -372,7 +373,8 @@ honest Spanish/Italian; offline unlocks commute practice.
 | **6** | ~~**T-B10c** — method badges + detail layout~~ — **shipped 2026-08-15** | Scannable catalogue; fixes two-line chip + truncated-title UX |
 | **6b** | ~~**T-B10d** — property audit alignment ([`study/36`](study/36-method-surfaces-property-audit.md))~~ — **shipped 2026-08-16** | Plain effort everywhere; all requirement chips on cards; evidence disclosure-only on detail |
 | **6c** | ~~**T-B10e** — composite tier badges, effort dots, real assets~~ — **shipped 2026-08-18** | [`skill-tier.md`](specs/service/skill-tier.md); `scripts/slice-skill-tier-badges.py` |
-| **6d** | **T-B10f-b** — method card polish assets | **Blocked** — section WebP re-compose + shield card PNGs; owner LIVE CHECK failed on art ([`study/40`](study/40-method-card-visual-polish.md)) |
+| **6d** | **T-B10f-b** — method card polish assets | **Blocked** — section WebP re-compose + shield card PNGs |
+| **6e** | **T-B10g** — card destination marker | **Shipped 2026-08-18** — [`plans/method-card-destination.md`](plans/method-card-destination.md) |
 | **7** | **T-B10b remainder** — ~~demonstration sentence~~ **shipped 2026-08-16**; readiness ([`study/26`](study/26-readiness-and-difficulty.md)) | Methods front door complete |
 | **7b** | ~~**Exercise runner** (T-E0–E9, T-MU*, T-LD1)~~ — **shipped 2026-08-18**; six hosted runners built (`partial-dictation`, `full-dictation`, `extensive-reading`, `reading-aloud`, `build-a-sentence`, `free-production`) | UC-049 |
 | **8** | **T-B4 numerator** — guided hours practised (thesis 9: not card time alone) | Progress per hour invested (study/03 V3) |

@@ -7,9 +7,11 @@ import { beforeEach, describe, expect, it, vi } from "vitest";
 import { LanguageSwitcher } from "./LanguageSwitcher";
 
 const switchActiveLanguageAction = vi.fn();
+const loadLanguageHoldingsAction = vi.fn();
 
 vi.mock("./actions", () => ({
   switchActiveLanguageAction: (...args: unknown[]) => switchActiveLanguageAction(...args),
+  loadLanguageHoldingsAction: (...args: unknown[]) => loadLanguageHoldingsAction(...args),
 }));
 
 vi.mock("next/navigation", () => ({
@@ -20,6 +22,8 @@ describe("LanguageSwitcher", () => {
   beforeEach(() => {
     switchActiveLanguageAction.mockReset();
     switchActiveLanguageAction.mockResolvedValue(undefined);
+    loadLanguageHoldingsAction.mockReset();
+    loadLanguageHoldingsAction.mockResolvedValue(null);
   });
 
   it("renders nothing when the account has no languages", () => {

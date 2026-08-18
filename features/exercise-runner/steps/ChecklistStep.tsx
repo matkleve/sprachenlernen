@@ -2,34 +2,43 @@
 
 import { useTranslations } from "next-intl";
 
+import {
+  PracticePrepList,
+  type PracticePrepEntry,
+} from "@/features/exercise-runner/practice-surface/PracticePrepList";
 import type { StepRenderProps } from "@/features/exercise-runner/steps/types";
+
+function readItemKeys(config: Record<string, unknown>): string[] {
+  if (!Array.isArray(config.itemKeys)) return [];
+  return config.itemKeys.filter((entry): entry is string => typeof entry === "string");
+}
+
+function readLegacyItems(config: Record<string, unknown>): string[] {
+  if (!Array.isArray(config.items)) return [];
+  return config.items.filter((entry): entry is string => typeof entry === "string");
+}
 
 export function ChecklistStep({ step }: Pick<StepRenderProps, "step">) {
   const t = useTranslations("exerciseRunner");
   const introKey =
     typeof step.config.introKey === "string" ? step.config.introKey : undefined;
-  const items = Array.isArray(step.config.items) ? (step.config.items as string[]) : [];
+  const itemKeys = readItemKeys(step.config);
+  const entries: PracticePrepEntry[] =
+    itemKeys.length > 0
+      ? itemKeys.map((key) => ({ id: key, label: t(key as "prepareItemKeyboard") }))
+      : readLegacyItems(step.config).map((label, index) => ({
+          id: `${step.id}-${index}`,
+          label,
+        }));
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-5">
       {introKey ? (
-        <p className="text-base leading-relaxed text-ink">
+        <p className="text-xl font-medium leading-snug text-ink">
           {t(introKey as "introBuildASentence")}
         </p>
       ) : null}
-      {items.length > 0 ? (
-        <>
-          <p className="text-sm font-medium text-ink">{t("prepareChecklist")}</p>
-          <ul className="space-y-2">
-            {items.map((item) => (
-              <li key={item} className="flex items-center gap-2 text-base text-ink">
-                <span className="size-4 rounded border border-line" aria-hidden />
-                {item}
-              </li>
-            ))}
-          </ul>
-        </>
-      ) : null}
+      <PracticePrepList entries={entries} />
     </div>
   );
 }

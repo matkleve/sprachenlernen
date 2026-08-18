@@ -26,6 +26,7 @@ describe("SkillTierBadge", () => {
     );
     const wrapper = container.firstElementChild;
     expect(wrapper?.className).toContain("h-16");
+    expect(wrapper?.className).toContain("md:h-20");
     expect(wrapper?.className).not.toContain("w-16");
     expect(wrapper?.className).not.toContain("max-w-");
   });
