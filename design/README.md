@@ -32,6 +32,11 @@ the values from `app/globals.css` in SVG source files only.
 Method section graphics brief:
 [`docs/study/39-method-section-graphics-brief.md`](../docs/study/39-method-section-graphics-brief.md).
 
+Skill-tier badge grid: save the owner’s clean white sheet (no drop shadows) as
+`design/skill-tier-badges/source-grid-upload.png`, then
+`python3 scripts/slice-skill-tier-badges.py`. Chat image uploads are not written
+to the Cloud Agent VM — the PNG must be committed in git.
+
 ## What does not live here
 
 - **Skill-tier badges** — `public/assets/skill-tier-badges/` (see study/33).

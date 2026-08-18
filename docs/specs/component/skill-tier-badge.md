@@ -24,7 +24,7 @@ Implementation: `features/method-menu/SkillTierBadge.tsx`,
 
 | Surface | Size | Notes |
 | --- | --- | --- |
-| **Card** | `h-14` with tier frame (`w-14` shield, `w-16` wood, `w-[4.5rem]` ornate) | 56px tall; PNG ≤50% fill |
+| **Card** | `h-14 w-auto` (max `4.5rem`) | 56px tall; width follows PNG silhouette; row `gap-1` |
 | **Detail** | `size-14` (56px) | unchanged |
 | **Overflow `+`** | `size-14` on cards | matches badge height |
 
