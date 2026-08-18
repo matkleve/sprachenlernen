@@ -240,6 +240,7 @@
     "good": "Good",
     "easy": "Easy",
     "progress": "{position} of {total}",
+    "runStatusLabel": "Session progress by card",
     "completeTitle": "Session complete",
     "completeBodyOne": "You reviewed 1 card.",
     "completeBody": "You reviewed {count} cards.",
