@@ -1,8 +1,10 @@
 "use client";
 
+import { ConfirmDoneStep } from "@/features/exercise-runner/steps/ConfirmDoneStep";
 import { ComprehensionQuestionsStep } from "@/features/exercise-runner/steps/ComprehensionQuestionsStep";
 import { CaptureStep } from "@/features/exercise-runner/steps/CaptureStep";
 import { ChecklistStep } from "@/features/exercise-runner/steps/ChecklistStep";
+import { DebriefPromptStep } from "@/features/exercise-runner/steps/DebriefPromptStep";
 import { FullDictationStep } from "@/features/exercise-runner/steps/FullDictationStep";
 import { GapFillStep } from "@/features/exercise-runner/steps/GapFillStep";
 import { MaterialPreviewStep } from "@/features/exercise-runner/steps/MaterialPreviewStep";
@@ -65,6 +67,8 @@ export function renderExerciseStep(props: StepRenderProps) {
           onPhotoChange={props.onPhotoChange}
         />
       );
+    case "confirm-done":
+      return <ConfirmDoneStep step={step} />;
     case "self-mark":
     case "feedback":
       return (
@@ -88,6 +92,16 @@ export function renderExerciseStep(props: StepRenderProps) {
       return (
         <SummaryStep
           step={step}
+          onDecline={props.onDecline}
+          onSelectOffer={props.onSelectOffer}
+        />
+      );
+    case "debrief-prompt":
+      return (
+        <DebriefPromptStep
+          step={step}
+          submitDraft={props.submitDraft}
+          onTextChange={props.onTextChange}
           onDecline={props.onDecline}
           onSelectOffer={props.onSelectOffer}
         />

@@ -42,6 +42,7 @@ describe("exercise-recipe composer registry", () => {
     expect(hasRecipeComposer("full-dictation")).toBe(true);
     expect(hasRecipeComposer("extensive-reading")).toBe(true);
     expect(hasRecipeComposer("reading-aloud")).toBe(true);
+    expect(hasRecipeComposer("role-play")).toBe(true);
     expect(hasRecipeComposer("narrow-reading")).toBe(false);
   });
 

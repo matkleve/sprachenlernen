@@ -7,7 +7,32 @@ import { readFileSync, readdirSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 
 const ROOT = join(import.meta.dirname, "..");
-const BUILT = new Set(["srs-session", "partial-dictation", "full-dictation", "extensive-reading", "reading-aloud"]);
+const GUIDED = [
+  "book-you-know",
+  "background-listening",
+  "self-talk",
+  "voice-message",
+  "role-play",
+  "singing-along",
+  "interpreting",
+  "translate-a-song",
+  "write-and-perform-a-play",
+  "mine-your-own-sentences",
+  "handwriting-shakiest",
+  "cook-from-a-recipe",
+  "video-game-in-target-language",
+  "tandem-or-language-cafe",
+  "order-ask-complain",
+  "film-you-know-by-heart",
+];
+const BUILT = new Set([
+  "srs-session",
+  "partial-dictation",
+  "full-dictation",
+  "extensive-reading",
+  "reading-aloud",
+  ...GUIDED,
+]);
 const PARTIAL = new Set([]);
 
 const ENGINE = {

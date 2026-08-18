@@ -27,10 +27,10 @@ describe("implementationMaturityTier", () => {
     }
   });
 
-  it("AC: specced-only methods are I1", () => {
+  it("AC: built guided methods are I2", () => {
     const { catalogue } = loadMethodCatalogue();
     const rolePlay = catalogue!.entries.find((e) => e.id === "role-play")!;
-    expect(implementationMaturityTier(rolePlay)).toBe("I1");
+    expect(implementationMaturityTier(rolePlay)).toBe("I2");
   });
 
   it("AC: missing recipe is I0", () => {

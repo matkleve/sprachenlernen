@@ -323,7 +323,14 @@
     "comprehensionCorrect": "That matches the text.",
     "comprehensionIncorrect": "Re-read the passage — another answer fits better.",
     "speakPromptDefault": "Say it out loud at a speaking pace.",
-    "summaryDefault": "Session complete."
+    "summaryDefault": "Session complete.",
+    "confirmDoneDefault": "Did you complete the off-screen part of this method?",
+    "confirmDoneHint": "Tap Submitted only if you honestly did the real-world work — the app cannot verify it.",
+    "debriefDefault": "What could you not say or do? Note one phrase to practise later.",
+    "debriefStuckLabel": "Stuck phrase",
+    "debriefStuckHint": "Optional — a word or line you wanted but did not have.",
+    "debriefStuckPlaceholder": "e.g. I wanted to ask for…",
+    "debriefOffer": "Save phrase for later"
   },
   "listeningDefer": {
     "sectionLabel": "Sound",

@@ -15,7 +15,7 @@ maturity ([`method-implementation-maturity.md`](specs/service/method-implementat
 | Methods | 53 |
 | Commitments | 6 |
 | Hosted (`hosted: true`) | 34 |
-| **Built in-app** | **5** (`srs-session`, `partial-dictation`, `full-dictation`, `extensive-reading`, `reading-aloud`) |
+| **Built in-app** | **21** (`srs-session`, `partial-dictation`, `full-dictation`, `extensive-reading`, `reading-aloud`, `book-you-know`, `background-listening`, `self-talk`, `voice-message`, `role-play`, `singing-along`, `interpreting`, `translate-a-song`, `write-and-perform-a-play`, `mine-your-own-sentences`, `handwriting-shakiest`, `cook-from-a-recipe`, `video-game-in-target-language`, `tandem-or-language-cafe`, `order-ask-complain`, `film-you-know-by-heart`) |
 | Exercise runner specced | 40 |
 | Card engine specced | 4 |
 | Off-app / debrief only | 19 |
@@ -43,7 +43,7 @@ maturity ([`method-implementation-maturity.md`](specs/service/method-implementat
 | `reading-while-listening` | B | Y | runner | — | ❌ | I1 | P3–P4 | see recipe doc |
 | `reread-something-hard` | D | Y | runner | — | ❌ | I1 | P3–P4 | see recipe doc |
 | `parallel-text` | C | Y | runner | — | ❌ | I1 | P3–P4 | see recipe doc |
-| `book-you-know` | C | N | guided | — | guided | I1 | defer | see recipe doc |
+| `book-you-know` | C | N | guided | — | ✅ | I2 | defer | see recipe doc |
 
 ## Listening (8)
 
@@ -56,7 +56,7 @@ maturity ([`method-implementation-maturity.md`](specs/service/method-implementat
 | `full-dictation` | B | Y | runner | Y | ✅ | I3 | done | audio-play, full-dictation, sheet-download |
 | `dictogloss` | B | Y | runner | — | ❌ | I1 | P3 | audio-play, type-freely, diff-highlight |
 | `listening-faster` | C | Y | runner | — | ❌ | I1 | P3–P4 | see recipe doc |
-| `background-listening` | C | N | guided | — | guided | I1 | defer | see recipe doc |
+| `background-listening` | C | N | guided | — | ✅ | I2 | defer | see recipe doc |
 
 ## Speaking (10)
 
@@ -65,13 +65,13 @@ maturity ([`method-implementation-maturity.md`](specs/service/method-implementat
 | `four-three-two` | B | Y | runner | — | ❌ | I1 | P3 | round-marker, speak-prompt, voice-submit, rubric |
 | `shadowing` | B | Y | runner | — | ❌ | I1 | P3–P4 | shadow-line, audio-play |
 | `retell-what-you-read` | B | Y | runner | — | ❌ | I1 | P3–P4 | see recipe doc |
-| `self-talk` | C | N | guided | — | guided | I1 | defer | see recipe doc |
+| `self-talk` | C | N | guided | — | ✅ | I2 | defer | see recipe doc |
 | `describe-a-picture` | C | Y | runner | — | ❌ | I1 | P3–P4 | see recipe doc |
-| `voice-message` | D | N | guided | — | guided | I1 | defer | see recipe doc |
-| `role-play` | B | N | guided | — | guided | I1 | defer | see recipe doc |
+| `voice-message` | D | N | guided | — | ✅ | I2 | defer | see recipe doc |
+| `role-play` | B | N | guided | — | ✅ | I2 | defer | see recipe doc |
 | `recite-memorised` | C | Y | runner | — | ❌ | I1 | P3–P4 | see recipe doc |
-| `singing-along` | C | N | guided | — | guided | I1 | defer | see recipe doc |
-| `interpreting` | D | N | guided | — | guided | I1 | defer | see recipe doc |
+| `singing-along` | C | N | guided | — | ✅ | I2 | defer | see recipe doc |
+| `interpreting` | D | N | guided | — | ✅ | I2 | defer | see recipe doc |
 
 ## Writing (10)
 
@@ -85,8 +85,8 @@ maturity ([`method-implementation-maturity.md`](specs/service/method-implementat
 | `copy-a-paragraph` | C | Y | runner | — | ❌ | I1 | P3–P4 | see recipe doc |
 | `rewrite-in-your-own-words` | C | Y | runner | — | ❌ | I1 | P3–P4 | see recipe doc |
 | `caption-your-photos` | D | Y | runner | — | ❌ | I1 | P3–P4 | see recipe doc |
-| `translate-a-song` | D | N | guided | — | guided | I1 | defer | see recipe doc |
-| `write-and-perform-a-play` | C | N | guided | — | guided | I1 | defer | see recipe doc |
+| `translate-a-song` | D | N | guided | — | ✅ | I2 | defer | see recipe doc |
+| `write-and-perform-a-play` | C | N | guided | — | ✅ | I2 | defer | see recipe doc |
 
 ## Form (6)
 
@@ -105,20 +105,20 @@ maturity ([`method-implementation-maturity.md`](specs/service/method-implementat
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | `srs-session` | A | Y | card | — | ✅ | I4 | P2–P3 | see recipe doc |
 | `audio-cards` | B | N | card | — | pool only | I1 | defer | see recipe doc |
-| `mine-your-own-sentences` | C | N | guided | — | guided | I1 | defer | see recipe doc |
+| `mine-your-own-sentences` | C | N | guided | — | ✅ | I2 | defer | see recipe doc |
 | `collocation-cards` | B | N | card | — | pool only | I1 | defer | see recipe doc |
 | `close-a-frequency-block` | A | N | card | — | pool only | I1 | defer | see recipe doc |
-| `handwriting-shakiest` | B | N | guided | — | guided | I1 | defer | see recipe doc |
+| `handwriting-shakiest` | B | N | guided | — | ✅ | I2 | defer | see recipe doc |
 
 ## World (5)
 
 | id | Ev | Host | Engine | Mat. | Built | I | Pri | Components still needed |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| `cook-from-a-recipe` | D | N | guided | — | guided | I1 | defer | see recipe doc |
-| `video-game-in-target-language` | C | N | guided | — | guided | I1 | defer | see recipe doc |
-| `tandem-or-language-cafe` | B | N | guided | — | guided | I1 | defer | see recipe doc |
-| `order-ask-complain` | D | N | guided | — | guided | I1 | defer | see recipe doc |
-| `film-you-know-by-heart` | C | N | guided | — | guided | I1 | defer | see recipe doc |
+| `cook-from-a-recipe` | D | N | guided | — | ✅ | I2 | defer | see recipe doc |
+| `video-game-in-target-language` | C | N | guided | — | ✅ | I2 | defer | see recipe doc |
+| `tandem-or-language-cafe` | B | N | guided | — | ✅ | I2 | defer | see recipe doc |
+| `order-ask-complain` | D | N | guided | — | ✅ | I2 | defer | see recipe doc |
+| `film-you-know-by-heart` | C | N | guided | — | ✅ | I2 | defer | see recipe doc |
 
 ## Commitments (6 commitments)
 

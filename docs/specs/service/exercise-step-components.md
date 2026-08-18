@@ -92,7 +92,7 @@ Implementation target: `lib/exercise-step-components/` registry +
 | `capture` | Photo and/or typed text; `accept`, `required` | shipped | dictation, free writing |
 | `optional-capture` | Same; skippable | planned | optional photo after keyboard write |
 | `voice-submit` | Record and hold audio for session | planned | 4/3/2, retell, describe picture |
-| `confirm-done` | “I did it” honest self-report | planned | guided methods, copy paragraph |
+| `confirm-done` | “I did it” honest self-report | shipped | guided methods, copy paragraph |
 
 ## F · Review (`review`)
 
@@ -113,7 +113,7 @@ Implementation target: `lib/exercise-step-components/` registry +
 | --- | --- | --- | --- |
 | `offers` | ≤2 buttons + decline (terminal) | shipped | any method with errors or cards |
 | `summary` | Session stats + optional offers | shipped | shadowing, narrow reading, reread, reading aloud |
-| `debrief-prompt` | “What could you not say?” → card offer | planned | guided methods, tandem, world |
+| `debrief-prompt` | “What could you not say?” → card offer | shipped | guided methods, tandem, world |
 
 ## Card engine (not exercise runner)
 
