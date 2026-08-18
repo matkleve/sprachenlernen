@@ -499,20 +499,20 @@
   }
 }
 
-/* Brand spiral — outer/inner bands counter-rotate on parent hover/focus. */
+/* Brand spiral — outer/inner bands counter-rotate around viewBox centre on hover. */
 .brand-mark-spiral-center {
-  transform-box: fill-box;
-  transform-origin: center;
+  transform-box: view-box;
+  transform-origin: 50% 50%;
 }
 
 .group:hover .brand-mark-ring-outer,
 .group:focus-visible .brand-mark-ring-outer {
-  animation: orbit-ring-forward 36s linear infinite;
+  animation: orbit-ring-forward 8s linear infinite;
 }
 
 .group:hover .brand-mark-ring-inner,
 .group:focus-visible .brand-mark-ring-inner {
-  animation: orbit-ring-reverse 24s linear infinite;
+  animation: orbit-ring-reverse 5s linear infinite;
 }
 
 .orbit-segment {

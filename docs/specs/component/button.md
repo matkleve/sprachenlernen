@@ -72,7 +72,9 @@ wrong way.
   24×24; 44×44 is the AAA and mobile-practice figure, and it is what this
   component holds itself to.
 - Vertically stacked buttons need at least `gap-3`, or the expanded targets of
-  adjacent `sm` buttons will overlap and steal each other's taps.
+  adjacent `sm` buttons will overlap and steal each other's taps. The same
+  `gap-3` applies to horizontal header icon rows (`shellHeaderIconRowClass` in
+  `features/app-shell/shell-header-icon-row.ts`).
 - Icon-only usage requires `aria-label`. Enforced by `eslint-plugin-jsx-a11y`.
 
 ## Acceptance criteria

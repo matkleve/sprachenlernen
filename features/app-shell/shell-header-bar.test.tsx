@@ -32,8 +32,8 @@ describe("ShellHeaderBar", () => {
 
     const left = container.querySelector(".justify-self-start");
     const right = container.querySelector(".justify-self-end");
-    expect(left?.className).toContain("gap-1");
-    expect(right?.className).toContain("gap-1");
+    expect(left?.className).toContain("gap-3");
+    expect(right?.className).toContain("gap-3");
   });
 
   it("renders desktop chrome sticky with a scrim layer", () => {

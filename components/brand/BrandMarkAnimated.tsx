@@ -31,11 +31,11 @@ export function BrandMarkAnimated({ size = "sm", className }: BrandMarkAnimatedP
       aria-hidden
       className={cn(mark({ size }), className)}
     >
-      <g className="brand-mark-spiral-center brand-mark-ring-outer">
-        <path fill="#8f3f1f" d={SPIRAL_OUTER} />
+      <g className="brand-mark-spiral-center brand-mark-ring-outer text-accent-deep">
+        <path fill="currentColor" d={SPIRAL_OUTER} />
       </g>
-      <g className="brand-mark-spiral-center brand-mark-ring-inner">
-        <path fill="#b4532a" d={SPIRAL_INNER} />
+      <g className="brand-mark-spiral-center brand-mark-ring-inner text-accent">
+        <path fill="currentColor" d={SPIRAL_INNER} />
       </g>
     </svg>
   );

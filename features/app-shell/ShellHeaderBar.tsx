@@ -3,6 +3,7 @@
 import type { ReactNode } from "react";
 
 import { HeaderScrim } from "./HeaderScrim";
+import { shellHeaderIconRowClass } from "./shell-header-icon-row";
 import { cn } from "@/lib/utils";
 
 const safeTop = "pt-[max(1rem,env(safe-area-inset-top))]";
@@ -45,7 +46,7 @@ export function ShellHeaderBar({
             safeTop,
           )}
         >
-          <div className="col-start-1 flex min-w-0 items-center gap-1 justify-self-start">
+          <div className={cn("col-start-1 justify-self-start", shellHeaderIconRowClass)}>
             {left}
           </div>
           {center}
@@ -60,8 +61,8 @@ export function ShellHeaderBar({
       <HeaderScrim collapse={collapse}>
         <div className="relative mx-auto max-w-5xl px-6 py-3">
           <div className="grid min-h-11 grid-cols-[1fr_1fr] items-center gap-x-4">
-            <div className="z-10 flex min-w-0 items-center gap-1 justify-self-start">{left}</div>
-            <div className="z-10 flex min-w-0 items-center justify-self-end gap-1">{right}</div>
+            <div className={cn("z-10 justify-self-start", shellHeaderIconRowClass)}>{left}</div>
+            <div className={cn("z-10 justify-self-end", shellHeaderIconRowClass)}>{right}</div>
           </div>
           {center ? (
             <div

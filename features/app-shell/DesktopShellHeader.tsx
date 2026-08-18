@@ -13,6 +13,7 @@ import { isProfileCurrent } from "./destinations";
 import { LanguageSwitcher, type LanguageSwitcherOption } from "./LanguageSwitcher";
 import { ShellHeaderBar } from "./ShellHeaderBar";
 import { ShellPageTitle } from "./ShellPageTitle";
+import { shellHeaderIconRowClass } from "./shell-header-icon-row";
 import { useTranslations } from "next-intl";
 import { useHeaderCollapse } from "./useHeaderCollapse";
 
@@ -50,7 +51,7 @@ export function DesktopShellHeader({
       right={
         <>
           <nav aria-label={t("navLabel")}>
-            <ul className="flex items-center gap-1">
+            <ul className={shellHeaderIconRowClass}>
               <DestinationNavItems layout="header" />
             </ul>
           </nav>
