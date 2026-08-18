@@ -584,6 +584,362 @@
       "day1": "1 day",
       "hours": "{count} hours",
       "minutes": "{count} min"
+    },
+    "entries": {
+      "audio-cards": {
+        "name": "Audio cards, operable blind",
+        "summary": "The same cards, spoken, with your eyes free",
+        "trains": "retention while your eyes are elsewhere",
+        "doesNotDo": "It cannot grade itself honestly. Marking your own spoken answer while walking is the loosest grading in the app, and the schedule inherits that noise."
+      },
+      "back-translation": {
+        "name": "Back-translation with comparison",
+        "summary": "Translate out, translate back, compare with the original",
+        "trains": "structure, and it makes avoidance visible",
+        "doesNotDo": "It grades you against one reference. A different wording that is perfectly good will read as a difference, and the diff cannot tell the two apart."
+      },
+      "background-listening": {
+        "name": "Background listening with no task",
+        "summary": "Leave it playing while you do something else",
+        "trains": "very little",
+        "doesNotDo": "Honestly: barely anything. It is in the catalogue because learners ask about it, and the answer is that unattended sound produces almost no learning."
+      },
+      "book-you-know": {
+        "name": "A book you already know in your own language",
+        "summary": "A book you know by heart, in the new language",
+        "trains": "comprehension without a dictionary",
+        "doesNotDo": "It lets you understand the story without understanding the sentences. Prior knowledge fills the gaps, so comprehension overstates what you read."
+      },
+      "build-a-sentence": {
+        "name": "Build a sentence with a target word",
+        "summary": "Write one sentence that uses a given word",
+        "trains": "production recall",
+        "doesNotDo": "It stays at one sentence. Nothing in it exercises holding a thought across several sentences, which is where most learners actually break down."
+      },
+      "caption-your-photos": {
+        "name": "Captioning your own photos",
+        "summary": "Write a line under a photo of your own",
+        "trains": "vocabulary you have a connection to",
+        "doesNotDo": "It cannot be aimed. What your photos happen to contain decides the vocabulary, and that is unlikely to be what you most need."
+      },
+      "close-a-frequency-block": {
+        "name": "Closing a frequency block deliberately",
+        "summary": "Finish off a band of the frequency list",
+        "trains": "coverage",
+        "doesNotDo": "It optimises the number rather than the need. Finishing a block is satisfying and it can spend a week on words you would never have missed."
+      },
+      "cloze-sentences": {
+        "name": "Cloze sentences",
+        "summary": "One word removed from a sentence; put it back",
+        "trains": "form in context",
+        "doesNotDo": "The sentence around the gap does much of the work. A cloze you can solve from context alone measures the context, not the form."
+      },
+      "collocation-cards": {
+        "name": "Collocation cards rather than single words",
+        "summary": "Learn the word with the words it travels with",
+        "trains": "fluency — the word with what it goes with",
+        "doesNotDo": "It counts as one item what is really several. A collocation card grows vocabulary size more slowly than the same minutes on single words."
+      },
+      "cook-from-a-recipe": {
+        "name": "Cooking from a recipe in the language",
+        "summary": "Cook something, following the recipe in the language",
+        "trains": "comprehension with consequences",
+        "doesNotDo": "It teaches the vocabulary of one kitchen. The consequences make you read carefully; they do not make the words general."
+      },
+      "copy-a-paragraph": {
+        "name": "Copying out a good paragraph",
+        "summary": "Copy out a well-written paragraph by hand",
+        "trains": "orthography, phrases",
+        "doesNotDo": "It involves no choice at all. Every word is given, so it is handwriting and attention practice, not language production."
+      },
+      "describe-a-picture": {
+        "name": "Describing a picture",
+        "summary": "Say everything you can see in one photo",
+        "trains": "open vocabulary",
+        "doesNotDo": "It stays in the present tense and the third person. Pictures rarely require you to narrate, hypothesise or argue."
+      },
+      "diary-three-sentences": {
+        "name": "Diary, three sentences",
+        "summary": "Three sentences about your day",
+        "trains": "genuine communicative intent",
+        "doesNotDo": "It circles the same life. Your days repeat, so the vocabulary it demands narrows rather than widens over months."
+      },
+      "dictogloss": {
+        "name": "Dictogloss — reconstruct rather than transcribe",
+        "summary": "Listen twice, then rebuild the passage from memory",
+        "trains": "listening and grammar together",
+        "doesNotDo": "It does not check that you heard the words. A good reconstruction can be built from gist plus grammar, which is the point and also the limitation."
+      },
+      "extensive-reading": {
+        "name": "Extensive reading at coverage",
+        "summary": "Read something you mostly understand, without stopping",
+        "trains": "reading, incidental vocabulary",
+        "doesNotDo": "It does not fix a word in memory. Words met while reading are met once; without the schedule picking them up they are gone in a week."
+      },
+      "film-you-know-by-heart": {
+        "name": "Watching a film you know by heart",
+        "summary": "A film you know every line of, in the language",
+        "trains": "listening with a safety net",
+        "doesNotDo": "You already know what is being said. Memory does the comprehension, which is what makes it comfortable and what limits it."
+      },
+      "four-three-two": {
+        "name": "4/3/2",
+        "summary": "The same story in four minutes, then three, then two",
+        "trains": "fluency",
+        "doesNotDo": "It improves nothing about accuracy. Telling the same thing three times faster makes delivery smoother and leaves the errors intact."
+      },
+      "free-production": {
+        "name": "Free production",
+        "summary": "Write freely on a prompt, with nothing to copy from",
+        "trains": "unprompted production, and what you are avoiding",
+        "doesNotDo": "It cannot make you use what you are dodging. Avoidance is what it reveals, not what it repairs."
+      },
+      "full-dictation": {
+        "name": "Full dictation on paper",
+        "summary": "Hear a sentence, write the whole of it down",
+        "trains": "sound form, orthography",
+        "doesNotDo": "It is slow and it does not teach meaning. Ten minutes buys six sentences of sound-to-spelling, and comprehension is not what is being checked."
+      },
+      "handwriting-shakiest": {
+        "name": "Handwriting sheet of the twenty shakiest cards",
+        "summary": "Write out the twenty cards you keep failing",
+        "trains": "encoding",
+        "doesNotDo": "It is slow and it is off-app, so its result has to be typed back in or it produces no signal at all."
+      },
+      "hobby-in-target-language": {
+        "name": "Pursue one hobby in the target language",
+        "summary": "One thing you love, done in the language",
+        "trains": "everything, voluntarily",
+        "doesNotDo": "It builds one domain deeply. A learner who can discuss climbing gear fluently may still be unable to describe their week."
+      },
+      "intensive-reading": {
+        "name": "Intensive reading",
+        "summary": "One paragraph, taken apart until nothing is unclear",
+        "trains": "form, precision, noticing",
+        "doesNotDo": "It builds no volume. One paragraph exhaustively is the opposite of the input quantity fluency needs, and it cannot substitute for it."
+      },
+      "interpreting": {
+        "name": "Interpreting for someone",
+        "summary": "Carry what one person says across to another",
+        "trains": "everything at once",
+        "doesNotDo": "It overloads before it teaches. Below a working command of both directions it produces failure rather than practice."
+      },
+      "label-the-flat": {
+        "name": "Label the flat",
+        "summary": "Names on the things you walk past every day",
+        "trains": "everyday vocabulary",
+        "doesNotDo": "Labels teach nouns in isolation, which is the one thing cards already do well. You stop seeing them after a week."
+      },
+      "listening-faster": {
+        "name": "Listening faster (1.25×)",
+        "summary": "Something you already follow, a quarter faster",
+        "trains": "processing speed",
+        "doesNotDo": "It adds no vocabulary. Speeding up material you already understand rehearses the parsing you have, not the words you lack."
+      },
+      "listening-level-1": {
+        "name": "Listening at level 1, no transcript",
+        "summary": "Listen once, with no text to fall back on",
+        "trains": "listening",
+        "doesNotDo": "It gives no partial credit. Without a transcript you cannot see which word you missed, only that you missed it."
+      },
+      "mine-your-own-sentences": {
+        "name": "Mining sentences from your own content",
+        "summary": "Turn sentences from your own reading into cards",
+        "trains": "words you have demonstrably needed",
+        "doesNotDo": "It ignores frequency. Words you happen to meet are not the words that unlock the most text, and mining alone will leave common ones unlearned for years."
+      },
+      "minimal-pairs": {
+        "name": "Minimal pairs / HVPT",
+        "summary": "Two words that differ by one sound — which was it?",
+        "trains": "perception of contrasts",
+        "doesNotDo": "Hearing a contrast is not saying it. Perception training transfers to production only partly, and it trains sounds rather than words."
+      },
+      "narrow-listening": {
+        "name": "Narrow listening, one series, one speaker",
+        "summary": "One series, one voice, until the voice is easy",
+        "trains": "listening",
+        "doesNotDo": "It tunes you to one voice. Getting comfortable with one speaker's rate and accent transfers to other speakers far less than it feels like it should."
+      },
+      "narrow-reading": {
+        "name": "Narrow reading",
+        "summary": "Four texts on one subject, so the words come back",
+        "trains": "the same as extensive reading, faster, by reusing one topic's vocabulary",
+        "doesNotDo": "It broadens nothing. Four texts on one subject build that subject's vocabulary and leave the rest of the language exactly where it was."
+      },
+      "one-series-target-audio": {
+        "name": "Watch one series only with target-language audio",
+        "summary": "One series you never watch in your own language",
+        "trains": "listening, by removing the choice",
+        "doesNotDo": "It relies on subtitles going off eventually. With them on, most of the hours go to reading."
+      },
+      "order-ask-complain": {
+        "name": "Ordering, asking, complaining",
+        "summary": "Do a real errand in the language, out loud",
+        "trains": "the real thing",
+        "doesNotDo": "It is a handful of fixed exchanges. Once they work you can repeat them for years without adding anything."
+      },
+      "own-error-log": {
+        "name": "Working through your own error log",
+        "summary": "Work through the mistakes you actually made",
+        "trains": "your own patterns rather than the average learner's",
+        "doesNotDo": "It only contains errors you were caught making. Everything you avoid saying never reaches the log."
+      },
+      "paradigm-tables-mixed": {
+        "name": "Paradigm tables, mixed",
+        "summary": "Fill in forms from mixed paradigms, not one table",
+        "trains": "automatisation of inflection",
+        "doesNotDo": "It does not carry into speech on its own. Producing a cell on demand in a table is a long way from producing it mid-sentence."
+      },
+      "parallel-text": {
+        "name": "Parallel text",
+        "summary": "The same passage in both languages, side by side",
+        "trains": "structure, idiom",
+        "doesNotDo": "It removes the retrieval attempt. With the translation beside it, nothing forces you to work the meaning out, and unworked meaning does not stick."
+      },
+      "partial-dictation": {
+        "name": "Partial dictation",
+        "summary": "Hear a sentence, fill in the words that were taken out",
+        "trains": "sound form, audio recall",
+        "doesNotDo": "It measures the gaps and nothing else. The words you were handed tell you nothing about whether you would have heard them."
+      },
+      "reading-aloud": {
+        "name": "Reading aloud",
+        "summary": "Read a passage out loud, at a speaking pace",
+        "trains": "pronunciation, flow, segmentation",
+        "doesNotDo": "It is not speaking. Every word is chosen for you, so it trains articulation and rhythm while leaving retrieval untouched."
+      },
+      "reading-while-listening": {
+        "name": "Reading and listening at once",
+        "summary": "Follow the text while a voice reads it to you",
+        "trains": "listening, segmentation",
+        "doesNotDo": "It does not test listening. The text carries you, so it cannot tell you what you would have understood without it."
+      },
+      "recite-memorised": {
+        "name": "Reciting a memorised poem or monologue",
+        "summary": "Say a piece you have learned by heart",
+        "trains": "prosody, chunks",
+        "doesNotDo": "It is recall of one fixed string. Nothing in it generalises to a sentence you have not memorised."
+      },
+      "repeated-listening": {
+        "name": "Repeated listening with support removal",
+        "summary": "The same clip three times, with less help each pass",
+        "trains": "listening",
+        "doesNotDo": "It does not build volume, and by the third pass you are recalling the passage rather than parsing it."
+      },
+      "reread-something-hard": {
+        "name": "Re-read something that was too hard",
+        "summary": "Open something that beat you months ago",
+        "trains": "the competence moment — noticing that it got easier",
+        "doesNotDo": "It teaches almost nothing new. Its whole value is evidence of progress you can feel, which is a motivation effect and not a learning one."
+      },
+      "retell-what-you-read": {
+        "name": "Retelling what you just read",
+        "summary": "Close the text and say what it said",
+        "trains": "production, and the link from input to output",
+        "doesNotDo": "It borrows the source's vocabulary. What comes out is partly the text's phrasing echoed back, so it overstates what you can say unprompted."
+      },
+      "rewrite-in-your-own-words": {
+        "name": "Rewriting a text in your own words",
+        "summary": "Say the same thing again, differently",
+        "trains": "reformulation",
+        "doesNotDo": "It rewards paraphrase over precision, and a learner short of vocabulary will reformulate downwards into what they already have."
+      },
+      "role-play": {
+        "name": "Role play or drama",
+        "summary": "Act out a situation with someone else",
+        "trains": "speaking without the anxiety",
+        "doesNotDo": "It needs other people, so it cannot be the thing you fall back on. A method that requires company is unavailable most of the time by construction."
+      },
+      "rule-at-point-of-error": {
+        "name": "Rule explanation at the point of error",
+        "summary": "Read why that was wrong, the moment it goes wrong",
+        "trains": "understanding, exactly when it is wanted",
+        "doesNotDo": "Understanding a rule is not being able to apply it. It removes confusion; it does not produce automaticity."
+      },
+      "self-talk": {
+        "name": "Self-talk — describe what you see",
+        "summary": "Describe what is in front of you, out loud",
+        "trains": "fluency under time pressure",
+        "doesNotDo": "Nobody corrects you. Errors repeated aloud in private get rehearsed as readily as correct forms do."
+      },
+      "sentence-transformation": {
+        "name": "Sentence transformation — tense, negation, person",
+        "summary": "Take a sentence and change its tense or its person",
+        "trains": "flexibility with forms you already meet",
+        "doesNotDo": "It supplies the sentence. You never have to decide what to say, only how to bend it."
+      },
+      "shadowing": {
+        "name": "Shadowing",
+        "summary": "Repeat a voice a beat behind it, without stopping",
+        "trains": "prosody, flow",
+        "doesNotDo": "It never asks you to choose a word. Following a voice at a delay is articulation practice, not retrieval, and it can be done with very little comprehension."
+      },
+      "shopping-list-in-your-head": {
+        "name": "Think through your shopping list in the target language",
+        "summary": "Run everyday lists through the language in your head",
+        "trains": "retrieval in the middle of ordinary life",
+        "doesNotDo": "You will notice the words you lack and then move on without looking them up, so the gap gets found and not filled."
+      },
+      "singing-along": {
+        "name": "Singing along",
+        "summary": "Sing with the recording, words in front of you",
+        "trains": "prosody, chunks",
+        "doesNotDo": "Song rhythm overrides speech rhythm. Stress and vowel length get bent to the melody, so the prosody you practise is not the prosody you need."
+      },
+      "srs-session": {
+        "name": "Spaced repetition session",
+        "summary": "The cards the schedule says are due today",
+        "trains": "retention",
+        "doesNotDo": "It builds nothing you can use in a sentence. Cards make words retrievable in isolation, and the rest of the app exists because that is not the same as knowing them."
+      },
+      "summarise-what-you-read": {
+        "name": "Summarising what you read",
+        "summary": "Say what a text said, shorter, in writing",
+        "trains": "the link from input to output",
+        "doesNotDo": "It lets you lift phrases. Without a deliberate delay between reading and writing, much of what appears is copied rather than produced."
+      },
+      "switch-phone-language": {
+        "name": "Switch your phone's language",
+        "summary": "Your phone speaks the language from now on",
+        "trains": "incidental everyday vocabulary",
+        "doesNotDo": "It teaches interface words and stops. Within a fortnight you stop reading the menus at all and it becomes invisible."
+      },
+      "tandem-or-language-cafe": {
+        "name": "Tandem or language café",
+        "summary": "Talk to a speaker who is also learning yours",
+        "trains": "real interaction",
+        "doesNotDo": "Half of it is in your own language, and a patient partner will accommodate you until neither of you notices what you cannot say."
+      },
+      "translate-a-song": {
+        "name": "Translating a song",
+        "summary": "Work out what a song you like actually says",
+        "trains": "idiom",
+        "doesNotDo": "Lyrics are unrepresentative. Inverted word order and archaic vocabulary are normal in songs and wrong in speech."
+      },
+      "video-game-in-target-language": {
+        "name": "A video game in the target language",
+        "summary": "Play something with the language switched over",
+        "trains": "reading under time pressure",
+        "doesNotDo": "Games are playable without reading. Once you know the interface you stop parsing the text, and the practice quietly ends while the play continues."
+      },
+      "voice-message": {
+        "name": "A voice message to a real person",
+        "summary": "Send one spoken message to somebody real",
+        "trains": "genuine communication",
+        "doesNotDo": "It cannot be scheduled around your weak forms. You will say what you needed to say, which is the value and also why it trains nothing in particular."
+      },
+      "write-and-perform-a-play": {
+        "name": "Writing and performing a play",
+        "summary": "Write something short and put it on",
+        "trains": "everything",
+        "doesNotDo": "It runs for weeks and produces one measurement. As a project it is excellent and as a source of signal it is nearly useless."
+      },
+      "write-to-one-friend": {
+        "name": "Write to one friend only in the target language",
+        "summary": "One person you only ever write to in the language",
+        "trains": "production with a genuine reason to be understood",
+        "doesNotDo": "Nobody corrects you and nothing is recorded. It is the highest-leverage entry in the catalogue and the app cannot see a single thing about it."
+      }
     }
   },
   "methodMaterial": {

@@ -7,6 +7,7 @@ import type { MethodEntry } from "@/lib/method-catalogue";
 import { MethodBadgeRow } from "@/features/method-menu/MethodBadge";
 import { MethodCardHeader } from "@/features/method-menu/MethodCardHeader";
 import { methodSectionSurface } from "@/features/method-menu/section-surface";
+import { useLocalizedMethod } from "@/features/method-menu/use-localized-method";
 import { useMethodMenuCopy } from "@/features/method-menu/use-method-menu-copy";
 import { useRequirementHelpers } from "@/features/method-menu/use-requirement-helpers";
 
@@ -21,6 +22,7 @@ export type LandingPreviewMethodCardProps = {
  */
 export function LandingPreviewMethodCard({ method, onSelect }: LandingPreviewMethodCardProps) {
   const { t } = useMethodMenuCopy();
+  const localized = useLocalizedMethod(method);
   const { requirementChips, durationChips } = useRequirementHelpers();
   const requirements = requirementChips(method.requires);
 
@@ -33,8 +35,8 @@ export function LandingPreviewMethodCard({ method, onSelect }: LandingPreviewMet
       <MethodCardHeader section={method.section} />
 
       <div className="flex flex-1 flex-col p-4">
-        <h3 className="text-xl font-semibold text-ink">{method.name}</h3>
-        <p className="mt-1 line-clamp-2 text-sm text-muted">{method.summary}</p>
+        <h3 className="text-xl font-semibold text-ink">{localized.name}</h3>
+        <p className="mt-1 line-clamp-2 text-sm text-muted">{localized.summary}</p>
 
         <MethodBadgeRow className="mt-3" method={method} />
 

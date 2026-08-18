@@ -8,6 +8,7 @@ import { menuQueryString } from "@/lib/method-menu-filter";
 import { hasMaterialSetup } from "@/lib/method-material-setup";
 import type { MaterialUnitId } from "@/lib/material-unit";
 import { sessionHrefForMethod, usesExerciseRunner, usesWordsReview } from "@/lib/method-session";
+import { localizeMethodEntry } from "@/lib/localize-method-entry";
 import { routes } from "@/lib/routes";
 import { cn } from "@/lib/utils";
 
@@ -75,6 +76,7 @@ export async function MethodDetail({ method, searchParams = {} }: MethodDetailPr
     ? await readMaterialSetupBundle(method, materialLabels)
     : { status: "omit" as const };
   const showMaterialSetup = materialBundle.status === "ok";
+  const localized = localizeMethodEntry(method, (key) => t(key as "entries.background-listening.name"));
 
   return (
     <>
@@ -88,21 +90,21 @@ export async function MethodDetail({ method, searchParams = {} }: MethodDetailPr
         <div className="grid gap-8 md:grid-cols-[minmax(0,1fr)_15rem] lg:grid-cols-[minmax(0,1fr)_17rem] lg:gap-10">
           <article className="min-w-0">
             <h1 className="text-3xl font-semibold tracking-tight text-ink sm:text-4xl">
-              {method.name}
+              {localized.name}
             </h1>
 
-            <p className="mt-4 text-lg leading-relaxed text-muted">{method.summary}</p>
+            <p className="mt-4 text-lg leading-relaxed text-muted">{localized.summary}</p>
 
             <MethodDetailBadgeBand method={method} className="mt-4" />
 
             <MethodDetailFacts method={method} variant="mobile" className="mt-6 md:hidden" />
 
-            <p className="mt-8 text-lg leading-relaxed text-ink">{method.trains}</p>
+            <p className="mt-8 text-lg leading-relaxed text-ink">{localized.trains}</p>
 
             <div className="mt-8 rounded-card border border-line bg-surface-raised p-5 shadow-soft">
               <p className="text-base leading-relaxed text-muted">
                 <span className="font-semibold text-ink">{t("card.doesNotDo")}. </span>
-                {method.doesNotDo}
+                {localized.doesNotDo}
               </p>
             </div>
 
