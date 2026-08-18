@@ -53,7 +53,7 @@ export const copy = {
   report: "Report a problem with this card",
   reportPopoverTitle: "Report this card",
   reportPopoverOutcome:
-    "We will stop scheduling this card from your next session. You can finish it today.",
+    "We will stop scheduling this card from your next session and skip it now.",
   reportCategoryLegend: "What is wrong? (optional)",
   reportCategories: {
     "wrong-translation": "Wrong translation",
@@ -68,5 +68,5 @@ export const copy = {
   reportSubmit: "Report",
   reportSuccessTitle: "Report received.",
   reportSuccessBody:
-    "We will not schedule this card again after today. You can finish reviewing it now.",
+    "We will not schedule this card again. Moving to the next card.",
 } as const;

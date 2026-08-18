@@ -251,9 +251,9 @@
     "syncFailed": "Ihre Bewertung konnte nicht gespeichert werden.",
     "syncRetry": "Erneut versuchen",
     "report": "Problem mit dieser Karte melden",
-    "reportDone": "Danke — wir planen diese Karte in Ihrer nächsten Sitzung nicht mehr ein. Diese können Sie zu Ende führen.",
+    "reportDone": "Danke — wir planen diese Karte nicht mehr ein. Nächste Karte.",
     "reportPopoverTitle": "Diese Karte melden",
-    "reportPopoverOutcome": "Wir planen diese Karte ab der nächsten Sitzung nicht mehr ein. Heute können Sie sie noch zu Ende führen.",
+    "reportPopoverOutcome": "Wir planen diese Karte ab der nächsten Sitzung nicht mehr ein und überspringen sie jetzt.",
     "reportCategoryLegend": "Was stimmt nicht? (optional)",
     "reportCategories": {
       "wrong-translation": "Falsche Übersetzung",
@@ -267,7 +267,7 @@
     "reportCancel": "Abbrechen",
     "reportSubmit": "Melden",
     "reportSuccessTitle": "Meldung erhalten.",
-    "reportSuccessBody": "Nach heute planen wir diese Karte nicht mehr ein. Sie können sie jetzt noch zu Ende wiederholen."
+    "reportSuccessBody": "Wir planen diese Karte nicht mehr ein. Nächste Karte."
   },
   "exerciseRunner": {
     "progress": "Schritt {current} von {total}",

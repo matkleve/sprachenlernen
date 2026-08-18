@@ -251,9 +251,9 @@
     "syncFailed": "Your grade could not be saved.",
     "syncRetry": "Retry",
     "report": "Report a problem with this card",
-    "reportDone": "Thanks — we will stop scheduling this card in your next session. You can finish this one.",
+    "reportDone": "Thanks — we will stop scheduling this card. Moving to the next one.",
     "reportPopoverTitle": "Report this card",
-    "reportPopoverOutcome": "We will stop scheduling this card from your next session. You can finish it today.",
+    "reportPopoverOutcome": "We will stop scheduling this card from your next session and skip it now.",
     "reportCategoryLegend": "What is wrong? (optional)",
     "reportCategories": {
       "wrong-translation": "Wrong translation",
@@ -267,7 +267,7 @@
     "reportCancel": "Cancel",
     "reportSubmit": "Report",
     "reportSuccessTitle": "Report received.",
-    "reportSuccessBody": "We will not schedule this card again after today. You can finish reviewing it now."
+    "reportSuccessBody": "We will not schedule this card again. Moving to the next card."
   },
   "exerciseRunner": {
     "progress": "Step {current} of {total}",

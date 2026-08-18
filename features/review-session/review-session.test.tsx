@@ -341,6 +341,25 @@ describe("ReviewSession", () => {
     expect(reportCardAction).toHaveBeenCalledWith("es:de", { category: null, note: null });
   });
 
+  it("skips the reported card and advances without grading", async () => {
+    const user = userEvent.setup();
+
+    render(
+      <ReviewSession
+        methodName="Spaced repetition session"
+        initialData={testInitialData}
+      />,
+    );
+
+    expect(screen.getByText("de")).toBeDefined();
+    await user.click(screen.getByRole("button", { name: en.reviewSession.report }));
+    await user.click(screen.getByRole("button", { name: en.reviewSession.reportSubmit }));
+
+    await waitFor(() => expect(screen.getByText("que")).toBeDefined());
+    expect(screen.queryByText("de")).toBeNull();
+    expect(screen.getByText(en.reviewSession.reportSuccessTitle)).toBeDefined();
+  });
+
   it("clears the report popover when the active card changes", async () => {
     const user = userEvent.setup();
     render(

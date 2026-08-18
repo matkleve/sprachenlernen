@@ -28,6 +28,7 @@ type ReviewCardProps = {
   onGrade: (grade: Grade) => void;
   onSubmitReport: (input: ReportCardInput) => Promise<void>;
   reportPending?: boolean;
+  exiting?: boolean;
   /** Hides progress line and tightens spacing for mobile one-screen layout. */
   compact?: boolean;
 };
@@ -40,13 +41,14 @@ export function ReviewCard({
   onGrade,
   onSubmitReport,
   reportPending = false,
+  exiting = false,
   compact = false,
 }: ReviewCardProps) {
   const t = useTranslations("reviewSession");
   const flagRef = useRef<HTMLButtonElement>(null);
   const [reportOpen, setReportOpen] = useState(false);
-  const flipEnabled = canFlip(phase);
-  const gradesEnabled = canGrade(phase);
+  const flipEnabled = canFlip(phase) && !exiting;
+  const gradesEnabled = canGrade(phase) && !exiting;
   const revealBack = showsBack(phase);
   const isFormRecall = isFormRecallTaskId(card.taskId);
   const gradePrompt = isFormRecall ? t("formRecallPrompt") : t("prompt");
@@ -101,6 +103,8 @@ export function ReviewCard({
           aria-label={flipEnabled ? t("flipHint") : undefined}
           className={cn(
             compact ? "flex min-h-0 flex-1 flex-col justify-center p-5 md:mt-6 md:flex-none md:p-8" : "mt-6 p-8",
+            "transition-[opacity,transform] duration-300",
+            exiting && "pointer-events-none scale-[0.98] -translate-y-2 opacity-0",
           )}
         >
           {languageName && (

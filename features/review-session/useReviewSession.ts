@@ -16,6 +16,7 @@ import {
   nextPhase,
   type SessionPhase,
 } from "@/features/review-session/session-machine";
+import { removeReportedCardFromQueue } from "@/features/review-session/remove-reported-card";
 import { getInstallationId } from "@/lib/installation-id";
 import { requeueInsertIndex } from "@/lib/review-session-requeue";
 import type { ReportCardInput } from "@/lib/card-report";
@@ -49,6 +50,7 @@ export type UseReviewSessionResult = {
   gradedCount: number;
   reportAck: ReportAck | null;
   reportPending: boolean;
+  cardExiting: boolean;
   flip: () => void;
   grade: (value: Grade) => void;
   submitReport: (input: ReportCardInput) => Promise<void>;
@@ -56,6 +58,7 @@ export type UseReviewSessionResult = {
 };
 
 const SYNC_STATUS_DELAY_MS = 500;
+const REPORT_EXIT_MS = 320;
 
 function initialStatusFromData(
   data: ReviewSessionInitialData | undefined,
@@ -91,6 +94,7 @@ export function useReviewSession(options: UseReviewSessionOptions = {}): UseRevi
   const [gradedCount, setGradedCount] = useState(0);
   const [reportAck, setReportAck] = useState<ReportAck | null>(null);
   const [reportPending, setReportPending] = useState(false);
+  const [cardExiting, setCardExiting] = useState(false);
   const shownAtRef = useRef(Date.now());
   const gradingRef = useRef(false);
 
@@ -217,7 +221,7 @@ export function useReviewSession(options: UseReviewSessionOptions = {}): UseRevi
 
   const submitReport = useCallback(
     async (input: ReportCardInput) => {
-      if (!currentCard || reportPending) return;
+      if (!currentCard || reportPending || cardExiting) return;
 
       setReportPending(true);
       setReportAck(null);
@@ -228,9 +232,37 @@ export function useReviewSession(options: UseReviewSessionOptions = {}): UseRevi
         return;
       }
       setReportAck({ variant: "success" });
+      setCardExiting(true);
     },
-    [currentCard, reportPending],
+    [cardExiting, currentCard, reportPending],
   );
+
+  useEffect(() => {
+    if (!cardExiting || !currentCard) return;
+
+    const reportedWordId = currentCard.wordId;
+    const timer = window.setTimeout(() => {
+      const { queue: nextQueue, nextIndex } = removeReportedCardFromQueue(
+        queue,
+        sessionIndex,
+        reportedWordId,
+      );
+
+      setCardExiting(false);
+      setQueue(nextQueue);
+
+      if (nextIndex >= nextQueue.length) {
+        setPhase((current) => nextPhase(nextPhase(current, "advancing"), "complete"));
+        return;
+      }
+
+      setSessionIndex(nextIndex);
+      setPhase((current) => nextPhase(nextPhase(current, "advancing"), "prompting"));
+      shownAtRef.current = Date.now();
+    }, REPORT_EXIT_MS);
+
+    return () => window.clearTimeout(timer);
+  }, [cardExiting, currentCard, queue, sessionIndex]);
 
   return {
     status,
@@ -245,6 +277,7 @@ export function useReviewSession(options: UseReviewSessionOptions = {}): UseRevi
     gradedCount,
     reportAck,
     reportPending,
+    cardExiting,
     flip,
     grade,
     submitReport,
