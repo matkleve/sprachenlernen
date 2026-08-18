@@ -13,18 +13,18 @@ Parent: [`mobile-nav-v2.md`](mobile-nav-v2.md) (version label slot). Versioning:
 ## Scope
 
 - **In:** `GET /api/app-version` returning the deployed Pride version;
-  client-side compare against the bundled version; tappable footer row showing
-  the **deployed** Pride version in `text-success` with an `ArrowDownCircle`
-  icon when stale (replaces the muted current label); an **App** block on
-  `/profile` with running version, **Check for updates**, and a green reload
-  row when stale; checks on mount, `visibilitychange`, and a five-minute
+  client-side compare against the bundled version; tappable **update chip** above
+  the mobile destination pill with **Update available** copy and an
+  `ArrowDownCircle` icon when stale (muted current label below the pill when
+  current); an **App** block on `/profile` with running version, **Check for
+  updates**, and a green reload row when stale; checks on mount, `visibilitychange`, and a five-minute
   interval; `location.reload()` on tap.
 - **Out:** service worker; auto-reload; a separate Settings destination;
   build-id / git SHA (Pride version only).
 
 **Reuse:** `Button` (`ghost`, `sm`), `APP_PRIDE_VERSION` / `formatPrideVersion`
 from `lib/pride-version.ts`, `AppUpdateProvider` (one shared check for footer +
-profile), `AppVersionLabel` slot in `FloatingShellChrome`.
+profile), `AppUpdateChip` and `AppVersionLabel` slots in `FloatingShellChrome`.
 
 ## Behavior
 
@@ -32,7 +32,7 @@ profile), `AppVersionLabel` slot in `FloatingShellChrome`.
 | --- | --- | --- |
 | 1 | Opens any signed-in route | Client fetches `/api/app-version` with `cache: no-store` |
 | 2 | Running version matches server | Muted `vPROUD.DEFAULT.SHAME` label as today |
-| 3 | Server version is newer | Deployed `vPROUD.DEFAULT.SHAME` in `text-success` with download icon; tap reloads |
+| 3 | Server version is newer | Green **Update available** chip with download icon above the pill; tap reloads |
 | 4 | Taps Reload | Full page reload |
 | 5 | Returns to tab / app (`visibilitychange` → visible) | Re-check; prompt appears if a deploy happened while away |
 | 5b | iOS PWA resumes (`pageshow` / `focus`) | Same re-check as visibility |
@@ -47,7 +47,7 @@ profile), `AppVersionLabel` slot in `FloatingShellChrome`.
 | State | Trigger | Visual | Terminal? |
 | --- | --- | --- | --- |
 | `current` | versions equal or check pending/failed | muted version label | no |
-| `stale` | server version ≠ bundled version | green version + icon button | no (until reload) |
+| `stale` | server version ≠ bundled version | green update chip above pill | no (until reload) |
 
 ## Data
 
@@ -61,9 +61,10 @@ profile), `AppVersionLabel` slot in `FloatingShellChrome`.
 - [ ] Given the bundled and deployed Pride versions match, when the mobile shell
       renders, then the muted version label appears and no Reload control.
 - [ ] Given the server returns a higher Pride version, when the check completes,
-      then the footer shows the deployed version in `text-success` with an
-      `ArrowDownCircle` icon and hides the muted current label.
-- [ ] Given the learner taps the stale version control, when the handler runs,
+      then a green **Update available** chip with an `ArrowDownCircle` icon
+      appears **above** the mobile destination pill and the muted current label
+      is hidden.
+- [ ] Given the learner taps the stale update chip, when the handler runs,
       then `window.location.reload()` is called.
 - [ ] Given the tab becomes visible again, when a newer deploy landed since the
       last check, then the green version control appears without a full navigation.
@@ -76,7 +77,8 @@ profile), `AppVersionLabel` slot in `FloatingShellChrome`.
       successful fetch, em dash before that), and a **Check for updates** control.
 - [ ] Given a higher deployed version, when the learner opens `/profile` or taps
       **Check for updates**, then a green reload row names the deployed version
-      **and** the mobile footer label shows the same deployed version.
+      **and** the mobile footer shows the same **Update available** chip above
+      the pill.
 
 ## Check
 

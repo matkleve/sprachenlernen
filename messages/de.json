@@ -74,6 +74,7 @@
     "viewProgress": "Auf Fortschritt ansehen",
     "backTo": "Zurück zu {destination}",
     "appUpdate": {
+      "updateAvailable": "Update verfügbar",
       "reloadAria": "Neu laden, um von {currentVersion} auf {nextVersion} zu aktualisieren"
     },
     "destinations": {
