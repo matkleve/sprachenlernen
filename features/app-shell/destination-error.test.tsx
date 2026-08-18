@@ -23,10 +23,12 @@ const renderDestinationError = (pathname: string, message = "boom") => {
 
 beforeEach(() => {
   vi.mocked(usePathname).mockReset();
+  sessionStorage.clear();
 });
 
 afterEach(() => {
   vi.unstubAllGlobals();
+  sessionStorage.clear();
 });
 
 describe("DestinationError", () => {
@@ -54,11 +56,12 @@ describe("DestinationError", () => {
     expect(reset).not.toHaveBeenCalled();
   });
 
-  it("shows Back to Methods on profile errors", () => {
+  it("shows a contextual escape link on profile errors", () => {
+    sessionStorage.setItem("app:navigation:previous", "/words");
     renderDestinationError("/profile");
 
-    expect(screen.getByRole("link", { name: "Back to Methods" }).getAttribute("href")).toBe(
-      "/methods",
+    expect(screen.getByRole("link", { name: "Back to Words" }).getAttribute("href")).toBe(
+      "/words",
     );
   });
 });
