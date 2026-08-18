@@ -15,6 +15,7 @@ DEFAULT_SOURCE = (
 )
 DESIGN_SOURCE = ROOT / "design/skill-tier-badges/source-grid.png"
 DESIGN_SOURCE_UPLOAD = ROOT / "design/skill-tier-badges/source-grid-upload.png"
+DESIGN_SOURCE_V3 = ROOT / "design/skill-tier-badges/source-grid-v3.png"
 DESIGN_SOURCE_V2 = ROOT / "design/skill-tier-badges/source-grid-v2.png"
 DESIGN_SOURCE_ORNATE = ROOT / "design/skill-tier-badges/source-grid-ornate.png"
 OUT_DIR = ROOT / "public/assets/skill-tier-badges"
@@ -244,6 +245,7 @@ def normalize_badge(cell: Image.Image) -> Image.Image:
 
 def pick_source() -> Path:
     for candidate in (
+        DESIGN_SOURCE_V3,
         DESIGN_SOURCE_UPLOAD,
         DESIGN_SOURCE_V2,
         DESIGN_SOURCE_ORNATE,
@@ -259,6 +261,7 @@ def main() -> None:
     source = pick_source()
     DESIGN_SOURCE.parent.mkdir(parents=True, exist_ok=True)
     v2 = source.resolve() in {
+        DESIGN_SOURCE_V3.resolve(),
         DESIGN_SOURCE_UPLOAD.resolve(),
         DESIGN_SOURCE_V2.resolve(),
     }
