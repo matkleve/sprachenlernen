@@ -73,8 +73,10 @@ banners), not under the session title line.
 | Success-deep | Graded **Good** or **Easy** with no same-run repeat pending |
 
 When a poor grade re-inserts a card, that card's segment **moves** to match its
-next position in the queue; the move is animated (layout transition). The
-numeric `progress` line is unchanged. Owner decision 2026-08-18: strip at top,
+next position in the queue; the move is animated (layout transition). Segments
+use a **fixed width** (`w-2`) in a compact left-aligned row — not `flex-1` across
+the full viewport (owner 2026-08-18: full-width spread looked too far apart).
+The numeric `progress` line is unchanged. Owner decision 2026-08-18: strip at top,
 not bottom ([`../../IDEAS.md`](../../IDEAS.md) status-dots idea).
 
 ## Acceptance criteria
