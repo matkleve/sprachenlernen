@@ -19,7 +19,7 @@ Implementation: `features/method-menu/MethodCard.tsx`.
 
 | Element | Class | Notes |
 | --- | --- | --- |
-| Method name (`h3`) | `text-xl font-semibold text-ink` | Primary identity on the card |
+| Method name (`h3`) | `text-3xl font-semibold leading-tight text-ink` | Primary identity on the card |
 | Summary | `text-sm text-muted line-clamp-2` | unchanged |
 | Badge row | See [`method-badge.md`](method-badge.md) | tier shields + effort dots |
 | Property chips | [`chip.md`](chip.md) | `size="card"` — `text-sm`, `min-h-8`, uniform |
@@ -29,7 +29,7 @@ Header: [`method-card-header.md`](method-card-header.md).
 ## Acceptance criteria
 
 - [ ] Given any method card, when it renders, then the method name uses
-      `text-lg` — not `text-base`.
+      `text-3xl` — primary identity at catalogue distance.
 - [ ] Given any method card, when it renders, then the header graphic uses the
       card header rules in [`method-card-header.md`](method-card-header.md).
 

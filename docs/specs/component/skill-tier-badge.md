@@ -31,8 +31,9 @@ Implementation: `features/method-menu/SkillTierBadge.tsx`,
 Height is the single sizing axis. Wider gold/platinum silhouettes must not be
 scaled down to fit a fixed-width box — that made higher tiers look smaller than
 wood/bronze on the same row. PNGs are normalised by **content height** in
-`scripts/slice-skill-tier-badges.py` (not `min(w,h)` fit). Row `gap-0.5`;
-badges align `items-end` on a shared baseline.
+`scripts/slice-skill-tier-badges.py` (not `min(w,h)` fit). **Card** row
+`gap-0 -space-x-4` — overlap PNG transparent margins so shields read as a
+cluster; **detail** row `gap-0.5`. Badges align `items-end` on a shared baseline.
 
 PNG assets: **256×256** normalised canvas, shield **≤50%** fill — ≥21% transparent
 margin (`scripts/slice-skill-tier-badges.py`, ornate source grid).

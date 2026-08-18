@@ -121,7 +121,13 @@ export function SkillTierBadgeRow({
   if (visible.length === 0 && overflow.length === 0) return null;
 
   return (
-    <span className={cn("inline-flex items-end gap-0.5", className)}>
+    <span
+      className={cn(
+        "inline-flex items-end",
+        size === "card" ? "gap-0 -space-x-4" : "gap-0.5",
+        className,
+      )}
+    >
       {visible.map((mark) => (
         <SkillTierBadge key={mark.skill} skill={mark.skill} tier={mark.tier} size={size} />
       ))}

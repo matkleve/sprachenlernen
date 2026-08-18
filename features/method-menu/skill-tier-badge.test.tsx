@@ -4,7 +4,7 @@ import { describe, expect, it } from "vitest";
 
 import { expectNoA11yViolations } from "@/tests/axe";
 
-import { SkillTierBadge, SkillTierOverflow } from "./SkillTierBadge";
+import { SkillTierBadge, SkillTierBadgeRow, SkillTierOverflow } from "./SkillTierBadge";
 
 describe("SkillTierBadge", () => {
   it("renders the tier asset with an accessible name and no visible label", () => {
@@ -57,5 +57,22 @@ describe("SkillTierOverflow", () => {
       />,
     );
     expect(screen.getByLabelText(/2 more: Bronze Writing, Silver Speaking/i)).toBeDefined();
+  });
+});
+
+describe("SkillTierBadgeRow", () => {
+  it("overlaps card shields to collapse PNG transparent margins", () => {
+    const { container } = render(
+      <SkillTierBadgeRow
+        size="card"
+        visible={[
+          { skill: "listening", tier: "wood" },
+          { skill: "reading", tier: "gold" },
+        ]}
+        overflow={[]}
+      />,
+    );
+    expect(container.firstElementChild?.className).toContain("-space-x-4");
+    expect(container.firstElementChild?.className).toContain("gap-0");
   });
 });
