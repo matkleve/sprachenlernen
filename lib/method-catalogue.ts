@@ -400,7 +400,7 @@ export const fitsPartialContext = (
   );
 };
 
-const AUDIBLE_SOUND = new Set(["speaker", "headphones"]);
+const AUDIBLE_SOUND = new Set<(typeof CONTEXT_DIMENSIONS.sound)[number]>(["speaker", "headphones"]);
 
 /** True when any performance mode needs speaker or headphones (UC-077 filter). */
 export const methodRequiresSound = (entry: MethodEntry): boolean => {
@@ -411,7 +411,9 @@ export const methodRequiresSound = (entry: MethodEntry): boolean => {
   return sets.some((set) => {
     const sound = set.sound;
     if (!sound) return false;
-    return sound.some((value) => AUDIBLE_SOUND.has(value));
+    return sound.some((value: (typeof CONTEXT_DIMENSIONS.sound)[number]) =>
+      AUDIBLE_SOUND.has(value),
+    );
   });
 };
 
