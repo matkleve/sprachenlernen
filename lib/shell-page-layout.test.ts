@@ -19,6 +19,11 @@ describe("shellPageLayout", () => {
     expect(isActiveReviewSession("/words/review", params)).toBe(true);
   });
 
+  it("marks active exercise session as one-screen-exercise", () => {
+    const params = new URLSearchParams({ method: "build-a-sentence" });
+    expect(shellPageLayout("/practice", params)).toBe("one-screen-exercise");
+  });
+
   it("marks review route without active session as scrollable-drill-in", () => {
     expect(shellPageLayout("/words/review")).toBe("scrollable-drill-in");
     expect(shellPageLayout("/words/review", new URLSearchParams({ method: "other" }))).toBe(

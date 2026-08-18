@@ -37,9 +37,7 @@ export function ExerciseRunner({
   const runner = useExerciseRunner({ recipe, methodName });
   const { state, activeStep } = runner;
 
-  const rootClass = cn(
-    compact ? "flex min-h-0 flex-1 flex-col md:mt-page-content" : "mt-page-content",
-  );
+  const rootClass = "flex min-h-0 flex-1 flex-col gap-4";
 
   if (state.phase === "abandoned") {
     return (
@@ -66,20 +64,21 @@ export function ExerciseRunner({
   const stepLabel = resolveExerciseStepLabel(activeStep, (key) => t(key as "stepLabelPrepare"));
 
   return (
-    <div className={cn(rootClass, "flex min-h-0 flex-col gap-4")}>
-      <ExerciseRunnerHero
-        section={section}
-        sectionLabel={sectionLabel}
-        methodName={methodName}
-        stepLabel={stepLabel}
-        compact={compact}
-        stopLabel={t("stop")}
-        onStop={runner.requestStop}
-      />
+    <div className={rootClass}>
+      <div className="shrink-0 space-y-4">
+        <ExerciseRunnerHero
+          section={section}
+          sectionLabel={sectionLabel}
+          methodName={methodName}
+          stepLabel={stepLabel}
+          compact={compact}
+          stopLabel={t("stop")}
+          onStop={runner.requestStop}
+        />
+        <ExerciseRunnerProgress state={state} onTogglePause={runner.togglePause} />
+      </div>
 
-      <ExerciseRunnerProgress state={state} onTogglePause={runner.togglePause} />
-
-      <div className="min-h-0 flex-1 overflow-y-auto px-0.5">
+      <div className="min-h-0 flex-1 overflow-y-auto p-1">
         <ExerciseStepBody
           step={activeStep}
           submitDraft={state.submitDraft}

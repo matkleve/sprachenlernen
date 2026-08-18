@@ -246,7 +246,7 @@ async function listReviewsForTaskIdsImpl(
   client?: SupabaseClient,
 ): Promise<ListReviewsOutcome> {
   const supabase = await resolveClient(client);
-  const account = await getAccount(supabase);
+  const account = await getAccount();
   if (!account) {
     const handled = databaseNotSignedIn({ operation: "load your review history" });
     void logHandledErrorFromRequest(handled);
@@ -296,7 +296,7 @@ export async function listAllReviews(
   client?: SupabaseClient,
 ): Promise<ListReviewsOutcome> {
   const supabase = await resolveClient(client);
-  const account = await getAccount(supabase);
+  const account = await getAccount();
   if (!account) {
     const handled = databaseNotSignedIn({ operation: "load your review history" });
     void logHandledErrorFromRequest(handled);

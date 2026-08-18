@@ -85,7 +85,7 @@ async function listTaskStatesForTaskIdsImpl(
   client?: SupabaseClient,
 ): Promise<ListTaskStatesOutcome> {
   const supabase = await resolveClient(client);
-  const account = await getAccount(supabase);
+  const account = await getAccount();
   if (!account) {
     const handled = databaseNotSignedIn({ operation: "load your review state" });
     void logHandledErrorFromRequest(handled);
@@ -120,7 +120,7 @@ export async function listTaskStatesForUser(
   client?: SupabaseClient,
 ): Promise<ListTaskStatesOutcome> {
   const supabase = await resolveClient(client);
-  const account = await getAccount(supabase);
+  const account = await getAccount();
   if (!account) {
     const handled = databaseNotSignedIn({ operation: "load your review state" });
     void logHandledErrorFromRequest(handled);

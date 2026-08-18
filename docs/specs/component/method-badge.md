@@ -24,7 +24,7 @@ Implementation: `features/method-menu/MethodBadge.tsx`.
 
 | # | User action | System response |
 | --- | --- | --- |
-| 1 | Sees a method card | Effort under summary; shields on the next row; property chips beside shields from `md:` |
+| 1 | Sees a method card | Effort under summary; shields on the next row |
 | 2 | Opens method detail | Same tier rules at detail size + effort dots |
 | 3 | Focuses a card link | `sr-only` summary states tiers and effort |
 
@@ -35,9 +35,6 @@ an accent pill — `bg-accent-soft text-accent font-semibold`, `rounded-pill`. D
 **grow left to right** (`size-1.5` → `size-2` → `size-2.5`); filled through
 `intensity` use `bg-accent`, rest `bg-line`. On **cards:** `size="card"` —
 `text-sm`, `min-h-8`, **left-aligned under summary** in `layout="stacked"`.
-**Stacked + `shieldCompanion`:** shields and companion (property chips) share a
-row from `md:` (`md:flex md:gap-4`) — fills wide 2-col tablet cards without
-putting effort and shields on one line.
 On **dialog preview:** `layout="row"` — shields left, effort right (`ml-auto`).
 No `effortCard` words on the surface — anchor sentence in `aria-label` and
 `title`.

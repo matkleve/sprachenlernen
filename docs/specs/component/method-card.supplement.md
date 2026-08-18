@@ -25,8 +25,8 @@ does not surface it.
 **Placement:** top-right of the **card header** band — same zone as the section
 label (label stays bottom-left). See [`method-card-header.md`](method-card-header.md).
 
-**Not** a separate button. Not at the card bottom. `font-semibold`, scrim pocket
-like the section label (`bg-surface/70`, light blur).
+**Not** a separate button. Not at the card bottom. Quiet text only — no border,
+fill, scrim, or shadow.
 
 ### Two values only
 

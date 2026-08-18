@@ -145,8 +145,13 @@ export function ExerciseRunnerFooter({
 
   return (
     <>
-      <footer className="mt-auto shrink-0 border-t border-line pt-3 pb-[max(0.75rem,env(safe-area-inset-bottom))]">
-        <div className="flex flex-col items-end gap-3">
+      <footer className="relative mt-auto shrink-0 pb-[max(0.75rem,env(safe-area-inset-bottom))]">
+        <div
+          className="pointer-events-none absolute inset-x-0 -top-8 h-8 bg-gradient-to-t from-canvas to-transparent"
+          aria-hidden
+        />
+        <div className="relative border-t border-line bg-canvas/95 pt-3 backdrop-blur-sm">
+          <div className="flex flex-col items-end gap-3">
           <div className="flex items-center gap-2">
             <Button
               type="button"
@@ -182,6 +187,7 @@ export function ExerciseRunnerFooter({
               {primaryLabel}
             </Button>
           ) : null}
+          </div>
         </div>
       </footer>
 

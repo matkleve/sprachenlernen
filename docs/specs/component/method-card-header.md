@@ -34,11 +34,11 @@ closing this spec.
 
 | Property | Value |
 | --- | --- |
-| Height | `h-24` (96px) |
+| Height | `h-24` (96px); `md:h-28` in the tablet 2-col band; `lg:h-24` when 3-col |
 | Image fit | **`object-cover object-top`** on card — crop, never stretch |
 | Fade | Three stops into **section soft** tint — matches card body |
-| Section label | Bottom-left; uppercase **`text-ink`**; scrim pocket |
-| Destination marker | Top-right; **secondary button shape** (`border`, `rounded-pill`, `shadow-soft`) — **not** a chip scrim; not a nested control |
+| Section label | Bottom-left; uppercase `text-muted` — quiet text, no scrim |
+| Destination marker | Top-right; quiet text only — no border, fill, or shadow |
 
 ## Hero variant (`size="hero"`)
 
@@ -57,13 +57,13 @@ into `canvas`. Unchanged from card polish (T-B10f).
 
 - [ ] Given any method card, when it renders, then a header graphic appears
       above the title with full card width.
-- [ ] Given card size, when the header renders, then height is **`h-24`**.
+- [ ] Given card size, when the header renders, then height is **`h-24`** at mobile and `lg+`, **`md:h-28`** in the tablet 2-col band.
 - [ ] Given card size, when the header renders, then the image uses
       **`object-cover object-top`** — cropped, never stretched.
 - [ ] Given card size, when the header renders, then a **multi-stop** fade
       merges into the **section soft** background without a visible hard horizon.
-- [ ] Given the section label, when the header renders, then contrast meets
-      WCAG AA against the fade (scrim pocket behind label).
+- [ ] Given the section label, when the header renders, then it is plain
+      uppercase muted text — no scrim pocket or button chrome.
 - [ ] Given a method in the listening section, when the card renders, then the
       listening section asset is shown.
 - [ ] Given any header, when it renders, then only token utilities are used.

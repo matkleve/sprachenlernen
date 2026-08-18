@@ -12,6 +12,12 @@ import {
   setActiveLanguage,
 } from "@/lib/db/learning-languages";
 
+vi.mock("@/lib/db/client", () => ({
+  createServerSupabaseClient: vi.fn(),
+}));
+
+import { createServerSupabaseClient } from "@/lib/db/client";
+
 /**
  * Offline adapter coverage. RLS for `learner_language` — including the UPDATE
  * surface this table is the first to grant — is proven against the live project
@@ -85,6 +91,8 @@ function client(options: {
       update,
     }),
   } as unknown as SupabaseClient;
+
+  vi.mocked(createServerSupabaseClient).mockResolvedValue(supabase);
 
   return { supabase, inserted, updates };
 }

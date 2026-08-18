@@ -72,7 +72,7 @@ async function listLearningLanguagesImpl(
   client?: SupabaseClient,
 ): Promise<ListLanguagesOutcome> {
   const supabase = await resolveClient(client);
-  const account = await getAccount(supabase);
+  const account = await getAccount();
   if (!account) {
     const handled = languageNotSignedIn({ operation: "load your languages" });
     void logHandledErrorFromRequest(handled);
@@ -111,7 +111,7 @@ export async function addLearningLanguage(
   }
 
   const supabase = await resolveClient(client);
-  const account = await getAccount(supabase);
+  const account = await getAccount();
   if (!account) {
     const handled = languageNotSignedIn({ operation: "add a language" });
     void logHandledErrorFromRequest(handled);
@@ -165,7 +165,7 @@ export async function setActiveLanguage(
   client?: SupabaseClient,
 ): Promise<MutateLanguageOutcome> {
   const supabase = await resolveClient(client);
-  const account = await getAccount(supabase);
+  const account = await getAccount();
   if (!account) {
     const handled = languageNotSignedIn({ operation: "switch language" });
     void logHandledErrorFromRequest(handled);

@@ -62,22 +62,6 @@ describe("MethodBadgeRow", () => {
     expect(effort.className).not.toContain("ml-auto");
     expect(effort.compareDocumentPosition(shield) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
   });
-
-  it("places shield companion beside shields from md breakpoint in stacked layout", () => {
-    render(
-      <MethodBadgeRow
-        method={method}
-        layout="stacked"
-        shieldCompanion={<span data-testid="companion">chips</span>}
-      />,
-    );
-    const companion = screen.getByTestId("companion");
-    const shield = screen.getByRole("img", { name: /Wood Listening/i });
-    const band = companion.parentElement;
-    expect(band?.className).toContain("md:flex");
-    expect(band?.contains(shield)).toBe(true);
-    expect(band?.contains(companion)).toBe(true);
-  });
 });
 
 describe("EffortBadge", () => {

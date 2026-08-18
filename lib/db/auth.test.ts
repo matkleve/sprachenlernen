@@ -1,5 +1,5 @@
 import type { SupabaseClient } from "@supabase/supabase-js";
-import { describe, expect, it, vi } from "vitest";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 
 import { deleteAccount, getAccount, signIn, signOut, signUp } from "@/lib/db/auth";
 
@@ -14,7 +14,12 @@ vi.mock("@/lib/db/admin-client", () => ({
   createServiceRoleSupabaseClient: vi.fn(),
 }));
 
+vi.mock("@/lib/db/client", () => ({
+  createServerSupabaseClient: vi.fn(),
+}));
+
 import { createServiceRoleSupabaseClient } from "@/lib/db/admin-client";
+import { createServerSupabaseClient } from "@/lib/db/client";
 
 function fakeClient(overrides: {
   signUp?: unknown;
@@ -50,6 +55,15 @@ function fakeClient(overrides: {
 }
 
 const user = { id: "user-1", email: "a@example.com" };
+
+const defaultServerClient = {
+  auth: { getSession: vi.fn().mockResolvedValue({ data: { session: null } }) },
+};
+
+beforeEach(() => {
+  vi.mocked(createServerSupabaseClient).mockReset();
+  vi.mocked(createServerSupabaseClient).mockResolvedValue(defaultServerClient as never);
+});
 
 describe("signUp", () => {
   it("is signed-in when Supabase returns a session immediately", async () => {
@@ -147,6 +161,23 @@ describe("getAccount", () => {
     const client = fakeClient({ getSession: { data: { session: null } } });
     expect(await getAccount(client)).toBeNull();
   });
+
+  it("routes the cached server client through the request path", async () => {
+    const getSession = vi.fn().mockResolvedValue({ data: { session: { user } } });
+    const requestClient = { auth: { getSession } } as unknown as SupabaseClient;
+    vi.mocked(createServerSupabaseClient).mockResolvedValue(requestClient as never);
+
+    expect(await getAccount(requestClient)).toEqual({ id: "user-1", email: "a@example.com" });
+    expect(getSession).toHaveBeenCalledTimes(1);
+  });
+
+  it("reads an injected test client directly", async () => {
+    const testClient = fakeClient({ getSession: { data: { session: { user } } } });
+
+    expect(await getAccount(testClient)).toEqual({ id: "user-1", email: "a@example.com" });
+    expect(testClient.auth.getSession).toHaveBeenCalledTimes(1);
+    expect(defaultServerClient.auth.getSession).not.toHaveBeenCalled();
+  });
 });
 
 describe("deleteAccount", () => {
@@ -162,6 +193,7 @@ describe("deleteAccount", () => {
       signOut: { error: null },
     });
     (client.auth.signOut as ReturnType<typeof vi.fn>) = signOutFn;
+    vi.mocked(createServerSupabaseClient).mockResolvedValue(client);
 
     expect(await deleteAccount(client)).toEqual({ status: "deleted" });
     expect(deleteUser).toHaveBeenCalledWith("user-1");
@@ -170,6 +202,7 @@ describe("deleteAccount", () => {
 
   it("errors when signed out", async () => {
     const client = fakeClient({ getSession: { data: { session: null } } });
+    vi.mocked(createServerSupabaseClient).mockResolvedValue(client);
     expect(await deleteAccount(client)).toEqual({
       status: "error",
       error: "You must be signed in to delete your account.",

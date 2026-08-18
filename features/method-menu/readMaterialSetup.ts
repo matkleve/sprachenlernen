@@ -56,7 +56,7 @@ export async function readMaterialSetupBundle(
     const context = buildMaterialSetupContext(method, sources, lexicon, heldLemmas, labels);
     if (!context) return { status: "omit" };
 
-    const account = await getAccount(await createServerSupabaseClient());
+    const account = await getAccount();
 
     return {
       status: "ok",

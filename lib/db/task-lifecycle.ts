@@ -81,7 +81,7 @@ export async function applyTaskLifecycle(
   client?: SupabaseClient,
 ): Promise<ApplyTaskLifecycleOutcome> {
   const supabase = await resolveClient(client);
-  const account = await getAccount(supabase);
+  const account = await getAccount();
   if (!account) {
     const handled = databaseNotSignedIn({ operation: "update this word" });
     void logHandledErrorFromRequest(handled);

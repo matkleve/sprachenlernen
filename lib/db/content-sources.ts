@@ -60,7 +60,7 @@ export async function createLearnerTextSource(
   client?: SupabaseClient,
 ): Promise<LearnerSourceOutcome> {
   const supabase = await resolveClient(client);
-  const account = await getAccount(supabase);
+  const account = await getAccount();
   if (!account) {
     const handled = databaseNotSignedIn({ operation: "save this text to your library" });
     void logHandledErrorFromRequest(handled);
@@ -104,7 +104,7 @@ export async function listLearnerSourcesForLanguage(
   client?: SupabaseClient,
 ): Promise<LearnerSourcesOutcome> {
   const supabase = await resolveClient(client);
-  const account = await getAccount(supabase);
+  const account = await getAccount();
   if (!account) {
     return { status: "ok", sources: [] };
   }
@@ -137,7 +137,7 @@ export async function findLearnerSourceById(
   client?: SupabaseClient,
 ): Promise<LearnerSourceOutcome | { status: "not-found" }> {
   const supabase = await resolveClient(client);
-  const account = await getAccount(supabase);
+  const account = await getAccount();
   if (!account) {
     return { status: "not-found" };
   }

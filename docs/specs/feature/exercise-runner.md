@@ -11,7 +11,8 @@ The **cooking-app runner** for multi-step Methods: prepare → do → wait → s
 of typed steps filled with **step components**. Parent vision:
 [`../../study/23-how-an-exercise-runs.md`](../../study/23-how-an-exercise-runs.md).
 
-Route: [`../page/practice.md`](../page/practice.md). Task UI scale:
+Route: [`../page/practice.md`](../page/practice.md). Layout zones:
+[`exercise-runner.layout.md`](exercise-runner.layout.md). Task UI scale:
 [`practice-surface.md`](practice-surface.md). Material setup before
 Start: [`method-material-setup.md`](method-material-setup.md). Card-engine Methods
 stay on [`../page/words-review.md`](../page/words-review.md) — not this runner.

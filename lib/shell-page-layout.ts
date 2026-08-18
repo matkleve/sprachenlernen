@@ -9,7 +9,8 @@ import { routes } from "@/lib/routes";
 export type ShellPageLayoutMode =
   | "scrollable-destination"
   | "scrollable-drill-in"
-  | "one-screen-runner";
+  | "one-screen-runner"
+  | "one-screen-exercise";
 
 /** True when pathname is an active review session (one-screen runner on mobile). */
 export function isActiveReviewSession(pathname: string, searchParams: URLSearchParams): boolean {
@@ -36,7 +37,7 @@ export function shellPageLayout(
   }
 
   if (isActiveExerciseSession(pathname, searchParams)) {
-    return "one-screen-runner";
+    return "one-screen-exercise";
   }
 
   if (pathname.startsWith("/methods/") && pathname !== "/methods") {

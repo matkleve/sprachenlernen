@@ -35,7 +35,7 @@ export async function flagCardContent(
   client?: SupabaseClient,
 ): Promise<FlagCardOutcome> {
   const supabase = await resolveClient(client);
-  const account = await getAccount(supabase);
+  const account = await getAccount();
   if (!account) {
     const handled = languageNotSignedIn({ operation: "report this card" });
     void logHandledErrorFromRequest(handled);
@@ -76,7 +76,7 @@ export async function listFlaggedWordIds(
   client?: SupabaseClient,
 ): Promise<ListFlaggedOutcome> {
   const supabase = await resolveClient(client);
-  const account = await getAccount(supabase);
+  const account = await getAccount();
   if (!account) {
     const handled = languageNotSignedIn({ operation: "load your reported cards" });
     void logHandledErrorFromRequest(handled);

@@ -47,6 +47,7 @@ Applied via `PracticeSurface` wrapper — not new CSS color tokens.
 | 3 | Runner footer | `border-t border-line` only — no `bg-surface` panel on `canvas` |
 | 4 | Primary CTA | `Button` `lg`, `w-auto`, bottom-right stack under nav chips |
 | 5 | New step UI | Must use practice-surface primitives before app-scale fields |
+| 6 | Long text steps | `scroll` or `paginated` profile — never grow the page past the footer |
 
 ## Acceptance criteria
 

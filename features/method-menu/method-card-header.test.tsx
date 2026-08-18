@@ -36,11 +36,12 @@ describe("MethodCardHeader", () => {
     expect(container.firstElementChild?.className).toContain("bg-section-listening-soft");
   });
 
-  it("uses a scrim pocket and ink label on card headers for contrast", () => {
+  it("uses plain uppercase text for the section label on cards", () => {
     render(<MethodCardHeader section="vocabulary" />);
     const label = screen.getByText(en.methodMenu.sections.vocabulary);
-    expect(label.className).toContain("text-ink");
-    expect(label.className).toContain("bg-surface/70");
+    expect(label.className).toContain("text-muted");
+    expect(label.className).toContain("uppercase");
+    expect(label.className).not.toContain("bg-surface");
   });
 
   it("supports a taller hero variant for method detail", () => {
@@ -58,20 +59,21 @@ describe("MethodCardHeader", () => {
     expect(screen.getByText(en.methodMenu.card.destination.info)).toBeDefined();
   });
 
-  it("uses secondary button styling for Start marker", () => {
+  it("uses quiet text styling for Start marker", () => {
     render(<MethodCardHeader section="reading" destination="start" />);
     const marker = screen.getByText(en.methodMenu.card.destination.start);
-    expect(marker.className).toContain("border-line-strong");
-    expect(marker.className).toContain("font-semibold");
-    expect(marker.className).not.toContain("bg-surface/70");
+    expect(marker.className).toContain("text-ink");
+    expect(marker.className).toContain("font-medium");
+    expect(marker.className).not.toContain("border");
+    expect(marker.className).not.toContain("bg-surface");
   });
 
-  it("uses quiet secondary styling for Info marker", () => {
+  it("uses quiet text styling for Info marker", () => {
     render(<MethodCardHeader section="listening" destination="info" />);
     const marker = screen.getByText(en.methodMenu.card.destination.info);
-    expect(marker.className).toContain("border-line");
     expect(marker.className).toContain("text-muted");
-    expect(marker.className).not.toContain("bg-surface/70");
+    expect(marker.className).not.toContain("border");
+    expect(marker.className).not.toContain("bg-surface");
   });
 
   it("omits destination marker on hero variant", () => {

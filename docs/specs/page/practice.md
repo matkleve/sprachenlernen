@@ -33,9 +33,10 @@ that are not the card engine.
 
 ## Layout
 
-`one-screen-runner` on `< md` while phase is `active` — same contract as
-[`page-layout.md`](../feature/page-layout.md). Register in
-`lib/shell-page-layout.ts` when implemented.
+`one-screen-exercise` while the runner is active — anchored footer on mobile and
+desktop; body scrolls inside the frame. Contract:
+[`page-layout.md`](../feature/page-layout.md),
+[`exercise-runner.layout.md`](../feature/exercise-runner.layout.md).
 
 ## Acceptance criteria
 

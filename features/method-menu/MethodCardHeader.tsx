@@ -41,21 +41,18 @@ const methodCardHeaderVariants = cva("relative w-full shrink-0 overflow-hidden",
   },
 });
 
-const headerScrimPocket =
-  "rounded-sm bg-surface/70 px-1.5 py-0.5 text-ink backdrop-blur-[2px]";
+const headerQuietLabel =
+  "text-[0.65rem] font-medium uppercase tracking-widest text-muted sm:text-xs";
 
-/** Button-shaped label inside the card link — not a nested control. */
-const destinationMarkerVariants = cva(
-  "inline-flex items-center rounded-pill border px-2.5 py-1 text-sm font-medium shadow-soft",
-  {
-    variants: {
-      destination: {
-        info: "border-line bg-surface text-muted",
-        start: "border-line-strong bg-surface text-ink font-semibold",
-      },
+/** Text-only marker inside the card link — not a nested control. */
+const destinationMarkerVariants = cva("text-sm", {
+  variants: {
+    destination: {
+      info: "text-muted",
+      start: "font-medium text-ink",
     },
   },
-);
+});
 
 export type MethodCardHeaderProps = {
   section: Section;
@@ -120,14 +117,7 @@ export function MethodCardHeader({
         </p>
       ) : null}
       <p className="absolute bottom-1.5 left-3 sm:bottom-2 sm:left-4">
-        <span
-          className={cn(
-            "text-[0.65rem] font-medium uppercase tracking-widest sm:text-xs",
-            isCard ? headerScrimPocket : "text-muted",
-          )}
-        >
-          {label}
-        </span>
+        <span className={cn(isCard ? headerQuietLabel : "text-muted")}>{label}</span>
       </p>
     </div>
   );

@@ -127,7 +127,7 @@ export async function startMaterialPracticeAction(
   }
 
   if (input.keepInLibrary) {
-    const account = await getAccount(await createServerSupabaseClient());
+    const account = await getAccount();
     if (!account) {
       return { status: "error", error: "Sign in to keep text in your library." };
     }

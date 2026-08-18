@@ -21,6 +21,13 @@ describe("shellPageContentVariants", () => {
     expect(classes.split(" ")).not.toContain("pb-page-bottom");
   });
 
+  it("applies exercise runner height on desktop", () => {
+    const classes = shellPageContentVariants({ mode: "one-screen-exercise", width: "narrow" });
+    expect(classes).toContain("h-review-session");
+    expect(classes).toContain("min-h-[var(--height-practice-session)]");
+    expect(classes).toContain("overflow-hidden");
+  });
+
   it("treats drill-in like scrollable for rhythm", () => {
     const classes = shellPageContentVariants({ mode: "scrollable-drill-in", width: "narrow" });
     expect(classes).toContain("md:pt-page-top");

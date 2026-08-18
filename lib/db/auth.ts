@@ -138,7 +138,7 @@ async function readAccountFromClient(supabase: SupabaseClient): Promise<Account 
   return user ? { id: user.id, email: user.email ?? "" } : null;
 }
 
-/** One `getSession()` per request — `React.cache` keys on args, so injected clients bypass this. */
+/** One `getSession()` per request — adapters pass `supabase` for DB work, not auth. */
 const getAccountForRequest = cache(async (): Promise<Account | null> => {
   const supabase = await createServerSupabaseClient();
   return readAccountFromClient(supabase);
@@ -155,7 +155,7 @@ export async function getAccount(client?: SupabaseClient): Promise<Account | nul
  */
 export async function deleteAccount(client?: SupabaseClient): Promise<DeleteAccountOutcome> {
   const supabase = await resolveClient(client);
-  const account = await getAccount(supabase);
+  const account = await getAccount();
   if (!account) {
     return { status: "error", error: "You must be signed in to delete your account." };
   }

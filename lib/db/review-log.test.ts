@@ -4,6 +4,12 @@ import { describe, expect, it, vi } from "vitest";
 import { appendReview, listReviewsForTaskIds, toSchedulerReview } from "@/lib/db/review-log";
 import { SHIPPED_ES_POOL_SIZE } from "@/lib/starter-deck";
 
+vi.mock("@/lib/db/client", () => ({
+  createServerSupabaseClient: vi.fn(),
+}));
+
+import { createServerSupabaseClient } from "@/lib/db/client";
+
 /**
  * Offline adapter coverage. RLS with payload columns is proven in
  * lib/db/access-control.test.ts against the live project.
@@ -34,13 +40,17 @@ function appendFakeClient(options: {
     throw new Error(`unexpected table ${table}`);
   });
 
-  return {
+  const supabase = {
     auth: authForUser(
       options.userId ? { id: options.userId, email: "a@example.com" } : null,
     ),
     from,
     rpc,
   } as unknown as SupabaseClient;
+
+  vi.mocked(createServerSupabaseClient).mockResolvedValue(supabase);
+
+  return supabase;
 }
 
 const validInput = {
@@ -140,6 +150,8 @@ describe("listReviewsForTaskIds", () => {
       from: vi.fn().mockReturnValue({ select }),
     } as unknown as SupabaseClient;
 
+    vi.mocked(createServerSupabaseClient).mockResolvedValue(client);
+
     return { client, select, inFilter, order };
   }
 
@@ -215,6 +227,8 @@ describe("listReviewsForTaskIds", () => {
       auth: authForUser({ id: "user-1", email: "a@example.com" }),
       from: vi.fn().mockReturnValue({ select }),
     } as unknown as SupabaseClient;
+
+    vi.mocked(createServerSupabaseClient).mockResolvedValue(client);
 
     return { client, calls };
   }

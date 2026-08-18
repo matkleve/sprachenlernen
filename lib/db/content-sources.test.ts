@@ -8,6 +8,12 @@ import {
   rowToSource,
 } from "@/lib/db/content-sources";
 
+vi.mock("@/lib/db/client", () => ({
+  createServerSupabaseClient: vi.fn(),
+}));
+
+import { createServerSupabaseClient } from "@/lib/db/client";
+
 /**
  * Offline adapter coverage. RLS is proven in lib/db/access-control.test.ts.
  * Contract: docs/specs/feature/word-capture.md
@@ -94,13 +100,17 @@ function sourcesClient(options: {
     throw new Error(`unexpected table ${table}`);
   });
 
-  return {
+  const supabase = {
     auth: authForUser(
       options.userId ? { id: options.userId, email: "a@example.com" } : null,
     ),
     from,
     insert,
   } as unknown as SupabaseClient & { insert: ReturnType<typeof vi.fn> };
+
+  vi.mocked(createServerSupabaseClient).mockResolvedValue(supabase);
+
+  return supabase;
 }
 
 describe("rowToSource", () => {

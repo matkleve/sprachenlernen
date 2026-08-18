@@ -60,7 +60,7 @@ export async function ensureProfile(
   client?: SupabaseClient,
 ): Promise<MutateSpokenLanguageOutcome> {
   const supabase = await resolveClient(client);
-  const account = await getAccount(supabase);
+  const account = await getAccount();
   if (!account) {
     const handled = languageNotSignedIn({ operation: "save your language preference" });
     void logHandledErrorFromRequest(handled);
@@ -116,7 +116,7 @@ async function getSpokenLanguageImpl(
   client?: SupabaseClient,
 ): Promise<SpokenLanguageOutcome> {
   const supabase = await resolveClient(client);
-  const account = await getAccount(supabase);
+  const account = await getAccount();
   if (!account) {
     const handled = languageNotSignedIn({ operation: "load your language preference" });
     void logHandledErrorFromRequest(handled);
@@ -148,7 +148,7 @@ export async function setSpokenLanguage(
   client?: SupabaseClient,
 ): Promise<MutateSpokenLanguageOutcome> {
   const supabase = await resolveClient(client);
-  const account = await getAccount(supabase);
+  const account = await getAccount();
   if (!account) {
     const handled = languageNotSignedIn({ operation: "change your language preference" });
     void logHandledErrorFromRequest(handled);

@@ -47,26 +47,20 @@ export function MethodCard({ method, returnQuery = "" }: MethodCardProps) {
           <p className="mt-0.5 line-clamp-2 text-sm text-ink">{localized.summary}</p>
         </div>
 
-        <MethodBadgeRow
-          className="mt-2 shrink-0"
-          method={method}
-          inLink
-          layout="stacked"
-          shieldCompanion={
-            <ul className="flex flex-wrap gap-1.5 max-md:mt-2" aria-label={t("card.properties")}>
-              {durationChips(method.durations).map((label) => (
-                <li key={`duration-${label}`}>
-                  <Chip size="card">{label}</Chip>
-                </li>
-              ))}
-              {requirements.map((label) => (
-                <li key={`need-${label}`}>
-                  <Chip size="card">{label}</Chip>
-                </li>
-              ))}
-            </ul>
-          }
-        />
+        <MethodBadgeRow className="mt-2 shrink-0" method={method} inLink layout="stacked" />
+
+        <ul className="mt-2 flex flex-wrap gap-1.5" aria-label={t("card.properties")}>
+          {durationChips(method.durations).map((label) => (
+            <li key={`duration-${label}`}>
+              <Chip size="card">{label}</Chip>
+            </li>
+          ))}
+          {requirements.map((label) => (
+            <li key={`need-${label}`}>
+              <Chip size="card">{label}</Chip>
+            </li>
+          ))}
+        </ul>
 
         <p className="mt-2 line-clamp-2 text-sm text-muted">
           <span className="font-medium text-ink">{t("card.doesNotDo")}: </span>

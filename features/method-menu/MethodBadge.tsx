@@ -1,6 +1,5 @@
 "use client";
 
-import type { ReactNode } from "react";
 import { cva, type VariantProps } from "class-variance-authority";
 
 import type { MethodEntry } from "@/lib/method-catalogue";
@@ -92,8 +91,6 @@ export type MethodBadgeRowProps = {
    * `row` — dialog preview: shields left, effort right.
    */
   layout?: "row" | "stacked";
-  /** Stacked only — beside shields from `md:` (e.g. property chips on wide 2-col cards). */
-  shieldCompanion?: ReactNode;
 };
 
 function badgeSummary(
@@ -125,7 +122,6 @@ export function MethodBadgeRow({
   className,
   inLink = false,
   layout = "row",
-  shieldCompanion,
 }: MethodBadgeRowProps) {
   const { skillLabels, intensity: intensityAnchors } = useMethodMenuCopy();
   const { visible, overflow } = displaySkillTierMarks(method);
@@ -147,16 +143,8 @@ export function MethodBadgeRow({
         {srOnly}
         <div {...(inLink ? { "aria-hidden": true } : {})}>
           <EffortBadge intensity={method.intensity} size="card" />
-          <div
-            className={cn(
-              "mt-1.5",
-              shieldCompanion && "md:mt-2 md:flex md:items-start md:gap-4",
-            )}
-          >
+          <div className="mt-2">
             <SkillTierBadgeRow visible={visible} overflow={overflow} size="card" />
-            {shieldCompanion ? (
-              <div className="mt-2 min-w-0 md:mt-0 md:flex-1">{shieldCompanion}</div>
-            ) : null}
           </div>
         </div>
       </div>
