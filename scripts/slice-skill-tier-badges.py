@@ -14,6 +14,7 @@ DEFAULT_SOURCE = (
     / "image-gen-1_1_-a3fde67c-414c-405e-84ab-bc9ecac24416.png"
 )
 DESIGN_SOURCE = ROOT / "design/skill-tier-badges/source-grid.png"
+DESIGN_SOURCE_UPLOAD = ROOT / "design/skill-tier-badges/source-grid-upload.png"
 DESIGN_SOURCE_V2 = ROOT / "design/skill-tier-badges/source-grid-v2.png"
 DESIGN_SOURCE_ORNATE = ROOT / "design/skill-tier-badges/source-grid-ornate.png"
 OUT_DIR = ROOT / "public/assets/skill-tier-badges"
@@ -32,6 +33,11 @@ LEGACY_GUTTER_Y = 0.03
 ALPHA_THRESHOLD = 48
 KEY_WHITE_CUTOFF = 28
 KEY_WHITE_FEATHER = 52
+
+
+def key_white_sheet_to_alpha(image: Image.Image) -> Image.Image:
+    """White sheet with no baked drop shadows — simple distance key is enough."""
+    return key_background_to_alpha(image)
 
 
 def key_background_to_alpha(image: Image.Image) -> Image.Image:
@@ -190,7 +196,7 @@ def crop_cell_v2(image: Image.Image, col: int, row: int) -> Image.Image:
     pad_into_prev = int(cell_h * 0.14) if row > 0 else 0
 
     row_rgb = image.crop((0, max(0, y0 - pad_into_prev), width, y1))
-    keyed_row = key_background_to_alpha(row_rgb)
+    keyed_row = key_white_sheet_to_alpha(row_rgb)
     blobs = _split_row_blobs(keyed_row)
 
     if len(blobs) < len(SKILLS):
@@ -238,6 +244,7 @@ def normalize_badge(cell: Image.Image) -> Image.Image:
 
 def pick_source() -> Path:
     for candidate in (
+        DESIGN_SOURCE_UPLOAD,
         DESIGN_SOURCE_V2,
         DESIGN_SOURCE_ORNATE,
         DESIGN_SOURCE,
@@ -251,7 +258,10 @@ def pick_source() -> Path:
 def main() -> None:
     source = pick_source()
     DESIGN_SOURCE.parent.mkdir(parents=True, exist_ok=True)
-    v2 = source.resolve() == DESIGN_SOURCE_V2.resolve()
+    v2 = source.resolve() in {
+        DESIGN_SOURCE_UPLOAD.resolve(),
+        DESIGN_SOURCE_V2.resolve(),
+    }
 
     OUT_DIR.mkdir(parents=True, exist_ok=True)
     grid = Image.open(source)
