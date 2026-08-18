@@ -18,13 +18,13 @@ describe("exercise-step-components registry", () => {
 
   it("marks shipped components as renderable", () => {
     expect(isShippedStepComponent("gap-fill")).toBe(true);
-    expect(isShippedStepComponent("audio-play")).toBe(false);
+    expect(isShippedStepComponent("audio-play")).toBe(true);
   });
 
   it("renders not-built for unknown do components", () => {
     expect(
       isStepComponentRenderable({ type: "do", component: "audio-play" }),
-    ).toBe(false);
+    ).toBe(true);
   });
 
   it("always renders wait steps without a component id", () => {

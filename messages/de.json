@@ -330,7 +330,20 @@
     "debriefStuckLabel": "Hängengebliebener Ausdruck",
     "debriefStuckHint": "Optional — ein Wort oder Satz, den du gebraucht hättest.",
     "debriefStuckPlaceholder": "z. B. Ich wollte fragen…",
-    "debriefOffer": "Ausdruck für später speichern"
+    "debriefOffer": "Ausdruck für später speichern",
+    "audioTranscriptLabel": "Transkript",
+    "typeWithWordPrompt": "Schreib einen Satz mit {word}.",
+    "typeWithWordLabel": "Dein Satz",
+    "typeWithWordPlaceholder": "Ein Satz in der Zielsprache…",
+    "revealAnswerHeading": "Muster",
+    "clozeBlankLabel": "Fehlendes Wort",
+    "minimalPairDefault": "Welches Wort hast du gehört?",
+    "minimalPairPlay": "Noch einmal abspielen",
+    "minimalPairSelfCheck": "Nur Selbstcheck — bei Unsicherheit erneut anhören.",
+    "timedWriteDefault": "Schreib frei zu deinem Thema.",
+    "timedWriteRemaining": "Noch {minutes}:{seconds}",
+    "timedWriteExpired": "Zeit ist um — du kannst noch fertig schreiben oder weitermachen.",
+    "timedWriteLabel": "Dein Text"
   },
   "listeningDefer": {
     "sectionLabel": "Ton",

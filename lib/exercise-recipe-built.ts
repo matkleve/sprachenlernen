@@ -6,6 +6,11 @@ const BUILT_HOSTED_EXERCISE_METHOD_IDS = [
   "full-dictation",
   "extensive-reading",
   "reading-aloud",
+  "listening-level-1",
+  "build-a-sentence",
+  "cloze-sentences",
+  "minimal-pairs",
+  "free-production",
 ] as const;
 
 const BUILT_EXERCISE_METHOD_IDS = new Set<string>([

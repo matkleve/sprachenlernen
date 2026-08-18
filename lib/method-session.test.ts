@@ -106,6 +106,12 @@ describe("cardHrefForMethod", () => {
     );
   });
 
+  it("links build-a-sentence to practice", () => {
+    expect(cardHrefForMethod(method({ id: "build-a-sentence" }))).toBe(
+      exerciseSessionHref("build-a-sentence"),
+    );
+  });
+
   it("links off-app guided methods to practice when built", () => {
     expect(cardHrefForMethod(method({ id: "role-play", hosted: false }))).toBe(
       exerciseSessionHref("role-play"),

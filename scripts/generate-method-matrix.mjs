@@ -31,6 +31,11 @@ const BUILT = new Set([
   "full-dictation",
   "extensive-reading",
   "reading-aloud",
+  "listening-level-1",
+  "build-a-sentence",
+  "cloze-sentences",
+  "minimal-pairs",
+  "free-production",
   ...GUIDED,
 ]);
 const PARTIAL = new Set([]);

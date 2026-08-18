@@ -330,7 +330,20 @@
     "debriefStuckLabel": "Stuck phrase",
     "debriefStuckHint": "Optional — a word or line you wanted but did not have.",
     "debriefStuckPlaceholder": "e.g. I wanted to ask for…",
-    "debriefOffer": "Save phrase for later"
+    "debriefOffer": "Save phrase for later",
+    "audioTranscriptLabel": "Transcript",
+    "typeWithWordPrompt": "Write one sentence using {word}.",
+    "typeWithWordLabel": "Your sentence",
+    "typeWithWordPlaceholder": "One sentence in the target language…",
+    "revealAnswerHeading": "Exemplar",
+    "clozeBlankLabel": "Missing word",
+    "minimalPairDefault": "Which word did you hear?",
+    "minimalPairPlay": "Play again",
+    "minimalPairSelfCheck": "Self-check only — replay if unsure.",
+    "timedWriteDefault": "Write freely on your topic.",
+    "timedWriteRemaining": "{minutes}:{seconds} left",
+    "timedWriteExpired": "Time is up — you can still finish or move on.",
+    "timedWriteLabel": "Your text"
   },
   "listeningDefer": {
     "sectionLabel": "Sound",
