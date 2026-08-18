@@ -1,5 +1,5 @@
 import { renderWithIntl as render, formatMessage, en } from "@/tests/i18n-test-utils";
-import {screen, within} from "@testing-library/react";
+import {screen, within, fireEvent} from "@testing-library/react";
 
 import { redirect } from "next/navigation";
 import { usePathname } from "next/navigation";
@@ -31,9 +31,27 @@ const showHeaderAt = (pathname: string, signedIn = false) => {
   return render(<PublicHeader signedIn={signedIn} />);
 };
 
+function mockDesktopViewport() {
+  vi.stubGlobal(
+    "matchMedia",
+    (query: string) =>
+      ({
+        matches: query.includes("min-width"),
+        media: query,
+        onchange: null,
+        addListener: vi.fn(),
+        removeListener: vi.fn(),
+        addEventListener: vi.fn(),
+        removeEventListener: vi.fn(),
+        dispatchEvent: vi.fn(),
+      }) as MediaQueryList,
+  );
+}
+
 beforeEach(() => {
   vi.mocked(usePathname).mockClear();
   vi.mocked(getAccount).mockResolvedValue(null);
+  mockDesktopViewport();
 });
 
 describe("PublicHeader", () => {
@@ -114,6 +132,55 @@ describe("PublicHeader", () => {
     showHeaderAt("/");
 
     expect(screen.queryByRole("navigation", { name: en.appShell.navLabel })).toBeNull();
+  });
+
+  it("shows a centred brand title and menu trigger on mobile", () => {
+    const { container } = showHeaderAt("/");
+
+    const mobileRow = container.querySelector(".md\\:hidden");
+    expect(mobileRow?.textContent).toContain(en.marketing.header.brand);
+    expect(screen.getByRole("button", { name: en.marketing.header.menu })).toBeDefined();
+  });
+
+  it("reveals auth controls in the mobile menu when opened", () => {
+    showHeaderAt("/");
+
+    fireEvent.click(screen.getByRole("button", { name: en.marketing.header.menu }));
+
+    const menu = screen.getByRole("menu", { name: en.marketing.header.menu });
+    expect(within(menu).getByRole("link", { name: en.marketing.header.signIn })).toBeDefined();
+    expect(within(menu).getByRole("link", { name: en.marketing.header.signUp })).toBeDefined();
+  });
+
+  it("reveals signed-in controls in the mobile menu when opened", () => {
+    showHeaderAt("/", true);
+
+    fireEvent.click(screen.getByRole("button", { name: en.marketing.header.menu }));
+
+    const menu = screen.getByRole("menu", { name: en.marketing.header.menu });
+    expect(within(menu).getByRole("link", { name: en.marketing.header.toApp })).toBeDefined();
+    expect(within(menu).getByRole("button", { name: en.marketing.header.signOut })).toBeDefined();
+  });
+
+  it("uses ghost sign-in and a single primary create-account control in the mobile menu", () => {
+    showHeaderAt("/");
+
+    fireEvent.click(screen.getByRole("button", { name: en.marketing.header.menu }));
+    const menu = screen.getByRole("menu", { name: en.marketing.header.menu });
+
+    const signIn = within(menu).getByRole("link", { name: en.marketing.header.signIn });
+    const signUp = within(menu).getByRole("link", { name: en.marketing.header.signUp });
+    const signInClasses = signIn.className.split(/\s+/);
+    const signUpClasses = signUp.className.split(/\s+/);
+
+    expect(signInClasses).toContain("hover:bg-accent-soft");
+    expect(signInClasses).not.toContain("bg-accent");
+    expect(signUpClasses).toContain("bg-accent");
+
+    const primaryLinks = within(menu)
+      .getAllByRole("link")
+      .filter((link) => link.className.split(/\s+/).includes("bg-accent"));
+    expect(primaryLinks).toHaveLength(1);
   });
 });
 
