@@ -6,7 +6,6 @@ import { usePathname } from "next/navigation";
 import { IconLink } from "@/components/ui/IconLink";
 import type { LanguageHoldings } from "@/lib/db/language-holdings";
 import { routes } from "@/lib/routes";
-import { cn } from "@/lib/utils";
 
 import { isProfileCurrent } from "./destinations";
 import { useShellBackTarget } from "./use-shell-back-target";
@@ -14,13 +13,12 @@ import { AppVersionLabel } from "./AppVersionLabel";
 import { DestinationNavItems } from "./DestinationNavItems";
 import { FooterScrim } from "./FooterScrim";
 import { LanguageSwitcher, type LanguageSwitcherOption } from "./LanguageSwitcher";
+import { ShellHeaderBar } from "./ShellHeaderBar";
 import { ShellPageTitle, shellHeaderStartsCompact } from "./ShellPageTitle";
-import { HeaderScrim } from "./HeaderScrim";
 import { useTranslations } from "next-intl";
 import { useHeaderCollapse } from "./useHeaderCollapse";
 import { useVisualViewportBottomInset } from "./useVisualViewportBottomInset";
-
-const safeTop = "pt-[max(1rem,env(safe-area-inset-top))]";
+import { cn } from "@/lib/utils";
 
 /**
  * Mobile floating chrome: corner chips + bottom destination pill.
@@ -43,39 +41,29 @@ export function FloatingShellChrome({
 
   return (
     <>
-      <HeaderScrim
+      <ShellHeaderBar
+        variant="mobile"
         collapse={pinnedCompact ? 1 : collapse}
-        className="fixed inset-x-0 top-0 z-50 md:hidden"
-      >
-        <div
-          className={cn(
-            "pointer-events-auto relative grid min-h-12 grid-cols-[1fr_1fr] items-center gap-x-2 px-4 pb-3",
-            safeTop,
-          )}
-        >
-          <div className="col-start-1 flex min-w-0 items-center gap-2 justify-self-start">
-            {back ? (
-              <IconLink href={back.href} aria-label={t("backTo", { destination: back.label })}>
-                <ArrowLeft aria-hidden className="size-5 shrink-0" />
-              </IconLink>
-            ) : (
-              <LanguageSwitcher
-                languages={languages}
-                languageHoldings={languageHoldings}
-                layout="floating"
-              />
-            )}
-          </div>
-
-          <ShellPageTitle variant="mobile" pinnedCompact={pinnedCompact} />
-
-          <div className="col-start-2 justify-self-end">
-            <IconLink href={routes.profile} aria-label={t("account")} current={profileCurrent}>
-              <UserRound aria-hidden className="size-5 shrink-0" />
+        left={
+          back ? (
+            <IconLink href={back.href} aria-label={t("backTo", { destination: back.label })}>
+              <ArrowLeft aria-hidden className="size-5 shrink-0" />
             </IconLink>
-          </div>
-        </div>
-      </HeaderScrim>
+          ) : (
+            <LanguageSwitcher
+              languages={languages}
+              languageHoldings={languageHoldings}
+              layout="floating"
+            />
+          )
+        }
+        center={<ShellPageTitle variant="mobile" pinnedCompact={pinnedCompact} />}
+        right={
+          <IconLink href={routes.profile} aria-label={t("account")} current={profileCurrent}>
+            <UserRound aria-hidden className="size-5 shrink-0" />
+          </IconLink>
+        }
+      />
 
       <FooterScrim className="md:hidden">
         <div className="flex w-full flex-col items-center gap-0.5">

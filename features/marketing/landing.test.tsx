@@ -137,9 +137,18 @@ describe("PublicHeader", () => {
   it("shows a centred brand title and menu trigger on mobile", () => {
     const { container } = showHeaderAt("/");
 
-    const mobileRow = container.querySelector(".md\\:hidden");
-    expect(mobileRow?.textContent).toContain(en.marketing.header.brand);
+    expect(container.querySelector(".fixed.inset-x-0.top-0")).toBeTruthy();
+    expect(container.querySelector(".header-scrim-blur")).toBeTruthy();
+    expect(container.textContent).toContain(en.marketing.header.brand);
     expect(screen.getByRole("button", { name: en.marketing.header.menu })).toBeDefined();
+  });
+
+  it("uses sticky desktop chrome with the shared scroll scrim", () => {
+    const { container } = showHeaderAt("/");
+
+    const desktopHeader = container.querySelector("header.sticky");
+    expect(desktopHeader).toBeTruthy();
+    expect(desktopHeader?.querySelector(".header-scrim-blur")).toBeTruthy();
   });
 
   it("reveals auth controls in the mobile menu when opened", () => {

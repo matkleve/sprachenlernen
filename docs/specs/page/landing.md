@@ -28,11 +28,21 @@ public page.
 
 **Reuse:** `ActionLink`, `IconButton`, `BrandMark`, `BrandLockup`,
 `SubmitButton`, `Dialog`, `MethodFilter` (basic mode), `MethodCardHeader`,
-`MethodBadgeRow`. Header and hero CTAs navigate, so they are anchors styled with
+`MethodBadgeRow`, **`ShellHeaderBar`** (shared with app shell — sticky/fixed +
+scroll scrim). Header and hero CTAs navigate, so they are anchors styled with
 the button contract — not `<button>` elements. Implementation:
-`features/marketing/PublicHeader.tsx` (layout), `PublicHeaderAuthControls.tsx`
-(auth links), `PublicHeaderMenu.tsx` (mobile popover),
+`features/app-shell/ShellHeaderBar.tsx`, `features/marketing/PublicHeader.tsx`,
+`PublicHeaderAuthControls.tsx`, `PublicHeaderMenu.tsx`,
 `features/marketing/LandingMethodPreview.tsx` (preview island).
+
+### Public header — chrome (shared with app shell)
+
+The public header uses **`ShellHeaderBar`** — the same sticky/fixed bar and
+scroll scrim as the signed-in shell ([`../feature/app-shell.md`](../feature/app-shell.md)).
+Mobile: `fixed` top with safe-area padding; desktop: `sticky top-0`. Marketing
+`main` uses `pt-[var(--shell-float-top-active)]` on `< md` so content does not
+sit under the fixed bar. No `border-b` or solid `bg-surface` fill — the scrim
+provides blur + tint on scroll.
 
 ### Public header — auth controls
 
@@ -150,10 +160,12 @@ positioning.
 - [ ] Given any `(marketing)` route, when it renders, then the public header is
       present and no app-shell destination navigation is present.
 - [ ] Given viewport `< md` on any `(marketing)` route, when the header renders,
-      then the brand name is centred, the logo chip is on the left, and auth
-      controls are reachable only through the menu icon on the right.
+      then the brand name is centred, the logo chip is on the left, auth controls
+      are reachable through the menu icon on the right, and the header stays fixed
+      at the top with the shared scroll scrim.
 - [ ] Given viewport `≥ md` on any `(marketing)` route, when the header renders,
-      then auth controls are inline (no hamburger menu).
+      then auth controls are inline (no hamburger menu) and the header is sticky
+      with the shared scroll scrim.
 - [ ] When the landing page is rendered, then the headline invites method choice
       and checkable progress (study/38 I), and a thesis-12 time-honesty sentence
       appears in the body (study/25 C4).

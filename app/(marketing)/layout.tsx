@@ -2,6 +2,7 @@ import type { ReactNode } from "react";
 
 import { PublicHeader } from "@/features/marketing/PublicHeader";
 import { getAccount } from "@/lib/db/auth";
+import { cn } from "@/lib/utils";
 
 /**
  * The public half's landmark. The signed-in half puts `id="main"` on the shell's
@@ -14,7 +15,12 @@ export default async function MarketingLayout({ children }: { children: ReactNod
   return (
     <>
       <PublicHeader signedIn={account !== null} />
-      <main id="main">{children}</main>
+      <main
+        id="main"
+        className={cn("pt-[var(--shell-float-top-active)] md:pt-0")}
+      >
+        {children}
+      </main>
     </>
   );
 }

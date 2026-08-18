@@ -25,7 +25,8 @@ destination is built once and every screen inherits it.
   Page construction (scroll vs one-screen, padding ownership):
   [`page-layout.md`](page-layout.md).
 
-**Reuse: `ActionLink` (`current` on `/profile`), `IconLink` (`current`), `NavLink`.** Accent fill for the active route lives in `interaction-kernel.ts` (`navCurrentFill`, `iconChipCurrentFill`) — callers pass `current`, never ad-hoc classes. The account control is a link, not a form — sign out moved onto `/profile`. The destinations are anchors, not buttons — they navigate, so they must be right-clickable and openable in a new tab, which a `<button>` is not.
+**Reuse: `ActionLink` (`current` on `/profile`), `IconLink` (`current`), `NavLink`,
+`ShellHeaderBar`.** Accent fill for the active route lives in `interaction-kernel.ts` (`navCurrentFill`, `iconChipCurrentFill`) — callers pass `current`, never ad-hoc classes. The account control is a link, not a form — sign out moved onto `/profile`. The destinations are anchors, not buttons — they navigate, so they must be right-clickable and openable in a new tab, which a `<button>` is not.
 
 This spec takes over two lines that
 [`../service/auth.md`](../service/auth.md) § Scope listed as out and handed

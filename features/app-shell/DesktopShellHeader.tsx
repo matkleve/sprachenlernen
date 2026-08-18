@@ -12,8 +12,8 @@ import { site } from "@/lib/site-metadata";
 import { Destinations } from "./Destinations";
 import { isProfileCurrent } from "./destinations";
 import { LanguageSwitcher, type LanguageSwitcherOption } from "./LanguageSwitcher";
+import { ShellHeaderBar } from "./ShellHeaderBar";
 import { ShellPageTitle } from "./ShellPageTitle";
-import { HeaderScrim } from "./HeaderScrim";
 import { useTranslations } from "next-intl";
 import { useHeaderCollapse } from "./useHeaderCollapse";
 
@@ -34,41 +34,41 @@ export function DesktopShellHeader({
   const collapse = useHeaderCollapse();
 
   return (
-    <header className="sticky top-0 z-50 hidden md:block">
-      <HeaderScrim collapse={collapse}>
-        <div className="mx-auto grid min-h-11 max-w-5xl grid-cols-[1fr_auto_1fr] items-center gap-x-4 px-6 py-3">
-          <div className="flex min-w-0 items-center gap-4 justify-self-start">
-            <ActionLink
-              href={routes.methods}
-              variant="ghost"
-              size="sm"
-              className="shrink-0 px-2"
-              aria-label={site.name}
-            >
-              <BrandMark size="sm" />
-            </ActionLink>
-            <LanguageSwitcher
-              languages={languages}
-              languageHoldings={languageHoldings}
-              layout="inline"
-            />
-            <Destinations />
-          </div>
-
-          <ShellPageTitle variant="desktop" />
-
+    <ShellHeaderBar
+      variant="desktop"
+      collapse={collapse}
+      left={
+        <>
           <ActionLink
-            href={routes.profile}
+            href={routes.methods}
             variant="ghost"
             size="sm"
-            current={profileCurrent}
-            className="shrink-0 justify-self-end gap-1.5"
+            className="shrink-0 px-2"
+            aria-label={site.name}
           >
-            <UserRound aria-hidden className="size-4 shrink-0" />
-            {t("account")}
+            <BrandMark size="sm" />
           </ActionLink>
-        </div>
-      </HeaderScrim>
-    </header>
+          <LanguageSwitcher
+            languages={languages}
+            languageHoldings={languageHoldings}
+            layout="inline"
+          />
+          <Destinations />
+        </>
+      }
+      center={<ShellPageTitle variant="desktop" />}
+      right={
+        <ActionLink
+          href={routes.profile}
+          variant="ghost"
+          size="sm"
+          current={profileCurrent}
+          className="shrink-0 gap-1.5"
+        >
+          <UserRound aria-hidden className="size-4 shrink-0" />
+          {t("account")}
+        </ActionLink>
+      }
+    />
   );
 }
