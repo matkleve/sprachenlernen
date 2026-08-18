@@ -66,9 +66,8 @@ export async function LandingHero() {
         </ul>
       </section>
 
-      <p className="mt-page-content flex flex-col gap-3">
+      <p className="mt-page-content">
         <TextLink href={routes.languages}>{t("landing.languagesLink")}</TextLink>
-        <TextLink href={routes.designExplorer}>{t("landing.designExplorerLink")}</TextLink>
       </p>
     </div>
   );
