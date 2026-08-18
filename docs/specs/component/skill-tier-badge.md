@@ -24,12 +24,12 @@ Implementation: `features/method-menu/SkillTierBadge.tsx`,
 
 | Surface | Size | Notes |
 | --- | --- | --- |
-| **Card** | `size-12` (`h-12 w-12`), `p-1` | 48px canvas; shield ≤58% fill in PNG |
-| **Detail** | `size-12` (48px) | unchanged |
-| **Overflow `+`** | `h-12 w-10` on cards | matches badge height |
+| **Card** | `h-14` with tier frame (`w-14` shield, `w-16` wood, `w-[4.5rem]` ornate) | 56px tall; PNG ≤50% fill |
+| **Detail** | `size-14` (56px) | unchanged |
+| **Overflow `+`** | `size-14` on cards | matches badge height |
 
-PNG assets: **256×256** normalised canvas, shield **68%** fill — ≥15% transparent
-margin (`scripts/slice-skill-tier-badges.py`).
+PNG assets: **256×256** normalised canvas, shield **≤50%** fill — ≥21% transparent
+margin (`scripts/slice-skill-tier-badges.py`, ornate source grid).
 
 ## Behavior
 

@@ -31,7 +31,7 @@ const sectionHeaderFade: Record<Section, string> = {
 const methodCardHeaderVariants = cva("relative w-full shrink-0 overflow-hidden", {
   variants: {
     size: {
-      card: "h-28",
+      card: "h-32",
       hero: "h-44 bg-canvas sm:h-52",
     },
   },
