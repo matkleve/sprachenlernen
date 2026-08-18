@@ -13,7 +13,12 @@ import { resolveExerciseStepLabel } from "@/features/exercise-runner/step-label"
 import { useExerciseRunner } from "@/features/exercise-runner/useExerciseRunner";
 import { useListeningDefer } from "@/features/method-menu/useListeningDefer";
 import type { ExerciseRecipe } from "@/lib/exercise-runner";
+import {
+  bodyZoneScrolls,
+  exerciseStepContentProfile,
+} from "@/lib/exercise-runner/content-profile";
 import type { Section } from "@/lib/method-catalogue";
+import { cn } from "@/lib/utils";
 
 type ExerciseRunnerProps = {
   sectionLabel: string;
@@ -36,7 +41,10 @@ export function ExerciseRunner({
   const runner = useExerciseRunner({ recipe, methodName });
   const { state, activeStep } = runner;
 
-  const rootClass = "flex min-h-0 flex-1 flex-col gap-4";
+  const rootClass = cn(
+    "flex min-h-0 flex-1 flex-col",
+    compact ? "gap-2" : "gap-4",
+  );
 
   if (state.phase === "abandoned") {
     return (
@@ -61,10 +69,12 @@ export function ExerciseRunner({
   }
 
   const stepLabel = resolveExerciseStepLabel(activeStep, (key) => t(key as "stepLabelPrepare"));
+  const contentProfile = exerciseStepContentProfile(activeStep);
+  const bodyScrolls = bodyZoneScrolls(contentProfile);
 
   return (
     <div className={rootClass}>
-      <div className="shrink-0 space-y-4">
+      <div className={cn("shrink-0", compact ? "space-y-2" : "space-y-4")}>
         <ExerciseRunnerHero
           section={section}
           sectionLabel={sectionLabel}
@@ -77,7 +87,12 @@ export function ExerciseRunner({
         <ExerciseRunnerProgress state={state} onTogglePause={runner.togglePause} />
       </div>
 
-      <div className="min-h-0 flex-1 overflow-y-auto p-1">
+      <div
+        className={cn(
+          "min-h-0 flex-1 p-1",
+          bodyScrolls ? "overflow-y-auto" : "overflow-hidden",
+        )}
+      >
         <ExerciseStepBody
           step={activeStep}
           submitDraft={state.submitDraft}
@@ -93,6 +108,7 @@ export function ExerciseRunner({
 
       <ExerciseRunnerFooter
         state={state}
+        bodyScrolls={bodyScrolls}
         canGoBack={runner.canGoBack}
         canGoForward={runner.canGoForward}
         canComplete={runner.canComplete}

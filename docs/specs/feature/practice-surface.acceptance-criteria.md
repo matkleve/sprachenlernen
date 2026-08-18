@@ -3,7 +3,9 @@
 <!-- parent: SPEC-feature-practice-surface -->
 
 - [ ] Given a prepare step on `/practice`, when the learner views prep rows, then
-      each row is at least 48px tall with `border-line-strong` when unchecked.
+      each row is at least 44px tall with `border-line-strong` when unchecked.
+- [ ] Given build-a-sentence prepare on desktop, when rendered, then the body zone
+      has no scrollbar (`short` profile).
 - [ ] Given a prepare step, when the learner taps a prep row, then its checkbox
       toggles and the row shows checked styling.
 - [ ] Given German UI, when build-a-sentence prepare renders, then checklist copy

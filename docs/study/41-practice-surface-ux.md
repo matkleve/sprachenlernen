@@ -15,14 +15,51 @@ separate controls from scrolling content. On `canvas` it reads as a floating car
 for no reason. **Chrome should not introduce a third surface**; separation is the
 top border and safe-area padding.
 
+## Fit-frame standard (owner 2026-08-18)
+
+**Invariant:** during a practice session, nothing scrolls except **reading steps**
+(`text-display`, long passages). Prepare, type, capture, offers — everything
+interactive — must fit in the fixed frame without a body scrollbar.
+
+### Frame budget
+
+```
+100svh (mobile: minus shell float reserves)
+├─ Chrome belt (~5rem hero + progress + gaps)     shrink-0
+├─ Task zone (flex-1)                               overflow-hidden | scroll
+└─ Footer (nav + primary)                           shrink-0, anchored
+```
+
+Desktop: `--height-practice-session` = viewport below flat nav; page rhythm
+padding lives **inside** that box — never subtract it twice in the height token.
+
+### Content profiles
+
+| Profile | When | Body overflow | Author rule |
+| --- | --- | --- | --- |
+| **short** | prepare, type, capture, gap-fill, offers | `overflow-hidden` | ≤2 prep rows, one prompt, one field — fits frame |
+| **scroll** | long `material-preview` | `overflow-y-auto` + scrim | passage only |
+| **paginated** | `text-display` (v2 turns) | scroll until pagination ships | reading Methods |
+
+**Legibility without scroll:** practice-surface scale stays — but chrome is
+**slim** (`--height-practice-hero` 5rem) and short-step density is **fit-frame**
+(min-h-11 prep rows, `text-lg` leads, textarea 3 rows).
+
+### Chrome belt (not method-card header)
+
+Session hero is **not** a catalogue card crop. It is a **belt**: section WebP
+faded full-bleed, titles on gradient, stop top-right, method title `text-lg`–`xl`.
+Progress bar sits directly under the belt — always visible, never scrolls away.
+
 ## Reference patterns (industry, not Duolingo clone)
 
 | Pattern | Source | We adopt |
 | --- | --- | --- |
 | One focal task per screen | Multi-step wizard UX | Already in runner steps |
-| Progress always visible | VP0 / HIG wizards | Hero + bar under hero |
+| Progress always visible | VP0 / HIG wizards | Hero belt + bar under belt |
 | Primary action in thumb zone, 48px+ | Mobile wizard guides | Footer primary `lg` |
 | **Larger controls inside the task** | Duolingo, Brilliant, Khan | **Practice surface scale** |
+| **No scroll on short steps** | Khan lesson cards | **Fit-frame** profile |
 | 3:1 non-text contrast on controls | WCAG 1.4.11 | `line-strong` borders on prep rows |
 | Chrome vs content separation | Material “display” vs “body” | Two layers, two density rules |
 
@@ -33,12 +70,12 @@ are producing language, not browsing settings.
 
 ```
 ┌─ Runner chrome (app density) ─────────────────────┐
-│ Hero · progress · stop · step nav · primary CTA   │
+│ Hero belt · progress · stop · step nav · primary   │
 │ Tokens: text-sm/xs labels, md nav chips         │
 └───────────────────────────────────────────────────┘
 ┌─ Practice surface (task density) ─────────────────┐
 │ Prompts · prep rows · inputs · capture · compare  │
-│ Tokens: text-lg/xl prompts, 48px+ rows, chunky UI │
+│ Tokens: text-lg prompts, 44px+ rows, chunky UI   │
 └───────────────────────────────────────────────────┘
 ```
 
@@ -48,22 +85,15 @@ primitives — never raw app-scale fields for the main task.
 
 ## Practice surface rules
 
-1. **Lead copy** — `text-xl`/`text-lg`, `leading-relaxed`, `text-ink`. One block
-   per step; no wall of labels.
-2. **Interactive rows** — min height 48px, `border-line-strong`, `rounded-card`,
-   `p-4`. Prep items are tappable-looking even when non-toggleable (visual honesty).
-3. **Primary fields** — reuse `Field` + `Textarea` but inside surface wrapper
-   (`text-base` input, generous `rows`).
-4. **No fake checkboxes** — 1px `line` 16px squares fail WCAG and look broken.
-   Use `PracticePrepRow` (2px `line-strong`, 24px box) or real controls later.
+1. **Lead copy** — `text-lg`, `leading-snug`, `text-ink`. One block per step.
+2. **Interactive rows** — min height 44px (`min-h-11`), `border-line-strong`,
+   `p-3`. Whole row toggles when checkbox.
+3. **Primary fields** — `Field` + `Textarea`, 3 rows default in short steps.
+4. **No fake checkboxes** — 2px `line-strong`, 24px box.
 5. **i18n** — recipe carries `itemKeys` / `introKey`; no English in recipe JSON.
 6. **Footer** — no extra `surface` panel; `border-t border-line` on `canvas` only.
-7. **Anchored footer** — chrome bottom (`◀ ▶` + primary) stays at a fixed vertical
-   position across steps; long content scrolls in the body zone with a canvas scrim
-   above controls ([`exercise-runner.layout.md`](../specs/feature/exercise-runner.layout.md)).
-8. **Content profiles** — `short` (prepare, type-with-word), `scroll` (long text,
-   timed write), `paginated` (extensive reading, future). Authors size steps
-   similarly where possible; layout contract handles the rest.
+7. **Anchored footer** — chrome bottom stays fixed; only scroll profile scrolls.
+8. **Content profiles** — enforced in `lib/exercise-runner/content-profile.ts`.
 
 ## Future step components
 

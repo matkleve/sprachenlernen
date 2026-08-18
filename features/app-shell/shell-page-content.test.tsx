@@ -24,7 +24,7 @@ describe("shellPageContentVariants", () => {
   it("applies exercise runner height on desktop", () => {
     const classes = shellPageContentVariants({ mode: "one-screen-exercise", width: "narrow" });
     expect(classes).toContain("h-review-session");
-    expect(classes).toContain("min-h-[var(--height-practice-session)]");
+    expect(classes).toContain("md:h-[var(--height-practice-session)]");
     expect(classes).toContain("overflow-hidden");
   });
 

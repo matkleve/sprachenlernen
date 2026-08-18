@@ -35,7 +35,7 @@ Applied via `PracticeSurface` wrapper — not new CSS color tokens.
 | Lead prompt | `text-xl font-medium leading-snug text-ink` |
 | Body | `text-lg leading-relaxed text-ink` |
 | Secondary | `text-base text-muted` |
-| Prep row | `min-h-12 rounded-card border border-line-strong bg-surface p-4 shadow-soft` — toggles to `border-accent bg-accent-soft` when checked |
+| Prep row | `min-h-11 rounded-card border border-line-strong bg-surface p-3 shadow-soft` — toggles to `border-accent bg-accent-soft` when checked |
 | Prep checkbox | Native `input` (visually hidden); marker `size-6 border-2 border-line-strong`, filled `accent-deep` + check icon when checked |
 
 ## Behaviour
@@ -47,7 +47,7 @@ Applied via `PracticeSurface` wrapper — not new CSS color tokens.
 | 3 | Runner footer | `border-t border-line` only — no `bg-surface` panel on `canvas` |
 | 4 | Primary CTA | `Button` `lg`, `w-auto`, bottom-right stack under nav chips |
 | 5 | New step UI | Must use practice-surface primitives before app-scale fields |
-| 6 | Long text steps | `scroll` or `paginated` profile — never grow the page past the footer |
+| 6 | Long text steps | `scroll` or `paginated` profile only — short steps never scroll |
 | 7 | Scroll body | `p-1` on the overflow container so focused fields keep full ring visible |
 
 ## Acceptance criteria

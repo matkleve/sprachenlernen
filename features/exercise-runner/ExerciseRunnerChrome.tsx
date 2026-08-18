@@ -13,6 +13,7 @@ type ExerciseRunnerChromeProps = {
   methodName: string;
   state: ExerciseRunnerState;
   activeLabel?: string;
+  bodyScrolls?: boolean;
   canGoBack: boolean;
   canGoForward: boolean;
   canComplete: boolean;
@@ -115,6 +116,7 @@ export function ExerciseRunnerHeader({
 
 export function ExerciseRunnerFooter({
   state,
+  bodyScrolls = false,
   canGoBack,
   canGoForward,
   canComplete,
@@ -128,6 +130,7 @@ export function ExerciseRunnerFooter({
 }: Pick<
   ExerciseRunnerChromeProps,
   | "state"
+  | "bodyScrolls"
   | "canGoBack"
   | "canGoForward"
   | "canComplete"
@@ -146,10 +149,12 @@ export function ExerciseRunnerFooter({
   return (
     <>
       <footer className="relative mt-auto shrink-0 pb-[max(0.75rem,env(safe-area-inset-bottom))]">
-        <div
-          className="pointer-events-none absolute inset-x-0 -top-8 h-8 bg-gradient-to-t from-canvas to-transparent"
-          aria-hidden
-        />
+        {bodyScrolls ? (
+          <div
+            className="pointer-events-none absolute inset-x-0 -top-8 h-8 bg-gradient-to-t from-canvas to-transparent"
+            aria-hidden
+          />
+        ) : null}
         <div className="relative border-t border-line bg-canvas/95 pt-3 backdrop-blur-sm">
           <div className="flex flex-col items-end gap-3">
           <div className="flex items-center gap-2">
@@ -217,6 +222,7 @@ export function ExerciseRunnerChrome(props: ExerciseRunnerChromeProps) {
       <ExerciseRunnerProgress state={props.state} onTogglePause={props.onTogglePause} />
       <ExerciseRunnerFooter
         state={props.state}
+        bodyScrolls={props.bodyScrolls}
         canGoBack={props.canGoBack}
         canGoForward={props.canGoForward}
         canComplete={props.canComplete}

@@ -34,14 +34,14 @@ export function PracticePrepList({ entries, className }: PracticePrepListProps) 
   };
 
   return (
-    <ul className={cn("space-y-3", className)}>
+    <ul className={cn("space-y-2", className)}>
       {entries.map((entry) => {
         const isChecked = checked[entry.id] === true;
         return (
           <li key={entry.id}>
             <label
               className={cn(
-                "flex min-h-12 items-start gap-3 rounded-card border p-4 shadow-soft",
+                "flex min-h-11 items-start gap-3 rounded-card border p-3 shadow-soft",
                 touchTarget,
                 interactiveCursor,
                 focusRing,
@@ -67,7 +67,7 @@ export function PracticePrepList({ entries, className }: PracticePrepListProps) 
               >
                 {isChecked ? <Check className="size-4" strokeWidth={3} /> : null}
               </span>
-              <span className="text-base leading-snug text-ink sm:text-lg">{entry.label}</span>
+              <span className="text-base leading-snug text-ink">{entry.label}</span>
             </label>
           </li>
         );

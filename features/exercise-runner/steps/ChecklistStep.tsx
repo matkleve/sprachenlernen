@@ -32,9 +32,9 @@ export function ChecklistStep({ step }: Pick<StepRenderProps, "step">) {
         }));
 
   return (
-    <div className="space-y-5">
+    <div className="space-y-4">
       {introKey ? (
-        <p className="text-xl font-medium leading-snug text-ink">
+        <p className="text-lg font-medium leading-snug text-ink">
           {t(introKey as "introBuildASentence")}
         </p>
       ) : null}

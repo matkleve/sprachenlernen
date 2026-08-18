@@ -12,16 +12,18 @@ or `--height-practice-session` (desktop). Zones never reorder.
 ```
 ┌─ Chrome top (shrink-0) ─────────────────────┐
 │ Hero · progress bar · timer (when active)    │
-├─ Body (flex-1, overflow-y-auto) ────────────┤
+├─ Body (flex-1) ─────────────────────────────┤
 │ Practice-surface step content               │
+│ short: overflow-hidden · scroll: overflow-y │
 ├─ Chrome bottom (shrink-0, anchored) ───────┤
 │ Scrim · ◀ ▶ · primary CTA (bottom-right)    │
 └─────────────────────────────────────────────┘
 ```
 
 **Invariant:** footer controls stay at the **same vertical position** across
-steps on one device — short steps do not pull the buttons up. Only the body
-scrolls.
+steps on one device. **Short-profile steps never show a body scrollbar** — content
+and chrome are sized to the fit frame ([`study/41`](../../study/41-practice-surface-ux.md)).
+Only **scroll** / **paginated** profiles use `overflow-y-auto` on the body.
 
 Parent layout mode: `one-screen-exercise` ([`page-layout.md`](page-layout.md)).
 Words review keeps `one-screen-runner` (mobile only height; desktop scrolls).
@@ -32,9 +34,11 @@ Recipe authors pick a profile per step component — not per Method.
 
 | Profile | Step examples | Body behaviour |
 | --- | --- | --- |
-| **short** | prepare checklist, type-with-word, capture, offers | Fits in body; rarely scrolls |
-| **scroll** | timed-write, long text-display, gap-fill | Body scrolls; footer scrim + anchored chrome |
-| **paginated** | extensive-reading `text-display` (future) | Turns/pages inside body; chrome still anchored |
+| **short** | prepare checklist, type-with-word, capture, offers | `overflow-hidden`; content fits frame |
+| **scroll** | long `material-preview` | `overflow-y-auto`; footer scrim |
+| **paginated** | extensive-reading `text-display` (future) | scroll until turns ship; chrome anchored |
+
+Resolver: `lib/exercise-runner/content-profile.ts`.
 
 **Rule:** long reading text does **not** grow the page and push the footer down.
 Use **scroll** (v1) or **paginated** (v2) inside the body zone.

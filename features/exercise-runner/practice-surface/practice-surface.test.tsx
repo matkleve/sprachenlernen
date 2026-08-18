@@ -18,7 +18,7 @@ describe("practice surface", () => {
     expect(screen.getByText("Keyboard ready")).toBeDefined();
     const row = container.querySelector("label");
     expect(row?.className).toContain("border-line-strong");
-    expect(row?.className).toContain("min-h-12");
+    expect(row?.className).toContain("min-h-11");
   });
 
   it("toggles a prep row when the learner checks it", async () => {

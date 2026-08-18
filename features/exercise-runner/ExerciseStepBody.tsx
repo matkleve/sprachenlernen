@@ -1,5 +1,6 @@
 "use client";
 
+import { PracticeSurface } from "@/features/exercise-runner/practice-surface/PracticeSurface";
 import { renderExerciseStep } from "@/features/exercise-runner/step-registry";
 import type { ExerciseRunnerState } from "@/lib/exercise-runner";
 
@@ -16,9 +17,5 @@ type ExerciseStepBodyProps = {
 };
 
 export function ExerciseStepBody(props: ExerciseStepBodyProps) {
-  return (
-    <div className="practice-surface">
-      {renderExerciseStep(props)}
-    </div>
-  );
+  return <PracticeSurface>{renderExerciseStep(props)}</PracticeSurface>;
 }

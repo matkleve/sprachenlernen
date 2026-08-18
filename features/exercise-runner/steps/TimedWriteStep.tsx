@@ -43,7 +43,9 @@ export function TimedWriteStep({
 
   return (
     <div className="space-y-4">
-      {prompt ? <p className="text-lg text-ink">{prompt}</p> : null}
+      {prompt ? (
+        <p className="text-xl font-medium leading-snug text-ink">{prompt}</p>
+      ) : null}
       {durationSec > 0 ? (
         <p className="text-sm text-muted">
           {t("timedWriteDuration", { minutes: Math.round(durationSec / 60) })}

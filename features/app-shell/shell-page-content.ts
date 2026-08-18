@@ -12,7 +12,7 @@ export const shellPageContentVariants = cva("mx-auto", {
       "one-screen-runner":
         "flex h-review-session flex-col overflow-hidden px-4 md:h-auto md:overflow-visible md:px-6 md:pt-page-top md:pb-page-bottom",
       "one-screen-exercise":
-        "flex h-review-session flex-col overflow-hidden px-4 md:min-h-[var(--height-practice-session)] md:flex md:flex-col md:overflow-hidden md:px-6 md:pt-page-top md:pb-page-bottom",
+        "flex h-review-session flex-col overflow-hidden px-4 md:h-[var(--height-practice-session)] md:flex md:flex-col md:overflow-hidden md:px-6 md:pt-page-top md:pb-page-bottom",
     },
     width: {
       narrow: "max-w-2xl",

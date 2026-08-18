@@ -1,9 +1,10 @@
-import { renderWithIntl as render } from "@/tests/i18n-test-utils";
+import { renderWithIntl as render, renderWithIntlDe } from "@/tests/i18n-test-utils";
 import { screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { describe, expect, it } from "vitest";
 
 import { ExerciseRunner } from "@/features/exercise-runner/ExerciseRunner";
+import { ChecklistStep } from "@/features/exercise-runner/steps/ChecklistStep";
 import { FIXTURE_EXERCISE_RECIPE } from "@/lib/exercise-runner/fixture-recipe";
 
 describe("ExerciseRunner", () => {
@@ -57,5 +58,81 @@ describe("ExerciseRunner", () => {
 
     await user.click(screen.getByRole("button", { name: "Not now — done" }));
     expect(screen.getByText("Exercise complete")).toBeDefined();
+  });
+
+  it("uses overflow-hidden body zone on short-profile steps", () => {
+    const { container } = render(
+      <ExerciseRunner
+        sectionLabel="Methods"
+        methodName="Partial dictation"
+        section="listening"
+        recipe={FIXTURE_EXERCISE_RECIPE}
+      />,
+    );
+
+    expect(container.querySelector(".min-h-0.flex-1.overflow-hidden.p-1")).not.toBeNull();
+    const footer = container.querySelector("footer");
+    expect(footer?.className).toContain("shrink-0");
+  });
+
+  it("scrolls the body zone only on reading-profile steps", () => {
+    const { container } = render(
+      <ExerciseRunner
+        sectionLabel="Methods"
+        methodName="Extensive reading"
+        section="reading"
+        recipe={{
+          methodId: "extensive-reading",
+          steps: [
+            {
+              id: "read",
+              type: "do",
+              component: "text-display",
+              config: { text: "Long passage." },
+            },
+          ],
+        }}
+      />,
+    );
+
+    expect(container.querySelector(".min-h-0.flex-1.overflow-y-auto.p-1")).not.toBeNull();
+  });
+
+  it("renders footer controls on canvas without a surface panel", () => {
+    const { container } = render(
+      <ExerciseRunner
+        sectionLabel="Methods"
+        methodName="Partial dictation"
+        section="listening"
+        recipe={FIXTURE_EXERCISE_RECIPE}
+      />,
+    );
+
+    const footerPanel = container.querySelector("footer .border-t");
+    expect(footerPanel?.className).toContain("border-line");
+    expect(footerPanel?.className).not.toContain("bg-surface");
+    expect(screen.getByRole("button", { name: "Continue" }).className).toContain("w-auto");
+  });
+});
+
+describe("ChecklistStep i18n", () => {
+  it("renders German prepare copy from recipe itemKeys", () => {
+    renderWithIntlDe(
+      <ChecklistStep
+        step={{
+          id: "prepare-1",
+          type: "prepare",
+          component: "checklist",
+          config: {
+            introKey: "introBuildASentence",
+            itemKeys: ["prepareItemKeyboard", "prepareItemTargetLang"],
+          },
+        }}
+      />,
+    );
+
+    expect(screen.getByText(/Stift und Papier oder Tastatur/)).toBeDefined();
+    expect(screen.getByText(/In Ihrer Zielsprache schreiben/)).toBeDefined();
+    expect(screen.queryByText(/Pen and paper or keyboard/)).toBeNull();
   });
 });

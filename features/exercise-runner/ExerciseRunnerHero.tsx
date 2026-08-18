@@ -39,7 +39,7 @@ export function ExerciseRunnerHero({
     <div
       className={cn(
         methodSectionSurface(section, "relative shrink-0 overflow-hidden rounded-card shadow-soft"),
-        compact ? "h-36 sm:h-44" : "h-44 sm:h-52",
+        compact ? "h-[var(--height-practice-hero)]" : "h-44 sm:h-52",
       )}
     >
       <Image
@@ -66,18 +66,23 @@ export function ExerciseRunnerHero({
           {stopLabel}
         </Button>
       </div>
-      <div className="absolute inset-x-0 bottom-0 px-4 pb-4 pt-8 sm:px-5 sm:pb-5">
-        <p className="text-[0.65rem] font-medium uppercase tracking-widest text-muted sm:text-xs">
+      <div className="absolute inset-x-0 bottom-0 px-3 pb-3 pt-5 sm:px-4 sm:pb-3">
+        <p className="text-[0.6rem] font-medium uppercase tracking-widest text-muted sm:text-[0.65rem]">
           {sectionName}
         </p>
-        <p className="mt-1 text-xs font-medium uppercase tracking-widest text-muted">
+        <p className="mt-0.5 text-[0.65rem] font-medium uppercase tracking-widest text-muted sm:text-xs">
           {sectionLabel}
         </p>
-        <h1 className="mt-1 text-xl font-semibold leading-snug text-ink sm:text-2xl">
+        <h1
+          className={cn(
+            "mt-0.5 font-semibold leading-snug text-ink",
+            compact ? "text-lg sm:text-xl" : "text-xl sm:text-2xl",
+          )}
+        >
           {methodName}
         </h1>
         {stepLabel ? (
-          <p className="mt-1 text-sm font-medium text-muted">{stepLabel}</p>
+          <p className="mt-0.5 text-xs font-medium text-muted sm:text-sm">{stepLabel}</p>
         ) : null}
       </div>
     </div>

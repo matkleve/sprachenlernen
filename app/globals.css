@@ -154,10 +154,11 @@
   --height-review-session: calc(
     100svh - var(--spacing-shell-float-top) - var(--spacing-shell-float-bottom)
   );
-  /* Exercise runner on desktop — anchored footer, scrollable body (page-layout.md). */
-  --height-practice-session: calc(
-    100svh - 3.5rem - var(--spacing-page-top) - var(--spacing-page-bottom)
-  );
+  /* Exercise runner on desktop — fixed frame below flat nav (page-layout.md).
+     Page rhythm padding lives inside this box — do not subtract it here. */
+  --height-practice-session: calc(100svh - 3.5rem);
+  /* Practice chrome belt — section graphic + titles; study/41 fit-frame */
+  --height-practice-hero: 5rem;
 
   /* Type. next/font on <html> overrides these fallbacks at runtime. */
   --font-dm-sans: "DM Sans", sans-serif;

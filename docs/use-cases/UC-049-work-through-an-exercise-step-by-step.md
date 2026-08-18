@@ -54,9 +54,8 @@ optimistic.
 - **Practice surface:** task copy and controls are large and legible under stress
   (Duolingo-scale prompts, 48px+ prep rows) — not app-settings density.
 - **Anchored chrome:** on `/practice`, hero + progress stay at the top and ◀ ▶ +
-  primary CTA stay at the bottom across steps; only the task body scrolls when
-  content is long (reading, dictation). Short steps (prepare, type-with-word)
-  keep the footer at the same height as in a reference writing exercise.
+  primary CTA stay at the bottom across steps; only reading steps scroll inside
+  the body (`scroll` / `paginated` profile).
 - **Content profiles:** recipe authors declare whether a step is short, scrollable,
   or paginated — long text never pushes the footer down.
 
