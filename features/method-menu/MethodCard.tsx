@@ -39,8 +39,8 @@ export function MethodCard({ method, returnQuery = "" }: MethodCardProps) {
       <MethodCardHeader section={method.section} />
 
       <div className="flex flex-1 flex-col p-4">
-        <div className="min-h-[4.75rem]">
-          <h3 className="text-xl font-semibold text-ink">{localized.name}</h3>
+        <div className="min-h-[5.5rem]">
+          <h3 className="text-3xl font-semibold leading-tight text-ink">{localized.name}</h3>
           <p className="mt-1 line-clamp-2 text-sm text-muted">{localized.summary}</p>
         </div>
 
