@@ -71,6 +71,8 @@ Full pipeline, Definition of Ready and Definition of Done:
 8. **Never invent a rule to keep moving.** When the spec cannot answer the
    question, emit `⚠ SPEC GAP: <what is undecided>` and stop on that part.
    A guessed rule that happens to be right is still a decision nobody made.
+9. **No subagents.** See [`docs/AGENT-PITFALLS.md`](docs/AGENT-PITFALLS.md) §20.
+10. **No Substrate + Sonnet by default.** See [`docs/AGENT-PITFALLS.md`](docs/AGENT-PITFALLS.md) §19.
 
 ---
 
@@ -143,7 +145,5 @@ the spec in the same session, and note it in today's
 a code trap to [`docs/TRAPS.md`](docs/TRAPS.md), a collaboration failure to
 [`docs/AGENT-PITFALLS.md`](docs/AGENT-PITFALLS.md).
 
-**Automated gates do not prove browser behavior.** For caches, revisits, and
-anything where the second interaction differs from the first, end your turn with
-an explicit `LIVE CHECK (you)` block: the steps to click, in order, and what
-should happen. Never report "verified" for something you could not observe.
+**Automated gates do not prove browser behavior.** End with `LIVE CHECK (you)`:
+click steps and expected outcome — never claim verified without observing.

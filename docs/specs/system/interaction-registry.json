@@ -44,6 +44,11 @@
       "reason": "Full-screen dismiss overlay — not an actionable control; no press/pending contract."
     },
     {
+      "file": "features/marketing/PublicHeaderMenu.tsx",
+      "pattern": "language-switcher-scrim",
+      "reason": "Full-screen dismiss overlay — reuses language-switcher scrim token; not an actionable control."
+    },
+    {
       "file": "components/ui/error-callout.test.tsx",
       "pattern": "<button",
       "reason": "Test fixture only — not production UI."

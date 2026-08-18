@@ -25,9 +25,12 @@ Update this file in the same PR as any new control or migration.
 
 | Control | File | Primitive | Variant | P |
 | --- | --- | --- | --- | --- |
-| Brand | `PublicHeader.tsx` | `TextLink` | `ink sm` | — |
-| Sign in | `PublicHeader.tsx` | `ActionLink` | `ghost sm`; `aria-current` on `/login` | ✓ |
-| Sign up | `PublicHeader.tsx` | `ActionLink` | `primary sm` | ✓ |
+| Brand (desktop) | `PublicHeader.tsx` | `TextLink` | `ink sm` | — |
+| Brand (mobile) | `PublicHeader.tsx` | `ActionLink` | `ghost sm` + `BrandMark` | ✓ |
+| Mobile menu | `PublicHeaderMenu.tsx` | `IconButton` | `floating`; `aria-haspopup="menu"` | ring |
+| Menu scrim | `PublicHeaderMenu.tsx` | raw `<button>` | **exempt** — dismiss overlay | — |
+| Sign in | `PublicHeaderAuthControls.tsx` | `ActionLink` | `ghost sm`; `aria-current` on `/login` | ✓ |
+| Sign up | `PublicHeaderAuthControls.tsx` | `ActionLink` | `primary sm` | ✓ |
 | Primary CTA | `LandingHero.tsx` | `ActionLink` | `primary lg` | ✓ |
 | Secondary CTA | `LandingHero.tsx` | `ActionLink` | `secondary lg` | muted |
 | Footer links ×2 | `LandingHero.tsx` | `TextLink` | `accent` | — |
@@ -37,8 +40,8 @@ Update this file in the same PR as any new control or migration.
 
 | Control | File | Primitive | Variant | P |
 | --- | --- | --- | --- | --- |
-| Sign out | `PublicHeader.tsx` | `SubmitButton` in `<form>` | `ghost sm` | auto |
-| To app | `PublicHeader.tsx` | `ActionLink` | `primary sm` | ✓ |
+| Sign out | `PublicHeaderAuthControls.tsx` | `SubmitButton` in `<form>` | `ghost sm` | auto |
+| To app | `PublicHeaderAuthControls.tsx` | `ActionLink` | `primary sm` | ✓ |
 | Hero CTA | `LandingHero.tsx` | `ActionLink` | `primary lg` | ✓ |
 
 ## Auth

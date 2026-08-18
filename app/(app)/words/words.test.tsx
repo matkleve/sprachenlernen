@@ -84,9 +84,7 @@ describe("WordsHome", () => {
     const headerImage = within(reviewCard as HTMLElement).getByRole("img", {
       name: wordsReviewGraphicAlt(en.words.reviewCardHeaderLabel),
     });
-    expect(headerImage.getAttribute("src")).toContain(
-      encodeURIComponent(wordsReviewGraphicSrc),
-    );
+    expect(headerImage.getAttribute("src")).toContain(wordsReviewGraphicSrc);
   });
 
   it("explains that held counts meaning recall and what a lemma is", async () => {
