@@ -10,6 +10,7 @@ import type { RecipeVariantId } from "@/lib/exercise-recipe/types";
 import { variantIdForMaterialSetup } from "@/lib/exercise-recipe/variant";
 import { CARD_ENGINE_METHOD_ID } from "@/lib/method-session";
 import type { MaterialUnitId } from "@/lib/material-unit";
+import { localizeMethodEntry } from "@/lib/localize-method-entry";
 import { loadPracticeHeldLemmas } from "@/lib/practice-session";
 import { routes } from "@/lib/routes";
 import { shellPageLayout } from "@/lib/shell-page-layout";
@@ -70,6 +71,9 @@ export default async function PracticePage({
     );
   }
 
+  const tMethod = await getTranslations("methodMenu");
+  const localized = localizeMethodEntry(method, (key) => tMethod(key as "entries.background-listening.name"));
+
   if (!recipe) {
     return (
       <ShellPageContent mode="scrollable-drill-in" width="narrow">
@@ -80,7 +84,7 @@ export default async function PracticePage({
 
   return (
     <ShellPageContent mode={layoutMode} width="narrow">
-      <ExerciseRunner methodName={method.name} recipe={recipe} compact={layoutMode === "one-screen-runner"} />
+      <ExerciseRunner methodName={localized.name} recipe={recipe} compact={layoutMode === "one-screen-runner"} />
     </ShellPageContent>
   );
 }

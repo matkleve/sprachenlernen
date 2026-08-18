@@ -11,6 +11,7 @@ import { expectNoA11yViolations } from "@/tests/axe";
 
 import { MethodMenu } from "./MethodMenu";
 import { loadMethodCatalogue } from "./catalogue";
+import { findMethod } from "./MethodDetail";
 
 const loaded = loadMethodCatalogue();
 const catalogue = loaded.catalogue ?? { entries: [] };
@@ -94,11 +95,17 @@ describe("cards", () => {
     expect(link.getAttribute("href")).toBe("/words/review?method=srs-session");
   });
 
-  it("links other hosted methods to detail", () => {
+  it("links hosted methods with built runners to practice", () => {
     show();
-    const hosted = catalogue.entries
-      .filter(isMethod)
-      .find((m) => m.hosted && m.id !== "srs-session")!;
+    const hosted = findMethod(catalogue, "extensive-reading")!;
+    const link = screen.getByRole("link", { name: new RegExp(hosted.name) });
+    expect(link.getAttribute("href")).toContain("/practice?method=extensive-reading");
+    expect(link.getAttribute("href")).not.toContain("/words/review");
+  });
+
+  it("links other hosted methods without a runner to detail", () => {
+    show();
+    const hosted = findMethod(catalogue, "narrow-listening")!;
     const link = screen.getByRole("link", { name: new RegExp(hosted.name) });
     expect(link.getAttribute("href")).toContain(`/methods/${hosted.id}`);
     expect(link.getAttribute("href")).not.toContain("/words/review");
