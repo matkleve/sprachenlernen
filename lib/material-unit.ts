@@ -9,7 +9,7 @@ import {
 import {
   dictationSentenceFromSource,
   pickDictationSentence,
-} from "@/lib/content-sources";
+} from "@/lib/dictation-sentence";
 import type { Lexicon } from "@/lib/lexicon";
 
 export const MATERIAL_UNIT_IDS = ["sentence", "paragraph", "window", "full"] as const;

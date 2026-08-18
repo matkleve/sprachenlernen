@@ -10,9 +10,7 @@ import {
   type CoverageResult,
   type Source,
 } from "@/lib/coverage";
-import {
-  DEFAULT_PARTIAL_DICTATION_SOURCE_ID,
-} from "@/lib/content-sources";
+import { DEFAULT_PARTIAL_DICTATION_SOURCE_ID } from "@/lib/content-source-constants";
 import type { MaterialTopic, MethodEntry } from "@/lib/method-catalogue";
 import {
   DEFAULT_WINDOW_DURATION_SEC,
@@ -153,10 +151,17 @@ export function pickTopicSource(
   return ranked[0]?.source ?? null;
 }
 
+export function titleFromLearnerText(text: string): string {
+  const line = text.trim().split(/\n/)[0]?.trim() ?? "";
+  if (!line) return "Your text";
+  if (line.length <= 60) return line;
+  return `${line.slice(0, 57)}…`;
+}
+
 export function createLearnerSourceFromText(
   text: string,
   languageCode: string,
-  title = "Your text",
+  title = titleFromLearnerText(text),
 ): Source {
   return {
     id: `learner-${Date.now()}`,
