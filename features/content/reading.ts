@@ -4,6 +4,7 @@
  */
 import { cookies } from "next/headers";
 
+import { listLearnerSourcesForLanguage } from "@/lib/db/content-sources";
 import { listReviewsForTaskIds } from "@/lib/db/review-log";
 import { listTaskStatesForTaskIds } from "@/lib/db/task-state";
 import { internalUnexpected, logHandledError, type HandledError } from "@/lib/errors";
@@ -199,12 +200,19 @@ type ContentBundle = {
   dailyHeldCounts: number[];
 };
 
+async function persistedSourcesForLanguage(languageCode: string): Promise<Source[]> {
+  const fixture = loadPersistedSources(languageCode);
+  const learner = await listLearnerSourcesForLanguage(languageCode);
+  if (learner.status !== "ok") return fixture;
+  return [...fixture, ...learner.sources];
+}
+
 async function buildContentBundle(
   cards: readonly StarterCard[],
   languageCode: string,
   spokenLanguage: string,
 ): Promise<ContentBundle | null> {
-  const sources = loadPersistedSources(languageCode);
+  const sources = await persistedSourcesForLanguage(languageCode);
   const lexicon = loadLexiconForLanguage(languageCode);
   if (!lexicon || sources.length === 0) return null;
 

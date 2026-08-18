@@ -6,8 +6,8 @@ implements what is written here.
 Format and size rules: [`../SPEC-FORMAT.md`](../SPEC-FORMAT.md).
 Scaffold one: `npm run new:spec`.
 
-**Index synced 2026-08-17.** 86 canonical specs — 76 active,
-2 superseded, 8 draft. `npm run check:specs` verifies
+**Index synced 2026-08-17.** 91 canonical specs — 84 active,
+2 superseded, 5 draft. `npm run check:specs` verifies
 bidirectional traceability to use cases; this index is for navigation. Regenerate
 after adding specs: `node scripts/generate-specs-index.mjs`.
 
@@ -50,7 +50,7 @@ that first.
 | `SPEC-component-language-flag` | [language-flag.md](component/language-flag.md) | UC-025 | active |
 | `SPEC-component-language-list-row` | [language-list-row.md](component/language-list-row.md) | UC-025 | active |
 | `SPEC-component-method-badge` | [method-badge.md](component/method-badge.md) | UC-046 | active |
-| `SPEC-component-method-card` | [method-card.md](component/method-card.md) | UC-045 | draft |
+| `SPEC-component-method-card` | [method-card.md](component/method-card.md) | UC-045 | active |
 | `SPEC-component-method-card-header` | [method-card-header.md](component/method-card-header.md) | UC-045 | active |
 | `SPEC-component-nav-link` | [nav-link.md](component/nav-link.md) | UC-063 | active |
 | `SPEC-component-orbit-detail-card` | [orbit-detail-card.md](component/orbit-detail-card.md) | UC-031 | active |
@@ -61,7 +61,7 @@ that first.
 | `SPEC-component-status-banner` | [status-banner.md](component/status-banner.md) | UC-074 | active |
 | `SPEC-component-table` | [table.md](component/table.md) | UC-003 | active |
 
-### feature/ (24)
+### feature/ (26)
 
 | ID | Spec | Use case | Status |
 | --- | --- | --- | --- |
@@ -75,7 +75,8 @@ that first.
 | `SPEC-feature-exercise-runner` | [exercise-runner.md](feature/exercise-runner.md) | UC-049 | active |
 | `SPEC-feature-interaction-feedback` | [interaction-feedback.md](feature/interaction-feedback.md) | UC-068 | active |
 | `SPEC-feature-item-picker` | [item-picker.md](feature/item-picker.md) | UC-001 | superseded |
-| `SPEC-feature-method-material-setup` | [method-material-setup.md](feature/method-material-setup.md) | UC-046 | draft |
+| `SPEC-feature-listening-defer` | [listening-defer.md](feature/listening-defer.md) | UC-077 | active |
+| `SPEC-feature-method-material-setup` | [method-material-setup.md](feature/method-material-setup.md) | UC-046 | active |
 | `SPEC-feature-mobile-nav` | [mobile-nav.md](feature/mobile-nav.md) | UC-063 | superseded |
 | `SPEC-feature-mobile-nav-v2` | [mobile-nav-v2.md](feature/mobile-nav-v2.md) | UC-063 | active |
 | `SPEC-feature-page-layout` | [page-layout.md](feature/page-layout.md) | UC-063 | active |
@@ -87,6 +88,7 @@ that first.
 | `SPEC-feature-review-session` | [review-session.md](feature/review-session.md) | UC-011 | active |
 | `SPEC-feature-vocabulary-orbit` | [vocabulary-orbit.md](feature/vocabulary-orbit.md) | UC-031 | active |
 | `SPEC-feature-weekly-reflection` | [weekly-reflection.md](feature/weekly-reflection.md) | UC-004 | active |
+| `SPEC-feature-word-capture` | [word-capture.md](feature/word-capture.md) | UC-012 | active |
 | `SPEC-feature-word-detail` | [word-detail.md](feature/word-detail.md) | UC-038 | active |
 | `SPEC-feature-words-home` | [words-home.md](feature/words-home.md) | UC-063 | active |
 
@@ -107,11 +109,11 @@ that first.
 | `SPEC-page-words` | [words.md](page/words.md) | UC-063 | active |
 | `SPEC-page-words-review` | [words-review.md](page/words-review.md) | UC-063 | active |
 
-### service/ (29)
+### service/ (32)
 
 | ID | Spec | Use case | Status |
 | --- | --- | --- | --- |
-| `SPEC-service-app-texts` | [app-texts.md](service/app-texts.md) | UC-069 | draft |
+| `SPEC-service-app-texts` | [app-texts.md](service/app-texts.md) | UC-069 | active |
 | `SPEC-service-auth` | [auth.md](service/auth.md) | UC-011 | active |
 | `SPEC-service-broken-card-detection` | [broken-card-detection.md](service/broken-card-detection.md) | UC-013 | active |
 | `SPEC-service-coverage` | [coverage.md](service/coverage.md) | UC-007 | active |
@@ -120,13 +122,16 @@ that first.
 | `SPEC-service-errors` | [errors.md](service/errors.md) | UC-065 | active |
 | `SPEC-service-errors-boundaries` | [errors-boundaries.md](service/errors-boundaries.md) | UC-065 | active |
 | `SPEC-service-errors-telemetry` | [errors-telemetry.md](service/errors-telemetry.md) | UC-066 | active |
+| `SPEC-service-exercise-recipe-composer` | [exercise-recipe-composer.md](service/exercise-recipe-composer.md) | UC-049 | active |
+| `SPEC-service-exercise-step-components` | [exercise-step-components.md](service/exercise-step-components.md) | UC-049 | active |
 | `SPEC-service-form-mastery-signal` | [form-mastery-signal.md](service/form-mastery-signal.md) | UC-041 | active |
 | `SPEC-service-form-practice` | [form-practice.md](service/form-practice.md) | UC-041 | draft |
 | `SPEC-service-form-recall-pool` | [form-recall-pool.md](service/form-recall-pool.md) | UC-041 | active |
 | `SPEC-service-frequency-blocks` | [frequency-blocks.md](service/frequency-blocks.md) | UC-032 | active |
-| `SPEC-service-gloss-resolver` | [gloss-resolver.md](service/gloss-resolver.md) | UC-069 | draft |
+| `SPEC-service-gloss-resolver` | [gloss-resolver.md](service/gloss-resolver.md) | UC-069 | active |
 | `SPEC-service-learning-languages` | [learning-languages.md](service/learning-languages.md) | UC-025 | active |
 | `SPEC-service-lexicon` | [lexicon.md](service/lexicon.md) | UC-035 | active |
+| `SPEC-service-material-unit` | [material-unit.md](service/material-unit.md) | UC-007 | draft |
 | `SPEC-service-method-catalogue` | [method-catalogue.md](service/method-catalogue.md) | UC-046 | active |
 | `SPEC-service-method-engines` | [method-engines.md](service/method-engines.md) | UC-046 | active |
 | `SPEC-service-practice-model` | [practice-model.md](service/practice-model.md) | UC-010 | active |

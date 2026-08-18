@@ -1,13 +1,26 @@
 "use server";
 
+import { cookies } from "next/headers";
 import { getTranslations } from "next-intl/server";
 
 import { loadMethodCatalogue } from "@/features/method-menu/catalogue";
 import { findMethod } from "@/features/method-menu/MethodDetail";
+import { createLearnerTextSource } from "@/lib/db/content-sources";
+import { getAccount } from "@/lib/db/auth";
+import { createServerSupabaseClient } from "@/lib/db/client";
 import {
+  EPHEMERAL_SOURCE_COOKIE,
+  serializeEphemeralSourceCookie,
+} from "@/lib/ephemeral-source-cookie";
+import {
+  createLearnerSourceFromText,
+  OWN_TOPIC_ID,
+  practiceHrefForSetup,
   previewForOwnText,
+  titleFromLearnerText,
   type MaterialSetupLabels,
   type MaterialSetupPreview,
+  type MaterialTopicSelection,
 } from "@/lib/method-material-setup";
 import type { MaterialUnitId } from "@/lib/material-unit";
 
@@ -63,4 +76,106 @@ export async function previewOwnMaterialAction(
     bundle.heldLemmas,
     labelsFromTranslator(t),
   );
+}
+
+export type StartMaterialPracticeInput = {
+  methodId: string;
+  topicId: MaterialTopicSelection;
+  unitId: MaterialUnitId;
+  durationSec?: number;
+  ownText?: string;
+  keepInLibrary?: boolean;
+  catalogueSourceId?: string;
+};
+
+export type StartMaterialPracticeOutcome =
+  | { status: "ok"; href: string }
+  | { status: "error"; error: string };
+
+export async function startMaterialPracticeAction(
+  input: StartMaterialPracticeInput,
+): Promise<StartMaterialPracticeOutcome> {
+  const hrefForCatalogue = () =>
+    practiceHrefForSetup({
+      methodId: input.methodId,
+      sourceId: input.catalogueSourceId ?? "",
+      topicId: input.topicId,
+      unitId: input.unitId,
+      durationSec: input.durationSec,
+    });
+
+  if (input.topicId !== OWN_TOPIC_ID) {
+    if (!input.catalogueSourceId) {
+      return { status: "error", error: "Choose material before starting." };
+    }
+    return { status: "ok", href: hrefForCatalogue() };
+  }
+
+  const trimmed = input.ownText?.trim() ?? "";
+  if (!trimmed) {
+    return { status: "error", error: "Paste some text before starting." };
+  }
+
+  const t = await getTranslations("methodMaterial");
+  const { catalogue } = loadMethodCatalogue();
+  const method = findMethod(catalogue, input.methodId);
+  if (!method) return { status: "error", error: "Method not found." };
+
+  const bundle = await readMaterialSetupBundle(method, labelsFromTranslator(t));
+  if (bundle.status !== "ok") {
+    return { status: "error", error: "Could not load your language settings." };
+  }
+
+  if (input.keepInLibrary) {
+    const account = await getAccount(await createServerSupabaseClient());
+    if (!account) {
+      return { status: "error", error: "Sign in to keep text in your library." };
+    }
+
+    const saved = await createLearnerTextSource({
+      languageCode: bundle.languageCode,
+      body: trimmed,
+      title: titleFromLearnerText(trimmed),
+    });
+    if (saved.status === "error") return saved;
+
+    return {
+      status: "ok",
+      href: practiceHrefForSetup({
+        methodId: input.methodId,
+        sourceId: saved.source.id,
+        topicId: input.topicId,
+        unitId: input.unitId,
+        durationSec: input.durationSec,
+      }),
+    };
+  }
+
+  const source = createLearnerSourceFromText(trimmed, bundle.languageCode);
+  try {
+    const cookieStore = await cookies();
+    cookieStore.set(EPHEMERAL_SOURCE_COOKIE, serializeEphemeralSourceCookie(source), {
+      httpOnly: true,
+      sameSite: "lax",
+      maxAge: 60 * 60 * 4,
+      path: "/",
+    });
+  } catch (cause) {
+    const message =
+      cause instanceof Error
+        ? cause.message
+        : "Could not start a session-only practice run.";
+    return { status: "error", error: message };
+  }
+
+  return {
+    status: "ok",
+    href: practiceHrefForSetup({
+      methodId: input.methodId,
+      sourceId: source.id,
+      topicId: input.topicId,
+      unitId: input.unitId,
+      durationSec: input.durationSec,
+    }),
+  };
 }

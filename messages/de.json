@@ -304,7 +304,8 @@
     "typeOnlyHint": "Tippen Sie die Lücken — Hören ist vorübergehend pausiert.",
     "playAudio": "Audio abspielen",
     "gapPlaceholder": "…",
-    "gapInputLabel": "Lücke {word}"
+    "gapInputLabel": "Lücke {word}",
+    "unknownComponent": "Dieser Schritttyp ({component}) ist noch nicht umgesetzt."
   },
   "listeningDefer": {
     "sectionLabel": "Ton",
@@ -611,6 +612,7 @@
     "appPickPreview": "Ein Abschnitt bei ~{percent} % für dich heute · {band}",
     "emptyTopic": "Noch nichts in der Bibliothek zu diesem Thema — probier Eigenes",
     "keepInLibrary": "In meiner Bibliothek behalten",
+    "keepRequiresSignIn": "Melde dich an, um Texte in deiner Bibliothek zu speichern",
     "uploadFile": "Datei hochladen",
     "pasteText": "Text einfügen",
     "pastePlaceholder": "Text einfügen oder tippen, mit dem du üben willst",

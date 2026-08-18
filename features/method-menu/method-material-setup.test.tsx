@@ -1,12 +1,24 @@
 import { renderWithIntl as render, en } from "@/tests/i18n-test-utils";
 import { screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 
 import { loadMethodCatalogue } from "./catalogue";
 import { findMethod } from "./MethodDetail";
 import { MethodMaterialSetup } from "./MethodMaterialSetup";
 import type { MaterialSetupContext } from "@/lib/method-material-setup";
+
+vi.mock("next/navigation", () => ({
+  useRouter: () => ({ push: vi.fn() }),
+}));
+
+vi.mock("./material-setup-actions", () => ({
+  previewOwnMaterialAction: vi.fn(),
+  startMaterialPracticeAction: vi.fn().mockResolvedValue({
+    status: "ok",
+    href: "/practice?method=partial-dictation&sourceId=learner-1",
+  }),
+}));
 
 const { catalogue } = loadMethodCatalogue();
 const extensiveReading = findMethod(catalogue, "extensive-reading")!;
@@ -122,7 +134,7 @@ describe("MethodMaterialSetup", () => {
     await user.type(screen.getByPlaceholderText(/paste or type/i), "Hola");
 
     expect(await screen.findByText(/Still demanding/i)).toBeDefined();
-    expect(screen.getByRole("link", { name: en.methodMenu.startSession })).toBeDefined();
+    expect(screen.getByRole("button", { name: en.methodMenu.startSession }).getAttribute("disabled")).toBeNull();
   });
 
   it("AC-6: disabled topic chip cannot be selected", () => {

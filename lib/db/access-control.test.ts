@@ -484,4 +484,60 @@ describe.skipIf(!hasLiveProject)("task_state row-level security", () => {
 
     expect(error).not.toBeNull();
   });
+
+  // --- content_sources ------------------------------------------------------
+
+  async function clearContentSources() {
+    await admin.from("content_sources").delete().in("user_id", [userA.id, userB.id]);
+  }
+
+  it("lets a signed-in user save their own content source", async (ctx) => {
+    if (skipSuite) ctx.skip();
+    await clearContentSources();
+    const asA = await signInAs(userA.email);
+
+    const { error } = await asA.from("content_sources").insert({
+      user_id: userA.id,
+      language_code: "es",
+      kind: "text",
+      title: "Mi texto",
+      body: "Hola mundo.",
+    });
+    expect(error).toBeNull();
+  });
+
+  it("never returns another user's content_sources rows", async (ctx) => {
+    if (skipSuite) ctx.skip();
+    await clearContentSources();
+    const asA = await signInAs(userA.email);
+    await asA.from("content_sources").insert({
+      user_id: userA.id,
+      language_code: "es",
+      kind: "text",
+      title: "Mi texto",
+      body: "Hola mundo.",
+    });
+
+    const asB = await signInAs(userB.email);
+    const { data, error } = await asB.from("content_sources").select("*");
+
+    expect(error).toBeNull();
+    expect(data).toEqual([]);
+  });
+
+  it("refuses to insert a content_sources row owned by someone else", async (ctx) => {
+    if (skipSuite) ctx.skip();
+    await clearContentSources();
+    const asB = await signInAs(userB.email);
+
+    const { error } = await asB.from("content_sources").insert({
+      user_id: userA.id,
+      language_code: "es",
+      kind: "text",
+      title: "Mi texto",
+      body: "Hola mundo.",
+    });
+
+    expect(error).not.toBeNull();
+  });
 });

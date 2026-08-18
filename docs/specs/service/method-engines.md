@@ -48,17 +48,19 @@ engine on the same route. **Form-recall** Tasks ship in
 [`form-recall-pool.md`](form-recall-pool.md) — staged after meaning-recall is
 held for the same Word.
 
-## Exercise runner (draft)
+## Exercise runner (shipped shell; composers in progress)
 
 | Field | Value |
 | --- | --- |
-| Methods | Multi-step: dictation, free writing, 4/3/2, … |
+| Methods | Thirty-four hosted minus `srs-session` — see [`exercise-recipe-composer.methods.md`](exercise-recipe-composer.methods.md) |
 | Route | `/practice?method=…` ([`practice.md`](../page/practice.md)) |
 | Step model | prepare · do · wait · submit · review · decide |
-| Recipes | Data — ordered steps + components ([`exercise-runner.md`](../feature/exercise-runner.md)) |
+| Components | Forty-one runner widgets — [`exercise-step-components.md`](exercise-step-components.md) |
+| Recipes | Composed at Start — [`exercise-recipe-composer.md`](exercise-recipe-composer.md) |
 | Writes | Session log (future); `decide` may create cards — never silently |
 
-Build order: [`plans/exercise-runner.md`](../../plans/exercise-runner.md).
+Built: shell + `partial-dictation` (one sentence). Build order:
+[`plans/exercise-runner.md`](../../plans/exercise-runner.md).
 
 ## Routing
 

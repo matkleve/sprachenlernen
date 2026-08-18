@@ -192,8 +192,10 @@ about the fit, not about the person.
 Shipped as [`specs/feature/exercise-runner.md`](../specs/feature/exercise-runner.md)
 (2026-08-17):
 
-- Six step types; **step components** per type (`capture`, `self-mark`,
-  `feedback`, …).
+- Six step types; **step components** per type — full catalogue in
+  [`specs/service/exercise-step-components.md`](../specs/service/exercise-step-components.md);
+  per-Method mixes in
+  [`specs/service/exercise-recipe-composer.methods.md`](../specs/service/exercise-recipe-composer.methods.md).
 - Per-step status: `unseen → seen → done` (+ `skipped` later). See
   [`../STATE.md`](../STATE.md) — `seen` is not completion.
 - Recipe as **data**: ordered steps, so a new method is configuration not a new

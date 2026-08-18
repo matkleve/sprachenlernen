@@ -56,7 +56,7 @@ T-W9 ships; session-only paste may omit persistence (study/37).
 
 | Field | Owner |
 | --- | --- |
-| `Source` records | DB table `content_sources` when T-W9 ships; fixtures in `data/` until then |
+| `Source` records | DB table `content_sources` for learner saves; fixture/catalogue in `data/` |
 | `coverage_history` rows | DB — Sensitive; `source_id`, `measured_at`, `coverage_percent`, `calibration_dated` |
 | Held-lemma set | derived per request from review log + starter pool |
 

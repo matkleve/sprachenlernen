@@ -76,6 +76,20 @@ export function resolveDescription(
   return defaultGlossResolver()(key, spokenLanguage, fallback);
 }
 
+/** Batch resolve — loads each locale snapshot once per call (not per key). */
+export function resolveDescriptions(
+  keys: readonly string[],
+  spokenLanguage: string,
+  fallbacks: Readonly<Record<string, string>> = {},
+): Readonly<Record<string, string>> {
+  const resolver = defaultGlossResolver();
+  const out: Record<string, string> = {};
+  for (const key of keys) {
+    out[key] = resolver(key, spokenLanguage, fallbacks[key] ?? "");
+  }
+  return out;
+}
+
 /** Test hook — swap the process-wide resolver. */
 export function setGlossResolverForTests(
   resolver: ReturnType<typeof createGlossResolver> | null,

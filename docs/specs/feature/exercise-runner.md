@@ -42,24 +42,13 @@ Not every recipe uses all six. `srs-session` does **not** use this runner.
 
 ## Step components
 
-A step's `component` selects the UI widget. Defaults exist per type; Methods
-override via recipe `config`.
+A step's `component` selects the UI widget. The full catalogue (forty-one
+runner components + five card-engine Task types), build status, and per-Method
+demand live in [`exercise-step-components.md`](../service/exercise-step-components.md).
 
-| Component | Type | Purpose |
-| --- | --- | --- |
-| `checklist` | prepare | Tick list (not gated) |
-| `prompt` | do | Markdown body ± audio |
-| `audio-play` | do | Play / replay clip (hidden when UC-077 defer active) |
-| `gap-fill` | do, submit | Half-filled line; type or speak blanks ([`material-unit.md`](../service/material-unit.md)) |
-| `audio-gap` | do | Gap dictation line |
-| `capture` | submit | Camera, gallery, paste text — `accept: photo \| text` |
-| `optional-capture` | submit | Same as capture; `required: false` |
-| `self-mark` | review | Show answer key; tap errors |
-| `compare` | review | Side-by-side learner text vs key |
-| `feedback` | review | v1: placeholder + self-mark fallback; v2: assisted correction |
-| `offers` | decide | Two buttons + decline line |
-
-New components extend the catalogue; new Methods do not fork the runner.
+Shipped today: `checklist`, `prompt`, `gap-fill`, `capture`, `self-mark`,
+`feedback` (placeholder), `offers`, `wait` (timer). New components extend the
+registry; new Methods do not fork the runner.
 
 ## Runner chrome
 
@@ -96,9 +85,11 @@ type ExerciseRecipe = {
 };
 ```
 
-Recipes are data — catalogue entry or generated from Source + **material unit**
-([`material-unit.md`](../service/material-unit.md)). Implementation:
-`lib/exercise-recipe.ts`, `lib/exercise-recipe/partial-dictation.ts`.
+Recipes are composed at session start from **material unit** + Method template
+([`material-unit.md`](../service/material-unit.md),
+[`exercise-recipe-composer.md`](../service/exercise-recipe-composer.md)).
+Per-Method step mixes: [`exercise-recipe-composer.methods.md`](../service/exercise-recipe-composer.methods.md).
+Implementation: `lib/exercise-recipe.ts`, `lib/exercise-recipe/partial-dictation.ts`.
 
 ## Behaviour
 

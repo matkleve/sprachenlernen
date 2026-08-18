@@ -14,7 +14,7 @@
 - [ ] Given an Account switches `spoken_language` from `en` to `de`, when the
       same `taskId` renders, then only the description text changes — `taskId`,
       due date, and review history are unchanged.
-- [ ] Given seed import from starter pools, when `it:fare` is imported, then
+- [x] Given seed import from starter pools, when `it:fare` is imported, then
       `text_key` is `card.it:fare.meaning-recall.back` and `source_text` matches
       today's shipped `back` field.
 - [ ] Given Account A, when A reads `app_text_translations` with `status`

@@ -20,6 +20,7 @@
     "new:spec": "node scripts/new-spec.mjs",
     "build:starter-deck": "node scripts/build-starter-deck.mjs",
     "build:descriptions": "node scripts/export-description-snapshots.mjs",
+    "import:app-texts": "RUN_APP_TEXTS_IMPORT=1 vitest run lib/db/import-app-texts.run.test.ts",
     "version:proud": "node scripts/bump-pride-version.mjs proud",
     "version:default": "node scripts/bump-pride-version.mjs default",
     "version:shame": "node scripts/bump-pride-version.mjs shame",

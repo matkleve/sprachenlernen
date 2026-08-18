@@ -109,7 +109,7 @@ async function read(now: number): Promise<WordsHomeOutcome> {
       firstReviewByTaskId,
     }, taskHorizonMeta),
     now,
-    contentTraceIndex: loadContentTraceIndex(pool.languageCodes[0] ?? "es"),
+    contentTraceIndex: await loadContentTraceIndex(pool.languageCodes[0] ?? "es"),
   };
 }
 

@@ -16,7 +16,7 @@ import { buildSession, type SessionCard } from "@/lib/session-builder";
 import { filterSchedulableCards } from "@/lib/form-recall-staging";
 import { poolForActiveLanguage } from "@/lib/db/learner-pools";
 import { languageLabel } from "@/lib/languages";
-import { localizeSessionCard } from "@/lib/localize-card-description";
+import { localizeSessionCards } from "@/lib/localize-card-description";
 import { parseGapSetCookie, GAP_SET_COOKIE } from "@/lib/gap-set-cookie";
 import { tasksByTaskIdForCards } from "@/lib/task-from-state";
 import type { Grade } from "@/lib/scheduler";
@@ -101,9 +101,12 @@ export async function buildSessionAction(): Promise<BuildSessionOutcome> {
     const cookieStore = await cookies();
     const gapSet = parseGapSetCookie(cookieStore.get(GAP_SET_COOKIE)?.value);
     const priorityLemmas = gapSet ? new Set(gapSet.lemmas) : undefined;
-    const queue = buildSession(schedulable, tasksByTaskId, Date.now(), undefined, {
-      priorityLemmas,
-    }).map((card) => localizeSessionCard(card, spoken.spokenLanguage));
+    const queue = localizeSessionCards(
+      buildSession(schedulable, tasksByTaskId, Date.now(), undefined, {
+        priorityLemmas,
+      }),
+      spoken.spokenLanguage,
+    );
     return { status: "ok", queue, languageName };
   } catch (cause) {
     const handled = sessionBuildFailed(

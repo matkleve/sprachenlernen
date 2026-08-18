@@ -1,7 +1,7 @@
 # UC-012 — Turn a word I just met into practice
 
 <!-- id: UC-012 -->
-<!-- specs:  -->
+<!-- specs: SPEC-feature-word-capture -->
 
 **Who:** anyone who just hit a word they did not know — in a text, in audio, in
 a conversation, on a form at the town hall.

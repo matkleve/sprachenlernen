@@ -2,7 +2,7 @@ import { renderWithIntl as render } from "@/tests/i18n-test-utils";
 import { screen } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 
-import { GapFillStep } from "./GapFillStep";
+import { GapFillStep } from "./steps/GapFillStep";
 
 const gapConfig = {
   sentence: "El café está en la mesa.",

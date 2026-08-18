@@ -304,7 +304,8 @@
     "typeOnlyHint": "Type the gaps — listening is paused for now.",
     "playAudio": "Play audio",
     "gapPlaceholder": "…",
-    "gapInputLabel": "Gap {word}"
+    "gapInputLabel": "Gap {word}",
+    "unknownComponent": "This step type ({component}) is not built yet."
   },
   "listeningDefer": {
     "sectionLabel": "Sound",
@@ -611,6 +612,7 @@
     "appPickPreview": "A passage at ~{percent}% for you today · {band}",
     "emptyTopic": "Nothing in the library yet for this topic — try Your own",
     "keepInLibrary": "Keep in my library",
+    "keepRequiresSignIn": "Sign in to save text to your library",
     "uploadFile": "Upload file",
     "pasteText": "Paste text",
     "pastePlaceholder": "Paste or type the text you want to practise with",

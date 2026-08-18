@@ -14,6 +14,7 @@ import { loadLexiconForLanguage } from "@/lib/shipped-language";
 import { resolveExerciseRecipe } from "@/lib/exercise-recipe";
 import {
   buildPartialDictationRecipe,
+  composePartialDictationRecipe,
   resolvePartialDictationRecipe,
 } from "@/lib/exercise-recipe/partial-dictation";
 
@@ -39,6 +40,8 @@ describe("content-sources dictation helpers", () => {
 });
 
 describe("partial dictation recipe", () => {
+  const catalogueOnly = (id: string) => findContentSourceById(id);
+
   it("builds six steps from a catalogue source", () => {
     const source = findContentSourceById(DEFAULT_PARTIAL_DICTATION_SOURCE_ID)!;
     const recipe = buildPartialDictationRecipe(source);
@@ -58,26 +61,45 @@ describe("partial dictation recipe", () => {
     expect(tokens.some((token) => token.gapped)).toBe(true);
   });
 
-  it("defaults to es-fixture-cafe without sourceId", () => {
-    const recipe = resolvePartialDictationRecipe();
+  it("defaults to es-fixture-cafe without sourceId", async () => {
+    const recipe = await resolvePartialDictationRecipe(
+      { methodId: "partial-dictation" },
+      catalogueOnly,
+    );
     expect(recipe?.sourceId).toBe(DEFAULT_PARTIAL_DICTATION_SOURCE_ID);
   });
 
-  it("returns null for unknown sourceId", () => {
-    expect(resolvePartialDictationRecipe("missing-source")).toBeNull();
+  it("returns null for unknown sourceId", async () => {
+    expect(
+      await resolvePartialDictationRecipe(
+        { methodId: "partial-dictation", sourceId: "missing-source" },
+        catalogueOnly,
+      ),
+    ).toBeNull();
+  });
+
+  it("standard variant adds multiple dictation loops when source has enough sentences", () => {
+    const source = findContentSourceById(DEFAULT_PARTIAL_DICTATION_SOURCE_ID)!;
+    const recipe = composePartialDictationRecipe(source, {
+      methodId: "partial-dictation",
+      variantId: "standard",
+    });
+    const doSteps = recipe.steps.filter((step) => step.type === "do");
+    expect(doSteps.length).toBeGreaterThan(1);
+    expect(recipe.steps.length).toBeGreaterThan(6);
   });
 });
 
 describe("resolveExerciseRecipe", () => {
-  it("returns catalogue recipe for partial-dictation", () => {
-    const recipe = resolveExerciseRecipe("partial-dictation");
+  it("returns catalogue recipe for partial-dictation", async () => {
+    const recipe = await resolveExerciseRecipe("partial-dictation");
     expect(recipe?.methodId).toBe("partial-dictation");
     expect(recipe?.sourceId).toBe(DEFAULT_PARTIAL_DICTATION_SOURCE_ID);
     expect(recipe?.steps).toHaveLength(6);
   });
 
-  it("uses requested catalogue source when sourceId is set", () => {
-    const recipe = resolveExerciseRecipe(
+  it("uses requested catalogue source when sourceId is set", async () => {
+    const recipe = await resolveExerciseRecipe(
       "partial-dictation",
       "es-catalogue-chile",
     );
@@ -86,7 +108,7 @@ describe("resolveExerciseRecipe", () => {
     expect(review?.config.answerKey).toContain("gobierno");
   });
 
-  it("returns null for unbuilt methods", () => {
-    expect(resolveExerciseRecipe("full-dictation")).toBeNull();
+  it("returns null for unbuilt methods", async () => {
+    expect(await resolveExerciseRecipe("full-dictation")).toBeNull();
   });
 });

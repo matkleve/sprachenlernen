@@ -6,7 +6,9 @@ import { ExerciseRunner } from "@/features/exercise-runner/ExerciseRunner";
 import { loadMethodCatalogue } from "@/features/method-menu/catalogue";
 import { findMethod } from "@/features/method-menu/MethodDetail";
 import { resolveExerciseRecipe } from "@/lib/exercise-recipe";
+import type { RecipeVariantId } from "@/lib/exercise-recipe/types";
 import { CARD_ENGINE_METHOD_ID } from "@/lib/method-session";
+import type { MaterialUnitId } from "@/lib/material-unit";
 import { routes } from "@/lib/routes";
 import { shellPageLayout } from "@/lib/shell-page-layout";
 
@@ -16,10 +18,16 @@ import { shellPageLayout } from "@/lib/shell-page-layout";
 export default async function PracticePage({
   searchParams,
 }: {
-  searchParams: Promise<{ method?: string; sourceId?: string }>;
+  searchParams: Promise<{
+    method?: string;
+    sourceId?: string;
+    unitId?: string;
+    durationSec?: string;
+    variantId?: string;
+  }>;
 }) {
   const t = await getTranslations("reviewSession");
-  const { method: methodId, sourceId } = await searchParams;
+  const { method: methodId, sourceId, unitId, durationSec, variantId } = await searchParams;
 
   if (methodId === CARD_ENGINE_METHOD_ID) {
     redirect(`${routes.wordsReview}?method=${encodeURIComponent(CARD_ENGINE_METHOD_ID)}`);
@@ -39,7 +47,12 @@ export default async function PracticePage({
 
   const { catalogue } = loadMethodCatalogue();
   const method = findMethod(catalogue, methodId);
-  const recipe = resolveExerciseRecipe(methodId, sourceId);
+  const recipe = await resolveExerciseRecipe(methodId, {
+    sourceId,
+    unitId: unitId as MaterialUnitId | undefined,
+    durationSec: durationSec ? Number(durationSec) : undefined,
+    variantId: variantId as RecipeVariantId | undefined,
+  });
 
   if (!method) {
     return (

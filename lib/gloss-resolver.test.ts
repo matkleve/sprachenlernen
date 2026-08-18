@@ -3,7 +3,7 @@
  */
 import { describe, expect, it } from "vitest";
 
-import { createGlossResolver, resolveDescription, setGlossResolverForTests } from "@/lib/gloss-resolver";
+import { createGlossResolver, resolveDescription, resolveDescriptions, setGlossResolverForTests } from "@/lib/gloss-resolver";
 
 describe("gloss-resolver", () => {
   const snapshots = {
@@ -50,6 +50,19 @@ describe("gloss-resolver", () => {
     const german = resolveDescription("card.it:fare.meaning-recall.back", "de", "to do");
     expect(german).not.toBe("to do");
     expect(german.length).toBeGreaterThan(0);
+    setGlossResolverForTests(null);
+  });
+
+  it("resolveDescriptions returns a map for every key", () => {
+    const batch = createGlossResolver(snapshots);
+    setGlossResolverForTests(batch);
+    const result = resolveDescriptions(
+      ["card.it:fare.meaning-recall.back", "card.es:nuevo.meaning-recall.back"],
+      "de",
+      { "card.es:nuevo.meaning-recall.back": "new" },
+    );
+    expect(result["card.it:fare.meaning-recall.back"]).toBe("tun");
+    expect(result["card.es:nuevo.meaning-recall.back"]).toBe("new");
     setGlossResolverForTests(null);
   });
 });

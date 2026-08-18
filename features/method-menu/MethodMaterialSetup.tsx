@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState, useTransition } from "react";
+import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 
 import { ActionLink } from "@/components/ui/ActionLink";
@@ -20,11 +21,12 @@ import { usesExerciseRunner } from "@/lib/method-session";
 import type { MaterialUnitId } from "@/lib/material-unit";
 import { cn } from "@/lib/utils";
 
-import { previewOwnMaterialAction } from "./material-setup-actions";
+import { previewOwnMaterialAction, startMaterialPracticeAction } from "./material-setup-actions";
 
 export type MethodMaterialSetupProps = {
   method: MethodEntry;
   context: MaterialSetupContext;
+  canPersist?: boolean;
   className?: string;
   /** Test hook — bypasses the server action for own-text preview. */
   previewOwnForTest?: (
@@ -36,9 +38,11 @@ export type MethodMaterialSetupProps = {
 export function MethodMaterialSetup({
   method,
   context,
+  canPersist = false,
   className,
   previewOwnForTest,
 }: MethodMaterialSetupProps) {
+  const router = useRouter();
   const t = useTranslations("methodMaterial");
   const tMenu = useTranslations("methodMenu");
   const [topicId, setTopicId] = useState<MaterialTopicSelection>(context.defaultTopicId);
@@ -46,6 +50,7 @@ export function MethodMaterialSetup({
   const [ownText, setOwnText] = useState("");
   const [ownPreview, setOwnPreview] = useState<MaterialSetupPreview | null>(null);
   const [keepInLibrary, setKeepInLibrary] = useState(false);
+  const [startError, setStartError] = useState<string | null>(null);
   const [isPending, startTransition] = useTransition();
 
   const labels = useMemo(
@@ -86,8 +91,8 @@ export function MethodMaterialSetup({
   const showOwnPreview = topicId === OWN_TOPIC_ID && Boolean(ownPreview);
 
   const selectedUnit = context.unitOptions.find((unit) => unit.id === unitId);
-  const startHref =
-    cataloguePreview && usesExerciseRunner(method)
+  const catalogueStartHref =
+    cataloguePreview && topicId !== OWN_TOPIC_ID && usesExerciseRunner(method)
       ? practiceHrefForSetup({
           methodId: method.id,
           sourceId: cataloguePreview.sourceId,
@@ -96,6 +101,30 @@ export function MethodMaterialSetup({
           durationSec: selectedUnit?.durationSec,
         })
       : null;
+
+  const handleStart = () => {
+    if (!cataloguePreview || !usesExerciseRunner(method)) return;
+    setStartError(null);
+
+    startTransition(async () => {
+      const result = await startMaterialPracticeAction({
+        methodId: method.id,
+        topicId,
+        unitId,
+        durationSec: selectedUnit?.durationSec,
+        ownText: topicId === OWN_TOPIC_ID ? ownText : undefined,
+        keepInLibrary: topicId === OWN_TOPIC_ID ? keepInLibrary : false,
+        catalogueSourceId: topicId === OWN_TOPIC_ID ? undefined : cataloguePreview.sourceId,
+      });
+
+      if (result.status === "error") {
+        setStartError(result.error);
+        return;
+      }
+
+      router.push(result.href);
+    });
+  };
 
   return (
     <section className={cn("mt-8 space-y-4", className)} aria-labelledby="material-setup-heading">
@@ -160,8 +189,10 @@ export function MethodMaterialSetup({
           <label className="flex items-center gap-2 text-sm text-muted">
             <input
               type="checkbox"
-              className="size-4 rounded border-line text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+              className="size-4 rounded border-line text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent disabled:cursor-not-allowed disabled:opacity-50"
               checked={keepInLibrary}
+              disabled={!canPersist}
+              title={canPersist ? undefined : t("keepRequiresSignIn")}
               onChange={(event) => setKeepInLibrary(event.target.checked)}
             />
             {t("keepInLibrary")}
@@ -204,9 +235,25 @@ export function MethodMaterialSetup({
         </div>
       ) : null}
 
+      {startError ? (
+        <p className="text-sm text-danger" role="alert">
+          {startError}
+        </p>
+      ) : null}
+
       {usesExerciseRunner(method) ? (
-        startHref && startEnabled ? (
-          <ActionLink href={startHref} variant="primary" size="lg">
+        topicId === OWN_TOPIC_ID ? (
+          <Button
+            type="button"
+            variant="primary"
+            size="lg"
+            disabled={!startEnabled}
+            onClick={handleStart}
+          >
+            {tMenu("startSession")}
+          </Button>
+        ) : catalogueStartHref && startEnabled ? (
+          <ActionLink href={catalogueStartHref} variant="primary" size="lg">
             {tMenu("startSession")}
           </ActionLink>
         ) : (

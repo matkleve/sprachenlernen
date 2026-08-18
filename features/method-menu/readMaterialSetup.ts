@@ -2,6 +2,8 @@
  * Server bundle for method material setup. Contract:
  * docs/specs/feature/method-material-setup.md
  */
+import { getAccount } from "@/lib/db/auth";
+import { createServerSupabaseClient } from "@/lib/db/client";
 import { listTaskStatesForTaskIds } from "@/lib/db/task-state";
 import { poolForActiveLanguage } from "@/lib/db/learner-pools";
 import { isMeaningRecallTaskId } from "@/lib/form-recall-pool";
@@ -27,6 +29,7 @@ export type MaterialSetupBundle = {
   sources: Source[];
   lexicon: Lexicon;
   heldLemmas: ReadonlySet<string>;
+  canPersist: boolean;
 };
 
 export async function readMaterialSetupBundle(
@@ -53,6 +56,8 @@ export async function readMaterialSetupBundle(
     const context = buildMaterialSetupContext(method, sources, lexicon, heldLemmas, labels);
     if (!context) return { status: "omit" };
 
+    const account = await getAccount(await createServerSupabaseClient());
+
     return {
       status: "ok",
       languageCode,
@@ -60,6 +65,7 @@ export async function readMaterialSetupBundle(
       sources,
       lexicon,
       heldLemmas,
+      canPersist: Boolean(account),
     };
   } catch {
     return { status: "omit" };

@@ -24,6 +24,10 @@ vi.mock("@/lib/db/review-log", async (importOriginal) => ({
 
 vi.mock("@/lib/db/learner-pools", () => ({ poolForActiveLanguage: vi.fn() }));
 
+vi.mock("@/lib/db/content-sources", () => ({
+  listLearnerSourcesForLanguage: vi.fn().mockResolvedValue({ status: "ok", sources: [] }),
+}));
+
 vi.mock("@/lib/db/profiles", () => ({ getSpokenLanguage: vi.fn() }));
 
 const now = Date.UTC(2026, 7, 12);

@@ -1,7 +1,7 @@
 # UC-049 — Work through an exercise one step at a time
 
 <!-- id: UC-049 -->
-<!-- specs: SPEC-feature-exercise-runner, SPEC-page-practice, SPEC-service-material-unit -->
+<!-- specs: SPEC-feature-exercise-runner, SPEC-page-practice, SPEC-service-material-unit, SPEC-service-exercise-step-components, SPEC-service-exercise-recipe-composer -->
 
 **Who:** anyone doing an exercise with more than one part — a dictation, a piece
 of writing, a 4/3/2 round.
@@ -29,7 +29,13 @@ optimistic.
 - Recipe text comes from a resolved **material unit** on a Source — not a
   separate per-method sentence file.
 - Each step type is filled by a **step component** (audio player, capture,
-  self-mark, …) — one runner, many Methods.
+  self-mark, …) — one runner, many Methods. The full component catalogue and
+  per-Method step mixes are specced in
+  [`exercise-step-components.md`](../specs/service/exercise-step-components.md)
+  and [`exercise-recipe-composer.methods.md`](../specs/service/exercise-recipe-composer.methods.md).
+- A **recipe composer** turns Method + material context into the ordered step
+  list — fixed template today, algorithmically varied later (short vs long
+  dictation, N sentences from weak-audio lemmas, …).
 - The learner can move back and forth freely between steps, and a running timer
   keeps running.
 - **Navigating is not completing.** Swiping past a step never marks it done;

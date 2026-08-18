@@ -111,7 +111,11 @@ export async function MethodDetail({ method, searchParams = {} }: MethodDetailPr
             </p>
 
             {showMaterialSetup ? (
-              <MethodMaterialSetup method={method} context={materialBundle.context} />
+              <MethodMaterialSetup
+                method={method}
+                context={materialBundle.context}
+                canPersist={materialBundle.canPersist}
+              />
             ) : null}
 
             {!showMaterialSetup && (usesWordsReview(method) || usesExerciseRunner(method)) && (

@@ -18,6 +18,11 @@ engine family after the card engine. Project-wide queue:
 partial dictation, **material setup** (T-E7), **principled gaps** (T-MU2),
 **gap-fill step** (T-E9).
 
+**Specced 2026-08-18:** step-component catalogue (41 runner + 5 card-engine) and
+per-Method recipe mixes for all catalogue Methods —
+[`exercise-step-components.md`](../specs/service/exercise-step-components.md),
+[`exercise-recipe-composer.methods.md`](../specs/service/exercise-recipe-composer.methods.md).
+
 ## Build order
 
 Load-bearing — do not skip skeleton before components.
@@ -35,12 +40,10 @@ Load-bearing — do not skip skeleton before components.
 | **T-E9** | ~~**Gap-fill** step — half-filled listen, type/speak, defer fallback~~ — **shipped 2026-08-18** | Standard | T-E3, T-MU2, T-LD1 | UC-028 |
 | **T-MU1** | ~~Material unit resolver~~ — **shipped 2026-08-18** | Standard | T-W7 | `material-unit.md` AC |
 | **T-LD1** | ~~**Can't listen now**~~ — **shipped 2026-08-18** | Standard | method menu | UC-077 |
+| **T-E10** | ~~**Component registry**~~ — **shipped 2026-08-18** | Standard | T-E1 | `exercise-step-components.md` AC |
+| **T-E11** | ~~**Recipe composer**~~ — **shipped 2026-08-18** | Standard | T-E6 | `exercise-recipe-composer.md` AC |
 
-**Parallel:** T-E7 can run beside T-E2–T-E4. **T-E8 remainder:** audio gaps,
-multi-sentence recipes, Start from source detail with `sourceId`.
-
-**Not this runner:** `srs-session`, form-recall card queue (`form-practice.md` /
-T-W6) — card engine on `/words/review`.
+**Not this runner:** `srs-session`, form-recall card queue — card engine on `/words/review`.
 
 ## Agent handoff template
 
