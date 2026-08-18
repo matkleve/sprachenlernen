@@ -39,6 +39,12 @@ const BUILT = new Set([
   "dictogloss",
   "four-three-two",
   "diary-three-sentences",
+  "narrow-reading",
+  "intensive-reading",
+  "retell-what-you-read",
+  "recite-memorised",
+  "summarise-what-you-read",
+  "rule-at-point-of-error",
   ...GUIDED,
 ]);
 const PARTIAL = new Set([]);
@@ -65,6 +71,12 @@ const COMPONENTS = {
   "diary-three-sentences": "timed-write, feedback",
   "dictogloss": "audio-play, type-freely, diff-highlight",
   "listening-level-1": "audio-play, comprehension-questions",
+  "narrow-reading": "text-display, round-marker",
+  "intensive-reading": "reveal-answer, prompt",
+  "retell-what-you-read": "voice-submit, rubric",
+  "recite-memorised": "speak-prompt",
+  "summarise-what-you-read": "timed-write, feedback",
+  "rule-at-point-of-error": "prompt",
   "shadowing": "shadow-line, audio-play",
 };
 
@@ -81,6 +93,12 @@ const PRIORITY = {
   "four-three-two": "P3",
   "diary-three-sentences": "P3",
   "listening-level-1": "P3",
+  "narrow-reading": "done",
+  "intensive-reading": "done",
+  "retell-what-you-read": "done",
+  "recite-memorised": "done",
+  "summarise-what-you-read": "done",
+  "rule-at-point-of-error": "done",
 };
 
 const BUILT_CARD_I4 = new Set(["srs-session"]);

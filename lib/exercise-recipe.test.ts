@@ -129,6 +129,6 @@ describe("resolveExerciseRecipe", () => {
   });
 
   it("returns null for unbuilt methods", async () => {
-    expect(await resolveExerciseRecipe("narrow-reading")).toBeNull();
+    expect(await resolveExerciseRecipe("narrow-listening")).toBeNull();
   });
 });

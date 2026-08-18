@@ -1,5 +1,6 @@
 import { getTranslations } from "next-intl/server";
 
+import { Chip } from "@/components/ui/Chip";
 import { ActionLink } from "@/components/ui/ActionLink";
 import { ShellPageContent } from "@/features/app-shell/ShellPageContent";
 import { byId, type MethodEntry } from "@/lib/method-catalogue";
@@ -7,7 +8,7 @@ import type { SearchParams } from "@/lib/method-menu-filter";
 import { menuQueryString } from "@/lib/method-menu-filter";
 import { hasMaterialSetup } from "@/lib/method-material-setup";
 import type { MaterialUnitId } from "@/lib/material-unit";
-import { sessionHrefForMethod, usesExerciseRunner, usesWordsReview } from "@/lib/method-session";
+import { sessionHrefForMethod, showsSessionNotShippedChip, usesExerciseRunner, usesWordsReview } from "@/lib/method-session";
 import { localizeMethodEntry } from "@/lib/localize-method-entry";
 import { routes } from "@/lib/routes";
 import { cn } from "@/lib/utils";
@@ -108,7 +109,13 @@ export async function MethodDetail({ method, searchParams = {} }: MethodDetailPr
               </p>
             </div>
 
-            <p className="mt-6 text-sm text-muted">
+            <div className="mt-6 flex flex-wrap items-center gap-2">
+              <Chip>{method.hosted ? t("hostedShort") : t("notHostedShort")}</Chip>
+              {showsSessionNotShippedChip(method) ? (
+                <Chip>{t("notShippedShort")}</Chip>
+              ) : null}
+            </div>
+            <p className="mt-2 text-sm text-muted">
               {method.hosted ? t("hosted") : t("notHosted")}
             </p>
 

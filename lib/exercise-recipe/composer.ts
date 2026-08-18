@@ -10,10 +10,16 @@ import { resolveFourThreeTwoRecipe } from "@/lib/exercise-recipe/four-three-two"
 import { resolveFreeProductionRecipe } from "@/lib/exercise-recipe/free-production";
 import { resolveFullDictationRecipe } from "@/lib/exercise-recipe/full-dictation";
 import { isGuidedMethodId, resolveGuidedRecipe } from "@/lib/exercise-recipe/guided";
+import { resolveIntensiveReadingRecipe } from "@/lib/exercise-recipe/intensive-reading";
 import { resolveListeningLevel1Recipe } from "@/lib/exercise-recipe/listening-level-1";
 import { resolveMinimalPairsRecipe } from "@/lib/exercise-recipe/minimal-pairs";
+import { resolveNarrowReadingRecipe } from "@/lib/exercise-recipe/narrow-reading";
 import { resolvePartialDictationRecipe } from "@/lib/exercise-recipe/partial-dictation";
 import { resolveReadingAloudRecipe } from "@/lib/exercise-recipe/reading-aloud";
+import { resolveReciteMemorisedRecipe } from "@/lib/exercise-recipe/recite-memorised";
+import { resolveRetellWhatYouReadRecipe } from "@/lib/exercise-recipe/retell-what-you-read";
+import { resolveRuleAtPointOfErrorRecipe } from "@/lib/exercise-recipe/rule-at-point-of-error";
+import { resolveSummariseWhatYouReadRecipe } from "@/lib/exercise-recipe/summarise-what-you-read";
 import type { RecipeComposer, SessionContext } from "@/lib/exercise-recipe/types";
 
 const COMPOSERS: Record<string, RecipeComposer> = {
@@ -29,6 +35,12 @@ const COMPOSERS: Record<string, RecipeComposer> = {
   "dictogloss": (ctx) => resolveDictoglossRecipe(ctx),
   "four-three-two": (ctx) => resolveFourThreeTwoRecipe(ctx),
   "diary-three-sentences": (ctx) => resolveDiaryThreeSentencesRecipe(ctx),
+  "narrow-reading": (ctx) => resolveNarrowReadingRecipe(ctx),
+  "intensive-reading": (ctx) => resolveIntensiveReadingRecipe(ctx),
+  "retell-what-you-read": (ctx) => resolveRetellWhatYouReadRecipe(ctx),
+  "recite-memorised": (ctx) => resolveReciteMemorisedRecipe(ctx),
+  "summarise-what-you-read": (ctx) => resolveSummariseWhatYouReadRecipe(ctx),
+  "rule-at-point-of-error": (ctx) => resolveRuleAtPointOfErrorRecipe(ctx),
 };
 
 export function hasRecipeComposer(methodId: string): boolean {

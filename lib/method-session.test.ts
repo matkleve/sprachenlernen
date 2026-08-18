@@ -8,7 +8,9 @@ import {
   cardEngineSessionHref,
   cardHrefForMethod,
   exerciseSessionHref,
+  isMethodSessionShipped,
   sessionHrefForMethod,
+  showsSessionNotShippedChip,
   usesExerciseRunner,
   usesWordsReview,
 } from "@/lib/method-session";
@@ -53,7 +55,7 @@ describe("usesExerciseRunner", () => {
     expect(usesExerciseRunner(method({ id: "tandem-or-language-cafe", hosted: false }))).toBe(
       true,
     );
-    expect(usesExerciseRunner(method({ id: "narrow-reading" }))).toBe(false);
+    expect(usesExerciseRunner(method({ id: "narrow-reading" }))).toBe(true);
     expect(usesExerciseRunner(method({ id: "srs-session" }))).toBe(false);
   });
 });
@@ -100,9 +102,15 @@ describe("cardHrefForMethod", () => {
     );
   });
 
-  it("links other hosted methods to detail", () => {
+  it("links narrow-reading to practice when built", () => {
     expect(cardHrefForMethod(method({ id: "narrow-reading" }), "?skill=reading")).toBe(
-      "/methods/narrow-reading?skill=reading",
+      exerciseSessionHref("narrow-reading"),
+    );
+  });
+
+  it("links other unbuilt hosted methods to detail", () => {
+    expect(cardHrefForMethod(method({ id: "narrow-listening" }), "?skill=listening")).toBe(
+      "/methods/narrow-listening?skill=listening",
     );
   });
 
@@ -123,6 +131,20 @@ describe("cardHrefForMethod", () => {
   });
 });
 
+describe("session shipped helpers", () => {
+  it("isMethodSessionShipped is true for built methods", () => {
+    expect(isMethodSessionShipped(method({ id: "srs-session" }))).toBe(true);
+    expect(isMethodSessionShipped(method({ id: "narrow-reading" }))).toBe(true);
+    expect(isMethodSessionShipped(method({ id: "role-play", hosted: false }))).toBe(true);
+  });
+
+  it("showsSessionNotShippedChip only for hosted without a runner", () => {
+    expect(showsSessionNotShippedChip(method({ id: "narrow-listening" }))).toBe(true);
+    expect(showsSessionNotShippedChip(method({ id: "narrow-reading" }))).toBe(false);
+    expect(showsSessionNotShippedChip(method({ id: "role-play", hosted: false }))).toBe(false);
+  });
+});
+
 describe("shellPageLayout practice", () => {
   it("uses one-screen-runner for built exercise methods", () => {
     for (const methodId of ["partial-dictation", "full-dictation", "extensive-reading", "reading-aloud"]) {
@@ -138,8 +160,16 @@ describe("shellPageLayout practice", () => {
     expect(shellPageLayout(routes.practice, params)).toBe("one-screen-runner");
   });
 
+  it("uses one-screen-runner for P4 reading methods", () => {
+    for (const methodId of ["narrow-reading", "intensive-reading", "retell-what-you-read"]) {
+      const params = new URLSearchParams({ method: methodId });
+      expect(isActiveExerciseSession(routes.practice, params)).toBe(true);
+      expect(shellPageLayout(routes.practice, params)).toBe("one-screen-runner");
+    }
+  });
+
   it("uses drill-in for unknown exercise method", () => {
-    const params = new URLSearchParams({ method: "narrow-reading" });
+    const params = new URLSearchParams({ method: "narrow-listening" });
     expect(isActiveExerciseSession(routes.practice, params)).toBe(false);
     expect(shellPageLayout(routes.practice, params)).toBe("scrollable-drill-in");
   });

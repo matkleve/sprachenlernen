@@ -14,6 +14,12 @@ const BUILT_HOSTED_EXERCISE_METHOD_IDS = [
   "dictogloss",
   "four-three-two",
   "diary-three-sentences",
+  "narrow-reading",
+  "intensive-reading",
+  "retell-what-you-read",
+  "recite-memorised",
+  "summarise-what-you-read",
+  "rule-at-point-of-error",
 ] as const;
 
 const BUILT_EXERCISE_METHOD_IDS = new Set<string>([

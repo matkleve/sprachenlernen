@@ -88,7 +88,7 @@ Designer reviewed four placements. **Rejected:**
 | 2 | `srs-session`, taps Start | Navigates to `/words/review?method=srs-session` |
 | 2b | Graded or guided method (when built), taps Start | Navigates to `/practice?method={id}` (+ setup query params) |
 | 2c | Commitment check-in (when built), taps Start | Navigates to `/practice?method={id}&checkIn=1` |
-| 3 | Recipe not built | No Start; not-built copy |
+| 3 | Recipe not built | No Start; **Session not shipped** chip + not-built copy |
 | 3b | `hosted: false` with built guided recipe | Start shown — guided session, not prose-only |
 | 4 | Back (desktop or shell chip) | `/methods` with filter query preserved |
 | 5 | Expands practical details (`< md`) | Duration, needs, hosted, effort anchor, evidence appear |

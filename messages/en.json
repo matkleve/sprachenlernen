@@ -490,6 +490,7 @@
     "notHosted": "You do this yourself — the app does not run it",
     "hostedShort": "App runs this",
     "notHostedShort": "Off-app",
+    "notShippedShort": "Session not shipped",
     "detail": {
       "practical": "Practical",
       "practicalDetails": "Practical details",

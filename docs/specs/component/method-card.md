@@ -32,6 +32,8 @@ Header: [`method-card-header.md`](method-card-header.md).
       `text-3xl` — primary identity at catalogue distance.
 - [ ] Given any method card, when it renders, then the header graphic uses the
       card header rules in [`method-card-header.md`](method-card-header.md).
+- [ ] Given a hosted method without a built session, when the card renders, then
+      a **Session not shipped** chip appears alongside the hosted chip.
 
 ## Check
 

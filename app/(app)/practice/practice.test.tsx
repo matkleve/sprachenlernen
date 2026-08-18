@@ -37,11 +37,21 @@ describe("PracticePage", () => {
 
   it("shows not-built for unbuilt hosted method", async () => {
     const ui = await PracticePage({
-      searchParams: Promise.resolve({ method: "narrow-reading" }),
+      searchParams: Promise.resolve({ method: "narrow-listening" }),
     });
     render(ui);
 
     expect(screen.getByText(/session is not built yet/i)).toBeDefined();
+  });
+
+  it("renders exercise runner for narrow-reading", async () => {
+    const ui = await PracticePage({
+      searchParams: Promise.resolve({ method: "narrow-reading" }),
+    });
+    render(ui);
+
+    expect(screen.getByRole("heading", { name: "Narrow reading" })).toBeDefined();
+    expect(screen.getByText(/Step 1 of/)).toBeDefined();
   });
 
   it("renders exercise runner for build-a-sentence", async () => {

@@ -5,7 +5,7 @@ import { useLocalizedMethod } from "./use-localized-method";
 import { Chip } from "@/components/ui/Chip";
 import { SurfaceLink } from "@/components/ui/SurfaceLink";
 import type { MethodEntry } from "@/lib/method-catalogue";
-import { cardHrefForMethod } from "@/lib/method-session";
+import { cardHrefForMethod, showsSessionNotShippedChip } from "@/lib/method-session";
 
 import { MethodBadgeRow } from "./MethodBadge";
 import { MethodCardHeader } from "./MethodCardHeader";
@@ -60,6 +60,11 @@ export function MethodCard({ method, returnQuery = "" }: MethodCardProps) {
           <li>
             <Chip size="card">{method.hosted ? t('hostedShort') : t('notHostedShort')}</Chip>
           </li>
+          {showsSessionNotShippedChip(method) ? (
+            <li>
+              <Chip size="card">{t('notShippedShort')}</Chip>
+            </li>
+          ) : null}
         </ul>
 
         <p className="mt-3 line-clamp-2 text-sm text-muted">

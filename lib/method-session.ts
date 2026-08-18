@@ -29,6 +29,16 @@ export function usesExerciseRunner(method: MethodEntry): boolean {
   return !usesWordsReview(method) && hasExerciseRecipe(method.id);
 }
 
+/** Runnable today — card engine or exercise runner. */
+export function isMethodSessionShipped(method: MethodEntry): boolean {
+  return usesWordsReview(method) || usesExerciseRunner(method);
+}
+
+/** Hosted method whose in-app session is not built yet. */
+export function showsSessionNotShippedChip(method: MethodEntry): boolean {
+  return method.hosted && !isMethodSessionShipped(method);
+}
+
 export function exerciseSessionHref(methodId: string, sourceId?: string | null): string {
   const params = new URLSearchParams({ method: methodId });
   if (sourceId) params.set("sourceId", sourceId);

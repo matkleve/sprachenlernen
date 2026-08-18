@@ -83,6 +83,21 @@ describe("MethodDetail", () => {
     expect(document.body.textContent).toContain(narrowListening.doesNotDo);
     expect(screen.queryByRole("link", { name: en.methodMenu.startSession })).toBeNull();
     expect(screen.getByText(en.methodMenu.sessionNotBuilt)).toBeDefined();
+    expect(screen.getAllByText(en.methodMenu.notShippedShort).length).toBeGreaterThan(0);
+  });
+
+  it("shows Start for intensive-reading on practice", async () => {
+    render(
+      await MethodDetail({
+        method: intensiveReading,
+        searchParams: { minutes: "15", skill: "reading" },
+      }),
+    );
+
+    expect(screen.getByRole("link", { name: en.methodMenu.startSession }).getAttribute("href")).toBe(
+      "/practice?method=intensive-reading",
+    );
+    expect(screen.queryByText(en.methodMenu.notShippedShort)).toBeNull();
   });
 
   it("shows Start for extensive-reading on practice", async () => {

@@ -490,6 +490,7 @@
     "notHosted": "Sie machen das selbst — die App führt es nicht aus",
     "hostedShort": "App führt aus",
     "notHostedShort": "Außerhalb der App",
+    "notShippedShort": "Sitzung noch nicht verfügbar",
     "detail": {
       "practical": "Praktisch",
       "practicalDetails": "Praktische Details",

@@ -43,7 +43,8 @@ describe("exercise-recipe composer registry", () => {
     expect(hasRecipeComposer("extensive-reading")).toBe(true);
     expect(hasRecipeComposer("reading-aloud")).toBe(true);
     expect(hasRecipeComposer("diary-three-sentences")).toBe(true);
-    expect(hasRecipeComposer("narrow-reading")).toBe(false);
+    expect(hasRecipeComposer("narrow-reading")).toBe(true);
+    expect(hasRecipeComposer("intensive-reading")).toBe(true);
   });
 
   it("composes short variant with six steps total", async () => {
@@ -74,7 +75,7 @@ describe("resolveExerciseRecipe (composer AC)", () => {
   });
 
   it("AC-2: returns null when no composer is registered", async () => {
-    expect(await resolveExerciseRecipe("narrow-reading")).toBeNull();
+    expect(await resolveExerciseRecipe("narrow-listening")).toBeNull();
   });
 
   it("AC-3: short variant has exactly one do step", async () => {

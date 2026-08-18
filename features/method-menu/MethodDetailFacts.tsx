@@ -4,6 +4,7 @@ import { useMethodMenuCopy } from "./use-method-menu-copy";
 import { Chip } from "@/components/ui/Chip";
 import { Disclosure, DisclosurePanel, DisclosureSummary } from "@/components/ui/Disclosure";
 import type { MethodEntry } from "@/lib/method-catalogue";
+import { showsSessionNotShippedChip } from "@/lib/method-session";
 import { cn } from "@/lib/utils";
 
 import { useRequirementHelpers } from "./use-requirement-helpers";
@@ -43,8 +44,11 @@ function PracticalDetails({ method }: { method: MethodEntry }) {
       ) : null}
       <div>
         <dt className="font-medium text-ink">{t("hosted")}</dt>
-        <dd className="mt-1.5">
+        <dd className="mt-1.5 flex flex-wrap gap-1.5">
           <Chip>{method.hosted ? t("hostedShort") : t("notHostedShort")}</Chip>
+          {showsSessionNotShippedChip(method) ? (
+            <Chip>{t("notShippedShort")}</Chip>
+          ) : null}
         </dd>
       </div>
       <div>

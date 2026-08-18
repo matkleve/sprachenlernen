@@ -53,7 +53,8 @@ No accent left border — uniform `rounded-card` only.
 
 - **In:** stepped time slider ([`../service/time-scale.md`](../service/time-scale.md));
   skill and energy filter pills; optional refine (hands, voice, eyes); method
-  cards with badge row + logistics chips (duration, all requirements, hosted);
+  cards with badge row + logistics chips (duration, all requirements, hosted,
+  **session not shipped** when `hosted` and recipe not built);
   **card-engine** (`srs-session`) → Words review; **graded or guided** (when
   built) → `/practice`; recipe not built → detail; client-side filtering with URL sync
   (`history.replaceState`); **current standing** — one honest sentence from the
@@ -84,9 +85,9 @@ stays a Server Component.
 | 2 | Moves time slider | URL `?minutes=` updates to the nearest scale step (or `endless`); list shows methods whose shortest variant fits |
 | 3 | Taps skill, energy, or refine | List intersects that dimension **without reloading the page**; scroll position preserved |
 | 4 | Opens refine | Optional hands / voice / eyes constraints |
-| 5 | Taps hosted card that uses the card engine (`srs-session`) | `/words/review?method=srs-session` opens directly |
-| 6 | Taps other hosted card | Detail page — session not built yet |
-| 7 | Taps off-app card | Detail page |
+| 5 | Taps hosted card with built recipe | `/practice?method={id}` or Words review when card-engine |
+| 6 | Taps hosted card without built recipe | Detail page — **Session not shipped** chip + not-built copy |
+| 7 | Taps off-app card | Detail when unbuilt; `/practice` when guided recipe ships |
 
 ## Current standing
 
