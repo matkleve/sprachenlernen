@@ -10,27 +10,17 @@ import { useMethodMenuCopy } from "./use-method-menu-copy";
 import { SkillTierBadgeRow } from "./SkillTierBadge";
 
 const effortBadgeVariants = cva(
-  "inline-flex shrink-0 items-center whitespace-nowrap font-medium text-muted",
+  "inline-flex shrink-0 items-center whitespace-nowrap rounded-pill bg-accent-soft font-medium text-accent",
   {
     variants: {
       size: {
-        default: "text-xs",
-        card: "min-h-8 text-sm",
+        default: "px-2 py-0.5 text-xs",
+        card: "min-h-8 px-2.5 py-0.5 text-sm",
       },
     },
     defaultVariants: { size: "default" },
   },
 );
-
-const effortDotVariants = cva("rounded-full", {
-  variants: {
-    size: {
-      default: "size-1.5",
-      card: "size-2",
-    },
-  },
-  defaultVariants: { size: "default" },
-});
 
 export type EffortBadgeProps = {
   intensity: 1 | 2 | 3;
@@ -38,10 +28,10 @@ export type EffortBadgeProps = {
 } & VariantProps<typeof effortBadgeVariants>;
 
 export function EffortBadge({ intensity, size, className }: EffortBadgeProps) {
-  const { t, intensity: intensityAnchors } = useMethodMenuCopy();
-  const label = t("card.effort");
+  const { effortCard, intensity: intensityAnchors } = useMethodMenuCopy();
+  const shortLabel = effortCard[intensity];
   const anchor = intensityAnchors[intensity];
-  const ariaLabel = `${label}: ${intensity} of 3 — ${anchor}`;
+  const ariaLabel = `${shortLabel} (${intensity} of 3) — ${anchor}`;
 
   return (
     <span
@@ -49,18 +39,7 @@ export function EffortBadge({ intensity, size, className }: EffortBadgeProps) {
       aria-label={ariaLabel}
       title={anchor}
     >
-      <span>{label}</span>
-      <span className="ml-2 inline-flex gap-1" aria-hidden>
-        {([1, 2, 3] as const).map((level) => (
-          <span
-            key={level}
-            className={cn(
-              effortDotVariants({ size }),
-              level <= intensity ? "bg-ink" : "bg-line",
-            )}
-          />
-        ))}
-      </span>
+      {shortLabel}
     </span>
   );
 }

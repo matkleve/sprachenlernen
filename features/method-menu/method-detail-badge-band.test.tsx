@@ -10,10 +10,10 @@ const { catalogue } = loadMethodCatalogue();
 const intensiveReading = findMethod(catalogue, "intensive-reading")!;
 
 describe("MethodDetailBadgeBand", () => {
-  it("shows effort dots without a separate evidence badge", () => {
+  it("shows accent effort pill without a separate evidence badge", () => {
     render(<MethodDetailBadgeBand method={intensiveReading} />);
 
-    expect(screen.getByLabelText(/Effort: 3 of 3/i)).toBeDefined();
+    expect(screen.getByLabelText(/Draining \(3 of 3\)/i)).toBeDefined();
     expect(screen.queryByText(/Thin evidence/i)).toBeNull();
     expect(screen.getByRole("img", { name: /Reading/i })).toBeDefined();
   });
