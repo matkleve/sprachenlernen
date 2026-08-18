@@ -139,6 +139,12 @@ export const iconButtonClass = cn(
   "size-11 min-h-11 min-w-11 rounded-full p-0",
 );
 
+/** Icon-only primary chip — header CTAs (to app, sign up) without variant clash. */
+export const iconPrimaryButtonClass = cn(
+  buttonVariants({ variant: "primary", size: "sm" }),
+  "size-11 min-h-11 min-w-11 rounded-full p-0",
+);
+
 /** Compact icon control — review report flag, inline toolbars. */
 export const iconButtonSmClass = cn(
   buttonVariants({ variant: "floating", size: "sm" }),

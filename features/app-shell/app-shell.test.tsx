@@ -81,7 +81,7 @@ describe("the destinations", () => {
     showAt("/methods");
 
     const links = [...destinationLinks()];
-    expect(links.map((a) => a.textContent)).toEqual([
+    expect(links.map((a) => a.getAttribute("aria-label"))).toEqual([
       en.appShell.destinations.methods,
       en.appShell.destinations.words,
       en.appShell.destinations.progress,
@@ -99,7 +99,9 @@ describe("the destinations", () => {
     const current = [...destinationLinks()].filter(
       (a) => a.getAttribute("aria-current") === "page",
     );
-    expect(current.map((a) => a.textContent)).toEqual([en.appShell.destinations.methods]);
+    expect(current.map((a) => a.getAttribute("aria-label"))).toEqual([
+      en.appShell.destinations.methods,
+    ]);
   });
 
   it("moves the marker with the route, leaving no residue on the previous one", () => {
@@ -108,10 +110,12 @@ describe("the destinations", () => {
     const marked = [...destinationLinks()].filter(
       (a) => a.getAttribute("aria-current") === "page",
     );
-    expect(marked.map((a) => a.textContent)).toEqual([en.appShell.destinations.words]);
+    expect(marked.map((a) => a.getAttribute("aria-label"))).toEqual([
+      en.appShell.destinations.words,
+    ]);
     // The negative half: the destination we are NOT on must carry nothing.
     const methods = [...destinationLinks()].find(
-      (a) => a.textContent === en.appShell.destinations.methods,
+      (a) => a.getAttribute("aria-label") === en.appShell.destinations.methods,
     );
     expect(methods?.getAttribute("aria-current")).toBeNull();
   });
@@ -122,7 +126,9 @@ describe("the destinations", () => {
     const marked = [...destinationLinks()].filter(
       (a) => a.getAttribute("aria-current") === "page",
     );
-    expect(marked.map((a) => a.textContent)).toEqual([en.appShell.destinations.words]);
+    expect(marked.map((a) => a.getAttribute("aria-label"))).toEqual([
+      en.appShell.destinations.words,
+    ]);
   });
 
   it("renders no digit anywhere in the navigation — UC-063's whole point", () => {
@@ -190,12 +196,12 @@ describe("the destinations", () => {
     ).toBeDefined();
   });
 
-  it("lays out the desktop header in three columns so nav and title do not overlap", () => {
+  it("lays out the desktop header so the title is centred without overlapping nav icons", () => {
     showAt("/methods");
 
     const header = document.querySelector("header");
     if (!header) throw new Error("expected desktop header");
-    const grid = header.querySelector(".grid-cols-\\[1fr_auto_1fr\\]");
+    const grid = header.querySelector(".grid-cols-\\[1fr_1fr\\]");
     expect(grid).not.toBeNull();
     expect(
       within(header as HTMLElement).getByRole("heading", { level: 1, name: en.methodMenu.title }),

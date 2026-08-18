@@ -21,7 +21,7 @@ import {
 
 const TITLE_SIZES = {
   mobile: { large: MOBILE_TITLE_LARGE_PX, small: MOBILE_TITLE_SMALL_PX },
-  desktop: { large: 30, small: 14 },
+  desktop: { large: 20, small: 14 },
 } as const;
 
 type ShellPageTitleProps = {

@@ -37,9 +37,9 @@ describe("shellTitleFontSize", () => {
 
 describe("desktopShellTitleMaxWidth", () => {
   it("interpolates max width with collapse instead of stepping", () => {
-    expect(desktopShellTitleMaxWidth(0)).toBe("min(70vw, 20rem)");
-    expect(desktopShellTitleMaxWidth(0.5)).toBe("min(61vw, 17rem)");
-    expect(desktopShellTitleMaxWidth(1)).toBe("min(52vw, 14rem)");
+    expect(desktopShellTitleMaxWidth(0)).toBe("min(calc(100% - 18rem), 12rem)");
+    expect(desktopShellTitleMaxWidth(0.5)).toBe("min(calc(100% - 18rem), 11rem)");
+    expect(desktopShellTitleMaxWidth(1)).toBe("min(calc(100% - 18rem), 10rem)");
   });
 });
 
