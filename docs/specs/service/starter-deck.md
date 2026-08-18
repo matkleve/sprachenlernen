@@ -56,6 +56,18 @@ Not a UI machine. `loadSpanishMeaningRecallDeck` is synchronous.
 | `back` | `string` | **Legacy** — English gloss at build time. Removed when [`gloss-resolver.md`](gloss-resolver.md) wires all surfaces. |
 | `frequencyRank` | `number` | 1 = most frequent in pool |
 
+**Card faces (direction is not a setting).** Task type fixes which face carries
+the target language and which carries the spoken-language gloss — there is no
+per-account "reverse card" toggle.
+
+| Task type | `front` | `back` | Learner recalls |
+| --- | --- | --- | --- |
+| `meaning-recall` | Target lemma (learning language) | English gloss at build time; localized via `descriptionKey` at render | Meaning |
+| `form-recall` | English gloss at build time; localized via `descriptionKey` at render | Target surface form | Inflected form |
+
+See [`gloss-resolver.md`](gloss-resolver.md) for how `spoken_language` resolves
+the descriptive face without changing direction.
+
 **Lemma selection (build script):**
 
 1. Read `data/frequency/es.txt` (form counts).
