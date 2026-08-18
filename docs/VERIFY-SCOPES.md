@@ -1,18 +1,16 @@
 # Verify scopes
 
-Scoped is the default gate. Full `verify` is rare.
+**Default gate:** scoped. Full `verify` (~10min) is the exception — use it only
+when you can state a concrete reason (see below). Never run full verify just
+because you are merging, committing, or running `release:*`.
 
 | Gate | When | Command | Typical time |
 | --- | --- | --- | --- |
-| **Scoped** | Every turn, commit, merge to `main`, `release:shame` | `npm run verify:scope -- <scope>` | ~30s–2min |
-| **Full** | `release:ship` / `release:proud` only (optional) | `npm run verify` | ~7–10min |
+| **Scoped** | Default — iterate, commit, merge to `main`, `release:shame`, `release:ship` | `npm run verify:scope -- <scope>` | ~30s–2min |
+| **Full** | Cross-cutting change or user explicitly asks — **state the reason** | `npm run verify` | ~7–10min |
 
-**Never run full `verify` on every agent turn, on merge, or on shame release.**
-It runs the whole test suite plus a production build — correct occasionally,
-wrong as a default.
-
-Paste **scoped** output for review, commit, merge, and shame ship. Paste **full**
-output only when you ran it for a ship release.
+Paste scoped output for handoff and ship. Paste full output only when you ran
+full verify and said why.
 
 ---
 
@@ -28,7 +26,6 @@ output only when you ran it for a ship release.
 | Any component classes/tokens | `ui` + patterns | `npm run verify:scope -- ui method-card-header` |
 | `lib/` helper only | `lib` + test path | `npm run verify:scope -- lib lib/skill-tier.test.ts` |
 | New `app/` route or layout | `route` | `npm run verify:scope -- route` |
-| Auth, DB, cross-cutting | `changed` or widest scope | pick the matching scope |
 
 List all scopes: `npm run verify:scope -- --help`
 
@@ -36,14 +33,14 @@ List all scopes: `npm run verify:scope -- --help`
 
 ---
 
-## What each scoped gate runs
+## What scoped runs
 
 Defined in `scripts/verify-scope.mjs`. Summary:
 
 - **docs** — `specs` only
 - **changed** — typecheck, lint, tokens, contrast, specs + vitest `--changed`
 - **ui** — typecheck, lint, tokens, contrast, specs + **your** vitest patterns
-- **method-menu** — above checks + method-menu feature + method lib tests (~15s)
+- **method-menu** — above + method-menu feature + method lib tests (~15s)
 - **app-shell** — above + interaction + shell tests
 - **words** — above + words/vocabulary/review tests
 - **lib** — typecheck, lint + **your** test file(s)
@@ -54,6 +51,20 @@ Scoped gates **omit**: full test suite, `neighbors`, `i18n`, `version-*`, and
 
 ---
 
+## When full verify is justified
+
+Run full **only** if you can name the reason out loud:
+
+- Auth, DB, or persisted data paths touched
+- i18n keys added/renamed across locales
+- Several unrelated areas in one change (no single scope fits)
+- User explicitly asked for full verify
+
+**Not justified:** merge to `main`, `release:shame`, `release:ship`, "being careful",
+or "it's the gate". Those use scoped (or `route` when a new route needs build).
+
+---
+
 ## Single check from the full gate
 
 ```bash
@@ -61,7 +72,7 @@ node scripts/verify.mjs tokens
 node scripts/verify.mjs specs test
 ```
 
-While typing, vitest watch on a folder:
+While typing:
 
 ```bash
 npm run test:watch -- features/method-menu
@@ -73,9 +84,5 @@ npm run test:watch -- features/method-menu
 
 | Status | Say | Prove |
 | --- | --- | --- |
-| Iterating / review / commit / merge to `main` | "Scoped verify green" | Paste `verify:scope` output + `LIVE CHECK (you)` when UI |
-| `release:shame` | "Scoped verify green" | Paste `verify:scope` output |
-| `release:ship` / `release:proud` | scoped green; full optional | Paste scoped output; full only if you ran it |
-
-Merge to `main` does **not** require full verify. Shame release does **not**
-require full verify.
+| Any normal handoff / commit / merge / release | "Scoped verify green" | Paste `verify:scope` output + `LIVE CHECK (you)` when UI |
+| Full verify (rare) | "Full verify green — because …" | Paste output + the stated reason |

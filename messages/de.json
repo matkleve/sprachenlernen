@@ -582,6 +582,37 @@
       "minutes": "{count} Min."
     }
   },
+  "methodMaterial": {
+    "topicHeading": "Thema",
+    "unitHeading": "Wie viel Material",
+    "appPick": "App wählt",
+    "own": "Eigenes",
+    "topics": {
+      "news": "Nachrichten",
+      "daily": "Alltag",
+      "environment": "Umwelt"
+    },
+    "units": {
+      "sentence": "Ein Satz",
+      "paragraph": "Ein Absatz",
+      "window": "{minutes} Min. Hören",
+      "full": "Ganzer Text"
+    },
+    "comfort": {
+      "demanding": "anspruchsvoll",
+      "comfortable": "angenehm",
+      "speed": "Tempotraining"
+    },
+    "coverageLine": "{percent} % bekannt · {band}",
+    "demandingLine": "Noch anspruchsvoll — {words} Wörter bis angenehm",
+    "appPickPreview": "Ein Abschnitt bei ~{percent} % für dich heute · {band}",
+    "emptyTopic": "Noch nichts in der Bibliothek zu diesem Thema — probier Eigenes",
+    "keepInLibrary": "In meiner Bibliothek behalten",
+    "uploadFile": "Datei hochladen",
+    "pasteText": "Text einfügen",
+    "pastePlaceholder": "Text einfügen oder tippen, mit dem du üben willst",
+    "linkUrl": "Link"
+  },
   "languagePicker": {
     "title": "Welche Sprache möchten Sie lernen?",
     "intro": "Sie können später eine weitere hinzufügen. Hier sind Sie nicht gebunden.",

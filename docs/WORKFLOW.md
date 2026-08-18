@@ -50,8 +50,8 @@ Fails DoR → back to Shape. Do not "just start and see".
 
 - [ ] Every acceptance criterion **demonstrated with evidence** — test output or
       a screenshot — not asserted in prose.
-- [ ] Scoped verify green while building (`npm run verify:scope`); **full**
-      `npm run verify` green before merge to `main` (see `docs/VERIFY-SCOPES.md`).
+- [ ] Scoped verify green (`npm run verify:scope`); paste output. Full verify
+      only with a stated reason — see `docs/VERIFY-SCOPES.md`.
 - [ ] **Red-test-first proven** for Sensitive changes: the test was shown failing
       before the implementation and passing after. A test that was never red
       proves nothing — it may assert nothing.

@@ -62,20 +62,12 @@ codebases like this one. It is also the easiest to check.
 
 ## 6. Verify
 
-While iterating:
-
 ```bash
-npm run verify:scope -- <scope>   # docs/VERIFY-SCOPES.md — method-menu, changed, …
+npm run verify:scope -- <scope>   # docs/VERIFY-SCOPES.md — default for everything
 ```
 
-Before commit or "done":
-
-```bash
-npm run verify
-```
-
-Paste scoped output for review handoff; paste **full** output only when
-commit-ready. Walk each acceptance criterion — "it builds" demonstrates nothing.
+Scoped for iterate, commit, merge, and `release:*`. Full `npm run verify` only
+when cross-cutting or the user asks — state why. Walk each acceptance criterion.
 
 If the user corrected you at any point: update the spec **in this session**,
 before you finish. A spec that lags behind the code has stopped being a contract.

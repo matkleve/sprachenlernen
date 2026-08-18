@@ -6,7 +6,7 @@
 <!-- use-case: UC-029 -->
 <!-- use-case: UC-030 -->
 <!-- use-case: UC-028 -->
-<!-- status: draft -->
+<!-- status: active -->
 
 The **Topic** chip row and **material unit** preview on method detail: learner
 picks topic (or **Your own**), sees how much material (sentence / paragraph /

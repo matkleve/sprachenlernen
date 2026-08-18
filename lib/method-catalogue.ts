@@ -41,6 +41,7 @@ import {
   type Context,
   type TimeBudget,
 } from "./learning-context";
+import { validateMaterialFields } from "./method-catalogue-validate-material";
 
 export const SECTIONS = [
   "reading",
@@ -123,6 +124,17 @@ type EntryCommon = {
   doesNotDo: string;
 };
 
+export type MaterialTopic = {
+  id: string;
+  labelKey: string;
+};
+
+export type MaterialUnitDeclaration = {
+  id: string;
+  durationSec?: number;
+  default?: boolean;
+};
+
 export type MethodEntry = EntryCommon & {
   type: "method";
   intensity: 1 | 2 | 3;
@@ -134,6 +146,10 @@ export type MethodEntry = EntryCommon & {
    * bound on what the learner does — see study/12, "The floor".
    */
   offerEveryDays: number | null;
+  /** Catalogue topic chips for material setup — UI adds app-pick and own. */
+  materialTopics?: MaterialTopic[];
+  /** Allowed session slices — see docs/specs/service/material-unit.md */
+  materialUnits?: MaterialUnitDeclaration[];
 };
 
 export type CommitmentEntry = EntryCommon & {
@@ -257,6 +273,8 @@ const validateEntry = (input: unknown, section: Section, index: number, errors: 
     if (input.reviewAfterDays !== undefined) {
       errors.push(`${where}.reviewAfterDays: a method is not reviewed, it is completed`);
     }
+
+    validateMaterialFields(input, where, errors);
   } else if (input.type === "commitment") {
     for (const key of ["intensity", "durations", "offerEveryDays"] as const) {
       if (input[key] !== null) errors.push(`${where}.${key}: must be null on a commitment`);

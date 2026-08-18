@@ -114,7 +114,16 @@
         ]
       },
       "offerEveryDays": null,
-      "doesNotDo": "It measures the gaps and nothing else. The words you were handed tell you nothing about whether you would have heard them."
+      "doesNotDo": "It measures the gaps and nothing else. The words you were handed tell you nothing about whether you would have heard them.",
+      "materialTopics": [
+        { "id": "news", "labelKey": "news" },
+        { "id": "daily", "labelKey": "daily" },
+        { "id": "environment", "labelKey": "environment" }
+      ],
+      "materialUnits": [
+        { "id": "sentence", "default": true },
+        { "id": "window", "durationSec": 300 }
+      ]
     },
     {
       "id": "full-dictation",

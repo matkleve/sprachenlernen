@@ -582,6 +582,37 @@
       "minutes": "{count} min"
     }
   },
+  "methodMaterial": {
+    "topicHeading": "Topic",
+    "unitHeading": "How much material",
+    "appPick": "App picks",
+    "own": "Your own",
+    "topics": {
+      "news": "News",
+      "daily": "Daily life",
+      "environment": "Environment"
+    },
+    "units": {
+      "sentence": "One sentence",
+      "paragraph": "One paragraph",
+      "window": "{minutes} min listening",
+      "full": "Full text"
+    },
+    "comfort": {
+      "demanding": "demanding",
+      "comfortable": "comfortable",
+      "speed": "speed practice"
+    },
+    "coverageLine": "{percent}% known · {band}",
+    "demandingLine": "Still demanding — {words} words to comfortable",
+    "appPickPreview": "A passage at ~{percent}% for you today · {band}",
+    "emptyTopic": "Nothing in the library yet for this topic — try Your own",
+    "keepInLibrary": "Keep in my library",
+    "uploadFile": "Upload file",
+    "pasteText": "Paste text",
+    "pastePlaceholder": "Paste or type the text you want to practise with",
+    "linkUrl": "Link"
+  },
   "languagePicker": {
     "title": "Which language do you want to learn?",
     "intro": "You can add another later. Nothing here locks you in.",

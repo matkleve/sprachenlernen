@@ -5,6 +5,8 @@ import { ShellPageContent } from "@/features/app-shell/ShellPageContent";
 import { byId, type MethodEntry } from "@/lib/method-catalogue";
 import type { SearchParams } from "@/lib/method-menu-filter";
 import { menuQueryString } from "@/lib/method-menu-filter";
+import { hasMaterialSetup } from "@/lib/method-material-setup";
+import type { MaterialUnitId } from "@/lib/material-unit";
 import { sessionHrefForMethod, usesExerciseRunner, usesWordsReview } from "@/lib/method-session";
 import { routes } from "@/lib/routes";
 import { cn } from "@/lib/utils";
@@ -12,6 +14,8 @@ import { cn } from "@/lib/utils";
 import { MethodDetailBadgeBand } from "./MethodDetailBadgeBand";
 import { MethodDetailFacts } from "./MethodDetailFacts";
 import { MethodDetailHero } from "./MethodDetailHero";
+import { MethodMaterialSetup } from "./MethodMaterialSetup";
+import { readMaterialSetupBundle } from "./readMaterialSetup";
 
 export type MethodDetailProps = {
   method?: MethodEntry;
@@ -40,6 +44,37 @@ export async function MethodDetail({ method, searchParams = {} }: MethodDetailPr
       </ShellPageContent>
     );
   }
+
+  const tMaterial = await getTranslations("methodMaterial");
+  const materialLabels = {
+    appPick: tMaterial("appPick"),
+    own: tMaterial("own"),
+    topicLabel: (labelKey: string) => tMaterial(`topics.${labelKey}` as "topics.news"),
+    unitLabel: (id: MaterialUnitId, durationSec?: number) =>
+      id === "window" && durationSec
+        ? tMaterial("units.window", { minutes: Math.round(durationSec / 60) })
+        : tMaterial(`units.${id}` as "units.sentence"),
+    comfortBand: (band: "demanding" | "comfortable" | "speed") => tMaterial(`comfort.${band}`),
+    coverageLine: (coveragePercent: number, bandLabel: string) =>
+      tMaterial("coverageLine", { percent: Math.round(coveragePercent), band: bandLabel }),
+    demandingLine: (coveragePercent: number, wordsToComfortable: number) =>
+      tMaterial("demandingLine", {
+        percent: Math.round(coveragePercent),
+        words: wordsToComfortable,
+      }),
+    appPickPreview: (coveragePercent: number, bandLabel: string) =>
+      tMaterial("appPickPreview", { percent: Math.round(coveragePercent), band: bandLabel }),
+    emptyTopic: tMaterial("emptyTopic"),
+    keepInLibrary: tMaterial("keepInLibrary"),
+    uploadFile: tMaterial("uploadFile"),
+    pasteText: tMaterial("pasteText"),
+    pastePlaceholder: tMaterial("pastePlaceholder"),
+    linkUrl: tMaterial("linkUrl"),
+  };
+  const materialBundle = hasMaterialSetup(method)
+    ? await readMaterialSetupBundle(method, materialLabels)
+    : { status: "omit" as const };
+  const showMaterialSetup = materialBundle.status === "ok";
 
   return (
     <>
@@ -75,7 +110,11 @@ export async function MethodDetail({ method, searchParams = {} }: MethodDetailPr
               {method.hosted ? t("hosted") : t("notHosted")}
             </p>
 
-            {(usesWordsReview(method) || usesExerciseRunner(method)) && (
+            {showMaterialSetup ? (
+              <MethodMaterialSetup method={method} context={materialBundle.context} />
+            ) : null}
+
+            {!showMaterialSetup && (usesWordsReview(method) || usesExerciseRunner(method)) && (
               <ActionLink
                 href={sessionHrefForMethod(method)}
                 variant="primary"
@@ -86,7 +125,7 @@ export async function MethodDetail({ method, searchParams = {} }: MethodDetailPr
               </ActionLink>
             )}
 
-            {method.hosted && !usesWordsReview(method) && !usesExerciseRunner(method) && (
+            {method.hosted && !usesWordsReview(method) && !usesExerciseRunner(method) && !showMaterialSetup && (
               <p className="mt-8 text-sm text-muted">{t("sessionNotBuilt")}</p>
             )}
           </article>

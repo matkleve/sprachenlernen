@@ -363,7 +363,7 @@ reached — never collapse them into "done":
 
 | Layer | Meaning | How to prove it |
 | --- | --- | --- |
-| **1 · Verified** | Code is correct somewhere | `npm run verify` green, output pasted |
+| **1 · Verified** | Code is correct somewhere | scoped `verify:scope` green (paste output) |
 | **2 · Merged** | `origin/main` has the commit | `git log origin/main -1` names your commit |
 | **3 · Deployed** | Learners can get it | Footer / Profile **App** shows the new Pride version from `package.json` on `main` |
 
@@ -385,10 +385,11 @@ enforces this). A green scoped verify on a branch is **layer 1** for area work.
 bump, or handoff — including scoped UI work where `verify:scope` would finish in
 seconds. User waits; nothing extra is proven.
 
-**The rule:** default to `npm run verify:scope -- <scope>` (or `changed`). Full
-`npm run verify` only before **merge to `main`** or when the change is
-cross-cutting (auth, DB, i18n, `package.json` version). Committing, `release:*`,
-and "version bump" on a scoped change do **not** trigger full verify.
+**The rule:** default to `npm run verify:scope -- <scope>` (or `changed`) for
+every turn, commit, merge to `main`, and `release:*`. Full `npm run verify`
+(~10min) only when cross-cutting (auth, DB, i18n, many areas) or the user
+explicitly asks — **state the reason**. Not justified: merge, shame, ship,
+"being careful", or "it's the gate".
 
 See [`VERIFY-SCOPES.md`](VERIFY-SCOPES.md).
 

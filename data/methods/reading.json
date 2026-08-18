@@ -26,7 +26,11 @@
         ]
       },
       "offerEveryDays": 3.5,
-      "doesNotDo": "It does not fix a word in memory. Words met while reading are met once; without the schedule picking them up they are gone in a week."
+      "doesNotDo": "It does not fix a word in memory. Words met while reading are met once; without the schedule picking them up they are gone in a week.",
+      "materialTopics": [
+        { "id": "news", "labelKey": "news" },
+        { "id": "daily", "labelKey": "daily" }
+      ]
     },
     {
       "id": "narrow-reading",

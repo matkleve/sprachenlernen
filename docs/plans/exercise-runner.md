@@ -30,7 +30,7 @@ Load-bearing — do not skip skeleton before components.
 | **T-E4** | ~~**Step decide**~~ + session complete — **shipped 2026-08-18** | Standard | T-E3 | decline ends with no queue |
 | **T-E5** | ~~**Route `/practice`**~~ + `method-session` routing — **shipped 2026-08-18** | Standard | T-E1 | practice.md AC |
 | **T-E6** | ~~**Recipe loader**~~ — **shipped 2026-08-18** | Standard | T-E5 | fixture method end-to-end |
-| **T-E7** | **Method material setup** panel on detail | Standard | T-E5 | `method-material-setup.md` AC |
+| **T-E7** | ~~**Method material setup**~~ panel on detail — **shipped 2026-08-18** | Standard | T-E5 | `method-material-setup.md` AC |
 | **T-E8** | ~~**First real method**~~ — partial dictation from catalogue Source — **shipped 2026-08-18** | Sensitive | T-E6, T-W7 | `lib/exercise-recipe/partial-dictation.ts` |
 | **T-E9** | **Gap-fill** step — half-filled listen, type/speak, defer fallback | Standard | T-E3, T-MU2, T-LD1 | UC-028 |
 | **T-MU1** | ~~Material unit resolver~~ — **shipped 2026-08-18** | Standard | T-W7 | `material-unit.md` AC |

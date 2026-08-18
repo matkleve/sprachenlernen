@@ -373,7 +373,7 @@ honest Spanish/Italian; offline unlocks commute practice.
 | **6c** | ~~**T-B10e** — composite tier badges, effort dots, real assets~~ — **shipped 2026-08-18** | [`skill-tier.md`](specs/service/skill-tier.md); `scripts/slice-skill-tier-badges.py` |
 | **6d** | **T-B10f-b** — method card polish assets | **Blocked** — section WebP re-compose + shield card PNGs; owner LIVE CHECK failed on art ([`study/40`](study/40-method-card-visual-polish.md)) |
 | **7** | **T-B10b remainder** — ~~demonstration sentence~~ **shipped 2026-08-16**; readiness ([`study/26`](study/26-readiness-and-difficulty.md)) | Methods front door complete |
-| **7b** | ~~**Exercise runner** (T-E1–E8)~~ — **T-E1–E6 + T-E8 shipped 2026-08-18**; T-E7 material setup open | UC-049 |
+| **7b** | ~~**Exercise runner** (T-E1–E8)~~ — **T-E1–E7 + T-E8 shipped 2026-08-18**; T-E9 gap-fill open | UC-049 |
 | **8** | **T-B4 numerator** — guided hours practised (thesis 9: not card time alone) | Progress per hour invested (study/03 V3) |
 
 **Still partial in Track B:** T-B3 (pool-local only), T-B10b (standing + daily
@@ -397,7 +397,7 @@ Cooking-app runner for multi-step Methods (dictation, writing, listening drills)
 | **T-E4** | ~~Step decide + complete surface~~ — **shipped 2026-08-18** | Standard | T-E3 |
 | **T-E5** | ~~Route `/practice` + method-session routing~~ — **shipped 2026-08-18** | Standard | T-E1 |
 | **T-E6** | ~~Recipe loader + fixture method end-to-end~~ — **shipped 2026-08-18** | Standard | T-E4, T-E5 |
-| **T-E7** | Method material setup chips (detail panel) | Standard | T-E5; [`method-material-setup.md`](specs/feature/method-material-setup.md) |
+| **T-E7** | Method material setup chips (detail panel) | **Shipped 2026-08-18** | T-E5; [`method-material-setup.md`](specs/feature/method-material-setup.md) |
 | **T-E8** | ~~First real method — partial dictation~~ — **shipped 2026-08-18** (catalogue Source; text gaps v1) | **Sensitive** | T-E6, T-W7 |
 | **T-E9** | Gap-fill step component — listen + type/speak; type-only under defer | Standard | T-E3, T-MU2, T-LD1 |
 | **T-MU0** | ~~Specs + study/39~~ — material units, gap rules, listening defer — **shipped 2026-08-18** | Standard | round-table + owner |
