@@ -23,6 +23,13 @@ describe("Chip", () => {
     expect(chip.className).toContain("text-accent-ink");
   });
 
+  it("applies card size for catalogue chips", () => {
+    render(<Chip size="card">20–45 Min.</Chip>);
+    const chip = screen.getByText("20–45 Min.");
+    expect(chip.className).toContain("text-sm");
+    expect(chip.className).toContain("min-h-8");
+  });
+
   it("has no accessibility violations", async () => {
     const { container } = render(<Chip>open-ended</Chip>);
     await expectNoA11yViolations(container);

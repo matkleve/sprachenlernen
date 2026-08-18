@@ -10,7 +10,7 @@ import { cn } from "@/lib/utils";
  * leave it as a span.
  */
 const chip = cva(
-  "inline-flex items-center whitespace-nowrap rounded-pill px-2.5 py-0.5 text-xs font-medium",
+  "inline-flex items-center whitespace-nowrap rounded-pill font-medium",
   {
     variants: {
       tone: {
@@ -18,13 +18,17 @@ const chip = cva(
         accent: "bg-accent-soft text-ink",
         selected: "bg-accent text-accent-ink",
       },
+      size: {
+        default: "px-2.5 py-0.5 text-xs",
+        card: "min-h-8 px-3 py-1 text-sm",
+      },
     },
-    defaultVariants: { tone: "default" },
+    defaultVariants: { tone: "default", size: "default" },
   },
 );
 
 export type ChipProps = HTMLAttributes<HTMLSpanElement> & VariantProps<typeof chip>;
 
-export function Chip({ tone, className, ...props }: ChipProps) {
-  return <span className={cn(chip({ tone }), className)} {...props} />;
+export function Chip({ tone, size, className, ...props }: ChipProps) {
+  return <span className={cn(chip({ tone, size }), className)} {...props} />;
 }

@@ -19,8 +19,10 @@ Walk each item and state the evidence. "Looks fine" is not evidence.
 - [ ] **Every acceptance criterion demonstrated.** Open the spec, read the
       criteria, and for each one name the test or the observation that proves it.
       A criterion with nothing behind it is the finding.
-- [ ] **`npm run verify` green.** Run it now — do not trust a run from earlier in
-      the session, since files have changed since.
+- [ ] **Scoped verify green** while building (`npm run verify:scope`). Run it now
+      for this turn — do not trust a run from earlier in the session.
+- [ ] **Full `npm run verify` green** only when merging to `main` or the change is
+      cross-cutting (auth, DB, i18n, version). Not for every commit.
 - [ ] **Red-test-first**, for Sensitive changes. Was the test shown failing
       before the implementation? If nobody can point to that, the test may be
       asserting nothing. Verify by breaking the implementation and confirming it
@@ -36,7 +38,8 @@ Walk each item and state the evidence. "Looks fine" is not evidence.
       surprised, the next person will be too.
 - [ ] **Learner-facing — three layers** (`docs/AGENT-PITFALLS.md` §21). Report
       each layer explicitly; never say "shipped" for layer 1 only:
-      - **Verified:** `npm run verify` green (paste output).
+      - **Verified:** scoped or full verify green (paste output; full only if
+        merging to `main`).
       - **Merged:** commit is on `origin/main`.
       - **Deployed:** footer / Profile **App** shows the bumped Pride version;
         user gets **LIVE CHECK (you)** steps if you could not observe deploy.

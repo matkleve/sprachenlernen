@@ -18,13 +18,13 @@ longer gets skimmed instead of read.
 
 ```bash
 npm run dev
-npm run verify:scope -- <scope>   # iterate — docs/VERIFY-SCOPES.md
-npm run verify                    # commit/merge only (~7min)
+npm run verify:scope -- <scope>   # default — docs/VERIFY-SCOPES.md
+npm run verify                    # optional: release:ship only (~7min)
 ```
 
-Scoped while building; full before commit — [`docs/VERIFY-SCOPES.md`](docs/VERIFY-SCOPES.md).
-Paste scoped output for review; full output when commit-ready. One check alone:
-`node scripts/verify.mjs tokens`.
+Default: **scoped** always — commit, merge to `main`, `release:shame`. Full
+`verify` only for `release:ship` / `release:proud`, never for shame —
+[`docs/VERIFY-SCOPES.md`](docs/VERIFY-SCOPES.md).
 
 ---
 
@@ -37,7 +37,7 @@ de-escalate silently.
 | Class | Examples | Required before merge |
 | --- | --- | --- |
 | **Trivial** | copy/label text, comment, log line, single token swap, pure rename | scoped or full `verify` green |
-| **Standard** | new component, new hook or helper, list/filter/sort, a self-contained UI surface | spec **first**; scoped verify while iterating; **full** `verify` before commit; reuse check (§ Boundaries); one AC test |
+| **Standard** | new component, new hook or helper, list/filter/sort, a self-contained UI surface | spec **first**; scoped verify; scoped before commit and merge to `main`; reuse check (§ Boundaries); one AC test |
 | **Sensitive** | auth, money, data deletion, anything persisted, stateful/FSM UI, anything a user can't undo | everything in Standard **plus**: red-test-first (test shown failing before, passing after), fresh-context adversarial review by a different agent than the implementer |
 
 Full pipeline, Definition of Ready and Definition of Done:

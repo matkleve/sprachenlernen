@@ -1,5 +1,6 @@
 "use client";
 
+import { Chip } from "@/components/ui/Chip";
 import { PressableCard } from "@/components/ui/PressableCard";
 import type { MethodEntry } from "@/lib/method-catalogue";
 
@@ -37,19 +38,15 @@ export function LandingPreviewMethodCard({ method, onSelect }: LandingPreviewMet
 
         <MethodBadgeRow className="mt-3" method={method} />
 
-        <ul className="mt-3 flex flex-wrap gap-1.5" aria-label={t("card.properties")}>
+        <ul className="mt-3 flex flex-wrap gap-2" aria-label={t("card.properties")}>
           {durationChips(method.durations).map((label) => (
             <li key={`duration-${label}`}>
-              <span className="inline-flex rounded-chip border border-line bg-surface px-2 py-0.5 text-xs text-muted">
-                {label}
-              </span>
+              <Chip size="card">{label}</Chip>
             </li>
           ))}
           {requirements.map((label) => (
             <li key={`need-${label}`}>
-              <span className="inline-flex rounded-chip border border-line bg-surface px-2 py-0.5 text-xs text-muted">
-                {label}
-              </span>
+              <Chip size="card">{label}</Chip>
             </li>
           ))}
         </ul>

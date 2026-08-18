@@ -37,6 +37,13 @@ describe("MethodBadgeRow", () => {
     expect(screen.getByLabelText(/Effort: 1 of 3/i)).toBeDefined();
     expect(screen.queryByText(en.methodMenu.evidenceCard.C)).toBeNull();
   });
+
+  it("right-aligns effort on the badge row", () => {
+    const { container } = render(<MethodBadgeRow method={method} />);
+    const effort = screen.getByLabelText(/Effort: 1 of 3/i);
+    expect(effort.className).toContain("ml-auto");
+    expect(effort.className).toContain("text-sm");
+  });
 });
 
 describe("EffortBadge", () => {
@@ -54,6 +61,8 @@ describe("method surfaces", () => {
     expect(link.className).toContain("border-line");
     expect(link.querySelector("h3")?.className).toContain("text-xl");
     expect(link.textContent).toContain(en.methodMenu.card.effort);
+    const chip = link.querySelector("ul[aria-label] span");
+    expect(chip?.className).toContain("text-sm");
     expect(link.textContent).not.toContain(en.methodMenu.evidenceCard.C);
     expect(link.textContent).not.toContain("plausible and widespread");
   });

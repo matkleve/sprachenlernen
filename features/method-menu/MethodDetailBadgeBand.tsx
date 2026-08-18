@@ -24,7 +24,7 @@ export function MethodDetailBadgeBand({ method, className }: MethodDetailBadgeBa
     <div className={cn("flex flex-wrap items-center gap-2", className)}>
       <SkillTierBadgeRow visible={visible} overflow={overflow} size="detail" />
       <span className={cn("inline-flex flex-wrap items-center gap-2", hasTiers && "sm:ml-auto")}>
-        <EffortBadge intensity={method.intensity} />
+        <EffortBadge intensity={method.intensity} size="card" />
       </span>
     </div>
   );

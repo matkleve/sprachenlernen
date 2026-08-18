@@ -377,7 +377,20 @@ reached — never collapse them into "done":
 5. End with **LIVE CHECK (you)** — footer version must match what you shipped.
 
 Never bump `package.json` `version` on a feature branch (`check-version-branch`
-enforces this). A green verify on a branch is **layer 1 only**.
+enforces this). A green scoped verify on a branch is **layer 1** for area work.
+
+## 22. Full verify on every turn
+
+**The failure:** agent runs `npm run verify` (~7–10min) on every commit, version
+bump, or handoff — including scoped UI work where `verify:scope` would finish in
+seconds. User waits; nothing extra is proven.
+
+**The rule:** default to `npm run verify:scope -- <scope>` (or `changed`). Full
+`npm run verify` only before **merge to `main`** or when the change is
+cross-cutting (auth, DB, i18n, `package.json` version). Committing, `release:*`,
+and "version bump" on a scoped change do **not** trigger full verify.
+
+See [`VERIFY-SCOPES.md`](VERIFY-SCOPES.md).
 
 ---
 

@@ -22,7 +22,7 @@ Implementation: `features/method-menu/MethodCard.tsx`.
 | Method name (`h3`) | `text-xl font-semibold text-ink` | Primary identity on the card |
 | Summary | `text-sm text-muted line-clamp-2` | unchanged |
 | Badge row | See [`method-badge.md`](method-badge.md) | tier shields + effort dots |
-| Property chips | [`chip.md`](chip.md) | one duration chip, all requirements |
+| Property chips | [`chip.md`](chip.md) | `size="card"` — `text-sm`, `min-h-8`, uniform |
 
 Header: [`method-card-header.md`](method-card-header.md).
 

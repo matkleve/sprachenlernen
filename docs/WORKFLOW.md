@@ -19,7 +19,7 @@ stage's exit gate is true.
 | **2 · Specify** | What should happen? | A spec exists with testable acceptance criteria |
 | **3 · Plan** | How, and what's touched? | File map + reuse decision + one named runnable check |
 | **4 · Tasks** | What are the slices? | Thin vertical slices, each independently verifiable |
-| **5 · Implement** | Build it | Code matches spec; `npm run verify` green |
+| **5 · Implement** | Build it | Code matches spec; scoped `verify:scope` green |
 | **6 · Verify** | Does it *really* work? | Acceptance criteria demonstrated with evidence |
 | **7 · Ship** | Done-done? | Passes **Definition of Done** below |
 | **8 · Learn** | What did we miss? | Feedback → spec updated in the *same* session |
@@ -50,7 +50,8 @@ Fails DoR → back to Shape. Do not "just start and see".
 
 - [ ] Every acceptance criterion **demonstrated with evidence** — test output or
       a screenshot — not asserted in prose.
-- [ ] `npm run verify` green, output pasted.
+- [ ] Scoped verify green while building (`npm run verify:scope`); **full**
+      `npm run verify` green before merge to `main` (see `docs/VERIFY-SCOPES.md`).
 - [ ] **Red-test-first proven** for Sensitive changes: the test was shown failing
       before the implementation and passing after. A test that was never red
       proves nothing — it may assert nothing.

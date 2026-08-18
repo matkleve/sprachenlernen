@@ -1,5 +1,7 @@
 "use client";
 
+import { cva, type VariantProps } from "class-variance-authority";
+
 import type { MethodEntry } from "@/lib/method-catalogue";
 import { displaySkillTierMarks } from "@/lib/skill-tier";
 import { cn } from "@/lib/utils";
@@ -7,28 +9,53 @@ import { cn } from "@/lib/utils";
 import { useMethodMenuCopy } from "./use-method-menu-copy";
 import { SkillTierBadgeRow } from "./SkillTierBadge";
 
-const textBadgeClass =
-  "inline-flex shrink-0 items-center whitespace-nowrap rounded-chip border border-line bg-surface px-2 py-0.5 text-xs font-medium text-ink";
+const effortBadgeVariants = cva(
+  "inline-flex shrink-0 items-center whitespace-nowrap rounded-pill border border-line bg-surface font-medium text-ink",
+  {
+    variants: {
+      size: {
+        default: "px-2.5 py-0.5 text-xs",
+        card: "min-h-8 px-3 py-1 text-sm",
+      },
+    },
+    defaultVariants: { size: "default" },
+  },
+);
+
+const effortDotVariants = cva("rounded-full", {
+  variants: {
+    size: {
+      default: "size-1.5",
+      card: "size-2",
+    },
+  },
+  defaultVariants: { size: "default" },
+});
 
 export type EffortBadgeProps = {
   intensity: 1 | 2 | 3;
-};
+  className?: string;
+} & VariantProps<typeof effortBadgeVariants>;
 
-export function EffortBadge({ intensity }: EffortBadgeProps) {
+export function EffortBadge({ intensity, size, className }: EffortBadgeProps) {
   const { t, intensity: intensityAnchors } = useMethodMenuCopy();
   const label = t("card.effort");
   const anchor = intensityAnchors[intensity];
   const ariaLabel = `${label}: ${intensity} of 3 — ${anchor}`;
 
   return (
-    <span className={textBadgeClass} aria-label={ariaLabel} title={anchor}>
+    <span
+      className={cn(effortBadgeVariants({ size }), className)}
+      aria-label={ariaLabel}
+      title={anchor}
+    >
       <span>{label}</span>
-      <span className="ml-1.5 inline-flex gap-0.5" aria-hidden>
+      <span className="ml-2 inline-flex gap-1" aria-hidden>
         {([1, 2, 3] as const).map((level) => (
           <span
             key={level}
             className={cn(
-              "size-1.5 rounded-full",
+              effortDotVariants({ size }),
               level <= intensity ? "bg-ink" : "bg-line",
             )}
           />
@@ -69,7 +96,7 @@ function tierSummary(
     .join(", ");
 }
 
-/** Tier shields and effort dots — fixed order per skill-tier spec. */
+/** Tier shields left, effort right — fixed order per skill-tier spec. */
 export function MethodBadgeRow({ method, className, inLink = false }: MethodBadgeRowProps) {
   const { skillLabels, intensity: intensityAnchors } = useMethodMenuCopy();
   const { visible, overflow } = displaySkillTierMarks(method);
@@ -80,18 +107,18 @@ export function MethodBadgeRow({ method, className, inLink = false }: MethodBadg
       : "";
 
   return (
-    <div className={cn("flex flex-wrap items-center gap-2", className)}>
+    <div className={cn("w-full", className)}>
       {inLink ? (
         <span className="sr-only">
           {badgeSummary(visibleLabel, overflowLabel, method.intensity, intensityAnchors)}
         </span>
       ) : null}
       <div
-        className={cn("flex flex-wrap items-center gap-2", inLink && "aria-hidden")}
+        className={cn("flex w-full items-center gap-2", inLink && "aria-hidden")}
         {...(inLink ? { "aria-hidden": true } : {})}
       >
         <SkillTierBadgeRow visible={visible} overflow={overflow} size="card" />
-        <EffortBadge intensity={method.intensity} />
+        <EffortBadge className="ml-auto" intensity={method.intensity} size="card" />
       </div>
     </div>
   );

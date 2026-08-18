@@ -42,19 +42,19 @@ export function MethodCard({ method, returnQuery = "" }: MethodCardProps) {
 
         <MethodBadgeRow className="mt-3" method={method} inLink />
 
-        <ul className="mt-3 flex flex-wrap gap-1.5" aria-label={t('card.properties')}>
+        <ul className="mt-3 flex flex-wrap gap-2" aria-label={t('card.properties')}>
           {durationChips(method.durations).map((label) => (
             <li key={`duration-${label}`}>
-              <Chip>{label}</Chip>
+              <Chip size="card">{label}</Chip>
             </li>
           ))}
           {requirements.map((label) => (
             <li key={`need-${label}`}>
-              <Chip>{label}</Chip>
+              <Chip size="card">{label}</Chip>
             </li>
           ))}
           <li>
-            <Chip>{method.hosted ? t('hostedShort') : t('notHostedShort')}</Chip>
+            <Chip size="card">{method.hosted ? t('hostedShort') : t('notHostedShort')}</Chip>
           </li>
         </ul>
 
