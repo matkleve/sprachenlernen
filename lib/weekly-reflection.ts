@@ -58,7 +58,10 @@ export function startOfIsoWeek(timestampMs: number): number {
   return date.getTime();
 }
 
-type DeckCardInput = Pick<StarterCard, "taskId" | "wordId" | "lemma" | "frequencyRank" | "front" | "back">;
+type DeckCardInput = Pick<
+  StarterCard,
+  "taskId" | "wordId" | "lemma" | "frequencyRank" | "front" | "back" | "descriptionKey"
+>;
 
 export function buildWeeklyReflection(input: {
   now: number;

@@ -8,6 +8,8 @@ import esExclusions from "@/data/starter/es-meaning-recall.exclusions.json";
 import itMeaningRecall from "@/data/starter/it-meaning-recall.json";
 import itIdenticalCognates from "@/data/starter/it-meaning-recall.cognates.json";
 import itExclusions from "@/data/starter/it-meaning-recall.exclusions.json";
+import { taskTypeFromTaskId } from "@/lib/description-keys";
+import { loadDescriptionSnapshotFromDisk } from "@/lib/gloss-resolver";
 
 export type StarterCard = {
   taskId: string;
@@ -15,7 +17,13 @@ export type StarterCard = {
   lemma: string;
   /** What the learner is shown — a meaning or a lemma, never a whole sentence. */
   front: string;
-  back: string;
+  /** Stable gloss lookup — English source lives in app_texts / en.json snapshot. */
+  descriptionKey: string;
+  /**
+   * Form-recall only: the surface form revealed on flip. Meaning-recall cards
+   * must not carry inline English glosses (T-B11f).
+   */
+  back?: string;
   frequencyRank: number;
   /**
    * Which cell of the paradigm the answer sits in. Present on form-recall cards
@@ -37,16 +45,32 @@ export type LoadStarterDeckResult =
   | { status: "ok"; deck: StarterDeck }
   | { status: "error"; errors: string[] };
 
-function isStarterCard(value: unknown): value is StarterCard {
+function isStarterCard(value: unknown, taskType: string): value is StarterCard {
   if (typeof value !== "object" || value === null) {
     return false;
   }
   const row = value as Record<string, unknown>;
-  const required = ["taskId", "wordId", "lemma", "front", "back", "frequencyRank"] as const;
-  return required.every((key) => {
-    if (key === "frequencyRank") return typeof row[key] === "number" && row[key] > 0;
-    return typeof row[key] === "string" && row[key] !== "";
-  });
+  const base =
+    typeof row.taskId === "string" &&
+    row.taskId !== "" &&
+    typeof row.wordId === "string" &&
+    row.wordId !== "" &&
+    typeof row.lemma === "string" &&
+    row.lemma !== "" &&
+    typeof row.front === "string" &&
+    row.front !== "" &&
+    typeof row.descriptionKey === "string" &&
+    row.descriptionKey !== "" &&
+    typeof row.frequencyRank === "number" &&
+    row.frequencyRank > 0;
+
+  if (!base) return false;
+
+  if (taskType === "meaning-recall") {
+    return row.back === undefined;
+  }
+
+  return typeof row.back === "string" && row.back !== "";
 }
 
 export function validateStarterDeck(raw: unknown): LoadStarterDeckResult {
@@ -64,8 +88,9 @@ export function validateStarterDeck(raw: unknown): LoadStarterDeckResult {
   if (!Array.isArray(deck.cards) || deck.cards.length === 0) {
     errors.push("cards: required non-empty array");
   } else {
+    const taskType = typeof deck.taskType === "string" ? deck.taskType : "";
     deck.cards.forEach((card, index) => {
-      if (!isStarterCard(card)) {
+      if (!isStarterCard(card, taskType)) {
         errors.push(`cards[${index}]: invalid starter card shape`);
       }
     });
@@ -163,4 +188,18 @@ export function loadMeaningRecallDeck(languageCode: string): LoadStarterDeckResu
     return { status: "error", errors: [`no meaning-recall pool ships for "${languageCode}"`] };
   }
   return load();
+}
+
+/** English gloss for a pool card — snapshot is source of truth after T-B11f. */
+export function englishGlossForCard(card: Pick<StarterCard, "descriptionKey" | "taskId" | "wordId" | "front" | "back">): string {
+  const en = loadDescriptionSnapshotFromDisk("en");
+  const fromSnapshot = en[card.descriptionKey];
+  if (fromSnapshot) return fromSnapshot;
+  if (card.back) return card.back;
+  return card.front;
+}
+
+/** True when the card is meaning-recall (inline `back` must be absent). */
+export function isMeaningRecallStarterCard(card: StarterCard): boolean {
+  return taskTypeFromTaskId(card.taskId) === "meaning-recall";
 }

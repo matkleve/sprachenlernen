@@ -12,6 +12,7 @@ import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
 import { POOL_SIZE, pathsFor, resolveLang } from "./starter-deck-lang.mjs";
+import { cardDescriptionKey } from "./description-keys.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const CACHE = process.env.GLOSS_CACHE ?? join(ROOT, ".cache/gloss");
@@ -186,7 +187,7 @@ const build = async () => {
       wordId: `${LANG}:${lemma}`,
       lemma,
       front: lemma,
-      back,
+      descriptionKey: cardDescriptionKey(`${LANG}:${lemma}`, "meaning-recall", "back"),
       frequencyRank: index + 1,
     };
   });

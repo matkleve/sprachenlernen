@@ -25,6 +25,8 @@ function isFormRecallCard(value: unknown): value is FormRecallCard {
     typeof row.wordId === "string" &&
     typeof row.lemma === "string" &&
     typeof row.front === "string" &&
+    typeof row.descriptionKey === "string" &&
+    row.descriptionKey !== "" &&
     typeof row.back === "string" &&
     typeof row.frequencyRank === "number" &&
     row.frequencyRank > 0;

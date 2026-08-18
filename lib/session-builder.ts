@@ -74,7 +74,8 @@ export function buildSession(
     wordId: card.wordId,
     lemma: card.lemma,
     front: card.front,
-    back: card.back,
+    descriptionKey: card.descriptionKey,
+    back: card.back ?? "",
     frequencyRank: card.frequencyRank,
     // Carried, not dropped: the front of a form card is only the meaning, so
     // without the cell the screen cannot say which form it is asking for.
