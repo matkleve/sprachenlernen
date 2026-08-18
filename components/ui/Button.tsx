@@ -150,3 +150,9 @@ export const iconButtonSmClass = cn(
   buttonVariants({ variant: "floating", size: "sm" }),
   "size-9 min-h-9 min-w-9 rounded-full p-0",
 );
+
+/** Icon-only ghost chip — quiet header brand, no fill at rest. */
+export const iconGhostButtonClass = cn(
+  buttonVariants({ variant: "ghost", size: "sm" }),
+  "size-11 min-h-11 min-w-11 rounded-full p-0 font-normal",
+);

@@ -492,6 +492,27 @@
   .orbit-ring {
     animation: none !important;
   }
+
+  .brand-mark-ring-outer,
+  .brand-mark-ring-inner {
+    animation: none !important;
+  }
+}
+
+/* Brand spiral — outer/inner bands counter-rotate on parent hover/focus. */
+.brand-mark-spiral-center {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+.group:hover .brand-mark-ring-outer,
+.group:focus-visible .brand-mark-ring-outer {
+  animation: orbit-ring-forward 36s linear infinite;
+}
+
+.group:hover .brand-mark-ring-inner,
+.group:focus-visible .brand-mark-ring-inner {
+  animation: orbit-ring-reverse 24s linear infinite;
 }
 
 .orbit-segment {

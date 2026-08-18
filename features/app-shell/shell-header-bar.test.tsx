@@ -20,6 +20,22 @@ describe("ShellHeaderBar", () => {
     expect(container.textContent).toContain("center");
   });
 
+  it("uses the same icon gap on desktop left and right", () => {
+    const { container } = render(
+      <ShellHeaderBar
+        variant="desktop"
+        collapse={0}
+        left={<span data-testid="left">left</span>}
+        right={<span data-testid="right">right</span>}
+      />,
+    );
+
+    const left = container.querySelector(".justify-self-start");
+    const right = container.querySelector(".justify-self-end");
+    expect(left?.className).toContain("gap-1");
+    expect(right?.className).toContain("gap-1");
+  });
+
   it("renders desktop chrome sticky with a scrim layer", () => {
     const { container } = render(
       <ShellHeaderBar

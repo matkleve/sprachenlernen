@@ -45,7 +45,7 @@ export function ShellHeaderBar({
             safeTop,
           )}
         >
-          <div className="col-start-1 flex min-w-0 items-center gap-2 justify-self-start">
+          <div className="col-start-1 flex min-w-0 items-center gap-1 justify-self-start">
             {left}
           </div>
           {center}
@@ -60,7 +60,7 @@ export function ShellHeaderBar({
       <HeaderScrim collapse={collapse}>
         <div className="relative mx-auto max-w-5xl px-6 py-3">
           <div className="grid min-h-11 grid-cols-[1fr_1fr] items-center gap-x-4">
-            <div className="z-10 flex min-w-0 items-center gap-4 justify-self-start">{left}</div>
+            <div className="z-10 flex min-w-0 items-center gap-1 justify-self-start">{left}</div>
             <div className="z-10 flex min-w-0 items-center justify-self-end gap-1">{right}</div>
           </div>
           {center ? (

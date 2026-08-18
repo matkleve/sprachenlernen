@@ -87,7 +87,7 @@ On phone-width viewports the header matches the signed-in shell's top row
 
 | Zone | Primitive | Notes |
 | --- | --- | --- |
-| Left | `BrandLink` (`IconLink` + `BrandMark` color) | links to `/`; `aria-label` = product name — **same on mobile and desktop** |
+| Left | `BrandLink` (`ActionLink` ghost + `BrandMarkAnimated`) | links to `/`; `aria-label` = product name — **same on mobile and desktop** |
 | Centre | brand wordmark text | absolutely centred; not a heading — the page hero owns `h1` on `/` |
 | Right | `IconButton` + menu popover (`< md`) · icon auth chips (`≥ md`) | right-aligned |
 

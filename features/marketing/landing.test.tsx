@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
 import { getAccount } from "@/lib/db/auth";
+import { site } from "@/lib/site-metadata";
 import { expectNoA11yViolations } from "@/tests/axe";
 
 import { hoursPerYear } from "@/lib/dose-band";
@@ -56,9 +57,11 @@ beforeEach(() => {
 
 describe("PublicHeader", () => {
   it("shows sign-in and create-account on every marketing route when signed out", () => {
-    const { container } = showHeaderAt("/login");
+    showHeaderAt("/login");
 
-    expect(container.querySelector('img[src*="spiral-learning-color"]')).toBeTruthy();
+    const brands = screen.getAllByRole("link", { name: site.name });
+    expect(brands[0]?.querySelector("svg")).toBeTruthy();
+    expect(brands[0]?.className).toContain("hover:bg-accent-soft");
     expect(screen.getByRole("link", { name: en.marketing.header.signIn }).getAttribute("href")).toBe(
       "/login",
     );
