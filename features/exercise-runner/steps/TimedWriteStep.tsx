@@ -30,7 +30,14 @@ export function TimedWriteStep({
   onTextChange,
 }: TimedWriteStepProps) {
   const t = useTranslations("exerciseRunner");
-  const prompt = typeof config.prompt === "string" ? config.prompt : "";
+  const promptKey =
+    typeof config.promptKey === "string" ? config.promptKey : undefined;
+  const prompt =
+    promptKey
+      ? t(promptKey as "freeProductionPromptRecent")
+      : typeof config.prompt === "string"
+        ? config.prompt
+        : "";
   const durationSec = typeof config.durationSec === "number" ? config.durationSec : 0;
   const optionalWords = readOptionalWords(config);
 

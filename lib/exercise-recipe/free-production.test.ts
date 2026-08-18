@@ -30,7 +30,8 @@ describe("free-production recipe", () => {
       "offers",
     ]);
     expect(recipe.steps[1]?.config.durationSec).toBe(900);
-    expect(recipe.steps[1]?.config.prompt).toBeTruthy();
+    expect(recipe.steps[0]?.config.introKey).toBe("introFreeProduction");
+    expect(recipe.steps[1]?.config.promptKey).toBeTruthy();
   });
 
   it("resolves from the shipped pool", async () => {

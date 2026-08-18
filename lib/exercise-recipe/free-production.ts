@@ -6,12 +6,18 @@ import { loadMeaningRecallDeck } from "@/lib/starter-deck";
 
 const DEFAULT_DURATION_SEC = 600;
 
-const OPEN_PROMPTS = [
-  "Write about something that happened to you recently.",
-  "Describe a place you enjoy spending time.",
-  "What would you do if you had tomorrow completely free?",
-  "Write about a person who matters to you.",
-  "Describe your ideal weekend.",
+const PROMPT_KEYS = [
+  "freeProductionPromptRecent",
+  "freeProductionPromptPlace",
+  "freeProductionPromptFreeDay",
+  "freeProductionPromptPerson",
+  "freeProductionPromptWeekend",
+] as const;
+
+const CHECKLIST_ITEMS = [
+  "Pen and paper or keyboard",
+  "A quiet few minutes",
+  "Write in your target language — say what you mean, not a translation exercise",
 ] as const;
 
 async function meaningRecallCardsForPractice(): Promise<
@@ -39,8 +45,7 @@ export function composeFreeProductionRecipe(
   ctx: SessionContext,
 ): ExerciseRecipe {
   const hints = pickProductionHints(cards, ctx.heldLemmas);
-  const prompt =
-    OPEN_PROMPTS[hints.promptIndex % OPEN_PROMPTS.length] ?? OPEN_PROMPTS[0];
+  const promptKey = PROMPT_KEYS[hints.promptIndex % PROMPT_KEYS.length] ?? PROMPT_KEYS[0];
 
   return {
     methodId: "free-production",
@@ -52,7 +57,8 @@ export function composeFreeProductionRecipe(
         component: "checklist",
         label: "Get ready",
         config: {
-          items: ["Pen and paper or keyboard", "A quiet few minutes"],
+          introKey: "introFreeProduction",
+          items: [...CHECKLIST_ITEMS],
         },
       },
       {
@@ -61,7 +67,7 @@ export function composeFreeProductionRecipe(
         component: "timed-write",
         label: "Write",
         config: {
-          prompt,
+          promptKey,
           durationSec: writingDurationSec(ctx),
           optionalWords: hints.optionalWords,
         },

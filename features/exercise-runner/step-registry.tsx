@@ -59,7 +59,13 @@ export function renderExerciseStep(props: StepRenderProps) {
     case "speak-prompt":
       return <SpeakPromptStep config={step.config} />;
     case "type-with-word":
-      return <TypeWithWordStep config={step.config} />;
+      return (
+        <TypeWithWordStep
+          config={step.config}
+          value={props.submitDraft.text}
+          onTextChange={props.onTextChange}
+        />
+      );
     case "timed-write":
       return (
         <TimedWriteStep
@@ -91,7 +97,7 @@ export function renderExerciseStep(props: StepRenderProps) {
     case "comprehension-questions":
       return <ComprehensionQuestionsStep config={step.config} />;
     case "reveal-answer":
-      return <RevealAnswerStep config={step.config} />;
+      return <RevealAnswerStep config={step.config} userSentence={props.submitDraft.text} />;
     case "offers":
       return (
         <OffersStep

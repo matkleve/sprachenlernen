@@ -4,9 +4,10 @@ import { useTranslations } from "next-intl";
 
 type RevealAnswerStepProps = {
   config: Record<string, unknown>;
+  userSentence?: string;
 };
 
-export function RevealAnswerStep({ config }: RevealAnswerStepProps) {
+export function RevealAnswerStep({ config, userSentence }: RevealAnswerStepProps) {
   const t = useTranslations("exerciseRunner");
   const word = typeof config.word === "string" ? config.word : "";
   const gloss = typeof config.gloss === "string" ? config.gloss : "";
@@ -16,6 +17,12 @@ export function RevealAnswerStep({ config }: RevealAnswerStepProps) {
   return (
     <div className="space-y-4">
       <p className="text-base leading-relaxed text-ink">{body}</p>
+      {userSentence?.trim() ? (
+        <div className="rounded-card border border-line bg-surface-raised p-4">
+          <p className="text-sm font-medium text-muted">{t("revealAnswerYourSentence")}</p>
+          <p className="mt-2 text-lg text-ink">{userSentence.trim()}</p>
+        </div>
+      ) : null}
       {exemplar ? (
         <div className="rounded-card border border-line bg-surface-raised p-4">
           <p className="text-sm font-medium text-muted">{t("revealAnswerExemplarLabel")}</p>
@@ -23,9 +30,7 @@ export function RevealAnswerStep({ config }: RevealAnswerStepProps) {
         </div>
       ) : null}
       {word && gloss ? (
-        <p className="text-sm text-muted">
-          {t("revealAnswerMeaning", { word, gloss })}
-        </p>
+        <p className="text-sm text-muted">{t("revealAnswerMeaning", { word, gloss })}</p>
       ) : null}
     </div>
   );

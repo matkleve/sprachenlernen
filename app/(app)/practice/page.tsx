@@ -29,7 +29,8 @@ export default async function PracticePage({
     variantId?: string;
   }>;
 }) {
-  const t = await getTranslations("reviewSession");
+  const tReview = await getTranslations("reviewSession");
+  const tRunner = await getTranslations("exerciseRunner");
   const { method: methodId, sourceId, unitId, durationSec, variantId } = await searchParams;
 
   if (methodId === CARD_ENGINE_METHOD_ID) {
@@ -43,7 +44,7 @@ export default async function PracticePage({
   if (!methodId) {
     return (
       <ShellPageContent mode="scrollable-drill-in" width="narrow">
-        <p className="mt-4 text-base text-muted">{t("unknownMethod")}</p>
+        <p className="mt-4 text-base text-muted">{tReview("unknownMethod")}</p>
       </ShellPageContent>
     );
   }
@@ -66,7 +67,7 @@ export default async function PracticePage({
   if (!method) {
     return (
       <ShellPageContent mode="scrollable-drill-in" width="narrow">
-        <p className="mt-4 text-base text-muted">{t("unknownMethod")}</p>
+        <p className="mt-4 text-base text-muted">{tReview("unknownMethod")}</p>
       </ShellPageContent>
     );
   }
@@ -77,14 +78,20 @@ export default async function PracticePage({
   if (!recipe) {
     return (
       <ShellPageContent mode="scrollable-drill-in" width="narrow">
-        <p className="mt-4 text-base text-muted">{t("notBuilt")}</p>
+        <p className="mt-4 text-base text-muted">{tReview("notBuilt")}</p>
       </ShellPageContent>
     );
   }
 
   return (
     <ShellPageContent mode={layoutMode} width="narrow">
-      <ExerciseRunner methodName={localized.name} recipe={recipe} compact={layoutMode === "one-screen-runner"} />
+      <ExerciseRunner
+        sectionLabel={tRunner("pageSection")}
+        methodName={localized.name}
+        section={method.section}
+        recipe={recipe}
+        compact={layoutMode === "one-screen-runner"}
+      />
     </ShellPageContent>
   );
 }

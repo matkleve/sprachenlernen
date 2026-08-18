@@ -10,11 +10,14 @@ describe("ExerciseRunner", () => {
   it("renders step 1 and progress for fixture recipe", () => {
     render(
       <ExerciseRunner
+        sectionLabel="Methods"
         methodName="Partial dictation"
+        section="listening"
         recipe={FIXTURE_EXERCISE_RECIPE}
       />,
     );
 
+    expect(screen.getByText("Methods")).toBeDefined();
     expect(screen.getByRole("heading", { name: "Partial dictation" })).toBeDefined();
     expect(screen.getByText("Get ready")).toBeDefined();
     expect(screen.getByText(/Step 1 of 6/)).toBeDefined();
@@ -24,7 +27,9 @@ describe("ExerciseRunner", () => {
     const user = userEvent.setup();
     render(
       <ExerciseRunner
+        sectionLabel="Methods"
         methodName="Partial dictation"
+        section="listening"
         recipe={FIXTURE_EXERCISE_RECIPE}
       />,
     );
@@ -38,7 +43,9 @@ describe("ExerciseRunner", () => {
     const user = userEvent.setup();
     render(
       <ExerciseRunner
+        sectionLabel="Methods"
         methodName="Partial dictation"
+        section="listening"
         recipe={FIXTURE_EXERCISE_RECIPE}
       />,
     );

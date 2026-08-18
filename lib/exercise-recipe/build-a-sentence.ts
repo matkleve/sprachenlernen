@@ -29,6 +29,16 @@ export function composeBuildASentenceRecipe(
     sourceId: target.taskId,
     steps: [
       {
+        id: "prepare-1",
+        type: "prepare",
+        component: "checklist",
+        label: "How it works",
+        config: {
+          introKey: "introBuildASentence",
+          items: ["Pen and paper or keyboard", "Your target language — not English"],
+        },
+      },
+      {
         id: "write-1",
         type: "do",
         component: "type-with-word",

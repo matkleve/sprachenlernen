@@ -22,18 +22,20 @@ describe("build-a-sentence recipe", () => {
 
     expect(recipe?.methodId).toBe("build-a-sentence");
     expect(recipe?.steps.map((step) => step.component)).toEqual([
+      "checklist",
       "type-with-word",
       "reveal-answer",
       "offers",
     ]);
-    expect(recipe?.steps[0]?.config.word).toBeTruthy();
-    expect(recipe?.steps[1]?.config.gloss).toBeTruthy();
+    expect(recipe?.steps[0]?.config.introKey).toBe("introBuildASentence");
+    expect(recipe?.steps[1]?.config.word).toBeTruthy();
+    expect(recipe?.steps[2]?.config.gloss).toBeTruthy();
   });
 
   it("resolves from the shipped pool", async () => {
     const recipe = await resolveBuildASentenceRecipe({ methodId: "build-a-sentence" });
     expect(recipe?.methodId).toBe("build-a-sentence");
-    expect(recipe?.steps).toHaveLength(3);
+    expect(recipe?.steps).toHaveLength(4);
   });
 });
 
@@ -41,6 +43,6 @@ describe("resolveExerciseRecipe build-a-sentence", () => {
   it("returns a recipe for build-a-sentence", async () => {
     const recipe = await resolveExerciseRecipe("build-a-sentence");
     expect(recipe?.methodId).toBe("build-a-sentence");
-    expect(recipe?.steps[0]?.component).toBe("type-with-word");
+    expect(recipe?.steps[0]?.component).toBe("checklist");
   });
 });

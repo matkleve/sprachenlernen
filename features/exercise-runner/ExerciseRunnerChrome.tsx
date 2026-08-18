@@ -9,6 +9,7 @@ import { progressLabel } from "@/lib/exercise-runner";
 import { cn } from "@/lib/utils";
 
 type ExerciseRunnerChromeProps = {
+  sectionLabel: string;
   methodName: string;
   state: ExerciseRunnerState;
   activeLabel?: string;
@@ -48,10 +49,81 @@ function primaryLabelKey(stepType: ExerciseRunnerState["recipe"]["steps"][number
   }
 }
 
-export function ExerciseRunnerChrome({
+export function ExerciseRunnerHeader({
+  sectionLabel,
   methodName,
   state,
   activeLabel,
+  onStop,
+  onTogglePause,
+}: Pick<
+  ExerciseRunnerChromeProps,
+  "sectionLabel" | "methodName" | "state" | "activeLabel" | "onStop" | "onTogglePause"
+>) {
+  const t = useTranslations("exerciseRunner");
+
+  return (
+    <header className="space-y-2 border-b border-line pb-3">
+      <div className="flex items-start justify-between gap-3">
+        <div className="min-w-0">
+          <p className="text-xs font-medium uppercase tracking-widest text-muted">
+            {sectionLabel}
+          </p>
+          <h1 className="truncate text-lg font-semibold text-ink">{methodName}</h1>
+          {activeLabel ? (
+            <p className="truncate text-sm text-muted">{activeLabel}</p>
+          ) : null}
+        </div>
+        <Button type="button" variant="secondary" size="sm" onClick={onStop} className="shrink-0">
+          {t("stop")}
+        </Button>
+      </div>
+      <div
+        className="h-1.5 w-full rounded-full bg-line"
+        role="progressbar"
+        aria-valuenow={state.activeStepIndex + 1}
+        aria-valuemin={1}
+        aria-valuemax={state.recipe.steps.length}
+      >
+        <div
+          className="h-full rounded-full bg-accent transition-[width]"
+          style={{
+            width: `${((state.activeStepIndex + 1) / state.recipe.steps.length) * 100}%`,
+          }}
+        />
+      </div>
+      <p className="text-xs text-muted">
+        {t("progress", {
+          current: state.activeStepIndex + 1,
+          total: state.recipe.steps.length,
+        })}{" "}
+        ({progressLabel(state)})
+      </p>
+      {state.timer ? (
+        <div className="flex items-center gap-2">
+          <span
+            className={cn(
+              "rounded-full px-2 py-0.5 text-xs font-medium",
+              state.timer.expired
+                ? "bg-surface-raised text-ink ring-1 ring-line"
+                : "bg-accent-soft text-ink",
+            )}
+          >
+            {state.timer.expired
+              ? t("timerExpired")
+              : t("timerRunning", { seconds: timerSeconds(state) })}
+          </span>
+          <Button type="button" variant="secondary" size="sm" onClick={onTogglePause}>
+            {state.timer.pausedAt !== null ? t("timerResume") : t("timerPause")}
+          </Button>
+        </div>
+      ) : null}
+    </header>
+  );
+}
+
+export function ExerciseRunnerFooter({
+  state,
   canGoBack,
   canGoForward,
   canComplete,
@@ -60,104 +132,64 @@ export function ExerciseRunnerChrome({
   onBack,
   onForward,
   onComplete,
-  onStop,
   onCancelStop,
   onConfirmStop,
-  onTogglePause,
-}: ExerciseRunnerChromeProps) {
+}: Pick<
+  ExerciseRunnerChromeProps,
+  | "state"
+  | "canGoBack"
+  | "canGoForward"
+  | "canComplete"
+  | "showStopConfirm"
+  | "primaryLabel"
+  | "onBack"
+  | "onForward"
+  | "onComplete"
+  | "onCancelStop"
+  | "onConfirmStop"
+>) {
   const t = useTranslations("exerciseRunner");
   const step = state.recipe.steps[state.activeStepIndex];
   const showPrimary = step?.type !== "decide";
 
   return (
     <>
-      <header className="space-y-2 border-b border-line pb-3">
-        <div className="flex items-center justify-between gap-2">
-          <h1 className="truncate text-base font-semibold text-ink">{methodName}</h1>
-          <Button type="button" variant="secondary" size="sm" onClick={onStop}>
-            {t("stop")}
-          </Button>
-        </div>
-        {activeLabel ? (
-          <p className="truncate text-sm text-muted">{activeLabel}</p>
-        ) : null}
-        <div
-          className="h-1.5 w-full rounded-full bg-line"
-          role="progressbar"
-          aria-valuenow={state.activeStepIndex + 1}
-          aria-valuemin={1}
-          aria-valuemax={state.recipe.steps.length}
-        >
-          <div
-            className="h-full rounded-full bg-accent transition-[width]"
-            style={{
-              width: `${((state.activeStepIndex + 1) / state.recipe.steps.length) * 100}%`,
-            }}
-          />
-        </div>
-        <p className="text-xs text-muted">
-          {t("progress", {
-            current: state.activeStepIndex + 1,
-            total: state.recipe.steps.length,
-          })}{" "}
-          ({progressLabel(state)})
-        </p>
-        {state.timer ? (
+      <footer className="mt-auto shrink-0 border-t border-line pt-3">
+        <div className="flex flex-col items-end gap-2">
           <div className="flex items-center gap-2">
-            <span
-              className={cn(
-                "rounded-full px-2 py-0.5 text-xs font-medium",
-                state.timer.expired
-                  ? "bg-surface-raised text-ink ring-1 ring-line"
-                  : "bg-accent-soft text-ink",
-              )}
+            <Button
+              type="button"
+              variant="secondary"
+              size="sm"
+              disabled={!canGoBack}
+              onClick={onBack}
+              aria-label={t("prevStep")}
             >
-              {state.timer.expired
-                ? t("timerExpired")
-                : t("timerRunning", { seconds: timerSeconds(state) })}
-            </span>
-            <Button type="button" variant="secondary" size="sm" onClick={onTogglePause}>
-              {state.timer.pausedAt !== null ? t("timerResume") : t("timerPause")}
+              ◀
+            </Button>
+            <Button
+              type="button"
+              variant="secondary"
+              size="sm"
+              disabled={!canGoForward}
+              onClick={onForward}
+              aria-label={t("nextStep")}
+            >
+              ▶
             </Button>
           </div>
-        ) : null}
-      </header>
-
-      <div className="flex items-center justify-between gap-2 pt-3">
-        <Button
-          type="button"
-          variant="secondary"
-          size="sm"
-          disabled={!canGoBack}
-          onClick={onBack}
-          aria-label={t("prevStep")}
-        >
-          ◀
-        </Button>
-        <Button
-          type="button"
-          variant="secondary"
-          size="sm"
-          disabled={!canGoForward}
-          onClick={onForward}
-          aria-label={t("nextStep")}
-        >
-          ▶
-        </Button>
-      </div>
-
-      {showPrimary ? (
-        <div className="pt-4">
-          <Button
-            type="button"
-            className="w-full"
-            disabled={!canComplete}
-            onClick={onComplete}
-          >
-            {primaryLabel}
-          </Button>
+          {showPrimary ? (
+            <Button
+              type="button"
+              className="w-auto max-w-full"
+              disabled={!canComplete}
+              onClick={onComplete}
+            >
+              {primaryLabel}
+            </Button>
+          ) : null}
         </div>
-      ) : null}
+      </footer>
 
       <Dialog
         open={showStopConfirm}
@@ -174,6 +206,35 @@ export function ExerciseRunnerChrome({
           </Button>
         </div>
       </Dialog>
+    </>
+  );
+}
+
+/** @deprecated Use ExerciseRunnerHeader + ExerciseRunnerFooter */
+export function ExerciseRunnerChrome(props: ExerciseRunnerChromeProps) {
+  return (
+    <>
+      <ExerciseRunnerHeader
+        sectionLabel={props.sectionLabel}
+        methodName={props.methodName}
+        state={props.state}
+        activeLabel={props.activeLabel}
+        onStop={props.onStop}
+        onTogglePause={props.onTogglePause}
+      />
+      <ExerciseRunnerFooter
+        state={props.state}
+        canGoBack={props.canGoBack}
+        canGoForward={props.canGoForward}
+        canComplete={props.canComplete}
+        showStopConfirm={props.showStopConfirm}
+        primaryLabel={props.primaryLabel}
+        onBack={props.onBack}
+        onForward={props.onForward}
+        onComplete={props.onComplete}
+        onCancelStop={props.onCancelStop}
+        onConfirmStop={props.onConfirmStop}
+      />
     </>
   );
 }
