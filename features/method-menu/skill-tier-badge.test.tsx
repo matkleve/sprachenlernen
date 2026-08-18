@@ -26,8 +26,23 @@ describe("SkillTierBadge", () => {
     );
     const wrapper = container.firstElementChild;
     expect(wrapper?.className).toContain("h-14");
-    expect(wrapper?.className).toContain("w-auto");
     expect(wrapper?.className).not.toContain("w-16");
+    expect(wrapper?.className).not.toContain("max-w-");
+  });
+
+  it("keeps ornate tiers at the same rendered height as wood", () => {
+    const { container: wood } = render(
+      <SkillTierBadge skill="listening" tier="wood" size="card" />,
+    );
+    const { container: gold } = render(
+      <SkillTierBadge skill="listening" tier="gold" size="card" />,
+    );
+
+    const woodImage = wood.querySelector("img");
+    const goldImage = gold.querySelector("img");
+    expect(woodImage?.className).toContain("h-14");
+    expect(goldImage?.className).toContain("h-14");
+    expect(goldImage?.className).not.toContain("w-full");
   });
 });
 
