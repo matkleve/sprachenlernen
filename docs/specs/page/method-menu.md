@@ -7,7 +7,10 @@
 The app's front door at `/methods` ([ADR-0010](../../adr/0010-the-route-model.md)).
 Three primary questions — **time**, **skill**, **energy** — narrow the catalogue;
 an optional **refine** panel adds hands, voice, and eyes only when needed.
-Hosted cards open the session directly; off-app cards open the detail page.
+Hosted cards open the session when the recipe is built (graded, guided, or card);
+otherwise the detail page. Off-app (`hosted: false`) still opens **guided**
+sessions on `/practice` when built — see
+[`method-guided-sessions.md`](../service/method-guided-sessions.md).
 
 **UX revision 2026-08-09 (owner + two designer review):** the seven "where are
 you" presets and eight-dimension custom builder were dropped. Learners found
@@ -51,8 +54,8 @@ No accent left border — uniform `rounded-card` only.
 - **In:** stepped time slider ([`../service/time-scale.md`](../service/time-scale.md));
   skill and energy filter pills; optional refine (hands, voice, eyes); method
   cards with badge row + logistics chips (duration, all requirements, hosted);
-  **card-engine hosted** (`srs-session`) → Words review; other hosted → detail
-  until built; off-app → detail; client-side filtering with URL sync
+  **card-engine** (`srs-session`) → Words review; **graded or guided** (when
+  built) → `/practice`; recipe not built → detail; client-side filtering with URL sync
   (`history.replaceState`); **current standing** — one honest sentence from the
   progress reading, above the filters (T-B10 follow-up, narrowed); **daily
   three** — three method cards composed from the filtered catalogue (study/12,

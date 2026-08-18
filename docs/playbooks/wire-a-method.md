@@ -1,10 +1,12 @@
 # Playbook — wire a catalogue Method
 
-Turn a **wish** (a named way to practise) into a **runnable** hosted Method:
+Turn a **wish** (a named way to practise) into a **runnable** session:
 catalogue data → recipe → step components → routing → evidence.
 
-Use when the Method already exists in `data/methods/` (detail page, menu card)
-but Start still shows *not built* or `/practice` returns honest not-built copy.
+Every catalogue entry already has a **declared recipe** in
+[`exercise-recipe-composer.methods.md`](../specs/service/exercise-recipe-composer.methods.md).
+This playbook is for **implementing** it. Contract:
+[`method-guided-sessions.md`](../specs/service/method-guided-sessions.md).
 
 **Change class:** Standard (recipe + components). Sensitive if the session writes
 persisted data or uses voice capture with storage.
@@ -14,16 +16,17 @@ refresh with `node scripts/generate-method-matrix.mjs` after shipping.
 
 ---
 
-## 0 · Decide the engine
+## 0 · Decide the session kind
 
-| Engine | When | Route |
+| Kind | When | Route |
 | --- | --- | --- |
-| **Card** | Meaning/form recall on the starter deck | `/words/review?method=srs-session` |
-| **Exercise runner** | Everything else hosted in-app | `/practice?method=…` |
-| **Off-app** | `hosted: false` — detail + debrief only | no session |
+| **graded** | App supplies material and may score | `/practice?method=…` |
+| **guided** | Off-screen main work; `confirm-done` + debrief | `/practice?method=…` |
+| **card** | FSRS card stream | `/words/review?method=…` |
+| **check-in** | Standing commitment prompt | `/practice?method=…&checkIn=1` |
 
-Recipe mix for every Method id:
-[`specs/service/exercise-recipe-composer.methods.md`](../specs/service/exercise-recipe-composer.methods.md).
+`hosted: false` in data → usually **guided**, not “no session”. Recipe mix per id:
+[`exercise-recipe-composer.methods.md`](../specs/service/exercise-recipe-composer.methods.md).
 
 ---
 
@@ -35,7 +38,8 @@ Checklist:
 
 - [ ] `id` — lowercase kebab-case, unique across catalogue
 - [ ] `name`, `summary`, `trains`, `doesNotDo` — non-empty; summary ≠ name
-- [ ] `hosted: true` if the app should run it
+- [ ] `hosted: true` when the app supplies/scores material; `false` for guided
+      off-screen work — both can have Start when built
 - [ ] `requires` — non-empty context dimensions (no method matches everywhere)
 - [ ] `durations` or `null` for open-ended
 - [ ] `skills`, `evidence`, `intensity` per [`method-catalogue.md`](../specs/service/method-catalogue.md)
@@ -149,4 +153,6 @@ npm run verify:scope -- changed   # or method-menu + exercise-runner scopes
 | Doc | Owns |
 | --- | --- |
 | [`WORKFLOW.md`](../WORKFLOW.md) | Stages 0–8, DoR/DoD |
+| [`method-implementation-maturity.md`](../specs/service/method-implementation-maturity.md) | I0–I4 tiers and LIVE CHECK rubric |
+| [`method-guided-sessions.md`](../specs/service/method-guided-sessions.md) | Session kinds (graded, guided, card, check-in) |
 | [`plans/exercise-runner.md`](../plans/exercise-runner.md) | Runner build queue |

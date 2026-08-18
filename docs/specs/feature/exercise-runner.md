@@ -6,9 +6,11 @@
 <!-- use-case: UC-028 -->
 <!-- status: active -->
 
-The **cooking-app runner** for multi-step Methods: prepare → do → wait → submit
-→ review → decide. One reusable shell; each Method supplies an ordered **recipe**
-of typed steps filled with **step components**. Parent vision:
+The **cooking-app runner** for catalogue Methods: prepare → do → wait → submit
+→ review → decide. **Graded** sessions score or compare work; **guided**
+sessions structure off-screen practice with `confirm-done` ([`method-guided-sessions.md`](../service/method-guided-sessions.md)).
+One reusable shell; each Method supplies an ordered **recipe** of typed steps
+filled with **step components**. Parent vision:
 [`../../study/23-how-an-exercise-runs.md`](../../study/23-how-an-exercise-runs.md).
 
 Route: [`../page/practice.md`](../page/practice.md). Material setup before

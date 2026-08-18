@@ -43,4 +43,24 @@ describe("PracticePage", () => {
 
     expect(screen.getByText(/session is not built yet/i)).toBeDefined();
   });
+
+  it("renders exercise runner for build-a-sentence", async () => {
+    const ui = await PracticePage({
+      searchParams: Promise.resolve({ method: "build-a-sentence" }),
+    });
+    render(ui);
+
+    expect(screen.getByRole("heading", { name: "Build a sentence with a target word" })).toBeDefined();
+    expect(screen.getByText(/Step 1 of/)).toBeDefined();
+  });
+
+  it("renders exercise runner for role-play guided method", async () => {
+    const ui = await PracticePage({
+      searchParams: Promise.resolve({ method: "role-play" }),
+    });
+    render(ui);
+
+    expect(screen.getByRole("heading", { name: "Role play or drama" })).toBeDefined();
+    expect(screen.getByText(/Step 1 of/)).toBeDefined();
+  });
 });

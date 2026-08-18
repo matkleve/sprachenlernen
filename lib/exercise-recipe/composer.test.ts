@@ -10,7 +10,7 @@ import { expandItemLoop, withStepIds } from "@/lib/exercise-recipe/expand";
 import { composeExerciseRecipe, hasRecipeComposer } from "@/lib/exercise-recipe/composer";
 import { resolveExerciseRecipe } from "@/lib/exercise-recipe";
 
-const METHOD_ROW = /^\| `([a-z0-9-]+)` \| (runner|card|off) \|/gm;
+const METHOD_ROW = /^\| `([a-z0-9-]+)` \| (graded|guided|card|check-in) \|/gm;
 
 function methodIdsFromComposerSpec(): string[] {
   const md = readFileSync(
@@ -42,6 +42,7 @@ describe("exercise-recipe composer registry", () => {
     expect(hasRecipeComposer("full-dictation")).toBe(true);
     expect(hasRecipeComposer("extensive-reading")).toBe(true);
     expect(hasRecipeComposer("reading-aloud")).toBe(true);
+    expect(hasRecipeComposer("free-production")).toBe(true);
     expect(hasRecipeComposer("narrow-reading")).toBe(false);
   });
 
@@ -84,9 +85,7 @@ describe("resolveExerciseRecipe (composer AC)", () => {
   it("AC-4: every method id in the composer spec exists in the catalogue", () => {
     const { catalogue } = loadMethodCatalogue();
     expect(catalogue).toBeDefined();
-    const catalogueIds = new Set(
-      catalogue!.entries.filter((entry) => entry.type === "method").map((entry) => entry.id),
-    );
+    const catalogueIds = new Set(catalogue!.entries.map((entry) => entry.id));
     const missing = methodIdsFromComposerSpec().filter((id) => !catalogueIds.has(id));
     expect(missing).toEqual([]);
   });

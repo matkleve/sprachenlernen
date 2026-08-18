@@ -1,7 +1,7 @@
 # UC-049 — Work through an exercise one step at a time
 
 <!-- id: UC-049 -->
-<!-- specs: SPEC-feature-exercise-runner, SPEC-page-practice, SPEC-service-material-unit, SPEC-service-exercise-step-components, SPEC-service-exercise-recipe-composer -->
+<!-- specs: SPEC-feature-exercise-runner, SPEC-page-practice, SPEC-service-material-unit, SPEC-service-exercise-step-components, SPEC-service-exercise-recipe-composer, SPEC-service-method-guided-sessions, SPEC-service-method-implementation-maturity -->
 
 **Who:** anyone doing an exercise with more than one part — a dictation, a piece
 of writing, a 4/3/2 round.

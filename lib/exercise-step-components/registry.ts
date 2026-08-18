@@ -39,12 +39,20 @@ export function allowedStepTypesForComponent(componentId: string): StepType[] | 
     "speak-prompt": ["do"],
     "gap-fill": ["do"],
     "full-dictation": ["do"],
+    "audio-play": ["do"],
+    "type-with-word": ["do"],
+    "cloze-type": ["do"],
+    "minimal-pair": ["do"],
+    "timed-write": ["do"],
     capture: ["submit"],
+    "confirm-done": ["submit"],
     "self-mark": ["review"],
+    "reveal-answer": ["review"],
     feedback: ["review"],
     "comprehension-questions": ["review"],
     offers: ["decide"],
     summary: ["decide"],
+    "debrief-prompt": ["decide"],
   };
   if (!isShippedStepComponent(componentId)) return null;
   return map[componentId];
