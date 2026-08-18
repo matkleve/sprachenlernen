@@ -83,6 +83,7 @@ export function ExerciseRunner({
           listeningDeferred={listeningDeferred}
           onTextChange={runner.setText}
           onPhotoChange={runner.setPhoto}
+          onAudioChange={runner.setAudio}
           onToggleError={runner.toggleError}
           onDecline={runner.decline}
           onSelectOffer={runner.completeCurrentStep}

@@ -343,7 +343,21 @@
     "timedWriteDefault": "Write freely on your topic.",
     "timedWriteRemaining": "{minutes}:{seconds} left",
     "timedWriteExpired": "Time is up — you can still finish or move on.",
-    "timedWriteLabel": "Your text"
+    "timedWriteLabel": "Your text",
+    "roundMarker": "Round {round} of {total}",
+    "roundMarkerWithTime": "Round {round} of {total} — {minutes} minutes",
+    "typeFreelyDefault": "Write your answer in the target language.",
+    "typeFreelyLabel": "Your text",
+    "typeFreelyMinSentences": "Aim for {count} sentences.",
+    "voiceSubmitLabel": "Voice memo",
+    "voiceSubmitOptional": "optional",
+    "voiceSubmitHint": "Session-local only — not uploaded.",
+    "diffReferenceHeading": "Original",
+    "diffYourVersionHeading": "Your version",
+    "diffEmpty": "Nothing written yet.",
+    "diffHighlightHint": "Compare wording and grammar — no automatic diff yet.",
+    "rubricIntro": "Self-rate — no score from the app.",
+    "rubricEmpty": "No rubric for this step."
   },
   "listeningDefer": {
     "sectionLabel": "Sound",

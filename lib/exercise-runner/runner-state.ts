@@ -18,7 +18,7 @@ export function createRunnerState(recipe: ExerciseRecipe): ExerciseRunnerState {
     activeStepIndex: 0,
     stepStatuses,
     timer: null,
-    submitDraft: { text: "", photoDataUrl: null },
+    submitDraft: { text: "", photoDataUrl: null, audioDataUrl: null },
     markedErrorTokens: [],
   };
 }
@@ -114,12 +114,20 @@ export function canCompleteStep(state: ExerciseRunnerState): boolean {
 
     const wantsPhoto = Array.isArray(accept) && accept.includes("photo");
     const wantsText = Array.isArray(accept) && accept.includes("text");
+    const wantsAudio = Array.isArray(accept) && accept.includes("audio");
     const hasPhoto = Boolean(state.submitDraft.photoDataUrl);
     const hasText = state.submitDraft.text.trim().length > 0;
+    const hasAudio = Boolean(state.submitDraft.audioDataUrl);
 
+    if (wantsPhoto && wantsText && wantsAudio) {
+      return hasPhoto || hasText || hasAudio;
+    }
     if (wantsPhoto && wantsText) return hasPhoto || hasText;
+    if (wantsPhoto && wantsAudio) return hasPhoto || hasAudio;
+    if (wantsText && wantsAudio) return hasText || hasAudio;
     if (wantsPhoto) return hasPhoto;
     if (wantsText) return hasText;
+    if (wantsAudio) return hasAudio;
     return true;
   }
 
@@ -229,6 +237,16 @@ export function setSubmitText(
   return {
     ...state,
     submitDraft: { ...state.submitDraft, text },
+  };
+}
+
+export function setSubmitAudio(
+  state: ExerciseRunnerState,
+  audioDataUrl: string | null,
+): ExerciseRunnerState {
+  return {
+    ...state,
+    submitDraft: { ...state.submitDraft, audioDataUrl },
   };
 }
 

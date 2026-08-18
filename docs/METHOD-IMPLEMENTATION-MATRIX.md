@@ -15,7 +15,7 @@ maturity ([`method-implementation-maturity.md`](specs/service/method-implementat
 | Methods | 53 |
 | Commitments | 6 |
 | Hosted (`hosted: true`) | 34 |
-| **Built in-app** | **26** (`srs-session`, `partial-dictation`, `full-dictation`, `extensive-reading`, `reading-aloud`, `listening-level-1`, `build-a-sentence`, `cloze-sentences`, `minimal-pairs`, `free-production`, `book-you-know`, `background-listening`, `self-talk`, `voice-message`, `role-play`, `singing-along`, `interpreting`, `translate-a-song`, `write-and-perform-a-play`, `mine-your-own-sentences`, `handwriting-shakiest`, `cook-from-a-recipe`, `video-game-in-target-language`, `tandem-or-language-cafe`, `order-ask-complain`, `film-you-know-by-heart`) |
+| **Built in-app** | **29** (`srs-session`, `partial-dictation`, `full-dictation`, `extensive-reading`, `reading-aloud`, `listening-level-1`, `build-a-sentence`, `cloze-sentences`, `minimal-pairs`, `free-production`, `dictogloss`, `four-three-two`, `diary-three-sentences`, `book-you-know`, `background-listening`, `self-talk`, `voice-message`, `role-play`, `singing-along`, `interpreting`, `translate-a-song`, `write-and-perform-a-play`, `mine-your-own-sentences`, `handwriting-shakiest`, `cook-from-a-recipe`, `video-game-in-target-language`, `tandem-or-language-cafe`, `order-ask-complain`, `film-you-know-by-heart`) |
 | Exercise runner specced | 40 |
 | Card engine specced | 4 |
 | Off-app / debrief only | 19 |
@@ -54,7 +54,7 @@ maturity ([`method-implementation-maturity.md`](specs/service/method-implementat
 | `repeated-listening` | B | Y | runner | — | ❌ | I1 | P3–P4 | see recipe doc |
 | `partial-dictation` | B | Y | runner | Y | ✅ | I3 | done | — (shipped: short/standard/long) |
 | `full-dictation` | B | Y | runner | Y | ✅ | I3 | done | audio-play, full-dictation, sheet-download |
-| `dictogloss` | B | Y | runner | — | ❌ | I1 | P3 | audio-play, type-freely, diff-highlight |
+| `dictogloss` | B | Y | runner | — | ✅ | I2 | P3 | audio-play, type-freely, diff-highlight |
 | `listening-faster` | C | Y | runner | — | ❌ | I1 | P3–P4 | see recipe doc |
 | `background-listening` | C | N | guided | — | ✅ | I2 | defer | see recipe doc |
 
@@ -62,7 +62,7 @@ maturity ([`method-implementation-maturity.md`](specs/service/method-implementat
 
 | id | Ev | Host | Engine | Mat. | Built | I | Pri | Components still needed |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| `four-three-two` | B | Y | runner | — | ❌ | I1 | P3 | round-marker, speak-prompt, voice-submit, rubric |
+| `four-three-two` | B | Y | runner | — | ✅ | I2 | P3 | round-marker, speak-prompt, voice-submit, rubric |
 | `shadowing` | B | Y | runner | — | ❌ | I1 | P3–P4 | shadow-line, audio-play |
 | `retell-what-you-read` | B | Y | runner | — | ❌ | I1 | P3–P4 | see recipe doc |
 | `self-talk` | C | N | guided | — | ✅ | I2 | defer | see recipe doc |
@@ -79,7 +79,7 @@ maturity ([`method-implementation-maturity.md`](specs/service/method-implementat
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | `build-a-sentence` | A | Y | runner | — | ✅ | I2 | P2 | type-with-word, reveal-answer |
 | `free-production` | B | Y | runner | — | ✅ | I2 | P2 | timed-write, feedback |
-| `diary-three-sentences` | B | Y | runner | — | ❌ | I1 | P3 | timed-write, feedback |
+| `diary-three-sentences` | B | Y | runner | — | ✅ | I2 | P3 | timed-write, feedback |
 | `summarise-what-you-read` | B | Y | runner | — | ❌ | I1 | P3–P4 | see recipe doc |
 | `back-translation` | B | Y | runner | — | ❌ | I1 | P3–P4 | see recipe doc |
 | `copy-a-paragraph` | C | Y | runner | — | ❌ | I1 | P3–P4 | see recipe doc |

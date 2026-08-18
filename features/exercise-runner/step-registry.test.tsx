@@ -11,10 +11,10 @@ describe("ExerciseStepBody registry", () => {
         step={{
           id: "do-1",
           type: "do",
-          component: "audio-play",
+          component: "sync-text-audio",
           config: {},
         }}
-        submitDraft={{ text: "", photoDataUrl: null }}
+        submitDraft={{ text: "", photoDataUrl: null, audioDataUrl: null }}
         markedErrorTokens={[]}
         onTextChange={() => {}}
         onPhotoChange={() => {}}
@@ -37,7 +37,7 @@ describe("ExerciseStepBody registry", () => {
           label: "Get ready",
           config: { items: ["Pen and paper"] },
         }}
-        submitDraft={{ text: "", photoDataUrl: null }}
+        submitDraft={{ text: "", photoDataUrl: null, audioDataUrl: null }}
         markedErrorTokens={[]}
         onTextChange={() => {}}
         onPhotoChange={() => {}}
@@ -61,7 +61,7 @@ describe("ExerciseStepBody registry", () => {
           label: "Read aloud",
           config: { body: "Say it out loud.", text: "Hola mundo." },
         }}
-        submitDraft={{ text: "", photoDataUrl: null }}
+        submitDraft={{ text: "", photoDataUrl: null, audioDataUrl: null }}
         markedErrorTokens={[]}
         onTextChange={() => {}}
         onPhotoChange={() => {}}

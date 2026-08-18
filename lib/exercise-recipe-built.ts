@@ -11,6 +11,9 @@ const BUILT_HOSTED_EXERCISE_METHOD_IDS = [
   "cloze-sentences",
   "minimal-pairs",
   "free-production",
+  "dictogloss",
+  "four-three-two",
+  "diary-three-sentences",
 ] as const;
 
 const BUILT_EXERCISE_METHOD_IDS = new Set<string>([

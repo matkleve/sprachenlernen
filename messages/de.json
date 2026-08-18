@@ -343,7 +343,21 @@
     "timedWriteDefault": "Schreib frei zu deinem Thema.",
     "timedWriteRemaining": "Noch {minutes}:{seconds}",
     "timedWriteExpired": "Zeit ist um — du kannst noch fertig schreiben oder weitermachen.",
-    "timedWriteLabel": "Dein Text"
+    "timedWriteLabel": "Dein Text",
+    "roundMarker": "Runde {round} von {total}",
+    "roundMarkerWithTime": "Runde {round} von {total} — {minutes} Minuten",
+    "typeFreelyDefault": "Schreib deine Antwort in der Zielsprache.",
+    "typeFreelyLabel": "Dein Text",
+    "typeFreelyMinSentences": "Ziel: {count} Sätze.",
+    "voiceSubmitLabel": "Sprachmemo",
+    "voiceSubmitOptional": "optional",
+    "voiceSubmitHint": "Nur in dieser Session — nicht hochgeladen.",
+    "diffReferenceHeading": "Original",
+    "diffYourVersionHeading": "Deine Version",
+    "diffEmpty": "Noch nichts geschrieben.",
+    "diffHighlightHint": "Vergleiche Wortwahl und Grammatik — noch kein automatischer Diff.",
+    "rubricIntro": "Selbsteinschätzung — die App vergibt keinen Score.",
+    "rubricEmpty": "Keine Rubrik für diesen Schritt."
   },
   "listeningDefer": {
     "sectionLabel": "Ton",

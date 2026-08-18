@@ -36,6 +36,9 @@ const BUILT = new Set([
   "cloze-sentences",
   "minimal-pairs",
   "free-production",
+  "dictogloss",
+  "four-three-two",
+  "diary-three-sentences",
   ...GUIDED,
 ]);
 const PARTIAL = new Set([]);

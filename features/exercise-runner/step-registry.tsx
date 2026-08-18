@@ -6,6 +6,7 @@ import { ClozeTypeStep } from "@/features/exercise-runner/steps/ClozeTypeStep";
 import { ComprehensionQuestionsStep } from "@/features/exercise-runner/steps/ComprehensionQuestionsStep";
 import { CaptureStep } from "@/features/exercise-runner/steps/CaptureStep";
 import { ChecklistStep } from "@/features/exercise-runner/steps/ChecklistStep";
+import { DiffHighlightStep } from "@/features/exercise-runner/steps/DiffHighlightStep";
 import { DebriefPromptStep } from "@/features/exercise-runner/steps/DebriefPromptStep";
 import { FullDictationStep } from "@/features/exercise-runner/steps/FullDictationStep";
 import { GapFillStep } from "@/features/exercise-runner/steps/GapFillStep";
@@ -14,8 +15,12 @@ import { MinimalPairStep } from "@/features/exercise-runner/steps/MinimalPairSte
 import { NotBuiltStep } from "@/features/exercise-runner/steps/NotBuiltStep";
 import { OffersStep } from "@/features/exercise-runner/steps/OffersStep";
 import { PromptStep } from "@/features/exercise-runner/steps/PromptStep";
+import { RubricStep } from "@/features/exercise-runner/steps/RubricStep";
+import { RoundMarkerStep } from "@/features/exercise-runner/steps/RoundMarkerStep";
 import { RevealAnswerStep } from "@/features/exercise-runner/steps/RevealAnswerStep";
 import { SelfMarkStep } from "@/features/exercise-runner/steps/SelfMarkStep";
+import { TypeFreelyStep } from "@/features/exercise-runner/steps/TypeFreelyStep";
+import { VoiceSubmitStep } from "@/features/exercise-runner/steps/VoiceSubmitStep";
 import { SheetDownloadStep } from "@/features/exercise-runner/steps/SheetDownloadStep";
 import { SpeakPromptStep } from "@/features/exercise-runner/steps/SpeakPromptStep";
 import { SummaryStep } from "@/features/exercise-runner/steps/SummaryStep";
@@ -77,6 +82,16 @@ export function renderExerciseStep(props: StepRenderProps) {
       );
     case "timed-write":
       return <TimedWriteStep config={step.config} />;
+    case "round-marker":
+      return <RoundMarkerStep config={step.config} />;
+    case "type-freely":
+      return (
+        <TypeFreelyStep
+          config={step.config}
+          submitDraft={props.submitDraft}
+          onTextChange={props.onTextChange}
+        />
+      );
     case "prompt":
       return <PromptStep step={step} listeningDeferred={props.listeningDeferred} />;
     case "capture":
@@ -85,6 +100,14 @@ export function renderExerciseStep(props: StepRenderProps) {
           submitDraft={props.submitDraft}
           onTextChange={props.onTextChange}
           onPhotoChange={props.onPhotoChange}
+        />
+      );
+    case "voice-submit":
+      return (
+        <VoiceSubmitStep
+          config={step.config}
+          submitDraft={props.submitDraft}
+          onAudioChange={props.onAudioChange ?? (() => undefined)}
         />
       );
     case "confirm-done":
@@ -100,6 +123,10 @@ export function renderExerciseStep(props: StepRenderProps) {
       );
     case "reveal-answer":
       return <RevealAnswerStep config={step.config} />;
+    case "diff-highlight":
+      return <DiffHighlightStep config={step.config} submitDraft={props.submitDraft} />;
+    case "rubric":
+      return <RubricStep config={step.config} />;
     case "comprehension-questions":
       return <ComprehensionQuestionsStep config={step.config} />;
     case "offers":

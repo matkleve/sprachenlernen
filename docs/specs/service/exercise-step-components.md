@@ -67,14 +67,14 @@ Implementation target: `lib/exercise-step-components/` registry +
 | `cloze-type` | Type missing word (no options) | shipped | cloze sentences, paradigm tables |
 | `word-bank` | Drag words into sentence slots | planned | build a sentence (alt) |
 | `type-with-word` | “Use *casa* in one sentence” | shipped | build a sentence |
-| `type-freely` | Open text area + optional word count | planned | dictogloss reconstruct, caption |
+| `type-freely` | Open text area + optional word count | shipped | dictogloss reconstruct, caption |
 | `timed-write` | `type-freely` + embedded countdown | shipped | free production, diary, summarise, self-talk |
 | `transform` | Rewrite per rule (tense, person, translate) | planned | sentence transformation, back-translation |
 | `copy-display` | Paragraph to copy by hand (read-only) | planned | copy a paragraph |
 | `minimal-pair` | Hear A or B; tap which | shipped | minimal pairs / HVPT |
 | `speak-prompt` | Prompt + optional voice record | shipped | 4/3/2, retell, reading aloud, recite |
 | `shadow-line` | Play line; learner repeats (no grade v1) | planned | shadowing |
-| `round-marker` | “Round 2 of 3 — 3 minutes” header | planned | 4/3/2 |
+| `round-marker` | “Round 2 of 3 — 3 minutes” header | shipped | 4/3/2 |
 | `comprehension-questions` | 1–2 MC or short text checks | shipped | listening L1, extensive reading |
 | `mining-highlight` | Select phrase from own text → card offer | planned | mine your own sentences |
 
@@ -91,7 +91,7 @@ Implementation target: `lib/exercise-step-components/` registry +
 | --- | --- | --- | --- |
 | `capture` | Photo and/or typed text; `accept`, `required` | shipped | dictation, free writing |
 | `optional-capture` | Same; skippable | planned | optional photo after keyboard write |
-| `voice-submit` | Record and hold audio for session | planned | 4/3/2, retell, describe picture |
+| `voice-submit` | Record and hold audio for session | shipped | 4/3/2, retell, describe picture |
 | `confirm-done` | “I did it” honest self-report | shipped | guided methods, copy paragraph |
 
 ## F · Review (`review`)
@@ -100,11 +100,11 @@ Implementation target: `lib/exercise-step-components/` registry +
 | --- | --- | --- | --- |
 | `self-mark` | Answer key; tap error tokens | shipped | dictation family |
 | `compare` | Side-by-side learner vs reference | planned | back-translation |
-| `diff-highlight` | Inline added/removed/changed | planned | dictogloss, rewrite in own words |
+| `diff-highlight` | Inline added/removed/changed | shipped | dictogloss, rewrite in own words |
 | `feedback` | Assisted correction (v1 placeholder) | shipped placeholder | free production, diary, summarise |
 | `reveal-answer` | Show exemplar; no marking | shipped | cloze, build-a-sentence |
 | `comprehension-check` | Post-input questions | planned | listening L1 |
-| `rubric` | Self-rate 2–3 dimensions | planned | free production, 4/3/2, retell |
+| `rubric` | Self-rate 2–3 dimensions | shipped | free production, 4/3/2, retell |
 | `error-log-review` | Walk saved errors one by one | planned | own error log |
 
 ## G · End (`decide`)

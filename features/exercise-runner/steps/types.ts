@@ -7,6 +7,7 @@ export type StepRenderProps = {
   listeningDeferred?: boolean;
   onTextChange: (text: string) => void;
   onPhotoChange: (photoDataUrl: string | null) => void;
+  onAudioChange?: (audioDataUrl: string | null) => void;
   onToggleError: (token: string) => void;
   onDecline: () => void;
   onSelectOffer: () => void;

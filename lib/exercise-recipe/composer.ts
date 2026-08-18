@@ -3,7 +3,10 @@
  */
 import { resolveBuildASentenceRecipe } from "@/lib/exercise-recipe/build-a-sentence";
 import { resolveClozeSentencesRecipe } from "@/lib/exercise-recipe/cloze-sentences";
+import { resolveDiaryThreeSentencesRecipe } from "@/lib/exercise-recipe/diary-three-sentences";
+import { resolveDictoglossRecipe } from "@/lib/exercise-recipe/dictogloss";
 import { resolveExtensiveReadingRecipe } from "@/lib/exercise-recipe/extensive-reading";
+import { resolveFourThreeTwoRecipe } from "@/lib/exercise-recipe/four-three-two";
 import { resolveFreeProductionRecipe } from "@/lib/exercise-recipe/free-production";
 import { resolveFullDictationRecipe } from "@/lib/exercise-recipe/full-dictation";
 import { isGuidedMethodId, resolveGuidedRecipe } from "@/lib/exercise-recipe/guided";
@@ -23,6 +26,9 @@ const COMPOSERS: Record<string, RecipeComposer> = {
   "cloze-sentences": (ctx) => resolveClozeSentencesRecipe(ctx),
   "minimal-pairs": (ctx) => resolveMinimalPairsRecipe(ctx),
   "free-production": (ctx) => resolveFreeProductionRecipe(ctx),
+  "dictogloss": (ctx) => resolveDictoglossRecipe(ctx),
+  "four-three-two": (ctx) => resolveFourThreeTwoRecipe(ctx),
+  "diary-three-sentences": (ctx) => resolveDiaryThreeSentencesRecipe(ctx),
 };
 
 export function hasRecipeComposer(methodId: string): boolean {
