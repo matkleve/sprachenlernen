@@ -8,7 +8,7 @@ import { cn } from "@/lib/utils";
 
 const STATUS_CLASS: Record<RunSegmentStatus, string> = {
   pending: "bg-line",
-  current: "bg-accent-soft ring-1 ring-accent",
+  current: "bg-accent",
   again: "bg-grade-again-deep",
   hard: "bg-grade-hard-deep",
   requeued: "bg-success-soft",
@@ -57,7 +57,7 @@ export function SessionRunStatusStrip({ segments, className }: SessionRunStatusS
   return (
     <div
       ref={containerRef}
-      className={cn("flex w-full gap-0.5", className)}
+      className={cn("flex w-full gap-px", className)}
       role="list"
       aria-label={t("runStatusLabel")}
     >
@@ -71,7 +71,7 @@ export function SessionRunStatusStrip({ segments, className }: SessionRunStatusS
           role="listitem"
           aria-hidden
           className={cn(
-            "h-1.5 min-w-0 flex-1 rounded-pill transition-colors duration-200",
+            "h-1 min-w-0 flex-1 rounded-sm transition-colors duration-200",
             STATUS_CLASS[segment.status],
           )}
         />

@@ -65,7 +65,7 @@ each `SessionCard`). Rendered **above** the card and any acknowledgement banners
 | Segment colour | Meaning |
 | --- | --- |
 | Neutral line | Not graded yet |
-| Accent ring | Current card (first encounter) |
+| Accent fill | Current card (first encounter) |
 | Grade-again tint | Graded **Again**, waiting for its repeat |
 | Grade-hard tint | Graded **Hard**, waiting for its repeat |
 | Success-soft | Current card on a repeat encounter |
