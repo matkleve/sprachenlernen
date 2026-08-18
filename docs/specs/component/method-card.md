@@ -20,9 +20,11 @@ Implementation: `features/method-menu/MethodCard.tsx`.
 | Element | Class | Notes |
 | --- | --- | --- |
 | Method name (`h3`) | `text-xl font-semibold text-ink` | Primary identity on the card |
-| Summary | `text-sm text-muted line-clamp-2` | unchanged |
+| Summary | `text-sm text-muted line-clamp-2` | `mt-0.5` below title |
+| Body padding | `p-3` | Tighter than detail surfaces |
+| Section gaps | `mt-2` between badge row, chips, does-not-do | Catalogue scan density |
 | Badge row | See [`method-badge.md`](method-badge.md) | tier shields + effort dots |
-| Property chips | [`chip.md`](chip.md) | `size="card"` — `text-sm`, `min-h-8`, uniform |
+| Property chips | [`chip.md`](chip.md) | `size="card"`; row `gap-1.5` |
 
 Header: [`method-card-header.md`](method-card-header.md).
 

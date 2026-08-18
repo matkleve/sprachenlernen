@@ -31,7 +31,7 @@ const sectionHeaderFade: Record<Section, string> = {
 const methodCardHeaderVariants = cva("relative w-full shrink-0 overflow-hidden", {
   variants: {
     size: {
-      card: "h-32",
+      card: "h-24",
       hero: "h-44 bg-canvas sm:h-52",
     },
   },
@@ -88,7 +88,7 @@ export function MethodCardHeader({ section, size, className }: MethodCardHeaderP
         )}
         aria-hidden
       />
-      <p className="absolute bottom-2 left-3 sm:bottom-3 sm:left-6">
+      <p className="absolute bottom-1.5 left-3 sm:bottom-2 sm:left-4">
         <span
           className={cn(
             "text-[0.65rem] font-medium uppercase tracking-widest sm:text-xs",

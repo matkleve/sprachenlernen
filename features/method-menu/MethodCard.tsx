@@ -38,15 +38,15 @@ export function MethodCard({ method, returnQuery = "" }: MethodCardProps) {
     >
       <MethodCardHeader section={method.section} />
 
-      <div className="flex flex-1 flex-col p-4">
-        <div className="min-h-[4.75rem]">
+      <div className="flex flex-1 flex-col p-3">
+        <div>
           <h3 className="text-xl font-semibold text-ink">{localized.name}</h3>
-          <p className="mt-1 line-clamp-2 text-sm text-muted">{localized.summary}</p>
+          <p className="mt-0.5 line-clamp-2 text-sm text-muted">{localized.summary}</p>
         </div>
 
-        <MethodBadgeRow className="mt-3 shrink-0" method={method} inLink />
+        <MethodBadgeRow className="mt-2 shrink-0" method={method} inLink />
 
-        <ul className="mt-3 flex flex-wrap gap-2" aria-label={t('card.properties')}>
+        <ul className="mt-2 flex flex-wrap gap-1.5" aria-label={t('card.properties')}>
           {durationChips(method.durations).map((label) => (
             <li key={`duration-${label}`}>
               <Chip size="card">{label}</Chip>
@@ -62,7 +62,7 @@ export function MethodCard({ method, returnQuery = "" }: MethodCardProps) {
           </li>
         </ul>
 
-        <p className="mt-3 line-clamp-2 text-sm text-muted">
+        <p className="mt-2 line-clamp-2 text-sm text-muted">
           <span className="font-medium text-ink">{t('card.doesNotDo')}: </span>
           {localized.doesNotDo}
         </p>

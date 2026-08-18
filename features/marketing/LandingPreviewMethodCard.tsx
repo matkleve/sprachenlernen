@@ -34,13 +34,13 @@ export function LandingPreviewMethodCard({ method, onSelect }: LandingPreviewMet
     >
       <MethodCardHeader section={method.section} />
 
-      <div className="flex flex-1 flex-col p-4">
+      <div className="flex flex-1 flex-col p-3">
         <h3 className="text-xl font-semibold text-ink">{localized.name}</h3>
-        <p className="mt-1 line-clamp-2 text-sm text-muted">{localized.summary}</p>
+        <p className="mt-0.5 line-clamp-2 text-sm text-muted">{localized.summary}</p>
 
-        <MethodBadgeRow className="mt-3" method={method} />
+        <MethodBadgeRow className="mt-2" method={method} />
 
-        <ul className="mt-3 flex flex-wrap gap-2" aria-label={t("card.properties")}>
+        <ul className="mt-2 flex flex-wrap gap-1.5" aria-label={t("card.properties")}>
           {durationChips(method.durations).map((label) => (
             <li key={`duration-${label}`}>
               <Chip size="card">{label}</Chip>

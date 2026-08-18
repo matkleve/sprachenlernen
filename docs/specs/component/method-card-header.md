@@ -32,7 +32,7 @@ closing this spec.
 
 | Property | Value |
 | --- | --- |
-| Height | `h-32` (128px) |
+| Height | `h-24` (96px) |
 | Image fit | **`object-cover object-top`** on card — crop, never stretch |
 | Fade | Three stops into **section soft** tint — matches card body |
 | Label | Uppercase **`text-ink`**; **scrim pocket** `bg-surface/70` + light blur |
@@ -54,7 +54,7 @@ into `canvas`. Unchanged from card polish (T-B10f).
 
 - [ ] Given any method card, when it renders, then a header graphic appears
       above the title with full card width.
-- [ ] Given card size, when the header renders, then height is **`h-32`**.
+- [ ] Given card size, when the header renders, then height is **`h-24`**.
 - [ ] Given card size, when the header renders, then the image uses
       **`object-cover object-top`** — cropped, never stretched.
 - [ ] Given card size, when the header renders, then a **multi-stop** fade
