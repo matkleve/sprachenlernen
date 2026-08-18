@@ -9,6 +9,7 @@ import { routes } from "@/lib/routes";
 
 import { isProfileCurrent } from "./destinations";
 import { useShellBackTarget } from "./use-shell-back-target";
+import { AppUpdateChip } from "./AppUpdateChip";
 import { AppVersionLabel } from "./AppVersionLabel";
 import { DestinationNavItems } from "./DestinationNavItems";
 import { FooterScrim } from "./FooterScrim";
@@ -67,6 +68,7 @@ export function FloatingShellChrome({
 
       <FooterScrim className="md:hidden">
         <div className="flex w-full flex-col items-center gap-0.5">
+          <AppUpdateChip />
           <nav aria-label={t("mobileNavLabel")} className="flex w-full justify-center">
             <ul
               className={cn(

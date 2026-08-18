@@ -11,6 +11,7 @@ import {
 } from "@/lib/pride-version";
 import { en, formatMessage } from "@/tests/i18n-test-utils";
 
+import { AppUpdateChip } from "./AppUpdateChip";
 import { AppVersionLabel } from "./AppVersionLabel";
 import { renderWithAppUpdate } from "./test-utils";
 
@@ -52,13 +53,18 @@ describe("SPEC-feature-app-update", () => {
     ).toBeNull();
   });
 
-  it("shows the deployed version in success styling when an update is available", async () => {
+  it("shows an update chip above the pill when an update is available", async () => {
     vi.mocked(fetch).mockResolvedValue({
       ok: true,
       json: async () => ({ version: deployedVersion }),
     } as Response);
 
-    const { container } = renderWithAppUpdate(<AppVersionLabel />);
+    const { container } = renderWithAppUpdate(
+      <>
+        <AppUpdateChip />
+        <AppVersionLabel />
+      </>,
+    );
 
     const control = await screen.findByRole("button", {
       name: formatMessage(en.appShell.appUpdate.reloadAria, {
@@ -68,12 +74,12 @@ describe("SPEC-feature-app-update", () => {
     });
 
     expect(control).toBeDefined();
-    expect(screen.getByText(deployedLabel)).toBeDefined();
+    expect(screen.getByText(en.appShell.appUpdate.updateAvailable)).toBeDefined();
     expect(screen.queryByText(bundledLabel)).toBeNull();
     expect(container.querySelector(".text-success")).not.toBeNull();
   });
 
-  it("reloads the page when the stale version control is tapped", async () => {
+  it("reloads the page when the stale update chip is tapped", async () => {
     const reload = vi.fn();
     Object.defineProperty(window, "location", {
       configurable: true,
@@ -86,7 +92,7 @@ describe("SPEC-feature-app-update", () => {
     } as Response);
 
     const user = userEvent.setup();
-    renderWithAppUpdate(<AppVersionLabel />);
+    renderWithAppUpdate(<AppUpdateChip />);
 
     await user.click(
       await screen.findByRole("button", {
