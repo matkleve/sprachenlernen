@@ -696,7 +696,13 @@
       ],
       "primaryCta": "Konto erstellen",
       "secondaryCta": "Anmelden",
-      "languagesLink": "Was die App für jede Sprache behauptet"
+      "languagesLink": "Was die App für jede Sprache behauptet",
+      "methodPreview": {
+        "heading": "Probier das Methodenmenü",
+        "intro": "Die gleichen drei Filter wie in der App — Zeit, Fertigkeit und Energie. Drei Methoden aus dem Katalog. Tippe eine an, um zu lesen, wie sie funktioniert.",
+        "previewNote": "Nur Vorschau — zum Üben brauchst du ein Konto.",
+        "methodsLabel": "Drei Methoden aus dem Katalog"
+      }
     }
   }
 }

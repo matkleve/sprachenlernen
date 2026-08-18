@@ -3,9 +3,12 @@ import { getTranslations } from "next-intl/server";
 import { BrandLockup } from "@/components/brand/BrandLockup";
 import { ActionLink } from "@/components/ui/ActionLink";
 import { TextLink } from "@/components/ui/TextLink";
+import { loadMethodCatalogue } from "@/features/method-menu/catalogue";
 import { hoursPerYear } from "@/lib/dose-band";
 import { getAccount } from "@/lib/db/auth";
 import { routes } from "@/lib/routes";
+
+import { LandingMethodPreview } from "./LandingMethodPreview";
 
 /**
  * The `/` hero. Contract: docs/specs/page/landing.md
@@ -17,6 +20,8 @@ export async function LandingHero() {
   const t = await getTranslations("marketing");
   const pillars = t.raw("landing.pillars") as { text: string }[];
   const signedIn = (await getAccount()) !== null;
+  const { catalogue } = loadMethodCatalogue();
+  const dayKey = new Date().toISOString().slice(0, 10);
 
   return (
     <div className="mx-auto max-w-3xl px-6 pt-page-top pb-page-bottom">
@@ -48,6 +53,10 @@ export async function LandingHero() {
           </>
         )}
       </div>
+
+      {catalogue ? (
+        <LandingMethodPreview catalogue={catalogue} dayKey={dayKey} />
+      ) : null}
 
       <section
         aria-labelledby="landing-pillars"

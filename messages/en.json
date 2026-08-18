@@ -696,7 +696,13 @@
       ],
       "primaryCta": "Create account",
       "secondaryCta": "Sign in",
-      "languagesLink": "What the app claims for each language"
+      "languagesLink": "What the app claims for each language",
+      "methodPreview": {
+        "heading": "Try the method menu",
+        "intro": "The same three filters as in the app — time, skill, and energy. Three methods from the catalogue. Tap one to read how it works.",
+        "previewNote": "Preview only — create an account to practise.",
+        "methodsLabel": "Three methods from the catalogue"
+      }
     }
   }
 }

@@ -232,7 +232,11 @@ describe("LandingHero", () => {
     for (const pillar of en.marketing.landing.pillars) {
       expect(screen.getByText(pillar.text)).toBeTruthy();
     }
-    expect(screen.getAllByRole("listitem")).toHaveLength(en.marketing.landing.pillars.length);
+    const pillarsSection = screen.getByText(en.marketing.landing.pillarsHeading).closest("section");
+    expect(pillarsSection).toBeTruthy();
+    expect(within(pillarsSection!).getAllByRole("listitem")).toHaveLength(
+      en.marketing.landing.pillars.length,
+    );
   });
 
   it("has no axe-core violations", async () => {
