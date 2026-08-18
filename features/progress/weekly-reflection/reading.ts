@@ -42,6 +42,7 @@ export async function readWeeklyReflection(now: number = Date.now()): Promise<We
       frequencyRank: card.frequencyRank,
       front: card.front,
       back: card.back,
+      descriptionKey: card.descriptionKey,
     })),
     reviews,
     seenValue,

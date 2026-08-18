@@ -30,7 +30,8 @@
       "materialTopics": [
         { "id": "news", "labelKey": "news" },
         { "id": "daily", "labelKey": "daily" }
-      ]
+      ],
+      "materialUnits": [{ "id": "full", "default": true }]
     },
     {
       "id": "narrow-reading",

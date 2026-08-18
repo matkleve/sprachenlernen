@@ -9,6 +9,7 @@ import {
   SHIPPED_ES_POOL_SIZE,
   SHIPPED_IT_POOL_SIZE,
   availableLanguages,
+  englishGlossForCard,
   hasUnaddedShippedLanguage,
   loadItalianMeaningRecallDeck,
   loadSpanishMeaningRecallDeck,
@@ -44,21 +45,31 @@ describe("starter-deck", () => {
     expect(new Set(cards.map((card) => card.lemma)).size).toBe(cards.length);
   });
 
+  it("stores description keys instead of inline English backs", () => {
+    expect(cards.every((card) => card.descriptionKey.startsWith("card.es:"))).toBe(true);
+    expect(cards.every((card) => card.back === undefined)).toBe(true);
+  });
+
   it("gives every card a usable gloss", () => {
     const empty = cards.filter(
-      (card) => card.back.trim() === "" || card.front.trim() === "" || card.lemma.trim() === "",
+      (card) =>
+        englishGlossForCard(card).trim() === "" ||
+        card.front.trim() === "" ||
+        card.lemma.trim() === "",
     );
     expect(empty).toEqual([]);
 
-    const overlong = cards.filter((card) => card.back.length > MAX_GLOSS_CHARS);
+    const overlong = cards.filter((card) => englishGlossForCard(card).length > MAX_GLOSS_CHARS);
     expect(overlong.map((card) => card.lemma)).toEqual([]);
   });
 
-  it("never shows a card whose back merely repeats its front", () => {
+  it("never shows a card whose gloss merely repeats its front", () => {
     // A gloss equal to the lemma is the signature of a failed dictionary
     // lookup. The exceptions are real cognates and are listed as data, so a
     // new one has to be added deliberately rather than absorbed silently.
-    const repeated = cards.filter((card) => card.back === card.lemma).map((card) => card.lemma);
+    const repeated = cards
+      .filter((card) => englishGlossForCard(card) === card.lemma)
+      .map((card) => card.lemma);
     expect(repeated.sort()).toEqual([...ES_IDENTICAL_COGNATES].sort());
   });
 
@@ -75,9 +86,11 @@ describe("starter-deck", () => {
     // `venir` shipped as "Senses relating to literal movement." — fluent,
     // the right length, and no use to anyone. Length checks cannot see this.
     const notes = cards.filter((card) =>
-      /\b(first|second|third)-person\b|^Senses relating|\bapocopic\b|\ba surname\b/i.test(card.back),
+      /\b(first|second|third)-person\b|^Senses relating|\bapocopic\b|\ba surname\b/i.test(
+        englishGlossForCard(card),
+      ),
     );
-    expect(notes.map((card) => `${card.lemma}: ${card.back}`)).toEqual([]);
+    expect(notes.map((card) => `${card.lemma}: ${englishGlossForCard(card)}`)).toEqual([]);
   });
 
   it("keeps the task and word ids derivable from the lemma", () => {
@@ -120,16 +133,21 @@ describe("starter-deck — Italian", () => {
 
   it("gives every card a usable gloss", () => {
     const empty = cards.filter(
-      (card) => card.back.trim() === "" || card.front.trim() === "" || card.lemma.trim() === "",
+      (card) =>
+        englishGlossForCard(card).trim() === "" ||
+        card.front.trim() === "" ||
+        card.lemma.trim() === "",
     );
     expect(empty).toEqual([]);
 
-    const overlong = cards.filter((card) => card.back.length > MAX_GLOSS_CHARS);
+    const overlong = cards.filter((card) => englishGlossForCard(card).length > MAX_GLOSS_CHARS);
     expect(overlong.map((card) => card.lemma)).toEqual([]);
   });
 
-  it("never shows a card whose back merely repeats its front", () => {
-    const repeated = cards.filter((card) => card.back === card.lemma).map((card) => card.lemma);
+  it("never shows a card whose gloss merely repeats its front", () => {
+    const repeated = cards
+      .filter((card) => englishGlossForCard(card) === card.lemma)
+      .map((card) => card.lemma);
     expect(repeated.sort()).toEqual([...IT_IDENTICAL_COGNATES].sort());
   });
 
@@ -141,9 +159,11 @@ describe("starter-deck — Italian", () => {
 
   it("never shows a grammar note where a translation belongs", () => {
     const notes = cards.filter((card) =>
-      /\b(first|second|third)-person\b|^Senses relating|\bapocopic\b|\ba surname\b/i.test(card.back),
+      /\b(first|second|third)-person\b|^Senses relating|\bapocopic\b|\ba surname\b/i.test(
+        englishGlossForCard(card),
+      ),
     );
-    expect(notes.map((card) => `${card.lemma}: ${card.back}`)).toEqual([]);
+    expect(notes.map((card) => `${card.lemma}: ${englishGlossForCard(card)}`)).toEqual([]);
   });
 
   it("keeps the task and word ids derivable from the lemma", () => {

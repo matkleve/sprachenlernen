@@ -30,7 +30,7 @@ GUTTER_Y = 0.03
 
 # Normalised output — shield floats inside canvas so card render never clips tips.
 OUTPUT_SIZE = 256
-CONTENT_FILL = 0.58
+CONTENT_FILL = 0.50
 
 
 def key_background_to_alpha(image: Image.Image) -> Image.Image:

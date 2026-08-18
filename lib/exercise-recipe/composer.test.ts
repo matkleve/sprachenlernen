@@ -37,9 +37,11 @@ describe("exercise-recipe expand", () => {
 });
 
 describe("exercise-recipe composer registry", () => {
-  it("registers partial-dictation composer", () => {
+  it("registers partial-dictation, full-dictation, and extensive-reading composers", () => {
     expect(hasRecipeComposer("partial-dictation")).toBe(true);
-    expect(hasRecipeComposer("full-dictation")).toBe(false);
+    expect(hasRecipeComposer("full-dictation")).toBe(true);
+    expect(hasRecipeComposer("extensive-reading")).toBe(true);
+    expect(hasRecipeComposer("narrow-reading")).toBe(false);
   });
 
   it("composes short variant with six steps total", async () => {
@@ -70,7 +72,7 @@ describe("resolveExerciseRecipe (composer AC)", () => {
   });
 
   it("AC-2: returns null when no composer is registered", async () => {
-    expect(await resolveExerciseRecipe("full-dictation")).toBeNull();
+    expect(await resolveExerciseRecipe("narrow-reading")).toBeNull();
   });
 
   it("AC-3: short variant has exactly one do step", async () => {

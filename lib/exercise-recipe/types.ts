@@ -13,6 +13,7 @@ export type SessionContext = {
   unitId?: MaterialUnitId;
   durationSec?: number;
   variantId?: RecipeVariantId;
+  heldLemmas?: ReadonlySet<string>;
 };
 
 export type RecipeComposer = (
@@ -25,4 +26,5 @@ export type ResolveRecipeOptions = {
   unitId?: MaterialUnitId;
   durationSec?: number;
   variantId?: RecipeVariantId;
+  heldLemmas?: ReadonlySet<string>;
 };

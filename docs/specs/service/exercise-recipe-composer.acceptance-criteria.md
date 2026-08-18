@@ -7,5 +7,9 @@
       runs, then `null` is returned.
 - [x] Given `variantId: "short"` on a dictation composer (when wired), when the
       recipe is composed, then exactly one `do` loop iteration is present.
+- [x] Given `unitId: "paragraph"` on partial dictation Start, when the recipe is
+      composed, then `variantId` resolves to `standard` with multiple `do` steps.
+- [x] Given held lemmas at compose time, when gap-fill steps are built, then gaps
+      prefer content words whose lemmas are held.
 - [x] Given every row in `exercise-recipe-composer.methods.md`, when reviewed,
       then each `methodId` exists in `data/methods/*.json`.

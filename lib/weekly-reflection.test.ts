@@ -12,8 +12,24 @@ const now = Date.UTC(2026, 7, 13, 12); // Thursday 2026-08-13
 const weekStart = startOfIsoWeek(now);
 
 const cards = [
-  { taskId: "es:hola:meaning-recall", wordId: "es:hola", lemma: "hola", frequencyRank: 1, front: "hola", back: "hello" },
-  { taskId: "es:adios:meaning-recall", wordId: "es:adios", lemma: "adiós", frequencyRank: 2, front: "adiós", back: "bye" },
+  {
+    taskId: "es:hola:meaning-recall",
+    wordId: "es:hola",
+    lemma: "hola",
+    frequencyRank: 1,
+    front: "hola",
+    back: "hello",
+    descriptionKey: "card.es:hola.meaning-recall.back",
+  },
+  {
+    taskId: "es:adios:meaning-recall",
+    wordId: "es:adios",
+    lemma: "adiós",
+    frequencyRank: 2,
+    front: "adiós",
+    back: "bye",
+    descriptionKey: "card.es:adios.meaning-recall.back",
+  },
 ] as const;
 
 function review(taskId: string, grade: Grade, at: number) {

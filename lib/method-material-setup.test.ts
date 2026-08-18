@@ -88,7 +88,7 @@ describe("buildMaterialSetupContext", () => {
     expect(newsPreview?.coverage.coveragePercent).toBeGreaterThan(0);
   });
 
-  it("AC-8: partial dictation exposes sentence and window unit previews", () => {
+  it("AC-8: partial dictation exposes sentence, paragraph, and window unit previews", () => {
     const context = buildMaterialSetupContext(
       partialDictation,
       sources,
@@ -96,8 +96,9 @@ describe("buildMaterialSetupContext", () => {
       held,
       labels,
     )!;
-    expect(context.unitOptions.map((unit) => unit.id)).toEqual(["sentence", "window"]);
+    expect(context.unitOptions.map((unit) => unit.id)).toEqual(["sentence", "paragraph", "window"]);
     expect(context.previews[APP_PICK_TOPIC_ID]?.sentence?.unitLabel).toBe("sentence");
+    expect(context.previews[APP_PICK_TOPIC_ID]?.paragraph?.unitLabel).toBe("paragraph");
     expect(context.previews[APP_PICK_TOPIC_ID]?.window?.unitLabel).toBe("window");
   });
 });
@@ -128,7 +129,7 @@ describe("createLearnerSourceFromText", () => {
 });
 
 describe("practiceHrefForSetup", () => {
-  it("passes method, source, topic, and unit on Start", () => {
+  it("passes method, source, topic, unit, and variant on Start", () => {
     const href = practiceHrefForSetup({
       methodId: "partial-dictation",
       sourceId: "es-catalogue-chile",
@@ -139,6 +140,29 @@ describe("practiceHrefForSetup", () => {
     expect(href).toContain("sourceId=es-catalogue-chile");
     expect(href).toContain("topicId=news");
     expect(href).toContain("unitId=sentence");
+    expect(href).toContain("variantId=short");
+  });
+
+  it("maps paragraph unit to standard variant", () => {
+    const href = practiceHrefForSetup({
+      methodId: "partial-dictation",
+      sourceId: "es-catalogue-chile",
+      topicId: "news",
+      unitId: "paragraph",
+    });
+    expect(href).toContain("variantId=standard");
+  });
+
+  it("maps window unit to long variant", () => {
+    const href = practiceHrefForSetup({
+      methodId: "partial-dictation",
+      sourceId: "es-catalogue-chile",
+      topicId: "news",
+      unitId: "window",
+      durationSec: 300,
+    });
+    expect(href).toContain("variantId=long");
+    expect(href).toContain("durationSec=300");
   });
 });
 

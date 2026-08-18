@@ -39,6 +39,15 @@ describe("selectGapIndices", () => {
     const tokens = lexicon.tokenise(sentence);
     expect(selectGapIndices(tokens, lexicon).length).toBeGreaterThan(0);
   });
+
+  it("prefers held lemmas when provided", () => {
+    const tokens = lexicon.tokenise(sentence);
+    const heldLemmas = new Set(["café"]);
+    const gaps = selectGapIndices(tokens, lexicon, { heldLemmas });
+    expect(gaps.length).toBeGreaterThan(0);
+    const gappedWords = gaps.map((index) => tokens[index]!.text.toLowerCase());
+    expect(gappedWords).toContain("café");
+  });
 });
 
 describe("buildGapFillLine", () => {

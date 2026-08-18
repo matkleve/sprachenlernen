@@ -1,24 +1,27 @@
 import { resolveContentSourceById } from "@/lib/content-source-resolve";
 import {
   DEFAULT_PARTIAL_DICTATION_SOURCE_ID,
-  pickDictationSentences,
 } from "@/lib/content-sources";
 import { buildGapFillLine } from "@/lib/gap-selection";
+import { dictationAudioConfig } from "@/lib/exercise-step-audio";
+import {
+  dictationSentencesForVariant,
+  dictationWaitSecForVariant,
+  resolvedVariantId,
+} from "@/lib/exercise-recipe/dictation-shared";
 import type { SessionContext } from "@/lib/exercise-recipe/types";
 import type { ExerciseRecipe, ExerciseStep } from "@/lib/exercise-runner/types";
-import { sourceText, type Source } from "@/lib/coverage";
-import { resolveMaterialUnit, type MaterialUnitId } from "@/lib/material-unit";
+import type { Source } from "@/lib/coverage";
 import { loadLexiconForLanguage } from "@/lib/shipped-language";
+import type { Lexicon } from "@/lib/lexicon";
 
-const STANDARD_SENTENCE_COUNT = 6;
-const LONG_SENTENCE_CAP = 12;
-const WAIT_SEC_SHORT = 30;
-const WAIT_SEC_STANDARD = 30;
-const WAIT_SEC_LONG = 45;
-
-function gapLineForSentence(sentence: string, lexicon: ReturnType<typeof loadLexiconForLanguage>) {
+function gapLineForSentence(
+  sentence: string,
+  lexicon: Lexicon | null,
+  heldLemmas?: ReadonlySet<string>,
+) {
   return lexicon
-    ? buildGapFillLine(sentence, lexicon)
+    ? buildGapFillLine(sentence, lexicon, { heldLemmas })
     : {
         sentence,
         gappedIndices: [],
@@ -26,41 +29,18 @@ function gapLineForSentence(sentence: string, lexicon: ReturnType<typeof loadLex
       };
 }
 
-function sentencesForVariant(source: Source, ctx: SessionContext): string[] {
-  const variantId = ctx.variantId ?? "short";
-
-  if (variantId === "long") {
-    const unitId: MaterialUnitId = ctx.unitId ?? "window";
-    const unit = resolveMaterialUnit(source, unitId, { durationSec: ctx.durationSec });
-    const picked = pickDictationSentences(unit.text, LONG_SENTENCE_CAP);
-    return picked.length > 0 ? picked : [resolveMaterialUnit(source, "sentence").text];
-  }
-
-  if (variantId === "standard") {
-    const picked = pickDictationSentences(sourceText(source), STANDARD_SENTENCE_COUNT);
-    return picked.length > 0 ? picked : [resolveMaterialUnit(source, "sentence").text];
-  }
-
-  return [resolveMaterialUnit(source, "sentence").text];
-}
-
-function waitSecForVariant(variantId: SessionContext["variantId"]): number {
-  if (variantId === "long") return WAIT_SEC_LONG;
-  if (variantId === "standard") return WAIT_SEC_STANDARD;
-  return WAIT_SEC_SHORT;
-}
-
 export function composePartialDictationRecipe(
   source: Source,
   ctx: SessionContext,
 ): ExerciseRecipe {
   const lexicon = loadLexiconForLanguage(source.languageCode);
-  const sentences = sentencesForVariant(source, ctx);
-  const waitSec = waitSecForVariant(ctx.variantId);
+  const variantId = resolvedVariantId(ctx);
+  const sentences = dictationSentencesForVariant(source, { ...ctx, variantId }, lexicon);
+  const waitSec = dictationWaitSecForVariant(variantId);
 
   const dictationLoop: ExerciseStep[] = [];
   sentences.forEach((sentence, index) => {
-    const gapLine = gapLineForSentence(sentence, lexicon);
+    const gapLine = gapLineForSentence(sentence, lexicon, ctx.heldLemmas);
     const suffix = sentences.length > 1 ? ` (${index + 1}/${sentences.length})` : "";
     dictationLoop.push(
       {
@@ -71,7 +51,7 @@ export function composePartialDictationRecipe(
         config: {
           sentence,
           tokens: gapLine.tokens,
-          audioUrl: source.kind === "audio" ? source.sourceUrl : undefined,
+          ...dictationAudioConfig(source, sentence),
           itemIndex: index + 1,
           itemCount: sentences.length,
         },

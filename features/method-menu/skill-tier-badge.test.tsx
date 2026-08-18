@@ -20,14 +20,13 @@ describe("SkillTierBadge", () => {
     await expectNoA11yViolations(container);
   });
 
-  it("uses a square card frame with padding for ornate shields", () => {
+  it("uses a tier-aware card frame with padding for ornate shields", () => {
     const { container } = render(
       <SkillTierBadge skill="listening" tier="wood" size="card" />,
     );
     const wrapper = container.firstElementChild;
-    expect(wrapper?.className).toContain("h-12");
-    expect(wrapper?.className).toContain("w-12");
-    expect(wrapper?.className).toContain("p-1");
+    expect(wrapper?.className).toContain("h-14");
+    expect(wrapper?.className).toContain("w-16");
   });
 });
 

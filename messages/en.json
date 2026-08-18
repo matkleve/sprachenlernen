@@ -305,7 +305,22 @@
     "playAudio": "Play audio",
     "gapPlaceholder": "…",
     "gapInputLabel": "Gap {word}",
-    "unknownComponent": "This step type ({component}) is not built yet."
+    "unknownComponent": "This step type ({component}) is not built yet.",
+    "fullDictationProgress": "Sentence {current} of {total}",
+    "fullDictationProtocol": "Listen {reads} times, then write the whole sentence on your paper.",
+    "fullDictationWriteOnPaper": "Do not type here — write on your worksheet.",
+    "fullDictationDeferred": "Listening is paused — write from memory when you can listen again.",
+    "sheetDownloadIntro": "Print a worksheet with blank lines for each sentence.",
+    "sheetDefaultTitle": "Dictation worksheet",
+    "sheetPreviewLabel": "Worksheet preview",
+    "sheetLine": "Line {number}",
+    "sheetPrint": "Print worksheet",
+    "materialPreviewHeading": "What you will read",
+    "materialPreviewHint": "Read for flow — you do not need to look up every word.",
+    "materialPreviewCoverage": "About {percent}% of the words are already familiar to you.",
+    "comprehensionEmpty": "No check questions for this text yet.",
+    "comprehensionCorrect": "That matches the text.",
+    "comprehensionIncorrect": "Re-read the passage — another answer fits better."
   },
   "listeningDefer": {
     "sectionLabel": "Sound",

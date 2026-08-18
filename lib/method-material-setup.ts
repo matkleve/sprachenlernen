@@ -10,7 +10,7 @@ import {
   type CoverageResult,
   type Source,
 } from "@/lib/coverage";
-import { DEFAULT_PARTIAL_DICTATION_SOURCE_ID } from "@/lib/content-source-constants";
+import { DEFAULT_EXTENSIVE_READING_SOURCE_ID, DEFAULT_PARTIAL_DICTATION_SOURCE_ID } from "@/lib/content-source-constants";
 import type { MaterialTopic, MethodEntry } from "@/lib/method-catalogue";
 import {
   DEFAULT_WINDOW_DURATION_SEC,
@@ -18,6 +18,8 @@ import {
   type MaterialUnitId,
 } from "@/lib/material-unit";
 import type { Lexicon } from "@/lib/lexicon";
+import type { RecipeVariantId } from "@/lib/exercise-recipe/types";
+import { variantIdForMaterialSetup } from "@/lib/exercise-recipe/variant";
 
 export const APP_PICK_TOPIC_ID = "app-pick";
 export const OWN_TOPIC_ID = "own";
@@ -288,9 +290,12 @@ export type PracticeSetupParams = {
   topicId: MaterialTopicSelection;
   unitId: MaterialUnitId;
   durationSec?: number;
+  variantId?: RecipeVariantId;
 };
 
 export function practiceHrefForSetup(params: PracticeSetupParams): string {
+  const variantId =
+    params.variantId ?? variantIdForMaterialSetup(params.methodId, params.unitId);
   const search = new URLSearchParams({
     method: params.methodId,
     sourceId: params.sourceId,
@@ -300,11 +305,19 @@ export function practiceHrefForSetup(params: PracticeSetupParams): string {
   if (params.durationSec !== undefined) {
     search.set("durationSec", String(params.durationSec));
   }
+  if (variantId) {
+    search.set("variantId", variantId);
+  }
   return `/practice?${search.toString()}`;
 }
 
 export function fallbackSourceIdForMethod(methodId: string): string | null {
-  if (methodId === "partial-dictation") return DEFAULT_PARTIAL_DICTATION_SOURCE_ID;
+  if (methodId === "partial-dictation" || methodId === "full-dictation") {
+    return DEFAULT_PARTIAL_DICTATION_SOURCE_ID;
+  }
+  if (methodId === "extensive-reading") {
+    return DEFAULT_EXTENSIVE_READING_SOURCE_ID;
+  }
   return null;
 }
 
