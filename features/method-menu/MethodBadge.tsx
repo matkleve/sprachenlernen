@@ -10,12 +10,12 @@ import { useMethodMenuCopy } from "./use-method-menu-copy";
 import { SkillTierBadgeRow } from "./SkillTierBadge";
 
 const effortBadgeVariants = cva(
-  "inline-flex shrink-0 items-center whitespace-nowrap rounded-pill border border-line bg-surface font-medium text-ink",
+  "inline-flex shrink-0 items-center whitespace-nowrap font-medium text-muted",
   {
     variants: {
       size: {
-        default: "px-2.5 py-0.5 text-xs",
-        card: "min-h-8 px-3 py-1 text-sm",
+        default: "text-xs",
+        card: "min-h-8 text-sm",
       },
     },
     defaultVariants: { size: "default" },

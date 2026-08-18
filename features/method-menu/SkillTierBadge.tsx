@@ -24,8 +24,8 @@ const skillTierBadgeVariants = cva(
   {
     variants: {
       size: {
-        card: "aspect-[4/5] h-12 w-10 p-1",
-        detail: "size-12",
+        card: "h-12 w-12 p-1",
+        detail: "size-12 p-0.5",
       },
     },
     defaultVariants: {
@@ -37,8 +37,8 @@ const skillTierBadgeVariants = cva(
 const skillTierImageVariants = cva("object-contain", {
   variants: {
     size: {
-      card: "h-full w-full",
-      detail: "size-12",
+      card: "h-full w-full max-h-11 max-w-11",
+      detail: "h-full w-full max-h-11 max-w-11",
     },
   },
   defaultVariants: {
@@ -56,7 +56,7 @@ export function SkillTierBadge({ skill, tier, size, className }: SkillTierBadgeP
   const { skillLabels } = useMethodMenuCopy();
   const src = skillTierBadgeSrc(skill, tier);
   const label = `${TIER_LABEL[tier]} ${skillLabels[skill]}`;
-  const dimensions = size === "card" ? { width: 40, height: 48 } : { width: 48, height: 48 };
+  const dimensions = { width: 48, height: 48 };
 
   return (
     <span className={cn(skillTierBadgeVariants({ size }), className)}>
@@ -97,7 +97,7 @@ export function SkillTierOverflow({
     <span
       className={cn(
         "inline-flex shrink-0 items-center justify-center rounded-chip border border-line bg-surface font-medium text-muted",
-        size === "card" ? "h-12 w-10 text-xs" : "size-12 text-sm",
+        size === "card" ? "size-12 text-xs" : "size-12 text-sm",
         className,
       )}
       title={label}

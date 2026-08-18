@@ -27,12 +27,13 @@ describe("MethodCardHeader", () => {
     expect(container.firstElementChild?.className).toContain("h-28");
   });
 
-  it("fits the card graphic without stretching (contain, top-aligned)", () => {
+  it("covers the card graphic without stretching (cover, upper focal point)", () => {
     const { container } = render(<MethodCardHeader section="listening" />);
     const image = container.querySelector("img");
-    expect(image?.className).toContain("object-contain");
-    expect(image?.className).toContain("object-top");
+    expect(image?.className).toContain("object-cover");
+    expect(image?.className).toContain("object-[center_30%]");
     expect(container.querySelector("[aria-hidden]")?.className).toContain("via-50%");
+    expect(container.firstElementChild?.className).toContain("bg-section-listening-soft");
   });
 
   it("uses a scrim pocket and ink label on card headers for contrast", () => {

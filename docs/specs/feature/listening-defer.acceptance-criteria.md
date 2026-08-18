@@ -6,7 +6,7 @@ Split child of [`listening-defer.md`](listening-defer.md).
       methods appear per UC-045 rules.
 - [ ] AC-2 · Given user taps Can't listen now, when menu re-renders, then methods
       with `requires.sound` are absent (not greyed).
-- [ ] AC-3 · Given defer active, when partial dictation runs, then gap-fill step
+- [x] AC-3 · Given defer active, when partial dictation runs, then gap-fill step
       has no audio control and accepts typed input only.
 - [ ] AC-4 · Given defer started at T, when T + 15 min passes, then defer clears
       without navigation.

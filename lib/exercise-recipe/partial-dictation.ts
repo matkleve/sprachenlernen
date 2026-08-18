@@ -2,14 +2,22 @@ import {
   DEFAULT_PARTIAL_DICTATION_SOURCE_ID,
   findContentSourceById,
 } from "@/lib/content-sources";
+import { buildGapFillLine } from "@/lib/gap-selection";
+import { loadLexiconForLanguage } from "@/lib/shipped-language";
 import { resolveMaterialUnit } from "@/lib/material-unit";
 import type { ExerciseRecipe } from "@/lib/exercise-runner/types";
-import { gappedSentence } from "@/lib/content-sources";
 import type { Source } from "@/lib/coverage";
 
 export function buildPartialDictationRecipe(source: Source): ExerciseRecipe {
   const sentence = resolveMaterialUnit(source, "sentence").text;
-  const gapped = gappedSentence(sentence);
+  const lexicon = loadLexiconForLanguage(source.languageCode);
+  const gapLine = lexicon
+    ? buildGapFillLine(sentence, lexicon)
+    : {
+        sentence,
+        gappedIndices: [],
+        tokens: sentence.split(/\s+/).map((text) => ({ text, gapped: false })),
+      };
 
   return {
     methodId: "partial-dictation",
@@ -27,10 +35,12 @@ export function buildPartialDictationRecipe(source: Source): ExerciseRecipe {
       {
         id: "do-1",
         type: "do",
-        component: "prompt",
+        component: "gap-fill",
         label: "Listen",
         config: {
-          body: `Fill in the gaps: ${gapped}`,
+          sentence,
+          tokens: gapLine.tokens,
+          audioUrl: source.kind === "audio" ? source.sourceUrl : undefined,
         },
       },
       {

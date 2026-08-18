@@ -11,12 +11,12 @@ engine family after the card engine. Project-wide queue:
 
 | Layer | Spec | Code |
 | --- | --- | --- |
-| Material setup (pre-Start) | `method-material-setup.md` (draft) | — |
-| Audio-gap `do` component | study/37 | text gaps v1 only (T-E8) |
+| Audio playback for text sources | study/37 | gap-fill UI only — no TTS yet |
+| Speak input mode | UC-028 | type-only v1 |
 
-**Shipped 2026-08-18:** runner shell + six step types, `/practice`, fixture
-end-to-end, **partial dictation from catalogue Source** (`es-fixture-cafe`
-default; `sourceId` param).
+**Shipped 2026-08-18:** runner shell + six step types, `/practice`, catalogue
+partial dictation, **material setup** (T-E7), **principled gaps** (T-MU2),
+**gap-fill step** (T-E9).
 
 ## Build order
 
@@ -32,7 +32,7 @@ Load-bearing — do not skip skeleton before components.
 | **T-E6** | ~~**Recipe loader**~~ — **shipped 2026-08-18** | Standard | T-E5 | fixture method end-to-end |
 | **T-E7** | ~~**Method material setup**~~ panel on detail — **shipped 2026-08-18** | Standard | T-E5 | `method-material-setup.md` AC |
 | **T-E8** | ~~**First real method**~~ — partial dictation from catalogue Source — **shipped 2026-08-18** | Sensitive | T-E6, T-W7 | `lib/exercise-recipe/partial-dictation.ts` |
-| **T-E9** | **Gap-fill** step — half-filled listen, type/speak, defer fallback | Standard | T-E3, T-MU2, T-LD1 | UC-028 |
+| **T-E9** | ~~**Gap-fill** step — half-filled listen, type/speak, defer fallback~~ — **shipped 2026-08-18** | Standard | T-E3, T-MU2, T-LD1 | UC-028 |
 | **T-MU1** | ~~Material unit resolver~~ — **shipped 2026-08-18** | Standard | T-W7 | `material-unit.md` AC |
 | **T-LD1** | ~~**Can't listen now**~~ — **shipped 2026-08-18** | Standard | method menu | UC-077 |
 

@@ -32,8 +32,9 @@ Implementation: `features/method-menu/MethodBadge.tsx`.
 
 Fixed **"Effort"** / localized label (e.g. Anstrengung) + three-dot scale. On
 **cards:** `size="card"` — `text-sm`, `min-h-8`, **right-aligned** (`ml-auto`);
-shields stay left. Same pill geometry as [`chip.md`](chip.md) `size="card"`.
-`aria-label` carries the `intensity` anchor sentence.
+shields stay left. **Quiet text** — no fill, no border (not a chip). Label
+`text-muted`; dots use `bg-ink` / `bg-line`. `aria-label` carries the
+`intensity` anchor sentence.
 
 ## States
 

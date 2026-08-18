@@ -10,6 +10,7 @@ import {
   gappedSentence,
   pickDictationSentence,
 } from "@/lib/content-sources";
+import { loadLexiconForLanguage } from "@/lib/shipped-language";
 import { resolveExerciseRecipe } from "@/lib/exercise-recipe";
 import {
   buildPartialDictationRecipe,
@@ -23,10 +24,11 @@ describe("content-sources dictation helpers", () => {
     expect(dictationSentenceFromSource(source!)).toBe("El café está en la mesa.");
   });
 
-  it("gaps every second word", () => {
-    expect(gappedSentence("El café está en la mesa.")).toBe(
-      "El ___ está ___ la ___.",
-    );
+  it("gaps content words with lexicon — not alternating-only", () => {
+    const lexicon = loadLexiconForLanguage("es")!;
+    const gapped = gappedSentence("El café está en la mesa.", lexicon);
+    expect(gapped).toContain("___");
+    expect(gapped).not.toBe("El ___ está ___ la ___.");
   });
 
   it("skips one-word fragments when picking", () => {
@@ -49,8 +51,11 @@ describe("partial dictation recipe", () => {
     expect(review?.config.answerKey).toBe("El café está en la mesa.");
 
     const doStep = recipe.steps.find((step) => step.type === "do");
-    expect(doStep?.config.body).toContain("___");
-    expect(doStep?.config.body).toContain("está");
+    expect(doStep?.component).toBe("gap-fill");
+    expect(doStep?.config.sentence).toBe("El café está en la mesa.");
+    expect(Array.isArray(doStep?.config.tokens)).toBe(true);
+    const tokens = doStep?.config.tokens as Array<{ gapped: boolean }>;
+    expect(tokens.some((token) => token.gapped)).toBe(true);
   });
 
   it("defaults to es-fixture-cafe without sourceId", () => {

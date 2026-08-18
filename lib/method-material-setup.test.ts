@@ -5,7 +5,7 @@ import { describe, expect, it } from "vitest";
 
 import { loadMethodCatalogue } from "@/features/method-menu/catalogue";
 import { findMethod } from "@/features/method-menu/MethodDetail";
-import { loadLexiconForLanguage } from "@/features/content/language-runtime";
+import { loadLexiconForLanguage } from "@/lib/shipped-language";
 import { loadContentSources } from "@/lib/content-sources";
 import {
   APP_PICK_TOPIC_ID,

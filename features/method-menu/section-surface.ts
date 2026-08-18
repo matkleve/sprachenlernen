@@ -1,7 +1,8 @@
 import type { Section } from "@/lib/method-catalogue";
 import { cn } from "@/lib/utils";
 
-const sectionBackground: Record<Section, string> = {
+/** Section-tinted card shell — shared by card body and header fade. */
+export const sectionSoftBackground: Record<Section, string> = {
   reading: "bg-section-reading-soft",
   listening: "bg-section-listening-soft",
   speaking: "bg-section-speaking-soft",
@@ -14,5 +15,5 @@ const sectionBackground: Record<Section, string> = {
 
 /** Card shell — uniform border, no accent stripe (owner: border + radius clash). */
 export function methodSectionSurface(section: Section, className?: string): string {
-  return cn("overflow-hidden border border-line bg-surface", sectionBackground[section], className);
+  return cn("overflow-hidden border border-line bg-surface", sectionSoftBackground[section], className);
 }

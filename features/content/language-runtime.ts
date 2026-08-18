@@ -6,18 +6,16 @@ import { readFileSync } from "node:fs";
 import { join } from "node:path";
 
 import { loadSources, type Source } from "@/lib/coverage";
-import {
-  buildLexicon,
-  loadLemmaTable,
-  loadProfile,
-  parseFrequencyList,
-  type Lexicon,
-} from "@/lib/lexicon";
+import { SHIPPED_CONTENT_LANGUAGES } from "@/lib/shipped-language";
 
-export const SHIPPED_CONTENT_LANGUAGES = ["es", "it"] as const;
+export { loadLexiconForLanguage, SHIPPED_CONTENT_LANGUAGES } from "@/lib/shipped-language";
 
 export function loadPersistedSources(languageCode: string): Source[] {
-  if (!SHIPPED_CONTENT_LANGUAGES.includes(languageCode as (typeof SHIPPED_CONTENT_LANGUAGES)[number])) {
+  if (
+    !SHIPPED_CONTENT_LANGUAGES.includes(
+      languageCode as (typeof SHIPPED_CONTENT_LANGUAGES)[number],
+    )
+  ) {
     return [];
   }
 
@@ -29,32 +27,5 @@ export function loadPersistedSources(languageCode: string): Source[] {
     return sources.filter((source) => !source.ephemeral);
   } catch {
     return [];
-  }
-}
-
-export function loadLexiconForLanguage(languageCode: string): Lexicon | null {
-  if (!SHIPPED_CONTENT_LANGUAGES.includes(languageCode as (typeof SHIPPED_CONTENT_LANGUAGES)[number])) {
-    return null;
-  }
-
-  const root = process.cwd();
-  let profileRaw: unknown;
-  try {
-    profileRaw = JSON.parse(readFileSync(join(root, `data/languages/${languageCode}.json`), "utf8"));
-  } catch {
-    return null;
-  }
-
-  const { profile } = loadProfile(profileRaw);
-  if (!profile?.lemmaTable) return null;
-
-  try {
-    const frequencyText = readFileSync(join(root, profile.frequency.file), "utf8");
-    const lemmaRaw = JSON.parse(readFileSync(join(root, profile.lemmaTable), "utf8"));
-    const { table } = loadLemmaTable(lemmaRaw, languageCode);
-    if (!table) return null;
-    return buildLexicon(profile, parseFrequencyList(frequencyText), table);
-  } catch {
-    return null;
   }
 }

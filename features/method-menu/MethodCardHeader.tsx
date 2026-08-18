@@ -6,13 +6,32 @@ import { cva, type VariantProps } from "class-variance-authority";
 import type { Section } from "@/lib/method-catalogue";
 import { cn } from "@/lib/utils";
 
+import { sectionSoftBackground } from "./section-surface";
 import { useMethodMenuCopy } from "./use-method-menu-copy";
 import { sectionGraphicAlt, sectionGraphicSrc } from "./section-graphic";
 
-const methodCardHeaderVariants = cva("relative w-full shrink-0", {
+const sectionHeaderFade: Record<Section, string> = {
+  reading:
+    "from-section-reading-soft from-0% via-section-reading-soft/70 via-50% to-transparent to-100%",
+  listening:
+    "from-section-listening-soft from-0% via-section-listening-soft/70 via-50% to-transparent to-100%",
+  speaking:
+    "from-section-speaking-soft from-0% via-section-speaking-soft/70 via-50% to-transparent to-100%",
+  writing:
+    "from-section-writing-soft from-0% via-section-writing-soft/70 via-50% to-transparent to-100%",
+  form: "from-section-form-soft from-0% via-section-form-soft/70 via-50% to-transparent to-100%",
+  vocabulary:
+    "from-section-vocabulary-soft from-0% via-section-vocabulary-soft/70 via-50% to-transparent to-100%",
+  world:
+    "from-section-world-soft from-0% via-section-world-soft/70 via-50% to-transparent to-100%",
+  commitments:
+    "from-section-commitments-soft from-0% via-section-commitments-soft/70 via-50% to-transparent to-100%",
+};
+
+const methodCardHeaderVariants = cva("relative w-full shrink-0 overflow-hidden", {
   variants: {
     size: {
-      card: "h-28 overflow-hidden bg-surface",
+      card: "h-28",
       hero: "h-44 bg-canvas sm:h-52",
     },
   },
@@ -34,9 +53,16 @@ export type MethodCardHeaderProps = {
 export function MethodCardHeader({ section, size, className }: MethodCardHeaderProps) {
   const { sections } = useMethodMenuCopy();
   const label = sections[section];
+  const isCard = size !== "hero";
 
   return (
-    <div className={cn(methodCardHeaderVariants({ size }), className)}>
+    <div
+      className={cn(
+        methodCardHeaderVariants({ size }),
+        isCard ? sectionSoftBackground[section] : undefined,
+        className,
+      )}
+    >
       <Image
         src={sectionGraphicSrc[section]}
         alt={sectionGraphicAlt(section, label)}
@@ -49,9 +75,8 @@ export function MethodCardHeader({ section, size, className }: MethodCardHeaderP
             : "(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
         }
         className={cn(
-          size === "hero"
-            ? "object-cover object-center"
-            : "object-contain object-top",
+          "object-cover",
+          isCard ? "object-[center_30%]" : "object-center",
         )}
       />
       <div
@@ -59,7 +84,7 @@ export function MethodCardHeader({ section, size, className }: MethodCardHeaderP
           "pointer-events-none absolute inset-0 bg-gradient-to-t to-transparent",
           size === "hero"
             ? "from-canvas/90 via-canvas/20"
-            : "from-surface from-0% via-surface/70 via-50% to-transparent to-100%",
+            : sectionHeaderFade[section],
         )}
         aria-hidden
       />
@@ -67,7 +92,7 @@ export function MethodCardHeader({ section, size, className }: MethodCardHeaderP
         <span
           className={cn(
             "text-[0.65rem] font-medium uppercase tracking-widest sm:text-xs",
-            size !== "hero"
+            isCard
               ? "rounded-sm bg-surface/70 px-1.5 py-0.5 text-ink backdrop-blur-[2px]"
               : "text-muted",
           )}

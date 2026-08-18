@@ -6,6 +6,8 @@ import { readFileSync } from "node:fs";
 import { join } from "node:path";
 
 import { loadSources, sourceText, type Source } from "@/lib/coverage";
+import { buildGapFillLine, formatGappedSentence } from "@/lib/gap-selection";
+import type { Lexicon } from "@/lib/lexicon";
 
 export const CONTENT_SOURCE_LANGUAGES = ["es", "it"] as const;
 
@@ -75,15 +77,9 @@ function isFrequencyStubSentence(sentence: string): boolean {
   return words.length > 0 && words.every((word) => stubWords.has(word.toLowerCase()));
 }
 
-/** Every second word becomes a gap — v1 text stand-in until audio gaps ship. */
-export function gappedSentence(sentence: string): string {
-  let wordIndex = 0;
-  return sentence.replace(/\S+/g, (word) => {
-    wordIndex += 1;
-    if (wordIndex % 2 !== 0) return word;
-    const punct = word.match(/[.!?]+$/)?.[0] ?? "";
-    return `___${punct}`;
-  });
+/** Build a gapped display line — requires lexicon for principled gaps (T-MU2). */
+export function gappedSentence(sentence: string, lexicon: Lexicon): string {
+  return formatGappedSentence(buildGapFillLine(sentence, lexicon));
 }
 
 export function dictationSentenceFromSource(source: Source): string {

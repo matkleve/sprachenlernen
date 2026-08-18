@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Slice the 4×5 skill-tier badge grid into PNG assets with white removed."""
+"""Slice the 4×5 skill-tier badge grid into PNG assets with background keyed out."""
 
 from __future__ import annotations
 
@@ -15,30 +15,33 @@ DEFAULT_SOURCE = (
     / "image-gen-1_1_-a3fde67c-414c-405e-84ab-bc9ecac24416.png"
 )
 DESIGN_SOURCE = ROOT / "design/skill-tier-badges/source-grid.png"
+DESIGN_SOURCE_V2 = ROOT / "design/skill-tier-badges/source-grid-v2.png"
+DESIGN_SOURCE_ORNATE = ROOT / "design/skill-tier-badges/source-grid-ornate.png"
 OUT_DIR = ROOT / "public/assets/skill-tier-badges"
 
 SKILLS = ["reading", "listening", "speaking", "writing"]
 TIERS = ["wood", "bronze", "silver", "gold", "platinum"]
 
 # Trim gutters inside the uniform grid (tune once per source art).
-MARGIN_X = 0.12
-MARGIN_Y = 0.12
+MARGIN_X = 0.08
+MARGIN_Y = 0.08
 GUTTER_X = 0.02
 GUTTER_Y = 0.03
 
 # Normalised output — shield floats inside canvas so card render never clips tips.
 OUTPUT_SIZE = 256
-CONTENT_FILL = 0.68
+CONTENT_FILL = 0.58
 
 
-def white_to_alpha(image: Image.Image, threshold: int = 238) -> Image.Image:
+def key_background_to_alpha(image: Image.Image) -> Image.Image:
+    """Remove white or black sheet backgrounds — ornate grids ship on black."""
     rgba = image.convert("RGBA")
     pixels = rgba.load()
     width, height = rgba.size
     for y in range(height):
         for x in range(width):
             r, g, b, a = pixels[x, y]
-            if r >= threshold and g >= threshold and b >= threshold:
+            if (r >= 238 and g >= 238 and b >= 238) or (r <= 35 and g <= 35 and b <= 35):
                 pixels[x, y] = (r, g, b, 0)
     return rgba
 
@@ -67,7 +70,7 @@ def crop_cell(image: Image.Image, col: int, row: int) -> Image.Image:
 
 def normalize_badge(cell: Image.Image) -> Image.Image:
     """Centre shield on a square canvas — tips stay inside alpha bounds."""
-    cell = white_to_alpha(cell)
+    cell = key_background_to_alpha(cell)
     bbox = cell.split()[3].getbbox()
     if not bbox:
         return cell
@@ -84,17 +87,25 @@ def normalize_badge(cell: Image.Image) -> Image.Image:
     return canvas
 
 
-def main() -> None:
-    source = DESIGN_SOURCE if DESIGN_SOURCE.exists() else DEFAULT_SOURCE
-    if not source.exists():
-        raise SystemExit(f"Source grid not found: {source}")
+def pick_source() -> Path:
+    for candidate in (
+        DESIGN_SOURCE_ORNATE,
+        DESIGN_SOURCE_V2,
+        DESIGN_SOURCE,
+        DEFAULT_SOURCE,
+    ):
+        if candidate.exists():
+            return candidate
+    raise SystemExit("Source grid not found")
 
+
+def main() -> None:
+    source = pick_source()
     DESIGN_SOURCE.parent.mkdir(parents=True, exist_ok=True)
-    if not DESIGN_SOURCE.exists():
-        shutil.copy2(source, DESIGN_SOURCE)
 
     OUT_DIR.mkdir(parents=True, exist_ok=True)
     grid = Image.open(source)
+    print(f"source {source.relative_to(ROOT)}")
 
     for row, tier in enumerate(TIERS):
         for col, skill in enumerate(SKILLS):

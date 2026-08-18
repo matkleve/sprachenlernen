@@ -5,6 +5,7 @@ Source: design/method-sections/sources/method-sections-grid-v1.png
 Output: public/assets/method-sections/method-section-{section}.webp
 
 Grid layout: 4 columns × 2 rows (study/39). Crops omit baked-in cell labels.
+Pads to banner aspect before resize — never stretch square cells to 3.2∶1.
 """
 
 from __future__ import annotations
@@ -30,11 +31,14 @@ SECTION_GRID: list[tuple[str, int, int]] = [
 ]
 
 OUTPUT_SIZE = (1600, 500)
+TARGET_ASPECT = OUTPUT_SIZE[0] / OUTPUT_SIZE[1]
 COLS, ROWS = 4, 2
 # Trim grid gutters and baked-in caption strip at cell bottom.
 MARGIN_X_FRAC = 0.045
 MARGIN_TOP_FRAC = 0.06
 MARGIN_BOTTOM_FRAC = 0.16
+# Warm Scholar canvas — matches app/globals.css --color-canvas
+PAD_RGB = (247, 244, 239)
 
 
 def crop_cell(img: Image.Image, col: int, row: int) -> Image.Image:
@@ -48,6 +52,21 @@ def crop_cell(img: Image.Image, col: int, row: int) -> Image.Image:
     return img.crop((x0, y0, x1, y1))
 
 
+def pad_to_aspect(cell: Image.Image) -> Image.Image:
+    """Letterbox to banner aspect — preserves motif proportions (no stretch)."""
+    w, h = cell.size
+    current = w / h
+    if current < TARGET_ASPECT:
+        new_w = int(round(h * TARGET_ASPECT))
+        canvas = Image.new("RGB", (new_w, h), PAD_RGB)
+        canvas.paste(cell, ((new_w - w) // 2, 0))
+        return canvas
+    new_h = int(round(w / TARGET_ASPECT))
+    canvas = Image.new("RGB", (w, new_h), PAD_RGB)
+    canvas.paste(cell, (0, (new_h - h) // 2))
+    return canvas
+
+
 def main() -> None:
     if not SOURCE.exists():
         raise SystemExit(f"Missing grid source: {SOURCE}")
@@ -57,7 +76,8 @@ def main() -> None:
 
     for section, col, row in SECTION_GRID:
         cell = crop_cell(grid, col, row)
-        banner = cell.resize(OUTPUT_SIZE, Image.Resampling.LANCZOS)
+        banner = pad_to_aspect(cell)
+        banner = banner.resize(OUTPUT_SIZE, Image.Resampling.LANCZOS)
         target = OUT_DIR / f"method-section-{section}.webp"
         banner.save(target, "WEBP", quality=86, method=6)
         print(f"wrote {target}")

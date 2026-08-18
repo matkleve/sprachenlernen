@@ -37,10 +37,12 @@ export function MethodCard({ method, returnQuery = "" }: MethodCardProps) {
       <MethodCardHeader section={method.section} />
 
       <div className="flex flex-1 flex-col p-4">
-        <h3 className="text-xl font-semibold text-ink">{method.name}</h3>
-        <p className="mt-1 line-clamp-2 text-sm text-muted">{method.summary}</p>
+        <div className="min-h-[4.75rem]">
+          <h3 className="text-xl font-semibold text-ink">{method.name}</h3>
+          <p className="mt-1 line-clamp-2 text-sm text-muted">{method.summary}</p>
+        </div>
 
-        <MethodBadgeRow className="mt-3" method={method} inLink />
+        <MethodBadgeRow className="mt-3 shrink-0" method={method} inLink />
 
         <ul className="mt-3 flex flex-wrap gap-2" aria-label={t('card.properties')}>
           {durationChips(method.durations).map((label) => (

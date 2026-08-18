@@ -301,7 +301,10 @@
     "reviewAnswerKey": "Lösung",
     "reviewMarkErrors": "Tippen Sie auf Wörter, die falsch waren",
     "feedbackPlaceholder": "Automatische Korrektur ist noch nicht verfügbar — vergleichen Sie mit der Lösung und markieren Sie eigene Fehler.",
-    "typeOnlyHint": "Tippen Sie die Lücken — Hören ist vorübergehend pausiert."
+    "typeOnlyHint": "Tippen Sie die Lücken — Hören ist vorübergehend pausiert.",
+    "playAudio": "Audio abspielen",
+    "gapPlaceholder": "…",
+    "gapInputLabel": "Lücke {word}"
   },
   "listeningDefer": {
     "sectionLabel": "Ton",

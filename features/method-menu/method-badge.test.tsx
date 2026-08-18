@@ -38,11 +38,14 @@ describe("MethodBadgeRow", () => {
     expect(screen.queryByText(en.methodMenu.evidenceCard.C)).toBeNull();
   });
 
-  it("right-aligns effort on the badge row", () => {
+  it("right-aligns effort on the badge row without chip chrome", () => {
     const { container } = render(<MethodBadgeRow method={method} />);
     const effort = screen.getByLabelText(/Effort: 1 of 3/i);
     expect(effort.className).toContain("ml-auto");
     expect(effort.className).toContain("text-sm");
+    expect(effort.className).toContain("text-muted");
+    expect(effort.className).not.toContain("border");
+    expect(effort.className).not.toContain("bg-surface");
   });
 });
 

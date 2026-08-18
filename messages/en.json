@@ -301,7 +301,10 @@
     "reviewAnswerKey": "Answer",
     "reviewMarkErrors": "Tap words you got wrong",
     "feedbackPlaceholder": "Automatic correction is not available yet — compare against the answer and mark your own errors.",
-    "typeOnlyHint": "Type the gaps — listening is paused for now."
+    "typeOnlyHint": "Type the gaps — listening is paused for now.",
+    "playAudio": "Play audio",
+    "gapPlaceholder": "…",
+    "gapInputLabel": "Gap {word}"
   },
   "listeningDefer": {
     "sectionLabel": "Sound",

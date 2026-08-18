@@ -4,8 +4,10 @@ import { useTranslations } from "next-intl";
 
 import { Button } from "@/components/ui/Button";
 import { Field } from "@/components/ui/Field";
-import { Input } from "@/components/ui/Input";
+import { Input, Textarea } from "@/components/ui/Input";
 import type { ExerciseRunnerState } from "@/lib/exercise-runner";
+
+import { GapFillStep } from "./GapFillStep";
 
 type ExerciseStepBodyProps = {
   step: ExerciseRunnerState["recipe"]["steps"][number];
@@ -53,6 +55,10 @@ export function ExerciseStepBody({
   }
 
   if (step.type === "do") {
+    if (step.component === "gap-fill") {
+      return <GapFillStep config={step.config} listeningDeferred={listeningDeferred} />;
+    }
+
     const body = typeof step.config.body === "string" ? step.config.body : "";
     return (
       <div className="space-y-2">

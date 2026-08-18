@@ -399,10 +399,10 @@ Cooking-app runner for multi-step Methods (dictation, writing, listening drills)
 | **T-E6** | ~~Recipe loader + fixture method end-to-end~~ — **shipped 2026-08-18** | Standard | T-E4, T-E5 |
 | **T-E7** | Method material setup chips (detail panel) | **Shipped 2026-08-18** | T-E5; [`method-material-setup.md`](specs/feature/method-material-setup.md) |
 | **T-E8** | ~~First real method — partial dictation~~ — **shipped 2026-08-18** (catalogue Source; text gaps v1) | **Sensitive** | T-E6, T-W7 |
-| **T-E9** | Gap-fill step component — listen + type/speak; type-only under defer | Standard | T-E3, T-MU2, T-LD1 |
+| **T-E9** | Gap-fill step component — listen + type/speak; type-only under defer | **Shipped 2026-08-18** | T-E3, T-MU2, T-LD1 |
 | **T-MU0** | ~~Specs + study/39~~ — material units, gap rules, listening defer — **shipped 2026-08-18** | Standard | round-table + owner |
 | **T-MU1** | ~~`lib/material-unit.ts`~~ — sentence / paragraph / window / full — **shipped 2026-08-18** | Standard | T-W7, [`material-unit.md`](specs/service/material-unit.md) |
-| **T-MU2** | Principled gap selection — replace alternating-word placeholder | **Sensitive** | T-MU1, UC-028 |
+| **T-MU2** | Principled gap selection — replace alternating-word placeholder | **Shipped 2026-08-18** | T-MU1, UC-028 |
 | **T-LD1** | ~~Listening defer UI + menu filter~~ — UC-077 — **shipped 2026-08-18** | Standard | [`listening-defer.md`](specs/feature/listening-defer.md) |
 
 **Not this runner:** `srs-session` and card-engine form practice (T-W6) stay on

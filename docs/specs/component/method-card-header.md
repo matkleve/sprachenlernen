@@ -33,8 +33,8 @@ closing this spec.
 | Property | Value |
 | --- | --- |
 | Height | `h-28` (112px) |
-| Image fit | **`object-contain object-top`** on card — never stretch (`object-fill` or wide crop) |
-| Fade | Three stops: `from-surface` 0% → `via-surface/70` 50% → transparent |
+| Image fit | **`object-cover object-[center_30%]`** — crop, never stretch |
+| Fade | Three stops into **section soft** tint — matches card body |
 | Label | Uppercase **`text-ink`**; **scrim pocket** `bg-surface/70` + light blur |
 
 ## Hero variant (`size="hero"`)
@@ -56,9 +56,9 @@ into `canvas`. Unchanged from card polish (T-B10f).
       above the title with full card width.
 - [ ] Given card size, when the header renders, then height is **`h-28`**.
 - [ ] Given card size, when the header renders, then the image uses
-      **`object-contain object-top`** — proportional, never stretched.
+      **`object-cover object-[center_30%]`** — cropped, never stretched.
 - [ ] Given card size, when the header renders, then a **multi-stop** fade
-      merges into `surface` without a visible hard horizon.
+      merges into the **section soft** background without a visible hard horizon.
 - [ ] Given the section label, when the header renders, then contrast meets
       WCAG AA against the fade (scrim pocket behind label).
 - [ ] Given a method in the listening section, when the card renders, then the

@@ -47,8 +47,8 @@ One unit marked `default: true` when multiple listed.
 | 3 | `sentence` / `paragraph` | Substring of `body` or `transcript` |
 | 4 | Unknown unit | Error — honest not-built |
 
-Implementation: `lib/material-unit.ts`. v1 partial dictation uses `sentence` via
-material-unit — **placeholder gap rule** in gaps must still be replaced (T-MU2).
+Implementation: `lib/material-unit.ts`, `lib/gap-selection.ts`. v1 partial dictation uses `sentence` via
+material-unit with principled gaps in `gap-selection.ts` (T-MU2 shipped 2026-08-18).
 
 ## Gap selection (listen-and-fill)
 

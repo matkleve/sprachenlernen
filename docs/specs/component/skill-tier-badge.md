@@ -24,7 +24,7 @@ Implementation: `features/method-menu/SkillTierBadge.tsx`,
 
 | Surface | Size | Notes |
 | --- | --- | --- |
-| **Card** | `h-12 w-10` (`aspect-[4/5]`), `p-1` | 48px long edge |
+| **Card** | `size-12` (`h-12 w-12`), `p-1` | 48px canvas; shield ≤58% fill in PNG |
 | **Detail** | `size-12` (48px) | unchanged |
 | **Overflow `+`** | `h-12 w-10` on cards | matches badge height |
 
