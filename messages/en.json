@@ -675,11 +675,14 @@
     },
     "landing": {
       "eyebrow": "Evidence-driven language learning",
-      "headline": "Progress is shown as measured competence, never as activity.",
-      "subhead": "Sixty-odd ways people actually learn languages, not the handful an app happens to implement.",
+      "headline": "You choose how you practise — we show whether you're really getting somewhere.",
+      "subhead": "Sixty-plus evidence-backed practice methods. You pick what fits today — we show what it's doing for your level.",
       "timeHonesty": "Fifteen minutes a day, every day without missing one, is about {hours} hours a year — roughly a quarter of the way to B1 from a standing start. Feeling slow at that pace is arithmetic, not failure.",
-      "pillarsHeading": "What follows from that",
+      "pillarsHeading": "How we measure it",
       "pillars": [
+        {
+          "text": "Progress is shown as measured competence, never as activity."
+        },
         {
           "text": "The scheduler is a visible surface, not a black box."
         },

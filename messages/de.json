@@ -675,11 +675,14 @@
     },
     "landing": {
       "eyebrow": "Evidenzbasiertes Sprachenlernen",
-      "headline": "Fortschritt wird als gemessene Kompetenz gezeigt, nie als Aktivität.",
-      "subhead": "Über sechzig Wege, wie Menschen tatsächlich Sprachen lernen — nicht die Handvoll, die eine App zufällig umsetzt.",
+      "headline": "Du suchst aus, wie du übst — wir zeigen, ob du wirklich weiterkommst.",
+      "subhead": "Über sechzig gut belegte Übungswege. Du nimmst, was heute passt — wir zeigen, was es für dein Niveau tut.",
       "timeHonesty": "Fünfzehn Minuten täglich, jeden Tag ohne Auslassen, sind etwa {hours} Stunden im Jahr — grob ein Viertel des Wegs zu B1 ab Null. Langsam zu wirken in diesem Tempo ist Arithmetik, kein Versagen.",
-      "pillarsHeading": "Was daraus folgt",
+      "pillarsHeading": "Woran wir das messen",
       "pillars": [
+        {
+          "text": "Fortschritt wird als gemessene Kompetenz gezeigt, nie als Aktivität."
+        },
         {
           "text": "Der Planer ist eine sichtbare Oberfläche, keine Blackbox."
         },

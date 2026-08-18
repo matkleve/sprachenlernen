@@ -237,7 +237,7 @@ screenshots; they argue about thesis numbers in text-only reviews.
 
 | # | Question | Decision | Consequence |
 | --- | --- | --- | --- |
-| 1 | Headline lead | **Too cold** — reject A–D as hero tone; need warmer invitation | New candidates E–H below; thesis sentences move to body/contrast |
+| 1 | Headline lead | **I (owner-shaped)** — choice + checkable progress; rejects cold A–D and preachy "not entertainment" / "apps are hard" framing | Shipped in `messages/` 2026-08-18 |
 | 2 | Product band | **Screenshots first**; later **interactive sandbox** (one method in a try box) | Phase 1 = static captures; Phase 2 = embedded mini-runner or fixture session |
 | 3 | Landing language | **Browser language**, else English | Already shipped: `resolveLocale` uses Accept-Language when signed out ([`resolve-locale.ts`](../../lib/i18n/resolve-locale.ts)); DE keys exist in `messages/de.json` |
 | 4 | Signed-in on `/` | **Stay on `/`** with **To app** CTA | No redirect to `/methods`; hero stays readable for PWA install path |
@@ -262,7 +262,25 @@ Niveau in einem Kreislauf — nicht drei Apps"* ([15](15-landscape.md) K3).
 **Body keeps:** time-honesty paragraph (thesis 12) and contrast block with thesis
 1 — honesty after invitation, not before.
 
-**Owner:** pick E, F, G, or H (or mix headline + subhead across rows).
+**Owner:** ~~pick E, F, G, or H~~ → **I shipped** (below).
+
+### Headline I — owner-shaped (shipped 2026-08-18) **[D]**
+
+Owner direction: method choice + evidence-backed catalogue + real progress — without
+sounding like *"modern apps are hard, we let you choose"* or *"not just
+entertainment"* as the lead. Thesis 1 stays in the pillar list, not the hero.
+
+| | Copy |
+| --- | --- |
+| **EN headline** | You choose how you practise — we show whether you're really getting somewhere. |
+| **DE headline** | Du suchst aus, wie du übst — wir zeigen, ob du wirklich weiterkommst. |
+| **EN subhead** | Sixty-plus evidence-backed practice methods. You pick what fits today — we show what it's doing for your level. |
+| **DE subhead** | Über sechzig gut belegte Übungswege. Du nimmst, was heute passt — wir zeigen, was es für dein Niveau tut. |
+
+Study anchors: thesis 13 (learner chooses method), [21](21-method-catalogue-and-context.md)
+(evidence grades), [03](03-level-model.md) (level as feedback). Avoided: thesis-1
+negation as hero; thesis-10 "handful an app implements" subhead; explicit
+anti-gamification opener.
 
 ---
 
@@ -302,7 +320,7 @@ screenshots.
 
 ## Open decisions (owners)
 
-1. ~~Headline lead~~ → **E / F / G / H** (warmer set); reject cold A–D for hero
+1. ~~Headline lead~~ → **I shipped** (study/38, owner 2026-08-18)
 2. ~~Screenshot vs sandbox~~ → **screenshots first**, sandbox one method later
 3. ~~Landing language~~ → **browser locale, fallback en** (already implemented)
 4. ~~Signed-in `/`~~ → **stay on `/`**

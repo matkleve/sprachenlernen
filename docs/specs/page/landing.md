@@ -6,8 +6,10 @@
 
 The public front door at `/` ([ADR-0010](../../adr/0010-the-route-model.md)).
 Its job is to tell a signed-out visitor what this app is for and how to get in.
-**T-B7 (2026-08-11):** thesis 1 leads the headline; thesis 12 names the honest
-time denominator in the body.
+**T-B7 (2026-08-11):** thesis 1 led the headline; thesis 12 names the honest
+time denominator in the body. **Owner 2026-08-18:** headline now leads with method
+choice and checkable progress ([`study/38`](../../study/38-landing-page-update.md)
+candidate **I**); thesis 1 moves to the pillar/contrast layer, not the hero.
 Serves [UC-011](../../use-cases/UC-011-start-in-the-first-minute.md): the
 account is the one unavoidable step, so the path to it must be visible on every
 public page.
@@ -109,8 +111,9 @@ are marked there with their source; nothing is invented for positioning.
       uses `ghost`.
 - [ ] Given any `(marketing)` route, when it renders, then the public header is
       present and no app-shell destination navigation is present.
-- [ ] When the landing page is rendered, then thesis 1 leads the headline and a
-      thesis-12 time-honesty sentence appears in the body (study/25 C4).
+- [ ] When the landing page is rendered, then the headline invites method choice
+      and checkable progress (study/38 I), and a thesis-12 time-honesty sentence
+      appears in the body (study/25 C4).
 - [ ] When the landing page is rendered, it has no axe-core violations.
 
 ## Check
