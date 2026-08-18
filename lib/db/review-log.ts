@@ -160,8 +160,11 @@ export async function appendReview(
   }
 
   const supabase = await resolveClient(client);
-  const account = await getAccount(supabase);
-  if (!account) {
+  const {
+    data: { user },
+    error: authError,
+  } = await supabase.auth.getUser();
+  if (authError || !user) {
     const handled = databaseNotSignedIn({ operation: "save your answer" });
     void logHandledErrorFromRequest(handled);
     return { status: "error", error: handled.userMessage };

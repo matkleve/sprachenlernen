@@ -176,27 +176,35 @@ export function createReviewWriteQueue(options: {
           await options.storage.put(flushingRow);
           await reload();
 
-          const result = await options.flush({
-            reviewId: row.reviewId,
-            taskId: row.taskId,
-            grade: row.grade,
-            reviewedAtMs: row.reviewedAtMs,
-            latencyMs: row.latencyMs,
-            installationId: row.installationId,
-          });
+          let result: FlushReviewResult;
+          try {
+            result = await options.flush({
+              reviewId: row.reviewId,
+              taskId: row.taskId,
+              grade: row.grade,
+              reviewedAtMs: row.reviewedAtMs,
+              latencyMs: row.latencyMs,
+              installationId: row.installationId,
+            });
+          } catch (cause) {
+            result = {
+              status: "error",
+              error: cause instanceof Error ? cause.message : String(cause),
+            };
+          }
 
           if (result.status === "appended") {
             await options.storage.remove(row.reviewId);
           } else {
             const nextAttempts = row.attempts + 1;
+            const flushMessage =
+              result.error || reviewFlushFailed("unknown").userMessage;
             await options.storage.put({
               ...row,
               state: "failed",
               attempts: nextAttempts,
               lastError:
-                nextAttempts >= 5
-                  ? reviewFlushFailed(result.error).userMessage
-                  : row.lastError,
+                nextAttempts >= 5 ? reviewFlushFailed(flushMessage).userMessage : row.lastError,
             });
             scheduleRetry();
           }
@@ -226,7 +234,12 @@ export function createReviewWriteQueue(options: {
       await reload();
       for (const row of cache) {
         if (row.state !== "failed") continue;
-        await options.storage.put({ ...row, state: "pending", lastError: undefined });
+        await options.storage.put({
+          ...row,
+          state: "pending",
+          attempts: 0,
+          lastError: undefined,
+        });
       }
       await reload();
       await flushAll();

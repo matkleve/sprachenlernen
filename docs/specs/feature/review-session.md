@@ -36,7 +36,7 @@ recall or form-recall), grades that append to the review log (T-B2).
 | 4 | Taps a grade (with or without flipping) | Grade queued locally; **next card immediately** (`advancing` → `prompting` or `complete`); server flush runs in the background ([`review-write-queue`](../service/review-write-queue.md)). **`again`** re-inserts the card five positions ahead (or at end if fewer than five remain); **`hard`** re-inserts at end of the remaining queue; **`good`** / **`easy`** do not requeue ([ADR-0012](../../adr/0012-ux-decisions-requeue-i18n-leech-nav.md), UC-071) |
 | 5 | Background flush fails | Session does not rewind; non-blocking status with Retry |
 | 6 | Session `complete` | Summary: cards graded this session; link back to Words and Methods |
-| 7 | Viewport &lt; `md` during an active card | Method name and progress share one line; **run status strip** sits directly under that header; card and grade row fit without page scroll ([`page-layout.md`](page-layout.md) `one-screen-runner`) |
+| 7 | Viewport &lt; `md` during an active card | Method name and progress share one line; run status strip sits directly above the card; card and grade row fit without page scroll ([`page-layout.md`](page-layout.md) `one-screen-runner`) |
 | 8 | Taps **Report** on a card | Popover opens; optional category and note; card is flagged for this learner and spoken language; success banner shown; reported card exits with a short animation and the session advances to the next card without grading ([`broken-card-detection`](../service/broken-card-detection.md), UC-023, UC-073, UC-074) |
 
 ## States
@@ -60,7 +60,8 @@ round trip per card.
 ## Run status strip
 
 One segment per **distinct** card in the built run (same count as `total` on
-each `SessionCard`). Rendered **above** the card and any acknowledgement banners.
+each `SessionCard`). Rendered **directly above** the card (below sync/report
+banners), not under the session title line.
 
 | Segment colour | Meaning |
 | --- | --- |
