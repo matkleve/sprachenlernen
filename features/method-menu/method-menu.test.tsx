@@ -123,7 +123,7 @@ describe("cards", () => {
     show();
     const text = document.body.textContent ?? "";
     for (const method of catalogue.entries.filter(isMethod)) {
-      expect(text).toContain(en.methodMenu.card.effort);
+      expect(text).toContain(en.methodMenu.effortCard[method.intensity]);
       expect(text).not.toContain(en.methodMenu.evidenceCard[method.evidence]);
     }
   });

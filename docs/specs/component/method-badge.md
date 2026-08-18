@@ -30,11 +30,13 @@ Implementation: `features/method-menu/MethodBadge.tsx`.
 
 ## Effort load
 
-Fixed **"Effort"** / localized label (e.g. Anstrengung) + three-dot scale. On
-**cards:** `size="card"` — `text-sm`, `min-h-8`, **right-aligned** (`ml-auto`);
-shields stay left. **Quiet text** — no fill, no border (not a chip). Label
-`text-muted`; dots use `bg-ink` / `bg-line`. `aria-label` carries the
-`intensity` anchor sentence.
+Short **effort label** from `effortCard` (e.g. "Light effort", "Leichte
+Anstrengung") in an **accent pill** — `bg-accent-soft text-accent
+font-semibold`,
+`rounded-pill`. On **cards:** `size="card"` — `text-sm`, `min-h-8`,
+**right-aligned** (`ml-auto`); shields stay left. No dot scale; the words carry
+the level. `aria-label` adds `(N of 3)` and the `intensity` anchor sentence;
+`title` shows the anchor.
 
 ## States
 
@@ -45,8 +47,8 @@ Non-interactive. Inside card links (`inLink`), visible row is `aria-hidden`;
 
 - [ ] Given a method card, when it renders, then tier shields and effort dots
       appear in that order above logistics chips.
-- [ ] Given intensity 2, when the card renders, then effort shows "Effort" and
-      two filled dots.
+- [ ] Given intensity 2, when the card renders, then effort shows the
+      `effortCard` short label (e.g. "Needs focus") in an accent pill.
 - [ ] Given a card link, when a screen reader announces it, then the summary
       includes tier and effort — not evidence text.
 - [ ] Given any badge, when it renders, then only token utilities are used.
