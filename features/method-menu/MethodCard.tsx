@@ -37,7 +37,7 @@ export function MethodCard({ method, returnQuery = "" }: MethodCardProps) {
       <MethodCardHeader section={method.section} />
 
       <div className="flex flex-1 flex-col p-4">
-        <h3 className="text-lg font-semibold text-ink">{method.name}</h3>
+        <h3 className="text-xl font-semibold text-ink">{method.name}</h3>
         <p className="mt-1 line-clamp-2 text-sm text-muted">{method.summary}</p>
 
         <MethodBadgeRow className="mt-3" method={method} inLink />

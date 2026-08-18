@@ -24,13 +24,17 @@ Implementation: `features/method-menu/MethodCardHeader.tsx`,
 
 Asset brief: [`../../study/39-method-section-graphics-brief.md`](../../study/39-method-section-graphics-brief.md).
 
+**Art dependency (T-B10f-b):** code layout shipped; owner still reports wrong crop
+on listening headphones — **re-export section WebPs** per study/40 H5–H6 before
+closing this spec.
+
 ## Card variant (`size="card"`)
 
 | Property | Value |
 | --- | --- |
-| Height | `h-24` (96px) |
-| Image fit | `object-cover object-[center_30%]` — never `object-fill` |
-| Fade | Three stops: `from-surface` 0% → `via-surface/60` 40% → transparent |
+| Height | `h-28` (112px) |
+| Image fit | **`object-contain object-top`** on card — never stretch (`object-fill` or wide crop) |
+| Fade | Three stops: `from-surface` 0% → `via-surface/70` 50% → transparent |
 | Label | Uppercase **`text-ink`**; **scrim pocket** `bg-surface/70` + light blur |
 
 ## Hero variant (`size="hero"`)
@@ -50,9 +54,9 @@ into `canvas`. Unchanged from card polish (T-B10f).
 
 - [ ] Given any method card, when it renders, then a header graphic appears
       above the title with full card width.
-- [ ] Given card size, when the header renders, then height is **`h-24`**.
+- [ ] Given card size, when the header renders, then height is **`h-28`**.
 - [ ] Given card size, when the header renders, then the image uses
-      **`object-cover`** with **`object-[center_30%]`** — never `object-fill`.
+      **`object-contain object-top`** — proportional, never stretched.
 - [ ] Given card size, when the header renders, then a **multi-stop** fade
       merges into `surface` without a visible hard horizon.
 - [ ] Given the section label, when the header renders, then contrast meets

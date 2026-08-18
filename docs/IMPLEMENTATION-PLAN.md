@@ -336,7 +336,8 @@ low-inference agent would silently invent.
 | **T-B10c** | Method surfaces UX — badges, card headers, detail layout, chip fix | **Shipped 2026-08-15.** study/27. Skill/evidence/effort badge row (plain labels on cards), section header graphics, detail article layout (Practical → Trains → doesNotDo; evidence in disclosure) |
 | **T-B10d** | Method surfaces property audit — align UI to study/36 | **Shipped 2026-08-16.** Plain effort on detail band; evidence disclosure-only; effort anchor in Practical; all requirement chips on cards; full-bleed hero kept |
 | **T-B10e** | Composite skill-tier badges + effort dots | **Shipped 2026-08-18.** Evidence+value tiers, wood/cap/`+`, PNG assets from grid, cards + detail |
-| **T-B10f** | Method card visual polish | **Shipped 2026-08-18.** `h-24` header, multi-stop fade, `text-lg` title, 40px portrait shields, re-sliced PNGs |
+| **T-B10f-a** | Method card polish — code | **Shipped 2026-08-18** — header layout, title, badge wrapper; owner LIVE CHECK **failed** on art |
+| **T-B10f-b** | Method card polish — assets + layout v2 | **In progress 2026-08-18** — `object-contain` header, 48px shields, padded PNGs |
 | **T-B4** | Dose ledger (F184) | **Denominator shipped** on `/progress` (question 19, first branch). **Numerator** (hours you practised) still out — needs practice-time logging beyond card `latency_ms` |
 | ~~**T-B7**~~ | ~~The landing page~~ — **shipped 2026-08-11** | Thesis 1 headline + thesis 12 time honesty in body |
 | ~~**T-B10**~~ | ~~The method menu — the product's front door~~ — **shipped 2026-08-09** | Filters, time scale, hosted routing. Learner half continued in T-B10b |
@@ -370,13 +371,15 @@ honest Spanish/Italian; offline unlocks commute practice.
 | **6** | ~~**T-B10c** — method badges + detail layout~~ — **shipped 2026-08-15** | Scannable catalogue; fixes two-line chip + truncated-title UX |
 | **6b** | ~~**T-B10d** — property audit alignment ([`study/36`](study/36-method-surfaces-property-audit.md))~~ — **shipped 2026-08-16** | Plain effort everywhere; all requirement chips on cards; evidence disclosure-only on detail |
 | **6c** | ~~**T-B10e** — composite tier badges, effort dots, real assets~~ — **shipped 2026-08-18** | [`skill-tier.md`](specs/service/skill-tier.md); `scripts/slice-skill-tier-badges.py` |
+| **6d** | **T-B10f-b** — method card polish assets | **Blocked** — section WebP re-compose + shield card PNGs; owner LIVE CHECK failed on art ([`study/40`](study/40-method-card-visual-polish.md)) |
 | **7** | **T-B10b remainder** — ~~demonstration sentence~~ **shipped 2026-08-16**; readiness ([`study/26`](study/26-readiness-and-difficulty.md)) | Methods front door complete |
 | **7b** | ~~**Exercise runner** (T-E1–E8)~~ — **T-E1–E6 + T-E8 shipped 2026-08-18**; T-E7 material setup open | UC-049 |
 | **8** | **T-B4 numerator** — guided hours practised (thesis 9: not card time alone) | Progress per hour invested (study/03 V3) |
 
 **Still partial in Track B:** T-B3 (pool-local only), T-B10b (standing + daily
-three shipped; T-B10e shipped 2026-08-18), T-B4 (denominator only), T-B9 (multi-device share works; full
-offline does not). **T-W16** review horizon v2 shipped 2026-08-15.
+three shipped; readiness out), **T-B10f** (code shipped; **assets blocked** on
+study/40), T-B4 (denominator only), T-B9 (multi-device share works; full offline
+does not). **T-W16** review horizon v2 shipped 2026-08-15.
 
 ### Track B · Exercise runner (UC-049) — specced 2026-08-17
 

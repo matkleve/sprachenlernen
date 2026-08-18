@@ -159,8 +159,8 @@ export function LanguageSwitcher({
             <div
               role="menu"
               aria-label={t("switchLanguage")}
-              className="fixed z-language-switcher-menu inset-x-6 flex flex-col gap-3"
-              style={{ top: menuTop }}
+              className="fixed z-language-switcher-menu flex w-[min(100vw-2rem,24rem)] flex-col gap-3"
+              style={{ top: menuTop, left: triggerPosition?.left ?? 24 }}
             >
               {languages.map((language) => {
                 const standing = languageHoldings?.[language.code];

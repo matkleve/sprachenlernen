@@ -25,7 +25,7 @@ describe("SkillTierBadge", () => {
       <SkillTierBadge skill="listening" tier="wood" size="card" />,
     );
     const wrapper = container.firstElementChild;
-    expect(wrapper?.className).toContain("h-10");
+    expect(wrapper?.className).toContain("h-12");
     expect(wrapper?.className).toContain("aspect-[4/5]");
   });
 });

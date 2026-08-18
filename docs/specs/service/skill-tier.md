@@ -31,10 +31,10 @@ wood is dropped. Rank platinum → wood; show top 3 + `+` overflow.
 
 ## Acceptance criteria
 
-- [ ] Given primary + evidence A + not weak trains, when tiers compute, then
+- [x] Given primary + evidence A + not weak trains, when tiers compute, then
       platinum is assigned.
-- [ ] Given background listening, when tiers compute, then listening is wood.
-- [ ] Given four qualifying shields, when the badge band renders, then three
+- [x] Given background listening, when tiers compute, then listening is wood.
+- [x] Given four qualifying shields, when the badge band renders, then three
       shields and `+` overflow appear.
 
 ## Check

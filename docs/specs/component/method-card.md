@@ -19,7 +19,7 @@ Implementation: `features/method-menu/MethodCard.tsx`.
 
 | Element | Class | Notes |
 | --- | --- | --- |
-| Method name (`h3`) | `text-lg font-semibold text-ink` | Primary identity on the card |
+| Method name (`h3`) | `text-xl font-semibold text-ink` | Primary identity on the card |
 | Summary | `text-sm text-muted line-clamp-2` | unchanged |
 | Badge row | See [`method-badge.md`](method-badge.md) | tier shields + effort dots |
 | Property chips | [`chip.md`](chip.md) | one duration chip, all requirements |

@@ -12,7 +12,7 @@ import { sectionGraphicAlt, sectionGraphicSrc } from "./section-graphic";
 const methodCardHeaderVariants = cva("relative w-full shrink-0", {
   variants: {
     size: {
-      card: "h-24 bg-surface",
+      card: "h-28 overflow-hidden bg-surface",
       hero: "h-44 bg-canvas sm:h-52",
     },
   },
@@ -49,8 +49,9 @@ export function MethodCardHeader({ section, size, className }: MethodCardHeaderP
             : "(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
         }
         className={cn(
-          "object-cover",
-          size === "hero" ? "object-center" : "object-[center_30%]",
+          size === "hero"
+            ? "object-cover object-center"
+            : "object-contain object-top",
         )}
       />
       <div
@@ -58,7 +59,7 @@ export function MethodCardHeader({ section, size, className }: MethodCardHeaderP
           "pointer-events-none absolute inset-0 bg-gradient-to-t to-transparent",
           size === "hero"
             ? "from-canvas/90 via-canvas/20"
-            : "from-surface from-0% via-surface/60 via-[40%] to-transparent to-100%",
+            : "from-surface from-0% via-surface/70 via-50% to-transparent to-100%",
         )}
         aria-hidden
       />

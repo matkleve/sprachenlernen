@@ -24,14 +24,15 @@ describe("MethodCardHeader", () => {
 
   it("keeps a fixed header height for catalogue scanability", () => {
     const { container } = render(<MethodCardHeader section="reading" />);
-    expect(container.firstElementChild?.className).toContain("h-24");
+    expect(container.firstElementChild?.className).toContain("h-28");
   });
 
-  it("crops the card graphic from upper-centre with a multi-stop fade", () => {
+  it("fits the card graphic without stretching (contain, top-aligned)", () => {
     const { container } = render(<MethodCardHeader section="listening" />);
     const image = container.querySelector("img");
-    expect(image?.className).toContain("object-[center_30%]");
-    expect(container.querySelector("[aria-hidden]")?.className).toContain("via-[40%]");
+    expect(image?.className).toContain("object-contain");
+    expect(image?.className).toContain("object-top");
+    expect(container.querySelector("[aria-hidden]")?.className).toContain("via-50%");
   });
 
   it("uses a scrim pocket and ink label on card headers for contrast", () => {

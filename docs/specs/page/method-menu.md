@@ -40,9 +40,9 @@ plain text — never a dot scale.
 (one abstract image per catalogue section, decorative) with a soft gradient into
 the card body. Component [`method-card-header.md`](../component/method-card-header.md).
 
-**Card visual polish (UX, 2026-08-18):** study/40 — shipped T-B10f (`h-24` header,
-`text-lg` title, larger tier shields). Component
-[`method-card.md`](../component/method-card.md).
+**Card visual polish (UX, 2026-08-18):** study/40 — T-B10f-a code shipped;
+**T-B10f-b blocked** on designer assets (shields still clipped, header crop).
+Component [`method-card.md`](../component/method-card.md).
 
 No accent left border — uniform `rounded-card` only.
 

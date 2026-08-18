@@ -16,6 +16,7 @@
     "check:contrast": "node scripts/check-contrast.mjs",
     "check:neighbors": "node scripts/check-neighbor-candidates.mjs",
     "verify": "node scripts/verify.mjs",
+    "verify:scope": "node scripts/verify-scope.mjs",
     "new:spec": "node scripts/new-spec.mjs",
     "build:starter-deck": "node scripts/build-starter-deck.mjs",
     "build:descriptions": "node scripts/export-description-snapshots.mjs",

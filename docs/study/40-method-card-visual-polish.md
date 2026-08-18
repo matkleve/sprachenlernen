@@ -1,126 +1,102 @@
 # 40 · Method card visual polish — UX designer review
 
-**Status:** shipped — owner GO 2026-08-18 (T-B10f).
+**Status:** **open — owner feedback 2026-08-18, confirmed still failing after
+v0.25.3.** Code pass landed (T-B10f-a); **assets pass not done** (T-B10f-b).
+Do not mark shipped until owner LIVE CHECK passes on `/methods`.
 
 Companion: [`method-card-header.md`](../specs/component/method-card-header.md),
 [`skill-tier-badge.md`](../specs/component/skill-tier-badge.md),
+[`method-card.md`](../specs/component/method-card.md),
 [39](39-method-section-graphics-brief.md), [33](33-skill-tier-badges-exploration.md).
 
 ---
 
 ## What the owner reported
 
-On catalogue cards (`/methods`):
+On catalogue cards (`/methods`), screenshot: Background listening, DE:
 
 1. **Section header image** looks **stretched** / wrong crop — headphones read
    squashed wide.
-2. Header should **fade more** into the card body — current edge feels hard;
+2. Header should **fade more** into the card body — edge still feels hard;
    contrast with the section label (`HÖREN`) must stay readable.
 3. **Method title** (`h3`) is **too small** for the primary identity on the card.
-4. **Skill-tier shields** in the badge row feel **too small**, **clipped** at
-   the edges, and possibly squashed — wood listening shield barely readable.
+4. **Skill-tier shields** feel **too small**, **clipped** at the edges (shield
+   point and bottom corners cut off), barely readable at catalogue distance.
 
 ---
 
-## Diagnosis (code + assets)
+## What already landed in code (T-B10f-a) — not enough alone
 
-### A · Section header (`MethodCardHeader`, card size)
+| Change | File | Owner still sees problem? |
+| --- | --- | --- |
+| Header `h-20` → `h-24` | `MethodCardHeader.tsx` | **Yes** — crop still wrong; asset composition |
+| `object-[center_30%]` | same | **Yes** — motif still reads flat/wide |
+| Three-stop fade + label scrim | same | **Partial** — fade better; headphones still dominate |
+| Title `text-base` → `text-lg` | `MethodCard.tsx` | **Check** — may be enough; owner wanted bigger |
+| Shields `28px` → `40px` portrait | `SkillTierBadge.tsx` | **Yes** — still tiny and **cut** |
+| Grid re-slice 12% margin | `slice-skill-tier-badges.py` | **No effect** — see asset audit below |
 
-| Finding | Cause |
-| --- | --- |
-| Motif feels stretched | Assets are **1600×500 (3.2∶1)** but the card slot is **~full width × 80px (`h-20`)** — on a 1-column mobile card that is **~4–5∶1**. `object-cover` **crops** sides, not stretches — but a **centre-weighted** wide motif (headphones) loses vertical context and reads as “squashed into a strip”. |
-| Hard cut into body | Gradient is **two stops**: `from-surface/90 via-surface/20 to-transparent`. The `via` at 20% opacity leaves a visible **horizon line** before the title block. |
-| Label contrast risk | Section label sits **on** the fade (`text-muted`, lower-left). A stronger fade without a **scrim pocket** for the label will drop contrast below WCAG on busy motifs. |
-
-**Verdict:** Fix is **layout + gradient**, not only new art. If art is re-exported,
-keep **wide** format but compose motif **higher** in frame so `object-cover` with
-`object-position` centre-top preserves proportions.
-
-### B · Card title (`MethodCard`)
-
-| Finding | Cause |
-| --- | --- |
-| Title undersized | `text-base` (16px) — same scale as dense UI chrome; catalogue **name** should lead the body block. |
-
-**Verdict:** Bump to **`text-lg`** (`font-semibold`) on cards; keep summary at
-`text-sm`. Detail `<h1>` unchanged.
-
-### C · Skill-tier shields on cards (`SkillTierBadge`, `size="card"`)
-
-| Finding | Cause |
-| --- | --- |
-| Too small | Card size is **`size-7` (28×28px)** — detail uses **48px**. Heraldic shields need ~**1.5×** card scale to read at catalogue distance. |
-| Clipped / cut off | Grid slice uses **tight crops** (`MARGIN_X/Y` 4–6%); shield **points and frame flourishes** sit near cell edges → PNG alpha eats tips. `object-contain` in a **square** box clips a **tall** shield silhouette. |
-| Squashed appearance | Same square box — shield is **not** square; forcing fit reads as crushed. |
-
-**Verdict:** **Code:** larger hit target, inner padding, non-square aspect optional
-(`h-10 w-9`). **Assets:** re-export card lane with **10–15% transparent padding**
-inside each cell before slice; or separate **@2x card** exports (64px nominal).
+**Lesson:** CSS cannot fix shields whose **PNG alpha already eats the tips**.
+Section banners need **re-composed art**, not only `object-position`.
 
 ---
 
-## UX recommendations (designer sign-off)
+## Asset audit (2026-08-18, `listening-wood.png`)
 
-### 1 · Section header — card variant only
+```
+File size:     189 × 171 px
+Content bbox:  (0, 8) → (189, 171)   ← touches left, right, bottom edges
+Margins:       L 0 · R 0 · T 8 · B 0
+```
+
+The clip is **in the file**, not the React wrapper. `p-0.5` and `aspect-[4/5]`
+cannot restore missing pixels.
+
+---
+
+## UX recommendations — designer sign-off required
+
+### 1 · Section header (card variant)
 
 | # | Change | Rationale |
 | --- | --- | --- |
-| H1 | Increase card header height **`h-20` → `h-24`** (96px) | More vertical room; less aggressive crop |
-| H2 | `object-cover` + **`object-[center_30%]`** (focal point upper-centre) | Headphones / motifs keep natural proportions |
-| H3 | **Three-stop** fade: `from-surface` at bottom **100%** → **60%** at 40% → transparent top | Softer merge into card body; no hard line |
-| H4 | **Label scrim:** 4px rounded pocket or `text-shadow` / `bg-surface/40` backdrop blur **only behind label** | Stronger fade without losing “HÖREN” contrast |
-| H5 | Hero variant (`size="hero"`) **unchanged** in v1 — tune card first | Detail hero already uses taller band |
+| H1 | Keep **`h-24`**; try **`h-28`** if squint test still fails | More vertical room before re-export |
+| H2 | **`object-cover object-[center_30%]`** in code — keep | Never `object-fill` |
+| H3 | **Softer fade:** bottom `surface` 100% → 70% at 50% → transparent | Owner wants more merge into body |
+| H4 | **Label scrim** — keep `bg-surface/70` + `text-ink` | Contrast when fade deepens |
+| **H5 · ART** | Re-export 8 WebPs: motif in **upper 60%**, bottom **40% soft/empty** | Fixes “stretched strip” at source — [39](39-method-section-graphics-brief.md) |
+| H6 | Squint test: **96×320px** and **96×400px** mock before handoff | Matches 1-col and 3-col card widths |
 
-**Do not** use `object-fill` (that would truly stretch). **Do not** reduce
-header height to fix width.
+**Designer deliverable:** replace files in `public/assets/method-sections/` in place
+(same names). No per-method assets.
 
-### 2 · Card title typography
+### 2 · Card title
 
-| Element | Current | Proposed |
+| Element | Shipped | Designer / owner |
 | --- | --- | --- |
-| Method name (`h3`) | `text-base font-semibold` | **`text-lg font-semibold`** |
+| Method name (`h3`) | `text-lg font-semibold` | If still small: **`text-xl`** on `sm+` only — owner decides |
 | Summary | `text-sm text-muted` | unchanged |
-| Line clamp | `line-clamp-2` on summary | unchanged |
 
-### 3 · Skill-tier shields — card row
+### 3 · Skill-tier shields — **blocked on new art**
 
 | # | Change | Rationale |
 | --- | --- | --- |
-| S1 | Card badge **`size-10`** (40px) minimum; detail stays 48px | Readable wood/bronze at arm's length |
-| S2 | Wrapper **`p-0.5`** or `scale-95` inside box — never flush to clip | Tips of shield not cropped by box |
-| S3 | Prefer **`aspect-[4/5]`** container (portrait) over square | Matches shield silhouette |
-| S4 | Re-slice grid with **larger inner margin** (12% per cell) or deliver **card** + **detail** PNG sets | Asset fix beats CSS upscale |
-| S5 | `+` overflow chip **same height** as shields | Row alignment |
+| S1 | **Card size 48px** (`size-12`) — same as detail, not 40px | Owner: still too small at arm's length |
+| S2 | **Separate card PNG set** `{skill}-{tier}-card.png` at **96×96 canvas**, shield **≤70%** of cell | Tips never touch bbox; detail keeps current PNGs |
+| S3 | Or: re-export **source grid** with shield **scaled to 65%** centred in each cell | Then re-run slice script with `MARGIN_X/Y ≥ 0.18` |
+| S4 | Wrapper: `object-contain`, **no** square crop; min `h-12 w-10` portrait | Code change after assets land |
+| S5 | Acceptance: **full heraldic silhouette** — point, ears, frame visible | Fails today — see screenshot |
 
-### 4 · Badge row rhythm
+**Designer deliverable (pick one):**
 
-Keep order: **shields → Effort dots**. Increase **`gap-2`** between shield and
-effort chip so the row breathes (currently `gap-1` in `SkillTierBadgeRow`).
+- [ ] **Option A:** New grid `design/skill-tier-badges/source-grid-v2.png` + slice
+- [ ] **Option B:** 20 files `*-card.png` (4 skills × 5 tiers) with generous padding
 
----
+Runbook: `scripts/slice-skill-tier-badges.py` — document final margins in script.
 
-## What to rework (designer deliverables)
+### 4 · Unchanged
 
-### Section graphics (if re-export)
-
-- [ ] Re-compose each of 8 banners with motif in **upper two-thirds**; bottom
-      third left soft for fade (see [39](39-method-section-graphics-brief.md)).
-- [ ] Squint test at **96px height** × **320px width** (narrow card mock).
-- [ ] No change to file names or paths — replace WebP in place.
-
-### Skill-tier shields (re-slice or v2 grid)
-
-- [ ] Add **transparent padding** inside each grid cell before export (shield
-      floats, no tip clipping).
-- [ ] Optional: second export **`{skill}-{tier}-card.png`** at 80×80 with
-      extra padding; detail keeps 96×96 or current PNG.
-- [ ] Re-run `scripts/slice-skill-tier-badges.py` after margin tweak — document
-      final `MARGIN_*` in script comment.
-
-### No rework needed
-
-- Effort dot control (reads fine at current size).
-- Chip row, `doesNotDo` prose, section surface tint.
+Effort dots, chip row, `doesNotDo` prose, section surface tint.
 
 ---
 
@@ -128,27 +104,35 @@ effort chip so the row breathes (currently `gap-1` in `SkillTierBadgeRow`).
 
 | Idea | Why rejected |
 | --- | --- |
-| `object-contain` + letterbox for header | Empty bands left/right on wide cards — looks like a bug |
-| Same 28px shields, sharper assets only | Still too small for catalogue scan; clipping is structural |
-| Bigger header only, no gradient change | Fade complaint unresolved |
-| Photographic full-bleed headers per method | Violates study/27 gestalt — 53 unique assets |
+| Bigger CSS box only | Tips already missing from PNG |
+| `object-fill` on header | True stretch — worse |
+| `object-contain` + letterbox on header | Empty side bands look broken |
+| Ship T-B10f as done | Owner screenshot proves shields still clipped |
 
 ---
 
-## Spec promotion checklist (shipped T-B10f)
+## Implementation phases
 
-- [x] Update [`method-card-header.md`](../specs/component/method-card-header.md)
-- [x] Update [`skill-tier-badge.md`](../specs/component/skill-tier-badge.md)
-- [x] Add [`method-card.md`](../specs/component/method-card.md)
-- [x] Implement T-B10f; `npm test -- method-card-header method-badge skill-tier`
-- [ ] Visual check DE + EN on `/methods` (1-col and 3-col) — LIVE CHECK (owner)
+| Phase | Owner | Work |
+| --- | --- | --- |
+| **T-B10f-a** | Done in code | Header layout, title, badge wrapper — **insufficient without art** |
+| **T-B10f-b** | **Blocked** | Section WebP re-export + shield card PNGs |
+| **T-B10f-c** | After b | Wire `*-card.png` in `skill-tier-badges.ts`; bump card size to 48px; LIVE CHECK |
+
+---
+
+## Spec checklist (designer handoff)
+
+- [x] [`method-card-header.md`](../specs/component/method-card-header.md) — code rules + art dependency noted
+- [x] [`skill-tier-badge.md`](../specs/component/skill-tier-badge.md) — card AC **failing** until new assets
+- [x] [`method-card.md`](../specs/component/method-card.md) — title scale
+- [ ] Designer assets delivered
+- [ ] T-B10f-b implemented; owner LIVE CHECK DE + EN, 1-col + 3-col
 
 ---
 
 ## Open questions for owner
 
-1. **Header height:** `h-24` (96px) or **`h-28`** (112px)? Recommend **h-24**
-   first — less scroll cost on daily-three stack.
-2. **Card shields:** one PNG set with padding, or **card + detail** asset pairs?
-3. **Title:** `text-lg` only, or **`text-lg` on sm+** and `text-base` on very
-   narrow? Recommend **single step** `text-lg` everywhere for consistency.
+1. Header: stay **`h-24`** or try **`h-28`** with new art?
+2. Shields: **Option A** (new grid) or **Option B** (card-only PNGs)?
+3. Title: keep **`text-lg`** or bump to **`text-xl`** on `sm+`?

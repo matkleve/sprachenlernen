@@ -17,14 +17,14 @@ longer gets skimmed instead of read.
 ## Commands
 
 ```bash
-npm run dev       # dev server
-npm run verify    # ← the gate. Runs typecheck, lint, check:specs, check:tokens,
-                  #   check:contrast, test and build. Run before every commit.
-# After merge to main — docs/VERSIONING.md: release:shame (bugfix) or release:ship (feature)
+npm run dev
+npm run verify:scope -- <scope>   # iterate — docs/VERIFY-SCOPES.md
+npm run verify                    # commit/merge only (~7min)
 ```
 
-Never report work as done without a green `verify` — paste the output. To re-run
-one failing check alone: `node scripts/verify.mjs tokens`.
+Scoped while building; full before commit — [`docs/VERIFY-SCOPES.md`](docs/VERIFY-SCOPES.md).
+Paste scoped output for review; full output when commit-ready. One check alone:
+`node scripts/verify.mjs tokens`.
 
 ---
 
@@ -36,8 +36,8 @@ de-escalate silently.
 
 | Class | Examples | Required before merge |
 | --- | --- | --- |
-| **Trivial** | copy/label text, comment, log line, single token swap, pure rename | `npm run verify` green |
-| **Standard** | new component, new hook or helper, list/filter/sort, a self-contained UI surface | spec written/updated **first**; `verify` green; reuse check (§ Boundaries); one new test that covers the acceptance criteria |
+| **Trivial** | copy/label text, comment, log line, single token swap, pure rename | scoped or full `verify` green |
+| **Standard** | new component, new hook or helper, list/filter/sort, a self-contained UI surface | spec **first**; scoped verify while iterating; **full** `verify` before commit; reuse check (§ Boundaries); one AC test |
 | **Sensitive** | auth, money, data deletion, anything persisted, stateful/FSM UI, anything a user can't undo | everything in Standard **plus**: red-test-first (test shown failing before, passing after), fresh-context adversarial review by a different agent than the implementer |
 
 Full pipeline, Definition of Ready and Definition of Done:

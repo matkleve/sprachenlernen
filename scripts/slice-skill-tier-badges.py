@@ -21,11 +21,14 @@ SKILLS = ["reading", "listening", "speaking", "writing"]
 TIERS = ["wood", "bronze", "silver", "gold", "platinum"]
 
 # Trim gutters inside the uniform grid (tune once per source art).
-# 12% margin — card shields need tip/frame clearance (study/40, T-B10f).
 MARGIN_X = 0.12
 MARGIN_Y = 0.12
 GUTTER_X = 0.02
 GUTTER_Y = 0.03
+
+# Normalised output — shield floats inside canvas so card render never clips tips.
+OUTPUT_SIZE = 256
+CONTENT_FILL = 0.68
 
 
 def white_to_alpha(image: Image.Image, threshold: int = 238) -> Image.Image:
@@ -62,6 +65,25 @@ def crop_cell(image: Image.Image, col: int, row: int) -> Image.Image:
     return image.crop((int(left), int(top), int(right), int(bottom)))
 
 
+def normalize_badge(cell: Image.Image) -> Image.Image:
+    """Centre shield on a square canvas — tips stay inside alpha bounds."""
+    cell = white_to_alpha(cell)
+    bbox = cell.split()[3].getbbox()
+    if not bbox:
+        return cell
+
+    content = cell.crop(bbox)
+    cw, ch = content.size
+    target = int(OUTPUT_SIZE * CONTENT_FILL)
+    scale = min(target / cw, target / ch)
+    nw, nh = max(1, int(cw * scale)), max(1, int(ch * scale))
+    content = content.resize((nw, nh), Image.Resampling.LANCZOS)
+
+    canvas = Image.new("RGBA", (OUTPUT_SIZE, OUTPUT_SIZE), (0, 0, 0, 0))
+    canvas.paste(content, ((OUTPUT_SIZE - nw) // 2, (OUTPUT_SIZE - nh) // 2), content)
+    return canvas
+
+
 def main() -> None:
     source = DESIGN_SOURCE if DESIGN_SOURCE.exists() else DEFAULT_SOURCE
     if not source.exists():
@@ -77,7 +99,7 @@ def main() -> None:
     for row, tier in enumerate(TIERS):
         for col, skill in enumerate(SKILLS):
             cell = crop_cell(grid, col, row)
-            cell = white_to_alpha(cell)
+            cell = normalize_badge(cell)
             out = OUT_DIR / f"{skill}-{tier}.png"
             cell.save(out, format="PNG", optimize=True)
             print(f"wrote {out.relative_to(ROOT)}")

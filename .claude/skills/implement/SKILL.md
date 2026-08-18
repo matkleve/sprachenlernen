@@ -62,12 +62,20 @@ codebases like this one. It is also the easiest to check.
 
 ## 6. Verify
 
+While iterating:
+
+```bash
+npm run verify:scope -- <scope>   # docs/VERIFY-SCOPES.md — method-menu, changed, …
+```
+
+Before commit or "done":
+
 ```bash
 npm run verify
 ```
 
-Paste the output. Then walk the acceptance criteria one by one and say, for
-each, what demonstrates it. "It builds" demonstrates nothing.
+Paste scoped output for review handoff; paste **full** output only when
+commit-ready. Walk each acceptance criterion — "it builds" demonstrates nothing.
 
 If the user corrected you at any point: update the spec **in this session**,
 before you finish. A spec that lags behind the code has stopped being a contract.
