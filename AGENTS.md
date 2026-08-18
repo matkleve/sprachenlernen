@@ -71,6 +71,7 @@ Full pipeline, Definition of Ready and Definition of Done:
 8. **Never invent a rule to keep moving.** When the spec cannot answer the
    question, emit `⚠ SPEC GAP: <what is undecided>` and stop on that part.
    A guessed rule that happens to be right is still a decision nobody made.
+9. **No subagents.** Never launch Task subagents — see [`docs/AGENT-PITFALLS.md`](docs/AGENT-PITFALLS.md) §20.
 
 ---
 
