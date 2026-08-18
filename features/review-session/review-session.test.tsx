@@ -205,13 +205,13 @@ describe("ReviewSession", () => {
     resolveAppend!({ status: "appended", id: "row-1" });
   });
 
-  it("shows sync retry when persistence fails after advancing", async () => {
+  it("stays silent when persistence fails after advancing", async () => {
     setReviewQueueForTests({
       subscribe(listener) {
         listener({
           pending: 0,
           failed: 1,
-          lastError: en.reviewSession.syncFailed,
+          lastError: "offline",
           pendingSince: null,
         });
         return () => {};
@@ -222,7 +222,7 @@ describe("ReviewSession", () => {
       getState: () => ({
         pending: 0,
         failed: 1,
-        lastError: en.reviewSession.syncFailed,
+        lastError: "offline",
         pendingSince: null,
       }),
     });
@@ -239,8 +239,11 @@ describe("ReviewSession", () => {
     await user.click(screen.getByRole("button", { name: en.reviewSession.flipHint }));
     await user.click(screen.getByRole("button", { name: en.reviewSession.good }));
 
-    await waitFor(() => expect(screen.getByText(en.reviewSession.syncFailed)).toBeDefined());
-    expect(screen.getByText("que")).toBeDefined();
+    await waitFor(() => expect(screen.getByText("que")).toBeDefined());
+
+    expect(screen.queryByText(formatMessage(en.reviewSession.syncing, { count: 1 }))).toBeNull();
+    expect(screen.queryByRole("button", { name: /retry/i })).toBeNull();
+    expect(screen.queryByText(/could not be saved/i)).toBeNull();
   });
 
   it("shows a load error when the queue cannot be built", () => {

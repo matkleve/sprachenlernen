@@ -34,7 +34,7 @@ recall or form-recall), grades that append to the review log (T-B2).
 | 2b | Sees a form-recall card | Spoken-language gloss + produce prompt on front only; same flip interaction; back shows the target surface form |
 | 3 | Taps the card | Back shown; grade buttons stay visible (they were already on screen) |
 | 4 | Taps a grade (with or without flipping) | Grade queued locally; **next card immediately** (`advancing` → `prompting` or `complete`); server flush runs in the background ([`review-write-queue`](../service/review-write-queue.md)). **`again`** re-inserts the card five positions ahead (or at end if fewer than five remain); **`hard`** re-inserts at end of the remaining queue; **`good`** / **`easy`** do not requeue ([ADR-0012](../../adr/0012-ux-decisions-requeue-i18n-leech-nav.md), UC-071) |
-| 5 | Background flush fails | Session does not rewind; non-blocking status with Retry |
+| 5 | Background flush fails | Session does not rewind; sync stays **silent** during the run and retries in the background |
 | 6 | Session `complete` | Summary: cards graded this session; link back to Words and Methods |
 | 7 | Viewport &lt; `md` during an active card | Method name and progress share one line; run status strip sits directly above the card; card and grade row fit without page scroll ([`page-layout.md`](page-layout.md) `one-screen-runner`) |
 | 8 | Taps **Report** on a card | Popover opens; optional category and note; card is flagged for this learner and spoken language; success banner shown; reported card exits with a short animation and the session advances to the next card without grading ([`broken-card-detection`](../service/broken-card-detection.md), UC-023, UC-073, UC-074) |
@@ -74,9 +74,8 @@ banners), not under the session title line.
 
 When a poor grade re-inserts a card, that card's segment **moves** to match its
 next position in the queue; the move is animated (layout transition). Segments
-use a **fixed width** (`w-2`) in a compact left-aligned row — not `flex-1` across
-the full viewport (owner 2026-08-18: full-width spread looked too far apart).
-The numeric `progress` line is unchanged. Owner decision 2026-08-18: strip at top,
+use **`flex-1`** so the strip spans the full card width edge to edge. The numeric
+`progress` line is unchanged. Owner decision 2026-08-18: strip at top,
 not bottom ([`../../IDEAS.md`](../../IDEAS.md) status-dots idea).
 
 ## Acceptance criteria
@@ -95,7 +94,7 @@ not bottom ([`../../IDEAS.md`](../../IDEAS.md) status-dots idea).
 - [ ] Given card 1, when the learner taps the card then **Good**, then card 2
       front appears **before** the server confirms the write.
 - [ ] Given a background flush failure after advancing, when the learner is on a
-      later card, then a retry status appears and the session does not rewind.
+      later card, then no error or sync status appears and the session does not rewind.
 - [ ] Given any phase, then no due count, backlog figure or badge appears.
 - [ ] Given card 1 of a two-card session, when the learner grades **Again**, then
       card 2 appears next and card 1 returns after card 2 is graded (requeue at

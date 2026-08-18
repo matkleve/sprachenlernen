@@ -32,19 +32,19 @@ Parent contracts: [`review-session.md`](../feature/review-session.md),
 | --- | --- | --- |
 | 1 | Taps a grade | Row appended to the local queue with a new `review_id`; session advances to the next card **immediately** — no disabled buttons, no "Saving…" on the card |
 | 2 | Flush succeeds | Row removed from the queue silently |
-| 3 | Flush fails (offline, 5xx, auth) | Row stays in the queue; a **small, non-blocking** status appears (see below); retries on reconnect and on a timer |
-| 4 | Taps Retry on the status | Flush runs again for pending rows |
-| 5 | Closes the tab with pending rows | Queue survives in IndexedDB; flush resumes on next visit |
-| 6 | Session ends with pending rows | Summary still shows; status reads "Syncing N reviews…" until the queue is empty |
+| 3 | Flush fails (offline, 5xx, auth) | Row stays in the local queue; **nothing** appears during the card run — flush retries on a timer, when the tab regains focus, and when connectivity returns |
+| 4 | Closes the tab with pending rows | Queue survives in IndexedDB; flush resumes on next visit |
+| 5 | Session ends with pending rows | Summary may show one muted background-save line — not an error |
 
 ### Status surface (UX)
 
-- **Default:** nothing — success is silent.
-- **Pending > 0 for longer than ~500 ms:** one line below the progress counter,
-  e.g. "Syncing 2 reviews…" — not a modal, not on the card, not a spinner on
-  the grade buttons.
-- **Pending > 0 after retries exhausted:** "1 review couldn't save — Retry" —
-  session does **not** rewind to the old card.
+- **During an active card run:** nothing — success and failure are both silent.
+  The learner keeps grading; rows live in IndexedDB until the server confirms.
+- **On session complete only:** if rows are still queued, one muted line on the
+  summary — e.g. "We'll save your reviews in the background." — not red, not a
+  modal, not on the card.
+- **No error copy** (`Your grade could not be saved`) on the review surface —
+  the queue retries automatically; the learner does not need to act.
 
 ## States
 

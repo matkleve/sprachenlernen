@@ -60,7 +60,6 @@ Update this file in the same PR as any new control or migration.
 | Lemma callout | `LemmaCallout.tsx` | `Disclosure` / `DisclosureSummary` / `DisclosurePanel` | accent-soft shell; mobile only | — |
 | Flip card | `ReviewCard.tsx` | `PressableCard` | interactive when flippable | — |
 | Report flag | `ReviewCard.tsx` | `IconButton` `sm` | `pendingPolicy="none"` | on report |
-| Sync retry | `ReviewSession.tsx` | `Button` | `secondary sm`, manual pending | ✓ |
 | Complete CTAs ×2 | `SessionComplete.tsx` | `ActionLink` | primary + secondary | ✓ |
 | Error back | `ReviewSession.tsx` | `TextLink` | `muted sm` | — |
 

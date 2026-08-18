@@ -22,10 +22,10 @@
 ### Failure and recovery
 
 - [ ] Given a flush error (403, 500, timeout), when the learner has already
-      advanced, then the session does **not** return to the graded card; the
-      status shows retry copy instead.
-- [ ] Given a failed row, when the learner taps **Retry**, then flush is
-      attempted again and success clears the status.
+      advanced, then the session does **not** return to the graded card and no
+      error appears during the card run.
+- [ ] Given a failed row, when the scheduled retry runs, then flush is attempted
+      again and success clears the queue silently.
 - [ ] Given the same row flushed twice (retry), when both requests reach the
       server, then exactly one `review_log` row exists (`review_id` idempotency).
 
