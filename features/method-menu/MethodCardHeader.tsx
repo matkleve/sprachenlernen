@@ -75,8 +75,8 @@ export function MethodCardHeader({ section, size, className }: MethodCardHeaderP
             : "(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
         }
         className={cn(
-          "object-cover",
-          isCard ? "object-[center_30%]" : "object-center",
+          "object-cover object-top",
+          isCard ? undefined : "object-center",
         )}
       />
       <div
