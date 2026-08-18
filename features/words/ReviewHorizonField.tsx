@@ -6,6 +6,9 @@ import { useState } from "react";
 import { Button } from "@/components/ui/Button";
 import { WordsSectionLabel } from "@/features/words/WordsSectionLabel";
 import {
+  formatHorizonAvgPerDay,
+  HORIZON_TILE_COLS,
+  HORIZON_TILE_ROWS,
   tileCountForReviews,
   type HorizonDisplay,
   type HorizonWeek,
@@ -21,25 +24,49 @@ type ReviewHorizonFieldProps = {
 
 const DAY_MS = 86_400_000;
 
-function TileStack({
+function TileGrid({
   count,
   overflowLabel,
+  compact = false,
 }: {
   count: number;
   overflowLabel: (overflow: number) => string;
+  compact?: boolean;
 }) {
   const { shown, overflow } = tileCountForReviews(count);
-  if (count === 0) {
-    return <div className="h-8 w-full border-b border-line" aria-hidden="true" />;
-  }
+  const cells = HORIZON_TILE_COLS * HORIZON_TILE_ROWS;
 
   return (
-    <div className="flex w-full flex-col-reverse gap-0.5" aria-hidden="true">
-      {Array.from({ length: shown }, (_, index) => (
-        <div key={index} className="h-1.5 w-full rounded-pill bg-accent" />
-      ))}
+    <div className="flex w-full flex-col" aria-hidden="true">
+      <div
+        className={cn(
+          "grid w-full gap-0.5",
+          compact ? "min-h-12" : "min-h-16 sm:min-h-20",
+        )}
+        style={{
+          gridTemplateColumns: `repeat(${HORIZON_TILE_COLS}, minmax(0, 1fr))`,
+          gridTemplateRows: `repeat(${HORIZON_TILE_ROWS}, minmax(0, 1fr))`,
+        }}
+      >
+        {Array.from({ length: cells }, (_, index) => {
+          const displayRow = Math.floor(index / HORIZON_TILE_COLS);
+          const displayCol = index % HORIZON_TILE_COLS;
+          const fillIndex = (HORIZON_TILE_ROWS - 1 - displayRow) * HORIZON_TILE_COLS + displayCol;
+          const filled = fillIndex < shown;
+
+          return (
+            <div
+              key={index}
+              className={cn(
+                "aspect-square w-full rounded-[2px]",
+                filled ? "bg-accent" : "bg-line",
+              )}
+            />
+          );
+        })}
+      </div>
       {overflow > 0 ? (
-        <span className="text-center text-[10px] font-medium text-muted">
+        <span className="mt-0.5 text-center text-[10px] font-medium text-muted">
           {overflowLabel(overflow)}
         </span>
       ) : null}
@@ -73,15 +100,15 @@ function WeekColumn({
         aria-label={t("horizonWeekAria", {
           week: weekNumber,
           total: week.total,
-          avgPerDay: week.avgPerDay,
+          avgPerDay: formatHorizonAvgPerDay(week.avgPerDay),
         })}
         onClick={onToggle}
       >
         <span className="text-center text-xs font-medium text-muted">
           {t("horizonWeekLabel", { week: weekNumber })}
         </span>
-        <div className="mt-2 flex min-h-16 flex-1 flex-col justify-end sm:min-h-24">
-          <TileStack
+        <div className="mt-2 flex flex-1 flex-col justify-end">
+          <TileGrid
             count={week.total}
             overflowLabel={(overflow) => t("horizonTileOverflow", { overflow })}
           />
@@ -94,7 +121,7 @@ function WeekColumn({
         >
           <span className="block">{t("horizonWeekScheduled", { total: week.total })}</span>
           <span className="mt-0.5 block tabular-nums">
-            {t("horizonWeekAvgPerDay", { avgPerDay: week.avgPerDay })}
+            {t("horizonWeekAvgPerDay", { avgPerDay: formatHorizonAvgPerDay(week.avgPerDay) })}
           </span>
         </span>
       </Button>
@@ -124,9 +151,10 @@ function DayColumn({
     <div className="min-w-0 flex-1">
       <div className="flex flex-col rounded-card border border-line bg-surface-raised p-1.5">
         <span className="text-center text-[10px] font-medium leading-tight text-muted">{label}</span>
-        <div className="mt-1 flex min-h-16 flex-col justify-end">
-          <TileStack
+        <div className="mt-1 flex flex-col justify-end">
+          <TileGrid
             count={count}
+            compact
             overflowLabel={(overflow) => t("horizonTileOverflow", { overflow })}
           />
         </div>
@@ -149,7 +177,7 @@ export function ReviewHorizonField({ horizon, display, now }: ReviewHorizonField
       if (week) {
         return t("horizonSummaryPeakWeek", {
           week: display.peakWeekIndex + 1,
-          avgPerDay: week.avgPerDay,
+          avgPerDay: formatHorizonAvgPerDay(week.avgPerDay),
         });
       }
     }

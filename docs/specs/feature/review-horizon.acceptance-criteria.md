@@ -14,14 +14,14 @@ live in the parent; this file is the exhaustive AC list only.
 ## Tiles and caps
 
 - [ ] Given a week with more reviews than the tile cap, when rendered, then the
-      stack shows the cap plus a “+N” overflow label and the true total in text.
+      grid shows the cap plus a “+N” overflow label and the true total in text.
 - [ ] Given zero reviews in a week, when rendered, then the column shows a
       neutral empty baseline — not a reward state.
 
 ## Drill-down
 
 - [ ] Given expanded state, when the learner taps week 2, then days 7–13 appear
-      as labelled day stacks inline; tapping again collapses the week.
+      as labelled day grids inline; tapping again collapses the week.
 
 ## Copy
 

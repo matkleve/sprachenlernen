@@ -16,7 +16,9 @@ export const HORIZON_PEAK_RATIO = 2.5;
 export const HORIZON_FIRST_WEEK_MS = 7 * DAY_MS;
 export const HORIZON_ROUTINE_DAYS = 5;
 export const HORIZON_ROUTINE_WINDOW_MS = 7 * DAY_MS;
-export const HORIZON_TILE_CAP = 24;
+export const HORIZON_TILE_COLS = 4;
+export const HORIZON_TILE_ROWS = 6;
+export const HORIZON_TILE_CAP = HORIZON_TILE_COLS * HORIZON_TILE_ROWS;
 
 export type HorizonWeek = {
   weekIndex: number;
@@ -204,4 +206,9 @@ export function tileCountForReviews(count: number): { shown: number; overflow: n
   if (count <= 0) return { shown: 0, overflow: 0 };
   if (count <= HORIZON_TILE_CAP) return { shown: count, overflow: 0 };
   return { shown: HORIZON_TILE_CAP, overflow: count - HORIZON_TILE_CAP };
+}
+
+/** Display rounding — averages are never shown with fractional days in copy. */
+export function formatHorizonAvgPerDay(avgPerDay: number): number {
+  return Math.round(avgPerDay);
 }
