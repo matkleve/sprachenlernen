@@ -15,3 +15,5 @@
       they match the same resolver output as on the review card for that lemma.
 - [x] Given batch resolve for a 15-card session, when measured in tests, then
       snapshot maps are loaded once per locale per call — not once per card.
+- [x] Given a German snapshot row `sich selbst, sich selbst, sich selbst`, when
+      the gloss resolves, then the learner sees `sich selbst` once.

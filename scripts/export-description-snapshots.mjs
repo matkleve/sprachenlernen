@@ -17,6 +17,7 @@ import {
   sentenceTranslationKey,
   taskTypeFromTaskId,
 } from "./description-keys.mjs";
+import { dedupeGlossSegments } from "./gloss-segments.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const OUT_DIR = join(ROOT, "data/i18n/descriptions");
@@ -115,7 +116,7 @@ async function buildGermanSnapshot(enSnapshot) {
     for (const english of batch) {
       if (translationMap.has(english)) continue;
       try {
-        const german = await translateEnToDe(english);
+        const german = dedupeGlossSegments(await translateEnToDe(english));
         translationMap.set(english, german);
       } catch (error) {
         console.warn(`translate skip: ${english.slice(0, 40)}… (${error.message})`);

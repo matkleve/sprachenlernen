@@ -5,6 +5,7 @@
 import deDescriptions from "@/data/i18n/descriptions/de.json";
 import enDescriptions from "@/data/i18n/descriptions/en.json";
 
+import { dedupeGlossSegments } from "@/lib/dedupe-gloss-segments";
 import { isSpokenLanguageShipped } from "@/lib/spoken-language";
 
 export type DescriptionSnapshot = Readonly<Record<string, string>>;
@@ -34,17 +35,22 @@ export function createGlossResolver(
     return snapshots[locale] ?? {};
   };
 
+  const resolveRaw = (key: string, locale: string): string | undefined => {
+    const value = ensureLocale(locale)[key];
+    return value !== undefined && value !== "" ? value : undefined;
+  };
+
   return (key, spokenLanguage, fallback = "") => {
     const locale = isSpokenLanguageShipped(spokenLanguage) ? spokenLanguage : "en";
-    const localized = ensureLocale(locale)[key];
-    if (localized !== undefined && localized !== "") return localized;
+    const localized = resolveRaw(key, locale);
+    if (localized !== undefined) return dedupeGlossSegments(localized);
 
     if (locale !== "en") {
-      const english = ensureLocale("en")[key];
-      if (english !== undefined && english !== "") return english;
+      const english = resolveRaw(key, "en");
+      if (english !== undefined) return dedupeGlossSegments(english);
     }
 
-    return fallback;
+    return dedupeGlossSegments(fallback);
   };
 }
 
