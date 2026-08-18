@@ -8,6 +8,7 @@ import {
 } from "@/features/exercise-runner/ExerciseRunnerChrome";
 import { ExerciseStepBody } from "@/features/exercise-runner/ExerciseStepBody";
 import { useExerciseRunner } from "@/features/exercise-runner/useExerciseRunner";
+import { useListeningDefer } from "@/features/method-menu/useListeningDefer";
 import type { ExerciseRecipe } from "@/lib/exercise-runner";
 import { cn } from "@/lib/utils";
 
@@ -24,6 +25,7 @@ export function ExerciseRunner({
   compact = false,
 }: ExerciseRunnerProps) {
   const t = useTranslations("exerciseRunner");
+  const { deferred: listeningDeferred } = useListeningDefer();
   const runner = useExerciseRunner({ recipe, methodName });
   const { state, activeStep } = runner;
 
@@ -78,6 +80,7 @@ export function ExerciseRunner({
           step={activeStep}
           submitDraft={state.submitDraft}
           markedErrorTokens={state.markedErrorTokens}
+          listeningDeferred={listeningDeferred}
           onTextChange={runner.setText}
           onPhotoChange={runner.setPhoto}
           onToggleError={runner.toggleError}

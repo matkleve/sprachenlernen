@@ -39,6 +39,11 @@ plain text — never a dot scale.
 **Card graphics (UX, 2026-08-15):** each card shows a **section header graphic**
 (one abstract image per catalogue section, decorative) with a soft gradient into
 the card body. Component [`method-card-header.md`](../component/method-card-header.md).
+
+**Card visual polish (UX, 2026-08-18):** study/40 — shipped T-B10f (`h-24` header,
+`text-lg` title, larger tier shields). Component
+[`method-card.md`](../component/method-card.md).
+
 No accent left border — uniform `rounded-card` only.
 
 ## Scope
@@ -58,9 +63,10 @@ No accent left border — uniform `rounded-card` only.
   CEFR skill or overall level on this surface; level-labelled demonstration
   feedback (tier C until calibration).
 
+**Reuse: MethodCard** ([`method-card.md`](../component/method-card.md)),
 **Reuse: MethodCardHeader** ([`method-card-header.md`](../component/method-card-header.md)
 — section graphic), **Reuse: MethodBadge** (`features/method-menu/MethodBadge.tsx`
-— skill, evidence, effort), **Reuse: Chip** (short tags only), **Reuse: NavLink**
+— tier shields + effort dots), **Reuse: Chip** (short tags only), **Reuse: NavLink**
 (card links only).
 **FilterPill** toggles filters in place — button geometry matching Chip, because
 toggling a filter is not navigation. **MethodMenu** is a client island; the route

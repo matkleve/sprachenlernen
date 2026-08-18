@@ -24,7 +24,7 @@ describe("WordsReviewCardHeader", () => {
 
   it("keeps a fixed header height for visual parity with method cards", async () => {
     const { container } = render(await WordsReviewCardHeader());
-    expect(container.firstElementChild?.className).toContain("h-20");
+    expect(container.firstElementChild?.className).toContain("h-24");
   });
 
   it("has no accessibility violations in isolation", async () => {

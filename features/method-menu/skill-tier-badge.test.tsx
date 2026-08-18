@@ -19,6 +19,15 @@ describe("SkillTierBadge", () => {
     const { container } = render(<SkillTierBadge skill="reading" tier="silver" />);
     await expectNoA11yViolations(container);
   });
+
+  it("uses a taller portrait frame on cards", () => {
+    const { container } = render(
+      <SkillTierBadge skill="listening" tier="wood" size="card" />,
+    );
+    const wrapper = container.firstElementChild;
+    expect(wrapper?.className).toContain("h-10");
+    expect(wrapper?.className).toContain("aspect-[4/5]");
+  });
 });
 
 describe("SkillTierOverflow", () => {

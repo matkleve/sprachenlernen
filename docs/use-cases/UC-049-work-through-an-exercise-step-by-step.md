@@ -1,7 +1,7 @@
 # UC-049 — Work through an exercise one step at a time
 
 <!-- id: UC-049 -->
-<!-- specs: SPEC-feature-exercise-runner, SPEC-page-practice -->
+<!-- specs: SPEC-feature-exercise-runner, SPEC-page-practice, SPEC-service-material-unit -->
 
 **Who:** anyone doing an exercise with more than one part — a dictation, a piece
 of writing, a 4/3/2 round.
@@ -26,6 +26,8 @@ optimistic.
 - An exercise runs as a sequence of typed steps: **prepare** (checklist),
   **do**, **wait** (timer), **submit** (photo or text), **review** (check or
   feedback), **decide** (an offer).
+- Recipe text comes from a resolved **material unit** on a Source — not a
+  separate per-method sentence file.
 - Each step type is filled by a **step component** (audio player, capture,
   self-mark, …) — one runner, many Methods.
 - The learner can move back and forth freely between steps, and a running timer

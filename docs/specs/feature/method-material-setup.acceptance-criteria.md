@@ -15,3 +15,5 @@ Split child of [`method-material-setup.md`](method-material-setup.md).
       the chip is disabled or shows empty-state — **no** upload field under it.
 - [ ] AC-7 · Given keep unchecked after own material, when the session ends, then
       no new `/content` row appears.
+- [ ] AC-8 · Given `partial-dictation` with `materialUnits` sentence + window,
+      when detail renders, then preview shows unit label and coverage before Start.

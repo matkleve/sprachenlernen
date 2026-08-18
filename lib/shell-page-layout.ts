@@ -2,7 +2,7 @@
  * Layout mode registry for signed-in routes. Contract:
  * docs/specs/feature/page-layout.md
  */
-import { hasExerciseRecipe } from "@/lib/exercise-recipe";
+import { hasExerciseRecipe } from "@/lib/exercise-recipe-built";
 import { CARD_ENGINE_METHOD_ID } from "@/lib/method-session";
 import { routes } from "@/lib/routes";
 

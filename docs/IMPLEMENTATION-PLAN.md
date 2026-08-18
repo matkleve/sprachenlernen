@@ -336,12 +336,17 @@ low-inference agent would silently invent.
 | **T-B10c** | Method surfaces UX — badges, card headers, detail layout, chip fix | **Shipped 2026-08-15.** study/27. Skill/evidence/effort badge row (plain labels on cards), section header graphics, detail article layout (Practical → Trains → doesNotDo; evidence in disclosure) |
 | **T-B10d** | Method surfaces property audit — align UI to study/36 | **Shipped 2026-08-16.** Plain effort on detail band; evidence disclosure-only; effort anchor in Practical; all requirement chips on cards; full-bleed hero kept |
 | **T-B10e** | Composite skill-tier badges + effort dots | **Shipped 2026-08-18.** Evidence+value tiers, wood/cap/`+`, PNG assets from grid, cards + detail |
+| **T-B10f** | Method card visual polish | **Shipped 2026-08-18.** `h-24` header, multi-stop fade, `text-lg` title, 40px portrait shields, re-sliced PNGs |
 | **T-B4** | Dose ledger (F184) | **Denominator shipped** on `/progress` (question 19, first branch). **Numerator** (hours you practised) still out — needs practice-time logging beyond card `latency_ms` |
 | ~~**T-B7**~~ | ~~The landing page~~ — **shipped 2026-08-11** | Thesis 1 headline + thesis 12 time honesty in body |
 | ~~**T-B10**~~ | ~~The method menu — the product's front door~~ — **shipped 2026-08-09** | Filters, time scale, hosted routing. Learner half continued in T-B10b |
 | ~~**T-B5**~~ | ~~Retire the Grundriss worked examples~~ — **shipped 2026-08-10** | `/account` uses `Select` + `Dialog` (UC-024); demos removed; `/primitives` → `/languages` |
 | **T-B9** | Offline practice + sync (F192, UC-018) | **Owner direction: both** — online sync across devices *and* offline review (train/PWA). Needs ADR-0011 closed on Option B (local-first queue is partial — see [`review-write-queue.md`](specs/service/review-write-queue.md)); full offline still needs cached deck + scheduler |
-| **T-B11** | Spoken-language setting — `profiles` table, `next-intl` chrome, description-text records ([UC-069](use-cases/UC-069-use-the-app-in-my-own-language.md)) | **Slice 1 shipped 2026-08-12** — [`spoken-language.md`](specs/service/spoken-language.md), `profiles` migration + adapter + profile UI. **Remaining:** `next-intl` chrome (slice 2), stage-3 description tables |
+| **T-B11** | Spoken-language + localized glosses ([UC-069](use-cases/UC-069-use-the-app-in-my-own-language.md)) | **Slice 1–2 shipped** — [`spoken-language.md`](specs/service/spoken-language.md), `profiles`, `next-intl` chrome. **Slice 3 specced 2026-08-18** — [`app-texts.md`](specs/service/app-texts.md), [`gloss-resolver.md`](specs/service/gloss-resolver.md). **Remaining:** T-B11c–e below |
+| **T-B11c** | `app_texts` tables + seed from starter `back`/`front` English | **Sensitive** | T-B11 slice 1 | [`app-texts.md`](specs/service/app-texts.md) |
+| **T-B11d** | Snapshot export + `gloss-resolver` + DE publish path | Standard | T-B11c | [`gloss-resolver.md`](specs/service/gloss-resolver.md) |
+| **T-B11e** | Wire review session, reading, gap list, demonstration sentence | Standard | T-B11d | UC-069 AC |
+| **T-B11f** | Pool migration: `descriptionKey` in JSON; drop inline `back` | Standard | T-B11e | [`starter-deck.md`](specs/service/starter-deck.md) |
 | **T-B12** | ~~Scope `poolForScheduling` to the active language only~~ — **done 2026-08-12** ([UC-025](use-cases/UC-025-learn-multiple-languages.md)) | `poolForScheduling` and `poolForDisplay` (`lib/db/learner-pools.ts`) merged into one `poolForActiveLanguage()`, since the reason they differed — a cross-language budget — was rejected. `buildSessionAction` now calls it; a session can no longer contain more than one language's cards, and the `languageName` label is always correct as a result. Regression test: `learner-pools.test.ts` |
 | **T-B13** | ~~Same-session card requeue ([UC-071](use-cases/UC-071-get-a-wrong-card-back-before-the-session-ends.md))~~ — **shipped 2026-08-12** | **Sensitive.** [`lib/review-session-requeue.ts`](../lib/review-session-requeue.ts), `useReviewSession` re-insert on `again`/`hard`; [ADR-0012](adr/0012-ux-decisions-requeue-i18n-leech-nav.md) decisions 12–13 |
 | **T-B14** | Broken-card flagging + leech diagnosis ([UC-023](use-cases/UC-023-report-something-wrong.md), [UC-013](use-cases/UC-013-stop-losing-time-on-one-card.md)) | **T-B14a/b shipped 2026-08-16** — [`StatusBanner`](../components/ui/StatusBanner.tsx), [`CardReportPopover`](../features/review-session/CardReportPopover.tsx), optional `category`/`note` on `card_content_flag` ([UC-073](use-cases/UC-073-explain-what-is-wrong-with-a-card.md), [UC-074](use-cases/UC-074-know-my-report-was-received.md), [study/34](study/34-review-report-and-acknowledgement-ux.md)). **Remaining:** T-B14c scheduling-intent toggle (deferred); UC-013 tier-2/3 diagnosis. **Sensitive** |
@@ -366,7 +371,7 @@ honest Spanish/Italian; offline unlocks commute practice.
 | **6b** | ~~**T-B10d** — property audit alignment ([`study/36`](study/36-method-surfaces-property-audit.md))~~ — **shipped 2026-08-16** | Plain effort everywhere; all requirement chips on cards; evidence disclosure-only on detail |
 | **6c** | ~~**T-B10e** — composite tier badges, effort dots, real assets~~ — **shipped 2026-08-18** | [`skill-tier.md`](specs/service/skill-tier.md); `scripts/slice-skill-tier-badges.py` |
 | **7** | **T-B10b remainder** — ~~demonstration sentence~~ **shipped 2026-08-16**; readiness ([`study/26`](study/26-readiness-and-difficulty.md)) | Methods front door complete |
-| **7b** | **Exercise runner** (T-E1–E8) — cooking-app steps for dictation, writing, … | UC-049; first method after T-W7 |
+| **7b** | ~~**Exercise runner** (T-E1–E8)~~ — **T-E1–E6 + T-E8 shipped 2026-08-18**; T-E7 material setup open | UC-049 |
 | **8** | **T-B4 numerator** — guided hours practised (thesis 9: not card time alone) | Progress per hour invested (study/03 V3) |
 
 **Still partial in Track B:** T-B3 (pool-local only), T-B10b (standing + daily
@@ -383,14 +388,19 @@ Cooking-app runner for multi-step Methods (dictation, writing, listening drills)
 | ID | Work | Class | Depends on |
 | --- | --- | --- | --- |
 | **T-E0** | ~~Specs + AC + plan~~ — **shipped 2026-08-17** | Standard | study/23 refined (submit/review) |
-| **T-E1** | Runner skeleton + chrome (nav, duration bar, stop, seen/done) | Standard | T-E0 |
-| **T-E2** | Steps: prepare · do · wait | Standard | T-E1 |
-| **T-E3** | Steps: submit (photo+text) · review (self-mark, compare, feedback v1) | Standard | T-E2 |
-| **T-E4** | Step decide + complete surface | Standard | T-E3 |
-| **T-E5** | Route `/practice` + method-session routing | Standard | T-E1 |
-| **T-E6** | Recipe loader + fixture method end-to-end | Standard | T-E4, T-E5 |
+| **T-E1** | ~~Runner skeleton + chrome~~ — **shipped 2026-08-18** | Standard | T-E0 |
+| **T-E2** | ~~Steps: prepare · do · wait~~ — **shipped 2026-08-18** | Standard | T-E1 |
+| **T-E3** | ~~Steps: submit · review~~ — **shipped 2026-08-18** | Standard | T-E2 |
+| **T-E4** | ~~Step decide + complete surface~~ — **shipped 2026-08-18** | Standard | T-E3 |
+| **T-E5** | ~~Route `/practice` + method-session routing~~ — **shipped 2026-08-18** | Standard | T-E1 |
+| **T-E6** | ~~Recipe loader + fixture method end-to-end~~ — **shipped 2026-08-18** | Standard | T-E4, T-E5 |
 | **T-E7** | Method material setup chips (detail panel) | Standard | T-E5; [`method-material-setup.md`](specs/feature/method-material-setup.md) |
-| **T-E8** | First real method — partial dictation | **Sensitive** | T-E6, **T-W7** coverage |
+| **T-E8** | ~~First real method — partial dictation~~ — **shipped 2026-08-18** (catalogue Source; text gaps v1) | **Sensitive** | T-E6, T-W7 |
+| **T-E9** | Gap-fill step component — listen + type/speak; type-only under defer | Standard | T-E3, T-MU2, T-LD1 |
+| **T-MU0** | ~~Specs + study/39~~ — material units, gap rules, listening defer — **shipped 2026-08-18** | Standard | round-table + owner |
+| **T-MU1** | `lib/material-unit.ts` — sentence / paragraph / window / full resolver | Standard | T-W7, [`material-unit.md`](specs/service/material-unit.md) |
+| **T-MU2** | Principled gap selection — replace alternating-word placeholder | **Sensitive** | T-MU1, UC-028 |
+| **T-LD1** | Listening defer UI + menu filter — UC-077 | Standard | [`listening-defer.md`](specs/feature/listening-defer.md) |
 
 **Not this runner:** `srs-session` and card-engine form practice (T-W6) stay on
 `/words/review`.
@@ -403,9 +413,11 @@ Detail, slice IDs, and agent handoff template:
 
 **What is solid:** stage-1 card engine — `/words` snapshot, `/words/review`
 (`srs-session`), 2000-lemma pools (es + it), form-recall staging, pool-local
-Progress counts. **What is not:** the vocabulary *map* (capture, milestones,
-per-word rationale, content-linked coverage) — ~28 vocabulary use cases have no
-spec; `lib/lexicon.ts` is not wired into any route.
+Progress counts; **content loop v1** — coverage (`lib/coverage.ts`), `/content`
+library + detail, gap list, word trace. **What is not:** word capture (T-W9),
+reading session runner remainder (T-W10), method material setup (T-W10a / T-E7 +
+material units T-MU1), listening defer (T-LD1), principled gaps (T-MU2),
+full exercise catalogue beyond partial dictation.
 
 Work in four phases; do not skip phase 0:
 
@@ -413,8 +425,8 @@ Work in four phases; do not skip phase 0:
 | --- | --- | --- |
 | **0 · Hygiene** | Link repair, catalogue honesty (`hosted` vs built), test drift | **T-W0b/c shipped 2026-08-17** — vocabulary methods `hosted: false` except `srs-session`; `/words/atlas` test drift fixed. **T-W0a** if `check:specs` warns |
 | **1 · Decisions** | W-1 lemma-rank recomputation, W-2 pool atlas vs full map, W-3 `vocabulary` skill, W-4 sibling gap, W-5 incomplete paradigms | **W-3 answered 2026-08-17:** `vocabulary` skill. **W-5 answered 2026-08-17:** flag partial paradigms. W-1, W-2, W-4 already answered |
-| **2 · Stage-2 display** | Frequency blocks → word detail → pool-local map → T-B3 remainder → per-cell forms → form-practice | **T-W1/T-W3/T-W2 shipped** — next: T-W5 form breakdown or content-loop spec (T-W7+) |
-| **3 · Stage-3 loop** | Coverage → trace + gaps → `/content` → method setup (study/37) → reading | **T-W7** — [`plans/words.md`](plans/words.md) § Phase 3 |
+| **2 · Stage-2 display** | Frequency blocks → word detail → pool-local map → T-B3 remainder → per-cell forms → form-practice | **T-W1/T-W3/T-W2 shipped** — next: T-W5 form breakdown |
+| **3 · Stage-3 loop** | Coverage → trace + gaps → `/content` → method setup (study/37, study/39) → reading | **T-W7–T-W8c shipped**; **T-W10 v1**; **T-MU0 specced**; next: T-E7 + T-MU1 + T-LD1 |
 | **4 · Stage-1 remainder** | Break return, leech diagnosis, i18n slices | T-W12 next; **T-W16** and **T-W17** shipped |
 
 **Relationship to existing queue rows:** T-W4 *is* T-B3 remainder (same work,

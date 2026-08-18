@@ -72,9 +72,10 @@ Paths and labels from `features/method-menu/section-graphic.ts` and
 | 7 | `world` | Out in the world | `#4f6a72` | Doorway, path, or horizon; life outside the app |
 | 8 | `commitments` | Standing commitments | `#6a4f72` | Recurring rhythm — calendar band, anchor, loop (not the app spiral) |
 
-Each motif must read at **card** scale (`h-20`, ~80px tall) and **hero** scale
-(`h-44`–`h-52`) after `object-cover` crop — favour a **wide** composition with
-the subject centred.
+Each motif must read at **card** scale (**`h-24`** proposed — was `h-20`, ~80px)
+and **hero** scale (`h-44`–`h-52`) after `object-cover` with
+**`object-position: center 30%`** — favour a **wide** composition with the
+subject in the **upper two-thirds** (lower third fades to surface).
 
 ---
 

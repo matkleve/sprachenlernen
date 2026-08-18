@@ -19,8 +19,9 @@ Parent: [ADR-0012](../../adr/0012-ux-decisions-requeue-i18n-leech-nav.md) decisi
   profile UI to read and change the setting via [`language-list-row.md`](../component/language-list-row.md),
   `next-intl` chrome (`messages/<locale>.json`, `i18n/request.ts`), locale cookie
   synced from `spoken_language`.
-- **Out:** stage-3 `app_texts` tables; runtime card-description lookup by spoken language;
-  RTL layout.
+- **Out:** RTL layout. Card description tables and runtime gloss lookup live in
+  [`app-texts.md`](app-texts.md) and [`gloss-resolver.md`](gloss-resolver.md)
+  (T-B11 slice 3 / T-W15).
 
 ## Behavior
 

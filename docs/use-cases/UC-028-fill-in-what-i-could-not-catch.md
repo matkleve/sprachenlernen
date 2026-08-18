@@ -1,7 +1,7 @@
 # UC-028 — Fill in the words I could not catch
 
 <!-- id: UC-028 -->
-<!-- specs:  -->
+<!-- specs: SPEC-service-material-unit, SPEC-feature-exercise-runner, SPEC-feature-listening-defer -->
 
 **Who:** a learner who can read a transcript fine and still misses half of it by
 ear.
@@ -21,8 +21,9 @@ Neither says *which* words are the problem.
 
 ## Success looks like
 
-- The learner gets the transcript of a passage with words removed, and fills
-  them in while listening.
+- The learner gets a **half-filled sentence** (or window of sentences) and fills
+  gaps while listening — or **types only** when listening defer is active (UC-077).
+- Input: **type** (default) or **speak** when sound is available.
 - Gaps are **chosen, never random**. They target words the learner knows in
   writing but not by ear, words containing an unsolved sound contrast, and words
   learned recently.

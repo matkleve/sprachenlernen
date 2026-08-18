@@ -239,6 +239,9 @@ T-W10a can ship with catalogue-only + topic search stub before T-W9.
   origins; `/content` route decided; ephemeral vs saved.
 - [`method-material-setup.md`](../specs/feature/method-material-setup.md) — panel
   UX, modes, Start gating, link to coverage + support ladder.
+- [`material-unit.md`](../specs/service/material-unit.md) — session slice sizes;
+  see also [`39-material-units-and-listening-defer.md`](39-material-units-and-listening-defer.md).
+- [`listening-defer.md`](../specs/feature/listening-defer.md) — can't listen now.
 - [`method-detail.md`](../specs/page/method-detail.md) — hosts setup section.
 - [`method-catalogue.md`](../specs/service/method-catalogue.md) — optional
   `materialTopics` on method entries (chip ids + labels; see spec).

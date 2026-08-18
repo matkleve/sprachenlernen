@@ -11,6 +11,7 @@ import {
   fitsMinutes,
   fitsPartialContext,
   isMethod,
+  methodRequiresSound,
   type Catalogue,
   type Context,
   type MethodEntry,
@@ -87,7 +88,16 @@ export const parseMenuFilter = (params: SearchParams): MenuFilter => {
 /** Budget used when the URL omits minutes — matches the slider's default step. */
 export const defaultTimeBudget = (): TimeBudget => DEFAULT_TIME_BUDGET;
 
-export const filterMethods = (catalogue: Catalogue, filter: MenuFilter): MethodEntry[] => {
+export type FilterMethodsOptions = {
+  /** UC-077 — hide methods that need speaker/headphones. */
+  deferListening?: boolean;
+};
+
+export const filterMethods = (
+  catalogue: Catalogue,
+  filter: MenuFilter,
+  options?: FilterMethodsOptions,
+): MethodEntry[] => {
   let methods = catalogue.entries.filter(isMethod);
 
   if (filter.timeBudget !== undefined && !isEndless(filter.timeBudget)) {
@@ -106,6 +116,10 @@ export const filterMethods = (catalogue: Catalogue, filter: MenuFilter): MethodE
 
   if (Object.keys(filter.refine).length > 0) {
     methods = methods.filter((method) => fitsPartialContext(method, filter.refine));
+  }
+
+  if (options?.deferListening) {
+    methods = methods.filter((method) => !methodRequiresSound(method));
   }
 
   return methods;

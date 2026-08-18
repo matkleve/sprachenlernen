@@ -400,6 +400,21 @@ export const fitsPartialContext = (
   );
 };
 
+const AUDIBLE_SOUND = new Set(["speaker", "headphones"]);
+
+/** True when any performance mode needs speaker or headphones (UC-077 filter). */
+export const methodRequiresSound = (entry: MethodEntry): boolean => {
+  const sets = Array.isArray(entry.requires)
+    ? entry.requires
+    : [entry.requires as RequirementSet];
+
+  return sets.some((set) => {
+    const sound = set.sound;
+    if (!sound) return false;
+    return sound.some((value) => AUDIBLE_SOUND.has(value));
+  });
+};
+
 export const commitments = (catalogue: Catalogue): CommitmentEntry[] =>
   catalogue.entries.filter(isCommitment);
 

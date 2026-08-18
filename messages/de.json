@@ -300,7 +300,15 @@
     "submitTextPlaceholder": "Eingefügten oder getippten Text hier einfügen…",
     "reviewAnswerKey": "Lösung",
     "reviewMarkErrors": "Tippen Sie auf Wörter, die falsch waren",
-    "feedbackPlaceholder": "Automatische Korrektur ist noch nicht verfügbar — vergleichen Sie mit der Lösung und markieren Sie eigene Fehler."
+    "feedbackPlaceholder": "Automatische Korrektur ist noch nicht verfügbar — vergleichen Sie mit der Lösung und markieren Sie eigene Fehler.",
+    "typeOnlyHint": "Tippen Sie die Lücken — Hören ist vorübergehend pausiert."
+  },
+  "listeningDefer": {
+    "sectionLabel": "Ton",
+    "cantListenNow": "Jetzt nicht hören",
+    "bannerTitle": "Hören pausiert",
+    "bannerBody": "Ton-Methoden sind ausgeblendet bis {time}.",
+    "listenAgain": "Wieder hören"
   },
   "progress": {
     "title": "Wo Sie stehen",

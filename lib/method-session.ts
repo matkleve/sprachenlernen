@@ -1,5 +1,5 @@
 import type { MethodEntry } from "@/lib/method-catalogue";
-import { hasExerciseRecipe } from "@/lib/exercise-recipe";
+import { hasExerciseRecipe } from "@/lib/exercise-recipe-built";
 import { routes } from "@/lib/routes";
 
 /**

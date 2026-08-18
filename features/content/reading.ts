@@ -7,7 +7,9 @@ import { cookies } from "next/headers";
 import { listReviewsForTaskIds } from "@/lib/db/review-log";
 import { listTaskStatesForTaskIds } from "@/lib/db/task-state";
 import { internalUnexpected, logHandledError, type HandledError } from "@/lib/errors";
+import { getSpokenLanguage } from "@/lib/db/profiles";
 import { poolForActiveLanguage } from "@/lib/db/learner-pools";
+import { glossMapForLemmaCards } from "@/lib/localize-card-description";
 import { isMeaningRecallTaskId } from "@/lib/form-recall-pool";
 import {
   computeGapSet,
@@ -85,7 +87,11 @@ async function readLibrary(): Promise<ContentLibraryOutcome> {
   if (pool.status === "error") return { status: "error", error: fail(new Error(pool.error)) };
 
   const languageCode = pool.languageCodes[0] ?? "es";
-  const bundle = await buildContentBundle(pool.cards, languageCode);
+  const spoken = await getSpokenLanguage();
+  if (spoken.status === "error") {
+    return { status: "error", error: fail(new Error(spoken.error)) };
+  }
+  const bundle = await buildContentBundle(pool.cards, languageCode, spoken.spokenLanguage);
   if (!bundle) return { status: "ok", sources: [], languageCode };
 
   const sources = bundle.sources.map((source) => {
@@ -112,7 +118,11 @@ async function readDetail(sourceId: string): Promise<SourceDetailOutcome> {
   if (pool.status === "error") return { status: "error", error: fail(new Error(pool.error)) };
 
   const languageCode = pool.languageCodes[0] ?? "es";
-  const bundle = await buildContentBundle(pool.cards, languageCode);
+  const spoken = await getSpokenLanguage();
+  if (spoken.status === "error") {
+    return { status: "error", error: fail(new Error(spoken.error)) };
+  }
+  const bundle = await buildContentBundle(pool.cards, languageCode, spoken.spokenLanguage);
   if (!bundle) return { status: "not-found" };
 
   const source = bundle.sources.find((entry) => entry.id === sourceId);
@@ -192,6 +202,7 @@ type ContentBundle = {
 async function buildContentBundle(
   cards: readonly StarterCard[],
   languageCode: string,
+  spokenLanguage: string,
 ): Promise<ContentBundle | null> {
   const sources = loadPersistedSources(languageCode);
   const lexicon = loadLexiconForLanguage(languageCode);
@@ -205,7 +216,7 @@ async function buildContentBundle(
 
   const tasksByTaskId = tasksByTaskIdForCards(meaningCards, statesResult.rows);
   const heldLemmas = heldLemmaSet(meaningCards, tasksByTaskId);
-  const translations = Object.fromEntries(meaningCards.map((card) => [card.lemma, card.back]));
+  const translations = glossMapForLemmaCards(meaningCards, spokenLanguage);
 
   const reviewsResult = await listReviewsForTaskIds(meaningCards.map((card) => card.taskId));
   if (reviewsResult.status === "error") {

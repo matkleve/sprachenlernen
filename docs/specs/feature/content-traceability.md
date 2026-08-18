@@ -16,7 +16,9 @@ K1 (pool map) is already on `/words`.
 Child specs: [`coverage.md`](../service/coverage.md) (calculator),
 [`content-gap.md`](content-gap.md) (gap list),
 [`method-material-setup.md`](method-material-setup.md) (pick material on method
-detail). UX: [`../../study/37-content-and-method-setup-ux.md`](../../study/37-content-and-method-setup-ux.md).
+detail); [`material-unit.md`](../service/material-unit.md) (session slice).
+UX: [`../../study/37-content-and-method-setup-ux.md`](../../study/37-content-and-method-setup-ux.md),
+[`../../study/39-material-units-and-listening-defer.md`](../../study/39-material-units-and-listening-defer.md).
 
 ## Scope
 

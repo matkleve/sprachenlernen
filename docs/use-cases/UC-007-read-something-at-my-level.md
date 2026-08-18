@@ -1,7 +1,7 @@
 # UC-007 — Read something I can almost understand
 
 <!-- id: UC-007 -->
-<!-- specs: SPEC-service-coverage, SPEC-feature-content-traceability, SPEC-feature-method-material-setup, SPEC-feature-reading-surface -->
+<!-- specs: SPEC-service-coverage, SPEC-feature-content-traceability, SPEC-feature-method-material-setup, SPEC-feature-reading-surface, SPEC-service-material-unit -->
 
 **Who:** a learner past the first few hundred words.
 **Wants to:** read real, connected text where they know nearly every word — and
@@ -23,6 +23,9 @@ word is looked up again a week later.
   ("98 % known · 6 min") and how long it takes.
 - Suggested texts land in the 95–98 % band, computed from this user's own
   vocabulary — not from a level label.
+- Session **material unit** matches the method: one sentence, one paragraph, a
+  listening window (e.g. five minutes), or the full text — previewed before Start
+  ([`material-unit.md`](../specs/service/material-unit.md)).
 - Texts at 100 % known are offered too, framed as speed practice.
 - Tapping a **word** gives its meaning *in this context* and offers to add it;
   tapping a **sentence** gives a translation.

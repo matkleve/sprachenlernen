@@ -45,6 +45,18 @@ describe("filterMethods", () => {
       result.every((m) => fitsPartialContext(m, { hands: "none" })),
     ).toBe(true);
   });
+
+  it("hides sound-requiring methods when listening defer is active", () => {
+    const all = filterMethods(catalogue!, parseMenuFilter({ minutes: "endless" }));
+    const deferred = filterMethods(
+      catalogue!,
+      parseMenuFilter({ minutes: "endless" }),
+      { deferListening: true },
+    );
+    expect(deferred.length).toBeLessThan(all.length);
+    expect(deferred.every((m) => m.id !== "partial-dictation")).toBe(true);
+    expect(deferred.every((m) => m.id !== "audio-cards")).toBe(true);
+  });
 });
 
 describe("applySearchParamUpdates", () => {

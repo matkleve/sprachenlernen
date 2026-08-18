@@ -138,7 +138,8 @@ because it is interesting.
 | [UC-062](UC-062-see-what-is-holding-my-level-back.md) | See what is actually holding my level back | 2 | [03](../study/03-level-model.md) |
 | [UC-063](UC-063-get-to-my-cards-without-the-menu.md) | Get to my cards without going through today's menu | 1 | [04](../study/04-flashcards-srs.md) |
 | [UC-064](UC-064-understand-what-one-sub-metric-says-about-me.md) | Understand what one sub-metric says about me | 2 | [03](../study/03-level-model.md), [25](../study/25-why-it-does-not-feel-productive.md) |
-| [UC-069](UC-069-use-the-app-in-my-own-language.md) | Use the app in the language I speak — chrome and card glosses, one setting | 1 · Querschnitt | [`I18N.md`](../I18N.md), [`data/README.md`](../../data/README.md), UC-041 |
+| [UC-069](UC-069-use-the-app-in-my-own-language.md) | Use the app in the language I speak — chrome and card glosses, one setting | 1–3 · Querschnitt | [`I18N.md`](../I18N.md), [`data/README.md`](../../data/README.md), UC-041 |
+| [UC-076](UC-076-see-an-example-sentence-on-each-card.md) | See an example sentence on each card I can mostly understand | 3 | [`coverage.md`](../specs/service/coverage.md), UC-050 |
 | [UC-071](UC-071-get-a-wrong-card-back-before-the-session-ends.md) | Get a wrong card back before the session ends | 4b — with UC-013 | [`IDEAS.md`](../IDEAS.md) |
 | [UC-072](UC-072-get-the-latest-app-after-a-deploy.md) | Get the latest app after a deploy | 1 · PWA | [31](../study/31-ios-safari-pwa-test-report.md), [32](../study/32-pwa-profile-ux.md) |
 | [UC-073](UC-073-explain-what-is-wrong-with-a-card.md) | Explain what is wrong with a card | 3 · Querschnitt — child of UC-023 | [34](../study/34-review-report-and-acknowledgement-ux.md) |

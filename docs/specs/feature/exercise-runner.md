@@ -3,7 +3,8 @@
 <!-- id: SPEC-feature-exercise-runner -->
 <!-- use-case: UC-049 -->
 <!-- use-case: UC-046 -->
-<!-- status: draft -->
+<!-- use-case: UC-028 -->
+<!-- status: active -->
 
 The **cooking-app runner** for multi-step Methods: prepare → do → wait → submit
 → review → decide. One reusable shell; each Method supplies an ordered **recipe**
@@ -48,7 +49,8 @@ override via recipe `config`.
 | --- | --- | --- |
 | `checklist` | prepare | Tick list (not gated) |
 | `prompt` | do | Markdown body ± audio |
-| `audio-play` | do | Play / replay clip |
+| `audio-play` | do | Play / replay clip (hidden when UC-077 defer active) |
+| `gap-fill` | do, submit | Half-filled line; type or speak blanks ([`material-unit.md`](../service/material-unit.md)) |
 | `audio-gap` | do | Gap dictation line |
 | `capture` | submit | Camera, gallery, paste text — `accept: photo \| text` |
 | `optional-capture` | submit | Same as capture; `required: false` |
@@ -94,8 +96,9 @@ type ExerciseRecipe = {
 };
 ```
 
-Recipes are data — catalogue entry or generated from Source (dictation: N sentences
-→ N×(do+wait) blocks). Implementation: `lib/exercise-recipe.ts` (future).
+Recipes are data — catalogue entry or generated from Source + **material unit**
+([`material-unit.md`](../service/material-unit.md)). Implementation:
+`lib/exercise-recipe.ts`, `lib/exercise-recipe/partial-dictation.ts`.
 
 ## Behaviour
 

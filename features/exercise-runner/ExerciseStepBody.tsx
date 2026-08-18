@@ -11,6 +11,7 @@ type ExerciseStepBodyProps = {
   step: ExerciseRunnerState["recipe"]["steps"][number];
   submitDraft: ExerciseRunnerState["submitDraft"];
   markedErrorTokens: string[];
+  listeningDeferred?: boolean;
   onTextChange: (text: string) => void;
   onPhotoChange: (photoDataUrl: string | null) => void;
   onToggleError: (token: string) => void;
@@ -22,6 +23,7 @@ export function ExerciseStepBody({
   step,
   submitDraft,
   markedErrorTokens,
+  listeningDeferred = false,
   onTextChange,
   onPhotoChange,
   onToggleError,
@@ -52,7 +54,14 @@ export function ExerciseStepBody({
 
   if (step.type === "do") {
     const body = typeof step.config.body === "string" ? step.config.body : "";
-    return <p className="text-lg text-ink">{body}</p>;
+    return (
+      <div className="space-y-2">
+        {listeningDeferred ? (
+          <p className="text-sm text-muted">{t("typeOnlyHint")}</p>
+        ) : null}
+        <p className="text-lg text-ink">{body}</p>
+      </div>
+    );
   }
 
   if (step.type === "wait") {

@@ -5,21 +5,25 @@
 <!-- use-case: UC-007 -->
 <!-- use-case: UC-029 -->
 <!-- use-case: UC-030 -->
+<!-- use-case: UC-028 -->
 <!-- status: draft -->
 
-The **Topic** chip row on method detail: learner picks from topics this method
-supports, or **Your own** for upload/paste. Study/26 still holds — the app picks
-the passage, gaps, and band inside the choice.
+The **Topic** chip row and **material unit** preview on method detail: learner
+picks topic (or **Your own**), sees how much material (sentence / paragraph /
+window / full), then Start. Study/26 still holds — the app picks the passage,
+gaps, and band inside the choice.
 
-UX source: [`../../study/37-content-and-method-setup-ux.md`](../../study/37-content-and-method-setup-ux.md)
-(owner correction 2026-08-17: chips, not free-text topic).
+UX source: [`../../study/37-content-and-method-setup-ux.md`](../../study/37-content-and-method-setup-ux.md);
+units: [`../../study/39-material-units-and-listening-defer.md`](../../study/39-material-units-and-listening-defer.md).
 
 ## Scope
 
 - **In:** chip row on [`method-detail.md`](../page/method-detail.md) when
-  `materialTopics` is set; built-in **App picks** + **Your own** chips;
-  catalogue preview per topic chip; upload/paste/link **only** when Your own is
-  selected; optional **Keep in my library**; Start gating until Source resolves.
+  `materialTopics` is set; **unit preview** when `materialUnits` is set (see
+  [`material-unit.md`](../service/material-unit.md)); built-in **App picks** +
+  **Your own** chips; catalogue preview per topic chip; upload/paste/link **only**
+  when Your own is selected; optional **Keep in my library**; Start gating until
+  Source + unit resolve.
 - **Out:** free-text topic search; menu card fields; catalogue authoring; LLM
   generation; RSS sync; runner step UI ([`exercise-runner.md`](exercise-runner.md));
   gap scheduling ([`content-gap.md`](content-gap.md)).
@@ -41,6 +45,20 @@ Methods omit the panel when `materialTopics` is absent or empty (`srs-session`).
 Upload controls are **hidden** until `own` is selected — never under catalogue
 topic chips.
 
+## Material unit preview
+
+When `materialUnits` is declared, show the resolved slice before Start:
+
+| Preview field | Example |
+| --- | --- |
+| Unit label | *One sentence* · *One paragraph* · *5 min listening* · *Full text* |
+| Coverage | *94 % known · comfortable* |
+| Time | Method duration hint + unit estimate |
+
+Learner may switch unit when the method lists more than one (chip or compact
+select). Resolved unit id is passed on Start (`unitId`, optional `durationSec`
+for `window`).
+
 ## Behavior
 
 | # | User action | System response |
@@ -52,7 +70,7 @@ topic chips.
 | 5 | Taps **Your own** | Upload / paste / link appear; catalogue preview hidden |
 | 6 | Parses own material &lt; 95 % | Support-ladder preview; Start enabled when parsed |
 | 7 | Checks **Keep in my library** (own only) | On Start, persists `learner` Source to `/content` |
-| 8 | Taps Start | Navigates to `/practice?method=…` with `sourceId`, `topicId`, optional `supportRung` |
+| 8 | Taps Start | Navigates to `/practice?method=…` with `sourceId`, `topicId`, `unitId`, optional `durationSec`, optional `supportRung` |
 | 9 | Method without `materialTopics` | No panel; Start as today |
 
 ## States
@@ -67,9 +85,9 @@ topic chips.
 
 ## Data
 
-Reads `materialTopics`, catalogue Sources (`tags[]` includes topic `id` — same
-ids as method chips), coverage service. Writes optional `learner` Source when
-keep checked.
+Reads `materialTopics`, `materialUnits`, catalogue Sources (`tags[]` includes
+topic `id`), [`material-unit.md`](../service/material-unit.md), coverage service.
+Writes optional `learner` Source when keep checked.
 
 ## Copy keys
 

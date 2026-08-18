@@ -12,7 +12,7 @@ import { sectionGraphicAlt, sectionGraphicSrc } from "./section-graphic";
 const methodCardHeaderVariants = cva("relative w-full shrink-0", {
   variants: {
     size: {
-      card: "h-20 bg-surface",
+      card: "h-24 bg-surface",
       hero: "h-44 bg-canvas sm:h-52",
     },
   },
@@ -48,19 +48,31 @@ export function MethodCardHeader({ section, size, className }: MethodCardHeaderP
             ? "100vw"
             : "(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
         }
-        className="object-cover object-center"
+        className={cn(
+          "object-cover",
+          size === "hero" ? "object-center" : "object-[center_30%]",
+        )}
       />
       <div
         className={cn(
           "pointer-events-none absolute inset-0 bg-gradient-to-t to-transparent",
           size === "hero"
             ? "from-canvas/90 via-canvas/20"
-            : "from-surface/90 via-surface/20",
+            : "from-surface from-0% via-surface/60 via-[40%] to-transparent to-100%",
         )}
         aria-hidden
       />
-      <p className="absolute bottom-2 left-3 text-[0.65rem] font-medium uppercase tracking-widest text-muted sm:bottom-3 sm:left-6 sm:text-xs">
-        {label}
+      <p className="absolute bottom-2 left-3 sm:bottom-3 sm:left-6">
+        <span
+          className={cn(
+            "text-[0.65rem] font-medium uppercase tracking-widest sm:text-xs",
+            size !== "hero"
+              ? "rounded-sm bg-surface/70 px-1.5 py-0.5 text-ink backdrop-blur-[2px]"
+              : "text-muted",
+          )}
+        >
+          {label}
+        </span>
       </p>
     </div>
   );

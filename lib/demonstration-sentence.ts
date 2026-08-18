@@ -7,7 +7,10 @@ import { readFileSync } from "node:fs";
 import { join } from "node:path";
 
 import { listTaskStatesForTaskIds } from "@/lib/db/task-state";
+import { getSpokenLanguage } from "@/lib/db/profiles";
 import { poolForActiveLanguage } from "@/lib/db/learner-pools";
+import { sentenceTranslationKey } from "@/lib/description-keys";
+import { resolveDescription } from "@/lib/gloss-resolver";
 import { isMeaningRecallTaskId } from "@/lib/form-recall-pool";
 import { newTask, type Task } from "@/lib/scheduler";
 import { tasksByTaskIdForCards } from "@/lib/task-from-state";
@@ -115,7 +118,20 @@ export async function readDemonstrationSentence(
     const statesResult = await listTaskStatesForTaskIds(cards.map((card) => card.taskId));
     if (statesResult.status === "error") {
       const pick = pickDemonstrationSentence(bank, new Set(), dayKey);
-      return pick ? { status: "ok", pick } : { status: "omit" };
+      if (!pick) return { status: "omit" };
+      const spoken = await getSpokenLanguage();
+      const spokenLanguage = spoken.status === "ok" ? spoken.spokenLanguage : "en";
+      return {
+        status: "ok",
+        pick: {
+          ...pick,
+          translation: resolveDescription(
+            sentenceTranslationKey(pick.id),
+            spokenLanguage,
+            pick.translation,
+          ),
+        },
+      };
     }
 
     const tasksByTaskId = tasksByTaskIdForCards(cards, statesResult.rows);
@@ -126,7 +142,21 @@ export async function readDemonstrationSentence(
     }
 
     const pick = pickDemonstrationSentence(bank, heldWordIds, dayKey);
-    return pick ? { status: "ok", pick } : { status: "omit" };
+    if (!pick) return { status: "omit" };
+
+    const spoken = await getSpokenLanguage();
+    const spokenLanguage =
+      spoken.status === "ok" ? spoken.spokenLanguage : "en";
+    const translation = resolveDescription(
+      sentenceTranslationKey(pick.id),
+      spokenLanguage,
+      pick.translation,
+    );
+
+    return {
+      status: "ok",
+      pick: { ...pick, translation },
+    };
   } catch {
     return { status: "omit" };
   }

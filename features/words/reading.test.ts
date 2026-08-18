@@ -1,6 +1,7 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
 import { poolForActiveLanguage } from "@/lib/db/learner-pools";
+import { getSpokenLanguage } from "@/lib/db/profiles";
 import { listReviewsForTaskIds } from "@/lib/db/review-log";
 import { listTaskStatesForTaskIds } from "@/lib/db/task-state";
 import type { StarterCard } from "@/lib/starter-deck";
@@ -22,6 +23,8 @@ vi.mock("@/lib/db/review-log", async (importOriginal) => ({
 }));
 
 vi.mock("@/lib/db/learner-pools", () => ({ poolForActiveLanguage: vi.fn() }));
+
+vi.mock("@/lib/db/profiles", () => ({ getSpokenLanguage: vi.fn() }));
 
 const now = Date.UTC(2026, 7, 12);
 
@@ -48,6 +51,8 @@ beforeEach(() => {
   vi.mocked(listTaskStatesForTaskIds).mockResolvedValue({ status: "ok", rows: [] });
   vi.mocked(listReviewsForTaskIds).mockClear();
   vi.mocked(listReviewsForTaskIds).mockResolvedValue({ status: "ok", reviews: [] });
+  vi.mocked(getSpokenLanguage).mockClear();
+  vi.mocked(getSpokenLanguage).mockResolvedValue({ status: "ok", spokenLanguage: "en" });
   vi.mocked(poolForActiveLanguage).mockResolvedValue({
     status: "ok",
     cards: [meaningCard, formCard],

@@ -1,16 +1,14 @@
+import { resolvePartialDictationRecipe } from "@/lib/exercise-recipe/partial-dictation";
 import type { ExerciseRecipe } from "@/lib/exercise-runner/types";
-import { FIXTURE_EXERCISE_RECIPE } from "@/lib/exercise-runner/fixture-recipe";
+import { hasExerciseRecipe } from "@/lib/exercise-recipe-built";
 
-/** Hosted methods with a runnable exercise recipe (T-E6 grows this set). */
-const BUILT_EXERCISE_METHOD_IDS = new Set<string>(["partial-dictation"]);
-
-export function hasExerciseRecipe(methodId: string): boolean {
-  return BUILT_EXERCISE_METHOD_IDS.has(methodId);
-}
+export { hasExerciseRecipe } from "@/lib/exercise-recipe-built";
 
 /**
  * Resolve recipe for `/practice`. Returns null when the method has no built
  * engine yet — the route shows honest not-built copy.
+ *
+ * Server-only — imports catalogue sources from disk.
  */
 export function resolveExerciseRecipe(
   methodId: string,
@@ -19,11 +17,7 @@ export function resolveExerciseRecipe(
   if (!hasExerciseRecipe(methodId)) return null;
 
   if (methodId === "partial-dictation") {
-    return {
-      ...FIXTURE_EXERCISE_RECIPE,
-      methodId,
-      sourceId: sourceId ?? FIXTURE_EXERCISE_RECIPE.sourceId,
-    };
+    return resolvePartialDictationRecipe(sourceId);
   }
 
   return null;

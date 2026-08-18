@@ -1,7 +1,7 @@
 # UC-069 — Use the app in the language I speak
 
 <!-- id: UC-069 -->
-<!-- specs: SPEC-service-spoken-language -->
+<!-- specs: SPEC-service-spoken-language, SPEC-service-app-texts, SPEC-service-gloss-resolver -->
 
 **Who:** a learner whose comfortable language is not English — for example a
 German speaker learning Spanish or Italian.
@@ -25,23 +25,27 @@ retired, its content merged below.
 
 ## Today
 
-Two different surfaces are both stuck in English, for two different reasons:
+Two surfaces, two implementation stages:
 
-- **The chrome** is **stage 0**: every string lives in per-feature `content.ts`
-  files, written in English. No locale switcher, no `messages/<locale>.json`,
-  no `[locale]` route segment.
-- **Card content** is **baked into shipped JSON at build time**, English only:
+- **The chrome** is **stage 1 shipped** — `next-intl`, `messages/{en,de}.json`,
+  driven by `profiles.spoken_language` and the locale cookie. Menus, grade
+  buttons, and session prompts (e.g. „Was bedeutet es?“) follow the spoken
+  language.
+- **Card and content glosses** are still **English in shipped JSON**:
 
-  | Card type | What the learner sees | Where it lives |
+  | Card type | What the learner sees | Where it lives today |
   | --- | --- | --- |
-  | Meaning-recall | Target lemma on front; **English** description on back | `data/starter/<lang>-meaning-recall.json` |
-  | Form-recall | **English** description + "write the Spanish/Italian form" on front; target surface form on back | `data/starter/<lang>-form-recall.json` |
+  | Meaning-recall | Target lemma on front; **English** gloss on back | `data/starter/<lang>-meaning-recall.json` field `back` |
+  | Form-recall | **English** prompt on front; target form on back | `data/starter/<lang>-form-recall.json` |
 
-  The word being learned and the text that describes it are **one string in
-  one JSON file today, not two separate things** — that is exactly the
-  problem. Reviews in the database store only `task_id` and grade, never the
-  description text, so localizing the description is a **content** change,
-  not a `review_log` migration.
+  The pool carries the gloss string inline. **`descriptionKey`** + runtime
+  lookup ([`app-texts.md`](../specs/service/app-texts.md),
+  [`gloss-resolver.md`](../specs/service/gloss-resolver.md)) is specced but not
+  built — that is slice 3 of T-B11 / T-W15.
+
+  Reviews store only `task_id` and grade — never the description text — so
+  localizing glosses is a **content + render** change, not a `review_log`
+  migration.
 
 Switching "language" in the app today means **learning language** only
 (`learner_language` — Spanish vs Italian). That changes which starter deck
@@ -57,21 +61,13 @@ loads; it does not change the language anything is *described* in.
     fronts — including human-readable paradigm hints where the cell is part
     of the prompt (UC-041) — e.g. German: *laufen — schreib die spanische
     Form*.
-- **The word being learned and the text describing it are two separate
-  records, not one — resolved 2026-08-12.** The Spanish word `correr` (its
-  identity, its `taskId`, its review history, its schedule) is one thing.
-  The string "to run" or "laufen" that describes it is a **second, separate**
-  record, looked up by (word, spoken language) at render time — never baked
-  together into one file per spoken language. This is *why* it matters, not
-  just *how*: **switching the account's spoken language from English to
-  German, mid-course, changes only the description text. The Spanish word
-  keeps the exact same identity and the exact same progress** — same
-  stability, same due date, same review history. A design where each spoken
-  language got its own duplicate deck (`de-es-meaning-recall.json` next to
-  `en-es-meaning-recall.json`) would risk exactly the opposite: a different
-  `taskId` per spoken language, and switching languages would look like
-  starting over. That design is therefore **rejected**, not just one option
-  among several.
+- **The word being learned and the text describing it are separate records —
+  resolved 2026-08-12, specced 2026-08-18.** Pool JSON carries
+  **`descriptionKey`** (e.g. `card.it:fare.meaning-recall.back`). The visible
+  gloss is looked up at render time via [`gloss-resolver.md`](../specs/service/gloss-resolver.md)
+  using (`descriptionKey`, `spoken_language`). English seeds
+  [`app-texts.md`](../specs/service/app-texts.md); German and other locales are
+  published translation rows — not a second deck file per locale.
 - **Storage — resolved 2026-08-12:** a new `public.profiles` table, one row
   per account, primary keyed on `user_id references auth.users(id)` — never a
   column bolted onto the auth table itself. This is a genuinely new pattern:
@@ -107,14 +103,9 @@ loads; it does not change the language anything is *described* in.
 
 ## Undecided
 
-Resolved 2026-08-12 (decisions 10–11, owner + UX):
+None for slice 3 contract. Implementation slices: T-B11c–e / T-W15 in
+[`IMPLEMENTATION-PLAN.md`](../IMPLEMENTATION-PLAN.md).
 
-- **Description-text source:** card descriptions use [`I18N.md`](../I18N.md)
-  **stage 3** — `app_texts` + `app_text_translations`, keyed by (`wordId`,
-  spoken language), `status` workflow, runtime snapshot JSON. English seeded
-  from Kaikki; other locales MT → review → publish. App chrome stays stage 1
-  (`next-intl` JSON). Same database-i18n pattern as Grundriss/Feldpost;
-  contract is `I18N.md`, not a one-off.
-- **One string per card face per spoken language** — no split into definition /
-  hint / instruction parts for v1. Form-recall fronts like *"to run — write
-  the Spanish form"* are translated as one row, not three fields.
+Resolved — contract in [`app-texts.md`](../specs/service/app-texts.md) and
+[`gloss-resolver.md`](../specs/service/gloss-resolver.md) (2026-08-12 decisions
+10–11, specced 2026-08-18).

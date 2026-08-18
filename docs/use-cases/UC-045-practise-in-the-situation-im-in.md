@@ -1,7 +1,7 @@
 # UC-045 — Find a way to practise that fits right now
 
 <!-- id: UC-045 -->
-<!-- specs: SPEC-page-method-menu, SPEC-service-time-scale, SPEC-component-chip, SPEC-component-method-badge, SPEC-component-method-card-header -->
+<!-- specs: SPEC-page-method-menu, SPEC-service-time-scale, SPEC-component-chip, SPEC-component-method-badge, SPEC-component-method-card, SPEC-component-method-card-header, SPEC-feature-listening-defer -->
 
 **Who:** someone with a specific window — ten minutes on the sofa, half an hour
 before bed, a tired commute.
@@ -39,6 +39,8 @@ to the top make browsing worse, not better.
 - Each card shows a **section header graphic** (one abstract image per catalogue
   section) so browsing sixty entries has visual rhythm without ranking methods.
 - Methods that do not fit are **absent**, not greyed out.
+- **Can't listen now** (UC-077) temporarily removes sound-requiring methods for
+  15 minutes — absent like other context filters.
 - Physical constraints are **stated by the learner**, never inferred.
 - Hosted methods open in one tap; off-app methods show honest detail.
 

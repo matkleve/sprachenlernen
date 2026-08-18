@@ -89,6 +89,8 @@ requires a `⚠ SPEC GAP` line, not a guess.
 | --- | --- | --- |
 | **Text** | A readable unit with a known token profile. | a lesson |
 | **Track** | An audio unit with a synchronised transcript. | a Text |
+| **Material unit** | How much of a Source one session uses: `sentence`, `paragraph`, `window` (e.g. 5 min), or `full`. Resolved at session start — not a separate content file. | a Source, an exercise card |
+| **Listening defer** | Temporary *can't listen now* — 15 min default; sound methods absent; type-only gap-fill. Not UC-020 exclusion. | mute, permanent opt-out |
 | **Transcript** | Target-language text time-aligned to a Track. | a translation |
 | **Reveal level** | Audio only / + transcript / + translation. Recorded per listening, because it changes what the listening proves. | a difficulty setting |
 | **Series** | 4–6 Texts or Tracks on one topic (narrow reading/listening). | a course, a unit |

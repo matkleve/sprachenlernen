@@ -300,7 +300,15 @@
     "submitTextPlaceholder": "Paste or type what you wrote…",
     "reviewAnswerKey": "Answer",
     "reviewMarkErrors": "Tap words you got wrong",
-    "feedbackPlaceholder": "Automatic correction is not available yet — compare against the answer and mark your own errors."
+    "feedbackPlaceholder": "Automatic correction is not available yet — compare against the answer and mark your own errors.",
+    "typeOnlyHint": "Type the gaps — listening is paused for now."
+  },
+  "listeningDefer": {
+    "sectionLabel": "Sound",
+    "cantListenNow": "Can't listen now",
+    "bannerTitle": "Listening paused",
+    "bannerBody": "Sound methods are hidden until {time}.",
+    "listenAgain": "Listen again"
   },
   "progress": {
     "title": "Where you stand",

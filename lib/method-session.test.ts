@@ -2,8 +2,6 @@ import { globSync, readFileSync } from "node:fs";
 
 import { describe, expect, it } from "vitest";
 
-import { resolveExerciseRecipe } from "@/lib/exercise-recipe";
-import { FIXTURE_EXERCISE_RECIPE } from "@/lib/exercise-runner/fixture-recipe";
 import type { MethodEntry } from "@/lib/method-catalogue";
 import {
   CARD_ENGINE_METHOD_ID,
@@ -88,18 +86,6 @@ describe("cardHrefForMethod", () => {
 
   it("links off-app methods to detail", () => {
     expect(cardHrefForMethod(method({ id: "tandem", hosted: false }))).toBe("/methods/tandem");
-  });
-});
-
-describe("resolveExerciseRecipe", () => {
-  it("returns fixture recipe for partial-dictation", () => {
-    const recipe = resolveExerciseRecipe("partial-dictation");
-    expect(recipe?.methodId).toBe("partial-dictation");
-    expect(recipe?.steps).toHaveLength(FIXTURE_EXERCISE_RECIPE.steps.length);
-  });
-
-  it("returns null for unbuilt methods", () => {
-    expect(resolveExerciseRecipe("full-dictation")).toBeNull();
   });
 });
 

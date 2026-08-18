@@ -1,7 +1,7 @@
 # UC-020 — Learn the language without relying on hearing
 
 <!-- id: UC-020 -->
-<!-- specs:  -->
+<!-- specs: SPEC-feature-listening-defer -->
 
 **Who:** a deaf or hard-of-hearing learner.
 **Wants to:** learn to read and write the language, and not be told they are
@@ -31,6 +31,8 @@ never designed with them in mind and that nobody notices is wrong.
   adjustable rather than fixed.
 - Nothing in the interface treats the profile as a limitation to be overcome or
   offers to "unlock" the excluded skills.
+- UC-077 **listening defer** is separate — temporary situational, not profile
+  exclusion; does not change overall level.
 
 ## Out of scope
 

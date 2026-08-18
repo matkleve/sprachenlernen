@@ -1,7 +1,9 @@
 import { listTaskStatesForTaskIds } from "@/lib/db/task-state";
 import { listReviewsForTaskIds } from "@/lib/db/review-log";
 import { internalUnexpected, logHandledError, type HandledError } from "@/lib/errors";
+import { getSpokenLanguage } from "@/lib/db/profiles";
 import { poolForActiveLanguage } from "@/lib/db/learner-pools";
+import { glossMapForLemmaCards } from "@/lib/localize-card-description";
 import { isMeaningRecallTaskId } from "@/lib/form-recall-pool";
 import { buildFrequencyBlocks, type FrequencyBlock } from "@/lib/frequency-blocks";
 import { buildHorizonDisplay, type HorizonDisplay } from "@/lib/review-horizon";
@@ -64,7 +66,11 @@ async function read(now: number): Promise<WordsHomeOutcome> {
   }
 
   const tasksByTaskId = tasksByTaskIdForCards(cards, statesResult.rows);
-  const translations = Object.fromEntries(cards.map((card) => [card.lemma, card.back]));
+  const spoken = await getSpokenLanguage();
+  if (spoken.status === "error") {
+    return { status: "error", error: fail(new Error(spoken.error)) };
+  }
+  const translations = glossMapForLemmaCards(cards, spoken.spokenLanguage);
 
   const reviewsResult = await listReviewsForTaskIds(cards.map((card) => card.taskId));
   if (reviewsResult.status === "error") {

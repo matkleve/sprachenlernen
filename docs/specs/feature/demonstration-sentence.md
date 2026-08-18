@@ -59,7 +59,7 @@ checks the translation, then rates difficulty.
 | --- | --- |
 | `sentences[]` | `data/demonstration-sentences/{code}.json` |
 | `text` | Target-language sentence on card front |
-| `translation` | English sentence on card back |
+| `translation` | English sentence on card back — migrates to `sentence.{id}.translation` via [`gloss-resolver.md`](../service/gloss-resolver.md) |
 | `lemmaIds` | Pool `wordId`s used for coverage scoring only |
 
 ## Acceptance criteria

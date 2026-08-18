@@ -68,7 +68,7 @@ outcomes.
 
 - [ ] Given a signed-in learner on `/words`, when the page renders, then intent
       copy appears on the canvas above the review card, the review card shows a
-      decorative header graphic (`h-20`) with a vocabulary section label on the
+      decorative header graphic (`h-24`) with a vocabulary section label on the
       overlay and **Review** as the in-card action heading.
 - [ ] Given a signed-in learner on `/words`, when the page renders, then held,
       fragile and new appear as stat tiles (label + number only) inside a

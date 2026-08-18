@@ -21,8 +21,9 @@ SKILLS = ["reading", "listening", "speaking", "writing"]
 TIERS = ["wood", "bronze", "silver", "gold", "platinum"]
 
 # Trim gutters inside the uniform grid (tune once per source art).
-MARGIN_X = 0.04
-MARGIN_Y = 0.06
+# 12% margin — card shields need tip/frame clearance (study/40, T-B10f).
+MARGIN_X = 0.12
+MARGIN_Y = 0.12
 GUTTER_X = 0.02
 GUTTER_Y = 0.03
 

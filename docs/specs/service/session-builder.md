@@ -56,7 +56,7 @@ string — no partial queue.
 | `wordId` | `string` | Lexical unit, e.g. `es:de` |
 | `lemma` | `string` | Surface form shown on the front |
 | `front` | `string` | L2 prompt (v1: same as `lemma`) |
-| `back` | `string` | English description text — supplied, not generated at runtime |
+| `back` | `string` | **Legacy** English description — supplied at build, resolved via [`gloss-resolver.md`](gloss-resolver.md) once T-W15 ships. Target: `descriptionKey` only. |
 | `frequencyRank` | `number` | 1 = most frequent in pool |
 
 **Session queue entry** adds scheduler-derived fields the UI may show later:

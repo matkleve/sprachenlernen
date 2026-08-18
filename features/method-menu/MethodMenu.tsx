@@ -19,10 +19,12 @@ import { filterMethods } from "@/lib/method-menu-filter";
 import type { SearchParams } from "@/lib/method-menu-filter";
 
 import { DemonstrationSentence } from "./DemonstrationSentence";
+import { ListeningDeferNotice } from "./ListeningDeferNotice";
 import { MethodCard } from "./MethodCard";
 import { MethodFilter } from "./MethodFilter";
 import { CurrentStanding } from "./CurrentStanding";
 import type { StandingSummary } from "./standing";
+import { useListeningDefer } from "./useListeningDefer";
 import { useMenuFilter } from "./useMenuFilter";
 import { useMethodMenuCopy } from "./use-method-menu-copy";
 
@@ -62,7 +64,10 @@ export function MethodMenu({
 }: MethodMenuProps) {
   const { t, sections } = useMethodMenuCopy();
   const { filter, returnQuery, updateSearchParams } = useMenuFilter(initialSearchParams);
-  const methods = catalogue ? filterMethods(catalogue, filter) : [];
+  const { deferred, expiry, startDefer, clearDefer } = useListeningDefer();
+  const methods = catalogue
+    ? filterMethods(catalogue, filter, { deferListening: deferred })
+    : [];
   const dailyThree = useMemo(
     () => pickDailyThree(methods.filter(isMethod), dayKey),
     [methods, dayKey],
@@ -90,7 +95,16 @@ export function MethodMenu({
         </section>
       ) : null}
 
-      <MethodFilter filter={filter} onFilterChange={updateSearchParams} />
+      <MethodFilter
+        filter={filter}
+        onFilterChange={updateSearchParams}
+        listeningDeferred={deferred}
+        onCantListenNow={startDefer}
+      />
+
+      {deferred && expiry ? (
+        <ListeningDeferNotice expiry={expiry} onClear={clearDefer} />
+      ) : null}
 
       {loadError ? (
         <div className="mt-page-content max-w-2xl">

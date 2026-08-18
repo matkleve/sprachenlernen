@@ -52,7 +52,8 @@ Not a UI machine. `loadSpanishMeaningRecallDeck` is synchronous.
 | `wordId` | `string` | `es:{lemma}` |
 | `lemma` | `string` | Canonical lemma from the lemma table |
 | `front` | `string` | v1: same as `lemma` |
-| `back` | `string` | English gloss — build-time, never runtime |
+| `descriptionKey` | `string` | Stable lookup — e.g. `card.it:fare.meaning-recall.back`. **Target shape** once T-W15 ships; today pools still ship inline `back` (English) until migration. |
+| `back` | `string` | **Legacy** — English gloss at build time. Removed when [`gloss-resolver.md`](gloss-resolver.md) wires all surfaces. |
 | `frequencyRank` | `number` | 1 = most frequent in pool |
 
 **Lemma selection (build script):**
