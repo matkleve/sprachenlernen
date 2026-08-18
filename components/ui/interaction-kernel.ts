@@ -16,6 +16,10 @@ export const interactiveCursor = "cursor-pointer";
 export const interactionMotion =
   "transition-[background-color,box-shadow,transform,border-color,color] duration-150 ease-out-soft";
 
+/** FLIP / layout reorder — 300ms per globals.css motion convention. */
+export const layoutShiftMotion =
+  "transition-transform duration-300 ease-out-soft";
+
 export const focusRing =
   "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-canvas";
 

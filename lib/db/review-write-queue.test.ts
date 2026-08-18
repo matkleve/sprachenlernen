@@ -60,12 +60,32 @@ describe("review-write-queue", () => {
     expect(queue.getState().lastError).toBeNull();
 
     for (let attempt = 0; attempt < 3; attempt++) {
-      await queue.retryFailed();
+      await queue.flushAll();
       expect(queue.getState().lastError).toBeNull();
     }
 
-    await queue.retryFailed();
+    await queue.flushAll();
     expect(queue.getState().lastError).toBe("Your grade could not be saved.");
+  });
+
+  it("resets attempt count when the learner taps retry", async () => {
+    const flush = vi.fn().mockResolvedValue({ status: "error", error: "offline" });
+    const queue = createReviewWriteQueue({
+      storage: createInMemoryReviewQueueStorage(),
+      flush,
+    });
+
+    await queue.enqueue(baseInput);
+    for (let attempt = 0; attempt < 3; attempt++) {
+      await queue.flushAll();
+    }
+    await queue.flushAll();
+    expect(queue.getState().lastError).toBe("Your grade could not be saved.");
+
+    vi.mocked(flush).mockResolvedValue({ status: "appended" });
+    await queue.retryFailed();
+    expect(queue.getState().lastError).toBeNull();
+    expect(queue.getState().pending).toBe(0);
   });
 
   it("notifies subscribers when pending count changes", async () => {

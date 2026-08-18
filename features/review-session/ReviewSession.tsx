@@ -94,13 +94,6 @@ export function ReviewSession({ methodName, compact = false, initialData }: Revi
     <div className={rootClass}>
       {sessionHeader}
 
-      {showsActiveCard(phase) && runSegments.length > 0 ? (
-        <SessionRunStatusStrip
-          segments={runSegments}
-          className={cn(compact ? "mt-2 shrink-0" : "mt-3")}
-        />
-      ) : null}
-
       {showSyncStatus && pendingCount > 0 ? (
         <p
           className={cn(
@@ -159,18 +152,28 @@ export function ReviewSession({ methodName, compact = false, initialData }: Revi
           compact={compact}
         />
       ) : showsActiveCard(phase) && currentCard ? (
-        <ReviewCard
-          key={currentCard.wordId}
-          card={currentCard}
-          languageName={languageName}
-          phase={phase}
-          onFlip={flip}
-          onGrade={grade}
-          onSubmitReport={submitReport}
-          reportPending={reportPending}
-          exiting={cardExiting}
-          compact={compact}
-        />
+        <div className={cn(compact && "flex min-h-0 flex-1 flex-col")}>
+          {runSegments.length > 0 ? (
+            <SessionRunStatusStrip
+              segments={runSegments}
+              className={cn(
+                compact ? "mb-2 shrink-0 md:mb-3" : "mb-3",
+              )}
+            />
+          ) : null}
+          <ReviewCard
+            key={currentCard.wordId}
+            card={currentCard}
+            languageName={languageName}
+            phase={phase}
+            onFlip={flip}
+            onGrade={grade}
+            onSubmitReport={submitReport}
+            reportPending={reportPending}
+            exiting={cardExiting}
+            compact={compact}
+          />
+        </div>
       ) : null}
     </div>
   );
