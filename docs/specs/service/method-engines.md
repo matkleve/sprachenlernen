@@ -14,9 +14,10 @@ Parent contract: [`practice-model.md`](practice-model.md). Catalogue schema:
 ## Scope
 
 - **In:** the engine concept; the shipped **card engine** (`srs-session` on
-  `/words/review`); the **exercise runner** (draft —
-  [`exercise-runner.md`](../feature/exercise-runner.md) on `/practice`);
+  `/words/review`); the **exercise runner**
+  ([`exercise-runner.md`](../feature/exercise-runner.md) on `/practice`);
   routing rules (`lib/method-session.ts`); what feeds Progress and Words today.
+  Per-method matrix: [`METHOD-IMPLEMENTATION-MATRIX.md`](../../METHOD-IMPLEMENTATION-MATRIX.md).
 - **Out:** menu composition (method-menu); individual session FSMs
   (review-session, exercise-runner); building every catalogue Method.
 
@@ -25,12 +26,12 @@ Parent contract: [`practice-model.md`](practice-model.md). Catalogue schema:
 | Layer | What it is | Ships today |
 | --- | --- | --- |
 | **Method catalogue** | Data — every named way to practise, hosted or off-app | 53 methods, browsable at `/methods` |
-| **Method engine** | Code that turns one Method into a session | **One built:** card engine (`srs-session`). **One specced:** exercise runner (UC-049) |
+| **Method engine** | Code that turns one Method into a session | **Three built:** card (`srs-session`), exercise (`partial-dictation`, `full-dictation`) |
 | **Destination** | Where a learner goes for a kind of work — Methods, Words, Progress | Three (ADR-0009) |
 
 A **hosted** catalogue entry (`hosted: true`) means the product intends to run it
 in-app. It does **not** mean a session exists yet. Thirty-four methods are
-hosted; one engine is built.
+hosted; **three** are runnable today.
 
 ## Card engine (shipped)
 
@@ -59,7 +60,7 @@ held for the same Word.
 | Recipes | Composed at Start — [`exercise-recipe-composer.md`](exercise-recipe-composer.md) |
 | Writes | Session log (future); `decide` may create cards — never silently |
 
-Built: shell + `partial-dictation` (one sentence). Build order:
+Built: shell + `partial-dictation` + `full-dictation`. Build order:
 [`plans/exercise-runner.md`](../../plans/exercise-runner.md).
 
 ## Routing

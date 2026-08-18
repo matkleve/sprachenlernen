@@ -305,7 +305,16 @@
     "playAudio": "Audio abspielen",
     "gapPlaceholder": "…",
     "gapInputLabel": "Lücke {word}",
-    "unknownComponent": "Dieser Schritttyp ({component}) ist noch nicht umgesetzt."
+    "unknownComponent": "Dieser Schritttyp ({component}) ist noch nicht umgesetzt.",
+    "fullDictationProgress": "Satz {current} von {total}",
+    "fullDictationProtocol": "Hör {reads}-mal zu, dann schreib den ganzen Satz auf dein Blatt.",
+    "fullDictationWriteOnPaper": "Hier nicht tippen — auf deinem Arbeitsblatt schreiben.",
+    "fullDictationDeferred": "Hören ist pausiert — schreib aus dem Gedächtnis, wenn du wieder hören kannst.",
+    "sheetDownloadIntro": "Druck ein Arbeitsblatt mit Leerzeilen für jeden Satz.",
+    "sheetDefaultTitle": "Diktat-Arbeitsblatt",
+    "sheetPreviewLabel": "Arbeitsblatt-Vorschau",
+    "sheetLine": "Zeile {number}",
+    "sheetPrint": "Arbeitsblatt drucken"
   },
   "listeningDefer": {
     "sectionLabel": "Ton",

@@ -1,11 +1,13 @@
 /**
  * Per-Method recipe composers. Contract: docs/specs/service/exercise-recipe-composer.md
  */
+import { resolveFullDictationRecipe } from "@/lib/exercise-recipe/full-dictation";
 import { resolvePartialDictationRecipe } from "@/lib/exercise-recipe/partial-dictation";
 import type { RecipeComposer, SessionContext } from "@/lib/exercise-recipe/types";
 
 const COMPOSERS: Record<string, RecipeComposer> = {
   "partial-dictation": (ctx) => resolvePartialDictationRecipe(ctx),
+  "full-dictation": (ctx) => resolveFullDictationRecipe(ctx),
 };
 
 export function hasRecipeComposer(methodId: string): boolean {
@@ -31,5 +33,6 @@ export function toSessionContext(
     unitId: options.unitId,
     durationSec: options.durationSec,
     variantId: options.variantId,
+    heldLemmas: options.heldLemmas,
   };
 }

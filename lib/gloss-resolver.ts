@@ -2,8 +2,8 @@
  * Runtime lookup for learner-facing description strings. Contract:
  * docs/specs/service/gloss-resolver.md
  */
-import { readFileSync, existsSync } from "node:fs";
-import { join } from "node:path";
+import deDescriptions from "@/data/i18n/descriptions/de.json";
+import enDescriptions from "@/data/i18n/descriptions/en.json";
 
 import { isSpokenLanguageShipped } from "@/lib/spoken-language";
 
@@ -15,17 +15,10 @@ type GlossResolverOptions = {
   onLocaleLoad?: (locale: string) => void;
 };
 
-const SNAPSHOT_DIR = join(process.cwd(), "data/i18n/descriptions");
-
-function loadSnapshotFromDisk(locale: string): DescriptionSnapshot {
-  const path = join(SNAPSHOT_DIR, `${locale}.json`);
-  if (!existsSync(path)) return {};
-  try {
-    return JSON.parse(readFileSync(path, "utf8")) as DescriptionSnapshot;
-  } catch {
-    return {};
-  }
-}
+const BUNDLED_SNAPSHOTS: SnapshotBundle = {
+  en: enDescriptions as DescriptionSnapshot,
+  de: deDescriptions as DescriptionSnapshot,
+};
 
 export function createGlossResolver(
   snapshots: SnapshotBundle,
@@ -59,10 +52,7 @@ let defaultResolver: ReturnType<typeof createGlossResolver> | null = null;
 
 function defaultGlossResolver(): ReturnType<typeof createGlossResolver> {
   if (!defaultResolver) {
-    defaultResolver = createGlossResolver({
-      en: loadSnapshotFromDisk("en"),
-      de: loadSnapshotFromDisk("de"),
-    });
+    defaultResolver = createGlossResolver(BUNDLED_SNAPSHOTS);
   }
   return defaultResolver;
 }
@@ -97,6 +87,7 @@ export function setGlossResolverForTests(
   defaultResolver = resolver;
 }
 
+/** Bundled English snapshot — same data as `data/i18n/descriptions/en.json`. */
 export function loadDescriptionSnapshotFromDisk(locale: string): DescriptionSnapshot {
-  return loadSnapshotFromDisk(locale);
+  return BUNDLED_SNAPSHOTS[locale] ?? {};
 }

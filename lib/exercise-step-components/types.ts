@@ -6,6 +6,8 @@ export const SHIPPED_STEP_COMPONENT_IDS = [
   "checklist",
   "prompt",
   "gap-fill",
+  "full-dictation",
+  "sheet-download",
   "capture",
   "self-mark",
   "feedback",

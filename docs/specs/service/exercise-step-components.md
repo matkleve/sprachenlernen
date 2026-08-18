@@ -38,7 +38,7 @@ Implementation target: `lib/exercise-step-components/` registry +
 | `instruction` | One-screen how-this-works (first visit optional) | planned | 4/3/2, narrow reading/listening, dictogloss |
 | `context-check` | Confirm context still matches (`requires`) | planned | full dictation, paradigm tables |
 | `material-preview` | Show resolved Source slice + coverage band | planned | extensive reading, retell, back-translation |
-| `sheet-download` | Printable worksheet (paradigm, handwriting, dictation) | planned | paradigm tables, copy paragraph, handwriting shakiest |
+| `sheet-download` | Printable worksheet (paradigm, handwriting, dictation) | shipped | paradigm tables, copy paragraph, full dictation |
 | `variant-picker` | Short / standard / long before recipe expands | planned | dictation floor recovery, abandonment variant |
 
 ## B · Consume — look or listen (`do`)
@@ -61,7 +61,7 @@ Implementation target: `lib/exercise-step-components/` registry +
 | --- | --- | --- | --- |
 | `gap-fill` | Gapped sentence; type blanks; defer → type-only | shipped | partial dictation |
 | `audio-gap` | Hear sentence; type blanks (no text shown) | planned | partial dictation (harder) |
-| `full-dictation` | Hear; write entire sentence (3× read protocol) | planned | full dictation |
+| `full-dictation` | Hear; write entire sentence (3× read protocol) | shipped | full dictation |
 | `cloze-select` | Pick missing word from 3–4 options | planned | cloze sentences (easy) |
 | `cloze-type` | Type missing word (no options) | planned | cloze sentences, paradigm tables |
 | `word-bank` | Drag words into sentence slots | planned | build a sentence (alt) |

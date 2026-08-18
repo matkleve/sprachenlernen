@@ -15,14 +15,22 @@ describe("PracticePage", () => {
     expect(screen.getByText(/Step 1 of 6/)).toBeDefined();
   });
 
-  it("shows not-built for unbuilt hosted method", async () => {
+  it("renders exercise runner for full-dictation", async () => {
     const ui = await PracticePage({
       searchParams: Promise.resolve({ method: "full-dictation" }),
     });
     render(ui);
 
-    expect(
-      screen.getByText(/session is not built yet/i),
-    ).toBeDefined();
+    expect(screen.getByRole("heading", { name: "Full dictation on paper" })).toBeDefined();
+    expect(screen.getByText(/Step 1 of/)).toBeDefined();
+  });
+
+  it("shows not-built for unbuilt hosted method", async () => {
+    const ui = await PracticePage({
+      searchParams: Promise.resolve({ method: "extensive-reading" }),
+    });
+    render(ui);
+
+    expect(screen.getByText(/session is not built yet/i)).toBeDefined();
   });
 });

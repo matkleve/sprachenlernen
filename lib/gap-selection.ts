@@ -28,7 +28,23 @@ export type GapFillLine = {
 export type GapSelectionOptions = {
   /** Share of eligible content tokens to gap — default 0.5 */
   maxGapRatio?: number;
+  /** Prefer gapping content words the learner holds in writing (partial dictation). */
+  heldLemmas?: ReadonlySet<string>;
 };
+
+const lemmasForToken = (form: string, lexicon: Lexicon): readonly string[] => {
+  const resolution = lexicon.resolve(form);
+  if (resolution.kind === "unknown") return [];
+  if (resolution.kind === "single") return [resolution.analysis.lemma];
+  if (resolution.kind === "ambiguous") return resolution.analyses.map((analysis) => analysis.lemma);
+  return resolution.parts.flatMap((part) => lemmasForToken(part, lexicon));
+};
+
+const tokenMatchesHeldLemma = (
+  form: string,
+  lexicon: Lexicon,
+  heldLemmas: ReadonlySet<string>,
+): boolean => lemmasForToken(form, lexicon).some((lemma) => heldLemmas.has(lemma));
 
 export function isContentWord(form: string, lexicon: Lexicon): boolean {
   const resolution = lexicon.resolve(form);
@@ -60,11 +76,18 @@ export function selectGapIndices(
   lexicon: Lexicon,
   options?: GapSelectionOptions,
 ): number[] {
-  const candidates = tokens
+  let candidates = tokens
     .map((token, index) => ({ index, token: token.text }))
     .filter(({ token }) => isContentWord(token, lexicon));
 
   if (candidates.length === 0) return [];
+
+  if (options?.heldLemmas && options.heldLemmas.size > 0) {
+    const heldCandidates = candidates.filter(({ token }) =>
+      tokenMatchesHeldLemma(token, lexicon, options.heldLemmas!),
+    );
+    if (heldCandidates.length > 0) candidates = heldCandidates;
+  }
 
   const maxGaps = Math.max(
     1,

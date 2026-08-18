@@ -122,6 +122,7 @@
       ],
       "materialUnits": [
         { "id": "sentence", "default": true },
+        { "id": "paragraph" },
         { "id": "window", "durationSec": 300 }
       ]
     },
@@ -157,7 +158,17 @@
         ]
       },
       "offerEveryDays": 10,
-      "doesNotDo": "It is slow and it does not teach meaning. Ten minutes buys six sentences of sound-to-spelling, and comprehension is not what is being checked."
+      "doesNotDo": "It is slow and it does not teach meaning. Ten minutes buys six sentences of sound-to-spelling, and comprehension is not what is being checked.",
+      "materialTopics": [
+        { "id": "news", "labelKey": "news" },
+        { "id": "daily", "labelKey": "daily" },
+        { "id": "environment", "labelKey": "environment" }
+      ],
+      "materialUnits": [
+        { "id": "sentence" },
+        { "id": "paragraph", "default": true },
+        { "id": "window", "durationSec": 300 }
+      ]
     },
     {
       "id": "dictogloss",

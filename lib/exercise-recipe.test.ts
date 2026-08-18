@@ -88,6 +88,24 @@ describe("partial dictation recipe", () => {
     expect(doSteps.length).toBeGreaterThan(1);
     expect(recipe.steps.length).toBeGreaterThan(6);
   });
+
+  it("derives short variant from sentence unit when variantId omitted", () => {
+    const source = findContentSourceById(DEFAULT_PARTIAL_DICTATION_SOURCE_ID)!;
+    const recipe = composePartialDictationRecipe(source, {
+      methodId: "partial-dictation",
+      unitId: "sentence",
+    });
+    expect(recipe.steps.filter((step) => step.type === "do")).toHaveLength(1);
+  });
+
+  it("derives standard variant from paragraph unit", () => {
+    const source = findContentSourceById(DEFAULT_PARTIAL_DICTATION_SOURCE_ID)!;
+    const recipe = composePartialDictationRecipe(source, {
+      methodId: "partial-dictation",
+      unitId: "paragraph",
+    });
+    expect(recipe.steps.filter((step) => step.type === "do").length).toBeGreaterThan(1);
+  });
 });
 
 describe("resolveExerciseRecipe", () => {
@@ -109,6 +127,6 @@ describe("resolveExerciseRecipe", () => {
   });
 
   it("returns null for unbuilt methods", async () => {
-    expect(await resolveExerciseRecipe("full-dictation")).toBeNull();
+    expect(await resolveExerciseRecipe("extensive-reading")).toBeNull();
   });
 });
