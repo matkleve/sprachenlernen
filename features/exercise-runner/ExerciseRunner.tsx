@@ -14,7 +14,6 @@ import { useExerciseRunner } from "@/features/exercise-runner/useExerciseRunner"
 import { useListeningDefer } from "@/features/method-menu/useListeningDefer";
 import type { ExerciseRecipe } from "@/lib/exercise-runner";
 import type { Section } from "@/lib/method-catalogue";
-import { cn } from "@/lib/utils";
 
 type ExerciseRunnerProps = {
   sectionLabel: string;

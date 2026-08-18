@@ -42,7 +42,7 @@ Load-bearing — do not skip skeleton before components.
 | **T-LD1** | ~~**Can't listen now**~~ — **shipped 2026-08-18** | Standard | method menu | UC-077 |
 | **T-E10** | ~~**Component registry**~~ — **shipped 2026-08-18** | Standard | T-E1 | `exercise-step-components.md` AC |
 | **T-E11** | ~~**Recipe composer**~~ — **shipped 2026-08-18** | Standard | T-E6 | `exercise-recipe-composer.md` AC |
-| **T-E12** | **Practice-surface UX + anchored layout** — hero, prep scale, interactive checklist, `one-screen-exercise`, footer scrim, content profiles | **In progress 2026-08-18** | Standard | T-E1 | [`practice-surface.md`](../specs/feature/practice-surface.md), [`exercise-runner.layout.md`](../specs/feature/exercise-runner.layout.md) AC; owner LIVE CHECK |
+| **T-E12** | ~~**Practice-surface UX + anchored layout**~~ — **shipped 2026-08-18** | Standard | T-E1 | [`practice-surface.md`](../specs/feature/practice-surface.md), [`exercise-runner.layout.md`](../specs/feature/exercise-runner.layout.md) AC |
 
 **Not this runner:** `srs-session`, form-recall card queue — card engine on `/words/review`.
 
