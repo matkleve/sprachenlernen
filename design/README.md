@@ -8,8 +8,9 @@ promoted.
 
 ```
 design/
-  logo/           App mark + wordmark explorations (SVG source)
-  README.md       This file
+  logo/              App mark + wordmark explorations (SVG source)
+  method-sections/   Catalogue banner explorations (grid PNG → WebP)
+  README.md          This file
 ```
 
 ## Workflow
@@ -27,6 +28,9 @@ design/
 Visual tokens come from **Warm Scholar** (chosen 2026-08-09 via `/dev/design`).
 Do not introduce raw hex in components — reference token names in docs and use
 the values from `app/globals.css` in SVG source files only.
+
+Method section graphics brief:
+[`docs/study/39-method-section-graphics-brief.md`](../docs/study/39-method-section-graphics-brief.md).
 
 ## What does not live here
 

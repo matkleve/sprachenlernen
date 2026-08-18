@@ -48,6 +48,9 @@ itself (the enclosing `SurfaceLink` owns focus-visible).
 Section label text from `features/method-menu/content.ts` (`sections` map).
 Asset path from `sectionGraphicSrc[section]`.
 
+Asset brief and cohesion checklist:
+[`../../study/39-method-section-graphics-brief.md`](../../study/39-method-section-graphics-brief.md).
+
 ## Acceptance criteria
 
 - [ ] Given any method card, when it renders, then a header graphic appears

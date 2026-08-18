@@ -76,6 +76,7 @@ only this table.
 | [36 · Method surfaces property audit](36-method-surfaces-property-audit.md) | UX designer review of every card/detail property — badges, chips, effort dots |
 | [37 · Content & method setup UX](37-content-and-method-setup-ux.md) | Catalogue + learner sources, topic/upload on method detail, `/content` library |
 | [38 · Landing page update](38-landing-page-update.md) | What to show on `/` before login — structure, assets, headline options |
+| [39 · Method section graphics](39-method-section-graphics-brief.md) | Eight catalogue banner assets — cohesion brief, ChatGPT prompt, checklist |
 | [Sources](sources.md) | Literature, honestly marked by how far each was checked |
 
 Chapters 12–26 were written after the roadmap and are appended at the end. By

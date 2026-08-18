@@ -161,7 +161,7 @@ clashing. Rules for asset authoring and ChatGPT prompts:
 | Colour carries meaning | study/22 G1, DESIGN-SYSTEM | Skill icon **hue family** per column; metals stay neutral |
 | Never colour alone | study/22 G2, Constitution §3 | Shape + tier must differ even in greyscale; `aria-label` carries words |
 | Skill token hues | `app/globals.css` | Reading warm brown `#6b5344`, listening cool slate `#44566b`, speaking warm `#6b4f44`, writing sage `#4f6b52` — use as **accent on the motif**, not flat fills |
-| Section graphics | `method-section-*` webp | Same abstract/editorial 3D language; badges are the **micro** version of section headers |
+| Section graphics | `method-section-*` webp | Same abstract/editorial 3D language; badges are the **micro** version of section headers — brief: [39](39-method-section-graphics-brief.md) |
 | Dark mode | DESIGN-SYSTEM | Assets are mostly metal + embossed icons; avoid pure white hotspots that blow out on dark `canvas` |
 
 **Cohesion checklist** (designer signs off before vectorizing):
