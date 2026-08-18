@@ -51,7 +51,6 @@ export type UseReviewSessionResult = {
   currentCard: SessionCard | null;
   languageName: string | null;
   syncCount: number;
-  showSyncStatus: boolean;
   gradedCount: number;
   runSegments: RunSegment[];
   reportAck: ReportAck | null;
@@ -62,7 +61,6 @@ export type UseReviewSessionResult = {
   submitReport: (input: ReportCardInput) => Promise<void>;
 };
 
-const SYNC_STATUS_DELAY_MS = 500;
 const REPORT_EXIT_MS = 320;
 
 function initialStatusFromData(
@@ -94,7 +92,6 @@ export function useReviewSession(options: UseReviewSessionOptions = {}): UseRevi
   );
   const [sessionIndex, setSessionIndex] = useState(0);
   const [syncCount, setSyncCount] = useState(0);
-  const [showSyncStatus, setShowSyncStatus] = useState(false);
   const [gradedCount, setGradedCount] = useState(0);
   const [runSegments, setRunSegments] = useState<RunSegment[]>(() =>
     initialData?.status === "ok" ? initRunSegments(initialData.queue) : [],
@@ -156,19 +153,23 @@ export function useReviewSession(options: UseReviewSessionOptions = {}): UseRevi
     const unsubscribe = queueClient.subscribe((state) => {
       setSyncCount(state.pending + state.failed);
     });
-    void queueClient.flushAll();
-    return unsubscribe;
+
+    const flush = () => {
+      void queueClient.flushAll();
+    };
+
+    flush();
+    window.addEventListener("online", flush);
+    document.addEventListener("visibilitychange", () => {
+      if (document.visibilityState === "visible") flush();
+    });
+
+    return () => {
+      unsubscribe();
+      window.removeEventListener("online", flush);
+      document.removeEventListener("visibilitychange", flush);
+    };
   }, []);
-
-  useEffect(() => {
-    if (syncCount === 0) {
-      setShowSyncStatus(false);
-      return;
-    }
-
-    const timer = setTimeout(() => setShowSyncStatus(true), SYNC_STATUS_DELAY_MS);
-    return () => clearTimeout(timer);
-  }, [syncCount]);
 
   const currentCard = queue[sessionIndex] ?? null;
   const visibleRunSegments = displayRunSegments(
@@ -283,7 +284,6 @@ export function useReviewSession(options: UseReviewSessionOptions = {}): UseRevi
     currentCard,
     languageName,
     syncCount,
-    showSyncStatus,
     gradedCount,
     runSegments: visibleRunSegments,
     reportAck,

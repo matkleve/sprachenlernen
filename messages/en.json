@@ -249,6 +249,8 @@
     "languageLabel": "{name}",
     "syncingOne": "Syncing 1 review…",
     "syncing": "Syncing {count} reviews…",
+    "syncPendingOne": "We'll save your last review in the background.",
+    "syncPending": "We'll save your reviews in the background.",
     "report": "Report a problem with this card",
     "reportDone": "Thanks — we will stop scheduling this card. Moving to the next one.",
     "reportPopoverTitle": "Report this card",

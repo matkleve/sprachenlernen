@@ -32,7 +32,6 @@ export function ReviewSession({ methodName, compact = false, initialData }: Revi
     currentCard,
     languageName,
     syncCount,
-    showSyncStatus,
     gradedCount,
     runSegments,
     reportAck,
@@ -88,18 +87,6 @@ export function ReviewSession({ methodName, compact = false, initialData }: Revi
   return (
     <div className={rootClass}>
       {sessionHeader}
-
-      {showSyncStatus && syncCount > 0 ? (
-        <p
-          className={cn(
-            "text-sm text-muted",
-            compact ? "mt-1 shrink-0" : "mt-2",
-          )}
-          aria-live="polite"
-        >
-          {t('syncing', { count: syncCount })}
-        </p>
-      ) : null}
 
       {reportAck?.variant === "success" ? (
         <StatusBanner

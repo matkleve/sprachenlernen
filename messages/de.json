@@ -249,6 +249,8 @@
     "languageLabel": "{name}",
     "syncingOne": "1 Wiederholung wird synchronisiert…",
     "syncing": "{count} Wiederholungen werden synchronisiert…",
+    "syncPendingOne": "Wir speichern deine letzte Bewertung im Hintergrund.",
+    "syncPending": "Wir speichern deine Bewertungen im Hintergrund.",
     "report": "Problem mit dieser Karte melden",
     "reportDone": "Danke — wir planen diese Karte nicht mehr ein. Nächste Karte.",
     "reportPopoverTitle": "Diese Karte melden",

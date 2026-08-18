@@ -183,8 +183,6 @@ export function createReviewWriteQueue(options: {
       try {
         await reload();
         for (const row of [...cache]) {
-          if (row.state === "failed" && row.attempts >= 5) continue;
-
           const flushingRow: QueuedReviewRow = { ...row, state: "flushing" };
           await options.storage.put(flushingRow);
           await reload();

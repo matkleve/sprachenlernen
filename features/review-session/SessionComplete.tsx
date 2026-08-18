@@ -20,7 +20,7 @@ export function SessionComplete({ gradedCount, pendingCount, compact = false }: 
       </p>
       {pendingCount > 0 ? (
         <p className="mt-4 text-sm text-muted" aria-live="polite">
-          {t('syncing', { count: pendingCount })}
+          {pendingCount === 1 ? t("syncPendingOne") : t("syncPending", { count: pendingCount })}
         </p>
       ) : null}
       <div className="mt-8 flex flex-wrap gap-3">

@@ -205,7 +205,7 @@ describe("ReviewSession", () => {
     resolveAppend!({ status: "appended", id: "row-1" });
   });
 
-  it("shows syncing status when persistence fails after advancing", async () => {
+  it("stays silent when persistence fails after advancing", async () => {
     setReviewQueueForTests({
       subscribe(listener) {
         listener({
@@ -241,13 +241,7 @@ describe("ReviewSession", () => {
 
     await waitFor(() => expect(screen.getByText("que")).toBeDefined());
 
-    await waitFor(
-      () =>
-        expect(
-          screen.getByText(formatMessage(en.reviewSession.syncing, { count: 1 })),
-        ).toBeDefined(),
-      { timeout: 1_000 },
-    );
+    expect(screen.queryByText(formatMessage(en.reviewSession.syncing, { count: 1 }))).toBeNull();
     expect(screen.queryByRole("button", { name: /retry/i })).toBeNull();
     expect(screen.queryByText(/could not be saved/i)).toBeNull();
   });
