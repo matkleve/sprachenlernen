@@ -30,14 +30,14 @@ recall or form-recall), grades that append to the review log (T-B2).
 | # | User action | System response |
 | --- | --- | --- |
 | 1 | Lands on `/words/review?method=srs-session` | Route builds a 15-card queue on the server; first card front is in the initial HTML |
-| 2 | Sees a meaning-recall card | Front (target-language lemma) only; language name on the card; tap the card to flip and see the meaning |
-| 2b | Sees a form-recall card | Front (English gloss + produce prompt) only; same flip interaction; back shows the target surface form |
+| 2 | Sees a meaning-recall card | Target-language lemma on front only; language name on the card; tap the card to flip and see the gloss in the spoken language |
+| 2b | Sees a form-recall card | Spoken-language gloss + produce prompt on front only; same flip interaction; back shows the target surface form |
 | 3 | Taps the card | Back shown; grade buttons stay visible (they were already on screen) |
 | 4 | Taps a grade (with or without flipping) | Grade queued locally; **next card immediately** (`advancing` → `prompting` or `complete`); server flush runs in the background ([`review-write-queue`](../service/review-write-queue.md)). **`again`** re-inserts the card five positions ahead (or at end if fewer than five remain); **`hard`** re-inserts at end of the remaining queue; **`good`** / **`easy`** do not requeue ([ADR-0012](../../adr/0012-ux-decisions-requeue-i18n-leech-nav.md), UC-071) |
 | 5 | Background flush fails | Session does not rewind; non-blocking status with Retry |
 | 6 | Session `complete` | Summary: cards graded this session; link back to Words and Methods |
 | 7 | Viewport &lt; `md` during an active card | Method name and progress share one line; **run status strip** sits directly under that header; card and grade row fit without page scroll ([`page-layout.md`](page-layout.md) `one-screen-runner`) |
-| 8 | Taps **Report** on a card | Popover opens; optional category and note; card is flagged for this learner and spoken language; success banner shown; card stays in the current queue ([`broken-card-detection`](../service/broken-card-detection.md), UC-023, UC-073, UC-074) |
+| 8 | Taps **Report** on a card | Popover opens; optional category and note; card is flagged for this learner and spoken language; success banner shown; reported card exits with a short animation and the session advances to the next card without grading ([`broken-card-detection`](../service/broken-card-detection.md), UC-023, UC-073, UC-074) |
 
 ## States
 

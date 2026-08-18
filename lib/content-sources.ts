@@ -9,7 +9,11 @@ import { loadSources, type Source } from "@/lib/coverage";
 
 import { CONTENT_SOURCE_LANGUAGES } from "./content-source-constants";
 
-export { CONTENT_SOURCE_LANGUAGES, DEFAULT_PARTIAL_DICTATION_SOURCE_ID } from "./content-source-constants";
+export {
+  CONTENT_SOURCE_LANGUAGES,
+  DEFAULT_EXTENSIVE_READING_SOURCE_ID,
+  DEFAULT_PARTIAL_DICTATION_SOURCE_ID,
+} from "./content-source-constants";
 export {
   dictationSentenceFromSource,
   gappedSentence,

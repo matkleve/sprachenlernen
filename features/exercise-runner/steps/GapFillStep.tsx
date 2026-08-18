@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useTranslations } from "next-intl";
 
-import { Button } from "@/components/ui/Button";
+import { ExerciseAudioButton } from "@/features/exercise-runner/ExerciseAudioButton";
 import { Input } from "@/components/ui/Input";
 import { parseGapFillConfig } from "@/lib/gap-selection";
 import { cn } from "@/lib/utils";
@@ -22,9 +22,6 @@ export function GapFillStep({ config, listeningDeferred = false }: GapFillStepPr
     return null;
   }
 
-  const audioUrl = typeof config.audioUrl === "string" ? config.audioUrl : undefined;
-  const showAudio = !listeningDeferred && Boolean(audioUrl);
-
   const setAnswer = (index: number, value: string) => {
     setAnswers((current) => ({ ...current, [index]: value }));
   };
@@ -33,20 +30,9 @@ export function GapFillStep({ config, listeningDeferred = false }: GapFillStepPr
     <div className="space-y-4">
       {listeningDeferred ? (
         <p className="text-sm text-muted">{t("typeOnlyHint")}</p>
-      ) : null}
-
-      {showAudio ? (
-        <Button
-          type="button"
-          variant="secondary"
-          size="sm"
-          onClick={() => {
-            if (audioUrl) window.open(audioUrl, "_blank", "noopener,noreferrer");
-          }}
-        >
-          {t("playAudio")}
-        </Button>
-      ) : null}
+      ) : (
+        <ExerciseAudioButton config={config} />
+      )}
 
       <p className="text-lg leading-relaxed text-ink" aria-label={line.sentence}>
         {line.tokens.map((token, index) => (

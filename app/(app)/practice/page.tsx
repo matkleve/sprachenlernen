@@ -7,8 +7,11 @@ import { loadMethodCatalogue } from "@/features/method-menu/catalogue";
 import { findMethod } from "@/features/method-menu/MethodDetail";
 import { resolveExerciseRecipe } from "@/lib/exercise-recipe";
 import type { RecipeVariantId } from "@/lib/exercise-recipe/types";
+import { variantIdForMaterialSetup } from "@/lib/exercise-recipe/variant";
 import { CARD_ENGINE_METHOD_ID } from "@/lib/method-session";
 import type { MaterialUnitId } from "@/lib/material-unit";
+import { localizeMethodEntry } from "@/lib/localize-method-entry";
+import { loadPracticeHeldLemmas } from "@/lib/practice-session";
 import { routes } from "@/lib/routes";
 import { shellPageLayout } from "@/lib/shell-page-layout";
 
@@ -47,11 +50,17 @@ export default async function PracticePage({
 
   const { catalogue } = loadMethodCatalogue();
   const method = findMethod(catalogue, methodId);
+  const resolvedUnitId = unitId as MaterialUnitId | undefined;
+  const resolvedVariantId =
+    (variantId as RecipeVariantId | undefined) ??
+    (resolvedUnitId ? variantIdForMaterialSetup(methodId, resolvedUnitId) : undefined);
+  const heldLemmas = await loadPracticeHeldLemmas();
   const recipe = await resolveExerciseRecipe(methodId, {
     sourceId,
-    unitId: unitId as MaterialUnitId | undefined,
+    unitId: resolvedUnitId,
     durationSec: durationSec ? Number(durationSec) : undefined,
-    variantId: variantId as RecipeVariantId | undefined,
+    variantId: resolvedVariantId,
+    heldLemmas,
   });
 
   if (!method) {
@@ -61,6 +70,9 @@ export default async function PracticePage({
       </ShellPageContent>
     );
   }
+
+  const tMethod = await getTranslations("methodMenu");
+  const localized = localizeMethodEntry(method, (key) => tMethod(key as "entries.background-listening.name"));
 
   if (!recipe) {
     return (
@@ -72,7 +84,7 @@ export default async function PracticePage({
 
   return (
     <ShellPageContent mode={layoutMode} width="narrow">
-      <ExerciseRunner methodName={method.name} recipe={recipe} compact={layoutMode === "one-screen-runner"} />
+      <ExerciseRunner methodName={localized.name} recipe={recipe} compact={layoutMode === "one-screen-runner"} />
     </ShellPageContent>
   );
 }

@@ -15,6 +15,7 @@ function card(taskId: string, position: number, total = 2): SessionCard {
     lemma: taskId,
     front: taskId,
     back: taskId,
+    descriptionKey: `card.${taskId}.meaning-recall.back`,
     frequencyRank: position,
     position,
     total,

@@ -4,11 +4,16 @@ import type { StepType } from "@/lib/exercise-runner/types";
 /** Runner widgets shipped today — unknown ids render not-built copy. */
 export const SHIPPED_STEP_COMPONENT_IDS = [
   "checklist",
+  "material-preview",
   "prompt",
+  "text-display",
   "gap-fill",
+  "full-dictation",
+  "sheet-download",
   "capture",
   "self-mark",
   "feedback",
+  "comprehension-questions",
   "offers",
 ] as const;
 

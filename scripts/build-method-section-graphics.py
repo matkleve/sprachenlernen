@@ -5,7 +5,7 @@ Source: design/method-sections/sources/method-sections-grid-v1.png
 Output: public/assets/method-sections/method-section-{section}.webp
 
 Grid layout: 4 columns × 2 rows (study/39). Crops omit baked-in cell labels.
-Pads to banner aspect before resize — never stretch square cells to 3.2∶1.
+Center-crops to banner aspect (top-weighted) — never stretch or letterbox-pad.
 """
 
 from __future__ import annotations
@@ -37,8 +37,6 @@ COLS, ROWS = 4, 2
 MARGIN_X_FRAC = 0.045
 MARGIN_TOP_FRAC = 0.06
 MARGIN_BOTTOM_FRAC = 0.16
-# Warm Scholar canvas — matches app/globals.css --color-canvas
-PAD_RGB = (247, 244, 239)
 
 
 def crop_cell(img: Image.Image, col: int, row: int) -> Image.Image:
@@ -52,19 +50,17 @@ def crop_cell(img: Image.Image, col: int, row: int) -> Image.Image:
     return img.crop((x0, y0, x1, y1))
 
 
-def pad_to_aspect(cell: Image.Image) -> Image.Image:
-    """Letterbox to banner aspect — preserves motif proportions (no stretch)."""
+def crop_to_aspect_top(cell: Image.Image) -> Image.Image:
+    """Crop to 3.2∶1 — top band for square grid cells; centre band if already wide."""
     w, h = cell.size
     current = w / h
-    if current < TARGET_ASPECT:
+    if current > TARGET_ASPECT:
         new_w = int(round(h * TARGET_ASPECT))
-        canvas = Image.new("RGB", (new_w, h), PAD_RGB)
-        canvas.paste(cell, ((new_w - w) // 2, 0))
-        return canvas
+        x0 = max(0, (w - new_w) // 2)
+        return cell.crop((x0, 0, x0 + new_w, h))
     new_h = int(round(w / TARGET_ASPECT))
-    canvas = Image.new("RGB", (w, new_h), PAD_RGB)
-    canvas.paste(cell, (0, (new_h - h) // 2))
-    return canvas
+    new_h = min(new_h, h)
+    return cell.crop((0, 0, w, new_h))
 
 
 def main() -> None:
@@ -76,7 +72,7 @@ def main() -> None:
 
     for section, col, row in SECTION_GRID:
         cell = crop_cell(grid, col, row)
-        banner = pad_to_aspect(cell)
+        banner = crop_to_aspect_top(cell)
         banner = banner.resize(OUTPUT_SIZE, Image.Resampling.LANCZOS)
         target = OUT_DIR / f"method-section-{section}.webp"
         banner.save(target, "WEBP", quality=86, method=6)

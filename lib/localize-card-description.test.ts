@@ -3,7 +3,7 @@
  */
 import { describe, expect, it } from "vitest";
 
-import { loadItalianMeaningRecallDeck } from "@/lib/starter-deck";
+import { loadItalianMeaningRecallDeck, englishGlossForCard } from "@/lib/starter-deck";
 import { createGlossResolver, setGlossResolverForTests } from "@/lib/gloss-resolver";
 import {
   glossMapForLemmaCards,
@@ -32,7 +32,7 @@ describe("localize-card-description", () => {
     setGlossResolverForTests(resolve);
 
     expect(resolveCardDescription(fare, "de")).toBe("tun");
-    expect(resolve("card.it:fare.meaning-recall.back", "de", fare.back)).toBe("tun");
+    expect(resolve("card.it:fare.meaning-recall.back", "de", englishGlossForCard(fare))).toBe("tun");
 
     setGlossResolverForTests(null);
   });

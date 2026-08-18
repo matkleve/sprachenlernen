@@ -18,7 +18,7 @@ const meaningCard = (lemma: string, rank: number) => ({
   wordId: `es:${lemma}`,
   lemma,
   front: lemma,
-  back: "gloss",
+  descriptionKey: `card.es:${lemma}.meaning-recall.back`,
   frequencyRank: rank,
 });
 
@@ -60,6 +60,7 @@ describe("readStanding", () => {
           lemma: "hola",
           front: "hola",
           back: "gloss",
+          descriptionKey: "card.es:hola.form-recall.front",
           frequencyRank: 1,
           paradigmCell: "ind.pres.3sg",
         },

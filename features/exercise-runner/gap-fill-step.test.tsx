@@ -36,4 +36,18 @@ describe("GapFillStep", () => {
     render(<GapFillStep config={gapConfig} />);
     expect(screen.getByRole("button", { name: /play audio/i })).toBeDefined();
   });
+
+  it("shows play audio for text sources via speech synthesis config", () => {
+    render(
+      <GapFillStep
+        config={{
+          ...gapConfig,
+          audioUrl: undefined,
+          speechText: "El café está en la mesa.",
+          languageCode: "es",
+        }}
+      />,
+    );
+    expect(screen.getByRole("button", { name: /play audio/i })).toBeDefined();
+  });
 });

@@ -17,6 +17,7 @@ import {
   sentenceTranslationKey,
   taskTypeFromTaskId,
 } from "./description-keys.mjs";
+import { dedupeGlossSegments } from "./gloss-segments.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const OUT_DIR = join(ROOT, "data/i18n/descriptions");
@@ -37,14 +38,14 @@ function readJson(path) {
   return JSON.parse(readFileSync(join(ROOT, path), "utf8"));
 }
 
-function collectFromStarter(path) {
+function collectFromStarter(path, enSnapshot = {}) {
   const deck = readJson(path);
   const entries = [];
   for (const card of deck.cards ?? []) {
     const taskType = taskTypeFromTaskId(card.taskId);
     const face = descriptionFaceForTaskType(taskType);
-    const key = cardDescriptionKey(card.wordId, taskType, face);
-    const text = face === "back" ? card.back : card.front;
+    const key = card.descriptionKey ?? cardDescriptionKey(card.wordId, taskType, face);
+    const text = face === "back" ? (card.back ?? enSnapshot[key] ?? "") : card.front;
     entries.push({ key, text, context: `${deck.language} ${taskType} ${face}` });
   }
   return entries;
@@ -71,9 +72,16 @@ function collectFromDemonstration(path) {
 }
 
 function buildEnglishCatalog() {
+  let existingEn = {};
+  try {
+    existingEn = readJson("data/i18n/descriptions/en.json");
+  } catch {
+    /* first export */
+  }
+
   const catalog = new Map();
   for (const file of STARTER_FILES) {
-    for (const row of collectFromStarter(file)) {
+    for (const row of collectFromStarter(file, existingEn)) {
       catalog.set(row.key, { text: row.text, context: row.context, sourceLang: "en" });
     }
   }
@@ -108,7 +116,7 @@ async function buildGermanSnapshot(enSnapshot) {
     for (const english of batch) {
       if (translationMap.has(english)) continue;
       try {
-        const german = await translateEnToDe(english);
+        const german = dedupeGlossSegments(await translateEnToDe(english));
         translationMap.set(english, german);
       } catch (error) {
         console.warn(`translate skip: ${english.slice(0, 40)}… (${error.message})`);

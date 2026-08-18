@@ -69,7 +69,23 @@ describe("MethodDetail", () => {
     ).toBeDefined();
   });
 
-  it("shows article prose for a shipped method", async () => {
+  it("shows article prose for a hosted method without a built runner", async () => {
+    render(
+      await MethodDetail({
+        method: narrowListening,
+        searchParams: { minutes: "15", skill: "listening" },
+      }),
+    );
+
+    expect(screen.getByRole("heading", { level: 1, name: narrowListening.name })).toBeDefined();
+    expect(document.body.textContent).toContain(narrowListening.summary);
+    expect(document.body.textContent).toContain(narrowListening.trains);
+    expect(document.body.textContent).toContain(narrowListening.doesNotDo);
+    expect(screen.queryByRole("link", { name: en.methodMenu.startSession })).toBeNull();
+    expect(screen.getByText(en.methodMenu.sessionNotBuilt)).toBeDefined();
+  });
+
+  it("shows Start for extensive-reading on practice", async () => {
     render(
       await MethodDetail({
         method: extensiveReading,
@@ -77,12 +93,9 @@ describe("MethodDetail", () => {
       }),
     );
 
-    expect(screen.getByRole("heading", { level: 1, name: extensiveReading.name })).toBeDefined();
-    expect(document.body.textContent).toContain(extensiveReading.summary);
-    expect(document.body.textContent).toContain(extensiveReading.trains);
-    expect(document.body.textContent).toContain(extensiveReading.doesNotDo);
-    expect(screen.queryByRole("link", { name: en.methodMenu.startSession })).toBeNull();
-    expect(screen.getByText(en.methodMenu.sessionNotBuilt)).toBeDefined();
+    expect(screen.getByRole("link", { name: en.methodMenu.startSession }).getAttribute("href")).toBe(
+      "/practice?method=extensive-reading",
+    );
   });
 
   it("uses the same section graphic as cards in a full-bleed hero", async () => {

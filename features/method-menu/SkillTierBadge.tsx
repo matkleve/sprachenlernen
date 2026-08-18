@@ -24,12 +24,18 @@ const skillTierBadgeVariants = cva(
   {
     variants: {
       size: {
-        card: "h-12 w-12 p-1",
-        detail: "size-12 p-0.5",
+        card: "h-14 min-w-14 px-0",
+        detail: "size-14 p-0.5",
+      },
+      frame: {
+        wood: "w-16",
+        shield: "w-14",
+        ornate: "w-[4.5rem]",
       },
     },
     defaultVariants: {
       size: "detail",
+      frame: "shield",
     },
   },
 );
@@ -37,14 +43,20 @@ const skillTierBadgeVariants = cva(
 const skillTierImageVariants = cva("object-contain", {
   variants: {
     size: {
-      card: "h-full w-full max-h-11 max-w-11",
-      detail: "h-full w-full max-h-11 max-w-11",
+      card: "h-14 w-full max-h-14",
+      detail: "h-14 w-full max-h-14",
     },
   },
   defaultVariants: {
     size: "detail",
   },
 });
+
+function tierFrameKind(tier: SkillTier): "wood" | "shield" | "ornate" {
+  if (tier === "wood") return "wood";
+  if (tier === "gold" || tier === "platinum") return "ornate";
+  return "shield";
+}
 
 export type SkillTierBadgeProps = {
   skill: Skill;
@@ -56,10 +68,11 @@ export function SkillTierBadge({ skill, tier, size, className }: SkillTierBadgeP
   const { skillLabels } = useMethodMenuCopy();
   const src = skillTierBadgeSrc(skill, tier);
   const label = `${TIER_LABEL[tier]} ${skillLabels[skill]}`;
-  const dimensions = { width: 48, height: 48 };
+  const dimensions = { width: 56, height: 56 };
+  const frame = tierFrameKind(tier);
 
   return (
-    <span className={cn(skillTierBadgeVariants({ size }), className)}>
+    <span className={cn(skillTierBadgeVariants({ size, frame }), className)}>
       <Image
         src={src}
         alt={label}
@@ -97,7 +110,7 @@ export function SkillTierOverflow({
     <span
       className={cn(
         "inline-flex shrink-0 items-center justify-center rounded-chip border border-line bg-surface font-medium text-muted",
-        size === "card" ? "size-12 text-xs" : "size-12 text-sm",
+        size === "card" ? "size-14 text-xs" : "size-14 text-sm",
         className,
       )}
       title={label}

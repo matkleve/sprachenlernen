@@ -41,6 +41,7 @@ export function ReviewSession({ methodName, compact = false, initialData }: Revi
     runSegments,
     reportAck,
     reportPending,
+    cardExiting,
     flip,
     grade,
     submitReport,
@@ -167,6 +168,7 @@ export function ReviewSession({ methodName, compact = false, initialData }: Revi
           onGrade={grade}
           onSubmitReport={submitReport}
           reportPending={reportPending}
+          exiting={cardExiting}
           compact={compact}
         />
       ) : null}

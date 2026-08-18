@@ -31,7 +31,7 @@ const sectionHeaderFade: Record<Section, string> = {
 const methodCardHeaderVariants = cva("relative w-full shrink-0 overflow-hidden", {
   variants: {
     size: {
-      card: "h-28",
+      card: "h-32",
       hero: "h-44 bg-canvas sm:h-52",
     },
   },
@@ -75,8 +75,8 @@ export function MethodCardHeader({ section, size, className }: MethodCardHeaderP
             : "(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
         }
         className={cn(
-          "object-cover",
-          isCard ? "object-[center_30%]" : "object-center",
+          "object-cover object-top",
+          isCard ? undefined : "object-center",
         )}
       />
       <div

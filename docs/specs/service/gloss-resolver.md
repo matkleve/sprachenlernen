@@ -31,6 +31,22 @@ Parent: [`spoken-language.md`](spoken-language.md).
 | 3 | Key missing everywhere | `""` and debug log — never the raw key on screen |
 | 4 | `spoken_language` equals `source_lang` | Source snapshot row (English today) |
 | 5 | Session build for 15 cards | One batch load per locale; no per-card file read |
+| 6 | Resolved gloss string | Repeated comma-separated segments are collapsed before display — case-insensitive, first occurrence kept ([`app-texts.md`](app-texts.md) MT gate) |
+
+### Card face assignment (not a learner setting)
+
+Direction is fixed per **task type** — there is no account toggle for
+"reverse translation". The SRS session always shows the target language on the
+face being recalled and the spoken-language gloss on the descriptive face.
+
+| Task type | Recall face (shown first) | Descriptive face (after flip) | `descriptionKey` face |
+| --- | --- | --- | --- |
+| `meaning-recall` | Target lemma (`front`) | Gloss in spoken language | `.back` |
+| `form-recall` | Gloss + produce prompt (`front`, localized) | Target surface form (`back`) | `.front` |
+
+Learning language (`learner_language`) chooses **which pool** loads; spoken
+language (`profiles.spoken_language`) chooses **which locale** resolves the
+`descriptionKey`. Neither changes which side is which.
 
 ### Surfaces that must use this resolver (not `card.back`)
 
