@@ -27,7 +27,7 @@ stay on [`../page/words-review.md`](../page/words-review.md) — not this runner
   duration grading; level-model credit for half-finished exercises (SPEC GAP in
   study/23).
 
-**Reuse:** `Button`, `StatusBanner`, `Field`, `page-layout` `one-screen-runner`.
+**Reuse:** `Button`, `StatusBanner`, `Field`, `page-layout` `one-screen-exercise`.
 
 ## Step types
 
@@ -54,17 +54,24 @@ registry; new Methods do not fork the runner.
 
 ## Runner chrome
 
-Persistent on every step (mobile `one-screen-runner`):
+Layout zones and content profiles: [`exercise-runner.layout.md`](exercise-runner.layout.md).
+Parent shell mode: `one-screen-exercise` on `/practice` (mobile + desktop).
+
+| Zone | Components | Notes |
+| --- | --- | --- |
+| Hero | `ExerciseRunnerHero` | Section WebP full-bleed; section name + **Methoden** label + method title + step label on gradient; **Übung beenden** top-right |
+| Progress | `ExerciseRunnerProgress` | Bar + step index; timer pill when `wait` active |
+| Body | `ExerciseStepBody` | Scrolls inside frame; practice-surface scale |
+| Footer | `ExerciseRunnerFooter` | Anchored `shrink-0`; ◀ ▶ above primary; primary `lg`, `w-auto`, bottom-right; canvas scrim above controls |
+
+**Invariant:** footer controls stay at the same vertical position across steps on
+one device — only the body scrolls ([`exercise-runner.layout.md`](exercise-runner.layout.md)).
 
 | Control | Behaviour |
 | --- | --- |
-| Back chip | Shell — confirm abandon if mid-recipe |
-| Title | Method name + optional step label |
-| Duration bar | Remaining exercise time **or** step index — recipe declares which |
-| Timer pill | Visible while any `wait` timer is running; survives step navigation |
 | ◀ / ▶ | Free navigation; sets **seen**, never **done** |
-| **Fertig** / **Weiter** / **Eingereicht** / **Durchgesehen** | Primary per type — marks **done** once |
-| ✕ Stop | Confirm: progress lost, no backlog ([study/23](../../study/23-how-an-exercise-runs.md)) |
+| **Weiter** / **Fertig** / **Eingereicht** / **Durchgesehen** | Primary per step type — marks **done** once |
+| ✕ Stop (hero) | Confirm: progress lost, no backlog ([study/23](../../study/23-how-an-exercise-runs.md)) |
 
 Timer rules: expiry is an event, not auto-done; pause is allowed and recorded.
 

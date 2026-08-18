@@ -44,6 +44,8 @@ desktop; body scrolls inside the frame. Contract:
       opens, then the runner mounts without a client-only recipe fetch flash.
 - [ ] Given `method=srs-session`, when `/practice` opens, then the browser lands
       on Words review.
+- [ ] Given build-a-sentence on desktop, when the runner is active, then layout mode
+      is `one-screen-exercise` (no page scroll; footer anchored).
 
 ## Check
 

@@ -8,8 +8,9 @@ Layer diagram: [`../specs/feature/page-layout.layers.md`](../specs/feature/page-
 
 ## Decisions (2026-08-15)
 
-1. **Three layout modes** — `scrollable-destination`, `scrollable-drill-in`,
-   `one-screen-runner`. One mode per route; registry in `lib/shell-page-layout.ts`.
+1. **Four layout modes** — `scrollable-destination`, `scrollable-drill-in`,
+   `one-screen-runner`, `one-screen-exercise`. One mode per route; registry in
+   `lib/shell-page-layout.ts`.
 2. **Fixed overlay chrome on mobile** — floating pill + scrims stay; flex-only
    shell rejected (see spec § Industry patterns).
 3. **Shell owns vertical reserves** — `<main>` `pt`/`pb` float tokens; features
@@ -19,7 +20,8 @@ Layer diagram: [`../specs/feature/page-layout.layers.md`](../specs/feature/page-
    gesture state, not page length (`/methods` is the longest page). Study:
    [`../study/29-ios-inset-by-route.md`](../study/29-ios-inset-by-route.md).
 5. **Home Screen PWA** may differ; not a separate mode.
-6. **Runner height** — `--height-review-session` on mobile; desktop may scroll.
+6. **Runner height** — `--height-review-session` on mobile review; `--height-practice-session`
+   on desktop `/practice` (`one-screen-exercise`).
 7. **Chrome families (owner 2026-08-15)** — floating pill `< md` only; flat top
    nav `≥ md` (desktop + iPad). Review keeps destination pill visible.
 8. **iPad** — first-class at `≥ md`; no separate rail layout in v1.

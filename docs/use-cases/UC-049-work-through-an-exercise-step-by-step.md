@@ -1,7 +1,7 @@
 # UC-049 — Work through an exercise one step at a time
 
 <!-- id: UC-049 -->
-<!-- specs: SPEC-feature-exercise-runner, SPEC-feature-practice-surface, SPEC-page-practice, SPEC-service-material-unit, SPEC-service-exercise-step-components, SPEC-service-exercise-recipe-composer -->
+<!-- specs: SPEC-feature-exercise-runner, SPEC-feature-practice-surface, SPEC-feature-page-layout, SPEC-page-practice, SPEC-service-material-unit, SPEC-service-exercise-step-components, SPEC-service-exercise-recipe-composer -->
 
 **Who:** anyone doing an exercise with more than one part — a dictation, a piece
 of writing, a 4/3/2 round.
@@ -51,6 +51,14 @@ optimistic.
 - Leaving mid-exercise loses nothing and creates no backlog.
 - After two consecutive abandonments the app offers a shorter or better-supported
   variant — once, and without comment.
+- **Practice surface:** task copy and controls are large and legible under stress
+  (Duolingo-scale prompts, 48px+ prep rows) — not app-settings density.
+- **Anchored chrome:** on `/practice`, hero + progress stay at the top and ◀ ▶ +
+  primary CTA stay at the bottom across steps; only the task body scrolls when
+  content is long (reading, dictation). Short steps (prepare, type-with-word)
+  keep the footer at the same height as in a reference writing exercise.
+- **Content profiles:** recipe authors declare whether a step is short, scrollable,
+  or paginated — long text never pushes the footer down.
 
 ## Out of scope
 

@@ -23,5 +23,9 @@ Split child of [`exercise-runner.md`](exercise-runner.md).
       is `complete` and nothing is scheduled for tomorrow.
 - [ ] Given mid-recipe, when Stop is confirmed, then phase is `abandoned` and no
       backlog entry is created.
-- [ ] Given viewport `< md`, when any step is active, then the page does not
-      scroll (`one-screen-runner`).
+- [ ] Given `/practice` with a built recipe, when any step is active, then the page
+      does not scroll (`one-screen-exercise` on mobile and desktop).
+- [ ] Given build-a-sentence on desktop, when the learner advances steps, then hero
+      shows section graphic + Methoden label + method title + localized step label.
+- [ ] Given an active step, when the footer renders, then ◀ ▶ sit above the primary
+      CTA, both bottom-right; primary is not full width.

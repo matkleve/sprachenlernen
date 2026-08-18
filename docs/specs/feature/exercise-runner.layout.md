@@ -45,6 +45,9 @@ When `overflow-y-auto` is active on the body, the footer shows a `canvas`
 gradient above the control cluster so scrolled text fades before controls —
 same idea as shell `FooterScrim`, local to the runner.
 
+**Scroll padding:** body zone uses `p-1` so control focus rings (`ring-2` +
+`ring-offset-2`) are not clipped by the scroll container.
+
 ## Desktop vs mobile
 
 | | Mobile (`< md`) | Desktop (`md+`) |

@@ -47,7 +47,7 @@ export function MethodCard({ method, returnQuery = "" }: MethodCardProps) {
           <p className="mt-0.5 line-clamp-2 text-sm text-ink">{localized.summary}</p>
         </div>
 
-        <MethodBadgeRow className="mt-2 shrink-0" method={method} inLink layout="stacked" />
+        <MethodBadgeRow className="mt-2 shrink-0" method={method} inLink layout="row" />
 
         <ul className="mt-2 flex flex-wrap gap-1.5" aria-label={t("card.properties")}>
           {durationChips(method.durations).map((label) => (

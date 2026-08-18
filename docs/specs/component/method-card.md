@@ -25,7 +25,7 @@ Implementation: `features/method-menu/MethodCard.tsx`,
 | Summary | `text-sm text-ink line-clamp-2` | Session hook — `mt-0.5` below title |
 | Body padding | `p-3` | Tighter than detail surfaces |
 | Section gaps | `mt-2` between badge row, chips, does-not-do | Catalogue scan density |
-| Badge row | See [`method-badge.md`](method-badge.md) | `layout="stacked"` — effort then shields |
+| Badge row | See [`method-badge.md`](method-badge.md) | `layout="row"` — shields left, effort right |
 | Property chips | [`chip.md`](chip.md) | `size="card"`; duration + requirements only |
 
 Header + destination marker: [`method-card-header.md`](method-card-header.md).

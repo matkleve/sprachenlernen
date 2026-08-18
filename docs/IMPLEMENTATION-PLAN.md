@@ -376,7 +376,7 @@ honest Spanish/Italian; offline unlocks commute practice.
 | **6d** | **T-B10f-b** — method card polish assets | **Blocked** — section WebP re-compose + shield card PNGs |
 | **6e** | **T-B10g** — card destination marker | **Shipped 2026-08-18** — [`plans/method-card-destination.md`](plans/method-card-destination.md) |
 | **7** | **T-B10b remainder** — ~~demonstration sentence~~ **shipped 2026-08-16**; readiness ([`study/26`](study/26-readiness-and-difficulty.md)) | Methods front door complete |
-| **7b** | ~~**Exercise runner** (T-E0–E9, T-MU*, T-LD1)~~ — **shipped 2026-08-18**; six hosted runners built (`partial-dictation`, `full-dictation`, `extensive-reading`, `reading-aloud`, `build-a-sentence`, `free-production`) | UC-049 |
+| **7b** | ~~**Exercise runner** (T-E0–E9, T-MU*, T-LD1, T-E12)~~ — **shipped 2026-08-18**; six hosted runners + practice-surface UX | UC-049 |
 | **8** | **T-B4 numerator** — guided hours practised (thesis 9: not card time alone) | Progress per hour invested (study/03 V3) |
 
 **Still partial in Track B:** T-B3 (pool-local only), T-B10b (standing + daily
@@ -388,6 +388,8 @@ does not). **T-W16** review horizon v2 shipped 2026-08-15.
 
 Cooking-app runner for multi-step Methods (dictation, writing, listening drills).
 **Specs:** [`exercise-runner.md`](specs/feature/exercise-runner.md),
+[`practice-surface.md`](specs/feature/practice-surface.md),
+[`exercise-runner.layout.md`](specs/feature/exercise-runner.layout.md),
 [`practice.md`](specs/page/practice.md). **Plan:**
 [`plans/exercise-runner.md`](plans/exercise-runner.md).
 
@@ -407,6 +409,7 @@ Cooking-app runner for multi-step Methods (dictation, writing, listening drills)
 | **T-MU1** | ~~`lib/material-unit.ts`~~ — sentence / paragraph / window / full — **shipped 2026-08-18** | Standard | T-W7, [`material-unit.md`](specs/service/material-unit.md) |
 | **T-MU2** | Principled gap selection — replace alternating-word placeholder | **Shipped 2026-08-18** | T-MU1, UC-028 |
 | **T-LD1** | ~~Listening defer UI + menu filter~~ — UC-077 — **shipped 2026-08-18** | Standard | [`listening-defer.md`](specs/feature/listening-defer.md) |
+| **T-E12** | ~~**Practice-surface UX + anchored layout**~~ — **shipped 2026-08-18** | Standard | T-E1 | [`practice-surface.md`](specs/feature/practice-surface.md), [`exercise-runner.layout.md`](specs/feature/exercise-runner.layout.md) AC |
 
 **Not this runner:** `srs-session` and card-engine form practice (T-W6) stay on
 `/words/review`.
@@ -468,7 +471,7 @@ behaviour lived only in scattered specs.
 | Mobile chrome | Fixed overlay (floating pill + scrims), not flex-child nav |
 | Who reserves float space | `AppShell` `<main>` padding on `< md` |
 | Who sets page rhythm | Feature wrappers: `pt-page-top` / `pb-page-bottom` |
-| One-screen routes | `one-screen-runner` — `--height-review-session`, no page scroll on `< md` |
+| One-screen routes | `one-screen-runner` on `/words/review` (`< md`); `one-screen-exercise` on `/practice` (mobile + desktop) — see [`exercise-runner.layout.md`](specs/feature/exercise-runner.layout.md) |
 | Safari bottom toolbar | `useVisualViewportBottomInset`; cannot hide in-browser |
 
 **UX study:** [`study/28-mobile-desktop-layout.md`](study/28-mobile-desktop-layout.md)

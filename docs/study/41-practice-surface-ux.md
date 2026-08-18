@@ -58,6 +58,12 @@ primitives — never raw app-scale fields for the main task.
    Use `PracticePrepRow` (2px `line-strong`, 24px box) or real controls later.
 5. **i18n** — recipe carries `itemKeys` / `introKey`; no English in recipe JSON.
 6. **Footer** — no extra `surface` panel; `border-t border-line` on `canvas` only.
+7. **Anchored footer** — chrome bottom (`◀ ▶` + primary) stays at a fixed vertical
+   position across steps; long content scrolls in the body zone with a canvas scrim
+   above controls ([`exercise-runner.layout.md`](../specs/feature/exercise-runner.layout.md)).
+8. **Content profiles** — `short` (prepare, type-with-word), `scroll` (long text,
+   timed write), `paginated` (extensive reading, future). Authors size steps
+   similarly where possible; layout contract handles the rest.
 
 ## Future step components
 
@@ -67,3 +73,4 @@ components first. App primitives (`Button`, `Dialog`) stay for chrome and offers
 ## Open
 
 - Timed-write countdown in footer thumb zone (today: header timer when `wait`).
+- Extensive-reading **paginated** body (v2) — scroll profile ships first.
