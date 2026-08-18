@@ -5,11 +5,12 @@ import { usePathname } from "next/navigation";
 
 import { BrandMark } from "@/components/brand/BrandMark";
 import { ActionLink } from "@/components/ui/ActionLink";
+import { IconLink } from "@/components/ui/IconLink";
 import type { LanguageHoldings } from "@/lib/db/language-holdings";
 import { routes } from "@/lib/routes";
 import { site } from "@/lib/site-metadata";
 
-import { Destinations } from "./Destinations";
+import { DestinationNavItems } from "./DestinationNavItems";
 import { isProfileCurrent } from "./destinations";
 import { LanguageSwitcher, type LanguageSwitcherOption } from "./LanguageSwitcher";
 import { ShellHeaderBar } from "./ShellHeaderBar";
@@ -18,7 +19,7 @@ import { useTranslations } from "next-intl";
 import { useHeaderCollapse } from "./useHeaderCollapse";
 
 /**
- * Desktop signed-in header: destinations, centered page title, account.
+ * Desktop signed-in header: brand + language left; destinations + account right.
  * Contract: docs/specs/feature/app-shell.md
  */
 export function DesktopShellHeader({
@@ -53,21 +54,24 @@ export function DesktopShellHeader({
             languageHoldings={languageHoldings}
             layout="inline"
           />
-          <Destinations />
         </>
       }
       center={<ShellPageTitle variant="desktop" />}
       right={
-        <ActionLink
-          href={routes.profile}
-          variant="ghost"
-          size="sm"
-          current={profileCurrent}
-          className="shrink-0 gap-1.5"
-        >
-          <UserRound aria-hidden className="size-4 shrink-0" />
-          {t("account")}
-        </ActionLink>
+        <>
+          <nav aria-label={t("navLabel")}>
+            <ul className="flex items-center gap-1">
+              <DestinationNavItems layout="header" />
+            </ul>
+          </nav>
+          <IconLink
+            href={routes.profile}
+            aria-label={t("account")}
+            current={profileCurrent}
+          >
+            <UserRound aria-hidden className="size-5 shrink-0" />
+          </IconLink>
+        </>
       }
     />
   );

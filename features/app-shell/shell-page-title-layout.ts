@@ -39,10 +39,12 @@ export function mobileShellTitleMaxWidth(
   return `${rem}rem`;
 }
 
+/** Side reserve (rem) — brand + language left; four icon chips right on desktop header. */
+const DESKTOP_TITLE_SIDE_RESERVE_REM = 9;
+
 export function desktopShellTitleMaxWidth(collapse: number): string {
-  const vw = 70 + (52 - 70) * collapse;
-  const rem = 20 + (14 - 20) * collapse;
-  return `min(${vw}vw, ${rem}rem)`;
+  const rem = 12 + (10 - 12) * collapse;
+  return `min(calc(100% - ${DESKTOP_TITLE_SIDE_RESERVE_REM * 2}rem), ${rem}rem)`;
 }
 
 /** Clamp title width so it cannot overlap the corner chips when viewport-centered. */

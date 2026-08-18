@@ -45,7 +45,8 @@ sign-out control that had no signed-in navigation to live in. That control is no
 | 6 | Opens `/`, `/languages`, `/login` or `/signup` | No shell — those are `(marketing)` |
 | 7 | A destination's content throws | The shell header and navigation remain; only the destination content area shows the error surface ([`errors-boundaries.md`](../service/errors-boundaries.md)) |
 | 8 | Viewport &lt; `md` while signed in | Floating bottom pill + top-right account chip; no full-width header bar ([`mobile-nav-v2.md`](mobile-nav-v2.md)) |
-| 9 | Viewport ≥ `md` while signed in | Horizontal destination nav + inline account link in header; no floating chrome |
+| 9 | Viewport ≥ `md` while signed in | Icon destination nav + account icon on the
+  header right; brand + language switcher on the left; centred page title |
 | 9a | Is on `/profile` | Account link carries `aria-current="page"` and accent fill |
 | 10 | Has more than one learning language on any viewport | A circular flag switcher opens a popover: blurred scrim, stacked language cards with gaps, plus **Add a language** — one action to switch (UC-025) |
 | 11 | Scrolls page content on desktop | A header scrim (blur + tint) fades in at the top and out toward the bottom; the page title scales down while staying centered |

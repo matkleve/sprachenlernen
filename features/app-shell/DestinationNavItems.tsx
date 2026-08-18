@@ -3,7 +3,6 @@
 import { usePathname } from "next/navigation";
 
 import { IconLink } from "@/components/ui/IconLink";
-import { NavLink } from "@/components/ui/NavLink";
 import { NavigationPendingProvider, useNavigationPending } from "@/components/ui/navigation-pending-context";
 
 import { isDestinationCurrent } from "./destinations";
@@ -42,15 +41,9 @@ function DestinationNavItemsInner({ layout = "header" }: DestinationNavItemsProp
 
         return (
           <li key={href}>
-            <NavLink
-              href={href}
-              current={visuallyCurrent}
-              pendingPolicy="nav"
-              className="gap-2"
-            >
-              <Icon aria-hidden className="size-4 shrink-0" />
-              {label}
-            </NavLink>
+            <IconLink href={href} aria-label={label} current={visuallyCurrent}>
+              <Icon aria-hidden className="size-5 shrink-0" />
+            </IconLink>
           </li>
         );
       })}

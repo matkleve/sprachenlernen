@@ -66,10 +66,12 @@ rejected the prior pattern for four reasons:
 
 | Control | Primitive | Variant / size | Notes |
 | --- | --- | --- | --- |
-| **Sign in** | `ActionLink` | `ghost sm` | signed out only; intrinsic width; no fill at rest |
-| **Create account** | `ActionLink` | `primary sm` | signed out only; the **only** primary in the header |
-| **Sign out** | `SubmitButton` in `<form>` | `ghost sm` | signed in only; POST via `signOutAction` |
-| **To app** | `ActionLink` | `primary sm` | signed in only; navigates to `/methods` |
+| **Sign in** | `IconLink` | floating `sm` | signed out only; `aria-label` only on `≥ md` |
+| **Create account** | `ActionLink` | `iconPrimaryButtonClass` | signed out only; icon only on `≥ md` |
+| **Sign out** | `SubmitButton` in `<form>` | floating + `iconButtonClass` | signed in only; icon only on `≥ md` |
+| **To app** | `ActionLink` | `iconPrimaryButtonClass` | signed in only; icon only on `≥ md` |
+
+On `≥ md`, auth controls are icon-only chips, right-aligned. Mobile menu keeps labelled rows.
 
 On `/login` or `/signup`, the matching link sets `aria-current="page"` but
 **keeps its variant styling** — ghost stays ghost, primary stays primary. The
@@ -85,9 +87,9 @@ On phone-width viewports the header matches the signed-in shell's top row
 
 | Zone | Primitive | Notes |
 | --- | --- | --- |
-| Left | `ActionLink` `ghost sm` + `BrandMark` | links to `/`; `aria-label` = product name |
-| Centre | brand wordmark text | not a heading — the page hero owns `h1` on `/` |
-| Right | `IconButton` + menu popover | `Menu` icon; opens auth controls in a `role="menu"` panel |
+| Left | `ActionLink` `ghost sm` + `BrandMark` | links to `/`; `aria-label` = product name — **same on mobile and desktop** |
+| Centre | brand wordmark text | absolutely centred; not a heading — the page hero owns `h1` on `/` |
+| Right | `IconButton` + menu popover (`< md`) · icon auth chips (`≥ md`) | right-aligned |
 
 Auth controls move into the menu popover on mobile. The same variant rules
 apply: one `primary`, one `ghost` (or `SubmitButton` ghost for sign-out). Desktop
@@ -107,7 +109,7 @@ dismiss. Escape closes the menu.
 | 5 | Taps **To app** (signed in) | Navigates to `/methods` |
 | 6 | Taps **Sign out** (signed in) | POST `signOutAction`; lands on `/` signed out — on `< md`, **Sign out** is inside the menu popover |
 | 7 | Opens any other `(marketing)` route | The same public header renders; the hero does not |
-| 8 | Taps the logo chip or product name in the header | Navigates to `/` — logo chip on `< md`, lockup wordmark on `≥ md` |
+| 8 | Taps the logo chip or product name in the header | Navigates to `/` |
 | 9 | Viewport `< md` | Header shows logo chip, centred brand name, and a menu icon; auth controls are inside the menu |
 | 10 | Taps the menu icon on mobile | Auth controls appear in a popover; scrim or Escape closes it |
 | 11 | Taps outside the menu popover on mobile | Menu closes; header returns to the closed layout |
@@ -173,7 +175,6 @@ positioning.
       filters (time, skill, energy) and three catalogue methods; tapping a method
       opens an explain-only dialog with no **Start** action.
 - [ ] When the landing page is rendered, it has no axe-core violations.
-
 ## Check
 
 `npm test -- landing`

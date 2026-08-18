@@ -81,17 +81,14 @@ describe("PublicHeader", () => {
     ).toBeNull();
   });
 
-  it("uses ghost sign-in and a single primary create-account control when signed out", () => {
+  it("uses an icon sign-in and a single primary create-account icon when signed out", () => {
     showHeaderAt("/");
 
     const signIn = screen.getByRole("link", { name: en.marketing.header.signIn });
     const signUp = screen.getByRole("link", { name: en.marketing.header.signUp });
-    const signInClasses = signIn.className.split(/\s+/);
-    const signUpClasses = signUp.className.split(/\s+/);
-
-    expect(signInClasses).toContain("hover:bg-accent-soft");
-    expect(signInClasses).not.toContain("bg-accent");
-    expect(signUpClasses).toContain("bg-accent");
+    expect(signIn.className.split(/\s+/)).toContain("rounded-full");
+    expect(signIn.className.split(/\s+/)).not.toContain("bg-accent");
+    expect(signUp.className.split(/\s+/)).toContain("bg-accent");
 
     const primaryLinks = screen
       .getAllByRole("link")
@@ -110,17 +107,14 @@ describe("PublicHeader", () => {
     expect(screen.queryByRole("link", { name: en.marketing.header.signUp })).toBeNull();
   });
 
-  it("uses ghost sign-out and a single primary to-app control when signed in", () => {
+  it("uses an icon sign-out and a single primary to-app icon when signed in", () => {
     showHeaderAt("/", true);
 
     const signOut = screen.getByRole("button", { name: en.marketing.header.signOut });
     const toApp = screen.getByRole("link", { name: en.marketing.header.toApp });
-    const signOutClasses = signOut.className.split(/\s+/);
-    const toAppClasses = toApp.className.split(/\s+/);
-
-    expect(signOutClasses).toContain("hover:bg-accent-soft");
-    expect(signOutClasses).not.toContain("bg-accent");
-    expect(toAppClasses).toContain("bg-accent");
+    expect(signOut.className.split(/\s+/)).toContain("rounded-full");
+    expect(signOut.className.split(/\s+/)).not.toContain("bg-accent");
+    expect(toApp.className.split(/\s+/)).toContain("bg-accent");
 
     const primaryLinks = screen
       .getAllByRole("link")
