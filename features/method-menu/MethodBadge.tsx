@@ -22,16 +22,42 @@ const effortBadgeVariants = cva(
   },
 );
 
+const effortDotSizeVariants = cva("rounded-full", {
+  variants: {
+    size: {
+      default: "",
+      card: "",
+    },
+    level: {
+      1: "",
+      2: "",
+      3: "",
+    },
+  },
+  compoundVariants: [
+    { size: "default", level: 1, class: "size-1.5" },
+    { size: "default", level: 2, class: "size-2" },
+    { size: "default", level: 3, class: "size-2.5" },
+    { size: "card", level: 1, class: "size-1.5" },
+    { size: "card", level: 2, class: "size-2" },
+    { size: "card", level: 3, class: "size-2.5" },
+  ],
+  defaultVariants: {
+    size: "default",
+    level: 1,
+  },
+});
+
 export type EffortBadgeProps = {
   intensity: 1 | 2 | 3;
   className?: string;
 } & VariantProps<typeof effortBadgeVariants>;
 
 export function EffortBadge({ intensity, size, className }: EffortBadgeProps) {
-  const { effortCard, intensity: intensityAnchors } = useMethodMenuCopy();
-  const shortLabel = effortCard[intensity];
+  const { t, intensity: intensityAnchors } = useMethodMenuCopy();
+  const label = t("card.effort");
   const anchor = intensityAnchors[intensity];
-  const ariaLabel = `${shortLabel} (${intensity} of 3) — ${anchor}`;
+  const ariaLabel = `${label}: ${intensity} of 3 — ${anchor}`;
 
   return (
     <span
@@ -39,7 +65,18 @@ export function EffortBadge({ intensity, size, className }: EffortBadgeProps) {
       aria-label={ariaLabel}
       title={anchor}
     >
-      {shortLabel}
+      <span>{label}</span>
+      <span className="ml-2 inline-flex items-center gap-1" aria-hidden>
+        {([1, 2, 3] as const).map((level) => (
+          <span
+            key={level}
+            className={cn(
+              effortDotSizeVariants({ size, level }),
+              level <= intensity ? "bg-accent" : "bg-line",
+            )}
+          />
+        ))}
+      </span>
     </span>
   );
 }

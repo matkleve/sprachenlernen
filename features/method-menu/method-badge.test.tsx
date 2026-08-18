@@ -30,30 +30,42 @@ const method: MethodEntry = {
 };
 
 describe("MethodBadgeRow", () => {
-  it("renders tier shields and accent effort pill", () => {
+  it("renders tier shields and accent effort scale", () => {
     render(<MethodBadgeRow method={method} />);
 
     expect(screen.getByRole("img", { name: /Wood Listening/i })).toBeDefined();
-    expect(screen.getByLabelText(/Light effort \(1 of 3\)/i)).toBeDefined();
+    expect(screen.getByLabelText(/Effort: 1 of 3/i)).toBeDefined();
     expect(screen.queryByText(en.methodMenu.evidenceCard.C)).toBeNull();
   });
 
-  it("right-aligns effort on the badge row with accent pill styling", () => {
-    const { container } = render(<MethodBadgeRow method={method} />);
-    const effort = screen.getByLabelText(/Light effort \(1 of 3\)/i);
+  it("right-aligns effort with label plus growing accent dots", () => {
+    render(<MethodBadgeRow method={method} />);
+    const effort = screen.getByLabelText(/Effort: 1 of 3/i);
     expect(effort.className).toContain("ml-auto");
     expect(effort.className).toContain("text-sm");
     expect(effort.className).toContain("text-accent");
     expect(effort.className).toContain("bg-accent-soft");
-    expect(effort.textContent).toBe(en.methodMenu.effortCard[1]);
+    expect(screen.getByText(en.methodMenu.card.effort)).toBeDefined();
+    const dots = effort.querySelectorAll("[aria-hidden] > span");
+    expect(dots.length).toBe(3);
+    expect(dots[0]?.className).toContain("size-1.5");
+    expect(dots[1]?.className).toContain("size-2");
+    expect(dots[2]?.className).toContain("size-2.5");
+    expect(dots[0]?.className).toContain("bg-accent");
+    expect(dots[1]?.className).toContain("bg-line");
   });
 });
 
 describe("EffortBadge", () => {
-  it("shows the short effort label in an accent pill", () => {
+  it("shows the effort label with a three-dot scale that grows", () => {
     render(<EffortBadge intensity={2} />);
-    expect(screen.getByText(en.methodMenu.effortCard[2])).toBeDefined();
-    expect(screen.getByLabelText(/Needs focus \(2 of 3\)/i)).toBeDefined();
+    expect(screen.getByText(en.methodMenu.card.effort)).toBeDefined();
+    expect(screen.getByLabelText(/Effort: 2 of 3/i)).toBeDefined();
+    const effortEl = screen.getByLabelText(/Effort: 2 of 3/i);
+    const dots = effortEl.querySelectorAll("[aria-hidden] > span");
+    expect(dots[0]?.className).toContain("bg-accent");
+    expect(dots[1]?.className).toContain("bg-accent");
+    expect(dots[2]?.className).toContain("bg-line");
   });
 });
 
@@ -65,7 +77,7 @@ describe("method surfaces", () => {
     expect(link.querySelector("h3")?.className).toContain("text-3xl");
     const body = link.querySelector(".flex.flex-1.flex-col");
     expect(body?.className).toContain("p-3");
-    expect(link.textContent).toContain(en.methodMenu.effortCard[method.intensity]);
+    expect(link.textContent).toContain(en.methodMenu.card.effort);
     const chip = link.querySelector("ul[aria-label] span");
     expect(chip?.className).toContain("text-sm");
     expect(link.textContent).not.toContain(en.methodMenu.evidenceCard.C);
@@ -75,7 +87,7 @@ describe("method surfaces", () => {
   it("shows article layout on detail with effort badge band and practical facts", async () => {
     render(await MethodDetail({ method }));
     expect(screen.getByRole("heading", { level: 1, name: method.name })).toBeDefined();
-    expect(screen.getByLabelText(/Light effort \(1 of 3\)/i)).toBeDefined();
+    expect(screen.getByLabelText(/Effort: 1 of 3/i)).toBeDefined();
     expect(screen.getAllByText("Thin evidence").length).toBeGreaterThan(0);
     expect(document.body.textContent).toContain("can be done tired or distracted");
     expect(document.body.textContent).toContain(method.trains);

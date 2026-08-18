@@ -23,7 +23,7 @@ describe("MethodDetail", () => {
   it("shows effort dots in the badge band", async () => {
     render(await MethodDetail({ method: intensiveReading }));
 
-    expect(screen.getByLabelText(/Draining \(3 of 3\)/i)).toBeDefined();
+    expect(screen.getByLabelText(/Effort: 3 of 3/i)).toBeDefined();
   });
 
   it("shows effort anchor sentence in practical details", async () => {
