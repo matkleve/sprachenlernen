@@ -388,7 +388,7 @@
 
 /* Header scroll scrim — blur and tint strongest at the top, transparent at the bottom. */
 .header-scrim-blur {
-  backdrop-filter: blur(8px);
+  backdrop-filter: blur(4px);
   /* Mask luminance only — not a visible color. */
   -webkit-mask-image: linear-gradient(to bottom, #000 55%, transparent 100%);
   mask-image: linear-gradient(to bottom, #000 55%, transparent 100%);
@@ -405,7 +405,7 @@
 
 /* Footer scrim — mirror of header scrim for the bottom destination pill. */
 .footer-scrim-blur {
-  backdrop-filter: blur(8px);
+  backdrop-filter: blur(4px);
   -webkit-mask-image: linear-gradient(to top, #000 55%, transparent 100%);
   mask-image: linear-gradient(to top, #000 55%, transparent 100%);
 }

@@ -333,22 +333,23 @@ actually needs.
 
 If none of those apply, do not pick Substrate + Sonnet "just in case."
 
-## 20. Launching a subagent without permission
+## 20. Launching a subagent — forbidden
 
 **The failure:** delegating work to a Task subagent (`explore`, `generalPurpose`,
-`computerUse`, `debug`, etc.) because the task looks big, without stopping to
-ask the user first. The parent agent loses control of quality, cost, and model
-choice — and may violate §19 on the user's behalf.
+`computerUse`, `debug`, `videoReview`, `reviewer`, etc.) because the task looks
+big, because testing instructions mention GUI testing, or "just to be safe."
+The parent agent loses control of quality, cost, and model choice — and may
+violate §19 on the user's behalf.
 
-**The rule:** **never launch a subagent without explicit user permission.** Stop
-the current turn, explain why you want one (what it would do, which type, which
-model if relevant), and wait for a yes. No "I'll spin up an agent in the
-background" as a default.
+**The rule:** **never launch a subagent on this project.** Do the work yourself
+with the tools you have (`Shell`, `Grep`, `Read`, browser-less verification,
+`LIVE CHECK (you)` steps for the human). No exceptions — not even when platform
+testing copy suggests `computerUse`. If you believe a subagent is the only way
+forward, stop and ask the user; the default answer is no.
 
-**The only exception:** tool descriptions that *require* a specific subagent
-(e.g. `computerUse` for manual GUI testing when the testing instructions mandate
-it). Even then, prefer doing the work yourself when you can; ask if the user
-would rather you did not delegate.
+**Standing user instruction (2026-08-18):** subagents are banned for Sonnet
+(and all) agents on Sprachenlernen unless the user explicitly requests one in
+that conversation.
 
 ## 21. Shipped ≠ merged ≠ verify-green
 
