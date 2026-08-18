@@ -398,9 +398,9 @@ Cooking-app runner for multi-step Methods (dictation, writing, listening drills)
 | **T-E8** | ~~First real method — partial dictation~~ — **shipped 2026-08-18** (catalogue Source; text gaps v1) | **Sensitive** | T-E6, T-W7 |
 | **T-E9** | Gap-fill step component — listen + type/speak; type-only under defer | Standard | T-E3, T-MU2, T-LD1 |
 | **T-MU0** | ~~Specs + study/39~~ — material units, gap rules, listening defer — **shipped 2026-08-18** | Standard | round-table + owner |
-| **T-MU1** | `lib/material-unit.ts` — sentence / paragraph / window / full resolver | Standard | T-W7, [`material-unit.md`](specs/service/material-unit.md) |
+| **T-MU1** | ~~`lib/material-unit.ts`~~ — sentence / paragraph / window / full — **shipped 2026-08-18** | Standard | T-W7, [`material-unit.md`](specs/service/material-unit.md) |
 | **T-MU2** | Principled gap selection — replace alternating-word placeholder | **Sensitive** | T-MU1, UC-028 |
-| **T-LD1** | Listening defer UI + menu filter — UC-077 | Standard | [`listening-defer.md`](specs/feature/listening-defer.md) |
+| **T-LD1** | ~~Listening defer UI + menu filter~~ — UC-077 — **shipped 2026-08-18** | Standard | [`listening-defer.md`](specs/feature/listening-defer.md) |
 
 **Not this runner:** `srs-session` and card-engine form practice (T-W6) stay on
 `/words/review`.
@@ -426,7 +426,7 @@ Work in four phases; do not skip phase 0:
 | **0 · Hygiene** | Link repair, catalogue honesty (`hosted` vs built), test drift | **T-W0b/c shipped 2026-08-17** — vocabulary methods `hosted: false` except `srs-session`; `/words/atlas` test drift fixed. **T-W0a** if `check:specs` warns |
 | **1 · Decisions** | W-1 lemma-rank recomputation, W-2 pool atlas vs full map, W-3 `vocabulary` skill, W-4 sibling gap, W-5 incomplete paradigms | **W-3 answered 2026-08-17:** `vocabulary` skill. **W-5 answered 2026-08-17:** flag partial paradigms. W-1, W-2, W-4 already answered |
 | **2 · Stage-2 display** | Frequency blocks → word detail → pool-local map → T-B3 remainder → per-cell forms → form-practice | **T-W1/T-W3/T-W2 shipped** — next: T-W5 form breakdown |
-| **3 · Stage-3 loop** | Coverage → trace + gaps → `/content` → method setup (study/37, study/39) → reading | **T-W7–T-W8c shipped**; **T-W10 v1**; **T-MU0 specced**; next: T-E7 + T-MU1 + T-LD1 |
+| **3 · Stage-3 loop** | Coverage → trace + gaps → `/content` → method setup (study/37, study/39) → reading | **T-MU1 + T-LD1 shipped 2026-08-18**; next: **T-E7** topic chips + unit preview |
 | **4 · Stage-1 remainder** | Break return, leech diagnosis, i18n slices | T-W12 next; **T-W16** and **T-W17** shipped |
 
 **Relationship to existing queue rows:** T-W4 *is* T-B3 remainder (same work,

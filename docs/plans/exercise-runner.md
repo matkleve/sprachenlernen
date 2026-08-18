@@ -33,8 +33,8 @@ Load-bearing — do not skip skeleton before components.
 | **T-E7** | **Method material setup** panel on detail | Standard | T-E5 | `method-material-setup.md` AC |
 | **T-E8** | ~~**First real method**~~ — partial dictation from catalogue Source — **shipped 2026-08-18** | Sensitive | T-E6, T-W7 | `lib/exercise-recipe/partial-dictation.ts` |
 | **T-E9** | **Gap-fill** step — half-filled listen, type/speak, defer fallback | Standard | T-E3, T-MU2, T-LD1 | UC-028 |
-| **T-MU1** | Material unit resolver (`sentence` / `paragraph` / `window` / `full`) | Standard | T-W7 | `material-unit.md` AC |
-| **T-LD1** | **Can't listen now** — 15 min defer, menu + type-only runner | Standard | method menu | UC-077 |
+| **T-MU1** | ~~Material unit resolver~~ — **shipped 2026-08-18** | Standard | T-W7 | `material-unit.md` AC |
+| **T-LD1** | ~~**Can't listen now**~~ — **shipped 2026-08-18** | Standard | method menu | UC-077 |
 
 **Parallel:** T-E7 can run beside T-E2–T-E4. **T-E8 remainder:** audio gaps,
 multi-sentence recipes, Start from source detail with `sourceId`.

@@ -125,8 +125,8 @@ Do not queue these until phase 2 map is honest at pool scope.
 | **T-W10** | **Reading surface** — tap-to-gloss on source detail shipped v1; remainder: sentence translation, comprehension, runner. | UC-007, UC-030 | [`reading-surface.md`](../specs/feature/reading-surface.md) | Standard / Sensitive | T-W8c, T-W9 | **v1 shipped 2026-08-18** — `/content/[id]` body |
 | **T-W11** | **Session loop line (K4)** — extend `SessionComplete`: lemmas newly held + coverage delta; link to `/words` or `/content`. | UC-031 | `content-traceability.md` | Standard | T-W7 |
 | **T-W11b** | **Unlock rollup (K2)** — monthly “moved to comfortable” on `/content`; before→after lines on source detail; history snapshots. | UC-033 | `content-traceability.md`, `coverage.md` | **Sensitive** | T-W7, T-W8c |
-| **T-LD1** | **Listening defer** — Can't listen now (15 min); UC-077 | UC-045, UC-077 | `listening-defer.md` | Standard | method menu refine |
-| **T-MU1** | **Material unit resolver** — sentence / paragraph / window / full | UC-007, UC-028 | `material-unit.md` | Standard | T-W7 |
+| **T-LD1** | ~~**Listening defer**~~ — Can't listen now (15 min); UC-077 — **shipped 2026-08-18** | UC-045, UC-077 | `listening-defer.md` | Standard | method menu refine |
+| **T-MU1** | ~~**Material unit resolver**~~ — sentence / paragraph / window / full — **shipped 2026-08-18** | UC-007, UC-028 | `material-unit.md` | Standard | T-W7 |
 | **T-MU2** | **Gap selection** — principled listen-and-fill gaps (not alternating) | UC-028 | `material-unit.md` | **Sensitive** | T-MU1 |
 
 **Build order:** T-W7 → T-W8b ∥ T-W8 → T-W8c → T-W10a → T-W10; T-W11 after T-W7;
