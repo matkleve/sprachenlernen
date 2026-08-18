@@ -1,15 +1,14 @@
 import type { Metadata } from "next";
 
-import { signOutAction } from "@/features/app-shell/actions";
 import { ShellPageContent } from "@/features/app-shell/ShellPageContent";
 import { ProfileAppSection } from "@/features/profile/ProfileAppSection";
 import { ProfileHomeScreenSection } from "@/features/profile/ProfileHomeScreenSection";
 import { ProfileLanguages } from "@/features/profile/ProfileLanguages";
 import { ProfileSectionNav } from "@/features/profile/ProfileSectionNav";
+import { ProfileSignOut } from "@/features/profile/ProfileSignOut";
 import { ProfileSpokenLanguage } from "@/features/profile/ProfileSpokenLanguage";
 import { ProfileYourDataSection } from "@/features/profile/ProfileYourDataSection";
 import { getTranslations } from "next-intl/server";
-import { SubmitButton } from "@/components/ui/SubmitButton";
 import { readLanguageHoldings } from "@/lib/db/language-holdings";
 import { listLearningLanguages } from "@/lib/db/learning-languages";
 import { getSpokenLanguage } from "@/lib/db/profiles";
@@ -26,7 +25,6 @@ export default async function ProfilePage({
 }: {
   searchParams: Promise<Record<string, string | string[] | undefined>>;
 }) {
-  const t = await getTranslations("profile");
   const params = await searchParams;
   const switchFailed = params.failed !== undefined;
   const spokenFailed = params.spoken !== undefined;
@@ -78,9 +76,7 @@ export default async function ProfilePage({
         <ProfileHomeScreenSection />
       </div>
 
-      <form action={signOutAction} className="mt-page-content">
-        <SubmitButton variant="secondary">{t("signOut")}</SubmitButton>
-      </form>
+      <ProfileSignOut />
     </ShellPageContent>
   );
 }

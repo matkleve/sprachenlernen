@@ -67,7 +67,7 @@ no caller can show the failure inline and the route boundary should recover.
 | 3 | Root layout throws | `global-error.tsx` — same copy rules, minimal chrome |
 | 4 | `AppError` thrown | Boundary uses embedded `HandledError` unchanged |
 | 5 | User taps Try again | `render/boundary` / `internal/unexpected` → full page reload; `network/offline` → `reset()` |
-| 6 | User on `/profile` (or other non-destination) | **Back to Methods** escape link on `RouteErrorSurface` |
+| 6 | User on `/profile` (or other non-destination) | **Back to {previous destination}** escape link on `RouteErrorSurface` — Methods only when navigation history is unknown |
 | 7 | Any boundary shown | Structured log: `code`, `referenceId`, `route`, `digest`, `developerMessage` |
 
 ## Route context
