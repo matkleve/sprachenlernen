@@ -11,6 +11,17 @@ applying is still evidence about how this codebase misleads people.
 
 ---
 
+## Drill-in shell title looked sans-serif on method detail
+
+`ShellPageTitle` uses `<p>` on `/methods/[id]` so the in-page method `<h1>` stays
+unique (spec: `method-detail.md`). Serif (`Source Serif`) is applied in
+`globals.css` only on `h1`–`h4`, so the shell title inherited body sans
+(`DM Sans`) and looked wrong next to other destinations.
+
+**The fix:** `font-serif` on `ShellPageTitle` for every route — do not rely on
+the heading tag for typography. **The check:** open any method detail; header
+"Methoden" must match the serif used on `/methods`, `/words`, etc.
+
 ## Agents used `version:ship` for bugfixes
 
 Method-detail regressions (wrong assets, layout, header title) were shipped with

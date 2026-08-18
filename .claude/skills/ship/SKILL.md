@@ -5,6 +5,9 @@ description: Walk the Definition of Done before calling work finished. Use at st
 
 # Ship
 
+**Model:** no Claude (Anthropic) models and no Substrate + Sonnet unless the user
+asks — `AGENTS.md` §10, `docs/AGENT-PITFALLS.md` §19. **No subagents** — §20.
+
 You are at **stage 7** of `docs/WORKFLOW.md`. Your job here is to find the
 reason this is *not* done. Approach it adversarially: assume something was
 missed, because something usually was.
