@@ -53,6 +53,17 @@ describe("gloss-resolver", () => {
     setGlossResolverForTests(null);
   });
 
+  it("dedupes repeated comma-separated segments from snapshots", () => {
+    const batch = createGlossResolver({
+      en: {},
+      de: {
+        "card.it:si.meaning-recall.back":
+          "sich selbst, sich selbst, sich selbst, sich selbst",
+      },
+    });
+    expect(batch("card.it:si.meaning-recall.back", "de", "")).toBe("sich selbst");
+  });
+
   it("resolveDescriptions returns a map for every key", () => {
     const batch = createGlossResolver(snapshots);
     setGlossResolverForTests(batch);
