@@ -49,4 +49,28 @@ describe("useVisualViewportBottomInset", () => {
       "",
     );
   });
+
+  it("does not listen to scroll events", () => {
+    const listeners = new Map<string, Set<() => void>>();
+    const viewport = {
+      height: 700,
+      offsetTop: 0,
+      addEventListener: (type: string, handler: () => void) => {
+        if (!listeners.has(type)) listeners.set(type, new Set());
+        listeners.get(type)!.add(handler);
+      },
+      removeEventListener: (type: string, handler: () => void) => {
+        listeners.get(type)?.delete(handler);
+      },
+    };
+
+    vi.stubGlobal("innerHeight", 750);
+    vi.stubGlobal("visualViewport", viewport);
+
+    const { unmount } = renderHook(() => useVisualViewportBottomInset());
+
+    expect(listeners.has("scroll")).toBe(false);
+
+    unmount();
+  });
 });

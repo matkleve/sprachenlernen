@@ -11,6 +11,19 @@ applying is still evidence about how this codebase misleads people.
 
 ---
 
+## Footer scrim floated while scrolling on iOS Safari
+
+`useVisualViewportBottomInset` listened to **scroll** on `visualViewport` and
+`window`. While the page moved, `visualViewport.offsetTop` jittered, the inset
+jumped, and the footer scrim (which grows with `--shell-visual-viewport-bottom-inset`)
+lifted off the home indicator — the pill looked like it was floating mid-page.
+
+**The fix:** measure on **resize** only; scrim root stays `fixed bottom-0`
+(`.shell-float-footer-scrim`), pill lifts via `.shell-float-nav-pill`. Do **not**
+force inset `0` in standalone PWA — owner QA reverted that (`study/31`). **The
+check:** scroll `/words` on iPhone — scrim flush with bottom; pill still clears
+Safari toolbar when visible.
+
 ## Drill-in shell title looked sans-serif on method detail
 
 `ShellPageTitle` uses `<p>` on `/methods/[id]` so the in-page method `<h1>` stays

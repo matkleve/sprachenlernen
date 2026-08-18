@@ -73,10 +73,12 @@ Shell chrome, scroll modes, and who owns padding:
 themselves. Tokens: `--spacing-shell-float-top`, `--shell-float-top-active`,
 `--spacing-shell-float-bottom`, `--shell-visual-viewport-bottom-inset`,
 `--spacing-shell-float-nav-height` in `app/globals.css`.
-`useVisualViewportBottomInset` measures iOS Safari's bottom toolbar when visible;
-`.shell-float-nav-pill` positions the pill above measured chrome (legacy
-`.shell-float-nav-bottom` is pill-only). Toolbar show/hide is **Safari-controlled**
-— same measurement on every route; do not add pathname-specific inset. Study:
+`useVisualViewportBottomInset` measures iOS Safari's bottom toolbar on **resize**
+when visible (not on scroll — offsetTop jitters while the page moves).
+`.shell-float-footer-scrim` is `fixed bottom-0`; `.shell-float-nav-pill`
+positions the pill above measured chrome (legacy `.shell-float-nav-bottom` is
+pill-only). Toolbar show/hide is **Safari-controlled** — same measurement on every
+route; do not add pathname-specific inset. Study:
 [`../../study/29-ios-inset-by-route.md`](../../study/29-ios-inset-by-route.md).
 `ShellPageTitle` sets `--shell-float-top-active` to the expanded value when the
 title wraps to two lines.

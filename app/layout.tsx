@@ -24,6 +24,7 @@ export const metadata: Metadata = buildPageMetadata({
 });
 
 export const viewport: Viewport = {
+  viewportFit: "cover",
   // These must be literal hex: Next emits them as a <meta> tag that the browser
   // reads before any CSS loads, so `var(--color-canvas)` would resolve to
   // nothing. They are the one place a token value is legitimately duplicated —
