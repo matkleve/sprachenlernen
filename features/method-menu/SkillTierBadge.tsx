@@ -19,31 +19,36 @@ const TIER_LABEL: Record<SkillTier, string> = {
   platinum: "Platinum",
 };
 
-const skillTierBadgeVariants = cva(
-  "inline-flex shrink-0 items-center justify-center",
-  {
-    variants: {
-      size: {
-        card: "h-14 min-w-14 px-0",
-        detail: "size-14 p-0.5",
-      },
-      frame: {
-        wood: "w-16",
-        shield: "w-14",
-        ornate: "w-[4.5rem]",
-      },
-    },
-    defaultVariants: {
-      size: "detail",
-      frame: "shield",
+const skillTierBadgeVariants = cva("inline-flex shrink-0 items-center justify-center", {
+  variants: {
+    size: {
+      // Width follows PNG silhouette — fixed w-14 boxes left empty gutters between shields.
+      card: "h-14 w-auto max-w-[4.5rem]",
+      detail: "size-14 p-0.5",
     },
   },
-);
+  defaultVariants: {
+    size: "detail",
+  },
+});
+
+const skillTierDetailFrameVariants = cva("", {
+  variants: {
+    frame: {
+      wood: "w-16",
+      shield: "w-14",
+      ornate: "w-[4.5rem]",
+    },
+  },
+  defaultVariants: {
+    frame: "shield",
+  },
+});
 
 const skillTierImageVariants = cva("object-contain", {
   variants: {
     size: {
-      card: "h-14 w-full max-h-14",
+      card: "h-14 w-auto max-h-14",
       detail: "h-14 w-full max-h-14",
     },
   },
@@ -72,7 +77,13 @@ export function SkillTierBadge({ skill, tier, size, className }: SkillTierBadgeP
   const frame = tierFrameKind(tier);
 
   return (
-    <span className={cn(skillTierBadgeVariants({ size, frame }), className)}>
+    <span
+      className={cn(
+        skillTierBadgeVariants({ size }),
+        size === "detail" && skillTierDetailFrameVariants({ frame }),
+        className,
+      )}
+    >
       <Image
         src={src}
         alt={label}
@@ -137,7 +148,7 @@ export function SkillTierBadgeRow({
   if (visible.length === 0 && overflow.length === 0) return null;
 
   return (
-    <span className={cn("inline-flex items-center gap-2", className)}>
+    <span className={cn("inline-flex items-center gap-1", className)}>
       {visible.map((mark) => (
         <SkillTierBadge key={mark.skill} skill={mark.skill} tier={mark.tier} size={size} />
       ))}
