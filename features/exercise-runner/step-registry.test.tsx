@@ -50,4 +50,28 @@ describe("ExerciseStepBody registry", () => {
     expect(screen.getByText("Pen and paper")).toBeDefined();
     expect(screen.queryByText(/not built yet/i)).toBeNull();
   });
+
+  it("renders speak-prompt for a shipped do step", () => {
+    render(
+      <ExerciseStepBody
+        step={{
+          id: "speak-1",
+          type: "do",
+          component: "speak-prompt",
+          label: "Read aloud",
+          config: { body: "Say it out loud.", text: "Hola mundo." },
+        }}
+        submitDraft={{ text: "", photoDataUrl: null }}
+        markedErrorTokens={[]}
+        onTextChange={() => {}}
+        onPhotoChange={() => {}}
+        onToggleError={() => {}}
+        onDecline={() => {}}
+        onSelectOffer={() => {}}
+      />,
+    );
+
+    expect(screen.getByText("Say it out loud.")).toBeDefined();
+    expect(screen.getByText("Hola mundo.")).toBeDefined();
+  });
 });

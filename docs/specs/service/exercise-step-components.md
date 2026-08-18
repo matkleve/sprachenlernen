@@ -71,7 +71,7 @@ Implementation target: `lib/exercise-step-components/` registry +
 | `transform` | Rewrite per rule (tense, person, translate) | planned | sentence transformation, back-translation |
 | `copy-display` | Paragraph to copy by hand (read-only) | planned | copy a paragraph |
 | `minimal-pair` | Hear A or B; tap which | planned | minimal pairs / HVPT |
-| `speak-prompt` | Prompt + optional voice record | planned | 4/3/2, retell, reading aloud, recite |
+| `speak-prompt` | Prompt + optional voice record | shipped | 4/3/2, retell, reading aloud, recite |
 | `shadow-line` | Play line; learner repeats (no grade v1) | planned | shadowing |
 | `round-marker` | “Round 2 of 3 — 3 minutes” header | planned | 4/3/2 |
 | `comprehension-questions` | 1–2 MC or short text checks | shipped | listening L1, extensive reading |
@@ -111,7 +111,7 @@ Implementation target: `lib/exercise-step-components/` registry +
 | Component | Purpose | Status | Methods |
 | --- | --- | --- | --- |
 | `offers` | ≤2 buttons + decline (terminal) | shipped | any method with errors or cards |
-| `summary` | Session stats + optional offers | planned | shadowing, narrow reading, reread |
+| `summary` | Session stats + optional offers | shipped | shadowing, narrow reading, reread, reading aloud |
 | `debrief-prompt` | “What could you not say?” → card offer | planned | off-app methods, tandem, world |
 
 ## Card engine (not exercise runner)

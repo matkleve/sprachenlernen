@@ -321,7 +321,9 @@
     "materialPreviewCoverage": "Etwa {percent} % der Wörter kennst du schon.",
     "comprehensionEmpty": "Für diesen Text gibt es noch keine Kontrollfragen.",
     "comprehensionCorrect": "Das passt zum Text.",
-    "comprehensionIncorrect": "Lies noch einmal — eine andere Antwort passt besser."
+    "comprehensionIncorrect": "Lies noch einmal — eine andere Antwort passt besser.",
+    "speakPromptDefault": "Sag es laut, in Sprechtempo.",
+    "summaryDefault": "Durchlauf abgeschlossen."
   },
   "listeningDefer": {
     "sectionLabel": "Ton",
