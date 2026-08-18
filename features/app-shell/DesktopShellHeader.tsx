@@ -3,12 +3,10 @@
 import { UserRound } from "lucide-react";
 import { usePathname } from "next/navigation";
 
-import { BrandMark } from "@/components/brand/BrandMark";
-import { ActionLink } from "@/components/ui/ActionLink";
+import { BrandLink } from "@/components/brand/BrandLink";
 import { IconLink } from "@/components/ui/IconLink";
 import type { LanguageHoldings } from "@/lib/db/language-holdings";
 import { routes } from "@/lib/routes";
-import { site } from "@/lib/site-metadata";
 
 import { DestinationNavItems } from "./DestinationNavItems";
 import { isProfileCurrent } from "./destinations";
@@ -40,15 +38,7 @@ export function DesktopShellHeader({
       collapse={collapse}
       left={
         <>
-          <ActionLink
-            href={routes.methods}
-            variant="ghost"
-            size="sm"
-            className="shrink-0 px-2"
-            aria-label={site.name}
-          >
-            <BrandMark size="sm" />
-          </ActionLink>
+          <BrandLink href={routes.methods} />
           <LanguageSwitcher
             languages={languages}
             languageHoldings={languageHoldings}

@@ -26,7 +26,7 @@ public page.
 - **Out:** full positioning copy and marketing argument (T-B7); OAuth; a fourth
   public route; anything that reads learner data.
 
-**Reuse:** `ActionLink`, `IconButton`, `BrandMark`, `BrandLockup`,
+**Reuse:** `ActionLink`, `IconButton`, `BrandLink`, `BrandLockup`,
 `SubmitButton`, `Dialog`, `MethodFilter` (basic mode), `MethodCardHeader`,
 `MethodBadgeRow`, **`ShellHeaderBar`** (shared with app shell — sticky/fixed +
 scroll scrim). Header and hero CTAs navigate, so they are anchors styled with
@@ -87,7 +87,7 @@ On phone-width viewports the header matches the signed-in shell's top row
 
 | Zone | Primitive | Notes |
 | --- | --- | --- |
-| Left | `ActionLink` `ghost sm` + `BrandMark` | links to `/`; `aria-label` = product name — **same on mobile and desktop** |
+| Left | `BrandLink` (`IconLink` + `BrandMark` color) | links to `/`; `aria-label` = product name — **same on mobile and desktop** |
 | Centre | brand wordmark text | absolutely centred; not a heading — the page hero owns `h1` on `/` |
 | Right | `IconButton` + menu popover (`< md`) · icon auth chips (`≥ md`) | right-aligned |
 

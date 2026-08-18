@@ -26,7 +26,7 @@ Update this file in the same PR as any new control or migration.
 | Control | File | Primitive | Variant | P |
 | --- | --- | --- | --- | --- |
 | Brand (desktop) | `PublicHeader.tsx` | `TextLink` | `ink sm` | — |
-| Brand (mobile) | `PublicHeader.tsx` | `ActionLink` | `ghost sm` + `BrandMark` | ✓ |
+| Brand (mobile) | `PublicHeader.tsx` | `BrandLink` | `IconLink` + color `BrandMark` | ring |
 | Mobile menu | `PublicHeaderMenu.tsx` | `IconButton` | `floating`; `aria-haspopup="menu"` | ring |
 | Menu scrim | `PublicHeaderMenu.tsx` | raw `<button>` | **exempt** — dismiss overlay | — |
 | Sign in | `PublicHeaderAuthControls.tsx` | `ActionLink` | `ghost sm`; `aria-current` on `/login` | ✓ |

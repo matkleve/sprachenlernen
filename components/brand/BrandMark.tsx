@@ -15,13 +15,20 @@ const mark = cva("shrink-0", {
 });
 
 type BrandMarkProps = {
-  tone?: "mono" | "full";
+  /** `color` — accent paths on transparent; for chips that supply the surface. */
+  tone?: "mono" | "full" | "color";
   className?: string;
 } & VariantProps<typeof mark>;
 
+function srcForTone(tone: NonNullable<BrandMarkProps["tone"]>): string {
+  if (tone === "mono") return shippedLogoDirection.monoSrc;
+  if (tone === "full") return shippedLogoDirection.markSrc;
+  return shippedLogoDirection.markSrc.replace(/\.svg$/, "-color.svg");
+}
+
 /** App mark only — no link, no wordmark. */
 export function BrandMark({ tone = "mono", size = "sm", className }: BrandMarkProps) {
-  const src = tone === "mono" ? shippedLogoDirection.monoSrc : shippedLogoDirection.markSrc;
+  const src = srcForTone(tone);
 
   return (
     // eslint-disable-next-line @next/next/no-img-element -- SVG app marks; next/image blocks SVG

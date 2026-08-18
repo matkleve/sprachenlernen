@@ -3,12 +3,10 @@
 import { useTranslations } from "next-intl";
 import { usePathname } from "next/navigation";
 
-import { BrandMark } from "@/components/brand/BrandMark";
-import { ActionLink } from "@/components/ui/ActionLink";
+import { BrandLink } from "@/components/brand/BrandLink";
 import { ShellHeaderBar } from "@/features/app-shell/ShellHeaderBar";
 import { useHeaderCollapse } from "@/features/app-shell/useHeaderCollapse";
 import { routes } from "@/lib/routes";
-import { site } from "@/lib/site-metadata";
 
 import { PublicHeaderAuthControls } from "./PublicHeaderAuthControls";
 import { PublicHeaderMenu } from "./PublicHeaderMenu";
@@ -48,17 +46,7 @@ export function PublicHeader({ signedIn }: PublicHeaderProps) {
       <ShellHeaderBar
         variant="mobile"
         collapse={collapse}
-        left={
-          <ActionLink
-            href={routes.landing}
-            variant="ghost"
-            size="sm"
-            className="shrink-0 px-2"
-            aria-label={site.name}
-          >
-            <BrandMark size="sm" tone="full" />
-          </ActionLink>
-        }
+        left={<BrandLink href={routes.landing} />}
         center={mobileCenter}
         right={<PublicHeaderMenu signedIn={signedIn} />}
       />
@@ -66,17 +54,7 @@ export function PublicHeader({ signedIn }: PublicHeaderProps) {
       <ShellHeaderBar
         variant="desktop"
         collapse={collapse}
-        left={
-          <ActionLink
-            href={routes.landing}
-            variant="ghost"
-            size="sm"
-            className="shrink-0 px-2"
-            aria-label={site.name}
-          >
-            <BrandMark size="sm" tone="full" />
-          </ActionLink>
-        }
+        left={<BrandLink href={routes.landing} />}
         center={desktopCenter}
         right={
           <nav aria-label="Account">

@@ -243,6 +243,9 @@ def main() -> None:
 
     files = {
         "spiral-learning.svg": wrap(colored, "Sprachenlernen spiral learning"),
+        "spiral-learning-color.svg": wrap(
+            colored, "Sprachenlernen spiral learning (color)", background=None
+        ),
         "spiral-learning-mono.svg": wrap(mono, "Sprachenlernen spiral learning (mono)", None),
         "spiral-learning-app-icon.svg": wrap(colored, "Sprachenlernen app icon"),
     }
