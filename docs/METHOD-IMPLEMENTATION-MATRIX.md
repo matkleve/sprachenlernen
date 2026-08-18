@@ -14,7 +14,7 @@ and **build status** (code in [`lib/exercise-recipe-built.ts`](../lib/exercise-r
 | Methods | 53 |
 | Commitments | 6 |
 | Hosted (`hosted: true`) | 34 |
-| **Built in-app** | **2** (`srs-session`, `partial-dictation`) |
+| **Built in-app** | **5** (`srs-session`, `partial-dictation`, `full-dictation`, `extensive-reading`, `reading-aloud`) |
 | Exercise runner specced | 40 |
 | Card engine specced | 4 |
 | Off-app / debrief only | 19 |
@@ -37,7 +37,7 @@ and **build status** (code in [`lib/exercise-recipe-built.ts`](../lib/exercise-r
 | `extensive-reading` | A | Y | runner | Y | ✅ | done | material-preview, text-display, comprehension-questions |
 | `narrow-reading` | B | Y | runner | — | ❌ | P3–P4 | see recipe doc |
 | `intensive-reading` | B | Y | runner | — | ❌ | P3–P4 | see recipe doc |
-| `reading-aloud` | B | Y | runner | — | ❌ | P3–P4 | see recipe doc |
+| `reading-aloud` | B | Y | runner | Y | ✅ | done | — (shipped) |
 | `reading-while-listening` | B | Y | runner | — | ❌ | P3–P4 | see recipe doc |
 | `reread-something-hard` | D | Y | runner | — | ❌ | P3–P4 | see recipe doc |
 | `parallel-text` | C | Y | runner | — | ❌ | P3–P4 | see recipe doc |
@@ -144,6 +144,7 @@ and **build status** (code in [`lib/exercise-recipe-built.ts`](../lib/exercise-r
 
 | Doc | Owns |
 | --- | --- |
+| [`playbooks/wire-a-method.md`](playbooks/wire-a-method.md) | Wire a catalogue Method to a runnable session |
 | [`data/methods/`](../data/methods/) | Catalogue source of truth |
 | [`exercise-recipe-composer.methods.md`](specs/service/exercise-recipe-composer.methods.md) | Specced step sequence |
 | [`exercise-step-components.md`](specs/service/exercise-step-components.md) | Component catalogue |

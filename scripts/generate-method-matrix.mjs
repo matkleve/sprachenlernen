@@ -7,7 +7,7 @@ import { readFileSync, readdirSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 
 const ROOT = join(import.meta.dirname, "..");
-const BUILT = new Set(["srs-session", "partial-dictation", "full-dictation", "extensive-reading"]);
+const BUILT = new Set(["srs-session", "partial-dictation", "full-dictation", "extensive-reading", "reading-aloud"]);
 const PARTIAL = new Set([]);
 
 const ENGINE = {
@@ -23,6 +23,7 @@ const COMPONENTS = {
   "extensive-reading": "— (shipped)",
   "full-dictation": "audio-play, full-dictation, sheet-download",
   "extensive-reading": "material-preview, text-display, comprehension-questions",
+  "reading-aloud": "— (shipped)",
   "free-production": "timed-write, feedback",
   "build-a-sentence": "type-with-word, reveal-answer",
   "cloze-sentences": "cloze-type",
@@ -38,6 +39,7 @@ const PRIORITY = {
   "partial-dictation": "done",
   "full-dictation": "done",
   "extensive-reading": "done",
+  "reading-aloud": "done",
   "free-production": "P2",
   "build-a-sentence": "P2",
   "cloze-sentences": "P2",
@@ -100,7 +102,7 @@ and **build status** (code in [\`lib/exercise-recipe-built.ts\`](../lib/exercise
 | Methods | 53 |
 | Commitments | 6 |
 | Hosted (\`hosted: true\`) | 34 |
-| **Built in-app** | **2** (\`srs-session\`, \`partial-dictation\`) |
+| **Built in-app** | **${BUILT.size}** (\`${[...BUILT].join("`, `")}\`) |
 | Exercise runner specced | 40 |
 | Card engine specced | 4 |
 | Off-app / debrief only | 19 |
@@ -159,6 +161,7 @@ md += `## Recommended build order
 
 | Doc | Owns |
 | --- | --- |
+| [\`playbooks/wire-a-method.md\`](playbooks/wire-a-method.md) | Wire a catalogue Method to a runnable session |
 | [\`data/methods/\`](../data/methods/) | Catalogue source of truth |
 | [\`exercise-recipe-composer.methods.md\`](specs/service/exercise-recipe-composer.methods.md) | Specced step sequence |
 | [\`exercise-step-components.md\`](specs/service/exercise-step-components.md) | Component catalogue |

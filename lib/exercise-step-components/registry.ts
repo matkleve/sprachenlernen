@@ -36,6 +36,7 @@ export function allowedStepTypesForComponent(componentId: string): StepType[] | 
     "sheet-download": ["prepare"],
     prompt: ["do"],
     "text-display": ["do"],
+    "speak-prompt": ["do"],
     "gap-fill": ["do"],
     "full-dictation": ["do"],
     capture: ["submit"],
@@ -43,6 +44,7 @@ export function allowedStepTypesForComponent(componentId: string): StepType[] | 
     feedback: ["review"],
     "comprehension-questions": ["review"],
     offers: ["decide"],
+    summary: ["decide"],
   };
   if (!isShippedStepComponent(componentId)) return null;
   return map[componentId];

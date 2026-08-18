@@ -315,7 +315,7 @@ export function fallbackSourceIdForMethod(methodId: string): string | null {
   if (methodId === "partial-dictation" || methodId === "full-dictation") {
     return DEFAULT_PARTIAL_DICTATION_SOURCE_ID;
   }
-  if (methodId === "extensive-reading") {
+  if (methodId === "extensive-reading" || methodId === "reading-aloud") {
     return DEFAULT_EXTENSIVE_READING_SOURCE_ID;
   }
   return null;
