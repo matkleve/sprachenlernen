@@ -13,7 +13,7 @@ type BrandLinkProps = {
 
 /**
  * Header brand control — ghost icon chip (no fill at rest), colored spiral
- * counter-rotates on hover. Matches header icon row gap via ShellHeaderBar.
+ * colored spiral spins anticlockwise on hover. Matches header icon row gap via ShellHeaderBar.
  */
 export function BrandLink({ href, className }: BrandLinkProps) {
   return (

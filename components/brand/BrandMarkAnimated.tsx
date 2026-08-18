@@ -23,7 +23,7 @@ type BrandMarkAnimatedProps = VariantProps<typeof mark> & {
   className?: string;
 };
 
-/** Inline spiral mark — dual-band counter-rotation on parent `.group` hover. */
+/** Inline spiral mark — dual bands spin anticlockwise on parent `.group` hover. */
 export function BrandMarkAnimated({ size = "sm", className }: BrandMarkAnimatedProps) {
   return (
     <svg
