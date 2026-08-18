@@ -10,6 +10,7 @@ function card(wordId: string, front: string, position: number, total: number): S
     lemma: front,
     front,
     back: "back",
+    descriptionKey: `${wordId}:en`,
     frequencyRank: position,
     position,
     total,
