@@ -161,6 +161,27 @@ describe("PublicHeader", () => {
     expect(within(menu).getByRole("link", { name: en.marketing.header.toApp })).toBeDefined();
     expect(within(menu).getByRole("button", { name: en.marketing.header.signOut })).toBeDefined();
   });
+
+  it("uses ghost sign-in and a single primary create-account control in the mobile menu", () => {
+    showHeaderAt("/");
+
+    fireEvent.click(screen.getByRole("button", { name: en.marketing.header.menu }));
+    const menu = screen.getByRole("menu", { name: en.marketing.header.menu });
+
+    const signIn = within(menu).getByRole("link", { name: en.marketing.header.signIn });
+    const signUp = within(menu).getByRole("link", { name: en.marketing.header.signUp });
+    const signInClasses = signIn.className.split(/\s+/);
+    const signUpClasses = signUp.className.split(/\s+/);
+
+    expect(signInClasses).toContain("hover:bg-accent-soft");
+    expect(signInClasses).not.toContain("bg-accent");
+    expect(signUpClasses).toContain("bg-accent");
+
+    const primaryLinks = within(menu)
+      .getAllByRole("link")
+      .filter((link) => link.className.split(/\s+/).includes("bg-accent"));
+    expect(primaryLinks).toHaveLength(1);
+  });
 });
 
 describe("LandingHero", () => {

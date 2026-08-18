@@ -22,8 +22,11 @@ public page.
 - **Out:** full positioning copy and marketing argument (T-B7); OAuth; a fourth
   public route; anything that reads learner data.
 
-**Reuse: `ActionLink`.** Header and hero CTAs navigate, so they are anchors
-styled with the button contract — not `<button>` elements.
+**Reuse:** `ActionLink`, `IconButton`, `BrandMark`, `BrandLockup`,
+`SubmitButton`. Header and hero CTAs navigate, so they are anchors styled with
+the button contract — not `<button>` elements. Implementation:
+`features/marketing/PublicHeader.tsx` (layout), `PublicHeaderAuthControls.tsx`
+(auth links), `PublicHeaderMenu.tsx` (mobile popover).
 
 ### Public header — auth controls
 
@@ -82,51 +85,62 @@ dismiss. Escape closes the menu.
 | # | User action | System response |
 | --- | --- | --- |
 | 1 | Opens `/` while signed out | The public header and landing hero render |
-| 2 | Opens `/` while signed in | The public header shows **To app** and **Sign out**; the hero renders with a single **To app** CTA instead of sign-up / sign-in |
+| 2 | Opens `/` while signed in | The header exposes **To app** and **Sign out** (inline on `≥ md`, in the mobile menu on `< md`); the hero renders with a single **To app** CTA instead of sign-up / sign-in |
 | 3 | Taps **Create account** (signed out) | Navigates to `/signup` |
-| 4 | Taps **Sign in** (signed out, hero or header) | Navigates to `/login` |
+| 4 | Taps **Sign in** (signed out, hero or header) | Navigates to `/login` — on `< md`, **Sign in** is inside the menu popover |
 | 5 | Taps **To app** (signed in) | Navigates to `/methods` |
-| 6 | Taps **Sign out** (signed in) | POST `signOutAction`; lands on `/` signed out |
+| 6 | Taps **Sign out** (signed in) | POST `signOutAction`; lands on `/` signed out — on `< md`, **Sign out** is inside the menu popover |
 | 7 | Opens any other `(marketing)` route | The same public header renders; the hero does not |
-| 8 | Taps the product name in the header | Navigates to `/` |
+| 8 | Taps the logo chip or product name in the header | Navigates to `/` — logo chip on `< md`, lockup wordmark on `≥ md` |
 | 9 | Viewport `< md` | Header shows logo chip, centred brand name, and a menu icon; auth controls are inside the menu |
 | 10 | Taps the menu icon on mobile | Auth controls appear in a popover; scrim or Escape closes it |
+| 11 | Taps outside the menu popover on mobile | Menu closes; header returns to the closed layout |
 
 ## States
 
-Not a client state machine (`docs/STATE.md` §1). The signed-in condition is
-read server-side per request, same as [`../service/auth.md`](../service/auth.md).
+The signed-in condition is read server-side per request, same as
+[`../service/auth.md`](../service/auth.md). The mobile menu open/closed state is
+client-only (`PublicHeaderMenu`).
 
 | State | Trigger | Effect | Terminal? |
 | --- | --- | --- | --- |
-| `signed-out` | no session | Header shows sign-in controls; hero shows sign-up / sign-in CTAs | no |
-| `signed-in` | a session | Header shows **To app** / **Sign out**; hero shows **To app** only | no |
+| `signed-out` | no session | Header exposes sign-in controls (inline or in menu); hero shows sign-up / sign-in CTAs | no |
+| `signed-in` | a session | Header exposes **To app** / **Sign out** (inline or in menu); hero shows **To app** only | no |
+| `menu-closed` | initial; scrim, Escape, or navigation | `< md` header shows logo, centred brand, menu icon only | no |
+| `menu-open` | menu icon tapped on `< md` | Popover shows auth controls; trigger has `aria-expanded="true"` | no |
 
 ## Data
 
 Reads the session via `getAccount()` in the marketing layout (header) and on `/`
 (hero CTAs). **Sign out** writes via `signOutAction`.
 
-Copy lives in `messages/{locale}.json` (`marketing` namespace). Sentences quoted from the study
-are marked there with their source; nothing is invented for positioning.
+Copy lives in `messages/{locale}.json` (`marketing` namespace), including
+`marketing.header.menu` for the mobile menu trigger and popover label. Sentences
+quoted from the study are marked there with their source; nothing is invented for
+positioning.
 
 ## Acceptance criteria
 
 - [ ] Given a signed-out visitor on `/`, when the page renders, then **Sign in**
-      and **Create account** links are visible in the header and the hero's
-      primary action is **Create account**.
-- [ ] Given the public header on any `(marketing)` route, when it renders, then
-      **Create account** is the only `primary` control, **Sign in** uses
-      `ghost`, and the two links do not share the same button variant.
+      and **Create account** are reachable from the header (inline on `≥ md`, in
+      the menu on `< md`) and the hero's primary action is **Create account**.
+- [ ] Given the public header on any `(marketing)` route at `≥ md`, when it
+      renders, then **Create account** is the only `primary` control, **Sign in**
+      uses `ghost`, and the two links do not share the same button variant.
+- [ ] Given the public header menu on `< md` when opened, then **Create account**
+      is the only `primary` control, **Sign in** uses `ghost`, and the two links
+      do not share the same button variant.
 - [ ] Given a visitor on `/login`, when the header renders, then **Sign in**
       carries `aria-current="page"` and does **not** carry an accent fill class
-      at rest.
+      at rest — whether inline or inside the open menu.
 - [ ] Given a signed-in visitor on `/`, when the page renders, then the header
-      shows **To app** and **Sign out** (not sign-in controls), and the hero's
+      exposes **To app** and **Sign out** (not sign-in controls), and the hero's
       only CTA is **To app**.
-- [ ] Given a signed-in visitor on any `(marketing)` route, when the header
-      renders, then **To app** is the only `primary` control and **Sign out**
-      uses `ghost`.
+- [ ] Given a signed-in visitor on any `(marketing)` route at `≥ md`, when the
+      header renders, then **To app** is the only `primary` control and **Sign
+      out** uses `ghost`.
+- [ ] Given a signed-in visitor on `< md` with the header menu open, then **To
+      app** is the only `primary` control and **Sign out** uses `ghost`.
 - [ ] Given any `(marketing)` route, when it renders, then the public header is
       present and no app-shell destination navigation is present.
 - [ ] Given viewport `< md` on any `(marketing)` route, when the header renders,
