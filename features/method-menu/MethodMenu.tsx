@@ -85,7 +85,7 @@ export function MethodMenu({
         <section className="mt-6" aria-label={t("dailyHeading")}>
           <h2 className="text-xl font-semibold text-ink">{t("dailyHeading")}</h2>
           <p className="mt-2 max-w-2xl text-base leading-relaxed text-muted">{t("dailyIntro")}</p>
-          <ul className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+          <ul className="mt-4 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {dailyThree.map((method) => (
               <li key={method.id}>
                 <MethodCard method={method} returnQuery={returnQuery} />
@@ -120,7 +120,7 @@ export function MethodMenu({
             <h2 className="mb-4 text-sm font-medium uppercase tracking-widest text-muted">
               {sections[section]}
             </h2>
-            <ul className="grid gap-3 sm:grid-cols-2">
+            <ul className="grid gap-5 sm:grid-cols-2">
               {inSection.map((method) => (
                 <li key={method.id}>
                   <MethodCard method={method} returnQuery={returnQuery} />

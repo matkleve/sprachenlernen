@@ -25,7 +25,7 @@ describe("SkillTierBadge", () => {
       <SkillTierBadge skill="listening" tier="wood" size="card" />,
     );
     const wrapper = container.firstElementChild;
-    expect(wrapper?.className).toContain("h-14");
+    expect(wrapper?.className).toContain("h-16");
     expect(wrapper?.className).not.toContain("w-16");
     expect(wrapper?.className).not.toContain("max-w-");
   });
@@ -40,8 +40,8 @@ describe("SkillTierBadge", () => {
 
     const woodImage = wood.querySelector("img");
     const goldImage = gold.querySelector("img");
-    expect(woodImage?.className).toContain("h-14");
-    expect(goldImage?.className).toContain("h-14");
+    expect(woodImage?.className).toContain("h-16");
+    expect(goldImage?.className).toContain("h-16");
     expect(goldImage?.className).not.toContain("w-full");
   });
 });
