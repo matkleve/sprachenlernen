@@ -130,8 +130,7 @@ export async function signInWithOAuth(
  * validate before any Server Component runs; repeating that in the layout, the
  * page, and every adapter was what made every navbar click feel slow.
  */
-async function getAccountImpl(client?: SupabaseClient): Promise<Account | null> {
-  const supabase = await resolveClient(client);
+async function readAccountFromClient(supabase: SupabaseClient): Promise<Account | null> {
   const {
     data: { session },
   } = await supabase.auth.getSession();
@@ -139,7 +138,16 @@ async function getAccountImpl(client?: SupabaseClient): Promise<Account | null> 
   return user ? { id: user.id, email: user.email ?? "" } : null;
 }
 
-export const getAccount = cache(getAccountImpl);
+/** One `getSession()` per request — `React.cache` keys on args, so injected clients bypass this. */
+const getAccountForRequest = cache(async (): Promise<Account | null> => {
+  const supabase = await createServerSupabaseClient();
+  return readAccountFromClient(supabase);
+});
+
+export async function getAccount(client?: SupabaseClient): Promise<Account | null> {
+  if (client) return readAccountFromClient(client);
+  return getAccountForRequest();
+}
 
 /**
  * Permanently deletes the signed-in account and cascades review_log rows.

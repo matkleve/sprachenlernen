@@ -5,7 +5,6 @@ import type { Metadata } from "next";
 import { AppShell } from "@/features/app-shell/AppShell";
 import { requireAccount } from "@/features/app-shell/gate";
 import { switcherOptionsFrom } from "@/features/app-shell/reading";
-import { readLanguageHoldings } from "@/lib/db/language-holdings";
 import { listLearningLanguages } from "@/lib/db/learning-languages";
 import { noIndexPageMetadata } from "@/lib/site-metadata";
 
@@ -37,16 +36,9 @@ export default async function AppLayout({ children }: { children: ReactNode }) {
   await requireAccount();
   const outcome = await learningPromise;
   const languages = switcherOptionsFrom(outcome);
-  const holdings =
-    outcome.status === "ok"
-      ? await readLanguageHoldings(outcome.languages.map((language) => language.languageCode))
-      : { status: "error" as const, error: "" };
 
   return (
-    <AppShell
-      languages={languages}
-      languageHoldings={holdings.status === "ok" ? holdings.byCode : undefined}
-    >
+    <AppShell languages={languages}>
       <Suspense fallback={<AppLoading />}>{children}</Suspense>
     </AppShell>
   );

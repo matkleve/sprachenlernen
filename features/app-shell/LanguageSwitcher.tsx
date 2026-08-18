@@ -16,7 +16,7 @@ import { cn } from "@/lib/utils";
 
 import { useTranslations } from "next-intl";
 
-import { switchActiveLanguageAction } from "./actions";
+import { switchActiveLanguageAction, loadLanguageHoldingsAction } from "./actions";
 
 export type LanguageSwitcherOption = {
   code: string;
@@ -44,6 +44,10 @@ export function LanguageSwitcher({
   const triggerRef = useRef<HTMLButtonElement>(null);
   const popoverRef = useRef<HTMLDivElement>(null);
   const [open, setOpen] = useState(false);
+  const [loadedHoldings, setLoadedHoldings] = useState<
+    Record<string, LanguageHoldings> | undefined
+  >(languageHoldings);
+  const [holdingsLoadStarted, setHoldingsLoadStarted] = useState(false);
   const [menuTop, setMenuTop] = useState<number | null>(null);
   const [triggerPosition, setTriggerPosition] = useState<{ top: number; left: number } | null>(
     null,
@@ -55,6 +59,17 @@ export function LanguageSwitcher({
     languages.find((language) => language.isActive)?.code ?? languages[0]?.code ?? "";
   const activeEndonym =
     languages.find((language) => language.code === active)?.endonym ?? active;
+
+  useEffect(() => {
+    if (!open || holdingsLoadStarted || languages.length <= 1) return;
+
+    setHoldingsLoadStarted(true);
+    void loadLanguageHoldingsAction(languages.map((language) => language.code)).then(
+      (byCode) => {
+        if (byCode) setLoadedHoldings(byCode);
+      },
+    );
+  }, [holdingsLoadStarted, languages, open]);
 
   useEffect(() => {
     if (!open) return;
@@ -163,7 +178,7 @@ export function LanguageSwitcher({
               style={{ top: menuTop, left: triggerPosition?.left ?? 24 }}
             >
               {languages.map((language) => {
-                const standing = languageHoldings?.[language.code];
+                const standing = loadedHoldings?.[language.code];
                 const poolSize = standing?.poolSize;
                 return (
                   <LanguageListRow

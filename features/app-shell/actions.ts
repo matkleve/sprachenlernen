@@ -5,6 +5,10 @@ import { redirect } from "next/navigation";
 
 import { setActiveLanguage } from "@/lib/db/learning-languages";
 import { signOut } from "@/lib/db/auth";
+import {
+  readLanguageHoldings,
+  type LanguageHoldings,
+} from "@/lib/db/language-holdings";
 import { routes } from "@/lib/routes";
 
 /**
@@ -29,4 +33,12 @@ export async function switchActiveLanguageAction(languageCode: string): Promise<
   const result = await setActiveLanguage(languageCode);
   if (result.status === "error") throw new Error(result.error);
   revalidatePath("/", "layout");
+}
+
+/** Holdings for the language switcher — loaded on first open, not every navigation. */
+export async function loadLanguageHoldingsAction(
+  languageCodes: string[],
+): Promise<Record<string, LanguageHoldings> | null> {
+  const outcome = await readLanguageHoldings(languageCodes);
+  return outcome.status === "ok" ? outcome.byCode : null;
 }

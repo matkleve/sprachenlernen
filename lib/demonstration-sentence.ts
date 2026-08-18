@@ -6,12 +6,10 @@
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
 
-import { listTaskStatesForTaskIds } from "@/lib/db/task-state";
 import { getSpokenLanguage } from "@/lib/db/profiles";
-import { poolForActiveLanguage } from "@/lib/db/learner-pools";
+import { readActiveMeaningRecall } from "@/features/method-menu/readActiveMeaningRecall";
 import { sentenceTranslationKey } from "@/lib/description-keys";
 import { resolveDescription } from "@/lib/gloss-resolver";
-import { isMeaningRecallTaskId } from "@/lib/form-recall-pool";
 import { newTask, type Task } from "@/lib/scheduler";
 import { tasksByTaskIdForCards } from "@/lib/task-from-state";
 import { isTaskHeld } from "@/lib/vocabulary-snapshot";
@@ -104,19 +102,13 @@ export async function readDemonstrationSentence(
   dayKey: string,
 ): Promise<DemonstrationSentenceOutcome> {
   try {
-    const pool = await poolForActiveLanguage();
-    if (pool.status === "no-language") return { status: "no-language" };
-    if (pool.status === "error") return { status: "omit" };
+    const recall = await readActiveMeaningRecall();
+    if (recall.status === "no-language") return { status: "no-language" };
+    if (recall.status === "error") return { status: "omit" };
 
-    const languageCode = pool.languageCodes[0];
-    if (!languageCode) return { status: "omit" };
-
-    const bank = loadDemonstrationBank(languageCode);
-    if (!bank) return { status: "omit" };
-
-    const cards = pool.cards.filter((card) => isMeaningRecallTaskId(card.taskId));
-    const statesResult = await listTaskStatesForTaskIds(cards.map((card) => card.taskId));
-    if (statesResult.status === "error") {
+    if (recall.status === "states-error") {
+      const bank = loadDemonstrationBank(recall.languageCode);
+      if (!bank) return { status: "omit" };
       const pick = pickDemonstrationSentence(bank, new Set(), dayKey);
       if (!pick) return { status: "omit" };
       const spoken = await getSpokenLanguage();
@@ -134,7 +126,11 @@ export async function readDemonstrationSentence(
       };
     }
 
-    const tasksByTaskId = tasksByTaskIdForCards(cards, statesResult.rows);
+    const { languageCode, cards, stateRows } = recall;
+    const bank = loadDemonstrationBank(languageCode);
+    if (!bank) return { status: "omit" };
+
+    const tasksByTaskId = tasksByTaskIdForCards(cards, stateRows);
     const heldWordIds = new Set<string>();
     for (const card of cards) {
       const task: Task = tasksByTaskId[card.taskId] ?? newTask(card.taskId, card.wordId);
