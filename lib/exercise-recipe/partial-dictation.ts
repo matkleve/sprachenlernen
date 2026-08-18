@@ -3,6 +3,7 @@ import {
   DEFAULT_PARTIAL_DICTATION_SOURCE_ID,
 } from "@/lib/content-sources";
 import { buildGapFillLine } from "@/lib/gap-selection";
+import { dictationAudioConfig } from "@/lib/exercise-step-audio";
 import {
   dictationSentencesForVariant,
   dictationWaitSecForVariant,
@@ -50,7 +51,7 @@ export function composePartialDictationRecipe(
         config: {
           sentence,
           tokens: gapLine.tokens,
-          audioUrl: source.kind === "audio" ? source.sourceUrl : undefined,
+          ...dictationAudioConfig(source, sentence),
           itemIndex: index + 1,
           itemCount: sentences.length,
         },

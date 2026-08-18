@@ -1,5 +1,6 @@
 import { resolveContentSourceById } from "@/lib/content-source-resolve";
 import { DEFAULT_PARTIAL_DICTATION_SOURCE_ID } from "@/lib/content-sources";
+import { dictationAudioConfig } from "@/lib/exercise-step-audio";
 import {
   dictationSentencesForVariant,
   dictationWaitSecForVariant,
@@ -15,7 +16,6 @@ export function composeFullDictationRecipe(source: Source, ctx: SessionContext):
   const variantId = resolvedVariantId(ctx);
   const sentences = dictationSentencesForVariant(source, { ...ctx, variantId }, lexicon);
   const waitSec = dictationWaitSecForVariant(variantId);
-  const audioUrl = source.kind === "audio" ? source.sourceUrl : undefined;
 
   const dictationLoop: ExerciseStep[] = [];
   sentences.forEach((sentence, index) => {
@@ -27,7 +27,7 @@ export function composeFullDictationRecipe(source: Source, ctx: SessionContext):
         component: "full-dictation",
         label: `Listen${suffix}`,
         config: {
-          audioUrl,
+          ...dictationAudioConfig(source, sentence),
           itemIndex: index + 1,
           itemCount: sentences.length,
           readsPerSentence: 3,

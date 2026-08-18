@@ -37,7 +37,7 @@ Implementation target: `lib/exercise-step-components/` registry +
 | `checklist` | Tick list — pen, headphones, quiet (not gated) | shipped | dictation family, paper, 4/3/2, shadowing |
 | `instruction` | One-screen how-this-works (first visit optional) | planned | 4/3/2, narrow reading/listening, dictogloss |
 | `context-check` | Confirm context still matches (`requires`) | planned | full dictation, paradigm tables |
-| `material-preview` | Show resolved Source slice + coverage band | planned | extensive reading, retell, back-translation |
+| `material-preview` | Show resolved Source slice + coverage band | shipped | extensive reading, retell, back-translation |
 | `sheet-download` | Printable worksheet (paradigm, handwriting, dictation) | shipped | paradigm tables, copy paragraph, full dictation |
 | `variant-picker` | Short / standard / long before recipe expands | planned | dictation floor recovery, abandonment variant |
 
@@ -46,7 +46,7 @@ Implementation target: `lib/exercise-step-components/` registry +
 | Component | Purpose | Status | Methods |
 | --- | --- | --- | --- |
 | `prompt` | Static instruction body (markdown) | shipped | generic, rule-at-error, own-error-log |
-| `text-display` | Read passage — scroll, tap word (future trace) | planned | extensive/narrow/intensive reading, retell setup |
+| `text-display` | Read passage — scroll, tap word (future trace) | shipped | extensive/narrow/intensive reading, retell setup |
 | `parallel-text` | L2 + L1 columns, scroll sync | planned | parallel text |
 | `audio-play` | Play / replay clip; speed when method allows | planned | listening L1, narrow listening, dictation reads |
 | `audio-with-transcript` | Audio + reveal-level ladder (L1–L3) | planned | repeated listening |
@@ -59,7 +59,7 @@ Implementation target: `lib/exercise-step-components/` registry +
 
 | Component | Purpose | Status | Methods |
 | --- | --- | --- | --- |
-| `gap-fill` | Gapped sentence; type blanks; defer → type-only | shipped | partial dictation |
+| `gap-fill` | Gapped sentence; type blanks; defer → type-only; text sources speak via browser TTS | shipped | partial dictation |
 | `audio-gap` | Hear sentence; type blanks (no text shown) | planned | partial dictation (harder) |
 | `full-dictation` | Hear; write entire sentence (3× read protocol) | shipped | full dictation |
 | `cloze-select` | Pick missing word from 3–4 options | planned | cloze sentences (easy) |
@@ -74,7 +74,7 @@ Implementation target: `lib/exercise-step-components/` registry +
 | `speak-prompt` | Prompt + optional voice record | planned | 4/3/2, retell, reading aloud, recite |
 | `shadow-line` | Play line; learner repeats (no grade v1) | planned | shadowing |
 | `round-marker` | “Round 2 of 3 — 3 minutes” header | planned | 4/3/2 |
-| `comprehension-questions` | 1–2 MC or short text checks | planned | listening L1, extensive reading |
+| `comprehension-questions` | 1–2 MC or short text checks | shipped | listening L1, extensive reading |
 | `mining-highlight` | Select phrase from own text → card offer | planned | mine your own sentences |
 
 ## D · Timers (`wait`)

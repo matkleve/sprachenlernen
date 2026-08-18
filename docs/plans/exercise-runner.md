@@ -11,7 +11,7 @@ engine family after the card engine. Project-wide queue:
 
 | Layer | Spec | Code |
 | --- | --- | --- |
-| Audio playback for text sources | study/37 | gap-fill UI only — no TTS yet |
+| Audio playback for text sources | study/37 | **shipped 2026-08-18** — browser TTS via `speechText` on dictation steps |
 | Speak input mode | UC-028 | type-only v1 |
 
 **Shipped 2026-08-18:** runner shell + six step types, `/practice`, catalogue

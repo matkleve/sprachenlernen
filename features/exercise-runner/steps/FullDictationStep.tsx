@@ -2,7 +2,7 @@
 
 import { useTranslations } from "next-intl";
 
-import { Button } from "@/components/ui/Button";
+import { ExerciseAudioButton } from "@/features/exercise-runner/ExerciseAudioButton";
 
 type FullDictationStepProps = {
   config: Record<string, unknown>;
@@ -11,12 +11,10 @@ type FullDictationStepProps = {
 
 export function FullDictationStep({ config, listeningDeferred = false }: FullDictationStepProps) {
   const t = useTranslations("exerciseRunner");
-  const audioUrl = typeof config.audioUrl === "string" ? config.audioUrl : undefined;
   const itemIndex = typeof config.itemIndex === "number" ? config.itemIndex : null;
   const itemCount = typeof config.itemCount === "number" ? config.itemCount : null;
   const readsPerSentence =
     typeof config.readsPerSentence === "number" ? config.readsPerSentence : 3;
-  const showAudio = !listeningDeferred && Boolean(audioUrl);
 
   return (
     <div className="space-y-4">
@@ -28,20 +26,9 @@ export function FullDictationStep({ config, listeningDeferred = false }: FullDic
 
       {listeningDeferred ? (
         <p className="text-sm text-muted">{t("fullDictationDeferred")}</p>
-      ) : null}
-
-      {showAudio ? (
-        <Button
-          type="button"
-          variant="secondary"
-          size="sm"
-          onClick={() => {
-            if (audioUrl) window.open(audioUrl, "_blank", "noopener,noreferrer");
-          }}
-        >
-          {t("playAudio")}
-        </Button>
-      ) : null}
+      ) : (
+        <ExerciseAudioButton config={config} />
+      )}
 
       <p className="text-base leading-relaxed text-ink">
         {t("fullDictationProtocol", { reads: readsPerSentence })}
