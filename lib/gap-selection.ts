@@ -46,7 +46,9 @@ export function isContentWord(form: string, lexicon: Lexicon): boolean {
 export function isAlternatingOnlyGaps(tokenCount: number, gapIndices: readonly number[]): boolean {
   if (gapIndices.length === 0) return false;
   const gapSet = new Set(gapIndices);
-  const alternating = Array.from({ length: tokenCount }, (_, index) => index % 2 === 1);
+  const alternating = Array.from({ length: tokenCount }, (_, index) => index).filter(
+    (index) => index % 2 === 1,
+  );
   return (
     gapIndices.length === alternating.length &&
     alternating.every((index) => gapSet.has(index))
