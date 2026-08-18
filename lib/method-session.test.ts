@@ -50,7 +50,8 @@ describe("usesExerciseRunner", () => {
   it("is true only for built exercise methods", () => {
     expect(usesExerciseRunner(method({ id: "partial-dictation" }))).toBe(true);
     expect(usesExerciseRunner(method({ id: "full-dictation" }))).toBe(true);
-    expect(usesExerciseRunner(method({ id: "extensive-reading" }))).toBe(false);
+    expect(usesExerciseRunner(method({ id: "extensive-reading" }))).toBe(true);
+    expect(usesExerciseRunner(method({ id: "narrow-reading" }))).toBe(false);
     expect(usesExerciseRunner(method({ id: "srs-session" }))).toBe(false);
   });
 });
@@ -85,9 +86,15 @@ describe("cardHrefForMethod", () => {
     );
   });
 
+  it("links extensive-reading to practice", () => {
+    expect(cardHrefForMethod(method({ id: "extensive-reading" }))).toBe(
+      exerciseSessionHref("extensive-reading"),
+    );
+  });
+
   it("links other hosted methods to detail", () => {
-    expect(cardHrefForMethod(method({ id: "extensive-reading" }), "?skill=reading")).toBe(
-      "/methods/extensive-reading?skill=reading",
+    expect(cardHrefForMethod(method({ id: "narrow-reading" }), "?skill=reading")).toBe(
+      "/methods/narrow-reading?skill=reading",
     );
   });
 
@@ -98,7 +105,7 @@ describe("cardHrefForMethod", () => {
 
 describe("shellPageLayout practice", () => {
   it("uses one-screen-runner for built exercise methods", () => {
-    for (const methodId of ["partial-dictation", "full-dictation"]) {
+    for (const methodId of ["partial-dictation", "full-dictation", "extensive-reading"]) {
       const params = new URLSearchParams({ method: methodId });
       expect(isActiveExerciseSession(routes.practice, params)).toBe(true);
       expect(shellPageLayout(routes.practice, params)).toBe("one-screen-runner");
@@ -106,7 +113,7 @@ describe("shellPageLayout practice", () => {
   });
 
   it("uses drill-in for unknown exercise method", () => {
-    const params = new URLSearchParams({ method: "extensive-reading" });
+    const params = new URLSearchParams({ method: "narrow-reading" });
     expect(isActiveExerciseSession(routes.practice, params)).toBe(false);
     expect(shellPageLayout(routes.practice, params)).toBe("scrollable-drill-in");
   });

@@ -25,9 +25,19 @@ describe("PracticePage", () => {
     expect(screen.getByText(/Step 1 of/)).toBeDefined();
   });
 
-  it("shows not-built for unbuilt hosted method", async () => {
+  it("renders exercise runner for extensive-reading", async () => {
     const ui = await PracticePage({
       searchParams: Promise.resolve({ method: "extensive-reading" }),
+    });
+    render(ui);
+
+    expect(screen.getByRole("heading", { name: "Extensive reading at coverage" })).toBeDefined();
+    expect(screen.getByText(/Step 1 of 4/)).toBeDefined();
+  });
+
+  it("shows not-built for unbuilt hosted method", async () => {
+    const ui = await PracticePage({
+      searchParams: Promise.resolve({ method: "narrow-reading" }),
     });
     render(ui);
 

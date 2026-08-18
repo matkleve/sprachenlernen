@@ -314,7 +314,13 @@
     "sheetDefaultTitle": "Dictation worksheet",
     "sheetPreviewLabel": "Worksheet preview",
     "sheetLine": "Line {number}",
-    "sheetPrint": "Print worksheet"
+    "sheetPrint": "Print worksheet",
+    "materialPreviewHeading": "What you will read",
+    "materialPreviewHint": "Read for flow — you do not need to look up every word.",
+    "materialPreviewCoverage": "About {percent}% of the words are already familiar to you.",
+    "comprehensionEmpty": "No check questions for this text yet.",
+    "comprehensionCorrect": "That matches the text.",
+    "comprehensionIncorrect": "Re-read the passage — another answer fits better."
   },
   "listeningDefer": {
     "sectionLabel": "Sound",

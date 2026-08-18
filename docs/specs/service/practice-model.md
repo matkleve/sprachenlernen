@@ -46,8 +46,8 @@ Research: [`study/12`](../../study/12-method-cards.md) (methods and floors),
 | --- | ---: |
 | Catalogue methods | 53 |
 | Hosted (`hosted: true`) | 34 |
-| Built in-app | 3 (`srs-session`, `partial-dictation`, `full-dictation`) |
-| Exercise runner platform | shipped (UC-049); 2 methods built |
+| Built in-app | 4 (`srs-session`, `partial-dictation`, `full-dictation`, `extensive-reading`) |
+| Exercise runner platform | shipped (UC-049); 3 methods built |
 | Off-app | 19 |
 
 Per-method evidence, recipe, and build status:

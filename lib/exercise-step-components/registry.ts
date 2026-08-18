@@ -32,13 +32,16 @@ export function isStepComponentRenderable(step: Pick<ExerciseStep, "type" | "com
 export function allowedStepTypesForComponent(componentId: string): StepType[] | null {
   const map: Record<ShippedStepComponentId, StepType[]> = {
     checklist: ["prepare"],
+    "material-preview": ["prepare"],
     "sheet-download": ["prepare"],
     prompt: ["do"],
+    "text-display": ["do"],
     "gap-fill": ["do"],
     "full-dictation": ["do"],
     capture: ["submit"],
     "self-mark": ["review"],
     feedback: ["review"],
+    "comprehension-questions": ["review"],
     offers: ["decide"],
   };
   if (!isShippedStepComponent(componentId)) return null;

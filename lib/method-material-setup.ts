@@ -10,7 +10,7 @@ import {
   type CoverageResult,
   type Source,
 } from "@/lib/coverage";
-import { DEFAULT_PARTIAL_DICTATION_SOURCE_ID } from "@/lib/content-source-constants";
+import { DEFAULT_EXTENSIVE_READING_SOURCE_ID, DEFAULT_PARTIAL_DICTATION_SOURCE_ID } from "@/lib/content-source-constants";
 import type { MaterialTopic, MethodEntry } from "@/lib/method-catalogue";
 import {
   DEFAULT_WINDOW_DURATION_SEC,
@@ -314,6 +314,9 @@ export function practiceHrefForSetup(params: PracticeSetupParams): string {
 export function fallbackSourceIdForMethod(methodId: string): string | null {
   if (methodId === "partial-dictation" || methodId === "full-dictation") {
     return DEFAULT_PARTIAL_DICTATION_SOURCE_ID;
+  }
+  if (methodId === "extensive-reading") {
+    return DEFAULT_EXTENSIVE_READING_SOURCE_ID;
   }
   return null;
 }

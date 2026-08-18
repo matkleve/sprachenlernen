@@ -314,7 +314,13 @@
     "sheetDefaultTitle": "Diktat-Arbeitsblatt",
     "sheetPreviewLabel": "Arbeitsblatt-Vorschau",
     "sheetLine": "Zeile {number}",
-    "sheetPrint": "Arbeitsblatt drucken"
+    "sheetPrint": "Arbeitsblatt drucken",
+    "materialPreviewHeading": "Was du lesen wirst",
+    "materialPreviewHint": "Lies flüssig — du musst nicht jedes Wort nachschlagen.",
+    "materialPreviewCoverage": "Etwa {percent} % der Wörter kennst du schon.",
+    "comprehensionEmpty": "Für diesen Text gibt es noch keine Kontrollfragen.",
+    "comprehensionCorrect": "Das passt zum Text.",
+    "comprehensionIncorrect": "Lies noch einmal — eine andere Antwort passt besser."
   },
   "listeningDefer": {
     "sectionLabel": "Ton",

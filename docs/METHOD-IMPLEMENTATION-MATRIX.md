@@ -34,7 +34,7 @@ and **build status** (code in [`lib/exercise-recipe-built.ts`](../lib/exercise-r
 
 | id | Ev | Host | Engine | Mat. | Built | Pri | Components still needed |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| `extensive-reading` | A | Y | runner | Y | ❌ | P1 | material-preview, text-display, comprehension-questions |
+| `extensive-reading` | A | Y | runner | Y | ✅ | done | material-preview, text-display, comprehension-questions |
 | `narrow-reading` | B | Y | runner | — | ❌ | P3–P4 | see recipe doc |
 | `intensive-reading` | B | Y | runner | — | ❌ | P3–P4 | see recipe doc |
 | `reading-aloud` | B | Y | runner | — | ❌ | P3–P4 | see recipe doc |

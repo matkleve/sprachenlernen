@@ -7,7 +7,7 @@ import { readFileSync, readdirSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 
 const ROOT = join(import.meta.dirname, "..");
-const BUILT = new Set(["srs-session", "partial-dictation", "full-dictation"]);
+const BUILT = new Set(["srs-session", "partial-dictation", "full-dictation", "extensive-reading"]);
 const PARTIAL = new Set([]);
 
 const ENGINE = {
@@ -20,6 +20,7 @@ const ENGINE = {
 const COMPONENTS = {
   "partial-dictation": "— (shipped: short/standard/long)",
   "full-dictation": "— (shipped: short/standard/long)",
+  "extensive-reading": "— (shipped)",
   "full-dictation": "audio-play, full-dictation, sheet-download",
   "extensive-reading": "material-preview, text-display, comprehension-questions",
   "free-production": "timed-write, feedback",
@@ -36,7 +37,7 @@ const COMPONENTS = {
 const PRIORITY = {
   "partial-dictation": "done",
   "full-dictation": "done",
-  "extensive-reading": "P1",
+  "extensive-reading": "done",
   "free-production": "P2",
   "build-a-sentence": "P2",
   "cloze-sentences": "P2",
