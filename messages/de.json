@@ -240,6 +240,7 @@
     "good": "Gut",
     "easy": "Leicht",
     "progress": "{position} von {total}",
+    "runStatusLabel": "Sitzungsfortschritt nach Karte",
     "completeTitle": "Sitzung abgeschlossen",
     "completeBodyOne": "Sie haben 1 Karte wiederholt.",
     "completeBody": "Sie haben {count} Karten wiederholt.",

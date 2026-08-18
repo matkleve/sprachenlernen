@@ -6,6 +6,7 @@ import { useTransition } from "react";
 import { TextLink } from "@/components/ui/TextLink";
 import { Button } from "@/components/ui/Button";
 import { StatusBanner } from "@/components/ui/StatusBanner";
+import { SessionRunStatusStrip } from "@/features/review-session/SessionRunStatusStrip";
 import { ReviewCard } from "@/features/review-session/ReviewCard";
 import { SessionComplete } from "@/features/review-session/SessionComplete";
 import { useReviewSession, type ReviewSessionInitialData } from "@/features/review-session/useReviewSession";
@@ -37,6 +38,7 @@ export function ReviewSession({ methodName, compact = false, initialData }: Revi
     pendingCount,
     showSyncStatus,
     gradedCount,
+    runSegments,
     reportAck,
     reportPending,
     flip,
@@ -90,6 +92,13 @@ export function ReviewSession({ methodName, compact = false, initialData }: Revi
   return (
     <div className={rootClass}>
       {sessionHeader}
+
+      {showsActiveCard(phase) && runSegments.length > 0 ? (
+        <SessionRunStatusStrip
+          segments={runSegments}
+          className={cn(compact ? "mt-2 shrink-0" : "mt-3")}
+        />
+      ) : null}
 
       {showSyncStatus && pendingCount > 0 ? (
         <p

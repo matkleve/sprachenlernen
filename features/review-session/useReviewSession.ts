@@ -17,6 +17,12 @@ import {
   type SessionPhase,
 } from "@/features/review-session/session-machine";
 import { getInstallationId } from "@/lib/installation-id";
+import {
+  displayRunSegments,
+  gradeRunSegment,
+  initRunSegments,
+  type RunSegment,
+} from "@/lib/review-session-run-status";
 import { requeueInsertIndex } from "@/lib/review-session-requeue";
 import type { ReportCardInput } from "@/lib/card-report";
 import type { SessionCard } from "@/lib/session-builder";
@@ -47,6 +53,7 @@ export type UseReviewSessionResult = {
   pendingCount: number;
   showSyncStatus: boolean;
   gradedCount: number;
+  runSegments: RunSegment[];
   reportAck: ReportAck | null;
   reportPending: boolean;
   flip: () => void;
@@ -89,6 +96,9 @@ export function useReviewSession(options: UseReviewSessionOptions = {}): UseRevi
   const [pendingCount, setPendingCount] = useState(0);
   const [showSyncStatus, setShowSyncStatus] = useState(false);
   const [gradedCount, setGradedCount] = useState(0);
+  const [runSegments, setRunSegments] = useState<RunSegment[]>(() =>
+    initialData?.status === "ok" ? initRunSegments(initialData.queue) : [],
+  );
   const [reportAck, setReportAck] = useState<ReportAck | null>(null);
   const [reportPending, setReportPending] = useState(false);
   const shownAtRef = useRef(Date.now());
@@ -118,6 +128,7 @@ export function useReviewSession(options: UseReviewSessionOptions = {}): UseRevi
         }
 
         setQueue(result.queue);
+        setRunSegments(initRunSegments(result.queue));
         setLanguageName(result.languageName);
         setStatus("ready");
         if (result.queue.length === 0) {
@@ -160,6 +171,12 @@ export function useReviewSession(options: UseReviewSessionOptions = {}): UseRevi
   }, [pendingCount]);
 
   const currentCard = queue[sessionIndex] ?? null;
+  const visibleRunSegments = displayRunSegments(
+    runSegments,
+    queue,
+    sessionIndex,
+    currentCard?.taskId ?? null,
+  );
 
   const flip = useCallback(() => {
     if (!canFlip(phase)) return;
@@ -197,6 +214,8 @@ export function useReviewSession(options: UseReviewSessionOptions = {}): UseRevi
       }
 
       gradingRef.current = false;
+
+      setRunSegments((segments) => gradeRunSegment(segments, currentCard.taskId, value));
 
       const nextIndex = sessionIndex + 1;
       if (nextIndex >= nextQueue.length) {
@@ -243,6 +262,7 @@ export function useReviewSession(options: UseReviewSessionOptions = {}): UseRevi
     pendingCount,
     showSyncStatus,
     gradedCount,
+    runSegments: visibleRunSegments,
     reportAck,
     reportPending,
     flip,

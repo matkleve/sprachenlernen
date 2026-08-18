@@ -360,6 +360,19 @@ describe("ReviewSession", () => {
     expect(screen.queryByRole("dialog", { name: en.reviewSession.reportPopoverTitle })).toBeNull();
   });
 
+  it("shows a run status strip above the card during an active session", () => {
+    render(
+      <ReviewSession
+        methodName="Spaced repetition session"
+        initialData={testInitialData}
+        compact
+      />,
+    );
+
+    expect(screen.getByRole("list", { name: en.reviewSession.runStatusLabel })).toBeDefined();
+    expect(screen.getAllByRole("listitem", { hidden: true })).toHaveLength(2);
+  });
+
   it("requeues an again grade to the end when the queue is too short for five ahead", async () => {
     const user = userEvent.setup();
     render(
