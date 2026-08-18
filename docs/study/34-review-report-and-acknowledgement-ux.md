@@ -73,7 +73,7 @@ interpretations:
 
 | Interpretation | Already true? | Needs build? |
 | --- | --- | --- |
-| Finish **this** session | Yes — flagged cards stay in queue | No |
+| Finish **this** session | No — reported card exits with a short animation and the runner advances without a grade |
 | Keep **future** scheduling | No — flag excludes from next build | Yes — new mode |
 | **Feedback only** — no flag | No | Yes — new row type or flag bit |
 
@@ -87,8 +87,7 @@ interpretations:
   none.
 
 If owner declines the toggle, popover copy should state the outcome explicitly:
-*"We'll stop scheduling this card from your next session. You can finish it
-today."*
+*"We'll stop scheduling this card from your next session and skip it now."*
 
 ### 4. Acknowledgement — status banner (not ErrorCallout)
 
@@ -108,8 +107,8 @@ today."*
 
 **Copy (report success):**
 
-> **Report received.** We won't schedule this card again after today. You can
-> finish reviewing it now.
+> **Report received.** We won't schedule this card again. Moving to the next
+> card.
 
 (Error path stays inline danger text or `ErrorCallout` if we add retry later.)
 

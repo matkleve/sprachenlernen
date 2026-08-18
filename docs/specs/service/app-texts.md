@@ -54,6 +54,7 @@ optional `exampleSentenceKey`) — the lookup handle, never the gloss itself.
 | 4 | Missing key entirely | Falls back to English snapshot row if present; else empty + telemetry |
 | 5 | Import seed | Upserts `app_texts` from current `back`/`front` English; does not touch `taskId` or reviews |
 | 6 | MT pipeline | Writes `draft` rows for non-source locales; app never reads `draft` |
+| 7 | MT export (`--translate-de`) | Each translated gloss is segment-deduped before write; `check-description-snapshots` enforces clean committed JSON |
 
 ## States
 

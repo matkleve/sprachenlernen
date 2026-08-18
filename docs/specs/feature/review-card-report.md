@@ -31,7 +31,7 @@ UX: [`study/34-review-report-and-acknowledgement-ux.md`](../../study/34-review-r
 | 2 | Taps **Report** with no selections | Popover closes; flag row inserted (idempotent); success banner shown |
 | 3 | Selects category and/or enters note | Same as 2; optional fields stored when schema ships |
 | 4 | Taps **Cancel**, Escape, or outside | Popover closes; **no** flag |
-| 5 | Same card, current session | Card remains in queue (UC-023) |
+| 5 | Same card, current session | Card is removed from this session's queue (including any same-run requeue copy) and the runner advances without a grade |
 | 6 | Next session build | Flagged `word_id` excluded for spoken language |
 
 ## States

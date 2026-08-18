@@ -32,6 +32,7 @@ vi.mock("@/features/review-session/actions", () => ({
         lemma: "de",
         front: "de",
         back: "of, from",
+        descriptionKey: "card.es:de.meaning-recall.back",
         frequencyRank: 1,
         position: 1,
         total: 2,
@@ -42,6 +43,7 @@ vi.mock("@/features/review-session/actions", () => ({
         lemma: "que",
         front: "que",
         back: "that, which",
+        descriptionKey: "card.es:que.meaning-recall.back",
         frequencyRank: 2,
         position: 2,
         total: 2,
@@ -85,6 +87,7 @@ const testInitialData = {
       lemma: "de",
       front: "de",
       back: "of, from",
+      descriptionKey: "card.es:de.meaning-recall.back",
       frequencyRank: 1,
       position: 1,
       total: 2,
@@ -95,6 +98,7 @@ const testInitialData = {
       lemma: "que",
       front: "que",
       back: "that, which",
+      descriptionKey: "card.es:que.meaning-recall.back",
       frequencyRank: 2,
       position: 2,
       total: 2,
@@ -341,6 +345,25 @@ describe("ReviewSession", () => {
     expect(reportCardAction).toHaveBeenCalledWith("es:de", { category: null, note: null });
   });
 
+  it("skips the reported card and advances without grading", async () => {
+    const user = userEvent.setup();
+
+    render(
+      <ReviewSession
+        methodName="Spaced repetition session"
+        initialData={testInitialData}
+      />,
+    );
+
+    expect(screen.getByText("de")).toBeDefined();
+    await user.click(screen.getByRole("button", { name: en.reviewSession.report }));
+    await user.click(screen.getByRole("button", { name: en.reviewSession.reportSubmit }));
+
+    await waitFor(() => expect(screen.getByText("que")).toBeDefined());
+    expect(screen.queryByText("de")).toBeNull();
+    expect(screen.getByText(en.reviewSession.reportSuccessTitle)).toBeDefined();
+  });
+
   it("clears the report popover when the active card changes", async () => {
     const user = userEvent.setup();
     render(
@@ -358,6 +381,19 @@ describe("ReviewSession", () => {
 
     await waitFor(() => expect(screen.getByText("que")).toBeDefined());
     expect(screen.queryByRole("dialog", { name: en.reviewSession.reportPopoverTitle })).toBeNull();
+  });
+
+  it("shows a run status strip above the card during an active session", () => {
+    render(
+      <ReviewSession
+        methodName="Spaced repetition session"
+        initialData={testInitialData}
+        compact
+      />,
+    );
+
+    expect(screen.getByRole("list", { name: en.reviewSession.runStatusLabel })).toBeDefined();
+    expect(screen.getAllByRole("listitem", { hidden: true })).toHaveLength(2);
   });
 
   it("requeues an again grade to the end when the queue is too short for five ahead", async () => {

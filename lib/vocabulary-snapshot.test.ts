@@ -18,7 +18,7 @@ const cards: StarterCard[] = [
     wordId: "es:de",
     lemma: "de",
     front: "de",
-    back: "of, from",
+    descriptionKey: "card.es:de.meaning-recall.back",
     frequencyRank: 1,
   },
   {
@@ -26,7 +26,7 @@ const cards: StarterCard[] = [
     wordId: "es:que",
     lemma: "que",
     front: "que",
-    back: "that",
+    descriptionKey: "card.es:que.meaning-recall.back",
     frequencyRank: 2,
   },
 ];

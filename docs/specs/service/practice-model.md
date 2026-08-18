@@ -40,15 +40,18 @@ Research: [`study/12`](../../study/12-method-cards.md) (methods and floors),
    stability signals, not skill levels. Skills stay *not measured* until
    Methods that produce their signals exist (UC-004).
 
-## Shipped vs catalogue (2026-08-11)
+## Shipped vs catalogue (2026-08-18)
 
 | | Count |
 | --- | ---: |
 | Catalogue methods | 53 |
 | Hosted (`hosted: true`) | 34 |
-| Built engines | 1 (`srs-session`) |
-| Exercise runner | specced, not built (UC-049) |
+| Built in-app | 4 (`srs-session`, `partial-dictation`, `full-dictation`, `extensive-reading`) |
+| Exercise runner platform | shipped (UC-049); 3 methods built |
 | Off-app | 19 |
+
+Per-method evidence, recipe, and build status:
+[`METHOD-IMPLEMENTATION-MATRIX.md`](../../METHOD-IMPLEMENTATION-MATRIX.md).
 
 ## Where detail lives
 
@@ -56,6 +59,7 @@ Research: [`study/12`](../../study/12-method-cards.md) (methods and floors),
 | --- | --- |
 | Catalogue schema and validation | [`method-catalogue.md`](method-catalogue.md) |
 | Which engines exist and how they route | [`method-engines.md`](method-engines.md) |
+| Per-method build matrix | [`METHOD-IMPLEMENTATION-MATRIX.md`](../../METHOD-IMPLEMENTATION-MATRIX.md) |
 | Exercise step runner (UC-049) | [`exercise-runner.md`](../feature/exercise-runner.md) |
 | Menu filters, standing, daily three | [`page/method-menu.md`](../page/method-menu.md) |
 | Words snapshot and Start review | [`words-home.md`](../feature/words-home.md) |

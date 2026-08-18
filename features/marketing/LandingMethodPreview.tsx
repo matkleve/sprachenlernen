@@ -7,6 +7,7 @@ import { Dialog } from "@/components/ui/Dialog";
 import { MethodBadgeRow } from "@/features/method-menu/MethodBadge";
 import { MethodFilter } from "@/features/method-menu/MethodFilter";
 import { useMethodMenuCopy } from "@/features/method-menu/use-method-menu-copy";
+import { localizeMethodEntry } from "@/lib/localize-method-entry";
 import { pickDailyThree } from "@/lib/daily-three";
 import {
   applySearchParamUpdates,
@@ -39,6 +40,13 @@ export function LandingMethodPreview({ catalogue, dayKey }: LandingMethodPreview
   const dailyThree = useMemo(
     () => pickDailyThree(methods.filter(isMethod), dayKey),
     [methods, dayKey],
+  );
+  const localizedSelected = useMemo(
+    () =>
+      selected
+        ? localizeMethodEntry(selected, (key) => tMenu(key as "entries.background-listening.name"))
+        : null,
+    [selected, tMenu],
   );
 
   const updateSearchParams = (updates: Record<string, string | undefined>) => {
@@ -80,17 +88,17 @@ export function LandingMethodPreview({ catalogue, dayKey }: LandingMethodPreview
       <Dialog
         open={selected !== null}
         onClose={() => setSelected(null)}
-        title={selected?.name ?? ""}
-        description={selected?.summary}
+        title={localizedSelected?.name ?? ""}
+        description={localizedSelected?.summary}
         className="w-[min(40rem,calc(100vw-2rem))]"
       >
-        {selected ? (
+        {localizedSelected ? (
           <>
-            <MethodBadgeRow className="mt-2" method={selected} />
-            <p className="mt-4 text-base leading-relaxed text-ink">{selected.trains}</p>
+            <MethodBadgeRow className="mt-2" method={selected!} />
+            <p className="mt-4 text-base leading-relaxed text-ink">{localizedSelected.trains}</p>
             <p className="mt-4 text-sm leading-relaxed text-muted">
               <span className="font-medium text-ink">{tMenu("card.doesNotDo")}: </span>
-              {selected.doesNotDo}
+              {localizedSelected.doesNotDo}
             </p>
           </>
         ) : null}

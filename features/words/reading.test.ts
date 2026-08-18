@@ -37,7 +37,7 @@ const meaningCard: StarterCard = {
   wordId: "es:hablar",
   lemma: "hablar",
   front: "hablar",
-  back: "to speak",
+  descriptionKey: "card.es:hablar.meaning-recall.back",
   frequencyRank: 4,
 };
 
@@ -47,6 +47,7 @@ const formCard: StarterCard = {
   lemma: "hablar",
   front: "hablar (I)",
   back: "hablo",
+  descriptionKey: "card.es:hablar.form-recall.front",
   frequencyRank: 4,
 };
 

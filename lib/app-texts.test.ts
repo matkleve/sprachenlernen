@@ -7,7 +7,7 @@ import { join } from "node:path";
 import { describe, expect, it } from "vitest";
 
 import { cardDescriptionKey } from "@/lib/description-keys";
-import { loadSpanishMeaningRecallDeck } from "@/lib/starter-deck";
+import { loadSpanishMeaningRecallDeck, englishGlossForCard } from "@/lib/starter-deck";
 
 const EN_SNAPSHOT = join(process.cwd(), "data/i18n/descriptions/en.json");
 
@@ -26,7 +26,7 @@ describe("app-texts snapshots", () => {
     const en = JSON.parse(readFileSync(EN_SNAPSHOT, "utf8")) as Record<string, string>;
     const missing = deck.deck.cards.filter((card) => {
       const key = cardDescriptionKey(card.wordId, "meaning-recall", "back");
-      return en[key] !== card.back;
+      return en[key] !== englishGlossForCard(card);
     });
     expect(missing.map((card) => card.lemma)).toEqual([]);
   });

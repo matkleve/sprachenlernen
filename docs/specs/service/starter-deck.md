@@ -52,9 +52,21 @@ Not a UI machine. `loadSpanishMeaningRecallDeck` is synchronous.
 | `wordId` | `string` | `es:{lemma}` |
 | `lemma` | `string` | Canonical lemma from the lemma table |
 | `front` | `string` | v1: same as `lemma` |
-| `descriptionKey` | `string` | Stable lookup — e.g. `card.it:fare.meaning-recall.back`. **Target shape** once T-W15 ships; today pools still ship inline `back` (English) until migration. |
-| `back` | `string` | **Legacy** — English gloss at build time. Removed when [`gloss-resolver.md`](gloss-resolver.md) wires all surfaces. |
+| `descriptionKey` | `string` | Stable lookup — e.g. `card.es:hablar.meaning-recall.back`. English gloss lives in `data/i18n/descriptions/en.json`. |
+| `back` | — | **Removed** from meaning-recall (T-B11f). Form-recall keeps `back` as the surface-form answer only. |
 | `frequencyRank` | `number` | 1 = most frequent in pool |
+
+**Card faces (direction is not a setting).** Task type fixes which face carries
+the target language and which carries the spoken-language gloss — there is no
+per-account "reverse card" toggle.
+
+| Task type | `front` | `back` | Learner recalls |
+| --- | --- | --- | --- |
+| `meaning-recall` | Target lemma (learning language) | English gloss at build time; localized via `descriptionKey` at render | Meaning |
+| `form-recall` | English gloss at build time; localized via `descriptionKey` at render | Target surface form | Inflected form |
+
+See [`gloss-resolver.md`](gloss-resolver.md) for how `spoken_language` resolves
+the descriptive face without changing direction.
 
 **Lemma selection (build script):**
 

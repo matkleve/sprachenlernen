@@ -11,6 +11,7 @@ import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
 import { pathsFor, resolveLang } from "./starter-deck-lang.mjs";
+import { cardDescriptionKey } from "./description-keys.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const { code: LANG, config: LANG_CONFIG } = resolveLang(process.argv[2]);
@@ -86,22 +87,26 @@ const pickSurfaceForm = (lemma, table, formCounts, glossGender) => {
 };
 
 const build = async () => {
+  const meaningPath = join(ROOT, `data/starter/${LANG}-meaning-recall.json`);
+  const enSnapshot = JSON.parse(
+    await readFile(join(ROOT, "data/i18n/descriptions/en.json"), "utf8"),
+  );
+
   const [formCounts, table, meaningPool] = await Promise.all([
     readFormCounts(),
     readFile(paths.lemmaTable, "utf8").then((raw) => JSON.parse(raw)),
-    readFile(paths.output, "utf8").then((raw) => JSON.parse(raw)),
+    readFile(meaningPath, "utf8").then((raw) => JSON.parse(raw)),
   ]);
+
+  const glossFor = (meaningCard) =>
+    enSnapshot[meaningCard.descriptionKey] ?? meaningCard.front ?? "";
 
   const cards = [];
   const skipped = [];
 
   for (const meaningCard of meaningPool.cards) {
-    const picked = pickSurfaceForm(
-      meaningCard.lemma,
-      table,
-      formCounts,
-      genderOfGloss(meaningCard.back),
-    );
+    const gloss = glossFor(meaningCard);
+    const picked = pickSurfaceForm(meaningCard.lemma, table, formCounts, genderOfGloss(gloss));
     if (!picked) {
       skipped.push(meaningCard.lemma);
       continue;
@@ -113,9 +118,10 @@ const build = async () => {
       lemma: meaningCard.lemma,
       surfaceForm: picked.form,
       paradigmCell: picked.cell,
+      descriptionKey: cardDescriptionKey(meaningCard.wordId, "form-recall", "front"),
       // The meaning, and nothing else. Which cell to produce is `paradigmCell`,
       // and the sentence around both is the card's — see lib/paradigm-cells.ts.
-      front: meaningCard.back,
+      front: gloss,
       back: picked.form,
       frequencyRank: meaningCard.frequencyRank,
     });

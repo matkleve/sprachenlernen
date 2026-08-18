@@ -1,6 +1,7 @@
 "use client";
 
 import { useMethodMenuCopy } from "./use-method-menu-copy";
+import { useLocalizedMethod } from "./use-localized-method";
 import { Chip } from "@/components/ui/Chip";
 import { SurfaceLink } from "@/components/ui/SurfaceLink";
 import type { MethodEntry } from "@/lib/method-catalogue";
@@ -22,6 +23,7 @@ export type MethodCardProps = {
  */
 export function MethodCard({ method, returnQuery = "" }: MethodCardProps) {
   const { t } = useMethodMenuCopy();
+  const localized = useLocalizedMethod(method);
   const { requirementChips, durationChips } = useRequirementHelpers();
   const href = cardHrefForMethod(method, returnQuery);
   const requirements = requirementChips(method.requires);
@@ -38,8 +40,8 @@ export function MethodCard({ method, returnQuery = "" }: MethodCardProps) {
 
       <div className="flex flex-1 flex-col p-4">
         <div className="min-h-[4.75rem]">
-          <h3 className="text-xl font-semibold text-ink">{method.name}</h3>
-          <p className="mt-1 line-clamp-2 text-sm text-muted">{method.summary}</p>
+          <h3 className="text-xl font-semibold text-ink">{localized.name}</h3>
+          <p className="mt-1 line-clamp-2 text-sm text-muted">{localized.summary}</p>
         </div>
 
         <MethodBadgeRow className="mt-3 shrink-0" method={method} inLink />
@@ -62,7 +64,7 @@ export function MethodCard({ method, returnQuery = "" }: MethodCardProps) {
 
         <p className="mt-3 line-clamp-2 text-sm text-muted">
           <span className="font-medium text-ink">{t('card.doesNotDo')}: </span>
-          {method.doesNotDo}
+          {localized.doesNotDo}
         </p>
       </div>
     </SurfaceLink>

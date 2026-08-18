@@ -16,6 +16,7 @@ const baseCard = {
   lemma: "hablar",
   front: "to speak",
   back: "hablar",
+  descriptionKey: "card.es:hablar.meaning-recall.back",
   frequencyRank: 10,
   position: 1,
   total: 1,

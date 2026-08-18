@@ -24,7 +24,7 @@ SKILLS = ["reading", "listening", "speaking", "writing"]
 TIERS = ["wood", "bronze", "silver", "gold", "platinum"]
 
 OUTPUT_SIZE = 256
-CONTENT_FILL = 0.58
+CONTENT_FILL = 0.50
 
 LEGACY_MARGIN_X = 0.08
 LEGACY_MARGIN_Y = 0.08

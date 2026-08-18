@@ -11,7 +11,8 @@ later; the composer interface is the same in all three cases.
 
 Parent: [`exercise-runner.md`](../feature/exercise-runner.md). Component ids:
 [`exercise-step-components.md`](exercise-step-components.md). Per-method mixes:
-[`exercise-recipe-composer.methods.md`](exercise-recipe-composer.methods.md).
+[`exercise-recipe-composer.methods.md`](exercise-recipe-composer.methods.md). Build
+matrix: [`METHOD-IMPLEMENTATION-MATRIX.md`](../../METHOD-IMPLEMENTATION-MATRIX.md).
 
 ## Scope
 
@@ -31,7 +32,7 @@ Parent: [`exercise-runner.md`](../feature/exercise-runner.md). Component ids:
 | Not built | detail | Honest not-built; no recipe |
 
 `resolveExerciseRecipe(methodId, ctx)` delegates to a per-method composer when
-registered; returns `null` when not built. Today: `partial-dictation` only.
+registered; returns `null` when not built. Today: `partial-dictation`, `full-dictation`, `extensive-reading`.
 
 ## Session context
 

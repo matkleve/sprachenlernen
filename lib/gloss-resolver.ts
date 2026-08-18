@@ -2,9 +2,10 @@
  * Runtime lookup for learner-facing description strings. Contract:
  * docs/specs/service/gloss-resolver.md
  */
-import { readFileSync, existsSync } from "node:fs";
-import { join } from "node:path";
+import deDescriptions from "@/data/i18n/descriptions/de.json";
+import enDescriptions from "@/data/i18n/descriptions/en.json";
 
+import { dedupeGlossSegments } from "@/lib/dedupe-gloss-segments";
 import { isSpokenLanguageShipped } from "@/lib/spoken-language";
 
 export type DescriptionSnapshot = Readonly<Record<string, string>>;
@@ -15,17 +16,10 @@ type GlossResolverOptions = {
   onLocaleLoad?: (locale: string) => void;
 };
 
-const SNAPSHOT_DIR = join(process.cwd(), "data/i18n/descriptions");
-
-function loadSnapshotFromDisk(locale: string): DescriptionSnapshot {
-  const path = join(SNAPSHOT_DIR, `${locale}.json`);
-  if (!existsSync(path)) return {};
-  try {
-    return JSON.parse(readFileSync(path, "utf8")) as DescriptionSnapshot;
-  } catch {
-    return {};
-  }
-}
+const BUNDLED_SNAPSHOTS: SnapshotBundle = {
+  en: enDescriptions as DescriptionSnapshot,
+  de: deDescriptions as DescriptionSnapshot,
+};
 
 export function createGlossResolver(
   snapshots: SnapshotBundle,
@@ -41,17 +35,22 @@ export function createGlossResolver(
     return snapshots[locale] ?? {};
   };
 
+  const resolveRaw = (key: string, locale: string): string | undefined => {
+    const value = ensureLocale(locale)[key];
+    return value !== undefined && value !== "" ? value : undefined;
+  };
+
   return (key, spokenLanguage, fallback = "") => {
     const locale = isSpokenLanguageShipped(spokenLanguage) ? spokenLanguage : "en";
-    const localized = ensureLocale(locale)[key];
-    if (localized !== undefined && localized !== "") return localized;
+    const localized = resolveRaw(key, locale);
+    if (localized !== undefined) return dedupeGlossSegments(localized);
 
     if (locale !== "en") {
-      const english = ensureLocale("en")[key];
-      if (english !== undefined && english !== "") return english;
+      const english = resolveRaw(key, "en");
+      if (english !== undefined) return dedupeGlossSegments(english);
     }
 
-    return fallback;
+    return dedupeGlossSegments(fallback);
   };
 }
 
@@ -59,10 +58,7 @@ let defaultResolver: ReturnType<typeof createGlossResolver> | null = null;
 
 function defaultGlossResolver(): ReturnType<typeof createGlossResolver> {
   if (!defaultResolver) {
-    defaultResolver = createGlossResolver({
-      en: loadSnapshotFromDisk("en"),
-      de: loadSnapshotFromDisk("de"),
-    });
+    defaultResolver = createGlossResolver(BUNDLED_SNAPSHOTS);
   }
   return defaultResolver;
 }
@@ -97,6 +93,7 @@ export function setGlossResolverForTests(
   defaultResolver = resolver;
 }
 
+/** Bundled English snapshot — same data as `data/i18n/descriptions/en.json`. */
 export function loadDescriptionSnapshotFromDisk(locale: string): DescriptionSnapshot {
-  return loadSnapshotFromDisk(locale);
+  return BUNDLED_SNAPSHOTS[locale] ?? {};
 }
