@@ -72,7 +72,8 @@ Full pipeline, Definition of Ready and Definition of Done:
    question, emit `⚠ SPEC GAP: <what is undecided>` and stop on that part.
    A guessed rule that happens to be right is still a decision nobody made.
 9. **No subagents.** See [`docs/AGENT-PITFALLS.md`](docs/AGENT-PITFALLS.md) §20.
-10. **No Substrate + Sonnet by default.** See [`docs/AGENT-PITFALLS.md`](docs/AGENT-PITFALLS.md) §19.
+10. **No Claude models** (Anthropic Sonnet/Opus/Haiku) or **Substrate + Sonnet**
+    unless the user asks. See [`docs/AGENT-PITFALLS.md`](docs/AGENT-PITFALLS.md) §19.
 
 ---
 

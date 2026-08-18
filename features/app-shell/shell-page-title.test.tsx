@@ -28,6 +28,7 @@ describe("ShellPageTitle", () => {
 
     const title = screen.getByTitle("Methods");
     expect(title.tagName).toBe("P");
+    expect(title.className).toContain("font-serif");
     expect(title.className).toContain("line-clamp-2");
     expect(title.className).toContain("absolute");
     expect(title.className).toContain("left-1/2");

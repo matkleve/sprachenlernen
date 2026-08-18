@@ -5,6 +5,9 @@ description: Build a feature from its spec, following the change-class rules. Us
 
 # Implement
 
+**Model:** no Claude (Anthropic) models and no Substrate + Sonnet unless the user
+asks — `AGENTS.md` §10, `docs/AGENT-PITFALLS.md` §19. **No subagents** — §20.
+
 You are at **stage 5** of `docs/WORKFLOW.md`. A spec exists. If it does not,
 stop and run the `specify` skill instead — implementing without one means the
 acceptance criteria get written afterwards to match whatever you built, which

@@ -5,6 +5,9 @@ description: Turn a use case or a feature request into a spec with testable acce
 
 # Specify
 
+**Model:** no Claude (Anthropic) models and no Substrate + Sonnet unless the user
+asks — `AGENTS.md` §10, `docs/AGENT-PITFALLS.md` §19. **No subagents** — §20.
+
 You are at **stage 2** of `docs/WORKFLOW.md`. The output is a spec, not code.
 Do not write implementation in this skill, even if the answer seems obvious —
 the point is to make the contract reviewable *before* the expensive step.

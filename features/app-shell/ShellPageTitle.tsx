@@ -89,7 +89,7 @@ export function ShellPageTitle({ variant, pinnedCompact = false, className }: Sh
     return (
       <TitleTag
         className={cn(
-          "pointer-events-none absolute top-1/2 left-1/2 z-0 w-max -translate-x-1/2 -translate-y-1/2 text-center font-semibold leading-tight tracking-tight text-ink line-clamp-2",
+          "pointer-events-none absolute top-1/2 left-1/2 z-0 w-max -translate-x-1/2 -translate-y-1/2 text-center font-serif font-semibold leading-tight tracking-tight text-ink line-clamp-2",
           className,
         )}
         style={{
@@ -118,7 +118,7 @@ export function ShellPageTitle({ variant, pinnedCompact = false, className }: Sh
   return (
     <TitleTag
       className={cn(
-        "pointer-events-none min-w-0 max-w-full justify-self-center truncate text-center font-semibold tracking-tight text-ink",
+        "pointer-events-none min-w-0 max-w-full justify-self-center truncate text-center font-serif font-semibold tracking-tight text-ink",
         className,
       )}
       style={{

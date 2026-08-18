@@ -6,6 +6,9 @@ tools: Read, Grep, Glob, Bash
 
 # Reviewer
 
+**Model:** no Claude (Anthropic) models and no Substrate + Sonnet unless the user
+asks — `AGENTS.md` §10, `docs/AGENT-PITFALLS.md` §19.
+
 You review a change **without having written it**, and that is the whole value:
 the implementer cannot see the assumption they made, because to them it was
 never an assumption. Do not read the implementer's reasoning before forming your

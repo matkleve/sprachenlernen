@@ -312,16 +312,20 @@ concrete example of it firing, not just the one-line paraphrase.
 Applies to any project-specific ID a reader cannot be assumed to have
 memorized — spec IDs, ADR numbers, task IDs — not only use cases.
 
-## 19. Substrate + Sonnet by default
+## 19. Claude models and Substrate + Sonnet by default
 
-**The failure:** running Cursor Cloud Agents on the **Substrate** environment with
-the **Sonnet** model for routine work in this repo. Boot is slow, cost is high,
-and most tasks here are already bounded by specs, `npm run verify`, and a
-prebuilt environment — the heavier stack adds little.
+**The failure:** running Cursor Cloud Agents on **Claude** (Anthropic Sonnet/Opus/
+Haiku) or on the **Substrate** environment with Sonnet for routine work in this
+repo. Boot is slow, cost is high, and most tasks here are already bounded by
+specs, `npm run verify`, and a prebuilt environment — the heavier stack adds
+little.
 
-**The rule:** do **not** use Substrate + Sonnet unless there is a **very good
-reason** you can state up front. Default to the lighter agent/model the task
-actually needs.
+**Standing user instruction (2026-08-18):** **Kein Claude** — do not pick Claude
+models unless the user explicitly asks for one in that conversation.
+
+**The rule:** do **not** use Claude models or Substrate + Sonnet unless there is
+a **very good reason** you can state up front. Default to the lighter agent/model
+the task actually needs.
 
 **Good reasons (examples — not an exhaustive list):**
 
