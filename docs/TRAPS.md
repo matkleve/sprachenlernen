@@ -284,6 +284,28 @@ does not handle local SVG and can fail SSR for static assets. **The check:**
 grep method-menu for `next/image` without `unoptimized` on local `/assets/`
 paths; zero hits.
 
+## `MethodCardHeader` from a server page crashes `/words` in production
+
+`WordsHome` (server) renders `MethodCardHeader` for the vocabulary counts card.
+`MethodCardHeader` calls `useMethodMenuCopy()` but had no `"use client"` — it
+only worked when nested under client `MethodCard`. In production Next.js threw
+`render/boundary` and `/words` showed *Could not load your vocabulary.*
+
+**The fix:** `"use client"` on `MethodCardHeader` (same as `SkillTierBadge`).
+Server pages can still render it as a child; hooks must not run in a server
+module. **The check:** grep `MethodCardHeader.tsx` for `"use client"`; grep
+`features/` for hook imports without a client boundary on the importing file.
+
+## `WordsReviewCardHeader` local webp crashes `/words` in production
+
+`WordsReviewCardHeader` used `next/image` for `words-home-review.webp` without
+`unoptimized` — same SSR optimizer failure as `MethodCardHeader` on method
+detail. `/words` showed *Could not load your vocabulary.*
+
+**The fix:** `unoptimized` on the decorative review-card image. **The check:**
+grep `features/words` for `next/image` without `unoptimized` on local `/assets/`
+paths; zero hits.
+
 ---
 
 ## `hover:` cannot be observed in this environment, and it is not your CSS
