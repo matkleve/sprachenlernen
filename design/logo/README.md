@@ -17,6 +17,7 @@ placeholder bars icon that shipped with the PWA scaffold.
 | File | Grid date | Notes |
 | --- | --- | --- |
 | `sources/logo-exploration-grid-2026-08-18.png` | 2026-08-18 | 20 directions; **#9 Spiral learning** vectorized |
+| `sources/spiral-learning-source.png` | 2026-08-18 | Owner-provided mark (traced to vector paths) |
 | `sources/steady-path-grid1.png` | 2026-08-17 | Cell #1 extract |
 | `sources/fanned-pages-grid5.png` | 2026-08-16 | Cell #5 extract |
 
