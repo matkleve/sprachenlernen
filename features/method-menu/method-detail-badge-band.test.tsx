@@ -1,4 +1,4 @@
-import { renderWithIntl as render, en } from "@/tests/i18n-test-utils";
+import { renderWithIntl as render } from "@/tests/i18n-test-utils";
 import { screen } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 
@@ -10,11 +10,11 @@ const { catalogue } = loadMethodCatalogue();
 const intensiveReading = findMethod(catalogue, "intensive-reading")!;
 
 describe("MethodDetailBadgeBand", () => {
-  it("shows plain effort without evidence or dot scale", () => {
+  it("shows effort dots without a separate evidence badge", () => {
     render(<MethodDetailBadgeBand method={intensiveReading} />);
 
-    expect(screen.getByText(en.methodMenu.effortCard[3])).toBeDefined();
-    expect(screen.queryByText(en.methodMenu.evidenceCard.B)).toBeNull();
-    expect(screen.queryByText(/3 of 3/)).toBeNull();
+    expect(screen.getByLabelText(/Effort: 3 of 3/i)).toBeDefined();
+    expect(screen.queryByText(/Thin evidence/i)).toBeNull();
+    expect(screen.getByRole("img", { name: /Reading/i })).toBeDefined();
   });
 });

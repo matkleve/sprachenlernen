@@ -1,9 +1,10 @@
 /**
- * Per-skill contribution tiers for method detail badges.
- * Contract: docs/study/33-skill-tier-badges-exploration.md
+ * Per-skill value tiers for method badges (evidence + contribution).
+ * Contract: docs/specs/service/skill-tier.md (owner revision 2026-08-18).
  */
 
-import type { MethodEntry, Section, Skill } from "@/lib/method-catalogue";
+import type { EvidenceGrade, MethodEntry, Skill } from "@/lib/method-catalogue";
+import { SKILLS } from "@/lib/method-catalogue";
 import {
   type ContributionLevel,
   type SkillMark,
@@ -18,6 +19,11 @@ export type SkillTierMark = {
   tier: SkillTier;
 };
 
+export type DisplaySkillTierMarks = {
+  visible: SkillTierMark[];
+  overflow: SkillTierMark[];
+};
+
 const TIER_ORDER: readonly SkillTier[] = [
   "wood",
   "bronze",
@@ -26,61 +32,86 @@ const TIER_ORDER: readonly SkillTier[] = [
   "platinum",
 ];
 
-const SECTION_PRIMARY_SKILL: Partial<Record<Section, Skill>> = {
-  reading: "reading",
-  listening: "listening",
-  speaking: "speaking",
-  writing: "writing",
-  vocabulary: "vocabulary",
-};
+const SKILL_ORDER: readonly Skill[] = SKILLS;
+
+const MAX_VISIBLE_SHIELDS = 3;
 
 export function tierRank(tier: SkillTier): number {
   return TIER_ORDER.indexOf(tier);
 }
 
-/** Wood exists in the metric; hidden on cards, shown on detail. */
-export function isDisplayTier(tier: SkillTier): boolean {
-  return tierRank(tier) >= tierRank("bronze");
+function compareSkillTierMarks(a: SkillTierMark, b: SkillTierMark): number {
+  const byTier = tierRank(b.tier) - tierRank(a.tier);
+  if (byTier !== 0) return byTier;
+  return SKILL_ORDER.indexOf(a.skill) - SKILL_ORDER.indexOf(b.skill);
 }
 
 function tierFromContribution(
-  mark: SkillMark,
-  method: MethodEntry,
+  level: ContributionLevel,
+  evidence: EvidenceGrade,
   weak: boolean,
 ): SkillTier {
-  const level: ContributionLevel = mark.level;
-
   if (level === "slight") {
-    return weak ? "wood" : "bronze";
-  }
-
-  if (level === "secondary") {
+    if (weak || evidence === "D") return "wood";
+    if (evidence === "C") return "bronze";
     return "silver";
   }
 
-  const sectionPrimary = SECTION_PRIMARY_SKILL[method.section];
-  if (mark.skill === sectionPrimary && method.intensity === 3 && !weak) {
-    return "platinum";
+  if (level === "secondary") {
+    if (evidence === "D" || evidence === "C") return "bronze";
+    return "silver";
   }
 
-  return "gold";
+  if (evidence === "D") return "bronze";
+  if (evidence === "C") return "silver";
+  if (evidence === "B") return weak ? "silver" : "gold";
+  return weak ? "gold" : "platinum";
 }
 
-/** Full tier map per skill — includes wood for metric completeness. */
+/** Full tier map per skill that the method trains. */
 export function skillTiersForMethod(method: MethodEntry): SkillTierMark[] {
   const weak = isWeakTrains(method.trains);
   return skillMarksForMethod(method).map((mark) => ({
     skill: mark.skill,
-    tier: tierFromContribution(mark, method, weak),
+    tier: tierFromContribution(mark.level, method.evidence, weak),
   }));
 }
 
-/** Wood included — detail page shows honest weak-method shields (study/33). */
-export function detailSkillTiers(method: MethodEntry): SkillTierMark[] {
-  return skillTiersForMethod(method);
+function applyWoodCrowdingRule(marks: SkillTierMark[]): SkillTierMark[] {
+  if (marks.length < 3) return marks;
+  return marks.filter((mark) => mark.tier !== "wood");
 }
 
-/** Bronze and above only — what method cards render. */
+/** Ranked shields for UI — wood dropped when ≥3 qualify; cap at three + overflow. */
+export function displaySkillTierMarks(method: MethodEntry): DisplaySkillTierMarks {
+  const ranked = [...applyWoodCrowdingRule(skillTiersForMethod(method))].sort(
+    compareSkillTierMarks,
+  );
+
+  return {
+    visible: ranked.slice(0, MAX_VISIBLE_SHIELDS),
+    overflow: ranked.slice(MAX_VISIBLE_SHIELDS),
+  };
+}
+
+/** @deprecated Use displaySkillTierMarks */
+export function detailSkillTiers(method: MethodEntry): SkillTierMark[] {
+  return displaySkillTierMarks(method).visible;
+}
+
+/** @deprecated Use displaySkillTierMarks */
 export function visibleSkillTiers(method: MethodEntry): SkillTierMark[] {
-  return skillTiersForMethod(method).filter(({ tier }) => isDisplayTier(tier));
+  return displaySkillTierMarks(method).visible;
+}
+
+export function formatTierOverflowLabel(
+  overflow: SkillTierMark[],
+  skillLabel: (skill: Skill) => string,
+  tierLabel: (tier: SkillTier) => string,
+): string {
+  if (overflow.length === 0) return "";
+  const names = overflow
+    .map((mark) => `${tierLabel(mark.tier)} ${skillLabel(mark.skill)}`)
+    .join(", ");
+  return `${overflow.length} more: ${names}`;
 }

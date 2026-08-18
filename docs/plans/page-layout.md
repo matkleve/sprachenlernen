@@ -57,6 +57,16 @@ Layer diagram: [`../specs/feature/page-layout.layers.md`](../specs/feature/page-
 - **Idea:** `check:tokens` or a small script flags `pb-shell-float-bottom` outside
   `AppShell.tsx` — features must not reserve shell space twice
 
+**T-SHELL-05 · Stable width on route transitions** — **shipped 2026-08-18**
+
+- **Class:** Standard
+- **Problem:** switching Methods ↔ Words briefly changed content width — loading
+  skeleton used `max-w-4xl` + mobile `pt-page-top`; desktop scrollbar appeared/
+  disappeared without reserved gutter.
+- **Spec:** [`page-layout.transitions.md`](../specs/feature/page-layout.transitions.md)
+- **Shipped:** `ShellPageLoading`, `app/(app)/loading.tsx`, `scrollbar-gutter:
+  stable` on `html` at `≥ md`, `shell-page-loading.test.tsx`
+
 ## LIVE CHECK (you)
 
 1. Phone &lt; 768px — open `/words`, scroll to bottom; last content clears the pill.

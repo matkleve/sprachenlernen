@@ -2,7 +2,6 @@
 
 import { PressableCard } from "@/components/ui/PressableCard";
 import type { MethodEntry } from "@/lib/method-catalogue";
-import { skillMarksForMethod } from "@/lib/method-skill-badges";
 
 import { MethodBadgeRow } from "@/features/method-menu/MethodBadge";
 import { MethodCardHeader } from "@/features/method-menu/MethodCardHeader";
@@ -23,7 +22,6 @@ export function LandingPreviewMethodCard({ method, onSelect }: LandingPreviewMet
   const { t } = useMethodMenuCopy();
   const { requirementChips, durationChips } = useRequirementHelpers();
   const requirements = requirementChips(method.requires);
-  const skillMarks = skillMarksForMethod(method);
 
   return (
     <PressableCard
@@ -37,12 +35,7 @@ export function LandingPreviewMethodCard({ method, onSelect }: LandingPreviewMet
         <h3 className="text-base font-semibold text-ink">{method.name}</h3>
         <p className="mt-1 line-clamp-2 text-sm text-muted">{method.summary}</p>
 
-        <MethodBadgeRow
-          className="mt-3"
-          skillMarks={skillMarks}
-          evidence={method.evidence}
-          intensity={method.intensity}
-        />
+        <MethodBadgeRow className="mt-3" method={method} />
 
         <ul className="mt-3 flex flex-wrap gap-1.5" aria-label={t("card.properties")}>
           {durationChips(method.durations).map((label) => (

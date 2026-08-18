@@ -5,6 +5,8 @@ import { ActionLink } from "@/components/ui/ActionLink";
 import { TextLink } from "@/components/ui/TextLink";
 import { ShellPageContent } from "@/features/app-shell/ShellPageContent";
 import { startGapSetAction } from "@/features/content/actions";
+import { copy } from "@/features/content/content";
+import { ReadableText } from "@/features/content/ReadableText";
 import type { SourceDetailReading } from "@/features/content/reading";
 import { routes } from "@/lib/routes";
 
@@ -49,6 +51,15 @@ export async function SourceDetail({ reading }: SourceDetailProps) {
           </p>
           <p className="mt-2 text-base leading-relaxed text-muted">{bandCopy(reading, t)}</p>
         </section>
+
+        {reading.textSegments ? (
+          <section className="mt-6 rounded-card border border-line bg-surface-raised p-5 shadow-soft">
+            <h2 className="text-lg font-semibold text-ink">{copy.readingHeading}</h2>
+            <div className="mt-4">
+              <ReadableText segments={reading.textSegments} />
+            </div>
+          </section>
+        ) : null}
 
         {reading.gap.kind === "list" ? (
           <section className="mt-6 rounded-card border border-line bg-surface-raised p-5 shadow-soft">

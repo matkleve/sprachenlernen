@@ -122,7 +122,7 @@ Do not queue these until phase 2 map is honest at pool scope.
 | **T-W8c** | **Sources shell** — `/content` index + source detail with coverage and gap section. | UC-033, UC-034, UC-007 | `content-traceability.md` | Standard | T-W7, T-W8 |
 | **T-W10a** | **Method material setup** — topic chips + Your own upload; Start gating. | UC-046, UC-029, UC-007 | `method-material-setup.md` | Standard | T-W7, T-W8c (catalogue stub ok) |
 | **T-W9** | **Word capture** — persist learner sources; full library intake. | UC-012 | `word-capture.md` (new) | **Sensitive** | persistence model |
-| **T-W10** | **Reading surface** — graded texts, tap word/sentence, post-read comprehension. | UC-007, UC-030 | reading specs (new) | Standard / Sensitive | T-W8c, T-W9 |
+| **T-W10** | **Reading surface** — tap-to-gloss on source detail shipped v1; remainder: sentence translation, comprehension, runner. | UC-007, UC-030 | [`reading-surface.md`](../specs/feature/reading-surface.md) | Standard / Sensitive | T-W8c, T-W9 | **v1 shipped 2026-08-18** — `/content/[id]` body |
 | **T-W11** | **Session loop line (K4)** — extend `SessionComplete`: lemmas newly held + coverage delta; link to `/words` or `/content`. | UC-031 | `content-traceability.md` | Standard | T-W7 |
 | **T-W11b** | **Unlock rollup (K2)** — monthly “moved to comfortable” on `/content`; before→after lines on source detail; history snapshots. | UC-033 | `content-traceability.md`, `coverage.md` | **Sensitive** | T-W7, T-W8c |
 

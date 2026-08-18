@@ -15,7 +15,6 @@ import {
   type SearchParams,
 } from "@/lib/method-menu-filter";
 import { isMethod, type Catalogue, type MethodEntry } from "@/lib/method-catalogue";
-import { skillMarksForMethod } from "@/lib/method-skill-badges";
 
 import { LandingPreviewMethodCard } from "./LandingPreviewMethodCard";
 
@@ -46,8 +45,6 @@ export function LandingMethodPreview({ catalogue, dayKey }: LandingMethodPreview
     setSearchParams((current) => applySearchParamUpdates(current, updates));
     setSelected(null);
   };
-
-  const selectedMarks = selected ? skillMarksForMethod(selected) : [];
 
   return (
     <section
@@ -89,12 +86,7 @@ export function LandingMethodPreview({ catalogue, dayKey }: LandingMethodPreview
       >
         {selected ? (
           <>
-            <MethodBadgeRow
-              className="mt-2"
-              skillMarks={selectedMarks}
-              evidence={selected.evidence}
-              intensity={selected.intensity}
-            />
+            <MethodBadgeRow className="mt-2" method={selected} />
             <p className="mt-4 text-base leading-relaxed text-ink">{selected.trains}</p>
             <p className="mt-4 text-sm leading-relaxed text-muted">
               <span className="font-medium text-ink">{tMenu("card.doesNotDo")}: </span>

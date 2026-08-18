@@ -455,8 +455,10 @@ behaviour lived only in scattered specs.
 (floating phone, flat `≥ md`, pill visible in review, iPad first-class).
 
 **Track A follow-up (optional):** T-SHELL-03 iPad shell QA; T-SHELL-02 lint that features do not add
-`pb-shell-float-bottom` (double reserve). `ShellPageContent` + route registry
-shipped 2026-08-15.
+`pb-shell-float-bottom` (double reserve); **T-SHELL-05 shipped 2026-08-18**
+(`ShellPageLoading`, `scrollbar-gutter: stable` — spec
+[`page-layout.transitions.md`](specs/feature/page-layout.transitions.md)).
+`ShellPageContent` + route registry shipped 2026-08-15.
 
 ## Interaction and design-system audit
 

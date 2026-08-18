@@ -352,6 +352,13 @@
     color-scheme: light dark;
   }
 
+  @media (min-width: 48rem) {
+    html {
+      /* Reserve scrollbar width so route height changes do not shift layout. */
+      scrollbar-gutter: stable;
+    }
+  }
+
   body {
     background-color: var(--color-canvas);
     color: var(--color-ink);

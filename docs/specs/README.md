@@ -6,8 +6,8 @@ implements what is written here.
 Format and size rules: [`../SPEC-FORMAT.md`](../SPEC-FORMAT.md).
 Scaffold one: `npm run new:spec`.
 
-**Index synced 2026-08-17.** 80 canonical specs — 71 active,
-2 superseded, 7 draft. `npm run check:specs` verifies
+**Index synced 2026-08-17.** 82 canonical specs — 75 active,
+2 superseded, 5 draft. `npm run check:specs` verifies
 bidirectional traceability to use cases; this index is for navigation. Regenerate
 after adding specs: `node scripts/generate-specs-index.mjs`.
 
@@ -60,14 +60,14 @@ that first.
 | `SPEC-component-status-banner` | [status-banner.md](component/status-banner.md) | UC-074 | active |
 | `SPEC-component-table` | [table.md](component/table.md) | UC-003 | active |
 
-### feature/ (22)
+### feature/ (23)
 
 | ID | Spec | Use case | Status |
 | --- | --- | --- | --- |
 | `SPEC-feature-account-data` | [account-data.md](feature/account-data.md) | UC-024 | active |
 | `SPEC-feature-app-shell` | [app-shell.md](feature/app-shell.md) | UC-063 | active |
 | `SPEC-feature-app-update` | [app-update.md](feature/app-update.md) | UC-072 | active |
-| `SPEC-feature-content-gap` | [content-gap.md](feature/content-gap.md) | UC-034 | draft |
+| `SPEC-feature-content-gap` | [content-gap.md](feature/content-gap.md) | UC-034 | active |
 | `SPEC-feature-content-traceability` | [content-traceability.md](feature/content-traceability.md) | UC-031 | draft |
 | `SPEC-feature-demonstration-sentence` | [demonstration-sentence.md](feature/demonstration-sentence.md) | UC-050 | active |
 | `SPEC-feature-exercise-runner` | [exercise-runner.md](feature/exercise-runner.md) | UC-049 | draft |
@@ -79,6 +79,7 @@ that first.
 | `SPEC-feature-page-layout` | [page-layout.md](feature/page-layout.md) | UC-063 | active |
 | `SPEC-feature-privacy-consent` | [privacy-consent.md](feature/privacy-consent.md) | UC-011 | active |
 | `SPEC-feature-pwa-install` | [pwa-install.md](feature/pwa-install.md) | UC-072 | active |
+| `SPEC-feature-reading-surface` | [reading-surface.md](feature/reading-surface.md) | UC-007 | active |
 | `SPEC-feature-review-card-report` | [review-card-report.md](feature/review-card-report.md) | UC-073 | active |
 | `SPEC-feature-review-horizon` | [review-horizon.md](feature/review-horizon.md) | UC-005 | active |
 | `SPEC-feature-review-session` | [review-session.md](feature/review-session.md) | UC-011 | active |
@@ -104,13 +105,13 @@ that first.
 | `SPEC-page-words` | [words.md](page/words.md) | UC-063 | active |
 | `SPEC-page-words-review` | [words-review.md](page/words-review.md) | UC-063 | active |
 
-### service/ (26)
+### service/ (27)
 
 | ID | Spec | Use case | Status |
 | --- | --- | --- | --- |
 | `SPEC-service-auth` | [auth.md](service/auth.md) | UC-011 | active |
 | `SPEC-service-broken-card-detection` | [broken-card-detection.md](service/broken-card-detection.md) | UC-013 | active |
-| `SPEC-service-coverage` | [coverage.md](service/coverage.md) | UC-007 | draft |
+| `SPEC-service-coverage` | [coverage.md](service/coverage.md) | UC-007 | active |
 | `SPEC-service-discovery` | [discovery.md](service/discovery.md) | UC-011 | active |
 | `SPEC-service-dose-band` | [dose-band.md](service/dose-band.md) | UC-004 | active |
 | `SPEC-service-errors` | [errors.md](service/errors.md) | UC-065 | active |
@@ -129,6 +130,7 @@ that first.
 | `SPEC-service-review-write-queue` | [review-write-queue.md](service/review-write-queue.md) | UC-018 | active |
 | `SPEC-service-scheduler` | [scheduler.md](service/scheduler.md) | UC-005 | active |
 | `SPEC-service-session-builder` | [session-builder.md](service/session-builder.md) | UC-011 | active |
+| `SPEC-service-skill-tier` | [skill-tier.md](service/skill-tier.md) | UC-042 | active |
 | `SPEC-service-spoken-language` | [spoken-language.md](service/spoken-language.md) | UC-069 | active |
 | `SPEC-service-starter-deck` | [starter-deck.md](service/starter-deck.md) | UC-011 | active |
 | `SPEC-service-task-state` | [task-state.md](service/task-state.md) | UC-005 | active |

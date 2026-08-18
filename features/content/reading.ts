@@ -31,6 +31,7 @@ import type { StarterCard } from "@/lib/starter-deck";
 import { tasksByTaskIdForCards } from "@/lib/task-from-state";
 
 import { loadLexiconForLanguage, loadPersistedSources } from "@/features/content/language-runtime";
+import { segmentsForReadableText, type ReadableSegment } from "@/lib/readable-text";
 
 export type SourceListItem = {
   id: string;
@@ -48,6 +49,7 @@ export type SourceDetailReading = {
   pace: GapPaceEstimate;
   gapProgress: { held: number; total: number } | null;
   activeGapLemmas: readonly string[];
+  textSegments: readonly ReadableSegment[] | null;
 };
 
 export type ContentLibraryOutcome =
@@ -171,6 +173,10 @@ async function readDetail(sourceId: string): Promise<SourceDetailOutcome> {
       pace,
       gapProgress,
       activeGapLemmas,
+      textSegments:
+        source.kind === "text" && text.trim() !== ""
+          ? segmentsForReadableText(text, bundle.lexicon, (lemma) => bundle.translations[lemma] ?? "")
+          : null,
     },
   };
 }

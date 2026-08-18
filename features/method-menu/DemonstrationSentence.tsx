@@ -2,11 +2,21 @@
 
 import { useState } from "react";
 
-import { Button } from "@/components/ui/Button";
+import { GradeButton } from "@/components/ui/GradeButton";
+import { PressableCard } from "@/components/ui/PressableCard";
 import type { DemonstrationSentencePick } from "@/lib/demonstration-sentence";
+import type { Grade } from "@/lib/scheduler";
 import { cn } from "@/lib/utils";
 
 import { copy } from "./content";
+
+const DEMONSTRATION_GRADES = ["hard", "good", "easy"] as const satisfies readonly Grade[];
+
+const GRADE_LABELS: Record<typeof DEMONSTRATION_GRADES[number], string> = {
+  hard: copy.demonstrationGradeHard,
+  good: copy.demonstrationGradeGood,
+  easy: copy.demonstrationGradeEasy,
+};
 
 export type DemonstrationSentenceProps = {
   pick: DemonstrationSentencePick;
@@ -17,66 +27,75 @@ export type DemonstrationSentenceProps = {
  * docs/specs/feature/demonstration-sentence.md
  */
 export function DemonstrationSentence({ pick }: DemonstrationSentenceProps) {
-  const [marked, setMarked] = useState<Set<number>>(() => new Set());
-  const [confirmed, setConfirmed] = useState(false);
+  const [flipped, setFlipped] = useState(false);
   const [feedback, setFeedback] = useState<string | null>(null);
 
-  function toggleToken(index: number) {
-    if (confirmed) return;
-    setMarked((prev) => {
-      const next = new Set(prev);
-      if (next.has(index)) next.delete(index);
-      else next.add(index);
-      return next;
-    });
+  const graded = feedback !== null;
+
+  function flip() {
+    if (graded || flipped) return;
+    setFlipped(true);
   }
 
-  function confirm() {
-    if (confirmed) return;
-    const count = marked.size;
-    setFeedback(
-      count === 0 ? copy.demonstrationReadClean : copy.demonstrationMarked(count),
-    );
-    setConfirmed(true);
+  function onGrade(selected: Grade) {
+    if (graded || !flipped) return;
+    const message =
+      selected === "hard"
+        ? copy.demonstrationFeedbackHard
+        : selected === "good"
+          ? copy.demonstrationFeedbackGood
+          : copy.demonstrationFeedbackEasy;
+    setFeedback(message);
   }
 
   return (
-    <section className="mt-6 max-w-2xl" aria-label={copy.demonstrationLabel}>
+    <section className="mt-6 max-w-md" aria-label={copy.demonstrationLabel}>
       <p className="text-sm font-medium text-ink">{copy.demonstrationLabel}</p>
-      <p className="mt-3 text-xl leading-relaxed text-ink">
-        {pick.tokens.map((token, index) => (
-          <Button
-            key={`${pick.id}-${index}`}
-            type="button"
-            variant="ghost"
-            size="sm"
-            disabled={confirmed}
-            onClick={() => toggleToken(index)}
-            className={cn(
-              "h-auto min-h-0 px-1 py-0.5 text-xl font-normal text-ink hover:bg-surface-raised",
-              marked.has(index) && "bg-skill-reading-soft text-ink",
-            )}
-            aria-pressed={marked.has(index)}
-          >
-            {token}
-          </Button>
-        ))}
-      </p>
-      {feedback ? (
-        <p className="mt-3 text-base leading-relaxed text-muted">{feedback}</p>
-      ) : (
-        <p className="mt-3 text-sm text-muted">{copy.demonstrationHint}</p>
-      )}
-      <Button
-        type="button"
-        variant="secondary"
-        size="sm"
-        className="mt-4"
-        disabled={confirmed}
-        onClick={confirm}
+
+      <PressableCard
+        onClick={flip}
+        interactive={!graded && !flipped}
+        aria-expanded={flipped}
+        aria-label={!graded && !flipped ? copy.demonstrationFlipHint : undefined}
+        className="mt-3 p-6"
       >
-        {copy.demonstrationConfirm}
-      </Button>
+        <p
+          className={cn(
+            "text-xl font-semibold text-ink transition-transform duration-300",
+            flipped && "scale-95 opacity-80",
+          )}
+        >
+          {pick.text}
+        </p>
+
+        {flipped ? (
+          <p className="mt-4 border-t border-line pt-4 text-base text-muted">{pick.translation}</p>
+        ) : null}
+
+        {!graded && !flipped ? (
+          <p className="pointer-events-none absolute right-4 bottom-3 flex items-center gap-1 text-xs text-muted">
+            <span aria-hidden className="text-sm leading-none">↻</span>
+            {copy.demonstrationFlipHint}
+          </p>
+        ) : null}
+      </PressableCard>
+
+      {flipped && !graded ? (
+        <div className="mt-4">
+          <p className="text-sm text-muted">{copy.demonstrationGradePrompt}</p>
+          <div className="mt-3 grid w-full grid-cols-3 gap-2">
+            {DEMONSTRATION_GRADES.map((grade) => (
+              <GradeButton key={grade} grade={grade} onClick={() => onGrade(grade)}>
+                {GRADE_LABELS[grade]}
+              </GradeButton>
+            ))}
+          </div>
+        </div>
+      ) : null}
+
+      {feedback ? (
+        <p className="mt-4 text-base leading-relaxed text-muted">{feedback}</p>
+      ) : null}
     </section>
   );
 }

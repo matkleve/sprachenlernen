@@ -16,6 +16,7 @@ import { isTaskHeld } from "@/lib/vocabulary-snapshot";
 export type DemonstrationSentenceEntry = {
   id: string;
   text: string;
+  translation: string;
   tokens: string[];
   lemmaIds: string[];
 };
@@ -27,7 +28,7 @@ export type DemonstrationSentenceBank = {
 export type DemonstrationSentencePick = {
   id: string;
   text: string;
-  tokens: string[];
+  translation: string;
   heldCount: number;
   lemmaCount: number;
 };
@@ -90,7 +91,7 @@ export function pickDemonstrationSentence(
   return {
     id: chosen.id,
     text: chosen.text,
-    tokens: chosen.tokens,
+    translation: chosen.translation,
     heldCount,
     lemmaCount: chosen.lemmaIds.length,
   };

@@ -20,11 +20,10 @@ const backgroundListening = findMethod(catalogue, "background-listening")!;
 const srsSession = findMethod(catalogue, "srs-session")!;
 
 describe("MethodDetail", () => {
-  it("shows plain effort in the badge band without a dot scale", async () => {
+  it("shows effort dots in the badge band", async () => {
     render(await MethodDetail({ method: intensiveReading }));
 
-    expect(screen.getByText(en.methodMenu.effortCard[3])).toBeDefined();
-    expect(screen.queryByText(/3 of 3/)).toBeNull();
+    expect(screen.getByLabelText(/Effort: 3 of 3/i)).toBeDefined();
   });
 
   it("shows effort anchor sentence in practical details", async () => {
@@ -43,7 +42,7 @@ describe("MethodDetail", () => {
 
     expect(
       screen.getByRole("img", {
-        name: `Gold ${en.methodMenu.skillLabels.listening} contribution`,
+        name: `Gold ${en.methodMenu.skillLabels.listening}`,
       }),
     ).toBeDefined();
   });
@@ -65,7 +64,7 @@ describe("MethodDetail", () => {
 
     expect(
       screen.getByRole("img", {
-        name: `Wood ${en.methodMenu.skillLabels.listening} contribution`,
+        name: `Wood ${en.methodMenu.skillLabels.listening}`,
       }),
     ).toBeDefined();
   });

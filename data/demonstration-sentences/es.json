@@ -3,24 +3,28 @@
     {
       "id": "es-hoy-quiero-ir",
       "text": "Hoy quiero ir.",
+      "translation": "Today I want to go.",
       "tokens": ["Hoy", "quiero", "ir."],
       "lemmaIds": ["es:hoy", "es:querer", "es:ir"]
     },
     {
       "id": "es-yo-tengo-mucho",
       "text": "Yo tengo mucho.",
+      "translation": "I have a lot.",
       "tokens": ["Yo", "tengo", "mucho."],
       "lemmaIds": ["es:yo", "es:tener", "es:mucho"]
     },
     {
       "id": "es-hoy-leo-libro",
       "text": "Hoy leo el libro.",
+      "translation": "Today I read the book.",
       "tokens": ["Hoy", "leo", "el", "libro."],
       "lemmaIds": ["es:hoy", "es:leer", "es:el", "es:libro"]
     },
     {
       "id": "es-yo-quiero-libro",
       "text": "Yo quiero el libro hoy.",
+      "translation": "I want the book today.",
       "tokens": ["Yo", "quiero", "el", "libro", "hoy."],
       "lemmaIds": ["es:yo", "es:querer", "es:el", "es:libro", "es:hoy"]
     }

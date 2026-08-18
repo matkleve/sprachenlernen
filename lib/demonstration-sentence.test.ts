@@ -11,12 +11,14 @@ const bank: DemonstrationSentenceBank = {
     {
       id: "a",
       text: "A B C.",
+      translation: "A B C.",
       tokens: ["A", "B", "C."],
       lemmaIds: ["es:a", "es:b", "es:c"],
     },
     {
       id: "b",
       text: "D E.",
+      translation: "D E.",
       tokens: ["D", "E."],
       lemmaIds: ["es:d", "es:e"],
     },

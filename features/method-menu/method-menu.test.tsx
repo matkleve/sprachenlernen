@@ -112,11 +112,12 @@ describe("cards", () => {
     }
   });
 
-  it("shows evidence as text", () => {
+  it("shows effort on every card", () => {
     show();
     const text = document.body.textContent ?? "";
     for (const method of catalogue.entries.filter(isMethod)) {
-      expect(text).toContain(en.methodMenu.evidenceCard[method.evidence]);
+      expect(text).toContain(en.methodMenu.card.effort);
+      expect(text).not.toContain(en.methodMenu.evidenceCard[method.evidence]);
     }
   });
 });
