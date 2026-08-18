@@ -15,6 +15,8 @@ export const SHIPPED_STEP_COMPONENT_IDS = [
   "self-mark",
   "feedback",
   "comprehension-questions",
+  "confirm-done",
+  "debrief-prompt",
   "offers",
   "summary",
 ] as const;

@@ -323,7 +323,14 @@
     "comprehensionCorrect": "Das passt zum Text.",
     "comprehensionIncorrect": "Lies noch einmal — eine andere Antwort passt besser.",
     "speakPromptDefault": "Sag es laut, in Sprechtempo.",
-    "summaryDefault": "Durchlauf abgeschlossen."
+    "summaryDefault": "Durchlauf abgeschlossen.",
+    "confirmDoneDefault": "Hast du den Teil außerhalb der App wirklich gemacht?",
+    "confirmDoneHint": "Tippen Sie nur auf Eingereicht, wenn Sie die Arbeit ehrlich erledigt haben — die App kann das nicht prüfen.",
+    "debriefDefault": "Was konntest du nicht sagen oder tun? Notiere einen Ausdruck zum späteren Üben.",
+    "debriefStuckLabel": "Hängengebliebener Ausdruck",
+    "debriefStuckHint": "Optional — ein Wort oder Satz, den du gebraucht hättest.",
+    "debriefStuckPlaceholder": "z. B. Ich wollte fragen…",
+    "debriefOffer": "Ausdruck für später speichern"
   },
   "listeningDefer": {
     "sectionLabel": "Ton",

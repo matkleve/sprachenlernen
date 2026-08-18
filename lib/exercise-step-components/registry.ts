@@ -40,11 +40,13 @@ export function allowedStepTypesForComponent(componentId: string): StepType[] | 
     "gap-fill": ["do"],
     "full-dictation": ["do"],
     capture: ["submit"],
+    "confirm-done": ["submit"],
     "self-mark": ["review"],
     feedback: ["review"],
     "comprehension-questions": ["review"],
     offers: ["decide"],
     summary: ["decide"],
+    "debrief-prompt": ["decide"],
   };
   if (!isShippedStepComponent(componentId)) return null;
   return map[componentId];

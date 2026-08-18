@@ -47,11 +47,12 @@ describe("usesWordsReview", () => {
 });
 
 describe("usesExerciseRunner", () => {
-  it("is true only for built exercise methods", () => {
+  it("is true for built hosted and guided exercise methods", () => {
     expect(usesExerciseRunner(method({ id: "partial-dictation" }))).toBe(true);
-    expect(usesExerciseRunner(method({ id: "full-dictation" }))).toBe(true);
-    expect(usesExerciseRunner(method({ id: "extensive-reading" }))).toBe(true);
-    expect(usesExerciseRunner(method({ id: "reading-aloud" }))).toBe(true);
+    expect(usesExerciseRunner(method({ id: "role-play", hosted: false }))).toBe(true);
+    expect(usesExerciseRunner(method({ id: "tandem-or-language-cafe", hosted: false }))).toBe(
+      true,
+    );
     expect(usesExerciseRunner(method({ id: "narrow-reading" }))).toBe(false);
     expect(usesExerciseRunner(method({ id: "srs-session" }))).toBe(false);
   });
@@ -105,7 +106,13 @@ describe("cardHrefForMethod", () => {
     );
   });
 
-  it("links off-app methods to detail", () => {
+  it("links off-app guided methods to practice when built", () => {
+    expect(cardHrefForMethod(method({ id: "role-play", hosted: false }))).toBe(
+      exerciseSessionHref("role-play"),
+    );
+  });
+
+  it("links unbuilt off-app methods to detail", () => {
     expect(cardHrefForMethod(method({ id: "tandem", hosted: false }))).toBe("/methods/tandem");
   });
 });
@@ -117,6 +124,12 @@ describe("shellPageLayout practice", () => {
       expect(isActiveExerciseSession(routes.practice, params)).toBe(true);
       expect(shellPageLayout(routes.practice, params)).toBe("one-screen-runner");
     }
+  });
+
+  it("uses one-screen-runner for built guided methods", () => {
+    const params = new URLSearchParams({ method: "role-play" });
+    expect(isActiveExerciseSession(routes.practice, params)).toBe(true);
+    expect(shellPageLayout(routes.practice, params)).toBe("one-screen-runner");
   });
 
   it("uses drill-in for unknown exercise method", () => {

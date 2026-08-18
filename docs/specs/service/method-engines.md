@@ -18,6 +18,7 @@ Parent contract: [`practice-model.md`](practice-model.md). Catalogue schema:
   ([`exercise-runner.md`](../feature/exercise-runner.md) on `/practice`);
   routing rules (`lib/method-session.ts`); what feeds Progress and Words today.
   Per-method matrix: [`METHOD-IMPLEMENTATION-MATRIX.md`](../../METHOD-IMPLEMENTATION-MATRIX.md).
+Guided sessions (all methods): [`method-guided-sessions.md`](method-guided-sessions.md).
 - **Out:** menu composition (method-menu); individual session FSMs
   (review-session, exercise-runner); building every catalogue Method.
 
@@ -53,7 +54,7 @@ held for the same Word.
 
 | Field | Value |
 | --- | --- |
-| Methods | Thirty-four hosted minus `srs-session` — see [`exercise-recipe-composer.methods.md`](exercise-recipe-composer.methods.md) |
+| Methods | All catalogue methods — graded, guided, and check-in on `/practice`; see [`method-guided-sessions.md`](method-guided-sessions.md) |
 | Route | `/practice?method=…` ([`practice.md`](../page/practice.md)) |
 | Step model | prepare · do · wait · submit · review · decide |
 | Components | Forty-one runner widgets — [`exercise-step-components.md`](exercise-step-components.md) |
@@ -65,12 +66,15 @@ Built: shell + `partial-dictation` + `full-dictation` + `extensive-reading` + `r
 
 ## Routing
 
-| Catalogue state | From method menu card | From method detail |
+| Session kind | From method menu card | From method detail |
 | --- | --- | --- |
-| Hosted, card engine (`srs-session`) | Opens Words review directly | Start → Words review |
-| Hosted, exercise runner (when built) | Detail page (or direct if daily three) | Start → `/practice?method=…` |
-| Hosted, engine not built | Detail page | Honest not-built copy; no Start |
-| Off-app (`hosted: false`) | Detail page | Off-app copy; no Start |
+| Card (`srs-session`, …) when built | Opens `/words/review` | Start → Words review |
+| Graded or guided exercise (when built) | Opens `/practice` | Start → `/practice?method=…` |
+| Check-in commitment (when built) | Detail | Start → `/practice?method=…&checkIn=1` |
+| Recipe specced, not built | Detail | Honest not-built copy; no Start |
+
+`hosted: false` does **not** block guided sessions — only marks off-screen main
+work ([`method-guided-sessions.md`](method-guided-sessions.md)).
 
 Implementation: `usesWordsReview`, `cardHrefForMethod`, `sessionHrefForMethod`
 in `lib/method-session.ts`.
@@ -111,11 +115,10 @@ Order is load-bearing — see IMPLEMENTATION-PLAN § Track B engine phase and
 - [ ] Given review history from `srs-session` only, when Progress renders, then
       pool-local vocabulary and recall stability may have data and all four
       skills remain *not measured*.
-- [ ] Given the catalogue, when `hosted: true` is read, then no code path may
-      assume a session exists — only `usesWordsReview` may open a runner, and no
-      surface builds `?method=…` by hand. Enforced by a test that greps
-      `app/` and `features/` for the literal, because three surfaces had already
-      done it when this criterion was written.
+- [ ] Given any method with a built guided recipe, when Start is tapped, then
+      `/practice?method=…` opens — not honest off-app-only copy.
+- [ ] Given `hosted: false`, when routing is read, then it does not forbid
+      `/practice` — guided sessions use the same runner shell.
 
 ## Check
 
