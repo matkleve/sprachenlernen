@@ -1,5 +1,15 @@
 [
   {
+    "id": "spiral-learning",
+    "name": "Spiral learning",
+    "tagline": "Growth that deepens with every cycle",
+    "rationale": "ChatGPT grid 2026-08-18, cell #9. Vector spiral — closed loop / deepening study without book clichés. Hand-built paths, no embedded raster.",
+    "basis": "ChatGPT mood-board exploration 2026-08-18, cell #9; source grid in design/logo/sources/logo-exploration-grid-2026-08-18.png",
+    "markSrc": "/design/logo/directions/spiral-learning.svg",
+    "monoSrc": "/design/logo/directions/spiral-learning-mono.svg",
+    "shipped": true
+  },
+  {
     "id": "steady-path",
     "name": "Steady path",
     "tagline": "Calm progression — balanced stones on the journey",
@@ -7,7 +17,7 @@
     "basis": "ChatGPT mood-board exploration 2026-08-17, cell #1",
     "markSrc": "/design/logo/directions/steady-path.svg",
     "monoSrc": "/design/logo/directions/steady-path-mono.svg",
-    "shipped": true
+    "shipped": false
   },
   {
     "id": "fanned-pages",

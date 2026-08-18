@@ -58,7 +58,7 @@ describe("PublicHeader", () => {
   it("shows sign-in and create-account on every marketing route when signed out", () => {
     const { container } = showHeaderAt("/login");
 
-    expect(container.querySelector('img[src*="steady-path"]')).toBeTruthy();
+    expect(container.querySelector('img[src*="spiral-learning"]')).toBeTruthy();
     expect(screen.getByRole("link", { name: en.marketing.header.signIn }).getAttribute("href")).toBe(
       "/login",
     );

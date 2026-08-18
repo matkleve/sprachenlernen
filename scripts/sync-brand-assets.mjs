@@ -13,6 +13,7 @@ const ROOT = join(import.meta.dirname, "..");
 const LOGO_BUILDERS = {
   "fanned-pages": "scripts/build-fanned-pages-logo.py",
   "steady-path": "scripts/build-steady-path-logo.py",
+  "spiral-learning": "scripts/build-spiral-learning-logo.py",
 };
 
 const id = process.argv[2];
