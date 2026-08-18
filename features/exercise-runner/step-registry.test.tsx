@@ -5,7 +5,7 @@ import { describe, expect, it } from "vitest";
 import { ExerciseStepBody } from "@/features/exercise-runner/ExerciseStepBody";
 
 describe("ExerciseStepBody registry", () => {
-  it("shows not-built copy for unknown components", () => {
+  it("AC-2: shows not-built copy for unknown components", () => {
     render(
       <ExerciseStepBody
         step={{
@@ -25,5 +25,29 @@ describe("ExerciseStepBody registry", () => {
     );
 
     expect(screen.getByText(/not built yet/i)).toBeDefined();
+  });
+
+  it("AC-1: renders checklist for a shipped prepare step", () => {
+    render(
+      <ExerciseStepBody
+        step={{
+          id: "prepare-1",
+          type: "prepare",
+          component: "checklist",
+          label: "Get ready",
+          config: { items: ["Pen and paper"] },
+        }}
+        submitDraft={{ text: "", photoDataUrl: null }}
+        markedErrorTokens={[]}
+        onTextChange={() => {}}
+        onPhotoChange={() => {}}
+        onToggleError={() => {}}
+        onDecline={() => {}}
+        onSelectOffer={() => {}}
+      />,
+    );
+
+    expect(screen.getByText("Pen and paper")).toBeDefined();
+    expect(screen.queryByText(/not built yet/i)).toBeNull();
   });
 });
