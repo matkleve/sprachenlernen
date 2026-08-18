@@ -32,7 +32,7 @@ matrix: [`METHOD-IMPLEMENTATION-MATRIX.md`](../../METHOD-IMPLEMENTATION-MATRIX.m
 | Not built | detail | Honest not-built; no recipe |
 
 `resolveExerciseRecipe(methodId, ctx)` delegates to a per-method composer when
-registered; returns `null` when not built. Today: `partial-dictation`, `full-dictation`, `extensive-reading`, `reading-aloud`.
+registered; returns `null` when not built. Today: `partial-dictation`, `full-dictation`, `extensive-reading`, `reading-aloud`, `build-a-sentence`.
 
 ## Session context
 

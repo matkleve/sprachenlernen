@@ -18,6 +18,8 @@ describe("exercise-step-components registry", () => {
 
   it("marks shipped components as renderable", () => {
     expect(isShippedStepComponent("gap-fill")).toBe(true);
+    expect(isShippedStepComponent("type-with-word")).toBe(true);
+    expect(isShippedStepComponent("reveal-answer")).toBe(true);
     expect(isShippedStepComponent("audio-play")).toBe(false);
   });
 

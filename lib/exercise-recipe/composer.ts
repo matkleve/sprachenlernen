@@ -1,6 +1,7 @@
 /**
  * Per-Method recipe composers. Contract: docs/specs/service/exercise-recipe-composer.md
  */
+import { resolveBuildASentenceRecipe } from "@/lib/exercise-recipe/build-a-sentence";
 import { resolveExtensiveReadingRecipe } from "@/lib/exercise-recipe/extensive-reading";
 import { resolveFullDictationRecipe } from "@/lib/exercise-recipe/full-dictation";
 import { resolvePartialDictationRecipe } from "@/lib/exercise-recipe/partial-dictation";
@@ -12,6 +13,7 @@ const COMPOSERS: Record<string, RecipeComposer> = {
   "full-dictation": (ctx) => resolveFullDictationRecipe(ctx),
   "extensive-reading": (ctx) => resolveExtensiveReadingRecipe(ctx),
   "reading-aloud": (ctx) => resolveReadingAloudRecipe(ctx),
+  "build-a-sentence": (ctx) => resolveBuildASentenceRecipe(ctx),
 };
 
 export function hasRecipeComposer(methodId: string): boolean {

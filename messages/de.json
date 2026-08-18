@@ -324,6 +324,14 @@
     "comprehensionCorrect": "Das passt zum Text.",
     "comprehensionIncorrect": "Lies noch einmal — eine andere Antwort passt besser.",
     "speakPromptDefault": "Sag es laut, in Sprechtempo.",
+    "typeWithWordPrompt": "Schreib einen Satz mit «{word}».",
+    "typeWithWordGloss": "Bedeutung: {gloss}",
+    "typeWithWordFieldLabel": "Dein Satz",
+    "typeWithWordPlaceholder": "Schreib deinen Satz hier…",
+    "typeWithWordHint": "Ein Satz reicht. Die Grammatik muss nicht perfekt sein.",
+    "revealAnswerDefault": "Jeder grammatikalische Satz, der das Wort natürlich verwendet, zählt.",
+    "revealAnswerExemplarLabel": "Beispielsatz",
+    "revealAnswerMeaning": "«{word}» bedeutet {gloss}.",
     "summaryDefault": "Durchlauf abgeschlossen."
   },
   "listeningDefer": {

@@ -14,7 +14,7 @@ and **build status** (code in [`lib/exercise-recipe-built.ts`](../lib/exercise-r
 | Methods | 53 |
 | Commitments | 6 |
 | Hosted (`hosted: true`) | 34 |
-| **Built in-app** | **5** (`srs-session`, `partial-dictation`, `full-dictation`, `extensive-reading`, `reading-aloud`) |
+| **Built in-app** | **6** (`srs-session`, `partial-dictation`, `full-dictation`, `extensive-reading`, `reading-aloud`, `build-a-sentence`) |
 | Exercise runner specced | 40 |
 | Card engine specced | 4 |
 | Off-app / debrief only | 19 |
@@ -75,7 +75,7 @@ and **build status** (code in [`lib/exercise-recipe-built.ts`](../lib/exercise-r
 
 | id | Ev | Host | Engine | Mat. | Built | Pri | Components still needed |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| `build-a-sentence` | A | Y | runner | — | ❌ | P2 | type-with-word, reveal-answer |
+| `build-a-sentence` | A | Y | runner | — | ✅ | done | type-with-word, reveal-answer |
 | `free-production` | B | Y | runner | — | ❌ | P2 | timed-write, feedback |
 | `diary-three-sentences` | B | Y | runner | — | ❌ | P3 | timed-write, feedback |
 | `summarise-what-you-read` | B | Y | runner | — | ❌ | P3–P4 | see recipe doc |

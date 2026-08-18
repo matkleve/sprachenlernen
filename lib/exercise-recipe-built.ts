@@ -4,6 +4,7 @@ const BUILT_EXERCISE_METHOD_IDS = new Set<string>([
   "full-dictation",
   "extensive-reading",
   "reading-aloud",
+  "build-a-sentence",
 ]);
 
 export function hasExerciseRecipe(methodId: string): boolean {

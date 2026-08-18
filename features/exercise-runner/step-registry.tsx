@@ -8,7 +8,9 @@ import { GapFillStep } from "@/features/exercise-runner/steps/GapFillStep";
 import { MaterialPreviewStep } from "@/features/exercise-runner/steps/MaterialPreviewStep";
 import { NotBuiltStep } from "@/features/exercise-runner/steps/NotBuiltStep";
 import { OffersStep } from "@/features/exercise-runner/steps/OffersStep";
+import { TypeWithWordStep } from "@/features/exercise-runner/steps/TypeWithWordStep";
 import { PromptStep } from "@/features/exercise-runner/steps/PromptStep";
+import { RevealAnswerStep } from "@/features/exercise-runner/steps/RevealAnswerStep";
 import { SelfMarkStep } from "@/features/exercise-runner/steps/SelfMarkStep";
 import { SheetDownloadStep } from "@/features/exercise-runner/steps/SheetDownloadStep";
 import { SpeakPromptStep } from "@/features/exercise-runner/steps/SpeakPromptStep";
@@ -55,6 +57,8 @@ export function renderExerciseStep(props: StepRenderProps) {
       return <TextDisplayStep config={step.config} />;
     case "speak-prompt":
       return <SpeakPromptStep config={step.config} />;
+    case "type-with-word":
+      return <TypeWithWordStep config={step.config} />;
     case "prompt":
       return <PromptStep step={step} listeningDeferred={props.listeningDeferred} />;
     case "capture":
@@ -76,6 +80,8 @@ export function renderExerciseStep(props: StepRenderProps) {
       );
     case "comprehension-questions":
       return <ComprehensionQuestionsStep config={step.config} />;
+    case "reveal-answer":
+      return <RevealAnswerStep config={step.config} />;
     case "offers":
       return (
         <OffersStep

@@ -99,6 +99,12 @@ describe("cardHrefForMethod", () => {
     );
   });
 
+  it("links build-a-sentence to practice", () => {
+    expect(cardHrefForMethod(method({ id: "build-a-sentence" }))).toBe(
+      exerciseSessionHref("build-a-sentence"),
+    );
+  });
+
   it("links other hosted methods to detail", () => {
     expect(cardHrefForMethod(method({ id: "narrow-reading" }), "?skill=reading")).toBe(
       "/methods/narrow-reading?skill=reading",
@@ -112,7 +118,13 @@ describe("cardHrefForMethod", () => {
 
 describe("shellPageLayout practice", () => {
   it("uses one-screen-runner for built exercise methods", () => {
-    for (const methodId of ["partial-dictation", "full-dictation", "extensive-reading", "reading-aloud"]) {
+    for (const methodId of [
+      "partial-dictation",
+      "full-dictation",
+      "extensive-reading",
+      "reading-aloud",
+      "build-a-sentence",
+    ]) {
       const params = new URLSearchParams({ method: methodId });
       expect(isActiveExerciseSession(routes.practice, params)).toBe(true);
       expect(shellPageLayout(routes.practice, params)).toBe("one-screen-runner");

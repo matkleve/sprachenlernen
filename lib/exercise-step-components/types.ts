@@ -8,6 +8,7 @@ export const SHIPPED_STEP_COMPONENT_IDS = [
   "prompt",
   "text-display",
   "speak-prompt",
+  "type-with-word",
   "gap-fill",
   "full-dictation",
   "sheet-download",
@@ -15,6 +16,7 @@ export const SHIPPED_STEP_COMPONENT_IDS = [
   "self-mark",
   "feedback",
   "comprehension-questions",
+  "reveal-answer",
   "offers",
   "summary",
 ] as const;

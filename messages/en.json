@@ -324,6 +324,14 @@
     "comprehensionCorrect": "That matches the text.",
     "comprehensionIncorrect": "Re-read the passage — another answer fits better.",
     "speakPromptDefault": "Say it out loud at a speaking pace.",
+    "typeWithWordPrompt": "Write one sentence that uses «{word}».",
+    "typeWithWordGloss": "Meaning: {gloss}",
+    "typeWithWordFieldLabel": "Your sentence",
+    "typeWithWordPlaceholder": "Type your sentence here…",
+    "typeWithWordHint": "One sentence is enough. Grammar does not need to be perfect.",
+    "revealAnswerDefault": "Any grammatical sentence that uses the word naturally counts.",
+    "revealAnswerExemplarLabel": "Example sentence",
+    "revealAnswerMeaning": "«{word}» means {gloss}.",
     "summaryDefault": "Session complete."
   },
   "listeningDefer": {
