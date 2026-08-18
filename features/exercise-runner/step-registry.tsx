@@ -8,6 +8,7 @@ import { GapFillStep } from "@/features/exercise-runner/steps/GapFillStep";
 import { MaterialPreviewStep } from "@/features/exercise-runner/steps/MaterialPreviewStep";
 import { NotBuiltStep } from "@/features/exercise-runner/steps/NotBuiltStep";
 import { OffersStep } from "@/features/exercise-runner/steps/OffersStep";
+import { TimedWriteStep } from "@/features/exercise-runner/steps/TimedWriteStep";
 import { TypeWithWordStep } from "@/features/exercise-runner/steps/TypeWithWordStep";
 import { PromptStep } from "@/features/exercise-runner/steps/PromptStep";
 import { RevealAnswerStep } from "@/features/exercise-runner/steps/RevealAnswerStep";
@@ -59,6 +60,14 @@ export function renderExerciseStep(props: StepRenderProps) {
       return <SpeakPromptStep config={step.config} />;
     case "type-with-word":
       return <TypeWithWordStep config={step.config} />;
+    case "timed-write":
+      return (
+        <TimedWriteStep
+          config={step.config}
+          submitDraft={props.submitDraft}
+          onTextChange={props.onTextChange}
+        />
+      );
     case "prompt":
       return <PromptStep step={step} listeningDeferred={props.listeningDeferred} />;
     case "capture":
@@ -74,6 +83,7 @@ export function renderExerciseStep(props: StepRenderProps) {
       return (
         <SelfMarkStep
           step={step}
+          submitDraft={props.submitDraft}
           markedErrorTokens={props.markedErrorTokens}
           onToggleError={props.onToggleError}
         />

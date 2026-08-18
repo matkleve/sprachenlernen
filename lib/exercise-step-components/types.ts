@@ -9,6 +9,7 @@ export const SHIPPED_STEP_COMPONENT_IDS = [
   "text-display",
   "speak-prompt",
   "type-with-word",
+  "timed-write",
   "gap-fill",
   "full-dictation",
   "sheet-download",

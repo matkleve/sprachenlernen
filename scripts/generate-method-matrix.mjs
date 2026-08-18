@@ -14,6 +14,7 @@ const BUILT = new Set([
   "extensive-reading",
   "reading-aloud",
   "build-a-sentence",
+  "free-production",
 ]);
 const PARTIAL = new Set([]);
 
@@ -28,12 +29,9 @@ const COMPONENTS = {
   "partial-dictation": "— (shipped: short/standard/long)",
   "full-dictation": "— (shipped: short/standard/long)",
   "extensive-reading": "— (shipped)",
-  "full-dictation": "audio-play, full-dictation, sheet-download",
-  "extensive-reading": "material-preview, text-display, comprehension-questions",
   "reading-aloud": "— (shipped)",
   "build-a-sentence": "— (shipped)",
-  "free-production": "timed-write, feedback",
-  "build-a-sentence": "type-with-word, reveal-answer",
+  "free-production": "— (shipped)",
   "cloze-sentences": "cloze-type",
   "minimal-pairs": "minimal-pair",
   "four-three-two": "round-marker, speak-prompt, voice-submit, rubric",
@@ -49,7 +47,7 @@ const PRIORITY = {
   "extensive-reading": "done",
   "reading-aloud": "done",
   "build-a-sentence": "done",
-  "free-production": "P2",
+  "free-production": "done",
   "cloze-sentences": "P2",
   "minimal-pairs": "P2",
   "dictogloss": "P3",
@@ -158,8 +156,8 @@ md += `## Recommended build order
 
 | Wave | Methods | Why |
 | --- | --- | --- |
-| **P1** | \`full-dictation\`, \`extensive-reading\` | Dictation reuse; reading has material setup in catalogue |
-| **P2** | \`free-production\`, \`build-a-sentence\`, \`cloze-sentences\`, \`minimal-pairs\` | Evidence A, short recipes, no TTS |
+| **P1** | ~~\`full-dictation\`, \`extensive-reading\`~~ — **done 2026-08-18** | Dictation reuse; reading material setup in catalogue |
+| **P2** | \`cloze-sentences\`, \`minimal-pairs\` | Evidence A, short recipes, no TTS |
 | **P3** | \`dictogloss\`, \`four-three-two\`, \`diary-three-sentences\`, \`listening-level-1\` | Needs audio + production components |
 | **P4** | Remaining hosted runners | Shared components from P1–P3 |
 | **Card** | Form-recall practice, \`close-a-frequency-block\` | Extend card engine |

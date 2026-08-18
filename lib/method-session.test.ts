@@ -105,6 +105,12 @@ describe("cardHrefForMethod", () => {
     );
   });
 
+  it("links free-production to practice", () => {
+    expect(cardHrefForMethod(method({ id: "free-production" }))).toBe(
+      exerciseSessionHref("free-production"),
+    );
+  });
+
   it("links other hosted methods to detail", () => {
     expect(cardHrefForMethod(method({ id: "narrow-reading" }), "?skill=reading")).toBe(
       "/methods/narrow-reading?skill=reading",
@@ -124,6 +130,7 @@ describe("shellPageLayout practice", () => {
       "extensive-reading",
       "reading-aloud",
       "build-a-sentence",
+      "free-production",
     ]) {
       const params = new URLSearchParams({ method: methodId });
       expect(isActiveExerciseSession(routes.practice, params)).toBe(true);

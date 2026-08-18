@@ -15,7 +15,7 @@ sentence translation, card capture) is **Out** until T-W10 remainder.
   detail when `kind === "text"`; tap word → dialog with starter-pool gloss when
   the lemma resolves; punctuation preserved between tokens.
 - **Out:** sentence-level translation; comprehension questions; FSRS from taps;
-  learner uploads (T-W9); audio transcript runner.
+  audio transcript runner.
 
 **Reuse: `Button`, `Dialog`** — word taps and gloss dialog.
 

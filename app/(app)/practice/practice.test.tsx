@@ -45,6 +45,16 @@ describe("PracticePage", () => {
     expect(screen.getByText(/Step 1 of 3/)).toBeDefined();
   });
 
+  it("renders exercise runner for free-production", async () => {
+    const ui = await PracticePage({
+      searchParams: Promise.resolve({ method: "free-production" }),
+    });
+    render(ui);
+
+    expect(screen.getByRole("heading", { name: "Free production" })).toBeDefined();
+    expect(screen.getByText(/Step 1 of 5/)).toBeDefined();
+  });
+
   it("shows not-built for unbuilt hosted method", async () => {
     const ui = await PracticePage({
       searchParams: Promise.resolve({ method: "narrow-reading" }),

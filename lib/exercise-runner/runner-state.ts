@@ -48,13 +48,19 @@ function waitDurationMs(step: ExerciseRunnerState["recipe"]["steps"][number]): n
   return typeof sec === "number" && sec > 0 ? sec * 1000 : 0;
 }
 
+function stepUsesTimer(step: ExerciseRunnerState["recipe"]["steps"][number] | undefined): boolean {
+  if (!step) return false;
+  if (step.type === "wait") return true;
+  return step.type === "do" && step.component === "timed-write";
+}
+
 function maybeStartWaitTimer(
   state: ExerciseRunnerState,
   stepIndex: number,
   now: number,
 ): TimerState | null {
   const step = state.recipe.steps[stepIndex];
-  if (step?.type !== "wait") return state.timer;
+  if (!step || !stepUsesTimer(step)) return state.timer;
 
   const durationMs = waitDurationMs(step);
   if (durationMs === 0) return state.timer;

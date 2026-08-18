@@ -4,7 +4,10 @@ import type { ReactNode } from "react";
 import { afterEach, beforeEach, describe, expect, it } from "vitest";
 
 import en from "@/messages/en.json";
-import { NAVIGATION_PREVIOUS_KEY } from "@/features/app-shell/navigation-history";
+import {
+  advanceNavigationPath,
+  resetNavigationHistoryForTests,
+} from "@/features/app-shell/navigation-history";
 import { useRouteEscape } from "@/features/app-shell/use-route-escape";
 
 function wrapper({ children }: { children: ReactNode }) {
@@ -17,11 +20,11 @@ function wrapper({ children }: { children: ReactNode }) {
 
 describe("useRouteEscape", () => {
   beforeEach(() => {
-    sessionStorage.clear();
+    resetNavigationHistoryForTests();
   });
 
   afterEach(() => {
-    sessionStorage.clear();
+    resetNavigationHistoryForTests();
   });
 
   it("returns null on destination routes", () => {
@@ -30,7 +33,8 @@ describe("useRouteEscape", () => {
   });
 
   it("links back to Words when the learner came from Words", () => {
-    sessionStorage.setItem(NAVIGATION_PREVIOUS_KEY, "/words");
+    advanceNavigationPath("/words");
+    advanceNavigationPath("/profile");
 
     const { result } = renderHook(() => useRouteEscape("/profile"), { wrapper });
 
@@ -41,7 +45,8 @@ describe("useRouteEscape", () => {
   });
 
   it("links back to Progress when the learner came from Progress", () => {
-    sessionStorage.setItem(NAVIGATION_PREVIOUS_KEY, "/progress");
+    advanceNavigationPath("/progress");
+    advanceNavigationPath("/profile");
 
     const { result } = renderHook(() => useRouteEscape("/profile"), { wrapper });
 
@@ -52,6 +57,8 @@ describe("useRouteEscape", () => {
   });
 
   it("falls back to Methods when there is no navigation history", () => {
+    advanceNavigationPath("/profile");
+
     const { result } = renderHook(() => useRouteEscape("/profile"), { wrapper });
 
     expect(result.current?.href).toBe("/methods");

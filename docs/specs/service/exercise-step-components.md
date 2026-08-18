@@ -67,7 +67,7 @@ Implementation target: `lib/exercise-step-components/` registry +
 | `word-bank` | Drag words into sentence slots | planned | build a sentence (alt) |
 | `type-with-word` | “Use *casa* in one sentence” | shipped | build a sentence |
 | `type-freely` | Open text area + optional word count | planned | dictogloss reconstruct, caption |
-| `timed-write` | `type-freely` + embedded countdown | planned | free production, diary, summarise, self-talk |
+| `timed-write` | `type-freely` + embedded countdown | shipped | free production, diary, summarise, self-talk |
 | `transform` | Rewrite per rule (tense, person, translate) | planned | sentence transformation, back-translation |
 | `copy-display` | Paragraph to copy by hand (read-only) | planned | copy a paragraph |
 | `minimal-pair` | Hear A or B; tap which | planned | minimal pairs / HVPT |

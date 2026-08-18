@@ -16,6 +16,39 @@ export type SentenceTarget = {
 const LEARNING_RANK_MIN = 10;
 const LEARNING_RANK_MAX = 500;
 
+export type ProductionHints = {
+  sourceId: string;
+  promptIndex: number;
+  optionalWords: Array<{ word: string; gloss: string }>;
+};
+
+const MAX_OPTIONAL_WORDS = 3;
+
+export function pickProductionHints(
+  cards: readonly StarterCard[],
+  heldLemmas: ReadonlySet<string> = new Set(),
+): ProductionHints {
+  const meaningCards = cards.filter((card) => isMeaningRecallTaskId(card.taskId));
+  const held = meaningCards
+    .filter((card) => heldLemmas.has(card.lemma))
+    .sort((left, right) => left.frequencyRank - right.frequencyRank)
+    .slice(0, MAX_OPTIONAL_WORDS);
+
+  const optionalWords = held.map((card) => ({
+    word: card.front,
+    gloss: englishGlossForCard(card),
+  }));
+
+  const seedLemma = held[0]?.lemma ?? meaningCards[0]?.lemma ?? "free-production";
+  const promptIndex = seedLemma.split("").reduce((sum, char) => sum + char.charCodeAt(0), 0);
+
+  return {
+    sourceId: held[0]?.taskId ?? "free-production",
+    promptIndex,
+    optionalWords,
+  };
+}
+
 export function pickSentenceTarget(
   cards: readonly StarterCard[],
   heldLemmas: ReadonlySet<string> = new Set(),

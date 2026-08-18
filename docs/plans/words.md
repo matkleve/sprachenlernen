@@ -120,8 +120,8 @@ Do not queue these until phase 2 map is honest at pool scope.
 | **T-W8b** | ~~**Word trace block**~~ — **shipped** | UC-038, UC-031 | `content-traceability.md` | Standard | T-W7 |
 | **T-W8** | ~~**Content gap list**~~ — **shipped** | UC-034, UC-059 | `content-gap.md` | Standard | T-W7 |
 | **T-W8c** | ~~**Sources shell**~~ — **shipped** (`/content` index + detail) | UC-033, UC-034, UC-007 | `content-traceability.md` | Standard | T-W7, T-W8 |
-| **T-W10a** | **Method material setup** — topic chips + unit preview + Your own upload; Start gating. | UC-046, UC-029, UC-007 | `method-material-setup.md`, `material-unit.md` | Standard | T-W7, T-W8c, T-MU1 |
-| **T-W9** | **Word capture** — persist learner sources; full library intake. | UC-012 | `word-capture.md` (new) | **Sensitive** | persistence model |
+| **T-W10a** | ~~**Method material setup**~~ — topic chips + unit preview + Your own upload; Start gating. | UC-046, UC-029, UC-007 | `method-material-setup.md`, `material-unit.md` | Standard | T-W7, T-W8c, T-MU1 | **Shipped 2026-08-18** — T-E7 |
+| **T-W9** | ~~**Word capture**~~ — persist learner sources; full library intake. | UC-012 | `word-capture.md` | **Sensitive** | persistence model | **Shipped 2026-08-18** — `content_sources`, ephemeral cookie |
 | **T-W10** | **Reading surface** — tap-to-gloss on source detail shipped v1; remainder: sentence translation, comprehension, runner. | UC-007, UC-030 | [`reading-surface.md`](../specs/feature/reading-surface.md) | Standard / Sensitive | T-W8c, T-W9 | **v1 shipped 2026-08-18** — `/content/[id]` body |
 | **T-W11** | **Session loop line (K4)** — extend `SessionComplete`: lemmas newly held + coverage delta; link to `/words` or `/content`. | UC-031 | `content-traceability.md` | Standard | T-W7 |
 | **T-W11b** | **Unlock rollup (K2)** — monthly “moved to comfortable” on `/content`; before→after lines on source detail; history snapshots. | UC-033 | `content-traceability.md`, `coverage.md` | **Sensitive** | T-W7, T-W8c |
@@ -129,11 +129,11 @@ Do not queue these until phase 2 map is honest at pool scope.
 | **T-MU1** | ~~**Material unit resolver**~~ — sentence / paragraph / window / full — **shipped 2026-08-18** | UC-007, UC-028 | `material-unit.md` | Standard | T-W7 |
 | **T-MU2** | **Gap selection** — principled listen-and-fill gaps (not alternating) | UC-028 | `material-unit.md` | **Sensitive** | T-MU1 |
 
-**Build order:** T-W7 → T-W8b ∥ T-W8 → T-W8c → T-W10a → T-W10; T-W11 after T-W7;
-T-W11b after T-W8c; T-W9 can trail T-W10a (session-only paste until then).
+**Build order:** T-W7 → T-W8b ∥ T-W8 → T-W8c → T-W10a → T-W9 → T-W10; T-W11
+after T-W7; T-W11b after T-W8c. **T-W9 + T-W10a shipped 2026-08-18.**
 
-**T-W9 blocks on:** persistence model for learner-owned words (not in starter
-pool), dedup by `wordId`, source-sentence storage — all Sensitive.
+**T-W9 shipped 2026-08-18** — `content_sources` table, keep-in-library on
+material setup, ephemeral cookie for session-only paste.
 
 ---
 
@@ -144,13 +144,13 @@ table. Queue after phase 0 hygiene, parallel to phase 2 where independent.
 
 | ID | Work | Serves | Notes |
 | --- | --- | --- | --- |
-| **T-W18** | **UC-012 spec only** (superseded by T-W9 `word-capture.md` when written) | UC-012 | Fold into T-W9 spec |
+| **T-W18** | ~~**UC-012 spec only**~~ — folded into T-W9 `word-capture.md` | UC-012 | **Shipped 2026-08-18** with T-W9 |
 | **T-W12** | **UC-006 break return** — overdue prioritisation by frequency + urgency | UC-006 | Extends session-builder; pairs with horizon expand-on-return |
 | **T-W16** | ~~**Review horizon v2**~~ — **shipped 2026-08-15** | UC-005, UC-006, UC-063 | Collapsed default, week tile columns, relevance triggers, causal line |
 | **T-W17** | ~~**Words home layout parity with Methods**~~ — **shipped 2026-08-16** | UC-063, UC-031 | Canvas intent; `methodSectionSurface` cards; section labels; stat disclosure; reuse `MethodCardHeader` |
 | **T-W13** | **UC-013 remainder** — tier-2/3 leech diagnosis | UC-013 | T-B14 remainder in main queue |
 | **T-W14** | ~~**UC-069 slice 2** — `next-intl` chrome~~ — **shipped** | UC-069 | T-B11 slice 2 |
-| **T-W15** | **UC-069 slice 3** — gloss keys + resolver (parent slice) | UC-069 | **T-B11c–f** — split in main plan |
+| **T-W15** | ~~**UC-069 slice 3**~~ — gloss keys + resolver | UC-069 | **Shipped 2026-08-18** — T-B11c–g in main plan |
 | **T-W19** | **UC-076** — card example sentences at coverage band | UC-076 | [`card-example-sentence.md`](../specs/feature/card-example-sentence.md); **T-B11e** (gloss resolver for sentence translation); **T-W7** coverage |
 | **T-W19a** | Example sentence bank + per-lemma tags (content) | UC-076 | T-W19 spec |
 | **T-W19b** | Picker + review-session UI | UC-076 | T-W19a, T-W19 |
@@ -166,16 +166,16 @@ Quick reference: where each vocabulary-heavy use case lands.
 | UC-005 | Trust the schedule | 1 | ✓ | partial (horizon v2; per-card why pending) | review-session G1 |
 | UC-006 | Come back after break | 1 | ✓ partial | session + horizon expand | **T-W12** session prioritisation |
 | UC-011 | Start in first minute | 1 | ✓ | ✓ | — |
-| UC-012 | Capture a word | 1 | — | — | T-W9 (spec in queue) |
-| UC-031 | Map of the language | 2/3 | ✓ partial | partial (bands + orbit + word detail) | **T-W8b**, T-W11 (loop) |
+| UC-012 | Capture a word | 1 | ✓ | ✓ (T-W9) | — |
+| UC-031 | Map of the language | 2/3 | ✓ partial | partial (bands + orbit + word detail) | T-W11 (loop) |
 | UC-032 | Vocabulary milestone | 2 | ✓ | ✓ (T-W1) | — |
-| UC-034 | Missing for this episode | 3 | ✓ draft | — | **T-W8** |
-| UC-038 | Why this word | 2/3 | ✓ | partial (word detail) | **T-W8b** (content block) |
+| UC-034 | Missing for this episode | 3 | ✓ draft | ✓ (T-W8) | — |
+| UC-038 | Why this word | 2/3 | ✓ | partial (word detail + trace) | — |
 | UC-041 | Forms not just words | 0/2 | ✓ partial | partial (form-recall) | T-W6 |
 | UC-063 | Get to cards | 1 | ✓ | ✓ | — |
-| UC-069 | App in my language | 1/3 | ✓ | partial (chrome ✓; glosses EN) | **T-W15** / T-B11c–f |
+| UC-069 | App in my language | 1/3 | ✓ | partial (chrome ✓; glosses via resolver) | app-texts AC remainder |
 | UC-076 | Example sentence on card | 3 | ✓ draft | — | **T-W19** |
-| UC-007 | Read at my level | 3 | ✓ draft | — | T-W10 (+ T-W10a setup) |
+| UC-007 | Read at my level | 3 | ✓ draft | partial (tap-to-gloss v1) | T-W10 remainder |
 
 Full list: 43 vocabulary-touching use cases; 15 with spec links; 8 with meaningful
 code. Do not try to link all 28 unlinked use cases until their specs exist —

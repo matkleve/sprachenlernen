@@ -14,7 +14,7 @@ and **build status** (code in [`lib/exercise-recipe-built.ts`](../lib/exercise-r
 | Methods | 53 |
 | Commitments | 6 |
 | Hosted (`hosted: true`) | 34 |
-| **Built in-app** | **6** (`srs-session`, `partial-dictation`, `full-dictation`, `extensive-reading`, `reading-aloud`, `build-a-sentence`) |
+| **Built in-app** | **7** (`srs-session`, `partial-dictation`, `full-dictation`, `extensive-reading`, `reading-aloud`, `build-a-sentence`, `free-production`) |
 | Exercise runner specced | 40 |
 | Card engine specced | 4 |
 | Off-app / debrief only | 19 |
@@ -34,7 +34,7 @@ and **build status** (code in [`lib/exercise-recipe-built.ts`](../lib/exercise-r
 
 | id | Ev | Host | Engine | Mat. | Built | Pri | Components still needed |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| `extensive-reading` | A | Y | runner | Y | ✅ | done | material-preview, text-display, comprehension-questions |
+| `extensive-reading` | A | Y | runner | Y | ✅ | done | — (shipped) |
 | `narrow-reading` | B | Y | runner | — | ❌ | P3–P4 | see recipe doc |
 | `intensive-reading` | B | Y | runner | — | ❌ | P3–P4 | see recipe doc |
 | `reading-aloud` | B | Y | runner | Y | ✅ | done | — (shipped) |
@@ -51,7 +51,7 @@ and **build status** (code in [`lib/exercise-recipe-built.ts`](../lib/exercise-r
 | `narrow-listening` | B | Y | runner | — | ❌ | P3–P4 | see recipe doc |
 | `repeated-listening` | B | Y | runner | — | ❌ | P3–P4 | see recipe doc |
 | `partial-dictation` | B | Y | runner | Y | ✅ | done | — (shipped: short/standard/long) |
-| `full-dictation` | B | Y | runner | Y | ✅ | done | audio-play, full-dictation, sheet-download |
+| `full-dictation` | B | Y | runner | Y | ✅ | done | — (shipped: short/standard/long) |
 | `dictogloss` | B | Y | runner | — | ❌ | P3 | audio-play, type-freely, diff-highlight |
 | `listening-faster` | C | Y | runner | — | ❌ | P3–P4 | see recipe doc |
 | `background-listening` | C | N | off | — | off-app | defer | debrief |
@@ -75,8 +75,8 @@ and **build status** (code in [`lib/exercise-recipe-built.ts`](../lib/exercise-r
 
 | id | Ev | Host | Engine | Mat. | Built | Pri | Components still needed |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| `build-a-sentence` | A | Y | runner | — | ✅ | done | type-with-word, reveal-answer |
-| `free-production` | B | Y | runner | — | ❌ | P2 | timed-write, feedback |
+| `build-a-sentence` | A | Y | runner | — | ✅ | done | — (shipped) |
+| `free-production` | B | Y | runner | — | ✅ | done | — (shipped) |
 | `diary-three-sentences` | B | Y | runner | — | ❌ | P3 | timed-write, feedback |
 | `summarise-what-you-read` | B | Y | runner | — | ❌ | P3–P4 | see recipe doc |
 | `back-translation` | B | Y | runner | — | ❌ | P3–P4 | see recipe doc |
@@ -133,8 +133,8 @@ and **build status** (code in [`lib/exercise-recipe-built.ts`](../lib/exercise-r
 
 | Wave | Methods | Why |
 | --- | --- | --- |
-| **P1** | `full-dictation`, `extensive-reading` | Dictation reuse; reading has material setup in catalogue |
-| **P2** | `free-production`, `build-a-sentence`, `cloze-sentences`, `minimal-pairs` | Evidence A, short recipes, no TTS |
+| **P1** | ~~`full-dictation`, `extensive-reading`~~ — **done 2026-08-18** | Dictation reuse; reading material setup in catalogue |
+| **P2** | `cloze-sentences`, `minimal-pairs` | Evidence A, short recipes, no TTS |
 | **P3** | `dictogloss`, `four-three-two`, `diary-three-sentences`, `listening-level-1` | Needs audio + production components |
 | **P4** | Remaining hosted runners | Shared components from P1–P3 |
 | **Card** | Form-recall practice, `close-a-frequency-block` | Extend card engine |

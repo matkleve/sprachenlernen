@@ -22,10 +22,10 @@ Research: [`study/12`](../../study/12-method-cards.md) (methods and floors),
 1. **The catalogue is the full honest set** — ~53 Methods plus Commitments.
    Off-app Methods are listed alongside hosted ones without visual demotion
    (UC-046, thesis 9).
-2. **Engines ship one at a time** — stage 1 runs the **card engine**
-   (`srs-session`). The **exercise runner** (prepare → submit → review → …)
-   is specced for multi-step Methods ([`exercise-runner.md`](../feature/exercise-runner.md)).
-   `hosted: true` is intent, not capability.
+2. **Engines ship incrementally** — the **card engine** (`srs-session`) on Words;
+   the **exercise runner** (prepare → submit → review → …) on `/practice`
+   ([`exercise-runner.md`](../feature/exercise-runner.md)) with six Methods
+   built. `hosted: true` is intent, not capability.
 3. **Three destinations, three questions** (ADR-0009):
    - **Methods** (`/methods`) — *what could I do today?* Filters the catalogue.
    - **Words** (`/words`) — *how are my cards doing?* Card-engine home only.
@@ -46,8 +46,8 @@ Research: [`study/12`](../../study/12-method-cards.md) (methods and floors),
 | --- | ---: |
 | Catalogue methods | 53 |
 | Hosted (`hosted: true`) | 34 |
-| Built in-app | 4 (`srs-session`, `partial-dictation`, `full-dictation`, `extensive-reading`) |
-| Exercise runner platform | shipped (UC-049); 3 methods built |
+| Built in-app | 7 (`srs-session`, `partial-dictation`, `full-dictation`, `extensive-reading`, `reading-aloud`, `build-a-sentence`, `free-production`) |
+| Exercise runner platform | shipped (UC-049); 6 runner Methods built |
 | Off-app | 19 |
 
 Per-method evidence, recipe, and build status:

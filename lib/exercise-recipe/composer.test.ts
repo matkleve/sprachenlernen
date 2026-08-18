@@ -37,12 +37,13 @@ describe("exercise-recipe expand", () => {
 });
 
 describe("exercise-recipe composer registry", () => {
-  it("registers partial-dictation, full-dictation, extensive-reading, reading-aloud, and build-a-sentence composers", () => {
+  it("registers partial-dictation, full-dictation, extensive-reading, reading-aloud, build-a-sentence, and free-production composers", () => {
     expect(hasRecipeComposer("partial-dictation")).toBe(true);
     expect(hasRecipeComposer("full-dictation")).toBe(true);
     expect(hasRecipeComposer("extensive-reading")).toBe(true);
     expect(hasRecipeComposer("reading-aloud")).toBe(true);
     expect(hasRecipeComposer("build-a-sentence")).toBe(true);
+    expect(hasRecipeComposer("free-production")).toBe(true);
     expect(hasRecipeComposer("narrow-reading")).toBe(false);
   });
 

@@ -343,7 +343,7 @@ low-inference agent would silently invent.
 | ~~**T-B10**~~ | ~~The method menu — the product's front door~~ — **shipped 2026-08-09** | Filters, time scale, hosted routing. Learner half continued in T-B10b |
 | ~~**T-B5**~~ | ~~Retire the Grundriss worked examples~~ — **shipped 2026-08-10** | `/account` uses `Select` + `Dialog` (UC-024); demos removed; `/primitives` → `/languages` |
 | **T-B9** | Offline practice + sync (F192, UC-018) | **Owner direction: both** — online sync across devices *and* offline review (train/PWA). Needs ADR-0011 closed on Option B (local-first queue is partial — see [`review-write-queue.md`](specs/service/review-write-queue.md)); full offline still needs cached deck + scheduler |
-| **T-B11** | Spoken-language + localized glosses ([UC-069](use-cases/UC-069-use-the-app-in-my-own-language.md)) | **Slice 1–2 shipped** — [`spoken-language.md`](specs/service/spoken-language.md), `profiles`, `next-intl` chrome. **Slice 3 specced 2026-08-18** — [`app-texts.md`](specs/service/app-texts.md), [`gloss-resolver.md`](specs/service/gloss-resolver.md). **Remaining:** T-B11c–e below |
+| **T-B11** | Spoken-language + localized glosses ([UC-069](use-cases/UC-069-use-the-app-in-my-own-language.md)) | **Slices 1–3 shipped 2026-08-18** — chrome (`next-intl`), gloss resolver + snapshots (T-B11c–g below). **Remainder:** DB-backed snapshot export + draft RLS AC ([`app-texts.md`](specs/service/app-texts.md) AC) |
 | **T-B11c** | `app_texts` tables + seed from starter `back`/`front` English | **Sensitive** | T-B11 slice 1 | [`app-texts.md`](specs/service/app-texts.md) | **import script shipped 2026-08-18** — `npm run import:app-texts` |
 | **T-B11d** | Snapshot export + `gloss-resolver` + DE publish path | Standard | T-B11c | [`gloss-resolver.md`](specs/service/gloss-resolver.md) | **shipped 2026-08-18** |
 | **T-B11e** | Wire review session, reading, gap list, demonstration sentence | Standard | T-B11d | UC-069 AC | **shipped 2026-08-18** |
@@ -374,7 +374,7 @@ honest Spanish/Italian; offline unlocks commute practice.
 | **6c** | ~~**T-B10e** — composite tier badges, effort dots, real assets~~ — **shipped 2026-08-18** | [`skill-tier.md`](specs/service/skill-tier.md); `scripts/slice-skill-tier-badges.py` |
 | **6d** | **T-B10f-b** — method card polish assets | **Blocked** — section WebP re-compose + shield card PNGs; owner LIVE CHECK failed on art ([`study/40`](study/40-method-card-visual-polish.md)) |
 | **7** | **T-B10b remainder** — ~~demonstration sentence~~ **shipped 2026-08-16**; readiness ([`study/26`](study/26-readiness-and-difficulty.md)) | Methods front door complete |
-| **7b** | ~~**Exercise runner** (T-E1–E8)~~ — **T-E1–E7 + T-E8 shipped 2026-08-18**; T-E9 gap-fill open | UC-049 |
+| **7b** | ~~**Exercise runner** (T-E0–E9, T-MU*, T-LD1)~~ — **shipped 2026-08-18**; six hosted runners built (`partial-dictation`, `full-dictation`, `extensive-reading`, `reading-aloud`, `build-a-sentence`, `free-production`) | UC-049 |
 | **8** | **T-B4 numerator** — guided hours practised (thesis 9: not card time alone) | Progress per hour invested (study/03 V3) |
 
 **Still partial in Track B:** T-B3 (pool-local only), T-B10b (standing + daily
@@ -418,10 +418,11 @@ Detail, slice IDs, and agent handoff template:
 **What is solid:** stage-1 card engine — `/words` snapshot, `/words/review`
 (`srs-session`), 2000-lemma pools (es + it), form-recall staging, pool-local
 Progress counts; **content loop v1** — coverage (`lib/coverage.ts`), `/content`
-library + detail, gap list, word trace. **What is not:** word capture (T-W9),
-reading session runner remainder (T-W10), method material setup (T-W10a / T-E7 +
-material units T-MU1), listening defer (T-LD1), principled gaps (T-MU2),
-full exercise catalogue beyond partial dictation.
+library + detail, gap list, word trace; **word capture** (T-W9) and **method
+material setup** (T-W10a / T-E7) shipped 2026-08-18. **What is not:** reading
+runner remainder (T-W10 — comprehension + sentence translation on source
+detail); T-W5 per-cell forms; T-W6 form practice; most hosted exercise runners
+(6 of 34 built — see [`METHOD-IMPLEMENTATION-MATRIX.md`](METHOD-IMPLEMENTATION-MATRIX.md)).
 
 Work in four phases; do not skip phase 0:
 
@@ -430,7 +431,7 @@ Work in four phases; do not skip phase 0:
 | **0 · Hygiene** | Link repair, catalogue honesty (`hosted` vs built), test drift | **T-W0b/c shipped 2026-08-17** — vocabulary methods `hosted: false` except `srs-session`; `/words/atlas` test drift fixed. **T-W0a** if `check:specs` warns |
 | **1 · Decisions** | W-1 lemma-rank recomputation, W-2 pool atlas vs full map, W-3 `vocabulary` skill, W-4 sibling gap, W-5 incomplete paradigms | **W-3 answered 2026-08-17:** `vocabulary` skill. **W-5 answered 2026-08-17:** flag partial paradigms. W-1, W-2, W-4 already answered |
 | **2 · Stage-2 display** | Frequency blocks → word detail → pool-local map → T-B3 remainder → per-cell forms → form-practice | **T-W1/T-W3/T-W2 shipped** — next: T-W5 form breakdown |
-| **3 · Stage-3 loop** | Coverage → trace + gaps → `/content` → method setup (study/37, study/39) → reading | **T-MU1 + T-LD1 shipped 2026-08-18**; next: **T-E7** topic chips + unit preview |
+| **3 · Stage-3 loop** | Coverage → trace + gaps → `/content` → method setup (study/37, study/39) → reading | **T-W9 + T-E7/T-W10a + T-MU* shipped 2026-08-18**; next: **T-W10** remainder or **T-W11** session loop line |
 | **4 · Stage-1 remainder** | Break return, leech diagnosis, i18n slices | T-W12 next; **T-W16** and **T-W17** shipped |
 
 **Relationship to existing queue rows:** T-W4 *is* T-B3 remainder (same work,

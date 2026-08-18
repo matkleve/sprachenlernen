@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import { pickSentenceTarget } from "@/lib/exercise-recipe/sentence-target";
+import { pickProductionHints, pickSentenceTarget } from "@/lib/exercise-recipe/sentence-target";
 import type { StarterCard } from "@/lib/starter-deck";
 
 const card = (lemma: string, rank: number): StarterCard => ({
@@ -10,6 +10,15 @@ const card = (lemma: string, rank: number): StarterCard => ({
   front: lemma,
   descriptionKey: `card.es:${lemma}.meaning-recall.back`,
   frequencyRank: rank,
+});
+
+describe("pickProductionHints", () => {
+  it("returns held words as optional targets", () => {
+    const cards = [card("el", 1), card("casa", 50), card("hablar", 100)];
+    const hints = pickProductionHints(cards, new Set(["hablar", "casa"]));
+    expect(hints.optionalWords.map((entry) => entry.word)).toEqual(["casa", "hablar"]);
+    expect(hints.sourceId).toBe("es:casa:meaning-recall");
+  });
 });
 
 describe("pickSentenceTarget", () => {

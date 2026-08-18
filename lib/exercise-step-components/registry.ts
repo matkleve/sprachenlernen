@@ -38,6 +38,7 @@ export function allowedStepTypesForComponent(componentId: string): StepType[] | 
     "text-display": ["do"],
     "speak-prompt": ["do"],
     "type-with-word": ["do"],
+    "timed-write": ["do"],
     "gap-fill": ["do"],
     "full-dictation": ["do"],
     capture: ["submit"],
