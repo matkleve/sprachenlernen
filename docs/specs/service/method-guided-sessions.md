@@ -102,6 +102,14 @@ null`) uses `wait` without auto-expiry — learner taps **Weiter** when done.
 
 In [`method-guided-sessions.acceptance-criteria.md`](method-guided-sessions.acceptance-criteria.md).
 
+## Related
+
+| Doc | Owns |
+| --- | --- |
+| [`method-implementation-maturity.md`](method-implementation-maturity.md) | I0–I4 ship gates — specced recipe is I1, not I2 |
+| [`exercise-recipe-composer.methods.md`](exercise-recipe-composer.methods.md) | Per-method recipes |
+| [`METHOD-IMPLEMENTATION-MATRIX.md`](../../METHOD-IMPLEMENTATION-MATRIX.md) | Evidence, engine, built, I-tier per row |
+
 ## Check
 
 `npm test -- exercise-recipe method-guided-sessions`

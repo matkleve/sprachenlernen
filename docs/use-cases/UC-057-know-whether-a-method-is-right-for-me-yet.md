@@ -1,7 +1,7 @@
 # UC-057 — Know whether a method is right for me *yet*
 
 <!-- id: UC-057 -->
-<!-- specs:  -->
+<!-- specs: SPEC-service-method-implementation-maturity -->
 
 **Who:** a learner looking at a method they have not done before, or one they
 have not done in months.
@@ -9,6 +9,11 @@ have not done in months.
 spending twelve minutes finding out the hard way.
 **So that:** the catalogue reads as guidance rather than as a wall of equally
 plausible options.
+
+**Not the same as implementation maturity (I0–I4).** Readiness is learner ↔
+material fit (**I3** when adaptive compose ships). I-tier measures whether the
+app implements the Method well — see
+[`method-implementation-maturity.md`](../specs/service/method-implementation-maturity.md).
 
 Derived from
 [`../study/21-method-catalogue-and-context.md`](../study/21-method-catalogue-and-context.md)

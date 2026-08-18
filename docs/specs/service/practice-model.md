@@ -61,6 +61,7 @@ Per-method evidence, recipe, and build status:
 | Catalogue schema and validation | [`method-catalogue.md`](method-catalogue.md) |
 | Which engines exist and how they route | [`method-engines.md`](method-engines.md) |
 | Guided session contract (all methods) | [`method-guided-sessions.md`](method-guided-sessions.md) |
+| Implementation maturity I0–I4 | [`method-implementation-maturity.md`](method-implementation-maturity.md) |
 | Per-method build matrix | [`METHOD-IMPLEMENTATION-MATRIX.md`](../../METHOD-IMPLEMENTATION-MATRIX.md) |
 | Exercise step runner (UC-049) | [`exercise-runner.md`](../feature/exercise-runner.md) |
 | Menu filters, standing, daily three | [`page/method-menu.md`](../page/method-menu.md) |

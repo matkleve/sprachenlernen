@@ -153,4 +153,6 @@ npm run verify:scope -- changed   # or method-menu + exercise-runner scopes
 | Doc | Owns |
 | --- | --- |
 | [`WORKFLOW.md`](../WORKFLOW.md) | Stages 0–8, DoR/DoD |
+| [`method-implementation-maturity.md`](../specs/service/method-implementation-maturity.md) | I0–I4 tiers and LIVE CHECK rubric |
+| [`method-guided-sessions.md`](../specs/service/method-guided-sessions.md) | Session kinds (graded, guided, card, check-in) |
 | [`plans/exercise-runner.md`](../plans/exercise-runner.md) | Runner build queue |

@@ -1,7 +1,7 @@
 # UC-059 — Find out what stands between me and a method I want
 
 <!-- id: UC-059 -->
-<!-- specs: SPEC-service-coverage, SPEC-feature-content-gap -->
+<!-- specs: SPEC-service-coverage, SPEC-feature-content-gap, SPEC-service-method-implementation-maturity -->
 
 **Who:** a learner who wants to do extensive reading, or mixed paradigm tables,
 and the app has nothing it can build for them yet.
@@ -25,7 +25,9 @@ The one thing never said is the useful thing: how close they are.
 
 - The method is visible with what is missing stated concretely: "extensive
   reading needs a text where you know about 95 % of the words. Your best text
-  sits at 81 % — roughly 300 more of the top 2,000 words."
+  sits at 81 % — roughly 300 more of the top 2,000 words." That is an **I3**
+  readiness gap — the Method may already be **I1** (specced) or **I2** (runnable)
+  without adaptive material.
 - A time estimate from the learner's **own** recent pace, with its uncertainty
   attached, never a flat "4 days".
 - The route is one tap, and it is an existing mechanism rather than a new one:
