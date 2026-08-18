@@ -6,8 +6,10 @@
 
 The public front door at `/` ([ADR-0010](../../adr/0010-the-route-model.md)).
 Its job is to tell a signed-out visitor what this app is for and how to get in.
-**T-B7 (2026-08-11):** thesis 1 leads the headline; thesis 12 names the honest
-time denominator in the body.
+**T-B7 (2026-08-11):** thesis 1 led the headline; thesis 12 names the honest
+time denominator in the body. **Owner 2026-08-18:** headline now leads with method
+choice and checkable progress ([`study/38`](../../study/38-landing-page-update.md)
+candidate **I**); thesis 1 moves to the pillar/contrast layer, not the hero.
 Serves [UC-011](../../use-cases/UC-011-start-in-the-first-minute.md): the
 account is the one unavoidable step, so the path to it must be visible on every
 public page.
@@ -17,16 +19,20 @@ public page.
 - **In:** the `/` route; the public header on every `(marketing)` route; sign-in
   and sign-up calls to action (signed out) or **To app** and **Sign out**
   (signed in); a short statement of what the product optimises for, quoted from
-  the study. Signed-in visitors may read `/` — e.g. from **Open main website**
-  on `/profile` when installing to the Home Screen.
+  the study; a **method preview** — basic filters (time, skill, energy) and three
+  catalogue methods with explain-only expansion (no session start). Signed-in
+  visitors may read `/` — e.g. from **Open main website** on `/profile` when
+  installing to the Home Screen.
 - **Out:** full positioning copy and marketing argument (T-B7); OAuth; a fourth
   public route; anything that reads learner data.
 
 **Reuse:** `ActionLink`, `IconButton`, `BrandMark`, `BrandLockup`,
-`SubmitButton`. Header and hero CTAs navigate, so they are anchors styled with
+`SubmitButton`, `Dialog`, `MethodFilter` (basic mode), `MethodCardHeader`,
+`MethodBadgeRow`. Header and hero CTAs navigate, so they are anchors styled with
 the button contract — not `<button>` elements. Implementation:
 `features/marketing/PublicHeader.tsx` (layout), `PublicHeaderAuthControls.tsx`
-(auth links), `PublicHeaderMenu.tsx` (mobile popover).
+(auth links), `PublicHeaderMenu.tsx` (mobile popover),
+`features/marketing/LandingMethodPreview.tsx` (preview island).
 
 ### Public header — auth controls
 
@@ -148,8 +154,12 @@ positioning.
       controls are reachable only through the menu icon on the right.
 - [ ] Given viewport `≥ md` on any `(marketing)` route, when the header renders,
       then auth controls are inline (no hamburger menu).
-- [ ] When the landing page is rendered, then thesis 1 leads the headline and a
-      thesis-12 time-honesty sentence appears in the body (study/25 C4).
+- [ ] When the landing page is rendered, then the headline invites method choice
+      and checkable progress (study/38 I), and a thesis-12 time-honesty sentence
+      appears in the body (study/25 C4).
+- [ ] When the landing page is rendered, then a method preview shows basic
+      filters (time, skill, energy) and three catalogue methods; tapping a method
+      opens an explain-only dialog with no **Start** action.
 - [ ] When the landing page is rendered, it has no axe-core violations.
 
 ## Check

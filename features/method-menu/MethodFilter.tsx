@@ -15,11 +15,13 @@ import { useMethodMenuCopy } from "./use-method-menu-copy";
 type MethodFilterProps = {
   filter: MenuFilter;
   onFilterChange: (updates: Record<string, string | undefined>) => void;
+  /** Landing preview omits refine constraints — time, skill, energy only. */
+  mode?: "full" | "basic";
 };
 
 const ENERGIES = ["low", "medium", "high"] as const;
 
-export function MethodFilter({ filter, onFilterChange }: MethodFilterProps) {
+export function MethodFilter({ filter, onFilterChange, mode = "full" }: MethodFilterProps) {
   const { t } = useMethodMenuCopy();
 
   return (
@@ -90,7 +92,7 @@ export function MethodFilter({ filter, onFilterChange }: MethodFilterProps) {
         </ul>
       </section>
 
-      <RefineFilter filter={filter} onFilterChange={onFilterChange} />
+      {mode === "full" ? <RefineFilter filter={filter} onFilterChange={onFilterChange} /> : null}
     </div>
   );
 }

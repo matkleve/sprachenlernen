@@ -676,11 +676,14 @@
     },
     "landing": {
       "eyebrow": "Evidence-driven language learning",
-      "headline": "Progress is shown as measured competence, never as activity.",
-      "subhead": "Sixty-odd ways people actually learn languages, not the handful an app happens to implement.",
+      "headline": "You choose how you practise — we show whether you're really getting somewhere.",
+      "subhead": "Sixty-plus evidence-backed practice methods. You pick what fits today — we show what it's doing for your level.",
       "timeHonesty": "Fifteen minutes a day, every day without missing one, is about {hours} hours a year — roughly a quarter of the way to B1 from a standing start. Feeling slow at that pace is arithmetic, not failure.",
-      "pillarsHeading": "What follows from that",
+      "pillarsHeading": "How we measure it",
       "pillars": [
+        {
+          "text": "Progress is shown as measured competence, never as activity."
+        },
         {
           "text": "The scheduler is a visible surface, not a black box."
         },
@@ -694,7 +697,12 @@
       "primaryCta": "Create account",
       "secondaryCta": "Sign in",
       "languagesLink": "What the app claims for each language",
-      "designExplorerLink": "Compare five design directions"
+      "methodPreview": {
+        "heading": "Try the method menu",
+        "intro": "The same three filters as in the app — time, skill, and energy. Three methods from the catalogue. Tap one to read how it works.",
+        "previewNote": "Preview only — create an account to practise.",
+        "methodsLabel": "Three methods from the catalogue"
+      }
     }
   }
 }

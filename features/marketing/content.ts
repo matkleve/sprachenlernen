@@ -3,7 +3,8 @@
 /**
  * Copy for the public half. Contract: docs/specs/page/landing.md
  *
- * T-B7 closed 2026-08-11: thesis 1 leads; thesis 12 time honesty in the body.
+ * T-B7 closed 2026-08-11: thesis 1 in pillars; thesis 12 time honesty in body.
+ * Owner 2026-08-18: headline study/38 I — choice + checkable progress, not thesis-1 negation.
  */
 
 import { hoursPerYear } from "@/lib/dose-band";
@@ -20,24 +21,27 @@ export const copy = {
   },
   landing: {
     eyebrow: "Evidence-driven language learning",
-  /**
-   * Verbatim from docs/study/README.md thesis 1, consequence column — same
-   * sentence T-04's holding page used.
-   */
-    headline: "Progress is shown as measured competence, never as activity.",
     /**
-     * First sentence of features/method-menu/content.ts `intro`, which is a
-     * rendering of docs/study/README.md thesis 10.
+     * Owner 2026-08-18, study/38 I — thesis 13 (learner chooses method) +
+     * measurable progress without anti-competitor tone.
+     */
+    headline: "You choose how you practise — we show whether you're really getting somewhere.",
+    /**
+     * Method catalogue with evidence grades ([21](21-method-catalogue-and-context.md));
+     * thesis 10 scale without "not the handful an app implements".
      */
     subhead:
-      "Sixty-odd ways people actually learn languages, not the handful an app happens to implement.",
+      "Sixty-plus evidence-backed practice methods. You pick what fits today — we show what it's doing for your level.",
     /**
-     * docs/study/25-why-it-does-not-feel-productive.md C4 — thesis 12. Uses the
-     * same fifteen-minute habit and `hoursPerYear` arithmetic as `/progress`.
+     * docs/study/25-why-it-does-not-feel-productive.md C4 — thesis 12.
      */
     timeHonesty: `Fifteen minutes a day, every day without missing one, is about ${Math.round(hoursPerYear(HABIT_MINUTES_PER_DAY))} hours a year — roughly a quarter of the way to B1 from a standing start. Feeling slow at that pace is arithmetic, not failure.`,
-    pillarsHeading: "What follows from that",
+    pillarsHeading: "How we measure it",
     pillars: [
+      {
+        /** docs/study/README.md thesis 1, consequence column — body, not headline */
+        text: "Progress is shown as measured competence, never as activity.",
+      },
       {
         /** docs/study/README.md thesis 2, consequence column */
         text: "The scheduler is a visible surface, not a black box.",
@@ -54,6 +58,5 @@ export const copy = {
     primaryCta: "Create account",
     secondaryCta: "Sign in",
     languagesLink: "What the app claims for each language",
-    designExplorerLink: "Compare five design directions",
   },
 } as const;
