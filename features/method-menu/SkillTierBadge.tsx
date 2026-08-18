@@ -19,7 +19,7 @@ const TIER_LABEL: Record<SkillTier, string> = {
   platinum: "Platinum",
 };
 
-const skillTierBadgeVariants = cva("inline-flex h-14 shrink-0 items-center justify-center", {
+const skillTierBadgeVariants = cva("inline-flex h-14 shrink-0 items-end justify-center", {
   variants: {
     size: {
       card: "",
@@ -121,7 +121,7 @@ export function SkillTierBadgeRow({
   if (visible.length === 0 && overflow.length === 0) return null;
 
   return (
-    <span className={cn("inline-flex items-center gap-1", className)}>
+    <span className={cn("inline-flex items-end gap-0.5", className)}>
       {visible.map((mark) => (
         <SkillTierBadge key={mark.skill} skill={mark.skill} tier={mark.tier} size={size} />
       ))}

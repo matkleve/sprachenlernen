@@ -58,7 +58,7 @@ export function SessionRunStatusStrip({ segments, className }: SessionRunStatusS
   return (
     <div
       ref={containerRef}
-      className={cn("flex w-full gap-1", className)}
+      className={cn("flex w-full gap-0.5", className)}
       role="list"
       aria-label={t("runStatusLabel")}
     >
@@ -72,7 +72,7 @@ export function SessionRunStatusStrip({ segments, className }: SessionRunStatusS
           role="listitem"
           aria-hidden
           className={cn(
-            "h-1.5 min-w-0 flex-1 rounded-sm transition-colors duration-300 ease-out-soft",
+            "h-1.5 w-2 shrink-0 rounded-sm transition-colors duration-300 ease-out-soft",
             layoutShiftMotion,
             STATUS_CLASS[segment.status],
           )}
