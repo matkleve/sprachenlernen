@@ -4,6 +4,7 @@ import {
   aggregateHorizonWeeks,
   buildHorizonDisplay,
   deriveHorizonCausal,
+  formatHorizonAvgPerDay,
   tileCountForReviews,
 } from "@/lib/review-horizon";
 import { HORIZON_DAYS, type HorizonBin } from "@/lib/vocabulary-snapshot";
@@ -109,5 +110,12 @@ describe("deriveHorizonCausal", () => {
 describe("tileCountForReviews", () => {
   it("caps visible tiles and reports overflow", () => {
     expect(tileCountForReviews(30)).toEqual({ shown: 24, overflow: 6 });
+  });
+});
+
+describe("formatHorizonAvgPerDay", () => {
+  it("rounds fractional daily averages to whole numbers", () => {
+    expect(formatHorizonAvgPerDay(11 / 7)).toBe(2);
+    expect(formatHorizonAvgPerDay(0)).toBe(0);
   });
 });

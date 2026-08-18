@@ -20,8 +20,8 @@ Parent surface: [`words-home.md`](words-home.md). Data:
 ## Scope
 
 - **In:** collapsed/expanded presentation on `/words`; four week columns filled
-  with discrete tiles (count ∝ scheduled reviews); one causal line when a peak
-  has a detectable cause; copy in `features/words/content.ts`; relevance
+  with discrete tiles in a fixed **4×6 grid** (count ∝ scheduled reviews); one
+  causal line when a peak has a detectable cause; copy in `features/words/content.ts`; relevance
   triggers; week drill-down (seven day columns inside one week).
 - **Out:** due or overdue counts as primary figures (A3, UC-063); streak or
   activity framing; colour as the only magnitude channel (G2); adjustable
@@ -52,9 +52,9 @@ The chart is a **snapshot at page load**; each answered card shifts future bins.
 | # | User action | System response |
 | --- | --- | --- |
 | 1 | Opens `/words` in **routine** state | Horizon **collapsed**: one summary line (e.g. next four weeks light / normal / peak in week 2) and a control to expand |
-| 2 | Opens `/words` when a **relevance trigger** fires | Horizon **expanded** with four week columns, tile stacks, and causal line when available |
+| 2 | Opens `/words` when a **relevance trigger** fires | Horizon **expanded** with four week columns, tile grids, and causal line when available |
 | 3 | Taps expand / collapse | Toggles full horizon; expanded choice persists for the session |
-| 4 | Taps a week column | Expands inline to seven day stacks with date labels (rolling day offset from today) |
+| 4 | Taps a week column | Expands inline to seven day grids with date labels (rolling day offset from today) |
 | 5 | Screen reader | Hears week totals and averages before tile metaphor — never colour alone |
 
 ### Relevance triggers (any one → start expanded)
@@ -74,8 +74,9 @@ treat as **routine** → collapsed default.
 
 - **Week 1** = day offsets 0–6, **Week 2** = 7–13, **Week 3** = 14–20,
   **Week 4** = 21–29 — aggregated from the 30 daily bins.
-- Each column shows: tile stack (height capped with “+N” overflow), **total
-  reviews**, **~avg/day**.
+- Each column shows: **4×6 tile grid** (height fixed; fills bottom-up; capped
+  with “+N” overflow), **total reviews**, **~avg/day** (rounded to whole
+  numbers in copy).
 - Peak week gets accent emphasis in copy only — not alarm colour (G4).
 
 ### Causal line
@@ -102,7 +103,7 @@ is derivable — never invent one.
 - [ ] Given return after 7+ days away, when `/words` loads, then the horizon is
       expanded with a plan sentence (UC-006) and week columns.
 - [ ] Given 30 daily bins, when the chart renders, then four week columns
-      aggregate the correct totals and each tile stack reflects bin counts.
+      aggregate the correct totals and each tile grid reflects bin counts.
 - [ ] Given overdue tasks, when the horizon renders, then they are not counted
       in any future bin and copy does not claim the chart equals today's session.
 - [ ] Given a peak week after a bulk add, when expanded, then one causal

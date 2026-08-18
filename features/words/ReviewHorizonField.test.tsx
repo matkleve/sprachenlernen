@@ -85,4 +85,44 @@ describe("ReviewHorizonField", () => {
     expect(screen.getByText(formatMessage(en.words.horizonWeekLabel, { week: 1 }))).toBeDefined();
     expect(screen.queryByText(/\bbacklog\b/i)).toBeNull();
   });
+
+  it("rounds the per-day average in week copy", () => {
+    const unevenHorizon = Array.from({ length: HORIZON_DAYS }, (_, dayOffset) => ({
+      dayOffset,
+      count: dayOffset < 7 ? (dayOffset === 0 ? 11 : 0) : 0,
+    }));
+    const display = buildHorizonDisplay(
+      unevenHorizon,
+      now,
+      {
+        reviewTimestamps: [now - 10 * 86_400_000],
+        firstReviewByTaskId: new Map([["t1", now - 10 * 86_400_000]]),
+      },
+      [],
+    );
+
+    render(<ReviewHorizonField horizon={unevenHorizon} display={display} now={now} />);
+
+    expect(screen.getByText("~2/day")).toBeDefined();
+    expect(screen.queryByText(/1\.57/)).toBeNull();
+  });
+
+  it("renders a fixed tile grid instead of growing bar stacks", () => {
+    const display = buildHorizonDisplay(
+      horizon,
+      now,
+      {
+        reviewTimestamps: [now - 10 * 86_400_000],
+        firstReviewByTaskId: new Map([["t1", now - 10 * 86_400_000]]),
+      },
+      [],
+    );
+
+    const { container } = render(
+      <ReviewHorizonField horizon={horizon} display={display} now={now} />,
+    );
+
+    const grids = container.querySelectorAll('[style*="grid-template-columns"]');
+    expect(grids.length).toBeGreaterThan(0);
+  });
 });
