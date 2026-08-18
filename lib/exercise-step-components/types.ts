@@ -7,6 +7,7 @@ export const SHIPPED_STEP_COMPONENT_IDS = [
   "material-preview",
   "prompt",
   "text-display",
+  "speak-prompt",
   "gap-fill",
   "full-dictation",
   "sheet-download",
@@ -15,6 +16,7 @@ export const SHIPPED_STEP_COMPONENT_IDS = [
   "feedback",
   "comprehension-questions",
   "offers",
+  "summary",
 ] as const;
 
 export type ShippedStepComponentId = (typeof SHIPPED_STEP_COMPONENT_IDS)[number];

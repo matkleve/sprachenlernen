@@ -19,12 +19,11 @@ const TIER_LABEL: Record<SkillTier, string> = {
   platinum: "Platinum",
 };
 
-const skillTierBadgeVariants = cva("inline-flex shrink-0 items-center justify-center", {
+const skillTierBadgeVariants = cva("inline-flex h-14 shrink-0 items-end justify-center", {
   variants: {
     size: {
-      // Width follows PNG silhouette — fixed w-14 boxes left empty gutters between shields.
-      card: "h-14 w-auto max-w-[4.5rem]",
-      detail: "size-14 p-0.5",
+      card: "",
+      detail: "",
     },
   },
   defaultVariants: {
@@ -32,36 +31,17 @@ const skillTierBadgeVariants = cva("inline-flex shrink-0 items-center justify-ce
   },
 });
 
-const skillTierDetailFrameVariants = cva("", {
-  variants: {
-    frame: {
-      wood: "w-16",
-      shield: "w-14",
-      ornate: "w-[4.5rem]",
-    },
-  },
-  defaultVariants: {
-    frame: "shield",
-  },
-});
-
-const skillTierImageVariants = cva("object-contain", {
+const skillTierImageVariants = cva("h-14 w-auto max-h-14 object-contain", {
   variants: {
     size: {
-      card: "h-14 w-auto max-h-14",
-      detail: "h-14 w-full max-h-14",
+      card: "",
+      detail: "",
     },
   },
   defaultVariants: {
     size: "detail",
   },
 });
-
-function tierFrameKind(tier: SkillTier): "wood" | "shield" | "ornate" {
-  if (tier === "wood") return "wood";
-  if (tier === "gold" || tier === "platinum") return "ornate";
-  return "shield";
-}
 
 export type SkillTierBadgeProps = {
   skill: Skill;
@@ -74,16 +54,9 @@ export function SkillTierBadge({ skill, tier, size, className }: SkillTierBadgeP
   const src = skillTierBadgeSrc(skill, tier);
   const label = `${TIER_LABEL[tier]} ${skillLabels[skill]}`;
   const dimensions = { width: 56, height: 56 };
-  const frame = tierFrameKind(tier);
 
   return (
-    <span
-      className={cn(
-        skillTierBadgeVariants({ size }),
-        size === "detail" && skillTierDetailFrameVariants({ frame }),
-        className,
-      )}
-    >
+    <span className={cn(skillTierBadgeVariants({ size }), className)}>
       <Image
         src={src}
         alt={label}
@@ -148,7 +121,13 @@ export function SkillTierBadgeRow({
   if (visible.length === 0 && overflow.length === 0) return null;
 
   return (
-    <span className={cn("inline-flex items-center gap-1", className)}>
+    <span
+      className={cn(
+        "inline-flex items-end",
+        size === "card" ? "gap-0 -space-x-4" : "gap-0.5",
+        className,
+      )}
+    >
       {visible.map((mark) => (
         <SkillTierBadge key={mark.skill} skill={mark.skill} tier={mark.tier} size={size} />
       ))}

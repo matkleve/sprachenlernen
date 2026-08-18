@@ -40,7 +40,7 @@ export function MethodCard({ method, returnQuery = "" }: MethodCardProps) {
 
       <div className="flex flex-1 flex-col p-3">
         <div>
-          <h3 className="text-xl font-semibold text-ink">{localized.name}</h3>
+          <h3 className="text-3xl font-semibold leading-tight text-ink">{localized.name}</h3>
           <p className="mt-0.5 line-clamp-2 text-sm text-muted">{localized.summary}</p>
         </div>
 

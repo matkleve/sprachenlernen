@@ -11,6 +11,8 @@ import { OffersStep } from "@/features/exercise-runner/steps/OffersStep";
 import { PromptStep } from "@/features/exercise-runner/steps/PromptStep";
 import { SelfMarkStep } from "@/features/exercise-runner/steps/SelfMarkStep";
 import { SheetDownloadStep } from "@/features/exercise-runner/steps/SheetDownloadStep";
+import { SpeakPromptStep } from "@/features/exercise-runner/steps/SpeakPromptStep";
+import { SummaryStep } from "@/features/exercise-runner/steps/SummaryStep";
 import { TextDisplayStep } from "@/features/exercise-runner/steps/TextDisplayStep";
 import type { StepRenderProps } from "@/features/exercise-runner/steps/types";
 import { WaitStep } from "@/features/exercise-runner/steps/WaitStep";
@@ -51,6 +53,8 @@ export function renderExerciseStep(props: StepRenderProps) {
       );
     case "text-display":
       return <TextDisplayStep config={step.config} />;
+    case "speak-prompt":
+      return <SpeakPromptStep config={step.config} />;
     case "prompt":
       return <PromptStep step={step} listeningDeferred={props.listeningDeferred} />;
     case "capture":
@@ -75,6 +79,14 @@ export function renderExerciseStep(props: StepRenderProps) {
     case "offers":
       return (
         <OffersStep
+          step={step}
+          onDecline={props.onDecline}
+          onSelectOffer={props.onSelectOffer}
+        />
+      );
+    case "summary":
+      return (
+        <SummaryStep
           step={step}
           onDecline={props.onDecline}
           onSelectOffer={props.onSelectOffer}

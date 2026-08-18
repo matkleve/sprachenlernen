@@ -117,7 +117,12 @@
         ]
       },
       "offerEveryDays": null,
-      "doesNotDo": "It is not speaking. Every word is chosen for you, so it trains articulation and rhythm while leaving retrieval untouched."
+      "doesNotDo": "It is not speaking. Every word is chosen for you, so it trains articulation and rhythm while leaving retrieval untouched.",
+      "materialTopics": [
+        { "id": "news", "labelKey": "news" },
+        { "id": "daily", "labelKey": "daily" }
+      ],
+      "materialUnits": [{ "id": "full", "default": true }]
     },
     {
       "id": "reading-while-listening",

@@ -24,9 +24,16 @@ Implementation: `features/method-menu/SkillTierBadge.tsx`,
 
 | Surface | Size | Notes |
 | --- | --- | --- |
-| **Card** | `h-14 w-auto` (max `4.5rem`) | 56px tall; width follows PNG silhouette; row `gap-1` |
-| **Detail** | `size-14` (56px) | unchanged |
+| **Card** | `h-14` (56px tall) | Width follows PNG silhouette (`w-auto`); ornate tiers may be wider but **never shorter** |
+| **Detail** | `h-14` (56px tall) | Same height rule as card — no per-tier frame width |
 | **Overflow `+`** | `size-14` on cards | matches badge height |
+
+Height is the single sizing axis. Wider gold/platinum silhouettes must not be
+scaled down to fit a fixed-width box — that made higher tiers look smaller than
+wood/bronze on the same row. PNGs are normalised by **content height** in
+`scripts/slice-skill-tier-badges.py` (not `min(w,h)` fit). **Card** row
+`gap-0 -space-x-4` — overlap PNG transparent margins so shields read as a
+cluster; **detail** row `gap-0.5`. Badges align `items-end` on a shared baseline.
 
 PNG assets: **256×256** normalised canvas, shield **≤50%** fill — ≥21% transparent
 margin (`scripts/slice-skill-tier-badges.py`, ornate source grid).
@@ -49,8 +56,9 @@ Display cap: [`../service/skill-tier.md`](../service/skill-tier.md).
       long edge.
 - [ ] Given a card shield, when it renders, then the **full shield silhouette**
       is visible — no clipped tips.
-- [ ] Given wood tier on a card with &lt;3 qualifying shields, when it renders,
-      then the wood shield is shown at card size.
+- [ ] Given wood and gold shields on the same card row, when they render, then
+      both images use the same rendered height (`h-14`) — wider tiers do not
+      appear shorter.
 - [ ] Given any badge, when it renders, then no visible text label on the surface.
 - [ ] The rendered component has no axe-core violations in isolation.
 

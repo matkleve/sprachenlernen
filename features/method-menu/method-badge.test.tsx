@@ -62,7 +62,7 @@ describe("method surfaces", () => {
     render(<MethodCard method={method} />);
     const link = screen.getByRole("link", { name: new RegExp(method.name) });
     expect(link.className).toContain("border-line");
-    expect(link.querySelector("h3")?.className).toContain("text-xl");
+    expect(link.querySelector("h3")?.className).toContain("text-3xl");
     const body = link.querySelector(".flex.flex-1.flex-col");
     expect(body?.className).toContain("p-3");
     expect(link.textContent).toContain(en.methodMenu.card.effort);

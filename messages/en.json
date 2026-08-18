@@ -321,7 +321,9 @@
     "materialPreviewCoverage": "About {percent}% of the words are already familiar to you.",
     "comprehensionEmpty": "No check questions for this text yet.",
     "comprehensionCorrect": "That matches the text.",
-    "comprehensionIncorrect": "Re-read the passage — another answer fits better."
+    "comprehensionIncorrect": "Re-read the passage — another answer fits better.",
+    "speakPromptDefault": "Say it out loud at a speaking pace.",
+    "summaryDefault": "Session complete."
   },
   "listeningDefer": {
     "sectionLabel": "Sound",

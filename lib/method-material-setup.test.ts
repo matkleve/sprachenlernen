@@ -21,6 +21,7 @@ import {
 
 const { catalogue } = loadMethodCatalogue();
 const extensiveReading = findMethod(catalogue, "extensive-reading")!;
+const readingAloud = findMethod(catalogue, "reading-aloud")!;
 const partialDictation = findMethod(catalogue, "partial-dictation")!;
 const srsSession = findMethod(catalogue, "srs-session")!;
 
@@ -52,6 +53,10 @@ describe("hasMaterialSetup", () => {
 
   it("AC-1: extensive-reading declares material setup", () => {
     expect(hasMaterialSetup(extensiveReading)).toBe(true);
+  });
+
+  it("AC-1: reading-aloud declares material setup", () => {
+    expect(hasMaterialSetup(readingAloud)).toBe(true);
   });
 });
 

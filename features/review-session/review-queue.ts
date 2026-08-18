@@ -25,19 +25,26 @@ export function getReviewQueue(): ReviewWriteQueue {
 
     queue = createReviewWriteQueue({
       storage,
-      flush: (input) =>
-        appendReviewAction({
-          reviewId: input.reviewId,
-          taskId: input.taskId,
-          grade: input.grade,
-          reviewedAtMs: input.reviewedAtMs,
-          latencyMs: input.latencyMs,
-          installationId: input.installationId,
-        }).then((result) =>
-          result.status === "appended"
+      flush: async (input) => {
+        try {
+          const result = await appendReviewAction({
+            reviewId: input.reviewId,
+            taskId: input.taskId,
+            grade: input.grade,
+            reviewedAtMs: input.reviewedAtMs,
+            latencyMs: input.latencyMs,
+            installationId: input.installationId,
+          });
+          return result.status === "appended"
             ? { status: "appended" as const }
-            : { status: "error" as const, error: result.error },
-        ),
+            : { status: "error" as const, error: result.error };
+        } catch (cause) {
+          return {
+            status: "error" as const,
+            error: cause instanceof Error ? cause.message : String(cause),
+          };
+        }
+      },
     });
   }
   return queue;

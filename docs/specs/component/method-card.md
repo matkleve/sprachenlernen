@@ -19,7 +19,7 @@ Implementation: `features/method-menu/MethodCard.tsx`.
 
 | Element | Class | Notes |
 | --- | --- | --- |
-| Method name (`h3`) | `text-xl font-semibold text-ink` | Primary identity on the card |
+| Method name (`h3`) | `text-3xl font-semibold leading-tight text-ink` | Primary identity on the card |
 | Summary | `text-sm text-muted line-clamp-2` | `mt-0.5` below title |
 | Body padding | `p-3` | Tighter than detail surfaces |
 | Section gaps | `mt-2` between badge row, chips, does-not-do | Catalogue scan density |
@@ -31,7 +31,7 @@ Header: [`method-card-header.md`](method-card-header.md).
 ## Acceptance criteria
 
 - [ ] Given any method card, when it renders, then the method name uses
-      `text-lg` — not `text-base`.
+      `text-3xl` — primary identity at catalogue distance.
 - [ ] Given any method card, when it renders, then the header graphic uses the
       card header rules in [`method-card-header.md`](method-card-header.md).
 

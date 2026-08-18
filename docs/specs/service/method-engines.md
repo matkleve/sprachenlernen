@@ -26,12 +26,12 @@ Parent contract: [`practice-model.md`](practice-model.md). Catalogue schema:
 | Layer | What it is | Ships today |
 | --- | --- | --- |
 | **Method catalogue** | Data — every named way to practise, hosted or off-app | 53 methods, browsable at `/methods` |
-| **Method engine** | Code that turns one Method into a session | **Four built:** card (`srs-session`), exercise (`partial-dictation`, `full-dictation`, `extensive-reading`) |
+| **Method engine** | Code that turns one Method into a session | **Five built:** card (`srs-session`), exercise (`partial-dictation`, `full-dictation`, `extensive-reading`, `reading-aloud`) |
 | **Destination** | Where a learner goes for a kind of work — Methods, Words, Progress | Three (ADR-0009) |
 
 A **hosted** catalogue entry (`hosted: true`) means the product intends to run it
 in-app. It does **not** mean a session exists yet. Thirty-four methods are
-hosted; **four** are runnable today.
+hosted; **five** are runnable today.
 
 ## Card engine (shipped)
 
@@ -60,7 +60,7 @@ held for the same Word.
 | Recipes | Composed at Start — [`exercise-recipe-composer.md`](exercise-recipe-composer.md) |
 | Writes | Session log (future); `decide` may create cards — never silently |
 
-Built: shell + `partial-dictation` + `full-dictation` + `extensive-reading`. Build order:
+Built: shell + `partial-dictation` + `full-dictation` + `extensive-reading` + `reading-aloud`. Build order:
 [`plans/exercise-runner.md`](../../plans/exercise-runner.md).
 
 ## Routing

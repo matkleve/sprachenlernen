@@ -224,7 +224,7 @@ def crop_cell(image: Image.Image, col: int, row: int, *, v2: bool) -> Image.Imag
 
 
 def normalize_badge(cell: Image.Image) -> Image.Image:
-    """Centre shield on a square canvas — tips stay inside alpha bounds."""
+    """Centre shield on a canvas — equal **height** across tiers (width may vary)."""
     if cell.mode != "RGBA":
         cell = key_background_to_alpha(cell)
     bbox = _opaque_bbox(cell)
@@ -233,13 +233,14 @@ def normalize_badge(cell: Image.Image) -> Image.Image:
 
     content = cell.crop(bbox)
     cw, ch = content.size
-    target = int(OUTPUT_SIZE * CONTENT_FILL)
-    scale = min(target / cw, target / ch)
-    nw, nh = max(1, int(cw * scale)), max(1, int(ch * scale))
+    target_h = int(OUTPUT_SIZE * CONTENT_FILL)
+    scale = target_h / ch
+    nw, nh = max(1, int(cw * scale)), target_h
     content = content.resize((nw, nh), Image.Resampling.LANCZOS)
 
-    canvas = Image.new("RGBA", (OUTPUT_SIZE, OUTPUT_SIZE), (0, 0, 0, 0))
-    canvas.paste(content, ((OUTPUT_SIZE - nw) // 2, (OUTPUT_SIZE - nh) // 2), content)
+    canvas_w = max(OUTPUT_SIZE, nw + 16)
+    canvas = Image.new("RGBA", (canvas_w, OUTPUT_SIZE), (0, 0, 0, 0))
+    canvas.paste(content, ((canvas_w - nw) // 2, (OUTPUT_SIZE - nh) // 2), content)
     return canvas
 
 
