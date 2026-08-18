@@ -499,10 +499,10 @@
   }
 }
 
-/* Brand spiral — both bands spin anticlockwise at different speeds on hover. */
-.brand-mark-spiral-center {
-  transform-box: view-box;
-  transform-origin: 50% 50%;
+/* Brand spiral — rotate around shared pivot (translate→rotate at parent origin). */
+.brand-mark-ring-outer,
+.brand-mark-ring-inner {
+  transform-origin: 0 0;
 }
 
 .group:hover .brand-mark-ring-outer,
