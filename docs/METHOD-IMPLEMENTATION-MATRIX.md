@@ -41,7 +41,7 @@ and **build status** (code in [`lib/exercise-recipe-built.ts`](../lib/exercise-r
 | `reading-while-listening` | B | Y | runner | — | ❌ | P3–P4 | see recipe doc |
 | `reread-something-hard` | D | Y | runner | — | ❌ | P3–P4 | see recipe doc |
 | `parallel-text` | C | Y | runner | — | ❌ | P3–P4 | see recipe doc |
-| `book-you-know` | C | N | off | — | off-app | defer | debrief |
+| `book-you-know` | C | N | guided | — | guided | defer | see recipe doc |
 
 ## Listening (8)
 
@@ -54,7 +54,7 @@ and **build status** (code in [`lib/exercise-recipe-built.ts`](../lib/exercise-r
 | `full-dictation` | B | Y | runner | Y | ✅ | done | audio-play, full-dictation, sheet-download |
 | `dictogloss` | B | Y | runner | — | ❌ | P3 | audio-play, type-freely, diff-highlight |
 | `listening-faster` | C | Y | runner | — | ❌ | P3–P4 | see recipe doc |
-| `background-listening` | C | N | off | — | off-app | defer | debrief |
+| `background-listening` | C | N | guided | — | guided | defer | see recipe doc |
 
 ## Speaking (10)
 
@@ -63,13 +63,13 @@ and **build status** (code in [`lib/exercise-recipe-built.ts`](../lib/exercise-r
 | `four-three-two` | B | Y | runner | — | ❌ | P3 | round-marker, speak-prompt, voice-submit, rubric |
 | `shadowing` | B | Y | runner | — | ❌ | P3–P4 | shadow-line, audio-play |
 | `retell-what-you-read` | B | Y | runner | — | ❌ | P3–P4 | see recipe doc |
-| `self-talk` | C | N | off | — | off-app | defer | debrief |
+| `self-talk` | C | N | guided | — | guided | defer | see recipe doc |
 | `describe-a-picture` | C | Y | runner | — | ❌ | P3–P4 | see recipe doc |
-| `voice-message` | D | N | off | — | off-app | defer | debrief |
-| `role-play` | B | N | off | — | off-app | defer | debrief |
+| `voice-message` | D | N | guided | — | guided | defer | see recipe doc |
+| `role-play` | B | N | guided | — | guided | defer | see recipe doc |
 | `recite-memorised` | C | Y | runner | — | ❌ | P3–P4 | see recipe doc |
-| `singing-along` | C | N | off | — | off-app | defer | debrief |
-| `interpreting` | D | N | off | — | off-app | defer | debrief |
+| `singing-along` | C | N | guided | — | guided | defer | see recipe doc |
+| `interpreting` | D | N | guided | — | guided | defer | see recipe doc |
 
 ## Writing (10)
 
@@ -83,8 +83,8 @@ and **build status** (code in [`lib/exercise-recipe-built.ts`](../lib/exercise-r
 | `copy-a-paragraph` | C | Y | runner | — | ❌ | P3–P4 | see recipe doc |
 | `rewrite-in-your-own-words` | C | Y | runner | — | ❌ | P3–P4 | see recipe doc |
 | `caption-your-photos` | D | Y | runner | — | ❌ | P3–P4 | see recipe doc |
-| `translate-a-song` | D | N | off | — | off-app | defer | debrief |
-| `write-and-perform-a-play` | C | N | off | — | off-app | defer | debrief |
+| `translate-a-song` | D | N | guided | — | guided | defer | see recipe doc |
+| `write-and-perform-a-play` | C | N | guided | — | guided | defer | see recipe doc |
 
 ## Form (6)
 
@@ -102,21 +102,21 @@ and **build status** (code in [`lib/exercise-recipe-built.ts`](../lib/exercise-r
 | id | Ev | Host | Engine | Mat. | Built | Pri | Components still needed |
 | --- | --- | --- | --- | --- | --- | --- | --- |
 | `srs-session` | A | Y | card | — | ✅ | P2–P3 | see recipe doc |
-| `audio-cards` | B | N | off | — | off-app | defer | debrief |
-| `mine-your-own-sentences` | C | N | off | — | off-app | defer | debrief |
-| `collocation-cards` | B | N | off | — | off-app | defer | debrief |
-| `close-a-frequency-block` | A | N | off | — | off-app | defer | debrief |
-| `handwriting-shakiest` | B | N | off | — | off-app | defer | debrief |
+| `audio-cards` | B | N | card | — | pool only | defer | see recipe doc |
+| `mine-your-own-sentences` | C | N | guided | — | guided | defer | see recipe doc |
+| `collocation-cards` | B | N | card | — | pool only | defer | see recipe doc |
+| `close-a-frequency-block` | A | N | card | — | pool only | defer | see recipe doc |
+| `handwriting-shakiest` | B | N | guided | — | guided | defer | see recipe doc |
 
 ## World (5)
 
 | id | Ev | Host | Engine | Mat. | Built | Pri | Components still needed |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| `cook-from-a-recipe` | D | N | off | — | off-app | defer | debrief |
-| `video-game-in-target-language` | C | N | off | — | off-app | defer | debrief |
-| `tandem-or-language-cafe` | B | N | off | — | off-app | defer | debrief |
-| `order-ask-complain` | D | N | off | — | off-app | defer | debrief |
-| `film-you-know-by-heart` | C | N | off | — | off-app | defer | debrief |
+| `cook-from-a-recipe` | D | N | guided | — | guided | defer | see recipe doc |
+| `video-game-in-target-language` | C | N | guided | — | guided | defer | see recipe doc |
+| `tandem-or-language-cafe` | B | N | guided | — | guided | defer | see recipe doc |
+| `order-ask-complain` | D | N | guided | — | guided | defer | see recipe doc |
+| `film-you-know-by-heart` | C | N | guided | — | guided | defer | see recipe doc |
 
 ## Commitments (6 commitments)
 
@@ -138,12 +138,13 @@ and **build status** (code in [`lib/exercise-recipe-built.ts`](../lib/exercise-r
 | **P3** | `dictogloss`, `four-three-two`, `diary-three-sentences`, `listening-level-1` | Needs audio + production components |
 | **P4** | Remaining hosted runners | Shared components from P1–P3 |
 | **Card** | Form-recall practice, `close-a-frequency-block` | Extend card engine |
-| **Defer** | Off-app, thin-evidence hosted, commitments | No session or low ROI |
+| **Defer** | Thin-evidence hosted, unbuilt components | Low ROI until P1–P3 land |
 
 ## Related docs
 
 | Doc | Owns |
 | --- | --- |
+| [`method-guided-sessions.md`](specs/service/method-guided-sessions.md) | Every method has a guided path |
 | [`playbooks/wire-a-method.md`](playbooks/wire-a-method.md) | Wire a catalogue Method to a runnable session |
 | [`data/methods/`](../data/methods/) | Catalogue source of truth |
 | [`exercise-recipe-composer.methods.md`](specs/service/exercise-recipe-composer.methods.md) | Specced step sequence |

@@ -63,11 +63,12 @@ for (const file of files) {
     const type = e.type || "method";
     let engine = "—";
     if (type === "commitment") engine = "commitment";
-    else if (!e.hosted) engine = "off";
+    else if (!e.hosted) engine = ENGINE[id] || "guided";
     else engine = ENGINE[id] || "runner";
 
     let built = "—";
     if (BUILT.has(id)) built = PARTIAL.has(id) ? "◐ partial" : "✅";
+    else if (engine === "guided") built = "guided";
     else if (engine === "off") built = "off-app";
     else if (engine === "card") built = "pool only";
     else built = "❌";
@@ -79,7 +80,7 @@ for (const file of files) {
       engine,
       mat: e.materialTopics?.length ? "Y" : "—",
       built,
-      comps: COMPONENTS[id] || (engine === "off" ? "debrief" : "see recipe doc"),
+      comps: COMPONENTS[id] || (engine === "guided" || engine === "commitment" ? "see recipe doc" : "see recipe doc"),
       pri: PRIORITY[id] || (e.hosted && e.evidence === "A" ? "P2–P3" : e.hosted ? "P3–P4" : "defer"),
       type,
     });
@@ -155,12 +156,13 @@ md += `## Recommended build order
 | **P3** | \`dictogloss\`, \`four-three-two\`, \`diary-three-sentences\`, \`listening-level-1\` | Needs audio + production components |
 | **P4** | Remaining hosted runners | Shared components from P1–P3 |
 | **Card** | Form-recall practice, \`close-a-frequency-block\` | Extend card engine |
-| **Defer** | Off-app, thin-evidence hosted, commitments | No session or low ROI |
+| **Defer** | Thin-evidence hosted, unbuilt components | Low ROI until P1–P3 land |
 
 ## Related docs
 
 | Doc | Owns |
 | --- | --- |
+| [\`method-guided-sessions.md\`](specs/service/method-guided-sessions.md) | Every method has a guided path |
 | [\`playbooks/wire-a-method.md\`](playbooks/wire-a-method.md) | Wire a catalogue Method to a runnable session |
 | [\`data/methods/\`](../data/methods/) | Catalogue source of truth |
 | [\`exercise-recipe-composer.methods.md\`](specs/service/exercise-recipe-composer.methods.md) | Specced step sequence |

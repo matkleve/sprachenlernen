@@ -27,9 +27,9 @@ matrix: [`METHOD-IMPLEMENTATION-MATRIX.md`](../../METHOD-IMPLEMENTATION-MATRIX.m
 | Engine | Route | Session shape |
 | --- | --- | --- |
 | Card | `/words/review` | One long stream of Task cards (FSRS) |
-| Exercise runner | `/practice` | Ordered steps from a recipe |
-| Off-app | detail only | Optional prep + debrief recipe when learner opts in |
-| Not built | detail | Honest not-built; no recipe |
+| Exercise runner | `/practice` | Ordered steps — **graded** or **guided** ([`method-guided-sessions.md`](method-guided-sessions.md)) |
+| Check-in | `/practice?checkIn=1` | Commitment periodic prompt |
+| Not built | detail | Honest not-built; recipe still specced in composer.methods |
 
 `resolveExerciseRecipe(methodId, ctx)` delegates to a per-method composer when
 registered; returns `null` when not built. Today: `partial-dictation`, `full-dictation`, `extensive-reading`, `reading-aloud`.

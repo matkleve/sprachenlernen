@@ -54,6 +54,7 @@ Implementation target: `lib/exercise-step-components/` registry +
 | `speed-listen` | Audio at 1.25× + optional follow-up | planned | listening faster |
 | `image-prompt` | Photo to describe (stock or learner upload) | planned | describe a picture, caption photos |
 | `series-progress` | “Text 2 of 4” within one session | planned | narrow reading |
+| `song-picker` | Search title/artist; resolve lyrics in L2; pick lines by band | planned | translate-a-song |
 
 ## C · Active work (`do`)
 
@@ -91,7 +92,7 @@ Implementation target: `lib/exercise-step-components/` registry +
 | `capture` | Photo and/or typed text; `accept`, `required` | shipped | dictation, free writing |
 | `optional-capture` | Same; skippable | planned | optional photo after keyboard write |
 | `voice-submit` | Record and hold audio for session | planned | 4/3/2, retell, describe picture |
-| `confirm-done` | “I did it” honest self-report | planned | off-app debrief, copy paragraph |
+| `confirm-done` | “I did it” honest self-report | planned | guided methods, copy paragraph |
 
 ## F · Review (`review`)
 
@@ -112,7 +113,7 @@ Implementation target: `lib/exercise-step-components/` registry +
 | --- | --- | --- | --- |
 | `offers` | ≤2 buttons + decline (terminal) | shipped | any method with errors or cards |
 | `summary` | Session stats + optional offers | shipped | shadowing, narrow reading, reread, reading aloud |
-| `debrief-prompt` | “What could you not say?” → card offer | planned | off-app methods, tandem, world |
+| `debrief-prompt` | “What could you not say?” → card offer | planned | guided methods, tandem, world |
 
 ## Card engine (not exercise runner)
 

@@ -46,9 +46,10 @@ Research: [`study/12`](../../study/12-method-cards.md) (methods and floors),
 | --- | ---: |
 | Catalogue methods | 53 |
 | Hosted (`hosted: true`) | 34 |
-| Built in-app | 4 (`srs-session`, `partial-dictation`, `full-dictation`, `extensive-reading`) |
-| Exercise runner platform | shipped (UC-049); 3 methods built |
-| Off-app | 19 |
+| Built in-app | 5 (`srs-session`, partial-dictation, …) |
+| Guided sessions specced | 59 entries — [`method-guided-sessions.md`](method-guided-sessions.md) |
+| Exercise runner platform | shipped (UC-049); 5 methods built |
+| Guided (`hosted: false`) | 19 — recipes on `/practice`, not prose-only |
 
 Per-method evidence, recipe, and build status:
 [`METHOD-IMPLEMENTATION-MATRIX.md`](../../METHOD-IMPLEMENTATION-MATRIX.md).
@@ -59,6 +60,7 @@ Per-method evidence, recipe, and build status:
 | --- | --- |
 | Catalogue schema and validation | [`method-catalogue.md`](method-catalogue.md) |
 | Which engines exist and how they route | [`method-engines.md`](method-engines.md) |
+| Guided session contract (all methods) | [`method-guided-sessions.md`](method-guided-sessions.md) |
 | Per-method build matrix | [`METHOD-IMPLEMENTATION-MATRIX.md`](../../METHOD-IMPLEMENTATION-MATRIX.md) |
 | Exercise step runner (UC-049) | [`exercise-runner.md`](../feature/exercise-runner.md) |
 | Menu filters, standing, daily three | [`page/method-menu.md`](../page/method-menu.md) |
