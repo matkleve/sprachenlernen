@@ -19,9 +19,7 @@ describe("WordsReviewCardHeader", () => {
     const image = screen.getByRole("img", {
       name: wordsReviewGraphicAlt(en.words.reviewCardHeaderLabel),
     });
-    expect(image.getAttribute("src")).toContain(
-      encodeURIComponent(wordsReviewGraphicSrc),
-    );
+    expect(image.getAttribute("src")).toContain(wordsReviewGraphicSrc);
   });
 
   it("keeps a fixed header height for visual parity with method cards", async () => {

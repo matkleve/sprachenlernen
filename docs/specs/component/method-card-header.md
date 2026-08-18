@@ -14,8 +14,9 @@ assets. Contract: [`../../study/27-method-badges.md`](../../study/27-method-badg
 
 - **In:** `MethodCardHeader` on `MethodCard`; eight webp assets in
   `public/assets/method-sections/`; gradient overlay; uppercase section label;
-  `alt` text naming the section as decorative; fixed height (`h-20`). Images use
-  `unoptimized` — local decorative assets must not fail SSR via the optimizer.
+  `alt` text naming the section as decorative; fixed height (`h-20`). Client
+  component (`"use client"`) — section labels use `useMethodMenuCopy`. Images
+  use `unoptimized` — local decorative assets must not fail SSR via the optimizer.
 - **Out:** per-method illustrations; interactive header; accent left border on
   cards. Method detail reuses this component at `size="hero"` inside a
   full-bleed wrapper — see [`../page/method-detail.md`](../page/method-detail.md).

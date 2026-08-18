@@ -27,7 +27,8 @@ reading, listening, speaking, and off-app Methods are reached from `/methods`.
   `WordsSectionLabel`, `WordsCountDefinitions`, `FrequencyBlocksField`,
   `VocabularyOrbitField`, `OrbitDetailCard`, `WordDetailActions`, `reading.ts`,
   `actions.ts`; wired on `app/(app)/words/page.tsx`. Review card uses
-  `words-home-review.webp`; vocabulary counts card reuses `MethodCardHeader`
+  `words-home-review.webp` (`unoptimized` — local decorative asset); vocabulary
+  counts card reuses `MethodCardHeader` (`"use client"` — section label hook)
   (`vocabulary` section). Derives from
   [`vocabulary-snapshot.md`](../service/vocabulary-snapshot.md),
   [`frequency-blocks.md`](../service/frequency-blocks.md),
