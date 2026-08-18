@@ -222,8 +222,9 @@ testimonial widgets, blog, or a separate marketing site.
 
 | Phase | Delivers | Spec touch |
 | --- | --- | --- |
-| **0 · Hygiene** (now) | Remove `/dev/design` link from default landing; add `/privacy` if missing | `landing.md` copy keys only |
-| **1 · Proof** | Screenshot band + contrast block + reordered copy | Extend `landing.md` scope; new AC for images + contrast section |
+| **0 · Hygiene** (now) | Remove `/dev/design` link from default landing; add `/privacy` if missing | `landing.md` copy keys only — **design link removal shipped 2026-08-18** |
+| **1 · Proof** | Screenshot band + contrast block + warmer headline (E–H) | Extend `landing.md` scope; new AC for images + contrast section |
+| **1b · Try box** | One-method interactive sandbox (fixture SRS or reading snippet) | New feature spec; `"use client"` island on `/` |
 | **2 · Motion** | Optional video; OG image | `site-metadata` + `public/` assets |
 | **3 · Depth** | `/about` or expandable evidence page | New page spec — out of `/` scope |
 
@@ -232,16 +233,82 @@ screenshots; they argue about thesis numbers in text-only reviews.
 
 ---
 
+## Owner decisions — 2026-08-18
+
+| # | Question | Decision | Consequence |
+| --- | --- | --- | --- |
+| 1 | Headline lead | **Too cold** — reject A–D as hero tone; need warmer invitation | New candidates E–H below; thesis sentences move to body/contrast |
+| 2 | Product band | **Screenshots first**; later **interactive sandbox** (one method in a try box) | Phase 1 = static captures; Phase 2 = embedded mini-runner or fixture session |
+| 3 | Landing language | **Browser language**, else English | Already shipped: `resolveLocale` uses Accept-Language when signed out ([`resolve-locale.ts`](../../lib/i18n/resolve-locale.ts)); DE keys exist in `messages/de.json` |
+| 4 | Signed-in on `/` | **Stay on `/`** with **To app** CTA | No redirect to `/methods`; hero stays readable for PWA install path |
+
+### Warmer headline candidates **[D — owner pick still needed]**
+
+The prior table (A–D) led with **critique or abstraction**. These lead with
+**relief, invitation, or a concrete try** — still study-backed, not invented
+marketing.
+
+| # | EN headline | DE headline | Study anchor |
+| --- | --- | --- | --- |
+| **E** | See whether your practice is actually paying off. | Sieh, ob dein Üben wirklich etwas bringt. | Thesis 1 reframed as relief, not negation; [08](08-motivation.md) informational progress |
+| **F** | Pick how you practise. We show you where you stand. | Such, wie du übst. Wir zeigen dir, wo du stehst. | [12](12-method-cards.md) + [03](03-level-model.md); thesis 13 without jargon |
+| **G** | A map from your first words to speaking. | Eine Karte — von den ersten Wörtern bis zum Sprechen. | [19](19-milestones-and-map.md) + [24](24-speaking-as-the-goal.md) chain |
+| **H** | Try one exercise in under a minute — then see what we measure. | Probier eine Übung in unter einer Minute — und sieh, was wir messen. | [UC-011](../use-cases/UC-011-start-in-the-first-minute.md) + measurement honesty |
+
+**Subhead (any of E–H):** closed-loop in plain language — e.g. EN *"Cards,
+reading, and level in one ring — not three apps"* / DE *"Karten, Lesen und
+Niveau in einem Kreislauf — nicht drei Apps"* ([15](15-landscape.md) K3).
+
+**Body keeps:** time-honesty paragraph (thesis 12) and contrast block with thesis
+1 — honesty after invitation, not before.
+
+**Owner:** pick E, F, G, or H (or mix headline + subhead across rows).
+
+---
+
+## Product band — screenshots now, sandbox later
+
+Owner direction: **interactive boxes / app prototypes** — but **screenshots first**.
+
+### Phase 1 · Screenshot band (ship next)
+
+Same four panels as below — static `public/marketing/*.webp` (or PNG), lazy-loaded,
+with alt text per panel. Real Spanish tier-B data in a seeded demo account or
+fixture state; empty states only where the surface is genuinely empty for newcomers.
+
+| Panel | Surface | Label |
+| --- | --- | --- |
+| Levels | `/progress` | Four skills, one honest overall |
+| Methods | `/methods` | You pick the method — sixty-plus ways |
+| Scheduler | `/words` or horizon | The schedule you can see |
+| Input | `/content` or reading method | Read at your level |
+
+### Phase 2 · Interactive sandbox (explore after screenshots land)
+
+One **try box** on `/` — not the full app:
+
+| Approach | Effort | Notes |
+| --- | --- | --- |
+| **Fixture review session** | M | 3–5 cards from `data/` — flip, grade, no persistence; `"use client"` island only |
+| **Method detail mock** | S | Static HTML/CSS clone of one method card — looks interactive, is not |
+| **Embedded runner** | L–XL | Real session builder without account — auth wall after grade; high scope |
+
+**Recommendation [D]:** start with **fixture review session** (SRS is the first
+engine and UC-011's first exercise). Label it *"Try it — nothing is saved"* so
+signup expectation stays honest. Sandbox is **phase 2**, not a blocker on phase 1
+screenshots.
+
+---
+
 ## Open decisions (owners)
 
-1. **Headline lead:** A (current) · B (map) · C (speaking) · D (time honesty)?
-2. **Screenshot state:** show Spanish tier-B real data · styled empty states ·
-   demo account?
-3. **Language of landing:** English-only for now · German parity on first paint?
-4. **Signed-in `/`:** same page with **To app** CTA only (today) · or redirect
-   signed-in users straight to `/methods`?
+1. ~~Headline lead~~ → **E / F / G / H** (warmer set); reject cold A–D for hero
+2. ~~Screenshot vs sandbox~~ → **screenshots first**, sandbox one method later
+3. ~~Landing language~~ → **browser locale, fallback en** (already implemented)
+4. ~~Signed-in `/`~~ → **stay on `/`**
 5. **Evidence block:** link to `docs/study/` (public?) · stub `/about` · omit until
    first efficacy run?
+6. **Sandbox method:** SRS try-cards · one reading snippet · other?
 
 ---
 
