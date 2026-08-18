@@ -80,8 +80,9 @@ describe("resolveExerciseRecipe (composer AC)", () => {
 
   it("AC-4: every method id in the composer spec exists in the catalogue", () => {
     const { catalogue } = loadMethodCatalogue();
+    expect(catalogue).toBeDefined();
     const catalogueIds = new Set(
-      catalogue.entries.filter((entry) => entry.type === "method").map((entry) => entry.id),
+      catalogue!.entries.filter((entry) => entry.type === "method").map((entry) => entry.id),
     );
     const missing = methodIdsFromComposerSpec().filter((id) => !catalogueIds.has(id));
     expect(missing).toEqual([]);
