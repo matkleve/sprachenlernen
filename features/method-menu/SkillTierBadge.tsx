@@ -19,11 +19,11 @@ const TIER_LABEL: Record<SkillTier, string> = {
   platinum: "Platinum",
 };
 
-const skillTierBadgeVariants = cva("inline-flex h-14 shrink-0 items-end justify-center", {
+const skillTierBadgeVariants = cva("inline-flex shrink-0 items-end justify-center", {
   variants: {
     size: {
-      card: "",
-      detail: "",
+      card: "h-16",
+      detail: "h-14",
     },
   },
   defaultVariants: {
@@ -31,11 +31,11 @@ const skillTierBadgeVariants = cva("inline-flex h-14 shrink-0 items-end justify-
   },
 });
 
-const skillTierImageVariants = cva("h-14 w-auto max-h-14 object-contain", {
+const skillTierImageVariants = cva("w-auto object-contain", {
   variants: {
     size: {
-      card: "",
-      detail: "",
+      card: "h-16 max-h-16",
+      detail: "h-14 max-h-14",
     },
   },
   defaultVariants: {
@@ -53,7 +53,8 @@ export function SkillTierBadge({ skill, tier, size, className }: SkillTierBadgeP
   const { skillLabels } = useMethodMenuCopy();
   const src = skillTierBadgeSrc(skill, tier);
   const label = `${TIER_LABEL[tier]} ${skillLabels[skill]}`;
-  const dimensions = { width: 56, height: 56 };
+  const dimensions =
+    size === "card" ? { width: 64, height: 64 } : { width: 56, height: 56 };
 
   return (
     <span className={cn(skillTierBadgeVariants({ size }), className)}>
@@ -94,7 +95,7 @@ export function SkillTierOverflow({
     <span
       className={cn(
         "inline-flex shrink-0 items-center justify-center rounded-chip border border-line bg-surface font-medium text-muted",
-        size === "card" ? "size-14 text-xs" : "size-14 text-sm",
+        size === "card" ? "size-16 text-xs" : "size-14 text-sm",
         className,
       )}
       title={label}
