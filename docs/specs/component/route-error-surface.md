@@ -22,7 +22,7 @@ Contract: [`errors-boundaries.md`](../service/errors-boundaries.md).
 | --- | --- | --- |
 | 1 | Route throws | Surface shows `userMessage`, optional `nextStep`, `referenceId` |
 | 2 | Taps Try again | For `render/boundary` and `internal/unexpected`, a full page reload; otherwise parent `reset()` re-renders the segment |
-| 3 | On a non-destination route (e.g. `/profile`) | **Back to Methods** links to `routes.appHome` — shell destination nav is not the primary affordance on these pages |
+| 3 | On a non-destination route (e.g. `/profile`) | **Back to {previous destination}** links to where the learner came from (session history); falls back to Methods when unknown |
 | 4 | Screen reader | Alert region announces the failure |
 
 ## States

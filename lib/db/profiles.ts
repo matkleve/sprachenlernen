@@ -1,4 +1,5 @@
 import type { SupabaseClient } from "@supabase/supabase-js";
+import { cache } from "react";
 
 import { getAccount } from "@/lib/db/auth";
 import { createServerSupabaseClient } from "@/lib/db/client";
@@ -108,6 +109,12 @@ export async function ensureProfileFromAcceptLanguage(
 export async function getSpokenLanguage(
   client?: SupabaseClient,
 ): Promise<SpokenLanguageOutcome> {
+  return getSpokenLanguageCached(client);
+}
+
+async function getSpokenLanguageImpl(
+  client?: SupabaseClient,
+): Promise<SpokenLanguageOutcome> {
   const supabase = await resolveClient(client);
   const account = await getAccount(supabase);
   if (!account) {
@@ -133,6 +140,8 @@ export async function getSpokenLanguage(
   if (seeded.status === "error") return seeded;
   return { status: "ok", spokenLanguage: DEFAULT_SPOKEN_LANGUAGE };
 }
+
+const getSpokenLanguageCached = cache(getSpokenLanguageImpl);
 
 export async function setSpokenLanguage(
   spokenLanguage: string,
