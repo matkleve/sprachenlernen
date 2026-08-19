@@ -11,14 +11,23 @@ or `--height-practice-session` (desktop). Zones never reorder.
 
 ```
 ┌─ Chrome top (shrink-0) ─────────────────────┐
-│ Hero · progress bar · timer (when active)    │
+│ Hero · step label · stop                     │
 ├─ Body (flex-1) ─────────────────────────────┤
 │ Practice-surface step content               │
 │ short: overflow-hidden · scroll: overflow-y │
 ├─ Chrome bottom (shrink-0, anchored) ───────┤
+│ Segmented step bars · Schritt n/m · timer   │
 │ Scrim · ◀ ▶ · primary CTA (bottom-right)    │
 └─────────────────────────────────────────────┘
 ```
+
+**Step segments** (one bar per recipe step, not a single fill line):
+
+| `stepStatuses[i]` | Segment colour |
+| --- | --- |
+| `unseen` | `bg-line` |
+| `seen` | lighter gray (`bg-line-strong/45`) — visited, not finished |
+| `done` | light accent (`bg-accent-soft`, `dark:bg-accent/35`) |
 
 **Invariant:** footer controls stay at the **same vertical position** across
 steps on one device. **Short-profile steps never show a body scrollbar** — content

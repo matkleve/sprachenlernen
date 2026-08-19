@@ -98,6 +98,29 @@ describe("ExerciseRunner", () => {
     expect(container.querySelector(".min-h-0.flex-1.overflow-y-auto.p-1")).not.toBeNull();
   });
 
+  it("renders segmented step progress in the footer above Continue", () => {
+    const { container } = render(
+      <ExerciseRunner
+        sectionLabel="Methods"
+        methodName="Partial dictation"
+        section="listening"
+        recipe={FIXTURE_EXERCISE_RECIPE}
+      />,
+    );
+
+    const footer = container.querySelector("footer");
+    const progressbar = footer?.querySelector("[role=progressbar]");
+    expect(progressbar).not.toBeNull();
+    expect(progressbar?.children.length).toBe(FIXTURE_EXERCISE_RECIPE.steps.length);
+    expect(footer?.textContent).toContain("Step 1 of 6");
+
+    const continueButton = screen.getByRole("button", { name: "Continue" });
+    expect(footer?.contains(continueButton)).toBe(true);
+    expect(progressbar?.compareDocumentPosition(continueButton)).toBe(
+      Node.DOCUMENT_POSITION_FOLLOWING,
+    );
+  });
+
   it("renders footer controls on canvas without a surface panel", () => {
     const { container } = render(
       <ExerciseRunner

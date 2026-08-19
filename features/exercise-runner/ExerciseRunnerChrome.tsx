@@ -50,6 +50,17 @@ function primaryLabelKey(stepType: ExerciseRunnerState["recipe"]["steps"][number
   }
 }
 
+function segmentBarClass(status: ExerciseRunnerState["stepStatuses"][number]): string {
+  switch (status) {
+    case "done":
+      return "bg-accent-soft dark:bg-accent/35";
+    case "seen":
+      return "bg-line-strong/45";
+    default:
+      return "bg-line";
+  }
+}
+
 export function ExerciseRunnerProgress({
   state,
   onTogglePause,
@@ -57,9 +68,9 @@ export function ExerciseRunnerProgress({
   const t = useTranslations("exerciseRunner");
 
   return (
-    <div className="space-y-2 shrink-0">
+    <div className="w-full shrink-0 space-y-2">
       <div
-        className="h-2 w-full rounded-full bg-line"
+        className="flex gap-1.5"
         role="progressbar"
         aria-valuenow={state.activeStepIndex + 1}
         aria-valuemin={1}
@@ -69,12 +80,16 @@ export function ExerciseRunnerProgress({
           total: state.recipe.steps.length,
         })}
       >
-        <div
-          className="h-full rounded-full bg-accent transition-[width]"
-          style={{
-            width: `${((state.activeStepIndex + 1) / state.recipe.steps.length) * 100}%`,
-          }}
-        />
+        {state.recipe.steps.map((step, index) => (
+          <div
+            key={step.id}
+            className={cn(
+              "h-2 min-w-0 flex-1 rounded-full transition-colors",
+              segmentBarClass(state.stepStatuses[index]),
+            )}
+            aria-hidden
+          />
+        ))}
       </div>
       <p className="text-xs font-medium text-muted">
         {t("progress", {
@@ -127,6 +142,7 @@ export function ExerciseRunnerFooter({
   onComplete,
   onCancelStop,
   onConfirmStop,
+  onTogglePause,
 }: Pick<
   ExerciseRunnerChromeProps,
   | "state"
@@ -141,6 +157,7 @@ export function ExerciseRunnerFooter({
   | "onComplete"
   | "onCancelStop"
   | "onConfirmStop"
+  | "onTogglePause"
 >) {
   const t = useTranslations("exerciseRunner");
   const step = state.recipe.steps[state.activeStepIndex];
@@ -155,8 +172,9 @@ export function ExerciseRunnerFooter({
             aria-hidden
           />
         ) : null}
-        <div className="relative border-t border-line bg-canvas/95 pt-3 backdrop-blur-sm">
-          <div className="flex flex-col items-end gap-3">
+        <div className="relative border-t border-line bg-canvas/95 px-1 pt-3 backdrop-blur-sm">
+          <ExerciseRunnerProgress state={state} onTogglePause={onTogglePause} />
+          <div className="mt-3 flex flex-col items-end gap-3">
           <div className="flex items-center gap-2">
             <Button
               type="button"
@@ -233,6 +251,7 @@ export function ExerciseRunnerChrome(props: ExerciseRunnerChromeProps) {
         onComplete={props.onComplete}
         onCancelStop={props.onCancelStop}
         onConfirmStop={props.onConfirmStop}
+        onTogglePause={props.onTogglePause}
       />
     </>
   );

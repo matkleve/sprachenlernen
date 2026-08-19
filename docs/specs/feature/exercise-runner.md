@@ -60,9 +60,9 @@ Parent shell mode: `one-screen-exercise` on `/practice` (mobile + desktop).
 | Zone | Components | Notes |
 | --- | --- | --- |
 | Hero | `ExerciseRunnerHero` | Section WebP full-bleed; section name + **Methoden** label + method title + step label on gradient; **Übung beenden** top-right |
-| Progress | `ExerciseRunnerProgress` | Bar + step index; timer pill when `wait` active |
+| Progress | `ExerciseRunnerProgress` | **Footer** — one segment per step (not one continuous bar); **Schritt n/m** label; timer pill when `wait` active |
 | Body | `ExerciseStepBody` | Scrolls inside frame; practice-surface scale |
-| Footer | `ExerciseRunnerFooter` | Anchored `shrink-0`; ◀ ▶ above primary; primary `lg`, `w-auto`, bottom-right; canvas scrim above controls |
+| Footer | `ExerciseRunnerFooter` | Segmented progress + label; anchored `shrink-0`; ◀ ▶ above primary; primary `lg`, `w-auto`, bottom-right; canvas scrim above controls |
 
 **Invariant:** footer controls stay at the same vertical position across steps on
 one device — only the body scrolls ([`exercise-runner.layout.md`](exercise-runner.layout.md)).

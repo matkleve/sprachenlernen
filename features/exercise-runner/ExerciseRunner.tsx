@@ -4,7 +4,6 @@ import { useTranslations } from "next-intl";
 
 import {
   ExerciseRunnerFooter,
-  ExerciseRunnerProgress,
   primaryLabelForStep,
 } from "@/features/exercise-runner/ExerciseRunnerChrome";
 import { ExerciseRunnerHero } from "@/features/exercise-runner/ExerciseRunnerHero";
@@ -84,7 +83,6 @@ export function ExerciseRunner({
           stopLabel={t("stop")}
           onStop={runner.requestStop}
         />
-        <ExerciseRunnerProgress state={state} onTogglePause={runner.togglePause} />
       </div>
 
       <div
@@ -119,6 +117,7 @@ export function ExerciseRunner({
         onComplete={runner.completeCurrentStep}
         onCancelStop={runner.cancelStop}
         onConfirmStop={runner.confirmStop}
+        onTogglePause={runner.togglePause}
       />
     </div>
   );
