@@ -7,7 +7,12 @@ import type { SearchParams } from "@/lib/method-menu-filter";
 import { menuQueryString } from "@/lib/method-menu-filter";
 import { hasMaterialSetup } from "@/lib/method-material-setup";
 import type { MaterialUnitId } from "@/lib/material-unit";
-import { sessionHrefForMethod, usesExerciseRunner, usesWordsReview } from "@/lib/method-session";
+import { resolveSessionBudgetMinutes } from "@/lib/method-session-budget";
+import {
+  sessionHrefForMethod,
+  usesExerciseRunner,
+  usesWordsReview,
+} from "@/lib/method-session";
 import { localizeMethodEntry } from "@/lib/localize-method-entry";
 import { routes } from "@/lib/routes";
 import { cn } from "@/lib/utils";
@@ -77,6 +82,14 @@ export async function MethodDetail({ method, searchParams = {} }: MethodDetailPr
     : { status: "omit" as const };
   const showMaterialSetup = materialBundle.status === "ok";
   const localized = localizeMethodEntry(method, (key) => t(key as "entries.background-listening.name"));
+  const sessionBudgetMinutes = resolveSessionBudgetMinutes(
+    method.durations,
+    typeof searchParams.minutes === "string"
+      ? searchParams.minutes
+      : Array.isArray(searchParams.minutes)
+        ? searchParams.minutes[0]
+        : undefined,
+  );
   const hasPreStart =
     showMaterialSetup ||
     usesWordsReview(method) ||
@@ -123,13 +136,14 @@ export async function MethodDetail({ method, searchParams = {} }: MethodDetailPr
                 method={method}
                 context={materialBundle.context}
                 canPersist={materialBundle.canPersist}
+                budgetMinutes={sessionBudgetMinutes}
                 className="mt-4 md:mt-6"
               />
             ) : null}
 
             {!showMaterialSetup && (usesWordsReview(method) || usesExerciseRunner(method)) && (
               <ActionLink
-                href={sessionHrefForMethod(method)}
+                href={sessionHrefForMethod(method, { budgetMinutes: sessionBudgetMinutes })}
                 variant="primary"
                 size="lg"
                 className="mt-4 md:mt-6"

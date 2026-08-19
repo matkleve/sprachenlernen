@@ -66,13 +66,23 @@ describe("usesExerciseRunner", () => {
 });
 
 describe("exerciseSessionHref", () => {
-  it("builds practice URL with optional sourceId", () => {
+  it("builds practice URL with optional sourceId and budgetMinutes", () => {
     expect(exerciseSessionHref("partial-dictation")).toBe(
       `${routes.practice}?method=partial-dictation`,
     );
-    expect(exerciseSessionHref("partial-dictation", "src-1")).toBe(
+    expect(exerciseSessionHref("partial-dictation", { sourceId: "src-1" })).toBe(
       `${routes.practice}?method=partial-dictation&sourceId=src-1`,
     );
+    expect(
+      exerciseSessionHref("partial-dictation", { sourceId: "src-1", budgetMinutes: 15 }),
+    ).toBe(`${routes.practice}?method=partial-dictation&sourceId=src-1&minutes=15`);
+  });
+});
+
+describe("sessionHrefForMethod", () => {
+  it("adds minutes to words review for srs-session", () => {
+    const href = sessionHrefForMethod(method({ id: "srs-session" }), { budgetMinutes: 20 });
+    expect(href).toBe(`${routes.wordsReview}?method=srs-session&minutes=20`);
   });
 });
 

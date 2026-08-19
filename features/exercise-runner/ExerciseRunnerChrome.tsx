@@ -85,7 +85,7 @@ export function ExerciseRunnerProgress({
             key={step.id}
             className={cn(
               "h-2 min-w-0 flex-1 rounded-full transition-colors",
-              segmentBarClass(state.stepStatuses[index]),
+              segmentBarClass(state.stepStatuses[index] ?? "unseen"),
             )}
             aria-hidden
           />
