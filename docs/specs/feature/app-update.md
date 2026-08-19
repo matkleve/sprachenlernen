@@ -12,13 +12,14 @@ Parent: [`mobile-nav-v2.md`](mobile-nav-v2.md) (version label slot). Versioning:
 
 ## Scope
 
-- **In:** `GET /api/app-version` returning the deployed Pride version;
-  client-side compare against the bundled version; tappable **update chip** above
+- **In:** `GET /api/app-version` returning the deployed Pride version and
+  deploy timestamp; client-side compare against the bundled version; tappable **update chip** above
   the mobile destination pill with **Update available** copy and an
   `ArrowDownCircle` icon when stale (muted current label below the pill when
   current); an **App** block on `/profile` with running version, **Check for
   updates**, and a green reload row when stale; checks on mount, `visibilitychange`, and a five-minute
-  interval; `location.reload()` on tap.
+  interval; `location.reload()` on tap. Profile also shows **This update from**
+  (locale date/time of the running build).
 - **Out:** service worker; auto-reload; a separate Settings destination;
   build-id / git SHA (Pride version only).
 
@@ -37,8 +38,8 @@ profile), `AppUpdateChip` and `AppVersionLabel` slots in `FloatingShellChrome`.
 | 5 | Returns to tab / app (`visibilitychange` → visible) | Re-check; prompt appears if a deploy happened while away |
 | 5b | iOS PWA resumes (`pageshow` / `focus`) | Same re-check as visibility |
 | 6 | Fetch fails | No prompt; version label unchanged (fail silent) |
-| 7 | Opens `/profile` | **App** section shows running version, **Last checked** (after the
-  first successful fetch), and **Check for updates** |
+| 7 | Opens `/profile` | **App** section shows running version, **This update from**
+  (running build date), **Last checked** (after the first successful fetch), and **Check for updates** |
 | 8 | Taps Check for updates on `/profile` | Re-fetches `/api/app-version`; updates **Last checked**; shows green
   reload row when stale |
 
@@ -54,7 +55,9 @@ profile), `AppUpdateChip` and `AppVersionLabel` slots in `FloatingShellChrome`.
 | Field | Source | Owner |
 | --- | --- | --- |
 | `bundledVersion` | `package.json` at build time | client bundle |
+| `bundledBuiltAt` | build timestamp (`NEXT_PUBLIC_APP_BUILT_AT`) | client bundle |
 | `deployedVersion` | same `package.json` on server | `/api/app-version` |
+| `deployedBuiltAt` | same build timestamp on server | `/api/app-version` |
 
 ## Acceptance criteria
 
@@ -69,11 +72,12 @@ profile), `AppUpdateChip` and `AppVersionLabel` slots in `FloatingShellChrome`.
 - [ ] Given the tab becomes visible again, when a newer deploy landed since the
       last check, then the green version control appears without a full navigation.
 - [ ] Given `/api/app-version`, when requested, then the response is JSON
-      `{ "version": "PROUD.DEFAULT.SHAME" }` with `Cache-Control: no-store`.
+      `{ "version": "PROUD.DEFAULT.SHAME", "builtAt": "<ISO-8601 or null>" }` with `Cache-Control: no-store`.
 - [ ] Given a failed version fetch, when the shell renders, then no error
       callout — the version label stays (negative: no false-positive prompt).
 - [ ] Given `/profile`, when the page renders, then an **App** section shows the
-      running Pride version, **Last checked** (locale date/time after the first
+      running Pride version, **This update from** (locale date/time of the running
+      build, em dash when unset), **Last checked** (locale date/time after the first
       successful fetch, em dash before that), and a **Check for updates** control.
 - [ ] Given a higher deployed version, when the learner opens `/profile` or taps
       **Check for updates**, then a green reload row names the deployed version

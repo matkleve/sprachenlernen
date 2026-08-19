@@ -5,9 +5,10 @@ import { useTranslations } from "next-intl";
 
 import { Button } from "@/components/ui/Button";
 import { useAppUpdateAvailable } from "@/features/app-shell/useAppUpdateAvailable";
+import { APP_BUILT_AT_MS } from "@/lib/app-build";
 import { APP_VERSION_LABEL } from "@/lib/pride-version";
 
-function formatLastChecked(timestamp: number): string {
+function formatVersionTimestamp(timestamp: number): string {
   return new Intl.DateTimeFormat(undefined, {
     dateStyle: "medium",
     timeStyle: "short",
@@ -34,9 +35,15 @@ export function ProfileAppSection() {
           <dd className="font-medium tabular-nums text-ink">{APP_VERSION_LABEL}</dd>
         </div>
         <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
+          <dt className="text-muted">{t("versionFrom")}</dt>
+          <dd className="font-medium tabular-nums text-ink">
+            {APP_BUILT_AT_MS ? formatVersionTimestamp(APP_BUILT_AT_MS) : t("lastCheckedPending")}
+          </dd>
+        </div>
+        <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
           <dt className="text-muted">{t("lastChecked")}</dt>
           <dd className="font-medium tabular-nums text-ink">
-            {lastCheckedAt ? formatLastChecked(lastCheckedAt) : t("lastCheckedPending")}
+            {lastCheckedAt ? formatVersionTimestamp(lastCheckedAt) : t("lastCheckedPending")}
           </dd>
         </div>
       </dl>
