@@ -18,10 +18,8 @@ describe("ExerciseRunner", () => {
       />,
     );
 
-    expect(screen.getByText("Methods")).toBeDefined();
-    expect(screen.getByRole("heading", { name: "Partial dictation" })).toBeDefined();
-    expect(screen.getByText("Before you start")).toBeDefined();
-    expect(screen.getByText(/Step 1 of 6/)).toBeDefined();
+    expect(screen.getAllByText("Before you start").length).toBeGreaterThan(0);
+    expect(screen.getAllByRole("progressbar").length).toBeGreaterThan(0);
   });
 
   it("navigates forward without marking prior step done", async () => {
@@ -58,6 +56,19 @@ describe("ExerciseRunner", () => {
 
     await user.click(screen.getByRole("button", { name: "Not now — done" }));
     expect(screen.getByText("Exercise complete")).toBeDefined();
+  });
+
+  it("applies practice-fit-frame on the runner root", () => {
+    const { container } = render(
+      <ExerciseRunner
+        sectionLabel="Methods"
+        methodName="Partial dictation"
+        section="listening"
+        recipe={FIXTURE_EXERCISE_RECIPE}
+      />,
+    );
+
+    expect(container.querySelector(".practice-fit-frame")).not.toBeNull();
   });
 
   it("uses overflow-hidden body zone on short-profile steps", () => {

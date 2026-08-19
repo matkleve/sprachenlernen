@@ -27,14 +27,14 @@ export function GapFillStep({ config, listeningDeferred = false }: GapFillStepPr
   };
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-4 max-md:space-y-2">
       {listeningDeferred ? (
         <p className="text-sm text-muted">{t("typeOnlyHint")}</p>
       ) : (
         <ExerciseAudioButton config={config} />
       )}
 
-      <p className="text-lg leading-relaxed text-ink" aria-label={line.sentence}>
+      <p className="text-lg leading-relaxed text-ink max-md:text-base" aria-label={line.sentence}>
         {line.tokens.map((token, index) => (
           <span key={`${token.text}-${index}`} className="mr-1 inline-flex items-center">
             {token.gapped ? (

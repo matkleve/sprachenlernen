@@ -4,6 +4,8 @@
 
 - [ ] Given a prepare step on `/practice`, when the learner views prep rows, then
       each row is at least 44px tall with `border-line-strong` when unchecked.
+- [ ] Given build-a-sentence prepare on mobile (`< md`), when rendered, then the
+      body zone has no scrollbar (`short` profile + fit-frame density).
 - [ ] Given build-a-sentence prepare on desktop, when rendered, then the body zone
       has no scrollbar (`short` profile).
 - [ ] Given a prepare step, when the learner taps a prep row, then its checkbox

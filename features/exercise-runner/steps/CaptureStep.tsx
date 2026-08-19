@@ -14,7 +14,7 @@ export function CaptureStep({
   const t = useTranslations("exerciseRunner");
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-4 max-md:space-y-2">
       <Field label={t("submitText")}>
         <Input
           value={submitDraft.text}
@@ -43,7 +43,7 @@ export function CaptureStep({
           <img
             src={submitDraft.photoDataUrl}
             alt=""
-            className="mt-2 max-h-40 rounded-lg border border-line"
+            className="mt-2 max-h-40 rounded-lg border border-line max-md:max-h-24"
           />
         ) : null}
       </div>

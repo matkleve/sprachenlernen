@@ -6,7 +6,10 @@ import {
   ExerciseRunnerFooter,
   primaryLabelForStep,
 } from "@/features/exercise-runner/ExerciseRunnerChrome";
-import { ExerciseRunnerHero } from "@/features/exercise-runner/ExerciseRunnerHero";
+import {
+  ExerciseRunnerHero,
+  ExerciseRunnerMobileStrip,
+} from "@/features/exercise-runner/ExerciseRunnerHero";
 import { ExerciseStepBody } from "@/features/exercise-runner/ExerciseStepBody";
 import { resolveExerciseStepLabel } from "@/features/exercise-runner/step-label";
 import { useExerciseRunner } from "@/features/exercise-runner/useExerciseRunner";
@@ -24,8 +27,6 @@ type ExerciseRunnerProps = {
   methodName: string;
   section: Section;
   recipe: ExerciseRecipe;
-  /** Mobile one-screen layout — no page scroll on `< md`. */
-  compact?: boolean;
 };
 
 export function ExerciseRunner({
@@ -33,7 +34,6 @@ export function ExerciseRunner({
   methodName,
   section,
   recipe,
-  compact = false,
 }: ExerciseRunnerProps) {
   const t = useTranslations("exerciseRunner");
   const { deferred: listeningDeferred } = useListeningDefer();
@@ -41,8 +41,7 @@ export function ExerciseRunner({
   const { state, activeStep } = runner;
 
   const rootClass = cn(
-    "flex min-h-0 flex-1 flex-col",
-    compact ? "gap-2" : "gap-4",
+    "practice-fit-frame flex min-h-0 flex-1 flex-col gap-1.5 max-md:gap-1 md:gap-4",
   );
 
   if (state.phase === "abandoned") {
@@ -73,13 +72,18 @@ export function ExerciseRunner({
 
   return (
     <div className={rootClass}>
-      <div className={cn("shrink-0", compact ? "space-y-2" : "space-y-4")}>
+      <ExerciseRunnerMobileStrip
+        stepLabel={stepLabel}
+        stopLabel={t("stop")}
+        onStop={runner.requestStop}
+      />
+
+      <div className="hidden shrink-0 space-y-4 md:block">
         <ExerciseRunnerHero
           section={section}
           sectionLabel={sectionLabel}
           methodName={methodName}
           stepLabel={stepLabel}
-          compact={compact}
           stopLabel={t("stop")}
           onStop={runner.requestStop}
         />
@@ -87,7 +91,7 @@ export function ExerciseRunner({
 
       <div
         className={cn(
-          "min-h-0 flex-1 p-1",
+          "flex min-h-0 flex-1 flex-col p-1",
           bodyScrolls ? "overflow-y-auto" : "overflow-hidden",
         )}
       >
@@ -101,6 +105,7 @@ export function ExerciseRunner({
           onToggleError={runner.toggleError}
           onDecline={runner.decline}
           onSelectOffer={runner.completeCurrentStep}
+          bodyScrolls={bodyScrolls}
         />
       </div>
 

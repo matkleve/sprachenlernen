@@ -26,7 +26,7 @@ export function SelfMarkStep({
       : [answerKey.split(/\s+/).filter(Boolean)];
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-4 max-md:space-y-2">
       {isFeedback ? (
         <p className="text-sm text-muted">{t("feedbackPlaceholder")}</p>
       ) : null}
@@ -47,7 +47,7 @@ export function SelfMarkStep({
         <p className="text-base text-ink">{answerKey}</p>
       ) : null}
       <p className="text-sm text-muted">{t("reviewMarkErrors")}</p>
-      <div className="flex flex-wrap gap-2">
+      <div className="flex flex-wrap gap-2 max-md:gap-1">
         {tokenGroups.flat().map((token, index) => {
           const selected = markedErrorTokens.includes(token);
           return (
