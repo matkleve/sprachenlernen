@@ -76,6 +76,39 @@ describe("session-builder", () => {
     expect(session).toHaveLength(1);
   });
 
+  it("returns only form-recall cards when deck=form", () => {
+    const meaning = cards.find((card) => card.lemma === "hablar" && card.taskId.endsWith(":meaning-recall"));
+    expect(meaning).toBeDefined();
+    if (!meaning) return;
+
+    const form = {
+      ...meaning,
+      taskId: "es:hablar:habla:form-recall",
+      back: "habla",
+      paradigmCell: "ind.pres.3sg",
+    };
+
+    const session = buildSession([meaning, form], {}, Date.now(), DEFAULT_SESSION_LENGTH, {
+      deck: "form",
+    });
+    expect(session.every((card) => card.taskId.endsWith(":form-recall"))).toBe(true);
+  });
+
+  it("returns only meaning-recall cards when deck=meaning", () => {
+    const meaning = cards[0]!;
+    const form = {
+      ...meaning,
+      taskId: "es:hablar:habla:form-recall",
+      back: "habla",
+      paradigmCell: "ind.pres.3sg",
+    };
+
+    const session = buildSession([meaning, form], {}, Date.now(), DEFAULT_SESSION_LENGTH, {
+      deck: "meaning",
+    });
+    expect(session.every((card) => card.taskId.endsWith(":meaning-recall"))).toBe(true);
+  });
+
   it("prioritises gap-set lemmas among new cards", () => {
     const priority = new Set([cards[5]!.lemma, cards[6]!.lemma]);
     const session = buildSession(cards.slice(0, 20), {}, Date.now(), 5, {

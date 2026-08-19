@@ -3,7 +3,7 @@
 <!-- id: SPEC-service-form-cell-explanation -->
 <!-- use-case: UC-022 -->
 <!-- use-case: UC-041 -->
-<!-- status: draft -->
+<!-- status: active -->
 
 Short, explicit rule text for one **paradigm cell** — the on-demand and
 after-error explanation for form practice. Implements
@@ -70,4 +70,4 @@ Rule templates are **data keyed by (language, class, cell-pattern)** in
 
 ## Check
 
-`npm test -- paradigm-cells form-recall-pool`
+`npm test -- form-cell-explanation`

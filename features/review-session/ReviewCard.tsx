@@ -8,6 +8,7 @@ import { GradeButton } from "@/components/ui/GradeButton";
 import { IconButton } from "@/components/ui/IconButton";
 import { PressableCard } from "@/components/ui/PressableCard";
 import { CardReportPopover } from "@/features/review-session/CardReportPopover";
+import { FormErrorExplanation } from "@/features/review-session/FormErrorExplanation";
 import {
   canFlip,
   canGrade,
@@ -47,6 +48,7 @@ export function ReviewCard({
   const t = useTranslations("reviewSession");
   const flagRef = useRef<HTMLButtonElement>(null);
   const [reportOpen, setReportOpen] = useState(false);
+  const [explainExpanded, setExplainExpanded] = useState(false);
   const flipEnabled = canFlip(phase) && !exiting;
   const gradesEnabled = canGrade(phase) && !exiting;
   const revealBack = showsBack(phase);
@@ -57,6 +59,13 @@ export function ReviewCard({
   const handleSubmitReport = async (input: ReportCardInput) => {
     await onSubmitReport(input);
     setReportOpen(false);
+  };
+
+  const handleGrade = (value: Grade) => {
+    if (isFormRecall && card.formExplanation && (value === "again" || value === "hard")) {
+      setExplainExpanded(true);
+    }
+    onGrade(value);
   };
 
   return (
@@ -151,6 +160,13 @@ export function ReviewCard({
             </p>
           )}
 
+          {revealBack && isFormRecall && card.formExplanation ? (
+            <FormErrorExplanation
+              explanation={card.formExplanation}
+              defaultExpanded={explainExpanded}
+            />
+          ) : null}
+
           {flipEnabled && (
             <p className="pointer-events-none absolute right-4 bottom-3 flex items-center gap-1 text-xs text-muted">
               <span aria-hidden className="text-sm leading-none">
@@ -183,7 +199,7 @@ export function ReviewCard({
               <GradeButton
                 key={grade}
                 grade={grade}
-                onClick={() => onGrade(grade)}
+                onClick={() => handleGrade(grade)}
               >
                 {t(grade)}
               </GradeButton>

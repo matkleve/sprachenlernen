@@ -3,7 +3,7 @@
 <!-- id: SPEC-component-form-error-explanation -->
 <!-- use-case: UC-022 -->
 <!-- use-case: UC-078 -->
-<!-- status: draft -->
+<!-- status: active -->
 
 On-demand disclosure on form-recall (and later form-production) cards: cell
 label, short rule, and held-word examples. **Standard** UI component.
@@ -49,4 +49,4 @@ Words home.
 
 ## Check
 
-`npm test -- ReviewCard review-session`
+`npm test -- FormErrorExplanation ReviewCard review-session`

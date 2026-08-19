@@ -14,10 +14,13 @@ import {
 } from "@/lib/errors";
 import { buildSession, type SessionCard } from "@/lib/session-builder";
 import { filterSchedulableCards } from "@/lib/form-recall-staging";
+import { isFormRecallTaskId } from "@/lib/form-recall-pool";
+import { buildFormCellExplanation } from "@/lib/form-cell-explanation";
 import { poolForActiveLanguage } from "@/lib/db/learner-pools";
 import { languageLabel } from "@/lib/languages";
 import { localizeSessionCards } from "@/lib/localize-card-description";
 import { parseGapSetCookie, GAP_SET_COOKIE } from "@/lib/gap-set-cookie";
+import { parseReviewDeck, type ReviewDeck } from "@/lib/review-deck";
 import { tasksByTaskIdForCards } from "@/lib/task-from-state";
 import type { Grade } from "@/lib/scheduler";
 
@@ -57,7 +60,10 @@ export async function reportCardAction(wordId: string, input: ReportCardInput = 
   return flagCardContent(wordId, input);
 }
 
-export async function buildSessionAction(): Promise<BuildSessionOutcome> {
+export async function buildSessionAction(input?: {
+  deck?: ReviewDeck | string | null;
+}): Promise<BuildSessionOutcome> {
+  const deck = parseReviewDeck(input?.deck ?? undefined);
   try {
     // The language in focus, and only that one (UC-025, corrected
     // 2026-08-12): a session never draws from more than one learning
@@ -104,9 +110,10 @@ export async function buildSessionAction(): Promise<BuildSessionOutcome> {
     const queue = localizeSessionCards(
       buildSession(schedulable, tasksByTaskId, Date.now(), undefined, {
         priorityLemmas,
+        deck,
       }),
       spoken.spokenLanguage,
-    );
+    ).map((card) => attachFormExplanation(card, activeCode ?? "es", poolCards, tasksByTaskId));
     return { status: "ok", queue, languageName };
   } catch (cause) {
     const handled = sessionBuildFailed(
@@ -118,4 +125,22 @@ export async function buildSessionAction(): Promise<BuildSessionOutcome> {
     // boundary as a generic render/boundary instead.
     return { status: "error", error: handled.userMessage };
   }
+}
+
+function attachFormExplanation(
+  card: SessionCard,
+  languageCode: string,
+  pool: Parameters<typeof buildFormCellExplanation>[0]["pool"],
+  tasksByTaskId: Record<string, import("@/lib/scheduler").Task>,
+): SessionCard {
+  if (!isFormRecallTaskId(card.taskId) || !card.paradigmCell || !card.back) return card;
+  const explanation = buildFormCellExplanation({
+    languageCode,
+    wordId: card.wordId,
+    paradigmCell: card.paradigmCell,
+    surfaceForm: card.back,
+    pool,
+    tasksByTaskId,
+  });
+  return explanation ? { ...card, formExplanation: explanation } : card;
 }
