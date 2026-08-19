@@ -19,7 +19,9 @@ units: [`../../study/39-material-units-and-listening-defer.md`](../../study/39-m
 ## Scope
 
 - **In:** chip row on [`method-detail.md`](../page/method-detail.md) when
-  `materialTopics` is set; **unit preview** when `materialUnits` is set (see
+  `materialTopics` is set — **directly below the badge band**, with **Start**
+  immediately under chips/preview (before `trains` prose); **unit preview** when
+  `materialUnits` is set (see
   [`material-unit.md`](../service/material-unit.md)); built-in **App picks** +
   **Your own** chips; catalogue preview per topic chip; upload/paste/link **only**
   when Your own is selected; optional **Keep in my library**; Start gating until

@@ -127,7 +127,14 @@ export function MethodMaterialSetup({
   };
 
   return (
-    <section className={cn("mt-8 space-y-4", className)} aria-labelledby="material-setup-heading">
+    <section
+      className={cn(
+        "rounded-card border border-line bg-surface-raised p-5 shadow-soft",
+        "space-y-4",
+        className,
+      )}
+      aria-labelledby="material-setup-heading"
+    >
       <div>
         <h2 id="material-setup-heading" className="text-sm font-semibold text-ink">
           {t("topicHeading")}

@@ -85,6 +85,17 @@ describe("MethodDetail", () => {
     expect(screen.getByText(en.methodMenu.sessionNotBuilt)).toBeDefined();
   });
 
+  it("places Start before trains prose for runnable methods without material setup", async () => {
+    const buildASentence = findMethod(catalogue, "build-a-sentence")!;
+    render(await MethodDetail({ method: buildASentence }));
+
+    const trainsIndex = document.body.textContent!.indexOf(buildASentence.trains);
+    const startLink = screen.getByRole("link", { name: en.methodMenu.startSession });
+
+    expect(startLink.getAttribute("href")).toBe("/practice?method=build-a-sentence");
+    expect(document.body.textContent!.indexOf(en.methodMenu.startSession)).toBeLessThan(trainsIndex);
+  });
+
   it("shows Start for extensive-reading on practice", async () => {
     render(
       await MethodDetail({

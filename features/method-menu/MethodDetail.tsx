@@ -99,6 +99,33 @@ export async function MethodDetail({ method, searchParams = {} }: MethodDetailPr
 
             <MethodDetailFacts method={method} variant="mobile" className="mt-6 md:hidden" />
 
+            {showMaterialSetup ? (
+              <MethodMaterialSetup
+                method={method}
+                context={materialBundle.context}
+                canPersist={materialBundle.canPersist}
+                className="mt-6"
+              />
+            ) : null}
+
+            {!showMaterialSetup && (usesWordsReview(method) || usesExerciseRunner(method)) && (
+              <ActionLink
+                href={sessionHrefForMethod(method)}
+                variant="primary"
+                size="lg"
+                className="mt-6"
+              >
+                {t("startSession")}
+              </ActionLink>
+            )}
+
+            {method.hosted &&
+              !usesWordsReview(method) &&
+              !usesExerciseRunner(method) &&
+              !showMaterialSetup && (
+                <p className="mt-6 text-sm text-muted">{t("sessionNotBuilt")}</p>
+              )}
+
             <p className="mt-8 text-lg leading-relaxed text-ink">{localized.trains}</p>
 
             <div className="mt-8 rounded-card border border-line bg-surface-raised p-5 shadow-soft">
@@ -111,29 +138,6 @@ export async function MethodDetail({ method, searchParams = {} }: MethodDetailPr
             <p className="mt-6 text-sm text-muted">
               {method.hosted ? t("hosted") : t("notHosted")}
             </p>
-
-            {showMaterialSetup ? (
-              <MethodMaterialSetup
-                method={method}
-                context={materialBundle.context}
-                canPersist={materialBundle.canPersist}
-              />
-            ) : null}
-
-            {!showMaterialSetup && (usesWordsReview(method) || usesExerciseRunner(method)) && (
-              <ActionLink
-                href={sessionHrefForMethod(method)}
-                variant="primary"
-                size="lg"
-                className="mt-8"
-              >
-                {t("startSession")}
-              </ActionLink>
-            )}
-
-            {method.hosted && !usesWordsReview(method) && !usesExerciseRunner(method) && !showMaterialSetup && (
-              <p className="mt-8 text-sm text-muted">{t("sessionNotBuilt")}</p>
-            )}
           </article>
 
           <div className="hidden md:block">

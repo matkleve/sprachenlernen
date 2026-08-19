@@ -76,9 +76,9 @@ Designer reviewed four placements. **Rejected:**
 1. Full-bleed section-graphic hero (same asset as cards; fades to `canvas`)
 2. Back link (desktop only, in content column)
 3. Two columns at `≥ md`:
-   - **Main:** `<h1>` → summary → badge band → **topic chip row** (when
-     `materialTopics`) → `trains` prose → `doesNotDo` callout → session footer
-     + Start when applicable
+   - **Main:** `<h1>` → summary → badge band → **pre-start panel** (topic chips +
+     unit chips, preview, **Start** when `materialTopics`; else **Start** for
+     runnable methods without setup) → `trains` prose → `doesNotDo` callout
    - **Aside:** practical details (duration, needs, hosted, effort anchor, research disclosure)
 4. On `< md`: practical details in a collapsed `Disclosure` below the badge band
 

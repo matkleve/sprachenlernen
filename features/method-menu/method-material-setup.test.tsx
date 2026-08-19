@@ -73,6 +73,23 @@ const baseContext: MaterialSetupContext = {
 };
 
 describe("MethodMaterialSetup", () => {
+  it("renders Start directly below topic chips", () => {
+    const { container } = render(
+      <MethodMaterialSetup method={extensiveReading} context={baseContext} />,
+    );
+
+    const topicHeading = screen.getByRole("heading", { name: en.methodMaterial.topicHeading });
+    const start = screen.getByRole("link", { name: en.methodMenu.startSession });
+
+    expect(topicHeading.compareDocumentPosition(start)).toBe(Node.DOCUMENT_POSITION_FOLLOWING);
+    expect(
+      Array.from(container.querySelectorAll("button, a")).indexOf(start) >
+        Array.from(container.querySelectorAll("button")).findIndex((el) =>
+          el.textContent?.includes("News"),
+        ),
+    ).toBe(true);
+  });
+
   it("AC-1: renders topic chips for methods with materialTopics", () => {
     render(<MethodMaterialSetup method={extensiveReading} context={baseContext} />);
 

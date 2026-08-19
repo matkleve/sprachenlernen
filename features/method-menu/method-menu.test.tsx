@@ -107,9 +107,10 @@ describe("cards", () => {
   it("links build-a-sentence to method overview", () => {
     show();
     const method = findMethod(catalogue, "build-a-sentence")!;
-    const link = screen.getByRole("link", { name: new RegExp(method.name) });
-    expect(link.getAttribute("href")).toBe("/methods/build-a-sentence");
-    expect(link.getAttribute("href")).not.toContain("/practice");
+    const links = screen.getAllByRole("link", { name: new RegExp(method.name) });
+    const overviewLink = links.find((link) => link.getAttribute("href") === "/methods/build-a-sentence");
+    expect(overviewLink).toBeDefined();
+    expect(overviewLink?.getAttribute("href")).not.toContain("/practice");
   });
 
   it("links other hosted methods without a runner to detail", () => {
