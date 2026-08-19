@@ -83,12 +83,12 @@ describe("cardDestinationMarker", () => {
 });
 
 describe("isRunnableFromMenu", () => {
-  it("matches cardHrefForMethod session branch", () => {
+  it("marks card engine and built exercise methods as runnable", () => {
     const runnable = method({ id: "extensive-reading" });
     const detail = method({ id: "narrow-listening" });
     expect(isRunnableFromMenu(runnable)).toBe(true);
     expect(isRunnableFromMenu(detail)).toBe(false);
-    expect(cardHrefForMethod(runnable).startsWith(routes.practice)).toBe(true);
+    expect(cardHrefForMethod(runnable).startsWith("/methods/")).toBe(true);
     expect(cardHrefForMethod(detail).startsWith("/methods/")).toBe(true);
   });
 });
@@ -100,39 +100,39 @@ describe("cardHrefForMethod", () => {
     );
   });
 
-  it("links partial-dictation to practice", () => {
+  it("links partial-dictation to method overview", () => {
     expect(cardHrefForMethod(method({ id: "partial-dictation" }))).toBe(
-      exerciseSessionHref("partial-dictation"),
+      "/methods/partial-dictation",
     );
   });
 
-  it("links full-dictation to practice", () => {
+  it("links full-dictation to method overview", () => {
     expect(cardHrefForMethod(method({ id: "full-dictation" }))).toBe(
-      exerciseSessionHref("full-dictation"),
+      "/methods/full-dictation",
     );
   });
 
-  it("links extensive-reading to practice", () => {
+  it("links extensive-reading to method overview", () => {
     expect(cardHrefForMethod(method({ id: "extensive-reading" }))).toBe(
-      exerciseSessionHref("extensive-reading"),
+      "/methods/extensive-reading",
     );
   });
 
-  it("links reading-aloud to practice", () => {
+  it("links reading-aloud to method overview", () => {
     expect(cardHrefForMethod(method({ id: "reading-aloud" }))).toBe(
-      exerciseSessionHref("reading-aloud"),
+      "/methods/reading-aloud",
     );
   });
 
-  it("links build-a-sentence to practice", () => {
+  it("links build-a-sentence to method overview", () => {
     expect(cardHrefForMethod(method({ id: "build-a-sentence" }))).toBe(
-      exerciseSessionHref("build-a-sentence"),
+      "/methods/build-a-sentence",
     );
   });
 
-  it("links free-production to practice", () => {
+  it("links free-production to method overview", () => {
     expect(cardHrefForMethod(method({ id: "free-production" }))).toBe(
-      exerciseSessionHref("free-production"),
+      "/methods/free-production",
     );
   });
 
@@ -148,7 +148,7 @@ describe("cardHrefForMethod", () => {
 });
 
 describe("shellPageLayout practice", () => {
-  it("uses one-screen-runner for built exercise methods", () => {
+  it("uses one-screen-exercise for built exercise methods", () => {
     for (const methodId of [
       "partial-dictation",
       "full-dictation",
@@ -159,7 +159,7 @@ describe("shellPageLayout practice", () => {
     ]) {
       const params = new URLSearchParams({ method: methodId });
       expect(isActiveExerciseSession(routes.practice, params)).toBe(true);
-      expect(shellPageLayout(routes.practice, params)).toBe("one-screen-runner");
+      expect(shellPageLayout(routes.practice, params)).toBe("one-screen-exercise");
     }
   });
 

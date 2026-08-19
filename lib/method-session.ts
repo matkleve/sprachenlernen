@@ -65,9 +65,9 @@ export function cardDestinationMarker(method: MethodEntry): CardDestinationMarke
   return isRunnableFromMenu(method) ? "start" : "info";
 }
 
-/** Menu card destination: runnable sessions open directly; else detail. */
+/** Menu card destination: card engine opens session; everything else opens overview. */
 export function cardHrefForMethod(method: MethodEntry, returnQuery = ""): string {
-  if (isRunnableFromMenu(method)) {
+  if (usesWordsReview(method)) {
     return sessionHrefForMethod(method);
   }
   return detailHrefForMethod(method, returnQuery);

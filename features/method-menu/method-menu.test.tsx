@@ -95,11 +95,12 @@ describe("cards", () => {
     expect(link.getAttribute("href")).toBe("/words/review?method=srs-session");
   });
 
-  it("links hosted methods with built runners to practice", () => {
+  it("links hosted methods with built runners to method overview", () => {
     show();
     const hosted = findMethod(catalogue, "extensive-reading")!;
     const link = screen.getByRole("link", { name: new RegExp(hosted.name) });
-    expect(link.getAttribute("href")).toContain("/practice?method=extensive-reading");
+    expect(link.getAttribute("href")).toContain(`/methods/${hosted.id}`);
+    expect(link.getAttribute("href")).not.toContain("/practice");
     expect(link.getAttribute("href")).not.toContain("/words/review");
   });
 
