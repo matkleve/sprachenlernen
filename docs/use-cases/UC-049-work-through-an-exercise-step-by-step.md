@@ -23,6 +23,11 @@ optimistic.
 
 ## Success looks like
 
+- **Method overview before the runner:** hosted exercise methods open
+  [`method-detail.md`](../specs/page/method-detail.md) from the catalogue — not
+  `/practice` directly. The learner reads what the method does, adjusts setup
+  when the method has `materialTopics` / `materialUnits`, and taps **Start** to
+  mount the runner. Only the card engine (`srs-session`) may skip this surface.
 - An exercise runs as a sequence of typed steps: **prepare** (checklist),
   **do**, **wait** (timer), **submit** (photo or text), **review** (check or
   feedback), **decide** (an offer).

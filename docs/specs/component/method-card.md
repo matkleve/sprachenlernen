@@ -36,7 +36,7 @@ Two values, derived from `cardHrefForMethod` — not from `hosted` alone:
 
 | Marker | When | Tap target |
 | --- | --- | --- |
-| **Start** | `isRunnableFromMenu` | Session route |
+| **Start** | `isRunnableFromMenu` | Card engine → session route; exercise runner → **method overview** (`/methods/{id}`) |
 | **Info** | else (off-app or hosted-not-built) | Detail route |
 
 Placement: top-right of card header — quiet text only (`text-muted` for Info,
@@ -48,8 +48,9 @@ Placement: top-right of card header — quiet text only (`text-muted` for Info,
       `text-3xl` — primary identity at catalogue distance.
 - [ ] Given any method card, when it renders, then the header graphic uses the
       card header rules in [`method-card-header.md`](method-card-header.md).
-- [ ] Given a runnable method, when the card renders, then the header shows
-      **Start** and the link `href` is a session route.
+- [ ] Given a runnable exercise method, when the card renders, then the header shows
+      **Start** and the link `href` is the **method overview** (`/methods/{id}`), not
+      `/practice`.
 - [ ] Given a non-runnable method, when the card renders, then the header shows
       **Info** and the link `href` is the detail route.
 - [ ] Given any method card, when it renders, then `summary` uses `text-ink` and

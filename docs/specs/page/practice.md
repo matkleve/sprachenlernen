@@ -13,7 +13,8 @@ that are not the card engine.
 
 - **In:** route, query params, layout mode, error surfaces (unknown method, recipe
   missing, not built).
-- **Out:** recipe authoring; material setup (lives on method detail).
+- **Out:** recipe authoring; material setup UI lives on method detail — runner
+  mounts only after **Start** on the overview.
 
 ## Query params
 

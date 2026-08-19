@@ -1,6 +1,7 @@
 # Plan — method card destination marker (T-B10g)
 
-**Status:** shipped 2026-08-18.
+**Status:** shipped 2026-08-18; **routing corrected 2026-08-19** — exercise runners
+open method overview before `/practice`.
 **Change class:** Standard.
 
 Contracts: [`method-card.md`](../specs/component/method-card.md),
@@ -14,9 +15,23 @@ Contracts: [`method-card.md`](../specs/component/method-card.md),
 3. Hosted/off-app chip removed from cards.
 4. `isRunnableFromMenu`, `cardDestinationMarker` in `lib/method-session.ts`.
 
+## Routing correction (2026-08-19)
+
+T-B10g briefly linked exercise-runner cards straight to `/practice`, skipping the
+method overview (settings + Start). Restored to match
+[`method-engines.md`](../specs/service/method-engines.md):
+
+| Method kind | Card **Start** tap | Overview **Start** tap |
+| --- | --- | --- |
+| Card engine (`srs-session`) | `/words/review` | `/words/review` |
+| Exercise runner (built) | `/methods/{id}` | `/practice?method=…` |
+| Hosted not built / off-app | `/methods/{id}` | no Start |
+
 ## LIVE CHECK (owner)
 
-1. `/methods` — runnable card shows **Starten**; tap opens session.
-2. Hosted-not-built shows **Info**; tap → detail, no Start.
-3. Off-app (e.g. tandem) shows **Info**; tap → detail.
-4. Summary under title is ink, not muted.
+1. `/methods` — runnable exercise card shows **Starten**; tap opens **overview**.
+2. On overview — adjust setup if shown; tap **Start** → exercise runner.
+3. `srs-session` card still opens review in one tap.
+4. Hosted-not-built shows **Info**; tap → detail, no Start.
+5. Off-app (e.g. tandem) shows **Info**; tap → detail.
+6. Summary under title is ink, not muted.

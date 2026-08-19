@@ -24,6 +24,9 @@ So they optimise for what feels productive, which is reliably not what works.
 
 - Every method has a page reachable from its card, before deciding and after
   finishing.
+- For **exercise-runner** methods this page is also the **pre-start overview**:
+  material setup (when declared) and **Start** live here; the catalogue card does
+  not open `/practice` directly (card engine excepted).
 - It states the **mechanism** in plain language — not "helps your listening" but
   why it does, and what would be different if it worked.
 - It states **how confident anyone is**, using a plain label on the **card**

@@ -24,6 +24,8 @@
       appear.
 - [ ] Given a hosted Method card for `srs-session`, then it links to
       `/words/review?method=srs-session`.
+- [ ] Given a hosted Method card for a **built exercise-runner** id, then it
+      links to `/methods/{id}` (overview) — not `/practice`.
 - [ ] Given a hosted Method card for any other id, then it links to
       `/methods/{id}` (detail), not `/words/review`.
 - [ ] Given an off-app Method card, then it links to `/methods/{id}`.

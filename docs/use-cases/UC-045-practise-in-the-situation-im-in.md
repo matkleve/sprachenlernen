@@ -35,16 +35,21 @@ to the top make browsing worse, not better.
   label** (e.g. "Light effort") — before the learner opens the detail page.
 - Logistics chips show **duration** (one range chip) and **all** requirement
   values — not hosted/off-app on cards (requirements suffice).
-- Each card shows a **destination marker** — **Start** when tap opens a session,
-  **Info** when tap opens detail.
+- Each card shows a **destination marker** — **Start** when the method is runnable
+  (card engine or exercise runner), **Info** when tap opens detail only.
+- **Card engine** (`srs-session`): **Start** opens the review session in one tap.
+- **Exercise runner** methods: **Start** opens the **method overview** (detail
+  page) — settings and a **Start** control there launch `/practice`, not the
+  runner directly from the catalogue card.
 - Each card shows a **section header graphic** (one abstract image per catalogue
   section) so browsing sixty entries has visual rhythm without ranking methods.
 - Methods that do not fit are **absent**, not greyed out.
 - **Can't listen now** (UC-077) is **deferred** until mixed-stack sessions ship —
   not on the method menu (owner 2026-08-18); see [`../IDEAS.md`](../IDEAS.md).
 - Physical constraints are **stated by the learner**, never inferred.
-- Runnable methods open in one tap (**Start** on card); others show **Info** and
-  open honest detail.
+- Runnable methods show **Start** on the card; only the card engine skips the
+  overview. Others open honest **method overview** first (UC-042), then Start
+  on that page. Non-runnable cards show **Info** and open detail without Start.
 
 ## Out of scope
 

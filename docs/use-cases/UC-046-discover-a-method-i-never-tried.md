@@ -38,6 +38,9 @@ them.
   something learners ask about only makes them ask again.
 - Anything untried is visibly untried, and can be tried once without committing
   to it.
+- Choosing a runnable exercise method opens its **method overview** (detail
+  page) before the runner — not the step-by-step exercise surface (UC-049).
+  Settings (material topic, unit, own upload) and **Start** live on that overview.
 - The catalogue is data. Adding a method is an entry, not a release.
 
 ## Out of scope
