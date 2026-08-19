@@ -77,6 +77,7 @@ only this table.
 | [37 · Content & method setup UX](37-content-and-method-setup-ux.md) | Catalogue + learner sources, topic/upload on method detail, `/content` library |
 | [38 · Landing page update](38-landing-page-update.md) | What to show on `/` before login — structure, assets, headline options |
 | [39 · Method section graphics](39-method-section-graphics-brief.md) | Eight catalogue banner assets — cohesion brief, ChatGPT prompt, checklist |
+| [42 · Method usefulness audit](42-method-usefulness-ux-audit.md) | UX + science gates for hosted methods; build-a-sentence case study; spec changes |
 | [Sources](sources.md) | Literature, honestly marked by how far each was checked |
 
 Chapters 12–26 were written after the roadmap and are appended at the end. By

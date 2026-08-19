@@ -1,7 +1,7 @@
 # UC-049 — Work through an exercise one step at a time
 
 <!-- id: UC-049 -->
-<!-- specs: SPEC-feature-exercise-runner, SPEC-feature-practice-surface, SPEC-feature-page-layout, SPEC-page-practice, SPEC-service-material-unit, SPEC-service-exercise-step-components, SPEC-service-exercise-recipe-composer -->
+<!-- specs: SPEC-feature-exercise-runner, SPEC-feature-practice-surface, SPEC-feature-page-layout, SPEC-page-practice, SPEC-service-material-unit, SPEC-service-exercise-step-components, SPEC-service-exercise-recipe-composer, SPEC-service-method-session-viability -->
 
 **Who:** anyone doing an exercise with more than one part — a dictation, a piece
 of writing, a 4/3/2 round.
@@ -58,6 +58,9 @@ optimistic.
   variant — once, and without comment.
 - **Practice surface:** task copy and controls are large and legible under stress
   (Duolingo-scale prompts, 48px+ prep rows) — not app-settings density.
+- **Session contract:** before Start, the method overview names **how many learning
+  units** the session contains and **how feedback works** — so four screens never
+  hide that the session is one unscored sentence ([`method-session-viability.md`](../specs/service/method-session-viability.md), study/42).
 - **Anchored chrome:** on `/practice`, the hero belt stays at the top; segmented
   step progress (**Schritt n/m** + one bar per step) sits in the footer above ◀
   ▶ and the primary CTA, which stay at the bottom across steps; only reading

@@ -23,7 +23,9 @@ menu. Direct navigation to `/methods/{id}` still works for bookmarks and links.
   sentence, research disclosure). **Topic chip row** when `materialTopics` is set
   ([`method-material-setup.md`](../feature/method-material-setup.md)).
   On `< md` the panel collapses into a
-  `Disclosure`. Cards keep Lucide badge row
+  `Disclosure`. **Session contract** for hosted built methods — item count +
+  feedback mode before Start ([`method-session-viability.md`](../service/method-session-viability.md),
+  study/42). Cards keep Lucide badge row
   ([`method-badge.md`](../component/method-badge.md)). Tier badges:
   [`skill-tier-badge.md`](../component/skill-tier-badge.md). Shell header shows
   **Methods** on drill-in (not the method name; shell uses `<p>` so the in-page
@@ -99,6 +101,7 @@ Designer reviewed four placements. **Rejected:**
 | 6 | Expands research confidence | Plain evidence label + prose appear |
 | 7 | Method has `materialTopics` | Topic chip row below badge band; upload only when **Your own** selected |
 | 8 | Method has no `materialTopics` | Start unchanged (e.g. `srs-session`) |
+| 9 | Hosted method with viable recipe | Session contract above Start — e.g. *"5 sentences · compared to examples"* |
 
 ## Acceptance criteria
 
