@@ -2,6 +2,7 @@
 
 <!-- id: SPEC-service-form-practice -->
 <!-- use-case: UC-041 -->
+<!-- use-case: UC-078 -->
 <!-- status: draft -->
 
 How a learner practises inflected forms — which items exist, in what order they
@@ -10,6 +11,10 @@ Task count fifteenfold and adds a second signal to the level model.
 
 Nothing here is built. This is the contract the build follows, and two of its
 inputs are still undecided (§ Blocked on).
+
+**Relationship to UC-078 (T-W20):** `deck=form` on `srs-session` delivers
+**form-recall Tasks only** — one surface form per held lemma today. This spec
+covers the **full paradigm-cell** engine (`paradigm-cells-mixed`) and is T-W6.
 
 ## Scope
 

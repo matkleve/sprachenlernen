@@ -1,7 +1,7 @@
 # UC-062 — See what is actually holding my level back
 
 <!-- id: UC-062 -->
-<!-- specs:  -->
+<!-- specs: SPEC-service-form-mastery-signal -->
 
 **Who:** a learner whose overall level has not moved and who wants to know which
 part of their language is responsible.
@@ -56,9 +56,11 @@ target value on a signal.
 
 ## Undecided
 
-- **⚠ SPEC GAP: form-mastery display granularity** — per cell, per cell group
-  ("noun plural"), or per paradigm? The lexicon spec already flags that mastery
-  over an incomplete paradigm is undefined, and a display forces the question.
+- ~~**⚠ SPEC GAP: form-mastery display granularity**~~ **Answered 2026-08-19
+  (owner UX review):** per **cell group** on Progress drill-down (T-W5) —
+  e.g. *-ar present*, *noun plural* — with a link to `deck=form` filtered
+  practice when a group is weak. Per-cell detail stays inside form practice
+  (T-W6), not on the Progress summary row.
 - **⚠ SPEC GAP: no dated signal → band mapping exists per language.** The
   authoritative inventories that enumerate this (PCIC for Spanish, the *Profilo*
   for Italian) are licensing-constrained, so they can calibrate our bands but
