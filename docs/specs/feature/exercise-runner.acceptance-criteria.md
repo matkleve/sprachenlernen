@@ -3,7 +3,14 @@
 Split child of [`exercise-runner.md`](exercise-runner.md).
 
 - [ ] Given a fixture recipe with six step types, when the runner loads, then
-      step 1 renders and the duration bar reflects the recipe.
+      step 1 renders and the footer shows one segment per recipe step (not one
+      continuous bar under the hero).
+- [ ] Given an active step, when the footer renders, then **Schritt n/m** (or
+      locale equivalent) and segmented progress sit above ◀ ▶ and the primary
+      CTA — not in the hero belt.
+- [ ] Given step 2 is **seen** and step 1 is **done**, when the footer progress
+      renders, then segment 1 uses light accent, segment 2 uses lighter gray,
+      and unseen segments use the default line token.
 - [ ] Given step 2 is active, when the learner taps ▶ without **Fertig**, then
       step 3 is **seen**, step 2 is not **done**, and any running wait timer
       continues.

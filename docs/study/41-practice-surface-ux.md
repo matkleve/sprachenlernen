@@ -25,9 +25,9 @@ interactive — must fit in the fixed frame without a body scrollbar.
 
 ```
 100svh (mobile: minus shell float reserves)
-├─ Chrome belt (~5rem hero + progress + gaps)     shrink-0
+├─ Hero belt (~5rem)                                shrink-0
 ├─ Task zone (flex-1)                               overflow-hidden | scroll
-└─ Footer (nav + primary)                           shrink-0, anchored
+└─ Footer (segmented progress · nav · primary)      shrink-0, anchored
 ```
 
 Desktop: `--height-practice-session` = viewport below flat nav; page rhythm
@@ -49,14 +49,16 @@ padding lives **inside** that box — never subtract it twice in the height toke
 
 Session hero is **not** a catalogue card crop. It is a **belt**: section WebP
 faded full-bleed, titles on gradient, stop top-right, method title `text-lg`–`xl`.
-Progress bar sits directly under the belt — always visible, never scrolls away.
+**Segmented step progress** (one bar per recipe step, **Schritt n/m** label,
+timer pill when `wait` is active) lives in the **anchored footer** above ◀ ▶ and
+the primary CTA — not under the hero belt.
 
 ## Reference patterns (industry, not Duolingo clone)
 
 | Pattern | Source | We adopt |
 | --- | --- | --- |
 | One focal task per screen | Multi-step wizard UX | Already in runner steps |
-| Progress always visible | VP0 / HIG wizards | Hero belt + bar under belt |
+| Progress always visible | VP0 / HIG wizards | Footer segmented bars + label |
 | Primary action in thumb zone, 48px+ | Mobile wizard guides | Footer primary `lg` |
 | **Larger controls inside the task** | Duolingo, Brilliant, Khan | **Practice surface scale** |
 | **No scroll on short steps** | Khan lesson cards | **Fit-frame** profile |
@@ -69,14 +71,14 @@ are producing language, not browsing settings.
 ## Two layers
 
 ```
-┌─ Runner chrome (app density) ─────────────────────┐
-│ Hero belt · progress · stop · step nav · primary   │
-│ Tokens: text-sm/xs labels, md nav chips         │
-└───────────────────────────────────────────────────┘
-┌─ Practice surface (task density) ─────────────────┐
-│ Prompts · prep rows · inputs · capture · compare  │
-│ Tokens: text-lg prompts, 44px+ rows, chunky UI   │
-└───────────────────────────────────────────────────┘
+┌─ Runner chrome top (app density) ─────────────────┐
+│ Hero belt · stop                                   │
+├─ Practice surface (task density) ─────────────────┤
+│ Prompts · prep rows · inputs · capture · compare   │
+├─ Runner chrome bottom (app density) ───────────────┤
+│ Segmented progress · ◀ ▶ · primary (bottom-right)  │
+│ Tokens: text-sm/xs labels, md nav chips            │
+└────────────────────────────────────────────────────┘
 ```
 
 **Chrome** = `ExerciseRunnerHero`, `ExerciseRunnerProgress`, `ExerciseRunnerFooter`.

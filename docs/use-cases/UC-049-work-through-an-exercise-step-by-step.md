@@ -58,9 +58,10 @@ optimistic.
   variant — once, and without comment.
 - **Practice surface:** task copy and controls are large and legible under stress
   (Duolingo-scale prompts, 48px+ prep rows) — not app-settings density.
-- **Anchored chrome:** on `/practice`, hero + progress stay at the top and ◀ ▶ +
-  primary CTA stay at the bottom across steps; only reading steps scroll inside
-  the body (`scroll` / `paginated` profile).
+- **Anchored chrome:** on `/practice`, the hero belt stays at the top; segmented
+  step progress (**Schritt n/m** + one bar per step) sits in the footer above ◀
+  ▶ and the primary CTA, which stay at the bottom across steps; only reading
+  steps scroll inside the body (`scroll` / `paginated` profile).
 - **Content profiles:** recipe authors declare whether a step is short, scrollable,
   or paginated — long text never pushes the footer down.
 

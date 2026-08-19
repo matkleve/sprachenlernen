@@ -19,7 +19,8 @@ stay on [`../page/words-review.md`](../page/words-review.md) — not this runner
 
 ## Scope
 
-- **In:** runner chrome (step nav, duration bar, timer pill, abandon); six step
+- **In:** runner chrome (step nav, segmented step progress, timer pill, abandon);
+  six step
   types; component catalogue; recipe data shape; seen/done per step; timer
   ownership; session-only submit artefacts (photo, text).
 - **Out:** building every catalogue Method; LLM correction pipeline (review
@@ -105,7 +106,7 @@ Implementation: `lib/exercise-recipe.ts`, `lib/exercise-recipe/partial-dictation
 | # | User action | System response |
 | --- | --- | --- |
 | 1 | Taps Start on method detail (exercise engine) | Navigates to `/practice?method=…` (+ `sourceId` when setup resolved) |
-| 2 | Lands on first step | Recipe loaded; step 1 rendered; duration bar shown |
+| 2 | Lands on first step | Recipe loaded; step 1 rendered; footer shows segmented progress + **Schritt 1/m** |
 | 3 | Taps ▶ without **Fertig** | Next step **seen**; prior step not **done**; timer keeps running |
 | 4 | Taps **Fertig** on a `do` step | That step **done**; advances to next |
 | 5 | `submit` with `capture` | Photo stored session-local; text in memory; **Eingereicht** requires ≥1 per `accept` |

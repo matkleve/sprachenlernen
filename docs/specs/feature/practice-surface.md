@@ -5,9 +5,9 @@
 <!-- status: active -->
 
 Visual and interaction contract for **task content** inside the exercise runner
-(`/practice`) and future practice steps. Runner **chrome** (hero, progress, nav,
-primary CTA) keeps app density; everything the learner reads or taps to *do the
-task* uses practice-surface scale.
+(`/practice`) and future practice steps. Runner **chrome** (hero belt, footer segmented progress + nav, primary CTA)
+keeps app density; everything the learner reads or taps to *do the task* uses
+practice-surface scale.
 
 Research: [`study/41-practice-surface-ux.md`](../../study/41-practice-surface-ux.md).
 Parent: [`exercise-runner.md`](exercise-runner.md).
@@ -23,7 +23,8 @@ Parent: [`exercise-runner.md`](exercise-runner.md).
 
 | Layer | Owner components | Density |
 | --- | --- | --- |
-| Chrome | `ExerciseRunnerHero`, `ExerciseRunnerProgress`, `ExerciseRunnerFooter` | App (`text-sm` labels, `Button` sm/md) |
+| Chrome top | `ExerciseRunnerHero` | App (`text-sm` labels, stop) |
+| Chrome bottom | `ExerciseRunnerProgress`, `ExerciseRunnerFooter` | Segmented bars + **Schritt n/m**; ◀ ▶ + primary `lg` |
 | Surface | `PracticeSurface`, `PracticePrepList`, step components in `ExerciseStepBody` | Task (`text-lg`–`xl` leads, 48px+ rows) |
 
 ## Practice surface tokens (class contract)
