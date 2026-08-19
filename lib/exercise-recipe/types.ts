@@ -12,6 +12,8 @@ export type SessionContext = {
   topicId?: string | null;
   unitId?: MaterialUnitId;
   durationSec?: number;
+  /** Snapped menu or detail variant — drives compose volume (T-MV5). */
+  budgetMinutes?: number;
   variantId?: RecipeVariantId;
   heldLemmas?: ReadonlySet<string>;
 };
@@ -25,6 +27,7 @@ export type ResolveRecipeOptions = {
   topicId?: string | null;
   unitId?: MaterialUnitId;
   durationSec?: number;
+  budgetMinutes?: number;
   variantId?: RecipeVariantId;
   heldLemmas?: ReadonlySet<string>;
 };
