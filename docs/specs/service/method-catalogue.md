@@ -71,10 +71,11 @@ readiness input at all. Passing one in later, as a second filter, is how "cannot
 comply" quietly becomes "may not", which is the failure chapter 26 exists to
 prevent.
 
-Time is not a requirement field. A method declares its duration variants and the
-fit is computed; `durations: null` means open-ended and fits only an open block.
-Stating a budget list per entry would have been the same information written
-fifty-three times, and wrong in a different way each time it drifted.
+Time is not a requirement field. A method declares its **session budget variants**
+in `durations` (minutes each); each value must pass wall-clock viability
+([`method-session-budget.md`](method-session-budget.md)). The menu filter uses
+`min(durations) <= budget`; starting a session uses the snapped budget within
+`[min, max]`. `durations: null` means open-ended and fits only an open block.
 
 One set of requirements is **and** across dimensions, **or** within one. That
 cannot express "touch **or** voice", which is what
@@ -97,7 +98,7 @@ presets — a floor the learner has no way to act on is worse than no floor.
 | `hosted` | whether the app runs it | ● |
 | `doesNotDo` | the honest half of the info page. **Required** | ● |
 | `intensity` | `1 2 3`, anchored below | method |
-| `durations` | ascending minutes, or `null` for open-ended | method |
+| `durations` | ascending **session budget** minutes per variant, or `null` for open-ended | method |
 | `requires` | dimension → permitted values, or a list of alternative sets of those. **Non-empty** | method |
 | `offerEveryDays` | the floor, in days, or `null` | method |
 | `reviewAfterDays` | when the one quiet "still doing this?" fires | commitment |

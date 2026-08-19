@@ -151,7 +151,8 @@ New contract spec: [`method-session-viability.md`](../specs/service/method-sessi
 
 | Spec | Change |
 | --- | --- |
-| [`method-session-viability.md`](../specs/service/method-session-viability.md) | **New** — six gates as validator rules for hosted recipes |
+| [`method-session-viability.md`](../specs/service/method-session-viability.md) | **New** — seven gates (G1–G7) as validator rules |
+| [`method-session-budget.md`](../specs/service/method-session-budget.md) | **New** — wall-clock budget contract + compose scaling |
 | [`exercise-recipe-composer.md`](../specs/service/exercise-recipe-composer.md) | Composer must reject recipes that fail viability; link gates |
 | [`exercise-recipe-composer.methods.md`](../specs/service/exercise-recipe-composer.methods.md) | `build-a-sentence` **target** mix: `×3–5 [ D:type-with-word → R:feedback-or-exemplar ]` |
 | [`exercise-step-components.md`](../specs/service/exercise-step-components.md) | `reveal-answer` on production: exemplar **or** honesty key required |
@@ -167,6 +168,55 @@ New contract spec: [`method-session-viability.md`](../specs/service/method-sessi
 | **T-MV2** | Recompose `build-a-sentence` (batch + exemplar/feedback) | Sensitive |
 | **T-MV3** | Session contract on method detail | Standard |
 | **T-MV4** | `reading-aloud` rubric or record-and-replay step | Standard |
+| **T-MV5** | Budget-driven compose + catalogue duration validator | Standard |
+| **T-MV6** | Pass `minutes` from menu through Start URLs | Standard |
+
+---
+
+## Duration fidelity audit (G7) — all built methods
+
+**Rule:** card or menu budget **B** minutes → composed wall estimate in **[0.85B, 1.15B]**
+minutes of active learning + capped chrome overhead
+([`method-session-budget.md`](../specs/service/method-session-budget.md)).
+
+**Today:** menu `?minutes=` only **filters** the catalogue — it does **not** size
+the session. Card `durations` are filter hints, not enforced budgets. That is why
+"15 minutes" feels like a lie.
+
+### Shipped vs catalogue (2026-08-19)
+
+| Method | Card `durations` (min) | Shipped wall estimate | G7 | Recommended `durations` after fix |
+| --- | --- | --- | --- | --- |
+| `srs-session` | 2, 10, 20 | **~9 min** (15 cards × ~35 s) | **Fail** 2 & 20 | **5, 10, 20** → 7 / 15 / 30 cards |
+| `partial-dictation` | 8, 15 | **~5–6** short (N=1) · **~14–18** standard (N=6) | **Fail** short at 8 | **5, 10, 15** → short N=2 / standard N=4 / long window |
+| `full-dictation` | 12, 25 | **~15–25** standard loop | **Borderline** at 12 | Keep **12, 25**; map short/standard/long to budget |
+| `extensive-reading` | 10, 20, 45 | **Unbounded** (`full` text default) | **Fail** all | **10, 20, 45** with **window** units only; drop `full` as timed default |
+| `reading-aloud` | 5, 10, 20 | **Unbounded** (`full` text) | **Fail** all | **5, 10, 20** with **window** units; add rubric step |
+| `build-a-sentence` | 3, 8, 15 | **~3** (4 chrome steps, 1 sentence) | **Fail** 8 & 15 | **5, 10** until batch ships (3 & 5 sentences); **hide 15** |
+| `free-production` | 10, 20 | **~10** (600 s timer default) | **Pass** 10 · **Fail** 20 | **10, 20** with timer = budget − overhead |
+
+### Compose targets (normative once T-MV5 ships)
+
+| Method | `budgetMinutes` | Volume | Active-learning driver |
+| --- | --- | --- | --- |
+| `srs-session` | menu or variant | `cardCount` | `budget × 60 / 35` |
+| `partial-dictation` | 5 / 10 / 15 | N sentences | 90 s × N + waits |
+| `full-dictation` | 12 / 25 | N sentences | 120 s × N + waits |
+| `extensive-reading` | 10 / 20 / 45 | read window | `durationSec` on `window` unit |
+| `reading-aloud` | 5 / 10 / 20 | read window | window + speak pass |
+| `build-a-sentence` | 5 / 10 | N target words | 75 s × N (write + review each) |
+| `free-production` | 10 / 20 | one block | `timed-write.durationSec` |
+
+### UX rules
+
+1. **One number, one meaning** — the minute value on the card is the session budget
+   the composer uses, not a filter-only label.
+2. **Menu + detail agree** — `?minutes=15` on `/methods` becomes `minutes=15` on
+   Start unless the method's minimum variant is higher (show that honestly).
+3. **Contract before Start** — *"~10 min · 4 sentences · compared to key"* not
+   only *"10–20 min"* in the sidebar.
+4. **Remove lying variants** — until compose catches up, drop minute values from
+   `durations[]` so the card cannot promise what the runner cannot deliver.
 
 ---
 
@@ -174,20 +224,22 @@ New contract spec: [`method-session-viability.md`](../specs/service/method-sessi
 
 | # | Feature | Ev. | Eff. | Verdict |
 | --- | --- | --- | --- | --- |
-| F200 | **Method session viability gates** — hosted recipes must pass G1–G6 | D | S | **V1** — blocks shipping hollow methods |
+| F200 | **Method session viability gates** — hosted recipes must pass G1–G7 | D | S | **V1** |
 | F201 | **Session contract on detail** — "{n} items · {feedback label}" | D | S | **V1** — sets expectation before four screens |
 | F202 | **Batch micro-production** — default 3–5 items for word/sentence prompts | B | M | **V1** — fixes build-a-sentence class |
 | F203 | **Exemplar from material** — lemma table supplies model sentences | B | M | **V1** — prerequisite for honest reveal/compare |
 | F204 | **Skip prepare** when context already satisfied on detail | D | S | **V2** |
 | F205 | **Reading-aloud self-rubric** — 2-dimension self-mark after record | B | M | **V2** |
+| F206 | **Budget-driven sessions** — menu minutes sizes compose, not just filter | D | M | **V1** — G7 |
+| F207 | **Catalogue duration validator** — refuse `durations` that fail wall estimate | D | S | **V1** — with T-MV5 |
 
 ---
 
 ## Open
 
-- **Question 21 — minimum N for dictation variants?** Partial dictation at N=1
-  shares G3 weakness; variant `standard` should be the default on detail when
-  material allows.
+- **Question 21 — minimum N for dictation variants?** **Resolved for budgeting:**
+  N is derived from `budgetMinutes`, not fixed at 1/6. Catalogue min 8 → at least
+  2 sentences at short budget.
 - **Question 22 — when feedback is placeholder, can `done` feed productionQuality?**
   Proposal: only when learner completed review step, not do-only — needs level-model
   spec alignment.
@@ -198,5 +250,6 @@ New contract spec: [`method-session-viability.md`](../specs/service/method-sessi
 | --- | --- |
 | This chapter | Owner report + science + UX audit |
 | [`method-session-viability.md`](../specs/service/method-session-viability.md) | Normative gates |
-| [`IMPLEMENTATION-PLAN.md`](../IMPLEMENTATION-PLAN.md) | Add T-MV1–T-MV4 when scheduled |
+| [`IMPLEMENTATION-PLAN.md`](../IMPLEMENTATION-PLAN.md) | Add T-MV1–T-MV6 when scheduled |
+| [`method-session-budget.md`](../specs/service/method-session-budget.md) | Wall-clock contract |
 | UC-049 | Whole-task and honest `done` — already aligned; session contract is new surface |

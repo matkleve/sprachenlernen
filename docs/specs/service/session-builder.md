@@ -22,6 +22,11 @@ into a fixed-length queue of Tasks for one review session. **Standard**
   this module's (see "This module never chooses a language" below); form recall,
   audio recall, cloze; hand-picking cards (UC-039); backlog counters (UC-063, A3).
 
+**Budget (draft):** when `buildSession` receives `budgetMinutes`, card count =
+`round(budgetMinutes × 60 / SEC_PER_CARD)` with default `SEC_PER_CARD = 35` and
+tolerance per [`method-session-budget.md`](method-session-budget.md). Fixed **15**
+remains the default when `budgetMinutes` is omitted until T-MV5 ships.
+
 ## Behavior
 
 | # | Input | System response |

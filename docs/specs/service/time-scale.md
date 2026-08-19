@@ -13,7 +13,8 @@ in `lib/time-scale.ts`, no React.
   `closestBudget`, `formatTimeBudget`, default **15** minutes, final **Endless**
   step (UC-048).
 - **Out:** per-method duration editing; a learner-chosen custom minute value
-  outside the scale; session length for SRS (T-B1).
+  outside the scale; session length for SRS (T-B1 / T-MV5 —
+  [`method-session-budget.md`](method-session-budget.md)).
 
 ## Behavior
 

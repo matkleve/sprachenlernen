@@ -72,7 +72,7 @@ for `window`).
 | 5 | Taps **Your own** | Upload / paste / link appear; catalogue preview hidden |
 | 6 | Parses own material &lt; 95 % | Support-ladder preview; Start enabled when parsed |
 | 7 | Checks **Keep in my library** (own only) | On Start, persists `learner` Source to `/content` |
-| 8 | Taps Start | Navigates to `/practice?method=…` with `sourceId`, `topicId`, `unitId`, optional `durationSec`, optional `supportRung` |
+| 8 | Taps Start | Navigates to `/practice?method=…` with `sourceId`, `topicId`, `unitId`, optional `durationSec`, optional `supportRung`, **`minutes` when budget selected** |
 | 9 | Method without `materialTopics` | No panel; Start as today |
 
 ## States

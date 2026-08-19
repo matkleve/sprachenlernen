@@ -111,6 +111,20 @@ Components needed by **≥5 Methods** (build first): `checklist`, `prompt`,
 `audio-play`, `text-display`, `timed-write`, `capture`, `self-mark`, `offers`,
 `instruction`, `material-preview`, `speak-prompt`, `comprehension-questions`.
 
+**Built methods — budget variants (target after T-MV5):**
+
+| Method id | `durations` (min) | Compose volume at budget |
+| --- | --- | --- |
+| `srs-session` | 5, 10, 20 | 7 / 15 / 30 cards |
+| `partial-dictation` | 5, 10, 15 | 2 / 4 / window sentences |
+| `full-dictation` | 12, 25 | fixed ritual maps to N sentences |
+| `extensive-reading` | 10, 20, 45 | `window` unit = budget |
+| `reading-aloud` | 5, 10, 20 | `window` unit = budget |
+| `build-a-sentence` | 5, 10 | 3 / 5 target words (+ feedback each) |
+| `free-production` | 10, 20 | `timed-write` = budget − overhead |
+
+Full audit: [`../../study/42-method-usefulness-ux-audit.md`](../../study/42-method-usefulness-ux-audit.md).
+
 **Card-engine only:** `meaning-recall`, `form-recall`, `audio-recall`,
 `collocation-match`, `recognition`.
 

@@ -101,7 +101,7 @@ Designer reviewed four placements. **Rejected:**
 | 6 | Expands research confidence | Plain evidence label + prose appear |
 | 7 | Method has `materialTopics` | Topic chip row below badge band; upload only when **Your own** selected |
 | 8 | Method has no `materialTopics` | Start unchanged (e.g. `srs-session`) |
-| 9 | Hosted method with viable recipe | Session contract above Start — e.g. *"5 sentences · compared to examples"* |
+| 9 | Hosted method with viable recipe | Session contract above Start — budget, volume, feedback — e.g. *"~10 min · 4 sentences · compared to key"* |
 
 ## Acceptance criteria
 

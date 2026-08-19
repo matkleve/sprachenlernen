@@ -1,7 +1,7 @@
 # UC-045 — Find a way to practise that fits right now
 
 <!-- id: UC-045 -->
-<!-- specs: SPEC-page-method-menu, SPEC-service-time-scale, SPEC-component-chip, SPEC-component-method-badge, SPEC-component-method-card, SPEC-component-method-card-header, SPEC-feature-listening-defer -->
+<!-- specs: SPEC-page-method-menu, SPEC-service-time-scale, SPEC-service-method-session-budget, SPEC-component-chip, SPEC-component-method-badge, SPEC-component-method-card, SPEC-component-method-card-header, SPEC-feature-listening-defer -->
 
 **Who:** someone with a specific window — ten minutes on the sofa, half an hour
 before bed, a tired commute.
@@ -25,7 +25,9 @@ to the top make browsing worse, not better.
 
 - **Three questions first:** how much time (stepped slider — short steps at the
   start, up to one day, then **Endless** for an open window), what skill to train,
-  how much energy — these narrow most of the catalogue.
+  how much energy — these narrow most of the catalogue. The chosen minutes are
+  also the default **session budget** when they Start a method from this browse
+  context ([`method-session-budget.md`](../specs/service/method-session-budget.md)).
 - **Filters feel instant:** tapping skill, energy, or refine updates the list
   in place — no full reload, no scroll jump. Only choosing a method navigates away.
 - **Refine only when needed:** hands-free, silent, eyes elsewhere — not eight

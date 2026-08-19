@@ -28,6 +28,11 @@ implementation: [`lib/time-scale.ts`](../../../lib/time-scale.ts).
 catalogue **in place** — no full page navigation, no scroll jump to the top. The
 catalogue is already in memory; only method-card links navigate away.
 
+**Session budget (2026-08-19):** the time slider sets **both** which methods fit
+and the default **`budgetMinutes`** passed on Start when the learner opens a
+method from this browse context — contract:
+[`../service/method-session-budget.md`](../service/method-session-budget.md).
+
 **Method badges (UX, 2026-08-15):** each card shows a **badge row** — skill
 contribution, evidence label, effort label — above logistics chips (duration,
 all requirements, hosted). Study/27; component

@@ -16,8 +16,9 @@ Parent: [`method-catalogue.md`](method-catalogue.md). Recipes:
 
 ## Scope
 
-- **In:** six viability gates (G1–G6); `SessionContract` shape for method detail;
-  composer/linter rules for hosted recipes; feedback modes.
+- **In:** seven viability gates (G1–G7); `SessionContract` shape for method detail;
+  composer/linter rules for hosted recipes; feedback modes; wall-clock budget —
+  [`method-session-budget.md`](method-session-budget.md).
 - **Out:** off-app methods (debrief-only); menu ranking; LLM correction quality
   tiers beyond honest placeholder copy.
 
@@ -31,6 +32,7 @@ Parent: [`method-catalogue.md`](method-catalogue.md). Recipes:
 | **G4 Whole-task** | Catalogue `doesNotDo` names the limit; recipe does not pretend to exceed it |
 | **G5 Honest done** | Primary on production `do` does not set `done` without a review step marked done or explicit learner skip with copy |
 | **G6 Overhead** | `prepare` omitted when recipe meta `prepareRequired: false` and only `keyboard`/`touch` writing |
+| **G7 Duration** | Composed wall estimate within **85–115 %** of `budgetMinutes` — [`method-session-budget.md`](method-session-budget.md) |
 
 `learningUnits` = counted at compose time: loop iterations, dictation sentences,
 target words, card tasks, timed-write blocks — not runner chrome steps.
@@ -54,7 +56,9 @@ type SessionContract = {
   learningUnits: number;
   feedbackMode: "self-mark" | "exemplar" | "assisted" | "rubric" | "honest-none";
   feedbackLabelKey: string; // i18n for detail surface
-  estimatedMinutes: number; // from catalogue duration variant or compose
+  budgetMinutes: number; // learner-selected variant or menu default
+  wallEstimateMinutes: number; // composer estimate — shown as "~10 min"
+  volumeLabelKey: string; // e.g. "6 sentences", "15 cards"
 };
 ```
 
@@ -79,6 +83,7 @@ examples"*.
 | 2 | `partial-dictation` N=1 | Passes with **warning** on G3 — prefer N≥3 in `standard` |
 | 3 | `free-production` | Passes G2 via `feedback` placeholder |
 | 4 | Valid composed recipe | `SessionContract` for detail |
+| 5 | Catalogue `durations` variant | Each value must pass G7 at compose — or removed from data |
 
 ## Acceptance criteria
 

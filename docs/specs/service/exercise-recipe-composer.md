@@ -46,6 +46,7 @@ type SessionContext = {
   topicId?: string;
   unitId?: "sentence" | "paragraph" | "window" | "full";
   durationSec?: number;
+  budgetMinutes?: number; // snapped menu or detail variant — drives compose volume
   variantId?: "short" | "standard" | "long";
   context: Context; // lib/learning-context.ts
   supportRung?: string;
@@ -71,6 +72,8 @@ Rules:
 4. **Context may skip steps** — e.g. omit `sheet-download` when keyboard-only.
 5. **Terminal step is `decide`** when the Method offers cards; else `summary`.
 6. **Hosted recipes pass** `assertSessionViable` — see [`method-session-viability.md`](method-session-viability.md).
+7. **`budgetMinutes`** scales item loops, timers, and read windows — see
+   [`method-session-budget.md`](method-session-budget.md).
 
 ## Expansion patterns
 
