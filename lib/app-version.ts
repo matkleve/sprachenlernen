@@ -6,6 +6,8 @@ import {
 
 export type AppVersionPayload = {
   version: string;
+  /** ISO-8601 deploy timestamp from the running server build. */
+  builtAt: string | null;
 };
 
 export function isDeployedVersionNewer(

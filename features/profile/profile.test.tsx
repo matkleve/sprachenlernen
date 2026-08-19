@@ -194,13 +194,14 @@ describe("ProfileAppSection", () => {
   it("shows the running version and a check-for-updates control", async () => {
     vi.mocked(fetch).mockResolvedValue({
       ok: true,
-      json: async () => ({ version: bundledVersion }),
+      json: async () => ({ version: bundledVersion, builtAt: "2026-08-19T18:42:00.000Z" }),
     } as Response);
 
     renderWithAppUpdate(<ProfileAppSection />);
 
     expect(screen.getByRole("heading", { name: en.profile.appHeading })).toBeDefined();
     expect(screen.getByText(en.profile.runningVersion)).toBeDefined();
+    expect(screen.getByText(en.profile.versionFrom)).toBeDefined();
     expect(screen.getByText(en.profile.lastChecked)).toBeDefined();
     expect(screen.getAllByText(APP_VERSION_LABEL).length).toBeGreaterThan(0);
     expect(screen.getByRole("button", { name: en.profile.checkForUpdates })).toBeDefined();
@@ -209,7 +210,7 @@ describe("ProfileAppSection", () => {
   it("shows last checked after a successful version fetch", async () => {
     vi.mocked(fetch).mockResolvedValue({
       ok: true,
-      json: async () => ({ version: bundledVersion }),
+      json: async () => ({ version: bundledVersion, builtAt: "2026-08-19T18:42:00.000Z" }),
     } as Response);
 
     renderWithAppUpdate(<ProfileAppSection />);
@@ -225,7 +226,7 @@ describe("ProfileAppSection", () => {
   it("shows a green reload row when a newer version is available", async () => {
     vi.mocked(fetch).mockResolvedValue({
       ok: true,
-      json: async () => ({ version: deployedVersion }),
+      json: async () => ({ version: deployedVersion, builtAt: "2026-08-20T10:00:00.000Z" }),
     } as Response);
 
     renderWithAppUpdate(<ProfileAppSection />);
@@ -244,7 +245,7 @@ describe("ProfileAppSection", () => {
     const user = userEvent.setup();
     vi.mocked(fetch).mockResolvedValue({
       ok: true,
-      json: async () => ({ version: bundledVersion }),
+      json: async () => ({ version: bundledVersion, builtAt: "2026-08-19T18:42:00.000Z" }),
     } as Response);
 
     renderWithAppUpdate(<ProfileAppSection />);

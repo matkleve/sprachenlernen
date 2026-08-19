@@ -5,6 +5,12 @@ const withNextIntl = createNextIntlPlugin("./i18n/request.ts");
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
+  // Baked once per `next build` / dev server start — profile shows when this
+  // version shipped. Contract: docs/specs/feature/app-update.md
+  env: {
+    NEXT_PUBLIC_APP_BUILT_AT:
+      process.env.NEXT_PUBLIC_APP_BUILT_AT ?? new Date().toISOString(),
+  },
   // Runtime reads under data/ via readFileSync (method menu, language status).
   // Vercel's file tracer does not follow those paths — without this, /methods
   // shows "Could not load the method catalogue" in production. See TRAPS.md.

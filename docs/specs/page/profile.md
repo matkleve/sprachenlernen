@@ -66,7 +66,8 @@ passed as props to the client nav (see [`TRAPS.md`](../../TRAPS.md)).
 | 6 | Taps `Add a language` | The picker ([`language-picker.md`](language-picker.md)) — only when a shipped pool is not already being learned |
 | 7 | Has no language yet | The list is replaced by a single call to action into the picker — never an empty table |
 | 8 | Language read fails | The error surface for that block only; export and delete still work |
-| 9 | Views **App** | Running Pride version; **Last checked** after the first successful fetch;
+| 9 | Views **App** | Running Pride version; **This update from** (running build date);
+  **Last checked** after the first successful fetch;
   **Check for updates** re-fetches the server |
 | 10 | Update available | Green reload row names the deployed version; tap reloads the page |
 | 11 | Views **Home screen app** | Scope table; **Install instructions** → `/install`; **Open main website** → `/` |
