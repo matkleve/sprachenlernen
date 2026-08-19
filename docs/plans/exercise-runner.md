@@ -48,6 +48,17 @@ Load-bearing — do not skip skeleton before components.
 Catalogue cards for exercise methods open **method overview** first; Start on detail
 mounts `/practice` ([`method-detail.md`](../specs/page/method-detail.md)).
 
+## Method viability + session budget (study/42) — next queue
+
+Runner platform shipped; several **built** methods fail usefulness or duration
+gates. Specs:
+[`method-session-viability.md`](../specs/service/method-session-viability.md),
+[`method-session-budget.md`](../specs/service/method-session-budget.md).
+
+| ID | Work | See |
+| --- | --- | --- |
+| **T-MV1–T-MV6** | Viability linter, `build-a-sentence` fix, session contract UI, budget compose | [`IMPLEMENTATION-PLAN.md`](../IMPLEMENTATION-PLAN.md) Track B |
+
 ## Agent handoff template
 
 ```markdown

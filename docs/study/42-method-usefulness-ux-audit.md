@@ -224,14 +224,14 @@ the session. Card `durations` are filter hints, not enforced budgets. That is wh
 
 | # | Feature | Ev. | Eff. | Verdict |
 | --- | --- | --- | --- | --- |
-| F200 | **Method session viability gates** — hosted recipes must pass G1–G7 | D | S | **V1** |
-| F201 | **Session contract on detail** — "{n} items · {feedback label}" | D | S | **V1** — sets expectation before four screens |
-| F202 | **Batch micro-production** — default 3–5 items for word/sentence prompts | B | M | **V1** — fixes build-a-sentence class |
-| F203 | **Exemplar from material** — lemma table supplies model sentences | B | M | **V1** — prerequisite for honest reveal/compare |
-| F204 | **Skip prepare** when context already satisfied on detail | D | S | **V2** |
-| F205 | **Reading-aloud self-rubric** — 2-dimension self-mark after record | B | M | **V2** |
-| F206 | **Budget-driven sessions** — menu minutes sizes compose, not just filter | D | M | **V1** — G7 |
-| F207 | **Catalogue duration validator** — refuse `durations` that fail wall estimate | D | S | **V1** — with T-MV5 |
+| F208 | **Method session viability gates** — hosted recipes must pass G1–G7 | D | S | **V1** — T-MV1 |
+| F209 | **Session contract on detail** — "{n} items · {feedback label}" | D | S | **V1** — T-MV3 |
+| F210 | **Batch micro-production** — default 3–5 items for word/sentence prompts | B | M | **V1** — T-MV2 |
+| F211 | **Exemplar from material** — lemma table supplies model sentences | B | M | **V1** — T-MV2 |
+| F212 | **Skip prepare** when context already satisfied on detail | D | S | **V2** |
+| F213 | **Reading-aloud self-rubric** — 2-dimension self-mark after record | B | M | **V2** — T-MV4 |
+| F214 | **Budget-driven sessions** — menu minutes sizes compose, not just filter | D | M | **V1** — T-MV5/T-MV6 |
+| F215 | **Catalogue duration validator** — refuse `durations` that fail wall estimate | D | S | **V1** — T-MV5 |
 
 ---
 

@@ -370,6 +370,26 @@ exists because the alternative — a threshold gate — fails on
 
 ---
 
+## Q · Method viability and session budget → [42](42-method-usefulness-ux-audit.md)
+
+Hosted methods must be **useful** (feedback + volume) and **honest about time**
+(card/menu minutes match composed sessions). Gates and budget math:
+[`method-session-viability.md`](../specs/service/method-session-viability.md),
+[`method-session-budget.md`](../specs/service/method-session-budget.md).
+
+| # | Feature | Ev. | Eff. | Verdict |
+| --- | --- | --- | --- | --- |
+| F208 | **Method session viability gates** (G1–G7) — CI blocks hollow recipes | D | S | **V1** — T-MV1 |
+| F209 | **Session contract on detail** — budget, volume, feedback before Start | D | S | **V1** — T-MV3 |
+| F210 | **Batch micro-production** — 3–5 items per short writing method | B | M | **V1** — T-MV2 |
+| F211 | **Exemplar from material** — model sentences for compare steps | B | M | **V1** — T-MV2 |
+| F212 | **Skip prepare** when keyboard-only micro-task | D | S | **V2** |
+| F213 | **Reading-aloud self-rubric** after speak step | B | M | **V2** — T-MV4 |
+| F214 | **Budget-driven compose** — `minutes` sizes cards/sentences/timers | D | M | **V1** — T-MV5 |
+| F215 | **Catalogue duration validator** — `durations[]` vs `estimateWallClock` | D | S | **V1** — T-MV5 |
+
+---
+
 ## The V1 cut in one sentence
 
 **A menu of ways to practise — each with its evidence, its limits and what it

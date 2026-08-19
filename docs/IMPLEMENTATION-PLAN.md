@@ -377,6 +377,7 @@ honest Spanish/Italian; offline unlocks commute practice.
 | **6e** | **T-B10g** — card destination marker | **Shipped 2026-08-18** — [`plans/method-card-destination.md`](plans/method-card-destination.md); **routing fix 2026-08-19** — exercise cards → overview before `/practice` |
 | **7** | **T-B10b remainder** — ~~demonstration sentence~~ **shipped 2026-08-16**; readiness ([`study/26`](study/26-readiness-and-difficulty.md)) | Methods front door complete |
 | **7b** | ~~**Exercise runner** (T-E0–E9, T-MU*, T-LD1, T-E12)~~ — **shipped 2026-08-18**; six hosted runners + practice-surface UX | UC-049 |
+| **7c** | **Method viability + session budget** (T-MV1–T-MV6) — study/42; specs draft | Hosted sessions must pass G1–G7; card minutes size compose |
 | **8** | **T-B4 numerator** — guided hours practised (thesis 9: not card time alone) | Progress per hour invested (study/03 V3) |
 
 **Still partial in Track B:** T-B3 (pool-local only), T-B10b (standing + daily
@@ -413,6 +414,26 @@ Cooking-app runner for multi-step Methods (dictation, writing, listening drills)
 
 **Not this runner:** `srs-session` and card-engine form practice (T-W6) stay on
 `/words/review`.
+
+### Track B · Method viability and session budget (study/42) — specced 2026-08-19
+
+**Problem:** several shipped methods fail usefulness gates — `build-a-sentence`
+(~3 min, no correction) and menu `minutes` only filters, does not size sessions.
+**Specs:** [`method-session-viability.md`](specs/service/method-session-viability.md),
+[`method-session-budget.md`](specs/service/method-session-budget.md) (draft).
+**Study:** [`study/42-method-usefulness-ux-audit.md`](study/42-method-usefulness-ux-audit.md).
+
+| ID | Work | Class | Depends on | Done when |
+| --- | --- | --- | --- | --- |
+| **T-MV1** | `assertSessionViable` + `estimateWallClock` in CI | Standard | specs | failing recipes block merge |
+| **T-MV2** | Recompose `build-a-sentence` — batch + exemplar/feedback | Sensitive | T-MV1 | G2, G3, G7 pass at 5 & 10 min |
+| **T-MV3** | Session contract on method detail (budget + volume + feedback) | Standard | T-MV1 | UC-042 AC |
+| **T-MV4** | `reading-aloud` rubric or record-and-replay | Standard | T-MV1 | G2 pass |
+| **T-MV5** | `lib/exercise-recipe/budget.ts` — budget-driven compose + catalogue validator | Standard | T-MV1 | all 7 built methods pass G7 |
+| **T-MV6** | Pass `minutes` from menu through Start URLs | Standard | T-MV5 | UC-045 AC |
+
+**Order:** T-MV6 can land before T-MV5 (URL only); T-MV5 before catalogue
+`durations[]` changes; T-MV2 parallel once T-MV1 exists.
 
 ### Track B · Words domain — hygiene, decisions, then stage-2 slices
 

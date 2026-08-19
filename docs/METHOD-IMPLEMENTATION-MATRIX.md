@@ -15,6 +15,7 @@ and **build status** (code in [`lib/exercise-recipe-built.ts`](../lib/exercise-r
 | Commitments | 6 |
 | Hosted (`hosted: true`) | 34 |
 | **Built in-app** | **7** (`srs-session`, `partial-dictation`, `full-dictation`, `extensive-reading`, `reading-aloud`, `build-a-sentence`, `free-production`) |
+| **Pass viability G7 today** | **1** (`free-production` at 10 min only) — see [`study/42`](study/42-method-usefulness-ux-audit.md) |
 | Exercise runner specced | 40 |
 | Card engine specced | 4 |
 | Off-app / debrief only | 19 |
@@ -75,7 +76,7 @@ and **build status** (code in [`lib/exercise-recipe-built.ts`](../lib/exercise-r
 
 | id | Ev | Host | Engine | Mat. | Built | Pri | Components still needed |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| `build-a-sentence` | A | Y | runner | — | ✅ | done | — (shipped) |
+| `build-a-sentence` | A | Y | runner | — | ✅ ⚠ G2/G3/G7 | T-MV2 | batch + feedback (study/42) |
 | `free-production` | B | Y | runner | — | ✅ | done | — (shipped) |
 | `diary-three-sentences` | B | Y | runner | — | ❌ | P3 | timed-write, feedback |
 | `summarise-what-you-read` | B | Y | runner | — | ❌ | P3–P4 | see recipe doc |
@@ -133,7 +134,7 @@ and **build status** (code in [`lib/exercise-recipe-built.ts`](../lib/exercise-r
 
 | Wave | Methods | Why |
 | --- | --- | --- |
-| **P1** | ~~`full-dictation`, `extensive-reading`~~ — **done 2026-08-18** | Dictation reuse; reading material setup in catalogue |
+| **P1** | ~~`full-dictation`, `extensive-reading`~~ — **done 2026-08-18**; **T-MV** viability + budget before more runners | Dictation reuse; reading material setup |
 | **P2** | `cloze-sentences`, `minimal-pairs` | Evidence A, short recipes, no TTS |
 | **P3** | `dictogloss`, `four-three-two`, `diary-three-sentences`, `listening-level-1` | Needs audio + production components |
 | **P4** | Remaining hosted runners | Shared components from P1–P3 |
@@ -149,4 +150,7 @@ and **build status** (code in [`lib/exercise-recipe-built.ts`](../lib/exercise-r
 | [`exercise-recipe-composer.methods.md`](specs/service/exercise-recipe-composer.methods.md) | Specced step sequence |
 | [`exercise-step-components.md`](specs/service/exercise-step-components.md) | Component catalogue |
 | [`method-engines.md`](specs/service/method-engines.md) | Routing contract |
+| [`method-session-viability.md`](specs/service/method-session-viability.md) | Usefulness gates G1–G7 |
+| [`method-session-budget.md`](specs/service/method-session-budget.md) | Wall-clock budget + compose scaling |
+| [`study/42-method-usefulness-ux-audit.md`](study/42-method-usefulness-ux-audit.md) | Audit + duration table |
 | [`study/21-method-catalogue-and-context.md`](study/21-method-catalogue-and-context.md) | Pedagogy narrative |
