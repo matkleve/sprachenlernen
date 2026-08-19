@@ -27,9 +27,18 @@ describe("practice-model counts", () => {
     expect(methods.length - hosted.length).toBe(19);
   });
 
-  it("has exactly one built engine, and it is the card engine", () => {
-    // "Engines ship one at a time" — the moment a second runner exists this
-    // goes red, and the contract's stage-1 language has to be revisited.
+  it("has seven built in-app engines (card + six exercise runners)", () => {
+    const builtExercise = [
+      "partial-dictation",
+      "full-dictation",
+      "extensive-reading",
+      "reading-aloud",
+      "build-a-sentence",
+      "free-production",
+    ];
     expect(entries.some((entry) => entry.id === "srs-session")).toBe(true);
+    for (const id of builtExercise) {
+      expect(entries.some((entry) => entry.id === id)).toBe(true);
+    }
   });
 });

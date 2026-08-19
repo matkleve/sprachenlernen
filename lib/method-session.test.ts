@@ -49,11 +49,17 @@ describe("usesWordsReview", () => {
 });
 
 describe("usesExerciseRunner", () => {
-  it("is true only for built exercise methods", () => {
-    expect(usesExerciseRunner(method({ id: "partial-dictation" }))).toBe(true);
-    expect(usesExerciseRunner(method({ id: "full-dictation" }))).toBe(true);
-    expect(usesExerciseRunner(method({ id: "extensive-reading" }))).toBe(true);
-    expect(usesExerciseRunner(method({ id: "reading-aloud" }))).toBe(true);
+  it("is true for all six built exercise methods", () => {
+    for (const id of [
+      "partial-dictation",
+      "full-dictation",
+      "extensive-reading",
+      "reading-aloud",
+      "build-a-sentence",
+      "free-production",
+    ]) {
+      expect(usesExerciseRunner(method({ id }))).toBe(true);
+    }
     expect(usesExerciseRunner(method({ id: "narrow-reading" }))).toBe(false);
     expect(usesExerciseRunner(method({ id: "srs-session" }))).toBe(false);
   });

@@ -104,6 +104,14 @@ describe("cards", () => {
     expect(link.getAttribute("href")).not.toContain("/words/review");
   });
 
+  it("links build-a-sentence to method overview", () => {
+    show();
+    const method = findMethod(catalogue, "build-a-sentence")!;
+    const link = screen.getByRole("link", { name: new RegExp(method.name) });
+    expect(link.getAttribute("href")).toBe("/methods/build-a-sentence");
+    expect(link.getAttribute("href")).not.toContain("/practice");
+  });
+
   it("links other hosted methods without a runner to detail", () => {
     show();
     const hosted = findMethod(catalogue, "narrow-listening")!;
