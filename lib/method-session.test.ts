@@ -159,7 +159,7 @@ describe("shellPageLayout practice", () => {
     ]) {
       const params = new URLSearchParams({ method: methodId });
       expect(isActiveExerciseSession(routes.practice, params)).toBe(true);
-      expect(shellPageLayout(routes.practice, params)).toBe("one-screen-runner");
+      expect(shellPageLayout(routes.practice, params)).toBe("one-screen-exercise");
     }
   });
 
@@ -185,6 +185,12 @@ describe("the card engine has one id", () => {
   it("routes the card engine through the shared href", () => {
     expect(cardEngineSessionHref()).toBe(
       `${routes.wordsReview}?method=${CARD_ENGINE_METHOD_ID}`,
+    );
+    expect(cardEngineSessionHref("form")).toBe(
+      `${routes.wordsReview}?method=${CARD_ENGINE_METHOD_ID}&deck=form`,
+    );
+    expect(cardEngineSessionHref("meaning")).toBe(
+      `${routes.wordsReview}?method=${CARD_ENGINE_METHOD_ID}&deck=meaning`,
     );
   });
 });
