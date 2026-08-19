@@ -290,6 +290,7 @@ export type PracticeSetupParams = {
   topicId: MaterialTopicSelection;
   unitId: MaterialUnitId;
   durationSec?: number;
+  budgetMinutes?: number;
   variantId?: RecipeVariantId;
 };
 
@@ -308,6 +309,7 @@ export function practiceHrefForSetup(params: PracticeSetupParams): string {
   if (variantId) {
     search.set("variantId", variantId);
   }
+  if (params.budgetMinutes !== undefined) search.set("minutes", String(params.budgetMinutes));
   return `/practice?${search.toString()}`;
 }
 

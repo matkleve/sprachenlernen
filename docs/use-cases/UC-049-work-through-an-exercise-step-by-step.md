@@ -1,7 +1,7 @@
 # UC-049 — Work through an exercise one step at a time
 
 <!-- id: UC-049 -->
-<!-- specs: SPEC-feature-exercise-runner, SPEC-feature-practice-surface, SPEC-feature-page-layout, SPEC-page-practice, SPEC-service-material-unit, SPEC-service-exercise-step-components, SPEC-service-exercise-recipe-composer -->
+<!-- specs: SPEC-feature-exercise-runner, SPEC-feature-practice-surface, SPEC-feature-page-layout, SPEC-page-practice, SPEC-service-material-unit, SPEC-service-exercise-step-components, SPEC-service-exercise-recipe-composer, SPEC-service-method-session-viability, SPEC-service-method-session-budget -->
 
 **Who:** anyone doing an exercise with more than one part — a dictation, a piece
 of writing, a 4/3/2 round.
@@ -23,6 +23,11 @@ optimistic.
 
 ## Success looks like
 
+- **Method overview before the runner:** hosted exercise methods open
+  [`method-detail.md`](../specs/page/method-detail.md) from the catalogue — not
+  `/practice` directly. The learner reads what the method does, adjusts setup
+  when the method has `materialTopics` / `materialUnits`, and taps **Start** to
+  mount the runner. Only the card engine (`srs-session`) may skip this surface.
 - An exercise runs as a sequence of typed steps: **prepare** (checklist),
   **do**, **wait** (timer), **submit** (photo or text), **review** (check or
   feedback), **decide** (an offer).
@@ -53,9 +58,13 @@ optimistic.
   variant — once, and without comment.
 - **Practice surface:** task copy and controls are large and legible under stress
   (Duolingo-scale prompts, 48px+ prep rows) — not app-settings density.
-- **Anchored chrome:** on `/practice`, hero + progress stay at the top and ◀ ▶ +
-  primary CTA stay at the bottom across steps; only reading steps scroll inside
-  the body (`scroll` / `paginated` profile).
+- **Session contract:** before Start, the method overview names **how many learning
+  units** the session contains and **how feedback works** — so four screens never
+  hide that the session is one unscored sentence ([`method-session-viability.md`](../specs/service/method-session-viability.md), study/42).
+- **Anchored chrome:** on `/practice`, the hero belt stays at the top; segmented
+  step progress (**Schritt n/m** + one bar per step) sits in the footer above ◀
+  ▶ and the primary CTA, which stay at the bottom across steps; only reading
+  steps scroll inside the body (`scroll` / `paginated` profile).
 - **Content profiles:** recipe authors declare whether a step is short, scrollable,
   or paginated — long text never pushes the footer down.
 

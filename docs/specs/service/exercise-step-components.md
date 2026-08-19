@@ -101,7 +101,7 @@ Implementation target: `lib/exercise-step-components/` registry +
 | `compare` | Side-by-side learner vs reference | planned | back-translation |
 | `diff-highlight` | Inline added/removed/changed | planned | dictogloss, rewrite in own words |
 | `feedback` | Assisted correction (v1 placeholder) | shipped placeholder | free production, diary, summarise |
-| `reveal-answer` | Show exemplar; no marking | shipped | cloze, build-a-sentence |
+| `reveal-answer` | Show exemplar or honest no-key copy | shipped | cloze · **not sole review for production without exemplar/honestyKey** (study/42) |
 | `comprehension-check` | Post-input questions | planned | listening L1 |
 | `rubric` | Self-rate 2–3 dimensions | planned | free production, 4/3/2, retell |
 | `error-log-review` | Walk saved errors one by one | planned | own error log |

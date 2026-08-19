@@ -61,6 +61,7 @@ Per-method evidence, recipe, and build status:
 | Which engines exist and how they route | [`method-engines.md`](method-engines.md) |
 | Per-method build matrix | [`METHOD-IMPLEMENTATION-MATRIX.md`](../../METHOD-IMPLEMENTATION-MATRIX.md) |
 | Exercise step runner (UC-049) | [`exercise-runner.md`](../feature/exercise-runner.md) |
+| Session viability + budget (study/42) | [`method-session-viability.md`](method-session-viability.md), [`method-session-budget.md`](method-session-budget.md) |
 | Menu filters, standing, daily three | [`page/method-menu.md`](../page/method-menu.md) |
 | Words snapshot and Start review | [`words-home.md`](../feature/words-home.md) |
 | Progress signals and pool-local vocab | [`page/progress.md`](../page/progress.md) |

@@ -13,14 +13,18 @@ that are not the card engine.
 
 - **In:** route, query params, layout mode, error surfaces (unknown method, recipe
   missing, not built).
-- **Out:** recipe authoring; material setup (lives on method detail).
+- **Out:** recipe authoring; material setup UI lives on method detail — runner
+  mounts only after **Start** on the overview.
 
 ## Query params
 
 | Param | Required | Meaning |
 | --- | --- | --- |
 | `method` | yes | Catalogue method id |
-| `sourceId` | when method has `materialModes` | Resolved Source from setup |
+| `sourceId` | when material setup resolved | Resolved Source from setup |
+| `unitId` | when material units declared | Material slice id |
+| `durationSec` | when `unitId=window` | Window length; must match `minutes × 60` when both set |
+| `minutes` | when started from menu or detail variant | Session budget — [`method-session-budget.md`](../service/method-session-budget.md) |
 
 ## Behaviour
 

@@ -27,6 +27,7 @@ export type MethodMaterialSetupProps = {
   method: MethodEntry;
   context: MaterialSetupContext;
   canPersist?: boolean;
+  budgetMinutes?: number;
   className?: string;
   /** Test hook — bypasses the server action for own-text preview. */
   previewOwnForTest?: (
@@ -39,6 +40,7 @@ export function MethodMaterialSetup({
   method,
   context,
   canPersist = false,
+  budgetMinutes,
   className,
   previewOwnForTest,
 }: MethodMaterialSetupProps) {
@@ -99,6 +101,7 @@ export function MethodMaterialSetup({
           topicId,
           unitId,
           durationSec: selectedUnit?.durationSec,
+          budgetMinutes,
         })
       : null;
 
@@ -112,6 +115,7 @@ export function MethodMaterialSetup({
         topicId,
         unitId,
         durationSec: selectedUnit?.durationSec,
+        budgetMinutes,
         ownText: topicId === OWN_TOPIC_ID ? ownText : undefined,
         keepInLibrary: topicId === OWN_TOPIC_ID ? keepInLibrary : false,
         catalogueSourceId: topicId === OWN_TOPIC_ID ? undefined : cataloguePreview.sourceId,
@@ -127,7 +131,14 @@ export function MethodMaterialSetup({
   };
 
   return (
-    <section className={cn("mt-8 space-y-4", className)} aria-labelledby="material-setup-heading">
+    <section
+      className={cn(
+        "rounded-card border border-line bg-surface-raised p-4 shadow-soft md:p-5",
+        "space-y-3 md:space-y-4",
+        className,
+      )}
+      aria-labelledby="material-setup-heading"
+    >
       <div>
         <h2 id="material-setup-heading" className="text-sm font-semibold text-ink">
           {t("topicHeading")}

@@ -15,5 +15,5 @@ Split child of [`method-material-setup.md`](method-material-setup.md).
       the chip is disabled or shows empty-state — **no** upload field under it.
 - [x] AC-7 · Given keep unchecked after own material, when the session ends, then
       no new `/content` row appears (ephemeral cookie until saved via T-W9).
-- [x] AC-8 · Given `partial-dictation` with `materialUnits` sentence + paragraph + window,
-      when detail renders, then preview shows unit label and coverage before Start.
+- [x] AC-9 · Given a method with `materialTopics`, when detail renders, then topic
+      chips and Start appear **above** `trains` prose — not below the article body.

@@ -9,6 +9,9 @@ ordered list of steps the runner renders. Recipes may be **fixed templates**,
 **expanded at compose time** (loops, variants), or **algorithmically chosen**
 later; the composer interface is the same in all three cases.
 
+**Viability:** composed hosted recipes must pass
+[`method-session-viability.md`](method-session-viability.md) (study/42).
+
 Parent: [`exercise-runner.md`](../feature/exercise-runner.md). Component ids:
 [`exercise-step-components.md`](exercise-step-components.md). Per-method mixes:
 [`exercise-recipe-composer.methods.md`](exercise-recipe-composer.methods.md). Build
@@ -43,6 +46,7 @@ type SessionContext = {
   topicId?: string;
   unitId?: "sentence" | "paragraph" | "window" | "full";
   durationSec?: number;
+  budgetMinutes?: number; // snapped menu or detail variant — drives compose volume
   variantId?: "short" | "standard" | "long";
   context: Context; // lib/learning-context.ts
   supportRung?: string;
@@ -67,6 +71,9 @@ Rules:
 3. **Variant changes step count or durations**, not step types.
 4. **Context may skip steps** — e.g. omit `sheet-download` when keyboard-only.
 5. **Terminal step is `decide`** when the Method offers cards; else `summary`.
+6. **Hosted recipes pass** `assertSessionViable` — see [`method-session-viability.md`](method-session-viability.md).
+7. **`budgetMinutes`** scales item loops, timers, and read windows — see
+   [`method-session-budget.md`](method-session-budget.md).
 
 ## Expansion patterns
 

@@ -45,6 +45,19 @@ Load-bearing — do not skip skeleton before components.
 | **T-E12** | ~~**Practice-surface UX + anchored layout**~~ — **shipped 2026-08-18** | Standard | T-E1 | [`practice-surface.md`](../specs/feature/practice-surface.md), [`exercise-runner.layout.md`](../specs/feature/exercise-runner.layout.md) AC |
 
 **Not this runner:** `srs-session`, form-recall card queue — card engine on `/words/review`.
+Catalogue cards for exercise methods open **method overview** first; Start on detail
+mounts `/practice` ([`method-detail.md`](../specs/page/method-detail.md)).
+
+## Method viability + session budget (study/42) — next queue
+
+Runner platform shipped; several **built** methods fail usefulness or duration
+gates. Specs:
+[`method-session-viability.md`](../specs/service/method-session-viability.md),
+[`method-session-budget.md`](../specs/service/method-session-budget.md).
+
+| ID | Work | See |
+| --- | --- | --- |
+| **T-MV1–T-MV6** | Viability linter, `build-a-sentence` fix, session contract UI, budget compose | [`IMPLEMENTATION-PLAN.md`](../IMPLEMENTATION-PLAN.md) Track B |
 
 ## Agent handoff template
 

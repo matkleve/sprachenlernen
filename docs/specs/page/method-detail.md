@@ -1,14 +1,16 @@
-# Method detail — the info page behind a card
+# Method detail — method overview and pre-start surface
 
 <!-- id: SPEC-page-method-detail -->
 <!-- use-case: UC-042 -->
+<!-- use-case: UC-049 -->
 <!-- status: active -->
 
-One method, fully described. **Off-app methods** and **hosted methods whose
-session is not built** reach this page from the menu. Only Methods whose engine
-is built open a session from the card ([`method-engines.md`](../service/method-engines.md) —
-today: `srs-session` → Words review). Direct navigation to `/methods/{id}` still
-works for bookmarks and links.
+One method, fully described — the **method overview** learners see before starting
+an exercise-runner session. **Off-app methods** and **hosted methods whose
+session is not built** reach this page from the menu. **Exercise-runner** methods
+reach it from catalogue cards too (settings + **Start** here; not `/practice`
+directly). Only the card engine (`srs-session`) may skip this surface from the
+menu. Direct navigation to `/methods/{id}` still works for bookmarks and links.
 
 ## Scope
 
@@ -21,7 +23,9 @@ works for bookmarks and links.
   sentence, research disclosure). **Topic chip row** when `materialTopics` is set
   ([`method-material-setup.md`](../feature/method-material-setup.md)).
   On `< md` the panel collapses into a
-  `Disclosure`. Cards keep Lucide badge row
+  `Disclosure`. **Session contract** for hosted built methods — item count +
+  feedback mode before Start ([`method-session-viability.md`](../service/method-session-viability.md),
+  study/42). Cards keep Lucide badge row
   ([`method-badge.md`](../component/method-badge.md)). Tier badges:
   [`skill-tier-badge.md`](../component/skill-tier-badge.md). Shell header shows
   **Methods** on drill-in (not the method name; shell uses `<p>` so the in-page
@@ -74,11 +78,14 @@ Designer reviewed four placements. **Rejected:**
 1. Full-bleed section-graphic hero (same asset as cards; fades to `canvas`)
 2. Back link (desktop only, in content column)
 3. Two columns at `≥ md`:
-   - **Main:** `<h1>` → summary → badge band → **topic chip row** (when
-     `materialTopics`) → `trains` prose → `doesNotDo` callout → session footer
-     + Start when applicable
+   - **Main:** `<h1>` → summary → badge band → **pre-start panel** (topic chips +
+     unit chips, preview, **Start** when `materialTopics`; else **Start** for
+     runnable methods without setup) → `trains` prose → `doesNotDo` callout
    - **Aside:** practical details (duration, needs, hosted, effort anchor, research disclosure)
-4. On `< md`: practical details in a collapsed `Disclosure` below the badge band
+4. On `< md`: practical details in a collapsed `Disclosure` **after** the
+   pre-start panel (not before it). Runnable / material-setup methods use
+   **`heroCompact`** — shorter hero on phone so topic chips and **Start** are
+   visible without scrolling.
 
 ## Behavior
 
@@ -86,13 +93,15 @@ Designer reviewed four placements. **Rejected:**
 | --- | --- | --- |
 | 1 | Opens `/methods/{id}` | Hero, article, facts panel, or not-found |
 | 2 | `srs-session`, taps Start | Navigates to `/words/review?method=srs-session` |
-| 2b | Exercise-runner method (when built), taps Start | Navigates to `/practice?method={id}` (+ `sourceId` when setup resolved) |
+| 2b | Exercise-runner method, taps Start | Navigates to `/practice?method={id}` (+ `sourceId` when setup resolved) |
+| 2c | Exercise-runner method, taps card on menu | Lands on this overview first — not `/practice` |
 | 3 | Other hosted method, engine not built | No Start; not-built copy |
 | 4 | Back (desktop or shell chip) | `/methods` with filter query preserved |
 | 5 | Expands practical details (`< md`) | Duration, needs, hosted, effort anchor, evidence appear |
 | 6 | Expands research confidence | Plain evidence label + prose appear |
 | 7 | Method has `materialTopics` | Topic chip row below badge band; upload only when **Your own** selected |
 | 8 | Method has no `materialTopics` | Start unchanged (e.g. `srs-session`) |
+| 9 | Hosted method with viable recipe | Session contract above Start — budget, volume, feedback — e.g. *"~10 min · 4 sentences · compared to key"* |
 
 ## Acceptance criteria
 
@@ -128,6 +137,8 @@ Designer reviewed four placements. **Rejected:**
       prose appears — no letter grade prefix.
 - [ ] Given unknown id, when the page renders, then it does not claim the method
       exists.
+- [ ] Given a built exercise-runner method, when its catalogue card is tapped,
+      then the browser opens this overview — not `/practice`.
 - [ ] Given `srs-session`, when Start is tapped, then Words review opens.
 - [ ] Given viewport &lt; `md`, when the page renders, then no in-page back link.
 - [ ] The page root has no `"use client"`.

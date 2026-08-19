@@ -29,22 +29,32 @@ export function usesExerciseRunner(method: MethodEntry): boolean {
   return method.hosted && !usesWordsReview(method) && hasExerciseRecipe(method.id);
 }
 
-export function exerciseSessionHref(methodId: string, sourceId?: string | null): string {
+export function exerciseSessionHref(
+  methodId: string,
+  options?: { sourceId?: string | null; budgetMinutes?: number },
+): string {
   const params = new URLSearchParams({ method: methodId });
-  if (sourceId) params.set("sourceId", sourceId);
+  if (options?.sourceId) params.set("sourceId", options.sourceId);
+  if (options?.budgetMinutes !== undefined) {
+    params.set("minutes", String(options.budgetMinutes));
+  }
   return `${routes.practice}?${params.toString()}`;
 }
 
 /** Where a hosted session lives — card engine or exercise runner. */
 export function sessionHrefForMethod(
   method: MethodEntry,
-  options?: { sourceId?: string | null },
+  options?: { sourceId?: string | null; budgetMinutes?: number },
 ): string {
   if (usesWordsReview(method)) {
-    return `${routes.wordsReview}?method=${encodeURIComponent(method.id)}`;
+    const params = new URLSearchParams({ method: method.id });
+    if (options?.budgetMinutes !== undefined) {
+      params.set("minutes", String(options.budgetMinutes));
+    }
+    return `${routes.wordsReview}?${params.toString()}`;
   }
   if (usesExerciseRunner(method)) {
-    return exerciseSessionHref(method.id, options?.sourceId);
+    return exerciseSessionHref(method.id, options);
   }
   return detailHrefForMethod(method);
 }
@@ -65,9 +75,9 @@ export function cardDestinationMarker(method: MethodEntry): CardDestinationMarke
   return isRunnableFromMenu(method) ? "start" : "info";
 }
 
-/** Menu card destination: runnable sessions open directly; else detail. */
+/** Menu card destination: card engine opens session; everything else opens overview. */
 export function cardHrefForMethod(method: MethodEntry, returnQuery = ""): string {
-  if (isRunnableFromMenu(method)) {
+  if (usesWordsReview(method)) {
     return sessionHrefForMethod(method);
   }
   return detailHrefForMethod(method, returnQuery);

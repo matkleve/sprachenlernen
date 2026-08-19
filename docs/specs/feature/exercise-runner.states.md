@@ -32,10 +32,10 @@ type StepStatus = "unseen" | "seen" | "done" | "skipped";
 
 ## Single source of truth
 
-`activeStepIndex: number` — which recipe step is focused. Chrome (title, bar,
-timer pill, step body) derives from `recipe.steps[activeStepIndex]` and
-`stepStatuses[activeStepIndex]`. No surface stores its own copy of the active
-step.
+`activeStepIndex: number` — which recipe step is focused. Chrome (hero title,
+segmented step progress, timer pill, step body) derives from
+`recipe.steps[activeStepIndex]` and `stepStatuses[activeStepIndex]`. No surface
+stores its own copy of the active step.
 
 ## Timer ownership
 
@@ -63,6 +63,6 @@ Acting on terminal phases is a no-op.
 
 ## Coherence
 
-After `activeStepIndex` changes, header, body, duration bar and timer pill must
-all describe the same step in the same render — no residue from the previous
-step's labels or controls ([`STATE.md`](../../STATE.md) §6).
+After `activeStepIndex` changes, hero, body, segmented progress label and timer
+pill must all describe the same step in the same render — no residue from the
+previous step's labels or controls ([`STATE.md`](../../STATE.md) §6).

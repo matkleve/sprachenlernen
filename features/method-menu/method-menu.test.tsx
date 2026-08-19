@@ -95,12 +95,22 @@ describe("cards", () => {
     expect(link.getAttribute("href")).toBe("/words/review?method=srs-session");
   });
 
-  it("links hosted methods with built runners to practice", () => {
+  it("links hosted methods with built runners to method overview", () => {
     show();
     const hosted = findMethod(catalogue, "extensive-reading")!;
     const link = screen.getByRole("link", { name: new RegExp(hosted.name) });
-    expect(link.getAttribute("href")).toContain("/practice?method=extensive-reading");
+    expect(link.getAttribute("href")).toContain(`/methods/${hosted.id}`);
+    expect(link.getAttribute("href")).not.toContain("/practice");
     expect(link.getAttribute("href")).not.toContain("/words/review");
+  });
+
+  it("links build-a-sentence to method overview", () => {
+    show();
+    const method = findMethod(catalogue, "build-a-sentence")!;
+    const links = screen.getAllByRole("link", { name: new RegExp(method.name) });
+    const overviewLink = links.find((link) => link.getAttribute("href") === "/methods/build-a-sentence");
+    expect(overviewLink).toBeDefined();
+    expect(overviewLink?.getAttribute("href")).not.toContain("/practice");
   });
 
   it("links other hosted methods without a runner to detail", () => {

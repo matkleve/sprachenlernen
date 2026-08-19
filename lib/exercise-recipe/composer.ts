@@ -40,6 +40,7 @@ export function toSessionContext(
     topicId: options.topicId,
     unitId: options.unitId,
     durationSec: options.durationSec,
+    budgetMinutes: options.budgetMinutes,
     variantId: options.variantId,
     heldLemmas: options.heldLemmas,
   };

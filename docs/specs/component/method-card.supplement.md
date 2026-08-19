@@ -2,7 +2,7 @@
 
 <!-- parent: SPEC-component-method-card -->
 <!-- use-case: UC-045 -->
-<!-- status: draft -->
+<!-- status: superseded — routing AC merged into method-card.md 2026-08-19 -->
 
 Owner + UX review 2026-08-18: cards carry enough facts (shields, duration,
 requirements) but do not say **what happens on tap**. This supplement adds the
@@ -34,7 +34,8 @@ Derived from `cardHrefForMethod` — not from `hosted` alone:
 
 | Condition | Marker (EN key) | Tap goes to |
 | --- | --- | --- |
-| `usesWordsReview(method)` or `usesExerciseRunner(method)` | **Start** (`card.destination.start`) | Session route |
+| `usesWordsReview(method)` | **Start** (`card.destination.start`) | `/words/review?method=srs-session` |
+| `usesExerciseRunner(method)` | **Start** | `/methods/{id}` — overview before `/practice` |
 | Everything else | **Info** (`card.destination.info`) | `/methods/{id}` |
 
 Off-app (`hosted: false`) and hosted-not-built both show **Info** — same tap
@@ -70,8 +71,9 @@ Hosted intent stays on **detail** practical panel only.
 
 ## Acceptance criteria
 
-- [ ] Given a runnable method, when the card renders, then the header shows
-      **Start** top-right and the link `href` is a session route.
+- [ ] Given a runnable exercise method, when the card renders, then the header shows
+      **Start** top-right and the link `href` is `/methods/{id}`.
+- [ ] Given `srs-session`, when the card renders, then **Start** links to Words review.
 - [ ] Given any non-runnable method (off-app or hosted-not-built), when the card
       renders, then the header shows **Info** top-right and the link `href` is
       the detail route.

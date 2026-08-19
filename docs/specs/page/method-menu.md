@@ -7,7 +7,9 @@
 The app's front door at `/methods` ([ADR-0010](../../adr/0010-the-route-model.md)).
 Three primary questions — **time**, **skill**, **energy** — narrow the catalogue;
 an optional **refine** panel adds hands, voice, and eyes only when needed.
-Hosted cards open the session directly; off-app cards open the detail page.
+Hosted cards open the **method overview** (detail) for exercise runners and
+off-app / not-built methods; only the card engine (`srs-session`) opens a session
+in one tap from the catalogue.
 
 **UX revision 2026-08-09 (owner + two designer review):** the seven "where are
 you" presets and eight-dimension custom builder were dropped. Learners found
@@ -25,6 +27,11 @@ implementation: [`lib/time-scale.ts`](../../../lib/time-scale.ts).
 **Instant filters (UX, 2026-08-10):** skill, energy, and refine chips filter the
 catalogue **in place** — no full page navigation, no scroll jump to the top. The
 catalogue is already in memory; only method-card links navigate away.
+
+**Session budget (2026-08-19):** the time slider sets **both** which methods fit
+and the default **`budgetMinutes`** passed on Start when the learner opens a
+method from this browse context — contract:
+[`../service/method-session-budget.md`](../service/method-session-budget.md).
 
 **Method badges (UX, 2026-08-15):** each card shows a **badge row** — skill
 contribution, evidence label, effort label — above logistics chips (duration,
@@ -53,7 +60,8 @@ No accent left border — uniform `rounded-card` only.
 - **In:** stepped time slider ([`../service/time-scale.md`](../service/time-scale.md));
   skill and energy filter pills; optional refine (hands, voice, eyes); method
   cards with badge row + logistics chips (duration, all requirements — **not**
-  hosted); runnable cards open session directly; others open detail; client-side filtering with URL sync
+  hosted); **card-engine** cards open the session in one tap; **exercise-runner**
+  and other cards open the method overview (detail); client-side filtering with URL sync
   (`history.replaceState`); **current standing** — one honest sentence from the
   progress reading, above the filters (T-B10 follow-up, narrowed); **daily
   three** — three method cards composed from the filtered catalogue (study/12,
@@ -82,8 +90,8 @@ stays a Server Component.
 | 2 | Moves time slider | URL `?minutes=` updates to the nearest scale step (or `endless`); list shows methods whose shortest variant fits |
 | 3 | Taps skill, energy, or refine | List intersects that dimension **without reloading the page**; scroll position preserved |
 | 4 | Opens refine | Optional hands / voice / eyes constraints |
-| 5 | Taps a **runnable** card | Session opens; card showed **Start** |
-| 6 | Taps a **non-runnable** card | Detail page; card showed **Info** |
+| 5 | Taps a **card-engine** card (`srs-session`) | Words review opens; card showed **Start** |
+| 6 | Taps an **exercise-runner** or other card | Method overview (detail) opens; runnable cards showed **Start**, others **Info** |
 
 ## Current standing
 

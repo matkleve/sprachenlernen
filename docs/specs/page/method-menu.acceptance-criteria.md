@@ -24,6 +24,8 @@
       appear.
 - [ ] Given a hosted Method card for `srs-session`, then it links to
       `/words/review?method=srs-session`.
+- [ ] Given a hosted Method card for a **built exercise-runner** id, then it
+      links to `/methods/{id}` (overview) — not `/practice`.
 - [ ] Given a hosted Method card for any other id, then it links to
       `/methods/{id}` (detail), not `/words/review`.
 - [ ] Given an off-app Method card, then it links to `/methods/{id}`.
@@ -32,8 +34,10 @@
 - [ ] Given any rendered Method card, then the badge row (skill marks, plain
       evidence label, plain effort label) appears above logistics chips; `doesNotDo`
       prose appears below.
-- [ ] Given any rendered Method card, then logistics chips include duration (one),
-      hosted (one), and every requirement value from the catalogue — no cap.
+- [ ] Given any rendered Method card, then logistics chips include duration (one)
+      and every requirement value from the catalogue — **no** hosted/off-app chip.
+- [ ] Given a built exercise-runner Method card, then it links to
+      `/methods/{id}` (overview), not `/practice`.
 - [ ] Given evidence C on a method card, when it renders, then the badge shows
       "Thin evidence" — not "Evidence C" or a bare letter.
 - [ ] Given intensity 1 on a method card, when it renders, then the effort badge

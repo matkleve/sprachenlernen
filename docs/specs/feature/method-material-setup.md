@@ -19,7 +19,9 @@ units: [`../../study/39-material-units-and-listening-defer.md`](../../study/39-m
 ## Scope
 
 - **In:** chip row on [`method-detail.md`](../page/method-detail.md) when
-  `materialTopics` is set; **unit preview** when `materialUnits` is set (see
+  `materialTopics` is set — **directly below the badge band**, with **Start**
+  immediately under chips/preview (before `trains` prose); **unit preview** when
+  `materialUnits` is set (see
   [`material-unit.md`](../service/material-unit.md)); built-in **App picks** +
   **Your own** chips; catalogue preview per topic chip; upload/paste/link **only**
   when Your own is selected; optional **Keep in my library**; Start gating until
@@ -70,7 +72,7 @@ for `window`).
 | 5 | Taps **Your own** | Upload / paste / link appear; catalogue preview hidden |
 | 6 | Parses own material &lt; 95 % | Support-ladder preview; Start enabled when parsed |
 | 7 | Checks **Keep in my library** (own only) | On Start, persists `learner` Source to `/content` |
-| 8 | Taps Start | Navigates to `/practice?method=…` with `sourceId`, `topicId`, `unitId`, optional `durationSec`, optional `supportRung` |
+| 8 | Taps Start | Navigates to `/practice?method=…` with `sourceId`, `topicId`, `unitId`, optional `durationSec`, optional `supportRung`, **`minutes` when budget selected** |
 | 9 | Method without `materialTopics` | No panel; Start as today |
 
 ## States

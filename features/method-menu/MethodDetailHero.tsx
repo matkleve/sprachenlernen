@@ -5,6 +5,8 @@ import { MethodCardHeader } from "./MethodCardHeader";
 
 export type MethodDetailHeroProps = {
   section: Section;
+  /** Shorter hero on mobile when the page leads with setup + Start. */
+  compact?: boolean;
   className?: string;
 };
 
@@ -12,7 +14,7 @@ export type MethodDetailHeroProps = {
  * Edge-to-edge section graphic under the floating shell header — same asset as
  * cards. Contract: docs/specs/page/method-detail.md
  */
-export function MethodDetailHero({ section, className }: MethodDetailHeroProps) {
+export function MethodDetailHero({ section, compact = false, className }: MethodDetailHeroProps) {
   return (
     <div
       className={cn(
@@ -21,7 +23,7 @@ export function MethodDetailHero({ section, className }: MethodDetailHeroProps) 
         className,
       )}
     >
-      <MethodCardHeader section={section} size="hero" />
+      <MethodCardHeader section={section} size={compact ? "heroCompact" : "hero"} />
     </div>
   );
 }

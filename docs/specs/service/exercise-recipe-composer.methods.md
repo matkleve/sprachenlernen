@@ -51,7 +51,7 @@ Notation: `→` sequence, `×N` loop, `+` combined on one step. Step =
 
 | Method id | Engine | Recipe mix |
 | --- | --- | --- |
-| `build-a-sentence` | runner | D:type-with-word → R:reveal-answer → C:offers |
+| `build-a-sentence` | runner | **shipped:** P:checklist → D:type-with-word → R:reveal-answer → C:offers — **fails viability (study/42)** · **target:** ×3–5 [ D:type-with-word → R:feedback-or-exemplar ] → C:offers |
 | `free-production` | runner | P:checklist → D:timed-write → S:capture → R:feedback → C:offers |
 | `diary-three-sentences` | runner | D:timed-write(3-sentences) → R:feedback → C:offers |
 | `summarise-what-you-read` | runner | P:material-preview → D:text-display → W:wait → D:timed-write → R:feedback → C:offers |
@@ -110,6 +110,20 @@ Notation: `→` sequence, `×N` loop, `+` combined on one step. Step =
 Components needed by **≥5 Methods** (build first): `checklist`, `prompt`,
 `audio-play`, `text-display`, `timed-write`, `capture`, `self-mark`, `offers`,
 `instruction`, `material-preview`, `speak-prompt`, `comprehension-questions`.
+
+**Built methods — budget variants (target after T-MV5):**
+
+| Method id | `durations` (min) | Compose volume at budget |
+| --- | --- | --- |
+| `srs-session` | 5, 10, 20 | 7 / 15 / 30 cards |
+| `partial-dictation` | 5, 10, 15 | 2 / 4 / window sentences |
+| `full-dictation` | 12, 25 | fixed ritual maps to N sentences |
+| `extensive-reading` | 10, 20, 45 | `window` unit = budget |
+| `reading-aloud` | 5, 10, 20 | `window` unit = budget |
+| `build-a-sentence` | 5, 10 | 3 / 5 target words (+ feedback each) |
+| `free-production` | 10, 20 | `timed-write` = budget − overhead |
+
+Full audit: [`../../study/42-method-usefulness-ux-audit.md`](../../study/42-method-usefulness-ux-audit.md).
 
 **Card-engine only:** `meaning-recall`, `form-recall`, `audio-recall`,
 `collocation-match`, `recognition`.

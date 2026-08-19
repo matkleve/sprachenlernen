@@ -1,7 +1,7 @@
 # UC-011 — Start learning in the first minute, without deciding anything
 
 <!-- id: UC-011 -->
-<!-- specs: SPEC-service-auth, SPEC-service-discovery, SPEC-page-landing, SPEC-feature-privacy-consent, SPEC-service-session-builder, SPEC-feature-review-session, SPEC-service-starter-deck, SPEC-page-language-picker -->
+<!-- specs: SPEC-service-auth, SPEC-service-discovery, SPEC-page-landing, SPEC-feature-privacy-consent, SPEC-service-session-builder, SPEC-service-method-session-budget, SPEC-feature-review-session, SPEC-service-starter-deck, SPEC-page-language-picker -->
 
 **Who:** someone who has just signed up and has not yet decided whether they
 mean it.
@@ -28,7 +28,10 @@ them — you tap a language and you are learning.
 - From the end of signup, the first real exercise is reachable in well under a
   minute.
 - The first session uses a **supplied, frequency-ordered starting set**. Nobody
-  has to create a card, pick a deck, or understand card design first.
+  has to create a card, pick a deck, or understand card design first. Session
+  length is **fixed for onboarding** (15 cards today); menu-driven **budget
+  minutes** apply once the learner browses Methods
+  ([`method-session-budget.md`](../specs/service/method-session-budget.md), T-MV5).
 - **No placement test before the first exercise.** It is offered afterwards, and
   skipping it is a normal outcome, not a deferred chore.
 - Nothing in the first session depends on a setting the learner has not seen.

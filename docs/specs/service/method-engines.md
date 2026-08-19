@@ -26,12 +26,12 @@ Parent contract: [`practice-model.md`](practice-model.md). Catalogue schema:
 | Layer | What it is | Ships today |
 | --- | --- | --- |
 | **Method catalogue** | Data — every named way to practise, hosted or off-app | 53 methods, browsable at `/methods` |
-| **Method engine** | Code that turns one Method into a session | **Five built:** card (`srs-session`), exercise (`partial-dictation`, `full-dictation`, `extensive-reading`, `reading-aloud`) |
+| **Method engine** | Code that turns one Method into a session | **Seven built:** card (`srs-session`); exercise (`partial-dictation`, `full-dictation`, `extensive-reading`, `reading-aloud`, `build-a-sentence`, `free-production`) |
 | **Destination** | Where a learner goes for a kind of work — Methods, Words, Progress | Three (ADR-0009) |
 
 A **hosted** catalogue entry (`hosted: true`) means the product intends to run it
 in-app. It does **not** mean a session exists yet. Thirty-four methods are
-hosted; **five** are runnable today.
+hosted; **seven** are runnable today.
 
 ## Card engine (shipped)
 
@@ -60,7 +60,7 @@ held for the same Word.
 | Recipes | Composed at Start — [`exercise-recipe-composer.md`](exercise-recipe-composer.md) |
 | Writes | Session log (future); `decide` may create cards — never silently |
 
-Built: shell + `partial-dictation` + `full-dictation` + `extensive-reading` + `reading-aloud`. Build order:
+Built: shell + six exercise Methods — see [`exercise-recipe-built.ts`](../../../lib/exercise-recipe-built.ts). Build order:
 [`plans/exercise-runner.md`](../../plans/exercise-runner.md).
 
 ## Routing
@@ -68,7 +68,7 @@ Built: shell + `partial-dictation` + `full-dictation` + `extensive-reading` + `r
 | Catalogue state | From method menu card | From method detail |
 | --- | --- | --- |
 | Hosted, card engine (`srs-session`) | Opens Words review directly | Start → Words review |
-| Hosted, exercise runner (when built) | Detail page (or direct if daily three) | Start → `/practice?method=…` |
+| Hosted, exercise runner (when built) | Method overview (`/methods/{id}`) | Start → `/practice?method=…` |
 | Hosted, engine not built | Detail page | Honest not-built copy; no Start |
 | Off-app (`hosted: false`) | Detail page | Off-app copy; no Start |
 
@@ -105,17 +105,18 @@ Order is load-bearing — see IMPLEMENTATION-PLAN § Track B engine phase and
 ## Acceptance criteria
 
 - [ ] Given any hosted method other than `srs-session`, when the menu card is
-      tapped, then the detail page opens — not Words review.
+      tapped, then the method overview opens — not Words review and not `/practice`.
 - [ ] Given `srs-session`, when the menu card is tapped, then Words review opens
-      without passing through detail.
+      without passing through the overview.
+- [ ] Given a built exercise-runner method, when the menu card is tapped, then
+      the method overview opens; `/practice` opens only from **Start** on that page.
 - [ ] Given review history from `srs-session` only, when Progress renders, then
       pool-local vocabulary and recall stability may have data and all four
       skills remain *not measured*.
 - [ ] Given the catalogue, when `hosted: true` is read, then no code path may
-      assume a session exists — only `usesWordsReview` may open a runner, and no
-      surface builds `?method=…` by hand. Enforced by a test that greps
-      `app/` and `features/` for the literal, because three surfaces had already
-      done it when this criterion was written.
+      assume a session exists — routing uses `cardHrefForMethod` /
+      `sessionHrefForMethod`, and no surface builds `?method=srs-session` by hand.
+      Enforced by a grep test on `app/` and `features/`.
 
 ## Check
 

@@ -1,7 +1,7 @@
 # UC-046 — Discover a way of practising I never knew existed
 
 <!-- id: UC-046 -->
-<!-- specs: SPEC-service-method-catalogue, SPEC-page-method-menu, SPEC-service-method-engines, SPEC-service-practice-model, SPEC-component-method-badge, SPEC-component-method-card-header, SPEC-feature-method-material-setup -->
+<!-- specs: SPEC-service-method-catalogue, SPEC-page-method-menu, SPEC-service-method-engines, SPEC-service-practice-model, SPEC-service-method-session-viability, SPEC-service-method-session-budget, SPEC-component-method-badge, SPEC-component-method-card-header, SPEC-feature-method-material-setup -->
 
 **Who:** a learner whose idea of "studying a language" is whatever their app has
 shown them.
@@ -38,6 +38,9 @@ them.
   something learners ask about only makes them ask again.
 - Anything untried is visibly untried, and can be tried once without committing
   to it.
+- Choosing a runnable exercise method opens its **method overview** (detail
+  page) before the runner — not the step-by-step exercise surface (UC-049).
+  Settings (material topic, unit, own upload) and **Start** live on that overview.
 - The catalogue is data. Adding a method is an entry, not a release.
 
 ## Out of scope

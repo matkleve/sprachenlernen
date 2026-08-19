@@ -1,7 +1,7 @@
 # UC-042 — Know why a method is supposed to work
 
 <!-- id: UC-042 -->
-<!-- specs: SPEC-page-method-detail, SPEC-component-method-badge, SPEC-component-skill-tier-badge, SPEC-service-skill-tier -->
+<!-- specs: SPEC-page-method-detail, SPEC-component-method-badge, SPEC-component-skill-tier-badge, SPEC-service-skill-tier, SPEC-service-method-session-viability, SPEC-service-method-session-budget -->
 
 **Who:** anyone being asked to spend fifteen minutes on an exercise they did not
 choose to invent.
@@ -24,6 +24,11 @@ So they optimise for what feels productive, which is reliably not what works.
 
 - Every method has a page reachable from its card, before deciding and after
   finishing.
+- For **exercise-runner** methods this page is also the **pre-start overview**:
+  material setup (when declared), **session contract** (budget, volume, feedback
+  mode — [`method-session-viability.md`](../specs/service/method-session-viability.md)),
+  and **Start** live here; the catalogue card does not open `/practice` directly
+  (card engine excepted).
 - It states the **mechanism** in plain language — not "helps your listening" but
   why it does, and what would be different if it worked.
 - It states **how confident anyone is**, using a plain label on the **card**

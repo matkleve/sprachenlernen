@@ -85,6 +85,25 @@ describe("MethodDetail", () => {
     expect(screen.getByText(en.methodMenu.sessionNotBuilt)).toBeDefined();
   });
 
+  it("uses a shorter hero on runnable method detail for mobile pre-start", async () => {
+    const buildASentence = findMethod(catalogue, "build-a-sentence")!;
+    render(await MethodDetail({ method: buildASentence }));
+
+    const hero = document.querySelector(".h-28");
+    expect(hero).not.toBeNull();
+  });
+
+  it("places Start before trains prose for runnable methods without material setup", async () => {
+    const buildASentence = findMethod(catalogue, "build-a-sentence")!;
+    render(await MethodDetail({ method: buildASentence }));
+
+    const trainsIndex = document.body.textContent!.indexOf(buildASentence.trains);
+    const startLink = screen.getByRole("link", { name: en.methodMenu.startSession });
+
+    expect(startLink.getAttribute("href")).toBe("/practice?method=build-a-sentence&minutes=3");
+    expect(document.body.textContent!.indexOf(en.methodMenu.startSession)).toBeLessThan(trainsIndex);
+  });
+
   it("shows Start for extensive-reading on practice", async () => {
     render(
       await MethodDetail({
@@ -94,7 +113,7 @@ describe("MethodDetail", () => {
     );
 
     expect(screen.getByRole("link", { name: en.methodMenu.startSession }).getAttribute("href")).toBe(
-      "/practice?method=extensive-reading",
+      "/practice?method=extensive-reading&minutes=15",
     );
   });
 
@@ -106,11 +125,11 @@ describe("MethodDetail", () => {
     expect(hero?.textContent).toContain(en.methodMenu.sections.reading);
   });
 
-  it("shows Start for srs-session", async () => {
+  it("shows Start for srs-session with default budget minutes", async () => {
     render(await MethodDetail({ method: srsSession }));
 
     expect(screen.getByRole("link", { name: en.methodMenu.startSession }).getAttribute("href")).toBe(
-      "/words/review?method=srs-session",
+      "/words/review?method=srs-session&minutes=2",
     );
   });
 
@@ -119,7 +138,7 @@ describe("MethodDetail", () => {
     render(await MethodDetail({ method: partialDictation }));
 
     expect(screen.getByRole("link", { name: en.methodMenu.startSession }).getAttribute("href")).toBe(
-      "/practice?method=partial-dictation",
+      "/practice?method=partial-dictation&minutes=8",
     );
     expect(screen.queryByText(en.methodMenu.sessionNotBuilt)).toBeNull();
   });
