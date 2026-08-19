@@ -129,8 +129,8 @@ export function MethodMaterialSetup({
   return (
     <section
       className={cn(
-        "rounded-card border border-line bg-surface-raised p-5 shadow-soft",
-        "space-y-4",
+        "rounded-card border border-line bg-surface-raised p-4 shadow-soft md:p-5",
+        "space-y-3 md:space-y-4",
         className,
       )}
       aria-labelledby="material-setup-heading"

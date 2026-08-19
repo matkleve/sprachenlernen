@@ -77,10 +77,14 @@ export async function MethodDetail({ method, searchParams = {} }: MethodDetailPr
     : { status: "omit" as const };
   const showMaterialSetup = materialBundle.status === "ok";
   const localized = localizeMethodEntry(method, (key) => t(key as "entries.background-listening.name"));
+  const hasPreStart =
+    showMaterialSetup ||
+    usesWordsReview(method) ||
+    usesExerciseRunner(method);
 
   return (
     <>
-      <MethodDetailHero section={method.section} />
+      <MethodDetailHero section={method.section} compact={hasPreStart} />
 
       <ShellPageContent mode="scrollable-drill-in" width="wide">
         <ActionLink href={backHref} variant="ghost" size="sm" className={cn(backLinkClass, "mb-4")}>
@@ -89,22 +93,37 @@ export async function MethodDetail({ method, searchParams = {} }: MethodDetailPr
 
         <div className="grid gap-8 md:grid-cols-[minmax(0,1fr)_15rem] lg:grid-cols-[minmax(0,1fr)_17rem] lg:gap-10">
           <article className="min-w-0">
-            <h1 className="text-3xl font-semibold tracking-tight text-ink sm:text-4xl">
+            <h1
+              className={cn(
+                "font-semibold tracking-tight text-ink",
+                hasPreStart
+                  ? "text-2xl leading-tight sm:text-3xl md:text-4xl"
+                  : "text-3xl sm:text-4xl",
+              )}
+            >
               {localized.name}
             </h1>
 
-            <p className="mt-4 text-lg leading-relaxed text-muted">{localized.summary}</p>
+            <p
+              className={cn(
+                "mt-3 leading-relaxed text-muted",
+                hasPreStart ? "text-base md:mt-4 md:text-lg" : "mt-4 text-lg",
+              )}
+            >
+              {localized.summary}
+            </p>
 
-            <MethodDetailBadgeBand method={method} className="mt-4" />
-
-            <MethodDetailFacts method={method} variant="mobile" className="mt-6 md:hidden" />
+            <MethodDetailBadgeBand
+              method={method}
+              className={cn(hasPreStart ? "mt-3" : "mt-4")}
+            />
 
             {showMaterialSetup ? (
               <MethodMaterialSetup
                 method={method}
                 context={materialBundle.context}
                 canPersist={materialBundle.canPersist}
-                className="mt-6"
+                className="mt-4 md:mt-6"
               />
             ) : null}
 
@@ -113,7 +132,7 @@ export async function MethodDetail({ method, searchParams = {} }: MethodDetailPr
                 href={sessionHrefForMethod(method)}
                 variant="primary"
                 size="lg"
-                className="mt-6"
+                className="mt-4 md:mt-6"
               >
                 {t("startSession")}
               </ActionLink>
@@ -123,8 +142,10 @@ export async function MethodDetail({ method, searchParams = {} }: MethodDetailPr
               !usesWordsReview(method) &&
               !usesExerciseRunner(method) &&
               !showMaterialSetup && (
-                <p className="mt-6 text-sm text-muted">{t("sessionNotBuilt")}</p>
+                <p className="mt-4 text-sm text-muted md:mt-6">{t("sessionNotBuilt")}</p>
               )}
+
+            <MethodDetailFacts method={method} variant="mobile" className="mt-4 md:hidden" />
 
             <p className="mt-8 text-lg leading-relaxed text-ink">{localized.trains}</p>
 

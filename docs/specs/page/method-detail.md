@@ -80,7 +80,10 @@ Designer reviewed four placements. **Rejected:**
      unit chips, preview, **Start** when `materialTopics`; else **Start** for
      runnable methods without setup) → `trains` prose → `doesNotDo` callout
    - **Aside:** practical details (duration, needs, hosted, effort anchor, research disclosure)
-4. On `< md`: practical details in a collapsed `Disclosure` below the badge band
+4. On `< md`: practical details in a collapsed `Disclosure` **after** the
+   pre-start panel (not before it). Runnable / material-setup methods use
+   **`heroCompact`** — shorter hero on phone so topic chips and **Start** are
+   visible without scrolling.
 
 ## Behavior
 

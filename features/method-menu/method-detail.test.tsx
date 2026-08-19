@@ -85,6 +85,14 @@ describe("MethodDetail", () => {
     expect(screen.getByText(en.methodMenu.sessionNotBuilt)).toBeDefined();
   });
 
+  it("uses a shorter hero on runnable method detail for mobile pre-start", async () => {
+    const buildASentence = findMethod(catalogue, "build-a-sentence")!;
+    render(await MethodDetail({ method: buildASentence }));
+
+    const hero = document.querySelector(".h-28");
+    expect(hero).not.toBeNull();
+  });
+
   it("places Start before trains prose for runnable methods without material setup", async () => {
     const buildASentence = findMethod(catalogue, "build-a-sentence")!;
     render(await MethodDetail({ method: buildASentence }));
