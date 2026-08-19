@@ -6,6 +6,7 @@
 <!-- use-case: UC-038 -->
 <!-- use-case: UC-005 -->
 <!-- use-case: UC-006 -->
+<!-- use-case: UC-078 -->
 <!-- status: active -->
 
 The `/words` vocabulary home — held/fragile/new counts, the review horizon
@@ -40,7 +41,9 @@ reading, listening, speaking, and off-app Methods are reached from `/methods`.
   session-length picker; choosing a method other than a built card-engine Method
   from this page; holdings or horizon for Methods without a card engine;
   form-recall progress (that's [`form-mastery-signal.md`](../service/form-mastery-signal.md),
-  on Progress). Horizon presentation detail lives in
+  on Progress). **Forms section card** and `deck=form` review entry
+  ([UC-078](../../use-cases/UC-078-practise-forms-without-mixed-review.md)) —
+  T-W20. Horizon presentation detail lives in
   [`review-horizon.md`](review-horizon.md).
 
 **Reuse: `Button`, `Table`, `Disclosure`** — list popover and detail patterns.
@@ -51,8 +54,10 @@ shell and header graphic ([`method-card-header.md`](../component/method-card-hea
 
 | # | User action | System response |
 | --- | --- | --- |
-| 1 | Opens `/words` | Canvas intent copy; review action card with header graphic; vocabulary counts in a raised vocabulary-section card (header graphic, caption, lemma callout, three stat tiles with numbers only, collapsed count definitions); frequency bands with held/fragile/new (or holes in the core band) per band; horizon and orbit with uppercase section labels |
-| 2 | Taps Start review | Navigates to `/words/review?method=srs-session` |
+| 1 | Opens `/words` | Canvas intent copy; **Review meanings** action card; **Review forms** action card when the language profile declares inflection; vocabulary counts in a raised vocabulary-section card (header graphic, caption, lemma callout, three stat tiles with numbers only, collapsed count definitions); frequency bands with held/fragile/new (or holes in the core band) per band; horizon and orbit with uppercase section labels |
+| 2 | Taps Start review (meanings) | Navigates to `/words/review?method=srs-session&deck=meaning` |
+| 2b | Taps Review forms | Navigates to `/words/review?method=srs-session&deck=form` |
+| 2c | Taps Review mixed (when offered) | Navigates to `/words/review?method=srs-session` or `deck=mixed` |
 | 3 | Taps a segment or **Show list** | See [`vocabulary-orbit.md`](vocabulary-orbit.md) |
 | 4 | Expands or collapses horizon | See [`review-horizon.md`](review-horizon.md) |
 | 5 | History load fails | Error callout; no fake empty snapshot |
@@ -67,9 +72,14 @@ outcomes.
 ## Acceptance criteria
 
 - [ ] Given a signed-in learner on `/words`, when the page renders, then intent
-      copy appears on the canvas above the review card, the review card shows a
-      decorative header graphic (`h-24`) with a vocabulary section label on the
-      overlay and **Review** as the in-card action heading.
+      copy appears on the canvas above the review cards, the **meanings** review
+      card shows a decorative header graphic (`h-24`) with a vocabulary section
+      label on the overlay and **Review meanings** as the in-card action heading.
+- [ ] Given an inflecting language profile, when `/words` renders, then a
+      **Forms** section card appears below the meanings card with **Review forms**
+      as the action, a collapsed paradigm-cell callout, and **no due count**.
+- [ ] Given a language profile with little or no inflection, when `/words`
+      renders, then the Forms section card is omitted.
 - [ ] Given a signed-in learner on `/words`, when the page renders, then held,
       fragile and new appear as stat tiles (label + number only) inside a
       vocabulary-section card with header graphic; per-bucket definitions live in
@@ -80,7 +90,8 @@ outcomes.
       frequency bands name each rank range and show **held, fragile, and new**
       counts per band (core band 1–1000 labels unreviewed words as **holes** —
       the textual equivalent of the orbit map, UC-021), the vocabulary
-      orbit is present, and Start review links to `srs-session`.
+      orbit is present, and Start review links to `srs-session` with the correct
+      `deck` query per card.
 - [ ] Given the starter deck, when the page renders, then the horizon is
       present (collapsed or expanded per [`review-horizon.md`](review-horizon.md))
       and the full atlas is reachable via **Show list**.

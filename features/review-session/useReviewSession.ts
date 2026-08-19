@@ -26,6 +26,7 @@ import {
 } from "@/lib/review-session-run-status";
 import { requeueInsertIndex } from "@/lib/review-session-requeue";
 import type { ReportCardInput } from "@/lib/card-report";
+import type { ReviewDeck } from "@/lib/review-deck";
 import type { SessionCard } from "@/lib/session-builder";
 import type { Grade } from "@/lib/scheduler";
 
@@ -37,6 +38,7 @@ export type ReviewSessionInitialData =
 
 export type UseReviewSessionOptions = {
   initialData?: ReviewSessionInitialData;
+  deck?: ReviewDeck;
 };
 
 export type ReportAck =
@@ -77,7 +79,7 @@ function initialPhaseFromData(data: ReviewSessionInitialData | undefined): Sessi
 
 export function useReviewSession(options: UseReviewSessionOptions = {}): UseReviewSessionResult {
   const t = useTranslations("reviewSession");
-  const { initialData } = options;
+  const { initialData, deck = "mixed" } = options;
   const router = useRouter();
   const [status, setStatus] = useState<ReviewSessionStatus>(() => initialStatusFromData(initialData));
   const [loadError, setLoadError] = useState<string | null>(() =>
@@ -109,7 +111,7 @@ export function useReviewSession(options: UseReviewSessionOptions = {}): UseRevi
 
     async function prepare() {
       try {
-        const result = await buildSessionAction();
+        const result = await buildSessionAction({ deck });
         if (cancelled) return;
 
         if (result.status === "error") {
@@ -146,7 +148,7 @@ export function useReviewSession(options: UseReviewSessionOptions = {}): UseRevi
     return () => {
       cancelled = true;
     };
-  }, [initialData, router]);
+  }, [initialData, router, deck, t]);
 
   useEffect(() => {
     const queueClient = getReviewQueue();

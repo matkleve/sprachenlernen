@@ -1,7 +1,7 @@
 # UC-041 — Know the forms, not just the words
 
 <!-- id: UC-041 -->
-<!-- specs: SPEC-service-form-recall-pool, SPEC-service-form-mastery-signal, SPEC-service-form-practice -->
+<!-- specs: SPEC-service-form-recall-pool, SPEC-service-form-mastery-signal, SPEC-service-form-practice, SPEC-feature-words-home, SPEC-page-words-review, SPEC-service-session-builder, SPEC-service-form-cell-explanation, SPEC-component-form-error-explanation -->
 
 **Who:** anyone learning a language where words change shape — which is most of
 them, and certainly Spanish and Italian.
@@ -38,6 +38,11 @@ disconnected from the words the learner actually has.
   with weak forms cannot produce a high speaking or writing level.
 - Practice for a gap uses the learner's **own** words, not example verbs, and
   mixes classes rather than drilling one pattern in a block.
+- The learner can open a **forms-only** review from Words ([UC-078](UC-078-practise-forms-without-mixed-review.md))
+  without a separate nav destination.
+- After a form error, a **short rule for that cell** is available on demand
+  ([UC-022](UC-022-understand-a-rule-when-i-get-it-wrong.md)) — not a grammar
+  chapter up front.
 - Irregular high-frequency words are treated individually, because that is where
   a class rule stops predicting anything.
 - A language whose profile declares little or no inflection simply does not show

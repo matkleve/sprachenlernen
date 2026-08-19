@@ -9,12 +9,14 @@ import { ReviewCard } from "@/features/review-session/ReviewCard";
 import { SessionComplete } from "@/features/review-session/SessionComplete";
 import { useReviewSession, type ReviewSessionInitialData } from "@/features/review-session/useReviewSession";
 import { routes } from "@/lib/routes";
+import type { ReviewDeck } from "@/lib/review-deck";
 import { cn } from "@/lib/utils";
 
 type ReviewSessionProps = {
   methodName: string;
   /** Mobile one-screen layout: no page scroll, tighter vertical rhythm. */
   compact?: boolean;
+  deck?: ReviewDeck;
   /** Server-built queue — first card renders with the page, no client prepare step. */
   initialData?: ReviewSessionInitialData;
 };
@@ -23,7 +25,7 @@ function showsActiveCard(phase: string): boolean {
   return phase === "prompting" || phase === "revealed";
 }
 
-export function ReviewSession({ methodName, compact = false, initialData }: ReviewSessionProps) {
+export function ReviewSession({ methodName, compact = false, deck = "mixed", initialData }: ReviewSessionProps) {
   const t = useTranslations("reviewSession");
   const {
     status,
@@ -40,7 +42,7 @@ export function ReviewSession({ methodName, compact = false, initialData }: Revi
     flip,
     grade,
     submitReport,
-  } = useReviewSession({ initialData });
+  } = useReviewSession({ initialData, deck });
 
   const rootClass = cn(
     compact ? "flex min-h-0 flex-1 flex-col md:mt-page-content" : "mt-page-content",

@@ -202,5 +202,11 @@ describe("the card engine has one id", () => {
     expect(cardEngineSessionHref()).toBe(
       `${routes.wordsReview}?method=${CARD_ENGINE_METHOD_ID}`,
     );
+    expect(cardEngineSessionHref("form")).toBe(
+      `${routes.wordsReview}?method=${CARD_ENGINE_METHOD_ID}&deck=form`,
+    );
+    expect(cardEngineSessionHref("meaning")).toBe(
+      `${routes.wordsReview}?method=${CARD_ENGINE_METHOD_ID}&deck=meaning`,
+    );
   });
 });

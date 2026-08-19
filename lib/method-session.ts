@@ -1,5 +1,6 @@
 import type { MethodEntry } from "@/lib/method-catalogue";
 import { hasExerciseRecipe } from "@/lib/exercise-recipe-built";
+import { type ReviewDeck, parseReviewDeck } from "@/lib/review-deck";
 import { routes } from "@/lib/routes";
 
 /**
@@ -17,8 +18,13 @@ const WORDS_REVIEW_METHOD_IDS = new Set<string>([CARD_ENGINE_METHOD_ID]);
  * which put the method id in five places and made `method-engines.md`'s "only
  * usesWordsReview may open a runner" false the day it was written.
  */
-export function cardEngineSessionHref(): string {
-  return `${routes.wordsReview}?method=${encodeURIComponent(CARD_ENGINE_METHOD_ID)}`;
+export function cardEngineSessionHref(deck?: ReviewDeck): string {
+  const params = new URLSearchParams({ method: CARD_ENGINE_METHOD_ID });
+  const parsed = deck ? parseReviewDeck(deck) : "mixed";
+  if (parsed !== "mixed") {
+    params.set("deck", parsed);
+  }
+  return `${routes.wordsReview}?${params.toString()}`;
 }
 
 export function usesWordsReview(method: MethodEntry): boolean {

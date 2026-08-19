@@ -1,0 +1,21 @@
+{
+  "verb-1": {
+    "ind.pres": "formRules.it.verb1.ind.pres",
+    "ind.impf": "formRules.it.verb1.ind.impf",
+    "ind.pret": "formRules.it.verb1.ind.pret",
+    "ind.fut": "formRules.it.verb1.ind.fut"
+  },
+  "verb-2": {
+    "ind.pres": "formRules.it.verb2.ind.pres",
+    "ind.impf": "formRules.it.verb2.ind.impf",
+    "ind.pret": "formRules.it.verb2.ind.pret",
+    "ind.fut": "formRules.it.verb2.ind.fut"
+  },
+  "verb-3": {
+    "ind.pres": "formRules.it.verb3.ind.pres",
+    "ind.impf": "formRules.it.verb3.ind.impf",
+    "ind.pret": "formRules.it.verb3.ind.pret",
+    "ind.fut": "formRules.it.verb3.ind.fut"
+  },
+  "irregular": "formRules.it.irregular"
+}

@@ -66,6 +66,7 @@ const homeProps = {
   ),
   now,
   contentTraceIndex: null,
+  formsPracticeAvailable: true,
 };
 
 async function renderWordsHome() {
@@ -73,13 +74,19 @@ async function renderWordsHome() {
 }
 
 describe("WordsHome", () => {
-  it("offers a start review link without a due count", async () => {
+  it("offers meaning, mixed, and form review links without a due count", async () => {
     await renderWordsHome();
-    const link = screen.getByRole("link", { name: en.reviewSession.startReview });
-    expect(link.getAttribute("href")).toContain("method=srs-session");
+    const meaningsLink = screen.getByRole("link", { name: en.words.reviewMeaningsAction });
+    expect(meaningsLink.getAttribute("href")).toContain("deck=meaning");
+    const mixedLink = screen.getByRole("link", { name: en.words.reviewMixedAction });
+    expect(mixedLink.getAttribute("href")).not.toContain("deck=");
+    const formsLink = screen.getByRole("link", { name: en.reviewSession.startFormReview });
+    expect(formsLink.getAttribute("href")).toContain("deck=form");
     expect(screen.queryByText(/\d+\s+due/i)).toBeNull();
-    expect(screen.getByRole("heading", { name: en.words.reviewHeading })).toBeDefined();
-    const reviewCard = screen.getByRole("heading", { name: en.words.reviewHeading }).closest("section");
+    expect(screen.getByRole("heading", { name: en.words.reviewMeaningsHeading })).toBeDefined();
+    const reviewCard = screen
+      .getByRole("heading", { name: en.words.reviewMeaningsHeading })
+      .closest("section");
     expect(reviewCard).toBeDefined();
     const headerImage = within(reviewCard as HTMLElement).getByRole("img", {
       name: wordsReviewGraphicAlt(en.words.reviewCardHeaderLabel),
