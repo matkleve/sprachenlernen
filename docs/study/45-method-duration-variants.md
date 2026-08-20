@@ -1,9 +1,9 @@
 # 45 · Method duration — filter vs fixed packages
 
-**Status:** owner decision 2026-08-20. Supersedes the 2026-08-19 draft that
-treated the menu time slider as both a **catalogue filter** and a **session
-budget scaler** ([`method-session-budget.md`](../specs/service/method-session-budget.md)
-pre-revision, study/42 F214).
+**Status:** owner decision 2026-08-20. **UX/product** — menu slider filters only;
+methods offer ≤ 2 fixed packages on detail. **Learning-science** — which methods
+should have different lengths at all, and how news/articles work:
+[`46-method-length-and-level-matched-content.md`](46-method-length-and-level-matched-content.md).
 
 This chapter answers: **why methods have different lengths**, **why at most two
 fixed packages per method**, and **why the menu slider must not size the

@@ -78,7 +78,8 @@ only this table.
 | [38 · Landing page update](38-landing-page-update.md) | What to show on `/` before login — structure, assets, headline options |
 | [39 · Method section graphics](39-method-section-graphics-brief.md) | Eight catalogue banner assets — cohesion brief, ChatGPT prompt, checklist |
 | [42 · Method usefulness audit](42-method-usefulness-ux-audit.md) | UX + science gates for hosted methods; build-a-sentence case study; spec changes |
-| [45 · Method duration variants](45-method-duration-variants.md) | Filter vs fixed packages; why ≤ 2 lengths; menu slider decoupled (owner 2026-08-20) |
+| [45 · Method duration variants](45-method-duration-variants.md) | Filter vs fixed packages; menu slider decoupled (owner 2026-08-20) |
+| [46 · Method length & level-matched content](46-method-length-and-level-matched-content.md) | Which methods benefit from two lengths; news/windows; adaptation ladder |
 | [43 · Early foundation sessions](43-early-foundation-sessions.md) | Same-day word return, foundation throttle, soft form staging — study + implementation map |
 | [44 · Foundation phase expert review](44-foundation-phase-expert-review.md) | DS + LT panel: one composer layer, resurfacing rules, what not to ship in v1 |
 | [Sources](sources.md) | Literature, honestly marked by how far each was checked |
