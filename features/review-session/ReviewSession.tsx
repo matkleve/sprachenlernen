@@ -35,6 +35,7 @@ export function ReviewSession({ methodName, compact = false, deck = "mixed", ini
     languageName,
     syncCount,
     gradedCount,
+    loopLine,
     runSegments,
     reportAck,
     reportPending,
@@ -116,6 +117,7 @@ export function ReviewSession({ methodName, compact = false, deck = "mixed", ini
         <SessionComplete
           gradedCount={gradedCount}
           pendingCount={syncCount}
+          loopLine={loopLine}
           compact={compact}
         />
       ) : showsActiveCard(phase) && currentCard ? (

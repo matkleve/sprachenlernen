@@ -225,6 +225,10 @@
       "complete": "Dieses Set ist fertig — öffnen Sie den Text, wenn Sie bereit sind.",
       "tooLarge": "Mehr als 40 Wörter trennen Sie hier vom komfortablen Lesen — probieren Sie zuerst eine nähere Quelle.",
       "alternate": "Stattdessen {title} versuchen"
+    },
+    "session": {
+      "summary": "{heldCount, plural, one {# Wort ist stabil geworden} other {# Wörter sind stabil geworden}}",
+      "link": "Sehen, was sich auf Ihrer Karte bewegt hat"
     }
   },
   "reviewSession": {

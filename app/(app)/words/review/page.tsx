@@ -43,7 +43,12 @@ export default async function WordsReviewPage({
         initialData={
           outcome.status === "error"
             ? { status: "error", error: outcome.error }
-            : { status: "ok", queue: outcome.queue, languageName: outcome.languageName }
+            : {
+                status: "ok",
+                queue: outcome.queue,
+                languageName: outcome.languageName,
+                sessionLoopContext: outcome.sessionLoopContext,
+              }
         }
       />
     );

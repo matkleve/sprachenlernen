@@ -12,7 +12,16 @@ import {
   logHandledErrorFromRequest,
   sessionBuildFailed,
 } from "@/lib/errors";
+import { heldLemmaSet } from "@/lib/content-gap";
 import { buildSession, type SessionCard } from "@/lib/session-builder";
+import {
+  buildSessionLoopLine,
+  type SessionLoopContext,
+  type SessionLoopLineView,
+} from "@/lib/session-loop-line";
+import { loadLexiconForLanguage, loadPersistedSources } from "@/features/content/language-runtime";
+import { listLearnerSourcesForLanguage } from "@/lib/db/content-sources";
+import { newTask, type Task } from "@/lib/scheduler";
 import esLemma from "@/data/lemma/es.json";
 import itLemma from "@/data/lemma/it.json";
 import { loadLemmaTable } from "@/lib/lemma-table";
@@ -56,10 +65,42 @@ export async function appendReviewAction(input: AppendReviewActionInput) {
 }
 
 export type BuildSessionOutcome =
-  | { status: "ok"; queue: SessionCard[]; languageName: string }
+  | { status: "ok"; queue: SessionCard[]; languageName: string; sessionLoopContext: SessionLoopContext }
   /** Signed in, no language chosen — the caller sends them to the picker. */
   | { status: "no-language" }
   | { status: "error"; error: string };
+
+export type ReadSessionLoopLineOutcome = {
+  loopLine: SessionLoopLineView | null;
+};
+
+export async function readSessionLoopLineAction(input: {
+  heldLemmasAtStart: readonly string[];
+  newlyHeldLemmas: readonly string[];
+}): Promise<ReadSessionLoopLineOutcome> {
+  try {
+    const pool = await poolForActiveLanguage();
+    if (pool.status !== "ok") return { loopLine: null };
+
+    const languageCode = pool.languageCodes[0] ?? "es";
+    const lexicon = loadLexiconForLanguage(languageCode);
+    if (!lexicon) return { loopLine: null };
+
+    const fixture = loadPersistedSources(languageCode);
+    const learner = await listLearnerSourcesForLanguage(languageCode);
+    const sources = learner.status === "ok" ? [...fixture, ...learner.sources] : fixture;
+
+    const loopLine = buildSessionLoopLine({
+      sources,
+      lexicon,
+      heldLemmasBefore: new Set(input.heldLemmasAtStart),
+      newlyHeldLemmas: input.newlyHeldLemmas,
+    });
+    return { loopLine };
+  } catch {
+    return { loopLine: null };
+  }
+}
 
 export async function reportCardAction(wordId: string, input: ReportCardInput = {}) {
   return flagCardContent(wordId, input);
@@ -141,7 +182,21 @@ export async function buildSessionAction(input?: {
       }),
       spoken.spokenLanguage,
     ).map((card) => attachFormExplanation(card, activeCode ?? "es", poolCards, tasksByTaskId));
-    return { status: "ok", queue, languageName };
+
+    const heldLemmasAtStart = [...heldLemmaSet(meaningCards, tasksByTaskId)];
+    const meaningTasksByTaskId: Record<string, Task> = {};
+    for (const card of queue) {
+      if (!isMeaningRecallTaskId(card.taskId)) continue;
+      meaningTasksByTaskId[card.taskId] =
+        tasksByTaskId[card.taskId] ?? newTask(card.taskId, card.wordId);
+    }
+
+    return {
+      status: "ok",
+      queue,
+      languageName,
+      sessionLoopContext: { heldLemmasAtStart, meaningTasksByTaskId },
+    };
   } catch (cause) {
     const handled = sessionBuildFailed(
       cause instanceof Error ? cause.message : String(cause),

@@ -6,6 +6,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 
 import {
   buildSessionAction,
+  readSessionLoopLineAction,
   reportCardAction,
 } from "@/features/review-session/actions";
 import { routes } from "@/lib/routes";
@@ -26,15 +27,23 @@ import {
 } from "@/lib/review-session-run-status";
 import { requeueInsertIndex } from "@/lib/review-session-requeue";
 import { applyFormEcho, planFormEcho } from "@/lib/form-echo";
+import { isMeaningRecallTaskId } from "@/lib/form-recall-pool";
 import type { ReportCardInput } from "@/lib/card-report";
 import type { ReviewDeck } from "@/lib/review-deck";
 import type { SessionCard } from "@/lib/session-builder";
-import type { Grade } from "@/lib/scheduler";
+import type { SessionLoopContext, SessionLoopLineView } from "@/lib/session-loop-line";
+import { applyReview, type Grade, type Task } from "@/lib/scheduler";
+import { isTaskHeld } from "@/lib/vocabulary-snapshot";
 
 export type ReviewSessionStatus = "loading" | "ready" | "error";
 
 export type ReviewSessionInitialData =
-  | { status: "ok"; queue: SessionCard[]; languageName: string }
+  | {
+      status: "ok";
+      queue: SessionCard[];
+      languageName: string;
+      sessionLoopContext: SessionLoopContext;
+    }
   | { status: "error"; error: string };
 
 export type UseReviewSessionOptions = {
@@ -56,6 +65,7 @@ export type UseReviewSessionResult = {
   syncCount: number;
   gradedCount: number;
   runSegments: RunSegment[];
+  loopLine: SessionLoopLineView | null;
   reportAck: ReportAck | null;
   reportPending: boolean;
   cardExiting: boolean;
@@ -99,6 +109,14 @@ export function useReviewSession(options: UseReviewSessionOptions = {}): UseRevi
   const [runSegments, setRunSegments] = useState<RunSegment[]>(() =>
     initialData?.status === "ok" ? initRunSegments(initialData.queue) : [],
   );
+  const [sessionLoopContext, setSessionLoopContext] = useState<SessionLoopContext | null>(() =>
+    initialData?.status === "ok" ? initialData.sessionLoopContext : null,
+  );
+  const [loopLine, setLoopLine] = useState<SessionLoopLineView | null>(null);
+  const meaningTasksRef = useRef<Record<string, Task>>(
+    initialData?.status === "ok" ? { ...initialData.sessionLoopContext.meaningTasksByTaskId } : {},
+  );
+  const newlyHeldLemmasRef = useRef<Set<string>>(new Set());
   const [reportAck, setReportAck] = useState<ReportAck | null>(null);
   const [reportPending, setReportPending] = useState(false);
   const [cardExiting, setCardExiting] = useState(false);
@@ -131,6 +149,10 @@ export function useReviewSession(options: UseReviewSessionOptions = {}): UseRevi
         setQueue(result.queue);
         setRunSegments(initRunSegments(result.queue));
         setLanguageName(result.languageName);
+        setSessionLoopContext(result.sessionLoopContext);
+        meaningTasksRef.current = { ...result.sessionLoopContext.meaningTasksByTaskId };
+        newlyHeldLemmasRef.current = new Set();
+        setLoopLine(null);
         setStatus("ready");
         if (result.queue.length === 0) {
           setPhase("complete");
@@ -205,6 +227,18 @@ export function useReviewSession(options: UseReviewSessionOptions = {}): UseRevi
       });
 
       setGradedCount((count) => count + 1);
+
+      if (isMeaningRecallTaskId(currentCard.taskId)) {
+        const task = meaningTasksRef.current[currentCard.taskId];
+        if (task) {
+          const wasHeld = isTaskHeld(task);
+          const result = applyReview(task, value, reviewedAtMs);
+          meaningTasksRef.current[currentCard.taskId] = result.task;
+          if (!wasHeld && isTaskHeld(result.task)) {
+            newlyHeldLemmasRef.current.add(currentCard.lemma);
+          }
+        }
+      }
 
       const insertAt = requeueInsertIndex(sessionIndex, queue.length, value);
       let nextQueue = queue;
@@ -287,6 +321,31 @@ export function useReviewSession(options: UseReviewSessionOptions = {}): UseRevi
     return () => window.clearTimeout(timer);
   }, [cardExiting, currentCard, queue, sessionIndex]);
 
+  useEffect(() => {
+    if (phase !== "complete") {
+      setLoopLine(null);
+      return;
+    }
+
+    const newlyHeld = [...newlyHeldLemmasRef.current];
+    if (newlyHeld.length === 0 || !sessionLoopContext) {
+      setLoopLine(null);
+      return;
+    }
+
+    let cancelled = false;
+    void readSessionLoopLineAction({
+      heldLemmasAtStart: sessionLoopContext.heldLemmasAtStart,
+      newlyHeldLemmas: newlyHeld,
+    }).then((outcome) => {
+      if (!cancelled) setLoopLine(outcome.loopLine);
+    });
+
+    return () => {
+      cancelled = true;
+    };
+  }, [phase, sessionLoopContext, gradedCount]);
+
   return {
     status,
     loadError,
@@ -297,6 +356,7 @@ export function useReviewSession(options: UseReviewSessionOptions = {}): UseRevi
     syncCount,
     gradedCount,
     runSegments: visibleRunSegments,
+    loopLine,
     reportAck,
     reportPending,
     cardExiting,

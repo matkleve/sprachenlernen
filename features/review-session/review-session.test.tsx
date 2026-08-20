@@ -7,6 +7,7 @@ import { beforeEach, describe, expect, it, vi } from "vitest";
 import {
   appendReviewAction,
   buildSessionAction,
+  readSessionLoopLineAction,
 } from "@/features/review-session/actions";
 import { ReviewSession } from "@/features/review-session/ReviewSession";
 import {
@@ -14,6 +15,9 @@ import {
   createReviewWriteQueue,
 } from "@/lib/db/review-write-queue";
 import { setReviewQueueForTests } from "@/features/review-session/review-queue";
+import { applyReview, newTask } from "@/lib/scheduler";
+import { isTaskHeld } from "@/lib/vocabulary-snapshot";
+import { routes } from "@/lib/routes";
 
 vi.mock("next/navigation", () => ({
   useRouter: vi.fn(() => ({ push: vi.fn() })),
@@ -22,9 +26,14 @@ vi.mock("next/navigation", () => ({
 vi.mock("@/features/review-session/actions", () => ({
   appendReviewAction: vi.fn().mockResolvedValue({ status: "appended", id: "row-1" }),
   reportCardAction: vi.fn().mockResolvedValue({ status: "ok" }),
+  readSessionLoopLineAction: vi.fn().mockResolvedValue({ loopLine: null }),
   buildSessionAction: vi.fn().mockResolvedValue({
     status: "ok",
     languageName: "Spanish",
+    sessionLoopContext: {
+      heldLemmasAtStart: [],
+      meaningTasksByTaskId: {},
+    },
     queue: [
       {
         taskId: "es:de:meaning-recall",
@@ -77,9 +86,15 @@ function installTestQueue() {
   return queue;
 }
 
+const emptySessionLoopContext = {
+  heldLemmasAtStart: [] as string[],
+  meaningTasksByTaskId: {},
+};
+
 const testInitialData = {
   status: "ok" as const,
   languageName: "Spanish",
+  sessionLoopContext: emptySessionLoopContext,
   queue: [
     {
       taskId: "es:de:meaning-recall",
@@ -419,5 +434,46 @@ describe("ReviewSession", () => {
 
     await waitFor(() => expect(screen.getByText("de")).toBeDefined());
     await waitFor(() => expect(appendReviewAction).toHaveBeenCalledTimes(2));
+  });
+
+  it("shows the session loop line when newly held lemmas raised source coverage", async () => {
+    const DAY = 86_400_000;
+    const reviewedAt = Date.now();
+    let deTask = newTask("es:de:meaning-recall", "es:de");
+    deTask = applyReview(deTask, "good", reviewedAt - 2 * DAY).task;
+    expect(isTaskHeld(deTask)).toBe(false);
+
+    vi.mocked(readSessionLoopLineAction).mockResolvedValueOnce({
+      loopLine: { heldCount: 1, href: routes.contentDetail("es-fixture-cafe") },
+    });
+
+    const user = userEvent.setup();
+    render(
+      <ReviewSession
+        methodName="Spaced repetition session"
+        initialData={{
+          status: "ok",
+          languageName: "Spanish",
+          sessionLoopContext: {
+            heldLemmasAtStart: [],
+            meaningTasksByTaskId: { "es:de:meaning-recall": deTask },
+          },
+          queue: [testInitialData.queue[0]!],
+        }}
+      />,
+    );
+
+    await user.click(screen.getByRole("button", { name: en.reviewSession.flipHint }));
+    await user.click(screen.getByRole("button", { name: en.reviewSession.good }));
+
+    await waitFor(() => expect(screen.getByText(en.reviewSession.completeTitle)).toBeDefined());
+    await waitFor(() => {
+      expect(screen.getByRole("link", { name: en.contentTrace.session.link })).toBeDefined();
+    });
+    expect(screen.getByText(/1 word became stable/)).toBeDefined();
+    expect(readSessionLoopLineAction).toHaveBeenCalledWith({
+      heldLemmasAtStart: [],
+      newlyHeldLemmas: ["de"],
+    });
   });
 });

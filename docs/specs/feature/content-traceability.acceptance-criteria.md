@@ -11,7 +11,7 @@ Split child of [`content-traceability.md`](content-traceability.md).
       appears and **no** source links are shown.
 - [ ] Given a demanding fixture source, when its detail opens, then coverage %
       and gap count are visible as text and the demanding loop line is present.
-- [ ] Given session complete after a word becomes held, when that word raised a
+- [x] Given session complete after a word becomes held, when that word raised a
       source's coverage, then the session loop line names the lemma count and
       points to `/words` or `/content` — **and no mid-session card shows this**.
 - [ ] Given any traceability surface, when rendered, then UC-021 textual

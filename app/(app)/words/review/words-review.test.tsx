@@ -26,6 +26,10 @@ vi.mock("@/features/review-session/actions", () => ({
   buildSessionAction: vi.fn().mockResolvedValue({
     status: "ok",
     languageName: "Spanish",
+    sessionLoopContext: {
+      heldLemmasAtStart: [],
+      meaningTasksByTaskId: {},
+    },
     queue: [{ taskId: "es:de:meaning-recall" }],
   }),
 }));

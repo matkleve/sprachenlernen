@@ -225,6 +225,10 @@
       "complete": "This set is complete — open the text when you are ready.",
       "tooLarge": "More than 40 words stand between you and comfortable here — try a closer source first.",
       "alternate": "Try {title} instead"
+    },
+    "session": {
+      "summary": "{heldCount, plural, one {# word became stable} other {# words became stable}}",
+      "link": "See what moved on your map"
     }
   },
   "reviewSession": {
