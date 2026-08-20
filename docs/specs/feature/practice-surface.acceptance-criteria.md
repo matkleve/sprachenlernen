@@ -3,11 +3,11 @@
 <!-- parent: SPEC-feature-practice-surface -->
 
 - [ ] Given a prepare step on `/practice`, when the learner views prep rows, then
-      each row is at least 44px tall, uses `bg-surface` with **no row border**, label
-      is left, and the checkbox marker is right and top-aligned with the first line
-      of text.
+      each row is at least 44px tall, uses `bg-surface` with **`border-x border-line`**
+      (no top/bottom stroke), label is left with horizontal inset, and the checkbox
+      marker is right and top-aligned with the first line of text.
 - [ ] Given a checked prep row, when rendered, then the row uses `bg-accent-soft`
-      without a container border.
+      and keeps the same horizontal borders — content still inset from the edges.
 - [ ] Given build-a-sentence prepare on mobile (`< md`), when rendered, then the
       body zone has no scrollbar (`short` profile + fit-frame density).
 - [ ] Given build-a-sentence prepare on desktop, when rendered, then the body zone

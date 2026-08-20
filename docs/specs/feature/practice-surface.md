@@ -41,7 +41,7 @@ Applied via `PracticeSurface` wrapper — not new CSS color tokens.
 | Lead prompt | `practiceLeadClass`: `text-xl font-medium` desktop; `text-base font-semibold` mobile — reads above prep rows |
 | Body | `text-lg leading-relaxed text-ink` |
 | Secondary | `text-base text-muted` |
-| Prep row | `min-h-11` flex row — `bg-surface`, **no border**; label left, checkbox right, `items-start`; checked: `bg-accent-soft` |
+| Prep row | `min-h-11` flex row — `bg-surface`, **`border-x border-line`** (horizontal inset — label and checkbox must not touch the row edges); label left, checkbox right, `items-start`; checked: `bg-accent-soft` (keeps side borders) |
 | Prep checkbox | Right end of row, `self-start` (first line); native `input` (visually hidden); marker `size-6 border-2 border-line-strong`, filled `accent-deep` + check when checked |
 
 ## Behaviour

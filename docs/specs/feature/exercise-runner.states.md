@@ -30,6 +30,22 @@ type StepStatus = "unseen" | "seen" | "done" | "skipped";
 
 **Navigating never sets `done`.** Only the type-specific primary button does.
 
+## Segment bar visuals (footer)
+
+Data: `stepStatuses[]` + `activeStepIndex`. Display tokens live in
+[`exercise-runner.layout.md`](exercise-runner.layout.md) § Step segments.
+
+| Visual | Maps from |
+| --- | --- |
+| **active** | focused step, not yet **done** |
+| **done** | primary action completed for that step |
+| **seen** | visited (◀ ▶ or first paint), not active, not **done** |
+| **unseen** | never opened |
+| **skipped** | reserved — enum only in v1 |
+
+Implement in `ExerciseRunnerProgressBar`: pass `index` and `activeStepIndex`
+into segment colour resolution; do not colour solely from `stepStatuses[i]`.
+
 ## Single source of truth
 
 `activeStepIndex: number` — which recipe step is focused. Chrome (hero title,
