@@ -3,6 +3,7 @@ import type { SupabaseClient } from "@supabase/supabase-js";
 import { getAccount } from "@/lib/db/auth";
 import { createServerSupabaseClient } from "@/lib/db/client";
 import type { Source, SourceKind } from "@/lib/coverage";
+import { rejectOversizeLearnerText } from "@/lib/learner-text-limits";
 import { titleFromLearnerText } from "@/lib/method-material-setup";
 import {
   databaseNotSignedIn,
@@ -71,6 +72,12 @@ export async function createLearnerTextSource(
   if (!trimmed) {
     return { status: "error", error: "Paste some text before saving." };
   }
+
+  // Before the round trip, not after: the column's check constraint is the
+  // backstop, and a constraint violation surfaces as a generic database error
+  // that tells the learner nothing about what to do next.
+  const oversize = rejectOversizeLearnerText(trimmed);
+  if (oversize) return oversize;
 
   const title = input.title ?? titleFromLearnerText(trimmed);
 
