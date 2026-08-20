@@ -141,6 +141,7 @@ describe("ExerciseRunner", () => {
     const footerBar = container.querySelector("footer [role=progressbar]");
     expect(footerBar?.children[0]?.className).toContain("bg-accent-soft");
     expect(footerBar?.children[1]?.className).toContain("bg-accent");
+    expect(footerBar?.children[1]?.className).not.toContain("bg-accent-soft");
   });
 
   it("renders segmented step progress in the footer above Continue", () => {

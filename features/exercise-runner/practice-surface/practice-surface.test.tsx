@@ -57,6 +57,11 @@ describe("practice surface", () => {
 
     await user.click(checkbox);
     expect((checkbox as HTMLInputElement).checked).toBe(true);
+
+    const checkedRow = checkbox.closest("label");
+    expect(checkedRow?.className).toContain("bg-accent-soft");
+    expect(checkedRow?.className).toContain("border-x");
+    expect(checkedRow?.className).toContain("border-line");
   });
 
   it("wraps children at task density", () => {
