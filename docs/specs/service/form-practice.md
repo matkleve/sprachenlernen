@@ -22,7 +22,7 @@ covers the **full paradigm-cell** engine (`paradigm-cells-mixed`) and is T-W6.
   composition, answer routes, and the inverse index the whole thing needs.
   **Shipped v1 (2026-08-20):** [`form-inverse-index.md`](form-inverse-index.md)
   and lemma-spacing / tense×class mixing in `lib/form-session-mixing.ts` (rules
-  1–2; echo rule and pull-forward still in review session / sampling).
+  1–2; **echo rule** in review session; pull-forward still in sampling).
 - **Out:** the level-model arithmetic for form mastery
   ([`study/03`](../../study/03-level-model.md) owns it); the paper sheet, which
   is its own method; grammar as a curriculum of topics (UC-041, out of scope).

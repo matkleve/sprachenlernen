@@ -25,6 +25,7 @@ import {
   type RunSegment,
 } from "@/lib/review-session-run-status";
 import { requeueInsertIndex } from "@/lib/review-session-requeue";
+import { applyFormEcho, planFormEcho } from "@/lib/form-echo";
 import type { ReportCardInput } from "@/lib/card-report";
 import type { ReviewDeck } from "@/lib/review-deck";
 import type { SessionCard } from "@/lib/session-builder";
@@ -213,6 +214,14 @@ export function useReviewSession(options: UseReviewSessionOptions = {}): UseRevi
           { ...currentCard },
           ...queue.slice(insertAt),
         ];
+      }
+
+      const echoPlan = planFormEcho(nextQueue, sessionIndex);
+      if (echoPlan) {
+        nextQueue = applyFormEcho(nextQueue, echoPlan);
+      }
+
+      if (insertAt !== null || echoPlan) {
         setQueue(nextQueue);
       }
 
