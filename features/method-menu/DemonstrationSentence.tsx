@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 
 import { GradeButton } from "@/components/ui/GradeButton";
 import { PressableCard } from "@/components/ui/PressableCard";
@@ -8,15 +9,7 @@ import type { DemonstrationSentencePick } from "@/lib/demonstration-sentence";
 import type { Grade } from "@/lib/scheduler";
 import { cn } from "@/lib/utils";
 
-import { copy } from "./content";
-
 const DEMONSTRATION_GRADES = ["hard", "good", "easy"] as const satisfies readonly Grade[];
-
-const GRADE_LABELS: Record<typeof DEMONSTRATION_GRADES[number], string> = {
-  hard: copy.demonstrationGradeHard,
-  good: copy.demonstrationGradeGood,
-  easy: copy.demonstrationGradeEasy,
-};
 
 export type DemonstrationSentenceProps = {
   pick: DemonstrationSentencePick;
@@ -27,8 +20,15 @@ export type DemonstrationSentenceProps = {
  * docs/specs/feature/demonstration-sentence.md
  */
 export function DemonstrationSentence({ pick }: DemonstrationSentenceProps) {
+  const t = useTranslations("methodMenu.demonstration");
   const [flipped, setFlipped] = useState(false);
   const [feedback, setFeedback] = useState<string | null>(null);
+
+  const gradeLabels: Record<(typeof DEMONSTRATION_GRADES)[number], string> = {
+    hard: t("gradeHard"),
+    good: t("gradeGood"),
+    easy: t("gradeEasy"),
+  };
 
   const graded = feedback !== null;
 
@@ -41,22 +41,22 @@ export function DemonstrationSentence({ pick }: DemonstrationSentenceProps) {
     if (graded || !flipped) return;
     const message =
       selected === "hard"
-        ? copy.demonstrationFeedbackHard
+        ? t("feedbackHard")
         : selected === "good"
-          ? copy.demonstrationFeedbackGood
-          : copy.demonstrationFeedbackEasy;
+          ? t("feedbackGood")
+          : t("feedbackEasy");
     setFeedback(message);
   }
 
   return (
-    <section className="mt-6 max-w-md" aria-label={copy.demonstrationLabel}>
-      <p className="text-sm font-medium text-ink">{copy.demonstrationLabel}</p>
+    <section className="mt-6 max-w-md" aria-label={t("label")}>
+      <p className="text-sm font-medium text-ink">{t("label")}</p>
 
       <PressableCard
         onClick={flip}
         interactive={!graded && !flipped}
         aria-expanded={flipped}
-        aria-label={!graded && !flipped ? copy.demonstrationFlipHint : undefined}
+        aria-label={!graded && !flipped ? t("flipHint") : undefined}
         className="mt-3 p-6"
       >
         <p
@@ -74,19 +74,21 @@ export function DemonstrationSentence({ pick }: DemonstrationSentenceProps) {
 
         {!graded && !flipped ? (
           <p className="pointer-events-none absolute right-4 bottom-3 flex items-center gap-1 text-xs text-muted">
-            <span aria-hidden className="text-sm leading-none">↻</span>
-            {copy.demonstrationFlipHint}
+            <span aria-hidden className="text-sm leading-none">
+              ↻
+            </span>
+            {t("flipHint")}
           </p>
         ) : null}
       </PressableCard>
 
       {flipped && !graded ? (
         <div className="mt-4">
-          <p className="text-sm text-muted">{copy.demonstrationGradePrompt}</p>
+          <p className="text-sm text-muted">{t("gradePrompt")}</p>
           <div className="mt-3 grid w-full grid-cols-3 gap-2">
             {DEMONSTRATION_GRADES.map((grade) => (
               <GradeButton key={grade} grade={grade} onClick={() => onGrade(grade)}>
-                {GRADE_LABELS[grade]}
+                {gradeLabels[grade]}
               </GradeButton>
             ))}
           </div>

@@ -16,6 +16,16 @@ export type ReviewRecord = {
   grade: Grade;
 };
 
+export type WeeklyReflectionCopy = {
+  idleTeaser: (language: string) => string;
+  idleHeadline: (language: string) => string;
+  movementHeadline: (count: number, language: string) => string;
+  activityHeadline: (count: number, language: string) => string;
+  horizonHeadline: (language: string) => string;
+  readyTeaserMoved: (count: number, language: string) => string;
+  readyTeaserActivity: (count: number, language: string) => string;
+};
+
 export type ReflectionVisual =
   | { kind: "band-shift"; before: VocabularyCounts; after: VocabularyCounts; movedToHeld: number }
   | { kind: "horizon"; bins: readonly { dayOffset: number; count: number }[] }
@@ -70,7 +80,9 @@ export function buildWeeklyReflection(input: {
   cards: readonly DeckCardInput[];
   reviews: readonly ReviewRecord[];
   seenValue: string | undefined;
+  copy: WeeklyReflectionCopy;
 }): WeeklyReflectionModel {
+  const { copy } = input;
   const isoWeek = isoWeekId(input.now);
   const weekStart = startOfIsoWeek(input.now);
 
@@ -213,25 +225,3 @@ function countMovedToHeld(
 
   return moved;
 }
-
-const copy = {
-  idleTeaser: (language: string) => `This week in ${language} — nothing shifted yet`,
-  idleHeadline: (language: string) =>
-    `You did not review ${language} this week. Nothing changed in your measured vocabulary — that is expected after a light week. The queue will be larger when you return; the schedule is unchanged.`,
-  movementHeadline: (count: number, language: string) => {
-    const word = count === 1 ? "word" : "words";
-    return `This week ${count} ${word} moved from shaky to held in ${language}.`;
-  },
-  activityHeadline: (count: number, language: string) => {
-    const answer = count === 1 ? "answer" : "answers";
-    return `You recorded ${count} review ${answer} in ${language} this week.`;
-  },
-  horizonHeadline: (language: string) =>
-    `Here is when your ${language} reviews are due over the next thirty days.`,
-  readyTeaserMoved: (count: number, language: string) => {
-    const word = count === 1 ? "word" : "words";
-    return `${count} ${word} moved to held in ${language} this week`;
-  },
-  readyTeaserActivity: (count: number, language: string) =>
-    `${count} review ${count === 1 ? "answer" : "answers"} in ${language} this week`,
-} as const;
