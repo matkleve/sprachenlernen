@@ -18,11 +18,8 @@ const { catalogue } = loadMethodCatalogue();
 
 /** Until read-window scaling ships — CI blocks new G7 failures only. */
 const KNOWN_CATALOGUE_G7_FAILURES: Partial<Record<string, readonly number[]>> = {
-  "build-a-sentence": [3],
-  "extensive-reading": [10, 20, 45],
-  "reading-aloud": [5, 10, 20],
-  "full-dictation": [12, 25],
-  "partial-dictation": [15],
+  "full-dictation": [25],
+  "reading-aloud": [5],
 };
 
 function hostedRunnableMethods(): MethodEntry[] {

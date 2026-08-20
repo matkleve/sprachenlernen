@@ -30,6 +30,8 @@ vi.mock("@/features/review-session/actions", () => ({
   }),
 }));
 
+import { buildSessionAction } from "@/features/review-session/actions";
+
 describe("WordsReviewPage", () => {
   it("mounts the review session for srs-session with a server-built queue", async () => {
     const page = await WordsReviewPage({ searchParams: Promise.resolve({ method: "srs-session" }) });
@@ -37,6 +39,14 @@ describe("WordsReviewPage", () => {
     expect(screen.getByTestId("review-session")).toBeDefined();
     expect(screen.getByText(en.reviewSession.srsSessionName)).toBeDefined();
     expect(screen.getByTestId("queue-ready").textContent).toBe("1");
+    expect(buildSessionAction).toHaveBeenCalledWith({ deck: "mixed", budgetMinutes: 2 });
+  });
+
+  it("passes menu minutes through to buildSessionAction", async () => {
+    await WordsReviewPage({
+      searchParams: Promise.resolve({ method: "srs-session", minutes: "15" }),
+    });
+    expect(buildSessionAction).toHaveBeenCalledWith({ deck: "mixed", budgetMinutes: 15 });
   });
 
   it("shows unknown-method copy when method is missing", async () => {

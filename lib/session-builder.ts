@@ -3,6 +3,7 @@
  */
 
 import { isFormRecallTaskId, isMeaningRecallTaskId } from "@/lib/form-recall-pool";
+import { cardCountForBudgetMinutes } from "@/lib/exercise-recipe/budget";
 import type { ReviewDeck } from "@/lib/review-deck";
 import type { StarterCard } from "@/lib/starter-deck";
 import { newTask, type Task } from "@/lib/scheduler";
@@ -16,6 +17,10 @@ export type SessionCard = StarterCard & {
 };
 
 export const DEFAULT_SESSION_LENGTH = 15;
+
+export function sessionLengthForBudgetMinutes(budgetMinutes: number): number {
+  return cardCountForBudgetMinutes(budgetMinutes);
+}
 
 type ScoredCard = StarterCard & { due: number; isNew: boolean };
 

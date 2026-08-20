@@ -9,6 +9,10 @@ export const RUNNER_CHROME_OVERHEAD_SEC = 120;
 export const CARD_CHROME_OVERHEAD_SEC = 60;
 export const BUDGET_TOLERANCE_MIN = 0.85;
 export const BUDGET_TOLERANCE_MAX = 1.15;
+/** prepare + decide + review chrome not stored on timed read steps */
+export const READ_WINDOW_RUNNER_SEC = 180;
+export const READ_ALOUD_RUNNER_SEC = 120;
+export const READ_ALOUD_SPEAK_SEC = 120;
 
 export type BudgetFamily = "card" | "item-loop" | "timed-write" | "read-window" | "fixed";
 
@@ -45,7 +49,11 @@ const METHOD_BUDGET_PROFILES: Record<string, MethodBudgetProfile> = {
   },
   "free-production": { family: "timed-write", chromeOverheadSec: RUNNER_CHROME_OVERHEAD_SEC },
   "extensive-reading": { family: "read-window", chromeOverheadSec: RUNNER_CHROME_OVERHEAD_SEC },
-  "reading-aloud": { family: "read-window", chromeOverheadSec: RUNNER_CHROME_OVERHEAD_SEC },
+  "reading-aloud": {
+    family: "read-window",
+    secPerItem: READ_ALOUD_SPEAK_SEC,
+    chromeOverheadSec: RUNNER_CHROME_OVERHEAD_SEC,
+  },
 };
 
 export function budgetProfileForMethod(methodId: string): MethodBudgetProfile | undefined {
@@ -138,7 +146,22 @@ export function estimateWallClockSec(
     active += 120;
   }
 
+  if (profile.family === "read-window") {
+    active +=
+      recipe.methodId === "reading-aloud" ? READ_ALOUD_RUNNER_SEC : READ_WINDOW_RUNNER_SEC;
+  }
+
   return chrome + active;
+}
+
+/** Timed read window from budget minus runner chrome and non-read steps. */
+export function readWindowDurationSec(
+  budgetMinutes: number,
+  profile: MethodBudgetProfile,
+  extraActiveSec: number,
+): number {
+  const chrome = profile.chromeOverheadSec ?? RUNNER_CHROME_OVERHEAD_SEC;
+  return Math.max(180, budgetMinutes * 60 - chrome - extraActiveSec);
 }
 
 export function estimateWallClockMinutes(recipe: ExerciseRecipe): number {

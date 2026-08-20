@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/Button";
 import { Field } from "@/components/ui/Field";
 import { FilterPill } from "@/components/ui/FilterPill";
 import { Textarea } from "@/components/ui/Input";
+import { Checkbox } from "@/components/ui/Checkbox";
 import type { MethodEntry } from "@/lib/method-catalogue";
 import {
   OWN_TOPIC_ID,
@@ -201,17 +202,14 @@ export function MethodMaterialSetup({
               rows={4}
             />
           </Field>
-          <label className="flex items-center gap-2 text-sm text-muted">
-            <input
-              type="checkbox"
-              className="size-4 rounded border-line text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent disabled:cursor-not-allowed disabled:opacity-50"
-              checked={keepInLibrary}
-              disabled={!canPersist}
-              title={canPersist ? undefined : t("keepRequiresSignIn")}
-              onChange={(event) => setKeepInLibrary(event.target.checked)}
-            />
-            {t("keepInLibrary")}
-          </label>
+          <Checkbox
+            size="sm"
+            label={t("keepInLibrary")}
+            checked={keepInLibrary}
+            disabled={!canPersist}
+            title={canPersist ? undefined : t("keepRequiresSignIn")}
+            onChange={(event) => setKeepInLibrary(event.target.checked)}
+          />
         </div>
       ) : null}
 

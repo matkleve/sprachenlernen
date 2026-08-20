@@ -8,27 +8,23 @@ import { PracticeSurface } from "@/features/exercise-runner/practice-surface/Pra
 describe("practice surface", () => {
   it("renders prep rows with horizontal inset borders and checkbox on the right", () => {
     const { container } = render(
-      <PracticePrepList
-        entries={[
-          { id: "a", label: "Keyboard ready" },
-          { id: "b", label: "Target language" },
-        ]}
-      />,
+      <PracticePrepList entries={[{ id: "a", label: "Keyboard ready" }]} />,
     );
-    expect(screen.getByText("Keyboard ready")).toBeDefined();
     const row = container.querySelector("label");
     expect(row?.className).toContain("min-h-11");
+    expect(row?.className).toContain("items-center");
+    expect(row?.className).toContain("px-4");
     expect(row?.className).toContain("bg-surface");
     expect(row?.className).toContain("border-x");
     expect(row?.className).toContain("border-line-strong");
-    expect(row?.className).not.toContain("shadow-soft");
 
     const text = screen.getByText("Keyboard ready");
+    expect(text.className).toContain("font-semibold");
     const marker = row?.querySelector("[aria-hidden]");
     expect(marker?.compareDocumentPosition(text)).toBe(Node.DOCUMENT_POSITION_PRECEDING);
   });
 
-  it("top-aligns the checkbox with multi-line label text", () => {
+  it("keeps the checkbox vertically centered with multi-line label text", () => {
     const { container } = render(
       <PracticePrepList
         entries={[
@@ -41,9 +37,7 @@ describe("practice surface", () => {
     );
 
     const row = container.querySelector("label");
-    expect(row?.className).toContain("items-start");
-    const marker = row?.querySelector("[aria-hidden]");
-    expect(marker?.className).toContain("self-start");
+    expect(row?.className).toContain("items-center");
   });
 
   it("toggles a prep row when the learner checks it", async () => {

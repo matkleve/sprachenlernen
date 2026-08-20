@@ -100,7 +100,7 @@ describe("MethodDetail", () => {
     const trainsIndex = document.body.textContent!.indexOf(buildASentence.trains);
     const startLink = screen.getByRole("link", { name: en.methodMenu.startSession });
 
-    expect(startLink.getAttribute("href")).toBe("/practice?method=build-a-sentence&minutes=3");
+    expect(startLink.getAttribute("href")).toBe("/practice?method=build-a-sentence&minutes=8");
     expect(document.body.textContent!.indexOf(en.methodMenu.startSession)).toBeLessThan(trainsIndex);
   });
 
