@@ -6,7 +6,7 @@ import { SignInForm } from "@/features/auth/SignInForm";
 import { getAccount } from "@/lib/db/auth";
 import { routes } from "@/lib/routes";
 import { noIndexPageMetadata } from "@/lib/site-metadata";
-import { safeDecodeURIComponent } from "@/lib/utils";
+import { parseAuthErrorCode } from "@/lib/auth-error-code";
 
 export const dynamic = "force-dynamic";
 
@@ -25,11 +25,17 @@ export default async function LoginPage({
   if (account) redirect(routes.appHome);
 
   const { error, ref } = await searchParams;
+  // The URL names a code; the copy comes from messages/*.json. Anything else
+  // in `error` renders nothing at all — see lib/auth-error-code.ts.
+  const errorCode = parseAuthErrorCode(error);
 
   return (
     <div className="mx-auto max-w-sm px-6 pt-page-top pb-page-bottom">
       <h1 className="text-2xl font-semibold tracking-tight text-ink">{t("signIn.heading")}</h1>
-      <SignInForm error={safeDecodeURIComponent(error)} referenceId={ref} />
+      <SignInForm
+        error={errorCode ? t(`errors.${errorCode}`) : undefined}
+        referenceId={errorCode ? ref : undefined}
+      />
     </div>
   );
 }

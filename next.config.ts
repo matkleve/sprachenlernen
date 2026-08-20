@@ -1,10 +1,24 @@
 import type { NextConfig } from "next";
 import createNextIntlPlugin from "next-intl/plugin";
 
+import { securityHeaders } from "./lib/security-headers";
+
 const withNextIntl = createNextIntlPlugin("./i18n/request.ts");
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
+  // Contract: docs/adr/0013-security-response-headers.md
+  async headers() {
+    return [
+      {
+        source: "/:path*",
+        headers: securityHeaders({
+          isProduction: process.env.NODE_ENV === "production",
+          supabaseUrl: process.env.NEXT_PUBLIC_SUPABASE_URL,
+        }),
+      },
+    ];
+  },
   // Baked once per `next build` / dev server start — profile shows when this
   // version shipped. Contract: docs/specs/feature/app-update.md
   env: {

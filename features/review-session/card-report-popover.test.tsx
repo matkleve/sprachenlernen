@@ -1,9 +1,8 @@
-import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { describe, expect, it, vi } from "vitest";
 
 import { CardReportPopover } from "@/features/review-session/CardReportPopover";
-import { copy } from "@/features/review-session/content";
+import { renderWithIntl, renderWithIntlDe, screen } from "@/tests/i18n-test-utils";
 
 describe("SPEC-feature-review-card-report", () => {
   it("submits with no optional fields when Report is tapped", async () => {
@@ -11,7 +10,7 @@ describe("SPEC-feature-review-card-report", () => {
     const onSubmit = vi.fn().mockResolvedValue(undefined);
     const triggerRef = { current: document.createElement("button") };
 
-    render(
+    renderWithIntl(
       <CardReportPopover
         open
         onClose={() => {}}
@@ -20,7 +19,7 @@ describe("SPEC-feature-review-card-report", () => {
       />,
     );
 
-    await user.click(screen.getByRole("button", { name: copy.reportSubmit }));
+    await user.click(screen.getByRole("button", { name: "Report" }));
 
     expect(onSubmit).toHaveBeenCalledWith({ category: null, note: null });
   });
@@ -30,7 +29,7 @@ describe("SPEC-feature-review-card-report", () => {
     const onSubmit = vi.fn().mockResolvedValue(undefined);
     const triggerRef = { current: document.createElement("button") };
 
-    render(
+    renderWithIntl(
       <CardReportPopover
         open
         onClose={() => {}}
@@ -39,13 +38,29 @@ describe("SPEC-feature-review-card-report", () => {
       />,
     );
 
-    await user.click(screen.getByRole("button", { name: copy.reportCategories.confusing }));
+    await user.click(screen.getByRole("button", { name: "Confusing" }));
     await user.type(screen.getByRole("textbox"), "  Two meanings shown  ");
-    await user.click(screen.getByRole("button", { name: copy.reportSubmit }));
+    await user.click(screen.getByRole("button", { name: "Report" }));
 
     expect(onSubmit).toHaveBeenCalledWith({
       category: "confusing",
       note: "Two meanings shown",
     });
+  });
+
+  it("renders German chrome when locale is de", () => {
+    const triggerRef = { current: document.createElement("button") };
+
+    renderWithIntlDe(
+      <CardReportPopover
+        open
+        onClose={() => {}}
+        onSubmit={vi.fn()}
+        triggerRef={triggerRef}
+      />,
+    );
+
+    expect(screen.getByRole("heading", { name: "Diese Karte melden" })).toBeDefined();
+    expect(screen.getByRole("button", { name: "Melden" })).toBeDefined();
   });
 });

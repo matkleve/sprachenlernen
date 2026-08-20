@@ -44,6 +44,12 @@ Learner-initiated **retire from `new`** writes `task_state` without a
 `review_log` row. Other transitions use scheduler `suspend` / `retire` on the
 materialized task.
 
+Every `task_state` write from this surface is filtered on **both** `user_id`
+and `task_id` (BACKEND.md §4). `task_id` is a shared string — the same
+`es:haber:meaning-recall` exists in every learner's deck — so the account is
+not implied by it, and the adapter takes an injectable client that may not
+carry a policy.
+
 ## States
 
 Client-local selection in `VocabularyOrbitField`. Lifecycle buttons use

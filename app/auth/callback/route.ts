@@ -3,21 +3,22 @@ import { NextResponse } from "next/server";
 import { createServerSupabaseClient } from "@/lib/db/client";
 import { ensureProfileFromAcceptLanguage } from "@/lib/db/profiles";
 import { getSpokenLanguage } from "@/lib/db/profiles";
+import { authErrorCodeFor } from "@/lib/auth-error-code";
 import {
   authConfirmationFailed,
   authConfirmationMissing,
   logHandledError,
-  toUserFacing,
 } from "@/lib/errors";
 import { LOCALE_COOKIE, LOCALE_COOKIE_MAX_AGE } from "@/lib/i18n/locale-cookie";
 import { routes } from "@/lib/routes";
+import { safeInternalPath } from "@/lib/safe-redirect";
 
 function loginRedirect(origin: string, handled: ReturnType<typeof authConfirmationMissing>) {
   logHandledError(handled);
-  const facing = toUserFacing(handled);
+  // A code, not the copy — same reason as features/auth/actions.ts.
   const params = new URLSearchParams({
-    error: facing.userMessage,
-    ref: facing.referenceId,
+    error: authErrorCodeFor(handled),
+    ref: handled.referenceId,
   });
   return NextResponse.redirect(new URL(`${routes.signIn}?${params}`, origin));
 }
@@ -29,9 +30,11 @@ function loginRedirect(origin: string, handled: ReturnType<typeof authConfirmati
 export async function GET(request: Request) {
   const url = new URL(request.url);
   const code = url.searchParams.get("code");
-  const next = url.searchParams.get("next") ?? routes.appHome;
-
-  const destination = next.startsWith("/") ? next : routes.appHome;
+  // `next` arrives from the confirmation link, so it is request data whoever
+  // sent that link chose. `startsWith("/")` used to be the whole check and
+  // accepted `//evil.com` — see lib/safe-redirect.ts for why the fix is a
+  // parse rather than a longer prefix test.
+  const destination = safeInternalPath(url.searchParams.get("next"), routes.appHome);
 
   if (!code) {
     return loginRedirect(url.origin, authConfirmationMissing());

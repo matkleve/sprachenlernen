@@ -3,6 +3,7 @@
 import { cookies, headers } from "next/headers";
 import { redirect } from "next/navigation";
 
+import { authErrorCodeFor } from "@/lib/auth-error-code";
 import { signIn, signUp, signInWithOAuth, type OAuthProvider } from "@/lib/db/auth";
 import { ensureProfileFromAcceptLanguage, getSpokenLanguage } from "@/lib/db/profiles";
 import { fromAuthError, logHandledError, type HandledError } from "@/lib/errors";
@@ -23,10 +24,16 @@ function readCredentials(formData: FormData) {
   };
 }
 
+/**
+ * The URL carries a **code**, never the copy. A message in the query string is
+ * a message an attacker can choose, rendered on the real sign-in form — see
+ * lib/auth-error-code.ts. `userMessage` still goes to the log, where the
+ * audience is us.
+ */
 function redirectWithHandledError(path: string, handled: HandledError): never {
   logHandledError(handled);
   const params = new URLSearchParams({
-    error: handled.userMessage,
+    error: authErrorCodeFor(handled),
     ref: handled.referenceId,
   });
   redirect(`${path}?${params}`);

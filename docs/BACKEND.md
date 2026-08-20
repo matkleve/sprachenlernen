@@ -148,7 +148,9 @@ A backend brings new ways to be wrong, so `npm run verify` grows with it:
 - **Migration drift.** Fail if the local schema does not match the migrations.
 - **Generated types are current.** Fail if regenerating them produces a diff —
   otherwise types silently describe last month's schema.
-- **No secret carries `NEXT_PUBLIC_`.** A grep is enough.
+- **No secret carries `NEXT_PUBLIC_`.** A grep is enough —
+  `scripts/check-secrets.mjs`, which also holds the elevated key to an
+  allowlist of files, since that list is the blast radius of an RLS bypass.
 
 Add each to `scripts/verify.mjs` so it runs with everything else. A check that
 lives in someone's terminal history is not a gate.

@@ -1,47 +1,48 @@
 # UC-078 — Practise forms without mixing in meanings
 
 <!-- id: UC-078 -->
-<!-- specs: SPEC-feature-words-home, SPEC-page-words-review, SPEC-service-session-builder -->
+<!-- specs: SPEC-page-words-review, SPEC-service-session-builder, SPEC-service-form-mastery-signal -->
 
 **Who:** a learner whose vocabulary is ahead of their inflection — they know what
 *hablar* means but keep missing *hablo* when meanings and forms are shuffled
 together.
-**Wants to:** start a review session that practises **forms only**, in one tap
-from Words, without a separate navigation destination or a grammar course.
+**Wants to:** start a review session that practises **forms only**, without a
+grammar course or choosing a different "mode" on every visit to Words.
 **So that:** Steigerungen get deliberate practice instead of being drowned out by
 meaning-recall cards.
 
-Derived from owner UX review 2026-08-19, [`UC-041`](UC-041-know-the-forms-not-just-the-words.md),
+Derived from owner UX review 2026-08-19 (revised 2026-08-20), [`UC-041`](UC-041-know-the-forms-not-just-the-words.md),
 and [`UC-063`](UC-063-get-to-my-cards-without-the-menu.md). **Not** a fourth
-bottom tab — [`ADR-0009`](../adr/0009-three-destinations.md) stands; this is a
-second drill-in on `/words`.
+bottom tab — [`ADR-0009`](../adr/0009-three-destinations.md) stands.
 
 ## Today
 
-Form-recall Tasks exist in the SRS pool but share a session with meaning-recall.
-The Words home has one **Review** card and copy that sends learners to mixed
-`srs-session`. There is no honest entry for "today I only want conjugations."
+Form-recall Tasks exist in the SRS pool and appear in the default mixed session
+when staging allows ([`session-sampling.md`](../specs/service/session-sampling.md)).
+`/words` offers one **Start review** action (mixed deck). Form-only entry is not
+a second control on Words — it lives on Progress and Methods.
 
 ## Success looks like
 
-- `/words` shows a **Forms** section card (same raised shell as the vocabulary
-  review card) with **Review forms** as the action — not a nav tab, not a badge
-  count ([`study/10-antipatterns.md`](../study/10-antipatterns.md) A3).
-- Tapping it opens `/words/review?method=srs-session&deck=form` — only
-  form-recall Tasks that pass staging ([`form-recall-pool.md`](../specs/service/form-recall-pool.md)).
-- The existing **Review** card remains for meanings, linking to
-  `deck=meaning`; a **Review mixed** path (`deck=mixed` or omitted) stays the
-  default for learners who want both.
-- A collapsed disclosure on the Forms card explains what a **paradigm cell** is,
-  mirroring the lemma callout on the vocabulary card.
-- Weak pattern hints on the Forms card (e.g. *-ire present*) come from Progress
-  signal data when available — qualitative, never a due count.
-- Languages with little or no inflection in the profile omit the Forms section
+- `/words` **Start review** opens `deck=mixed` — one flashcard stack; form-recall
+  cards use the same flip-and-grade UI as meaning-recall
+  ([`review-session.md`](../specs/feature/review-session.md)).
+- **Form-only** sessions (`/words/review?method=srs-session&deck=form`) are
+  reachable from **Progress** weak-pattern links ([UC-062](UC-062-see-what-is-holding-my-level-back.md),
+  [`form-mastery-signal.md`](../specs/service/form-mastery-signal.md)) and from
+  hosted **Methods** on `/methods` — not from a second card or icon on Words.
+- `deck=form` restricts the queue to form-recall Tasks that pass staging
+  ([`form-recall-pool.md`](../specs/service/form-recall-pool.md)).
+- When inflection applies, `/words` shows a collapsed **paradigm cell** callout
+  under Start review (what a form card is asking for) — not a separate Forms
+  section card.
+- Languages with little or no inflection in the profile omit the callout
   entirely (same rule as UC-041).
 
 ## Out of scope
 
-A **Forms** destination in the bottom nav; a backlog or due counter on the Forms
-card; a grammar curriculum or required lesson before form review; the full
-paradigm-cell engine ([`form-practice.md`](../specs/service/form-practice.md) —
-that is T-W6, not this slice).
+A **Forms** destination in the bottom nav; a backlog or due counter; a grammar
+curriculum; **`deck=meaning`** or **`deck=form`** pickers on `/words`; typed /
+build / spoken answer-route tabs on review cards (those belong on Methods when
+built); the full paradigm-cell engine ([`form-practice.md`](../specs/service/form-practice.md) —
+T-W6).

@@ -22,6 +22,7 @@ import {
   type MaterialSetupPreview,
   type MaterialTopicSelection,
 } from "@/lib/method-material-setup";
+import { rejectOversizeLearnerText } from "@/lib/learner-text-limits";
 import type { MaterialUnitId } from "@/lib/material-unit";
 
 import { readMaterialSetupBundle } from "./readMaterialSetup";
@@ -59,6 +60,11 @@ export async function previewOwnMaterialAction(
   text: string,
   unitId: MaterialUnitId,
 ): Promise<MaterialSetupPreview | null> {
+  // The preview tokenises the whole text and scores it against the lexicon on
+  // every keystroke-triggered call. Bounding it here keeps the cost of one
+  // request bounded; without it the only ceiling was the request body size.
+  if (rejectOversizeLearnerText(text)) return null;
+
   const t = await getTranslations("methodMaterial");
   const { catalogue } = loadMethodCatalogue();
   const method = findMethod(catalogue, methodId);
@@ -117,6 +123,12 @@ export async function startMaterialPracticeAction(
   if (!trimmed) {
     return { status: "error", error: "Paste some text before starting." };
   }
+
+  // Both branches below read this text: the library branch writes it to
+  // `content_sources`, the session-only branch parses it into a Source. The
+  // cookie serializer has its own, smaller cap (3500) for its own reason.
+  const oversize = rejectOversizeLearnerText(trimmed);
+  if (oversize) return oversize;
 
   const t = await getTranslations("methodMaterial");
   const { catalogue } = loadMethodCatalogue();

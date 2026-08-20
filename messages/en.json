@@ -96,12 +96,13 @@
     "reviewMeaningsHeading": "Review meanings",
     "reviewMeaningsCaption": "Dictionary forms only — what each word means.",
     "reviewMeaningsAction": "Review meanings",
+    "reviewStartAction": "Start review",
     "reviewMixedAction": "Review mixed",
     "reviewFormsHeading": "Review forms",
     "reviewFormsCaption": "Inflected forms from words you already hold stably — separate from meaning recall.",
     "paradigmCellCalloutTitle": "What is a paradigm cell?",
     "paradigmCellCalloutBody": "One slot in a word's inflection pattern — for example first-person singular present. Each form-recall card asks for exactly one cell, not the whole conjugation table.",
-    "reviewCaption": "One session at a time — tap when you are ready.",
+    "reviewCaption": "One flashcard stack — meanings and inflected forms when you're ready for them.",
     "countsHeading": "Your vocabulary",
     "countsCaption": "How many starter lemmas you can recall the meaning of — not every inflected form, and not a backlog.",
     "countsDefinitionsSummary": "What held, fragile, and new mean",
@@ -224,6 +225,11 @@
       "complete": "This set is complete — open the text when you are ready.",
       "tooLarge": "More than 40 words stand between you and comfortable here — try a closer source first.",
       "alternate": "Try {title} instead"
+    },
+    "reading": {
+      "heading": "Read",
+      "close": "Close",
+      "noGloss": "Not in your starter pool yet."
     }
   },
   "reviewSession": {
@@ -453,6 +459,38 @@
       "listening": "Nothing yet. No signal in the level model is assigned to listening, which is a gap in the model rather than in your practice.",
       "speaking": "Speaking that the app records and scores — not built.",
       "writing": "Free writing or dictation the app can score — not built."
+    },
+    "weeklyReflection": {
+      "periodLabel": "This week",
+      "close": "Close",
+      "previous": "Previous",
+      "next": "Next",
+      "seeData": "See the data",
+      "cardStatus": "Card {index} of {total}",
+      "rowLabel": "Weekly reflection",
+      "unreadLabel": "Unread reflection",
+      "idleTeaser": "This week in {language} — nothing shifted yet",
+      "idleHeadline": "You did not review {language} this week. Nothing changed in your measured vocabulary — that is expected after a light week. The queue will be larger when you return; the schedule is unchanged.",
+      "movementHeadlineOne": "This week 1 word moved from shaky to held in {language}.",
+      "movementHeadline": "This week {count} words moved from shaky to held in {language}.",
+      "activityHeadlineOne": "You recorded 1 review answer in {language} this week.",
+      "activityHeadline": "You recorded {count} review answers in {language} this week.",
+      "horizonHeadline": "Here is when your {language} reviews are due over the next thirty days.",
+      "readyTeaserMovedOne": "1 word moved to held in {language} this week",
+      "readyTeaserMoved": "{count} words moved to held in {language} this week",
+      "readyTeaserActivityOne": "1 review answer in {language} this week",
+      "readyTeaserActivity": "{count} review answers in {language} this week",
+      "visual": {
+        "beforeWeek": "Start of week",
+        "afterWeek": "Now",
+        "bandShiftCaptionOne": "1 word crossed from shaky into held.",
+        "bandShiftCaption": "{count} words crossed from shaky into held.",
+        "bandBarsAria": "Held {held}, shaky {fragile}, new {newCount}.",
+        "horizonCaption": "Reviews due per day over the next thirty days.",
+        "horizonAria": "Peak {count} reviews due on day {dayOffset}.",
+        "reviewActivityCaptionOne": "review answer recorded this week",
+        "reviewActivityCaption": "review answers recorded this week"
+      }
     }
   },
   "methodMenu": {
@@ -543,6 +581,17 @@
     "minutes": "min",
     "or": "or",
     "eitherOr": "or",
+    "demonstration": {
+      "label": "Can you read this?",
+      "flipHint": "Tap to turn",
+      "gradePrompt": "How well did you read it?",
+      "feedbackHard": "That one was tough — worth another look when you review.",
+      "feedbackGood": "You read that — a few words may need another look.",
+      "feedbackEasy": "You read that easily.",
+      "gradeHard": "Hard",
+      "gradeGood": "Good",
+      "gradeEasy": "Easy"
+    },
     "sections": {
       "reading": "Reading",
       "listening": "Listening",
@@ -1110,7 +1159,13 @@
     },
     "oauthDivider": "or continue with",
     "oauthGoogleAria": "Continue with Google",
-    "oauthAppleAria": "Continue with Apple"
+    "oauthAppleAria": "Continue with Apple",
+    "errors": {
+      "invalid-credentials": "The email or password is not correct.",
+      "confirmation-missing": "The confirmation link is incomplete. Open the full link from your email, or sign in if you have already confirmed.",
+      "confirmation-failed": "That confirmation link is no longer valid. Request a new one by signing up again, or sign in if you have already confirmed.",
+      "unexpected": "Something on our side went wrong. Try again — if it keeps failing, note the reference below."
+    }
   },
   "privacy": {
     "bannerTitle": "Cookies and storage",
