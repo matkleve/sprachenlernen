@@ -43,10 +43,11 @@ comma-separated values (`?skill=reading,listening`, `?energy=low,medium`).
 Refine dimensions (hands, voice, eyes) use the same toggle semantics when more
 than one constraint is chosen.
 
-**Filter icons (UX, 2026-08-20):** skill pills show the same Lucide marks as the
-catalogue (book, headphones, mic, pen, library) on a skill-tinted disc; energy
-and refine pills show a matching Lucide mark before the label. Icons are
-decorative (`aria-hidden`); the pill label remains the accessible name.
+**Filter icons (UX, 2026-08-20):** skill and energy options are **icon-only**
+`FilterIconPill` buttons — square pill, equal padding, Lucide mark in skill hue
+(no inner tint disc; the pill fill is the only background). **Any-skill** and
+**any-energy** stay text-only `FilterPill`s with no icon. Refine stays text-only.
+Each icon button carries an `aria-label` (localized skill or intensity anchor).
 
 **Method badges (UX, 2026-08-15):** each card shows a **badge row** — skill
 contribution, evidence label, effort label — above logistics chips (duration,

@@ -27,12 +27,12 @@ Clearing all selections in a dimension removes the param (same as “any”).
 | Energy | Method shown if `intensity <= max` for **any** selected energy bucket |
 | Refine | Per dimension: method fits **any** selected constraint value |
 
-## Files
+## UI
 
-- `lib/method-menu-filter.ts` — parse/serialize/filter
-- `components/ui/FilterPill.tsx` — optional leading icon slot
-- `features/method-menu/filter-pill-icons.tsx` — icon map
-- `features/method-menu/MethodFilter.tsx`, `RefineFilter.tsx`
+- Skill / energy: `FilterIconPill` — icon only, `aria-label` from localized copy.
+- Any-skill / any-energy: `FilterPill` text only, no icon.
+- No inner tint disc — pill background only; square `w-11` equal padding.
+- Refine: text-only pills (unchanged).
 
 ## Verify
 

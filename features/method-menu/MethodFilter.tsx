@@ -1,6 +1,4 @@
 import {
-  ENERGY_LABELS,
-  SKILL_LABELS,
   defaultTimeBudget,
   serializeMultiParam,
   toggleMultiParam,
@@ -9,13 +7,8 @@ import {
 } from "@/lib/method-menu-filter";
 import { SKILLS, type Skill } from "@/lib/method-catalogue";
 import { timeBudgetToParam } from "@/lib/time-scale";
-import { FilterPill } from "@/components/ui/FilterPill";
-import {
-  AnyEnergyFilterIcon,
-  AnySkillFilterIcon,
-  EnergyFilterIcon,
-  SkillFilterIcon,
-} from "./filter-pill-icons";
+import { FilterIconPill, FilterPill } from "@/components/ui/FilterPill";
+import { EnergyFilterMark, SkillFilterMark } from "./filter-pill-icons";
 import { RefineFilter } from "./RefineFilter";
 import { TimeSlider } from "./TimeSlider";
 import { useMethodMenuCopy } from "./use-method-menu-copy";
@@ -29,12 +22,18 @@ type MethodFilterProps = {
 
 const ENERGIES = ["low", "medium", "high"] as const;
 
+const ENERGY_LEVEL: Record<(typeof ENERGIES)[number], 1 | 2 | 3> = {
+  low: 1,
+  medium: 2,
+  high: 3,
+};
+
 export function MethodFilter({
   filter,
   onFilterChange,
   mode = "full",
 }: MethodFilterProps) {
-  const { t } = useMethodMenuCopy();
+  const { t, skillLabels, intensity } = useMethodMenuCopy();
 
   const toggleSkill = (skill: Skill) => {
     onFilterChange({ skill: serializeMultiParam(toggleMultiParam(filter.skills, skill)) });
@@ -64,7 +63,6 @@ export function MethodFilter({
           <li>
             <FilterPill
               current={!filter.skills?.length}
-              icon={<AnySkillFilterIcon />}
               onClick={() => onFilterChange({ skill: undefined })}
             >
               {t("anySkill")}
@@ -72,13 +70,13 @@ export function MethodFilter({
           </li>
           {SKILLS.map((skill) => (
             <li key={skill}>
-              <FilterPill
+              <FilterIconPill
                 current={filter.skills?.includes(skill) ?? false}
-                icon={<SkillFilterIcon skill={skill} />}
+                label={skillLabels[skill]}
                 onClick={() => toggleSkill(skill)}
               >
-                {SKILL_LABELS[skill]}
-              </FilterPill>
+                <SkillFilterMark skill={skill} current={filter.skills?.includes(skill) ?? false} />
+              </FilterIconPill>
             </li>
           ))}
         </ul>
@@ -92,7 +90,6 @@ export function MethodFilter({
           <li>
             <FilterPill
               current={!filter.energies?.length}
-              icon={<AnyEnergyFilterIcon />}
               onClick={() => onFilterChange({ energy: undefined })}
             >
               {t("anyEnergy")}
@@ -100,13 +97,13 @@ export function MethodFilter({
           </li>
           {ENERGIES.map((energy) => (
             <li key={energy}>
-              <FilterPill
+              <FilterIconPill
                 current={filter.energies?.includes(energy) ?? false}
-                icon={<EnergyFilterIcon energy={energy} />}
+                label={intensity[ENERGY_LEVEL[energy]]}
                 onClick={() => toggleEnergy(energy)}
               >
-                {ENERGY_LABELS[energy]}
-              </FilterPill>
+                <EnergyFilterMark energy={energy} current={filter.energies?.includes(energy) ?? false} />
+              </FilterIconPill>
             </li>
           ))}
         </ul>

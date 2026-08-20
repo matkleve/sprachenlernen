@@ -7,7 +7,6 @@ import {
   type RefineDimension,
 } from "@/lib/method-menu-filter";
 
-import { AnyRefineFilterIcon, RefineValueFilterIcon } from "./filter-pill-icons";
 import { useMethodMenuCopy } from "./use-method-menu-copy";
 
 type RefineFilterProps = {
@@ -41,7 +40,6 @@ export function RefineFilter({ filter, onFilterChange }: RefineFilterProps) {
                   <li>
                     <FilterPill
                       current={!filter.refine[dimension]?.length}
-                      icon={<AnyRefineFilterIcon />}
                       onClick={() => onFilterChange({ [dimension]: undefined })}
                     >
                       {t("refineAny")}
@@ -51,11 +49,7 @@ export function RefineFilter({ filter, onFilterChange }: RefineFilterProps) {
                     const current = filter.refine[dimension]?.includes(value) ?? false;
                     return (
                       <li key={value}>
-                        <FilterPill
-                          current={current}
-                          icon={<RefineValueFilterIcon dimension={dimension} value={value} />}
-                          onClick={() => toggleRefine(dimension, value)}
-                        >
+                        <FilterPill current={current} onClick={() => toggleRefine(dimension, value)}>
                           {label}
                         </FilterPill>
                       </li>

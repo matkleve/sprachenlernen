@@ -24,8 +24,9 @@
 - [ ] Given `?energy=low`, then only Methods with intensity 1 appear.
 - [ ] Given `?energy=low,high`, then Methods with intensity 1 **or** intensity 3
       appear (OR of each energy bucket’s max intensity).
-- [ ] Given skill or energy filter pills, when they render, then each option shows
-      a Lucide icon before the label (decorative; label is the accessible name).
+- [ ] Given skill or energy filter options, when they render, then each is an
+      icon-only `FilterIconPill` (square, equal padding, no inner tint disc) with
+      `aria-label`; **any-skill** and **any-energy** are text-only pills with no icon.
 - [ ] Given two skill pills active, when one is tapped again, then it deselects
       and the other stays active — no full page reload.
 - [ ] Given `?hands=none` in refine, then only Methods performable hands-free
