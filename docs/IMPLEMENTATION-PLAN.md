@@ -454,7 +454,7 @@ Cooking-app runner for multi-step Methods (dictation, writing, listening drills)
 
 | ID | Work | Class | Depends on | Done when |
 | --- | --- | --- | --- | --- |
-| **T-CI1** | **`Source.licence` on persisted rows** — extend `Source` model + validator; refuse catalogue without `licence.kind` | Standard | T-W9 | `content-ingestion` AC #1; `loadSources` rejects bad catalogue rows |
+| **T-CI1** | ~~**`Source.licence` on persisted rows** — extend `Source` model + validator; refuse catalogue without `licence.kind`~~ — **shipped 2026-08-20** | Standard | T-W9 | `content-ingestion` AC #1; `loadSources` rejects bad catalogue rows |
 | **T-CI2** | **Wikinews ingest (lane B v1)** — allowlisted fetch, CC BY metadata, full body stored | Standard | T-CI1 | Fixture + one live language feed in `data/content/` or DB |
 | **T-CI3** | **T2 adaptation + cache** — `AdaptationCacheKey`, coverage validator loop, nightly batch for catalogue | **Sensitive** | T-CI2, coverage | UC-030 AC; second call cache hit |
 | **T-CI4** | **Adaptation labelling** — source detail + session contract show *adapted for {level}*; link to original | Standard | T-CI3, T-MV3 | UC-007, UC-039 AC |

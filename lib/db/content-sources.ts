@@ -3,6 +3,7 @@ import type { SupabaseClient } from "@supabase/supabase-js";
 import { getAccount } from "@/lib/db/auth";
 import { createServerSupabaseClient } from "@/lib/db/client";
 import type { Source, SourceKind } from "@/lib/coverage";
+import { learnerPrivateLicence } from "@/lib/content-ingestion";
 import { rejectOversizeLearnerText } from "@/lib/learner-text-limits";
 import { titleFromLearnerText } from "@/lib/method-material-setup";
 import {
@@ -53,6 +54,7 @@ export function rowToSource(row: ContentSourceRow): Source {
     sourceUrl: row.source_url ?? undefined,
     addedAt: row.added_at,
     ephemeral: false,
+    licence: learnerPrivateLicence(row.added_at),
   };
 }
 
