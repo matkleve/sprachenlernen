@@ -1,6 +1,8 @@
-import type { ReflectionVisual } from "@/lib/weekly-reflection";
+"use client";
 
-import { reflectionVisualCopy } from "./content";
+import { useTranslations } from "next-intl";
+
+import type { ReflectionVisual } from "@/lib/weekly-reflection";
 
 /**
  * Chart slots for reflection cards — token colours only.
@@ -8,22 +10,43 @@ import { reflectionVisualCopy } from "./content";
  */
 
 export function ReflectionVisual({ visual }: { visual: ReflectionVisual }) {
+  const t = useTranslations("progress.weeklyReflection.visual");
+
   switch (visual.kind) {
     case "band-shift":
       return (
         <figure>
-          <BandBars counts={visual.before} label={reflectionVisualCopy.beforeWeek} />
-          <BandBars counts={visual.after} label={reflectionVisualCopy.afterWeek} className="mt-4" />
+          <BandBars
+            counts={visual.before}
+            label={t("beforeWeek")}
+            ariaLabel={t("bandBarsAria", {
+              held: visual.before.held,
+              fragile: visual.before.fragile,
+              newCount: visual.before.new,
+            })}
+          />
+          <BandBars
+            counts={visual.after}
+            label={t("afterWeek")}
+            className="mt-4"
+            ariaLabel={t("bandBarsAria", {
+              held: visual.after.held,
+              fragile: visual.after.fragile,
+              newCount: visual.after.new,
+            })}
+          />
           <figcaption className="mt-3 text-sm text-muted">
-            {reflectionVisualCopy.bandShiftCaption(visual.movedToHeld)}
+            {visual.movedToHeld === 1
+              ? t("bandShiftCaptionOne")
+              : t("bandShiftCaption", { count: visual.movedToHeld })}
           </figcaption>
         </figure>
       );
     case "horizon":
       return (
         <figure>
-          <HorizonBars bins={visual.bins} />
-          <figcaption className="mt-3 text-sm text-muted">{reflectionVisualCopy.horizonCaption}</figcaption>
+          <HorizonBars bins={visual.bins} ariaLabel={horizonAria(visual.bins, t)} />
+          <figcaption className="mt-3 text-sm text-muted">{t("horizonCaption")}</figcaption>
         </figure>
       );
     case "review-activity":
@@ -31,7 +54,9 @@ export function ReflectionVisual({ visual }: { visual: ReflectionVisual }) {
         <figure>
           <p className="text-3xl font-semibold tabular-nums text-ink">{visual.reviewCount}</p>
           <figcaption className="mt-2 text-sm text-muted">
-            {reflectionVisualCopy.reviewActivityCaption(visual.reviewCount)}
+            {visual.reviewCount === 1
+              ? t("reviewActivityCaptionOne")
+              : t("reviewActivityCaption")}
           </figcaption>
         </figure>
       );
@@ -44,10 +69,12 @@ function BandBars({
   counts,
   label,
   className,
+  ariaLabel,
 }: {
   counts: { held: number; fragile: number; new: number };
   label: string;
   className?: string;
+  ariaLabel: string;
 }) {
   const total = Math.max(counts.held + counts.fragile + counts.new, 1);
   const segments = [
@@ -59,11 +86,7 @@ function BandBars({
   return (
     <div className={className}>
       <p className="text-xs font-medium text-muted">{label}</p>
-      <div
-        className="mt-2 flex h-4 overflow-hidden rounded-pill"
-        role="img"
-        aria-label={reflectionVisualCopy.bandBarsAria(counts)}
-      >
+      <div className="mt-2 flex h-4 overflow-hidden rounded-pill" role="img" aria-label={ariaLabel}>
         {segments.map((segment) =>
           segment.value > 0 ? (
             <div
@@ -78,16 +101,18 @@ function BandBars({
   );
 }
 
-function HorizonBars({ bins }: { bins: readonly { dayOffset: number; count: number }[] }) {
+function HorizonBars({
+  bins,
+  ariaLabel,
+}: {
+  bins: readonly { dayOffset: number; count: number }[];
+  ariaLabel: string;
+}) {
   const max = Math.max(...bins.map((bin) => bin.count), 1);
   const sample = bins.filter((_, index) => index % 5 === 0);
 
   return (
-    <div
-      className="flex h-28 items-end gap-1"
-      role="img"
-      aria-label={reflectionVisualCopy.horizonAria(bins)}
-    >
+    <div className="flex h-28 items-end gap-1" role="img" aria-label={ariaLabel}>
       {sample.map((bin) => (
         <div key={bin.dayOffset} className="flex flex-1 flex-col items-center gap-1">
           <div
@@ -99,4 +124,12 @@ function HorizonBars({ bins }: { bins: readonly { dayOffset: number; count: numb
       ))}
     </div>
   );
+}
+
+function horizonAria(
+  bins: readonly { dayOffset: number; count: number }[],
+  t: ReturnType<typeof useTranslations<"progress.weeklyReflection.visual">>,
+) {
+  const peak = bins.reduce((best, bin) => (bin.count > best.count ? bin : best), bins[0]!);
+  return t("horizonAria", { count: peak.count, dayOffset: peak.dayOffset });
 }

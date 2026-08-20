@@ -2,12 +2,12 @@
 
 import { useEffect, useId, useRef, useState } from "react";
 import { createPortal } from "react-dom";
+import { useTranslations } from "next-intl";
 
 import { Button } from "@/components/ui/Button";
 import { Field } from "@/components/ui/Field";
 import { FilterPill } from "@/components/ui/FilterPill";
 import { Textarea } from "@/components/ui/Input";
-import { copy } from "@/features/review-session/content";
 import {
   REPORT_CATEGORIES,
   REPORT_NOTE_MAX_LENGTH,
@@ -35,6 +35,7 @@ export function CardReportPopover({
   pending = false,
   triggerRef,
 }: CardReportPopoverProps) {
+  const t = useTranslations("reviewSession");
   const popoverRef = useRef<HTMLDivElement>(null);
   const titleId = useId();
   const [category, setCategory] = useState<ReportCategory | null>(null);
@@ -97,12 +98,12 @@ export function CardReportPopover({
       style={{ top, left, width }}
     >
       <h3 id={titleId} className="text-sm font-semibold text-ink">
-        {copy.reportPopoverTitle}
+        {t("reportPopoverTitle")}
       </h3>
-      <p className="mt-1 text-xs text-muted">{copy.reportPopoverOutcome}</p>
+      <p className="mt-1 text-xs text-muted">{t("reportPopoverOutcome")}</p>
 
       <fieldset className="mt-4 border-0 p-0">
-        <legend className="text-xs font-medium text-muted">{copy.reportCategoryLegend}</legend>
+        <legend className="text-xs font-medium text-muted">{t("reportCategoryLegend")}</legend>
         <div className="mt-2 flex flex-wrap gap-2">
           {REPORT_CATEGORIES.map((value) => (
             <FilterPill
@@ -111,27 +112,27 @@ export function CardReportPopover({
               onClick={() => toggleCategory(value)}
               className="text-xs"
             >
-              {copy.reportCategories[value]}
+              {t(`reportCategories.${value}`)}
             </FilterPill>
           ))}
         </div>
       </fieldset>
 
-      <Field label={copy.reportNoteLabel} className="mt-4">
+      <Field label={t("reportNoteLabel")} className="mt-4">
         <Textarea
           value={note}
           onChange={(event) => setNote(event.target.value.slice(0, REPORT_NOTE_MAX_LENGTH))}
           rows={3}
-          placeholder={copy.reportNotePlaceholder}
+          placeholder={t("reportNotePlaceholder")}
         />
       </Field>
 
       <div className="mt-4 flex justify-end gap-2">
         <Button type="button" variant="secondary" size="sm" onClick={onClose} disabled={pending}>
-          {copy.reportCancel}
+          {t("reportCancel")}
         </Button>
         <Button type="button" size="sm" pending={pending} onClick={() => void handleSubmit()}>
-          {copy.reportSubmit}
+          {t("reportSubmit")}
         </Button>
       </div>
     </div>,

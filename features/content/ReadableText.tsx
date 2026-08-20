@@ -1,13 +1,12 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 
 import { Button } from "@/components/ui/Button";
 import { Dialog } from "@/components/ui/Dialog";
 import type { ReadableSegment } from "@/lib/readable-text";
 import { cn } from "@/lib/utils";
-
-import { copy } from "./content";
 
 export type ReadableTextProps = {
   segments: readonly ReadableSegment[];
@@ -17,6 +16,7 @@ export type ReadableTextProps = {
  * Tap-to-gloss reading body. Contract: docs/specs/feature/reading-surface.md
  */
 export function ReadableText({ segments }: ReadableTextProps) {
+  const t = useTranslations("contentTrace.reading");
   const [active, setActive] = useState<ReadableSegment & { kind: "word" } | null>(null);
 
   return (
@@ -49,12 +49,12 @@ export function ReadableText({ segments }: ReadableTextProps) {
         title={active?.text ?? ""}
         footer={
           <Button type="button" variant="secondary" size="sm" onClick={() => setActive(null)}>
-            {copy.readingClose}
+            {t("close")}
           </Button>
         }
       >
         <p className="text-lg text-muted">
-          {active?.gloss ?? copy.readingNoGloss}
+          {active?.gloss ?? t("noGloss")}
         </p>
       </Dialog>
     </>

@@ -224,6 +224,11 @@
       "complete": "This set is complete — open the text when you are ready.",
       "tooLarge": "More than 40 words stand between you and comfortable here — try a closer source first.",
       "alternate": "Try {title} instead"
+    },
+    "reading": {
+      "heading": "Read",
+      "close": "Close",
+      "noGloss": "Not in your starter pool yet."
     }
   },
   "reviewSession": {
@@ -453,6 +458,38 @@
       "listening": "Nothing yet. No signal in the level model is assigned to listening, which is a gap in the model rather than in your practice.",
       "speaking": "Speaking that the app records and scores — not built.",
       "writing": "Free writing or dictation the app can score — not built."
+    },
+    "weeklyReflection": {
+      "periodLabel": "This week",
+      "close": "Close",
+      "previous": "Previous",
+      "next": "Next",
+      "seeData": "See the data",
+      "cardStatus": "Card {index} of {total}",
+      "rowLabel": "Weekly reflection",
+      "unreadLabel": "Unread reflection",
+      "idleTeaser": "This week in {language} — nothing shifted yet",
+      "idleHeadline": "You did not review {language} this week. Nothing changed in your measured vocabulary — that is expected after a light week. The queue will be larger when you return; the schedule is unchanged.",
+      "movementHeadlineOne": "This week 1 word moved from shaky to held in {language}.",
+      "movementHeadline": "This week {count} words moved from shaky to held in {language}.",
+      "activityHeadlineOne": "You recorded 1 review answer in {language} this week.",
+      "activityHeadline": "You recorded {count} review answers in {language} this week.",
+      "horizonHeadline": "Here is when your {language} reviews are due over the next thirty days.",
+      "readyTeaserMovedOne": "1 word moved to held in {language} this week",
+      "readyTeaserMoved": "{count} words moved to held in {language} this week",
+      "readyTeaserActivityOne": "1 review answer in {language} this week",
+      "readyTeaserActivity": "{count} review answers in {language} this week",
+      "visual": {
+        "beforeWeek": "Start of week",
+        "afterWeek": "Now",
+        "bandShiftCaptionOne": "1 word crossed from shaky into held.",
+        "bandShiftCaption": "{count} words crossed from shaky into held.",
+        "bandBarsAria": "Held {held}, shaky {fragile}, new {newCount}.",
+        "horizonCaption": "Reviews due per day over the next thirty days.",
+        "horizonAria": "Peak {count} reviews due on day {dayOffset}.",
+        "reviewActivityCaptionOne": "review answer recorded this week",
+        "reviewActivityCaption": "review answers recorded this week"
+      }
     }
   },
   "methodMenu": {
@@ -541,6 +578,17 @@
     "minutes": "min",
     "or": "or",
     "eitherOr": "or",
+    "demonstration": {
+      "label": "Can you read this?",
+      "flipHint": "Tap to turn",
+      "gradePrompt": "How well did you read it?",
+      "feedbackHard": "That one was tough — worth another look when you review.",
+      "feedbackGood": "You read that — a few words may need another look.",
+      "feedbackEasy": "You read that easily.",
+      "gradeHard": "Hard",
+      "gradeGood": "Good",
+      "gradeEasy": "Easy"
+    },
     "sections": {
       "reading": "Reading",
       "listening": "Listening",

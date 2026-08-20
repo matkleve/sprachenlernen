@@ -1,6 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { useRef, useState, useTransition } from "react";
 
 import { ReflectionDeck } from "@/components/ui/ReflectionDeck";
@@ -9,7 +10,6 @@ import { cn } from "@/lib/utils";
 import type { ReflectionCardModel, WeeklyReflectionModel } from "@/lib/weekly-reflection";
 
 import { markReflectionSeenAction } from "./actions";
-import { weeklyReflectionCopy } from "./content";
 import { ReflectionVisual } from "./ReflectionVisual";
 
 type WeeklyReflectionEntryProps = {
@@ -20,6 +20,7 @@ type WeeklyReflectionEntryProps = {
  * Progress entry row + deck. Contract: docs/specs/feature/weekly-reflection.md
  */
 export function WeeklyReflectionEntry({ reflection }: WeeklyReflectionEntryProps) {
+  const t = useTranslations("progress.weeklyReflection");
   const router = useRouter();
   const triggerRef = useRef<HTMLButtonElement>(null);
   const [open, setOpen] = useState(false);
@@ -42,7 +43,7 @@ export function WeeklyReflectionEntry({ reflection }: WeeklyReflectionEntryProps
   return (
     <section className="mt-page-content" aria-labelledby="weekly-reflection-heading">
       <h2 id="weekly-reflection-heading" className="text-xl font-semibold text-ink">
-        {weeklyReflectionCopy.periodLabel}
+        {t("periodLabel")}
       </h2>
 
       <Button
@@ -54,7 +55,7 @@ export function WeeklyReflectionEntry({ reflection }: WeeklyReflectionEntryProps
         disabled={pending}
         aria-expanded={open}
         aria-haspopup="dialog"
-        aria-label={weeklyReflectionCopy.rowLabel}
+        aria-label={t("rowLabel")}
         className={cn(
           "mt-4 h-auto w-full max-w-2xl justify-between gap-3 rounded-card px-4 py-4 text-left whitespace-normal",
         )}
@@ -64,7 +65,7 @@ export function WeeklyReflectionEntry({ reflection }: WeeklyReflectionEntryProps
         {unread ? (
           <span
             className="size-2.5 shrink-0 rounded-full bg-accent"
-            aria-label={weeklyReflectionCopy.unreadLabel}
+            aria-label={t("unreadLabel")}
           />
         ) : null}
       </Button>
@@ -72,15 +73,15 @@ export function WeeklyReflectionEntry({ reflection }: WeeklyReflectionEntryProps
       <ReflectionDeck
         open={open}
         onClose={onClose}
-        periodLabel={weeklyReflectionCopy.periodLabel}
+        periodLabel={t("periodLabel")}
         cards={cards}
         triggerRef={triggerRef}
         copy={{
-          close: weeklyReflectionCopy.close,
-          previous: weeklyReflectionCopy.previous,
-          next: weeklyReflectionCopy.next,
-          seeData: weeklyReflectionCopy.seeData,
-          cardStatus: weeklyReflectionCopy.cardStatus,
+          close: t("close"),
+          previous: t("previous"),
+          next: t("next"),
+          seeData: t("seeData"),
+          cardStatus: (index, total) => t("cardStatus", { index, total }),
         }}
       />
     </section>
