@@ -102,6 +102,7 @@
     "paradigmCellCalloutTitle": "What is a paradigm cell?",
     "paradigmCellCalloutBody": "One slot in a word's inflection pattern — for example first-person singular present. Each form-recall card asks for exactly one cell, not the whole conjugation table.",
     "reviewCaption": "One session at a time — tap when you are ready.",
+    "baseBuildingHint": "You are still building your base — words from earlier today may come back, and new words taper as the day goes on.",
     "countsHeading": "Your vocabulary",
     "countsCaption": "How many starter lemmas you can recall the meaning of — not every inflected form, and not a backlog.",
     "countsDefinitionsSummary": "What held, fragile, and new mean",
