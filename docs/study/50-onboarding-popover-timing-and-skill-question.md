@@ -1,8 +1,9 @@
 # 50 · Onboarding popover — timing, abholen, and whether to ask “skill”
 
 **Status:** study only — supersedes the **timing** and **skill-question** parts of
-[49](49-learner-intent-onboarding.md). Register boost (Business / Alltag / Technik)
-from chapter 49 **stands**; this chapter fixes *when* and *what* to ask.
+[49](49-learner-intent-onboarding.md). Register **boost** from chapter 49 is
+**withdrawn** by [51](51-register-path-and-interest-topics.md); this chapter fixes
+*when* and *what* to ask (popover + interests page in 51).
 
 **Owner correction (2026-08-20):** Study 49 recommended asking intent **after
 session 1**. That was a panel inference from UC-011, **not** an owner decision.
