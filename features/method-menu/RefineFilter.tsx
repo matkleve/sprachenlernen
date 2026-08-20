@@ -1,7 +1,13 @@
 import { Disclosure, DisclosurePanel, DisclosureSummary } from "@/components/ui/Disclosure";
 import { FilterPill } from "@/components/ui/FilterPill";
-import type { MenuFilter } from "@/lib/method-menu-filter";
+import {
+  serializeMultiParam,
+  toggleMultiParam,
+  type MenuFilter,
+  type RefineDimension,
+} from "@/lib/method-menu-filter";
 
+import { AnyRefineFilterIcon, RefineValueFilterIcon } from "./filter-pill-icons";
 import { useMethodMenuCopy } from "./use-method-menu-copy";
 
 type RefineFilterProps = {
@@ -11,6 +17,12 @@ type RefineFilterProps = {
 
 export function RefineFilter({ filter, onFilterChange }: RefineFilterProps) {
   const { t, refineOptions } = useMethodMenuCopy();
+
+  const toggleRefine = (dimension: RefineDimension, value: string) => {
+    onFilterChange({
+      [dimension]: serializeMultiParam(toggleMultiParam(filter.refine[dimension], value)),
+    });
+  };
 
   return (
     <Disclosure className="p-0">
@@ -28,21 +40,21 @@ export function RefineFilter({ filter, onFilterChange }: RefineFilterProps) {
                 <ul className="flex flex-wrap gap-1">
                   <li>
                     <FilterPill
-                      current={filter.refine[dimension] === undefined}
+                      current={!filter.refine[dimension]?.length}
+                      icon={<AnyRefineFilterIcon />}
                       onClick={() => onFilterChange({ [dimension]: undefined })}
                     >
                       {t("refineAny")}
                     </FilterPill>
                   </li>
                   {refineOptions[dimension].map(({ value, label }) => {
-                    const current = filter.refine[dimension] === value;
+                    const current = filter.refine[dimension]?.includes(value) ?? false;
                     return (
                       <li key={value}>
                         <FilterPill
                           current={current}
-                          onClick={() =>
-                            onFilterChange({ [dimension]: current ? undefined : value })
-                          }
+                          icon={<RefineValueFilterIcon dimension={dimension} value={value} />}
+                          onClick={() => toggleRefine(dimension, value)}
                         >
                           {label}
                         </FilterPill>

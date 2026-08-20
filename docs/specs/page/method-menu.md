@@ -34,6 +34,20 @@ the learner's window — it does **not** set session length. Fixed duration
 Contract: [`../service/method-session-budget.md`](../service/method-session-budget.md);
 study: [`../../study/45-method-duration-variants.md`](../../study/45-method-duration-variants.md).
 
+**Multi-select filters (UX, 2026-08-20):** skill and energy pills are
+**multi-select** — tap toggles a value on or off; several may be active at once.
+The catalogue shows methods that match **any** selected skill and **any** selected
+energy bucket (OR within each dimension). Empty selection on a dimension means no
+filter on that dimension (same as “any skill” / “any energy”). URL params use
+comma-separated values (`?skill=reading,listening`, `?energy=low,medium`).
+Refine dimensions (hands, voice, eyes) use the same toggle semantics when more
+than one constraint is chosen.
+
+**Filter icons (UX, 2026-08-20):** skill pills show the same Lucide marks as the
+catalogue (book, headphones, mic, pen, library) on a skill-tinted disc; energy
+and refine pills show a matching Lucide mark before the label. Icons are
+decorative (`aria-hidden`); the pill label remains the accessible name.
+
 **Method badges (UX, 2026-08-15):** each card shows a **badge row** — skill
 contribution, evidence label, effort label — above logistics chips (duration,
 all requirements, hosted). Study/27; component
@@ -88,8 +102,13 @@ stays a Server Component.
 | --- | --- | --- |
 | 0 | Opens `/methods` with no language chosen | Redirects to the picker. Three of the four ways into the app — the confirmation link, OAuth, and simply signing in later — never pass through signup's redirect, so the guard lives on the destination |
 | 1 | Opens `/methods` | Whole catalogue until filters apply; **current standing** appears above the filters when review history can be read |
+<<<<<<< HEAD
 | 2 | Moves time slider | URL `?minutes=` updates to the nearest scale step (or `endless`); list shows methods whose **shortest package** fits — **filter only**, not session sizing |
 | 3 | Taps skill, energy, or refine | List intersects that dimension **without reloading the page**; scroll position preserved |
+=======
+| 2 | Moves time slider | URL `?minutes=` updates to the nearest scale step (or `endless`); list shows methods whose shortest variant fits |
+| 3 | Taps skill, energy, or refine | Selected pills toggle on/off (multi-select per dimension); list intersects **without reloading the page**; scroll position preserved |
+>>>>>>> 980f6ac (feat(method-menu): icons and multi-select filter chips)
 | 4 | Opens refine | Optional hands / voice / eyes constraints |
 | 5 | Taps a **card-engine** card (`srs-session`) | Words review opens; card showed **Start** |
 | 6 | Taps an **exercise-runner** or other card | Method overview (detail) opens; runnable cards showed **Start**, others **Info** |

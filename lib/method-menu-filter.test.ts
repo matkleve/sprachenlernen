@@ -2,7 +2,13 @@ import { describe, expect, it } from "vitest";
 
 import { loadMethodCatalogue } from "@/features/method-menu/catalogue";
 import { fitsMinutes, fitsPartialContext } from "@/lib/method-catalogue";
-import { filterMethods, parseMenuFilter, applySearchParamUpdates } from "@/lib/method-menu-filter";
+import {
+  filterMethods,
+  parseMenuFilter,
+  applySearchParamUpdates,
+  serializeMultiParam,
+  toggleMultiParam,
+} from "@/lib/method-menu-filter";
 
 const { catalogue } = loadMethodCatalogue();
 
@@ -10,12 +16,34 @@ describe("parseMenuFilter", () => {
   it("parses minutes and skill", () => {
     const filter = parseMenuFilter({ minutes: "15", skill: "reading" });
     expect(filter.timeBudget).toBe(15);
-    expect(filter.skill).toBe("reading");
+    expect(filter.skills).toEqual(["reading"]);
+  });
+
+  it("parses comma-separated skills and energies", () => {
+    const filter = parseMenuFilter({ skill: "reading,listening", energy: "low,high" });
+    expect(filter.skills).toEqual(["reading", "listening"]);
+    expect(filter.energies).toEqual(["low", "high"]);
   });
 
   it("parses endless time budget", () => {
     const filter = parseMenuFilter({ minutes: "endless" });
     expect(filter.timeBudget).toBe("endless");
+  });
+});
+
+describe("toggleMultiParam", () => {
+  it("adds and removes values", () => {
+    expect(toggleMultiParam(undefined, "reading")).toEqual(["reading"]);
+    expect(toggleMultiParam(["reading"], "listening")).toEqual(["reading", "listening"]);
+    expect(toggleMultiParam(["reading", "listening"], "reading")).toEqual(["listening"]);
+    expect(toggleMultiParam(["reading"], "reading")).toBeUndefined();
+  });
+});
+
+describe("serializeMultiParam", () => {
+  it("joins values for the URL", () => {
+    expect(serializeMultiParam(["reading", "listening"])).toBe("reading,listening");
+    expect(serializeMultiParam(undefined)).toBeUndefined();
   });
 });
 
@@ -33,6 +61,27 @@ describe("filterMethods", () => {
     expect(result.every((m) => m.intensity === 1)).toBe(true);
   });
 
+  it("filters by multiple skills with OR semantics", () => {
+    const result = filterMethods(catalogue!, parseMenuFilter({ skill: "reading,speaking" }));
+    expect(
+      result.every((m) => m.skills.includes("reading") || m.skills.includes("speaking")),
+    ).toBe(true);
+    const readingOnly = filterMethods(catalogue!, parseMenuFilter({ skill: "reading" }));
+    const speakingOnly = filterMethods(catalogue!, parseMenuFilter({ skill: "speaking" }));
+    expect(result.length).toBeGreaterThanOrEqual(readingOnly.length);
+    expect(result.length).toBeGreaterThanOrEqual(speakingOnly.length);
+  });
+
+  it("filters by multiple energies with OR semantics", () => {
+    const lowMedium = filterMethods(catalogue!, parseMenuFilter({ energy: "low,medium" }));
+    expect(lowMedium.every((m) => m.intensity <= 2)).toBe(true);
+    expect(lowMedium.some((m) => m.intensity === 3)).toBe(false);
+
+    const all = filterMethods(catalogue!, parseMenuFilter({ minutes: "endless" }));
+    const lowHigh = filterMethods(catalogue!, parseMenuFilter({ energy: "low,high" }));
+    expect(lowHigh.length).toBe(all.length);
+  });
+
   it("does not filter by time when budget is endless", () => {
     const all = catalogue!.entries.filter((e) => e.type === "method");
     const result = filterMethods(catalogue!, parseMenuFilter({ minutes: "endless" }));
@@ -43,6 +92,15 @@ describe("filterMethods", () => {
     const result = filterMethods(catalogue!, parseMenuFilter({ hands: "none" }));
     expect(
       result.every((m) => fitsPartialContext(m, { hands: "none" })),
+    ).toBe(true);
+  });
+
+  it("filters by multiple refine values with OR semantics", () => {
+    const result = filterMethods(catalogue!, parseMenuFilter({ hands: "none,one" }));
+    expect(
+      result.every(
+        (m) => fitsPartialContext(m, { hands: "none" }) || fitsPartialContext(m, { hands: "one" }),
+      ),
     ).toBe(true);
   });
 
