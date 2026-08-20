@@ -19,6 +19,7 @@ const CHECKS = [
   ["tokens", "node", ["scripts/check-tokens.mjs"]],
   ["contrast", "node", ["scripts/check-contrast.mjs"]],
   ["session-viability", "node", ["scripts/check-session-viability.mjs"]],
+  ["catalogue-budget", "node", ["scripts/check-catalogue-budget.mjs"]],
   ["interaction", "node", ["scripts/check-interaction-surfaces.mjs"]],
   ["neighbors", "node", ["scripts/check-neighbor-candidates.mjs"]],
   ["version-branch", "node", ["scripts/check-version-branch.mjs"]],

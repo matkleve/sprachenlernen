@@ -428,9 +428,9 @@ Cooking-app runner for multi-step Methods (dictation, writing, listening drills)
 | --- | --- | --- | --- | --- |
 | **T-MV1** | ~~`assertSessionViable` + `estimateWallClock` in CI~~ — **shipped 2026-08-20** | Standard | specs | `check-session-viability` in `verify` |
 | **T-MV2** | ~~Recompose `build-a-sentence` — batch + exemplar/feedback~~ — **shipped 2026-08-20** | Sensitive | T-MV1 | G2, G3 pass at 8 & 15 min |
-| **T-MV3** | Session contract on method detail (budget + volume + feedback) | Standard | T-MV1 | UC-042 AC |
+| **T-MV3** | ~~Session contract on method detail (budget + volume + feedback)~~ — **shipped 2026-08-20** | Standard | T-MV1 | UC-042 AC |
 | **T-MV4** | `reading-aloud` rubric or record-and-replay | Standard | T-MV1 | G2 pass |
-| **T-MV5** | `lib/exercise-recipe/budget.ts` — budget-driven compose + catalogue validator | Standard | T-MV1 | all 7 built methods pass G7 |
+| **T-MV5** | ~~`lib/exercise-recipe/budget.ts` — budget-driven compose + catalogue validator~~ — **shipped 2026-08-20** | Standard | T-MV1 | G7 gate + allowlist |
 | **T-MV6** | ~~Pass `minutes` from menu through Start URLs~~ — **shipped 2026-08-20** | Standard | T-MV1 | UC-045 AC menu → card → session |
 
 **Order:** T-MV5 before catalogue `durations[]` changes.
