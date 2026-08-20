@@ -14,11 +14,11 @@ Parent: [`form-recall-pool.md`](form-recall-pool.md),
 
 ## Scope
 
-- **In:** `readFormMastery` in `lib/level-model.ts`; `poolForActiveLanguage`
-  includes the form-recall deck for the active language; Progress copy and
-  rendering.
-- **Out:** per-cell or per-pattern breakdown on Progress (T-W5 — cell groups
-  with link to `deck=form`); feeding speaking or writing skills; paradigm-table
+- **In:** `readFormMastery` in `lib/level-model.ts`; `buildFormCellGroupBreakdown` in
+  `lib/form-mastery-breakdown.ts`; `paradigmCellGroupKey` in `lib/form-cell-groups.ts`;
+  `poolForActiveLanguage` includes the form-recall deck; Progress copy, group table,
+  and weak-group links to `deck=form`.
+- **Out:** per-cell detail (T-W6); feeding speaking or writing skills; paradigm-table
   method.
 
 ## Behavior
@@ -31,6 +31,11 @@ Parent: [`form-recall-pool.md`](form-recall-pool.md),
 | 4 | Vocabulary-size signal | Counts meaning-recall Tasks only — form-recall Tasks excluded from both value and pool size |
 | 5 | Recall-stability signal | Unchanged — averages stability across all reviewed Tasks |
 | 6 | Verb lemma with an incomplete paradigm table (< 30 cells) and at least one held form-recall Task | `partialParadigmLemmaCount` increments; held count unchanged; Progress names the uncertainty |
+| 7 | Form-mastery `has-data` | Progress shows a **cell-group breakdown** — held count per paradigm pattern (persons collapsed within tense/mood; nominal gender/number patterns grouped) |
+| 8 | Group with reviews but fewer than half of pool forms held | Row marked weak; **Review forms** link to `/words/review?method=srs-session&deck=form` |
+
+**Cell group:** paradigm cells that share the same `paradigmCellLabel().form` —
+e.g. all `ind.pres.*` → *present*; `pl` → *plural*. Not per-person rows (T-W6).
 
 ## Acceptance criteria
 
@@ -47,7 +52,11 @@ Parent: [`form-recall-pool.md`](form-recall-pool.md),
 - [ ] Given a held form-recall Task on a verb lemma whose paradigm table is
       incomplete, when `/progress` renders, then the held count is unchanged and
       a footnote names how many held lemmas have partial paradigms.
+- [ ] Given form-mastery `has-data`, when `/progress` renders, then a breakdown
+      table lists each cell group with held and pool counts.
+- [ ] Given a weak cell group, when `/progress` renders, then that row links to
+      `deck=form` review.
 
 ## Check
 
-`npm test -- level-model progress form-recall-pool paradigm-completeness`
+`npm test -- level-model progress form-mastery-breakdown form-recall-pool paradigm-completeness`

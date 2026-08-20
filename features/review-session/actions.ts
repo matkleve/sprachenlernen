@@ -14,8 +14,10 @@ import {
 } from "@/lib/errors";
 import { buildSession, type SessionCard } from "@/lib/session-builder";
 import { filterSchedulableCards } from "@/lib/form-recall-staging";
-import { isFormRecallTaskId } from "@/lib/form-recall-pool";
+import { isFormRecallTaskId, isMeaningRecallTaskId } from "@/lib/form-recall-pool";
 import { buildFormCellExplanation } from "@/lib/form-cell-explanation";
+import { listReviewsForTaskIds } from "@/lib/db/review-log";
+import { buildSamplingContext } from "@/lib/sampling-context";
 import { poolForActiveLanguage } from "@/lib/db/learner-pools";
 import { languageLabel } from "@/lib/languages";
 import { localizeSessionCards } from "@/lib/localize-card-description";
@@ -104,13 +106,34 @@ export async function buildSessionAction(input?: {
 
     const tasksByTaskId = tasksByTaskIdForCards(poolCards, statesResult.rows);
     const schedulable = filterSchedulableCards(poolCards, tasksByTaskId);
+
+    const now = Date.now();
+    const reviewsResult = await listReviewsForTaskIds(poolCards.map((card) => card.taskId));
+    if (reviewsResult.status === "error") {
+      const handled = sessionBuildFailed(reviewsResult.error);
+      return { status: "error", error: handled.userMessage };
+    }
+
+    const meaningCards = poolCards.filter((card) => isMeaningRecallTaskId(card.taskId));
+    const sampling = buildSamplingContext(
+      reviewsResult.reviews.map((row) => ({
+        taskId: row.taskId,
+        grade: row.grade,
+        reviewedAt: row.reviewedAt,
+      })),
+      meaningCards,
+      tasksByTaskId,
+      now,
+    );
+
     const cookieStore = await cookies();
     const gapSet = parseGapSetCookie(cookieStore.get(GAP_SET_COOKIE)?.value);
     const priorityLemmas = gapSet ? new Set(gapSet.lemmas) : undefined;
     const queue = localizeSessionCards(
-      buildSession(schedulable, tasksByTaskId, Date.now(), undefined, {
+      buildSession(schedulable, tasksByTaskId, now, undefined, {
         priorityLemmas,
         deck,
+        sampling,
       }),
       spoken.spokenLanguage,
     ).map((card) => attachFormExplanation(card, activeCode ?? "es", poolCards, tasksByTaskId));

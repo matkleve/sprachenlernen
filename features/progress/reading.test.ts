@@ -45,6 +45,8 @@ describe("readProgress", () => {
     const outcome = await readProgress(now);
 
     expect(outcome.status).toBe("ok");
+    if (outcome.status !== "ok") return;
+    expect(outcome.formCellGroups).toEqual([]);
   });
 
   it("returns a handled error when task state reports one", async () => {

@@ -6,8 +6,10 @@ import { DOSE_BANDS, DOSE_BAND_SOURCE, hoursPerYear, yearsToReach } from "@/lib/
 import type { LevelReading } from "@/lib/level-model";
 import { cardEngineSessionHref } from "@/lib/method-session";
 
-import { WeeklyReflectionEntry } from "./weekly-reflection/WeeklyReflectionEntry";
+import type { FormCellGroupRow } from "@/lib/form-mastery-breakdown";
 import type { WeeklyReflectionModel } from "@/lib/weekly-reflection";
+
+import { WeeklyReflectionEntry } from "./weekly-reflection/WeeklyReflectionEntry";
 import { Table, Td, Th } from "@/components/ui/Table";
 
 /**
@@ -17,9 +19,11 @@ const HABIT_MINUTES_PER_DAY = 15;
 
 export async function ProgressReport({
   reading,
+  formCellGroups,
   reflection,
 }: {
   reading: LevelReading;
+  formCellGroups: readonly FormCellGroupRow[];
   reflection: WeeklyReflectionModel;
 }) {
   const t = await getTranslations("progress");
@@ -27,6 +31,9 @@ export async function ProgressReport({
   const vocabulary = reading.signals.find((signal) => signal.id === "vocabulary-size");
   const formMastery = reading.signals.find((signal) => signal.id === "form-mastery");
   const hasAnyData = reading.signals.some((signal) => signal.status === "has-data");
+  const showFormGroups =
+    formMastery?.status === "has-data" && formCellGroups.length > 0;
+  const formsReviewHref = cardEngineSessionHref("form");
 
   const doseBorrowed =
     DOSE_BAND_SOURCE.calibratedFor === null
@@ -131,6 +138,44 @@ export async function ProgressReport({
               count: formMastery.partialParadigmLemmaCount,
             })}
           </p>
+        ) : null}
+        {showFormGroups ? (
+          <div className="mt-6">
+            <h3 className="text-lg font-semibold text-ink">{t("formGroupsHeading")}</h3>
+            <p className="mt-2 max-w-2xl text-sm leading-relaxed text-muted">
+              {t("formGroupsCaption")}
+            </p>
+            <Table caption={t("formGroupsHeading")} layout="fit" className="mt-4">
+              <thead>
+                <tr>
+                  <Th scope="col">{t("formGroupsColumns.pattern")}</Th>
+                  <Th scope="col">{t("formGroupsColumns.held")}</Th>
+                  <Th scope="col">{t("formGroupsColumns.practice")}</Th>
+                </tr>
+              </thead>
+              <tbody>
+                {formCellGroups.map((group) => (
+                  <tr key={group.groupKey}>
+                    <Th scope="row" className="capitalize">
+                      {group.label}
+                    </Th>
+                    <Td>
+                      {t("formGroupHeld", { held: group.held, poolSize: group.poolSize })}
+                    </Td>
+                    <Td>
+                      {group.weak ? (
+                        <ActionLink href={formsReviewHref} variant="secondary" size="sm">
+                          {t("formGroupPracticeLink")}
+                        </ActionLink>
+                      ) : (
+                        t("formGroupPracticeDone")
+                      )}
+                    </Td>
+                  </tr>
+                ))}
+              </tbody>
+            </Table>
+          </div>
         ) : null}
       </section>
 

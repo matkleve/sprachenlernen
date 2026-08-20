@@ -3,7 +3,7 @@
 <!-- id: SPEC-service-session-sampling -->
 <!-- use-case: UC-011 -->
 <!-- use-case: UC-079 -->
-<!-- status: draft -->
+<!-- status: active -->
 
 Weighted selection of review cards for one SRS session. Replaces the binary
 `due ≤ now` then fill-with-new rule in [`session-builder.md`](session-builder.md)
@@ -69,5 +69,4 @@ moved by sampling alone.
 
 ## Check
 
-Pending T-W22. Until `lib/session-sampling.test.ts` exists, verify via
-`npm test -- session-builder` only.
+`npm test -- session-sampling session-builder`
