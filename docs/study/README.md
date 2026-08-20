@@ -87,6 +87,7 @@ only this table.
 | [52 · Register mix ratio](52-register-mix-ratio-calibration.md) | ~~2–3 cards/session~~ — **superseded by 53** |
 | [53 · Business teacher model](53-business-teacher-situational-model.md) | Situations + functions, not card counts; unit-led sessions |
 | [54 · Context tags](54-context-tags-methods-and-words.md) | Pass register/topic tags to Words + methods; weighted sentences, not all |
+| [55 · Situations not units](55-situations-not-units-register-switch.md) | No Duolingo-style units; Garten=Natur topic; switch behavior |
 | [43 · Early foundation sessions](43-early-foundation-sessions.md) | Same-day word return, foundation throttle, soft form staging — study + implementation map |
 | [44 · Foundation phase expert review](44-foundation-phase-expert-review.md) | DS + LT panel: one composer layer, resurfacing rules, what not to ship in v1 |
 | [Sources](sources.md) | Literature, honestly marked by how far each was checked |
