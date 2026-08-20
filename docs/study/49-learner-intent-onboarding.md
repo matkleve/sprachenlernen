@@ -3,7 +3,10 @@
 **Status:** study only — no implementation.  
 **⚠ Superseded in part by [50](50-onboarding-popover-timing-and-skill-question.md)
 (2026-08-20):** §I1 timing (“after session 1”) and §I2a skill question — owner
-wants **upfront popover** and **domain only**. Register boost (§I2c–I3) **stands**.
+wants **upfront popover** and **domain only**.  
+**⚠ Superseded in part by [51](51-register-path-and-interest-topics.md)
+(2026-08-20):** §I2c–I3 **register boost / mix a few** — owner wants **full
+register path**, not 1.25× sprinkle. Interest topics for news/sentences in 51.
 
 **Brief:** Owner asks whether new users can be asked what they want to do
 (speak, read, listen, …) and whether they learn for **Business**, **Alltag**, or

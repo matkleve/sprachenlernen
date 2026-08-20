@@ -22,8 +22,10 @@ This chapter adds **internet-sourced evidence** and a revised recommendation.
 | Two knobs: **skill + domain** | Domain yes; skill probably **unnecessary** | **Investigate below** |
 | “Earned question” pattern | **Abholen** — meet them before they feel lost | Different UX goal |
 
-Study 49 remains valid for **register boost mechanics** (DS §I3, LT §I2c).
-Only **§I1 (UX timing)** and **§I2a (skill emphasis UI)** are replaced here.
+Study 49 remains valid for **transparency and profile-edit patterns** only.
+Register **boost** mechanics are **withdrawn** — see [51](51-register-path-and-interest-topics.md).
+
+**Unanimous:** Drop skill question v1. **Register = full path**, not boost (51).
 
 ---
 
@@ -267,7 +269,7 @@ product has **less** room than Duolingo; **2–3** screens is the ceiling.
 | **LT** | Skill + domain | **Domain only**; skills integrated; study 24 default |
 | **DS** | Post-session prompt | **Intent before session 1** OK if ≤3 screens + session 1 proves it |
 
-**Unanimous:** Drop skill question v1. Keep domain register boost from study 49.
+**Unanimous:** Drop skill question v1. **Register path + interests** — [51](51-register-path-and-interest-topics.md).
 
 ---
 
