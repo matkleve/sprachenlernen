@@ -1,7 +1,8 @@
 # Implementation plan
 
 **Written 2026-08-08. "Where the code actually is" and the decision list last
-synced 2026-08-20 (UC-079 session sampling, T-W22 queue).** What to build
+synced 2026-08-20 (T-W20/T-W21 shipped v0.41.0; UC-079 specced; **T-W22** next
+code slice).** What to build
 next in *code*, in what order, and how to hand each piece to a coding agent
 that should make as few decisions as possible.
 
@@ -442,12 +443,13 @@ Detail, slice IDs, and agent handoff template:
 
 **What is solid:** stage-1 card engine — `/words` snapshot, `/words/review`
 (`srs-session`), 2000-lemma pools (es + it), form-recall staging, pool-local
-Progress counts; **content loop v1** — coverage (`lib/coverage.ts`), `/content`
+Progress counts; **forms UX v1** — **T-W20** forms home + `deck=meaning|form|mixed`
+filter, **T-W21** form-cell explanations on Again/Hard (shipped **v0.41.0**,
+PR #144); **content loop v1** — coverage (`lib/coverage.ts`), `/content`
 library + detail, gap list, word trace; **word capture** (T-W9) and **method
 material setup** (T-W10a / T-E7) shipped 2026-08-18. **What is not:** reading
 runner remainder (T-W10 — comprehension + sentence translation on source
-detail); **T-W20** forms home + deck filter; **T-W21** form explanations;
-**T-W22** session sampling (UC-079);
+detail); **T-W22** session sampling (UC-079 — spec draft, no code yet);
 **T-W5** per-cell Progress breakdown; **T-W6** full form practice; most hosted exercise runners
 (6 of 34 built — see [`METHOD-IMPLEMENTATION-MATRIX.md`](METHOD-IMPLEMENTATION-MATRIX.md)).
 
@@ -463,10 +465,32 @@ Work in four phases; do not skip phase 0:
 
 **Relationship to existing queue rows:** T-W4 *is* T-B3 remainder (same work,
 words-framed). T-W20/T-W21 *are* UC-078 + UC-022 v1 on the existing card engine
-(owner UX review 2026-08-19). T-W6 *is* UC-041 full paradigm-cell engine
-(blocked on W-4). T-W13 *is* T-B14
-remainder. T-W14/T-W15 *are* T-B11 slices 2–3. Phase 0 does not compete with
-engine priority 4–7 above — it is a hygiene pass that can run in parallel.
+(owner UX review 2026-08-19) — **shipped**. T-W22 *is* UC-079 weighted queue
+composition — **next code slice** in this track. T-W6 *is* UC-041 full
+paradigm-cell engine (blocked on W-4). T-W13 *is* T-B14 remainder. T-W14/T-W15
+*are* T-B11 slices 2–3. Phase 0 does not compete with engine priority 4–7 above
+— it is a hygiene pass that can run in parallel.
+
+### Track B · T-W22 session sampling (UC-079) — specced 2026-08-20
+
+**Problem:** session 2 same day after all `good` is almost all new cards; form
+practice empty until meaning is **held** (7-day gate). **Specs:**
+[`session-sampling.md`](specs/service/session-sampling.md) (+ supplement, AC).
+**Study:** [`study/43-early-foundation-sessions.md`](study/43-early-foundation-sessions.md),
+[`study/44-foundation-phase-expert-review.md`](study/44-foundation-phase-expert-review.md).
+**Use case:** [UC-079](use-cases/UC-079-build-a-core-vocabulary-with-natural-repetition.md).
+
+| ID | Work | Class | Depends on | Done when |
+| --- | --- | --- | --- | --- |
+| **T-W22** | `lib/session-sampling.ts` — weights `w = u×b×n×f`, sample without replacement; wire `buildSession` + `buildSessionAction` (held count, `N_newToday`, grades today); soft form staging `fᵢ`; base-building copy on `/words`; optional `samplingReason` for G1 | Standard | T-W21 shipped; specs draft | Monte Carlo ACs green; `npm run verify:scope -- words`; promote spec **active**; relax hard form gate per spec |
+
+**Order inside the slice:** red-test `session-sampling.test.ts` → implement
+weights → wire caller inputs from review log → replace binary due/new pick →
+messages + words-home row 7 → enable `## Check` in spec.
+
+**Owner decisions locked (2026-08-20):** probabilistic load only — no hard caps;
+sigmoid `φ(H)` on held count (no cliff at 50); `good`/`easy` today get no
+struggle boost; UC-071 requeue unchanged.
 
 **Italian shipped 2026-08-12 — this section used to explain why it was
 blocked, and stayed after the block was cleared, which is exactly the kind of

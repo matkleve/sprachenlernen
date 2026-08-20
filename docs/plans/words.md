@@ -13,7 +13,8 @@ order lives in [`study/11-roadmap-open-questions.md`](../study/11-roadmap-open-q
 | Layer | State |
 | --- | --- |
 | `/words` home | held/fragile/new counts (methods-style section cards), frequency bands, review horizon (collapsed default; week columns + causal line per [`review-horizon.md`](../specs/feature/review-horizon.md)), vocabulary orbit (+ **Show list**) |
-| `/words/review?method=srs-session` | meaning-recall + form-recall SRS, FSRS, requeue |
+| `/words/review?method=srs-session` | meaning-recall + form-recall SRS, FSRS, requeue; `deck=meaning\|form\|mixed` (T-W20) |
+| Forms UX | section card on `/words`; form-cell explanations on Again/Hard (T-W21, v0.41.0) |
 | Data | es + it: 2000-lemma pools, lemma tables (tier B), form-recall pools |
 | `lib/lexicon.ts` | tested; **not wired into any app route** |
 | Progress | pool-local "X of 2000 starter words held stably" + form-mastery count |
@@ -101,9 +102,9 @@ frequency blocks (derivation)
 | **T-W3** | **Vocabulary map (pool-local v1)** — extend `/words`: show distribution of held/fragile/new/new-hole across frequency bands; textual equivalent required (UC-021). Not language-wide until lexicon runtime. | UC-031 (partial) | extend [`words-home.md`](../specs/feature/words-home.md) | Standard | T-W1, W-2 answered | **Shipped 2026-08-17** — `FrequencyBlocksField`, core band labels unreviewed as holes |
 | **T-W4** | **T-B3 remainder** — language-wide vocabulary extrapolation, per-skill levels, demonstration sentence. | UC-004, UC-031, UC-054, UC-050 | existing [`progress.md`](../specs/page/progress.md), level-model specs | Standard / Sensitive | calibration (tier A) or widened band; anchor table [C] |
 | **T-W5** | **Per-cell form breakdown** — Progress drill-down: held forms by paradigm cell **group**; weak group links to `deck=form` practice. | UC-062, UC-064 (forms branch), UC-078 | extend [`form-mastery-signal.md`](../specs/service/form-mastery-signal.md) | Standard | W-5 answered |
-| **T-W20** | **Forms home + deck filter** — second section card on `/words`; `deck=meaning\|form\|mixed` on session builder and review route. | UC-078, UC-063, UC-041 | [`words-home.md`](../specs/feature/words-home.md), [`words-review.md`](../specs/page/words-review.md), [`session-builder.md`](../specs/service/session-builder.md) | Standard | form-recall pool shipped |
-| **T-W21** | **Form cell explanation** — on-demand + post-Again/Hard disclosure on form-recall cards. | UC-022, UC-041 | [`form-cell-explanation.md`](../specs/service/form-cell-explanation.md), [`form-error-explanation.md`](../specs/component/form-error-explanation.md) | Standard | T-W20 (forms path exists) — **shipped** |
-| **T-W22** | **Session sampling** — weighted queue (`u×b×n×f`), sigmoid foundation taper, soft form staging; UC-079. | UC-079, UC-011 | [`session-sampling.md`](../specs/service/session-sampling.md) | Standard | T-W21; study [43](../study/43-early-foundation-sessions.md), [44](../study/44-foundation-phase-expert-review.md) |
+| **T-W20** | ~~**Forms home + deck filter**~~ — second section card on `/words`; `deck=meaning\|form\|mixed` on session builder and review route. | UC-078, UC-063, UC-041 | [`words-home.md`](../specs/feature/words-home.md), [`words-review.md`](../specs/page/words-review.md), [`session-builder.md`](../specs/service/session-builder.md) | Standard | **Shipped v0.41.0** (PR #144) |
+| **T-W21** | ~~**Form cell explanation**~~ — on-demand + post-Again/Hard disclosure on form-recall cards. | UC-022, UC-041 | [`form-cell-explanation.md`](../specs/service/form-cell-explanation.md), [`form-error-explanation.md`](../specs/component/form-error-explanation.md) | Standard | **Shipped v0.41.0** (PR #144) |
+| **T-W22** | **Session sampling** — weighted queue (`u×b×n×f`), sigmoid foundation taper, soft form staging; UC-079. **Next code slice.** | UC-079, UC-011 | [`session-sampling.md`](../specs/service/session-sampling.md) | Standard | T-W21; study [43](../study/43-early-foundation-sessions.md), [44](../study/44-foundation-phase-expert-review.md) |
 | **T-W6** | **Form practice engine** — promote [`form-practice.md`](../specs/service/form-practice.md) from draft; inverse index; session mixing rules. | UC-041 | existing draft + AC file | **Sensitive** | W-4, red-test-first |
 
 **Explicitly not in phase 2:** word capture (UC-012), reading (UC-007), coverage
@@ -178,11 +179,11 @@ Quick reference: where each vocabulary-heavy use case lands.
 | UC-032 | Vocabulary milestone | 2 | ✓ | ✓ (T-W1) | — |
 | UC-034 | Missing for this episode | 3 | ✓ draft | ✓ (T-W8) | — |
 | UC-038 | Why this word | 2/3 | ✓ | partial (word detail + trace) | — |
-| UC-041 | Forms not just words | 0/2 | ✓ partial | partial (form-recall) | **T-W20** → T-W21 → T-W6 |
-| UC-063 | Get to cards | 1 | ✓ | ✓ | **T-W20** (forms path) |
-| UC-022 | Rule when wrong | 3 | ✓ partial | — | **T-W21** |
-| UC-078 | Forms without mixed review | 2 | ✓ draft | — | **T-W20** |
-| UC-079 | Core vocabulary, natural repetition | 2 | ✓ draft | — | **T-W22** |
+| UC-041 | Forms not just words | 0/2 | ✓ partial | partial (form-recall + deck filter) | **T-W6** (full engine); T-W22 soft staging |
+| UC-063 | Get to cards | 1 | ✓ | ✓ | — |
+| UC-022 | Rule when wrong | 3 | ✓ partial | ✓ (T-W21) | — |
+| UC-078 | Forms without mixed review | 2 | ✓ | ✓ (T-W20) | T-W22 soft form staging |
+| UC-079 | Core vocabulary, natural repetition | 2 | ✓ draft | — | **T-W22** ← next |
 | UC-069 | App in my language | 1/3 | ✓ | partial (chrome ✓; glosses via resolver) | app-texts AC remainder |
 | UC-076 | Example sentence on card | 3 | ✓ draft | — | **T-W19** |
 | UC-007 | Read at my level | 3 | ✓ draft | partial (tap-to-gloss v1) | T-W10 remainder |

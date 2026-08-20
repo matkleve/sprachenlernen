@@ -555,17 +555,17 @@ the app can never say whether shadowing did anything for this learner.
 Blocking for the method card, not for the catalogue: an entry without a signal
 loads today and renders a card that cannot state its effect.
 
-### 24 · Foundation phase — when does same-day resurfacing turn off?
+### ~~24 · Foundation phase — when does same-day resurfacing turn off?~~
 
-Surfaced 2026-08-20 by owner UX review ([43](43-early-foundation-sessions.md)).
-Session 2 on the same day should bring fragile words from session 1 back; the
-shipped builder only includes `due ≤ now` or never-reviewed cards, so `good` in
-session 1 disappears until tomorrow.
-
-Open: threshold (`held < 50` vs fragile count vs time-based), whether resurfacing
-counts as a graded review, and how soft form staging pairs with `deck=form`.
-Blocks **T-W22** spec, not current ship. Panel review and narrowed v1 scope:
-[44](44-foundation-phase-expert-review.md).
+**Answered 2026-08-20 (owner + UC-079 + study/44).** No binary cutoff at
+`held < 50`. Foundation bias tapers via sigmoid `φ(H)` on held meaning-recall
+count; struggle today (`again`/`hard`) raises weight; `good`/`easy` today do not
+(except one fragile first `good`). New-load throttle `exp(−λ·N_newToday)` —
+probability only, no hard cap. Form staging: soft `fᵢ` weight, not a 7-day held
+gate, when T-W22 ships. Resurfacing is normal graded review — FSRS unchanged.
+Normative: [`session-sampling.md`](../specs/service/session-sampling.md),
+[UC-079](../use-cases/UC-079-build-a-core-vocabulary-with-natural-repetition.md).
+Implementation slice: **T-W22** (spec done; code queued).
 
 ## What happens next
 
