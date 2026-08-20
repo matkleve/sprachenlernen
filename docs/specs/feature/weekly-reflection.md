@@ -17,7 +17,7 @@ cards — sentence on top, matching chart or diagram below.
   extension of [`progress.md`](../page/progress.md) § This week; chrome copy in
   `messages/*/progress.weeklyReflection`.
 - **Out:** push/email digest (Tier 2 in
-  [`study/30`](../../study/30-notifications-and-reflections.md)); NLG / LLM
+  [`study/30`](../../study/STUDY-026-notifications-and-reflections.md)); NLG / LLM
   paragraphs; mood checks; streak copy.
 
 **Reuse: `ReflectionDeck`** — card stack UI.
@@ -39,7 +39,7 @@ progress page.
 ## Card selection (1–5)
 
 The builder emits **only cards with a non-repeatable fact** for this week
-([`study/30`](../../study/30-notifications-and-reflections.md) corollary). Typical
+([`study/30`](../../study/STUDY-026-notifications-and-reflections.md) corollary). Typical
 slots, in priority order — skip any slot with nothing new to say:
 
 | Slot | Headline shape | Visual |
@@ -64,7 +64,7 @@ review log — counts, bands, stability, method tags.
 - specific lemmas, methods, or session counts from the week — not "you" + guilt.
 
 Copy is checked against the informational/controlling table in
-[`study/08`](../../study/08-motivation.md). No *you haven't*, no streak, no
+[`study/08`](../../study/STUDY-008-motivation.md). No *you haven't*, no streak, no
 level percent.
 
 ## States
@@ -99,7 +99,7 @@ Writes: `lastSeenReflectionWeek` via httpOnly cookie `sl-reflection-seen`
       copy does not invent progress.
 - [ ] Given the deck is dismissed, then the unread mark clears until next ISO week.
 - [ ] Given any headline, then a controlling rewrite ("you haven't…") would fail
-      the copy gate in [`study/08`](../../study/08-motivation.md).
+      the copy gate in [`study/08`](../../study/STUDY-008-motivation.md).
 
 ## Open questions
 

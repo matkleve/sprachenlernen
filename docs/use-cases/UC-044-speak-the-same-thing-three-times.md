@@ -9,7 +9,7 @@
 courage to talk to someone.
 
 Derived from
-[`../study/20-speaking-and-sentences.md`](../study/20-speaking-and-sentences.md) S1.
+[`../study/STUDY-018-speaking-and-sentences.md`](../study/STUDY-018-speaking-and-sentences.md) S1.
 
 ## Today
 

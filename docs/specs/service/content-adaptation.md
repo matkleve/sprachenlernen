@@ -11,8 +11,8 @@ article at A2"* — constrained by coverage and labelled honestly.
 
 Parent: [`coverage.md`](coverage.md). Ingestion:
 [`content-ingestion.md`](content-ingestion.md). UC: UC-030. Study:
-[`../../study/48-content-licensing-and-adaptation.md`](../../study/48-content-licensing-and-adaptation.md),
-[`../../study/10-antipatterns.md`](../../study/10-antipatterns.md) A5.
+[`../../study/archive/ARCH-048-content-licensing-and-adaptation.md`](../../study/archive/ARCH-048-content-licensing-and-adaptation.md),
+[`../../study/STUDY-009-antipatterns.md`](../../study/STUDY-009-antipatterns.md) A5.
 
 ## Scope
 
@@ -31,7 +31,7 @@ Adaptation optimises for **coverage band 95–98 %** on the **adapted** `body`
 using held lemmas from [`vocabulary-snapshot.md`](vocabulary-snapshot.md).
 
 **Lemma-personalised v2:** replace unknown lemmas with held synonyms or simpler
-forms from frequency table — optional second pass ([`study/48`](../../study/48-content-licensing-and-adaptation.md)).
+forms from frequency table — optional second pass ([`study/48`](../../study/archive/ARCH-048-content-licensing-and-adaptation.md)).
 
 ## Adaptation tiers (cost ↑)
 

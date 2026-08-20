@@ -1,7 +1,7 @@
 # Plan — exercise runner (UC-049)
 
 **Status: active queue.** Specs shipped 2026-08-17. Parent vision:
-[`study/23-how-an-exercise-runs.md`](../study/23-how-an-exercise-runs.md).
+[`study/STUDY-021-how-an-exercise-runs.md`](../study/STUDY-021-how-an-exercise-runs.md).
 
 **What this file owns:** build order for the cooking-app runner — the second
 engine family after the card engine. Project-wide queue:

@@ -10,7 +10,7 @@ phrase they keep getting wrong.
 can act on — without being graded.
 
 Derived from
-[`../study/24-speaking-as-the-goal.md`](../study/24-speaking-as-the-goal.md)
+[`../study/STUDY-022-speaking-as-the-goal.md`](../study/STUDY-022-speaking-as-the-goal.md)
 S5–S6.
 
 ## Today

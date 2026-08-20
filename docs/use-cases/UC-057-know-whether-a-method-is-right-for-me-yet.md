@@ -11,9 +11,9 @@ spending twelve minutes finding out the hard way.
 plausible options.
 
 Derived from
-[`../study/21-method-catalogue-and-context.md`](../study/21-method-catalogue-and-context.md)
+[`../study/STUDY-019-method-catalogue-and-context.md`](../study/STUDY-019-method-catalogue-and-context.md)
 (context filters first) and
-[`../study/03-level-model.md`](../study/03-level-model.md) (form mastery as its
+[`../study/STUDY-003-level-model.md`](../study/STUDY-003-level-model.md) (form mastery as its
 own signal). The distinction it rests on is a **[D — user decision, 2026-08-08]**:
 readiness may inform and demote, never hide and never gate.
 
@@ -55,7 +55,7 @@ stated once, at the level where it is true, never sixty times.
 - **⚠ SPEC GAP: may a "better later" method occupy one of the three daily menu
   slots**, or does it appear only in the full catalogue? Three slots are scarce
   and one is reserved for high measured effect
-  ([12](../study/12-method-cards.md)); spending one on something the app just
+  ([12](../study/STUDY-010-method-cards.md)); spending one on something the app just
   said works better later is a real cost, and keeping it out makes the guidance
   invisible to anyone who never browses.
 - **⚠ SPEC GAP: what quantity readiness is computed from, per method.** Coverage

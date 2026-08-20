@@ -32,7 +32,7 @@ catalogue is already in memory; only method-card links navigate away.
 the learner's window — it does **not** set session length. Fixed duration
 **packages** (≤ 2 per method) are chosen on the method detail page before Start.
 Contract: [`../service/method-session-budget.md`](../service/method-session-budget.md);
-study: [`../../study/45-method-duration-variants.md`](../../study/45-method-duration-variants.md).
+study: [`../../study/archive/ARCH-045-method-duration-variants.md`](../../study/archive/ARCH-045-method-duration-variants.md).
 
 **Multi-select filters (UX, 2026-08-20):** skill and energy pills are
 **multi-select** — tap toggles a value on or off; several may be active at once.

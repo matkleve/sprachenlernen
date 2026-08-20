@@ -22,7 +22,7 @@ Tasks only** — one surface form per held lemma today. This spec covers the
 - **In:** the paradigm-cell Task type, the introduction model, session
   composition, answer routes, and the inverse index the whole thing needs.
 - **Out:** the level-model arithmetic for form mastery
-  ([`study/03`](../../study/03-level-model.md) owns it); the paper sheet, which
+  ([`study/03`](../../study/STUDY-003-level-model.md) owns it); the paper sheet, which
   is its own method; grammar as a curriculum of topics (UC-041, out of scope).
 
 ## Two units, and the seam is memory
@@ -100,7 +100,7 @@ part with evidence behind it.
 
 ## Answer routes — three, and none of them graded by a machine listening
 
-[`study/14`](../../study/14-accessibility.md) already requires it: typing must
+[`study/14`](../../study/STUDY-012-accessibility.md) already requires it: typing must
 not be the only way to answer, or the app measures spelling and calls it form
 mastery.
 

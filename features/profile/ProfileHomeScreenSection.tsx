@@ -16,7 +16,7 @@ type HomeScreenScopeRow = {
 
 /**
  * Home Screen install guidance on /profile (iPhone PWA scope).
- * Contract: docs/specs/feature/pwa-install.md, docs/study/32-pwa-profile-ux.md
+ * Contract: docs/specs/feature/pwa-install.md, docs/reviews/design/DR-032-pwa-profile-ux.md
  */
 export function ProfileHomeScreenSection() {
   const t = useTranslations("profile");

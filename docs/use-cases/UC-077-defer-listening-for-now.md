@@ -9,7 +9,7 @@ what they did or getting listening exercises they cannot use.
 **So that:** the app fits the moment instead of nagging or scoring them down.
 
 Derived from owner feedback 2026-08-18 and
-[`../study/39-material-units-and-listening-defer.md`](../study/39-material-units-and-listening-defer.md).
+[`../study/STUDY-027-material-units-and-listening-defer.md`](../study/STUDY-027-material-units-and-listening-defer.md).
 
 ## Today
 

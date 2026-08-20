@@ -9,7 +9,7 @@
 The **cooking-app runner** for multi-step Methods: prepare → do → wait → submit
 → review → decide. One reusable shell; each Method supplies an ordered **recipe**
 of typed steps filled with **step components**. Parent vision:
-[`../../study/23-how-an-exercise-runs.md`](../../study/23-how-an-exercise-runs.md).
+[`../../study/STUDY-021-how-an-exercise-runs.md`](../../study/STUDY-021-how-an-exercise-runs.md).
 
 Route: [`../page/practice.md`](../page/practice.md). Layout zones:
 [`exercise-runner.layout.md`](exercise-runner.layout.md). Task UI scale:
@@ -72,7 +72,7 @@ one device — only the body scrolls ([`exercise-runner.layout.md`](exercise-run
 | --- | --- |
 | ◀ / ▶ | Free navigation; sets **seen**, never **done** |
 | **Weiter** / **Fertig** / **Eingereicht** / **Durchgesehen** | Primary per step type — marks **done** once |
-| ✕ Stop (hero) | Confirm: progress lost, no backlog ([study/23](../../study/23-how-an-exercise-runs.md)) |
+| ✕ Stop (hero) | Confirm: progress lost, no backlog ([study/23](../../study/STUDY-021-how-an-exercise-runs.md)) |
 
 Timer rules: expiry is an event, not auto-done; pause is allowed and recorded.
 

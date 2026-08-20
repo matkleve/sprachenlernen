@@ -6,7 +6,7 @@ specs, and code for vocabulary / words / lemmas / lexicon.
 **What this file owns:** the words-domain slice sequence — what to clean up, what
 to decide, what to spec next, and what order to build in. The project-wide queue
 lives in [`IMPLEMENTATION-PLAN.md`](../IMPLEMENTATION-PLAN.md); roadmap stage
-order lives in [`study/11-roadmap-open-questions.md`](../study/11-roadmap-open-questions.md).
+order lives in [`backlog/BL-011-roadmap-open-questions.md`](../backlog/BL-011-roadmap-open-questions.md).
 
 **What shipped today (stage-1 card engine):**
 
@@ -103,7 +103,7 @@ frequency blocks (derivation)
 | **T-W5** | **Per-cell form breakdown** — Progress drill-down: held forms by paradigm cell **group**; weak group links to `deck=form` practice. | UC-062, UC-064 (forms branch), UC-078 | extend [`form-mastery-signal.md`](../specs/service/form-mastery-signal.md) | Standard | W-5 answered |
 | **T-W20** | **Deck filter + Words UX** — one **Start review** on `/words` → mixed `srs-session`; `deck=form` only from Progress / Methods deep links (owner UX pivot 2026-08-20). | UC-078, UC-063, UC-041 | [`words-home.md`](../specs/feature/words-home.md), [`words-review.md`](../specs/page/words-review.md), [`session-builder.md`](../specs/service/session-builder.md) | Standard | form-recall pool shipped — **shipped / revised 2026-08-20** |
 | **T-W21** | **Form cell explanation** — on-demand + post-Again/Hard disclosure on form-recall cards. | UC-022, UC-041 | [`form-cell-explanation.md`](../specs/service/form-cell-explanation.md), [`form-error-explanation.md`](../specs/component/form-error-explanation.md) | Standard | T-W20 (forms path exists) — **shipped** |
-| **T-W22** | **Session sampling** — weighted queue (`u×b×n×f`), sigmoid foundation taper, soft form staging; UC-079. | UC-079, UC-011 | [`session-sampling.md`](../specs/service/session-sampling.md) | Standard | T-W21; study [43](../study/43-early-foundation-sessions.md), [44](../study/44-foundation-phase-expert-review.md) |
+| **T-W22** | **Session sampling** — weighted queue (`u×b×n×f`), sigmoid foundation taper, soft form staging; UC-079. | UC-079, UC-011 | [`session-sampling.md`](../specs/service/session-sampling.md) | Standard | T-W21; study [43](../study/archive/ARCH-043-early-foundation-sessions.md), [44](../study/archive/ARCH-044-foundation-phase-expert-review.md) |
 | **T-W6** | **Form practice engine** — promote [`form-practice.md`](../specs/service/form-practice.md) from draft; inverse index; session mixing rules. | UC-041 | existing draft + AC file | **Sensitive** | W-4, red-test-first |
 
 **Explicitly not in phase 2:** word capture (UC-012), reading (UC-007), coverage
@@ -117,7 +117,7 @@ Specs: [`content-traceability.md`](../specs/feature/content-traceability.md)
 (loop), [`coverage.md`](../specs/service/coverage.md) (T-W7),
 [`content-gap.md`](../specs/feature/content-gap.md) (T-W8),
 [`method-material-setup.md`](../specs/feature/method-material-setup.md) (T-W10a).
-Study: [`37-content-and-method-setup-ux.md`](../study/37-content-and-method-setup-ux.md).
+Study: [`../reviews/design/DR-037-content-and-method-setup-ux.md`](../reviews/design/DR-037-content-and-method-setup-ux.md).
 
 Do not queue these until phase 2 map is honest at pool scope.
 
@@ -143,7 +143,7 @@ after T-W7; T-W11b after T-W8c. **T-W9 + T-W10a shipped 2026-08-18.**
 
 Specs: [`content-ingestion.md`](../specs/service/content-ingestion.md),
 [`content-adaptation.md`](../specs/service/content-adaptation.md). Study:
-[`48-content-licensing-and-adaptation.md`](../study/48-content-licensing-and-adaptation.md).
+[`archive/ARCH-048-content-licensing-and-adaptation.md`](../study/archive/ARCH-048-content-licensing-and-adaptation.md).
 Queue detail: [`IMPLEMENTATION-PLAN.md`](../IMPLEMENTATION-PLAN.md) Track B · T-CI1–T-CI8.
 
 | ID | Work | Serves | Spec | Class | Depends on |

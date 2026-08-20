@@ -8,7 +8,7 @@
 Minimum **learning-science and UX contract** for every **hosted** Method whose
 session runs in-app (`hosted: true` and engine `card` or `runner`). Prevents
 catalogue entries that are evidence-grade on paper but hollow in the runner —
-see [`../../study/42-method-usefulness-ux-audit.md`](../../study/42-method-usefulness-ux-audit.md).
+see [`../../reviews/design/DR-042-method-usefulness-ux-audit.md`](../../reviews/design/DR-042-method-usefulness-ux-audit.md).
 
 Parent: [`method-catalogue.md`](method-catalogue.md). Recipes:
 [`exercise-recipe-composer.md`](exercise-recipe-composer.md). Runner:

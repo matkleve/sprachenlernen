@@ -9,7 +9,7 @@ still needs context — not an isolated lemma floating in space.
 nine out of ten words, so the target word lands in usage they can follow.
 **So that:** recall is tied to meaning-in-context, not a dictionary line alone.
 
-Derived from [`../study/20-speaking-and-sentences.md`](../study/20-speaking-and-sentences.md),
+Derived from [`../study/STUDY-018-speaking-and-sentences.md`](../study/STUDY-018-speaking-and-sentences.md),
 [`UC-050`](UC-050-see-that-i-can-already-read-this.md) (comprehension check on
 methods), and [`UC-007`](UC-007-read-something-at-my-level.md) (coverage bands).
 

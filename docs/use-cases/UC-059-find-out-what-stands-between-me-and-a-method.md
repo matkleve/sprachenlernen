@@ -9,7 +9,7 @@ and the app has nothing it can build for them yet.
 **So that:** "not yet" becomes a distance they can close instead of a door.
 
 Derived from
-[`../study/19-milestones-and-map.md`](../study/19-milestones-and-map.md) K3 —
+[`../study/STUDY-017-milestones-and-map.md`](../study/STUDY-017-milestones-and-map.md) K3 —
 the coverage calculator read backwards — and the **no material yet** state in
 UC-057. UC-034 does this for a **content item** the learner chose; this is the
 same arithmetic aimed at a **method**, and the two must produce the same numbers
@@ -40,7 +40,7 @@ The one thing never said is the useful thing: how close they are.
   rather than producing a list of 400 words (UC-034).
 - The state can go **backwards** after a long pause, and says so without drama,
   with the way back beside it — honesty rule 1 in
-  [`../study/03-level-model.md`](../study/03-level-model.md).
+  [`../study/STUDY-003-level-model.md`](../study/STUDY-003-level-model.md).
 
 ## Out of scope
 
@@ -54,6 +54,6 @@ different decision.
 - **⚠ SPEC GAP: whether "no material yet" is visible or absent.** UC-057 decides
   it is visible, on the grounds that the distance is the most motivating thing on
   the surface. But the context filter removes unperformable methods entirely,
-  "not even greyed out" ([12](../study/12-method-cards.md)), and two adjacent
+  "not even greyed out" ([12](../study/STUDY-010-method-cards.md)), and two adjacent
   states behaving oppositely needs stating as a decision rather than inheriting
   from whichever code path was written first.

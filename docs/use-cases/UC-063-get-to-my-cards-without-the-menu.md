@@ -9,15 +9,15 @@
 exists to help people who have not decided.
 
 Derived from the owner's request for a flashcards destination in the navigation,
-and from [`../study/04-flashcards-srs.md`](../study/04-flashcards-srs.md).
-Constrained by [`../study/10-antipatterns.md`](../study/10-antipatterns.md) A3
+and from [`../study/STUDY-004-flashcards-srs.md`](../study/STUDY-004-flashcards-srs.md).
+Constrained by [`../study/STUDY-009-antipatterns.md`](../study/STUDY-009-antipatterns.md) A3
 (no backlog counter) and by the 2026-08-08 decision that flashcards are one
 method among ~60, not a structural peer of the catalogue.
 
 ## Today
 
 Two bad options. Flashcard apps open onto a backlog count, which
-[`../study/04-flashcards-srs.md`](../study/04-flashcards-srs.md) calls the most
+[`../study/STUDY-004-flashcards-srs.md`](../study/STUDY-004-flashcards-srs.md) calls the most
 common exit route from Anki and a pure display problem. Method-first apps bury
 the daily thing behind a chooser, which taxes the one behaviour that needs no
 encouragement.
@@ -50,7 +50,7 @@ encouragement.
 
 Naming a navigation destination after a method; a review counter in any form; and
 promoting flashcards above the catalogue in the daily menu's composition, which
-is governed by [12](../study/12-method-cards.md) and unaffected by navigation.
+is governed by [12](../study/STUDY-010-method-cards.md) and unaffected by navigation.
 
 ## Decided
 

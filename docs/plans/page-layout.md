@@ -18,7 +18,7 @@ Layer diagram: [`../specs/feature/page-layout.layers.md`](../specs/feature/page-
 4. **Safari toolbar** — cannot be hidden in-browser; `useVisualViewportBottomInset`
    adapts pill position. **No per-route inset** — toolbar visibility is session/
    gesture state, not page length (`/methods` is the longest page). Study:
-   [`../study/29-ios-inset-by-route.md`](../study/29-ios-inset-by-route.md).
+   [`../qa/QA-029-ios-inset-by-route.md`](../qa/QA-029-ios-inset-by-route.md).
 5. **Home Screen PWA** may differ; not a separate mode.
 6. **Runner height** — `--height-review-session` on mobile review; `--height-practice-session`
    on desktop `/practice` (`one-screen-exercise`).

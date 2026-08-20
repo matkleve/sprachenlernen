@@ -13,8 +13,8 @@ picks topic (or **Your own**), sees how much material (sentence / paragraph /
 window / full), then Start. Study/26 still holds — the app picks the passage,
 gaps, and band inside the choice.
 
-UX source: [`../../study/37-content-and-method-setup-ux.md`](../../study/37-content-and-method-setup-ux.md);
-units: [`../../study/39-material-units-and-listening-defer.md`](../../study/39-material-units-and-listening-defer.md).
+UX source: [`../../reviews/design/DR-037-content-and-method-setup-ux.md`](../../reviews/design/DR-037-content-and-method-setup-ux.md);
+units: [`../../study/STUDY-027-material-units-and-listening-defer.md`](../../study/STUDY-027-material-units-and-listening-defer.md).
 
 ## Scope
 

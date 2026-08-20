@@ -6,7 +6,7 @@
 
 Compact tappable **catalogue card** for one method. Shell, header (with
 destination marker), badge row, and chips. Visual polish:
-[`../../study/40-method-card-visual-polish.md`](../../study/40-method-card-visual-polish.md).
+[`../../reviews/design/DR-040-method-card-visual-polish.md`](../../reviews/design/DR-040-method-card-visual-polish.md).
 
 ## Scope
 

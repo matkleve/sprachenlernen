@@ -15,7 +15,7 @@ Parent: [UC-023](UC-023-report-something-wrong.md). UC-023 owns the outcome
 moment** — the popover, optional fields, and what gets stored with the flag.
 
 Derived from owner feedback 2026-08-16 and
-[`study/34-review-report-and-acknowledgement-ux.md`](../study/34-review-report-and-acknowledgement-ux.md).
+[`reviews/design/DR-035-review-report-and-acknowledgement-ux.md`](../reviews/design/DR-035-review-report-and-acknowledgement-ux.md).
 
 ## Today
 

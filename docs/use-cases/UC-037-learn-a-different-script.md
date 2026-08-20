@@ -9,8 +9,8 @@ prerequisite they must survive alone.
 **So that:** the script stops being the wall that ends the attempt in week two.
 
 Derived from
-[`../study/18-language-kit.md`](../study/18-language-kit.md) U2 and
-[`../study/07-offline-and-paper.md`](../study/07-offline-and-paper.md).
+[`../study/STUDY-016-language-kit.md`](../study/STUDY-016-language-kit.md) U2 and
+[`../study/STUDY-007-offline-and-paper.md`](../study/STUDY-007-offline-and-paper.md).
 
 ## Today
 

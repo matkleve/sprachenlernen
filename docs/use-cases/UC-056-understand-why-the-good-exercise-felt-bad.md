@@ -10,7 +10,7 @@ concluded from the discomfort that the method is not working for them.
 feel like they work.
 
 Derived from
-[`../study/25-why-it-does-not-feel-productive.md`](../study/25-why-it-does-not-feel-productive.md)
+[`../study/STUDY-023-why-it-does-not-feel-productive.md`](../study/STUDY-023-why-it-does-not-feel-productive.md)
 P2 and P4.
 
 ## Today

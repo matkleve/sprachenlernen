@@ -8,7 +8,7 @@ The public front door at `/` ([ADR-0010](../../adr/0010-the-route-model.md)).
 Its job is to tell a signed-out visitor what this app is for and how to get in.
 **T-B7 (2026-08-11):** thesis 1 led the headline; thesis 12 names the honest
 time denominator in the body. **Owner 2026-08-18:** headline now leads with method
-choice and checkable progress ([`study/38`](../../study/38-landing-page-update.md)
+choice and checkable progress ([`study/38`](../../explorations/EXP-038-landing-page-update.md)
 candidate **I**); thesis 1 moves to the pillar/contrast layer, not the hero.
 Serves [UC-011](../../use-cases/UC-011-start-in-the-first-minute.md): the
 account is the one unavoidable step, so the path to it must be visible on every

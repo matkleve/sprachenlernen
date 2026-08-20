@@ -90,7 +90,7 @@ ordering, no lesson index, no "you are at unit 7", and therefore no percentage.
 
 A tile can honestly show `347 of 500 lemmas held stably` or `not started`. It
 can never show `23% of the course`, because that number does not exist and
-inventing one would be [thesis 1](../study/01-duolingo.md) inverted — activity
+inventing one would be [thesis 1](../study/STUDY-001-duolingo.md) inverted — activity
 dressed as competence.
 
 Recommendation: build the structure exactly as sketched, but call it **language**,
@@ -102,7 +102,7 @@ the kind of drift the glossary exists to prevent.
 
 ## What the science says about establishing a level
 
-Asked directly, and the answer is already in [`study/03`](../study/03-level-model.md).
+Asked directly, and the answer is already in [`study/03`](../study/STUDY-003-level-model.md).
 Recorded here because it decides what a tile may display.
 
 **The CEFR is a competence description, not a measuring instrument.** Chapter 03

@@ -9,8 +9,8 @@ Visual and interaction contract for **task content** inside the exercise runner
 mobile strip, footer segmented progress + nav, primary CTA) keeps app density;
 everything the learner reads or taps to *do the task* uses practice-surface scale.
 
-Research: [`study/41-practice-surface-ux.md`](../../study/41-practice-surface-ux.md),
-[`study/42-exercise-mobile-fit-frame.md`](../../study/42-exercise-mobile-fit-frame.md).
+Research: [`reviews/design/DR-041-practice-surface-ux.md`](../../reviews/design/DR-041-practice-surface-ux.md),
+[`reviews/design/DR-043-exercise-mobile-fit-frame.md`](../../reviews/design/DR-043-exercise-mobile-fit-frame.md).
 Parent: [`exercise-runner.md`](exercise-runner.md).
 
 ## Scope

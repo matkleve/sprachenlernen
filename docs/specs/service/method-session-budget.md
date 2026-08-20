@@ -10,10 +10,10 @@
 with a validated wall estimate — not a range the menu slider scales at runtime.
 
 Parent: [`method-session-viability.md`](method-session-viability.md) gate G7.
-Study: [`../../study/45-method-duration-variants.md`](../../study/45-method-duration-variants.md)
+Study: [`../../study/archive/ARCH-045-method-duration-variants.md`](../../study/archive/ARCH-045-method-duration-variants.md)
 (owner decision 2026-08-20). Pedagogy — which methods need two packages and how
-real content length works: [`../../study/46-method-length-and-level-matched-content.md`](../../study/46-method-length-and-level-matched-content.md).
-Audit: [`../../study/42-method-usefulness-ux-audit.md`](../../study/42-method-usefulness-ux-audit.md).
+real content length works: [`../../study/archive/ARCH-046-method-length-and-level-matched-content.md`](../../study/archive/ARCH-046-method-length-and-level-matched-content.md).
+Audit: [`../../reviews/design/DR-042-method-usefulness-ux-audit.md`](../../reviews/design/DR-042-method-usefulness-ux-audit.md).
 
 ## Scope
 

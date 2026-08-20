@@ -9,7 +9,7 @@ a conversation, on a form at the town hall.
 app asks.
 **So that:** the words they actually needed are the words they end up knowing.
 
-Derived from [`../study/04-flashcards-srs.md`](../study/04-flashcards-srs.md),
+Derived from [`../study/STUDY-004-flashcards-srs.md`](../study/STUDY-004-flashcards-srs.md),
 "Wo Karten herkommen".
 
 ## Today

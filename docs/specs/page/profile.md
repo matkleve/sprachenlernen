@@ -39,7 +39,7 @@ page — the affordance ADR-0009 described, finally built.
 ## Section navigation
 
 Three in-page sections, switched with **FilterPill** buttons — no nested routes.
-Contract: [`study/33-profile-section-navigation.md`](../../study/33-profile-section-navigation.md).
+Contract: [`reviews/design/DR-034-profile-section-navigation.md`](../../reviews/design/DR-034-profile-section-navigation.md).
 
 | Section | Label | Content |
 | --- | --- | --- |
@@ -92,7 +92,7 @@ exists for that language, a one-line standing reads
 `0 of 2000 starter words held stably` before the first review — zero is a
 measurement, not an empty state — and `347 of 500 starter words held stably`
 after. Each standing links to `/progress`, per
-[`study/03`](../../study/03-level-model.md)'s rule that every figure opens into
+[`study/03`](../../study/STUDY-003-level-model.md)'s rule that every figure opens into
 what produced it.
 
 `Add a language` appears only when at least one shipped pool is not already on
@@ -118,7 +118,7 @@ the learner's list ([`starter-deck.md`](../service/starter-deck.md)).
       `0 of {pool}` before the first review.
 - [ ] **Negative:** no streak, no XP, no cards-reviewed total, and no progress
       bar against the starter set — the denominator is a shipped set, not a goal
-      ([`study/25`](../../study/25-why-it-does-not-feel-productive.md) C3).
+      ([`study/25`](../../study/STUDY-023-why-it-does-not-feel-productive.md) C3).
 - [ ] Given `/profile`, when the page renders, then the **App** section shows the
       running version and **Check for updates** per [`app-update.md`](../feature/app-update.md).
 - [ ] Given `/profile`, when the page renders, then a **Home screen app (iPhone)**

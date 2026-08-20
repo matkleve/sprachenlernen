@@ -7,8 +7,8 @@
 Decorative **section graphic** at the top of every method card — one abstract
 image per catalogue section, with a gradient fade into the card body and a
 section label. Gives visual identity at catalogue scale without per-method
-assets. Contract: [`../../study/27-method-badges.md`](../../study/27-method-badges.md)
-(card layout). Polish rationale: [`../../study/40-method-card-visual-polish.md`](../../study/40-method-card-visual-polish.md).
+assets. Contract: [`../../study/STUDY-025-method-badges.md`](../../study/STUDY-025-method-badges.md)
+(card layout). Polish rationale: [`../../reviews/design/DR-040-method-card-visual-polish.md`](../../reviews/design/DR-040-method-card-visual-polish.md).
 
 ## Scope
 
@@ -24,7 +24,7 @@ assets. Contract: [`../../study/27-method-badges.md`](../../study/27-method-badg
 Implementation: `features/method-menu/MethodCardHeader.tsx`,
 `features/method-menu/section-graphic.ts`.
 
-Asset brief: [`../../study/39-method-section-graphics-brief.md`](../../study/39-method-section-graphics-brief.md).
+Asset brief: [`EXP-039`](../../explorations/EXP-039-method-section-graphics-brief.md).
 
 **Art dependency (T-B10f-b):** code layout shipped; owner still reports wrong crop
 on listening headphones — **re-export section WebPs** per study/40 H5–H6 before

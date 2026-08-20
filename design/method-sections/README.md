@@ -1,7 +1,7 @@
 # Method section graphics
 
 Editorial banner assets for the methods catalogue — one abstract image per
-section. Contract: [`docs/study/39-method-section-graphics-brief.md`](../docs/study/39-method-section-graphics-brief.md).
+section. Contract: [`docs/explorations/../../explorations/EXP-039-method-section-graphics-brief.md`](../docs/explorations/../../explorations/EXP-039-method-section-graphics-brief.md).
 
 ## Structure
 
