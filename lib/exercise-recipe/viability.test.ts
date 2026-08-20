@@ -22,7 +22,6 @@ const BUILT_HOSTED_METHOD_IDS = [
 
 /** Until T-MV2/T-MV5 — CI blocks new failures on these methods. */
 const KNOWN_VIABILITY_FAILURES: Partial<Record<string, readonly ViabilityGate[]>> = {
-  "build-a-sentence": ["G2", "G3"],
   "partial-dictation": ["G3"],
   "full-dictation": ["G3"],
   "extensive-reading": ["G1", "G3"],
@@ -30,19 +29,24 @@ const KNOWN_VIABILITY_FAILURES: Partial<Record<string, readonly ViabilityGate[]>
 };
 
 describe("checkSessionViability", () => {
-  it("fails G2 and G3 for build-a-sentence today", async () => {
-    const recipe = await resolveExerciseRecipe("build-a-sentence");
+  it("passes G2 and G3 for build-a-sentence at 8 minutes", async () => {
+    const recipe = await resolveExerciseRecipe("build-a-sentence", { budgetMinutes: 8 });
     expect(recipe).not.toBeNull();
 
     const result = checkSessionViability(recipe!);
-    expect(result.ok).toBe(false);
-    expect(result.failures).toContain("G2");
-    expect(result.failures).toContain("G3");
+    expect(result.failures).not.toContain("G2");
+    expect(result.failures).not.toContain("G3");
   });
 
-  it("fails G7 for build-a-sentence at 15 min until budget compose ships", async () => {
-    const recipe = await resolveExerciseRecipe("build-a-sentence");
+  it("passes G7 for build-a-sentence at 15 min after T-MV2", async () => {
+    const recipe = await resolveExerciseRecipe("build-a-sentence", { budgetMinutes: 15 });
     const result = checkSessionViability(recipe!, { budgetMinutes: 15 });
+    expect(result.failures).not.toContain("G7");
+  });
+
+  it("still fails G7 for build-a-sentence at 3 min", async () => {
+    const recipe = await resolveExerciseRecipe("build-a-sentence", { budgetMinutes: 3 });
+    const result = checkSessionViability(recipe!, { budgetMinutes: 3 });
     expect(result.failures).toContain("G7");
   });
 
@@ -69,10 +73,10 @@ describe("estimateWallClock", () => {
     expect(cardCountForBudgetMinutes(15)).toBe(Math.round((15 * 60 - 60) / 35));
   });
 
-  it("flags out-of-tolerance wall clock for build-a-sentence at 15 min", async () => {
-    const recipe = await resolveExerciseRecipe("build-a-sentence");
+  it("flags out-of-tolerance wall clock for build-a-sentence at 3 min", async () => {
+    const recipe = await resolveExerciseRecipe("build-a-sentence", { budgetMinutes: 3 });
     const wallSec = estimateWallClockSec(recipe!);
-    expect(isWithinBudgetTolerance(wallSec, 15)).toBe(false);
+    expect(isWithinBudgetTolerance(wallSec, 3)).toBe(false);
   });
 });
 

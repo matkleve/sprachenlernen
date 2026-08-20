@@ -110,10 +110,16 @@ describe("isRunnableFromMenu", () => {
 });
 
 describe("cardHrefForMethod", () => {
-  it("links srs-session to Words review", () => {
-    expect(cardHrefForMethod(method({ id: "srs-session" }))).toBe(
-      sessionHrefForMethod(method({ id: "srs-session" })),
-    );
+  it("links srs-session to Words review with default budget minutes", () => {
+    expect(
+      cardHrefForMethod(method({ id: "srs-session", durations: [2, 10, 20] })),
+    ).toBe(`${routes.wordsReview}?method=srs-session&minutes=2`);
+  });
+
+  it("passes menu minutes through to srs-session start URL", () => {
+    expect(
+      cardHrefForMethod(method({ id: "srs-session", durations: [2, 10, 20] }), "?minutes=15"),
+    ).toBe(`${routes.wordsReview}?method=srs-session&minutes=15`);
   });
 
   it("links partial-dictation to method overview", () => {

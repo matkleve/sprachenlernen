@@ -153,10 +153,17 @@ export function completeStep(
   }
 
   const nextIndex = state.activeStepIndex + 1;
+  const nextStep = state.recipe.steps[nextIndex];
+  const submitDraft =
+    step.type === "review" && nextStep?.component === "type-with-word"
+      ? { ...state.submitDraft, text: "" }
+      : state.submitDraft;
+
   const withDone: ExerciseRunnerState = {
     ...state,
     stepStatuses: withSeenAt(stepStatuses, nextIndex),
     activeStepIndex: nextIndex,
+    submitDraft,
   };
 
   return {

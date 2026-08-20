@@ -426,15 +426,14 @@ Cooking-app runner for multi-step Methods (dictation, writing, listening drills)
 
 | ID | Work | Class | Depends on | Done when |
 | --- | --- | --- | --- | --- |
-| **T-MV1** | `assertSessionViable` + `estimateWallClock` in CI | Standard | specs | failing recipes block merge |
-| **T-MV2** | Recompose `build-a-sentence` — batch + exemplar/feedback | Sensitive | T-MV1 | G2, G3, G7 pass at 5 & 10 min |
+| **T-MV1** | ~~`assertSessionViable` + `estimateWallClock` in CI~~ — **shipped 2026-08-20** | Standard | specs | `check-session-viability` in `verify` |
+| **T-MV2** | ~~Recompose `build-a-sentence` — batch + exemplar/feedback~~ — **shipped 2026-08-20** | Sensitive | T-MV1 | G2, G3 pass at 8 & 15 min |
 | **T-MV3** | Session contract on method detail (budget + volume + feedback) | Standard | T-MV1 | UC-042 AC |
 | **T-MV4** | `reading-aloud` rubric or record-and-replay | Standard | T-MV1 | G2 pass |
 | **T-MV5** | `lib/exercise-recipe/budget.ts` — budget-driven compose + catalogue validator | Standard | T-MV1 | all 7 built methods pass G7 |
-| **T-MV6** | Pass `minutes` from menu through Start URLs | Standard | T-MV5 | UC-045 AC |
+| **T-MV6** | ~~Pass `minutes` from menu through Start URLs~~ — **shipped 2026-08-20** | Standard | T-MV1 | UC-045 AC menu → card → session |
 
-**Order:** T-MV6 can land before T-MV5 (URL only); T-MV5 before catalogue
-`durations[]` changes; T-MV2 parallel once T-MV1 exists.
+**Order:** T-MV5 before catalogue `durations[]` changes.
 
 ### Track B · Words domain — hygiene, decisions, then stage-2 slices
 

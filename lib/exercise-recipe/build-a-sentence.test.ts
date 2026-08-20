@@ -4,6 +4,8 @@
 import { describe, expect, it } from "vitest";
 
 import { loadMeaningRecallDeck } from "@/lib/starter-deck";
+import { countLearningUnits } from "@/lib/exercise-recipe/budget";
+import { checkSessionViability } from "@/lib/exercise-recipe/viability";
 import {
   composeBuildASentenceRecipe,
   resolveBuildASentenceRecipe,
@@ -11,38 +13,37 @@ import {
 import { resolveExerciseRecipe } from "@/lib/exercise-recipe";
 
 describe("build-a-sentence recipe", () => {
-  it("builds type-with-word, reveal-answer, and offers", () => {
+  it("builds a batch of type-with-word and reveal-answer loops without prepare", () => {
     const deck = loadMeaningRecallDeck("es");
     if (deck.status !== "ok") throw new Error("missing es deck");
 
     const recipe = composeBuildASentenceRecipe(deck.deck.cards, {
       methodId: "build-a-sentence",
-      heldLemmas: new Set(["casa"]),
+      budgetMinutes: 8,
     });
 
     expect(recipe?.methodId).toBe("build-a-sentence");
-    expect(recipe?.steps.map((step) => step.component)).toEqual([
-      "checklist",
-      "type-with-word",
-      "reveal-answer",
-      "offers",
-    ]);
-    expect(recipe?.steps[0]?.config.introKey).toBe("introBuildASentence");
-    expect(recipe?.steps[1]?.config.word).toBeTruthy();
-    expect(recipe?.steps[2]?.config.gloss).toBeTruthy();
+    expect(recipe?.steps[0]?.component).toBe("type-with-word");
+    expect(recipe?.steps.some((step) => step.component === "checklist")).toBe(false);
+    expect(countLearningUnits(recipe!)).toBeGreaterThanOrEqual(3);
+    expect(checkSessionViability(recipe!).failures).not.toContain("G2");
+    expect(checkSessionViability(recipe!).failures).not.toContain("G3");
   });
 
-  it("resolves from the shipped pool", async () => {
-    const recipe = await resolveBuildASentenceRecipe({ methodId: "build-a-sentence" });
+  it("resolves from the shipped pool with budget scaling", async () => {
+    const recipe = await resolveBuildASentenceRecipe({
+      methodId: "build-a-sentence",
+      budgetMinutes: 15,
+    });
     expect(recipe?.methodId).toBe("build-a-sentence");
-    expect(recipe?.steps).toHaveLength(4);
+    expect(recipe?.steps.filter((step) => step.component === "type-with-word").length).toBe(5);
   });
 });
 
 describe("resolveExerciseRecipe build-a-sentence", () => {
-  it("returns a recipe for build-a-sentence", async () => {
-    const recipe = await resolveExerciseRecipe("build-a-sentence");
+  it("returns a batch recipe without a prepare checklist", async () => {
+    const recipe = await resolveExerciseRecipe("build-a-sentence", { budgetMinutes: 8 });
     expect(recipe?.methodId).toBe("build-a-sentence");
-    expect(recipe?.steps[0]?.component).toBe("checklist");
+    expect(recipe?.steps[0]?.component).toBe("type-with-word");
   });
 });
