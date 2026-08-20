@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 
 import { loadSpanishMeaningRecallDeck } from "@/lib/starter-deck";
-import { buildSession, DEFAULT_SESSION_LENGTH } from "@/lib/session-builder";
+import { buildSession, DEFAULT_SESSION_LENGTH, sessionLengthForBudgetMinutes } from "@/lib/session-builder";
 import { applyReview, newTask } from "@/lib/scheduler";
 
 const pool = loadSpanishMeaningRecallDeck();
@@ -15,6 +15,14 @@ describe("session-builder", () => {
     expect(session[14]?.frequencyRank).toBe(15);
     expect(session[0]?.position).toBe(1);
     expect(session[0]?.total).toBe(DEFAULT_SESSION_LENGTH);
+  });
+
+  it("scales session length from budget minutes", () => {
+    const budgetMinutes = 10;
+    const length = sessionLengthForBudgetMinutes(budgetMinutes);
+    const session = buildSession(cards, {}, Date.now(), length);
+    expect(session).toHaveLength(length);
+    expect(session[0]?.total).toBe(length);
   });
 
   it("prioritises due tasks before new ones", () => {

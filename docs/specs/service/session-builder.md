@@ -31,7 +31,7 @@ into a fixed-length queue of Tasks for one review session. **Standard**
 **Budget (draft):** when `buildSession` receives `budgetMinutes`, card count =
 `round(budgetMinutes × 60 / SEC_PER_CARD)` with default `SEC_PER_CARD = 35` and
 tolerance per [`method-session-budget.md`](method-session-budget.md). Fixed **15**
-remains the default when `budgetMinutes` is omitted until T-MV5 ships.
+remains the default when `budgetMinutes` is omitted.
 
 ## Behavior
 

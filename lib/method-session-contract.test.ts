@@ -30,7 +30,7 @@ describe("resolveSessionContract", () => {
     const contract = await resolveSessionContract(method, 8);
 
     expect(contract).not.toBeNull();
-    expect(contract!.learningUnits).toBeGreaterThanOrEqual(2);
+    expect(contract!.learningUnits).toBeGreaterThanOrEqual(3);
     expect(contract!.feedbackMode).toBe("self-mark");
     expect(contract!.volumeLabelKey).toBe("sessionVolumeSentences");
   });
