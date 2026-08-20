@@ -398,7 +398,7 @@ specs and code touch points; implementation not started.
 
 | # | Feature | Ev. | Eff. | Verdict |
 | --- | --- | --- | --- | --- |
-| F216 | **Foundation phase** — cap new cards; reserve slots for same-day resurfacing of fragile items | C/D | M | **V1 candidate** — T-W22 |
+| F216 | **Foundation phase** — cap new cards; reserve slots for same-day resurfacing of fragile items | C/D | M | **V1 candidate** — T-W22; [44](44-foundation-phase-expert-review.md) narrows scope |
 | F217 | **Session sampling by retrievability** — soft inclusion below hard `due` for fragile only | B | M | **V2** |
 | F218 | **Soft form staging ramp** — forms after first meaning success, full weight after held | B | S | **V1 candidate** — pairs with F216 |
 

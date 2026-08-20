@@ -79,6 +79,7 @@ only this table.
 | [39 · Method section graphics](39-method-section-graphics-brief.md) | Eight catalogue banner assets — cohesion brief, ChatGPT prompt, checklist |
 | [42 · Method usefulness audit](42-method-usefulness-ux-audit.md) | UX + science gates for hosted methods; build-a-sentence case study; spec changes |
 | [43 · Early foundation sessions](43-early-foundation-sessions.md) | Same-day word return, foundation throttle, soft form staging — study + implementation map |
+| [44 · Foundation phase expert review](44-foundation-phase-expert-review.md) | DS + LT panel: one composer layer, resurfacing rules, what not to ship in v1 |
 | [Sources](sources.md) | Literature, honestly marked by how far each was checked |
 
 Chapters 12–26 were written after the roadmap and are appended at the end. By

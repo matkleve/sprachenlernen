@@ -564,9 +564,8 @@ session 1 disappears until tomorrow.
 
 Open: threshold (`held < 50` vs fragile count vs time-based), whether resurfacing
 counts as a graded review, and how soft form staging pairs with `deck=form`.
-Blocks **T-W22** spec, not current ship.
-
----
+Blocks **T-W22** spec, not current ship. Panel review and narrowed v1 scope:
+[44](44-foundation-phase-expert-review.md).
 
 ## What happens next
 
