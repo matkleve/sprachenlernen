@@ -39,7 +39,7 @@ user cannot read another Account's rows. **Sensitive** (`AGENTS.md`).
 | 2 | Submits the sign-in form with valid credentials | An auth session is created (cookie, via `middleware.ts`) and the visitor is sent to `/methods` |
 | 3 | Submits either form with invalid input | The page re-renders with the error Supabase reported next to the password field; no account or session is created |
 | 4 | Opens `/login` or `/signup` while already signed in | Redirected to `/methods`; the form is never shown |
-| 5 | (Any signed-in request) | `middleware.ts` revalidates and refreshes the session cookie before any Server Component runs. Server code reads the session with `getSession()` (local cookie, no second Auth round trip) via `getAccount()` — `getUser()` runs in middleware only |
+| 5 | (Any signed-in request) | `middleware.ts` revalidates and refreshes the session cookie before any Server Component runs. Server code then reads the session with `getSession()` (local cookie, no second Auth round trip) via `getAccount()`. That is sound **only** for callers whose next step is a query through the request-scoped client, because PostgREST verifies the JWT before RLS runs — a forged cookie returns nothing. `getSession()` itself verifies no signature |
 | 6 | Taps the Google or Apple OAuth control on `/login` or `/signup` | Redirected to the provider; on success, a session is created and they land on `/methods` without a separate email-confirmation step. An account with no learning language is sent to the picker by the destination itself, so OAuth needs no special case |
 
 ### OAuth controls
@@ -54,6 +54,8 @@ from `aria-label` ("Continue with Google" / "Continue with Apple"). Stacked
 full-width text buttons duplicated the email submit and read as a second form
 rather than alternate entry points.
 | 7 | Signs up with email and password | Email confirmation remains required before a session exists (project setting) |
+| 8 | Follows a confirmation link carrying `?next=` | The visitor lands on that path **only if it is a path on this deployment**; anything else lands on `/methods`. Validated by `safeInternalPath` (`lib/safe-redirect.ts`), which parses rather than prefix-matches — `//evil.com` and `/\evil.com` both start with `/` and both resolve to a foreign origin |
+| 9 | Confirms account deletion | The account id comes from `getVerifiedAccount()` — a `getUser()` round trip to Supabase Auth — never from `getAccount()`. Deletion runs on the service-role client, which bypasses RLS, so the cookie cannot be the authority for **which** account is deleted |
 
 ## States
 
@@ -66,6 +68,10 @@ every request). Named here as the two conditions a page can observe via
 | --- | --- | --- | --- |
 | signed-out | no valid session cookie | `getAccount()` returns `null` | no |
 | signed-in | a valid session cookie | `getAccount()` returns the `Account` | no |
+
+A third reading exists and is not a state: `getVerifiedAccount()` answers the
+same question against the Auth server rather than the cookie. It is the reading
+required of any caller that acts on `account.id` **outside** the RLS path.
 
 Neither is terminal: `signOut()` and session expiry both move signed-in back
 to signed-out; a successful sign-in moves the other way.
@@ -114,6 +120,17 @@ to signed-out; a successful sign-in moves the other way.
 - [ ] Given `/login` or `/signup`, when the OAuth row renders, then Google and
       Apple appear as two round icon buttons in one horizontal row, each with an
       `aria-label` and no visible provider name.
+- [ ] Given a confirmation link whose `next` is `//evil.com`, `/\evil.com` or
+      any absolute URL, when the callback completes, then the visitor is sent to
+      `/methods` on this origin — the redirect never leaves the deployment.
+- [ ] Given a confirmation link whose `next` is `/content/<uuid>?x=1`, when the
+      callback completes, then the visitor lands on exactly that path.
+- [ ] **The negative case for deletion:** given a session cookie the Auth server
+      refuses, when `deleteAccount` runs, then no account is deleted and the
+      caller is told to sign in — the service-role client is never reached.
+- [ ] Given a cookie whose session names account A while the Auth server
+      confirms account B, when `deleteAccount` runs, then **B** is deleted and A
+      is untouched.
 
 ## Open questions
 
@@ -123,6 +140,8 @@ signup keeps confirmation on (`mailer_autoconfirm: false`). Turning confirmation
 off for email signup is a product decision for UC-011; OAuth does not need it.
 
 ## Check
+
+`npm test -- safe-redirect` covers the callback's destination validation.
 
 `npm test -- access-control` — `lib/db/access-control.test.ts` is the
 BACKEND.md §8 policy test and runs against the real Supabase project; it
