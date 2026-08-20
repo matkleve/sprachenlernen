@@ -117,5 +117,4 @@ decay are **withdrawn** — [`study/56`](../../study/56-lernwelt-single-choice.m
 
 ## Check
 
-Pending T-W23. Until `lib/learner-world.test.ts` exists, verify via
-`npm run check:specs` only.
+`npm test -- learner-world`

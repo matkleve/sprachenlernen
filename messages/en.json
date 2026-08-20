@@ -62,6 +62,38 @@
     "homeScreenMainSiteButton": "Open main website",
     "homeScreenReinstall": "If the bottom toolbar appears on some pages, remove the Home Screen icon, open the main website in Safari, and add the app again from there — not from a section page."
   },
+  "learnerWorld": {
+    "pageTitle": "Learning world",
+    "hookTitle": "Choose a learning world",
+    "hookBody": "Words, sentences, and texts will lean toward that world — not all at once, but noticeably.",
+    "pickTitle": "Which world do you want to learn in?",
+    "continue": "Continue",
+    "skipGeneral": "Start general for now",
+    "startLearning": "Start learning",
+    "previewTitle": "Example from your world",
+    "profileWorld": "Learning world: {world}",
+    "profileAddWorld": "Set a learning world",
+    "switchTitle": "Change learning world?",
+    "switchBody": "Your words so far stay. From the next session you will see more from {world}.",
+    "switchConfirm": "Change world",
+    "switchCancel": "Cancel",
+    "world": {
+      "business": "Business",
+      "everyday": "Everyday life",
+      "technical": "Technical",
+      "politics": "Politics",
+      "nature": "Nature & garden",
+      "general": "General for now"
+    },
+    "preview": {
+      "business": "Example: The quarterly report is due on Friday.",
+      "everyday": "Example: We meet at the café around the corner.",
+      "technical": "Example: Restart the service after updating the config.",
+      "politics": "Example: Parliament debated the new law.",
+      "nature": "Example: We water the plants every morning.",
+      "general": "Example: She reads a little every day."
+    }
+  },
   "appShell": {
     "navLabel": "Destinations",
     "mobileNavLabel": "Switch destination",

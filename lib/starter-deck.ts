@@ -33,6 +33,8 @@ export type StarterCard = {
    * `lib/paradigm-cells.ts`.
    */
   paradigmCell?: string;
+  /** Optional Lernwelt tags for session weighting (T-W24). */
+  worlds?: string[];
 };
 
 export type StarterDeck = {

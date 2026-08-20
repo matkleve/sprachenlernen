@@ -46,6 +46,8 @@ export const routes = {
   profile: "/profile",
   /** Where a learner chooses what to learn (UC-025). */
   chooseLanguage: "/languages/choose",
+  /** Optional Lernwelt onboarding after the first language (UC-019). */
+  learnerWorldSetup: "/languages/world-setup",
 } as const;
 
 /**

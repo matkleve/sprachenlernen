@@ -13,7 +13,9 @@ import {
   sessionBuildFailed,
 } from "@/lib/errors";
 import { buildSession, DEFAULT_SESSION_LENGTH, sessionLengthForBudgetMinutes, type SessionCard } from "@/lib/session-builder";
-import { filterSchedulableCards } from "@/lib/form-recall-staging";
+import { getLearnerWorld } from "@/lib/db/learner-world";
+import { activeLanguageOf, listLearningLanguages } from "@/lib/db/learning-languages";
+import { buildSamplingContext } from "@/lib/sampling-context";
 import { isFormRecallTaskId } from "@/lib/form-recall-pool";
 import { buildFormCellExplanation } from "@/lib/form-cell-explanation";
 import { poolForActiveLanguage } from "@/lib/db/learner-pools";
@@ -108,14 +110,30 @@ export async function buildSessionAction(input?: {
     }
 
     const tasksByTaskId = tasksByTaskIdForCards(poolCards, statesResult.rows);
-    const schedulable = filterSchedulableCards(poolCards, tasksByTaskId);
+    const schedulable = poolCards;
+    const now = Date.now();
+    const languages = await listLearningLanguages();
+    const activeLanguageCode =
+      languages.status === "ok"
+        ? activeLanguageOf(languages.languages) ?? activeCode ?? ""
+        : activeCode ?? "";
+    const worldOutcome = activeLanguageCode
+      ? await getLearnerWorld(activeLanguageCode)
+      : { status: "ok" as const, world: { worldId: "general" as const, setAt: null }, hasRow: false };
+    const activeWorld =
+      worldOutcome.status === "ok" ? worldOutcome.world.worldId : ("general" as const);
+    const sampling = {
+      ...buildSamplingContext(poolCards, tasksByTaskId, statesResult.rows, now),
+      activeWorld,
+    };
     const cookieStore = await cookies();
     const gapSet = parseGapSetCookie(cookieStore.get(GAP_SET_COOKIE)?.value);
     const priorityLemmas = gapSet ? new Set(gapSet.lemmas) : undefined;
     const queue = localizeSessionCards(
-      buildSession(schedulable, tasksByTaskId, Date.now(), sessionLength, {
+      buildSession(schedulable, tasksByTaskId, now, sessionLength, {
         priorityLemmas,
         deck,
+        sampling,
       }),
       spoken.spokenLanguage,
     ).map((card) => attachFormExplanation(card, activeCode ?? "es", poolCards, tasksByTaskId));

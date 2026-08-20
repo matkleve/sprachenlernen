@@ -73,5 +73,4 @@ moved by sampling alone.
 
 ## Check
 
-Pending T-W22. Until `lib/session-sampling.test.ts` exists, verify via
-`npm test -- session-builder` only.
+`npm test -- session-sampling session-builder`

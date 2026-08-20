@@ -113,4 +113,4 @@ onboarding preview only.
 ## Check
 
 Pending T-W23. Until `features/learner-world/` tests exist, verify via
-`npm run check:specs` only.
+`npm test -- learner-world` and manual onboarding path.

@@ -6,7 +6,9 @@ import { useState, useTransition } from "react";
 import { ActionLink } from "@/components/ui/ActionLink";
 import { Button } from "@/components/ui/Button";
 import { LanguageListRow } from "@/components/ui/LanguageListRow";
+import { LearnerWorldEditor } from "@/features/learner-world/LearnerWorldEditor";
 import { switchProfileLanguageAction } from "@/features/profile/actions";
+import type { LearnerWorldId } from "@/lib/learner-world";
 import type { LanguageHoldings } from "@/lib/db/language-holdings";
 import type { ListLanguagesOutcome } from "@/lib/db/learning-languages";
 import { routes } from "@/lib/routes";
@@ -24,11 +26,12 @@ import { useTranslations } from "next-intl";
 export type ProfileLanguagesProps = {
   outcome: ListLanguagesOutcome;
   holdings?: Record<string, LanguageHoldings>;
+  worlds?: Record<string, { worldId: LearnerWorldId }>;
   /** A switch that failed, so the learner is told rather than left guessing. */
   switchFailed?: boolean;
 };
 
-export function ProfileLanguages({ outcome, holdings, switchFailed: switchFailedProp }: ProfileLanguagesProps) {
+export function ProfileLanguages({ outcome, holdings, worlds, switchFailed: switchFailedProp }: ProfileLanguagesProps) {
   const router = useRouter();
   const t = useTranslations("profile");
   const [pending, startTransition] = useTransition();
@@ -99,6 +102,12 @@ export function ProfileLanguages({ outcome, holdings, switchFailed: switchFailed
                     standingLabel={(held, pool) => t("standing", { held, poolSize: pool })}
                     viewProgressHref={routes.progress}
                     viewProgressLabel={t("viewProgress")}
+                    footerSlot={
+                      <LearnerWorldEditor
+                        languageCode={language.languageCode}
+                        currentWorldId={worlds?.[language.languageCode]?.worldId ?? "general"}
+                      />
+                    }
                     actionSlot={
                       language.isActive
                         ? undefined
