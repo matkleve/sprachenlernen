@@ -28,7 +28,21 @@ Parent: [`coverage.md`](coverage.md). Ingestion:
 | Learner upload | Same inference + explicit processing consent |
 
 Adaptation optimises for **coverage band 95–98 %** on the **adapted** `body`
-using held lemmas from [`vocabulary-snapshot.md`](vocabulary-snapshot.md).
+using **this learner's** held lemmas from [`vocabulary-snapshot.md`](vocabulary-snapshot.md).
+
+**Delivery gate (owner 2026-08-20):** a band-level A2 rewrite (T2 cache) may be
+**offered** as a catalogue default — it is **not** a promise that the text fits
+this user. Before Start, compute coverage on the **shown** body with the
+**active learner's held set**:
+
+| Personal coverage | UI | Start |
+| --- | --- | --- |
+| **≥ 95 %** | Comfortable band copy on shown text | Enabled (after ~N min known) |
+| **80–94 %** | Demanding + offer **T1 gloss** / gap list | Enabled with support ladder |
+| **&lt; 80 %** | Honest *too hard for your vocabulary* — generic A2 did not pass **for you** | Blocked — alternate source or T3 (upload/consent) |
+
+Band-level T2 validation (representative lemma set) is for **batch/cache quality
+only** — not for enabling Start.
 
 **Lemma-personalised v2:** replace unknown lemmas with held synonyms or simpler
 forms from frequency table — optional second pass ([`study/48`](../../study/archive/ARCH-048-content-licensing-and-adaptation.md)).
@@ -39,8 +53,8 @@ forms from frequency table — optional second pass ([`study/48`](../../study/ar
 | --- | --- | --- |
 | **T0 · Select** | Pick existing source already in band | Before any LLM |
 | **T1 · Lemma gloss** | Inline gloss / pre-teach list for gap lemmas | 90–94 % coverage |
-| **T2 · Level rewrite** | LLM rewrite to target CEFR band + coverage check | Catalogue news default (UC-030) |
-| **T3 · Personal rewrite** | T2 + replace lemmas outside held set | Learner upload opt-in |
+| **T2 · Level rewrite** | LLM rewrite to target CEFR band; batch-validated on band prototype | Catalogue news **proposal** (UC-030) — cheap shared cache |
+| **T3 · Personal rewrite** | Rewrite constrained to learner's held lemmas (+ forms v2) | When T2 fails personal gate; learner upload opt-in |
 
 Each tier re-runs [`coverage.md`](coverage.md) on output; fail → retry once or
 fall back to lower tier with honest copy.
@@ -57,18 +71,20 @@ type AdaptationCacheKey = {
 };
 ```
 
-**One adapted body per key** — shared across all learners at that level band.
-**Not** per-user LLM call for catalogue news.
+**T2:** one adapted body per `(sourceId, targetLevel, languageCode)` — shared band
+cache (~40 LLM calls/day). **Delivery** still requires personal coverage ≥ 95 %
+on that body (or T1/T3 path below).
 
-Personal (T3) cache keyed by `(sourceHash, userId, heldLemmaSetHash)` — optional;
-may skip cache when set changes daily.
+**T3:** cache keyed by `(sourceHash, heldLemmaSetHash, promptVersion)` when
+personal rewrite runs — rate-limited; optional skip when set changes daily.
 
 ## Labelling (non-negotiable)
 
 | Surface | Copy |
 | --- | --- |
-| Source detail | *Adapted for A2 · not the original article* |
-| Method Start | Session contract includes `adapted: true` |
+| Source detail | *Adapted for A2 · not the original article* + **your** coverage % on shown text |
+| Method material preview | Personal band + gap copy per delivery gate; no Start under 80 % without T1/T3 |
+| Method Start | Session contract includes `adapted: true` when shown body ≠ original |
 | Progress / reading skill | **Counts** toward the reading skill pool like authentic input — owner 2026-08-20. History rows may carry `adapted: true` for audit; label on source detail stays honest. |
 
 ## Off-the-shelf
@@ -95,10 +111,13 @@ See cost table in study/48.
 
 | # | Input | Output |
 | --- | --- | --- |
-| 1 | Catalogue politics + A2 | Cached adapted `body`; coverage ≥ 95 % |
-| 2 | Adaptation fails coverage twice | Honest error; offer T1 or different source |
-| 3 | Learner without consent | Original only (UC-029 ladder) |
-| 4 | Generated lane (ingestion C) | Skip adaptation — already level-targeted |
+| 1 | Catalogue politics + band A2 cache hit | Offer cached body; compute **personal** coverage before Start |
+| 2 | Personal coverage ≥ 95 % on shown body | Start enabled; label + link to original |
+| 3 | Personal coverage 80–94 % | T1 gloss / gap list; Start with support |
+| 4 | Personal coverage &lt; 80 % on band A2 | Honest block — do not pretend A2 fits this user |
+| 5 | Adaptation fails personal gate twice | Offer T3 (consent) or different source |
+| 6 | Learner without consent | Original only (UC-029 ladder) |
+| 7 | Generated lane (ingestion C) | Skip adaptation — already level-targeted |
 
 ## Acceptance criteria
 

@@ -24,15 +24,16 @@ was ranked last. Topic news is not offered at a named learner level.
 ## Success looks like
 
 - For **catalogue topic content** (news, politics, daily): tapping a topic
-  offers material **adapted to the learner's target level** (e.g. *"Politik ·
-  adapted for A2"*) — full article in session, not a time-window cut.
-- Adaptation is **labelled** (*adapted for you*, *generated*) — never presented
-  as the original front-page article.
-- Coverage on the **adapted** text is shown before Start (target 95–98 %).
-- Catalogue topic content is ingested only via **licence-cleared or generated**
-  lanes ([`content-ingestion.md`](../specs/service/content-ingestion.md)); LLM
-  adaptation is **cached per article and level band**
-  ([`content-adaptation.md`](../specs/service/content-adaptation.md)).
+  may offer a **band-level A2 rewrite** (shared cache) — full article in session,
+  not a time-window cut. **Whether it fits this learner** is decided by **personal**
+  coverage on the shown body before Start (owner 2026-08-20, decision #37).
+- Adaptation is **labelled** (*adapted for A2 · not the original*) — never presented
+  as the original front-page article or as guaranteed *for you* until personal
+  coverage passes the delivery gate.
+- **Personal** coverage on the **shown** text before Start: ≥ 95 % comfortable;
+  80–94 % → T1 gloss path; &lt; 80 % → honest block or alternate source.
+- Catalogue LLM adaptation is **cached per article and level band** (T2); personal
+  fit is measured at read time — T3 when the band text fails the gate.
 - For **learner-uploaded** originals (UC-029): adaptation runs only with explicit
   consent to processing; the original remains available.
 - Optional **support rungs** (pre-teach, gloss, paraphrase beside original) remain
@@ -49,6 +50,7 @@ content; truncating articles to fit a duration window.
 
 ## Undecided
 
-- **⚠ SPEC GAP:** target level source — learner-chosen CEFR band, inferred skill
-  tier, or coverage-only band?
+- ~~**⚠ SPEC GAP:** target level source~~ **Partially answered 2026-08-20:** band
+  A2 from inferred skill tier for T2 cache; **personal held lemmas** gate delivery
+  (IMPLEMENTATION-PLAN #27, #37).
 - **⚠ SPEC GAP:** refresh cadence for daily news adaptations.

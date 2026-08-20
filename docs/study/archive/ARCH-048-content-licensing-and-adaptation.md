@@ -64,11 +64,15 @@ Allowlisted Feed / Wikinews API / Nutzer-URL
         ↓
   Fetch + licence metadata speichern
         ↓
-  [Katalog] Adaptation T2 → Cache (sourceId + A2 + lang)
+  [Katalog] Adaptation T2 → band cache (sourceId + A2 + lang)
         ↓
-  Coverage-Check auf adaptiertem Volltext
+  Nutzer öffnet Material — angebotener Band-A2-Text
         ↓
-  Source in DB — ganzer body, Session = full (UC-007)
+  **Personal coverage** auf gezeigtem Body (held lemmas des Nutzers)
+        ↓
+  ≥95% Start · 80–94% T1 · <80% ehrlich blockieren / andere Quelle
+        ↓
+  Session = full (UC-007)
 ```
 
 **Kein Kürzen** für Lese-Sessions. Zu lang für Menü-Filter → Methode **ausblenden**,
@@ -89,8 +93,9 @@ Annahme: ~800 Wörter Input, ~700 Wörter Output, **kleines Modell** (z. B. GPT-
 
 **Regeln:**
 
-1. **Katalog:** immer `AdaptationCacheKey` — ein LLM-Lauf pro (Artikel, Level, Sprache).
-2. **Nutzer-Paste:** optional T3 personal — Rate-Limit; Cache per `(urlHash, lemmaSetHash)`.
+1. **Katalog:** T2 band cache — ein LLM-Lauf pro (Artikel, Level, Sprache).
+   **Auslieferung:** personal coverage gate — nicht „Band ok = für alle ok“.
+2. **Nutzer-Paste:** T3 personal — Rate-Limit; Cache per `(urlHash, lemmaSetHash)`.
 3. **T1 gloss** ohne LLM wo möglich (90–94 % Coverage).
 4. **Nacht-Batch** für Tagesnews — nicht beim ersten Tap.
 

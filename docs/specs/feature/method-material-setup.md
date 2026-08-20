@@ -56,9 +56,9 @@ When `materialUnits` is declared, show the resolved slice before Start:
 | Preview field | Example |
 | --- | --- |
 | Unit label | *One sentence* · *One paragraph* · *5 min listening* · *Full text* |
-| Coverage | *94 % known · comfortable* |
+| Coverage | *94 % known · comfortable* — **personal** held set on **shown** body |
 | Time | **Wall estimate after resolve** — e.g. *~20 min · full text* (owner 2026-08-20) |
-| Adaptation | When coverage &lt; 95 %, run adaptation **before** estimate + Start (with consent for own material) |
+| Adaptation | Offer band A2 when available; **personal gate** before Start (≥95 % / 80–94 % T1 / &lt;80 % block) |
 
 Learner may switch unit when the method lists more than one (chip or compact
 select). Resolved unit id is passed on Start (`unitId`, optional `durationSec`
@@ -82,7 +82,10 @@ Start into a 40-minute wall.
 | --- | --- | --- |
 | 1 | Opens method with `materialTopics` | Chip row below badge band; `app-pick` selected |
 | 2 | Leaves **App picks** selected | Preview line after resolve; Start enabled |
-| 3 | Taps a catalogue topic chip | Filters Sources by topic `id`; preview with coverage % |
+| 3 | Taps a catalogue topic chip | Filters Sources by topic; preview with **personal** coverage % on shown body |
+| 3b | Band A2 offered, personal coverage ≥ 95 % | Comfortable copy; Start after ~N min |
+| 3c | Personal coverage 80–94 % | T1 gloss / gap offer; Start with support |
+| 3d | Personal coverage &lt; 80 % on band text | Honest *too hard for your vocabulary*; Start blocked |
 | 4 | Topic has no catalogue Sources | Chip disabled or empty-state; suggests **Your own** |
 | 5 | Taps **Your own** | Upload / paste / link appear; catalogue preview hidden |
 | 6 | Parses own material &lt; 95 % | Adapt (with consent) then preview with **~N min**; Start when estimate known |

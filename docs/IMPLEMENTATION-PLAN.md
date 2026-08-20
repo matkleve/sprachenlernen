@@ -457,7 +457,7 @@ Cooking-app runner for multi-step Methods (dictation, writing, listening drills)
 | **T-CI1** | ~~**`Source.licence` on persisted rows** — extend `Source` model + validator; refuse catalogue without `licence.kind`~~ — **shipped 2026-08-20** | Standard | T-W9 | `content-ingestion` AC #1; `loadSources` rejects bad catalogue rows |
 | **T-CI2** | ~~**Wikinews ingest (lane B v1)** — allowlisted fetch, CC BY metadata, full body stored~~ — **shipped 2026-08-20** | Standard | T-CI1 | Fixture + one live language feed in `data/content/` or DB |
 | **T-CI3** | ~~**T2 adaptation + cache** — `AdaptationCacheKey`, coverage validator loop, nightly batch for catalogue~~ — **shipped 2026-08-20** | **Sensitive** | T-CI2, coverage | UC-030 AC; second call cache hit |
-| **T-CI4** | **Adaptation labelling** — source detail + session contract show *adapted for {level}*; link to original | Standard | T-CI3, T-MV3 | UC-007, UC-039 AC |
+| **T-CI4** | **Adaptation labelling + personal delivery gate** — label, link to original, personal coverage on shown text; Start per gate (≥95 % / 80–94 % T1 / &lt;80 % block); session contract `adapted: true` | Standard | T-CI3, T-MV3 | UC-007, UC-030, UC-039 AC |
 | **T-CI5** | **Learner lane consent + T3** — paste/upload opt-in; private storage; optional personal rewrite | **Sensitive** | T-CI1, T-CI3 | UC-029 AC |
 | **T-CI6** | **Generated original news (lane C)** — facts-only graded article when no licence-cleared piece exists | Standard | T-CI3 | `generated: true`; UC-023 reporting |
 | **T-CI7** | **Legal review checklist** — DW/BBC TOS, CC BY-SA display, EU DSM / DE UrhG counsel memo | **Docs / counsel** | — | Blocks T-CI8 production ingest |
@@ -839,7 +839,8 @@ study/48 and the ingestion/adaptation specs when implementing.
     estimated read time of the **whole body**; session delivers `full` unit.
     Owner 2026-08-20. See [`material-unit.md`](specs/service/material-unit.md).
 26. **Catalogue news: level adaptation is primary** (not podcast slicing).
-    Lane B ingest + T2 cache; label honestly. Lane C generated fallback is v2.
+    Lane B ingest + **T2 band cache as proposal**; **personal coverage gate**
+    before Start (owner 2026-08-20, decision #37). Lane C generated fallback is v2.
     Owner 2026-08-20. See study/48, UC-030.
 27. ~~**Which `targetLevel` drives catalogue adaptation?**~~ **Answered 2026-08-20
     (owner): app-inferred** from active skill tier — no manual CEFR chip in v1.
@@ -876,6 +877,12 @@ study/48 and the ingestion/adaptation specs when implementing.
     visibility only; detail shows **all** packages when `durations.length > 1`;
     default selection = **longest** package. Menu filter must **not** hide chips.
     See [`method-session-budget.md`](specs/service/method-session-budget.md).
+37. **Band A2 vs personal fit — owner 2026-08-20.** Catalogue may **offer**
+    shared band-level A2 text (T2 cache) for cost — **not** as proof it fits this
+    user. Before Start: coverage on **shown** body with **this learner's held
+    lemmas**. ≥ 95 % → Start; 80–94 % → T1 gloss path; &lt; 80 % → honest block
+    (alternate source / T3). Measure first; do not fake generic A2 as personalised.
+    See [`content-adaptation.md`](specs/service/content-adaptation.md) delivery gate.
 
 **Added 2026-08-16**, from [study/34](reviews/design/DR-035-review-report-and-acknowledgement-ux.md)
 (T-B14a/b/c). Resolve before implementing report popover or DB columns.
