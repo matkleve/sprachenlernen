@@ -39,3 +39,4 @@ ADR stays — the fact that it was once the right answer is the most useful part
 | [0010](0010-the-route-model.md) | `/` is the public landing page; the app lives at its destinations | Accepted |
 | [0011](0011-the-review-log-shipped-server-only.md) | The review log shipped server-only, and offline is unbuilt | **Proposed** — needs a decision |
 | [0012](0012-ux-decisions-requeue-i18n-leech-nav.md) | Session requeue, localization storage, leech detection, and nav | Accepted |
+| [0013](0013-security-response-headers.md) | Security response headers, and the two we did not set | Accepted |

@@ -15,7 +15,10 @@ const SCOPES = {
   },
   changed: {
     desc: "Git-changed files — vitest runs related tests automatically",
-    checks: ["typecheck", "lint", "specs", "tokens", "contrast"],
+    // `secrets` is in the default scope because it is the one gate whose miss
+    // is unrecoverable: a key that reached a commit is a key to rotate, and no
+    // later run can undo that. It greps 700-odd files in well under a second.
+    checks: ["typecheck", "lint", "specs", "secrets", "tokens", "contrast"],
     tests: [],
     vitestChanged: true,
   },
