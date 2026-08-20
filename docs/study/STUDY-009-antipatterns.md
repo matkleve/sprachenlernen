@@ -4,6 +4,16 @@
 <!-- type: antipattern -->
 <!-- status: active -->
 
+## Thesis
+
+Named product anti-patterns we deliberately refuse to build.
+
+## Evidence
+
+Findings marked `[A]`–`[D]` appear inline in the sections below.
+
+## Product consequences
+
 The exclusion list is the cheapest part of a study and the one that prevents the
 most rework. Every point also names **what it costs** — an exclusion with no
 stated price is self-deception.
@@ -169,3 +179,16 @@ floor bounds what is **offered** and never what is owed
 That is the sentence every new feature is checked against. It belongs in
 [`../CONSTITUTION.md`](../CONSTITUTION.md) as a product rule — see
 [11](../backlog/BL-011-roadmap-open-questions.md), question 8.
+
+## What we reject
+
+This chapter is the shared reject catalogue.
+
+## Open questions
+
+Implementation questions live in specs (`## Open`), use cases (`## Undecided`), or [`IMPLEMENTATION-PLAN.md`](../IMPLEMENTATION-PLAN.md).
+
+## Related
+
+- Normative contracts: [specs/README.md](../specs/README.md)
+- Referenced by other chapters as the anti-pattern catalogue.

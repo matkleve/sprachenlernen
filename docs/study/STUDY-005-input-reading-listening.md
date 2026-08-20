@@ -5,6 +5,16 @@
 <!-- status: active -->
 <!-- spawns: UC-007, UC-008 -->
 
+## Thesis
+
+Comprehensible input builds fluency; flashcards build word knowledge — neither replaces the other.
+
+## Evidence
+
+Findings marked `[A]`–`[D]` appear inline in the sections below.
+
+## Product consequences
+
 The second pillar beside flashcards. Cards build knowledge *about* words;
 fluency comes only from volume ([README](README.md), thesis 3).
 
@@ -176,3 +186,17 @@ rule.
   transition table — a textbook case for [`../STATE.md`](../STATE.md).
 - The transcript synchronisation contract: word timestamps or sentence
   timestamps? That decides whether "repeat" can work sentence-accurately.
+
+## What we reject
+
+Chapter-specific rejections appear inline above. Shared catalogue: [STUDY-009-antipatterns.md](STUDY-009-antipatterns.md).
+
+## Open questions
+
+Implementation questions live in specs (`## Open`), use cases (`## Undecided`), or [`IMPLEMENTATION-PLAN.md`](../IMPLEMENTATION-PLAN.md).
+
+## Related
+
+- UC-007 — [use-cases/README.md](../use-cases/README.md)
+- UC-008 — [use-cases/README.md](../use-cases/README.md)
+- Normative contracts: [specs/README.md](../specs/README.md)

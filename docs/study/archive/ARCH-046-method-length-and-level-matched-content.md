@@ -130,5 +130,7 @@ Learner-uploaded originals: UC-029 + optional adaptation with explicit consent
 
 ## Open
 
-- **⚠ SPEC GAP:** target level from — CEFR self-report, skill tier, or coverage band only?
-- **⚠ SPEC GAP:** adapted article persistence — one adapted version per learner per source?
+Moved to normative specs:
+
+- Target level source and adapted-article persistence →
+  [`content-adaptation.md`](../../specs/service/content-adaptation.md) (`## Open`).

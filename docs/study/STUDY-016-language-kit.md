@@ -5,6 +5,16 @@
 <!-- status: active -->
 <!-- spawns: UC-035, UC-036, UC-037, UC-040 -->
 
+## Thesis
+
+Each language is code plus data, shipped with an honest quality tier — never implied fluency.
+
+## Evidence
+
+Findings marked `[A]`–`[D]` appear inline in the sections below.
+
+## Product consequences
+
 Your question: *"How different can it really be whether I learn Spanish,
 Italian, Norwegian or German? Just fix it and then automatic translators / AI set
 the course up. I don't know, maybe I'm dreaming."*
@@ -186,3 +196,19 @@ the correction above.
   hand-set field. A field someone sets to "A" is not a quality statement.
 - How skill status is set at tier C — the same mechanism as in
   [14](STUDY-012-accessibility.md), triggered for a different reason.
+
+## What we reject
+
+Chapter-specific rejections appear inline above. Shared catalogue: [STUDY-009-antipatterns.md](STUDY-009-antipatterns.md).
+
+## Open questions
+
+Implementation questions live in specs (`## Open`), use cases (`## Undecided`), or [`IMPLEMENTATION-PLAN.md`](../IMPLEMENTATION-PLAN.md).
+
+## Related
+
+- UC-035 — [use-cases/README.md](../use-cases/README.md)
+- UC-036 — [use-cases/README.md](../use-cases/README.md)
+- UC-037 — [use-cases/README.md](../use-cases/README.md)
+- UC-040 — [use-cases/README.md](../use-cases/README.md)
+- Normative contracts: [specs/README.md](../specs/README.md)

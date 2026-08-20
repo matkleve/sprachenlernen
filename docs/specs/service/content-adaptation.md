@@ -112,3 +112,8 @@ In [`content-adaptation.acceptance-criteria.md`](content-adaptation.acceptance-c
 
 - **⚠ SPEC GAP:** form-aware adaptation (held paradigm cells) — v2 after form signal ships.
 - **⚠ SPEC GAP:** which skill-tier → CEFR band mapping when T-B3 ships — until then use pool-local comfort band as proxy.
+- **⚠ SPEC GAP:** target level for adaptation — CEFR self-report, skill tier, or
+  coverage band only? From
+  [`ARCH-046-method-length-and-level-matched-content.md`](../../study/archive/ARCH-046-method-length-and-level-matched-content.md).
+- **⚠ SPEC GAP:** adapted article persistence — one adapted version per learner
+  per source, or re-adapt on each open?

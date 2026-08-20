@@ -5,6 +5,16 @@
 <!-- status: active -->
 <!-- corrected-by: STUDY-005 -->
 
+## Thesis
+
+The competitor landscape corrects overstated claims about input tools and platforms.
+
+## Evidence
+
+Findings marked `[A]`–`[D]` appear inline in the sections below.
+
+## Product consequences
+
 An honesty chapter. [01](STUDY-001-duolingo.md) compares against Duolingo because that
 is the benchmark for reach — but Duolingo is not the competition for what is
 being built here. The competition is a handful of smaller tools that have
@@ -143,3 +153,16 @@ This overview rests on product descriptions and comparison articles, not on
 first-hand use. Before any roadmap decision that builds on K1 or K3, LingQ and
 Migaku deserve **a week of actual use** — not reading. A feature list says
 nothing about how a closed loop feels when it is half closed.
+
+## What we reject
+
+Chapter-specific rejections appear inline above. Shared catalogue: [STUDY-009-antipatterns.md](STUDY-009-antipatterns.md).
+
+## Open questions
+
+Implementation questions live in specs (`## Open`), use cases (`## Undecided`), or [`IMPLEMENTATION-PLAN.md`](../IMPLEMENTATION-PLAN.md).
+
+## Related
+
+- Corrects `STUDY-005` — see that chapter's inline amendments.
+- Normative contracts: [specs/README.md](../specs/README.md)

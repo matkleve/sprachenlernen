@@ -6,6 +6,16 @@
 <!-- corrected-by: STUDY-019 -->
 <!-- spawns: UC-050, UC-051, UC-052, UC-053 -->
 
+## Thesis
+
+Speaking may lead the headline without rewriting what the level model measures.
+
+## Evidence
+
+Findings marked `[A]`–`[D]` appear inline in the sections below.
+
+## Product consequences
+
 Four things from the user, and three of them changed after looking up the
 research. This chapter answers: what it means to make speaking the primary goal,
 how the app notices that progress has stalled, what the landing screen should
@@ -312,3 +322,20 @@ A live "listen mode" is still fine as an **input indicator** — is the micropho
 picking you up, is the level adequate. That is a signal about the device, not a
 judgement about the person, and confusing the two is what made this idea worth
 examining.
+
+## What we reject
+
+Chapter-specific rejections appear inline above. Shared catalogue: [STUDY-009-antipatterns.md](STUDY-009-antipatterns.md).
+
+## Open questions
+
+Implementation questions live in specs (`## Open`), use cases (`## Undecided`), or [`IMPLEMENTATION-PLAN.md`](../IMPLEMENTATION-PLAN.md).
+
+## Related
+
+- UC-050 — [use-cases/README.md](../use-cases/README.md)
+- UC-051 — [use-cases/README.md](../use-cases/README.md)
+- UC-052 — [use-cases/README.md](../use-cases/README.md)
+- UC-053 — [use-cases/README.md](../use-cases/README.md)
+- Corrects `STUDY-019` — see that chapter's inline amendments.
+- Normative contracts: [specs/README.md](../specs/README.md)

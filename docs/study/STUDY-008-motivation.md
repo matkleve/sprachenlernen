@@ -5,6 +5,16 @@
 <!-- status: active -->
 <!-- spawns: UC-006, UC-019 -->
 
+## Thesis
+
+Motivation surfaces must not trade long-term learning for daily return.
+
+## Evidence
+
+Findings marked `[A]`–`[D]` appear inline in the sections below.
+
+## Product consequences
+
 Duolingo proved behavioural design works. It also proved how it goes wrong
 ([01](STUDY-001-duolingo.md), D1). This chapter is the attempt to get the one without
 the other.
@@ -148,3 +158,17 @@ That is a real risk, not a rhetorical hedge.
 So this is among the first things that must be measured
 ([11](../backlog/BL-011-roadmap-open-questions.md)) — and measured on return rate **and**
 measured progress, because only the ratio of the two answers the question.
+
+## What we reject
+
+Chapter-specific rejections appear inline above. Shared catalogue: [STUDY-009-antipatterns.md](STUDY-009-antipatterns.md).
+
+## Open questions
+
+Implementation questions live in specs (`## Open`), use cases (`## Undecided`), or [`IMPLEMENTATION-PLAN.md`](../IMPLEMENTATION-PLAN.md).
+
+## Related
+
+- UC-006 — [use-cases/README.md](../use-cases/README.md)
+- UC-019 — [use-cases/README.md](../use-cases/README.md)
+- Normative contracts: [specs/README.md](../specs/README.md)

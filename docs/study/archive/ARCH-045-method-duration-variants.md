@@ -211,8 +211,7 @@ remaining gap — **one block, multiple methods** — is a separate feature
 
 ## Open
 
-- **⚠ SPEC GAP:** chip labels for two packages — *"Short · 4 sentences"* vs
-  *"Standard · 8 sentences"* — copy keys in `methodMenu.durationVariant.*`.
-- **⚠ SPEC GAP:** when material `unitId` and duration package disagree, which
-  wins? Proposal: duration package is primary; material unit is sub-choice within
-  a package where both dimensions apply (dictation).
+Moved to normative specs:
+
+- Duration chip labels and material/`unitId` precedence →
+  [`method-session-budget.md`](../../specs/service/method-session-budget.md) (`## Open`).

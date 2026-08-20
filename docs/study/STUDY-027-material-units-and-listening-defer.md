@@ -5,6 +5,16 @@
 <!-- status: active -->
 <!-- spawns: UC-077 -->
 
+## Thesis
+
+Material units and listening defer are learner scope controls, not curriculum gates.
+
+## Evidence
+
+Findings marked `[A]`–`[D]` appear inline in the sections below.
+
+## Product consequences
+
 **Date:** 2026-08-18  
 **Triggers:** owner asked how methods get data at different scales (one sentence,
 paragraph, five minutes of audio, half-filled listen-and-type); round-table
@@ -106,3 +116,16 @@ Inspired by Duolingo-style honesty when environment cannot use audio.
 - Catalogue authoring at scale (tagging, QA, no frequency-list prefixes in real text).
 - ASR grading for `speak` input mode.
 - Chain same Source across methods (read → dictate → retell) — session handoff spec gap.
+
+## What we reject
+
+Chapter-specific rejections appear inline above. Shared catalogue: [STUDY-009-antipatterns.md](STUDY-009-antipatterns.md).
+
+## Open questions
+
+Implementation questions live in specs (`## Open`), use cases (`## Undecided`), or [`IMPLEMENTATION-PLAN.md`](../IMPLEMENTATION-PLAN.md).
+
+## Related
+
+- UC-077 — [use-cases/README.md](../use-cases/README.md)
+- Normative contracts: [specs/README.md](../specs/README.md)

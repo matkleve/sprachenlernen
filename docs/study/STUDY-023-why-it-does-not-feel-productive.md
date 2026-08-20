@@ -6,6 +6,16 @@
 <!-- corrected-by: STUDY-008 -->
 <!-- spawns: UC-054, UC-055, UC-056 -->
 
+## Thesis
+
+Feeling unproductive is often a denominator problem — sometimes real, sometimes illusion.
+
+## Evidence
+
+Findings marked `[A]`–`[D]` appear inline in the sections below.
+
+## Product consequences
+
 The question this chapter answers, in the user's words: even the apps that take
 the research seriously do not *feel* productive — "but maybe I am wrong, are
 there studies?"
@@ -345,3 +355,19 @@ a decision taken here.
   Needs deciding before F187 is specified.
 - The dose band is institutional and English-derived (C4). Whether it is
   recalibrated per language, and against what, is question 19.
+
+## What we reject
+
+Chapter-specific rejections appear inline above. Shared catalogue: [STUDY-009-antipatterns.md](STUDY-009-antipatterns.md).
+
+## Open questions
+
+Implementation questions live in specs (`## Open`), use cases (`## Undecided`), or [`IMPLEMENTATION-PLAN.md`](../IMPLEMENTATION-PLAN.md).
+
+## Related
+
+- UC-054 — [use-cases/README.md](../use-cases/README.md)
+- UC-055 — [use-cases/README.md](../use-cases/README.md)
+- UC-056 — [use-cases/README.md](../use-cases/README.md)
+- Corrects `STUDY-008` — see that chapter's inline amendments.
+- Normative contracts: [specs/README.md](../specs/README.md)

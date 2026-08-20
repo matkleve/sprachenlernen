@@ -4,6 +4,16 @@
 <!-- type: reasoning -->
 <!-- status: active -->
 
+## Thesis
+
+Method cards expose skill, evidence, and effort — three families, not one medal.
+
+## Evidence
+
+Findings marked `[A]`–`[D]` appear inline in the sections below.
+
+## Product consequences
+
 A UX study for making method cards and detail pages scannable without turning
 the catalogue into a leaderboard. Written 2026-08-15 after a design review of
 the methods surfaces and owner brainstorming about copper / silver / gold badges
@@ -291,3 +301,15 @@ Shell title may shorten on mobile; **in-page hero** always shows full `name`.
    documented?
 3. ~~**Section tinting:** optional accent band per section~~ — **resolved:**
    soft section background + header graphic; no left accent stripe.
+
+## What we reject
+
+Chapter-specific rejections appear inline above. Shared catalogue: [STUDY-009-antipatterns.md](STUDY-009-antipatterns.md).
+
+## Open questions
+
+Implementation questions live in specs (`## Open`), use cases (`## Undecided`), or [`IMPLEMENTATION-PLAN.md`](../IMPLEMENTATION-PLAN.md).
+
+## Related
+
+- Normative contracts: [specs/README.md](../specs/README.md)

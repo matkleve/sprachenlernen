@@ -6,6 +6,16 @@
 <!-- corrected-by: STUDY-002 -->
 <!-- spawns: UC-058, UC-060, UC-061 -->
 
+## Thesis
+
+Targeting beats gating; difficulty follows holdings, not locks or hidden menus.
+
+## Evidence
+
+Findings marked `[A]`–`[D]` appear inline in the sections below.
+
+## Product consequences
+
 The user's question, in three parts: *how do we measure real progress and raise
 difficulty accordingly? Is there a system behind A1/A2 with sub-metrics we can
 use? And — you have to be able to do the plural forms, don't you?*
@@ -264,9 +274,25 @@ promotes it.
   when the method's purpose is form.
 - **Frequency-weighted cell displays**, with a reportability floor tied to
   standard error rather than to a fixed count.
-- **⚠ SPEC GAP:** what a cell-level estimate is computed from — stability,
-  successful retrievals, or share correct on a tested set. R6 says whichever it
-  is, it needs an error term before anything reads it. UC-064 records this as the
-  quantity every other decision here inherits.
-- **⚠ SPEC GAP:** whether "no material yet" is visible or absent, given that the
-  context filter removes unperformable methods entirely. UC-059.
+- Cell-level estimate definition — stability, retrievals, or tested-set share —
+  is undecided; see [UC-064](../use-cases/UC-064-understand-what-one-sub-metric-says-about-me.md)
+  (`## Undecided`).
+- Whether "no material yet" is visible or absent — see
+  [UC-059](../use-cases/UC-059-find-out-what-stands-between-me-and-a-method.md)
+  (`## Undecided`).
+
+## What we reject
+
+Chapter-specific rejections appear inline above. Shared catalogue: [STUDY-009-antipatterns.md](STUDY-009-antipatterns.md).
+
+## Open questions
+
+Implementation questions live in specs (`## Open`), use cases (`## Undecided`), or [`IMPLEMENTATION-PLAN.md`](../IMPLEMENTATION-PLAN.md).
+
+## Related
+
+- UC-058 — [use-cases/README.md](../use-cases/README.md)
+- UC-060 — [use-cases/README.md](../use-cases/README.md)
+- UC-061 — [use-cases/README.md](../use-cases/README.md)
+- Corrects `STUDY-002` — see that chapter's inline amendments.
+- Normative contracts: [specs/README.md](../specs/README.md)

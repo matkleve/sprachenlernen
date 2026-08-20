@@ -168,3 +168,13 @@ In [`method-session-budget.acceptance-criteria.md`](method-session-budget.accept
 ## Check
 
 `npm test -- exercise-recipe session-builder time-scale method-session-budget`
+
+## Open
+
+- **⚠ SPEC GAP:** chip labels for two duration packages — e.g. *Short · 4
+  sentences* vs *Standard · 8 sentences* — copy keys in
+  `methodMenu.durationVariant.*`. From
+  [`ARCH-045-method-duration-variants.md`](../../study/archive/ARCH-045-method-duration-variants.md).
+- **⚠ SPEC GAP:** when material `unitId` and duration package disagree, which
+  wins? Proposal: duration package is primary; material unit is sub-choice within
+  a package where both apply (dictation).

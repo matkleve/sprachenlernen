@@ -4,6 +4,16 @@
 <!-- type: reasoning -->
 <!-- status: active -->
 
+## Thesis
+
+Visual design must promise scholarship, not gamification — tokens carry meaning.
+
+## Evidence
+
+Findings marked `[A]`–`[D]` appear inline in the sections below.
+
+## Product consequences
+
 No colour decision yet — that comes later and is yours
 ([`../../AGENTS.md`](../../AGENTS.md), boundary 6). What follows are the
 **constraints**, so the later session does not start from zero, plus an argument
@@ -116,3 +126,15 @@ palette:
   is designed against the gate rather than repaired after it.
 - Every interactive element with all five states.
 - No screen that becomes unusable without colour.
+
+## What we reject
+
+Chapter-specific rejections appear inline above. Shared catalogue: [STUDY-009-antipatterns.md](STUDY-009-antipatterns.md).
+
+## Open questions
+
+Implementation questions live in specs (`## Open`), use cases (`## Undecided`), or [`IMPLEMENTATION-PLAN.md`](../IMPLEMENTATION-PLAN.md).
+
+## Related
+
+- Normative contracts: [specs/README.md](../specs/README.md)

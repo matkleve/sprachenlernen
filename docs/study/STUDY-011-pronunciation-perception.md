@@ -5,6 +5,16 @@
 <!-- status: active -->
 <!-- spawns: UC-014 -->
 
+## Thesis
+
+Pronunciation starts in the ear; HVPT is cheap, evidenced, and under-implemented in apps.
+
+## Evidence
+
+Findings marked `[A]`–`[D]` appear inline in the sections below.
+
+## Product consequences
+
 The strongest single method in this study, and the one with the largest gap
 between evidence and adoption. It is called **High Variability Phonetic Training
 (HVPT)**, has been well supported since the 1990s — and virtually no consumer app
@@ -153,3 +163,16 @@ automatic feedback.
 - The stopping condition: how does the system know a contrast has stuck and needs
   no more training? Without that rule the feature runs forever and burns exactly
   the time that was its advantage.
+
+## What we reject
+
+Chapter-specific rejections appear inline above. Shared catalogue: [STUDY-009-antipatterns.md](STUDY-009-antipatterns.md).
+
+## Open questions
+
+Implementation questions live in specs (`## Open`), use cases (`## Undecided`), or [`IMPLEMENTATION-PLAN.md`](../IMPLEMENTATION-PLAN.md).
+
+## Related
+
+- UC-014 — [use-cases/README.md](../use-cases/README.md)
+- Normative contracts: [specs/README.md](../specs/README.md)

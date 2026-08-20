@@ -4,6 +4,16 @@
 <!-- type: reasoning -->
 <!-- status: active -->
 
+## Thesis
+
+Every research claim here must carry an evidence grade and a product consequence.
+
+## Evidence
+
+Findings marked `[A]`–`[D]` appear inline in the sections below.
+
+## Product consequences
+
 Ordered by strength of foundation. Each point ends with the sentence that
 decides something about the product — a finding without a product consequence
 does not belong in this study.
@@ -315,3 +325,15 @@ beginners.
 > **Product sentence:** user ratings of practice methods must not steer
 > selection on their own. Preference and measured effect are kept separately;
 > choice yes, but tightly bounded (three options, not fifteen).
+
+## What we reject
+
+Chapter-specific rejections appear inline above. Shared catalogue: [STUDY-009-antipatterns.md](STUDY-009-antipatterns.md).
+
+## Open questions
+
+Implementation questions live in specs (`## Open`), use cases (`## Undecided`), or [`IMPLEMENTATION-PLAN.md`](../IMPLEMENTATION-PLAN.md).
+
+## Related
+
+- Normative contracts: [specs/README.md](../specs/README.md)

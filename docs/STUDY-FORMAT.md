@@ -38,7 +38,7 @@ study.
 | Kind | Path | ID pattern |
 | --- | --- | --- |
 | Study chapter | `docs/study/STUDY-NNN-slug.md` | `STUDY-001` … |
-| Bibliography | `docs/study/STUDY-STUDY-sources.md` | `STUDY-sources` |
+| Bibliography | `docs/study/STUDY-sources.md` | `STUDY-sources` |
 | Archived bridge | `docs/study/archive/ARCH-NNN-slug.md` | `ARCH-043` … |
 | Design review | `docs/reviews/design/DR-NNN-slug.md` | `DR-028` … |
 | Exploration | `docs/explorations/EXP-NNN-slug.md` | `EXP-035` … |

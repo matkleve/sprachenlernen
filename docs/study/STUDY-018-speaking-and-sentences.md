@@ -5,6 +5,16 @@
 <!-- status: active -->
 <!-- spawns: UC-043, UC-044 -->
 
+## Thesis
+
+Core speaking practice can work without an AI tutor at the centre.
+
+## Evidence
+
+Findings marked `[A]`–`[D]` appear inline in the sections below.
+
+## Product consequences
+
 [06](STUDY-006-production.md) says *why* production is necessary. This chapter says
 *how* — which speaking exercises demonstrably work, and what follows from each
 for the product.
@@ -148,3 +158,17 @@ That shifts [11](../backlog/BL-011-roadmap-open-questions.md): speaking had to w
 because I had coupled it to the LLM conversation partner. That was wrong. **The
 evidenced core of speaking practice is independent of AI and can come with stage
 4** — the conversation partner is an extension, not a prerequisite.
+
+## What we reject
+
+Chapter-specific rejections appear inline above. Shared catalogue: [STUDY-009-antipatterns.md](STUDY-009-antipatterns.md).
+
+## Open questions
+
+Implementation questions live in specs (`## Open`), use cases (`## Undecided`), or [`IMPLEMENTATION-PLAN.md`](../IMPLEMENTATION-PLAN.md).
+
+## Related
+
+- UC-043 — [use-cases/README.md](../use-cases/README.md)
+- UC-044 — [use-cases/README.md](../use-cases/README.md)
+- Normative contracts: [specs/README.md](../specs/README.md)

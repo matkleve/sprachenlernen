@@ -5,6 +5,16 @@
 <!-- status: active -->
 <!-- spawns: UC-049 -->
 
+## Thesis
+
+An exercise runs prepare → do → wait → check → decide; navigation is not performance.
+
+## Evidence
+
+Findings marked `[A]`–`[D]` appear inline in the sections below.
+
+## Product consequences
+
 Everything before this chapter decides **what** to practise. This one is about
 what happens once the learner has said yes — the shape of a single exercise from
 "get your paper" to "here is what you got wrong, want it as cards?".
@@ -209,6 +219,18 @@ Shipped as [`specs/feature/exercise-runner.md`](../specs/feature/exercise-runner
   [`exercise-runner.states.md`](../specs/feature/exercise-runner.states.md).
 - Interruption: leaving mid-exercise loses nothing and creates no backlog
   ([06](STUDY-006-production.md) and UC-006's rule applies here too).
-- **⚠ SPEC GAP:** whether an exercise abandoned halfway counts partially toward
-  the level model, or not at all. Both are defensible; guessing would put an
-  invented rule into the measurement.
+- Whether an abandoned exercise counts toward the level model is undecided — see
+  [`exercise-runner.md`](../specs/feature/exercise-runner.md) (`## Open`).
+
+## What we reject
+
+Chapter-specific rejections appear inline above. Shared catalogue: [STUDY-009-antipatterns.md](STUDY-009-antipatterns.md).
+
+## Open questions
+
+Implementation questions live in specs (`## Open`), use cases (`## Undecided`), or [`IMPLEMENTATION-PLAN.md`](../IMPLEMENTATION-PLAN.md).
+
+## Related
+
+- UC-049 — [use-cases/README.md](../use-cases/README.md)
+- Normative contracts: [specs/README.md](../specs/README.md)

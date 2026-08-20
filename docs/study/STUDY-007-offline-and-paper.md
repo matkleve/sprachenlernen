@@ -5,6 +5,16 @@
 <!-- status: active -->
 <!-- spawns: UC-009, UC-026 -->
 
+## Thesis
+
+The most effective drills are often off-phone — the app must take paper results back in.
+
+## Evidence
+
+Findings marked `[A]`–`[D]` appear inline in the sections below.
+
+## Product consequences
+
 Your observation: *"not everything has to be on the phone — maybe also exercises
 where you take dictation, write on a sheet of paper, or work through comparative
 forms."*
@@ -171,3 +181,17 @@ Not a software problem, but the app can prepare rather than broker:
 - Whether offline results count **equally** in [03](STUDY-003-level-model.md). **[D]**
   Proposal: yes, but marked as a separate source — self-correction is more
   generous than a machine, and that should be visible.
+
+## What we reject
+
+Chapter-specific rejections appear inline above. Shared catalogue: [STUDY-009-antipatterns.md](STUDY-009-antipatterns.md).
+
+## Open questions
+
+Implementation questions live in specs (`## Open`), use cases (`## Undecided`), or [`IMPLEMENTATION-PLAN.md`](../IMPLEMENTATION-PLAN.md).
+
+## Related
+
+- UC-009 — [use-cases/README.md](../use-cases/README.md)
+- UC-026 — [use-cases/README.md](../use-cases/README.md)
+- Normative contracts: [specs/README.md](../specs/README.md)

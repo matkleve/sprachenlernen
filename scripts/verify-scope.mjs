@@ -10,7 +10,7 @@ import { spawnSync } from "node:child_process";
 const SCOPES = {
   docs: {
     desc: "Specs, use cases, studies only — no code",
-    checks: ["specs"],
+    checks: ["specs", "study"],
     tests: [],
   },
   changed: {

@@ -4,6 +4,16 @@
 <!-- type: reasoning -->
 <!-- status: active -->
 
+## Thesis
+
+Secondary findings (chunks, sleep, styles myth) with explicit product hooks.
+
+## Evidence
+
+Findings marked `[A]`–`[D]` appear inline in the sections below.
+
+## Product consequences
+
 Four topics that each deserve a paragraph rather than a chapter — but each
 changes a concrete decision.
 
@@ -113,3 +123,15 @@ point independently in the same direction.
 - Speaking anxiety is therefore not a fringe topic but a designable quantity. The
   conversation partner without an audience ([06](STUDY-006-production.md)) is the most
   effective instrument we have for it — and the reason not to defer it.
+
+## What we reject
+
+Chapter-specific rejections appear inline above. Shared catalogue: [STUDY-009-antipatterns.md](STUDY-009-antipatterns.md).
+
+## Open questions
+
+Implementation questions live in specs (`## Open`), use cases (`## Undecided`), or [`IMPLEMENTATION-PLAN.md`](../IMPLEMENTATION-PLAN.md).
+
+## Related
+
+- Normative contracts: [specs/README.md](../specs/README.md)

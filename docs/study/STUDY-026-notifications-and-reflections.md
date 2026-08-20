@@ -4,6 +4,16 @@
 <!-- type: reasoning -->
 <!-- status: active -->
 
+## Thesis
+
+Reflections and notifications may inform without guilt or streak pressure.
+
+## Evidence
+
+Findings marked `[A]`–`[D]` appear inline in the sections below.
+
+## Product consequences
+
 The question behind this chapter: should Sprachenlernen **reach out** — push,
 email, or a standing weekly summary — to tell the learner how they are doing and
 invite reflection?
@@ -240,26 +250,14 @@ Before any notification or weekly block ships:
 
 ---
 
+## What we reject
+
+Chapter-specific rejections appear inline above. Shared catalogue: [STUDY-009-antipatterns.md](STUDY-009-antipatterns.md).
+
 ## Open questions
 
-1. **Channel priority:** email vs web push vs PWA — depends on install pattern;
-   study does not pick a winner yet.
-2. **Generation:** template-from-metrics vs light NLG — templates are easier to
-   make derivable; NLG needs guardrails so every clause cites a metric id.
-3. **Locale:** reflections ship in the learner’s **spoken language** (UC-069) once
-   i18n stage 1 lands — until then English only, noted in spec.
-4. **Measurement:** primary metric is not open rate but **“opened derivation”**
-   rate — did they click through to the data behind the sentence?
+Implementation questions live in specs (`## Open`), use cases (`## Undecided`), or [`IMPLEMENTATION-PLAN.md`](../IMPLEMENTATION-PLAN.md).
 
----
+## Related
 
-## Product sentence **[D]**
-
-Sprachenlernen should offer **one optional operational reminder** and **one
-weekly competence narrative**, both informational, both derivable, both capped —
-and should treat push as a **mirror** of what is already true in the app, not a
-separate product trying to pull the user back.
-
-That is aligned with thesis 1 ([08](STUDY-008-motivation.md)): optimise for measured
-competence, not daily return. Notifications are allowed only where they make
-competence more visible, not where they manufacture guilt.
+- Normative contracts: [specs/README.md](../specs/README.md)

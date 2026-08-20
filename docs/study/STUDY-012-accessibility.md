@@ -5,6 +5,16 @@
 <!-- status: active -->
 <!-- spawns: UC-020, UC-021 -->
 
+## Thesis
+
+Accessibility is computed across skills and routes, not a single display mode.
+
+## Evidence
+
+Findings marked `[A]`–`[D]` appear inline in the sections below.
+
+## Product consequences
+
 The gap [STUDY-sources.md](STUDY-sources.md) flagged in itself. It is filled in here because
 [`../CONSTITUTION.md`](../CONSTITUTION.md) §3 makes accessibility a requirement
 rather than a phase — and because an app whose core is audio and text has more to
@@ -140,3 +150,17 @@ gate requirement:
 Cheap when it happens while the spec is written, and very expensive afterwards:
 retrofitting alternative routes means opening up the task model from
 [04](STUDY-004-flashcards-srs.md) after user data hangs off it.
+
+## What we reject
+
+Chapter-specific rejections appear inline above. Shared catalogue: [STUDY-009-antipatterns.md](STUDY-009-antipatterns.md).
+
+## Open questions
+
+Implementation questions live in specs (`## Open`), use cases (`## Undecided`), or [`IMPLEMENTATION-PLAN.md`](../IMPLEMENTATION-PLAN.md).
+
+## Related
+
+- UC-020 — [use-cases/README.md](../use-cases/README.md)
+- UC-021 — [use-cases/README.md](../use-cases/README.md)
+- Normative contracts: [specs/README.md](../specs/README.md)

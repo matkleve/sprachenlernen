@@ -5,6 +5,16 @@
 <!-- status: active -->
 <!-- spawns: UC-045, UC-046, UC-047, UC-048, UC-057 -->
 
+## Thesis
+
+Context filters run before floor and effect; methods without context requirements are refused.
+
+## Evidence
+
+Findings marked `[A]`–`[D]` appear inline in the sections below.
+
+## Product consequences
+
 [12](STUDY-010-method-cards.md) describes the **mechanism** — how selection works, what
 the thumb does, what floors are for. It does not describe **what is actually in
 the catalogue**. This chapter fills that in, and it corrects a simplification:
@@ -296,9 +306,9 @@ apps.
   editable and users can create their own.
 - The method entry as a validated schema — a method without context requirements
   cannot be admitted, or it appears everywhere and filtering becomes worthless.
-- **⚠ SPEC GAP:** what happens when no catalogue entry fits the current context?
-  Proposal: name the gap ("we have nothing for *kitchen* yet — here is the
-  closest thing") rather than showing an unsuitable menu.
+- When no catalogue entry fits the current context, the product must name the gap
+  rather than show an unsuitable menu — see
+  [`method-catalogue.md`](../specs/service/method-catalogue.md) (`## Open`).
 
 **Corrected 2026-08-08 by [24](STUDY-022-speaking-as-the-goal.md) S4.** Everything above
 assumes a catalogue entry is a **session** — duration, context, completion. That
@@ -307,3 +317,20 @@ one friend only in Italian*, which have no duration and no completion. The
 catalogue therefore holds **two entry types**, and the schema has to admit both:
 `method` (a session) and `commitment` (a standing rule, active or inactive, with
 no completion tracking and no streak).
+
+## What we reject
+
+Chapter-specific rejections appear inline above. Shared catalogue: [STUDY-009-antipatterns.md](STUDY-009-antipatterns.md).
+
+## Open questions
+
+Implementation questions live in specs (`## Open`), use cases (`## Undecided`), or [`IMPLEMENTATION-PLAN.md`](../IMPLEMENTATION-PLAN.md).
+
+## Related
+
+- UC-045 — [use-cases/README.md](../use-cases/README.md)
+- UC-046 — [use-cases/README.md](../use-cases/README.md)
+- UC-047 — [use-cases/README.md](../use-cases/README.md)
+- UC-048 — [use-cases/README.md](../use-cases/README.md)
+- UC-057 — [use-cases/README.md](../use-cases/README.md)
+- Normative contracts: [specs/README.md](../specs/README.md)

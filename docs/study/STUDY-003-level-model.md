@@ -5,6 +5,16 @@
 <!-- status: active -->
 <!-- spawns: UC-004 -->
 
+## Thesis
+
+Level is a bundle of skill-specific measurements — one progress bar lies.
+
+## Evidence
+
+Findings marked `[A]`–`[D]` appear inline in the sections below.
+
+## Product consequences
+
 The central product idea. Duolingo shows XP; we show a language level computed
 from actual performance data, resolved more finely than A1–C2, and with an
 honest answer to "am I getting better?".
@@ -298,3 +308,16 @@ These four are why the display can be believed. They are candidates for
   guessed number.
 - **Multiple languages** share a user but nothing of their calibration. See
   [11](../backlog/BL-011-roadmap-open-questions.md), question 6.
+
+## What we reject
+
+Chapter-specific rejections appear inline above. Shared catalogue: [STUDY-009-antipatterns.md](STUDY-009-antipatterns.md).
+
+## Open questions
+
+Implementation questions live in specs (`## Open`), use cases (`## Undecided`), or [`IMPLEMENTATION-PLAN.md`](../IMPLEMENTATION-PLAN.md).
+
+## Related
+
+- UC-004 — [use-cases/README.md](../use-cases/README.md)
+- Normative contracts: [specs/README.md](../specs/README.md)

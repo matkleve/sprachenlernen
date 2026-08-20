@@ -5,6 +5,16 @@
 <!-- status: active -->
 <!-- spawns: UC-005, UC-006, UC-012, UC-013 -->
 
+## Thesis
+
+SRS works when the learner trusts the schedule; trust comes from visibility, not secrecy.
+
+## Evidence
+
+Findings marked `[A]`–`[D]` appear inline in the sections below.
+
+## Product consequences
+
 Classic flashcards, except the schedule is not a black box. Your phrasing was:
 *"where it can also show what exactly is happening and when which cards will come
 up."* That is the second big difference from everything that exists — Anki can
@@ -187,3 +197,19 @@ repeated, it is *met* — and that is the moment vocabulary stops being vocabula
   several tasks, or several independent cards? That is the most expensive data
   model decision in the project. See
   [11](../backlog/BL-011-roadmap-open-questions.md), question 4.
+
+## What we reject
+
+Chapter-specific rejections appear inline above. Shared catalogue: [STUDY-009-antipatterns.md](STUDY-009-antipatterns.md).
+
+## Open questions
+
+Implementation questions live in specs (`## Open`), use cases (`## Undecided`), or [`IMPLEMENTATION-PLAN.md`](../IMPLEMENTATION-PLAN.md).
+
+## Related
+
+- UC-005 — [use-cases/README.md](../use-cases/README.md)
+- UC-006 — [use-cases/README.md](../use-cases/README.md)
+- UC-012 — [use-cases/README.md](../use-cases/README.md)
+- UC-013 — [use-cases/README.md](../use-cases/README.md)
+- Normative contracts: [specs/README.md](../specs/README.md)

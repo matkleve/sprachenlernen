@@ -4,6 +4,16 @@
 <!-- type: reasoning -->
 <!-- status: active -->
 
+## Thesis
+
+Duolingo's strength is habit; its weakness is optimizing return instead of measured competence.
+
+## Evidence
+
+Findings marked `[A]`–`[D]` appear inline in the sections below.
+
+## Product consequences
+
 Duolingo is the yardstick this app is measured against — not because it is the
 best way to learn, but because it is the only one millions of people voluntarily
 use every day. That is a real achievement, and ignoring it builds a more correct
@@ -201,3 +211,15 @@ problem open (they come back to collect points). This app tries to adopt the
 behavioural solution and attach the reward to **measured competence** rather
 than activity — that is the entire product idea in one sentence, and everything
 else is execution.
+
+## What we reject
+
+Chapter-specific rejections appear inline above. Shared catalogue: [STUDY-009-antipatterns.md](STUDY-009-antipatterns.md).
+
+## Open questions
+
+Implementation questions live in specs (`## Open`), use cases (`## Undecided`), or [`IMPLEMENTATION-PLAN.md`](../IMPLEMENTATION-PLAN.md).
+
+## Related
+
+- Normative contracts: [specs/README.md](../specs/README.md)

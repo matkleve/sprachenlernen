@@ -5,6 +5,16 @@
 <!-- status: active -->
 <!-- spawns: UC-027, UC-028, UC-029, UC-030 -->
 
+## Thesis
+
+Learner-owned content is essential — with honest limits on simplification and rights.
+
+## Evidence
+
+Findings marked `[A]`–`[D]` appear inline in the sections below.
+
+## Product consequences
+
 **Owner correction 2026-08-20:** for **catalogue topic news** (politics, daily),
 **level-targeted adaptation** (*"this article at A2"*) is the **primary** path —
 not the support ladder's last rung. Ladder remains for learner uploads they want
@@ -184,3 +194,19 @@ simplification also throws away what they already had.
   sentence-level voice commands. That belongs stated clearly before anyone writes
   "support podcasts" into a spec.
 - Origin and processing location of every uploaded item, visible.
+
+## What we reject
+
+Chapter-specific rejections appear inline above. Shared catalogue: [STUDY-009-antipatterns.md](STUDY-009-antipatterns.md).
+
+## Open questions
+
+Implementation questions live in specs (`## Open`), use cases (`## Undecided`), or [`IMPLEMENTATION-PLAN.md`](../IMPLEMENTATION-PLAN.md).
+
+## Related
+
+- UC-027 — [use-cases/README.md](../use-cases/README.md)
+- UC-028 — [use-cases/README.md](../use-cases/README.md)
+- UC-029 — [use-cases/README.md](../use-cases/README.md)
+- UC-030 — [use-cases/README.md](../use-cases/README.md)
+- Normative contracts: [specs/README.md](../specs/README.md)

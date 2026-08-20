@@ -1,14 +1,9 @@
 #!/usr/bin/env node
 /**
  * Gate: study docs stay uniform and navigable.
- *
- *  1. Every STUDY-/DR-/EXP-/QA-/BL-/ARCH- file has valid frontmatter id + type.
- *  2. No duplicate ids.
- *  3. study/README.md links resolve.
- *  4. Warn on ⚠ SPEC GAP inside active study chapters (should live in specs).
  */
-import { existsSync, globSync, readFileSync } from "node:fs";
-import { basename, join } from "node:path";
+import { globSync, readFileSync } from "node:fs";
+import { join } from "node:path";
 
 const ROOT = join(import.meta.dirname, "..");
 
@@ -20,6 +15,15 @@ const warn = (file, msg) => warnings.push(`⚠ ${file}  ${msg}`);
 
 const meta = (text, key) =>
   text.match(new RegExp(`<!--\\s*${key}:\\s*(.+?)\\s*-->`))?.[1] ?? null;
+
+const REQUIRED_SECTIONS = [
+  "## Thesis",
+  "## Evidence",
+  "## Product consequences",
+  "## What we reject",
+  "## Open questions",
+  "## Related",
+];
 
 const ID_PATTERNS = [
   { glob: "docs/study/STUDY-*.md", prefix: "STUDY-", type: "reasoning|correction|antipattern|bibliography" },
@@ -56,13 +60,17 @@ for (const { glob, prefix, type } of ID_PATTERNS) {
       seenIds.set(id, file);
     }
 
-    if (file.startsWith("docs/study/STUDY-") && text.includes("⚠ SPEC GAP")) {
-      warn(file, "contains ⚠ SPEC GAP — move to spec or IMPLEMENTATION-PLAN");
+    if (file.startsWith("docs/study/STUDY-")) {
+      for (const section of REQUIRED_SECTIONS) {
+        if (!text.includes(section)) fail(file, `missing required section ${section}`);
+      }
+      if (text.includes("⚠ SPEC GAP")) {
+        fail(file, "contains ⚠ SPEC GAP — move to spec, use case, or IMPLEMENTATION-PLAN");
+      }
     }
   }
 }
 
-// Legacy paths must not remain
 const legacy = globSync("docs/study/[0-9][0-9]-*.md", { cwd: ROOT });
 for (const file of legacy) {
   fail(file, "legacy numbered study file — see docs/study/MIGRATION-MAP.md");

@@ -5,6 +5,16 @@
 <!-- status: active -->
 <!-- spawns: UC-010, UC-039, UC-042 -->
 
+## Thesis
+
+Preference and measured effect are two ledgers — never optimize selection on thumbs alone.
+
+## Evidence
+
+Findings marked `[A]`–`[D]` appear inline in the sections below.
+
+## Product consequences
+
 Your idea: a choice of different methods each day, each as a card with its
 intensity and what it mainly gives you. Thumbs up or down after the session, an
 algorithm learns from it — but can still say: *"this is important once a week
@@ -123,9 +133,10 @@ Three is the compromise: real choice, no decision load. Composed by four rules:
    **Readiness is not part of this chain** ([26](STUDY-024-readiness-and-difficulty.md)).
    Context is a hard filter because the learner physically cannot comply;
    readiness only ever **demotes and annotates**, because the learner can always
-   comply and may be right to. No method is ever locked, and whether a
-   "better later" method may hold one of the three slots is
-   **⚠ SPEC GAP** (UC-057).
+   comply and may be right to. No method is ever locked. Whether a
+   "better later" method may hold one of the three daily menu slots is undecided —
+   see [UC-057](../use-cases/UC-057-know-whether-a-method-is-right-for-me-yet.md)
+   (`## Undecided`).
 4. **Variety across the week**, not within the day. Interleaving *within* a
    session is a task matter ([02](STUDY-002-evidence.md), E6); method variety across days
    is something else and less well evidenced — **[C]**. It is here mainly because
@@ -421,3 +432,18 @@ misjudgement holds even against personally experienced counter-evidence.
 - **Sensitive:** preference and effect are stored separately and never netted
   into one value. The moment they land in one number the distinction is gone and
   nobody notices.
+
+## What we reject
+
+Chapter-specific rejections appear inline above. Shared catalogue: [STUDY-009-antipatterns.md](STUDY-009-antipatterns.md).
+
+## Open questions
+
+Implementation questions live in specs (`## Open`), use cases (`## Undecided`), or [`IMPLEMENTATION-PLAN.md`](../IMPLEMENTATION-PLAN.md).
+
+## Related
+
+- UC-010 — [use-cases/README.md](../use-cases/README.md)
+- UC-039 — [use-cases/README.md](../use-cases/README.md)
+- UC-042 — [use-cases/README.md](../use-cases/README.md)
+- Normative contracts: [specs/README.md](../specs/README.md)

@@ -4,6 +4,16 @@
 <!-- type: bibliography -->
 <!-- status: active -->
 
+## Thesis
+
+Every citation records how far it was actually checked — no borrowed authority.
+
+## Evidence
+
+Findings marked `[A]`–`[D]` appear inline in the sections below.
+
+## Product consequences
+
 Honestly marked by how solid each citation is. That is unusual, and it is why
 this study can be trusted more than a bibliography that says nothing about how
 far its entries were checked.
@@ -362,3 +372,15 @@ For honesty, this study's remaining gaps:
   the product decisions here, but not for managing user expectations.
 - **No cost or market research**, and [15](STUDY-013-landscape.md) does not substitute
   for it — that chapter is about feature scope, not viability.
+
+## What we reject
+
+Chapter-specific rejections appear inline above. Shared catalogue: [STUDY-009-antipatterns.md](STUDY-009-antipatterns.md).
+
+## Open questions
+
+Implementation questions live in specs (`## Open`), use cases (`## Undecided`), or [`IMPLEMENTATION-PLAN.md`](../IMPLEMENTATION-PLAN.md).
+
+## Related
+
+- Normative contracts: [specs/README.md](../specs/README.md)

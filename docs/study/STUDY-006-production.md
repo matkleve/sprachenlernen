@@ -5,6 +5,16 @@
 <!-- status: active -->
 <!-- spawns: UC-015, UC-016, UC-017 -->
 
+## Thesis
+
+Production learning needs honest feedback; mouth grading without ear training is limited.
+
+## Evidence
+
+Findings marked `[A]`–`[D]` appear inline in the sections below.
+
+## Product consequences
+
 The skills most people learn a language for, and the ones worst served in apps.
 Duolingo has you repeat given sentences; that is pronunciation practice, not
 production ([01](STUDY-001-duolingo.md), D4).
@@ -152,3 +162,18 @@ marked as an error.
   how long are they kept, do they leave the device?
   [`../CONSTITUTION.md`](../CONSTITUTION.md) §2 applies, and the answer belongs
   in the spec before the first record button exists.
+
+## What we reject
+
+Chapter-specific rejections appear inline above. Shared catalogue: [STUDY-009-antipatterns.md](STUDY-009-antipatterns.md).
+
+## Open questions
+
+Implementation questions live in specs (`## Open`), use cases (`## Undecided`), or [`IMPLEMENTATION-PLAN.md`](../IMPLEMENTATION-PLAN.md).
+
+## Related
+
+- UC-015 — [use-cases/README.md](../use-cases/README.md)
+- UC-016 — [use-cases/README.md](../use-cases/README.md)
+- UC-017 — [use-cases/README.md](../use-cases/README.md)
+- Normative contracts: [specs/README.md](../specs/README.md)

@@ -125,3 +125,10 @@ In [`exercise-runner.acceptance-criteria.md`](exercise-runner.acceptance-criteri
 ## Check
 
 `npm test -- exercise-runner`
+
+## Open
+
+- **⚠ SPEC GAP:** whether an exercise abandoned halfway counts partially toward
+  the level model, or not at all. Both are defensible; the study rule is that
+  guessing would invent measurement — carried from
+  [`STUDY-021-how-an-exercise-runs.md`](../../study/STUDY-021-how-an-exercise-runs.md).
