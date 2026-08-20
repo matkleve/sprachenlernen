@@ -24,10 +24,15 @@ habit that sessions get abandoned.
 
 - Before starting: how long, how many items, what kinds, and roughly how
   demanding.
+- **Card review:** always **15 cards** (~9 min) — fixed, not configurable
+  (owner 2026-08-20; [`../IDEAS.md`](../IDEAS.md) story 1).
+- **Reading:** one **full article** with stated estimated read time — not a
+  truncated window (story 2).
 - The composition is explained in one line — how many are due reviews, how many
   are new, what drove the mix.
-- The learner can change the length before starting, and the app re-plans rather
-  than truncating: the most urgent items stay in.
+- The learner can change the length before starting for **methods with two
+  duration packages** (dictation, production) — not for card review (fixed 15)
+  or full-article reading. Re-plan keeps the most urgent items.
 - Progress within the session is visible and the end is reachable. The count
   never grows while the learner is working through it.
 - Interrupting mid-session loses nothing, and the remainder is folded into the

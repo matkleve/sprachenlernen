@@ -4,116 +4,156 @@
 <!-- use-case: UC-045 -->
 <!-- use-case: UC-049 -->
 <!-- use-case: UC-011 -->
-<!-- status: draft -->
+<!-- status: active -->
 
-**Wall-clock contract:** when a method card says **5 minutes**, or the learner
-picked **15 minutes** on the method menu, the hosted session's **estimated
-active learning time** fills that budget — not a token label on the card with a
-two-minute tap-through behind it.
+**Wall-clock contract:** each **duration package** on a method is a fixed session
+with a validated wall estimate — not a range the menu slider scales at runtime.
 
 Parent: [`method-session-viability.md`](method-session-viability.md) gate G7.
-Study audit: [`../../study/42-method-usefulness-ux-audit.md`](../../study/42-method-usefulness-ux-audit.md).
+Study: [`../../study/45-method-duration-variants.md`](../../study/45-method-duration-variants.md)
+(owner decision 2026-08-20). Pedagogy — which methods need two packages and how
+real content length works: [`../../study/46-method-length-and-level-matched-content.md`](../../study/46-method-length-and-level-matched-content.md).
+Audit: [`../../study/42-method-usefulness-ux-audit.md`](../../study/42-method-usefulness-ux-audit.md).
 
 ## Scope
 
-- **In:** `budgetMinutes`; URL param `minutes`; composer scaling rules; tolerance
-  band; per-engine overhead; catalogue `durations` as **selectable variants**;
-  session contract display (`~10 min · 6 sentences`).
+- **In:** duration **packages** (`durations[]`); menu **time filter** (separate);
+  detail **variant selection**; `variantMinutes` on session URLs; G7 per package;
+  session contract display (`~8 min · 4 sentences`).
 - **Out:** logging practice time to Progress (F184); pausing mid-session;
-  custom minutes outside [`time-scale.md`](time-scale.md).
+  custom minutes outside [`time-scale.md`](time-scale.md); menu slider sizing
+  compose volume (retired 2026-08-20).
+
+## Two controls — never one
+
+| Control | Where | Purpose |
+| --- | --- | --- |
+| **Time filter** | Method menu slider (`?minutes=` on `/methods`) | Show only methods whose **shortest** package fits: `min(durations) ≤ filter` |
+| **Duration package** | Method detail variant chips | Learner picks **one fixed session** before Start |
+
+The menu slider **does not** set session length. It answers UC-045: *what can I
+do in the time I have?* The detail picker answers UC-039: *what exactly am I
+about to do?*
 
 ## Definitions
 
 | Term | Meaning |
 | --- | --- |
-| **Budget** | `budgetMinutes` — learner-facing session length in minutes |
+| **Package** | One integer in `durations[]` — a shipped, fixed session variant |
+| **variantMinutes** | The package the learner chose — passed as `minutes=` on session URLs |
+| **Time filter** | Menu slider value — catalogue filter only |
 | **Active learning** | Retrieval, production, timed write, read window, card grades — not prepare/decide chrome |
-| **Wall estimate** | `chromeOverheadSec + activeLearningSec` at compose time |
-| **Tolerance** | Wall estimate must be in **[85 %, 115 %]** of `budgetMinutes × 60` |
+| **Wall estimate** | `chromeOverheadSec + activeLearningSec` at compose time for **one package** |
+| **Tolerance** | Wall estimate must be in **[85 %, 115 %]** of `variantMinutes × 60` |
 
 ```ts
-type SessionBudget = {
-  budgetMinutes: number; // integer; snapped — see below
-  chromeOverheadSec: number; // declared per method family at compose
-  activeLearningSec: number; // sum of timed steps + item estimates
+type DurationPackage = {
+  variantMinutes: number; // one catalogue durations[] value
+  learningUnits: number; // fixed at compose for this package — not scaled from menu
+  wallEstimateMinutes: number;
 };
 ```
 
-## Where budget comes from
+## Catalogue `durations` field
+
+| Rule | Detail |
+| --- | --- |
+| **Max length** | **2** packages per method — **except card engine** (see below). Validator refuses three or more. |
+| **Each value** | A fixed recipe — item count, timer, or read window declared at compose time |
+| **Ascending** | Shortest first — used by `min(durations)` for the menu filter |
+| **`null`** | Open-ended — method appears only when menu filter is **Endless** |
+| **G7** | Each package must pass viability at its `variantMinutes` (T-MV5) |
+
+Methods that cannot honestly offer a package must **remove** that value from
+`durations[]` rather than show it on the card.
+
+**Examples (target catalogue):**
+
+| Method | Packages | Fixed compose |
+| --- | --- | --- |
+| `partial-dictation` | `8`, `15` | N sentences per package (not menu-derived) |
+| `full-dictation` | `12`, `25` | N sentences per package |
+| `build-a-sentence` | `5`, `10` | 3 vs 5 target words (T-MV2) |
+| `free-production` | `10`, `20` | `timed-write.durationSec` fixed per package |
+
+### Card engine exception (`srs-session`) — owner 2026-08-20
+
+| Field | Rule |
+| --- | --- |
+| **Cards** | **Fixed 15** per session — always; session contract says *"15 cards"* |
+| **`durations[]`** | **One** value — estimated wall minutes for menu filter only (~`10`) |
+| **Variant chips** | **None** — no duration picker on detail |
+| **Menu filter** | `min(durations) ≤ filter`; Start URL does not scale card count |
+
+Card count is **never** derived from menu slider or `variantMinutes`.
+
+## Where `variantMinutes` comes from
 
 | Source | Rule |
 | --- | --- |
-| Method menu `?minutes=` | Passed through detail Start → practice / words review |
-| Method detail duration chip | When `durations.length > 1`, learner picks one variant before Start |
-| Single catalogue duration | That value is the budget |
-| Material `window` unit | `durationSec` defaults to `budgetMinutes × 60` when both set |
-| Endless menu filter | No budget cap — method uses its **longest** declared variant |
-
-**Snap:** menu minutes snap via [`time-scale.md`](time-scale.md), then clamp to
-`[min(durations), max(durations)]` for that method. If menu budget is below
-`min(durations)`, detail shows the minimum variant honestly — do not Start below
-catalogue minimum without a shorter variant existing.
+| `durations.length === 1` | That value — no picker |
+| Detail variant chips | Learner taps one package before Start |
+| Default on detail | **Longest** package with `variantMinutes ≤ menuTimeFilter` (or any package when Endless) |
+| Menu `?minutes=` | **Not** forwarded to `/practice` or `/words/review` |
 
 ## URL params
 
 | Route | Param | Meaning |
 | --- | --- | --- |
-| `/practice` | `minutes` | `budgetMinutes` for exercise runner compose |
-| `/words/review` | `minutes` | Card count from budget (session-builder) |
-| `/practice` | `durationSec` | Material window only — must equal `budgetMinutes × 60` when both present |
+| `/methods` | `minutes` | **Time filter only** — snapped via [`time-scale.md`](time-scale.md) |
+| `/practice` | `minutes` | **`variantMinutes`** — exact catalogue package chosen on detail |
+| `/words/review` | `minutes` | **`variantMinutes`** — exact card-engine package |
+| `/practice` | `durationSec` | Material read window when applicable — must match package definition |
 
-`minutes` on the menu filter **narrows the catalogue** and **sets the default
-budget** for sessions started from that browse context — not two separate concepts.
+## Compose rules (fixed packages)
 
-## Composer scaling (by engine family)
+Composers receive `variantMinutes` (or `variantId` where mapped) and return a
+**fixed** recipe. **Forbidden:** deriving item count from the menu time filter.
 
-| Family | Active learning fills budget by |
+| Family | Package defines |
 | --- | --- |
-| **Card** (`srs-session`) | `cardCount = round(budgetMinutes × 60 / SEC_PER_CARD)` — default `SEC_PER_CARD = 35` |
-| **Item loop** (dictation, build-a-sentence) | `N = clamp(floor(activeSec / SEC_PER_ITEM), MIN_ITEMS, MAX_ITEMS)` |
-| **Timed write** (`free-production`, diary) | `timed-write.durationSec = activeSec` |
-| **Read window** (extensive-reading, reading-aloud) | `window` unit with `durationSec = activeSec` (≈150 wpm) |
-| **Fixed ritual** (4/3/2) | Budget must match declared variant exactly — no scaling |
+| **Card** (`srs-session`) | **Fixed `cardCount = 15`** — not in table above |
+| **Item loop** (dictation, build-a-sentence) | Fixed `N` per package |
+| **Timed write** (`free-production`, diary) | Fixed `timed-write.durationSec` per package |
+| **Read window** (extensive-reading, reading-aloud) | Fixed `durationSec` on `window` unit per package |
+| **Fixed ritual** (4/3/2) | Package must match ritual exactly |
 
-Constants live in `lib/exercise-recipe/budget.ts` (future); v1 documents targets in
-[`exercise-recipe-composer.methods.md`](exercise-recipe-composer.methods.md).
+Constants and per-method tables live in `lib/exercise-recipe/budget.ts` until
+each composer ships fixed tables (T-MV5).
 
-**Chrome overhead caps** (prepare + decide + nav, not per-step body):
+**Chrome overhead caps** (prepare + decide + nav):
 
 | Engine | `chromeOverheadSec` cap |
 | --- | --- |
 | Exercise runner | 120 |
 | Card review | 60 |
 
-Prepare omitted when [`method-session-viability.md`](method-session-viability.md) G6 applies — reduces overhead.
-
-## Catalogue `durations` field
-
-Each entry in `durations[]` is a **shipped session budget variant**, not a fuzzy
-hint. Validator (future `T-MV5`) runs `estimateWallClock(methodId, variant)` and
-**refuses** catalogue data when estimate falls outside tolerance.
-
-Methods that cannot honestly offer a variant must **remove** that minute value
-from `durations` rather than show it on the card.
-
-## Session contract (detail + overview)
-
-Extend [`method-session-viability.md`](method-session-viability.md) `SessionContract`:
+## Session contract (detail)
 
 ```ts
-budgetMinutes: number;
-wallEstimateMinutes: number; // composer estimate, shown as "~10 min"
-volumeLabelKey: string; // e.g. "6 sentences", "15 cards"
+type SessionContract = {
+  variantMinutes: number;
+  learningUnits: number;
+  feedbackMode: SessionFeedbackMode;
+  feedbackLabelKey: string;
+  wallEstimateMinutes: number;
+  volumeLabelKey: string;
+};
 ```
+
+Shown above Start — e.g. *"~8 min · 4 sentences · self-mark"*. Updates when the
+learner switches variant chips.
 
 ## Behaviour
 
 | # | Input | Output |
 | --- | --- | --- |
-| 1 | Menu at 15 min, method durations `[10, 20]` | Default budget **15** clamped to **15**; compose at 15 |
-| 2 | Menu at 5 min, method durations `[8, 15]` | Detail shows **8 min** minimum; Start uses 8 |
-| 3 | `build-a-sentence` at `budgetMinutes: 8` or `15` | Estimate within tolerance — min catalogue variant is **8 min** |
-| 4 | `partial-dictation` short variant | Estimate ~5–6 min — **fails** catalogue min 8 until N raised or min lowered |
+| 1 | Menu filter 15 min, method `durations: [8, 15]` | Method **visible** (`8 ≤ 15`). Menu URL keeps `minutes=15`. |
+| 2 | Opens detail from that context | Variant chips **8** and **15**; default **15** |
+| 3 | Starts with 15 chip | `/practice?method=…&minutes=15` — compose **15 min package** |
+| 4 | Menu filter 5 min, method `durations: [8, 15]` | Method **absent** (`8 > 5`) |
+| 5 | Menu Endless | All methods with any `durations`; detail shows all packages |
+| 6 | `durations: [10]` | No variant chips; contract shows single package |
 
 ## Acceptance criteria
 
@@ -121,4 +161,4 @@ In [`method-session-budget.acceptance-criteria.md`](method-session-budget.accept
 
 ## Check
 
-`npm test -- exercise-recipe session-builder time-scale`
+`npm test -- exercise-recipe session-builder time-scale method-session-budget`

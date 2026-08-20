@@ -11,7 +11,20 @@ listen-and-fill methods. Framework-free resolver; UI in
 [`method-material-setup.md`](../feature/method-material-setup.md); runner
 consumes resolved text in [`exercise-runner.md`](../feature/exercise-runner.md).
 
-Study: [`../../study/39-material-units-and-listening-defer.md`](../../study/39-material-units-and-listening-defer.md).
+Study: [`../../study/39-material-units-and-listening-defer.md`](../../study/39-material-units-and-listening-defer.md),
+[`../../study/46-method-length-and-level-matched-content.md`](../../study/46-method-length-and-level-matched-content.md).
+
+## Reading — full text (owner 2026-08-20)
+
+**Text sources** for extensive / intensive reading use **`full`** only — the
+entire `body` in one session. **Forbidden:** cutting an article to a time
+`window` so the learner continues outside the method.
+
+Menu time filter uses **estimated read minutes of the full body** (tokens ÷ WPM);
+sources that are too long for the filter are **absent**, not truncated.
+
+**Adapted topic articles** (UC-030) are also delivered as **full** adapted
+`body` — one session, one piece.
 
 ## Scope
 
@@ -27,7 +40,7 @@ Study: [`../../study/39-material-units-and-listening-defer.md`](../../study/39-m
 | --- | --- | --- |
 | `sentence` | One sentence | skip frequency-list stubs; prefer ≥4 tokens |
 | `paragraph` | Connected block | ≤120 tokens or first `\n\n` block |
-| `window` | Audio/listening slice | **300 s** transcript window; method may set 60–600 s |
+| `window` | Audio/listening slice **only** — not text articles | **300 s** transcript window; method may set 60–600 s |
 | `full` | Whole source body/transcript | entire Source |
 
 Catalogue methods declare allowed units:
@@ -43,7 +56,7 @@ One unit marked `default: true` when multiple listed.
 | # | Input | Output |
 | --- | --- | --- |
 | 1 | Source + unit id + held lemmas | `ResolvedUnit { text, tokenRange?, durationSec?, sentenceCount }` |
-| 2 | `window` + audio Source | Best window from [`coverage.md`](coverage.md) `windowCoverage[]` |
+| 2 | `window` + audio Source | Best window from [`coverage.md`](coverage.md) `windowCoverage[]` — **audio only** |
 | 3 | `sentence` / `paragraph` | Substring of `body` or `transcript` |
 | 4 | Unknown unit | Error — honest not-built |
 

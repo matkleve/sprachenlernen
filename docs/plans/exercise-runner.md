@@ -57,7 +57,7 @@ gates. Specs:
 
 | ID | Work | See |
 | --- | --- | --- |
-| **T-MV1–T-MV6** | Viability linter, `build-a-sentence` fix, session contract UI, budget compose | [`IMPLEMENTATION-PLAN.md`](../IMPLEMENTATION-PLAN.md) Track B |
+| **T-MV1–T-MV8, T-CI1–T-CI8** | Viability, filter-only menu time, content ingest/adapt | [`IMPLEMENTATION-PLAN.md`](../IMPLEMENTATION-PLAN.md) Track B |
 
 ## Agent handoff template
 

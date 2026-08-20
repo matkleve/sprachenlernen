@@ -26,8 +26,9 @@ UX: [`../../study/37-content-and-method-setup-ux.md`](../../study/37-content-and
   word→content and content→word links render; `/content` library; loop copy;
   textual equivalents (UC-021); fixture + catalogue seeds before full intake.
 - **Out:** method setup panel UI (method-material-setup); reading runner (T-W10);
-  RSS sync; ASR; support-ladder implementation (UC-030); method-gap copy
-  (UC-059); notification feed of unlock events.
+  RSS sync implementation detail (see [`content-ingestion.md`](../service/content-ingestion.md));
+  adaptation pipeline (see [`content-adaptation.md`](../service/content-adaptation.md));
+  ASR; method-gap copy (UC-059); notification feed of unlock events.
 
 ## What “content” is in v1
 
@@ -47,6 +48,10 @@ A **Source** is one saved text or one audio item with a transcript
 | `series` | no | podcast/show or narrow-reading series name |
 | `episodeLabel` | no | e.g. `214` |
 | `sourceUrl` | no | link back for learner-owned items |
+| `licence` | yes for `catalogue` | see [`content-ingestion.md`](../service/content-ingestion.md) |
+| `adaptedFromSourceId` | no | when body is level-adapted copy |
+| `targetLevel` | no | e.g. `A2` when adapted |
+| `generated` | no | `true` for lane C synthetic news |
 | `addedAt` | yes | ISO timestamp |
 | `ephemeral` | no | `true` = session-only (no `/content` row, no trace links) |
 
@@ -165,12 +170,9 @@ T-W11  K4 session loop line
 T-W11b K2 unlock rollup (Sensitive)
 ```
 
-T-W7 **before** T-W8. T-W10a can ship catalogue-only before T-W9.
-
+T-W7 **before** T-W8; T-W10a can ship catalogue-only before T-W9.
 ## Acceptance criteria
 
-In [`content-traceability.acceptance-criteria.md`](content-traceability.acceptance-criteria.md).
-
+See [`content-traceability.acceptance-criteria.md`](content-traceability.acceptance-criteria.md).
 ## Check
-
 `npm test -- coverage content-traceability content-gap method-material-setup`

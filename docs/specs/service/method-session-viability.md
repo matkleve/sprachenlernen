@@ -32,7 +32,7 @@ Parent: [`method-catalogue.md`](method-catalogue.md). Recipes:
 | **G4 Whole-task** | Catalogue `doesNotDo` names the limit; recipe does not pretend to exceed it |
 | **G5 Honest done** | Primary on production `do` does not set `done` without a review step marked done or explicit learner skip with copy |
 | **G6 Overhead** | `prepare` omitted when recipe meta `prepareRequired: false` and only `keyboard`/`touch` writing |
-| **G7 Duration** | Composed wall estimate within **85–115 %** of `budgetMinutes` — [`method-session-budget.md`](method-session-budget.md) |
+| **G7 Duration** | Composed wall estimate within **85–115 %** of `variantMinutes` for the chosen package — [`method-session-budget.md`](method-session-budget.md) |
 
 `learningUnits` = counted at compose time: loop iterations, dictation sentences,
 target words, card tasks, timed-write blocks — not runner chrome steps.
@@ -56,7 +56,7 @@ type SessionContract = {
   learningUnits: number;
   feedbackMode: "self-mark" | "exemplar" | "assisted" | "rubric" | "honest-none";
   feedbackLabelKey: string; // i18n for detail surface
-  budgetMinutes: number; // learner-selected variant or menu default
+  variantMinutes: number; // package chosen on detail — not menu filter
   wallEstimateMinutes: number; // composer estimate — shown as "~10 min"
   volumeLabelKey: string; // e.g. "6 sentences", "15 cards"
 };
@@ -79,7 +79,7 @@ examples"*.
 
 | # | Input | Output |
 | --- | --- | --- |
-| 1 | `build-a-sentence` at `budgetMinutes: 15` | Passes G2, G3, G7 — see study/42 |
+| 1 | `build-a-sentence` package `10` | Passes G2, G3, G7 — see study/42, study/45 |
 | 2 | `partial-dictation` N=1 | Passes with **warning** on G3 — prefer N≥3 in `standard` |
 | 3 | `free-production` | Passes G2 via `feedback` placeholder |
 | 4 | Valid composed recipe | `SessionContract` for detail |

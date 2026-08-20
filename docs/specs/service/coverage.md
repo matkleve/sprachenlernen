@@ -29,7 +29,7 @@ Gap list UI: [`content-gap.md`](../feature/content-gap.md).
 | --- | --- | --- |
 | 1 | Source body/transcript + held-lemma set | `coveragePercent` (0–100, one decimal), `tokenCount`, `knownCount` |
 | 2 | Same + thresholds | `comfortBand`: `demanding` (&lt;95), `comfortable` (95–98), `speed` (&gt;98) |
-| 3 | Audio source + window size (default 60 s of transcript) | `windowCoverage[]` — best window first ([`../../study/17-own-content.md`](../../study/17-own-content.md) A1) |
+| 3 | Audio source + window size (default 60 s of transcript) | `windowCoverage[]` — best window first ([`../../study/17-own-content.md`](../../study/17-own-content.md) A1; [`../../study/46-method-length-and-level-matched-content.md`](../../study/46-method-length-and-level-matched-content.md)) |
 | 4 | Held-lemma set + all sources for language | `lemmaSources: Map<lemma, sourceId[]>` for word trace block |
 | 5 | Sources for language + topic `id` | Filtered list, best learner coverage first — method chip preview |
 | 6 | Coverage recompute after reviews | Append `{ measuredAt, coveragePercent, calibrationDated }` to source history |

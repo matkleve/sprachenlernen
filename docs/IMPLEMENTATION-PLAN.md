@@ -1,7 +1,8 @@
 # Implementation plan
 
 **Written 2026-08-08. "Where the code actually is" and the decision list last
-synced 2026-08-20 (UC-079 session sampling, T-W22 queue).** What to build
+synced 2026-08-20 (content ingestion/adaptation queue, T-MV7 filter-only,
+owner duration decisions).** What to build
 next in *code*, in what order, and how to hand each piece to a coding agent
 that should make as few decisions as possible.
 
@@ -376,7 +377,8 @@ honest Spanish/Italian; offline unlocks commute practice.
 | **6e** | **T-B10g** — card destination marker | **Shipped 2026-08-18** — [`plans/method-card-destination.md`](plans/method-card-destination.md); **routing fix 2026-08-19** — exercise cards → overview before `/practice` |
 | **7** | **T-B10b remainder** — ~~demonstration sentence~~ **shipped 2026-08-16**; readiness ([`study/26`](study/26-readiness-and-difficulty.md)) | Methods front door complete |
 | **7b** | ~~**Exercise runner** (T-E0–E9, T-MU*, T-LD1, T-E12)~~ — **shipped 2026-08-18**; six hosted runners + practice-surface UX | UC-049 |
-| **7c** | **Method viability + session budget** (T-MV1–T-MV6) — study/42; specs draft | Hosted sessions must pass G1–G7; card minutes size compose |
+| **7c** | **Method viability + session budget** (T-MV1–T-MV5 shipped; **T-MV7–T-MV8** filter-only + catalogue packages) — study/42, study/45, study/46 | Menu filter ≠ session size; variant chips; SRS fixed 15 cards |
+| **7d** | **Content ingestion + adaptation** (T-CI1–T-CI6) — study/48; specs draft | Licence-cleared news at target level (UC-007, UC-030); paste URL (UC-029) |
 | **8** | **T-B4 numerator** — guided hours practised (thesis 9: not card time alone) | Progress per hour invested (study/03 V3) |
 
 **Still partial in Track B:** T-B3 (pool-local only), T-B10b (standing + daily
@@ -411,18 +413,20 @@ Cooking-app runner for multi-step Methods (dictation, writing, listening drills)
 | **T-LD1** | Listening defer — infra shipped; **menu UI removed** 2026-08-18; UI on mixed stacks — UC-077 | Standard | [`listening-defer.md`](specs/feature/listening-defer.md) |
 | **T-E12** | ~~**Practice-surface UX + anchored layout**~~ — **shipped 2026-08-18** | Standard | T-E1 | [`practice-surface.md`](specs/feature/practice-surface.md), [`exercise-runner.layout.md`](specs/feature/exercise-runner.layout.md) AC |
 | **T-E12b** | ~~Footer segment **active = primary** + prep row horizontal inset~~ — **shipped 2026-08-20** | Trivial | T-E12 | v0.42.4 |
-| **T-MV1** | ~~`assertSessionViable` + `estimateWallClock` in CI~~ — **shipped 2026-08-20** | Standard | specs | `check-session-viability` in `verify` |
-
-**Not this runner:** `srs-session` and card-engine form practice (T-W6) stay on
+| **T-MV1** | ~~`assertSessionViable` + `estimateWallClock` in CI~~ — **shipped 2026-08-20** | Standard | specs | `check-session-viability` in `verify` | `srs-session` and card-engine form practice (T-W6) stay on
 `/words/review`.
 
-### Track B · Method viability and session budget (study/42) — specced 2026-08-19
+### Track B · Method viability and session budget (study/42, study/45) — specced 2026-08-19
 
 **Problem:** several shipped methods fail usefulness gates — `build-a-sentence`
-(~3 min, no correction) and menu `minutes` only filters, does not size sessions.
+(~3 min, no correction). **Owner correction 2026-08-20:** menu `minutes` must
+**filter only** — fixed duration **packages** (≤ 2) are chosen on method detail;
+`srs-session` is always **15 cards** (no variant chips).
 **Specs:** [`method-session-viability.md`](specs/service/method-session-viability.md),
 [`method-session-budget.md`](specs/service/method-session-budget.md) (draft).
-**Study:** [`study/42-method-usefulness-ux-audit.md`](study/42-method-usefulness-ux-audit.md).
+**Study:** [`study/42-method-usefulness-ux-audit.md`](study/42-method-usefulness-ux-audit.md),
+[`study/45-method-duration-variants.md`](study/45-method-duration-variants.md),
+[`study/46-method-length-and-level-matched-content.md`](study/46-method-length-and-level-matched-content.md).
 
 | ID | Work | Class | Depends on | Done when |
 | --- | --- | --- | --- | --- |
@@ -431,9 +435,52 @@ Cooking-app runner for multi-step Methods (dictation, writing, listening drills)
 | **T-MV3** | ~~Session contract on method detail (budget + volume + feedback)~~ — **shipped 2026-08-20** | Standard | T-MV1 | UC-042 AC |
 | **T-MV4** | `reading-aloud` rubric or record-and-replay | Standard | T-MV1 | G2 pass |
 | **T-MV5** | ~~`lib/exercise-recipe/budget.ts` — budget-driven compose + catalogue validator~~ — **shipped 2026-08-20** | Standard | T-MV1 | G7 gate + allowlist |
-| **T-MV6** | ~~Pass `minutes` from menu through Start URLs~~ — **shipped 2026-08-20** | Standard | T-MV1 | UC-045 AC menu → card → session |
+| **T-MV6** | ~~Pass `minutes` from menu through Start URLs~~ — **shipped 2026-08-20** | Standard | T-MV1 | **Superseded** by owner filter-only decision — see T-MV7 |
+| **T-MV7** | **Filter-only menu time** — decouple `?minutes=` from session compose; duration variant chips on detail (≤ 2); Start uses selected package only | Standard | T-MV3, T-MV5 | [`method-menu.md`](specs/page/method-menu.md) + UC-045 AC; no `minutes` on srs-session Start |
+| **T-MV8** | **Catalogue duration packages** — `srs-session` fixed 15 cards + single filter hint; collapse `durations[]` to ≤ 2 per method; reading uses **full** unit estimate for filter | Standard | T-MV7 | `data/methods/*.json` + tests green |
 
-**Order:** T-MV5 before catalogue `durations[]` changes.
+**Order:** T-MV5 before T-MV8 catalogue edits. T-MV7 before T-MV8.
+
+### Track B · Content ingestion and adaptation (study/48) — specced 2026-08-20
+
+**Problem:** learners want **politics/news at their level** (UC-007, UC-030) and
+**paste-your-own** (UC-029) without copyright traps or runaway LLM cost.
+**Specs:** [`content-ingestion.md`](specs/service/content-ingestion.md),
+[`content-adaptation.md`](specs/service/content-adaptation.md) (draft).
+**Study:** [`study/48-content-licensing-and-adaptation.md`](study/48-content-licensing-and-adaptation.md).
+**Evaluated stories:** [`IDEAS.md`](IDEAS.md) § 2026-08-20 (stories 1–5).
+
+| ID | Work | Class | Depends on | Done when |
+| --- | --- | --- | --- | --- |
+| **T-CI1** | **`Source.licence` on persisted rows** — extend `Source` model + validator; refuse catalogue without `licence.kind` | Standard | T-W9 | `content-ingestion` AC #1; `loadSources` rejects bad catalogue rows |
+| **T-CI2** | **Wikinews ingest (lane B v1)** — allowlisted fetch, CC BY metadata, full body stored | Standard | T-CI1 | Fixture + one live language feed in `data/content/` or DB |
+| **T-CI3** | **T2 adaptation + cache** — `AdaptationCacheKey`, coverage validator loop, nightly batch for catalogue | **Sensitive** | T-CI2, coverage | UC-030 AC; second call cache hit |
+| **T-CI4** | **Adaptation labelling** — source detail + session contract show *adapted for {level}*; link to original | Standard | T-CI3, T-MV3 | UC-007, UC-039 AC |
+| **T-CI5** | **Learner lane consent + T3** — paste/upload opt-in; private storage; optional personal rewrite | **Sensitive** | T-CI1, T-CI3 | UC-029 AC |
+| **T-CI6** | **Generated original news (lane C)** — facts-only graded article when no licence-cleared piece exists | Standard | T-CI3 | `generated: true`; UC-023 reporting |
+| **T-CI7** | **Legal review checklist** — DW/BBC TOS, CC BY-SA display, EU DSM / DE UrhG counsel memo | **Docs / counsel** | — | Blocks T-CI8 production ingest |
+| **T-CI8** | **Partner feeds** — DW *Langsam gesprochene Nachrichten*, BBC Learning English after T-CI7 | Standard | T-CI7 | Lane B partner rows with `partner-tos` |
+
+**Order:** T-CI1 → T-CI2 → T-CI3 → T-CI4; T-CI5 parallel after T-CI3; T-CI6 after
+T-CI3; T-CI8 after T-CI7. **T-MV7** can ship before ingestion — filter-only is
+independent. **T-W10** reading runner pairs with T-CI4 for adapted catalogue text.
+
+#### Open — needs thought before or during build
+
+Not blocking spec merge; must be resolved before scaling lane B or politics at
+level. Detail in study/48 and spec `## Open` sections.
+
+| Topic | Status | Blocks |
+| --- | --- | --- |
+| **Catalogue `targetLevel`** — learner-chosen CEFR band vs inferred skill tier | ⚠ SPEC GAP in `content-adaptation.md` | T-CI3 default level input |
+| **SRS queue &lt; 15 cards** — padding vs shorter honest session | ⚠ SPEC GAP in `method-session-budget.md` | T-MV8 srs-session |
+| **Wikinews first vs lane C generated** for launch politics | Product — owner | T-CI2 vs T-CI6 priority |
+| **Adapted text on Progress** — separate signal vs `calibrationDated` | ⚠ SPEC GAP | T-CI4 + T-B3 |
+| **Politics adaptation review queue** — human spot-check before publish | ⚠ SPEC GAP | T-CI3 at scale |
+| **CC BY-SA share-alike** — how adapted body + attribution display | Legal | T-CI2 Vikidia/Simple |
+| **EU DSM / DE UrhG** — private adaptation vs catalogue redistribution | Legal — counsel | T-CI7, lane B scale |
+| **Form-aware adaptation (held paradigm cells)** | v2 — after form signal | T-CI3 prompt v2 |
+| **Faktencheck for generated lane C** politics copy | Product + editorial | T-CI6 |
 
 ### Track B · Words domain — hygiene, decisions, then stage-2 slices
 
@@ -784,6 +831,30 @@ list, when implementing.
 22. ~~**Incomplete paradigms in form-mastery reporting**~~ **Answered 2026-08-17
     (owner): flag** — `partialParadigmLemmaCount` on Progress; held count unchanged.
     See [`form-mastery-signal.md`](specs/service/form-mastery-signal.md).
+
+**Added 2026-08-20**, from content ingestion/adaptation specs (study/48,
+[`IDEAS.md`](IDEAS.md) stories 1–5). Resolve before T-CI3/T-MV8 scale; cite
+study/48 and the ingestion/adaptation specs when implementing.
+
+24. **Menu time: filter only — owner 2026-08-20.** Slider filters catalogue;
+    session size comes from **detail variant chips** (≤ 2 packages) or fixed
+    card count (`srs-session` = 15). T-MV6 shipped the old pass-through;
+    **T-MV7** implements the correction. See study/45, study/46.
+25. **Reading sessions: full article, never window-cut.** Menu filter uses
+    estimated read time of the **whole body**; session delivers `full` unit.
+    Owner 2026-08-20. See [`material-unit.md`](specs/service/material-unit.md).
+26. **Catalogue news: level adaptation is primary** (not podcast slicing).
+    Lane B ingest + T2 cache; label honestly. Lane C generated fallback is v2.
+    Owner 2026-08-20. See study/48, UC-030.
+27. **Which `targetLevel` drives catalogue adaptation?** Learner-chosen CEFR
+    band (e.g. A2 chip) vs inferred skill tier — **⚠ SPEC GAP** in
+    `content-adaptation.md`. Blocks T-CI3 default.
+28. **SRS when due queue &lt; 15?** Padding with new cards vs honest shorter
+    session — **⚠ SPEC GAP** in `method-session-budget.md`. Blocks T-MV8 copy.
+29. **Launch politics source:** Wikinews ingest (T-CI2) first, or lane C
+    generated (T-CI6) when feeds are thin — product pick.
+30. **Legal before partner feeds:** DW/BBC TOS, CC BY-SA display, EU DSM / DE
+    UrhG — T-CI7 memo before T-CI8 production ingest.
 
 **Added 2026-08-16**, from [study/34](study/34-review-report-and-acknowledgement-ux.md)
 (T-B14a/b/c). Resolve before implementing report popover or DB columns.

@@ -28,10 +28,11 @@ implementation: [`lib/time-scale.ts`](../../../lib/time-scale.ts).
 catalogue **in place** — no full page navigation, no scroll jump to the top. The
 catalogue is already in memory; only method-card links navigate away.
 
-**Session budget (2026-08-19):** the time slider sets **both** which methods fit
-and the default **`budgetMinutes`** passed on Start when the learner opens a
-method from this browse context — contract:
-[`../service/method-session-budget.md`](../service/method-session-budget.md).
+**Time filter only (2026-08-20):** the time slider **filters** which methods fit
+the learner's window — it does **not** set session length. Fixed duration
+**packages** (≤ 2 per method) are chosen on the method detail page before Start.
+Contract: [`../service/method-session-budget.md`](../service/method-session-budget.md);
+study: [`../../study/45-method-duration-variants.md`](../../study/45-method-duration-variants.md).
 
 **Method badges (UX, 2026-08-15):** each card shows a **badge row** — skill
 contribution, evidence label, effort label — above logistics chips (duration,
@@ -87,7 +88,7 @@ stays a Server Component.
 | --- | --- | --- |
 | 0 | Opens `/methods` with no language chosen | Redirects to the picker. Three of the four ways into the app — the confirmation link, OAuth, and simply signing in later — never pass through signup's redirect, so the guard lives on the destination |
 | 1 | Opens `/methods` | Whole catalogue until filters apply; **current standing** appears above the filters when review history can be read |
-| 2 | Moves time slider | URL `?minutes=` updates to the nearest scale step (or `endless`); list shows methods whose shortest variant fits |
+| 2 | Moves time slider | URL `?minutes=` updates to the nearest scale step (or `endless`); list shows methods whose **shortest package** fits — **filter only**, not session sizing |
 | 3 | Taps skill, energy, or refine | List intersects that dimension **without reloading the page**; scroll position preserved |
 | 4 | Opens refine | Optional hands / voice / eyes constraints |
 | 5 | Taps a **card-engine** card (`srs-session`) | Words review opens; card showed **Start** |

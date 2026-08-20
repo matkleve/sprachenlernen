@@ -26,9 +26,11 @@ units: [`../../study/39-material-units-and-listening-defer.md`](../../study/39-m
   **Your own** chips; catalogue preview per topic chip; upload/paste/link **only**
   when Your own is selected; optional **Keep in my library**; Start gating until
   Source + unit resolve.
-- **Out:** free-text topic search; menu card fields; catalogue authoring; LLM
-  generation; RSS sync; runner step UI ([`exercise-runner.md`](exercise-runner.md));
-  gap scheduling ([`content-gap.md`](content-gap.md)).
+- **Out:** free-text topic search; menu card fields; catalogue authoring;
+  RSS sync; runner step UI ([`exercise-runner.md`](exercise-runner.md));
+  gap scheduling ([`content-gap.md`](content-gap.md)). Level adaptation pipeline:
+  [`content-adaptation.md`](../service/content-adaptation.md) (T-CI3); ingest:
+  [`content-ingestion.md`](../service/content-ingestion.md) (T-CI1–T-CI2).
 
 **Reuse: `Chip` (selectable), `Button`, `Field`** — topic chips, intake controls.
 
@@ -39,7 +41,7 @@ Declared per method: `materialTopics: [{ id, labelKey }]`. UI always adds:
 | Chip | `id` | Effect |
 | --- | --- | --- |
 | App picks | `app-pick` | Readiness picks best catalogue Source (comfortable band) |
-| *(method topics)* | e.g. `news`, `environment` | Best catalogue Source tagged with that `id` |
+| *(method topics)* | e.g. `news`, `environment` | Best catalogue Source tagged with that `id`; when below comfortable band, offer **adapt to my level** (T-CI3) |
 | Your own | `own` | Reveals upload / paste / link |
 
 Methods omit the panel when `materialTopics` is absent or empty (`srs-session`).
