@@ -102,13 +102,8 @@ stays a Server Component.
 | --- | --- | --- |
 | 0 | Opens `/methods` with no language chosen | Redirects to the picker. Three of the four ways into the app — the confirmation link, OAuth, and simply signing in later — never pass through signup's redirect, so the guard lives on the destination |
 | 1 | Opens `/methods` | Whole catalogue until filters apply; **current standing** appears above the filters when review history can be read |
-<<<<<<< HEAD
 | 2 | Moves time slider | URL `?minutes=` updates to the nearest scale step (or `endless`); list shows methods whose **shortest package** fits — **filter only**, not session sizing |
-| 3 | Taps skill, energy, or refine | List intersects that dimension **without reloading the page**; scroll position preserved |
-=======
-| 2 | Moves time slider | URL `?minutes=` updates to the nearest scale step (or `endless`); list shows methods whose shortest variant fits |
 | 3 | Taps skill, energy, or refine | Selected pills toggle on/off (multi-select per dimension); list intersects **without reloading the page**; scroll position preserved |
->>>>>>> 980f6ac (feat(method-menu): icons and multi-select filter chips)
 | 4 | Opens refine | Optional hands / voice / eyes constraints |
 | 5 | Taps a **card-engine** card (`srs-session`) | Words review opens; card showed **Start** |
 | 6 | Taps an **exercise-runner** or other card | Method overview (detail) opens; runnable cards showed **Start**, others **Info** |
