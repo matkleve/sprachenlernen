@@ -1,5 +1,6 @@
 import type { MethodEntry } from "@/lib/method-catalogue";
 import { hasExerciseRecipe } from "@/lib/exercise-recipe-built";
+import { resolveSessionBudgetMinutes } from "@/lib/method-session-budget";
 import { type ReviewDeck, parseReviewDeck } from "@/lib/review-deck";
 import { routes } from "@/lib/routes";
 
@@ -69,6 +70,27 @@ export function detailHrefForMethod(method: MethodEntry, returnQuery = ""): stri
   return `/methods/${method.id}${returnQuery}`;
 }
 
+function sessionBudgetFromReturnQuery(
+  durations: MethodEntry["durations"],
+  returnQuery: string,
+): number | undefined {
+  if (!returnQuery) return undefined;
+  const normalized = returnQuery.startsWith("?") ? returnQuery.slice(1) : returnQuery;
+  if (!normalized) return undefined;
+  const minutes = new URLSearchParams(normalized).get("minutes") ?? undefined;
+  return resolveSessionBudgetMinutes(durations, minutes);
+}
+
+function resolvedCardBudgetMinutes(
+  method: MethodEntry,
+  returnQuery: string,
+): number | undefined {
+  return (
+    sessionBudgetFromReturnQuery(method.durations, returnQuery) ??
+    resolveSessionBudgetMinutes(method.durations, undefined)
+  );
+}
+
 /** Whether the method menu card opens a session directly. */
 export function isRunnableFromMenu(method: MethodEntry): boolean {
   return usesWordsReview(method) || usesExerciseRunner(method);
@@ -84,7 +106,9 @@ export function cardDestinationMarker(method: MethodEntry): CardDestinationMarke
 /** Menu card destination: card engine opens session; everything else opens overview. */
 export function cardHrefForMethod(method: MethodEntry, returnQuery = ""): string {
   if (usesWordsReview(method)) {
-    return sessionHrefForMethod(method);
+    return sessionHrefForMethod(method, {
+      budgetMinutes: resolvedCardBudgetMinutes(method, returnQuery),
+    });
   }
   return detailHrefForMethod(method, returnQuery);
 }

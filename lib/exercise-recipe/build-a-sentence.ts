@@ -1,7 +1,11 @@
 import { poolForActiveLanguage } from "@/lib/db/learner-pools";
+import {
+  budgetProfileForMethod,
+  itemCountForBudgetMinutes,
+} from "@/lib/exercise-recipe/budget";
 import type { SessionContext } from "@/lib/exercise-recipe/types";
-import { pickSentenceTarget } from "@/lib/exercise-recipe/sentence-target";
-import type { ExerciseRecipe } from "@/lib/exercise-runner/types";
+import { pickSentenceTargets } from "@/lib/exercise-recipe/sentence-target";
+import type { ExerciseRecipe, ExerciseStep } from "@/lib/exercise-runner/types";
 import { loadMeaningRecallDeck } from "@/lib/starter-deck";
 
 async function meaningRecallCardsForPractice(): Promise<readonly import("@/lib/starter-deck").StarterCard[]> {
@@ -21,25 +25,21 @@ export function composeBuildASentenceRecipe(
   cards: readonly import("@/lib/starter-deck").StarterCard[],
   ctx: SessionContext,
 ): ExerciseRecipe | null {
-  const target = pickSentenceTarget(cards, ctx.heldLemmas);
-  if (!target) return null;
+  const profile = budgetProfileForMethod("build-a-sentence");
+  const budgetMinutes = ctx.budgetMinutes ?? 3;
+  const itemCount = profile
+    ? itemCountForBudgetMinutes(budgetMinutes, profile)
+    : 3;
+  const targets = pickSentenceTargets(cards, ctx.heldLemmas ?? new Set(), itemCount);
+  if (targets.length === 0) return null;
 
-  return {
-    methodId: "build-a-sentence",
-    sourceId: target.taskId,
-    steps: [
+  const steps: ExerciseStep[] = [];
+
+  targets.forEach((target, index) => {
+    const suffix = targets.length > 1 ? ` (${index + 1}/${targets.length})` : "";
+    steps.push(
       {
-        id: "prepare-1",
-        type: "prepare",
-        component: "checklist",
-        labelKey: "stepLabelHowItWorks",
-        config: {
-          introKey: "introBuildASentence",
-          itemKeys: ["prepareItemKeyboard", "prepareItemTargetLang"],
-        },
-      },
-      {
-        id: "write-1",
+        id: `write-${index + 1}`,
         type: "do",
         component: "type-with-word",
         labelKey: "stepLabelWrite",
@@ -47,29 +47,40 @@ export function composeBuildASentenceRecipe(
           word: target.word,
           gloss: target.gloss,
           lemma: target.lemma,
+          itemIndex: index + 1,
+          itemCount: targets.length,
+          labelSuffix: suffix,
         },
       },
       {
-        id: "review-1",
+        id: `review-${index + 1}`,
         type: "review",
         component: "reveal-answer",
         labelKey: "stepLabelCompare",
         config: {
           word: target.word,
           gloss: target.gloss,
+          honestyKey: "revealAnswerDefault",
         },
       },
-      {
-        id: "decide-1",
-        type: "decide",
-        component: "offers",
-        labelKey: "stepLabelDecide",
-        config: {
-          offers: ["Schedule this word for review"],
-          declineLabel: "Not now — done",
-        },
-      },
-    ],
+    );
+  });
+
+  steps.push({
+    id: "decide-1",
+    type: "decide",
+    component: "offers",
+    labelKey: "stepLabelDecide",
+    config: {
+      offers: ["Schedule this word for review"],
+      declineLabel: "Not now — done",
+    },
+  });
+
+  return {
+    methodId: "build-a-sentence",
+    sourceId: targets[0]!.taskId,
+    steps,
   };
 }
 

@@ -40,7 +40,7 @@ const METHOD_BUDGET_PROFILES: Record<string, MethodBudgetProfile> = {
   "build-a-sentence": {
     family: "item-loop",
     secPerItem: 75,
-    minItems: 1,
+    minItems: 3,
     maxItems: 5,
   },
   "free-production": { family: "timed-write", chromeOverheadSec: RUNNER_CHROME_OVERHEAD_SEC },
@@ -67,6 +67,7 @@ const FEEDBACK_COMPONENTS = new Set([
   "feedback",
   "rubric",
   "comprehension-questions",
+  "reveal-answer",
 ]);
 
 const PRODUCTION_COMPONENTS = new Set([
@@ -150,4 +151,20 @@ export function isWithinBudgetTolerance(
 export function cardCountForBudgetMinutes(budgetMinutes: number): number {
   const activeSec = budgetMinutes * 60 - CARD_CHROME_OVERHEAD_SEC;
   return Math.max(1, Math.round(activeSec / SEC_PER_CARD));
+}
+
+const FEEDBACK_SEC_PER_LOOP = 60;
+
+/** Item-loop methods: do + review feedback per target word. */
+export function itemCountForBudgetMinutes(
+  budgetMinutes: number,
+  profile: MethodBudgetProfile,
+): number {
+  const chrome = profile.chromeOverheadSec ?? RUNNER_CHROME_OVERHEAD_SEC;
+  const activeSec = Math.max(0, budgetMinutes * 60 - chrome);
+  const loopSec = (profile.secPerItem ?? 75) + FEEDBACK_SEC_PER_LOOP;
+  const raw = loopSec > 0 ? Math.floor(activeSec / loopSec) : 0;
+  const min = profile.minItems ?? 1;
+  const max = profile.maxItems ?? 5;
+  return Math.min(max, Math.max(min, raw));
 }

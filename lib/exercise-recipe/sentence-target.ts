@@ -49,21 +49,28 @@ export function pickProductionHints(
   };
 }
 
-export function pickSentenceTarget(
+function meaningRecallCandidates(
   cards: readonly StarterCard[],
-  heldLemmas: ReadonlySet<string> = new Set(),
-): SentenceTarget | null {
+  heldLemmas: ReadonlySet<string>,
+): StarterCard[] {
   const meaningCards = cards.filter((card) => isMeaningRecallTaskId(card.taskId));
-  if (meaningCards.length === 0) return null;
+  if (meaningCards.length === 0) return [];
 
   const held = meaningCards.filter((card) => heldLemmas.has(card.lemma));
   const learningBand = meaningCards.filter(
     (card) =>
       card.frequencyRank >= LEARNING_RANK_MIN && card.frequencyRank <= LEARNING_RANK_MAX,
   );
-  const candidates = held.length > 0 ? held : learningBand.length > 0 ? learningBand : meaningCards;
+  return held.length > 0 ? held : learningBand.length > 0 ? learningBand : meaningCards;
+}
 
-  const sorted = [...candidates].sort((left, right) => left.frequencyRank - right.frequencyRank);
+export function pickSentenceTarget(
+  cards: readonly StarterCard[],
+  heldLemmas: ReadonlySet<string> = new Set(),
+): SentenceTarget | null {
+  const sorted = [...meaningRecallCandidates(cards, heldLemmas)].sort(
+    (left, right) => left.frequencyRank - right.frequencyRank,
+  );
   const card = sorted[0];
   if (!card) return null;
 
@@ -73,4 +80,34 @@ export function pickSentenceTarget(
     word: card.front,
     gloss: englishGlossForCard(card),
   };
+}
+
+/** Distinct lemmas, frequency order — used by build-a-sentence batch compose. */
+export function pickSentenceTargets(
+  cards: readonly StarterCard[],
+  heldLemmas: ReadonlySet<string> = new Set(),
+  count: number,
+): SentenceTarget[] {
+  if (count < 1) return [];
+
+  const sorted = [...meaningRecallCandidates(cards, heldLemmas)].sort(
+    (left, right) => left.frequencyRank - right.frequencyRank,
+  );
+
+  const seen = new Set<string>();
+  const targets: SentenceTarget[] = [];
+
+  for (const card of sorted) {
+    if (seen.has(card.lemma)) continue;
+    seen.add(card.lemma);
+    targets.push({
+      taskId: card.taskId,
+      lemma: card.lemma,
+      word: card.front,
+      gloss: englishGlossForCard(card),
+    });
+    if (targets.length >= count) break;
+  }
+
+  return targets;
 }
