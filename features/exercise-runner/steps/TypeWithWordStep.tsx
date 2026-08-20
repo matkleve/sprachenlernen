@@ -2,7 +2,7 @@
 
 import { useTranslations } from "next-intl";
 
-import { Field } from "@/components/ui/Field";
+import { practiceLeadClass } from "@/features/exercise-runner/practice-surface/PracticeSurface";
 import { Textarea } from "@/components/ui/Input";
 
 type TypeWithWordStepProps = {
@@ -22,7 +22,7 @@ export function TypeWithWordStep({ config, value, onTextChange }: TypeWithWordSt
 
   return (
     <div className="space-y-4 max-md:space-y-2">
-      <p className="text-xl font-medium leading-snug text-ink max-md:text-base">
+      <p className={practiceLeadClass}>
         {t("typeWithWordPrompt", { word })}
       </p>
       {gloss ? (

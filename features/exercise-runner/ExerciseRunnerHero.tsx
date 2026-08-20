@@ -27,7 +27,7 @@ export function ExerciseRunnerMobileStrip({
         "flex h-[var(--height-practice-mobile-header)] shrink-0 items-center justify-between gap-2 md:hidden",
       )}
     >
-      <p className="min-w-0 truncate text-sm font-medium text-ink">
+      <p className="min-w-0 truncate text-base font-semibold text-ink">
         {stepLabel ?? "\u00a0"}
       </p>
       <Button

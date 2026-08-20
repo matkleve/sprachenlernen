@@ -6,7 +6,9 @@ import {
   PracticePrepList,
   type PracticePrepEntry,
 } from "@/features/exercise-runner/practice-surface/PracticePrepList";
+import { practiceLeadClass } from "@/features/exercise-runner/practice-surface/PracticeSurface";
 import type { StepRenderProps } from "@/features/exercise-runner/steps/types";
+import { cn } from "@/lib/utils";
 
 function readItemKeys(config: Record<string, unknown>): string[] {
   if (!Array.isArray(config.itemKeys)) return [];
@@ -34,7 +36,7 @@ export function ChecklistStep({ step }: Pick<StepRenderProps, "step">) {
   return (
     <div className="space-y-4">
       {introKey ? (
-        <p className="text-lg font-medium leading-snug text-ink max-md:text-sm max-md:line-clamp-2">
+        <p className={cn(practiceLeadClass, "max-md:line-clamp-3")}>
           {t(introKey as "introBuildASentence")}
         </p>
       ) : null}

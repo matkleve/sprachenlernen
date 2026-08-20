@@ -24,7 +24,7 @@ Parent: [`exercise-runner.md`](exercise-runner.md).
 
 | Layer | Owner components | Density |
 | --- | --- | --- |
-| Chrome top (mobile) | `ExerciseRunnerMobileStrip` | Step label + stop — **no hero image** |
+| Chrome top (mobile) | `ExerciseRunnerMobileStrip` | Step label `text-base font-semibold` + stop |
 | Chrome top (desktop) | `ExerciseRunnerHero` | 5rem belt + metadata |
 | Chrome bottom | `ExerciseRunnerProgressBar`, `ExerciseRunnerFooter` | Segmented bars; mobile: bars only + one control row |
 | Surface | `PracticeSurface`, `PracticePrepList`, step components | `text-base` on `< md`; `text-lg` on `md+` |
@@ -38,7 +38,7 @@ Applied via `PracticeSurface` wrapper — not new CSS color tokens.
 
 | Role | Classes |
 | --- | --- |
-| Lead prompt | `text-xl font-medium leading-snug text-ink` |
+| Lead prompt | `practiceLeadClass`: `text-xl font-medium` desktop; `text-base font-semibold` mobile — reads above prep rows |
 | Body | `text-lg leading-relaxed text-ink` |
 | Secondary | `text-base text-muted` |
 | Prep row | `min-h-11` flex row — **no row border**; label left, checkbox right, `items-start`; checked: `bg-accent-soft` on row |

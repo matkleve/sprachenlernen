@@ -2,7 +2,7 @@
 
 import { useTranslations } from "next-intl";
 
-import { Field } from "@/components/ui/Field";
+import { practiceLeadClass } from "@/features/exercise-runner/practice-surface/PracticeSurface";
 import { Textarea } from "@/components/ui/Input";
 import type { StepRenderProps } from "@/features/exercise-runner/steps/types";
 
@@ -44,7 +44,7 @@ export function TimedWriteStep({
   return (
     <div className="space-y-4 max-md:space-y-2">
       {prompt ? (
-        <p className="text-xl font-medium leading-snug text-ink max-md:text-base">{prompt}</p>
+        <p className={practiceLeadClass}>{prompt}</p>
       ) : null}
       {durationSec > 0 ? (
         <p className="text-sm text-muted">

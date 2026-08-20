@@ -7,6 +7,10 @@ type PracticeSurfaceProps = {
   className?: string;
 };
 
+/** Lead instruction copy — stands above prep rows and fields. */
+export const practiceLeadClass =
+  "text-xl font-medium leading-snug text-ink max-md:text-base max-md:font-semibold";
+
 /** Task-density wrapper for exercise step content. Contract: practice-surface.md */
 export function PracticeSurface({ children, className }: PracticeSurfaceProps) {
   return (
