@@ -13,7 +13,8 @@ Split child of [`method-material-setup.md`](method-material-setup.md).
       copy appears before Start is enabled.
 - [x] AC-6 · Given a catalogue topic chip with zero Sources, when rendered, then
       the chip is disabled or shows empty-state — **no** upload field under it.
-- [x] AC-7 · Given keep unchecked after own material, when the session ends, then
-      no new `/content` row appears (ephemeral cookie until saved via T-W9).
+- [ ] Given learner upload below comfortable band with consent, when adaptation
+      completes, then preview shows **~N min** and Start enables — no Start during
+      processing.
 - [x] AC-9 · Given a method with `materialTopics`, when detail renders, then topic
       chips and Start appear **above** `trains` prose — not below the article body.

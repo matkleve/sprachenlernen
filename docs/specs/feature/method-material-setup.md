@@ -57,11 +57,24 @@ When `materialUnits` is declared, show the resolved slice before Start:
 | --- | --- |
 | Unit label | *One sentence* · *One paragraph* · *5 min listening* · *Full text* |
 | Coverage | *94 % known · comfortable* |
-| Time | Method duration hint + unit estimate |
+| Time | **Wall estimate after resolve** — e.g. *~20 min · full text* (owner 2026-08-20) |
+| Adaptation | When coverage &lt; 95 %, run adaptation **before** estimate + Start (with consent for own material) |
 
 Learner may switch unit when the method lists more than one (chip or compact
 select). Resolved unit id is passed on Start (`unitId`, optional `durationSec`
 for `window`).
+
+### Learner upload path (UC-029)
+
+| Step | UI |
+| --- | --- |
+| Paste / upload / link | Intake controls visible |
+| Processing | Spinner — adapt to inferred level if needed (T-CI5) |
+| Ready | Preview: coverage %, adaptation label if any, **~N min** read time |
+| Start | Enabled only when ready — session contract matches preview |
+
+No Start while length is unknown. If adaptation fails, honest error — not a blind
+Start into a 40-minute wall.
 
 ## Behavior
 
@@ -72,9 +85,9 @@ for `window`).
 | 3 | Taps a catalogue topic chip | Filters Sources by topic `id`; preview with coverage % |
 | 4 | Topic has no catalogue Sources | Chip disabled or empty-state; suggests **Your own** |
 | 5 | Taps **Your own** | Upload / paste / link appear; catalogue preview hidden |
-| 6 | Parses own material &lt; 95 % | Support-ladder preview; Start enabled when parsed |
+| 6 | Parses own material &lt; 95 % | Adapt (with consent) then preview with **~N min**; Start when estimate known |
 | 7 | Checks **Keep in my library** (own only) | On Start, persists `learner` Source to `/content` |
-| 8 | Taps Start | Navigates to `/practice?method=…` with `sourceId`, `topicId`, `unitId`, optional `durationSec`, optional `supportRung`, **`minutes` when budget selected** |
+| 8 | Taps Start | Navigates when contract shown — `/practice?method=…` with resolved params |
 | 9 | Method without `materialTopics` | No panel; Start as today |
 
 ## States

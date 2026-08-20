@@ -857,12 +857,18 @@ study/48 and the ingestion/adaptation specs when implementing.
     sound. UC-023 remains the safety valve.
 32. **Lane C fact-check** — **Answered 2026-08-20 (owner): no** — honesty label
     only (*not the original* / *generated*); no pre-publish editorial desk v1.
-33. **Adapted text on Progress** — **Answered 2026-08-20 (default from owner Q8):**
-    source-level coverage on `/content/[id]` yes; language-wide level claims
-    unchanged (`calibrationDated`). See `content-adaptation.md` Labelling table.
-34. **Build order T-MV7 vs T-CI** — **Default (no objection):** T-MV7 filter-only
-    and T-MV8 catalogue packages **before** T-CI2 ingest — small UX fix, no
-    dependency on news pipeline.
+33. ~~**Adapted text on Progress**~~ **Answered 2026-08-20 (owner, corrected):**
+    adapted reading **counts toward the reading skill pool** like authentic input;
+    source detail still labels *adapted*. Audit via `adapted: true` on history rows
+    — not exclusion from skill signal.
+34. ~~**Build order T-MV7 vs T-CI**~~ **Answered 2026-08-20:** T-MV7 → T-MV8
+    before T-CI2.
+35. **Wall time before Start on resolved material** — **Answered 2026-08-20
+    (owner):** learner upload and source-bound methods (reading, word-insert /
+    translate on a passage) must **adapt if needed → show ~N min on detail →
+    then** Start. Menu filter uses that estimate; no surprise 40 vs 20 min
+    after tap. See [`method-session-budget.md`](specs/service/method-session-budget.md)
+    § Resolved material, [`method-material-setup.md`](specs/feature/method-material-setup.md).
 
 **Added 2026-08-16**, from [study/34](study/34-review-report-and-acknowledgement-ux.md)
 (T-B14a/b/c). Resolve before implementing report popover or DB columns.
