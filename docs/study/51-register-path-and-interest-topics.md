@@ -1,11 +1,16 @@
 # 51 · Register path + interest topics — full immersion, not a sprinkle
 
 **Status:** study only — no implementation.  
+**⚠ Mix ratio superseded by [52](52-register-mix-ratio-calibration.md):** not 15/15
+register cards; **2–3 per session** + spine + register sentences on all cards.
+
 **Owner correction (2026-08-20, evening):** Studies [49](49-learner-intent-onboarding.md) and
 [50](50-onboarding-popover-timing-and-skill-question.md) assumed the app would
-**mix a few** register-tagged words into the general frequency queue. That is
-**wrong**. When someone chooses **Business**, they should learn and speak **in
-that register** — not get *reunión* between *casa* and *perro*.
+**mix a few** register-tagged words into the general frequency queue. That felt
+too weak. A first correction made session 1 **all register** — **also wrong**
+([52](52-register-mix-ratio-calibration.md)). **Locked rule:** ~**2–3 register
+cards per 15-card session** + basics spine + register-shaped sentences on every
+card; **no decay**.
 
 A second onboarding layer is needed: **interest topics** (Sport, Politik, …)
 from which **news, articles, and example sentences** are drawn.
@@ -175,7 +180,7 @@ Lesen: adaptierte Artikel zu Sport & Wirtschaft.
 | Layer | Old (study 49 boost) | **New (register path)** |
 | --- | --- | --- |
 | Card queue | Global frequency + 1.25× sprinkle | **`registerPath` ordered list** for chosen register |
-| Session 1 | Ranks 1–15 global + 4 boosted | Ranks 1–15 **within Business path** |
+| Session 1 | Ranks 1–15 **within Business path** | **2–3 register + 12–13 spine** ([52](52-register-mix-ratio-calibration.md)) |
 | Example sentence on card | Generic or random | **From register + interest corpus** |
 | G1 reason | "Boosted: Business" | **"Business path · Wort 7/200"** |
 | Form recall | Same staging | Forms practiced in **register sentences** |
