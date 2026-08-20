@@ -19,6 +19,14 @@ cards with `methodSectionSurface` + header graphics; uppercase section labels;
 short stat faces with definitions in a collapsed disclosure — not repeated on
 every tile. Study/27 card-density rationale applied to vocabulary stats.
 
+**UX (2026-08-20):** Words is a **flashcard stack**, not a deck picker. One
+**Start review** action opens `srs-session` with `deck=mixed` (default — no
+`deck` query). Meaning-recall and form-recall cards share the same flip-and-grade
+interaction ([`review-session.md`](review-session.md)). Form-only sessions
+(`deck=form`) are **not** offered on this page — learners reach them from
+Progress weak-pattern links ([UC-062](../../use-cases/UC-062-see-what-is-holding-my-level-back.md))
+or hosted Methods on `/methods` ([UC-078](../../use-cases/UC-078-practise-forms-without-mixed-review.md)).
+
 **Not the home for all Methods.** Words shows card-engine material only
 ([`method-engines.md`](../service/method-engines.md)). The catalogue's
 reading, listening, speaking, and off-app Methods are reached from `/methods`.
@@ -42,10 +50,8 @@ reading, listening, speaking, and off-app Methods are reached from `/methods`.
   session-length picker; choosing a method other than a built card-engine Method
   from this page; holdings or horizon for Methods without a card engine;
   form-recall progress (that's [`form-mastery-signal.md`](../service/form-mastery-signal.md),
-  on Progress). **Forms section card** and `deck=form` review entry
-  ([UC-078](../../use-cases/UC-078-practise-forms-without-mixed-review.md)) —
-  T-W20. Horizon presentation detail lives in
-  [`review-horizon.md`](review-horizon.md).
+  on Progress); **`deck=form` entry on this page** (Progress / Methods only).
+  Horizon presentation detail lives in [`review-horizon.md`](review-horizon.md).
 
 **Reuse: `Button`, `Table`, `Disclosure`** — list popover and detail patterns.
 **Reuse: `MethodCardHeader`, `methodSectionSurface`** — vocabulary section card
@@ -55,9 +61,8 @@ shell and header graphic ([`method-card-header.md`](../component/method-card-hea
 
 | # | User action | System response |
 | --- | --- | --- |
-| 1 | Opens `/words` | Canvas intent copy; one **Review** card with a primary **Start review** action and an **icon-only** forms entry when the language profile declares inflection (pen icon, `aria-label` only); vocabulary counts in a raised vocabulary-section card (header graphic, caption, lemma callout, three stat tiles with numbers only, collapsed count definitions); frequency bands with held/fragile/new (or holes in the core band) per band; horizon and orbit with uppercase section labels |
-| 2 | Taps Start review | Navigates to `/words/review?method=srs-session&deck=meaning` |
-| 2b | Taps the forms icon (when shown) | Navigates to `/words/review?method=srs-session&deck=form` |
+| 1 | Opens `/words` | Canvas intent copy; one **Review** card with **Start review** (mixed deck); when the language profile declares inflection, a collapsed **paradigm cell** callout below the action explains form cards in the stack; vocabulary counts in a raised vocabulary-section card (header graphic, caption, lemma callout, three stat tiles with numbers only, collapsed count definitions); frequency bands with held/fragile/new (or holes in the core band) per band; horizon and orbit with uppercase section labels |
+| 2 | Taps Start review | Navigates to `/words/review?method=srs-session` — `deck=mixed` (omitted query) |
 | 3 | Taps a segment or **Show list** | See [`vocabulary-orbit.md`](vocabulary-orbit.md) |
 | 4 | Expands or collapses horizon | See [`review-horizon.md`](review-horizon.md) |
 | 5 | History load fails | Error callout; no fake empty snapshot |
@@ -75,14 +80,13 @@ outcomes.
 - [ ] Given a signed-in learner on `/words`, when the page renders, then intent
       copy appears on the canvas above the review card, the review card shows a
       decorative header graphic (`h-24`) with a vocabulary section label on the
-      overlay, **Start review** as the primary action, and no separate forms
-      section card.
-- [ ] Given an inflecting language profile, when `/words` renders, then an
-      icon-only forms link (pen, `aria-label` **Review forms**) appears beside
-      **Start review**, a collapsed paradigm-cell callout sits below the actions,
-      and **no due count** appears.
+      overlay, **Start review** as the only review action, and **no** separate
+      forms section card, forms icon, or mixed/meaning deck picker.
+- [ ] Given an inflecting language profile, when `/words` renders, then a
+      collapsed paradigm-cell callout sits below **Start review** and **no due
+      count** appears.
 - [ ] Given a language profile with little or no inflection, when `/words`
-      renders, then the Forms section card is omitted.
+      renders, then the paradigm-cell callout is omitted.
 - [ ] Given a signed-in learner on `/words`, when the page renders, then held,
       fragile and new appear as stat tiles (label + number only) inside a
       vocabulary-section card with header graphic; per-bucket definitions live in
@@ -93,8 +97,8 @@ outcomes.
       frequency bands name each rank range and show **held, fragile, and new**
       counts per band (core band 1–1000 labels unreviewed words as **holes** —
       the textual equivalent of the orbit map, UC-021), the vocabulary
-      orbit is present, and Start review links to `srs-session` with the correct
-      `deck` query per card.
+      orbit is present, and **Start review** links to `srs-session` without a
+      `deck` query (mixed default).
 - [ ] Given the starter deck, when the page renders, then the horizon is
       present (collapsed or expanded per [`review-horizon.md`](review-horizon.md))
       and the full atlas is reachable via **Show list**.
