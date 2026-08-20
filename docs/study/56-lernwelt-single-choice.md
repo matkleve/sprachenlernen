@@ -54,21 +54,26 @@ Everything flows from that **one** choice:
 
 ---
 
-## W2 · Transparent — nothing hidden
+## W2 · Obvious — do not nag
 
-Every surface names the active world:
+Choosing a **Lernwelt** changes probabilities. The learner **already knows**
+they chose Politik. Re-stating it every session is noise — not transparency.
 
-| Surface | Copy (example) |
+| Show | Do **not** show |
 | --- | --- |
-| Profile | **Lernwelt: Politik** — [ ändern ] |
-| Words session intro | *„Heute lernst du in **Politik** — Sätze und Texte aus dieser Welt.“* |
-| Card G1 / why | *„**Politik** — weil du Politik gewählt hast“* |
-| Method detail | Chip row defaults to **Politik** sources; other worlds greyed with *„Andere Lernwelt“* |
-| Switch world | Preview **before** save: *„Ab morgen: Natur. Politik-Wörter bleiben im Stapel.“* |
+| **Profile:** active Lernwelt + change control | Session intro *„Heute lernst du in Politik…“* |
+| **Once** when switching worlds (confirmation) | G1 on every card *„Politik — weil du…“* |
+| Method chips if user **overrides** world for one run | Banner on Home every open |
 
-**Withdraw:** `situation:*` as hidden metadata. If we ever add **Situation**, it is
-a **visible sub-label inside one world** (e.g. Politik → *Wahlen* vs *EU*) — learner
-sees it, or it does not exist.
+**Transparency** here means: choice is **real** (content actually shifts), you
+can **change** it in Profile, switch preview is honest about kept lemmas — **not**
+labelling every card with the setting you picked on day one.
+
+If the learner asks *why this sentence?* — optional disclosure in G1 **only then**,
+or a single *„Mehr aus deiner Lernwelt“* filter in Words — not default spam.
+
+**Withdraw** all copy patterns from W2 table in the 2026-08-20 draft of this
+chapter (session intro, per-card G1 world tag).
 
 ---
 
@@ -126,15 +131,15 @@ In welcher Welt willst du die Sprache lernen?
 
 Politik example:
 
-> Beispiel-Satz: *El parlamento debatió la nueva ley.*  
-> Lesen: kurze Nachrichten zu Politik — auf deinem Niveau.
+> Beispiel-Satz: *El parlamento debatió la nueva ley.*
 
 Natur example:
 
-> Beispiel-Satz: *Regamos las plantas cada mañana.*  
-> Lesen: Texte über Natur und Garten.
+> Beispiel-Satz: *Regamos las plantas cada mañana.*
 
-**No second axis.** No hidden tags.
+One line only — **no** *„ab jetzt immer Politik“*. They will feel it in content.
+
+**No second axis.** No hidden tags. **No ongoing labels** after onboarding.
 
 ---
 
@@ -192,4 +197,5 @@ remain as **history**; **W1–W6** is the current owner-aligned model.
 | ⬤ | Two-axis register+topic produced incoherent combos | [D] — owner 2026-08-20 |
 | ⬤ | Hidden personalization violates trust thesis | [D] — [04](04-flashcards-srs.md) |
 | ⬤ | Duolingo path ≠ our FSRS spine | [A] — [01](01-duolingo.md) D2 |
-| ⬤ | One primary learner choice, visibly wired | [D] — owner 2026-08-20 |
+| ⬤ | Do not repeat the setting the user already chose | [D] — owner 2026-08-20 |
+| ⬤ | Personalization works via weights, not copy | [D] — owner 2026-08-20 |
