@@ -62,7 +62,7 @@ the primary CTA — not under the hero belt.
 | Primary action in thumb zone, 48px+ | Mobile wizard guides | Footer primary `lg` |
 | **Larger controls inside the task** | Duolingo, Brilliant, Khan | **Practice surface scale** |
 | **No scroll on short steps** | Khan lesson cards | **Fit-frame** profile |
-| 3:1 non-text contrast on controls | WCAG 1.4.11 | `line-strong` borders on prep rows |
+| 3:1 non-text contrast on controls | WCAG 1.4.11 | `line-strong` border on checkbox marker (not row card) |
 | Chrome vs content separation | Material “display” vs “body” | Two layers, two density rules |
 
 Duolingo is not the spec — **confidence and legibility under stress** is. Learners
@@ -88,8 +88,10 @@ primitives — never raw app-scale fields for the main task.
 ## Practice surface rules
 
 1. **Lead copy** — `text-lg`, `leading-snug`, `text-ink`. One block per step.
-2. **Interactive rows** — min height 44px (`min-h-11`), `border-line-strong`,
-   `p-3`. Whole row toggles when checkbox.
+2. **Interactive rows** — min height 44px (`min-h-11`), no row border; label left,
+   checkbox right, top-aligned to first line; row `bg-accent-soft` when checked.
+   WCAG 1.4.11 contrast lives on the **checkbox marker** (`border-line-strong`), not
+   a card border.
 3. **Primary fields** — `Field` + `Textarea`, 3 rows default in short steps.
 4. **No fake checkboxes** — 2px `line-strong`, 24px box.
 5. **i18n** — recipe carries `itemKeys` / `introKey`; no English in recipe JSON.

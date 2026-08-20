@@ -6,7 +6,7 @@ import { PracticePrepList } from "@/features/exercise-runner/practice-surface/Pr
 import { PracticeSurface } from "@/features/exercise-runner/practice-surface/PracticeSurface";
 
 describe("practice surface", () => {
-  it("renders prep rows with strong borders", () => {
+  it("renders prep rows without a row border and checkbox on the right", () => {
     const { container } = render(
       <PracticePrepList
         entries={[
@@ -17,8 +17,31 @@ describe("practice surface", () => {
     );
     expect(screen.getByText("Keyboard ready")).toBeDefined();
     const row = container.querySelector("label");
-    expect(row?.className).toContain("border-line-strong");
     expect(row?.className).toContain("min-h-11");
+    expect(row?.className).not.toContain("border-line-strong");
+    expect(row?.className).not.toContain("shadow-soft");
+
+    const text = screen.getByText("Keyboard ready");
+    const marker = row?.querySelector("[aria-hidden]");
+    expect(marker?.compareDocumentPosition(text)).toBe(Node.DOCUMENT_POSITION_PRECEDING);
+  });
+
+  it("top-aligns the checkbox with multi-line label text", () => {
+    const { container } = render(
+      <PracticePrepList
+        entries={[
+          {
+            id: "target",
+            label: "In Ihrer Zielsprache schreiben — nicht auf Englisch",
+          },
+        ]}
+      />,
+    );
+
+    const row = container.querySelector("label");
+    expect(row?.className).toContain("items-start");
+    const marker = row?.querySelector("[aria-hidden]");
+    expect(marker?.className).toContain("self-start");
   });
 
   it("toggles a prep row when the learner checks it", async () => {

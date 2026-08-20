@@ -41,15 +41,15 @@ Applied via `PracticeSurface` wrapper — not new CSS color tokens.
 | Lead prompt | `text-xl font-medium leading-snug text-ink` |
 | Body | `text-lg leading-relaxed text-ink` |
 | Secondary | `text-base text-muted` |
-| Prep row | `min-h-11 rounded-card border border-line-strong bg-surface p-3 shadow-soft` — toggles to `border-accent bg-accent-soft` when checked |
-| Prep checkbox | Native `input` (visually hidden); marker `size-6 border-2 border-line-strong`, filled `accent-deep` + check icon when checked |
+| Prep row | `min-h-11` flex row — **no row border**; label left, checkbox right, `items-start`; checked: `bg-accent-soft` on row |
+| Prep checkbox | Right end of row, `self-start` (first line); native `input` (visually hidden); marker `size-6 border-2 border-line-strong`, filled `accent-deep` + check when checked |
 
 ## Behaviour
 
 | # | Element | Rule |
 | --- | --- | --- |
 | 1 | Step body | Wrapped in `PracticeSurface` |
-| 2 | Prepare checklist | `PracticePrepList` — learner can check each row; does not gate **Weiter** |
+| 2 | Prepare checklist | `PracticePrepList` — label left, checkbox right, top-aligned; optional row `bg-accent-soft` when checked; does not gate **Weiter** |
 | 3 | Runner footer | `border-t border-line` only — no `bg-surface` panel on `canvas` |
 | 4 | Primary CTA | `Button` `lg` desktop; `h-10` mobile; bottom-right with nav on one row on phone |
 | 5 | New step UI | Must use practice-surface primitives before app-scale fields |

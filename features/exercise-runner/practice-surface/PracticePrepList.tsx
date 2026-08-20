@@ -21,8 +21,8 @@ type PracticePrepListProps = {
 };
 
 /**
- * Large prep rows with real checkboxes — whole row toggles. Contract:
- * docs/specs/feature/practice-surface.md
+ * Prep checklist rows — label left, checkbox right, top-aligned to first line.
+ * Contract: docs/specs/feature/practice-surface.md
  */
 export function PracticePrepList({ entries, className }: PracticePrepListProps) {
   const [checked, setChecked] = useState<Readonly<Record<string, boolean>>>({});
@@ -41,14 +41,12 @@ export function PracticePrepList({ entries, className }: PracticePrepListProps) 
           <li key={entry.id}>
             <label
               className={cn(
-                "flex min-h-11 items-start gap-3 rounded-card border p-3 shadow-soft",
-                "max-md:gap-2 max-md:p-2",
+                "flex min-h-11 items-start gap-3 rounded-card py-2",
+                "max-md:gap-2 max-md:py-1.5",
                 touchTarget,
                 interactiveCursor,
                 focusRing,
-                isChecked
-                  ? "border-accent bg-accent-soft"
-                  : "border-line-strong bg-surface",
+                isChecked && "bg-accent-soft",
               )}
             >
               <input
@@ -57,9 +55,12 @@ export function PracticePrepList({ entries, className }: PracticePrepListProps) 
                 onChange={() => toggle(entry.id)}
                 className="sr-only"
               />
+              <span className="min-w-0 flex-1 text-base leading-snug text-ink max-md:text-sm">
+                {entry.label}
+              </span>
               <span
                 className={cn(
-                  "mt-0.5 flex size-6 shrink-0 items-center justify-center rounded-md border-2",
+                  "flex size-6 shrink-0 items-center justify-center self-start rounded-md border-2",
                   isChecked
                     ? "border-accent-deep bg-accent-deep text-accent-ink"
                     : "border-line-strong bg-surface",
@@ -68,7 +69,6 @@ export function PracticePrepList({ entries, className }: PracticePrepListProps) 
               >
                 {isChecked ? <Check className="size-4" strokeWidth={3} /> : null}
               </span>
-              <span className="text-base leading-snug text-ink max-md:text-sm">{entry.label}</span>
             </label>
           </li>
         );
