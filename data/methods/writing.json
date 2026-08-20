@@ -6,7 +6,7 @@
       "name": "Build a sentence with a target word",
       "summary": "Write one sentence that uses a given word",
       "type": "method",
-      "trains": "production recall",
+      "trains": "putting a word to use yourself",
       "skills": [
         "writing"
       ],
@@ -30,10 +30,10 @@
     },
     {
       "id": "free-production",
-      "name": "Free production",
+      "name": "Writing freely",
       "summary": "Write freely on a prompt, with nothing to copy from",
       "type": "method",
-      "trains": "unprompted production, and what you are avoiding",
+      "trains": "writing under your own steam — and what you steer around",
       "skills": [
         "writing"
       ],
@@ -56,14 +56,14 @@
         ]
       },
       "offerEveryDays": 7,
-      "doesNotDo": "It cannot make you use what you are dodging. Avoidance is what it reveals, not what it repairs."
+      "doesNotDo": "It cannot make you use what you are dodging. Steering around a word is what it reveals, not what it repairs."
     },
     {
       "id": "diary-three-sentences",
       "name": "Diary, three sentences",
       "summary": "Three sentences about your day",
       "type": "method",
-      "trains": "genuine communicative intent",
+      "trains": "actually having something to say",
       "skills": [
         "writing"
       ],
@@ -89,7 +89,7 @@
       "name": "Summarising what you read",
       "summary": "Say what a text said, shorter, in writing",
       "type": "method",
-      "trains": "the link from input to output",
+      "trains": "from understanding to writing",
       "skills": [
         "writing"
       ],
@@ -111,7 +111,7 @@
         ]
       },
       "offerEveryDays": null,
-      "doesNotDo": "It lets you lift phrases. Without a deliberate delay between reading and writing, much of what appears is copied rather than produced."
+      "doesNotDo": "It lets you lift phrases straight out. Without a deliberate pause between reading and writing, much of what appears is copied rather than your own."
     },
     {
       "id": "back-translation",
@@ -140,14 +140,14 @@
         ]
       },
       "offerEveryDays": null,
-      "doesNotDo": "It grades you against one reference. A different wording that is perfectly good will read as a difference, and the diff cannot tell the two apart."
+      "doesNotDo": "It grades you against one wording. A different wording that is perfectly good will show up as a mistake, and the comparison cannot tell the two apart."
     },
     {
       "id": "copy-a-paragraph",
       "name": "Copying out a good paragraph",
       "summary": "Copy out a well-written paragraph by hand",
       "type": "method",
-      "trains": "orthography, phrases",
+      "trains": "spelling, set phrases",
       "skills": [
         "writing"
       ],
@@ -173,7 +173,7 @@
       "name": "Rewriting a text in your own words",
       "summary": "Say the same thing again, differently",
       "type": "method",
-      "trains": "reformulation",
+      "trains": "saying it another way",
       "skills": [
         "writing"
       ],
@@ -195,7 +195,7 @@
         ]
       },
       "offerEveryDays": null,
-      "doesNotDo": "It rewards paraphrase over precision, and a learner short of vocabulary will reformulate downwards into what they already have."
+      "doesNotDo": "It rewards saying it another way over saying it precisely, and someone short of vocabulary will reformulate downwards into what they already have."
     },
     {
       "id": "caption-your-photos",
@@ -229,7 +229,7 @@
       "name": "Translating a song",
       "summary": "Work out what a song you like actually says",
       "type": "method",
-      "trains": "idiom",
+      "trains": "set phrases",
       "skills": [
         "writing"
       ],
@@ -270,7 +270,7 @@
         ]
       },
       "offerEveryDays": null,
-      "doesNotDo": "It runs for weeks and produces one measurement. As a project it is excellent and as a source of signal it is nearly useless."
+      "doesNotDo": "It runs for weeks and produces one measurement. As a project it is excellent; as something to measure you by, nearly useless."
     }
   ]
 }

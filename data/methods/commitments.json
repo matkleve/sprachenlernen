@@ -26,7 +26,7 @@
       "name": "Write to one friend only in the target language",
       "summary": "One person you only ever write to in the language",
       "type": "commitment",
-      "trains": "production with a genuine reason to be understood",
+      "trains": "writing when you really want to be understood",
       "skills": [
         "writing"
       ],
@@ -57,7 +57,7 @@
       "requires": {},
       "offerEveryDays": null,
       "reviewAfterDays": 28,
-      "doesNotDo": "Labels teach nouns in isolation, which is the one thing cards already do well. You stop seeing them after a week."
+      "doesNotDo": "Labels teach nouns on their own, which is the one thing cards already do well. You stop seeing them after a week."
     },
     {
       "id": "one-series-target-audio",
@@ -84,7 +84,7 @@
       "name": "Think through your shopping list in the target language",
       "summary": "Run everyday lists through the language in your head",
       "type": "commitment",
-      "trains": "retrieval in the middle of ordinary life",
+      "trains": "recalling words in the middle of ordinary life",
       "skills": [
         "speaking"
       ],
@@ -118,7 +118,7 @@
       "requires": {},
       "offerEveryDays": null,
       "reviewAfterDays": 28,
-      "doesNotDo": "It builds one domain deeply. A learner who can discuss climbing gear fluently may still be unable to describe their week."
+      "doesNotDo": "It builds one subject deeply. Someone who can discuss climbing gear fluently may still be unable to describe their week."
     }
   ]
 }

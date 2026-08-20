@@ -8,14 +8,14 @@
   "write-to-one-friend": {
     "name": "Mit einer Person nur in der Zielsprache schreiben",
     "summary": "Eine Person, der du immer nur in der Sprache schreibst",
-    "trains": "Produktion mit einem echten Grund, verstanden zu werden",
+    "trains": "schreiben, wenn du wirklich verstanden werden willst",
     "doesNotDo": "Niemand korrigiert dich, und nichts wird aufgezeichnet. Es ist der größte Hebel im Katalog — und die App sieht kein bisschen davon."
   },
   "label-the-flat": {
     "name": "Die Wohnung beschriften",
     "summary": "Namen an den Dingen, an denen du jeden Tag vorbeigehst",
     "trains": "Alltagswortschatz",
-    "doesNotDo": "Etiketten lehren Substantive isoliert — und genau das machen Karten schon gut. Nach einer Woche siehst du sie nicht mehr."
+    "doesNotDo": "Zettel lehren Hauptwörter für sich allein — und genau das können Karten schon gut. Nach einer Woche siehst du sie nicht mehr."
   },
   "one-series-target-audio": {
     "name": "Eine Serie nur mit Zielsprachen-Ton",
@@ -26,44 +26,44 @@
   "shopping-list-in-your-head": {
     "name": "Die Einkaufsliste in der Zielsprache durchdenken",
     "summary": "Alltägliche Listen im Kopf durch die Sprache jagen",
-    "trains": "Abruf mitten im normalen Leben",
+    "trains": "Wörter abrufen mitten im Alltag",
     "doesNotDo": "Du merkst, welche Wörter dir fehlen — und gehst weiter, ohne nachzuschlagen. Die Lücke wird gefunden, aber nicht geschlossen."
   },
   "hobby-in-target-language": {
     "name": "Ein Hobby in der Zielsprache betreiben",
     "summary": "Eine Sache, die du liebst, in der Sprache",
     "trains": "alles, freiwillig",
-    "doesNotDo": "Es baut eine Domäne tief auf. Wer über Kletterausrüstung fließend reden kann, kann trotzdem seinen Tag nicht beschreiben."
+    "doesNotDo": "Es baut ein einziges Gebiet tief aus. Wer über Kletterausrüstung fließend reden kann, kann trotzdem seine Woche nicht beschreiben."
   },
   "paradigm-tables-mixed": {
-    "name": "Paradigmentabellen, gemischt",
-    "summary": "Formen aus gemischten Paradigmen eintragen, nicht eine Tabelle",
-    "trains": "Automatisierung der Flexion",
-    "doesNotDo": "Das trägt nicht von allein in die Sprachproduktion. Ein Feld in einer Tabelle abrufen ist weit entfernt davon, es mitten im Satz zu produzieren."
+    "name": "Formentabellen, gemischt",
+    "summary": "Formen aus verschiedenen Mustern eintragen, nicht eine Tabelle am Stück",
+    "trains": "die richtige Form treffen, ohne nachzudenken",
+    "doesNotDo": "Das überträgt sich nicht von allein aufs Sprechen. Ein Feld in einer Tabelle auszufüllen ist weit davon entfernt, die Form mitten im Satz zu treffen."
   },
   "minimal-pairs": {
-    "name": "Minimalpaare / HVPT",
+    "name": "Ähnliche Laute unterscheiden (Minimalpaare)",
     "summary": "Zwei Wörter, die sich durch einen Laut unterscheiden — welches war es?",
-    "trains": "Wahrnehmung von Kontrasten",
-    "doesNotDo": "Einen Kontrast zu hören ist nicht, ihn zu sprechen. Wahrnehmungstraining überträgt sich nur teilweise auf die Produktion — und es trainiert Laute, nicht Wörter."
+    "trains": "feine Unterschiede zwischen Lauten hören",
+    "doesNotDo": "Einen Unterschied zu hören heißt nicht, ihn zu sprechen. Das Ohr zu schulen überträgt sich nur teilweise auf den Mund — und es übt Laute, keine Wörter."
   },
   "cloze-sentences": {
     "name": "Lückentextsätze",
     "summary": "Ein Wort aus einem Satz entfernt — setz es wieder ein",
-    "trains": "Form im Kontext",
+    "trains": "Formen im Satz",
     "doesNotDo": "Der Satz um die Lücke trägt viel mit. Ein Lückentext, den man nur aus dem Kontext lösen kann, misst den Kontext, nicht die Form."
   },
   "sentence-transformation": {
-    "name": "Satztransformation — Zeit, Verneinung, Person",
+    "name": "Sätze umbauen — Zeit, Verneinung, Person",
     "summary": "Nimm einen Satz und ändere Zeitform oder Person",
     "trains": "Flexibilität mit Formen, die du schon kennst",
     "doesNotDo": "Es liefert den Satz. Du musst nie entscheiden, was du sagen willst — nur, wie du ihn biegst."
   },
   "own-error-log": {
-    "name": "Das eigene Fehlerprotokoll durcharbeiten",
+    "name": "Die eigene Fehlerliste durcharbeiten",
     "summary": "Die Fehler durcharbeiten, die du wirklich gemacht hast",
-    "trains": "deine eigenen Muster, nicht die des durchschnittlichen Lernenden",
-    "doesNotDo": "Es enthält nur Fehler, bei denen man dich erwischt hat. Alles, was du zu sagen vermeidest, kommt nie ins Protokoll."
+    "trains": "deine eigenen Muster, nicht die eines durchschnittlichen Lernenden",
+    "doesNotDo": "Darin stehen nur die Fehler, bei denen man dich erwischt hat. Alles, was du zu sagen vermeidest, kommt nie auf die Liste."
   },
   "rule-at-point-of-error": {
     "name": "Regelerklärung im Moment des Fehlers",
@@ -72,13 +72,13 @@
     "doesNotDo": "Eine Regel zu verstehen ist nicht, sie anwenden zu können. Es räumt Verwirrung weg; es erzeugt keine Automatik."
   },
   "listening-level-1": {
-    "name": "Hören auf Niveau 1, ohne Transkript",
-    "summary": "Einmal zuhören, ohne Text als Stütze",
+    "name": "Nur zuhören, ohne Text",
+    "summary": "Einmal hören, ohne Text zum Mitlesen",
     "trains": "Hören",
-    "doesNotDo": "Es gibt keine Teilpunkte. Ohne Transkript siehst du nicht, welches Wort du verpasst hast — nur, dass du etwas verpasst hast."
+    "doesNotDo": "Es gibt keine halben Punkte. Ohne Text vor dir siehst du nicht, welches Wort du verpasst hast — nur, dass du eines verpasst hast."
   },
   "narrow-listening": {
-    "name": "Enges Hören — eine Serie, eine Stimme",
+    "name": "Eine Serie, eine Stimme",
     "summary": "Eine Serie, eine Stimme, bis die Stimme leicht wird",
     "trains": "Hören",
     "doesNotDo": "Es stimmt dich auf eine Stimme ein. Sich an Sprechtempo und Akzent einer Person zu gewöhnen überträgt sich auf andere Sprecher viel weniger, als es sich anfühlt."
@@ -87,78 +87,78 @@
     "name": "Wiederholtes Hören mit abnehmender Hilfe",
     "summary": "Derselbe Clip dreimal, mit weniger Hilfe bei jedem Durchgang",
     "trains": "Hören",
-    "doesNotDo": "Es baut kein Volumen auf, und beim dritten Mal erinnerst du dich an die Passage, statt sie zu verarbeiten."
+    "doesNotDo": "Es baut keine Menge auf, und beim dritten Mal erinnerst du dich an den Ausschnitt, statt ihn dir zu erarbeiten."
   },
   "partial-dictation": {
     "name": "Teildiktat",
     "summary": "Einen Satz hören, die herausgenommenen Wörter einsetzen",
-    "trains": "Lautform, auditiver Abruf",
+    "trains": "Laute heraushören, aus dem Gehör abrufen",
     "doesNotDo": "Es misst nur die Lücken. Die Wörter, die man dir gibt, sagen nichts darüber aus, ob du sie gehört hättest."
   },
   "full-dictation": {
     "name": "Vollständiges Diktat auf Papier",
     "summary": "Einen Satz hören, ihn ganz aufschreiben",
-    "trains": "Lautform, Orthografie",
+    "trains": "Laute heraushören, Rechtschreibung",
     "doesNotDo": "Es ist langsam und lehrt keine Bedeutung. Zehn Minuten ergeben sechs Sätze Laut-zu-Schreibung — Verstehen wird nicht geprüft."
   },
   "dictogloss": {
-    "name": "Dictogloss — rekonstruieren statt abschreiben",
+    "name": "Hören, dann aus dem Kopf nachbauen (Dictogloss)",
     "summary": "Zweimal zuhören, dann den Text aus dem Gedächtnis nachbauen",
     "trains": "Hören und Grammatik zusammen",
-    "doesNotDo": "Es prüft nicht, ob du die Wörter gehört hast. Eine gute Rekonstruktion kann aus dem Kern plus Grammatik entstehen — genau das ist der Punkt und die Grenze."
+    "doesNotDo": "Es prüft nicht, ob du die Wörter gehört hast. Ein guter Nachbau kann auch aus dem groben Sinn plus Grammatik entstehen — das ist der Witz daran und zugleich die Grenze."
   },
   "listening-faster": {
     "name": "Schneller hören (1,25×)",
     "summary": "Etwas, das du schon verstehst, ein Viertel schneller",
-    "trains": "Verarbeitungsgeschwindigkeit",
-    "doesNotDo": "Es fügt keinen Wortschatz hinzu. Schnelleres Material, das du schon verstehst, übt das Verarbeiten, das du hast — nicht die Wörter, die dir fehlen."
+    "trains": "schneller mitkommen",
+    "doesNotDo": "Es bringt keinen neuen Wortschatz. Schnelleres Material, das du schon verstehst, übt das Mitkommen, das du hast — nicht die Wörter, die dir fehlen."
   },
   "background-listening": {
-    "name": "Passives Hören ohne Aufgabe",
+    "name": "Nebenbei laufen lassen",
     "summary": "Einfach laufen lassen, während du etwas anderes tust",
     "trains": "sehr wenig",
     "doesNotDo": "Ehrlich gesagt: fast nichts. Es steht im Katalog, weil Lernende danach fragen — und die Antwort ist, dass unbeachteter Klang fast kein Lernen erzeugt."
   },
   "extensive-reading": {
-    "name": "Extensives Lesen bei ausreichender Abdeckung",
+    "name": "Viel lesen, ohne anzuhalten",
     "summary": "Etwas lesen, das du größtenteils verstehst, ohne anzuhalten",
     "trains": "Lesen, Wortschatz nebenbei",
     "doesNotDo": "Es verankert kein Wort im Gedächtnis. Wörter beim Lesen trifft man einmal; ohne den Plan, sie aufzugreifen, sind sie in einer Woche weg."
   },
   "narrow-reading": {
-    "name": "Enges Lesen",
+    "name": "Mehrere Texte zum selben Thema",
     "summary": "Vier Texte zu einem Thema, damit die Wörter wiederkommen",
-    "trains": "das Gleiche wie extensives Lesen, schneller — durch Wiederverwendung des Vokabulars eines Themas",
+    "trains": "dasselbe wie viel lesen, nur schneller — die Wörter eines Themas kommen immer wieder",
     "doesNotDo": "Es erweitert nichts. Vier Texte zu einem Thema bauen dessen Wortschatz auf und lassen den Rest der Sprache genau dort, wo er war."
   },
   "intensive-reading": {
-    "name": "Intensives Lesen",
+    "name": "Genau lesen, Wort für Wort",
     "summary": "Ein Absatz, auseinandergenommen, bis nichts unklar ist",
-    "trains": "Form, Präzision, Aufmerksamkeit",
-    "doesNotDo": "Es baut kein Volumen auf. Ein Absatz erschöpfend ist das Gegenteil von der Inputmenge, die Flüssigkeit braucht — und kann sie nicht ersetzen."
+    "trains": "Formen, Genauigkeit, Hinsehen",
+    "doesNotDo": "Es baut keine Menge auf. Einen Absatz bis ins Letzte auszuquetschen ist das Gegenteil der Lesemenge, die flüssiges Lesen braucht — und kann sie nicht ersetzen."
   },
   "reading-aloud": {
     "name": "Vorlesen",
     "summary": "Einen Text laut vorlesen, in Sprechtempo",
-    "trains": "Aussprache, Fluss, Segmentierung",
-    "doesNotDo": "Es ist kein Sprechen. Jedes Wort ist für dich gewählt — es trainiert Artikulation und Rhythmus, lässt den Abruf aber unberührt."
+    "trains": "Aussprache, Fluss, hören, wo ein Wort anfängt und aufhört",
+    "doesNotDo": "Es ist kein Sprechen. Jedes Wort ist für dich ausgesucht — es übt, wie du Laute formst und Rhythmus hältst, und lässt das Abrufen unberührt."
   },
   "reading-while-listening": {
     "name": "Lesen und Hören gleichzeitig",
     "summary": "Dem Text folgen, während eine Stimme ihn vorliest",
-    "trains": "Hören, Segmentierung",
+    "trains": "Hören, und wo ein Wort anfängt und aufhört",
     "doesNotDo": "Es testet kein Hören. Der Text trägt dich — es kann nicht sagen, was du ohne ihn verstanden hättest."
   },
   "reread-something-hard": {
     "name": "Etwas Schwieriges erneut lesen",
     "summary": "Etwas öffnen, das dich vor Monaten überwältigt hat",
-    "trains": "den Kompetenzmoment — zu merken, dass es leichter wurde",
+    "trains": "das Gefühl, weitergekommen zu sein",
     "doesNotDo": "Es lehrt fast nichts Neues. Sein ganzer Wert ist spürbare Fortschrittserfahrung — ein Motivationseffekt, kein Lerneffekt."
   },
   "parallel-text": {
     "name": "Paralleler Text",
     "summary": "Dieselbe Passage in beiden Sprachen, nebeneinander",
-    "trains": "Struktur, Idiom",
+    "trains": "Satzbau und feste Wendungen",
     "doesNotDo": "Es nimmt den Abrufversuch weg. Mit der Übersetzung daneben zwingt dich nichts, die Bedeutung herauszuarbeiten — und ungearbeitete Bedeutung bleibt nicht haften."
   },
   "book-you-know": {
@@ -170,31 +170,31 @@
   "four-three-two": {
     "name": "4/3/2",
     "summary": "Dieselbe Geschichte in vier Minuten, dann drei, dann zwei",
-    "trains": "Flüssigkeit",
+    "trains": "flüssiges Sprechen",
     "doesNotDo": "Es verbessert nichts an der Genauigkeit. Dreimal schneller dieselbe Sache zu erzählen macht die Wiedergabe flüssiger und lässt die Fehler intakt."
   },
   "shadowing": {
-    "name": "Shadowing",
-    "summary": "Einer Stimme einen Schlag hinterher folgen, ohne zu stoppen",
-    "trains": "Prosodie, Fluss",
-    "doesNotDo": "Es verlangt nie, ein Wort zu wählen. Einer Stimme mit Verzögerung zu folgen ist Artikulationsübung, kein Abruf — und geht mit sehr wenig Verständnis."
+    "name": "Mitsprechen, kurz versetzt (Shadowing)",
+    "summary": "Einer Stimme kurz versetzt folgen, ohne anzuhalten",
+    "trains": "Sprachmelodie, Fluss",
+    "doesNotDo": "Es verlangt nie, ein Wort zu wählen. Einer Stimme versetzt zu folgen übt, wie du Laute formst — nicht das Abrufen. Und es geht mit sehr wenig Verstehen."
   },
   "retell-what-you-read": {
     "name": "Nacherzählen, was du gerade gelesen hast",
     "summary": "Den Text schließen und sagen, was drinstand",
-    "trains": "Produktion und die Verbindung von Input zu Output",
+    "trains": "selbst formulieren — vom Verstehen zum Sagen",
     "doesNotDo": "Es leiht sich den Wortschatz der Quelle. Was herauskommt, ist teils die Formulierung des Textes zurück — es überschätzt, was du unaufgefordert sagen kannst."
   },
   "self-talk": {
     "name": "Selbstgespräch — beschreiben, was du siehst",
     "summary": "Beschreiben, was vor dir liegt, laut",
-    "trains": "Flüssigkeit unter Zeitdruck",
+    "trains": "flüssig sprechen unter Zeitdruck",
     "doesNotDo": "Niemand korrigiert dich. Fehler, die man laut für sich wiederholt, werden genauso eingeübt wie richtige Formen."
   },
   "describe-a-picture": {
     "name": "Ein Bild beschreiben",
     "summary": "Alles sagen, was du auf einem Foto siehst",
-    "trains": "offenen Wortschatz",
+    "trains": "Wortschatz ohne Vorgabe",
     "doesNotDo": "Es bleibt im Präsens und in der dritten Person. Bilder verlangen selten, zu erzählen, zu vermuten oder zu argumentieren."
   },
   "voice-message": {
@@ -212,61 +212,61 @@
   "recite-memorised": {
     "name": "Ein auswendig gelerntes Gedicht oder Monolog vortragen",
     "summary": "Ein Stück vorsagen, das du auswendig kennst",
-    "trains": "Prosodie, Chunks",
+    "trains": "Sprachmelodie, feste Wortgruppen",
     "doesNotDo": "Es ist Abruf einer festen Wortfolge. Nichts davon überträgt sich auf einen Satz, den du nicht auswendig gelernt hast."
   },
   "singing-along": {
     "name": "Mitsingen",
     "summary": "Mit der Aufnahme singen, Wörter vor sich",
-    "trains": "Prosodie, Chunks",
+    "trains": "Sprachmelodie, feste Wortgruppen",
     "doesNotDo": "Der Songrhythmus überschreibt den Sprachrhythmus. Betonung und Vokallänge biegen sich der Melodie — der Sprachklang, den du übst, ist nicht der, den du brauchst."
   },
   "interpreting": {
     "name": "Für jemanden dolmetschen",
     "summary": "Tragen, was eine Person sagt, zur anderen hinüber",
     "trains": "alles auf einmal",
-    "doesNotDo": "Es überfordert, bevor es lehrt. Unter einem funktionierenden Beherrschen beider Richtungen produziert es Misserfolg statt Übung."
+    "doesNotDo": "Es überfordert, bevor es lehrt. Wer nicht beide Richtungen schon einigermaßen beherrscht, erlebt Misserfolg statt Übung."
   },
   "srs-session": {
     "name": "Wiederholen mit wachsenden Abständen",
     "summary": "Die Karten, die der Plan für heute fällig sagt",
     "trains": "Behalten",
-    "doesNotDo": "Es baut nichts auf, das du in einem Satz nutzen kannst. Karten machen Wörter isoliert abrufbar — und der Rest der App existiert, weil das nicht dasselbe ist wie sie zu kennen."
+    "doesNotDo": "Es baut nichts auf, das du in einem Satz nutzen kannst. Karten sorgen dafür, dass dir ein Wort für sich wieder einfällt — und der Rest der App existiert, weil das nicht dasselbe ist, wie es zu können."
   },
   "audio-cards": {
-    "name": "Audiokarten, blind bedienbar",
+    "name": "Karten zum Hören, ohne hinzusehen",
     "summary": "Dieselben Karten, gesprochen, mit freien Augen",
-    "trains": "Behalten, während die Augen woanders sind",
-    "doesNotDo": "Es kann sich nicht ehrlich selbst bewerten. Die eigene gesprochene Antwort beim Gehen zu markieren ist die lockerste Bewertung in der App — und der Plan übernimmt dieses Rauschen."
+    "trains": "Wörter behalten, während die Augen woanders sind",
+    "doesNotDo": "Es kann sich nicht ehrlich selbst bewerten. Die eigene gesprochene Antwort beim Gehen zu bewerten ist die lockerste Bewertung in der App — und der Plan übernimmt diese Unschärfe."
   },
   "mine-your-own-sentences": {
-    "name": "Sätze aus eigenem Material schürfen",
-    "summary": "Sätze aus dem eigenen Lesestoff in Karten verwandeln",
+    "name": "Sätze aus dem eigenen Lesestoff sammeln",
+    "summary": "Sätze aus dem, was du liest, in Karten verwandeln",
     "trains": "Wörter, die du nachweislich gebraucht hast",
-    "doesNotDo": "Es ignoriert Frequenz. Wörter, denen man zufällig begegnet, sind nicht die, die am meisten Text erschließen — und allein Schürfen lässt häufige Wörter jahrelang ungelernt."
+    "doesNotDo": "Es kümmert sich nicht darum, wie häufig ein Wort ist. Wörter, denen du zufällig begegnest, schließen nicht am meisten Text auf — und Sammeln allein lässt häufige Wörter jahrelang ungelernt."
   },
   "collocation-cards": {
-    "name": "Kollokationskarten statt Einzelwörter",
-    "summary": "Das Wort mit den Wörtern lernen, mit denen es reist",
-    "trains": "Flüssigkeit — das Wort mit dem, womit es zusammengeht",
-    "doesNotDo": "Es zählt als ein Eintrag, was eigentlich mehrere sind. Eine Kollokationskarte lässt den Wortschatz langsamer wachsen als dieselben Minuten mit Einzelwörtern."
+    "name": "Wortpaare statt Einzelwörter (Kollokationen)",
+    "summary": "Ein Wort zusammen mit den Wörtern lernen, die meist dabeistehen",
+    "trains": "flüssiges Sprechen — das Wort mit dem, was dazugehört",
+    "doesNotDo": "Es zählt als einen Eintrag, was eigentlich mehrere sind. Eine Wortpaar-Karte lässt deinen Wortschatz langsamer wachsen als dieselben Minuten mit Einzelwörtern."
   },
   "close-a-frequency-block": {
-    "name": "Einen Frequenzblock bewusst abschließen",
-    "summary": "Ein Band der Frequenzliste fertig durcharbeiten",
-    "trains": "Abdeckung",
-    "doesNotDo": "Es optimiert die Zahl, nicht den Bedarf. Einen Block abzuschließen ist befriedigend — und kann eine Woche mit Wörtern verbringen, die du nie vermisst hättest."
+    "name": "Eine Gruppe häufiger Wörter zu Ende lernen",
+    "summary": "Eine Gruppe der Häufigkeitsliste komplett durcharbeiten",
+    "trains": "wie viel von einem Text du verstehst",
+    "doesNotDo": "Es jagt der Zahl hinterher, nicht dem Bedarf. Eine Gruppe abzuschließen ist befriedigend — und kann eine Woche mit Wörtern verbringen, die du nie vermisst hättest."
   },
   "handwriting-shakiest": {
-    "name": "Handschriftblatt der zwanzig wackeligsten Karten",
+    "name": "Blatt mit den zwanzig wackeligsten Karten",
     "summary": "Die zwanzig Karten aufschreiben, bei denen du immer scheiterst",
-    "trains": "Kodierung",
+    "trains": "besser einprägen",
     "doesNotDo": "Es ist langsam und läuft außerhalb der App — das Ergebnis muss wieder eingetippt werden, sonst entsteht gar kein Signal."
   },
   "cook-from-a-recipe": {
     "name": "Nach einem Rezept in der Sprache kochen",
     "summary": "Etwas kochen, dem Rezept in der Sprache folgend",
-    "trains": "Verstehen mit Konsequenzen",
+    "trains": "Verstehen, wo es wirklich drauf ankommt",
     "doesNotDo": "Es lehrt den Wortschatz einer Küche. Die Konsequenzen lassen dich sorgfältig lesen — sie machen die Wörter nicht allgemein."
   },
   "video-game-in-target-language": {
@@ -278,7 +278,7 @@
   "tandem-or-language-cafe": {
     "name": "Tandem oder Sprachcafé",
     "summary": "Mit jemandem sprechen, der auch deine Sprache lernt",
-    "trains": "echte Interaktion",
+    "trains": "ein echtes Gespräch",
     "doesNotDo": "Die Hälfte läuft in deiner Muttersprache — und ein geduldiger Partner passt sich an, bis keiner merkt, was du nicht sagen kannst."
   },
   "order-ask-complain": {
@@ -296,44 +296,44 @@
   "build-a-sentence": {
     "name": "Einen Satz mit einem Zielwort bilden",
     "summary": "Einen Satz schreiben, der ein gegebenes Wort verwendet",
-    "trains": "Produktionsabruf",
+    "trains": "ein Wort selbst verwenden",
     "doesNotDo": "Es bleibt bei einem Satz. Nichts darin übt, einen Gedanken über mehrere Sätze zu halten — und genau dort brechen die meisten Lernenden ab."
   },
   "free-production": {
-    "name": "Freie Produktion",
-    "summary": "Frei zu einem Stichwort schreiben, ohne etwas zum Abschreiben",
-    "trains": "ungeforderte Produktion und das, was du meidest",
-    "doesNotDo": "Es kann dich nicht zwingen, das zu nutzen, was du umgehst. Vermeidung ist das, was es sichtbar macht — nicht das, was es repariert."
+    "name": "Frei schreiben",
+    "summary": "Frei zu einem Stichwort schreiben, ohne Vorlage",
+    "trains": "von selbst losschreiben — und was du dabei umgehst",
+    "doesNotDo": "Es kann dich nicht zwingen, das zu nutzen, was du umgehst. Es macht sichtbar, worum du herumschreibst — reparieren kann es das nicht."
   },
   "diary-three-sentences": {
     "name": "Tagebuch, drei Sätze",
     "summary": "Drei Sätze über deinen Tag",
-    "trains": "echte kommunikative Absicht",
+    "trains": "wirklich etwas sagen wollen",
     "doesNotDo": "Es kreist um dasselbe Leben. Deine Tage wiederholen sich — der Wortschatz, den es verlangt, wird über Monate enger statt breiter."
   },
   "summarise-what-you-read": {
     "name": "Zusammenfassen, was du gelesen hast",
     "summary": "Sagen, was ein Text gesagt hat — kürzer, schriftlich",
-    "trains": "die Verbindung von Input zu Output",
-    "doesNotDo": "Es lässt Formulierungen übernehmen. Ohne bewusste Pause zwischen Lesen und Schreiben ist viel davon abgeschrieben statt produziert."
+    "trains": "vom Verstehen zum Schreiben",
+    "doesNotDo": "Es verführt dazu, Formulierungen direkt zu übernehmen. Ohne bewusste Pause zwischen Lesen und Schreiben ist vieles abgeschrieben statt selbst gebaut."
   },
   "back-translation": {
     "name": "Rückübersetzung mit Vergleich",
     "summary": "Heraus übersetzen, zurück übersetzen, mit dem Original vergleichen",
     "trains": "Struktur — und es macht Vermeidung sichtbar",
-    "doesNotDo": "Es bewertet dich gegen eine Referenz. Eine andere, völlig gute Formulierung wirkt als Unterschied — und der Vergleich kann die beiden nicht trennen."
+    "doesNotDo": "Es bewertet dich gegen eine einzige Formulierung. Eine andere, völlig gute Formulierung sieht dann aus wie ein Fehler — der Vergleich kann die beiden nicht auseinanderhalten."
   },
   "copy-a-paragraph": {
     "name": "Einen guten Absatz abschreiben",
     "summary": "Einen gut geschriebenen Absatz von Hand abschreiben",
-    "trains": "Orthografie, Redewendungen",
+    "trains": "Rechtschreibung, feste Wendungen",
     "doesNotDo": "Es gibt keine Wahl. Jedes Wort ist vorgegeben — es ist Handschrift- und Aufmerksamkeitsübung, keine Sprachproduktion."
   },
   "rewrite-in-your-own-words": {
     "name": "Einen Text mit eigenen Worten umschreiben",
     "summary": "Dasselbe noch einmal sagen, anders",
-    "trains": "Umformulierung",
-    "doesNotDo": "Es belohnt Paraphrase über Präzision — und ein lernender Mensch mit zu wenig Wortschatz formuliert nach unten auf das, was er schon hat."
+    "trains": "etwas anders sagen können",
+    "doesNotDo": "Es belohnt „anders gesagt“ mehr als „genau gesagt“ — und wem Wortschatz fehlt, der formuliert nach unten, auf das, was er schon hat."
   },
   "caption-your-photos": {
     "name": "Eigene Fotos beschriften",
@@ -344,13 +344,13 @@
   "translate-a-song": {
     "name": "Ein Lied übersetzen",
     "summary": "Herausfinden, was ein Lied, das du magst, wirklich sagt",
-    "trains": "Idiom",
+    "trains": "feste Wendungen",
     "doesNotDo": "Songtexte sind nicht repräsentativ. Umgekehrte Wortstellung und veralteter Wortschatz sind in Liedern normal und in der Sprache falsch."
   },
   "write-and-perform-a-play": {
     "name": "Ein Stück schreiben und aufführen",
     "summary": "Etwas Kurzes schreiben und auf die Bühne bringen",
     "trains": "alles",
-    "doesNotDo": "Es läuft Wochen und produziert eine Messung. Als Projekt ist es ausgezeichnet — als Signalquelle fast nutzlos."
+    "doesNotDo": "Es läuft wochenlang und liefert einen einzigen Messwert. Als Projekt ist es großartig; als etwas, woran man dich misst, fast nutzlos."
   }
 }

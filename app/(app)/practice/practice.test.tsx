@@ -1,4 +1,4 @@
-import { renderWithIntl as render } from "@/tests/i18n-test-utils";
+import { renderWithIntl as render, en } from "@/tests/i18n-test-utils";
 import { screen } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 
@@ -11,7 +11,7 @@ describe("PracticePage", () => {
     });
     render(ui);
 
-    expect(screen.getByRole("heading", { name: "Partial dictation" })).toBeDefined();
+    expect(screen.getByRole("heading", { name: en.methodMenu.entries["partial-dictation"].name })).toBeDefined();
     expect(screen.getByText(/Step 1 of/)).toBeDefined();
   });
 
@@ -21,7 +21,7 @@ describe("PracticePage", () => {
     });
     render(ui);
 
-    expect(screen.getByRole("heading", { name: "Full dictation on paper" })).toBeDefined();
+    expect(screen.getByRole("heading", { name: en.methodMenu.entries["full-dictation"].name })).toBeDefined();
     expect(screen.getByText(/Step 1 of/)).toBeDefined();
   });
 
@@ -31,7 +31,7 @@ describe("PracticePage", () => {
     });
     render(ui);
 
-    expect(screen.getByRole("heading", { name: "Extensive reading at coverage" })).toBeDefined();
+    expect(screen.getByRole("heading", { name: en.methodMenu.entries["extensive-reading"].name })).toBeDefined();
     expect(screen.getByText(/Step 1 of 4/)).toBeDefined();
   });
 
@@ -41,7 +41,7 @@ describe("PracticePage", () => {
     });
     render(ui);
 
-    expect(screen.getByRole("heading", { name: "Build a sentence with a target word" })).toBeDefined();
+    expect(screen.getByRole("heading", { name: en.methodMenu.entries["build-a-sentence"].name })).toBeDefined();
     expect(screen.getByText(/Step 1 of 7/)).toBeDefined();
   });
 
@@ -51,7 +51,7 @@ describe("PracticePage", () => {
     });
     render(ui);
 
-    expect(screen.getByRole("heading", { name: "Free production" })).toBeDefined();
+    expect(screen.getByRole("heading", { name: en.methodMenu.entries["free-production"].name })).toBeDefined();
     expect(screen.getByText(/Step 1 of 5/)).toBeDefined();
   });
 

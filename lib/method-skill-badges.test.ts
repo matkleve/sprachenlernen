@@ -25,7 +25,7 @@ describe("skillMarksForMethod", () => {
     const method: MethodEntry = {
       ...base,
       id: "narrow-listening",
-      name: "Narrow listening",
+      name: "One series, one speaker",
       skills: ["listening"],
     };
     expect(skillMarksForMethod(method)).toEqual([{ skill: "listening", level: "primary" }]);
@@ -35,7 +35,7 @@ describe("skillMarksForMethod", () => {
     const method: MethodEntry = {
       ...base,
       id: "background-listening",
-      name: "Background listening with no task",
+      name: "Leaving it on in the background",
       skills: ["listening"],
       trains: "very little",
       intensity: 1,
@@ -62,7 +62,7 @@ describe("skillMarksForMethod", () => {
     const method: MethodEntry = {
       ...base,
       id: "srs-session",
-      name: "Spaced repetition session",
+      name: "Reviewing at growing intervals",
       section: "vocabulary",
       skills: [],
       trains: "retention",

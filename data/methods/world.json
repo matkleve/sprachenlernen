@@ -6,7 +6,7 @@
       "name": "Cooking from a recipe in the language",
       "summary": "Cook something, following the recipe in the language",
       "type": "method",
-      "trains": "comprehension with consequences",
+      "trains": "understanding, where it actually matters",
       "skills": [
         "reading"
       ],
@@ -52,7 +52,7 @@
       "name": "Tandem or language café",
       "summary": "Talk to a speaker who is also learning yours",
       "type": "method",
-      "trains": "real interaction",
+      "trains": "a real conversation",
       "skills": [
         "speaking",
         "listening"

@@ -49,6 +49,18 @@ When a technical term genuinely has to appear, name it as one in parentheses:
 *"(Fachwort: Lemma.)"* Readers who want it find it; readers who do not are not
 taxed by it.
 
+**Method names describe first, then label.** A card headed `Shadowing` or
+`HVPT` tells a newcomer nothing, and a catalogue of sixty of those is a wall.
+The name leads with what you would actually do. Where the method has an
+established name a learner would want in order to find material elsewhere, that
+name follows in parentheses — it is not dropped:
+
+> *"Mitsprechen, kurz versetzt (Shadowing)"* · *"Ähnliche Laute unterscheiden
+> (Minimalpaare)"* · *"Hören, dann aus dem Kopf nachbauen (Dictogloss)"*
+
+Four entries earn the parenthesis. An acronym nobody searches for does not —
+`HVPT` was dropped rather than parenthesised.
+
 **A concept the glossary owns keeps one name.** Changing the surface word means
 editing [`GLOSSARY.md`](GLOSSARY.md) in the same change — that is what the
 "one term, one meaning" rule is for. It does not mean the surface word must be
@@ -107,6 +119,6 @@ reverts it.
   `content.ts` copy, outside `messages/`. `/languages` is a **public** page
   linked from the German landing page and shows English to a German visitor.
   Moving them into `messages/` adds i18n keys, so it is its own change.
-- The ~60 method catalogue entries follow rule 1 (converted) but not yet rule 2:
-  `Prosodie`, `Dictogloss`, `Kollokationskarten`, `HVPT` and `Shadowing` are
-  still on the surface of their cards.
+- `features/review-session/content.ts` and the other `content.ts` files marked
+  *Legacy* still hold the pre-`messages/` English copy. They are unread by the
+  app; nothing was updated in them.

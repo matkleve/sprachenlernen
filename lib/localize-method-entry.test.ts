@@ -44,7 +44,7 @@ describe("localizeMethodEntry", () => {
       translateFromMessages(de, "methodMenu"),
     );
 
-    expect(localized.name).toBe("Passives Hören ohne Aufgabe");
+    expect(localized.name).toBe(de.methodMenu.entries["background-listening"].name);
     expect(localized.name).not.toBe(backgroundListening.name);
     expect(localized.summary).toBe(de.methodMenu.entries["background-listening"].summary);
     expect(localized.doesNotDo).toBe(de.methodMenu.entries["background-listening"].doesNotDo);

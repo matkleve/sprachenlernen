@@ -28,10 +28,10 @@
     },
     {
       "id": "shadowing",
-      "name": "Shadowing",
+      "name": "Speaking along, a beat behind (shadowing)",
       "summary": "Repeat a voice a beat behind it, without stopping",
       "type": "method",
-      "trains": "prosody, flow",
+      "trains": "the melody of the language, flow",
       "skills": [
         "speaking",
         "listening"
@@ -56,14 +56,14 @@
         ]
       },
       "offerEveryDays": null,
-      "doesNotDo": "It never asks you to choose a word. Following a voice at a delay is articulation practice, not retrieval, and it can be done with very little comprehension."
+      "doesNotDo": "It never asks you to choose a word. Following a voice at a delay trains how you form sounds, not recall, and it works with very little understanding."
     },
     {
       "id": "retell-what-you-read",
       "name": "Retelling what you just read",
       "summary": "Close the text and say what it said",
       "type": "method",
-      "trains": "production, and the link from input to output",
+      "trains": "saying it yourself — from understanding to speaking",
       "skills": [
         "speaking"
       ],
@@ -89,7 +89,7 @@
       "name": "Self-talk — describe what you see",
       "summary": "Describe what is in front of you, out loud",
       "type": "method",
-      "trains": "fluency under time pressure",
+      "trains": "speaking fluently under time pressure",
       "skills": [
         "speaking"
       ],
@@ -116,7 +116,7 @@
       "name": "Describing a picture",
       "summary": "Say everything you can see in one photo",
       "type": "method",
-      "trains": "open vocabulary",
+      "trains": "vocabulary with nothing prompting you",
       "skills": [
         "speaking"
       ],
@@ -201,7 +201,7 @@
       "name": "Reciting a memorised poem or monologue",
       "summary": "Say a piece you have learned by heart",
       "type": "method",
-      "trains": "prosody, chunks",
+      "trains": "the melody of the language, set phrases",
       "skills": [
         "speaking"
       ],
@@ -227,7 +227,7 @@
       "name": "Singing along",
       "summary": "Sing with the recording, words in front of you",
       "type": "method",
-      "trains": "prosody, chunks",
+      "trains": "the melody of the language, set phrases",
       "skills": [
         "speaking"
       ],
@@ -280,7 +280,7 @@
         ]
       },
       "offerEveryDays": null,
-      "doesNotDo": "It overloads before it teaches. Below a working command of both directions it produces failure rather than practice."
+      "doesNotDo": "It overwhelms before it teaches. Unless you already handle both directions reasonably well, it produces failure rather than practice."
     }
   ]
 }
