@@ -12,8 +12,7 @@ import {
 import { filterSchedulableCards } from "@/lib/form-recall-staging";
 import { loadSpanishMeaningRecallDeck } from "@/lib/starter-deck";
 import { loadLemmaTable } from "@/lib/lemma-table";
-import { applyReview, newTask as schedulerNewTask } from "@/lib/scheduler";
-import { bucketForTask, isTaskHeld } from "@/lib/vocabulary-snapshot";
+import { newTask as schedulerNewTask } from "@/lib/scheduler";
 
 describe("form-recall pool", () => {
   it("loads the shipped Spanish form-recall pool", () => {
@@ -75,28 +74,23 @@ describe("form-recall staging", () => {
   const hablarMeaning = meaningDeck.deck.cards.find((card) => card.lemma === "hablar")!;
   const hablarForm = formDeck.deck.cards.find((card) => card.lemma === "hablar")! as FormRecallCard;
 
-  it("withholds form-recall until meaning-recall is held", () => {
-    const now = Date.now();
-    let meaningTask = schedulerNewTask(hablarMeaning.taskId, hablarMeaning.wordId);
-    expect(bucketForTask(meaningTask)).toBe("new");
-
-    const blocked = filterSchedulableCards(
+  it("passes form-recall through; soft staging lives in session-sampling", () => {
+    const meaningTask = schedulerNewTask(hablarMeaning.taskId, hablarMeaning.wordId);
+    const schedulable = filterSchedulableCards(
       [hablarMeaning, hablarForm],
       { [hablarMeaning.taskId]: meaningTask },
     );
-    expect(blocked.map((card) => card.taskId)).toEqual([hablarMeaning.taskId]);
-
-    meaningTask = applyReview(meaningTask, "easy", now - 15 * 86_400_000).task;
-    meaningTask = applyReview(meaningTask, "good", now - 10 * 86_400_000).task;
-    meaningTask = applyReview(meaningTask, "good", now - 5 * 86_400_000).task;
-    expect(isTaskHeld(meaningTask)).toBe(true);
-
-    const open = filterSchedulableCards(
-      [hablarMeaning, hablarForm],
-      { [hablarMeaning.taskId]: meaningTask },
-    );
-    expect(open.map((card) => card.taskId).sort()).toEqual(
+    expect(schedulable.map((card) => card.taskId).sort()).toEqual(
       [hablarMeaning.taskId, hablarForm.taskId].sort(),
     );
+  });
+
+  it("drops suspended tasks", () => {
+    let meaningTask = schedulerNewTask(hablarMeaning.taskId, hablarMeaning.wordId);
+    meaningTask = { ...meaningTask, state: "suspended" };
+    const schedulable = filterSchedulableCards([hablarMeaning], {
+      [hablarMeaning.taskId]: meaningTask,
+    });
+    expect(schedulable).toHaveLength(0);
   });
 });

@@ -94,6 +94,11 @@ describe("WordsHome", () => {
     expect(headerImage.getAttribute("src")).toContain(wordsReviewGraphicSrc);
   });
 
+  it("shows base-building hint while held is below the foundation midpoint", async () => {
+    await renderWordsHome();
+    expect(screen.getByText(en.words.baseBuildingHint)).toBeDefined();
+  });
+
   it("explains that held counts meaning recall and what a lemma is", async () => {
     const user = userEvent.setup();
     await renderWordsHome();

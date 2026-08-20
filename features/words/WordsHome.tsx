@@ -18,6 +18,7 @@ import type { HorizonDisplay } from "@/lib/review-horizon";
 import { buildVocabularyOrbit } from "@/lib/vocabulary-orbit";
 import type { VocabularySnapshot } from "@/lib/vocabulary-snapshot";
 import type { ContentTraceIndex } from "@/lib/content-traceability";
+import { DEFAULT_SAMPLING_CONFIG } from "@/lib/session-sampling";
 
 type WordsHomeProps = {
   snapshot: VocabularySnapshot;
@@ -52,6 +53,7 @@ export async function WordsHome({
   const formsReviewHref = cardEngineSessionHref("form");
   const mixedReviewHref = cardEngineSessionHref("mixed");
   const orbit = buildVocabularyOrbit(snapshot.atlas, translations);
+  const showBaseBuildingHint = snapshot.counts.held < DEFAULT_SAMPLING_CONFIG.H0;
 
   const countItems = [
     { key: "held", label: t("held"), value: snapshot.counts.held },
@@ -64,6 +66,9 @@ export async function WordsHome({
       <p className="max-w-2xl text-base leading-relaxed text-muted">
         {tShell("holding.words.intent")}
       </p>
+      {showBaseBuildingHint ? (
+        <p className="mt-3 max-w-2xl text-sm leading-relaxed text-muted">{t("baseBuildingHint")}</p>
+      ) : null}
 
       <section className={methodSectionSurface("vocabulary", "mt-6 rounded-card shadow-soft")}>
         {await WordsReviewCardHeader()}

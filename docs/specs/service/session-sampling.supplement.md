@@ -2,7 +2,7 @@
 
 <!-- id: SPEC-service-session-sampling-supplement -->
 <!-- parent: SPEC-service-session-sampling -->
-<!-- status: draft -->
+<!-- status: active -->
 
 Formulas, defaults, form staging, and **expected learner reactions** by scenario.
 Normative rules stay in the parent; this file owns the math and UX research notes.

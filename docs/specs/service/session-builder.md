@@ -24,9 +24,8 @@ into a fixed-length queue of Tasks for one review session. **Standard**
   belongs to, and how many languages the account holds — a caller's job, never
   this module's (see "This module never chooses a language" below); hand-picking
   cards (UC-039); backlog counters (UC-063, A3). **Deck filter** is the only
-  way to build a forms-only or meanings-only session (UC-078). **Card selection**
-  is binary due/new today; [`session-sampling.md`](session-sampling.md) (T-W22)
-  replaces that logic when shipped (UC-079).
+  way to build a forms-only or meanings-only session (UC-078).   **Card selection** delegates to [`session-sampling.md`](session-sampling.md) (UC-079,
+  T-W22). FSRS `due` dates are unchanged by the draw.
 
 **Budget (draft):** when `buildSession` receives `budgetMinutes`, card count =
 `round(budgetMinutes × 60 / SEC_PER_CARD)` with default `SEC_PER_CARD = 35` and

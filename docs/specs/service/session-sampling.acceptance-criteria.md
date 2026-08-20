@@ -2,7 +2,7 @@
 
 <!-- id: SPEC-service-session-sampling-ac -->
 <!-- parent: SPEC-service-session-sampling -->
-<!-- status: draft -->
+<!-- status: active -->
 
 - [ ] Given empty history, when `sampleSession` runs, then all L cards are new
       and weights favour lower `frequencyRank` stochastically (not strict sort).

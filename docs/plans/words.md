@@ -103,7 +103,7 @@ frequency blocks (derivation)
 | **T-W5** | **Per-cell form breakdown** — Progress drill-down: held forms by paradigm cell **group**; weak group links to `deck=form` practice. | UC-062, UC-064 (forms branch), UC-078 | extend [`form-mastery-signal.md`](../specs/service/form-mastery-signal.md) | Standard | W-5 answered |
 | **T-W20** | **Forms home + deck filter** — second section card on `/words`; `deck=meaning\|form\|mixed` on session builder and review route. | UC-078, UC-063, UC-041 | [`words-home.md`](../specs/feature/words-home.md), [`words-review.md`](../specs/page/words-review.md), [`session-builder.md`](../specs/service/session-builder.md) | Standard | form-recall pool shipped |
 | **T-W21** | **Form cell explanation** — on-demand + post-Again/Hard disclosure on form-recall cards. | UC-022, UC-041 | [`form-cell-explanation.md`](../specs/service/form-cell-explanation.md), [`form-error-explanation.md`](../specs/component/form-error-explanation.md) | Standard | T-W20 (forms path exists) — **shipped** |
-| **T-W22** | **Session sampling** — weighted queue (`u×b×n×f`), sigmoid foundation taper, soft form staging; UC-079. | UC-079, UC-011 | [`session-sampling.md`](../specs/service/session-sampling.md) | Standard | T-W21; study [43](../study/43-early-foundation-sessions.md), [44](../study/44-foundation-phase-expert-review.md) |
+| **T-W22** | ~~**Session sampling**~~ — weighted queue (`u×b×n×f`), sigmoid foundation taper, soft form staging; UC-079. **Shipped 2026-08-20.** | UC-079, UC-011 | [`session-sampling.md`](../specs/service/session-sampling.md) | Standard | T-W21 |
 | **T-W6** | **Form practice engine** — promote [`form-practice.md`](../specs/service/form-practice.md) from draft; inverse index; session mixing rules. | UC-041 | existing draft + AC file | **Sensitive** | W-4, red-test-first |
 
 **Explicitly not in phase 2:** word capture (UC-012), reading (UC-007), coverage
@@ -182,7 +182,7 @@ Quick reference: where each vocabulary-heavy use case lands.
 | UC-063 | Get to cards | 1 | ✓ | ✓ | **T-W20** (forms path) |
 | UC-022 | Rule when wrong | 3 | ✓ partial | — | **T-W21** |
 | UC-078 | Forms without mixed review | 2 | ✓ draft | — | **T-W20** |
-| UC-079 | Core vocabulary, natural repetition | 2 | ✓ draft | — | **T-W22** |
+| UC-079 | Core vocabulary, natural repetition | 2 | ✓ | ✓ (T-W22) | — |
 | UC-069 | App in my language | 1/3 | ✓ | partial (chrome ✓; glosses via resolver) | app-texts AC remainder |
 | UC-076 | Example sentence on card | 3 | ✓ draft | — | **T-W19** |
 | UC-007 | Read at my level | 3 | ✓ draft | partial (tap-to-gloss v1) | T-W10 remainder |
