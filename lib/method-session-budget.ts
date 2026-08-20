@@ -17,42 +17,46 @@ export function parseMenuTimeFilter(rawMinutes?: string): MenuTimeFilter {
   return parsed;
 }
 
+/** All catalogue packages — shown on detail; not narrowed by menu time filter. */
+export function catalogueVariantMinutes(durations: MethodEntry["durations"]): number[] {
+  if (durations === null || durations.length === 0) return [];
+  return [...durations];
+}
+
+/** @deprecated Use catalogueVariantMinutes — menu filter does not hide detail chips. */
 export function availableVariantMinutes(
   durations: MethodEntry["durations"],
-  menuFilter: MenuTimeFilter,
+  _menuFilter?: MenuTimeFilter,
 ): number[] {
-  if (durations === null || durations.length === 0) return [];
-  if (menuFilter === undefined || menuFilter === "endless") return [...durations];
-  return durations.filter((minutes) => minutes <= menuFilter);
+  return catalogueVariantMinutes(durations);
 }
 
 export function resolveDefaultVariantMinutes(
   durations: MethodEntry["durations"],
-  menuFilterRaw?: string,
 ): number | undefined {
-  const available = availableVariantMinutes(durations, parseMenuTimeFilter(menuFilterRaw));
-  if (available.length === 0) return undefined;
-  return Math.max(...available);
+  const packages = catalogueVariantMinutes(durations);
+  if (packages.length === 0) return undefined;
+  return Math.max(...packages);
 }
 
 export function resolveVariantMinutes(
   durations: MethodEntry["durations"],
-  options?: { menuFilterRaw?: string; selectedVariantRaw?: string; methodId?: string },
+  options?: { selectedVariantRaw?: string; methodId?: string },
 ): number | undefined {
   if (options?.methodId === CARD_ENGINE_METHOD_ID) return undefined;
 
-  const available = availableVariantMinutes(durations, parseMenuTimeFilter(options?.menuFilterRaw));
-  if (available.length === 0) return undefined;
+  const packages = catalogueVariantMinutes(durations);
+  if (packages.length === 0) return undefined;
 
   const selectedRaw = options?.selectedVariantRaw;
   if (selectedRaw) {
     const selected = Number(selectedRaw);
-    if (Number.isFinite(selected) && available.includes(selected)) {
+    if (Number.isFinite(selected) && packages.includes(selected)) {
       return selected;
     }
   }
 
-  return Math.max(...available);
+  return Math.max(...packages);
 }
 
 /** @deprecated Use resolveVariantMinutes — kept for call sites migrating to filter-only menu. */
@@ -60,7 +64,7 @@ export function resolveSessionBudgetMinutes(
   durations: MethodEntry["durations"],
   rawMinutes?: string,
 ): number | undefined {
-  return resolveVariantMinutes(durations, { menuFilterRaw: rawMinutes, selectedVariantRaw: rawMinutes });
+  return resolveVariantMinutes(durations, { selectedVariantRaw: rawMinutes });
 }
 
 export function appendVariantMinutesParam(

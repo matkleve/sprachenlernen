@@ -85,20 +85,3 @@ export function cardHrefForMethod(method: MethodEntry, returnQuery = ""): string
   }
   return detailHrefForMethod(method, returnQuery);
 }
-
-export function menuFilterRawFromReturnQuery(returnQuery: string): string | undefined {
-  if (!returnQuery) return undefined;
-  const normalized = returnQuery.startsWith("?") ? returnQuery.slice(1) : returnQuery;
-  if (!normalized) return undefined;
-  return new URLSearchParams(normalized).get("minutes") ?? undefined;
-}
-
-export function defaultVariantMinutesForDetail(
-  method: MethodEntry,
-  returnQuery: string,
-): number | undefined {
-  return resolveVariantMinutes(method.durations, {
-    menuFilterRaw: menuFilterRawFromReturnQuery(returnQuery),
-    methodId: method.id,
-  });
-}

@@ -7,6 +7,8 @@
       selected a 15 min variant chip.
 - [ ] Given menu filter 15 min and `durations: [8, 15]`, when detail renders,
       then both variant chips appear and **15** is the default selection.
+- [ ] Given menu filter 10 min and `durations: [8, 15]`, when detail renders,
+      then **both** variant chips still appear and **15** is the default selection.
 - [ ] Given menu filter 5 min and `durations: [8, 15]`, when the catalogue
       filters, then that method is **absent**.
 - [ ] Given `durations.length === 1`, when detail renders, then no variant

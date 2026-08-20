@@ -29,11 +29,11 @@ Audit: [`../../study/42-method-usefulness-ux-audit.md`](../../study/42-method-us
 | Control | Where | Purpose |
 | --- | --- | --- |
 | **Time filter** | Method menu slider (`?minutes=` on `/methods`) | Show only methods whose **shortest** package fits: `min(durations) ≤ filter` |
-| **Duration package** | Method detail variant chips | Learner picks **one fixed session** before Start |
+| **Duration package** | Method detail variant chips | Learner picks **one fixed session** before Start — **all** catalogue packages shown when `durations.length > 1` |
 
-The menu slider **does not** set session length. It answers UC-045: *what can I
-do in the time I have?* The detail picker answers UC-039: *what exactly am I
-about to do?*
+The menu slider **does not** set session length and **does not** hide detail
+chips. It answers UC-045: *what can I do in the time I have?* The detail picker
+answers UC-039: *what exactly am I about to do?*
 
 ## Definitions
 
@@ -97,9 +97,9 @@ Card count is **never** derived from menu slider or `variantMinutes`.
 | Source | Rule |
 | --- | --- |
 | `durations.length === 1` | That value — no picker |
-| Detail variant chips | Learner taps one package before Start |
-| Default on detail | **Longest** package with `variantMinutes ≤ menuTimeFilter` (or any package when Endless) |
-| Menu `?minutes=` | **Not** forwarded to `/practice` or `/words/review` |
+| Detail variant chips | **All** values in `durations[]` when length > 1 — independent of menu filter |
+| Default on detail | **Longest** package in `durations[]` |
+| Menu `?minutes=` | **Not** forwarded to `/practice` or `/words/review`; **does not** hide chips |
 
 ## URL params
 
@@ -154,9 +154,10 @@ learner switches variant chips.
 | # | Input | Output |
 | --- | --- | --- |
 | 1 | Menu filter 15 min, method `durations: [8, 15]` | Method **visible** (`8 ≤ 15`). Menu URL keeps `minutes=15`. |
-| 2 | Opens detail from that context | Variant chips **8** and **15**; default **15** |
+| 2 | Opens detail from that context | Variant chips **8** and **15** (both packages); default **15** |
 | 3 | Starts with 15 chip | `/practice?method=…&minutes=15` — compose **15 min package** |
 | 4 | Menu filter 5 min, method `durations: [8, 15]` | Method **absent** (`8 > 5`) |
+| 4b | Menu filter 10 min, same method on detail | Still shows chips **8** and **15** when opened; default **15** |
 | 5 | Menu Endless | All methods with any `durations`; detail shows all packages |
 | 6 | `durations: [10]` | No variant chips; contract shows single package |
 

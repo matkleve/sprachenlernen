@@ -88,12 +88,6 @@ export async function MethodDetail({ method, searchParams = {} }: MethodDetailPr
     : { status: "omit" as const };
   const showMaterialSetup = materialBundle.status === "ok";
   const localized = localizeMethodEntry(method, (key) => t(key as "entries.background-listening.name"));
-  const menuFilterRaw =
-    typeof searchParams.minutes === "string"
-      ? searchParams.minutes
-      : Array.isArray(searchParams.minutes)
-        ? searchParams.minutes[0]
-        : undefined;
   const variantRaw =
     typeof searchParams.variantMinutes === "string"
       ? searchParams.variantMinutes
@@ -101,7 +95,6 @@ export async function MethodDetail({ method, searchParams = {} }: MethodDetailPr
         ? searchParams.variantMinutes[0]
         : undefined;
   const variantMinutes = resolveVariantMinutes(method.durations, {
-    menuFilterRaw,
     selectedVariantRaw: variantRaw,
     methodId: method.id,
   });

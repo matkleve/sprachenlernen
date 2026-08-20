@@ -2,34 +2,28 @@ import { describe, expect, it } from "vitest";
 
 import {
   appendVariantMinutesParam,
-  availableVariantMinutes,
+  catalogueVariantMinutes,
   resolveDefaultVariantMinutes,
   resolveVariantMinutes,
   showDurationVariantPicker,
 } from "@/lib/method-session-budget";
 
-describe("availableVariantMinutes", () => {
-  it("returns all packages when menu filter is missing or endless", () => {
-    expect(availableVariantMinutes([8, 15, 20], undefined)).toEqual([8, 15, 20]);
-    expect(availableVariantMinutes([8, 15, 20], "endless")).toEqual([8, 15, 20]);
-  });
-
-  it("filters packages by menu time filter", () => {
-    expect(availableVariantMinutes([8, 15, 20], 15)).toEqual([8, 15]);
-    expect(availableVariantMinutes([8, 15, 20], 5)).toEqual([]);
+describe("catalogueVariantMinutes", () => {
+  it("returns all catalogue packages regardless of menu context", () => {
+    expect(catalogueVariantMinutes([8, 15, 20])).toEqual([8, 15, 20]);
+    expect(catalogueVariantMinutes(null)).toEqual([]);
+    expect(catalogueVariantMinutes([])).toEqual([]);
   });
 });
 
 describe("resolveVariantMinutes", () => {
-  it("defaults to the longest package within the menu filter", () => {
+  it("defaults to the longest catalogue package", () => {
     expect(resolveVariantMinutes([8, 15, 20])).toBe(20);
-    expect(resolveVariantMinutes([8, 15, 20], { menuFilterRaw: "15" })).toBe(15);
   });
 
-  it("honours selected variant when it is available", () => {
+  it("honours selected variant when it is in the catalogue", () => {
     expect(
       resolveVariantMinutes([8, 15, 20], {
-        menuFilterRaw: "15",
         selectedVariantRaw: "8",
       }),
     ).toBe(8);
@@ -43,8 +37,8 @@ describe("resolveVariantMinutes", () => {
 });
 
 describe("resolveDefaultVariantMinutes", () => {
-  it("matches resolveVariantMinutes without a selected chip", () => {
-    expect(resolveDefaultVariantMinutes([8, 15, 20], "15")).toBe(15);
+  it("matches the longest catalogue package", () => {
+    expect(resolveDefaultVariantMinutes([8, 15, 20])).toBe(20);
   });
 });
 

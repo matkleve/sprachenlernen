@@ -104,7 +104,7 @@ Designer reviewed four placements. **Rejected:**
 | 7 | Method has `materialTopics` | Topic chip row below badge band; upload only when **Your own** selected |
 | 8 | Method has no `materialTopics` | Start unchanged (e.g. `srs-session`) |
 | 9 | Hosted method with viable recipe | Session contract above Start for the **selected package** — e.g. *"~8 min · 4 sentences · self-mark"* |
-| 10 | `durations.length > 1` | **Duration variant chips** below badge band (or below material setup when both apply); default = longest package that fits menu time filter |
+| 10 | `durations.length > 1` | **Duration variant chips** below badge band (or below material setup when both apply); **all** catalogue packages; default = **longest** package |
 | 11 | Learner switches variant chip | Session contract updates; Start URL `minutes=` matches selected package |
 
 ## Acceptance criteria
@@ -124,9 +124,10 @@ Designer reviewed four placements. **Rejected:**
 - [ ] Given any method, when detail renders, then `trains` and `doesNotDo` appear
       as prose in the main column — not as a stack of small labelled list rows.
 - [ ] Given two duration packages and menu filter 15 min, when detail renders,
-      then variant chips show both values and **15** is selected by default.
+      then variant chips show **both** values and **15** is selected by default.
 - [ ] Given menu filter 10 min and `durations: [8, 15]`, when detail renders,
-      then only the **8** min chip is offered (15 exceeds filter).
+      then variant chips still show **both** values (menu filter does not hide
+      chips); default **15**.
 - [ ] Given `durations.length === 1`, when detail renders, then no duration
       variant chips appear.
 - [ ] Given viewport `< md`, when detail renders, then practical facts are inside

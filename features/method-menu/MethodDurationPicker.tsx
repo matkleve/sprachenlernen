@@ -4,10 +4,7 @@ import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 
 import { FilterPill } from "@/components/ui/FilterPill";
-import {
-  availableVariantMinutes,
-  parseMenuTimeFilter,
-} from "@/lib/method-session-budget";
+import { catalogueVariantMinutes } from "@/lib/method-session-budget";
 import { menuQueryString, type SearchParams } from "@/lib/method-menu-filter";
 import { cn } from "@/lib/utils";
 
@@ -29,14 +26,7 @@ export function MethodDurationPicker({
   const router = useRouter();
   const t = useTranslations("methodMenu");
 
-  const menuFilter = parseMenuTimeFilter(
-    typeof searchParams.minutes === "string"
-      ? searchParams.minutes
-      : Array.isArray(searchParams.minutes)
-        ? searchParams.minutes[0]
-        : undefined,
-  );
-  const packages = availableVariantMinutes(durations, menuFilter);
+  const packages = catalogueVariantMinutes(durations);
 
   if (packages.length <= 1) return null;
 
