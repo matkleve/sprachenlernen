@@ -2,16 +2,22 @@
 
 <!-- parent: SPEC-service-method-session-budget -->
 
-- [ ] Given menu `?minutes=15` and Start on a hosted method, when the session URL
-      is built, then `minutes=15` is present on `/practice` or `/words/review`.
-- [ ] Given a method with `durations: [10, 20]` and menu at 15, when the learner
-      starts, then `budgetMinutes` is 15 (within catalogue range).
-- [ ] Given menu at 5 and `durations: [8, 15]`, when detail renders, then the
-      session contract shows the **8 min** minimum, not 5.
-- [ ] Given `free-production` with `budgetMinutes: 10`, when the recipe composes,
-      then `timed-write.durationSec` is within tolerance of 10 minutes minus
-      chrome overhead.
-- [ ] Given `srs-session` with `budgetMinutes: 10`, when `buildSession` runs,
-      then card count is within tolerance of 10 minutes at `SEC_PER_CARD`.
-- [ ] Given any hosted recipe after T-MV5, when `estimateWallClock` runs, then
-      result is within 85–115 % of `budgetMinutes`.
+- [ ] Given menu `?minutes=15`, when a learner opens a method detail page, then
+      the menu minutes are **not** present on the Start URL unless the learner
+      selected a 15 min variant chip.
+- [ ] Given menu filter 15 min and `durations: [8, 15]`, when detail renders,
+      then both variant chips appear and **15** is the default selection.
+- [ ] Given menu filter 5 min and `durations: [8, 15]`, when the catalogue
+      filters, then that method is **absent**.
+- [ ] Given `durations.length === 1`, when detail renders, then no variant
+      chips appear and Start uses that sole package.
+- [ ] Given a method with three values in `durations`, when the catalogue
+      validator runs, then it **refuses** the entry.
+- [ ] Given `partial-dictation` package `8`, when the recipe composes, then
+      wall estimate is within 85–115 % of 8 minutes — independent of menu filter.
+- [ ] Given `free-production` package `10`, when the recipe composes, then
+      `timed-write.durationSec` matches the fixed 10 min package definition.
+- [ ] Given `srs-session` package `10`, when the session builds, then card count
+      is the fixed count for that package — not derived from menu filter.
+- [ ] Given any hosted package after T-MV5, when `estimateWallClock` runs, then
+      result is within tolerance of that package's `variantMinutes`.

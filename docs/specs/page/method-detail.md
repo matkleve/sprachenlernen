@@ -23,8 +23,10 @@ menu. Direct navigation to `/methods/{id}` still works for bookmarks and links.
   sentence, research disclosure). **Topic chip row** when `materialTopics` is set
   ([`method-material-setup.md`](../feature/method-material-setup.md)).
   On `< md` the panel collapses into a
-  `Disclosure`. **Session contract** for hosted built methods — item count +
-  feedback mode before Start ([`method-session-viability.md`](../service/method-session-viability.md),
+  `Disclosure`. **Duration variant chips** when `durations.length > 1` — at most
+  two fixed packages; learner picks one before Start (study/45). **Session contract**
+  for hosted built methods — item count + feedback mode for the **selected package**
+  ([`method-session-viability.md`](../service/method-session-viability.md),
   study/42). Cards keep Lucide badge row
   ([`method-badge.md`](../component/method-badge.md)). Tier badges:
   [`skill-tier-badge.md`](../component/skill-tier-badge.md). Shell header shows
@@ -78,9 +80,9 @@ Designer reviewed four placements. **Rejected:**
 1. Full-bleed section-graphic hero (same asset as cards; fades to `canvas`)
 2. Back link (desktop only, in content column)
 3. Two columns at `≥ md`:
-   - **Main:** `<h1>` → summary → badge band → **pre-start panel** (topic chips +
-     unit chips, preview, **Start** when `materialTopics`; else **Start** for
-     runnable methods without setup) → `trains` prose → `doesNotDo` callout
+   - **Main:** `<h1>` → summary → badge band → **pre-start panel** (duration
+     variant chips when `durations.length > 1`; topic chips + unit chips when
+     `materialTopics`; preview; **Start** when setup resolved) → `trains` prose → `doesNotDo` callout
    - **Aside:** practical details (duration, needs, hosted, effort anchor, research disclosure)
 4. On `< md`: practical details in a collapsed `Disclosure` **after** the
    pre-start panel (not before it). Runnable / material-setup methods use
@@ -101,7 +103,9 @@ Designer reviewed four placements. **Rejected:**
 | 6 | Expands research confidence | Plain evidence label + prose appear |
 | 7 | Method has `materialTopics` | Topic chip row below badge band; upload only when **Your own** selected |
 | 8 | Method has no `materialTopics` | Start unchanged (e.g. `srs-session`) |
-| 9 | Hosted method with viable recipe | Session contract above Start — budget, volume, feedback — e.g. *"~10 min · 4 sentences · compared to key"* |
+| 9 | Hosted method with viable recipe | Session contract above Start for the **selected package** — e.g. *"~8 min · 4 sentences · self-mark"* |
+| 10 | `durations.length > 1` | **Duration variant chips** below badge band (or below material setup when both apply); default = longest package that fits menu time filter |
+| 11 | Learner switches variant chip | Session contract updates; Start URL `minutes=` matches selected package |
 
 ## Acceptance criteria
 
@@ -119,8 +123,12 @@ Designer reviewed four placements. **Rejected:**
       appear** in the band — only in practical details.
 - [ ] Given any method, when detail renders, then `trains` and `doesNotDo` appear
       as prose in the main column — not as a stack of small labelled list rows.
-- [ ] Given multiple durations, when the facts panel renders, then one range chip
-      is shown (e.g. `10–45 min`), not separate chips per value.
+- [ ] Given two duration packages and menu filter 15 min, when detail renders,
+      then variant chips show both values and **15** is selected by default.
+- [ ] Given menu filter 10 min and `durations: [8, 15]`, when detail renders,
+      then only the **8** min chip is offered (15 exceeds filter).
+- [ ] Given `durations.length === 1`, when detail renders, then no duration
+      variant chips appear.
 - [ ] Given viewport `< md`, when detail renders, then practical facts are inside
       a collapsed disclosure — not inline list sections in the main column.
 - [ ] Given viewport `≥ md`, when detail renders, then practical facts appear in

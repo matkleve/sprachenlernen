@@ -230,7 +230,7 @@ the session. Card `durations` are filter hints, not enforced budgets. That is wh
 | F211 | **Exemplar from material** — lemma table supplies model sentences | B | M | **V1** — T-MV2 |
 | F212 | **Skip prepare** when context already satisfied on detail | D | S | **V2** |
 | F213 | **Reading-aloud self-rubric** — 2-dimension self-mark after record | B | M | **V2** — T-MV4 |
-| F214 | **Budget-driven sessions** — menu minutes sizes compose, not just filter | D | M | **V1** — T-MV5/T-MV6 |
+| F214 | **Budget-driven sessions** — menu minutes sizes compose, not just filter | D | M | **Superseded** — study/45 F216 (owner 2026-08-20) |
 | F215 | **Catalogue duration validator** — refuse `durations` that fail wall estimate | D | S | **V1** — T-MV5 |
 
 ---
