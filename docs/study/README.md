@@ -81,7 +81,8 @@ only this table.
 | [45 · Method duration variants](45-method-duration-variants.md) | Filter vs fixed packages; menu slider decoupled (owner 2026-08-20) |
 | [46 · Method length & level-matched content](46-method-length-and-level-matched-content.md) | Which methods benefit from two lengths; news/windows; adaptation ladder |
 | [48 · Content licensing & adaptation](48-content-licensing-and-adaptation.md) | Ingest lanes, free sources, LLM cost, no off-the-shelf lemma adapter |
-| [49 · Learner intent onboarding](49-learner-intent-onboarding.md) | UX + LT + DS panel: skill/domain questions after session 1, lemma boost, "respected" definition |
+| [49 · Learner intent onboarding](49-learner-intent-onboarding.md) | Lemma boost by register; **timing/skill parts superseded by 50** |
+| [50 · Onboarding popover & skill question](50-onboarding-popover-timing-and-skill-question.md) | Web research: upfront 2–3 screen popover, drop skill fork, domain only |
 | [43 · Early foundation sessions](43-early-foundation-sessions.md) | Same-day word return, foundation throttle, soft form staging — study + implementation map |
 | [44 · Foundation phase expert review](44-foundation-phase-expert-review.md) | DS + LT panel: one composer layer, resurfacing rules, what not to ship in v1 |
 | [Sources](sources.md) | Literature, honestly marked by how far each was checked |

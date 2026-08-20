@@ -1,6 +1,10 @@
 # 49 · Learner intent onboarding — expert panel study
 
 **Status:** study only — no implementation.  
+**⚠ Superseded in part by [50](50-onboarding-popover-timing-and-skill-question.md)
+(2026-08-20):** §I1 timing (“after session 1”) and §I2a skill question — owner
+wants **upfront popover** and **domain only**. Register boost (§I2c–I3) **stands**.
+
 **Brief:** Owner asks whether new users can be asked what they want to do
 (speak, read, listen, …) and whether they learn for **Business**, **Alltag**, or
 **Technik** — so those words appear **more often**, perhaps **early**, and the
