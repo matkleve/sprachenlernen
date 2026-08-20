@@ -22,7 +22,10 @@ covers the **full paradigm-cell** engine (`paradigm-cells-mixed`) and is T-W6.
   composition, answer routes, and the inverse index the whole thing needs.
   **Shipped v1 (2026-08-20):** [`form-inverse-index.md`](form-inverse-index.md)
   and lemma-spacing / tense×class mixing in `lib/form-session-mixing.ts` (rules
-  1–2; **echo rule** in review session; pull-forward still in sampling).
+  1–2; **echo rule** in review session; **pull-forward** in
+  `lib/form-pull-forward.ts`). **Shipped v3 (2026-08-20):** cell-based task ids
+  (`lib/form-cell-task-id.ts`), runtime cell catalog (`lib/form-cell-catalog.ts`),
+  daily introduction cap (`lib/form-introduction.ts`, default 3/day).
 - **Out:** the level-model arithmetic for form mastery
   ([`study/03`](../../study/03-level-model.md) owns it); the paper sheet, which
   is its own method; grammar as a curriculum of topics (UC-041, out of scope).
@@ -53,7 +56,8 @@ The learner's objection that drove this spec — *"you don't learn all tenses at
 once"* — is right, and it is a **pool-size** problem rather than a curriculum
 problem. Three dials, no prerequisite graph:
 
-1. **A cap on new cells per day.** This alone answers the objection.
+1. **A cap on new cells per day.** This alone answers the objection. Default
+   **3** (`DEFAULT_NEW_CELL_CAP_PER_DAY` in `lib/form-introduction.ts`).
 2. **Frequency-stratified order** — by form frequency, stratified by cell class
    so the head of the list is not fifty forms of *ser · estar · haber · ir*.
 3. **Subjunctive last.** The one ordering step with research behind it; it lives

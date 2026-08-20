@@ -12,7 +12,13 @@ import {
   logHandledErrorFromRequest,
   sessionBuildFailed,
 } from "@/lib/errors";
+import { buildFormCellCatalog } from "@/lib/form-cell-catalog";
 import { heldLemmaSet } from "@/lib/content-gap";
+import { firstReviewTimesByTaskId } from "@/lib/form-introduction";
+import { parseFrequencyList } from "@/lib/lexicon";
+import { readFileSync } from "node:fs";
+import { join } from "node:path";
+import type { StarterCard } from "@/lib/starter-deck";
 import { buildSession, type SessionCard } from "@/lib/session-builder";
 import {
   buildSessionLoopLine,
@@ -173,12 +179,19 @@ export async function buildSessionAction(input?: {
     const cookieStore = await cookies();
     const gapSet = parseGapSetCookie(cookieStore.get(GAP_SET_COOKIE)?.value);
     const priorityLemmas = gapSet ? new Set(gapSet.lemmas) : undefined;
+    const lemmaMeta = lemmaMetaForLanguage(activeCode ?? "es");
+    const formCellPool =
+      deck === "form" ? formCellPoolForLanguage(activeCode ?? "es", poolCards, lemmaMeta) : undefined;
+    const firstCellReviews = firstReviewTimesByTaskId(reviewsResult.reviews);
+
     const queue = localizeSessionCards(
       buildSession(schedulable, tasksByTaskId, now, undefined, {
         priorityLemmas,
         deck,
         sampling,
-        lemmaMeta: lemmaMetaForLanguage(activeCode ?? "es"),
+        lemmaMeta,
+        formCellPool,
+        firstCellReviews,
       }),
       spoken.spokenLanguage,
     ).map((card) => attachFormExplanation(card, activeCode ?? "es", poolCards, tasksByTaskId));
@@ -232,4 +245,30 @@ function lemmaMetaForLanguage(languageCode: string) {
     languageCode === "it" ? itLemma : languageCode === "es" ? esLemma : undefined;
   if (!raw) return undefined;
   return loadLemmaTable(raw, languageCode).table?.lemmas;
+}
+
+function formCellPoolForLanguage(
+  languageCode: string,
+  poolCards: StarterCard[],
+  lemmaMeta: ReturnType<typeof lemmaMetaForLanguage>,
+) {
+  if (!lemmaMeta) return undefined;
+  const raw = languageCode === "it" ? itLemma : languageCode === "es" ? esLemma : undefined;
+  if (!raw) return undefined;
+  const table = loadLemmaTable(raw, languageCode).table;
+  if (!table) return undefined;
+
+  try {
+    const frequency = parseFrequencyList(
+      readFileSync(join(process.cwd(), `data/frequency/${languageCode}.txt`), "utf8"),
+    );
+    return buildFormCellCatalog({
+      languageCode,
+      pool: poolCards,
+      lemmaTable: table,
+      frequency,
+    });
+  } catch {
+    return undefined;
+  }
 }

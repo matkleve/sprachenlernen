@@ -7,11 +7,11 @@ so the negative ones exist before someone helpfully adds what they forbid.
 
 ## Items and introduction
 
-- [ ] Given the shipped pool, when cells are instantiated, then a cell becomes a
+- [x] Given the shipped pool, when cells are instantiated, then a cell becomes a
       Task only after the learner meets or fails that form — never in bulk.
-- [ ] Given a day's session, then no more than the configured cap of **new**
+- [x] Given a day's session, then no more than the configured cap of **new**
       cells is introduced, whatever the due set looks like.
-- [ ] Given the introduction order, then it is derived from form frequency
+- [x] Given the introduction order, then it is derived from form frequency
       stratified by cell class, and the subjunctive sorts last.
 - [ ] Given a cell that has not been introduced, when the learner asks for it,
       meets it in a text, or fails it in production, then it is available
@@ -19,12 +19,12 @@ so the negative ones exist before someone helpfully adds what they forbid.
 
 ## Session composition
 
-- [ ] Given a built session, then no two consecutive items share a lemma.
-- [ ] Given any four consecutive items, then at most two share tense ×
+- [x] Given a built session, then no two consecutive items share a lemma.
+- [x] Given any four consecutive items, then at most two share tense ×
       conjugation class.
-- [ ] Given an answered cell whose confusable twin is in the pool, then the twin
+- [x] Given an answered cell whose confusable twin is in the pool, then the twin
       appears 2–5 items later.
-- [ ] Given a due set that cannot satisfy the three rules above, then non-due
+- [x] Given a due set that cannot satisfy the three rules above, then non-due
       cells are pulled forward rather than a blocked run being shipped.
 - [ ] Given a session heading, then it names the **scope** and never the answer
       — and no heading appears above contextual items whose answer it would

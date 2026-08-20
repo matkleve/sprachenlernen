@@ -14,8 +14,8 @@ Parent: [`lexicon.md`](lexicon.md) (`form → analyses`),
   for table noise; primary ordering by shipped frequency; variety labels on
   alternates.
 - **Out:** runtime morphological analysis; generating forms from patterns; choosing
-  which cell a card practises (still [`form-recall-pool.md`](form-recall-pool.md)
-  until the cell-based task id ships).
+  which cell a card practises at review time (legacy surface-form pool remains
+  for mixed/meaning decks; `deck=form` uses cell ids from `lib/form-cell-catalog.ts`).
 
 ## Behavior
 

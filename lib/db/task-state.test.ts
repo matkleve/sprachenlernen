@@ -56,9 +56,10 @@ describe("task-state", () => {
     }
   });
 
-  it("derives word_id from meaning-recall and form-recall task ids", () => {
+  it("derives word_id from meaning-recall, legacy form-recall, and cell form-recall task ids", () => {
     expect(wordIdFromTaskId("es:hablar:meaning-recall")).toBe("es:hablar");
     expect(wordIdFromTaskId("es:el:los:form-recall")).toBe("es:el");
+    expect(wordIdFromTaskId("es:hablar:verb:ind.pres.1pl:form-recall")).toBe("es:hablar");
   });
 
   it("maps absence of state rows to new tasks via tasksByTaskIdForCards", async () => {

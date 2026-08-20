@@ -10,6 +10,7 @@ import {
   type Task,
   type TaskState,
 } from "@/lib/scheduler";
+import { wordIdFromFormTaskId } from "@/lib/form-cell-task-id";
 
 export type TaskStateRow = {
   taskId: string;
@@ -31,12 +32,7 @@ export function wordIdFromTaskId(taskId: string): string {
     return taskId.slice(0, -":meaning-recall".length);
   }
   if (taskId.endsWith(":form-recall")) {
-    const withoutSuffix = taskId.slice(0, -":form-recall".length);
-    const lastColon = withoutSuffix.lastIndexOf(":");
-    if (lastColon === -1) {
-      throw new Error(`task_id has unexpected shape: ${taskId}`);
-    }
-    return withoutSuffix.slice(0, lastColon);
+    return wordIdFromFormTaskId(taskId);
   }
   throw new Error(`task_id has unexpected shape: ${taskId}`);
 }

@@ -2,7 +2,14 @@
  * Session queue builder. Contract: docs/specs/service/session-builder.md
  */
 
-import { isMeaningRecallTaskId } from "@/lib/form-recall-pool";
+import { isFormRecallTaskId, isMeaningRecallTaskId } from "@/lib/form-recall-pool";
+import { cellCandidatesFromCards } from "@/lib/form-cell-catalog";
+import {
+  countNewCellIntroductionsToday,
+  filterNewCellCandidates,
+  DEFAULT_NEW_CELL_CAP_PER_DAY,
+} from "@/lib/form-introduction";
+import { buildFormSessionWithPullForward } from "@/lib/form-pull-forward";
 import { mixFormSession, type LemmaMeta } from "@/lib/form-session-mixing";
 import type { ReviewDeck } from "@/lib/review-deck";
 import type { SamplingContext, SamplingReason } from "@/lib/session-sampling";
@@ -31,6 +38,10 @@ export type BuildSessionOptions = {
   rng?: () => number;
   /** Lemma conjugation metadata for form-session mixing (T-W6). */
   lemmaMeta?: LemmaMeta;
+  /** Cell-based form pool — when set, `deck=form` uses paradigm-cell tasks (T-W6 v3). */
+  formCellPool?: StarterCard[];
+  /** First-review timestamps for cell tasks — introduction cap (T-W6 v3). */
+  firstCellReviews?: readonly { taskId: string; reviewedAt: number }[];
 };
 
 /**
@@ -51,12 +62,38 @@ export function buildSession(
     gradesTodayByTaskId: {},
   };
 
-  const picked = sampleSession(pool, tasksByTaskId, now, sessionLength, sampling, {
+  let samplePool = pool;
+  if (deck === "form" && options?.formCellPool) {
+    const introducedToday = countNewCellIntroductionsToday(
+      options.firstCellReviews ?? [],
+      now,
+    );
+    const eligibleIds = new Set(
+      filterNewCellCandidates(cellCandidatesFromCards(options.formCellPool), tasksByTaskId, {
+        capPerDay: DEFAULT_NEW_CELL_CAP_PER_DAY,
+        introducedTodayCount: introducedToday,
+      }).map((row) => row.taskId),
+    );
+    samplePool = options.formCellPool.filter((card) => eligibleIds.has(card.taskId));
+  }
+
+  const picked = sampleSession(samplePool, tasksByTaskId, now, sessionLength, sampling, {
     deck,
     priorityLemmas: options?.priorityLemmas,
     rng: options?.rng,
     config: sampling.config,
   });
+
+  if (deck === "form" && options?.formCellPool) {
+    return buildFormCellSession({
+      pool: samplePool,
+      tasksByTaskId,
+      now,
+      sessionLength,
+      picked,
+      options,
+    });
+  }
 
   const total = picked.length;
 
@@ -75,10 +112,55 @@ export function buildSession(
   }));
 
   if (deck === "form") {
-    return mixFormSession(sessionCards, { lemmaMeta: options?.lemmaMeta });
+    const mixed = mixFormSession(sessionCards, { lemmaMeta: options?.lemmaMeta });
+    return mixed.map((card, index) => {
+      const source = sessionCards.find((entry) => entry.taskId === card.taskId) ?? card;
+      return {
+        ...source,
+        ...card,
+        position: index + 1,
+        total,
+      };
+    });
   }
 
   return sessionCards;
+}
+
+function buildFormCellSession(input: {
+  pool: StarterCard[];
+  tasksByTaskId: Record<string, Task>;
+  now: number;
+  sessionLength: number;
+  picked: ReturnType<typeof sampleSession>;
+  options?: BuildSessionOptions;
+}): SessionCard[] {
+  const { pool, tasksByTaskId, now, sessionLength, picked, options } = input;
+
+  const dueCards = picked.map((entry) => entry.card);
+  const pickedIds = new Set(dueCards.map((card) => card.taskId));
+  const reserveCards = pool.filter((card) => !pickedIds.has(card.taskId));
+
+  const ordered = buildFormSessionWithPullForward({
+    dueCards,
+    reserveCards,
+    sessionLength,
+    lemmaMeta: options?.lemmaMeta ?? {},
+    tasksByTaskId,
+    now,
+  });
+
+  const metaByTaskId = new Map(
+    picked.map((entry) => [entry.card.taskId, entry.samplingReason] as const),
+  );
+  const total = ordered.length;
+
+  return ordered.map((card, index) => ({
+    ...card,
+    position: index + 1,
+    total,
+    samplingReason: metaByTaskId.get(card.taskId),
+  }));
 }
 
 function countHeldFromPool(
