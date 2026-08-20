@@ -23,6 +23,10 @@ Parent: [`field.md`](field.md). Prep rows:
 | `md` | `size-6` | `border-2 border-line-strong`, `rounded-md` | `bg-accent-deep`, `border-accent-deep`, check icon |
 | `sm` | `size-5` | same | same |
 
+With `label`: row uses `items-center gap-2.5` so a single-line label aligns with
+the marker. Callers that embed the control in their own `<label>` (prep rows) use
+`items-center` on the row and `font-semibold` on task copy.
+
 Native input: `sr-only`. Marker: `aria-hidden`.
 
 ## States

@@ -105,7 +105,7 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(function Che
     return (
       <label
         className={cn(
-          "group inline-flex items-start gap-2",
+          "group inline-flex items-center gap-2.5",
           touchTarget,
           interactiveCursor,
           focusRing,
@@ -115,10 +115,10 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(function Che
         )}
       >
         {control}
-        <span className="text-sm leading-snug text-muted">{label}</span>
+        <span className="text-sm font-medium leading-snug text-muted">{label}</span>
       </label>
     );
   }
 
-  return <span className={cn("inline-flex shrink-0", className)}>{control}</span>;
+  return <span className={cn("inline-flex shrink-0 items-center", className)}>{control}</span>;
 });

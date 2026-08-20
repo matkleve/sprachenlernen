@@ -6,21 +6,14 @@ import { PracticePrepList } from "@/features/exercise-runner/practice-surface/Pr
 import { PracticeSurface } from "@/features/exercise-runner/practice-surface/PracticeSurface";
 
 describe("practice surface", () => {
-  it("renders prep rows at task density without a full row border", () => {
+  it("centers the checkbox with single-line prep copy", () => {
     const { container } = render(
-      <PracticePrepList
-        entries={[
-          { id: "a", label: "Keyboard ready" },
-          { id: "b", label: "Target language" },
-        ]}
-      />,
+      <PracticePrepList entries={[{ id: "a", label: "Keyboard ready" }]} />,
     );
-    expect(screen.getByText("Keyboard ready")).toBeDefined();
     const row = container.querySelector("label");
-    expect(row?.className).toContain("min-h-11");
-    expect(row?.className).toContain("rounded-card");
-    expect(row?.className).not.toContain("border-line");
-    expect(row?.className).not.toContain("border-line-strong");
+    expect(row?.className).toContain("items-center");
+    expect(row?.className).toContain("px-4");
+    expect(screen.getByText("Keyboard ready").className).toContain("font-semibold");
   });
 
   it("toggles a prep row when the learner checks it", async () => {

@@ -36,7 +36,7 @@ Applied via `PracticeSurface` wrapper — not new CSS color tokens.
 | Lead prompt | `text-xl font-medium leading-snug text-ink` |
 | Body | `text-lg leading-relaxed text-ink` |
 | Secondary | `text-base text-muted` |
-| Prep row | `min-h-11 rounded-card bg-surface-raised p-3 shadow-soft` — checked: `bg-accent-soft ring-1 ring-inset ring-accent` (no full box border) |
+| Prep row | `min-h-11 items-center gap-3 rounded-card px-4 py-3 bg-surface-raised shadow-soft` — label `font-semibold`; checked: `bg-accent-soft ring-1 ring-inset ring-accent` |
 | Prep checkbox | `Checkbox` `md` — sr-only input; marker `size-6 border-2 border-line-strong rounded-md` |
 
 ## Behaviour

@@ -42,7 +42,7 @@ export function PracticePrepList({ entries, className }: PracticePrepListProps) 
           <li key={entry.id}>
             <label
               className={cn(
-                "group flex min-h-11 items-start gap-3 rounded-card p-3",
+                "group flex min-h-11 items-center gap-3 rounded-card px-4 py-3",
                 touchTarget,
                 interactiveCursor,
                 focusRing,
@@ -52,12 +52,8 @@ export function PracticePrepList({ entries, className }: PracticePrepListProps) 
                   : "bg-surface-raised shadow-soft",
               )}
             >
-              <Checkbox
-                checked={isChecked}
-                onChange={() => toggle(entry.id)}
-                className="mt-0.5"
-              />
-              <span className="text-base leading-snug text-ink">{entry.label}</span>
+              <Checkbox checked={isChecked} onChange={() => toggle(entry.id)} />
+              <span className="text-base font-semibold leading-snug text-ink">{entry.label}</span>
             </label>
           </li>
         );

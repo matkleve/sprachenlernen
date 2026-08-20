@@ -88,9 +88,9 @@ primitives — never raw app-scale fields for the main task.
 ## Practice surface rules
 
 1. **Lead copy** — `text-lg`, `leading-snug`, `text-ink`. One block per step.
-2. **Interactive rows** — min height 44px (`min-h-11`), `bg-surface-raised`,
-   `p-3`. Whole row toggles when checkbox. Checked rows use inset accent ring,
-   not a full border box.
+2. **Interactive rows** — min height 44px (`min-h-11`), `items-center`, `px-4 py-3`,
+   `font-semibold` label. Whole row toggles when checkbox. Checked rows use inset
+   accent ring, not a full border box.
 3. **Primary fields** — `Field` + `Textarea`, 3 rows default in short steps.
 4. **Checkboxes** — `Checkbox` primitive (`components/ui/Checkbox.tsx`) — 2px
    `line-strong`, 24px box (`md`), no native browser painting.
