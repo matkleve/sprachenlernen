@@ -34,9 +34,10 @@ encouragement.
   by default for daily habit — expand on demand or when UC-006 / UC-005
   relevance triggers fire), and the vocabulary orbit (with **Show list** for the
   full deck).
-- Words home offers **separate one-tap paths** for meaning review, form review,
-  and mixed review ([UC-078](UC-078-practise-forms-without-mixed-review.md)) —
-  still one destination, still no due counts.
+- Words home offers **one one-tap Start review** path to a mixed flashcard session
+  ([UC-078](UC-078-practise-forms-without-mixed-review.md) — form-only via Progress
+  or Methods, not a second control on Words) — still one destination, still no due
+  counts.
 - **No count anywhere in the navigation.** No badge, no dot, no "12 due". A3
   forbids the backlog counter, UC-006 forbids an overdue count as a primary
   figure anywhere, and a tab badge is the most primary figure a phone has.
