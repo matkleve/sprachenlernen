@@ -1157,7 +1157,13 @@
     },
     "oauthDivider": "or continue with",
     "oauthGoogleAria": "Continue with Google",
-    "oauthAppleAria": "Continue with Apple"
+    "oauthAppleAria": "Continue with Apple",
+    "errors": {
+      "invalid-credentials": "The email or password is not correct.",
+      "confirmation-missing": "The confirmation link is incomplete. Open the full link from your email, or sign in if you have already confirmed.",
+      "confirmation-failed": "That confirmation link is no longer valid. Request a new one by signing up again, or sign in if you have already confirmed.",
+      "unexpected": "Something on our side went wrong. Try again — if it keeps failing, note the reference below."
+    }
   },
   "privacy": {
     "bannerTitle": "Cookies and storage",

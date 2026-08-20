@@ -124,8 +124,18 @@ export async function applyTaskLifecycle(
     updated_at: new Date().toISOString(),
   };
 
+  // Both filters, always. `task_id` is a shared string — `es:haber:meaning-recall`
+  // is the same value in every learner's deck — so filtering on it alone names
+  // one row *per account*. RLS refuses the rest, which is why this was never a
+  // leak; but BACKEND.md §4 puts the scope filter in the adapter rather than in
+  // the policy's debt, and this function takes an injectable client that a
+  // service-role caller would strip the policy from.
   const { error } = row
-    ? await supabase.from("task_state").update(upsertBody).eq("task_id", taskId)
+    ? await supabase
+        .from("task_state")
+        .update(upsertBody)
+        .eq("user_id", account.id)
+        .eq("task_id", taskId)
     : await supabase.from("task_state").insert(upsertBody);
 
   if (error) {

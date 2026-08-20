@@ -190,6 +190,7 @@ describe("deleteAccount", () => {
     const signOutFn = vi.fn().mockResolvedValue({ error: null });
     const client = fakeClient({
       getSession: { data: { session: { user } } },
+      getUser: { data: { user }, error: null },
       signOut: { error: null },
     });
     (client.auth.signOut as ReturnType<typeof vi.fn>) = signOutFn;
@@ -201,11 +202,65 @@ describe("deleteAccount", () => {
   });
 
   it("errors when signed out", async () => {
-    const client = fakeClient({ getSession: { data: { session: null } } });
+    const client = fakeClient({
+      getSession: { data: { session: null } },
+      getUser: { data: { user: null }, error: null },
+    });
     vi.mocked(createServerSupabaseClient).mockResolvedValue(client);
     expect(await deleteAccount(client)).toEqual({
       status: "error",
       error: "You must be signed in to delete your account.",
     });
+  });
+});
+
+describe("deleteAccount — identity must come from the Auth server", () => {
+  /**
+   * The reason this suite exists: `getSession()` reads the cookie and checks
+   * only shape and `expires_at` — it never verifies the JWT signature (see
+   * @supabase/auth-js `__loadSession`, which wraps the user in
+   * `insecureUserWarningProxy` on the server for exactly this reason). Every
+   * other adapter survives a forged cookie because PostgREST verifies the JWT
+   * before RLS runs. Deletion does not: it hands the id to the service-role
+   * client, which bypasses RLS entirely. So this one path must confirm the
+   * account against Supabase Auth, not against the cookie.
+   */
+  it("refuses when the Auth server does not confirm the cookie's session", async () => {
+    const deleteUser = vi.fn().mockResolvedValue({ error: null });
+    vi.mocked(createServiceRoleSupabaseClient).mockReturnValue({
+      auth: { admin: { deleteUser } },
+    } as unknown as ReturnType<typeof createServiceRoleSupabaseClient>);
+
+    // A forged cookie: the session decodes to a victim, the Auth server
+    // rejects the token it carries.
+    const client = fakeClient({
+      getSession: { data: { session: { user: { id: "victim", email: "v@example.com" } } } },
+      getUser: { data: { user: null }, error: { message: "invalid JWT" } },
+    });
+    vi.mocked(createServerSupabaseClient).mockResolvedValue(client);
+
+    expect(await deleteAccount(client)).toEqual({
+      status: "error",
+      error: "You must be signed in to delete your account.",
+    });
+    expect(deleteUser).not.toHaveBeenCalled();
+  });
+
+  it("deletes the id the Auth server returns, never the id the cookie claims", async () => {
+    const deleteUser = vi.fn().mockResolvedValue({ error: null });
+    vi.mocked(createServiceRoleSupabaseClient).mockReturnValue({
+      auth: { admin: { deleteUser } },
+    } as unknown as ReturnType<typeof createServiceRoleSupabaseClient>);
+
+    const client = fakeClient({
+      getSession: { data: { session: { user: { id: "victim", email: "v@example.com" } } } },
+      getUser: { data: { user }, error: null },
+      signOut: { error: null },
+    });
+    vi.mocked(createServerSupabaseClient).mockResolvedValue(client);
+
+    expect(await deleteAccount(client)).toEqual({ status: "deleted" });
+    expect(deleteUser).toHaveBeenCalledWith("user-1");
+    expect(deleteUser).not.toHaveBeenCalledWith("victim");
   });
 });

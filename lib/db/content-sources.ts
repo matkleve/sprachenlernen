@@ -3,6 +3,7 @@ import type { SupabaseClient } from "@supabase/supabase-js";
 import { getAccount } from "@/lib/db/auth";
 import { createServerSupabaseClient } from "@/lib/db/client";
 import type { Source, SourceKind } from "@/lib/coverage";
+import { rejectOversizeLearnerText } from "@/lib/learner-text-limits";
 import { titleFromLearnerText } from "@/lib/method-material-setup";
 import {
   databaseNotSignedIn,
@@ -72,6 +73,12 @@ export async function createLearnerTextSource(
     return { status: "error", error: "Paste some text before saving." };
   }
 
+  // Before the round trip, not after: the column's check constraint is the
+  // backstop, and a constraint violation surfaces as a generic database error
+  // that tells the learner nothing about what to do next.
+  const oversize = rejectOversizeLearnerText(trimmed);
+  if (oversize) return oversize;
+
   const title = input.title ?? titleFromLearnerText(trimmed);
 
   const { data, error } = await supabase
@@ -121,6 +128,43 @@ export async function listLearnerSourcesForLanguage(
   if (error) {
     const handled = fromSupabaseLanguageError(error, {
       operation: "load your saved texts",
+    });
+    void logHandledErrorFromRequest(handled);
+    return { status: "error", error: handled.userMessage };
+  }
+
+  return {
+    status: "ok",
+    sources: (data ?? []).map((row) => rowToSource(row as ContentSourceRow)),
+  };
+}
+
+/**
+ * Every saved source this account owns, across all languages. For the account
+ * export (UC-024) — the per-language listing above is what surfaces drive.
+ */
+export async function listAllLearnerSources(
+  client?: SupabaseClient,
+): Promise<LearnerSourcesOutcome> {
+  const supabase = await resolveClient(client);
+  const account = await getAccount();
+  if (!account) {
+    const handled = databaseNotSignedIn({ operation: "export your saved texts" });
+    void logHandledErrorFromRequest(handled);
+    return { status: "error", error: handled.userMessage };
+  }
+
+  const { data, error } = await supabase
+    .from("content_sources")
+    .select(
+      "id, language_code, kind, title, body, transcript, tags, source_url, added_at",
+    )
+    .eq("user_id", account.id)
+    .order("added_at", { ascending: true });
+
+  if (error) {
+    const handled = fromSupabaseLanguageError(error, {
+      operation: "export your saved texts",
     });
     void logHandledErrorFromRequest(handled);
     return { status: "error", error: handled.userMessage };

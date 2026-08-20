@@ -1,6 +1,6 @@
 {
   "name": "sprachenlernen",
-  "version": "0.45.0",
+  "version": "0.45.1",
   "private": true,
   "type": "module",
   "scripts": {
@@ -12,6 +12,7 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "check:specs": "node scripts/check-specs.mjs",
+    "check:secrets": "node scripts/check-secrets.mjs",
     "check:tokens": "node scripts/check-tokens.mjs",
     "check:contrast": "node scripts/check-contrast.mjs",
     "check:neighbors": "node scripts/check-neighbor-candidates.mjs",

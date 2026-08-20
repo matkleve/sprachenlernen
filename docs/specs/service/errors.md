@@ -118,6 +118,12 @@ path or one `HandledError` — never both, never neither after a failed load.
 - **Show reference id in production UI** — yes, in muted mono, so support and
   agents can work from a screenshot.
 
+**User-facing copy never travels in a URL.** `userMessage` is for the log and
+for a component that already has the `HandledError`. A redirect carries a code
+(`lib/auth-error-code.ts`) and the receiving page resolves copy from
+`messages/*.json`; see [`auth.md`](auth.md) behaviour 3 for what the earlier
+shape allowed.
+
 ## Check
 
 `npm test -- errors`

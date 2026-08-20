@@ -20,14 +20,46 @@ jobs:
 
       - run: npm ci
 
-      # BACKEND.md §8 calls the RLS suite the highest-value test in the product,
-      # and it has never run here: `lib/db/access-control.test.ts` skips itself
-      # unless all three secrets are present, so CI has been reporting green on
-      # 5 tests it never executed. Passing them through costs nothing while they
-      # are unset — the suite skips exactly as it does today — and the access
-      # control test starts running on every PR the moment they are added in
-      # Settings → Secrets. Without this, adding the secrets would do nothing.
+      # No secrets on this step, deliberately. `verify` runs `npm ci` with its
+      # postinstall scripts, `next build`, and every script under scripts/ —
+      # all of them from the pull request's own branch. Handing that surface
+      # the service role key means any PR that edits a build script can read a
+      # credential that bypasses row-level security on the live project. The
+      # publishable pair is safe to expose (RLS is the boundary, not secrecy),
+      # so it stays: it is what lets the suite exercise a real client.
       - run: npm run verify
+        env:
+          NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
+          NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY }}
+
+  # BACKEND.md §8 calls the RLS suite the highest-value test in the product.
+  # It needs the elevated key — it creates and deletes real users to prove the
+  # negative case — so it is its own job, with the key scoped to the one step
+  # that runs the one file. `environment:` makes the grant reviewable, and
+  # (with a required reviewer configured) stops a fork PR from spending it.
+  #
+  # Until the three secrets exist in Settings → Secrets, the suite skips
+  # visibly, exactly as it does today. Adding them turns this job on and
+  # changes nothing else.
+  access-control:
+    runs-on: ubuntu-latest
+    environment: supabase-test
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      # `--ignore-scripts`: this is the one job that holds a credential able to
+      # bypass RLS, so a dependency's postinstall must not run beside it.
+      # Verified safe for this tree — vitest needs esbuild, and esbuild's
+      # binary ships inside the @esbuild/<platform> optional package rather
+      # than being fetched by its postinstall.
+      - run: npm ci --ignore-scripts
+
+      - run: npx vitest run lib/db/access-control.test.ts
         env:
           NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
           NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY }}
