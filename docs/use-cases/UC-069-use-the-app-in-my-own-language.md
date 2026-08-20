@@ -1,7 +1,7 @@
 # UC-069 — Use the app in the language I speak
 
 <!-- id: UC-069 -->
-<!-- specs: SPEC-service-spoken-language, SPEC-service-app-texts, SPEC-service-gloss-resolver, SPEC-service-method-catalogue-i18n -->
+<!-- specs: SPEC-service-spoken-language, SPEC-service-app-texts, SPEC-service-gloss-resolver, SPEC-service-method-catalogue-i18n, SPEC-service-chrome-i18n-stragglers -->
 
 **Who:** a learner whose comfortable language is not English — for example a
 German speaker learning Spanish or Italian.
