@@ -87,8 +87,9 @@ frequency blocks (derivation)
     → word detail (per-lemma surface)
         → vocabulary map (pool-local, then language-wide when W-1 settled)
             → T-B3 extrapolation + skill levels
-                → forms home + deck filter (T-W20)
-                    → form cell explanations (T-W21)
+                → forms home + deck filter (T-W20) — **shipped**
+                    → form cell explanations (T-W21) — **shipped**
+                        → foundation phase + same-day return (T-W22) — **study only** → [43](../study/43-early-foundation-sessions.md)
                         → per-cell group breakdown on Progress (T-W5)
                             → full paradigm-cell engine (T-W6)
 ```
@@ -101,7 +102,8 @@ frequency blocks (derivation)
 | **T-W4** | **T-B3 remainder** — language-wide vocabulary extrapolation, per-skill levels, demonstration sentence. | UC-004, UC-031, UC-054, UC-050 | existing [`progress.md`](../specs/page/progress.md), level-model specs | Standard / Sensitive | calibration (tier A) or widened band; anchor table [C] |
 | **T-W5** | **Per-cell form breakdown** — Progress drill-down: held forms by paradigm cell **group**; weak group links to `deck=form` practice. | UC-062, UC-064 (forms branch), UC-078 | extend [`form-mastery-signal.md`](../specs/service/form-mastery-signal.md) | Standard | W-5 answered |
 | **T-W20** | **Forms home + deck filter** — second section card on `/words`; `deck=meaning\|form\|mixed` on session builder and review route. | UC-078, UC-063, UC-041 | [`words-home.md`](../specs/feature/words-home.md), [`words-review.md`](../specs/page/words-review.md), [`session-builder.md`](../specs/service/session-builder.md) | Standard | form-recall pool shipped |
-| **T-W21** | **Form cell explanation** — on-demand + post-Again/Hard disclosure on form-recall cards. | UC-022, UC-041 | [`form-cell-explanation.md`](../specs/service/form-cell-explanation.md), [`form-error-explanation.md`](../specs/component/form-error-explanation.md) | Standard | T-W20 (forms path exists) |
+| **T-W21** | **Form cell explanation** — on-demand + post-Again/Hard disclosure on form-recall cards. | UC-022, UC-041 | [`form-cell-explanation.md`](../specs/service/form-cell-explanation.md), [`form-error-explanation.md`](../specs/component/form-error-explanation.md) | Standard | T-W20 (forms path exists) — **shipped** |
+| **T-W22** | **Foundation phase** — same-day resurfacing, new-card throttle while base small, soft form staging ramp. | UC-079 (draft), UC-011, UC-041 | study [43](../study/43-early-foundation-sessions.md) §F5; future `foundation-phase.md` | Standard | T-W21; study [43](../study/43-early-foundation-sessions.md) |
 | **T-W6** | **Form practice engine** — promote [`form-practice.md`](../specs/service/form-practice.md) from draft; inverse index; session mixing rules. | UC-041 | existing draft + AC file | **Sensitive** | W-4, red-test-first |
 
 **Explicitly not in phase 2:** word capture (UC-012), reading (UC-007), coverage

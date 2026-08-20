@@ -555,6 +555,17 @@ the app can never say whether shadowing did anything for this learner.
 Blocking for the method card, not for the catalogue: an entry without a signal
 loads today and renders a card that cannot state its effect.
 
+### 24 · Foundation phase — when does same-day resurfacing turn off?
+
+Surfaced 2026-08-20 by owner UX review ([43](43-early-foundation-sessions.md)).
+Session 2 on the same day should bring fragile words from session 1 back; the
+shipped builder only includes `due ≤ now` or never-reviewed cards, so `good` in
+session 1 disappears until tomorrow.
+
+Open: threshold (`held < 50` vs fragile count vs time-based), whether resurfacing
+counts as a graded review, and how soft form staging pairs with `deck=form`.
+Blocks **T-W22** spec, not current ship.
+
 ---
 
 ## What happens next
