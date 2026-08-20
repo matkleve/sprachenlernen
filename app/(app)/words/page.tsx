@@ -47,6 +47,7 @@ export default async function WordsPage({
       now={outcome.now}
       contentTraceIndex={outcome.contentTraceIndex}
       initialLemma={lemma ?? null}
+      formsPracticeAvailable={outcome.formsPracticeAvailable}
     />
   );
 }

@@ -2,15 +2,25 @@
  * Session queue builder. Contract: docs/specs/service/session-builder.md
  */
 
+import { isFormRecallTaskId, isMeaningRecallTaskId } from "@/lib/form-recall-pool";
+import { cardCountForBudgetMinutes } from "@/lib/exercise-recipe/budget";
+import type { ReviewDeck } from "@/lib/review-deck";
 import type { StarterCard } from "@/lib/starter-deck";
 import { newTask, type Task } from "@/lib/scheduler";
+import type { FormCellExplanationData } from "@/lib/form-cell-explanation";
 
 export type SessionCard = StarterCard & {
   position: number;
   total: number;
+  /** Populated on form-recall cards when a rule exists — UC-022 / T-W21. */
+  formExplanation?: FormCellExplanationData;
 };
 
 export const DEFAULT_SESSION_LENGTH = 15;
+
+export function sessionLengthForBudgetMinutes(budgetMinutes: number): number {
+  return cardCountForBudgetMinutes(budgetMinutes);
+}
 
 type ScoredCard = StarterCard & { due: number; isNew: boolean };
 
@@ -25,16 +35,28 @@ function isSchedulable(task: Task, now: number): "due" | "new" | "skip" {
  * Builds a fixed-length session from the starter pool and optional review
  * history. Pure — callers supply `now` for testability (scheduler contract).
  */
+function poolForDeck(pool: StarterCard[], deck: ReviewDeck): StarterCard[] {
+  if (deck === "form") {
+    return pool.filter((card) => isFormRecallTaskId(card.taskId));
+  }
+  if (deck === "meaning") {
+    return pool.filter((card) => isMeaningRecallTaskId(card.taskId));
+  }
+  return pool;
+}
+
 export function buildSession(
   pool: StarterCard[],
   tasksByTaskId: Record<string, Task>,
   now: number,
   sessionLength: number = DEFAULT_SESSION_LENGTH,
-  options?: { priorityLemmas?: ReadonlySet<string> },
+  options?: { priorityLemmas?: ReadonlySet<string>; deck?: ReviewDeck },
 ): SessionCard[] {
+  const deck = options?.deck ?? "mixed";
+  const filteredPool = poolForDeck(pool, deck);
   const scored: ScoredCard[] = [];
 
-  for (const card of pool) {
+  for (const card of filteredPool) {
     const task = tasksByTaskId[card.taskId] ?? newTask(card.taskId, card.wordId);
     const bucket = isSchedulable(task, now);
     if (bucket === "skip") continue;

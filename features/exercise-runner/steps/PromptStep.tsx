@@ -2,6 +2,7 @@
 
 import { useTranslations } from "next-intl";
 
+import { practiceLeadClass } from "@/features/exercise-runner/practice-surface/PracticeSurface";
 import type { StepRenderProps } from "@/features/exercise-runner/steps/types";
 
 export function PromptStep({
@@ -16,7 +17,7 @@ export function PromptStep({
       {listeningDeferred ? (
         <p className="text-sm text-muted">{t("typeOnlyHint")}</p>
       ) : null}
-      <p className="text-xl font-medium leading-snug text-ink">{body}</p>
+      <p className={practiceLeadClass}>{body}</p>
     </div>
   );
 }

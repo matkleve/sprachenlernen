@@ -17,8 +17,9 @@ Parent: [`form-recall-pool.md`](form-recall-pool.md),
 - **In:** `readFormMastery` in `lib/level-model.ts`; `poolForActiveLanguage`
   includes the form-recall deck for the active language; Progress copy and
   rendering.
-- **Out:** per-cell or per-pattern breakdown (UC-062 spec gap); feeding speaking
-  or writing skills; paradigm-table method.
+- **Out:** per-cell or per-pattern breakdown on Progress (T-W5 — cell groups
+  with link to `deck=form`); feeding speaking or writing skills; paradigm-table
+  method.
 
 ## Behavior
 

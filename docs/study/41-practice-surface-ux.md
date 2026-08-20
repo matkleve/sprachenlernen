@@ -62,7 +62,7 @@ the primary CTA — not under the hero belt.
 | Primary action in thumb zone, 48px+ | Mobile wizard guides | Footer primary `lg` |
 | **Larger controls inside the task** | Duolingo, Brilliant, Khan | **Practice surface scale** |
 | **No scroll on short steps** | Khan lesson cards | **Fit-frame** profile |
-| 3:1 non-text contrast on controls | WCAG 1.4.11 | `line-strong` borders on prep rows |
+| 3:1 non-text contrast on controls | WCAG 1.4.11 | `line-strong` border on checkbox marker (not row card) |
 | Chrome vs content separation | Material “display” vs “body” | Two layers, two density rules |
 
 Duolingo is not the spec — **confidence and legibility under stress** is. Learners
@@ -89,8 +89,8 @@ primitives — never raw app-scale fields for the main task.
 
 1. **Lead copy** — `text-lg`, `leading-snug`, `text-ink`. One block per step.
 2. **Interactive rows** — min height 44px (`min-h-11`), `items-center`, `px-4 py-3`,
-   `font-semibold` label. Whole row toggles when checkbox. Checked rows use inset
-   accent ring, not a full border box.
+   `font-semibold` label left, `Checkbox` right, `border-x border-line-strong` inset
+   (no top/bottom stroke). Checked: `bg-accent-soft`. WCAG contrast on the marker.
 3. **Primary fields** — `Field` + `Textarea`, 3 rows default in short steps.
 4. **Checkboxes** — `Checkbox` primitive (`components/ui/Checkbox.tsx`) — 2px
    `line-strong`, 24px box (`md`), no native browser painting.

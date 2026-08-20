@@ -159,6 +159,10 @@
   --height-practice-session: calc(100svh - 3.5rem);
   /* Practice chrome belt — section graphic + titles; study/41 fit-frame */
   --height-practice-hero: 5rem;
+  /* Mobile one-screen: no image belt — step strip only; study/42 */
+  --height-practice-mobile-header: 2.75rem;
+  /* Mobile footer: segmented progress + control row */
+  --height-practice-footer: 3.75rem;
 
   /* Type. next/font on <html> overrides these fallbacks at runtime. */
   --font-dm-sans: "DM Sans", sans-serif;

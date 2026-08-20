@@ -4,6 +4,7 @@ import { useTranslations } from "next-intl";
 
 import { Field } from "@/components/ui/Field";
 import { Textarea } from "@/components/ui/Input";
+import { practiceLeadClass } from "@/features/exercise-runner/practice-surface/PracticeSurface";
 import type { StepRenderProps } from "@/features/exercise-runner/steps/types";
 
 type OptionalWord = { word: string; gloss: string };
@@ -42,9 +43,9 @@ export function TimedWriteStep({
   const optionalWords = readOptionalWords(config);
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-4 max-md:space-y-2">
       {prompt ? (
-        <p className="text-xl font-medium leading-snug text-ink">{prompt}</p>
+        <p className={practiceLeadClass}>{prompt}</p>
       ) : null}
       {durationSec > 0 ? (
         <p className="text-sm text-muted">
@@ -63,7 +64,8 @@ export function TimedWriteStep({
           value={submitDraft.text}
           onChange={(event) => onTextChange(event.target.value)}
           placeholder={t("timedWritePlaceholder")}
-          rows={8}
+          rows={3}
+          className="min-h-[4.5rem] md:min-h-[12rem]"
           aria-label={t("timedWriteFieldLabel")}
         />
       </Field>

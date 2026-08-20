@@ -9,6 +9,10 @@ export const RUNNER_CHROME_OVERHEAD_SEC = 120;
 export const CARD_CHROME_OVERHEAD_SEC = 60;
 export const BUDGET_TOLERANCE_MIN = 0.85;
 export const BUDGET_TOLERANCE_MAX = 1.15;
+/** prepare + decide + review chrome not stored on timed read steps */
+export const READ_WINDOW_RUNNER_SEC = 180;
+export const READ_ALOUD_RUNNER_SEC = 120;
+export const READ_ALOUD_SPEAK_SEC = 120;
 
 export type BudgetFamily = "card" | "item-loop" | "timed-write" | "read-window" | "fixed";
 
@@ -27,25 +31,29 @@ const METHOD_BUDGET_PROFILES: Record<string, MethodBudgetProfile> = {
     family: "item-loop",
     secPerItem: 90,
     waitSecPerItem: 30,
-    minItems: 1,
+    minItems: 3,
     maxItems: 12,
   },
   "full-dictation": {
     family: "item-loop",
     secPerItem: 120,
     waitSecPerItem: 30,
-    minItems: 1,
+    minItems: 3,
     maxItems: 12,
   },
   "build-a-sentence": {
     family: "item-loop",
     secPerItem: 75,
-    minItems: 1,
+    minItems: 3,
     maxItems: 5,
   },
   "free-production": { family: "timed-write", chromeOverheadSec: RUNNER_CHROME_OVERHEAD_SEC },
   "extensive-reading": { family: "read-window", chromeOverheadSec: RUNNER_CHROME_OVERHEAD_SEC },
-  "reading-aloud": { family: "read-window", chromeOverheadSec: RUNNER_CHROME_OVERHEAD_SEC },
+  "reading-aloud": {
+    family: "read-window",
+    secPerItem: READ_ALOUD_SPEAK_SEC,
+    chromeOverheadSec: RUNNER_CHROME_OVERHEAD_SEC,
+  },
 };
 
 export function budgetProfileForMethod(methodId: string): MethodBudgetProfile | undefined {
@@ -67,6 +75,7 @@ const FEEDBACK_COMPONENTS = new Set([
   "feedback",
   "rubric",
   "comprehension-questions",
+  "reveal-answer",
 ]);
 
 const PRODUCTION_COMPONENTS = new Set([
@@ -132,7 +141,27 @@ export function estimateWallClockSec(
     }
   }
 
+  if (profile.family === "timed-write") {
+    // prepare, capture submit, and decide chrome — deducted from write duration at compose.
+    active += 120;
+  }
+
+  if (profile.family === "read-window") {
+    active +=
+      recipe.methodId === "reading-aloud" ? READ_ALOUD_RUNNER_SEC : READ_WINDOW_RUNNER_SEC;
+  }
+
   return chrome + active;
+}
+
+/** Timed read window from budget minus runner chrome and non-read steps. */
+export function readWindowDurationSec(
+  budgetMinutes: number,
+  profile: MethodBudgetProfile,
+  extraActiveSec: number,
+): number {
+  const chrome = profile.chromeOverheadSec ?? RUNNER_CHROME_OVERHEAD_SEC;
+  return Math.max(180, budgetMinutes * 60 - chrome - extraActiveSec);
 }
 
 export function estimateWallClockMinutes(recipe: ExerciseRecipe): number {
@@ -150,4 +179,28 @@ export function isWithinBudgetTolerance(
 export function cardCountForBudgetMinutes(budgetMinutes: number): number {
   const activeSec = budgetMinutes * 60 - CARD_CHROME_OVERHEAD_SEC;
   return Math.max(1, Math.round(activeSec / SEC_PER_CARD));
+}
+
+const FEEDBACK_SEC_PER_LOOP = 60;
+
+export function activeSecPerLoop(profile: MethodBudgetProfile): number {
+  const base = profile.secPerItem ?? 75;
+  if (profile.waitSecPerItem !== undefined) {
+    return base + profile.waitSecPerItem;
+  }
+  return base + FEEDBACK_SEC_PER_LOOP;
+}
+
+/** Item-loop methods: do (+ wait or review feedback) per target unit. */
+export function itemCountForBudgetMinutes(
+  budgetMinutes: number,
+  profile: MethodBudgetProfile,
+): number {
+  const chrome = profile.chromeOverheadSec ?? RUNNER_CHROME_OVERHEAD_SEC;
+  const activeSec = Math.max(0, budgetMinutes * 60 - chrome);
+  const loopSec = activeSecPerLoop(profile);
+  const raw = loopSec > 0 ? Math.floor(activeSec / loopSec) : 0;
+  const min = profile.minItems ?? 1;
+  const max = profile.maxItems ?? 5;
+  return Math.min(max, Math.max(min, raw));
 }

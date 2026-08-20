@@ -100,8 +100,32 @@ describe("MethodDetail", () => {
     const trainsIndex = document.body.textContent!.indexOf(buildASentence.trains);
     const startLink = screen.getByRole("link", { name: en.methodMenu.startSession });
 
-    expect(startLink.getAttribute("href")).toBe("/practice?method=build-a-sentence&minutes=3");
+    expect(startLink.getAttribute("href")).toBe("/practice?method=build-a-sentence&minutes=8");
     expect(document.body.textContent!.indexOf(en.methodMenu.startSession)).toBeLessThan(trainsIndex);
+  });
+
+  it("shows session contract above Start for build-a-sentence", async () => {
+    const buildASentence = findMethod(catalogue, "build-a-sentence")!;
+    render(await MethodDetail({ method: buildASentence }));
+
+    const contract = screen.getByTestId("session-contract");
+    const startLink = screen.getByRole("link", { name: en.methodMenu.startSession });
+
+    expect(contract.textContent).toContain("min ·");
+    expect(contract.textContent).toContain(en.methodMenu.sessionFeedbackHonestNone);
+    expect(
+      document.body.textContent!.indexOf(contract.textContent ?? ""),
+    ).toBeLessThan(document.body.textContent!.indexOf(en.methodMenu.startSession));
+    expect(startLink).toBeDefined();
+  });
+
+  it("shows session contract above Start for partial-dictation", async () => {
+    const partialDictation = findMethod(catalogue, "partial-dictation")!;
+    render(await MethodDetail({ method: partialDictation }));
+
+    const contract = screen.getByTestId("session-contract");
+    expect(contract.textContent).toContain(en.methodMenu.sessionFeedbackSelfMark);
+    expect(contract.textContent).toMatch(/sentence/i);
   });
 
   it("shows Start for extensive-reading on practice", async () => {

@@ -2,6 +2,8 @@
 
 <!-- id: SPEC-service-session-builder -->
 <!-- use-case: UC-011 -->
+<!-- use-case: UC-078 -->
+<!-- use-case: UC-079 -->
 <!-- status: active -->
 
 Framework-free service that turns a starter deck and optional review history
@@ -13,19 +15,23 @@ into a fixed-length queue of Tasks for one review session. **Standard**
 - **In:** `data/starter/es-meaning-recall.json` (frequency-ordered pool),
   `lib/starter-deck.ts` (load + validate), `lib/session-builder.ts`
   (`buildSession`), and tests. Default session length **15** cards; pool size
-  **2000** lemmas ([`starter-deck.md`](starter-deck.md)); language **es**; task
-  type **meaning-recall** only.
+  **2000** lemmas ([`starter-deck.md`](starter-deck.md)); language **es**;
+  task types **meaning-recall** and **form-recall** with optional
+  **`deck` filter** (`meaning` | `form` | `mixed`, default `mixed`).
 - **Out:** choosing session length from the method menu (time scale is a separate
   PR); **at most one Task per Word per session** when siblings are both due
   (2026-08-12); real Word/Task tables in the database; which language a pool
   belongs to, and how many languages the account holds — a caller's job, never
-  this module's (see "This module never chooses a language" below); form recall,
-  audio recall, cloze; hand-picking cards (UC-039); backlog counters (UC-063, A3).
+  this module's (see "This module never chooses a language" below); hand-picking
+  cards (UC-039); backlog counters (UC-063, A3). **Deck filter** is the only
+  way to build a forms-only or meanings-only session (UC-078). **Card selection**
+  is binary due/new today; [`session-sampling.md`](session-sampling.md) (T-W22)
+  replaces that logic when shipped (UC-079).
 
 **Budget (draft):** when `buildSession` receives `budgetMinutes`, card count =
 `round(budgetMinutes × 60 / SEC_PER_CARD)` with default `SEC_PER_CARD = 35` and
 tolerance per [`method-session-budget.md`](method-session-budget.md). Fixed **15**
-remains the default when `budgetMinutes` is omitted until T-MV5 ships.
+remains the default when `budgetMinutes` is omitted.
 
 ## Behavior
 
@@ -37,6 +43,14 @@ remains the default when `budgetMinutes` is omitted until T-MV5 ships.
 | 4 | Fewer than 15 due + new available | Fills with new tasks in frequency order until 15 or pool exhausted |
 | 5 | Pool smaller than session length | Returns every card in the pool — never invents cards |
 | 6 | Two Tasks of one Word both due | Includes the more overdue one; the other stays due for the next session |
+| 7 | `deck=form` | Pool is restricted to `form-recall` Tasks before due/new selection; sibling rule applies within that subset |
+| 8 | `deck=meaning` | Pool restricted to `meaning-recall` Tasks only |
+| 9 | `deck=mixed` or omitted | Current behaviour — both task types compete; sibling rule applies |
+| 10 | T-W22 shipped (`session-sampling`) | Delegates pick order to weighted sampling — UC-079; `due` unchanged by draw |
+
+**Deck filter (UC-078):** callers pass `deck` into `buildSession`. Filtering
+happens **before** due/new selection so a forms-only session never sacrifices
+slots to meaning-recall Tasks.
 
 **Sibling rule (2026-08-12):** FSRS sets each Task's `due` date independently.
 When building a session, if meaning-recall and form-recall for the same Word are
@@ -93,6 +107,10 @@ calls the database.
       no error is thrown.
 - [ ] Given meaning-recall and form-recall for the same `wordId` both due,
       when `buildSession` runs, then exactly one of them appears in the queue.
+- [ ] Given `deck=form` and both task types due, when `buildSession` runs, then
+      every returned entry is form-recall.
+- [ ] Given `deck=meaning`, when `buildSession` runs, then no form-recall Task
+      appears in the queue.
 - [ ] Given an invalid starter file, when `loadStarterDeck` runs, then it returns
       errors and no deck.
 

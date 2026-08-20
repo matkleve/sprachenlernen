@@ -1,4 +1,5 @@
 import { poolForActiveLanguage } from "@/lib/db/learner-pools";
+import { RUNNER_CHROME_OVERHEAD_SEC } from "@/lib/exercise-recipe/budget";
 import type { SessionContext } from "@/lib/exercise-recipe/types";
 import { pickProductionHints } from "@/lib/exercise-recipe/sentence-target";
 import type { ExerciseRecipe } from "@/lib/exercise-runner/types";
@@ -30,6 +31,11 @@ async function meaningRecallCardsForPractice(): Promise<
 }
 
 function writingDurationSec(ctx: SessionContext): number {
+  if (ctx.budgetMinutes !== undefined) {
+    const chrome = RUNNER_CHROME_OVERHEAD_SEC;
+    const chromeStepsSec = 180;
+    return Math.max(300, ctx.budgetMinutes * 60 - chrome - chromeStepsSec);
+  }
   if (ctx.durationSec !== undefined && ctx.durationSec > 0) return ctx.durationSec;
   return DEFAULT_DURATION_SEC;
 }

@@ -3,8 +3,13 @@
 <!-- parent: SPEC-feature-practice-surface -->
 
 - [ ] Given a prepare step on `/practice`, when the learner views prep rows, then
-      each row is at least 44px tall with `bg-surface-raised` when unchecked (no
-      full box border).
+      each row is at least 44px tall, uses `bg-surface` with **`border-x border-line-strong`**
+      (no top/bottom stroke), label is left with `font-semibold` and horizontal inset,
+      checkbox is right and vertically centered with the row (`items-center`).
+- [ ] Given a checked prep row, when rendered, then the row uses `bg-accent-soft`
+      and keeps the same horizontal borders — content still inset from the edges.
+- [ ] Given build-a-sentence prepare on mobile (`< md`), when rendered, then the
+      body zone has no scrollbar (`short` profile + fit-frame density).
 - [ ] Given build-a-sentence prepare on desktop, when rendered, then the body zone
       has no scrollbar (`short` profile).
 - [ ] Given a prepare step, when the learner taps a prep row, then its checkbox

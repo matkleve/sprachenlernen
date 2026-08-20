@@ -12,6 +12,7 @@ import { tasksByTaskIdForCards } from "@/lib/task-from-state";
 import { buildVocabularySnapshot, type VocabularySnapshot } from "@/lib/vocabulary-snapshot";
 import type { ContentTraceIndex } from "@/lib/content-traceability";
 import { loadContentTraceIndex } from "@/features/words/content-trace-reading";
+import { languageSupportsFormPractice } from "@/lib/form-cell-explanation";
 
 /**
  * Loads the Words home snapshot for the signed-in learner. Contract:
@@ -30,6 +31,7 @@ export type WordsHomeOutcome =
       horizonDisplay: HorizonDisplay;
       now: number;
       contentTraceIndex: ContentTraceIndex | null;
+      formsPracticeAvailable: boolean;
     }
   | { status: "error"; error: HandledError };
 
@@ -110,6 +112,7 @@ async function read(now: number): Promise<WordsHomeOutcome> {
     }, taskHorizonMeta),
     now,
     contentTraceIndex: await loadContentTraceIndex(pool.languageCodes[0] ?? "es"),
+    formsPracticeAvailable: languageSupportsFormPractice(pool.languageCodes[0] ?? "es"),
   };
 }
 

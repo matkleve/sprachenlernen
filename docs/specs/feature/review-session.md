@@ -3,6 +3,9 @@
 <!-- id: SPEC-feature-review-session -->
 <!-- use-case: UC-011 -->
 <!-- use-case: UC-071 -->
+<!-- use-case: UC-022 -->
+<!-- use-case: UC-078 -->
+<!-- use-case: UC-079 -->
 <!-- status: active -->
 
 The multi-card SRS runner: a fixed-length queue, one card at a time (meaning-
@@ -18,6 +21,10 @@ recall or form-recall), grades that append to the review log (T-B2).
   `method=srs-session`. The review route builds the queue on the server and
   passes it as props so the first card renders with the page — no client-only
   prepare step after navigation. Replaces `ReviewOpen`.
+  **Form explanation:** [`form-error-explanation.md`](../component/form-error-explanation.md)
+  on form-recall cards (T-W21). **Sampling reason:** optional `samplingReason` on
+  queue entries when [`session-sampling.md`](../service/session-sampling.md) ships
+  (UC-079) — feeds UC-005 G1 later.
 - **Out:** scheduler projection UI (UC-005 G1–G4); session-length picker;
   sibling spacing; non-`srs-session` methods; Words atlas and horizon (T-B3).
   Persistence blocking the UI — see
@@ -31,7 +38,7 @@ recall or form-recall), grades that append to the review log (T-B2).
 | --- | --- | --- |
 | 1 | Lands on `/words/review?method=srs-session` | Route builds a 15-card queue on the server; first card front is in the initial HTML |
 | 2 | Sees a meaning-recall card | Target-language lemma on front only; language name on the card; tap the card to flip and see the gloss in the spoken language |
-| 2b | Sees a form-recall card | Spoken-language gloss + produce prompt on front only; same flip interaction; back shows the target surface form |
+| 2b | Sees a form-recall card | Spoken-language gloss + produce prompt on front only; same flip interaction; back shows the target surface form; **Why this form?** disclosure available on the back |
 | 3 | Taps the card | Back shown; grade buttons stay visible (they were already on screen) |
 | 4 | Taps a grade (with or without flipping) | Grade queued locally; **next card immediately** (`advancing` → `prompting` or `complete`); server flush runs in the background ([`review-write-queue`](../service/review-write-queue.md)). **`again`** re-inserts the card five positions ahead (or at end if fewer than five remain); **`hard`** re-inserts at end of the remaining queue; **`good`** / **`easy`** do not requeue ([ADR-0012](../../adr/0012-ux-decisions-requeue-i18n-leech-nav.md), UC-071) |
 | 5 | Background flush fails | Session does not rewind; sync stays **silent** during the run and retries in the background |

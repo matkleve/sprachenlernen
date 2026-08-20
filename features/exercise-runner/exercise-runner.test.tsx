@@ -18,10 +18,8 @@ describe("ExerciseRunner", () => {
       />,
     );
 
-    expect(screen.getByText("Methods")).toBeDefined();
-    expect(screen.getByRole("heading", { name: "Partial dictation" })).toBeDefined();
-    expect(screen.getByText("Before you start")).toBeDefined();
-    expect(screen.getByText(/Step 1 of 6/)).toBeDefined();
+    expect(screen.getAllByText("Before you start").length).toBeGreaterThan(0);
+    expect(screen.getAllByRole("progressbar").length).toBeGreaterThan(0);
   });
 
   it("navigates forward without marking prior step done", async () => {
@@ -60,6 +58,19 @@ describe("ExerciseRunner", () => {
     expect(screen.getByText("Exercise complete")).toBeDefined();
   });
 
+  it("applies practice-fit-frame on the runner root", () => {
+    const { container } = render(
+      <ExerciseRunner
+        sectionLabel="Methods"
+        methodName="Partial dictation"
+        section="listening"
+        recipe={FIXTURE_EXERCISE_RECIPE}
+      />,
+    );
+
+    expect(container.querySelector(".practice-fit-frame")).not.toBeNull();
+  });
+
   it("uses overflow-hidden body zone on short-profile steps", () => {
     const { container } = render(
       <ExerciseRunner
@@ -96,6 +107,41 @@ describe("ExerciseRunner", () => {
     );
 
     expect(container.querySelector(".min-h-0.flex-1.overflow-y-auto.p-1")).not.toBeNull();
+  });
+
+  it("colors the active footer segment with primary on step 1", () => {
+    const { container } = render(
+      <ExerciseRunner
+        sectionLabel="Methods"
+        methodName="Partial dictation"
+        section="listening"
+        recipe={FIXTURE_EXERCISE_RECIPE}
+      />,
+    );
+
+    const footerBar = container.querySelector("footer [role=progressbar]");
+    const firstSegment = footerBar?.children[0];
+    expect(firstSegment?.className).toContain("bg-accent");
+    expect(firstSegment?.className).not.toContain("bg-accent-soft");
+  });
+
+  it("marks done and active segments distinctly after navigating forward", async () => {
+    const user = userEvent.setup();
+    const { container } = render(
+      <ExerciseRunner
+        sectionLabel="Methods"
+        methodName="Partial dictation"
+        section="listening"
+        recipe={FIXTURE_EXERCISE_RECIPE}
+      />,
+    );
+
+    await user.click(screen.getByRole("button", { name: "Continue" }));
+
+    const footerBar = container.querySelector("footer [role=progressbar]");
+    expect(footerBar?.children[0]?.className).toContain("bg-accent-soft");
+    expect(footerBar?.children[1]?.className).toContain("bg-accent");
+    expect(footerBar?.children[1]?.className).not.toContain("bg-accent-soft");
   });
 
   it("renders segmented step progress in the footer above Continue", () => {

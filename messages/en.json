@@ -93,6 +93,14 @@
   "words": {
     "reviewCardHeaderLabel": "Vocabulary",
     "reviewHeading": "Review",
+    "reviewMeaningsHeading": "Review meanings",
+    "reviewMeaningsCaption": "Dictionary forms only — what each word means.",
+    "reviewMeaningsAction": "Review meanings",
+    "reviewMixedAction": "Review mixed",
+    "reviewFormsHeading": "Review forms",
+    "reviewFormsCaption": "Inflected forms from words you already hold stably — separate from meaning recall.",
+    "paradigmCellCalloutTitle": "What is a paradigm cell?",
+    "paradigmCellCalloutBody": "One slot in a word's inflection pattern — for example first-person singular present. Each form-recall card asks for exactly one cell, not the whole conjugation table.",
     "reviewCaption": "One session at a time — tap when you are ready.",
     "countsHeading": "Your vocabulary",
     "countsCaption": "How many starter lemmas you can recall the meaning of — not every inflected form, and not a backlog.",
@@ -247,6 +255,9 @@
     "completeBodyOne": "You reviewed 1 card.",
     "completeBody": "You reviewed {count} cards.",
     "startReview": "Start review",
+    "startFormReview": "Review forms",
+    "formExplanationSummary": "Why this form?",
+    "formExplanationExamples": "Examples: {examples}",
     "srsSessionName": "Spaced repetition session",
     "languageLabel": "{name}",
     "syncingOne": "Syncing 1 review…",
@@ -507,6 +518,19 @@
     },
     "startSession": "Start",
     "sessionNotBuilt": "The app will run this method here once its session is built. For now, read what it does and try it off-app if you can.",
+    "sessionContract": {
+      "line": "~{minutes} min · {volume} · {feedback}"
+    },
+    "sessionVolumeSentences": "{count, plural, one {# sentence} other {# sentences}}",
+    "sessionVolumeWords": "{count, plural, one {# word} other {# words}}",
+    "sessionVolumeCards": "{count, plural, one {# card} other {# cards}}",
+    "sessionVolumeWriting": "timed writing",
+    "sessionVolumeUnits": "{count, plural, one {# item} other {# items}}",
+    "sessionFeedbackSelfMark": "compare to key",
+    "sessionFeedbackExemplar": "compared to examples",
+    "sessionFeedbackAssisted": "assisted feedback",
+    "sessionFeedbackRubric": "scored with a rubric",
+    "sessionFeedbackHonestNone": "no exemplar — compare honestly",
     "backToMethods": "Back to methods",
     "methodNotFound": "No method with that name exists in the catalogue.",
     "standingLabel": "Current standing",
@@ -1164,6 +1188,62 @@
         "previewNote": "Preview only — create an account to practise.",
         "methodsLabel": "Three methods from the catalogue"
       }
+    }
+  },
+  "formRules": {
+    "es": {
+      "verb1": {
+        "ind": {
+          "pres": "-ar verbs in the present: stem + -o (I), -as (you), -a (he/she), -amos (we), -áis (you pl.), -an (they).",
+          "impf": "-ar verbs in the imperfect: stem + -aba, -abas, -aba, -ábamos, -abais, -aban.",
+          "pret": "-ar verbs in the preterite: stem + -é, -aste, -ó, -amos, -asteis, -aron.",
+          "fut": "-ar verbs in the future: infinitive + -é, -ás, -á, -emos, -éis, -án."
+        }
+      },
+      "verb2": {
+        "ind": {
+          "pres": "-er verbs in the present: stem + -o, -es, -e, -emos, -éis, -en.",
+          "impf": "-er verbs in the imperfect: stem + -ía, -ías, -ía, -íamos, -íais, -ían.",
+          "pret": "-er verbs in the preterite: stem + -í, -iste, -ió, -imos, -isteis, -ieron.",
+          "fut": "-er verbs in the future: infinitive + -é, -ás, -á, -emos, -éis, -án."
+        }
+      },
+      "verb3": {
+        "ind": {
+          "pres": "-ir verbs in the present: stem + -o, -es, -e, -imos, -ís, -en.",
+          "impf": "-ir verbs in the imperfect: stem + -ía, -ías, -ía, -íamos, -íais, -ían.",
+          "pret": "-ir verbs in the preterite: stem + -í, -iste, -ió, -imos, -isteis, -ieron.",
+          "fut": "-ir verbs in the future: infinitive + -é, -ás, -á, -emos, -éis, -án."
+        }
+      },
+      "irregular": "This verb is irregular — the usual class ending does not predict its forms. Learn this word's pattern on its own."
+    },
+    "it": {
+      "verb1": {
+        "ind": {
+          "pres": "-are verbs in the present: stem + -o, -i, -a, -iamo, -ate, -ano.",
+          "impf": "-are verbs in the imperfect: stem + -avo, -avi, -ava, -avamo, -avate, -avano.",
+          "pret": "-are verbs in the passato prossimo often use avere + past participle -ato.",
+          "fut": "-are verbs in the future: stem + -erò, -erai, -erà, -eremo, -erete, -eranno."
+        }
+      },
+      "verb2": {
+        "ind": {
+          "pres": "-ere verbs in the present: stem + -o, -i, -e, -iamo, -ete, -ono.",
+          "impf": "-ere verbs in the imperfect: stem + -evo, -evi, -eva, -evamo, -evate, -evano.",
+          "pret": "-ere verbs in the passato prossimo often use avere + past participle -uto/-to.",
+          "fut": "-ere verbs in the future: stem + -erò, -erai, -erà, -eremo, -erete, -eranno."
+        }
+      },
+      "verb3": {
+        "ind": {
+          "pres": "-ire verbs in the present: stem + -o, -i, -e, -iamo, -ite, -ono (watch for -isco forms).",
+          "impf": "-ire verbs in the imperfect: stem + -ivo, -ivi, -iva, -ivamo, -ivate, -ivano.",
+          "pret": "-ire verbs in the passato prossimo often use avere + past participle -ito.",
+          "fut": "-ire verbs in the future: stem + -irò, -irai, -irà, -iremo, -irete, -iranno."
+        }
+      },
+      "irregular": "This verb is irregular — the usual class ending does not predict its forms. Learn this word's pattern on its own."
     }
   }
 }

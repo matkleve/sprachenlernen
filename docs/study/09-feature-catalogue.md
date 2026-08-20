@@ -390,6 +390,20 @@ Hosted methods must be **useful** (feedback + volume) and **honest about time**
 
 ---
 
+## R · Early foundation and same-day return → [43](43-early-foundation-sessions.md)
+
+While the vocabulary base is small, sessions should bring **earlier-today words
+back** in runs 2 and 3 — without breaking inter-day FSRS. Study chapter maps
+specs and code touch points; implementation not started.
+
+| # | Feature | Ev. | Eff. | Verdict |
+| --- | --- | --- | --- | --- |
+| F216 | **Foundation phase** — cap new cards; reserve slots for same-day resurfacing of fragile items | C/D | M | **V1 candidate** — T-W22; [44](44-foundation-phase-expert-review.md) narrows scope |
+| F217 | **Session sampling by retrievability** — soft inclusion below hard `due` for fragile only | B | M | **V2** |
+| F218 | **Soft form staging ramp** — forms after first meaning success, full weight after held | B | S | **V1 candidate** — pairs with F216 |
+
+---
+
 ## The V1 cut in one sentence
 
 **A menu of ways to practise — each with its evidence, its limits and what it

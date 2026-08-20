@@ -1,8 +1,7 @@
 # Implementation plan
 
 **Written 2026-08-08. "Where the code actually is" and the decision list last
-synced 2026-08-12 (Italian ship, form-recall pool sizes, and a words-atlas bug
-found in the same pass).** What to build
+synced 2026-08-20 (UC-079 session sampling, T-W22 queue).** What to build
 next in *code*, in what order, and how to hand each piece to a coding agent
 that should make as few decisions as possible.
 
@@ -411,6 +410,8 @@ Cooking-app runner for multi-step Methods (dictation, writing, listening drills)
 | **T-MU2** | Principled gap selection — replace alternating-word placeholder | **Shipped 2026-08-18** | T-MU1, UC-028 |
 | **T-LD1** | Listening defer — infra shipped; **menu UI removed** 2026-08-18; UI on mixed stacks — UC-077 | Standard | [`listening-defer.md`](specs/feature/listening-defer.md) |
 | **T-E12** | ~~**Practice-surface UX + anchored layout**~~ — **shipped 2026-08-18** | Standard | T-E1 | [`practice-surface.md`](specs/feature/practice-surface.md), [`exercise-runner.layout.md`](specs/feature/exercise-runner.layout.md) AC |
+| **T-E12b** | ~~Footer segment **active = primary** + prep row horizontal inset~~ — **shipped 2026-08-20** | Trivial | T-E12 | v0.42.4 |
+| **T-MV1** | ~~`assertSessionViable` + `estimateWallClock` in CI~~ — **shipped 2026-08-20** | Standard | specs | `check-session-viability` in `verify` |
 
 **Not this runner:** `srs-session` and card-engine form practice (T-W6) stay on
 `/words/review`.
@@ -425,15 +426,14 @@ Cooking-app runner for multi-step Methods (dictation, writing, listening drills)
 
 | ID | Work | Class | Depends on | Done when |
 | --- | --- | --- | --- | --- |
-| **T-MV1** | `assertSessionViable` + `estimateWallClock` in CI | Standard | specs | failing recipes block merge |
-| **T-MV2** | Recompose `build-a-sentence` — batch + exemplar/feedback | Sensitive | T-MV1 | G2, G3, G7 pass at 5 & 10 min |
-| **T-MV3** | Session contract on method detail (budget + volume + feedback) | Standard | T-MV1 | UC-042 AC |
+| **T-MV1** | ~~`assertSessionViable` + `estimateWallClock` in CI~~ — **shipped 2026-08-20** | Standard | specs | `check-session-viability` in `verify` |
+| **T-MV2** | ~~Recompose `build-a-sentence` — batch + exemplar/feedback~~ — **shipped 2026-08-20** | Sensitive | T-MV1 | G2, G3 pass at 8 & 15 min |
+| **T-MV3** | ~~Session contract on method detail (budget + volume + feedback)~~ — **shipped 2026-08-20** | Standard | T-MV1 | UC-042 AC |
 | **T-MV4** | `reading-aloud` rubric or record-and-replay | Standard | T-MV1 | G2 pass |
-| **T-MV5** | `lib/exercise-recipe/budget.ts` — budget-driven compose + catalogue validator | Standard | T-MV1 | all 7 built methods pass G7 |
-| **T-MV6** | Pass `minutes` from menu through Start URLs | Standard | T-MV5 | UC-045 AC |
+| **T-MV5** | ~~`lib/exercise-recipe/budget.ts` — budget-driven compose + catalogue validator~~ — **shipped 2026-08-20** | Standard | T-MV1 | G7 gate + allowlist |
+| **T-MV6** | ~~Pass `minutes` from menu through Start URLs~~ — **shipped 2026-08-20** | Standard | T-MV1 | UC-045 AC menu → card → session |
 
-**Order:** T-MV6 can land before T-MV5 (URL only); T-MV5 before catalogue
-`durations[]` changes; T-MV2 parallel once T-MV1 exists.
+**Order:** T-MV5 before catalogue `durations[]` changes.
 
 ### Track B · Words domain — hygiene, decisions, then stage-2 slices
 
@@ -447,7 +447,9 @@ Progress counts; **content loop v1** — coverage (`lib/coverage.ts`), `/content
 library + detail, gap list, word trace; **word capture** (T-W9) and **method
 material setup** (T-W10a / T-E7) shipped 2026-08-18. **What is not:** reading
 runner remainder (T-W10 — comprehension + sentence translation on source
-detail); T-W5 per-cell forms; T-W6 form practice; most hosted exercise runners
+detail); **T-W20** forms home + deck filter; **T-W21** form explanations;
+**T-W22** session sampling (UC-079);
+**T-W5** per-cell Progress breakdown; **T-W6** full form practice; most hosted exercise runners
 (6 of 34 built — see [`METHOD-IMPLEMENTATION-MATRIX.md`](METHOD-IMPLEMENTATION-MATRIX.md)).
 
 Work in four phases; do not skip phase 0:
@@ -456,12 +458,14 @@ Work in four phases; do not skip phase 0:
 | --- | --- | --- |
 | **0 · Hygiene** | Link repair, catalogue honesty (`hosted` vs built), test drift | **T-W0b/c shipped 2026-08-17** — vocabulary methods `hosted: false` except `srs-session`; `/words/atlas` test drift fixed. **T-W0a** if `check:specs` warns |
 | **1 · Decisions** | W-1 lemma-rank recomputation, W-2 pool atlas vs full map, W-3 `vocabulary` skill, W-4 sibling gap, W-5 incomplete paradigms | **W-3 answered 2026-08-17:** `vocabulary` skill. **W-5 answered 2026-08-17:** flag partial paradigms. W-1, W-2, W-4 already answered |
-| **2 · Stage-2 display** | Frequency blocks → word detail → pool-local map → T-B3 remainder → per-cell forms → form-practice | **T-W1/T-W3/T-W2 shipped** — next: T-W5 form breakdown |
+| **2 · Stage-2 display** | Frequency blocks → word detail → pool-local map → T-B3 remainder → forms home + explanations → **session sampling** → per-cell breakdown → form-practice | **T-W20/T-W21 shipped** — next: **T-W22** weighted sampling (UC-079), **T-W5** Progress breakdown |
 | **3 · Stage-3 loop** | Coverage → trace + gaps → `/content` → method setup (study/37, study/39) → reading | **T-W9 + T-E7/T-W10a + T-MU* shipped 2026-08-18**; next: **T-W10** remainder or **T-W11** session loop line |
 | **4 · Stage-1 remainder** | Break return, leech diagnosis, i18n slices | T-W12 next; **T-W16** and **T-W17** shipped |
 
 **Relationship to existing queue rows:** T-W4 *is* T-B3 remainder (same work,
-words-framed). T-W6 *is* UC-041 full engine (blocked on W-4). T-W13 *is* T-B14
+words-framed). T-W20/T-W21 *are* UC-078 + UC-022 v1 on the existing card engine
+(owner UX review 2026-08-19). T-W6 *is* UC-041 full paradigm-cell engine
+(blocked on W-4). T-W13 *is* T-B14
 remainder. T-W14/T-W15 *are* T-B11 slices 2–3. Phase 0 does not compete with
 engine priority 4–7 above — it is a hygiene pass that can run in parallel.
 

@@ -1,6 +1,7 @@
 import { resolveContentSourceById } from "@/lib/content-source-resolve";
 import { DEFAULT_EXTENSIVE_READING_SOURCE_ID } from "@/lib/content-source-constants";
 import { comprehensionQuestionsForSource } from "@/lib/exercise-recipe/comprehension-questions";
+import { extensiveReadingDurationSec } from "@/lib/exercise-recipe/read-window-budget";
 import type { SessionContext } from "@/lib/exercise-recipe/types";
 import type { ExerciseRecipe } from "@/lib/exercise-runner/types";
 import { computeCoverage, type Source } from "@/lib/coverage";
@@ -8,7 +9,8 @@ import { resolveMaterialUnit, type MaterialUnitId } from "@/lib/material-unit";
 import { loadLexiconForLanguage } from "@/lib/shipped-language";
 
 function readingUnitId(ctx: SessionContext): MaterialUnitId {
-  return ctx.unitId ?? "full";
+  if (ctx.unitId) return ctx.unitId;
+  return ctx.budgetMinutes !== undefined ? "window" : "full";
 }
 
 export function composeExtensiveReadingRecipe(
@@ -17,8 +19,9 @@ export function composeExtensiveReadingRecipe(
 ): ExerciseRecipe {
   const lexicon = loadLexiconForLanguage(source.languageCode);
   const unitId = readingUnitId(ctx);
+  const readDurationSec = extensiveReadingDurationSec(ctx);
   const unit = resolveMaterialUnit(source, unitId, {
-    durationSec: ctx.durationSec,
+    durationSec: readDurationSec ?? ctx.durationSec,
     lexicon: lexicon ?? undefined,
     heldLemmas: ctx.heldLemmas,
   });
@@ -58,6 +61,7 @@ export function composeExtensiveReadingRecipe(
         config: {
           title: source.title,
           text: unit.text,
+          ...(readDurationSec !== undefined ? { durationSec: readDurationSec } : {}),
         },
       },
       {

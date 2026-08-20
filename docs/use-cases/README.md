@@ -116,6 +116,8 @@ because it is interesting.
 | [UC-036](UC-036-know-how-much-to-trust-this-language.md) | Know how much to trust this language's material | 2 | [18](../study/18-language-kit.md) |
 | [UC-038](UC-038-why-is-this-word-worth-my-time.md) | Know why this word is worth my time | 2 | [19](../study/19-milestones-and-map.md) |
 | [UC-041](UC-041-know-the-forms-not-just-the-words.md) | Know the forms, not just the words | 0 · tagging, 2 · measure | [03](../study/03-level-model.md) |
+| [UC-078](UC-078-practise-forms-without-mixed-review.md) | Practise forms without mixing in meanings | 2 | UC-041, [04](../study/04-flashcards-srs.md) |
+| [UC-079](UC-079-build-a-core-vocabulary-with-natural-repetition.md) | Build a core vocabulary with natural repetition | 2 | [43](../study/43-early-foundation-sessions.md), UC-011 |
 | [UC-029](UC-029-read-a-text-i-brought.md) | Read a text I brought myself | 3 | [17](../study/17-own-content.md) |
 | [UC-030](UC-030-make-a-hard-text-readable.md) | Make a text I care about readable, without gutting it | 3 | [17](../study/17-own-content.md) |
 | [UC-033](UC-033-see-what-i-unlocked.md) | See what my learning has unlocked | 3 | [19](../study/19-milestones-and-map.md) |

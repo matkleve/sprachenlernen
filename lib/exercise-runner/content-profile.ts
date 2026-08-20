@@ -6,6 +6,12 @@ import type { ExerciseStep } from "./types";
 
 export type ExerciseContentProfile = "short" | "scroll" | "paginated";
 
+/** Short-profile content budget — study/42-exercise-mobile-fit-frame.md */
+export const SHORT_STEP_BUDGET = {
+  maxPrepRows: 2,
+  maxIntroChars: 140,
+} as const;
+
 /** Step components that may scroll inside the body zone (reading / long passages). */
 const SCROLL_COMPONENT_IDS = new Set(["text-display", "parallel-text", "material-preview"]);
 

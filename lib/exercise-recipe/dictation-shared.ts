@@ -3,6 +3,10 @@
  * Contract: docs/specs/service/exercise-recipe-composer.md
  */
 import { pickDictationSentences } from "@/lib/content-sources";
+import {
+  budgetProfileForMethod,
+  itemCountForBudgetMinutes,
+} from "@/lib/exercise-recipe/budget";
 import type { SessionContext } from "@/lib/exercise-recipe/types";
 import { variantIdForMaterialSetup } from "@/lib/exercise-recipe/variant";
 import type { RecipeVariantId } from "@/lib/exercise-recipe/types";
@@ -29,6 +33,55 @@ export function resolvedVariantId(ctx: SessionContext): RecipeVariantId {
   );
 }
 
+function pickBudgetDictationSentences(
+  source: Source,
+  ctx: SessionContext,
+  lexicon: Lexicon | null,
+  count: number,
+  variantId: RecipeVariantId,
+): string[] {
+  const unitOptions = {
+    durationSec: ctx.durationSec,
+    lexicon: lexicon ?? undefined,
+    heldLemmas: ctx.heldLemmas,
+  };
+
+  if (variantId === "long") {
+    const unitId: MaterialUnitId = ctx.unitId ?? "window";
+    const unit = resolveMaterialUnit(source, unitId, {
+      ...unitOptions,
+      durationSec: ctx.durationSec ?? ctx.budgetMinutes! * 60,
+    });
+    const picked = pickDictationSentences(unit.text, Math.min(count, LONG_SENTENCE_CAP));
+    return picked.length > 0 ? picked : [unit.text];
+  }
+
+  const candidates: MaterialUnitId[] = ctx.unitId
+    ? [ctx.unitId]
+    : variantId === "standard"
+      ? ["paragraph"]
+      : count > 1
+        ? ["paragraph", "window"]
+        : ["sentence"];
+
+  let best: string[] = [];
+  for (const unitId of candidates) {
+    const unit = resolveMaterialUnit(source, unitId, {
+      ...unitOptions,
+      durationSec: unitId === "window" ? ctx.budgetMinutes! * 60 : unitOptions.durationSec,
+    });
+    const cap = unitId === "window" ? Math.min(count, LONG_SENTENCE_CAP) : count;
+    const picked = pickDictationSentences(unit.text, cap);
+    const sentences = picked.length > 0 ? picked : [unit.text];
+    if (sentences.length > best.length) best = sentences;
+    if (sentences.length >= count) return sentences.slice(0, count);
+  }
+
+  return best.length > 0
+    ? best
+    : [resolveMaterialUnit(source, ctx.unitId ?? "sentence", unitOptions).text];
+}
+
 export function dictationSentencesForVariant(
   source: Source,
   ctx: SessionContext,
@@ -40,6 +93,12 @@ export function dictationSentencesForVariant(
     lexicon: lexicon ?? undefined,
     heldLemmas: ctx.heldLemmas,
   };
+
+  const profile = budgetProfileForMethod(ctx.methodId);
+  if (ctx.budgetMinutes !== undefined && profile?.family === "item-loop") {
+    const count = itemCountForBudgetMinutes(ctx.budgetMinutes, profile);
+    return pickBudgetDictationSentences(source, ctx, lexicon, count, variantId);
+  }
 
   if (variantId === "long") {
     const unitId: MaterialUnitId = ctx.unitId ?? "window";

@@ -5,7 +5,7 @@ import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/Button";
 import { Dialog } from "@/components/ui/Dialog";
 import type { ExerciseRunnerState } from "@/lib/exercise-runner";
-import { progressLabel } from "@/lib/exercise-runner";
+import { progressLabel, segmentBarClass } from "@/lib/exercise-runner";
 import { cn } from "@/lib/utils";
 
 type ExerciseRunnerChromeProps = {
@@ -50,27 +50,21 @@ function primaryLabelKey(stepType: ExerciseRunnerState["recipe"]["steps"][number
   }
 }
 
-function segmentBarClass(status: ExerciseRunnerState["stepStatuses"][number]): string {
-  switch (status) {
-    case "done":
-      return "bg-accent-soft dark:bg-accent/35";
-    case "seen":
-      return "bg-line-strong/45";
-    default:
-      return "bg-line";
-  }
-}
-
-export function ExerciseRunnerProgress({
+export function ExerciseRunnerProgressBar({
   state,
-  onTogglePause,
-}: Pick<ExerciseRunnerChromeProps, "state" | "onTogglePause">) {
+  showStepLabel = true,
+  compact = false,
+}: {
+  state: ExerciseRunnerState;
+  showStepLabel?: boolean;
+  compact?: boolean;
+}) {
   const t = useTranslations("exerciseRunner");
 
   return (
-    <div className="w-full shrink-0 space-y-2">
+    <div className={cn("w-full space-y-1", compact ? "space-y-0.5" : "space-y-2")}>
       <div
-        className="flex gap-1.5"
+        className="flex gap-1 max-md:gap-0.5 md:gap-1.5"
         role="progressbar"
         aria-valuenow={state.activeStepIndex + 1}
         aria-valuemin={1}
@@ -84,39 +78,67 @@ export function ExerciseRunnerProgress({
           <div
             key={step.id}
             className={cn(
-              "h-2 min-w-0 flex-1 rounded-full transition-colors",
-              segmentBarClass(state.stepStatuses[index] ?? "unseen"),
+              "min-w-0 flex-1 rounded-full transition-colors max-md:h-1 md:h-2",
+              segmentBarClass(
+                index,
+                state.activeStepIndex,
+                state.stepStatuses[index] ?? "unseen",
+              ),
             )}
             aria-hidden
           />
         ))}
       </div>
-      <p className="text-xs font-medium text-muted">
-        {t("progress", {
-          current: state.activeStepIndex + 1,
-          total: state.recipe.steps.length,
-        })}
-        <span className="text-muted/80"> · {progressLabel(state)}</span>
-      </p>
-      {state.timer ? (
-        <div className="flex items-center gap-2">
-          <span
-            className={cn(
-              "rounded-full px-2.5 py-1 text-xs font-medium",
-              state.timer.expired
-                ? "bg-surface-raised text-ink ring-1 ring-line"
-                : "bg-accent-soft text-ink",
-            )}
-          >
-            {state.timer.expired
-              ? t("timerExpired")
-              : t("timerRunning", { seconds: timerSeconds(state) })}
-          </span>
-          <Button type="button" variant="secondary" size="sm" onClick={onTogglePause}>
-            {state.timer.pausedAt !== null ? t("timerResume") : t("timerPause")}
-          </Button>
-        </div>
+      {showStepLabel ? (
+        <p className="text-xs font-medium text-muted max-md:text-[0.65rem]">
+          {t("progress", {
+            current: state.activeStepIndex + 1,
+            total: state.recipe.steps.length,
+          })}
+          <span className="text-muted/80 max-md:hidden"> · {progressLabel(state)}</span>
+        </p>
       ) : null}
+    </div>
+  );
+}
+
+function ExerciseRunnerTimer({
+  state,
+  onTogglePause,
+}: Pick<ExerciseRunnerChromeProps, "state" | "onTogglePause">) {
+  const t = useTranslations("exerciseRunner");
+  if (!state.timer) return null;
+
+  return (
+    <div className="flex items-center gap-2 max-md:mt-1 max-md:gap-1.5">
+      <span
+        className={cn(
+          "rounded-full px-2.5 py-1 text-xs font-medium max-md:px-2 max-md:py-0.5 max-md:text-[0.65rem]",
+          state.timer.expired
+            ? "bg-surface-raised text-ink ring-1 ring-line"
+            : "bg-accent-soft text-ink",
+        )}
+      >
+        {state.timer.expired
+          ? t("timerExpired")
+          : t("timerRunning", { seconds: timerSeconds(state) })}
+      </span>
+      <Button type="button" variant="secondary" size="sm" onClick={onTogglePause}>
+        {state.timer.pausedAt !== null ? t("timerResume") : t("timerPause")}
+      </Button>
+    </div>
+  );
+}
+
+/** @deprecated Titles live on ExerciseRunnerHero; progress lives in footer */
+export function ExerciseRunnerProgress({
+  state,
+  onTogglePause,
+}: Pick<ExerciseRunnerChromeProps, "state" | "onTogglePause">) {
+  return (
+    <div className="w-full shrink-0">
+      <ExerciseRunnerProgressBar state={state} />
+      <ExerciseRunnerTimer state={state} onTogglePause={onTogglePause} />
     </div>
   );
 }
@@ -165,51 +187,70 @@ export function ExerciseRunnerFooter({
 
   return (
     <>
-      <footer className="relative mt-auto shrink-0 pb-[max(0.75rem,env(safe-area-inset-bottom))]">
+      <footer
+        className={cn(
+          "relative mt-auto shrink-0 pb-[max(0.5rem,env(safe-area-inset-bottom))]",
+          "max-md:min-h-[var(--height-practice-footer)]",
+        )}
+      >
         {bodyScrolls ? (
           <div
             className="pointer-events-none absolute inset-x-0 -top-8 h-8 bg-gradient-to-t from-canvas to-transparent"
             aria-hidden
           />
         ) : null}
-        <div className="relative border-t border-line bg-canvas/95 px-1 pt-3 backdrop-blur-sm">
-          <ExerciseRunnerProgress state={state} onTogglePause={onTogglePause} />
-          <div className="mt-3 flex flex-col items-end gap-3">
-          <div className="flex items-center gap-2">
-            <Button
-              type="button"
-              variant="secondary"
-              size="md"
-              disabled={!canGoBack}
-              onClick={onBack}
-              aria-label={t("prevStep")}
-              className="min-w-11 px-3"
-            >
-              ◀
-            </Button>
-            <Button
-              type="button"
-              variant="secondary"
-              size="md"
-              disabled={!canGoForward}
-              onClick={onForward}
-              aria-label={t("nextStep")}
-              className="min-w-11 px-3"
-            >
-              ▶
-            </Button>
+        <div className="relative border-t border-line bg-canvas/95 px-1 pt-2 backdrop-blur-sm md:pt-3">
+          <div className="max-md:hidden">
+            <ExerciseRunnerProgress state={state} onTogglePause={onTogglePause} />
           </div>
-          {showPrimary ? (
-            <Button
-              type="button"
-              size="lg"
-              className="w-auto max-w-full min-w-[11rem]"
-              disabled={!canComplete}
-              onClick={onComplete}
-            >
-              {primaryLabel}
-            </Button>
-          ) : null}
+          <div className="mb-2 md:hidden">
+            <ExerciseRunnerProgressBar state={state} showStepLabel={false} compact />
+            <ExerciseRunnerTimer state={state} onTogglePause={onTogglePause} />
+          </div>
+          <div
+            className={cn(
+              "flex flex-col items-end gap-3 md:mt-3",
+              "max-md:flex-row max-md:items-center max-md:justify-end max-md:gap-2 max-md:mb-0",
+            )}
+          >
+            <div className="flex items-center gap-2 max-md:gap-1.5">
+              <Button
+                type="button"
+                variant="secondary"
+                size="md"
+                disabled={!canGoBack}
+                onClick={onBack}
+                aria-label={t("prevStep")}
+                className="min-w-11 px-3 max-md:min-w-10 max-md:px-2.5"
+              >
+                ◀
+              </Button>
+              <Button
+                type="button"
+                variant="secondary"
+                size="md"
+                disabled={!canGoForward}
+                onClick={onForward}
+                aria-label={t("nextStep")}
+                className="min-w-11 px-3 max-md:min-w-10 max-md:px-2.5"
+              >
+                ▶
+              </Button>
+            </div>
+            {showPrimary ? (
+              <Button
+                type="button"
+                size="lg"
+                className={cn(
+                  "w-auto max-w-full min-w-[11rem]",
+                  "max-md:h-10 max-md:min-w-0 max-md:flex-1 max-md:max-w-[14rem] max-md:text-sm",
+                )}
+                disabled={!canComplete}
+                onClick={onComplete}
+              >
+                {primaryLabel}
+              </Button>
+            ) : null}
           </div>
         </div>
       </footer>
@@ -233,27 +274,24 @@ export function ExerciseRunnerFooter({
   );
 }
 
-/** @deprecated Use ExerciseRunnerHero + ExerciseRunnerProgress + ExerciseRunnerFooter */
+/** @deprecated Use ExerciseRunnerHero + ExerciseRunnerFooter */
 export function ExerciseRunnerChrome(props: ExerciseRunnerChromeProps) {
   return (
-    <>
-      <ExerciseRunnerProgress state={props.state} onTogglePause={props.onTogglePause} />
-      <ExerciseRunnerFooter
-        state={props.state}
-        bodyScrolls={props.bodyScrolls}
-        canGoBack={props.canGoBack}
-        canGoForward={props.canGoForward}
-        canComplete={props.canComplete}
-        showStopConfirm={props.showStopConfirm}
-        primaryLabel={props.primaryLabel}
-        onBack={props.onBack}
-        onForward={props.onForward}
-        onComplete={props.onComplete}
-        onCancelStop={props.onCancelStop}
-        onConfirmStop={props.onConfirmStop}
-        onTogglePause={props.onTogglePause}
-      />
-    </>
+    <ExerciseRunnerFooter
+      state={props.state}
+      bodyScrolls={props.bodyScrolls}
+      canGoBack={props.canGoBack}
+      canGoForward={props.canGoForward}
+      canComplete={props.canComplete}
+      showStopConfirm={props.showStopConfirm}
+      primaryLabel={props.primaryLabel}
+      onBack={props.onBack}
+      onForward={props.onForward}
+      onComplete={props.onComplete}
+      onCancelStop={props.onCancelStop}
+      onConfirmStop={props.onConfirmStop}
+      onTogglePause={props.onTogglePause}
+    />
   );
 }
 

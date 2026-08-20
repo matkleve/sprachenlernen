@@ -1,7 +1,7 @@
 # UC-022 — Understand a rule at the moment I get it wrong
 
 <!-- id: UC-022 -->
-<!-- specs:  -->
+<!-- specs: SPEC-service-form-cell-explanation, SPEC-component-form-error-explanation -->
 
 **Who:** a learner who has just made the same mistake for the fourth time.
 **Wants to:** know the rule, briefly, right now.
@@ -24,6 +24,9 @@ yet.
 
 - When an answer is wrong, the learner can get a **short** explanation of the
   specific rule involved, without leaving the session.
+- **v1 ships on form-recall cards** — self-graded recall with on-demand and
+  post-**Again**/**Hard** disclosure ([`form-cell-explanation.md`](../specs/service/form-cell-explanation.md));
+  typed production and meaning-recall follow in later slices.
 - The explanation is one screen, with examples, and names the contrast that
   caused the error rather than the whole topic.
 - It is **on demand**. Nothing forces the learner through it, and continuing

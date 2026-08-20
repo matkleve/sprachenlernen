@@ -2,6 +2,7 @@
 
 <!-- id: SPEC-service-form-recall-pool -->
 <!-- use-case: UC-041 -->
+<!-- use-case: UC-079 -->
 <!-- status: active -->
 
 Build-time pool of **form-recall** Tasks for the card engine — one inflected
@@ -16,10 +17,11 @@ Parent: [`starter-deck.md`](starter-deck.md) (meaning-recall pool),
 
 - **In:** `data/starter/es-form-recall.json` and `data/starter/it-form-recall.json`,
   `scripts/build-form-recall-pool.mjs`, `lib/form-recall-pool.ts` (load + validate),
-  `lib/paradigm-cells.ts` (cell code → words); staging rule — a form-recall Task
-  enters the session queue only when the sibling **meaning-recall** Task for the
-  same `wordId` is **held** ([`vocabulary-snapshot.md`](vocabulary-snapshot.md)
-  `isTaskHeld` — not the scheduler graduation threshold).
+  `lib/paradigm-cells.ts` (cell code → words); **staging** — today a hard filter in
+  `lib/form-recall-staging.ts` (meaning must be **held**). When
+  [`session-sampling.md`](session-sampling.md) ships (UC-079), form tasks use a
+  soft weight `fᵢ` instead of exclusion (supplement); held meaning still yields
+  full weight.
 - **Out:** form-mastery signal on Progress — see
   [`form-mastery-signal.md`](form-mastery-signal.md); audio recall;
   choosing the cell at review time; paradigm-table method (`paradigm-tables-mixed`);
@@ -33,8 +35,8 @@ Parent: [`starter-deck.md`](starter-deck.md) (meaning-recall pool),
 | 1 | Shipped `es-form-recall.json` | Validates; returns cards with `taskType` `form-recall` |
 | 2 | Build script run | One card per meaning-recall lemma where a distinct inflected form exists in the lemma table with a documented cell |
 | 3 | Lemma with no inflected form (only `el`, etc.) | Omitted from the form-recall pool — not an error |
-| 4 | Session build, meaning-recall not held | Form-recall Tasks for that `wordId` are excluded from the schedulable pool |
-| 5 | Session build, meaning-recall held | Form-recall Tasks compete with meaning-recall under the same FSRS rules |
+| 4 | Session build, meaning-recall not held | Form-recall Tasks **excluded** (today) or **low weight** (T-W22 / UC-079) |
+| 5 | Session build, meaning-recall held | Form-recall Tasks compete with meaning-recall under the same FSRS / sampling rules |
 
 ## Data
 

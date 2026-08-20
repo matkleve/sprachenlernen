@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 
 import { loadSpanishMeaningRecallDeck } from "@/lib/starter-deck";
-import { buildSession, DEFAULT_SESSION_LENGTH } from "@/lib/session-builder";
+import { buildSession, DEFAULT_SESSION_LENGTH, sessionLengthForBudgetMinutes } from "@/lib/session-builder";
 import { applyReview, newTask } from "@/lib/scheduler";
 
 const pool = loadSpanishMeaningRecallDeck();
@@ -15,6 +15,14 @@ describe("session-builder", () => {
     expect(session[14]?.frequencyRank).toBe(15);
     expect(session[0]?.position).toBe(1);
     expect(session[0]?.total).toBe(DEFAULT_SESSION_LENGTH);
+  });
+
+  it("scales session length from budget minutes", () => {
+    const budgetMinutes = 10;
+    const length = sessionLengthForBudgetMinutes(budgetMinutes);
+    const session = buildSession(cards, {}, Date.now(), length);
+    expect(session).toHaveLength(length);
+    expect(session[0]?.total).toBe(length);
   });
 
   it("prioritises due tasks before new ones", () => {
@@ -74,6 +82,39 @@ describe("session-builder", () => {
     const wordIds = session.map((card) => card.wordId);
     expect(new Set(wordIds).size).toBe(wordIds.length);
     expect(session).toHaveLength(1);
+  });
+
+  it("returns only form-recall cards when deck=form", () => {
+    const meaning = cards.find((card) => card.lemma === "hablar" && card.taskId.endsWith(":meaning-recall"));
+    expect(meaning).toBeDefined();
+    if (!meaning) return;
+
+    const form = {
+      ...meaning,
+      taskId: "es:hablar:habla:form-recall",
+      back: "habla",
+      paradigmCell: "ind.pres.3sg",
+    };
+
+    const session = buildSession([meaning, form], {}, Date.now(), DEFAULT_SESSION_LENGTH, {
+      deck: "form",
+    });
+    expect(session.every((card) => card.taskId.endsWith(":form-recall"))).toBe(true);
+  });
+
+  it("returns only meaning-recall cards when deck=meaning", () => {
+    const meaning = cards[0]!;
+    const form = {
+      ...meaning,
+      taskId: "es:hablar:habla:form-recall",
+      back: "habla",
+      paradigmCell: "ind.pres.3sg",
+    };
+
+    const session = buildSession([meaning, form], {}, Date.now(), DEFAULT_SESSION_LENGTH, {
+      deck: "meaning",
+    });
+    expect(session.every((card) => card.taskId.endsWith(":meaning-recall"))).toBe(true);
   });
 
   it("prioritises gap-set lemmas among new cards", () => {

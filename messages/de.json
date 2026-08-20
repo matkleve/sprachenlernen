@@ -93,6 +93,14 @@
   "words": {
     "reviewCardHeaderLabel": "Wortschatz",
     "reviewHeading": "Wiederholen",
+    "reviewMeaningsHeading": "Bedeutungen wiederholen",
+    "reviewMeaningsCaption": "Nur Grundformen — was jedes Wort bedeutet.",
+    "reviewMeaningsAction": "Bedeutungen wiederholen",
+    "reviewMixedAction": "Gemischt wiederholen",
+    "reviewFormsHeading": "Formen wiederholen",
+    "reviewFormsCaption": "Beugungsformen von Wörtern, deren Bedeutung Sie schon stabil kennen — getrennt von der Bedeutungswiederholung.",
+    "paradigmCellCalloutTitle": "Was ist eine Paradigmenzelle?",
+    "paradigmCellCalloutBody": "Ein Platz im Beugungsmuster eines Worts — zum Beispiel 1. Person Singular Präsens. Jede Formenkarte fragt genau eine Zelle ab, nicht die ganze Konjugationstabelle.",
     "reviewCaption": "Eine Sitzung nach der anderen — tippen, wenn Sie bereit sind.",
     "countsHeading": "Ihr Wortschatz",
     "countsCaption": "Wie viele Starter-Lemmas Sie an die Bedeutung erinnern — nicht jede flektierte Form und kein Rückstau.",
@@ -247,6 +255,9 @@
     "completeBodyOne": "Sie haben 1 Karte wiederholt.",
     "completeBody": "Sie haben {count} Karten wiederholt.",
     "startReview": "Wiederholung starten",
+    "startFormReview": "Formen wiederholen",
+    "formExplanationSummary": "Warum diese Form?",
+    "formExplanationExamples": "Beispiele: {examples}",
     "srsSessionName": "Abstands-Wiederholungssitzung",
     "languageLabel": "{name}",
     "syncingOne": "1 Wiederholung wird synchronisiert…",
@@ -507,6 +518,19 @@
     },
     "startSession": "Starten",
     "sessionNotBuilt": "Die App wird diese Methode hier ausführen, sobald ihre Sitzung gebaut ist. Lesen Sie vorerst, was sie tut, und probieren Sie sie außerhalb der App, wenn möglich.",
+    "sessionContract": {
+      "line": "~{minutes} Min. · {volume} · {feedback}"
+    },
+    "sessionVolumeSentences": "{count, plural, one {# Satz} other {# Sätze}}",
+    "sessionVolumeWords": "{count, plural, one {# Wort} other {# Wörter}}",
+    "sessionVolumeCards": "{count, plural, one {# Karte} other {# Karten}}",
+    "sessionVolumeWriting": "freies Schreiben mit Zeitlimit",
+    "sessionVolumeUnits": "{count, plural, one {# Einheit} other {# Einheiten}}",
+    "sessionFeedbackSelfMark": "mit Musterlösung vergleichen",
+    "sessionFeedbackExemplar": "mit Beispielen vergleichen",
+    "sessionFeedbackAssisted": "mit Unterstützung korrigieren",
+    "sessionFeedbackRubric": "mit Rubrik bewertet",
+    "sessionFeedbackHonestNone": "ohne Muster — ehrlich vergleichen",
     "backToMethods": "Zurück zu Methoden",
     "methodNotFound": "Keine Methode mit diesem Namen im Katalog.",
     "standingLabel": "Aktueller Stand",
@@ -1164,6 +1188,62 @@
         "previewNote": "Nur Vorschau — zum Üben brauchst du ein Konto.",
         "methodsLabel": "Drei Methoden aus dem Katalog"
       }
+    }
+  },
+  "formRules": {
+    "es": {
+      "verb1": {
+        "ind": {
+          "pres": "-ar-Verben im Präsens: Stamm + -o (ich), -as (du), -a (er/sie), -amos (wir), -áis (ihr), -an (sie).",
+          "impf": "-ar-Verben im Imperfekt: Stamm + -aba, -abas, -aba, -ábamos, -abais, -aban.",
+          "pret": "-ar-Verben im Präteritum: Stamm + -é, -aste, -ó, -amos, -asteis, -aron.",
+          "fut": "-ar-Verben im Futur: Infinitiv + -é, -ás, -á, -emos, -éis, -án."
+        }
+      },
+      "verb2": {
+        "ind": {
+          "pres": "-er-Verben im Präsens: Stamm + -o, -es, -e, -emos, -éis, -en.",
+          "impf": "-er-Verben im Imperfekt: Stamm + -ía, -ías, -ía, -íamos, -íais, -ían.",
+          "pret": "-er-Verben im Präteritum: Stamm + -í, -iste, -ió, -imos, -isteis, -ieron.",
+          "fut": "-er-Verben im Futur: Infinitiv + -é, -ás, -á, -emos, -éis, -án."
+        }
+      },
+      "verb3": {
+        "ind": {
+          "pres": "-ir-Verben im Präsens: Stamm + -o, -es, -e, -imos, -ís, -en.",
+          "impf": "-ir-Verben im Imperfekt: Stamm + -ía, -ías, -ía, -íamos, -íais, -ían.",
+          "pret": "-ir-Verben im Präteritum: Stamm + -í, -iste, -ió, -imos, -isteis, -ieron.",
+          "fut": "-ir-Verben im Futur: Infinitiv + -é, -ás, -á, -emos, -éis, -án."
+        }
+      },
+      "irregular": "Dieses Verb ist unregelmäßig — die übliche Klassenendung sagt die Formen nicht voraus. Lerne dieses Wort einzeln."
+    },
+    "it": {
+      "verb1": {
+        "ind": {
+          "pres": "-are-Verben im Präsens: Stamm + -o, -i, -a, -iamo, -ate, -ano.",
+          "impf": "-are-Verben im Imperfekt: Stamm + -avo, -avi, -ava, -avamo, -avate, -avano.",
+          "pret": "-are-Verben im Passato prossimo oft avere + Partizip auf -ato.",
+          "fut": "-are-Verben im Futur: Stamm + -erò, -erai, -erà, -eremo, -erete, -eranno."
+        }
+      },
+      "verb2": {
+        "ind": {
+          "pres": "-ere-Verben im Präsens: Stamm + -o, -i, -e, -iamo, -ete, -ono.",
+          "impf": "-ere-Verben im Imperfekt: Stamm + -evo, -evi, -eva, -evamo, -evate, -evano.",
+          "pret": "-ere-Verben im Passato prossimo oft avere + Partizip auf -uto/-to.",
+          "fut": "-ere-Verben im Futur: Stamm + -erò, -erai, -erà, -eremo, -erete, -eranno."
+        }
+      },
+      "verb3": {
+        "ind": {
+          "pres": "-ire-Verben im Präsens: Stamm + -o, -i, -e, -iamo, -ite, -ono (achte auf -isco-Formen).",
+          "impf": "-ire-Verben im Imperfekt: Stamm + -ivo, -ivi, -iva, -ivamo, -ivate, -ivano.",
+          "pret": "-ire-Verben im Passato prossimo oft avere + Partizip auf -ito.",
+          "fut": "-ire-Verben im Futur: Stamm + -irò, -irai, -irà, -iremo, -irete, -iranno."
+        }
+      },
+      "irregular": "Dieses Verb ist unregelmäßig — die übliche Klassenendung sagt die Formen nicht voraus. Lerne dieses Wort einzeln."
     }
   }
 }

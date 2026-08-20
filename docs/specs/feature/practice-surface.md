@@ -5,11 +5,12 @@
 <!-- status: active -->
 
 Visual and interaction contract for **task content** inside the exercise runner
-(`/practice`) and future practice steps. Runner **chrome** (hero belt, footer segmented progress + nav, primary CTA)
-keeps app density; everything the learner reads or taps to *do the task* uses
-practice-surface scale.
+(`/practice`) and future practice steps. Runner **chrome** (hero belt on desktop,
+mobile strip, footer segmented progress + nav, primary CTA) keeps app density;
+everything the learner reads or taps to *do the task* uses practice-surface scale.
 
-Research: [`study/41-practice-surface-ux.md`](../../study/41-practice-surface-ux.md).
+Research: [`study/41-practice-surface-ux.md`](../../study/41-practice-surface-ux.md),
+[`study/42-exercise-mobile-fit-frame.md`](../../study/42-exercise-mobile-fit-frame.md).
 Parent: [`exercise-runner.md`](exercise-runner.md).
 
 ## Scope
@@ -23,9 +24,13 @@ Parent: [`exercise-runner.md`](exercise-runner.md).
 
 | Layer | Owner components | Density |
 | --- | --- | --- |
-| Chrome top | `ExerciseRunnerHero` | App (`text-sm` labels, stop) |
-| Chrome bottom | `ExerciseRunnerProgress`, `ExerciseRunnerFooter` | Segmented bars + **Schritt n/m**; ◀ ▶ + primary `lg` |
-| Surface | `PracticeSurface`, `PracticePrepList`, step components in `ExerciseStepBody` | Task (`text-lg`–`xl` leads, 48px+ rows) |
+| Chrome top (mobile) | `ExerciseRunnerMobileStrip` | Step label `text-base font-semibold` + stop |
+| Chrome top (desktop) | `ExerciseRunnerHero` | 5rem belt + metadata |
+| Chrome bottom | `ExerciseRunnerProgressBar`, `ExerciseRunnerFooter` | Segmented bars; mobile: bars only + one control row |
+| Surface | `PracticeSurface`, `PracticePrepList`, step components | `text-base` on `< md`; `text-lg` on `md+` |
+
+Runner root: `practice-fit-frame` when `one-screen-exercise` — see
+[`exercise-runner.layout.md`](exercise-runner.layout.md) § Fit-frame density.
 
 ## Practice surface tokens (class contract)
 
@@ -33,20 +38,20 @@ Applied via `PracticeSurface` wrapper — not new CSS color tokens.
 
 | Role | Classes |
 | --- | --- |
-| Lead prompt | `text-xl font-medium leading-snug text-ink` |
+| Lead prompt | `practiceLeadClass`: `text-xl font-medium` desktop; `text-base font-semibold` mobile — reads above prep rows |
 | Body | `text-lg leading-relaxed text-ink` |
 | Secondary | `text-base text-muted` |
-| Prep row | `min-h-11 items-center gap-3 rounded-card px-4 py-3 bg-surface-raised shadow-soft` — label `font-semibold`; checked: `bg-accent-soft ring-1 ring-inset ring-accent` |
-| Prep checkbox | `Checkbox` `md` — sr-only input; marker `size-6 border-2 border-line-strong rounded-md` |
+| Prep row | `min-h-11 items-center` flex row — `bg-surface`, **`border-x border-line-strong`**, `px-4 py-3`; label left `font-semibold`, checkbox right; checked: `bg-accent-soft` |
+| Prep checkbox | `Checkbox` `md` at row end — sr-only input; marker `size-6 border-2 border-line-strong rounded-md` |
 
 ## Behaviour
 
 | # | Element | Rule |
 | --- | --- | --- |
 | 1 | Step body | Wrapped in `PracticeSurface` |
-| 2 | Prepare checklist | `PracticePrepList` — learner can check each row; does not gate **Weiter** |
+| 2 | Prepare checklist | `PracticePrepList` — label left, checkbox right, vertically centered; optional row `bg-accent-soft` when checked; does not gate **Weiter** |
 | 3 | Runner footer | `border-t border-line` only — no `bg-surface` panel on `canvas` |
-| 4 | Primary CTA | `Button` `lg`, `w-auto`, bottom-right stack under nav chips |
+| 4 | Primary CTA | `Button` `lg` desktop; `h-10` mobile; bottom-right with nav on one row on phone |
 | 5 | New step UI | Must use practice-surface primitives before app-scale fields |
 | 6 | Long text steps | `scroll` or `paginated` profile only — short steps never scroll |
 | 7 | Scroll body | `p-1` on the overflow container so focused fields keep full ring visible |

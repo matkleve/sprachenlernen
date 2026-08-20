@@ -8,6 +8,7 @@ import { menuQueryString } from "@/lib/method-menu-filter";
 import { hasMaterialSetup } from "@/lib/method-material-setup";
 import type { MaterialUnitId } from "@/lib/material-unit";
 import { resolveSessionBudgetMinutes } from "@/lib/method-session-budget";
+import { resolveSessionContract } from "@/lib/method-session-contract";
 import {
   sessionHrefForMethod,
   usesExerciseRunner,
@@ -21,6 +22,7 @@ import { MethodDetailBadgeBand } from "./MethodDetailBadgeBand";
 import { MethodDetailFacts } from "./MethodDetailFacts";
 import { MethodDetailHero } from "./MethodDetailHero";
 import { MethodMaterialSetup } from "./MethodMaterialSetup";
+import { MethodSessionContractText } from "./MethodSessionContractText";
 import { readMaterialSetupBundle } from "./readMaterialSetup";
 
 export type MethodDetailProps = {
@@ -90,6 +92,7 @@ export async function MethodDetail({ method, searchParams = {} }: MethodDetailPr
         ? searchParams.minutes[0]
         : undefined,
   );
+  const sessionContract = await resolveSessionContract(method, sessionBudgetMinutes);
   const hasPreStart =
     showMaterialSetup ||
     usesWordsReview(method) ||
@@ -137,20 +140,29 @@ export async function MethodDetail({ method, searchParams = {} }: MethodDetailPr
                 context={materialBundle.context}
                 canPersist={materialBundle.canPersist}
                 budgetMinutes={sessionBudgetMinutes}
+                sessionContract={sessionContract}
                 className="mt-4 md:mt-6"
               />
             ) : null}
 
-            {!showMaterialSetup && (usesWordsReview(method) || usesExerciseRunner(method)) && (
-              <ActionLink
-                href={sessionHrefForMethod(method, { budgetMinutes: sessionBudgetMinutes })}
-                variant="primary"
-                size="lg"
-                className="mt-4 md:mt-6"
-              >
-                {t("startSession")}
-              </ActionLink>
-            )}
+            {!showMaterialSetup && (usesWordsReview(method) || usesExerciseRunner(method)) ? (
+              <>
+                {sessionContract ? (
+                  <MethodSessionContractText
+                    contract={sessionContract}
+                    className="mt-4 md:mt-6"
+                  />
+                ) : null}
+                <ActionLink
+                  href={sessionHrefForMethod(method, { budgetMinutes: sessionBudgetMinutes })}
+                  variant="primary"
+                  size="lg"
+                  className={sessionContract ? "mt-3" : "mt-4 md:mt-6"}
+                >
+                  {t("startSession")}
+                </ActionLink>
+              </>
+            ) : null}
 
             {method.hosted &&
               !usesWordsReview(method) &&
