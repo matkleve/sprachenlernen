@@ -18,6 +18,7 @@ describe("practice surface", () => {
     expect(screen.getByText("Keyboard ready")).toBeDefined();
     const row = container.querySelector("label");
     expect(row?.className).toContain("min-h-11");
+    expect(row?.className).toContain("bg-surface");
     expect(row?.className).not.toContain("border-line-strong");
     expect(row?.className).not.toContain("shadow-soft");
 
