@@ -3,7 +3,7 @@
 <!-- parent: SPEC-feature-practice-surface -->
 
 - [ ] Given a prepare step on `/practice`, when the learner views prep rows, then
-      each row is at least 44px tall, uses `bg-surface` with **`border-x border-line`**
+      each row is at least 44px tall, uses `bg-surface` with **`border-x border-line-strong`**
       (no top/bottom stroke), label is left with horizontal inset, and the checkbox
       marker is right and top-aligned with the first line of text.
 - [ ] Given a checked prep row, when rendered, then the row uses `bg-accent-soft`

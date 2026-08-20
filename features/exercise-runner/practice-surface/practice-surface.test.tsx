@@ -20,7 +20,7 @@ describe("practice surface", () => {
     expect(row?.className).toContain("min-h-11");
     expect(row?.className).toContain("bg-surface");
     expect(row?.className).toContain("border-x");
-    expect(row?.className).toContain("border-line");
+    expect(row?.className).toContain("border-line-strong");
     expect(row?.className).not.toContain("shadow-soft");
 
     const text = screen.getByText("Keyboard ready");

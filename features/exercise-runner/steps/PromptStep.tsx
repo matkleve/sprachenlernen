@@ -3,6 +3,7 @@
 import { useTranslations } from "next-intl";
 
 import { practiceLeadClass } from "@/features/exercise-runner/practice-surface/PracticeSurface";
+import type { StepRenderProps } from "@/features/exercise-runner/steps/types";
 
 export function PromptStep({
   step,
