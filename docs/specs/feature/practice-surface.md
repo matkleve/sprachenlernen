@@ -36,8 +36,8 @@ Applied via `PracticeSurface` wrapper — not new CSS color tokens.
 | Lead prompt | `text-xl font-medium leading-snug text-ink` |
 | Body | `text-lg leading-relaxed text-ink` |
 | Secondary | `text-base text-muted` |
-| Prep row | `min-h-11 rounded-card border border-line-strong bg-surface p-3 shadow-soft` — toggles to `border-accent bg-accent-soft` when checked |
-| Prep checkbox | Native `input` (visually hidden); marker `size-6 border-2 border-line-strong`, filled `accent-deep` + check icon when checked |
+| Prep row | `min-h-11 rounded-card bg-surface-raised p-3 shadow-soft` — checked: `bg-accent-soft ring-1 ring-inset ring-accent` (no full box border) |
+| Prep checkbox | `Checkbox` `md` — sr-only input; marker `size-6 border-2 border-line-strong rounded-md` |
 
 ## Behaviour
 

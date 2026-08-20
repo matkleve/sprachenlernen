@@ -6,7 +6,7 @@ import { PracticePrepList } from "@/features/exercise-runner/practice-surface/Pr
 import { PracticeSurface } from "@/features/exercise-runner/practice-surface/PracticeSurface";
 
 describe("practice surface", () => {
-  it("renders prep rows with strong borders", () => {
+  it("renders prep rows at task density without a full row border", () => {
     const { container } = render(
       <PracticePrepList
         entries={[
@@ -17,8 +17,10 @@ describe("practice surface", () => {
     );
     expect(screen.getByText("Keyboard ready")).toBeDefined();
     const row = container.querySelector("label");
-    expect(row?.className).toContain("border-line-strong");
     expect(row?.className).toContain("min-h-11");
+    expect(row?.className).toContain("rounded-card");
+    expect(row?.className).not.toContain("border-line");
+    expect(row?.className).not.toContain("border-line-strong");
   });
 
   it("toggles a prep row when the learner checks it", async () => {

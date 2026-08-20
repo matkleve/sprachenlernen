@@ -1,11 +1,12 @@
 "use client";
 
-import { Check } from "lucide-react";
 import { useState } from "react";
 
+import { Checkbox } from "@/components/ui/Checkbox";
 import {
   focusRing,
   interactiveCursor,
+  interactionMotion,
   touchTarget,
 } from "@/components/ui/interaction-kernel";
 import { cn } from "@/lib/utils";
@@ -41,32 +42,21 @@ export function PracticePrepList({ entries, className }: PracticePrepListProps) 
           <li key={entry.id}>
             <label
               className={cn(
-                "flex min-h-11 items-start gap-3 rounded-card border p-3 shadow-soft",
+                "group flex min-h-11 items-start gap-3 rounded-card p-3",
                 touchTarget,
                 interactiveCursor,
                 focusRing,
+                interactionMotion,
                 isChecked
-                  ? "border-accent bg-accent-soft"
-                  : "border-line-strong bg-surface",
+                  ? "bg-accent-soft ring-1 ring-inset ring-accent"
+                  : "bg-surface-raised shadow-soft",
               )}
             >
-              <input
-                type="checkbox"
+              <Checkbox
                 checked={isChecked}
                 onChange={() => toggle(entry.id)}
-                className="sr-only"
+                className="mt-0.5"
               />
-              <span
-                className={cn(
-                  "mt-0.5 flex size-6 shrink-0 items-center justify-center rounded-md border-2",
-                  isChecked
-                    ? "border-accent-deep bg-accent-deep text-accent-ink"
-                    : "border-line-strong bg-surface",
-                )}
-                aria-hidden
-              >
-                {isChecked ? <Check className="size-4" strokeWidth={3} /> : null}
-              </span>
               <span className="text-base leading-snug text-ink">{entry.label}</span>
             </label>
           </li>

@@ -1,7 +1,7 @@
 # UC-049 — Work through an exercise one step at a time
 
 <!-- id: UC-049 -->
-<!-- specs: SPEC-feature-exercise-runner, SPEC-feature-practice-surface, SPEC-feature-page-layout, SPEC-page-practice, SPEC-service-material-unit, SPEC-service-exercise-step-components, SPEC-service-exercise-recipe-composer, SPEC-service-method-session-viability, SPEC-service-method-session-budget -->
+<!-- specs: SPEC-component-checkbox, SPEC-feature-exercise-runner, SPEC-feature-practice-surface, SPEC-feature-page-layout, SPEC-page-practice, SPEC-service-material-unit, SPEC-service-exercise-step-components, SPEC-service-exercise-recipe-composer, SPEC-service-method-session-viability, SPEC-service-method-session-budget -->
 
 **Who:** anyone doing an exercise with more than one part — a dictation, a piece
 of writing, a 4/3/2 round.

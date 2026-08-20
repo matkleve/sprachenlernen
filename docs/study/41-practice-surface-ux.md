@@ -88,10 +88,12 @@ primitives — never raw app-scale fields for the main task.
 ## Practice surface rules
 
 1. **Lead copy** — `text-lg`, `leading-snug`, `text-ink`. One block per step.
-2. **Interactive rows** — min height 44px (`min-h-11`), `border-line-strong`,
-   `p-3`. Whole row toggles when checkbox.
+2. **Interactive rows** — min height 44px (`min-h-11`), `bg-surface-raised`,
+   `p-3`. Whole row toggles when checkbox. Checked rows use inset accent ring,
+   not a full border box.
 3. **Primary fields** — `Field` + `Textarea`, 3 rows default in short steps.
-4. **No fake checkboxes** — 2px `line-strong`, 24px box.
+4. **Checkboxes** — `Checkbox` primitive (`components/ui/Checkbox.tsx`) — 2px
+   `line-strong`, 24px box (`md`), no native browser painting.
 5. **i18n** — recipe carries `itemKeys` / `introKey`; no English in recipe JSON.
 6. **Footer** — no extra `surface` panel; `border-t border-line` on `canvas` only.
 7. **Anchored footer** — chrome bottom stays fixed; only scroll profile scrolls.
