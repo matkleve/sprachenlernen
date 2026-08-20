@@ -81,6 +81,8 @@ Methods that cannot honestly offer a package must **remove** that value from
 | Field | Rule |
 | --- | --- |
 | **Cards** | **Fixed 15** per session — always; session contract says *"15 cards"* |
+| **Due &lt; 15** | Fill remainder with **new** cards (frequency order) until 15 or pool exhausted — owner 2026-08-20. No shorter honest session. |
+| **Easy-vocab padding** | **Rejected v1** — do not prefer "easier to translate" lemmas when padding; ordinary new-card order only. |
 | **`durations[]`** | **One** value — estimated wall minutes for menu filter only (~`10`) |
 | **Variant chips** | **None** — no duration picker on detail |
 | **Menu filter** | `min(durations) ≤ filter`; Start URL does not scale card count |

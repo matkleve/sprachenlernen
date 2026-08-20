@@ -462,26 +462,18 @@ Cooking-app runner for multi-step Methods (dictation, writing, listening drills)
 | **T-CI7** | **Legal review checklist** — DW/BBC TOS, CC BY-SA display, EU DSM / DE UrhG counsel memo | **Docs / counsel** | — | Blocks T-CI8 production ingest |
 | **T-CI8** | **Partner feeds** — DW *Langsam gesprochene Nachrichten*, BBC Learning English after T-CI7 | Standard | T-CI7 | Lane B partner rows with `partner-tos` |
 
-**Order:** T-CI1 → T-CI2 → T-CI3 → T-CI4; T-CI5 parallel after T-CI3; T-CI6 after
-T-CI3; T-CI8 after T-CI7. **T-MV7** can ship before ingestion — filter-only is
-independent. **T-W10** reading runner pairs with T-CI4 for adapted catalogue text.
+**Order:** T-CI1 → T-CI2 → T-CI3 → T-CI4; T-CI5 parallel after T-CI3; T-CI6 only
+when T-CI2 finds no licence-cleared piece; T-CI8 after T-CI7. **T-MV7 → T-MV8
+before T-CI2** (owner 2026-08-20). **T-W10** reading runner pairs with T-CI4.
 
 #### Open — needs thought before or during build
 
-Not blocking spec merge; must be resolved before scaling lane B or politics at
-level. Detail in study/48 and spec `## Open` sections.
-
 | Topic | Status | Blocks |
 | --- | --- | --- |
-| **Catalogue `targetLevel`** — learner-chosen CEFR band vs inferred skill tier | ⚠ SPEC GAP in `content-adaptation.md` | T-CI3 default level input |
-| **SRS queue &lt; 15 cards** — padding vs shorter honest session | ⚠ SPEC GAP in `method-session-budget.md` | T-MV8 srs-session |
-| **Wikinews first vs lane C generated** for launch politics | Product — owner | T-CI2 vs T-CI6 priority |
-| **Adapted text on Progress** — separate signal vs `calibrationDated` | ⚠ SPEC GAP | T-CI4 + T-B3 |
-| **Politics adaptation review queue** — human spot-check before publish | ⚠ SPEC GAP | T-CI3 at scale |
+| **Skill tier → CEFR band mapping** | ⚠ SPEC GAP until T-B3 | T-CI3 when levels ship |
 | **CC BY-SA share-alike** — how adapted body + attribution display | Legal | T-CI2 Vikidia/Simple |
 | **EU DSM / DE UrhG** — private adaptation vs catalogue redistribution | Legal — counsel | T-CI7, lane B scale |
 | **Form-aware adaptation (held paradigm cells)** | v2 — after form signal | T-CI3 prompt v2 |
-| **Faktencheck for generated lane C** politics copy | Product + editorial | T-CI6 |
 
 ### Track B · Words domain — hygiene, decisions, then stage-2 slices
 
@@ -847,15 +839,30 @@ study/48 and the ingestion/adaptation specs when implementing.
 26. **Catalogue news: level adaptation is primary** (not podcast slicing).
     Lane B ingest + T2 cache; label honestly. Lane C generated fallback is v2.
     Owner 2026-08-20. See study/48, UC-030.
-27. **Which `targetLevel` drives catalogue adaptation?** Learner-chosen CEFR
-    band (e.g. A2 chip) vs inferred skill tier — **⚠ SPEC GAP** in
-    `content-adaptation.md`. Blocks T-CI3 default.
-28. **SRS when due queue &lt; 15?** Padding with new cards vs honest shorter
-    session — **⚠ SPEC GAP** in `method-session-budget.md`. Blocks T-MV8 copy.
-29. **Launch politics source:** Wikinews ingest (T-CI2) first, or lane C
-    generated (T-CI6) when feeds are thin — product pick.
-30. **Legal before partner feeds:** DW/BBC TOS, CC BY-SA display, EU DSM / DE
-    UrhG — T-CI7 memo before T-CI8 production ingest.
+27. ~~**Which `targetLevel` drives catalogue adaptation?**~~ **Answered 2026-08-20
+    (owner): app-inferred** from active skill tier — no manual CEFR chip in v1.
+    See [`content-adaptation.md`](specs/service/content-adaptation.md).
+28. ~~**SRS when due queue &lt; 15?**~~ **Answered 2026-08-20 (owner): always
+    15** — pad with new cards in frequency order; no "easier vocab" heuristic
+    v1. See [`method-session-budget.md`](specs/service/method-session-budget.md),
+    [`session-builder.md`](specs/service/session-builder.md) behaviour #4.
+29. ~~**Launch politics source**~~ **Answered 2026-08-20 (owner): Wikinews
+    (T-CI2) first; lane C generated (T-CI6) **only when** no licence-cleared
+    article exists.
+30. ~~**Legal before partner feeds**~~ **Answered 2026-08-20 (owner): yes,
+    pursue DW/BBC** after T-CI7 memo — partner feeds are a goal, not optional
+    nice-to-have.
+31. **Politics adaptation human review** — **Answered 2026-08-20 (owner): no**
+    separate queue if the automated process (coverage validator + labelling) is
+    sound. UC-023 remains the safety valve.
+32. **Lane C fact-check** — **Answered 2026-08-20 (owner): no** — honesty label
+    only (*not the original* / *generated*); no pre-publish editorial desk v1.
+33. **Adapted text on Progress** — **Answered 2026-08-20 (default from owner Q8):**
+    source-level coverage on `/content/[id]` yes; language-wide level claims
+    unchanged (`calibrationDated`). See `content-adaptation.md` Labelling table.
+34. **Build order T-MV7 vs T-CI** — **Default (no objection):** T-MV7 filter-only
+    and T-MV8 catalogue packages **before** T-CI2 ingest — small UX fix, no
+    dependency on news pipeline.
 
 **Added 2026-08-16**, from [study/34](study/34-review-report-and-acknowledgement-ux.md)
 (T-B14a/b/c). Resolve before implementing report popover or DB columns.

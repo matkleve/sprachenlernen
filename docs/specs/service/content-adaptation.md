@@ -25,8 +25,8 @@ Parent: [`coverage.md`](coverage.md). Ingestion:
 
 | Source | `targetLevel` |
 | --- | --- |
-| Catalogue topic news | Learner-chosen band (e.g. A2) or inferred skill tier — **⚠ SPEC GAP** |
-| Learner upload | Same + explicit processing consent |
+| Catalogue topic news | **Inferred** from the learner's active skill tier for that language (app-derived — owner 2026-08-20). No manual CEFR chip on method detail in v1. |
+| Learner upload | Same inference + explicit processing consent |
 
 Adaptation optimises for **coverage band 95–98 %** on the **adapted** `body`
 using held lemmas from [`vocabulary-snapshot.md`](vocabulary-snapshot.md).
@@ -70,7 +70,7 @@ may skip cache when set changes daily.
 | --- | --- |
 | Source detail | *Adapted for A2 · not the original article* |
 | Method Start | Session contract includes `adapted: true` |
-| Progress | Separate signal or `calibrationDated` — not authentic extensive-reading |
+| Progress | Source-level coverage only on adapted text — does **not** advance language-wide level claims (stays `calibrationDated` until authentic extensive reading) |
 
 ## Off-the-shelf
 
@@ -112,4 +112,4 @@ In [`content-adaptation.acceptance-criteria.md`](content-adaptation.acceptance-c
 ## Open
 
 - **⚠ SPEC GAP:** form-aware adaptation (held paradigm cells) — v2 after form signal ships.
-- **⚠ SPEC GAP:** human review queue for politics adaptations before publish.
+- **⚠ SPEC GAP:** which skill-tier → CEFR band mapping when T-B3 ships — until then use pool-local comfort band as proxy.

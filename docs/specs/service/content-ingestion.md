@@ -53,6 +53,7 @@ Validator refuses catalogue Sources without `licence.kind`.
 | **Simple / Vikidia** (where available) | CC BY-SA | general | SA: adapted derivatives share-alike — store **link + our adaptation labelled** |
 | **Partner feeds** (e.g. DW *Langsam gesprochene Nachrichten*, BBC Learning English) | **Partner TOS** per contract | news | Ingest only after legal review of TOS |
 | **Fixtures** | app-owned | demo | `data/content/*.json` |
+| **Partner feeds (target)** | Partner TOS | news | DW / BBC after T-CI7 legal review — owner wants these (2026-08-20) |
 
 **Not v1 without licence:** full-text republication of commercial news (Bild,
 Spiegel, NYT, etc.) even if RSS exists.
@@ -84,6 +85,8 @@ When no licence-cleared article exists for a topic/day:
 - Write an **original** graded article from **attributed facts** (headline, date,
   place names) — not a rewrite of a copyrighted article.
 - Mark `generated: true`, `licence.kind: generated`.
+- **No editorial fact-check queue v1** — honesty label only (*not the original
+  article* / *generated*). Owner 2026-08-20.
 - Factual-report copy + UC-023 reporting.
 
 ## Behaviour
