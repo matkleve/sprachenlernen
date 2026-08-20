@@ -19,7 +19,15 @@
       step (40) for filtering and slider display.
 - [ ] Given `?skill=reading`, then only Methods whose `skills` includes reading
       appear.
+- [ ] Given `?skill=reading,listening`, then Methods whose `skills` includes
+      **either** reading or listening appear.
 - [ ] Given `?energy=low`, then only Methods with intensity 1 appear.
+- [ ] Given `?energy=low,high`, then Methods with intensity 1 **or** intensity 3
+      appear (OR of each energy bucket’s max intensity).
+- [ ] Given skill or energy filter pills, when they render, then each option shows
+      a Lucide icon before the label (decorative; label is the accessible name).
+- [ ] Given two skill pills active, when one is tapped again, then it deselects
+      and the other stays active — no full page reload.
 - [ ] Given `?hands=none` in refine, then only Methods performable hands-free
       appear.
 - [ ] Given a hosted Method card for `srs-session`, then it links to

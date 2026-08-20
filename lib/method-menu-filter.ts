@@ -29,11 +29,13 @@ export type { TimeBudget };
 
 export type Energy = "low" | "medium" | "high";
 
+export type RefineDimension = "eyes" | "hands" | "voice";
+
 export type MenuFilter = {
   timeBudget?: TimeBudget;
-  skill?: Skill;
-  energy?: Energy;
-  refine: Partial<Pick<Context, "eyes" | "hands" | "voice">>;
+  skills?: Skill[];
+  energies?: Energy[];
+  refine: Partial<Record<RefineDimension, string[]>>;
 };
 
 export type SearchParams = Record<string, string | string[] | undefined>;
@@ -61,28 +63,51 @@ const ENERGY_TO_MAX_INTENSITY: Record<Energy, 1 | 2 | 3> = {
   high: 3,
 };
 
-const REFINE_KEYS = ["eyes", "hands", "voice"] as const;
+const REFINE_KEYS = ["eyes", "hands", "voice"] as const satisfies readonly RefineDimension[];
+
+const parseMultiParam = <T extends string>(
+  value: string | string[] | undefined,
+  allowed: readonly T[],
+): T[] | undefined => {
+  const raw = first(value);
+  if (!raw) return undefined;
+
+  const parsed = raw
+    .split(",")
+    .map((part) => part.trim())
+    .filter((part): part is T => oneOf(part, allowed));
+
+  return parsed.length > 0 ? parsed : undefined;
+};
+
+export const serializeMultiParam = (values: readonly string[] | undefined): string | undefined =>
+  values && values.length > 0 ? values.join(",") : undefined;
+
+/** Toggle one value in a multi-select set; empty set clears the dimension. */
+export const toggleMultiParam = <T extends string>(
+  current: readonly T[] | undefined,
+  value: T,
+): T[] | undefined => {
+  const next = new Set(current ?? []);
+  if (next.has(value)) next.delete(value);
+  else next.add(value);
+  return next.size > 0 ? [...next] : undefined;
+};
 
 export const parseMenuFilter = (params: SearchParams): MenuFilter => {
   const timeBudget = parseTimeBudgetParam(first(params.minutes));
 
-  const skill = first(params.skill);
-  const parsedSkill = skill && oneOf(skill, SKILLS) ? skill : undefined;
-
-  const energy = first(params.energy);
-  const parsedEnergy =
-    energy && oneOf(energy, ["low", "medium", "high"] as const) ? energy : undefined;
+  const skills = parseMultiParam(first(params.skill), SKILLS);
+  const energies = parseMultiParam(first(params.energy), ["low", "medium", "high"] as const);
 
   const refine: MenuFilter["refine"] = {};
   for (const key of REFINE_KEYS) {
-    const value = first(params[key]);
     const allowed = CONTEXT_DIMENSIONS[key];
-    if (value && oneOf(value, allowed)) {
-      Object.assign(refine, { [key]: value });
-    }
+    const values = parseMultiParam(first(params[key]), allowed);
+    if (values) refine[key] = values;
   }
 
-  return { timeBudget, skill: parsedSkill, energy: parsedEnergy, refine };
+  return { timeBudget, skills, energies, refine };
 };
 
 /** Budget used when the URL omits minutes — matches the slider's default step. */
@@ -92,6 +117,14 @@ export type FilterMethodsOptions = {
   /** UC-077 — hide methods that need speaker/headphones. */
   deferListening?: boolean;
 };
+
+const fitsRefineSelections = (method: MethodEntry, refine: MenuFilter["refine"]): boolean =>
+  (Object.entries(refine) as [RefineDimension, string[]][]).every(([dimension, values]) => {
+    if (!values?.length) return true;
+    return values.some((value) =>
+      fitsPartialContext(method, { [dimension]: value } as Partial<Context>),
+    );
+  });
 
 export const filterMethods = (
   catalogue: Catalogue,
@@ -105,17 +138,20 @@ export const filterMethods = (
     methods = methods.filter((method) => fitsMinutes(method, minutes));
   }
 
-  if (filter.skill !== undefined) {
-    methods = methods.filter((method) => method.skills.includes(filter.skill!));
+  if (filter.skills?.length) {
+    methods = methods.filter((method) =>
+      filter.skills!.some((skill) => method.skills.includes(skill)),
+    );
   }
 
-  if (filter.energy !== undefined) {
-    const max = ENERGY_TO_MAX_INTENSITY[filter.energy];
-    methods = methods.filter((method) => method.intensity <= max);
+  if (filter.energies?.length) {
+    methods = methods.filter((method) =>
+      filter.energies!.some((energy) => method.intensity <= ENERGY_TO_MAX_INTENSITY[energy]),
+    );
   }
 
   if (Object.keys(filter.refine).length > 0) {
-    methods = methods.filter((method) => fitsPartialContext(method, filter.refine));
+    methods = methods.filter((method) => fitsRefineSelections(method, filter.refine));
   }
 
   if (options?.deferListening) {

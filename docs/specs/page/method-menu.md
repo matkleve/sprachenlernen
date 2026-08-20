@@ -28,6 +28,20 @@ implementation: [`lib/time-scale.ts`](../../../lib/time-scale.ts).
 catalogue **in place** — no full page navigation, no scroll jump to the top. The
 catalogue is already in memory; only method-card links navigate away.
 
+**Multi-select filters (UX, 2026-08-20):** skill and energy pills are
+**multi-select** — tap toggles a value on or off; several may be active at once.
+The catalogue shows methods that match **any** selected skill and **any** selected
+energy bucket (OR within each dimension). Empty selection on a dimension means no
+filter on that dimension (same as “any skill” / “any energy”). URL params use
+comma-separated values (`?skill=reading,listening`, `?energy=low,medium`).
+Refine dimensions (hands, voice, eyes) use the same toggle semantics when more
+than one constraint is chosen.
+
+**Filter icons (UX, 2026-08-20):** skill pills show the same Lucide marks as the
+catalogue (book, headphones, mic, pen, library) on a skill-tinted disc; energy
+and refine pills show a matching Lucide mark before the label. Icons are
+decorative (`aria-hidden`); the pill label remains the accessible name.
+
 **Session budget (2026-08-19):** the time slider sets **both** which methods fit
 and the default **`budgetMinutes`** passed on Start when the learner opens a
 method from this browse context — contract:
@@ -88,7 +102,7 @@ stays a Server Component.
 | 0 | Opens `/methods` with no language chosen | Redirects to the picker. Three of the four ways into the app — the confirmation link, OAuth, and simply signing in later — never pass through signup's redirect, so the guard lives on the destination |
 | 1 | Opens `/methods` | Whole catalogue until filters apply; **current standing** appears above the filters when review history can be read |
 | 2 | Moves time slider | URL `?minutes=` updates to the nearest scale step (or `endless`); list shows methods whose shortest variant fits |
-| 3 | Taps skill, energy, or refine | List intersects that dimension **without reloading the page**; scroll position preserved |
+| 3 | Taps skill, energy, or refine | Selected pills toggle on/off (multi-select per dimension); list intersects **without reloading the page**; scroll position preserved |
 | 4 | Opens refine | Optional hands / voice / eyes constraints |
 | 5 | Taps a **card-engine** card (`srs-session`) | Words review opens; card showed **Start** |
 | 6 | Taps an **exercise-runner** or other card | Method overview (detail) opens; runnable cards showed **Start**, others **Info** |

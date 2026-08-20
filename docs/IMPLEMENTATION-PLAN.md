@@ -338,6 +338,7 @@ low-inference agent would silently invent.
 | **T-B10f-a** | Method card polish — code | **Shipped 2026-08-18** — header layout, title, badge wrapper; owner LIVE CHECK **failed** on art |
 | **T-B10f-b** | Method card polish — assets + layout v2 | **In progress 2026-08-18** — `object-contain` header, 48px shields, padded PNGs |
 | **T-B10g** | Method card destination marker — Start / Info, summary ink | **Shipped 2026-08-18** — [`plans/method-card-destination.md`](plans/method-card-destination.md) |
+| **T-B10h** | Method menu filter chips — icons + multi-select | **Shipped 2026-08-20** — Lucide marks on skill/energy/refine pills; OR multi-select per dimension; comma-separated URL params |
 | **T-B4** | Dose ledger (F184) | **Denominator shipped** on `/progress` (question 19, first branch). **Numerator** (hours you practised) still out — needs practice-time logging beyond card `latency_ms` |
 | ~~**T-B7**~~ | ~~The landing page~~ — **shipped 2026-08-11** | Thesis 1 headline + thesis 12 time honesty in body |
 | ~~**T-B10**~~ | ~~The method menu — the product's front door~~ — **shipped 2026-08-09** | Filters, time scale, hosted routing. Learner half continued in T-B10b |

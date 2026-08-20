@@ -13,16 +13,25 @@ import { cn } from "@/lib/utils";
 export type FilterPillProps = ButtonHTMLAttributes<HTMLButtonElement> & {
   current?: boolean;
   children: ReactNode;
+  /** Decorative leading icon — label remains the accessible name. */
+  icon?: ReactNode;
 };
 
-export function FilterPill({ current = false, className, children, ...props }: FilterPillProps) {
+export function FilterPill({
+  current = false,
+  className,
+  children,
+  icon,
+  ...props
+}: FilterPillProps) {
   return (
     <button
       type="button"
       aria-pressed={current}
-      className={cn(navLinkVariants({ current }), className)}
+      className={cn(navLinkVariants({ current }), icon && "gap-2", className)}
       {...props}
     >
+      {icon}
       {children}
     </button>
   );

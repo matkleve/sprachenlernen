@@ -17,8 +17,10 @@ method surfaces.
 
 - **In:** pill geometry, `default`, `accent`, and `selected` tones, nowrap text
   children only.
-- **Out:** dismiss buttons, counts, icons, and filter toggles — filter pills are
-  buttons in `features/method-menu/`, not Chip instances.
+- **Out:** dismiss buttons, counts, and filter toggles — filter pills are buttons
+  in `features/method-menu/`, not Chip instances. Method-menu filter pills may
+  show a leading Lucide icon (see [`method-menu.md`](../page/method-menu.md)); card
+  chips still have no icons.
 
 **Reuse: none.** First primitive at this layer; method cards use it; filter pills
 reuse the geometry separately (`FilterPill`).

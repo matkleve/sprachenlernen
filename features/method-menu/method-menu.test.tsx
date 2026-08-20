@@ -81,6 +81,15 @@ describe("filters", () => {
     expect([...cardTitles()].sort()).toEqual([...fitting].sort());
   });
 
+  it("narrows by multiple skills", () => {
+    show({ skill: "reading,speaking" });
+    const fitting = catalogue.entries
+      .filter(isMethod)
+      .filter((m) => m.skills.includes("reading") || m.skills.includes("speaking"))
+      .map((m) => m.name);
+    expect([...cardTitles()].sort()).toEqual([...fitting].sort());
+  });
+
   it("shows time slider", () => {
     show();
     expect(screen.getByRole("slider", { name: en.methodMenu.timeLabel })).toBeDefined();

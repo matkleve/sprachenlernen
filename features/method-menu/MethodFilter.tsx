@@ -2,11 +2,20 @@ import {
   ENERGY_LABELS,
   SKILL_LABELS,
   defaultTimeBudget,
+  serializeMultiParam,
+  toggleMultiParam,
+  type Energy,
   type MenuFilter,
 } from "@/lib/method-menu-filter";
-import { SKILLS } from "@/lib/method-catalogue";
+import { SKILLS, type Skill } from "@/lib/method-catalogue";
 import { timeBudgetToParam } from "@/lib/time-scale";
 import { FilterPill } from "@/components/ui/FilterPill";
+import {
+  AnyEnergyFilterIcon,
+  AnySkillFilterIcon,
+  EnergyFilterIcon,
+  SkillFilterIcon,
+} from "./filter-pill-icons";
 import { RefineFilter } from "./RefineFilter";
 import { TimeSlider } from "./TimeSlider";
 import { useMethodMenuCopy } from "./use-method-menu-copy";
@@ -27,6 +36,14 @@ export function MethodFilter({
 }: MethodFilterProps) {
   const { t } = useMethodMenuCopy();
 
+  const toggleSkill = (skill: Skill) => {
+    onFilterChange({ skill: serializeMultiParam(toggleMultiParam(filter.skills, skill)) });
+  };
+
+  const toggleEnergy = (energy: Energy) => {
+    onFilterChange({ energy: serializeMultiParam(toggleMultiParam(filter.energies, energy)) });
+  };
+
   return (
     <div className="mt-page-content space-y-8">
       <section aria-label={t("timeLabel")}>
@@ -46,7 +63,8 @@ export function MethodFilter({
         <ul className="flex flex-wrap items-center gap-1">
           <li>
             <FilterPill
-              current={filter.skill === undefined}
+              current={!filter.skills?.length}
+              icon={<AnySkillFilterIcon />}
               onClick={() => onFilterChange({ skill: undefined })}
             >
               {t("anySkill")}
@@ -55,10 +73,9 @@ export function MethodFilter({
           {SKILLS.map((skill) => (
             <li key={skill}>
               <FilterPill
-                current={filter.skill === skill}
-                onClick={() =>
-                  onFilterChange({ skill: filter.skill === skill ? undefined : skill })
-                }
+                current={filter.skills?.includes(skill) ?? false}
+                icon={<SkillFilterIcon skill={skill} />}
+                onClick={() => toggleSkill(skill)}
               >
                 {SKILL_LABELS[skill]}
               </FilterPill>
@@ -74,7 +91,8 @@ export function MethodFilter({
         <ul className="flex flex-wrap items-center gap-1">
           <li>
             <FilterPill
-              current={filter.energy === undefined}
+              current={!filter.energies?.length}
+              icon={<AnyEnergyFilterIcon />}
               onClick={() => onFilterChange({ energy: undefined })}
             >
               {t("anyEnergy")}
@@ -83,10 +101,9 @@ export function MethodFilter({
           {ENERGIES.map((energy) => (
             <li key={energy}>
               <FilterPill
-                current={filter.energy === energy}
-                onClick={() =>
-                  onFilterChange({ energy: filter.energy === energy ? undefined : energy })
-                }
+                current={filter.energies?.includes(energy) ?? false}
+                icon={<EnergyFilterIcon energy={energy} />}
+                onClick={() => toggleEnergy(energy)}
               >
                 {ENERGY_LABELS[energy]}
               </FilterPill>
