@@ -165,6 +165,40 @@ reading, dictation, Words — all receive `activeWorld`.
 
 ---
 
+## W9 · FSRS and Lernwelt — weight in the queue, not in the memory lie
+
+**Owner question:** Should FSRS also weight words differently?
+
+**Two layers — do not merge them** ([44](44-foundation-phase-expert-review.md) P1a):
+
+| Layer | Lernwelt effect | Touch `applyReview` / stored `due`? |
+| --- | --- | --- |
+| **Memory (FSRS core)** | **No lie.** After `again`/`good`, interval follows stability only | **No** |
+| **Session composer** | **Yes.** Among due + new candidates, **higher pick weight** for active world | **No** — selection only |
+
+### What that feels like
+
+- Politik word **due** → normal chance to appear; **slightly more** likely to win a
+  slot vs another due word from an old world when both compete for the same 15.
+- Politik word **not due** → FSRS does **not** pull it early just because Politik
+  is selected — that would break *„why now?“* (G1 / UC-005).
+- **New** introductions in a session → weighted toward active-world lemmas (plus
+  spine basics) via [`session-sampling.md`](../specs/service/session-sampling.md)
+  factor `wᵢ` × worldMatch.
+- Switched Politik → Natur: *parlamento* still reviews when **actually due**;
+  fewer **new** Politik introductions; Natur lemmas win **new** slots more often.
+
+### What we do **not** do in v1
+
+- Change `due` dates because of Lernwelt alone  
+- Hide non-world due cards  
+- Per-world retention dial (85 % vs 90 %) — ⚠ SPEC GAP; sensitive; v2 only  
+
+**One sentence:** Lernwelt steuert **Wahrscheinlichkeit in der Session**, FSRS
+steuert **wann du ein Wort vergisst** — beides, aber getrennt.
+
+---
+
 ## W7 · Supersession table
 
 | Withdrawn | Replaced by |
@@ -198,4 +232,4 @@ remain as **history**; **W1–W6** is the current owner-aligned model.
 | ⬤ | Hidden personalization violates trust thesis | [D] — [04](04-flashcards-srs.md) |
 | ⬤ | Duolingo path ≠ our FSRS spine | [A] — [01](01-duolingo.md) D2 |
 | ⬤ | Do not repeat the setting the user already chose | [D] — owner 2026-08-20 |
-| ⬤ | Personalization works via weights, not copy | [D] — owner 2026-08-20 |
+| ⬤ | Lernwelt weights session pick, not `applyReview` | [D] — owner 2026-08-20, [44](44-foundation-phase-expert-review.md) |
