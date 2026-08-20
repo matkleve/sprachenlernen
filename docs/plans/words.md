@@ -91,7 +91,7 @@ frequency blocks (derivation)
                     → form cell explanations (T-W21) — **shipped**
                         → session sampling (T-W22) — [`session-sampling.md`](../specs/service/session-sampling.md), UC-079 — **shipped**
                         → per-cell group breakdown on Progress (T-W5) — **shipped 2026-08-20**
-                            → full paradigm-cell engine (T-W6)
+                            → full paradigm-cell engine (T-W6) — **v1 shipped** inverse index + mixing
 ```
 
 | ID | Work | Serves | New spec | Class | Depends on |
@@ -104,7 +104,7 @@ frequency blocks (derivation)
 | **T-W20** | **Forms home + deck filter** — second section card on `/words`; `deck=meaning\|form\|mixed` on session builder and review route. | UC-078, UC-063, UC-041 | [`words-home.md`](../specs/feature/words-home.md), [`words-review.md`](../specs/page/words-review.md), [`session-builder.md`](../specs/service/session-builder.md) | Standard | form-recall pool shipped |
 | **T-W21** | **Form cell explanation** — on-demand + post-Again/Hard disclosure on form-recall cards. | UC-022, UC-041 | [`form-cell-explanation.md`](../specs/service/form-cell-explanation.md), [`form-error-explanation.md`](../specs/component/form-error-explanation.md) | Standard | T-W20 (forms path exists) — **shipped** |
 | **T-W22** | ~~**Session sampling**~~ — weighted queue (`u×b×n×f`), sigmoid foundation taper, soft form staging; UC-079. **Shipped 2026-08-20.** | UC-079, UC-011 | [`session-sampling.md`](../specs/service/session-sampling.md) | Standard | T-W21 |
-| **T-W6** | **Form practice engine** — promote [`form-practice.md`](../specs/service/form-practice.md) from draft; inverse index; session mixing rules. | UC-041 | existing draft + AC file | **Sensitive** | W-4, red-test-first |
+| **T-W6** | **Form practice engine** — inverse index + session mixing v1 **shipped 2026-08-20**; remainder: cell-based tasks, introduction cap, answer routes, echo rule. | UC-041 | [`form-practice.md`](../specs/service/form-practice.md), [`form-inverse-index.md`](../specs/service/form-inverse-index.md) | **Sensitive** | W-4 |
 
 **Explicitly not in phase 2:** word capture (UC-012), reading (UC-007), coverage
 gaps for content (UC-034) — those are stage 1 capture / stage 3 reading.

@@ -46,6 +46,7 @@ remains the default when `budgetMinutes` is omitted until T-MV5 ships.
 | 8 | `deck=meaning` | Pool restricted to `meaning-recall` Tasks only |
 | 9 | `deck=mixed` or omitted | Current behaviour — both task types compete; sibling rule applies |
 | 10 | T-W22 shipped (`session-sampling`) | Delegates pick order to weighted sampling — UC-079; `due` unchanged by draw |
+| 11 | `deck=form` after sampling | Reorders via `mixFormSession` — no consecutive same lemma; ≤2 per tense×class in any four (T-W6 v1) |
 
 **Deck filter (UC-078):** callers pass `deck` into `buildSession`. Filtering
 happens **before** due/new selection so a forms-only session never sacrifices

@@ -111,6 +111,29 @@ describe("session-builder", () => {
     expect(session.every((card) => card.taskId.endsWith(":form-recall"))).toBe(true);
   });
 
+  it("spaces form-recall cards so no two consecutive items share a lemma (T-W6)", () => {
+    const meaning = cards.find((card) => card.lemma === "hablar" && card.taskId.endsWith(":meaning-recall"));
+    expect(meaning).toBeDefined();
+    if (!meaning) return;
+
+    const forms = [
+      { ...meaning, taskId: "es:hablar:hablo:form-recall", back: "hablo", paradigmCell: "ind.pres.1sg" },
+      { ...meaning, taskId: "es:hablar:habla:form-recall", back: "habla", paradigmCell: "ind.pres.3sg", frequencyRank: 2 },
+      { ...meaning, taskId: "es:comer:como:form-recall", back: "como", lemma: "comer", wordId: "es:comer", paradigmCell: "ind.pres.1sg", frequencyRank: 3 },
+      { ...meaning, taskId: "es:vivir:vivo:form-recall", back: "vivo", lemma: "vivir", wordId: "es:vivir", paradigmCell: "ind.pres.1sg", frequencyRank: 4 },
+    ];
+
+    const session = buildSession(forms, {}, Date.now(), 4, {
+      deck: "form",
+      rng: seededRng(1),
+      lemmaMeta: { hablar: { verb: "1" }, comer: { verb: "2" }, vivir: { verb: "3" } },
+    });
+
+    for (let index = 1; index < session.length; index += 1) {
+      expect(session[index]!.lemma).not.toBe(session[index - 1]!.lemma);
+    }
+  });
+
   it("returns only meaning-recall cards when deck=meaning", () => {
     const meaning = cards[0]!;
     const form = {

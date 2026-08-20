@@ -23,8 +23,7 @@ Parent: [`starter-deck.md`](starter-deck.md) (meaning-recall pool),
 - **Out:** form-mastery signal on Progress — see
   [`form-mastery-signal.md`](form-mastery-signal.md); audio recall;
   choosing the cell at review time; paradigm-table method (`paradigm-tables-mixed`);
-  accepting more than one correct form per cell — the inverse index that would
-  need is blocked in [`form-practice.md`](form-practice.md).
+  multi-answer grading — see [`form-inverse-index.md`](form-inverse-index.md) (T-W6).
 
 ## Behavior
 

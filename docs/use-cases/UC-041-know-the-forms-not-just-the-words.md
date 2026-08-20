@@ -1,7 +1,7 @@
 # UC-041 — Know the forms, not just the words
 
 <!-- id: UC-041 -->
-<!-- specs: SPEC-service-form-recall-pool, SPEC-service-form-mastery-signal, SPEC-service-form-practice, SPEC-feature-words-home, SPEC-page-words-review, SPEC-service-session-builder, SPEC-service-form-cell-explanation, SPEC-component-form-error-explanation -->
+<!-- specs: SPEC-service-form-recall-pool, SPEC-service-form-mastery-signal, SPEC-service-form-practice, SPEC-service-form-inverse-index, SPEC-feature-words-home, SPEC-page-words-review, SPEC-service-session-builder, SPEC-service-form-cell-explanation, SPEC-component-form-error-explanation -->
 
 **Who:** anyone learning a language where words change shape — which is most of
 them, and certainly Spanish and Italian.

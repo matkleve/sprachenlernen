@@ -13,6 +13,9 @@ import {
   sessionBuildFailed,
 } from "@/lib/errors";
 import { buildSession, type SessionCard } from "@/lib/session-builder";
+import esLemma from "@/data/lemma/es.json";
+import itLemma from "@/data/lemma/it.json";
+import { loadLemmaTable } from "@/lib/lemma-table";
 import { filterSchedulableCards } from "@/lib/form-recall-staging";
 import { isFormRecallTaskId, isMeaningRecallTaskId } from "@/lib/form-recall-pool";
 import { buildFormCellExplanation } from "@/lib/form-cell-explanation";
@@ -134,6 +137,7 @@ export async function buildSessionAction(input?: {
         priorityLemmas,
         deck,
         sampling,
+        lemmaMeta: lemmaMetaForLanguage(activeCode ?? "es"),
       }),
       spoken.spokenLanguage,
     ).map((card) => attachFormExplanation(card, activeCode ?? "es", poolCards, tasksByTaskId));
@@ -166,4 +170,11 @@ function attachFormExplanation(
     tasksByTaskId,
   });
   return explanation ? { ...card, formExplanation: explanation } : card;
+}
+
+function lemmaMetaForLanguage(languageCode: string) {
+  const raw =
+    languageCode === "it" ? itLemma : languageCode === "es" ? esLemma : undefined;
+  if (!raw) return undefined;
+  return loadLemmaTable(raw, languageCode).table?.lemmas;
 }

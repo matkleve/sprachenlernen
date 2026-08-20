@@ -3,6 +3,7 @@
  */
 
 import { isMeaningRecallTaskId } from "@/lib/form-recall-pool";
+import { mixFormSession, type LemmaMeta } from "@/lib/form-session-mixing";
 import type { ReviewDeck } from "@/lib/review-deck";
 import type { SamplingContext, SamplingReason } from "@/lib/session-sampling";
 import { countHeldMeaningRecall } from "@/lib/sampling-context";
@@ -28,6 +29,8 @@ export type BuildSessionOptions = {
   sampling?: SamplingContext;
   /** Deterministic draws in tests; production uses secure random via sampleSession default. */
   rng?: () => number;
+  /** Lemma conjugation metadata for form-session mixing (T-W6). */
+  lemmaMeta?: LemmaMeta;
 };
 
 /**
@@ -57,7 +60,7 @@ export function buildSession(
 
   const total = picked.length;
 
-  return picked.map((entry, index) => ({
+  const sessionCards = picked.map((entry, index) => ({
     taskId: entry.card.taskId,
     wordId: entry.card.wordId,
     lemma: entry.card.lemma,
@@ -70,6 +73,12 @@ export function buildSession(
     total,
     samplingReason: entry.samplingReason,
   }));
+
+  if (deck === "form") {
+    return mixFormSession(sessionCards, { lemmaMeta: options?.lemmaMeta });
+  }
+
+  return sessionCards;
 }
 
 function countHeldFromPool(

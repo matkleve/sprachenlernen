@@ -20,6 +20,9 @@ covers the **full paradigm-cell** engine (`paradigm-cells-mixed`) and is T-W6.
 
 - **In:** the paradigm-cell Task type, the introduction model, session
   composition, answer routes, and the inverse index the whole thing needs.
+  **Shipped v1 (2026-08-20):** [`form-inverse-index.md`](form-inverse-index.md)
+  and lemma-spacing / tense×class mixing in `lib/form-session-mixing.ts` (rules
+  1–2; echo rule and pull-forward still in review session / sampling).
 - **Out:** the level-model arithmetic for form mastery
   ([`study/03`](../../study/03-level-model.md) owns it); the paper sheet, which
   is its own method; grammar as a curriculum of topics (UC-041, out of scope).
@@ -147,17 +150,10 @@ In [`form-practice.acceptance-criteria.md`](form-practice.acceptance-criteria.md
 
 ## Blocked on
 
-- ⚠ **The inverse index is unspecified.** [`lexicon.md`](lexicon.md) orders
-  `form → analyses`; every item here needs `(lemma, cell) → accepted forms`,
-  which has no ordering, no primary, no variety tag. **28.2 %** of verb
-  `(lemma, cell)` pairs have more than one correct form (*habla · hablas ·
-  hablás* for one cell), and the table carries noise a grader would accept —
-  unaccented `estan`, a bare `a` under *haber*, clitics under an empty cell.
-  Nothing is built until this is a contract.
-- ⚠ **The sibling gap** ([`scheduler.md`](scheduler.md)). *hablar* has 59 cells.
-  Without a minimum interval between Tasks of one Word, a learner sees the same
-  verb twelve times in fifteen items — a blocked table delivered by the
-  scheduler in an interleaved costume.
+- ~~⚠ **The inverse index is unspecified.**~~ **Resolved 2026-08-20:**
+  [`form-inverse-index.md`](form-inverse-index.md).
+- ~~⚠ **The sibling gap** ([`scheduler.md`](scheduler.md)).~~ **Resolved
+  2026-08-12** (W-4) — one Task per Word per session; mixing rules 1–2 shipped.
 - ⚠ **Which cell a wrong answer actually was** is not recorded. The review log
   stores correct/incorrect; *hablé* for *hablaba* is a tense error and *hablas*
   for *hablo* a person error, and the shipped table can tell them apart. Without

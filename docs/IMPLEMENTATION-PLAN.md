@@ -456,7 +456,7 @@ Work in four phases; do not skip phase 0:
 | --- | --- | --- |
 | **0 · Hygiene** | Link repair, catalogue honesty (`hosted` vs built), test drift | **T-W0b/c shipped 2026-08-17** — vocabulary methods `hosted: false` except `srs-session`; `/words/atlas` test drift fixed. **T-W0a** if `check:specs` warns |
 | **1 · Decisions** | W-1 lemma-rank recomputation, W-2 pool atlas vs full map, W-3 `vocabulary` skill, W-4 sibling gap, W-5 incomplete paradigms | **W-3 answered 2026-08-17:** `vocabulary` skill. **W-5 answered 2026-08-17:** flag partial paradigms. W-1, W-2, W-4 already answered |
-| **2 · Stage-2 display** | Frequency blocks → word detail → pool-local map → T-B3 remainder → forms home + explanations → **session sampling** → per-cell breakdown → form-practice | **T-W5 shipped** — next: **T-W6** form practice engine |
+| **2 · Stage-2 display** | Frequency blocks → word detail → pool-local map → T-B3 remainder → forms home + explanations → **session sampling** → per-cell breakdown → form-practice | **T-W6 v1 shipped** (inverse index + mixing) — remainder: cell tasks, answer routes |
 | **3 · Stage-3 loop** | Coverage → trace + gaps → `/content` → method setup (study/37, study/39) → reading | **T-W9 + T-E7/T-W10a + T-MU* shipped 2026-08-18**; next: **T-W10** remainder or **T-W11** session loop line |
 | **4 · Stage-1 remainder** | Break return, leech diagnosis, i18n slices | T-W12 next; **T-W16** and **T-W17** shipped |
 
