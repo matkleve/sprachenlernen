@@ -7,7 +7,6 @@ import { cellCandidatesFromCards } from "@/lib/form-cell-catalog";
 import {
   countNewCellIntroductionsToday,
   filterNewCellCandidates,
-  DEFAULT_NEW_CELL_CAP_PER_DAY,
 } from "@/lib/form-introduction";
 import { buildFormSessionWithPullForward } from "@/lib/form-pull-forward";
 import { mixFormSession, type LemmaMeta } from "@/lib/form-session-mixing";
@@ -70,7 +69,7 @@ export function buildSession(
     );
     const eligibleIds = new Set(
       filterNewCellCandidates(cellCandidatesFromCards(options.formCellPool), tasksByTaskId, {
-        capPerDay: DEFAULT_NEW_CELL_CAP_PER_DAY,
+        sessionLength,
         introducedTodayCount: introducedToday,
       }).map((row) => row.taskId),
     );

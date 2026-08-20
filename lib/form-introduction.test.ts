@@ -6,8 +6,10 @@ import { describe, expect, it } from "vitest";
 import {
   cellIntroductionSortKey,
   countNewCellIntroductionsToday,
+  effectiveNewCellBudget,
   filterNewCellCandidates,
   isSubjunctiveCell,
+  newCellCapPerSession,
 } from "@/lib/form-introduction";
 import { buildFormCellTaskId } from "@/lib/form-cell-task-id";
 import { newTask } from "@/lib/scheduler";
@@ -20,7 +22,24 @@ describe("form-introduction", () => {
     expect(isSubjunctiveCell("sub.pres.3sg")).toBe(true);
   });
 
-  it("caps how many brand-new cell tasks may enter a day", () => {
+  it("caps new cells per session at min(5, sessionLength)", () => {
+    expect(newCellCapPerSession(15)).toBe(5);
+    expect(newCellCapPerSession(3)).toBe(3);
+  });
+
+  it("soft-throttles and ceilings the daily new-cell budget", () => {
+    expect(
+      effectiveNewCellBudget({ sessionLength: 15, introducedTodayCount: 0 }),
+    ).toBe(5);
+    expect(
+      effectiveNewCellBudget({ sessionLength: 15, introducedTodayCount: 10 }),
+    ).toBeLessThan(5);
+    expect(
+      effectiveNewCellBudget({ sessionLength: 15, introducedTodayCount: 15 }),
+    ).toBe(0);
+  });
+
+  it("drops fresh candidates when the introduction budget is exhausted", () => {
     const now = Date.parse("2026-08-20T12:00:00.000Z");
     const dayStart = Date.parse("2026-08-20T00:00:00.000Z");
     const introducedToday = [
@@ -44,8 +63,8 @@ describe("form-introduction", () => {
     );
 
     const allowed = filterNewCellCandidates(candidates, tasksByTaskId, {
-      capPerDay: 2,
-      introducedTodayCount: 2,
+      sessionLength: 15,
+      introducedTodayCount: 15,
     });
     expect(allowed).toHaveLength(0);
   });

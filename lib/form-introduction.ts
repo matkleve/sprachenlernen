@@ -6,8 +6,14 @@
 import type { Task } from "@/lib/scheduler";
 import { newTask } from "@/lib/scheduler";
 
-/** Configured cap — answers the "not all tenses at once" pool-size objection. */
-export const DEFAULT_NEW_CELL_CAP_PER_DAY = 3;
+/** Per-session cap — aligned with study/44 foundation new-card cap. */
+export const DEFAULT_NEW_CELL_CAP_PER_SESSION = 5;
+
+/** Sanity ceiling for power users running many sessions per UTC day. */
+export const DEFAULT_NEW_CELL_DAILY_CEILING = 15;
+
+/** Soft daily throttle — same shape as meaning-recall `lambdaNewToday`. */
+export const DEFAULT_LAMBDA_NEW_CELLS_TODAY = 0.15;
 
 export type CellCandidate = {
   taskId: string;
@@ -17,11 +23,36 @@ export type CellCandidate = {
 };
 
 export type IntroductionFilterOptions = {
-  capPerDay: number;
+  sessionLength: number;
   introducedTodayCount: number;
+  capPerSession?: number;
+  dailyCeiling?: number;
+  lambdaNewToday?: number;
 };
 
-const DAY_MS = 86_400_000;
+export function newCellCapPerSession(
+  sessionLength: number,
+  capPerSession: number = DEFAULT_NEW_CELL_CAP_PER_SESSION,
+): number {
+  return Math.min(capPerSession, sessionLength);
+}
+
+/**
+ * How many brand-new cells may enter this session's automatic pool after pacing.
+ */
+export function effectiveNewCellBudget(options: IntroductionFilterOptions): number {
+  const capPerSession = options.capPerSession ?? DEFAULT_NEW_CELL_CAP_PER_SESSION;
+  const dailyCeiling = options.dailyCeiling ?? DEFAULT_NEW_CELL_DAILY_CEILING;
+  const lambda = options.lambdaNewToday ?? DEFAULT_LAMBDA_NEW_CELLS_TODAY;
+
+  const sessionCap = newCellCapPerSession(options.sessionLength, capPerSession);
+  const headroom = Math.max(0, dailyCeiling - options.introducedTodayCount);
+  const softScaled = Math.floor(
+    sessionCap * Math.exp(-lambda * options.introducedTodayCount),
+  );
+
+  return Math.min(sessionCap, headroom, Math.max(0, softScaled));
+}
 
 export function isSubjunctiveCell(cell: string): boolean {
   return cell.includes(".subj.") || cell.startsWith("sub.");
@@ -59,7 +90,7 @@ export function countNewCellIntroductionsToday(
 }
 
 /**
- * Drops never-reviewed cell candidates when the daily introduction cap is full.
+ * Drops never-reviewed cell candidates when the introduction budget is full.
  * Introduced cells (any prior review) always pass through.
  */
 export function filterNewCellCandidates(
@@ -70,7 +101,7 @@ export function filterNewCellCandidates(
   const taskFor = (candidate: CellCandidate): Task =>
     tasksByTaskId[candidate.taskId] ?? newTask(candidate.taskId, `es:${candidate.lemma}`);
 
-  const remaining = Math.max(0, options.capPerDay - options.introducedTodayCount);
+  const remaining = effectiveNewCellBudget(options);
   if (remaining === 0) {
     return candidates.filter((candidate) => isIntroducedCellTask(taskFor(candidate)));
   }

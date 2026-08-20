@@ -7,7 +7,6 @@ import { buildFormCellTaskId } from "@/lib/form-cell-task-id";
 import {
   acceptedSurfaces,
   buildFormInverseIndex,
-  type FormInverseIndex,
 } from "@/lib/form-inverse-index";
 import type { CellCandidate } from "@/lib/form-introduction";
 import type { FrequencyEntry } from "@/lib/lexicon";

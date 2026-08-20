@@ -15,6 +15,7 @@ import {
 import { buildFormCellCatalog } from "@/lib/form-cell-catalog";
 import { heldLemmaSet } from "@/lib/content-gap";
 import { firstReviewTimesByTaskId } from "@/lib/form-introduction";
+import { isFormCellTaskId } from "@/lib/form-cell-task-id";
 import { parseFrequencyList } from "@/lib/lexicon";
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
@@ -182,7 +183,9 @@ export async function buildSessionAction(input?: {
     const lemmaMeta = lemmaMetaForLanguage(activeCode ?? "es");
     const formCellPool =
       deck === "form" ? formCellPoolForLanguage(activeCode ?? "es", poolCards, lemmaMeta) : undefined;
-    const firstCellReviews = firstReviewTimesByTaskId(reviewsResult.reviews);
+    const firstCellReviews = firstReviewTimesByTaskId(
+      reviewsResult.reviews.filter((row) => isFormCellTaskId(row.taskId)),
+    );
 
     const queue = localizeSessionCards(
       buildSession(schedulable, tasksByTaskId, now, undefined, {

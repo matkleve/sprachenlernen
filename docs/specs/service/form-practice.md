@@ -25,7 +25,8 @@ covers the **full paradigm-cell** engine (`paradigm-cells-mixed`) and is T-W6.
   1–2; **echo rule** in review session; **pull-forward** in
   `lib/form-pull-forward.ts`). **Shipped v3 (2026-08-20):** cell-based task ids
   (`lib/form-cell-task-id.ts`), runtime cell catalog (`lib/form-cell-catalog.ts`),
-  daily introduction cap (`lib/form-introduction.ts`, default 3/day).
+  introduction pacing (`lib/form-introduction.ts` — per-session cap
+  `min(5, sessionLength)`, soft daily throttle, ceiling 15/day).
 - **Out:** the level-model arithmetic for form mastery
   ([`study/03`](../../study/03-level-model.md) owns it); the paper sheet, which
   is its own method; grammar as a curriculum of topics (UC-041, out of scope).
@@ -56,8 +57,20 @@ The learner's objection that drove this spec — *"you don't learn all tenses at
 once"* — is right, and it is a **pool-size** problem rather than a curriculum
 problem. Three dials, no prerequisite graph:
 
-1. **A cap on new cells per day.** This alone answers the objection. Default
-   **3** (`DEFAULT_NEW_CELL_CAP_PER_DAY` in `lib/form-introduction.ts`).
+1. **Pacing — per-session cap plus soft daily throttle.** Answers the pool-size
+   objection without the old hard stop at three per day.
+   - **Per session:** at most `min(5, sessionLength)` brand-new cells
+     (`newCellCapPerSession` in `lib/form-introduction.ts`) — aligned with
+     foundation-phase research ([`study/44`](../../study/44-foundation-phase-expert-review.md)).
+   - **Across the day:** the session budget is scaled by
+     `exp(−λ × N_newToday)` (default `λ = 0.15`, same shape as meaning-recall's
+     `lambdaNewToday` in [`session-sampling.md`](session-sampling.md)). Heavy
+     same-day introduction lowers how many fresh cells enter the next session;
+     it does **not** hard-stop at three.
+   - **Daily ceiling:** default **15** new cells per UTC day
+     (`DEFAULT_NEW_CELL_DAILY_CEILING`) — sanity cap for learners who run many
+     sessions; after the ceiling, only cells with at least one prior review are
+     eligible in automatic pools.
 2. **Frequency-stratified order** — by form frequency, stratified by cell class
    so the head of the list is not fifty forms of *ser · estar · haber · ir*.
 3. **Subjunctive last.** The one ordering step with research behind it; it lives

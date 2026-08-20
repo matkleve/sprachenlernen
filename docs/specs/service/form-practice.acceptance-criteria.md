@@ -9,8 +9,12 @@ so the negative ones exist before someone helpfully adds what they forbid.
 
 - [x] Given the shipped pool, when cells are instantiated, then a cell becomes a
       Task only after the learner meets or fails that form — never in bulk.
-- [x] Given a day's session, then no more than the configured cap of **new**
-      cells is introduced, whatever the due set looks like.
+- [x] Given a built form session of length `L`, then at most `min(5, L)` **new**
+      cells may enter the automatic pool for that session.
+- [x] Given `N_newToday` cell introductions already today, when the next form
+      session is built, then the new-cell budget is reduced by
+      `exp(−λ × N_newToday)` (default `λ = 0.15`) and never exceeds the daily
+      ceiling (default 15).
 - [x] Given the introduction order, then it is derived from form frequency
       stratified by cell class, and the subjunctive sorts last.
 - [ ] Given a cell that has not been introduced, when the learner asks for it,
