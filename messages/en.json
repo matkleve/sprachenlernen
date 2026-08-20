@@ -96,6 +96,8 @@
     "reviewMeaningsHeading": "Review meanings",
     "reviewMeaningsCaption": "Dictionary forms only — what each word means.",
     "reviewMeaningsAction": "Review meanings",
+    "reviewStartAction": "Start review",
+    "reviewFormsIconLabel": "Review forms",
     "reviewMixedAction": "Review mixed",
     "reviewFormsHeading": "Review forms",
     "reviewFormsCaption": "Inflected forms from words you already hold stably — separate from meaning recall.",

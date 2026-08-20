@@ -1,6 +1,5 @@
 import { getTranslations } from "next-intl/server";
 
-import { ActionLink } from "@/components/ui/ActionLink";
 import { ShellPageContent } from "@/features/app-shell/ShellPageContent";
 import { MethodCardHeader } from "@/features/method-menu/MethodCardHeader";
 import { methodSectionSurface } from "@/features/method-menu/section-surface";
@@ -10,6 +9,7 @@ import { ReviewHorizonField } from "@/features/words/ReviewHorizonField";
 import { LemmaCallout } from "@/features/words/LemmaCallout";
 import { WordsCountDefinitions } from "@/features/words/WordsCountDefinitions";
 import { WordsReviewCardHeader } from "@/features/words/WordsReviewCardHeader";
+import { WordsReviewStartRow } from "@/features/words/WordsReviewStartRow";
 import { WordsSectionLabel } from "@/features/words/WordsSectionLabel";
 import { VocabularyOrbitField } from "@/features/words/VocabularyOrbitField";
 import { cardEngineSessionHref } from "@/lib/method-session";
@@ -46,11 +46,9 @@ export async function WordsHome({
   formsPracticeAvailable,
 }: WordsHomeProps) {
   const t = await getTranslations("words");
-  const tReview = await getTranslations("reviewSession");
   const tShell = await getTranslations("appShell");
   const meaningsReviewHref = cardEngineSessionHref("meaning");
   const formsReviewHref = cardEngineSessionHref("form");
-  const mixedReviewHref = cardEngineSessionHref("mixed");
   const orbit = buildVocabularyOrbit(snapshot.atlas, translations);
 
   const countItems = [
@@ -68,32 +66,19 @@ export async function WordsHome({
       <section className={methodSectionSurface("vocabulary", "mt-6 rounded-card shadow-soft")}>
         {await WordsReviewCardHeader()}
         <div className="p-6">
-          <h2 className="text-lg font-semibold text-ink">{t("reviewMeaningsHeading")}</h2>
-          <p className="mt-1 max-w-2xl text-sm leading-relaxed text-muted">{t("reviewMeaningsCaption")}</p>
-          <div className="mt-4 flex flex-col gap-2 sm:flex-row sm:flex-wrap">
-            <ActionLink href={meaningsReviewHref} variant="primary" size="lg" className="w-full sm:w-auto">
-              {t("reviewMeaningsAction")}
-            </ActionLink>
-            <ActionLink href={mixedReviewHref} variant="secondary" size="lg" className="w-full sm:w-auto">
-              {t("reviewMixedAction")}
-            </ActionLink>
-          </div>
+          <h2 className="text-lg font-semibold text-ink">{t("reviewHeading")}</h2>
+          <p className="mt-1 max-w-2xl text-sm leading-relaxed text-muted">{t("reviewCaption")}</p>
+          <WordsReviewStartRow
+            startHref={meaningsReviewHref}
+            startLabel={t("reviewStartAction")}
+            formsHref={formsPracticeAvailable ? formsReviewHref : undefined}
+            formsLabel={formsPracticeAvailable ? t("reviewFormsIconLabel") : undefined}
+          />
+          {formsPracticeAvailable ? (
+            <div className="mt-4">{await ParadigmCellCallout()}</div>
+          ) : null}
         </div>
       </section>
-
-      {formsPracticeAvailable ? (
-        <section className={methodSectionSurface("form", "mt-page-content rounded-card shadow-soft")}>
-          <MethodCardHeader section="form" />
-          <div className="p-6">
-            <h2 className="text-lg font-semibold text-ink">{t("reviewFormsHeading")}</h2>
-            <p className="mt-1 max-w-2xl text-sm leading-relaxed text-muted">{t("reviewFormsCaption")}</p>
-            {await ParadigmCellCallout()}
-            <ActionLink href={formsReviewHref} variant="primary" size="lg" className="mt-4 w-full sm:w-auto">
-              {tReview("startFormReview")}
-            </ActionLink>
-          </div>
-        </section>
-      ) : null}
 
       <section className="mt-page-content">
         <WordsSectionLabel>{t("countsHeading")}</WordsSectionLabel>

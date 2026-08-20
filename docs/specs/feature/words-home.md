@@ -55,10 +55,9 @@ shell and header graphic ([`method-card-header.md`](../component/method-card-hea
 
 | # | User action | System response |
 | --- | --- | --- |
-| 1 | Opens `/words` | Canvas intent copy; **Review meanings** action card; **Review forms** action card when the language profile declares inflection; vocabulary counts in a raised vocabulary-section card (header graphic, caption, lemma callout, three stat tiles with numbers only, collapsed count definitions); frequency bands with held/fragile/new (or holes in the core band) per band; horizon and orbit with uppercase section labels |
-| 2 | Taps Start review (meanings) | Navigates to `/words/review?method=srs-session&deck=meaning` |
-| 2b | Taps Review forms | Navigates to `/words/review?method=srs-session&deck=form` |
-| 2c | Taps Review mixed (when offered) | Navigates to `/words/review?method=srs-session` or `deck=mixed` |
+| 1 | Opens `/words` | Canvas intent copy; one **Review** card with a primary **Start review** action and an **icon-only** forms entry when the language profile declares inflection (pen icon, `aria-label` only); vocabulary counts in a raised vocabulary-section card (header graphic, caption, lemma callout, three stat tiles with numbers only, collapsed count definitions); frequency bands with held/fragile/new (or holes in the core band) per band; horizon and orbit with uppercase section labels |
+| 2 | Taps Start review | Navigates to `/words/review?method=srs-session&deck=meaning` |
+| 2b | Taps the forms icon (when shown) | Navigates to `/words/review?method=srs-session&deck=form` |
 | 3 | Taps a segment or **Show list** | See [`vocabulary-orbit.md`](vocabulary-orbit.md) |
 | 4 | Expands or collapses horizon | See [`review-horizon.md`](review-horizon.md) |
 | 5 | History load fails | Error callout; no fake empty snapshot |
@@ -74,12 +73,14 @@ outcomes.
 ## Acceptance criteria
 
 - [ ] Given a signed-in learner on `/words`, when the page renders, then intent
-      copy appears on the canvas above the review cards, the **meanings** review
-      card shows a decorative header graphic (`h-24`) with a vocabulary section
-      label on the overlay and **Review meanings** as the in-card action heading.
-- [ ] Given an inflecting language profile, when `/words` renders, then a
-      **Forms** section card appears below the meanings card with **Review forms**
-      as the action, a collapsed paradigm-cell callout, and **no due count**.
+      copy appears on the canvas above the review card, the review card shows a
+      decorative header graphic (`h-24`) with a vocabulary section label on the
+      overlay, **Start review** as the primary action, and no separate forms
+      section card.
+- [ ] Given an inflecting language profile, when `/words` renders, then an
+      icon-only forms link (pen, `aria-label` **Review forms**) appears beside
+      **Start review**, a collapsed paradigm-cell callout sits below the actions,
+      and **no due count** appears.
 - [ ] Given a language profile with little or no inflection, when `/words`
       renders, then the Forms section card is omitted.
 - [ ] Given a signed-in learner on `/words`, when the page renders, then held,
