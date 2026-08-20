@@ -5,6 +5,7 @@
 <!-- use-case: UC-071 -->
 <!-- use-case: UC-022 -->
 <!-- use-case: UC-078 -->
+<!-- use-case: UC-079 -->
 <!-- status: active -->
 
 The multi-card SRS runner: a fixed-length queue, one card at a time (meaning-
@@ -21,7 +22,9 @@ recall or form-recall), grades that append to the review log (T-B2).
   passes it as props so the first card renders with the page — no client-only
   prepare step after navigation. Replaces `ReviewOpen`.
   **Form explanation:** [`form-error-explanation.md`](../component/form-error-explanation.md)
-  on form-recall cards (T-W21).
+  on form-recall cards (T-W21). **Sampling reason:** optional `samplingReason` on
+  queue entries when [`session-sampling.md`](../service/session-sampling.md) ships
+  (UC-079) — feeds UC-005 G1 later.
 - **Out:** scheduler projection UI (UC-005 G1–G4); session-length picker;
   sibling spacing; non-`srs-session` methods; Words atlas and horizon (T-B3).
   Persistence blocking the UI — see

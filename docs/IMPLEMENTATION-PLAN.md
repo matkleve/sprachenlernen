@@ -1,7 +1,7 @@
 # Implementation plan
 
 **Written 2026-08-08. "Where the code actually is" and the decision list last
-synced 2026-08-19 (UC-078 forms review path, T-W20/T-W21 queue).** What to build
+synced 2026-08-20 (UC-079 session sampling, T-W22 queue).** What to build
 next in *code*, in what order, and how to hand each piece to a coding agent
 that should make as few decisions as possible.
 
@@ -447,6 +447,7 @@ library + detail, gap list, word trace; **word capture** (T-W9) and **method
 material setup** (T-W10a / T-E7) shipped 2026-08-18. **What is not:** reading
 runner remainder (T-W10 — comprehension + sentence translation on source
 detail); **T-W20** forms home + deck filter; **T-W21** form explanations;
+**T-W22** session sampling (UC-079);
 **T-W5** per-cell Progress breakdown; **T-W6** full form practice; most hosted exercise runners
 (6 of 34 built — see [`METHOD-IMPLEMENTATION-MATRIX.md`](METHOD-IMPLEMENTATION-MATRIX.md)).
 
@@ -456,7 +457,7 @@ Work in four phases; do not skip phase 0:
 | --- | --- | --- |
 | **0 · Hygiene** | Link repair, catalogue honesty (`hosted` vs built), test drift | **T-W0b/c shipped 2026-08-17** — vocabulary methods `hosted: false` except `srs-session`; `/words/atlas` test drift fixed. **T-W0a** if `check:specs` warns |
 | **1 · Decisions** | W-1 lemma-rank recomputation, W-2 pool atlas vs full map, W-3 `vocabulary` skill, W-4 sibling gap, W-5 incomplete paradigms | **W-3 answered 2026-08-17:** `vocabulary` skill. **W-5 answered 2026-08-17:** flag partial paradigms. W-1, W-2, W-4 already answered |
-| **2 · Stage-2 display** | Frequency blocks → word detail → pool-local map → T-B3 remainder → forms home + explanations → per-cell breakdown → form-practice | **T-W1/T-W3/T-W2 shipped** — next: **T-W20** forms home + `deck` filter, **T-W21** cell explanations, **T-W5** Progress breakdown |
+| **2 · Stage-2 display** | Frequency blocks → word detail → pool-local map → T-B3 remainder → forms home + explanations → **session sampling** → per-cell breakdown → form-practice | **T-W20/T-W21 shipped** — next: **T-W22** weighted sampling (UC-079), **T-W5** Progress breakdown |
 | **3 · Stage-3 loop** | Coverage → trace + gaps → `/content` → method setup (study/37, study/39) → reading | **T-W9 + T-E7/T-W10a + T-MU* shipped 2026-08-18**; next: **T-W10** remainder or **T-W11** session loop line |
 | **4 · Stage-1 remainder** | Break return, leech diagnosis, i18n slices | T-W12 next; **T-W16** and **T-W17** shipped |
 

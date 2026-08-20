@@ -7,6 +7,7 @@
 <!-- use-case: UC-005 -->
 <!-- use-case: UC-006 -->
 <!-- use-case: UC-078 -->
+<!-- use-case: UC-079 -->
 <!-- status: active -->
 
 The `/words` vocabulary home — held/fragile/new counts, the review horizon
@@ -62,6 +63,7 @@ shell and header graphic ([`method-card-header.md`](../component/method-card-hea
 | 4 | Expands or collapses horizon | See [`review-horizon.md`](review-horizon.md) |
 | 5 | History load fails | Error callout; no fake empty snapshot |
 | 6 | No language chosen yet | Redirects to the picker rather than rendering an all-zero snapshot |
+| 7 | `held` below sigmoid midpoint (UC-079, T-W22) | One line under canvas intent: base-building copy — words from earlier today may return; new words taper probabilistically (no due count) |
 
 ## States
 

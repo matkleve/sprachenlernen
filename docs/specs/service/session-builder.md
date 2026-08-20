@@ -3,6 +3,7 @@
 <!-- id: SPEC-service-session-builder -->
 <!-- use-case: UC-011 -->
 <!-- use-case: UC-078 -->
+<!-- use-case: UC-079 -->
 <!-- status: active -->
 
 Framework-free service that turns a starter deck and optional review history
@@ -23,7 +24,9 @@ into a fixed-length queue of Tasks for one review session. **Standard**
   belongs to, and how many languages the account holds — a caller's job, never
   this module's (see "This module never chooses a language" below); hand-picking
   cards (UC-039); backlog counters (UC-063, A3). **Deck filter** is the only
-  way to build a forms-only or meanings-only session (UC-078).
+  way to build a forms-only or meanings-only session (UC-078). **Card selection**
+  is binary due/new today; [`session-sampling.md`](session-sampling.md) (T-W22)
+  replaces that logic when shipped (UC-079).
 
 **Budget (draft):** when `buildSession` receives `budgetMinutes`, card count =
 `round(budgetMinutes × 60 / SEC_PER_CARD)` with default `SEC_PER_CARD = 35` and
@@ -43,6 +46,7 @@ remains the default when `budgetMinutes` is omitted until T-MV5 ships.
 | 7 | `deck=form` | Pool is restricted to `form-recall` Tasks before due/new selection; sibling rule applies within that subset |
 | 8 | `deck=meaning` | Pool restricted to `meaning-recall` Tasks only |
 | 9 | `deck=mixed` or omitted | Current behaviour — both task types compete; sibling rule applies |
+| 10 | T-W22 shipped (`session-sampling`) | Delegates pick order to weighted sampling — UC-079; `due` unchanged by draw |
 
 **Deck filter (UC-078):** callers pass `deck` into `buildSession`. Filtering
 happens **before** due/new selection so a forms-only session never sacrifices
