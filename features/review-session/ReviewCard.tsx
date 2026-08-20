@@ -2,12 +2,14 @@
 
 import { useTranslations } from "next-intl";
 import { Flag } from "lucide-react";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import { GradeButton } from "@/components/ui/GradeButton";
 import { IconButton } from "@/components/ui/IconButton";
 import { PressableCard } from "@/components/ui/PressableCard";
+import { textLinkVariants } from "@/components/ui/TextLink";
 import { CardReportPopover } from "@/features/review-session/CardReportPopover";
+import { FormAnswerInput } from "@/features/review-session/FormAnswerInput";
 import { FormErrorExplanation } from "@/features/review-session/FormErrorExplanation";
 import {
   canFlip,
@@ -15,9 +17,11 @@ import {
   showsBack,
 } from "@/features/review-session/session-machine";
 import type { ReportCardInput } from "@/lib/card-report";
-import type { SessionCard } from "@/lib/session-builder";
+import { gradeTypedFormAnswer } from "@/lib/form-answer-grade";
+import type { GradeFormAnswerResult } from "@/lib/form-inverse-index";
 import { isFormRecallTaskId } from "@/lib/form-recall-pool";
 import { paradigmCellLabel } from "@/lib/paradigm-cells";
+import type { SessionCard } from "@/lib/session-builder";
 import { GRADES, type Grade } from "@/lib/scheduler";
 import { cn } from "@/lib/utils";
 
@@ -49,12 +53,24 @@ export function ReviewCard({
   const flagRef = useRef<HTMLButtonElement>(null);
   const [reportOpen, setReportOpen] = useState(false);
   const [explainExpanded, setExplainExpanded] = useState(false);
+  const [typedAnswer, setTypedAnswer] = useState("");
+  const [answerResult, setAnswerResult] = useState<GradeFormAnswerResult | null>(null);
+
   const flipEnabled = canFlip(phase) && !exiting;
-  const gradesEnabled = canGrade(phase) && !exiting;
   const revealBack = showsBack(phase);
   const isFormRecall = isFormRecallTaskId(card.taskId);
+  const typedFormRecall =
+    isFormRecall && Boolean(card.acceptedForms?.length && card.lemmaSurfaces?.length);
+  const gradesEnabled =
+    canGrade(phase) && !exiting && (!typedFormRecall || revealBack);
   const gradePrompt = isFormRecall ? t("formRecallPrompt") : t("prompt");
   const cell = card.paradigmCell ? paradigmCellLabel(card.paradigmCell) : null;
+
+  useEffect(() => {
+    setTypedAnswer("");
+    setAnswerResult(null);
+    setExplainExpanded(false);
+  }, [card.taskId]);
 
   const handleSubmitReport = async (input: ReportCardInput) => {
     await onSubmitReport(input);
@@ -67,6 +83,132 @@ export function ReviewCard({
     }
     onGrade(value);
   };
+
+  const handleCheckAnswer = () => {
+    if (!typedFormRecall || !card.acceptedForms || !card.lemmaSurfaces) return;
+    const result = gradeTypedFormAnswer({
+      answer: typedAnswer,
+      acceptedForms: card.acceptedForms,
+      lemmaSurfaces: new Set(card.lemmaSurfaces),
+    });
+    setAnswerResult(result);
+    onFlip();
+  };
+
+  const cardFlipEnabled = flipEnabled && !typedFormRecall;
+  const cardShellClass = cn(
+    "relative w-full rounded-card border border-line bg-surface text-center shadow-soft",
+    compact ? "flex min-h-0 flex-1 flex-col justify-center p-5 md:mt-6 md:flex-none md:p-8" : "mt-6 p-8",
+    "transition-[opacity,transform] duration-300",
+    exiting && "pointer-events-none scale-[0.98] -translate-y-2 opacity-0",
+  );
+
+  const cardBody = (
+    <>
+          {languageName && (
+            <p className="text-xs font-medium uppercase tracking-widest text-muted">
+              {t("languageLabel", { name: languageName })}
+            </p>
+          )}
+
+          <p
+            className={cn(
+              compact ? "text-xl md:text-2xl" : "text-2xl",
+              "font-semibold text-ink transition-transform duration-300",
+              languageName ? "mt-1 md:mt-2" : "",
+              revealBack && "scale-95 opacity-80",
+            )}
+          >
+            {card.front}
+          </p>
+
+          {cell && (
+            <p className={cn("font-medium text-ink", compact ? "mt-2 text-sm md:text-base" : "mt-3 text-base")}>
+              {cell.person
+                ? t("cellLabelWithPerson", { person: cell.person, form: cell.form })
+                : t("cellLabelFormOnly", { form: cell.form })}
+            </p>
+          )}
+
+          {isFormRecall && !typedFormRecall && (
+            <p className={cn("text-muted", compact ? "mt-1 text-xs md:mt-2 md:text-sm" : "mt-2 text-sm")}>
+              {languageName
+                ? t("formRecallInstruction", { language: languageName })
+                : t("formRecallInstructionFallback")}
+            </p>
+          )}
+
+          {typedFormRecall && flipEnabled ? (
+            <FormAnswerInput
+              value={typedAnswer}
+              onChange={setTypedAnswer}
+              onSubmit={handleCheckAnswer}
+              label={
+                languageName
+                  ? t("formAnswerLabel", { language: languageName })
+                  : t("formAnswerLabelFallback")
+              }
+              checkLabel={t("formAnswerCheck")}
+              accentStripLabel={t("formAccentStrip")}
+              autoFocus
+            />
+          ) : null}
+
+          {typedFormRecall && flipEnabled ? (
+            <button
+              type="button"
+              className={textLinkVariants({ tone: "muted", size: "sm", className: "mt-3" })}
+              onClick={onFlip}
+            >
+              {t("formAnswerReveal")}
+            </button>
+          ) : null}
+
+          {revealBack && answerResult ? (
+            <p
+              className={cn(
+                "font-medium",
+                compact ? "mt-3 text-sm md:text-base" : "mt-4 text-base",
+                answerResult.correct ? "text-success" : "text-danger",
+              )}
+              role="status"
+            >
+              {answerResult.correct
+                ? answerResult.accentForgiven
+                  ? t("formAnswerCorrectAccent")
+                  : t("formAnswerCorrect")
+                : t("formAnswerIncorrect", { answer: card.back ?? "" })}
+            </p>
+          ) : null}
+
+          {revealBack && (
+            <p
+              className={cn(
+                "border-t border-line text-muted",
+                compact ? "mt-3 pt-3 text-sm md:mt-4 md:pt-4 md:text-base" : "mt-4 pt-4 text-base",
+              )}
+            >
+              {card.back}
+            </p>
+          )}
+
+          {revealBack && isFormRecall && card.formExplanation ? (
+            <FormErrorExplanation
+              explanation={card.formExplanation}
+              defaultExpanded={explainExpanded}
+            />
+          ) : null}
+
+          {cardFlipEnabled && (
+            <p className="pointer-events-none absolute right-4 bottom-3 flex items-center gap-1 text-xs text-muted">
+              <span aria-hidden className="text-sm leading-none">
+                ↻
+              </span>
+              {t("flipHint")}
+            </p>
+          )}
+    </>
+  );
 
   return (
     <div
@@ -105,77 +247,19 @@ export function ReviewCard({
           triggerRef={flagRef}
         />
 
-        <PressableCard
-          onClick={onFlip}
-          interactive={flipEnabled}
-          aria-expanded={revealBack}
-          aria-label={flipEnabled ? t("flipHint") : undefined}
-          className={cn(
-            compact ? "flex min-h-0 flex-1 flex-col justify-center p-5 md:mt-6 md:flex-none md:p-8" : "mt-6 p-8",
-            "transition-[opacity,transform] duration-300",
-            exiting && "pointer-events-none scale-[0.98] -translate-y-2 opacity-0",
-          )}
-        >
-          {languageName && (
-            <p className="text-xs font-medium uppercase tracking-widest text-muted">
-              {t("languageLabel", { name: languageName })}
-            </p>
-          )}
-
-          <p
-            className={cn(
-              compact ? "text-xl md:text-2xl" : "text-2xl",
-              "font-semibold text-ink transition-transform duration-300",
-              languageName ? "mt-1 md:mt-2" : "",
-              revealBack && "scale-95 opacity-80",
-            )}
+        {typedFormRecall ? (
+          <div className={cardShellClass}>{cardBody}</div>
+        ) : (
+          <PressableCard
+            onClick={cardFlipEnabled ? onFlip : undefined}
+            interactive={cardFlipEnabled}
+            aria-expanded={revealBack}
+            aria-label={cardFlipEnabled ? t("flipHint") : undefined}
+            className={cardShellClass}
           >
-            {card.front}
-          </p>
-
-          {cell && (
-            <p className={cn("font-medium text-ink", compact ? "mt-2 text-sm md:text-base" : "mt-3 text-base")}>
-              {cell.person
-                ? t("cellLabelWithPerson", { person: cell.person, form: cell.form })
-                : t("cellLabelFormOnly", { form: cell.form })}
-            </p>
-          )}
-
-          {isFormRecall && (
-            <p className={cn("text-muted", compact ? "mt-1 text-xs md:mt-2 md:text-sm" : "mt-2 text-sm")}>
-              {languageName
-                ? t("formRecallInstruction", { language: languageName })
-                : t("formRecallInstructionFallback")}
-            </p>
-          )}
-
-          {revealBack && (
-            <p
-              className={cn(
-                "border-t border-line text-muted",
-                compact ? "mt-3 pt-3 text-sm md:mt-4 md:pt-4 md:text-base" : "mt-4 pt-4 text-base",
-              )}
-            >
-              {card.back}
-            </p>
-          )}
-
-          {revealBack && isFormRecall && card.formExplanation ? (
-            <FormErrorExplanation
-              explanation={card.formExplanation}
-              defaultExpanded={explainExpanded}
-            />
-          ) : null}
-
-          {flipEnabled && (
-            <p className="pointer-events-none absolute right-4 bottom-3 flex items-center gap-1 text-xs text-muted">
-              <span aria-hidden className="text-sm leading-none">
-                ↻
-              </span>
-              {t("flipHint")}
-            </p>
-          )}
-        </PressableCard>
+            {cardBody}
+          </PressableCard>
+        )}
       </div>
 
       {gradesEnabled && (

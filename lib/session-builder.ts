@@ -23,6 +23,10 @@ export type SessionCard = StarterCard & {
   total: number;
   /** Populated on form-recall cards when a rule exists — UC-022 / T-W21. */
   formExplanation?: FormCellExplanationData;
+  /** Accepted surfaces for typed grading — form-recall only (T-W6). */
+  acceptedForms?: readonly string[];
+  /** All lemma surfaces — accent-collision check for typed route (T-W6). */
+  lemmaSurfaces?: readonly string[];
   /** Why this card was drawn — UC-079 / G1 follow-on. */
   samplingReason?: SamplingReason;
 };

@@ -21,7 +21,7 @@ export type CellForms = {
 export type FormInverseIndex = Map<string, CellForms>;
 
 export type GradeFormAnswerResult =
-  | { correct: true; matched: string; variety: string | null }
+  | { correct: true; matched: string; variety: string | null; accentForgiven?: boolean }
   | { correct: false };
 
 type BuildOptions = {

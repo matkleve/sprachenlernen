@@ -38,13 +38,14 @@ so the negative ones exist before someone helpfully adds what they forbid.
 
 - [ ] Given any item, then it can be answered by typing, by building from
       endings, or aloud — and all three count equally toward the same Task.
+      *(Typed route shipped 2026-08-20; build and spoken remain.)*
 - [ ] Given the build route, then the ending chips span every class and tense in
       play, not the four endings of the item's own paradigm.
-- [ ] Given the typed route, then autocorrect and autocapitalise are off, an
+- [x] Given the typed route, then autocorrect and autocapitalise are off, an
       accent strip is present without requiring long-press, and the stem is not
       prefilled.
 - [ ] Given the spoken route, then three grades are offered, not four.
-- [ ] Given an answer that differs from the expected form **only** by an accent,
+- [x] Given an answer that differs from the expected form **only** by an accent,
       then it is accepted **unless** the unaccented string is itself a form of
       the same lemma, in which case it is wrong and the difference is named.
 - [ ] Given a cell with several accepted forms, then every accepted form is

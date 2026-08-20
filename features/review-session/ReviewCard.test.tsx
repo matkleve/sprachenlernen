@@ -6,9 +6,9 @@ import { describe, expect, it, vi } from "vitest";
 import { ReviewCard } from "@/features/review-session/ReviewCard";
 
 vi.mock("@/features/review-session/session-machine", () => ({
-  canFlip: () => true,
-  canGrade: () => true,
-  showsBack: () => true,
+  canFlip: (phase: string) => phase === "prompting",
+  canGrade: (phase: string) => phase === "prompting" || phase === "revealed",
+  showsBack: (phase: string) => phase === "revealed",
 }));
 
 const baseCard = {
@@ -75,6 +75,31 @@ describe("ReviewCard", () => {
 
     expect(screen.getByText(en.reviewSession.formRecallPrompt)).toBeDefined();
     expect(screen.queryByText(en.reviewSession.prompt)).toBeNull();
+  });
+
+  it("shows typed input on form-recall cards with grading metadata", () => {
+    render(
+      <ReviewCard
+        card={{
+          ...baseCard,
+          taskId: "es:hablar:verb:ind.pres.3sg:form-recall",
+          front: "to speak",
+          back: "habla",
+          paradigmCell: "ind.pres.3sg",
+          acceptedForms: ["habla"],
+          lemmaSurfaces: ["habla", "hablo", "hablas"],
+        }}
+        languageName="Spanish"
+        phase="prompting"
+        onFlip={() => {}}
+        onGrade={() => {}}
+        onSubmitReport={async () => {}}
+      />,
+    );
+
+    expect(screen.getByRole("textbox")).toBeDefined();
+    expect(screen.getByRole("button", { name: en.reviewSession.formAnswerCheck })).toBeDefined();
+    expect(screen.queryByRole("button", { name: en.reviewSession.good })).toBeNull();
   });
 
   it("names the cell it is asking for, so the prompt has one answer", () => {

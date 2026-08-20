@@ -13,6 +13,8 @@ import {
   sessionBuildFailed,
 } from "@/lib/errors";
 import { buildFormCellCatalog } from "@/lib/form-cell-catalog";
+import { lemmaSurfacesForLemma } from "@/lib/form-answer-grade";
+import { acceptedSurfaces, buildFormInverseIndex } from "@/lib/form-inverse-index";
 import { heldLemmaSet } from "@/lib/content-gap";
 import { firstReviewTimesByTaskId } from "@/lib/form-introduction";
 import { isFormCellTaskId } from "@/lib/form-cell-task-id";
@@ -31,7 +33,7 @@ import { listLearnerSourcesForLanguage } from "@/lib/db/content-sources";
 import { newTask, type Task } from "@/lib/scheduler";
 import esLemma from "@/data/lemma/es.json";
 import itLemma from "@/data/lemma/it.json";
-import { loadLemmaTable } from "@/lib/lemma-table";
+import { loadLemmaTable, type LemmaTable } from "@/lib/lemma-table";
 import { filterSchedulableCards } from "@/lib/form-recall-staging";
 import { isFormRecallTaskId, isMeaningRecallTaskId } from "@/lib/form-recall-pool";
 import { buildFormCellExplanation } from "@/lib/form-cell-explanation";
@@ -187,6 +189,8 @@ export async function buildSessionAction(input?: {
       reviewsResult.reviews.filter((row) => isFormCellTaskId(row.taskId)),
     );
 
+    const grading = formGradingContextForLanguage(activeCode ?? "es");
+
     const queue = localizeSessionCards(
       buildSession(schedulable, tasksByTaskId, now, undefined, {
         priorityLemmas,
@@ -197,7 +201,15 @@ export async function buildSessionAction(input?: {
         firstCellReviews,
       }),
       spoken.spokenLanguage,
-    ).map((card) => attachFormExplanation(card, activeCode ?? "es", poolCards, tasksByTaskId));
+    ).map((card) => {
+      const explained = attachFormExplanation(
+        card,
+        activeCode ?? "es",
+        poolCards,
+        tasksByTaskId,
+      );
+      return grading ? attachFormAnswerGrading(explained, grading) : explained;
+    });
 
     const heldLemmasAtStart = [...heldLemmaSet(meaningCards, tasksByTaskId)];
     const meaningTasksByTaskId: Record<string, Task> = {};
@@ -241,6 +253,47 @@ function attachFormExplanation(
     tasksByTaskId,
   });
   return explanation ? { ...card, formExplanation: explanation } : card;
+}
+
+type FormGradingContext = {
+  index: ReturnType<typeof buildFormInverseIndex>;
+  lemmaTable: LemmaTable;
+  lemmaSurfacesCache: Map<string, readonly string[]>;
+};
+
+function formGradingContextForLanguage(languageCode: string): FormGradingContext | null {
+  const raw = languageCode === "it" ? itLemma : languageCode === "es" ? esLemma : undefined;
+  if (!raw) return null;
+  const lemmaTable = loadLemmaTable(raw, languageCode).table;
+  if (!lemmaTable) return null;
+
+  try {
+    const frequency = parseFrequencyList(
+      readFileSync(join(process.cwd(), `data/frequency/${languageCode}.txt`), "utf8"),
+    );
+    return {
+      index: buildFormInverseIndex(lemmaTable, { frequency }),
+      lemmaTable,
+      lemmaSurfacesCache: new Map(),
+    };
+  } catch {
+    return null;
+  }
+}
+
+function attachFormAnswerGrading(card: SessionCard, grading: FormGradingContext): SessionCard {
+  if (!isFormRecallTaskId(card.taskId) || !card.paradigmCell) return card;
+
+  const accepted = acceptedSurfaces(grading.index, card.lemma, card.paradigmCell);
+  if (accepted.length === 0) return card;
+
+  let lemmaSurfaces = grading.lemmaSurfacesCache.get(card.lemma);
+  if (!lemmaSurfaces) {
+    lemmaSurfaces = [...lemmaSurfacesForLemma(grading.lemmaTable, card.lemma)];
+    grading.lemmaSurfacesCache.set(card.lemma, lemmaSurfaces);
+  }
+
+  return { ...card, acceptedForms: accepted, lemmaSurfaces };
 }
 
 function lemmaMetaForLanguage(languageCode: string) {

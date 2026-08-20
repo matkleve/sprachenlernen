@@ -131,7 +131,7 @@ export function ReviewSession({ methodName, compact = false, deck = "mixed", ini
             />
           ) : null}
           <ReviewCard
-            key={currentCard.wordId}
+            key={currentCard.taskId}
             card={currentCard}
             languageName={languageName}
             phase={phase}

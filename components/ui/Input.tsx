@@ -1,6 +1,6 @@
 "use client";
 
-import type { InputHTMLAttributes, TextareaHTMLAttributes } from "react";
+import { forwardRef, type InputHTMLAttributes, type TextareaHTMLAttributes } from "react";
 
 import { useFieldControl } from "@/components/ui/Field";
 import { cn } from "@/lib/utils";
@@ -25,15 +25,19 @@ const control = [
   "border-line aria-invalid:border-danger",
 ];
 
-export function Input({
-  className,
-  ...props
-}: InputHTMLAttributes<HTMLInputElement>) {
-  const field = useFieldControl();
-  // Field wiring first, so an explicit id or aria-describedby from the caller
-  // still wins — a caller who passes one meant it.
-  return <input {...field} {...props} className={cn(control, "h-10", className)} />;
-}
+export const Input = forwardRef<HTMLInputElement, InputHTMLAttributes<HTMLInputElement>>(
+  function Input({ className, ...props }, ref) {
+    const field = useFieldControl();
+    return (
+      <input
+        ref={ref}
+        {...field}
+        {...props}
+        className={cn(control, "h-10", className)}
+      />
+    );
+  },
+);
 
 export function Textarea({
   className,
