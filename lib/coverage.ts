@@ -1,6 +1,8 @@
 /**
  * Lemma-level coverage over learner Sources. Contract: docs/specs/service/coverage.md
  */
+import type { SourceLicence } from "@/lib/content-ingestion";
+import { validateSourceIngestion } from "@/lib/content-ingestion";
 import type { LanguageProfile, Lexicon } from "@/lib/lexicon";
 
 export const SOURCE_ORIGINS = ["catalogue", "fixture", "learner"] as const;
@@ -25,6 +27,7 @@ export type Source = {
   sourceUrl?: string;
   addedAt: string;
   ephemeral?: boolean;
+  licence?: SourceLicence;
 };
 
 export type CoverageResult = {
@@ -237,9 +240,37 @@ const validateSource = (input: unknown, index: number): { source?: Source; error
     }
   }
 
+  const origin = input.origin as SourceOrigin;
+  let licence: SourceLicence | undefined;
+  if (input.licence !== undefined) {
+    if (!isRecord(input.licence)) {
+      errors.push(`${prefix}.licence: must be an object`);
+    } else {
+      const kind = input.licence.kind;
+      if (typeof kind !== "string" || kind === "") {
+        errors.push(`${prefix}.licence.kind: required non-empty string`);
+      }
+      if (typeof input.licence.fetchedAt !== "string" || input.licence.fetchedAt === "") {
+        errors.push(`${prefix}.licence.fetchedAt: required non-empty string`);
+      }
+      if (errors.length === 0) {
+        licence = input.licence as unknown as SourceLicence;
+      }
+    }
+  }
+
+  const ingestError = validateSourceIngestion({ origin, licence }, prefix);
+  if (ingestError) errors.push(ingestError);
+
   if (errors.length) return { errors };
 
-  return { source: input as unknown as Source, errors: [] };
+  return {
+    source: {
+      ...(input as unknown as Source),
+      licence,
+    },
+    errors: [],
+  };
 };
 
 export const loadSources = (input: unknown): { sources: Source[]; errors: string[] } => {

@@ -17,6 +17,11 @@
     "origin": "catalogue",
     "body": "Uno dos tres cuatro cinco. El gobierno anuncia nuevas medidas. La economía crece este año.",
     "tags": ["news"],
-    "addedAt": "2026-08-17T00:00:00.000Z"
+    "addedAt": "2026-08-17T00:00:00.000Z",
+    "licence": {
+      "kind": "cc-by",
+      "attribution": "Fixture contributors",
+      "fetchedAt": "2026-08-17T00:00:00.000Z"
+    }
   }
 ]

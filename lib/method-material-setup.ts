@@ -10,6 +10,7 @@ import {
   type CoverageResult,
   type Source,
 } from "@/lib/coverage";
+import { learnerPrivateLicence } from "@/lib/content-ingestion";
 import { DEFAULT_EXTENSIVE_READING_SOURCE_ID, DEFAULT_PARTIAL_DICTATION_SOURCE_ID } from "@/lib/content-source-constants";
 import type { MaterialTopic, MethodEntry } from "@/lib/method-catalogue";
 import {
@@ -175,6 +176,7 @@ export function createLearnerSourceFromText(
     body: text.trim(),
     addedAt: new Date().toISOString(),
     ephemeral: true,
+    licence: learnerPrivateLicence(),
   };
 }
 

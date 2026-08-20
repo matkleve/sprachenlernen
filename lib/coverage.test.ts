@@ -235,6 +235,22 @@ describe("coverage · fixture data", () => {
     expect(sources.every((s) => s.languageCode === "es")).toBe(true);
   });
 
+  it("refuses catalogue sources without licence.kind", () => {
+    const { sources, errors } = loadSources([
+      {
+        id: "bad-news",
+        languageCode: "es",
+        kind: "text",
+        title: "Missing licence",
+        origin: "catalogue",
+        body: "Hola",
+        addedAt: "2026-08-17T00:00:00.000Z",
+      },
+    ]);
+    expect(sources).toEqual([]);
+    expect(errors.some((error) => error.includes("licence.kind"))).toBe(true);
+  });
+
   it("computes coverage on shipped es fixture text", () => {
     const { sources } = loadSources(JSON.parse(readData("data/content/es.json")));
     const fixture = sources.find((s) => s.id === "es-fixture-cafe");
