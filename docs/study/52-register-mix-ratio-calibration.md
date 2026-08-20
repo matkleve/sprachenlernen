@@ -1,6 +1,7 @@
 # 52 · Register mix ratio — owner calibration (not 15/15, not sprinkle)
 
-**Status:** study only — calibrates [51](51-register-path-and-interest-topics.md).  
+**Status:** study only — **superseded by [53](53-business-teacher-situational-model.md)**.
+Card-count rules (2–3, 10 %, floor/cap) withdrawn — teacher uses **situation units**.  
 **Owner correction (2026-08-20, late):** Study 51 over-corrected to **15/15 Business
 cards** — that is **also wrong**. Owner wants:
 

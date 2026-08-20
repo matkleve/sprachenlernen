@@ -84,7 +84,8 @@ only this table.
 | [49 · Learner intent onboarding](49-learner-intent-onboarding.md) | Lemma boost by register; **timing/skill parts superseded by 50** |
 | [50 · Onboarding popover & skill question](50-onboarding-popover-timing-and-skill-question.md) | Web research: upfront popover, drop skill fork; interests added in 51 |
 | [51 · Register path + interest topics](51-register-path-and-interest-topics.md) | Register curriculum + interest chips; **mix ratio in 52** |
-| [52 · Register mix ratio](52-register-mix-ratio-calibration.md) | Owner lock: 2–3 register cards/session, spine + register sentences, no decay |
+| [52 · Register mix ratio](52-register-mix-ratio-calibration.md) | ~~2–3 cards/session~~ — **superseded by 53** |
+| [53 · Business teacher model](53-business-teacher-situational-model.md) | Situations + functions, not card counts; unit-led sessions |
 | [43 · Early foundation sessions](43-early-foundation-sessions.md) | Same-day word return, foundation throttle, soft form staging — study + implementation map |
 | [44 · Foundation phase expert review](44-foundation-phase-expert-review.md) | DS + LT panel: one composer layer, resurfacing rules, what not to ship in v1 |
 | [Sources](sources.md) | Literature, honestly marked by how far each was checked |
