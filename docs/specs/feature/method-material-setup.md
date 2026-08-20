@@ -6,6 +6,7 @@
 <!-- use-case: UC-029 -->
 <!-- use-case: UC-030 -->
 <!-- use-case: UC-028 -->
+<!-- use-case: UC-019 -->
 <!-- status: active -->
 
 The **Topic** chip row and **material unit** preview on method detail: learner
@@ -40,7 +41,7 @@ Declared per method: `materialTopics: [{ id, labelKey }]`. UI always adds:
 
 | Chip | `id` | Effect |
 | --- | --- | --- |
-| App picks | `app-pick` | Readiness picks best catalogue Source (comfortable band) |
+| App picks | `app-pick` | Readiness picks best catalogue Source (comfortable band); when learner's Lernwelt ≠ `general`, **prefilter** to `Source.world = activeWorld` or unset before band scoring ([`learner-world.md`](../service/learner-world.md)) |
 | *(method topics)* | e.g. `news`, `environment` | Best catalogue Source tagged with that `id`; when below comfortable band, offer **adapt to my level** (T-CI3) |
 | Your own | `own` | Reveals upload / paste / link |
 

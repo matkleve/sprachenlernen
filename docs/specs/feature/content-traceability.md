@@ -5,6 +5,7 @@
 <!-- use-case: UC-038 -->
 <!-- use-case: UC-034 -->
 <!-- use-case: UC-033 -->
+<!-- use-case: UC-019 -->
 <!-- status: draft -->
 
 Makes the study/19 loop visible on screen: each surface names the next — a word
@@ -45,6 +46,7 @@ A **Source** is one saved text or one audio item with a transcript
 | `body` | yes for `text` | raw text to tokenise |
 | `transcript` | yes for `audio` | without transcript **unusable** ([`../../study/17-own-content.md`](../../study/17-own-content.md)) |
 | `tags` | no | topic ids matching `materialTopics[].id` on methods (study/37) |
+| `world` | no | Lernwelt id ([`learner-world.md`](../service/learner-world.md)) |
 | `series` | no | podcast/show or narrow-reading series name |
 | `episodeLabel` | no | e.g. `214` |
 | `sourceUrl` | no | link back for learner-owned items |
@@ -70,10 +72,8 @@ partial dictation ([`method-material-setup.md`](method-material-setup.md)).
 **v1 minimum:** `fixture` + `catalogue` JSON in `data/content/`; learner intake
 UI on method detail (T-W10a) before full persistence (T-W9).
 
-**Known-lemma set:** held lemmas from
-[`vocabulary-snapshot.md`](../service/vocabulary-snapshot.md) for the active
-learning language — same pool-local scope as `/words` v1. A lemma counts as
-known when its meaning-recall task is **held**.
+**Known-lemma set:** held meaning-recall tasks from
+[`vocabulary-snapshot.md`](../service/vocabulary-snapshot.md) — pool-local, same as `/words` v1.
 
 ## Surfaces that carry the loop
 

@@ -2,6 +2,7 @@
 
 <!-- id: SPEC-feature-card-example-sentence -->
 <!-- use-case: UC-076 -->
+<!-- use-case: UC-019 -->
 <!-- status: draft -->
 
 One **target-language example sentence** on each review card, chosen so the
@@ -36,13 +37,16 @@ a second card.
 ### Selection (per card, per session)
 
 1. Candidates: sentences tagged with the card's `wordId` (or lemma) in the bank.
-2. Score each candidate with [`coverage.md`](../service/coverage.md) over the
-   learner's held-lemma set.
-3. Prefer **comfortable** band (95–98% coverage). If none: closest to 95% from
+2. When `activeWorld ≠ general`, prefer candidates whose bank row `world`
+   equals `activeWorld` or is omitted (neutral glue). Weighted pick among ties
+   — not 100% in-world ([`study/56`](../../study/56-lernwelt-single-choice.md)).
+3. Score each remaining candidate with [`coverage.md`](../service/coverage.md)
+   over the learner's held-lemma set.
+4. Prefer **comfortable** band (95–98% coverage). If none: closest to 95% from
    above (slightly challenging) or below (known fallback).
-4. Stable random among ties via `sessionId` + `taskId` salt — not a new card
+5. Stable random among ties via `sessionId` + `taskId` salt — not a new card
    every flip within one session.
-5. Hard cap: sentence length ≤ **20** tokens (subtitle register).
+6. Hard cap: sentence length ≤ **20** tokens (subtitle register).
 
 Sentence **text** is target language (stored under `sentence.{id}.text` or bank
 `text` field). **Translation** key: `sentence.{id}.translation` in app texts.
@@ -61,11 +65,17 @@ Sentence **text** is target language (stored under `sentence.{id}.text` or bank
 | --- | --- |
 | `exampleSentenceKey` | pool JSON — optional; may be omitted when picker chooses from bank |
 | `sentences[]` | `data/example-sentences/{code}.json` or DB later |
+| `world` | optional on bank row — same ids as [`learner-world.md`](../service/learner-world.md) |
+| `activeWorld` | [`learner-world.md`](../service/learner-world.md) for the session |
 | `lemmaIds` | for coverage scoring |
 | Held set | review log + [`vocabulary-snapshot.md`](../service/vocabulary-snapshot.md) |
 
 ## Acceptance criteria
 
+- [ ] Given active world `politics` and two comfortable sentences for a lemma —
+      one `world: politics`, one untagged — when the card renders, then the
+      politics-tagged sentence is **more likely** but an untagged sentence may
+      still appear.
 - [ ] Given Italian with held lemmas covering 95% of a bank sentence containing
       `fare`, when the `fare` card renders, then that sentence (or one in the
       same comfort band) appears on the front.
