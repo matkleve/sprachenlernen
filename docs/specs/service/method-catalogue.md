@@ -75,8 +75,7 @@ Time is not a requirement field. Methods declare **1–2 fixed packages** in
 `durations` (ascending minutes; G7 per package —
 [`method-session-budget.md`](method-session-budget.md)). Filter:
 `min(durations) <= menu time`; Start uses the **detail-chosen package**. `null`
-= Endless only. Validator refuses `length > 2` (study/45). Which methods merit
-two packages — study/46.
+= Endless only. Validator `length > 2` (study/45); which methods merit two packages — study/46.
 
 One set of requirements is **and** across dimensions, **or** within one. That
 cannot express "touch **or** voice", which is what
