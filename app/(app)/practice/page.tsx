@@ -49,7 +49,6 @@ export default async function PracticePage({
   const layoutParams = new URLSearchParams();
   if (methodId) layoutParams.set("method", methodId);
   const layoutMode = shellPageLayout(routes.practice, layoutParams);
-  const isOneScreenExercise = layoutMode === "one-screen-exercise";
 
   if (!methodId) {
     return (
@@ -104,7 +103,6 @@ export default async function PracticePage({
         methodName={localized.name}
         section={method.section}
         recipe={recipe}
-        compact={isOneScreenExercise}
       />
     </ShellPageContent>
   );

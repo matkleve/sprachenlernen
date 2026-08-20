@@ -9,26 +9,58 @@ import { useMethodMenuCopy } from "@/features/method-menu/use-method-menu-copy";
 import type { Section } from "@/lib/method-catalogue";
 import { cn } from "@/lib/utils";
 
+type ExerciseRunnerMobileStripProps = {
+  stepLabel?: string;
+  stopLabel: string;
+  onStop: () => void;
+};
+
+/** Mobile chrome — no hero image; step context + stop only. study/42 */
+export function ExerciseRunnerMobileStrip({
+  stepLabel,
+  stopLabel,
+  onStop,
+}: ExerciseRunnerMobileStripProps) {
+  return (
+    <div
+      className={cn(
+        "flex h-[var(--height-practice-mobile-header)] shrink-0 items-center justify-between gap-2 md:hidden",
+      )}
+    >
+      <p className="min-w-0 truncate text-sm font-medium text-ink">
+        {stepLabel ?? "\u00a0"}
+      </p>
+      <Button
+        type="button"
+        variant="secondary"
+        size="sm"
+        onClick={onStop}
+        className="shrink-0 px-2.5 text-xs"
+      >
+        {stopLabel}
+      </Button>
+    </div>
+  );
+}
+
 type ExerciseRunnerHeroProps = {
   section: Section;
   sectionLabel: string;
   methodName: string;
   stepLabel?: string;
-  compact?: boolean;
   stopLabel: string;
   onStop: () => void;
 };
 
 /**
- * Full-bleed section graphic with titles on the gradient — same asset family as
- * method cards, sized for the practice runner (not the tiny card header crop).
+ * Desktop hero belt — full-bleed section graphic. Hidden on mobile (`md+` only).
+ * Mobile uses `ExerciseRunnerMobileStrip` instead — study/42-exercise-mobile-fit-frame.md
  */
 export function ExerciseRunnerHero({
   section,
   sectionLabel,
   methodName,
   stepLabel,
-  compact = false,
   stopLabel,
   onStop,
 }: ExerciseRunnerHeroProps) {
@@ -38,8 +70,11 @@ export function ExerciseRunnerHero({
   return (
     <div
       className={cn(
-        methodSectionSurface(section, "relative shrink-0 overflow-hidden rounded-card shadow-soft"),
-        compact ? "h-[var(--height-practice-hero)]" : "h-44 sm:h-52",
+        methodSectionSurface(
+          section,
+          "relative hidden shrink-0 overflow-hidden rounded-card shadow-soft md:block",
+        ),
+        "h-[var(--height-practice-hero)]",
       )}
     >
       <Image
@@ -73,12 +108,7 @@ export function ExerciseRunnerHero({
         <p className="mt-0.5 text-[0.65rem] font-medium uppercase tracking-widest text-muted sm:text-xs">
           {sectionLabel}
         </p>
-        <h1
-          className={cn(
-            "mt-0.5 font-semibold leading-snug text-ink",
-            compact ? "text-lg sm:text-xl" : "text-xl sm:text-2xl",
-          )}
-        >
+        <h1 className="mt-0.5 text-xl font-semibold leading-snug text-ink sm:text-2xl">
           {methodName}
         </h1>
         {stepLabel ? (

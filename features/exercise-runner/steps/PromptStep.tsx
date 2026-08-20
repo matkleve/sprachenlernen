@@ -16,7 +16,7 @@ export function PromptStep({
       {listeningDeferred ? (
         <p className="text-sm text-muted">{t("typeOnlyHint")}</p>
       ) : null}
-      <p className="text-xl font-medium leading-snug text-ink">{body}</p>
+      <p className="text-xl font-medium leading-snug text-ink max-md:text-base">{body}</p>
     </div>
   );
 }

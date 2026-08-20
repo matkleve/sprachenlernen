@@ -21,8 +21,8 @@ export function TypeWithWordStep({ config, value, onTextChange }: TypeWithWordSt
   }
 
   return (
-    <div className="space-y-4">
-      <p className="text-xl font-medium leading-snug text-ink">
+    <div className="space-y-4 max-md:space-y-2">
+      <p className="text-xl font-medium leading-snug text-ink max-md:text-base">
         {t("typeWithWordPrompt", { word })}
       </p>
       {gloss ? (
@@ -34,10 +34,11 @@ export function TypeWithWordStep({ config, value, onTextChange }: TypeWithWordSt
           onChange={(event) => onTextChange(event.target.value)}
           placeholder={t("typeWithWordPlaceholder")}
           rows={3}
+          className="max-md:min-h-[4.5rem] md:min-h-[5.5rem]"
           aria-label={t("typeWithWordFieldLabel")}
         />
       </Field>
-      <p className="text-sm text-muted">{t("typeWithWordHint")}</p>
+      <p className="text-sm text-muted max-md:text-xs">{t("typeWithWordHint")}</p>
     </div>
   );
 }
