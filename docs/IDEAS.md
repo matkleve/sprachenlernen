@@ -24,6 +24,92 @@ in six months.
 
 ---
 
+## 2026-08-20 — Five user stories: content, sessions, and enthusiasm
+
+**Status:** **🔍 evaluated** (owner review 2026-08-20). Normative overrides in
+[`study/46-method-length-and-level-matched-content.md`](study/46-method-length-and-level-matched-content.md).
+
+**Clarification — "topic on the fly" (rejected):** an earlier draft meant
+*picking a random slice of a long podcast at session compose time*. Owner
+rejected that framing. Product language: **topic chip** (Politik, News) +
+**adapt to my level** — not dynamic topic detection.
+
+### 1 · Always fifteen cards — no guessing
+
+**Story:** As a daily reviewer, I want **exactly fifteen cards** every review so
+I know what I am signing up for, so that I can build a habit without re-deciding
+session size.
+
+| | |
+| --- | --- |
+| **Evidence** | SRS + predictable session end ([04](study/04-flashcards-srs.md), Duolingo S2 **[A]**) |
+| **Enthusiasm** | **High** for habit learners — removes one decision |
+| **Risk** | Due queue &lt; 15 some days — spec must define padding |
+| **Verdict** | **✅ Ship** — `srs-session` `durations: [15]` only |
+| **Links** | UC-039, UC-045 |
+
+### 2 · Read the whole article — do not stop mid-story
+
+**Story:** As someone reading news, I want the **entire article** in one session,
+not a timed excerpt with "more elsewhere", so that I read something real.
+
+| | |
+| --- | --- |
+| **Evidence** | Connected discourse **[A/B]** ([05](study/05-input-reading-listening.md)) |
+| **Enthusiasm** | **Very high** — windowed readers frustrate |
+| **Risk** | Menu filter uses **full-body read estimate**, not truncation |
+| **Verdict** | **✅ Ship** — `full` unit only for text extensive-reading |
+| **Links** | UC-007, [`material-unit.md`](specs/service/material-unit.md) |
+
+### 3 · Today's politics at my A2 level
+
+**Story:** I want **political news at my level** when I tap Politik, so I can
+follow current events without a dictionary wall.
+
+| | |
+| --- | --- |
+| **Evidence** | Simplification comprehension **[B]**; authenticity **[C]** ([17](study/17-own-content.md)) |
+| **Enthusiasm** | **Very high** — timely, personal, shareable |
+| **Risk** | Factual/adaptation errors — label **adapted**, UC-023 |
+| **Verdict** | **✅ Ship as primary** for catalogue news — owner 2026-08-20 |
+| **Links** | UC-030 (revised), UC-007 |
+
+### 4 · Before Start, tell me exactly what I get
+
+**Story:** I want **one honest line** before Start (*"15 cards"* or *"1 article ·
+adapted · ~6 min"*) so starting is not a leap.
+
+| | |
+| --- | --- |
+| **Evidence** | Visible session end **[A]** ([01](study/01-duolingo.md) S2) |
+| **Enthusiasm** | **High** — trust |
+| **Verdict** | **✅ Ship** — session contract on detail |
+| **Links** | UC-039, [`method-session-viability.md`](specs/service/method-session-viability.md) |
+
+### 5 · Paste a link — make it readable at my level
+
+**Story:** I want to **paste a URL** and get a version at **my level**, so the app
+helps real life not only its catalogue.
+
+| | |
+| --- | --- |
+| **Evidence** | Own content **[D]** product fit ([17](study/17-own-content.md)) |
+| **Enthusiasm** | **Very high** — word-of-mouth |
+| **Risk** | Privacy (UC-029), consent, paywalls, quality |
+| **Verdict** | **✅ Ship after catalogue news** — same engine as #3 |
+| **Links** | UC-029, UC-030 |
+
+### Rejected from this review
+
+| Idea | Why |
+| --- | --- |
+| Menu slider sizes session | study/45 — filter only |
+| Cut articles to time window | Owner 2026-08-20 |
+| SRS 2/10/20 packages | Owner — fixed 15 |
+| Podcast window-mining without adaptation | Replaced by #3 |
+
+---
+
 ## 2026-08-12 — Same-session card requeueing + per-card status dots
 
 **Status:** split. Requeueing → **✅ graduated → [UC-071](use-cases/UC-071-get-a-wrong-card-back-before-the-session-ends.md)**.

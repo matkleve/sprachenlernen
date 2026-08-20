@@ -58,7 +58,7 @@ type DurationPackage = {
 
 | Rule | Detail |
 | --- | --- |
-| **Max length** | **2** packages per method. Validator refuses three or more. |
+| **Max length** | **2** packages per method — **except card engine** (see below). Validator refuses three or more. |
 | **Each value** | A fixed recipe — item count, timer, or read window declared at compose time |
 | **Ascending** | Shortest first — used by `min(durations)` for the menu filter |
 | **`null`** | Open-ended — method appears only when menu filter is **Endless** |
@@ -75,7 +75,17 @@ Methods that cannot honestly offer a package must **remove** that value from
 | `full-dictation` | `12`, `25` | N sentences per package |
 | `build-a-sentence` | `5`, `10` | 3 vs 5 target words (T-MV2) |
 | `free-production` | `10`, `20` | `timed-write.durationSec` fixed per package |
-| `srs-session` | `10`, `20` | Fixed card count per package |
+
+### Card engine exception (`srs-session`) — owner 2026-08-20
+
+| Field | Rule |
+| --- | --- |
+| **Cards** | **Fixed 15** per session — always; session contract says *"15 cards"* |
+| **`durations[]`** | **One** value — estimated wall minutes for menu filter only (~`10`) |
+| **Variant chips** | **None** — no duration picker on detail |
+| **Menu filter** | `min(durations) ≤ filter`; Start URL does not scale card count |
+
+Card count is **never** derived from menu slider or `variantMinutes`.
 
 ## Where `variantMinutes` comes from
 
@@ -102,7 +112,7 @@ Composers receive `variantMinutes` (or `variantId` where mapped) and return a
 
 | Family | Package defines |
 | --- | --- |
-| **Card** (`srs-session`) | Fixed `cardCount` per `variantMinutes` |
+| **Card** (`srs-session`) | **Fixed `cardCount = 15`** — not in table above |
 | **Item loop** (dictation, build-a-sentence) | Fixed `N` per package |
 | **Timed write** (`free-production`, diary) | Fixed `timed-write.durationSec` per package |
 | **Read window** (extensive-reading, reading-aloud) | Fixed `durationSec` on `window` unit per package |

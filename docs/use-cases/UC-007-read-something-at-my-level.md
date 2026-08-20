@@ -23,9 +23,11 @@ word is looked up again a week later.
   ("98 % known · 6 min") and how long it takes.
 - Suggested texts land in the 95–98 % band, computed from this user's own
   vocabulary — not from a level label.
-- Session **material unit** matches the method: one sentence, one paragraph, a
-  listening window (e.g. five minutes), or the full text — previewed before Start
-  ([`material-unit.md`](../specs/service/material-unit.md)).
+- Session **material unit** matches the method: one sentence, one paragraph, or
+  the **full text** for reading — previewed before Start. **No time-window cut**
+  of an article mid-body (owner 2026-08-20); menu filter uses estimated read
+  time of the whole piece. Listening audio may use a declared window when there
+  is no article boundary — see [`material-unit.md`](../specs/service/material-unit.md).
 - Texts at 100 % known are offered too, framed as speed practice.
 - Tapping a **word** gives its meaning *in this context* and offers to add it;
   tapping a **sentence** gives a translation.

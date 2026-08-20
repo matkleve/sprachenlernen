@@ -17,7 +17,7 @@
       wall estimate is within 85–115 % of 8 minutes — independent of menu filter.
 - [ ] Given `free-production` package `10`, when the recipe composes, then
       `timed-write.durationSec` matches the fixed 10 min package definition.
-- [ ] Given `srs-session` package `10`, when the session builds, then card count
-      is the fixed count for that package — not derived from menu filter.
+- [ ] Given `srs-session`, when the session builds, then card count is **15** —
+      fixed — not derived from menu filter.
 - [ ] Given any hosted package after T-MV5, when `estimateWallClock` runs, then
       result is within tolerance of that package's `variantMinutes`.

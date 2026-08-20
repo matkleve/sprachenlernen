@@ -1,5 +1,11 @@
 # 17 · Own content: podcasts, uploaded texts, simplification
 
+**Owner correction 2026-08-20:** for **catalogue topic news** (politics, daily),
+**level-targeted adaptation** (*"this article at A2"*) is the **primary** path —
+not the support ladder's last rung. Ladder remains for learner uploads they want
+unadapted. See [`46-method-length-and-level-matched-content.md`](46-method-length-and-level-matched-content.md)
+and UC-030.
+
 Your ideas: pick from a set of audio (podcasts) and practise with it; upload a
 text, have sentences translated, check it against your level first and simplify
 if needed.

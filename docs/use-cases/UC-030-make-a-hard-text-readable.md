@@ -2,41 +2,49 @@
 
 <!-- id: UC-030 -->
 <!-- specs: SPEC-feature-method-material-setup, SPEC-feature-content-traceability -->
+<!-- status: active — revised 2026-08-20 -->
 
-**Who:** a learner facing a text that matters to them and sits well above their
-level.
-**Wants to:** get through it with enough support to understand, without being
-handed a different, easier text instead.
-**So that:** they read the thing they wanted to read.
+**Who:** a learner facing a text that matters to them — especially **news and
+topic content** (politics, daily life) — above their current coverage.
+**Wants to:** read or hear it **at their target level** (e.g. A2), not struggle
+through raw feed text or receive a random excerpt.
+**So that:** current topics feel reachable, not like a textbook from ten years ago.
 
 Derived from [`../study/17-own-content.md`](../study/17-own-content.md).
+**Owner revision 2026-08-20:** level-targeted adaptation is the **primary** path
+for catalogue topic content — see [`../study/46-method-length-and-level-matched-content.md`](../study/46-method-length-and-level-matched-content.md)
+and [`../IDEAS.md`](../IDEAS.md) § 2026-08-20 stories 3 and 5.
 
 ## Today
 
-The two options offered are "read it and struggle" or "here is a simplified
-version". Simplification does improve literal comprehension — and it removes the
-idiom, register and syntax that were the reason for choosing a real text. The
-learner understands more of a text that contains less.
+Either struggle at low coverage, or receive a support ladder whose rewrite rung
+was ranked last. Topic news is not offered at a named learner level.
 
 ## Success looks like
 
-- Support comes as a **ladder**, and the app offers the lowest rung that brings
-  coverage into the comfortable band:
-  1. the original, unchanged
-  2. the original with its handful of unknown words pre-taught
-  3. the original with glosses and tap-to-translate
-  4. the original with added paraphrase and redundancy — text still intact
-  5. a rewritten, simplified version
-- Rung 5 is available and clearly labelled as **a different version**, not as
-  the text.
-- Simplification, when used, targets the words *this* learner does not know
-  rather than a generic level, so it does not also strip what they already knew.
-- Any rewritten or generated passage is marked as generated and can be reported
-  (UC-023) — the learner cannot check target-language correctness themselves,
-  and the interface should not pretend otherwise.
-- The learner can move up and down the ladder mid-text.
+- For **catalogue topic content** (news, politics, daily): tapping a topic
+  offers material **adapted to the learner's target level** (e.g. *"Politik ·
+  adapted for A2"*) — full article in session, not a time-window cut.
+- Adaptation is **labelled** (*adapted for you*, *generated*) — never presented
+  as the original front-page article.
+- Coverage on the **adapted** text is shown before Start (target 95–98 %).
+- Factual claims stay faithful; errors are reportable (UC-023).
+- For **learner-uploaded** originals (UC-029): adaptation runs only with explicit
+  consent to processing; the original remains available.
+- Optional **support rungs** (pre-teach, gloss, paraphrase beside original) remain
+  for uploads the learner wants to read **unadapted** — ladder order unchanged
+  for that path.
+- The learner reads the **whole** adapted article in one session (UC-007); menu
+  time filter uses estimated read time of the full piece.
 
 ## Out of scope
 
-Rewriting to a named CEFR level as the primary mechanism, and treating a
-simplified version as equivalent evidence of reading ability in UC-004.
+Treating adapted news as equivalent to authentic extensive-reading signals on
+Progress without a separate signal label; adapting without marking generated
+content; truncating articles to fit a duration window.
+
+## Undecided
+
+- **⚠ SPEC GAP:** target level source — learner-chosen CEFR band, inferred skill
+  tier, or coverage-only band?
+- **⚠ SPEC GAP:** refresh cadence for daily news adaptations.
