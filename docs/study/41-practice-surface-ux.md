@@ -88,12 +88,12 @@ primitives — never raw app-scale fields for the main task.
 ## Practice surface rules
 
 1. **Lead copy** — `text-lg`, `leading-snug`, `text-ink`. One block per step.
-2. **Interactive rows** — min height 44px (`min-h-11`), no row border; label left,
-   checkbox right, top-aligned to first line; row `bg-accent-soft` when checked.
-   WCAG 1.4.11 contrast lives on the **checkbox marker** (`border-line-strong`), not
-   a card border.
+2. **Interactive rows** — min height 44px (`min-h-11`), `items-center`, `px-4 py-3`,
+   `font-semibold` label left, `Checkbox` right, `border-x border-line-strong` inset
+   (no top/bottom stroke). Checked: `bg-accent-soft`. WCAG contrast on the marker.
 3. **Primary fields** — `Field` + `Textarea`, 3 rows default in short steps.
-4. **No fake checkboxes** — 2px `line-strong`, 24px box.
+4. **Checkboxes** — `Checkbox` primitive (`components/ui/Checkbox.tsx`) — 2px
+   `line-strong`, 24px box (`md`), no native browser painting.
 5. **i18n** — recipe carries `itemKeys` / `introKey`; no English in recipe JSON.
 6. **Footer** — no extra `surface` panel; `border-t border-line` on `canvas` only.
 7. **Anchored footer** — chrome bottom stays fixed; only scroll profile scrolls.
