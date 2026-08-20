@@ -14,8 +14,8 @@ cards — sentence on top, matching chart or diagram below.
 ## Scope
 
 - **In:** `features/progress/weekly-reflection/` (builder + entry row),
-  extension of [`progress.md`](../page/progress.md) § This week; template copy
-  in `features/progress/content.ts`.
+  extension of [`progress.md`](../page/progress.md) § This week; chrome copy in
+  `messages/*/progress.weeklyReflection`.
 - **Out:** push/email digest (Tier 2 in
   [`study/30`](../../study/30-notifications-and-reflections.md)); NLG / LLM
   paragraphs; mood checks; streak copy.

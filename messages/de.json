@@ -224,6 +224,11 @@
       "complete": "Dieses Set ist fertig — öffnen Sie den Text, wenn Sie bereit sind.",
       "tooLarge": "Mehr als 40 Wörter trennen Sie hier vom komfortablen Lesen — probieren Sie zuerst eine nähere Quelle.",
       "alternate": "Stattdessen {title} versuchen"
+    },
+    "reading": {
+      "heading": "Lesen",
+      "close": "Schließen",
+      "noGloss": "Noch nicht in Ihrem Starter-Pool."
     }
   },
   "reviewSession": {
@@ -453,6 +458,38 @@
       "listening": "Noch nichts. Kein Signal im Niveaumodell ist dem Hören zugeordnet — eine Lücke im Modell, nicht in Ihrer Übung.",
       "speaking": "Sprechen, das die App aufzeichnet und bewertet — nicht gebaut.",
       "writing": "Freies Schreiben oder Diktat, das die App bewerten kann — nicht gebaut."
+    },
+    "weeklyReflection": {
+      "periodLabel": "Diese Woche",
+      "close": "Schließen",
+      "previous": "Zurück",
+      "next": "Weiter",
+      "seeData": "Daten ansehen",
+      "cardStatus": "Karte {index} von {total}",
+      "rowLabel": "Wochenrückblick",
+      "unreadLabel": "Ungelesener Rückblick",
+      "idleTeaser": "Diese Woche in {language} — noch nichts verschoben",
+      "idleHeadline": "Sie haben {language} diese Woche nicht wiederholt. An Ihrem gemessenen Wortschatz hat sich nichts geändert — nach einer ruhigen Woche ist das normal. Die Warteschlange ist größer, wenn Sie zurückkommen; der Plan bleibt unverändert.",
+      "movementHeadlineOne": "Diese Woche ist 1 Wort in {language} von wackelig zu sicher geworden.",
+      "movementHeadline": "Diese Woche sind {count} Wörter in {language} von wackelig zu sicher geworden.",
+      "activityHeadlineOne": "Sie haben diese Woche 1 Wiederholungsantwort in {language} erfasst.",
+      "activityHeadline": "Sie haben diese Woche {count} Wiederholungsantworten in {language} erfasst.",
+      "horizonHeadline": "So fällig sind Ihre {language}-Wiederholungen in den nächsten dreißig Tagen.",
+      "readyTeaserMovedOne": "1 Wort diese Woche in {language} zu sicher geworden",
+      "readyTeaserMoved": "{count} Wörter diese Woche in {language} zu sicher geworden",
+      "readyTeaserActivityOne": "1 Wiederholungsantwort diese Woche in {language}",
+      "readyTeaserActivity": "{count} Wiederholungsantworten diese Woche in {language}",
+      "visual": {
+        "beforeWeek": "Wochenbeginn",
+        "afterWeek": "Jetzt",
+        "bandShiftCaptionOne": "1 Wort von wackelig zu sicher gewechselt.",
+        "bandShiftCaption": "{count} Wörter von wackelig zu sicher gewechselt.",
+        "bandBarsAria": "Sicher {held}, wackelig {fragile}, neu {newCount}.",
+        "horizonCaption": "Fällige Wiederholungen pro Tag in den nächsten dreißig Tagen.",
+        "horizonAria": "Höchststand {count} fällige Wiederholungen an Tag {dayOffset}.",
+        "reviewActivityCaptionOne": "Wiederholungsantwort diese Woche erfasst",
+        "reviewActivityCaption": "Wiederholungsantworten diese Woche erfasst"
+      }
     }
   },
   "methodMenu": {
@@ -541,6 +578,17 @@
     "minutes": "Min.",
     "or": "oder",
     "eitherOr": "oder",
+    "demonstration": {
+      "label": "Können Sie das lesen?",
+      "flipHint": "Tippen zum Umdrehen",
+      "gradePrompt": "Wie gut haben Sie es gelesen?",
+      "feedbackHard": "Das war schwierig — beim Wiederholen noch einmal ansehen.",
+      "feedbackGood": "Sie haben es gelesen — ein paar Wörter brauchen vielleicht noch einen Blick.",
+      "feedbackEasy": "Das haben Sie leicht gelesen.",
+      "gradeHard": "Schwer",
+      "gradeGood": "Gut",
+      "gradeEasy": "Leicht"
+    },
     "sections": {
       "reading": "Lesen",
       "listening": "Hören",

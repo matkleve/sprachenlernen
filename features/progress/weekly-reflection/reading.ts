@@ -1,10 +1,13 @@
 import { cookies } from "next/headers";
+import { getTranslations } from "next-intl/server";
 
 import { poolForActiveLanguage } from "@/lib/db/learner-pools";
 import { listReviewsForTaskIds } from "@/lib/db/review-log";
 import { languageLabel } from "@/lib/languages";
 import { REFLECTION_SEEN_COOKIE } from "@/lib/reflection-seen";
 import { buildWeeklyReflection, type ReviewRecord, type WeeklyReflectionModel } from "@/lib/weekly-reflection";
+
+import { weeklyReflectionCopyFromT } from "./weekly-reflection-copy";
 
 /**
  * Loads the weekly reflection deck for the active language. Contract:
@@ -31,6 +34,8 @@ export async function readWeeklyReflection(now: number = Date.now()): Promise<We
     grade: row.grade,
   }));
 
+  const t = await getTranslations("progress.weeklyReflection");
+
   return buildWeeklyReflection({
     now,
     languageCode,
@@ -46,5 +51,6 @@ export async function readWeeklyReflection(now: number = Date.now()): Promise<We
     })),
     reviews,
     seenValue,
+    copy: weeklyReflectionCopyFromT(t),
   });
 }
