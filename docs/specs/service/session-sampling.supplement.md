@@ -100,7 +100,7 @@ Six product parameters. FSRS weights unchanged.
 ## Learner reactions by scenario
 
 Qualitative — for copy and AC review ([UC-079](../../use-cases/UC-079-build-a-core-vocabulary-with-natural-repetition.md)).
-Evidence: [25](../../study/25-why-it-does-not-feel-productive.md) P2, ch 43–44.
+Evidence: [25](../../study/STUDY-023-why-it-does-not-feel-productive.md) P2, ch 43–44.
 
 ### S1 · First session ever
 
@@ -115,7 +115,7 @@ Evidence: [25](../../study/25-why-it-does-not-feel-productive.md) P2, ch 43–44
 | Aspect | Without sampling | With sampling |
 | --- | --- | --- |
 | Feel | "Only new words — I forgot session 1" | "Some words came back" |
-| Reaction | Mistrust, [25](../../study/25-why-it-does-not-feel-productive.md) illusion of no learning | Relief — struggle boost + low `R` on fragile |
+| Reaction | Mistrust, [25](../../study/STUDY-023-why-it-does-not-feel-productive.md) illusion of no learning | Relief — struggle boost + low `R` on fragile |
 | `% new` | Often 60–80% | Target **30–50%** (stochastic) |
 
 ### S3 · Second session, same day, session 1 was hard
@@ -131,7 +131,7 @@ Evidence: [25](../../study/25-why-it-does-not-feel-productive.md) P2, ch 43–44
 | Aspect | Reaction | Design |
 | --- | --- | --- |
 | `N_newToday` high | "Too many new words today" | `nᵢ` drops — new still possible, less likely |
-| Feel | Less conveyor-belt | Dose ledger narrative ([25](../../study/25-why-it-does-not-feel-productive.md) F184) later |
+| Feel | Less conveyor-belt | Dose ledger narrative ([25](../../study/STUDY-023-why-it-does-not-feel-productive.md) F184) later |
 
 ### S5 · Approaching 50 held — no cliff
 
@@ -145,13 +145,13 @@ Evidence: [25](../../study/25-why-it-does-not-feel-productive.md) P2, ch 43–44
 | Aspect | Expected mix | Reaction |
 | --- | --- | --- |
 | Cards | ~65% review / ~35% new (simulation) | "Balanced" |
-| G1 | Shows `R` and reason | Trust in schedule ([04](../../study/04-flashcards-srs.md)) |
+| G1 | Shows `R` and reason | Trust in schedule ([04](../../study/STUDY-004-flashcards-srs.md)) |
 
 ### S7 · After ~50 held, two sessions, S1 all `good`
 
 | Aspect | Risk | Mitigation |
 | --- | --- | --- |
-| S2 mostly new | Overload, [44](../../study/44-foundation-phase-expert-review.md) worst case ~80% new | `nᵢ` + `uᵢ` on fragile still in pool |
+| S2 mostly new | Overload, [44](../../study/archive/ARCH-044-foundation-phase-expert-review.md) worst case ~80% new | `nᵢ` + `uᵢ` on fragile still in pool |
 | Reaction | "Punished for doing well" | Copy: *"You cleared the urgent queue — today leans new"* |
 
 ### S8 · Empty or short queue

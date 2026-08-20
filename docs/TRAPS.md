@@ -117,13 +117,13 @@ A fixed `3rem` lift was wrong when the toolbar was absent.
 **Owner QA (2026-08-15, true PWA):** asymmetry persisted — Methods/mirror OK,
 Words/Progress not. That is **not** session-only: mirror shares Methods body.
 Forcing inset `0` in standalone (`v0.5.0`) **did not fix** it and **worsened
-pill taps** — reverted. See [`study/31-ios-safari-pwa-test-report.md`](study/31-ios-safari-pwa-test-report.md).
+pill taps** — reverted. See [`qa/QA-031-ios-safari-pwa-test-report.md`](qa/QA-031-ios-safari-pwa-test-report.md).
 
 **The fix (keep):** `useVisualViewportBottomInset` —
 `max(0, innerHeight - visualViewport.height - visualViewport.offsetTop)` →
 `--shell-visual-viewport-bottom-inset`. Pill lifts when measured inset > 0; sits
 low when 0. **Do not** add per-route inset. Study:
-[`study/29-ios-inset-by-route.md`](study/29-ios-inset-by-route.md).
+[`qa/QA-029-ios-inset-by-route.md`](qa/QA-029-ios-inset-by-route.md).
 
 **`interactive-widget: resizes-content` nuance:** removed from `app/layout.tsx`
 during mobile-nav work, but iOS Safari **does not implement** `interactive-widget`

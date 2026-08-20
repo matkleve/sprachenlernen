@@ -9,7 +9,7 @@ say "again", "slower" or "what does that mean" without looking at a screen.
 **So that:** the largest block of available learning time in a normal week stops
 being unusable.
 
-Derived from [`../study/05-input-reading-listening.md`](../study/05-input-reading-listening.md).
+Derived from [`../study/STUDY-005-input-reading-listening.md`](../study/STUDY-005-input-reading-listening.md).
 
 ## Today
 

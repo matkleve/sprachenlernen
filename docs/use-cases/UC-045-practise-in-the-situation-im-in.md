@@ -11,8 +11,8 @@ what they want to train.
 cards.
 
 Derived from
-[`../study/21-method-catalogue-and-context.md`](../study/21-method-catalogue-and-context.md)
-and [`../study/12-method-cards.md`](../study/12-method-cards.md).
+[`../study/STUDY-019-method-catalogue-and-context.md`](../study/STUDY-019-method-catalogue-and-context.md)
+and [`../study/STUDY-010-method-cards.md`](../study/STUDY-010-method-cards.md).
 
 ## Today
 
@@ -29,7 +29,7 @@ to the top make browsing worse, not better.
   only** — it shows methods whose shortest package fits; session length is chosen
   as a **fixed package** (≤ 2 per method) on the detail page before Start
   ([`method-session-budget.md`](../specs/service/method-session-budget.md),
-  [`../study/45-method-duration-variants.md`](../study/45-method-duration-variants.md)).
+  [`../study/archive/ARCH-045-method-duration-variants.md`](../study/archive/ARCH-045-method-duration-variants.md)).
 - **Filters feel instant:** tapping skill, energy, or refine updates the list
   in place — no full reload, no scroll jump. Only choosing a method navigates away.
 - **Refine only when needed:** hands-free, silent, eyes elsewhere — not eight

@@ -10,15 +10,15 @@
 Makes the study/19 loop visible on screen: each surface names the next — a word
 learned raises coverage, coverage moves content into reach, content produces more
 words. Serves K2–K4 from
-[`../../study/19-milestones-and-map.md`](../../study/19-milestones-and-map.md);
+[`../../study/STUDY-017-milestones-and-map.md`](../../study/STUDY-017-milestones-and-map.md);
 K1 (pool map) is already on `/words`.
 
 Child specs: [`coverage.md`](../service/coverage.md) (calculator),
 [`content-gap.md`](content-gap.md) (gap list),
 [`method-material-setup.md`](method-material-setup.md) (pick material on method
 detail); [`material-unit.md`](../service/material-unit.md) (session slice).
-UX: [`../../study/37-content-and-method-setup-ux.md`](../../study/37-content-and-method-setup-ux.md),
-[`../../study/39-material-units-and-listening-defer.md`](../../study/39-material-units-and-listening-defer.md).
+UX: [`../../reviews/design/DR-037-content-and-method-setup-ux.md`](../../reviews/design/DR-037-content-and-method-setup-ux.md),
+[`../../study/STUDY-027-material-units-and-listening-defer.md`](../../study/STUDY-027-material-units-and-listening-defer.md).
 
 ## Scope
 
@@ -43,7 +43,7 @@ A **Source** is one saved text or one audio item with a transcript
 | `title` | yes | display name |
 | `origin` | yes | `catalogue` \| `fixture` \| `learner` — see below |
 | `body` | yes for `text` | raw text to tokenise |
-| `transcript` | yes for `audio` | without transcript **unusable** ([`../../study/17-own-content.md`](../../study/17-own-content.md)) |
+| `transcript` | yes for `audio` | without transcript **unusable** ([`../../study/STUDY-015-own-content.md`](../../study/STUDY-015-own-content.md)) |
 | `tags` | no | topic ids matching `materialTopics[].id` on methods (study/37) |
 | `series` | no | podcast/show or narrow-reading series name |
 | `episodeLabel` | no | e.g. `214` |
@@ -122,7 +122,7 @@ duplicated here.
 | Field | Source |
 | --- | --- |
 | `coveragePercent` | [`coverage.md`](../service/coverage.md) — one decimal |
-| `comfortBand` | `comfortable` (95.0–98.0 %), `demanding` (&lt;95 %), `speed` (&gt;98 %) per [`../../study/05-input-reading-listening.md`](../../study/05-input-reading-listening.md) |
+| `comfortBand` | `comfortable` (95.0–98.0 %), `demanding` (&lt;95 %), `speed` (&gt;98 %) per [`../../study/STUDY-005-input-reading-listening.md`](../../study/STUDY-005-input-reading-listening.md) |
 | `gapToComfortable` | count of lemmas that would raise coverage to 95 % — see [`content-gap.md`](content-gap.md) |
 | `readingTime` | derived from token count at learner WPM default |
 | `history` | `{ measuredAt, coveragePercent, calibrationDated }[]` — for K2 before/after lines |

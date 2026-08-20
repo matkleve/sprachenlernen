@@ -9,8 +9,8 @@
 have to trust.
 
 Derived from
-[`../study/19-milestones-and-map.md`](../study/19-milestones-and-map.md)
-and [`../study/08-motivation.md`](../study/08-motivation.md) M5.
+[`../study/STUDY-017-milestones-and-map.md`](../study/STUDY-017-milestones-and-map.md)
+and [`../study/STUDY-008-motivation.md`](../study/STUDY-008-motivation.md) M5.
 
 ## Today
 

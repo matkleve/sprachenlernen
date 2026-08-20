@@ -2,8 +2,8 @@
 
 **Status:** accepted · 2026-08-09
 **Context:** [`../use-cases/UC-063-get-to-my-cards-without-the-menu.md`](../use-cases/UC-063-get-to-my-cards-without-the-menu.md),
-[`../study/21-method-catalogue-and-context.md`](../study/21-method-catalogue-and-context.md),
-[`../study/12-method-cards.md`](../study/12-method-cards.md)
+[`../study/STUDY-019-method-catalogue-and-context.md`](../study/STUDY-019-method-catalogue-and-context.md),
+[`../study/STUDY-010-method-cards.md`](../study/STUDY-010-method-cards.md)
 
 ## Context
 

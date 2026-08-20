@@ -12,6 +12,7 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "check:specs": "node scripts/check-specs.mjs",
+    "check:study": "node scripts/check-study.mjs",
     "check:secrets": "node scripts/check-secrets.mjs",
     "check:tokens": "node scripts/check-tokens.mjs",
     "check:contrast": "node scripts/check-contrast.mjs",

@@ -10,7 +10,7 @@ to do about it.
 **So that:** they do not spend a year confirming what they already know.
 
 Derived from
-[`../study/24-speaking-as-the-goal.md`](../study/24-speaking-as-the-goal.md) S3.
+[`../study/STUDY-022-speaking-as-the-goal.md`](../study/STUDY-022-speaking-as-the-goal.md) S3.
 
 ## Today
 

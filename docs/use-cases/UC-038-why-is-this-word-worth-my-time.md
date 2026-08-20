@@ -9,8 +9,8 @@
 collecting words that will never appear again.
 
 Derived from
-[`../study/19-milestones-and-map.md`](../study/19-milestones-and-map.md)
-and [`../study/04-flashcards-srs.md`](../study/04-flashcards-srs.md).
+[`../study/STUDY-017-milestones-and-map.md`](../study/STUDY-017-milestones-and-map.md)
+and [`../study/STUDY-004-flashcards-srs.md`](../study/STUDY-004-flashcards-srs.md).
 
 ## Today
 

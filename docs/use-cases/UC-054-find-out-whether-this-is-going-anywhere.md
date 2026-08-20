@@ -11,7 +11,7 @@ target actually costs.
 instead of quietly suspecting they are wasting their evenings.
 
 Derived from
-[`../study/25-why-it-does-not-feel-productive.md`](../study/25-why-it-does-not-feel-productive.md)
+[`../study/STUDY-023-why-it-does-not-feel-productive.md`](../study/STUDY-023-why-it-does-not-feel-productive.md)
 C4.
 
 ## Today

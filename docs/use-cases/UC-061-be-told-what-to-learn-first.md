@@ -9,10 +9,10 @@ not know where to start.
 **So that:** freedom of choice does not become the burden of choosing well with
 no information.
 
-Derived from [`../study/02-evidence.md`](../study/02-evidence.md) E7 (choice
+Derived from [`../study/STUDY-002-evidence.md`](../study/STUDY-002-evidence.md) E7 (choice
 supports motivation, but beginners are overwhelmed by too much of it) and E10
 (learners taught *how* to use a method benefit measurably more). Bounded by
-[`../study/10-antipatterns.md`](../study/10-antipatterns.md) A8: a required
+[`../study/STUDY-009-antipatterns.md`](../study/STUDY-009-antipatterns.md) A8: a required
 station before practice is forbidden, so an order may be recommended and never
 enforced.
 
@@ -21,7 +21,7 @@ enforced.
 Two failures, symmetrical. Curriculum apps impose an order and the learner never
 finds out why, so they cannot deviate intelligently. Tool-shaped apps impose
 nothing and the learner picks by vibe — which
-[`../study/02-evidence.md`](../study/02-evidence.md) E13 says is systematically
+[`../study/STUDY-002-evidence.md`](../study/STUDY-002-evidence.md) E13 says is systematically
 the least useful choice.
 
 ## Success looks like
@@ -45,7 +45,7 @@ the least useful choice.
 
 Lessons, units, paths, stages, trees, and any sequencing the learner cannot step
 out of. Also: ordering the *catalogue* — the daily menu already has its own
-composition rules ([12](../study/12-method-cards.md)) and this must not become a
+composition rules ([12](../study/STUDY-010-method-cards.md)) and this must not become a
 second, competing sort.
 
 ## Undecided

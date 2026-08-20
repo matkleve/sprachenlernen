@@ -28,7 +28,7 @@ the existing RLS policy. A reviewer may escalate.
   the page; full 1–5 card popover on tap.
 - **Out:** language-wide vocabulary extrapolation and the CEFR level display it
   would feed (F18–F22) — see Open questions; trend over 30/90/365 days (V1) and every other
-  comparison in [`study/03`](../../study/03-level-model.md) V2–V4; the dose
+  comparison in [`study/03`](../../study/STUDY-003-level-model.md) V2–V4; the dose
   ledger's **numerator** (hours practised — see
   [`../service/dose-band.md`](../service/dose-band.md)); the vocabulary orbit,
   horizon, and per-word list on `/words`; goals; the cold-start test; any
@@ -43,7 +43,7 @@ the existing RLS policy. A reviewer may escalate.
 | # | User action | System response |
 | --- | --- | --- |
 | 1 | Opens `/progress` | Four skills — reading, listening, speaking, writing — each with its status and, where the status is *not measured*, the route that would produce data for it |
-| 2 | Looks for an overall level | The page says there is none and why: the formula needs at least two counting skills ([`study/03`](../../study/03-level-model.md) Layer 3) and today no skill counts |
+| 2 | Looks for an overall level | The page says there is none and why: the formula needs at least two counting skills ([`study/03`](../../study/STUDY-003-level-model.md) Layer 3) and today no skill counts |
 | 3 | Looks at what *is* recorded | The layer-1 signals that have data, each as a **value with a status, never a level** — recall stability across reviewed tasks, vocabulary size as lemmas held stably in the meaning-recall pool, and form mastery as surface forms held stably in the form-recall pool |
 | 4 | Has never reviewed anything | Every skill still reads *not measured*; the signals section says no data has been recorded yet, and links to the review session |
 | 5 | Cannot load their history | The error surface (SPEC-service-errors), not an empty page that reads as "no progress" |
@@ -66,7 +66,7 @@ produces a layer-1 signal yet — see [`method-engines.md`](../service/method-en
 That is why all four skills read *not measured* even when vocabulary and
 stability have data.
 
-**Skill status** is [`study/03`](../../study/03-level-model.md)'s four-value set
+**Skill status** is [`study/03`](../../study/STUDY-003-level-model.md)'s four-value set
 and is defined there, not here. This page derives it: a skill is *measured* or
 *uncertain* only when a layer-1 signal that feeds it has data. Meaning-recall of
 isolated lemmas feeds none of the four — it is not reading, and the study is
@@ -100,7 +100,7 @@ signal starts arriving.
       pool — zero is a measurement, not an empty state.
 - [ ] Given any state, then no count that can only rise is presented as
       progress — no streak, no XP, no cards-reviewed total
-      ([`study/25`](../../study/25-why-it-does-not-feel-productive.md) C3).
+      ([`study/25`](../../study/STUDY-023-why-it-does-not-feel-productive.md) C3).
 - [ ] Given the review log returns an error, then the error surface renders and
       the page does not read as "nothing learned yet".
 - [ ] Given an Account with no language chosen, then the page routes to the
@@ -117,7 +117,7 @@ languages — UC-025 keeps vocabulary and calibration per language, and a figure
 added up across two would be a number about neither.
 
 The full estimator extrapolates SRS holdings over **frequency rank** across the
-language ([`study/03`](../../study/03-level-model.md) § Why vocabulary size is
+language ([`study/03`](../../study/STUDY-003-level-model.md) § Why vocabulary size is
 load-bearing). The shipped pool is **2000** lemmas — still short of a calibrated
 language-wide boundary estimate, so extrapolation is **withheld**.
 

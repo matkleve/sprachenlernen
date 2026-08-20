@@ -40,7 +40,7 @@ stay light accent when the learner moves on.
 
 **Invariant:** footer controls stay at the **same vertical position** across
 steps on one device. **Short-profile steps never show a body scrollbar** — content
-and chrome are sized to the fit frame ([`study/41`](../../study/41-practice-surface-ux.md)).
+and chrome are sized to the fit frame ([`study/41`](../../reviews/design/DR-041-practice-surface-ux.md)).
 Only **scroll** / **paginated** profiles use `overflow-y-auto` on the body.
 
 Parent layout mode: `one-screen-exercise` ([`page-layout.md`](page-layout.md)).
@@ -65,7 +65,7 @@ Use **scroll** (v1) or **paginated** (v2) inside the body zone.
 
 When layout mode is `one-screen-exercise`, the runner root carries
 `practice-fit-frame`. One system for **every** hosted Method — not a per-method
-`compact` flag. Research: [`study/42`](../../study/42-exercise-mobile-fit-frame.md).
+`compact` flag. Research: [`study/42`](../../reviews/design/DR-043-exercise-mobile-fit-frame.md).
 
 | Tier | Breakpoint | Top chrome | Progress | Footer |
 | --- | --- | --- | --- | --- |
@@ -73,7 +73,7 @@ When layout mode is `one-screen-exercise`, the runner root carries
 | Desktop | `md+` | 5rem hero belt + metadata | Under hero + label | ◀ ▶ above primary |
 
 Frame math: `lib/exercise-runner/frame-budget.ts`. Research:
-[`study/42`](../../study/42-exercise-mobile-fit-frame.md).
+[`study/42`](../../reviews/design/DR-043-exercise-mobile-fit-frame.md).
 
 ## Footer scrim
 

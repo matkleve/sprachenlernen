@@ -11,7 +11,7 @@ that exists only on paper, and stop being hard to understand for a reason nobody
 ever explained to them.
 
 Derived from
-[`../study/13-pronunciation-perception.md`](../study/13-pronunciation-perception.md).
+[`../study/STUDY-011-pronunciation-perception.md`](../study/STUDY-011-pronunciation-perception.md).
 
 ## Today
 

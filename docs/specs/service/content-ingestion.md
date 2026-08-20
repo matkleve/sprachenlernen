@@ -11,7 +11,7 @@ what may be stored, adapted, and shown to other users.
 
 Parent: [`content-traceability.md`](../feature/content-traceability.md).
 Adaptation: [`content-adaptation.md`](content-adaptation.md). Study:
-[`../../study/48-content-licensing-and-adaptation.md`](../../study/48-content-licensing-and-adaptation.md).
+[`../../study/archive/ARCH-048-content-licensing-and-adaptation.md`](../../study/archive/ARCH-048-content-licensing-and-adaptation.md).
 
 ## Scope
 

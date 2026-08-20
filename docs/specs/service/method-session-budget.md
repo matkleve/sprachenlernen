@@ -10,10 +10,10 @@
 with a validated wall estimate — not a range the menu slider scales at runtime.
 
 Parent: [`method-session-viability.md`](method-session-viability.md) gate G7.
-Study: [`../../study/45-method-duration-variants.md`](../../study/45-method-duration-variants.md)
+Study: [`../../study/archive/ARCH-045-method-duration-variants.md`](../../study/archive/ARCH-045-method-duration-variants.md)
 (owner decision 2026-08-20). Pedagogy — which methods need two packages and how
-real content length works: [`../../study/46-method-length-and-level-matched-content.md`](../../study/46-method-length-and-level-matched-content.md).
-Audit: [`../../study/42-method-usefulness-ux-audit.md`](../../study/42-method-usefulness-ux-audit.md).
+real content length works: [`../../study/archive/ARCH-046-method-length-and-level-matched-content.md`](../../study/archive/ARCH-046-method-length-and-level-matched-content.md).
+Audit: [`../../reviews/design/DR-042-method-usefulness-ux-audit.md`](../../reviews/design/DR-042-method-usefulness-ux-audit.md).
 
 ## Scope
 
@@ -168,3 +168,13 @@ In [`method-session-budget.acceptance-criteria.md`](method-session-budget.accept
 ## Check
 
 `npm test -- exercise-recipe session-builder time-scale method-session-budget`
+
+## Open
+
+- **⚠ SPEC GAP:** chip labels for two duration packages — e.g. *Short · 4
+  sentences* vs *Standard · 8 sentences* — copy keys in
+  `methodMenu.durationVariant.*`. From
+  [`ARCH-045-method-duration-variants.md`](../../study/archive/ARCH-045-method-duration-variants.md).
+- **⚠ SPEC GAP:** when material `unitId` and duration package disagree, which
+  wins? Proposal: duration package is primary; material unit is sub-choice within
+  a package where both apply (dictation).

@@ -12,7 +12,7 @@ it.
 inside a session.
 
 Derived from
-[`../study/24-speaking-as-the-goal.md`](../study/24-speaking-as-the-goal.md) S4.
+[`../study/STUDY-022-speaking-as-the-goal.md`](../study/STUDY-022-speaking-as-the-goal.md) S4.
 
 ## Today
 

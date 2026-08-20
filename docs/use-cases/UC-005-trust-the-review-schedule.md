@@ -8,7 +8,7 @@
 **So that:** they can trust it enough to stop second-guessing it — and grade
 themselves honestly instead of gaming it.
 
-Derived from [`../study/04-flashcards-srs.md`](../study/04-flashcards-srs.md).
+Derived from [`../study/STUDY-004-flashcards-srs.md`](../study/STUDY-004-flashcards-srs.md).
 
 ## Today
 
@@ -36,7 +36,7 @@ out when the queue grows.
 - The explanation never requires leaving the session or losing the current card.
 - Nothing in these surfaces is an adjustable knob. Showing the schedule and
   letting people tune it are different things
-  ([`../study/10-antipatterns.md`](../study/10-antipatterns.md), A11).
+  ([`../study/STUDY-009-antipatterns.md`](../study/STUDY-009-antipatterns.md), A11).
 
 ## Out of scope
 

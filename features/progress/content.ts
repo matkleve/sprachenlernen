@@ -5,7 +5,7 @@ import { DOSE_BAND_SOURCE } from "@/lib/dose-band";
 /**
  * Copy for the progress destination. Contract: docs/specs/page/progress.md
  *
- * The status sentences render docs/study/03-level-model.md's status table,
+ * The status sentences render docs/study/STUDY-003-level-model.md's status table,
  * which owns what each status means. If "not measured" ever changes meaning it
  * changes there and this file follows — the same one-owner rule the language
  * status page follows for quality tiers.

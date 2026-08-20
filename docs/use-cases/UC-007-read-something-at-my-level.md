@@ -8,8 +8,8 @@
 turn the few they don't into practice.
 **So that:** vocabulary stops being a list and starts being a language.
 
-Derived from [`../study/05-input-reading-listening.md`](../study/05-input-reading-listening.md),
-[`../study/48-content-licensing-and-adaptation.md`](../study/48-content-licensing-and-adaptation.md).
+Derived from [`../study/STUDY-005-input-reading-listening.md`](../study/STUDY-005-input-reading-listening.md),
+[`../study/archive/ARCH-048-content-licensing-and-adaptation.md`](../study/archive/ARCH-048-content-licensing-and-adaptation.md).
 
 ## Today
 

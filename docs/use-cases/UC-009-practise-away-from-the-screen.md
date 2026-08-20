@@ -10,7 +10,7 @@ what the app schedules next.
 **So that:** the most demanding kinds of practice are not excluded just because
 they do not happen in an app.
 
-Derived from [`../study/07-offline-and-paper.md`](../study/07-offline-and-paper.md).
+Derived from [`../study/STUDY-007-offline-and-paper.md`](../study/STUDY-007-offline-and-paper.md).
 
 ## Today
 

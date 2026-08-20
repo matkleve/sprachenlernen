@@ -24,7 +24,7 @@ Three facts force the decision now rather than at the first review.
    session one. A log written in a shape that assumes a single browser cannot
    later gain an owner without inventing values for every row that already
    exists — and the level model would visibly jump for anyone whose history was
-   migrated ([`../study/03-level-model.md`](../study/03-level-model.md), honesty
+   migrated ([`../study/STUDY-003-level-model.md`](../study/STUDY-003-level-model.md), honesty
    rule 4).
 2. **Offline is a requirement, not a preference.** F82 puts practice on a phone
    with no connection. A server-first data layer would be retrofitted for that

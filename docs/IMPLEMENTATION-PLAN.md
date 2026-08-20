@@ -26,7 +26,7 @@ a decision from you" list below in the same session, not later.
 
 **What this file owns, and what it does not.** It owns the queue: which task is
 next, who can safely do it, and what "done" means for that task.
-[`study/11-roadmap-open-questions.md`](study/11-roadmap-open-questions.md) owns
+[`backlog/BL-011-roadmap-open-questions.md`](backlog/BL-011-roadmap-open-questions.md) owns
 the **product** order — which stage comes before which, and why. Specs in
 [`specs/`](specs/) own **behaviour**. When this file and a spec disagree, the spec
 wins and this file is stale. Nothing normative may live only here.
@@ -250,7 +250,7 @@ are now the record of what was agreed, and the spec is what governs.
 · **Route:** `/languages`
 
 > **No longer "the first surface" (2026-08-08).** The method menu is
-> ([`study/11-roadmap-open-questions.md`](study/11-roadmap-open-questions.md),
+> ([`backlog/BL-011-roadmap-open-questions.md`](backlog/BL-011-roadmap-open-questions.md),
 > stage 1 — the user's correction that flashcards is one method among many). T-03
 > stays in the queue and stays first *in Track A*, because it is still the largest
 > honest surface a low-inference agent can build with no auth, no persistence and
@@ -272,7 +272,7 @@ instruction; everything else is derived from data.
 
 It is worth building first because it is the product's whole argument in one
 screen. Every competitor shows a number and hides its provenance
-([`study/25-why-it-does-not-feel-productive.md`](study/25-why-it-does-not-feel-productive.md)
+([`study/STUDY-023-why-it-does-not-feel-productive.md`](study/STUDY-023-why-it-does-not-feel-productive.md)
 C3); this screen shows the provenance before it shows any number.
 
 Requirements:
@@ -354,7 +354,7 @@ low-inference agent would silently invent.
 | **T-B11h** | Chrome i18n stragglers — card report, demonstration sentence, reading gloss, weekly reflection | Standard | T-B11 slice 2 | [`chrome-i18n-stragglers.md`](specs/service/chrome-i18n-stragglers.md) | **shipped 2026-08-20** |
 | **T-B12** | ~~Scope `poolForScheduling` to the active language only~~ — **done 2026-08-12** ([UC-025](use-cases/UC-025-learn-multiple-languages.md)) | `poolForScheduling` and `poolForDisplay` (`lib/db/learner-pools.ts`) merged into one `poolForActiveLanguage()`, since the reason they differed — a cross-language budget — was rejected. `buildSessionAction` now calls it; a session can no longer contain more than one language's cards, and the `languageName` label is always correct as a result. Regression test: `learner-pools.test.ts` |
 | **T-B13** | ~~Same-session card requeue ([UC-071](use-cases/UC-071-get-a-wrong-card-back-before-the-session-ends.md))~~ — **shipped 2026-08-12** | **Sensitive.** [`lib/review-session-requeue.ts`](../lib/review-session-requeue.ts), `useReviewSession` re-insert on `again`/`hard`; [ADR-0012](adr/0012-ux-decisions-requeue-i18n-leech-nav.md) decisions 12–13 |
-| **T-B14** | Broken-card flagging + leech diagnosis ([UC-023](use-cases/UC-023-report-something-wrong.md), [UC-013](use-cases/UC-013-stop-losing-time-on-one-card.md)) | **T-B14a/b shipped 2026-08-16** — [`StatusBanner`](../components/ui/StatusBanner.tsx), [`CardReportPopover`](../features/review-session/CardReportPopover.tsx), optional `category`/`note` on `card_content_flag` ([UC-073](use-cases/UC-073-explain-what-is-wrong-with-a-card.md), [UC-074](use-cases/UC-074-know-my-report-was-received.md), [study/34](study/34-review-report-and-acknowledgement-ux.md)). **Remaining:** T-B14c scheduling-intent toggle (deferred); UC-013 tier-2/3 diagnosis. **Sensitive** |
+| **T-B14** | Broken-card flagging + leech diagnosis ([UC-023](use-cases/UC-023-report-something-wrong.md), [UC-013](use-cases/UC-013-stop-losing-time-on-one-card.md)) | **T-B14a/b shipped 2026-08-16** — [`StatusBanner`](../components/ui/StatusBanner.tsx), [`CardReportPopover`](../features/review-session/CardReportPopover.tsx), optional `category`/`note` on `card_content_flag` ([UC-073](use-cases/UC-073-explain-what-is-wrong-with-a-card.md), [UC-074](use-cases/UC-074-know-my-report-was-received.md), [study/34](reviews/design/DR-035-review-report-and-acknowledgement-ux.md)). **Remaining:** T-B14c scheduling-intent toggle (deferred); UC-013 tier-2/3 diagnosis. **Sensitive** |
 | **T-B15** | Maintenance mode per language ([UC-025](use-cases/UC-025-learn-multiple-languages.md)) | **Not spec-ready** — no per-language flag exists. Moved 2026-08-12 from [`plans/multi-language.md`](plans/multi-language.md) table item 10, so it has exactly one tracked home. The best-evidenced item in that plan's 2026-08-11 review (Cepeda et al. 2008, Bahrick et al. 1993: 10–20% of the retention interval as the review gap) and the one piece of that review's recommendation not yet built |
 ---
 
@@ -373,11 +373,11 @@ honest Spanish/Italian; offline unlocks commute practice.
 | **4** | **T-B3 remainder** — extrapolation + per-skill levels once (1) and calibration exist | F18–F22; demonstration sentence |
 | **5** | **T-B9 / offline-PWA** — cache deck + scheduler; flush queue on reconnect (ADR-0011 Option B) | UC-018 commute practice; installable PWA |
 | **6** | ~~**T-B10c** — method badges + detail layout~~ — **shipped 2026-08-15** | Scannable catalogue; fixes two-line chip + truncated-title UX |
-| **6b** | ~~**T-B10d** — property audit alignment ([`study/36`](study/36-method-surfaces-property-audit.md))~~ — **shipped 2026-08-16** | Plain effort everywhere; all requirement chips on cards; evidence disclosure-only on detail |
+| **6b** | ~~**T-B10d** — property audit alignment ([`study/36`](reviews/design/DR-036-method-surfaces-property-audit.md))~~ — **shipped 2026-08-16** | Plain effort everywhere; all requirement chips on cards; evidence disclosure-only on detail |
 | **6c** | ~~**T-B10e** — composite tier badges, effort dots, real assets~~ — **shipped 2026-08-18** | [`skill-tier.md`](specs/service/skill-tier.md); `scripts/slice-skill-tier-badges.py` |
 | **6d** | **T-B10f-b** — method card polish assets | **Blocked** — section WebP re-compose + shield card PNGs |
 | **6e** | **T-B10g** — card destination marker | **Shipped 2026-08-18** — [`plans/method-card-destination.md`](plans/method-card-destination.md); **routing fix 2026-08-19** — exercise cards → overview before `/practice` |
-| **7** | **T-B10b remainder** — ~~demonstration sentence~~ **shipped 2026-08-16**; readiness ([`study/26`](study/26-readiness-and-difficulty.md)) | Methods front door complete |
+| **7** | **T-B10b remainder** — ~~demonstration sentence~~ **shipped 2026-08-16**; readiness ([`study/26`](study/STUDY-024-readiness-and-difficulty.md)) | Methods front door complete |
 | **7b** | ~~**Exercise runner** (T-E0–E9, T-MU*, T-LD1, T-E12)~~ — **shipped 2026-08-18**; six hosted runners + practice-surface UX | UC-049 |
 | **7c** | ~~**Method viability + session budget** (T-MV1–T-MV5 shipped; **T-MV7–T-MV8** filter-only + catalogue packages)~~ — **shipped 2026-08-20** | Menu filter ≠ session size; all variant chips on detail; SRS fixed 15 cards |
 | **7d** | **Content ingestion + adaptation** (T-CI1–T-CI6) — study/48; specs draft | Licence-cleared news at target level (UC-007, UC-030); paste URL (UC-029) |
@@ -426,9 +426,9 @@ Cooking-app runner for multi-step Methods (dictation, writing, listening drills)
 `srs-session` is always **15 cards** (no variant chips).
 **Specs:** [`method-session-viability.md`](specs/service/method-session-viability.md),
 [`method-session-budget.md`](specs/service/method-session-budget.md) (draft).
-**Study:** [`study/42-method-usefulness-ux-audit.md`](study/42-method-usefulness-ux-audit.md),
-[`study/45-method-duration-variants.md`](study/45-method-duration-variants.md),
-[`study/46-method-length-and-level-matched-content.md`](study/46-method-length-and-level-matched-content.md).
+**Study:** [`reviews/design/DR-042-method-usefulness-ux-audit.md`](reviews/design/DR-042-method-usefulness-ux-audit.md),
+[`study/archive/ARCH-045-method-duration-variants.md`](study/archive/ARCH-045-method-duration-variants.md),
+[`study/archive/ARCH-046-method-length-and-level-matched-content.md`](study/archive/ARCH-046-method-length-and-level-matched-content.md).
 
 | ID | Work | Class | Depends on | Done when |
 | --- | --- | --- | --- | --- |
@@ -449,7 +449,7 @@ Cooking-app runner for multi-step Methods (dictation, writing, listening drills)
 **paste-your-own** (UC-029) without copyright traps or runaway LLM cost.
 **Specs:** [`content-ingestion.md`](specs/service/content-ingestion.md),
 [`content-adaptation.md`](specs/service/content-adaptation.md) (draft).
-**Study:** [`study/48-content-licensing-and-adaptation.md`](study/48-content-licensing-and-adaptation.md).
+**Study:** [`study/archive/ARCH-048-content-licensing-and-adaptation.md`](study/archive/ARCH-048-content-licensing-and-adaptation.md).
 **Evaluated stories:** [`IDEAS.md`](IDEAS.md) § 2026-08-20 (stories 1–5).
 
 | ID | Work | Class | Depends on | Done when |
@@ -541,7 +541,7 @@ behaviour lived only in scattered specs.
 | One-screen routes | `one-screen-runner` on `/words/review` (`< md`); `one-screen-exercise` on `/practice` (mobile + desktop) — see [`exercise-runner.layout.md`](specs/feature/exercise-runner.layout.md) |
 | Safari bottom toolbar | `useVisualViewportBottomInset`; cannot hide in-browser |
 
-**UX study:** [`study/28-mobile-desktop-layout.md`](study/28-mobile-desktop-layout.md)
+**UX study:** [`reviews/design/DR-028-mobile-desktop-layout.md`](reviews/design/DR-028-mobile-desktop-layout.md)
 — mobile floating vs desktop/iPad flat top nav; owner decisions 2026-08-15
 (floating phone, flat `≥ md`, pill visible in review, iPad first-class).
 
@@ -877,12 +877,12 @@ study/48 and the ingestion/adaptation specs when implementing.
     default selection = **longest** package. Menu filter must **not** hide chips.
     See [`method-session-budget.md`](specs/service/method-session-budget.md).
 
-**Added 2026-08-16**, from [study/34](study/34-review-report-and-acknowledgement-ux.md)
+**Added 2026-08-16**, from [study/34](reviews/design/DR-035-review-report-and-acknowledgement-ux.md)
 (T-B14a/b/c). Resolve before implementing report popover or DB columns.
 
 23. ~~**Report popover + acknowledgement banner (T-B14a/b)**~~ **Shipped 2026-08-16.**
     Flag-only v1 (no scheduling toggle); five category chips; banner clears on
-    next grade. Study: [study/34](study/34-review-report-and-acknowledgement-ux.md).
+    next grade. Study: [study/34](reviews/design/DR-035-review-report-and-acknowledgement-ux.md).
     T-B14c (scheduling-intent toggle) remains deferred.
 
 **Added 2026-08-12**, moved from [`plans/multi-language.md`](plans/multi-language.md)

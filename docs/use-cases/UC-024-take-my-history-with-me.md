@@ -10,7 +10,7 @@ form they can actually use.
 keep using the app is a choice rather than a trap.
 
 Derived from [`../CONSTITUTION.md`](../CONSTITUTION.md) §2 and
-[`../study/09-feature-catalogue.md`](../study/09-feature-catalogue.md) F83.
+[`../backlog/BL-009-feature-catalogue.md`](../backlog/BL-009-feature-catalogue.md) F83.
 
 ## Today
 

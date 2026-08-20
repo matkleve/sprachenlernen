@@ -1,4 +1,4 @@
-/** Profile in-page section ids. Contract: docs/study/33-profile-section-navigation.md */
+/** Profile in-page section ids. Contract: docs/reviews/design/DR-034-profile-section-navigation.md */
 
 export const PROFILE_SECTIONS = ["languages", "data", "device"] as const;
 export type ProfileSection = (typeof PROFILE_SECTIONS)[number];

@@ -10,7 +10,7 @@ import {
 import { newTask, rebuild, type Review, type Task } from "@/lib/scheduler";
 
 /**
- * Contract: docs/specs/page/progress.md, deriving docs/study/03-level-model.md.
+ * Contract: docs/specs/page/progress.md, deriving docs/study/STUDY-003-level-model.md.
  */
 
 const DAY = 86_400_000;

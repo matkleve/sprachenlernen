@@ -12,7 +12,7 @@ Four facts force this decision before any code is written.
    research treats these as distinct knowledge, and recognition (multiple choice)
    overestimates real knowledge relative to production by roughly 20 %. An app
    that schedules one of them and reports both is measuring half a competence.
-   ([`../study/02-evidence.md`](../study/02-evidence.md) E3)
+   ([`../study/STUDY-002-evidence.md`](../study/STUDY-002-evidence.md) E3)
 2. **The scheduler's state is per question, not per word.** FSRS tracks
    stability, difficulty and retrievability for a thing that is *asked*. A word
    asked four ways has four independent memory states, and forcing them into one
@@ -21,7 +21,7 @@ Four facts force this decision before any code is written.
    known **word families** against frequency rank. If a word that is asked four
    ways counts as four, the estimate inflates by a factor that varies per user,
    and the calibration is meaningless.
-   ([`../study/03-level-model.md`](../study/03-level-model.md))
+   ([`../study/STUDY-003-level-model.md`](../study/STUDY-003-level-model.md))
 4. **Two languages from day one.** The first version targets German → Spanish
    **and** German → Italian (roadmap question 2, answered 2026-08-08). Two
    closely related Romance languages mean cross-language confusion is a
@@ -78,7 +78,7 @@ skill profile needs to see.
 task types are known. Lost because the task list is not closed — minimal-pair
 tasks appear only when a confusion is detected, and HVPT introduces
 contrast-bound tasks that not every word has
-([`../study/13-pronunciation-perception.md`](../study/13-pronunciation-perception.md)).
+([`../study/STUDY-011-pronunciation-perception.md`](../study/STUDY-011-pronunciation-perception.md)).
 A fixed shape would be migrated within months.
 
 **A single shared Word space across languages**, with language as an attribute
@@ -91,7 +91,7 @@ diagnose rather than cause.
 **Easier.** The level model reads what it needs directly: Word count for
 vocabulary size, per-Task stability for what is actually known, per-skill
 grouping by task type. The four-state skill status
-([`../study/03-level-model.md`](../study/03-level-model.md)) becomes a query
+([`../study/STUDY-003-level-model.md`](../study/STUDY-003-level-model.md)) becomes a query
 rather than a special case. Adding a task type is additive. Two languages need
 no retrofit, and UC-025 stops being a stage-6 problem.
 
@@ -100,7 +100,7 @@ instead of one. Three consequences we now own:
 
 - **Perceived workload.** A learner with 500 words has ~2,000 tasks. Never show
   that number. This is why the fixed-length session
-  ([`../study/04-flashcards-srs.md`](../study/04-flashcards-srs.md), F04)
+  ([`../study/STUDY-004-flashcards-srs.md`](../study/STUDY-004-flashcards-srs.md), F04)
   is not a nicety but a requirement of this model.
 - **Sibling scheduling.** Four tasks for one word will drift together and clump.
   Some spacing rule between siblings is needed, and it is not designed yet.
@@ -114,4 +114,4 @@ instead of one. Three consequences we now own:
 **Committed to.** The review log as the source of truth, which means every
 scheduler change is a recomputation rather than a migration — the property that
 makes recalibration honest
-([`../study/03-level-model.md`](../study/03-level-model.md), rule 4).
+([`../study/STUDY-003-level-model.md`](../study/STUDY-003-level-model.md), rule 4).

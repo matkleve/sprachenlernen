@@ -70,82 +70,82 @@ those without a `specs:` comment, and that warning should stay until each is
 specified.
 
 The **Stage** column is the roadmap stage in
-[`../study/11-roadmap-open-questions.md`](../study/11-roadmap-open-questions.md).
+[`../backlog/BL-011-roadmap-open-questions.md`](../backlog/BL-011-roadmap-open-questions.md).
 It is the order to specify them in. A use case whose stage has not been reached
 is a promise, not a queue item — do not start writing its spec early just
 because it is interesting.
 
 | ID | Use case | Stage | Studie |
 | --- | --- | --- | --- |
-| [UC-011](UC-011-start-in-the-first-minute.md) | Start learning in the first minute, without deciding anything | 1 | [01](../study/01-duolingo.md) |
-| [UC-005](UC-005-trust-the-review-schedule.md) | Understand why a card is in front of me right now | 1 | [04](../study/04-flashcards-srs.md) |
-| [UC-006](UC-006-come-back-after-a-break.md) | Come back after two weeks away without drowning | 1 | [04](../study/04-flashcards-srs.md), [08](../study/08-motivation.md) |
-| [UC-012](UC-012-capture-a-word-i-just-met.md) | Turn a word I just met into practice | 1 | [04](../study/04-flashcards-srs.md) |
-| [UC-021](UC-021-learn-without-relying-on-fluent-reading.md) | Learn without relying on fluent reading and spelling | 1 · Querschnitt | [14](../study/14-accessibility.md) |
+| [UC-011](UC-011-start-in-the-first-minute.md) | Start learning in the first minute, without deciding anything | 1 | [01](../study/STUDY-001-duolingo.md) |
+| [UC-005](UC-005-trust-the-review-schedule.md) | Understand why a card is in front of me right now | 1 | [04](../study/STUDY-004-flashcards-srs.md) |
+| [UC-006](UC-006-come-back-after-a-break.md) | Come back after two weeks away without drowning | 1 | [04](../study/STUDY-004-flashcards-srs.md), [08](../study/STUDY-008-motivation.md) |
+| [UC-012](UC-012-capture-a-word-i-just-met.md) | Turn a word I just met into practice | 1 | [04](../study/STUDY-004-flashcards-srs.md) |
+| [UC-021](UC-021-learn-without-relying-on-fluent-reading.md) | Learn without relying on fluent reading and spelling | 1 · Querschnitt | [14](../study/STUDY-012-accessibility.md) |
 | [UC-024](UC-024-take-my-history-with-me.md) | Take my learning history with me | 1 · Querschnitt | [`CONSTITUTION`](../CONSTITUTION.md) §2 |
-| [UC-004](UC-004-know-where-i-stand.md) | Know where I stand, and whether I am getting better | 2 | [03](../study/03-level-model.md) |
-| [UC-020](UC-020-learn-without-relying-on-hearing.md) | Learn the language without relying on hearing | 2 | [14](../study/14-accessibility.md) |
-| [UC-007](UC-007-read-something-at-my-level.md) | Read something I can almost understand | 3 | [05](../study/05-input-reading-listening.md) |
-| [UC-022](UC-022-understand-a-rule-when-i-get-it-wrong.md) | Understand a rule at the moment I get it wrong | 3 | [02](../study/02-evidence.md) E5 |
-| [UC-023](UC-023-report-something-wrong.md) | Report something the app got wrong | 3 · Querschnitt | [10](../study/10-antipatterns.md) A5; children [UC-073](UC-073-explain-what-is-wrong-with-a-card.md), [UC-074](UC-074-know-my-report-was-received.md) |
-| [UC-014](UC-014-hear-a-difference-i-cannot-hear.md) | Hear a difference I currently cannot hear | 4 (first) | [13](../study/13-pronunciation-perception.md) |
-| [UC-008](UC-008-listen-while-my-hands-are-busy.md) | Listen while walking, cooking or commuting | 4 | [05](../study/05-input-reading-listening.md) |
+| [UC-004](UC-004-know-where-i-stand.md) | Know where I stand, and whether I am getting better | 2 | [03](../study/STUDY-003-level-model.md) |
+| [UC-020](UC-020-learn-without-relying-on-hearing.md) | Learn the language without relying on hearing | 2 | [14](../study/STUDY-012-accessibility.md) |
+| [UC-007](UC-007-read-something-at-my-level.md) | Read something I can almost understand | 3 | [05](../study/STUDY-005-input-reading-listening.md) |
+| [UC-022](UC-022-understand-a-rule-when-i-get-it-wrong.md) | Understand a rule at the moment I get it wrong | 3 | [02](../study/STUDY-002-evidence.md) E5 |
+| [UC-023](UC-023-report-something-wrong.md) | Report something the app got wrong | 3 · Querschnitt | [10](../study/STUDY-009-antipatterns.md) A5; children [UC-073](UC-073-explain-what-is-wrong-with-a-card.md), [UC-074](UC-074-know-my-report-was-received.md) |
+| [UC-014](UC-014-hear-a-difference-i-cannot-hear.md) | Hear a difference I currently cannot hear | 4 (first) | [13](../study/STUDY-011-pronunciation-perception.md) |
+| [UC-008](UC-008-listen-while-my-hands-are-busy.md) | Listen while walking, cooking or commuting | 4 | [05](../study/STUDY-005-input-reading-listening.md) |
 | [UC-018](UC-018-keep-learning-with-no-connection.md) | Keep learning with no connection | 4 | F82 |
-| [UC-010](UC-010-choose-how-to-practise-today.md) | Choose how to practise today, without choosing badly | 4b | [12](../study/12-method-cards.md) |
-| [UC-013](UC-013-stop-losing-time-on-one-card.md) | Stop losing time on the card I keep failing | 4b | [04](../study/04-flashcards-srs.md) |
-| [UC-042](UC-042-know-why-a-method-works.md) | Know why a method is supposed to work | 4b | [12](../study/12-method-cards.md) |
-| [UC-043](UC-043-practise-beyond-the-app.md) | Do something in the language that is not in the app | 4b | [12](../study/12-method-cards.md), [20](../study/20-speaking-and-sentences.md) |
-| [UC-045](UC-045-practise-in-the-situation-im-in.md) | Practise in the situation I am actually in | 4b | [21](../study/21-method-catalogue-and-context.md) |
-| [UC-046](UC-046-discover-a-method-i-never-tried.md) | Discover a way of practising I never knew existed | 4b | [21](../study/21-method-catalogue-and-context.md) |
-| [UC-047](UC-047-choose-something-demanding.md) | Choose something demanding, on purpose | 4b | [21](../study/21-method-catalogue-and-context.md) |
-| [UC-048](UC-048-use-two-free-hours.md) | Use two free hours well | 4b | [21](../study/21-method-catalogue-and-context.md) |
-| [UC-044](UC-044-speak-the-same-thing-three-times.md) | Say the same thing three times and hear myself get better | 4 | [20](../study/20-speaking-and-sentences.md) |
-| [UC-049](UC-049-work-through-an-exercise-step-by-step.md) | Work through an exercise one step at a time | 4b | [23](../study/23-how-an-exercise-runs.md), [exercise-runner](../specs/feature/exercise-runner.md) |
-| [UC-015](UC-015-speak-without-being-judged.md) | Say something in the language without an audience | 5 | [06](../study/06-production.md) |
-| [UC-017](UC-017-get-a-correction-i-can-act-on.md) | Write something and get a correction I can act on | 5 | [06](../study/06-production.md) |
-| [UC-009](UC-009-practise-away-from-the-screen.md) | Practise on paper, and have it count | 5 | [07](../study/07-offline-and-paper.md) |
-| [UC-019](UC-019-learn-for-something-specific.md) | Learn for the thing I actually need it for | 5 | [08](../study/08-motivation.md) M7 |
+| [UC-010](UC-010-choose-how-to-practise-today.md) | Choose how to practise today, without choosing badly | 4b | [12](../study/STUDY-010-method-cards.md) |
+| [UC-013](UC-013-stop-losing-time-on-one-card.md) | Stop losing time on the card I keep failing | 4b | [04](../study/STUDY-004-flashcards-srs.md) |
+| [UC-042](UC-042-know-why-a-method-works.md) | Know why a method is supposed to work | 4b | [12](../study/STUDY-010-method-cards.md) |
+| [UC-043](UC-043-practise-beyond-the-app.md) | Do something in the language that is not in the app | 4b | [12](../study/STUDY-010-method-cards.md), [20](../study/STUDY-018-speaking-and-sentences.md) |
+| [UC-045](UC-045-practise-in-the-situation-im-in.md) | Practise in the situation I am actually in | 4b | [21](../study/STUDY-019-method-catalogue-and-context.md) |
+| [UC-046](UC-046-discover-a-method-i-never-tried.md) | Discover a way of practising I never knew existed | 4b | [21](../study/STUDY-019-method-catalogue-and-context.md) |
+| [UC-047](UC-047-choose-something-demanding.md) | Choose something demanding, on purpose | 4b | [21](../study/STUDY-019-method-catalogue-and-context.md) |
+| [UC-048](UC-048-use-two-free-hours.md) | Use two free hours well | 4b | [21](../study/STUDY-019-method-catalogue-and-context.md) |
+| [UC-044](UC-044-speak-the-same-thing-three-times.md) | Say the same thing three times and hear myself get better | 4 | [20](../study/STUDY-018-speaking-and-sentences.md) |
+| [UC-049](UC-049-work-through-an-exercise-step-by-step.md) | Work through an exercise one step at a time | 4b | [23](../study/STUDY-021-how-an-exercise-runs.md), [exercise-runner](../specs/feature/exercise-runner.md) |
+| [UC-015](UC-015-speak-without-being-judged.md) | Say something in the language without an audience | 5 | [06](../study/STUDY-006-production.md) |
+| [UC-017](UC-017-get-a-correction-i-can-act-on.md) | Write something and get a correction I can act on | 5 | [06](../study/STUDY-006-production.md) |
+| [UC-009](UC-009-practise-away-from-the-screen.md) | Practise on paper, and have it count | 5 | [07](../study/STUDY-007-offline-and-paper.md) |
+| [UC-019](UC-019-learn-for-something-specific.md) | Learn for the thing I actually need it for | 5 | [08](../study/STUDY-008-motivation.md) M7 |
 | [UC-025](UC-025-learn-multiple-languages.md) | Learn multiple languages, each fully separate | 6 | F84 |
-| [UC-026](UC-026-prepare-for-a-real-conversation.md) | Prepare for a conversation that is actually happening | 6 | [07](../study/07-offline-and-paper.md) Ü5 |
-| [UC-016](UC-016-find-out-what-i-avoid.md) | Find out what I have been avoiding | 6 | [06](../study/06-production.md) |
-| [UC-035](UC-035-add-a-language-not-shipped.md) | Learn a language the app does not ship yet | 0 | [18](../study/18-language-kit.md) |
-| [UC-037](UC-037-learn-a-different-script.md) | Learn a language written in a different script | 0 · profile, 6 · full | [18](../study/18-language-kit.md) |
-| [UC-039](UC-039-see-todays-session-before-starting.md) | See what today's session consists of before starting it | 1 | [12](../study/12-method-cards.md) |
-| [UC-031](UC-031-see-where-i-am-on-the-map.md) | See where I am on the map of the language | 2 | [19](../study/19-milestones-and-map.md) |
-| [UC-032](UC-032-reach-the-next-milestone.md) | Reach the next vocabulary milestone, and know what it buys | 2 | [19](../study/19-milestones-and-map.md) |
-| [UC-036](UC-036-know-how-much-to-trust-this-language.md) | Know how much to trust this language's material | 2 | [18](../study/18-language-kit.md) |
-| [UC-038](UC-038-why-is-this-word-worth-my-time.md) | Know why this word is worth my time | 2 | [19](../study/19-milestones-and-map.md) |
-| [UC-041](UC-041-know-the-forms-not-just-the-words.md) | Know the forms, not just the words | 0 · tagging, 2 · measure | [03](../study/03-level-model.md) |
-| [UC-078](UC-078-practise-forms-without-mixed-review.md) | Practise forms without mixing in meanings | 2 | UC-041, [04](../study/04-flashcards-srs.md) |
-| [UC-079](UC-079-build-a-core-vocabulary-with-natural-repetition.md) | Build a core vocabulary with natural repetition | 2 | [43](../study/43-early-foundation-sessions.md), UC-011 |
-| [UC-029](UC-029-read-a-text-i-brought.md) | Read a text I brought myself | 3 | [17](../study/17-own-content.md) |
-| [UC-030](UC-030-make-a-hard-text-readable.md) | Make a text I care about readable, without gutting it | 3 | [17](../study/17-own-content.md) |
-| [UC-033](UC-033-see-what-i-unlocked.md) | See what my learning has unlocked | 3 | [19](../study/19-milestones-and-map.md) |
-| [UC-034](UC-034-what-is-missing-for-this.md) | Find out exactly what is missing between me and this episode | 3 | [19](../study/19-milestones-and-map.md) |
-| [UC-040](UC-040-check-a-translation-i-doubt.md) | Check a translation I do not trust | 3 | [18](../study/18-language-kit.md) |
-| [UC-027](UC-027-practise-with-audio-i-chose.md) | Practise with audio I actually wanted to listen to | 4 | [17](../study/17-own-content.md) |
-| [UC-028](UC-028-fill-in-what-i-could-not-catch.md) | Fill in the words I could not catch | 4 | [17](../study/17-own-content.md) |
-| [UC-050](UC-050-see-that-i-can-already-read-this.md) | See for myself that I can already read this | 2 | [24](../study/24-speaking-as-the-goal.md) |
-| [UC-051](UC-051-notice-that-i-stopped-getting-better.md) | Notice that I have stopped getting better | 4b | [24](../study/24-speaking-as-the-goal.md) |
-| [UC-052](UC-052-change-something-about-my-life-not-my-day.md) | Change something about my life, not just my day | 4b | [24](../study/24-speaking-as-the-goal.md) |
-| [UC-053](UC-053-find-out-what-was-actually-heard.md) | Read something aloud and find out what was actually heard | 5 | [24](../study/24-speaking-as-the-goal.md) |
-| [UC-054](UC-054-find-out-whether-this-is-going-anywhere.md) | Find out whether this is going anywhere at all | 1 · logging, 2 · display | [25](../study/25-why-it-does-not-feel-productive.md) |
-| [UC-055](UC-055-use-the-language-for-something-real.md) | Use the language for something real this week | 4b — see question 18 | [25](../study/25-why-it-does-not-feel-productive.md) |
-| [UC-056](UC-056-understand-why-the-good-exercise-felt-bad.md) | Understand why the exercise that worked felt bad | 4b | [25](../study/25-why-it-does-not-feel-productive.md) |
-| [UC-057](UC-057-know-whether-a-method-is-right-for-me-yet.md) | Know whether a method is right for me *yet* | 1 · state, 2 · band-relative | [21](../study/21-method-catalogue-and-context.md), [03](../study/03-level-model.md) |
-| [UC-058](UC-058-do-it-anyway-when-the-app-says-wait.md) | Do it anyway, when the app says wait | 1 | [02](../study/02-evidence.md) E7 |
-| [UC-059](UC-059-find-out-what-stands-between-me-and-a-method.md) | Find out what stands between me and a method I want | 3 — with UC-034 | [19](../study/19-milestones-and-map.md) K3 |
-| [UC-060](UC-060-practise-without-tripping-over-forms-i-lack.md) | Practise without tripping over forms I have not got yet | 3 — with UC-007 | [03](../study/03-level-model.md), [05](../study/05-input-reading-listening.md) |
-| [UC-061](UC-061-be-told-what-to-learn-first.md) | Be told what to learn first, without being told what to do | 1 | [02](../study/02-evidence.md) E7/E10 |
-| [UC-062](UC-062-see-what-is-holding-my-level-back.md) | See what is actually holding my level back | 2 | [03](../study/03-level-model.md) |
-| [UC-063](UC-063-get-to-my-cards-without-the-menu.md) | Get to my cards without going through today's menu | 1 | [04](../study/04-flashcards-srs.md) |
-| [UC-064](UC-064-understand-what-one-sub-metric-says-about-me.md) | Understand what one sub-metric says about me | 2 | [03](../study/03-level-model.md), [25](../study/25-why-it-does-not-feel-productive.md) |
+| [UC-026](UC-026-prepare-for-a-real-conversation.md) | Prepare for a conversation that is actually happening | 6 | [07](../study/STUDY-007-offline-and-paper.md) Ü5 |
+| [UC-016](UC-016-find-out-what-i-avoid.md) | Find out what I have been avoiding | 6 | [06](../study/STUDY-006-production.md) |
+| [UC-035](UC-035-add-a-language-not-shipped.md) | Learn a language the app does not ship yet | 0 | [18](../study/STUDY-016-language-kit.md) |
+| [UC-037](UC-037-learn-a-different-script.md) | Learn a language written in a different script | 0 · profile, 6 · full | [18](../study/STUDY-016-language-kit.md) |
+| [UC-039](UC-039-see-todays-session-before-starting.md) | See what today's session consists of before starting it | 1 | [12](../study/STUDY-010-method-cards.md) |
+| [UC-031](UC-031-see-where-i-am-on-the-map.md) | See where I am on the map of the language | 2 | [19](../study/STUDY-017-milestones-and-map.md) |
+| [UC-032](UC-032-reach-the-next-milestone.md) | Reach the next vocabulary milestone, and know what it buys | 2 | [19](../study/STUDY-017-milestones-and-map.md) |
+| [UC-036](UC-036-know-how-much-to-trust-this-language.md) | Know how much to trust this language's material | 2 | [18](../study/STUDY-016-language-kit.md) |
+| [UC-038](UC-038-why-is-this-word-worth-my-time.md) | Know why this word is worth my time | 2 | [19](../study/STUDY-017-milestones-and-map.md) |
+| [UC-041](UC-041-know-the-forms-not-just-the-words.md) | Know the forms, not just the words | 0 · tagging, 2 · measure | [03](../study/STUDY-003-level-model.md) |
+| [UC-078](UC-078-practise-forms-without-mixed-review.md) | Practise forms without mixing in meanings | 2 | UC-041, [04](../study/STUDY-004-flashcards-srs.md) |
+| [UC-079](UC-079-build-a-core-vocabulary-with-natural-repetition.md) | Build a core vocabulary with natural repetition | 2 | [43](../study/archive/ARCH-043-early-foundation-sessions.md), UC-011 |
+| [UC-029](UC-029-read-a-text-i-brought.md) | Read a text I brought myself | 3 | [17](../study/STUDY-015-own-content.md) |
+| [UC-030](UC-030-make-a-hard-text-readable.md) | Make a text I care about readable, without gutting it | 3 | [17](../study/STUDY-015-own-content.md) |
+| [UC-033](UC-033-see-what-i-unlocked.md) | See what my learning has unlocked | 3 | [19](../study/STUDY-017-milestones-and-map.md) |
+| [UC-034](UC-034-what-is-missing-for-this.md) | Find out exactly what is missing between me and this episode | 3 | [19](../study/STUDY-017-milestones-and-map.md) |
+| [UC-040](UC-040-check-a-translation-i-doubt.md) | Check a translation I do not trust | 3 | [18](../study/STUDY-016-language-kit.md) |
+| [UC-027](UC-027-practise-with-audio-i-chose.md) | Practise with audio I actually wanted to listen to | 4 | [17](../study/STUDY-015-own-content.md) |
+| [UC-028](UC-028-fill-in-what-i-could-not-catch.md) | Fill in the words I could not catch | 4 | [17](../study/STUDY-015-own-content.md) |
+| [UC-050](UC-050-see-that-i-can-already-read-this.md) | See for myself that I can already read this | 2 | [24](../study/STUDY-022-speaking-as-the-goal.md) |
+| [UC-051](UC-051-notice-that-i-stopped-getting-better.md) | Notice that I have stopped getting better | 4b | [24](../study/STUDY-022-speaking-as-the-goal.md) |
+| [UC-052](UC-052-change-something-about-my-life-not-my-day.md) | Change something about my life, not just my day | 4b | [24](../study/STUDY-022-speaking-as-the-goal.md) |
+| [UC-053](UC-053-find-out-what-was-actually-heard.md) | Read something aloud and find out what was actually heard | 5 | [24](../study/STUDY-022-speaking-as-the-goal.md) |
+| [UC-054](UC-054-find-out-whether-this-is-going-anywhere.md) | Find out whether this is going anywhere at all | 1 · logging, 2 · display | [25](../study/STUDY-023-why-it-does-not-feel-productive.md) |
+| [UC-055](UC-055-use-the-language-for-something-real.md) | Use the language for something real this week | 4b — see question 18 | [25](../study/STUDY-023-why-it-does-not-feel-productive.md) |
+| [UC-056](UC-056-understand-why-the-good-exercise-felt-bad.md) | Understand why the exercise that worked felt bad | 4b | [25](../study/STUDY-023-why-it-does-not-feel-productive.md) |
+| [UC-057](UC-057-know-whether-a-method-is-right-for-me-yet.md) | Know whether a method is right for me *yet* | 1 · state, 2 · band-relative | [21](../study/STUDY-019-method-catalogue-and-context.md), [03](../study/STUDY-003-level-model.md) |
+| [UC-058](UC-058-do-it-anyway-when-the-app-says-wait.md) | Do it anyway, when the app says wait | 1 | [02](../study/STUDY-002-evidence.md) E7 |
+| [UC-059](UC-059-find-out-what-stands-between-me-and-a-method.md) | Find out what stands between me and a method I want | 3 — with UC-034 | [19](../study/STUDY-017-milestones-and-map.md) K3 |
+| [UC-060](UC-060-practise-without-tripping-over-forms-i-lack.md) | Practise without tripping over forms I have not got yet | 3 — with UC-007 | [03](../study/STUDY-003-level-model.md), [05](../study/STUDY-005-input-reading-listening.md) |
+| [UC-061](UC-061-be-told-what-to-learn-first.md) | Be told what to learn first, without being told what to do | 1 | [02](../study/STUDY-002-evidence.md) E7/E10 |
+| [UC-062](UC-062-see-what-is-holding-my-level-back.md) | See what is actually holding my level back | 2 | [03](../study/STUDY-003-level-model.md) |
+| [UC-063](UC-063-get-to-my-cards-without-the-menu.md) | Get to my cards without going through today's menu | 1 | [04](../study/STUDY-004-flashcards-srs.md) |
+| [UC-064](UC-064-understand-what-one-sub-metric-says-about-me.md) | Understand what one sub-metric says about me | 2 | [03](../study/STUDY-003-level-model.md), [25](../study/STUDY-023-why-it-does-not-feel-productive.md) |
 | [UC-069](UC-069-use-the-app-in-my-own-language.md) | Use the app in the language I speak — chrome and card glosses, one setting | 1–3 · Querschnitt | [`I18N.md`](../I18N.md), [`data/README.md`](../../data/README.md), UC-041 |
 | [UC-076](UC-076-see-an-example-sentence-on-each-card.md) | See an example sentence on each card I can mostly understand | 3 | [`coverage.md`](../specs/service/coverage.md), UC-050 |
 | [UC-071](UC-071-get-a-wrong-card-back-before-the-session-ends.md) | Get a wrong card back before the session ends | 4b — with UC-013 | [`IDEAS.md`](../IDEAS.md) |
-| [UC-072](UC-072-get-the-latest-app-after-a-deploy.md) | Get the latest app after a deploy | 1 · PWA | [31](../study/31-ios-safari-pwa-test-report.md), [32](../study/32-pwa-profile-ux.md) |
-| [UC-073](UC-073-explain-what-is-wrong-with-a-card.md) | Explain what is wrong with a card | 3 · Querschnitt — child of UC-023 | [34](../study/34-review-report-and-acknowledgement-ux.md) |
-| [UC-074](UC-074-know-my-report-was-received.md) | Know my report was received | 3 · Querschnitt — child of UC-023 | [34](../study/34-review-report-and-acknowledgement-ux.md) |
+| [UC-072](UC-072-get-the-latest-app-after-a-deploy.md) | Get the latest app after a deploy | 1 · PWA | [31](../qa/QA-031-ios-safari-pwa-test-report.md), [32](../reviews/design/DR-032-pwa-profile-ux.md) |
+| [UC-073](UC-073-explain-what-is-wrong-with-a-card.md) | Explain what is wrong with a card | 3 · Querschnitt — child of UC-023 | [34](../reviews/design/DR-035-review-report-and-acknowledgement-ux.md) |
+| [UC-074](UC-074-know-my-report-was-received.md) | Know my report was received | 3 · Querschnitt — child of UC-023 | [34](../reviews/design/DR-035-review-report-and-acknowledgement-ux.md) |
 
 **Not yet written**, and deliberately: use cases for content production (adding a
 language pair, recording a talker pool, curating texts). Those are operator

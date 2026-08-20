@@ -10,10 +10,10 @@ topic content** (politics, daily life) — above their current coverage.
 through raw feed text or receive a random excerpt.
 **So that:** current topics feel reachable, not like a textbook from ten years ago.
 
-Derived from [`../study/17-own-content.md`](../study/17-own-content.md).
+Derived from [`../study/STUDY-015-own-content.md`](../study/STUDY-015-own-content.md).
 **Owner revision 2026-08-20:** level-targeted adaptation is the **primary** path
-for catalogue topic content — see [`../study/46-method-length-and-level-matched-content.md`](../study/46-method-length-and-level-matched-content.md),
-[`../study/48-content-licensing-and-adaptation.md`](../study/48-content-licensing-and-adaptation.md),
+for catalogue topic content — see [`../study/archive/ARCH-046-method-length-and-level-matched-content.md`](../study/archive/ARCH-046-method-length-and-level-matched-content.md),
+[`../study/archive/ARCH-048-content-licensing-and-adaptation.md`](../study/archive/ARCH-048-content-licensing-and-adaptation.md),
 [`../IDEAS.md`](../IDEAS.md) § 2026-08-20 stories 3 and 5.
 
 ## Today

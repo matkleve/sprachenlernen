@@ -9,9 +9,9 @@ and is now looking at something like "plural forms: 3 of 10".
 **not** mean.
 **So that:** a diagnostic figure does not become a score to farm.
 
-Derived from [`../study/03-level-model.md`](../study/03-level-model.md) (layer 1
+Derived from [`../study/STUDY-003-level-model.md`](../study/STUDY-003-level-model.md) (layer 1
 is the only measured layer) and
-[`../study/25-why-it-does-not-feel-productive.md`](../study/25-why-it-does-not-feel-productive.md)
+[`../study/STUDY-023-why-it-does-not-feel-productive.md`](../study/STUDY-023-why-it-does-not-feel-productive.md)
 (a metric shown prominently gets optimised, and cheap metrics get optimised
 first). The immediate parent is UC-062.
 
@@ -31,11 +31,11 @@ ignored, and both are wrong.
   toward what is left rather than what pays, and paradigm cells are wildly
   unequal — the first-person singular present earns its practice thousands of
   times more often than the second-person plural subjunctive
-  ([26](../study/26-readiness-and-difficulty.md) R8). The shape of the widget
+  ([26](../study/STUDY-024-readiness-and-difficulty.md) R8). The shape of the widget
   teaches a goal whatever the copy says.
 - It states the **task type it was measured on**, and no claim crosses from
   receptive evidence to productive competence
-  ([26](../study/26-readiness-and-difficulty.md) R9).
+  ([26](../study/STUDY-024-readiness-and-difficulty.md) R9).
 - It names what counts as having one: stability above some threshold, a number of
   successful retrievals, a share correct. Whatever it is, it is one documented,
   dated definition, and the same definition everywhere it appears.

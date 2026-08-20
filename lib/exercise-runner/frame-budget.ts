@@ -1,6 +1,6 @@
 /**
  * Practice runner vertical frame budget — mirrors `app/globals.css` tokens.
- * Contract: docs/study/42-exercise-mobile-fit-frame.md
+ * Contract: docs/reviews/design/DR-043-exercise-mobile-fit-frame.md
  *
  * Mobile session box = `--height-review-session` (100svh − shell float reserves).
  * Only reading-profile steps may scroll inside the body zone.

@@ -11,7 +11,7 @@ time, and to say for themselves what they actually did.
 true.
 
 Derived from
-[`../study/23-how-an-exercise-runs.md`](../study/23-how-an-exercise-runs.md).
+[`../study/STUDY-021-how-an-exercise-runs.md`](../study/STUDY-021-how-an-exercise-runs.md).
 
 ## Today
 
