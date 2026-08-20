@@ -10,8 +10,13 @@ import { PressableCard } from "@/components/ui/PressableCard";
 import { textLinkVariants } from "@/components/ui/TextLink";
 import { CardReportPopover } from "@/features/review-session/CardReportPopover";
 import { FormAnswerInput } from "@/features/review-session/FormAnswerInput";
-import { FormAnswerRoutes, type FormAnswerRoute } from "@/features/review-session/FormAnswerRoutes";
+import { FormAnswerRoutes } from "@/features/review-session/FormAnswerRoutes";
 import { FormBuildAnswer } from "@/features/review-session/FormBuildAnswer";
+import { FormSpokenAnswer } from "@/features/review-session/FormSpokenAnswer";
+import {
+  gradesForFormAnswerRoute,
+  type FormAnswerRoute,
+} from "@/lib/form-answer-routes";
 import { FormErrorExplanation } from "@/features/review-session/FormErrorExplanation";
 import {
   canFlip,
@@ -69,6 +74,9 @@ export function ReviewCard({
   const gradesEnabled =
     canGrade(phase) && !exiting && (!interactiveFormRecall || revealBack);
   const gradePrompt = isFormRecall ? t("formRecallPrompt") : t("prompt");
+  const gradesForCard = interactiveFormRecall
+    ? gradesForFormAnswerRoute(answerRoute)
+    : GRADES;
   const cell = card.paradigmCell ? paradigmCellLabel(card.paradigmCell) : null;
 
   useEffect(() => {
@@ -146,16 +154,31 @@ export function ReviewCard({
 
           {interactiveFormRecall && flipEnabled ? (
             <>
-              {buildRouteAvailable ? (
-                <FormAnswerRoutes
-                  value={answerRoute}
-                  onChange={setAnswerRoute}
-                  typedLabel={t("formAnswerRouteTyped")}
-                  buildLabel={t("formAnswerRouteBuild")}
-                />
-              ) : null}
+              <FormAnswerRoutes
+                value={answerRoute}
+                onChange={(route) => {
+                  setAnswerRoute(route);
+                  setTypedAnswer("");
+                  setAnswerResult(null);
+                }}
+                typedLabel={t("formAnswerRouteTyped")}
+                buildLabel={t("formAnswerRouteBuild")}
+                spokenLabel={t("formAnswerRouteSpoken")}
+                buildAvailable={buildRouteAvailable}
+                routesLabel={t("formAnswerRoutesLabel")}
+              />
 
-              {answerRoute === "build" && buildRouteAvailable && card.endingChips ? (
+              {answerRoute === "spoken" ? (
+                <FormSpokenAnswer
+                  instruction={
+                    languageName
+                      ? t("formSpokenInstruction", { language: languageName })
+                      : t("formSpokenInstructionFallback")
+                  }
+                  showAnswerLabel={t("formSpokenShowAnswer")}
+                  onShowAnswer={onFlip}
+                />
+              ) : answerRoute === "build" && buildRouteAvailable && card.endingChips ? (
                 <FormBuildAnswer
                   value={typedAnswer}
                   onChange={setTypedAnswer}
@@ -183,13 +206,13 @@ export function ReviewCard({
                   }
                   checkLabel={t("formAnswerCheck")}
                   accentStripLabel={t("formAccentStrip")}
-                  autoFocus={!buildRouteAvailable}
+                  autoFocus
                 />
               )}
             </>
           ) : null}
 
-          {interactiveFormRecall && flipEnabled ? (
+          {interactiveFormRecall && flipEnabled && answerRoute !== "spoken" ? (
             <button
               type="button"
               className={textLinkVariants({ tone: "muted", size: "sm", className: "mt-3" })}
@@ -310,11 +333,12 @@ export function ReviewCard({
 
           <div
             className={cn(
-              "grid w-full grid-cols-4",
+              "grid w-full",
+              gradesForCard.length === 3 ? "grid-cols-3" : "grid-cols-4",
               compact ? "mt-1.5 gap-1.5 md:mt-4 md:gap-2" : "mt-4 gap-2",
             )}
           >
-            {GRADES.map((grade) => (
+            {gradesForCard.map((grade) => (
               <GradeButton
                 key={grade}
                 grade={grade}

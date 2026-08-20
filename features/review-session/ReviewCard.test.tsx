@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { renderWithIntl as render, en } from "@/tests/i18n-test-utils";
 import { screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
@@ -101,8 +102,44 @@ describe("ReviewCard", () => {
     expect(screen.getByRole("textbox")).toBeDefined();
     expect(screen.getByRole("tab", { name: en.reviewSession.formAnswerRouteTyped })).toBeDefined();
     expect(screen.getByRole("tab", { name: en.reviewSession.formAnswerRouteBuild })).toBeDefined();
+    expect(screen.getByRole("tab", { name: en.reviewSession.formAnswerRouteSpoken })).toBeDefined();
     expect(screen.getByRole("button", { name: en.reviewSession.formAnswerCheck })).toBeDefined();
     expect(screen.queryByRole("button", { name: en.reviewSession.good })).toBeNull();
+  });
+
+  it("offers three grades on the spoken route after reveal", async () => {
+    const user = userEvent.setup();
+
+    function SpokenRevealFixture() {
+      const [phase, setPhase] = useState<"prompting" | "revealed">("prompting");
+      return (
+        <ReviewCard
+          card={{
+            ...baseCard,
+            taskId: "es:hablar:verb:ind.pres.3sg:form-recall",
+            front: "to speak",
+            back: "habla",
+            paradigmCell: "ind.pres.3sg",
+            acceptedForms: ["habla"],
+            lemmaSurfaces: ["habla", "hablo", "hablas"],
+            endingChips: ["o", "a", "as", "amos"],
+          }}
+          languageName="Spanish"
+          phase={phase}
+          onFlip={() => setPhase("revealed")}
+          onGrade={() => {}}
+          onSubmitReport={async () => {}}
+        />
+      );
+    }
+
+    render(<SpokenRevealFixture />);
+
+    await user.click(screen.getByRole("tab", { name: en.reviewSession.formAnswerRouteSpoken }));
+    await user.click(screen.getByRole("button", { name: en.reviewSession.formSpokenShowAnswer }));
+
+    expect(screen.queryByRole("button", { name: en.reviewSession.easy })).toBeNull();
+    expect(screen.getByRole("button", { name: en.reviewSession.good })).toBeDefined();
   });
 
   it("names the cell it is asking for, so the prompt has one answer", () => {
