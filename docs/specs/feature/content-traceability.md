@@ -170,12 +170,9 @@ T-W11  K4 session loop line
 T-W11b K2 unlock rollup (Sensitive)
 ```
 
-T-W7 **before** T-W8. T-W10a can ship catalogue-only before T-W9.
-
+T-W7 **before** T-W8; T-W10a can ship catalogue-only before T-W9.
 ## Acceptance criteria
 
-In [`content-traceability.acceptance-criteria.md`](content-traceability.acceptance-criteria.md).
-
+See [`content-traceability.acceptance-criteria.md`](content-traceability.acceptance-criteria.md).
 ## Check
-
 `npm test -- coverage content-traceability content-gap method-material-setup`
