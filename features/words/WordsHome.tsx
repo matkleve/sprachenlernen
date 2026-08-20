@@ -1,5 +1,6 @@
 import { getTranslations } from "next-intl/server";
 
+import { ActionLink } from "@/components/ui/ActionLink";
 import { ShellPageContent } from "@/features/app-shell/ShellPageContent";
 import { MethodCardHeader } from "@/features/method-menu/MethodCardHeader";
 import { methodSectionSurface } from "@/features/method-menu/section-surface";
@@ -9,7 +10,6 @@ import { ReviewHorizonField } from "@/features/words/ReviewHorizonField";
 import { LemmaCallout } from "@/features/words/LemmaCallout";
 import { WordsCountDefinitions } from "@/features/words/WordsCountDefinitions";
 import { WordsReviewCardHeader } from "@/features/words/WordsReviewCardHeader";
-import { WordsReviewStartRow } from "@/features/words/WordsReviewStartRow";
 import { WordsSectionLabel } from "@/features/words/WordsSectionLabel";
 import { VocabularyOrbitField } from "@/features/words/VocabularyOrbitField";
 import { cardEngineSessionHref } from "@/lib/method-session";
@@ -47,8 +47,7 @@ export async function WordsHome({
 }: WordsHomeProps) {
   const t = await getTranslations("words");
   const tShell = await getTranslations("appShell");
-  const meaningsReviewHref = cardEngineSessionHref("meaning");
-  const formsReviewHref = cardEngineSessionHref("form");
+  const reviewHref = cardEngineSessionHref();
   const orbit = buildVocabularyOrbit(snapshot.atlas, translations);
 
   const countItems = [
@@ -68,12 +67,9 @@ export async function WordsHome({
         <div className="p-6">
           <h2 className="text-lg font-semibold text-ink">{t("reviewHeading")}</h2>
           <p className="mt-1 max-w-2xl text-sm leading-relaxed text-muted">{t("reviewCaption")}</p>
-          <WordsReviewStartRow
-            startHref={meaningsReviewHref}
-            startLabel={t("reviewStartAction")}
-            formsHref={formsPracticeAvailable ? formsReviewHref : undefined}
-            formsLabel={formsPracticeAvailable ? t("reviewFormsIconLabel") : undefined}
-          />
+          <ActionLink href={reviewHref} variant="primary" size="lg" className="mt-4 w-full sm:w-auto">
+            {t("reviewStartAction")}
+          </ActionLink>
           {formsPracticeAvailable ? (
             <div className="mt-4">{await ParadigmCellCallout()}</div>
           ) : null}

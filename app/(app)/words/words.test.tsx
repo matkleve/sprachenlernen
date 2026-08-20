@@ -74,15 +74,15 @@ async function renderWordsHome() {
 }
 
 describe("WordsHome", () => {
-  it("offers start review and an icon-only forms link without a due count", async () => {
+  it("offers one start review link to a mixed deck without a due count", async () => {
     await renderWordsHome();
     const startLink = screen.getByRole("link", { name: en.words.reviewStartAction });
-    expect(startLink.getAttribute("href")).toContain("deck=meaning");
-    const formsLink = screen.getByRole("link", { name: en.words.reviewFormsIconLabel });
-    expect(formsLink.getAttribute("href")).toContain("deck=form");
+    expect(startLink.getAttribute("href")).toContain("method=srs-session");
+    expect(startLink.getAttribute("href")).not.toContain("deck=");
     expect(screen.queryByRole("link", { name: en.words.reviewMixedAction })).toBeNull();
     expect(screen.queryByText(/\d+\s+due/i)).toBeNull();
     expect(screen.getByRole("heading", { name: en.words.reviewHeading })).toBeDefined();
+    expect(screen.getAllByLabelText(en.words.paradigmCellCalloutTitle).length).toBeGreaterThan(0);
     const reviewCard = screen.getByRole("heading", { name: en.words.reviewHeading }).closest("section");
     expect(reviewCard).toBeDefined();
     const headerImage = within(reviewCard as HTMLElement).getByRole("img", {
