@@ -109,6 +109,40 @@ describe("ExerciseRunner", () => {
     expect(container.querySelector(".min-h-0.flex-1.overflow-y-auto.p-1")).not.toBeNull();
   });
 
+  it("colors the active footer segment with primary on step 1", () => {
+    const { container } = render(
+      <ExerciseRunner
+        sectionLabel="Methods"
+        methodName="Partial dictation"
+        section="listening"
+        recipe={FIXTURE_EXERCISE_RECIPE}
+      />,
+    );
+
+    const footerBar = container.querySelector("footer [role=progressbar]");
+    const firstSegment = footerBar?.children[0];
+    expect(firstSegment?.className).toContain("bg-accent");
+    expect(firstSegment?.className).not.toContain("bg-accent-soft");
+  });
+
+  it("marks done and active segments distinctly after navigating forward", async () => {
+    const user = userEvent.setup();
+    const { container } = render(
+      <ExerciseRunner
+        sectionLabel="Methods"
+        methodName="Partial dictation"
+        section="listening"
+        recipe={FIXTURE_EXERCISE_RECIPE}
+      />,
+    );
+
+    await user.click(screen.getByRole("button", { name: "Continue" }));
+
+    const footerBar = container.querySelector("footer [role=progressbar]");
+    expect(footerBar?.children[0]?.className).toContain("bg-accent-soft");
+    expect(footerBar?.children[1]?.className).toContain("bg-accent");
+  });
+
   it("renders segmented step progress in the footer above Continue", () => {
     const { container } = render(
       <ExerciseRunner

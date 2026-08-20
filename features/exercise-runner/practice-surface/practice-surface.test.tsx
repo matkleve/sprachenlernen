@@ -6,7 +6,7 @@ import { PracticePrepList } from "@/features/exercise-runner/practice-surface/Pr
 import { PracticeSurface } from "@/features/exercise-runner/practice-surface/PracticeSurface";
 
 describe("practice surface", () => {
-  it("renders prep rows without a row border and checkbox on the right", () => {
+  it("renders prep rows with horizontal inset borders and checkbox on the right", () => {
     const { container } = render(
       <PracticePrepList
         entries={[
@@ -19,7 +19,8 @@ describe("practice surface", () => {
     const row = container.querySelector("label");
     expect(row?.className).toContain("min-h-11");
     expect(row?.className).toContain("bg-surface");
-    expect(row?.className).not.toContain("border-line-strong");
+    expect(row?.className).toContain("border-x");
+    expect(row?.className).toContain("border-line");
     expect(row?.className).not.toContain("shadow-soft");
 
     const text = screen.getByText("Keyboard ready");
