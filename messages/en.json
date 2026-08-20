@@ -559,7 +559,8 @@
     "durationChip": "{minutes} min",
     "sessionNotBuilt": "The app will run this method here once its session is built. For now, read what it does and try it off-app if you can.",
     "sessionContract": {
-      "line": "~{minutes} min · {volume} · {feedback}"
+      "line": "~{minutes} min · {volume} · {feedback}",
+      "adaptedSuffix": "adapted text"
     },
     "sessionVolumeSentences": "{count, plural, one {# sentence} other {# sentences}}",
     "sessionVolumeWords": "{count, plural, one {# word} other {# words}}",
@@ -1101,6 +1102,10 @@
     },
     "coverageLine": "{percent}% known · {band}",
     "demandingLine": "Still demanding — {words} words to comfortable",
+    "t1SupportLine": "{percent}% known — pre-teach {gaps} words, then Start",
+    "blockedLine": "Too hard for your vocabulary ({percent}% known) — {level} text did not pass for you",
+    "adaptationLabel": "Adapted for {level} · not the original article",
+    "viewOriginal": "View original article",
     "appPickPreview": "A passage at ~{percent}% for you today · {band}",
     "emptyTopic": "Nothing in the library yet for this topic — try Your own",
     "keepInLibrary": "Keep in my library",

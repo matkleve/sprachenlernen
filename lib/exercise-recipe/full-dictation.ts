@@ -98,10 +98,17 @@ export function composeFullDictationRecipe(source: Source, ctx: SessionContext):
 
 export async function resolveFullDictationRecipe(
   ctx: SessionContext,
-  findSource: (id: string) => Promise<Source | null> | Source | null = resolveContentSourceById,
+  findSource: (
+    id: string,
+    options?: import("@/lib/content-source-resolve").ResolveContentSourceOptions,
+  ) => Promise<Source | null> | Source | null = resolveContentSourceById,
 ): Promise<ExerciseRecipe | null> {
   const resolvedId = ctx.sourceId ?? DEFAULT_PARTIAL_DICTATION_SOURCE_ID;
-  const source = await findSource(resolvedId);
+  const source = await findSource(resolvedId, {
+    adapted: ctx.adapted,
+    targetLevel: ctx.targetLevel,
+    heldLemmaCount: ctx.heldLemmas?.size,
+  });
   if (!source) return null;
   return composeFullDictationRecipe(source, ctx);
 }

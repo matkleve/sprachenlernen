@@ -67,6 +67,7 @@ const baseContext: MaterialSetupContext = {
         unitId: "sentence",
         unitLabel: "One sentence",
         timeLabel: "~8 min",
+        startEnabled: true,
       },
     },
   },

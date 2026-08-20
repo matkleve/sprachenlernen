@@ -74,6 +74,17 @@ export async function MethodDetail({ method, searchParams = {} }: MethodDetailPr
         percent: Math.round(coveragePercent),
         words: wordsToComfortable,
       }),
+    t1SupportLine: (coveragePercent: number, gapCount: number) =>
+      tMaterial("t1SupportLine", {
+        percent: Math.round(coveragePercent),
+        gaps: gapCount,
+      }),
+    blockedLine: (coveragePercent: number, targetLevel: string) =>
+      tMaterial("blockedLine", {
+        percent: Math.round(coveragePercent),
+        level: targetLevel,
+      }),
+    adaptationLabel: (targetLevel: string) => tMaterial("adaptationLabel", { level: targetLevel }),
     appPickPreview: (coveragePercent: number, bandLabel: string) =>
       tMaterial("appPickPreview", { percent: Math.round(coveragePercent), band: bandLabel }),
     emptyTopic: tMaterial("emptyTopic"),

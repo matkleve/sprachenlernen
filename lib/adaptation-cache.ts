@@ -6,6 +6,8 @@ import { join } from "node:path";
 
 import type { CacheableAdaptationTier } from "@/lib/content-adaptation";
 
+export const ADAPTATION_CACHE_DIR = join(process.cwd(), "data/adaptations");
+
 export type CachedAdaptation = {
   cacheKey: string;
   sourceId: string;
@@ -57,4 +59,8 @@ export function createFileAdaptationCache(rootDir: string): AdaptationCacheStore
       return existsSync(join(rootDir, `${safeFileName(cacheKey)}.json`));
     },
   };
+}
+
+export function loadPersistedAdaptationCache(): AdaptationCacheStore {
+  return createFileAdaptationCache(ADAPTATION_CACHE_DIR);
 }
