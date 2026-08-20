@@ -43,6 +43,8 @@ word is looked up again a week later.
 - Where possible, the chosen text contains words the user recently learned.
 - Adapted catalogue texts are **labelled** and link to the original when licence
   requires attribution.
+- Reading an adapted text **counts toward the reading skill** the same as
+  authentic input — with the adaptation label visible (owner 2026-08-20).
 
 ## Out of scope
 

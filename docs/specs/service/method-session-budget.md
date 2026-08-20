@@ -89,6 +89,9 @@ Methods that cannot honestly offer a package must **remove** that value from
 
 Card count is **never** derived from menu slider or `variantMinutes`.
 
+**Resolved material** (upload, source-bound methods): adapt → estimate → contract
+→ Start. See [`method-session-budget.resolved-material.md`](method-session-budget.resolved-material.md).
+
 ## Where `variantMinutes` comes from
 
 | Source | Rule |

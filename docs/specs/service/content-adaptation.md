@@ -17,9 +17,8 @@ Parent: [`coverage.md`](coverage.md). Ingestion:
 ## Scope
 
 - **In:** adaptation tiers; cache keys; target-level input; coverage validation
-  loop; labelling; cost controls; what is **not** off-the-shelf.
-- **Out:** TTS; listening without transcript; Progress signal equivalence for
-  adapted vs authentic text.
+  loop; labelling; cost controls; reading-skill credit for adapted sessions.
+- **Out:** TTS; listening without transcript.
 
 ## Target level input
 
@@ -70,7 +69,7 @@ may skip cache when set changes daily.
 | --- | --- |
 | Source detail | *Adapted for A2 · not the original article* |
 | Method Start | Session contract includes `adapted: true` |
-| Progress | Source-level coverage only on adapted text — does **not** advance language-wide level claims (stays `calibrationDated` until authentic extensive reading) |
+| Progress / reading skill | **Counts** toward the reading skill pool like authentic input — owner 2026-08-20. History rows may carry `adapted: true` for audit; label on source detail stays honest. |
 
 ## Off-the-shelf
 
