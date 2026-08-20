@@ -23,7 +23,6 @@ const BUILT_HOSTED_METHOD_IDS = [
 /** Until T-MV2/T-MV5 — CI blocks new failures on these methods. */
 const KNOWN_VIABILITY_FAILURES: Partial<Record<string, readonly ViabilityGate[]>> = {
   "partial-dictation": ["G3"],
-  "full-dictation": ["G3"],
   "extensive-reading": ["G1", "G3"],
   "reading-aloud": ["G2", "G3", "G5"],
 };
@@ -42,12 +41,6 @@ describe("checkSessionViability", () => {
     const recipe = await resolveExerciseRecipe("build-a-sentence", { budgetMinutes: 15 });
     const result = checkSessionViability(recipe!, { budgetMinutes: 15 });
     expect(result.failures).not.toContain("G7");
-  });
-
-  it("still fails G7 for build-a-sentence at 3 min", async () => {
-    const recipe = await resolveExerciseRecipe("build-a-sentence", { budgetMinutes: 3 });
-    const result = checkSessionViability(recipe!, { budgetMinutes: 3 });
-    expect(result.failures).toContain("G7");
   });
 
   it("fails G3 for partial-dictation short with one sentence", async () => {
@@ -73,7 +66,7 @@ describe("estimateWallClock", () => {
     expect(cardCountForBudgetMinutes(15)).toBe(Math.round((15 * 60 - 60) / 35));
   });
 
-  it("flags out-of-tolerance wall clock for build-a-sentence at 3 min", async () => {
+  it("flags out-of-tolerance wall clock when estimate is below budget", async () => {
     const recipe = await resolveExerciseRecipe("build-a-sentence", { budgetMinutes: 3 });
     const wallSec = estimateWallClockSec(recipe!);
     expect(isWithinBudgetTolerance(wallSec, 3)).toBe(false);

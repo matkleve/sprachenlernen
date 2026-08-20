@@ -112,7 +112,7 @@ volumeLabelKey: string; // e.g. "6 sentences", "15 cards"
 | --- | --- | --- |
 | 1 | Menu at 15 min, method durations `[10, 20]` | Default budget **15** clamped to **15**; compose at 15 |
 | 2 | Menu at 5 min, method durations `[8, 15]` | Detail shows **8 min** minimum; Start uses 8 |
-| 3 | `build-a-sentence` today | Estimate ~3 min — **fails** catalogue 8 and 15 variants |
+| 3 | `build-a-sentence` at `budgetMinutes: 8` or `15` | Estimate within tolerance — min catalogue variant is **8 min** |
 | 4 | `partial-dictation` short variant | Estimate ~5–6 min — **fails** catalogue min 8 until N raised or min lowered |
 
 ## Acceptance criteria

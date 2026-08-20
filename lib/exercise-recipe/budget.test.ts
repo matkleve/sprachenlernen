@@ -24,16 +24,12 @@ describe("itemCountForBudgetMinutes", () => {
 });
 
 describe("build-a-sentence budget fit", () => {
-  it("estimates within tolerance at 15 minutes after T-MV2", async () => {
-    const recipe = await resolveExerciseRecipe("build-a-sentence", { budgetMinutes: 15 });
-    expect(recipe).not.toBeNull();
-    const wallSec = estimateWallClockSec(recipe!);
-    expect(isWithinBudgetTolerance(wallSec, 15)).toBe(true);
-  });
-
-  it("still falls outside tolerance at the 3-minute catalogue floor", async () => {
-    const recipe = await resolveExerciseRecipe("build-a-sentence", { budgetMinutes: 3 });
-    const wallSec = estimateWallClockSec(recipe!);
-    expect(isWithinBudgetTolerance(wallSec, 3)).toBe(false);
+  it("estimates within tolerance at 8 and 15 minutes", async () => {
+    for (const budgetMinutes of [8, 15]) {
+      const recipe = await resolveExerciseRecipe("build-a-sentence", { budgetMinutes });
+      expect(recipe).not.toBeNull();
+      const wallSec = estimateWallClockSec(recipe!);
+      expect(isWithinBudgetTolerance(wallSec, budgetMinutes)).toBe(true);
+    }
   });
 });
