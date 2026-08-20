@@ -103,11 +103,11 @@ band** at publish or on demand.
 ```
   Topic chip (news / politics)
        ↓
-  Source pool OR fetch headline
+  Band-level A2 rewrite offered (T2 cache) — labelled, not "for you" yet
        ↓
-  Adapt to learner target level (e.g. A2) — labelled "adapted for you"
+  **Personal** coverage on shown body (held lemmas)
        ↓
-  Coverage check on adapted text (should land 95–98 %)
+  ≥95% Start · 80–94% T1 · <80% block / alternate source
        ↓
   Full article in session — estimated read time on card
        ↓

@@ -151,14 +151,14 @@ Queue detail: [`IMPLEMENTATION-PLAN.md`](../IMPLEMENTATION-PLAN.md) Track B · T
 | **T-CI1** | `Source.licence` validator on persisted rows | UC-007, UC-029 | `content-ingestion.md` | Standard | T-W9 |
 | **T-CI2** | Wikinews ingest (lane B v1) | UC-007, UC-030 | `content-ingestion.md` | Standard | T-CI1 |
 | **T-CI3** | T2 adaptation + cache | UC-030 | `content-adaptation.md` | **Sensitive** | T-CI2, T-W7 |
-| **T-CI4** | Adaptation labelling on source detail + session contract | UC-007, UC-039 | `content-adaptation.md`, `content-traceability.md` | Standard | T-CI3, T-MV3 |
+| **T-CI4** | Adaptation labelling + **personal delivery gate** on material setup | UC-007, UC-030, UC-039 | `content-adaptation.md`, `method-material-setup.md` | Standard | T-CI3, T-MV3 |
 | **T-CI5** | Learner lane consent + T3 personal rewrite | UC-029 | both ingestion specs | **Sensitive** | T-CI1, T-CI3 |
 | **T-CI6** | Generated original news (lane C) | UC-030 | `content-ingestion.md` | Standard | T-CI3 |
 | **T-CI7** | Legal review memo (DW/BBC, CC BY-SA, DSM/UrhG) | — | study/48 | Docs | — |
 | **T-CI8** | Partner feeds after legal sign-off | UC-007 | `content-ingestion.md` | Standard | T-CI7 |
 
-**Open before scale:** catalogue `targetLevel` source; SRS &lt; 15 padding; adapted
-vs authentic Progress signal — see IMPLEMENTATION-PLAN decisions 27–30.
+**Open before scale:** refresh cadence for news adaptations; form-aware prompt v2;
+T3 scale when personal gate blocks often — see IMPLEMENTATION-PLAN #37.
 
 **T-W9 shipped 2026-08-18** — `content_sources` table, keep-in-library on
 material setup, ephemeral cookie for session-only paste.
