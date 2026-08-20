@@ -14,6 +14,7 @@ import {
 } from "@/lib/errors";
 import { buildFormCellCatalog } from "@/lib/form-cell-catalog";
 import { lemmaSurfacesForLemma } from "@/lib/form-answer-grade";
+import { buildEndingChips } from "@/lib/form-ending-chips";
 import { acceptedSurfaces, buildFormInverseIndex } from "@/lib/form-inverse-index";
 import { heldLemmaSet } from "@/lib/content-gap";
 import { firstReviewTimesByTaskId } from "@/lib/form-introduction";
@@ -191,7 +192,7 @@ export async function buildSessionAction(input?: {
 
     const grading = formGradingContextForLanguage(activeCode ?? "es");
 
-    const queue = localizeSessionCards(
+    let queue = localizeSessionCards(
       buildSession(schedulable, tasksByTaskId, now, undefined, {
         priorityLemmas,
         deck,
@@ -210,6 +211,7 @@ export async function buildSessionAction(input?: {
       );
       return grading ? attachFormAnswerGrading(explained, grading) : explained;
     });
+    queue = attachSessionEndingChips(queue);
 
     const heldLemmasAtStart = [...heldLemmaSet(meaningCards, tasksByTaskId)];
     const meaningTasksByTaskId: Record<string, Task> = {};
@@ -294,6 +296,22 @@ function attachFormAnswerGrading(card: SessionCard, grading: FormGradingContext)
   }
 
   return { ...card, acceptedForms: accepted, lemmaSurfaces };
+}
+
+function attachSessionEndingChips(queue: SessionCard[]): SessionCard[] {
+  const sources = queue
+    .filter((card) => isFormRecallTaskId(card.taskId) && card.acceptedForms?.length)
+    .map((card) => ({
+      lemma: card.lemma,
+      surfaces: card.acceptedForms as readonly string[],
+    }));
+
+  if (sources.length === 0) return queue;
+
+  const endingChips = buildEndingChips(sources);
+  if (endingChips.length === 0) return queue;
+
+  return queue.map((card) => ({ ...card, endingChips }));
 }
 
 function lemmaMetaForLanguage(languageCode: string) {

@@ -38,7 +38,7 @@ recall or form-recall), grades that append to the review log (T-B2).
 | --- | --- | --- |
 | 1 | Lands on `/words/review?method=srs-session` | Route builds a 15-card queue on the server; first card front is in the initial HTML |
 | 2 | Sees a meaning-recall card | Target-language lemma on front only; language name on the card; tap the card to flip and see the gloss in the spoken language |
-| 2b | Sees a form-recall card | Spoken-language gloss + cell label on front; **typed answer** with accent strip (autocorrect off) or **Reveal answer** for mental recall; back shows the target surface form after check or reveal; **Why this form?** disclosure on Again/Hard |
+| 2b | Sees a form-recall card | Spoken-language gloss + cell label; **Type** or **Build** answer routes (accent strip + session ending chips) or **Reveal answer** for mental recall; back after check or reveal; **Why this form?** on Again/Hard |
 | 3 | Taps the card | Back shown; grade buttons stay visible (they were already on screen) |
 | 4 | Taps a grade (with or without flipping) | Grade queued locally; **next card immediately** (`advancing` → `prompting` or `complete`); server flush runs in the background ([`review-write-queue`](../service/review-write-queue.md)). **`again`** re-inserts the card five positions ahead (or at end if fewer than five remain); **`hard`** re-inserts at end of the remaining queue; **`good`** / **`easy`** do not requeue ([ADR-0012](../../adr/0012-ux-decisions-requeue-i18n-leech-nav.md), UC-071) |
 | 5 | Background flush fails | Session does not rewind; sync stays **silent** during the run and retries in the background |

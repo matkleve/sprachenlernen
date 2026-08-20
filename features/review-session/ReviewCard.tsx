@@ -10,6 +10,8 @@ import { PressableCard } from "@/components/ui/PressableCard";
 import { textLinkVariants } from "@/components/ui/TextLink";
 import { CardReportPopover } from "@/features/review-session/CardReportPopover";
 import { FormAnswerInput } from "@/features/review-session/FormAnswerInput";
+import { FormAnswerRoutes, type FormAnswerRoute } from "@/features/review-session/FormAnswerRoutes";
+import { FormBuildAnswer } from "@/features/review-session/FormBuildAnswer";
 import { FormErrorExplanation } from "@/features/review-session/FormErrorExplanation";
 import {
   canFlip,
@@ -54,20 +56,24 @@ export function ReviewCard({
   const [reportOpen, setReportOpen] = useState(false);
   const [explainExpanded, setExplainExpanded] = useState(false);
   const [typedAnswer, setTypedAnswer] = useState("");
+  const [answerRoute, setAnswerRoute] = useState<FormAnswerRoute>("typed");
   const [answerResult, setAnswerResult] = useState<GradeFormAnswerResult | null>(null);
 
   const flipEnabled = canFlip(phase) && !exiting;
   const revealBack = showsBack(phase);
   const isFormRecall = isFormRecallTaskId(card.taskId);
-  const typedFormRecall =
+  const interactiveFormRecall =
     isFormRecall && Boolean(card.acceptedForms?.length && card.lemmaSurfaces?.length);
+  const buildRouteAvailable =
+    interactiveFormRecall && Boolean(card.endingChips?.length);
   const gradesEnabled =
-    canGrade(phase) && !exiting && (!typedFormRecall || revealBack);
+    canGrade(phase) && !exiting && (!interactiveFormRecall || revealBack);
   const gradePrompt = isFormRecall ? t("formRecallPrompt") : t("prompt");
   const cell = card.paradigmCell ? paradigmCellLabel(card.paradigmCell) : null;
 
   useEffect(() => {
     setTypedAnswer("");
+    setAnswerRoute("typed");
     setAnswerResult(null);
     setExplainExpanded(false);
   }, [card.taskId]);
@@ -85,7 +91,7 @@ export function ReviewCard({
   };
 
   const handleCheckAnswer = () => {
-    if (!typedFormRecall || !card.acceptedForms || !card.lemmaSurfaces) return;
+    if (!interactiveFormRecall || !card.acceptedForms || !card.lemmaSurfaces) return;
     const result = gradeTypedFormAnswer({
       answer: typedAnswer,
       acceptedForms: card.acceptedForms,
@@ -95,7 +101,7 @@ export function ReviewCard({
     onFlip();
   };
 
-  const cardFlipEnabled = flipEnabled && !typedFormRecall;
+  const cardFlipEnabled = flipEnabled && !interactiveFormRecall;
   const cardShellClass = cn(
     "relative w-full rounded-card border border-line bg-surface text-center shadow-soft",
     compact ? "flex min-h-0 flex-1 flex-col justify-center p-5 md:mt-6 md:flex-none md:p-8" : "mt-6 p-8",
@@ -130,7 +136,7 @@ export function ReviewCard({
             </p>
           )}
 
-          {isFormRecall && !typedFormRecall && (
+          {isFormRecall && !interactiveFormRecall && (
             <p className={cn("text-muted", compact ? "mt-1 text-xs md:mt-2 md:text-sm" : "mt-2 text-sm")}>
               {languageName
                 ? t("formRecallInstruction", { language: languageName })
@@ -138,23 +144,52 @@ export function ReviewCard({
             </p>
           )}
 
-          {typedFormRecall && flipEnabled ? (
-            <FormAnswerInput
-              value={typedAnswer}
-              onChange={setTypedAnswer}
-              onSubmit={handleCheckAnswer}
-              label={
-                languageName
-                  ? t("formAnswerLabel", { language: languageName })
-                  : t("formAnswerLabelFallback")
-              }
-              checkLabel={t("formAnswerCheck")}
-              accentStripLabel={t("formAccentStrip")}
-              autoFocus
-            />
+          {interactiveFormRecall && flipEnabled ? (
+            <>
+              {buildRouteAvailable ? (
+                <FormAnswerRoutes
+                  value={answerRoute}
+                  onChange={setAnswerRoute}
+                  typedLabel={t("formAnswerRouteTyped")}
+                  buildLabel={t("formAnswerRouteBuild")}
+                />
+              ) : null}
+
+              {answerRoute === "build" && buildRouteAvailable && card.endingChips ? (
+                <FormBuildAnswer
+                  value={typedAnswer}
+                  onChange={setTypedAnswer}
+                  endingChips={card.endingChips}
+                  onSubmit={handleCheckAnswer}
+                  label={
+                    languageName
+                      ? t("formBuildLabel", { language: languageName })
+                      : t("formBuildLabelFallback")
+                  }
+                  checkLabel={t("formAnswerCheck")}
+                  accentStripLabel={t("formAccentStrip")}
+                  endingChipsLabel={t("formEndingChips")}
+                  autoFocus
+                />
+              ) : (
+                <FormAnswerInput
+                  value={typedAnswer}
+                  onChange={setTypedAnswer}
+                  onSubmit={handleCheckAnswer}
+                  label={
+                    languageName
+                      ? t("formAnswerLabel", { language: languageName })
+                      : t("formAnswerLabelFallback")
+                  }
+                  checkLabel={t("formAnswerCheck")}
+                  accentStripLabel={t("formAccentStrip")}
+                  autoFocus={!buildRouteAvailable}
+                />
+              )}
+            </>
           ) : null}
 
-          {typedFormRecall && flipEnabled ? (
+          {interactiveFormRecall && flipEnabled ? (
             <button
               type="button"
               className={textLinkVariants({ tone: "muted", size: "sm", className: "mt-3" })}
@@ -247,7 +282,7 @@ export function ReviewCard({
           triggerRef={flagRef}
         />
 
-        {typedFormRecall ? (
+        {interactiveFormRecall ? (
           <div className={cardShellClass}>{cardBody}</div>
         ) : (
           <PressableCard

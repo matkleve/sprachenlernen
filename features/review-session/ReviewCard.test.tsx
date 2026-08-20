@@ -88,6 +88,7 @@ describe("ReviewCard", () => {
           paradigmCell: "ind.pres.3sg",
           acceptedForms: ["habla"],
           lemmaSurfaces: ["habla", "hablo", "hablas"],
+          endingChips: ["o", "a", "as", "amos"],
         }}
         languageName="Spanish"
         phase="prompting"
@@ -98,6 +99,8 @@ describe("ReviewCard", () => {
     );
 
     expect(screen.getByRole("textbox")).toBeDefined();
+    expect(screen.getByRole("tab", { name: en.reviewSession.formAnswerRouteTyped })).toBeDefined();
+    expect(screen.getByRole("tab", { name: en.reviewSession.formAnswerRouteBuild })).toBeDefined();
     expect(screen.getByRole("button", { name: en.reviewSession.formAnswerCheck })).toBeDefined();
     expect(screen.queryByRole("button", { name: en.reviewSession.good })).toBeNull();
   });

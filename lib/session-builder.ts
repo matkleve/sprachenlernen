@@ -27,6 +27,8 @@ export type SessionCard = StarterCard & {
   acceptedForms?: readonly string[];
   /** All lemma surfaces — accent-collision check for typed route (T-W6). */
   lemmaSurfaces?: readonly string[];
+  /** Session-scoped ending chips for the build route (T-W6). */
+  endingChips?: readonly string[];
   /** Why this card was drawn — UC-079 / G1 follow-on. */
   samplingReason?: SamplingReason;
 };

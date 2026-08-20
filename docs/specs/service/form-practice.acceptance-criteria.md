@@ -39,7 +39,7 @@ so the negative ones exist before someone helpfully adds what they forbid.
 - [ ] Given any item, then it can be answered by typing, by building from
       endings, or aloud — and all three count equally toward the same Task.
       *(Typed route shipped 2026-08-20; build and spoken remain.)*
-- [ ] Given the build route, then the ending chips span every class and tense in
+- [x] Given the build route, then the ending chips span every class and tense in
       play, not the four endings of the item's own paradigm.
 - [x] Given the typed route, then autocorrect and autocapitalise are off, an
       accent strip is present without requiring long-press, and the stem is not
