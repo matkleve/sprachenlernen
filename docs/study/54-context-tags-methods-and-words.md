@@ -126,7 +126,7 @@ Sentence bank row:
 }
 ```
 
-Picker ([`lib/card-example-sentence.ts`](../../lib/card-example-sentence.ts)):
+Picker ([`card-example-sentence.md`](../specs/feature/card-example-sentence.md)):
 
 1. Candidates for lemma  
 2. Filter by coverage band  
