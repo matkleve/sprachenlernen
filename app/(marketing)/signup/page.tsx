@@ -6,7 +6,7 @@ import { SignUpForm } from "@/features/auth/SignUpForm";
 import { getAccount } from "@/lib/db/auth";
 import { routes } from "@/lib/routes";
 import { noIndexPageMetadata } from "@/lib/site-metadata";
-import { safeDecodeURIComponent } from "@/lib/utils";
+import { parseAuthErrorCode } from "@/lib/auth-error-code";
 
 export const dynamic = "force-dynamic";
 
@@ -25,13 +25,14 @@ export default async function SignUpPage({
   if (account) redirect(routes.appHome);
 
   const { error, sent, ref } = await searchParams;
+  const errorCode = parseAuthErrorCode(error);
 
   return (
     <div className="mx-auto max-w-sm px-6 pt-page-top pb-page-bottom">
       <h1 className="text-2xl font-semibold tracking-tight text-ink">{t("signUp.heading")}</h1>
       <SignUpForm
-        error={safeDecodeURIComponent(error)}
-        referenceId={ref}
+        error={errorCode ? t(`errors.${errorCode}`) : undefined}
+        referenceId={errorCode ? ref : undefined}
         sent={sent === "1"}
       />
     </div>

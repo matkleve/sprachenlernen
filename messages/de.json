@@ -1108,7 +1108,13 @@
     },
     "oauthDivider": "oder fortfahren mit",
     "oauthGoogleAria": "Mit Google fortfahren",
-    "oauthAppleAria": "Mit Apple fortfahren"
+    "oauthAppleAria": "Mit Apple fortfahren",
+    "errors": {
+      "invalid-credentials": "E-Mail oder Passwort stimmt nicht.",
+      "confirmation-missing": "Der Bestätigungslink ist unvollständig. Öffne den vollständigen Link aus deiner E-Mail – oder melde dich an, wenn du schon bestätigt hast.",
+      "confirmation-failed": "Dieser Bestätigungslink gilt nicht mehr. Fordere einen neuen an, indem du dich erneut registrierst – oder melde dich an, wenn du schon bestätigt hast.",
+      "unexpected": "Bei uns ist etwas schiefgelaufen. Versuch es noch einmal – wenn es weiter fehlschlägt, notiere die Referenz unten."
+    }
   },
   "privacy": {
     "bannerTitle": "Cookies und Speicher",

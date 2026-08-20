@@ -37,7 +37,7 @@ user cannot read another Account's rows. **Sensitive** (`AGENTS.md`).
 | --- | --- | --- |
 | 1 | Submits the signup form with an email and a password | An Account is created. If Supabase's project settings return a session immediately, the visitor is signed in and sent to **`/languages/choose`** — a new Account has no learning language, and UC-011 makes choosing it one of the only two things asked before the first exercise. This is the short path, not the guarantee: every destination redirects an account with no language, because signup is only one of four ways in. If email confirmation is required, they see "check your email" and no session is created yet. The confirmation mail links to `/auth/callback` on this deployment's origin (`NEXT_PUBLIC_SITE_URL`, or `VERCEL_URL` on previews, or `http://localhost:3000` locally) — not Supabase's project Site URL alone |
 | 2 | Submits the sign-in form with valid credentials | An auth session is created (cookie, via `middleware.ts`) and the visitor is sent to `/methods` |
-| 3 | Submits either form with invalid input | The page re-renders with the error Supabase reported next to the password field; no account or session is created |
+| 3 | Submits either form with invalid input | The page re-renders with copy for the **error code** next to the password field, resolved from `messages/*.json` (`auth.errors.*`) — never with text taken from the URL, which is how `/login?error=<any sentence>` put an attacker's words on the real sign-in form. Codes are the four in `lib/auth-error-code.ts`; anything else renders no error at all. No account or session is created |
 | 4 | Opens `/login` or `/signup` while already signed in | Redirected to `/methods`; the form is never shown |
 | 5 | (Any signed-in request) | `middleware.ts` revalidates and refreshes the session cookie before any Server Component runs. Server code then reads the session with `getSession()` (local cookie, no second Auth round trip) via `getAccount()`. That is sound **only** for callers whose next step is a query through the request-scoped client, because PostgREST verifies the JWT before RLS runs — a forged cookie returns nothing. `getSession()` itself verifies no signature |
 | 6 | Taps the Google or Apple OAuth control on `/login` or `/signup` | Redirected to the provider; on success, a session is created and they land on `/methods` without a separate email-confirmation step. An account with no learning language is sent to the picker by the destination itself, so OAuth needs no special case |
@@ -98,7 +98,11 @@ to signed-out; a successful sign-in moves the other way.
       an Account exists and they are either signed in or told to confirm by
       email — never left on a bare error.
 - [ ] Given a Supabase error on signup or sign-in, when the form is submitted,
-      then the page shows that error and creates no Account and no session.
+      then the page shows the copy for that error's code and creates no Account
+      and no session.
+- [ ] Given `/login?error=` carrying arbitrary text rather than a known code,
+      when the page renders, then **no error is shown at all** — not the text,
+      and not a reference id for it.
 - [ ] Given valid credentials for an existing Account, when a visitor submits
       `/login`, then they are signed in and redirected to `/methods` — the app's
       default route, per ADR-0010, never the public landing page.
@@ -141,7 +145,8 @@ off for email signup is a product decision for UC-011; OAuth does not need it.
 
 ## Check
 
-`npm test -- safe-redirect` covers the callback's destination validation.
+`npm test -- safe-redirect auth-error-code` covers the callback's destination
+validation and the displayable error codes.
 
 `npm test -- access-control` — `lib/db/access-control.test.ts` is the
 BACKEND.md §8 policy test and runs against the real Supabase project; it

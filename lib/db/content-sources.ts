@@ -139,6 +139,43 @@ export async function listLearnerSourcesForLanguage(
   };
 }
 
+/**
+ * Every saved source this account owns, across all languages. For the account
+ * export (UC-024) — the per-language listing above is what surfaces drive.
+ */
+export async function listAllLearnerSources(
+  client?: SupabaseClient,
+): Promise<LearnerSourcesOutcome> {
+  const supabase = await resolveClient(client);
+  const account = await getAccount();
+  if (!account) {
+    const handled = databaseNotSignedIn({ operation: "export your saved texts" });
+    void logHandledErrorFromRequest(handled);
+    return { status: "error", error: handled.userMessage };
+  }
+
+  const { data, error } = await supabase
+    .from("content_sources")
+    .select(
+      "id, language_code, kind, title, body, transcript, tags, source_url, added_at",
+    )
+    .eq("user_id", account.id)
+    .order("added_at", { ascending: true });
+
+  if (error) {
+    const handled = fromSupabaseLanguageError(error, {
+      operation: "export your saved texts",
+    });
+    void logHandledErrorFromRequest(handled);
+    return { status: "error", error: handled.userMessage };
+  }
+
+  return {
+    status: "ok",
+    sources: (data ?? []).map((row) => rowToSource(row as ContentSourceRow)),
+  };
+}
+
 export async function findLearnerSourceById(
   sourceId: string,
   client?: SupabaseClient,

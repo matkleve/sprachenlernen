@@ -3,11 +3,11 @@ import { NextResponse } from "next/server";
 import { createServerSupabaseClient } from "@/lib/db/client";
 import { ensureProfileFromAcceptLanguage } from "@/lib/db/profiles";
 import { getSpokenLanguage } from "@/lib/db/profiles";
+import { authErrorCodeFor } from "@/lib/auth-error-code";
 import {
   authConfirmationFailed,
   authConfirmationMissing,
   logHandledError,
-  toUserFacing,
 } from "@/lib/errors";
 import { LOCALE_COOKIE, LOCALE_COOKIE_MAX_AGE } from "@/lib/i18n/locale-cookie";
 import { routes } from "@/lib/routes";
@@ -15,10 +15,10 @@ import { safeInternalPath } from "@/lib/safe-redirect";
 
 function loginRedirect(origin: string, handled: ReturnType<typeof authConfirmationMissing>) {
   logHandledError(handled);
-  const facing = toUserFacing(handled);
+  // A code, not the copy — same reason as features/auth/actions.ts.
   const params = new URLSearchParams({
-    error: facing.userMessage,
-    ref: facing.referenceId,
+    error: authErrorCodeFor(handled),
+    ref: handled.referenceId,
   });
   return NextResponse.redirect(new URL(`${routes.signIn}?${params}`, origin));
 }

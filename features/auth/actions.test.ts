@@ -62,14 +62,14 @@ describe("signUpAction", () => {
     expect(redirect).toHaveBeenCalledWith("/signup?sent=1");
   });
 
-  it("redirects back to /signup with handled user copy and a reference id", async () => {
+  it("redirects back to /signup with an error code and a reference id", async () => {
     vi.mocked(signUp).mockResolvedValue({ status: "error", error: "Password too short" });
 
     await signUpAction(formData({ email: "a@example.com", password: "x" }));
 
-    expect(redirect).toHaveBeenCalledWith(
-      "/signup?error=Could+not+create+your+account.&ref=abcd1234",
-    );
+    // A code, not the copy: /signup?error=<message> put an attacker's sentence
+    // on the real form, beside the real password field.
+    expect(redirect).toHaveBeenCalledWith("/signup?error=unexpected&ref=abcd1234");
   });
 });
 
@@ -85,13 +85,13 @@ describe("signInAction", () => {
     expect(redirect).toHaveBeenCalledWith("/methods");
   });
 
-  it("redirects back to /login with mapped user copy and a reference id", async () => {
+  it("redirects back to /login with the mapped error code and a reference id", async () => {
     vi.mocked(signIn).mockResolvedValue({ status: "error", error: "Invalid login credentials" });
 
     await signInAction(formData({ email: "a@example.com", password: "wrong" }));
 
     expect(redirect).toHaveBeenCalledWith(
-      "/login?error=The+email+or+password+is+not+correct.&ref=abcd1234",
+      "/login?error=invalid-credentials&ref=abcd1234",
     );
   });
 });

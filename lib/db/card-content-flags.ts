@@ -71,6 +71,60 @@ export async function flagCardContent(
   return { status: "ok" };
 }
 
+export type CardContentFlagRow = {
+  wordId: string;
+  spokenLanguage: string;
+  category: string | null;
+  note: string | null;
+  flaggedAt: string;
+};
+
+export type ListFlagRowsOutcome =
+  | { status: "ok"; flags: CardContentFlagRow[] }
+  | { status: "error"; error: string };
+
+/**
+ * Every report this account has filed, in full. For the account export
+ * (UC-024) — the session builder only ever needs the word ids, below, but a
+ * learner's own free-text notes are their data and belong in the archive.
+ */
+export async function listAllCardContentFlags(
+  client?: SupabaseClient,
+): Promise<ListFlagRowsOutcome> {
+  const supabase = await resolveClient(client);
+  const account = await getAccount();
+  if (!account) {
+    const handled = languageNotSignedIn({ operation: "export your reported cards" });
+    void logHandledErrorFromRequest(handled);
+    return { status: "error", error: handled.userMessage };
+  }
+
+  const { data, error } = await supabase
+    .from("card_content_flag")
+    .select("word_id, spoken_language, category, note, flagged_at")
+    .eq("user_id", account.id)
+    .order("flagged_at", { ascending: true });
+
+  if (error) {
+    const handled = fromSupabaseLanguageError(error, {
+      operation: "export your reported cards",
+    });
+    void logHandledErrorFromRequest(handled);
+    return { status: "error", error: handled.userMessage };
+  }
+
+  return {
+    status: "ok",
+    flags: (data ?? []).map((row) => ({
+      wordId: row.word_id as string,
+      spokenLanguage: row.spoken_language as string,
+      category: (row.category as string | null) ?? null,
+      note: (row.note as string | null) ?? null,
+      flaggedAt: row.flagged_at as string,
+    })),
+  };
+}
+
 export async function listFlaggedWordIds(
   spokenLanguage: string,
   client?: SupabaseClient,
