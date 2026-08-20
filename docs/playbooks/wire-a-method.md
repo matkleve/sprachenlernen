@@ -140,7 +140,7 @@ npm run verify:scope -- changed   # or method-menu + exercise-runner scopes
 | Recipe | `P:checklist → D:text-display → D:speak-prompt → C:summary` |
 | Components | shipped `speak-prompt`, `summary` |
 | Code | `lib/exercise-recipe/reading-aloud.ts` + built registry |
-| Default source | `es-catalogue-chile` (same family as extensive reading) |
+| Default source | `wikinews-es-3516` (lane B Wikinews; same family as extensive reading) |
 
 ---
 

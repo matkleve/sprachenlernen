@@ -10,26 +10,26 @@ export type ComprehensionQuestion = {
 };
 
 const QUESTIONS_BY_SOURCE: Record<string, ComprehensionQuestion[]> = {
-  "es-catalogue-chile": [
+  "wikinews-es-3516": [
     {
-      id: "chile-topic",
-      prompt: "¿De qué trata principalmente el texto?",
+      id: "egypt-observers",
+      prompt: "¿Qué decidió la Comisión Electoral Egipcia sobre los observadores?",
       options: [
-        { id: "government", label: "Medidas del gobierno y la economía" },
-        { id: "weather", label: "El tiempo en Santiago" },
-        { id: "sport", label: "Un partido de fútbol" },
+        { id: "ban", label: "Mantener la prohibición de observadores" },
+        { id: "allow", label: "Permitir observadores internacionales" },
+        { id: "partial", label: "Permitir solo observadores nacionales" },
       ],
-      correctOptionId: "government",
+      correctOptionId: "ban",
     },
     {
-      id: "chile-economy",
-      prompt: "¿Qué dice el texto sobre la economía?",
+      id: "egypt-candidate",
+      prompt: "¿Quién se presenta como candidato presidencial?",
       options: [
-        { id: "grows", label: "Crece este año" },
-        { id: "falls", label: "Baja este año" },
-        { id: "flat", label: "No cambia" },
+        { id: "mubarak", label: "Hosni Mubarak" },
+        { id: "galvez", label: "Xóchitl Gálvez" },
+        { id: "chapo", label: "Daniel Chapo" },
       ],
-      correctOptionId: "grows",
+      correctOptionId: "mubarak",
     },
   ],
   "es-fixture-cafe": [
