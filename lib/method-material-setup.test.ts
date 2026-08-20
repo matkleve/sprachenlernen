@@ -89,7 +89,7 @@ describe("buildMaterialSetupContext", () => {
       labels,
     )!;
     const newsPreview = context.previews.news?.sentence;
-    expect(newsPreview?.title).toContain("Chile");
+    expect(newsPreview?.title).toContain("elecciones");
     expect(newsPreview?.coverage.coveragePercent).toBeGreaterThan(0);
   });
 
@@ -137,12 +137,12 @@ describe("practiceHrefForSetup", () => {
   it("passes method, source, topic, unit, and variant on Start", () => {
     const href = practiceHrefForSetup({
       methodId: "partial-dictation",
-      sourceId: "es-catalogue-chile",
+      sourceId: "wikinews-es-3516",
       topicId: "news",
       unitId: "sentence",
     });
     expect(href).toContain("method=partial-dictation");
-    expect(href).toContain("sourceId=es-catalogue-chile");
+    expect(href).toContain("sourceId=wikinews-es-3516");
     expect(href).toContain("topicId=news");
     expect(href).toContain("unitId=sentence");
     expect(href).toContain("variantId=short");
@@ -151,7 +151,7 @@ describe("practiceHrefForSetup", () => {
   it("maps paragraph unit to standard variant", () => {
     const href = practiceHrefForSetup({
       methodId: "partial-dictation",
-      sourceId: "es-catalogue-chile",
+      sourceId: "wikinews-es-3516",
       topicId: "news",
       unitId: "paragraph",
     });
@@ -161,7 +161,7 @@ describe("practiceHrefForSetup", () => {
   it("maps window unit to long variant", () => {
     const href = practiceHrefForSetup({
       methodId: "partial-dictation",
-      sourceId: "es-catalogue-chile",
+      sourceId: "wikinews-es-3516",
       topicId: "news",
       unitId: "window",
       durationSec: 300,
@@ -174,6 +174,6 @@ describe("practiceHrefForSetup", () => {
 describe("pickTopicSource", () => {
   it("prefers the best coverage source for a topic tag", () => {
     const source = pickTopicSource(sources, "news", lexicon, held);
-    expect(source?.id).toBe("es-catalogue-chile");
+    expect(source?.id).toBe("wikinews-es-3516");
   });
 });

@@ -41,7 +41,7 @@ describe("content-traceability", () => {
       "Noticias: elecciones en Chile",
       "En el café",
     ]);
-    expect(trace.topSources[0]?.id).toBe("es-catalogue-chile");
+    expect(trace.topSources[0]?.id).toBe("wikinews-es-3516");
     expect(trace.topSources[1]?.id).toBe("es-fixture-cafe");
   });
 

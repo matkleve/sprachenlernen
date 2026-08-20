@@ -56,7 +56,7 @@ const baseContext: MaterialSetupContext = {
     },
     news: {
       sentence: {
-        sourceId: "es-catalogue-chile",
+        sourceId: "wikinews-es-3516",
         title: "Noticias: elecciones en Chile",
         coverage: {
           coveragePercent: 93,
@@ -108,7 +108,7 @@ describe("MethodMaterialSetup", () => {
     expect(screen.getByText(/93% known/i)).toBeDefined();
     expect(screen.queryByPlaceholderText(/paste or type/i)).toBeNull();
     expect(screen.getByRole("link", { name: en.methodMenu.startSession }).getAttribute("href")).toContain(
-      "sourceId=es-catalogue-chile",
+      "sourceId=wikinews-es-3516",
     );
   });
 

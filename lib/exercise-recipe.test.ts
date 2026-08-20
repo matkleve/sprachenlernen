@@ -121,9 +121,9 @@ describe("resolveExerciseRecipe", () => {
   it("uses requested catalogue source when sourceId is set", async () => {
     const recipe = await resolveExerciseRecipe(
       "partial-dictation",
-      "es-catalogue-chile",
+      "wikinews-es-3516",
     );
-    expect(recipe?.sourceId).toBe("es-catalogue-chile");
+    expect(recipe?.sourceId).toBe("wikinews-es-3516");
     const review = recipe?.steps.find((step) => step.type === "review");
     expect(review?.config.answerKey).toContain("gobierno");
   });
