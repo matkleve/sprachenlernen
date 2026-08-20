@@ -83,7 +83,7 @@ export type StartMaterialPracticeInput = {
   topicId: MaterialTopicSelection;
   unitId: MaterialUnitId;
   durationSec?: number;
-  budgetMinutes?: number;
+  variantMinutes?: number;
   ownText?: string;
   keepInLibrary?: boolean;
   catalogueSourceId?: string;
@@ -103,7 +103,7 @@ export async function startMaterialPracticeAction(
       topicId: input.topicId,
       unitId: input.unitId,
       durationSec: input.durationSec,
-      budgetMinutes: input.budgetMinutes,
+      variantMinutes: input.variantMinutes,
     });
 
   if (input.topicId !== OWN_TOPIC_ID) {
@@ -149,7 +149,7 @@ export async function startMaterialPracticeAction(
         topicId: input.topicId,
         unitId: input.unitId,
         durationSec: input.durationSec,
-        budgetMinutes: input.budgetMinutes,
+        variantMinutes: input.variantMinutes,
       }),
     };
   }
@@ -179,7 +179,7 @@ export async function startMaterialPracticeAction(
       topicId: input.topicId,
       unitId: input.unitId,
       durationSec: input.durationSec,
-      budgetMinutes: input.budgetMinutes,
+      variantMinutes: input.variantMinutes,
     }),
   };
 }

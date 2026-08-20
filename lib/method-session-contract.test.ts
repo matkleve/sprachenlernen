@@ -35,12 +35,12 @@ describe("resolveSessionContract", () => {
     expect(contract!.volumeLabelKey).toBe("sessionVolumeSentences");
   });
 
-  it("returns card volume for srs-session", async () => {
+  it("returns fixed 15 cards for srs-session", async () => {
     const method = findMethod(catalogue, "srs-session")!;
-    const contract = await resolveSessionContract(method, 2);
+    const contract = await resolveSessionContract(method);
 
     expect(contract).not.toBeNull();
-    expect(contract!.learningUnits).toBeGreaterThan(0);
+    expect(contract!.learningUnits).toBe(15);
     expect(contract!.volumeLabelKey).toBe("sessionVolumeCards");
   });
 

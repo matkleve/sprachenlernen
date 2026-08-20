@@ -176,9 +176,15 @@ export function isWithinBudgetTolerance(
   return wallClockSec >= target * BUDGET_TOLERANCE_MIN && wallClockSec <= target * BUDGET_TOLERANCE_MAX;
 }
 
+export const FIXED_SRS_CARD_COUNT = 15;
+
 export function cardCountForBudgetMinutes(budgetMinutes: number): number {
   const activeSec = budgetMinutes * 60 - CARD_CHROME_OVERHEAD_SEC;
   return Math.max(1, Math.round(activeSec / SEC_PER_CARD));
+}
+
+export function fixedSrsCardCount(): number {
+  return FIXED_SRS_CARD_COUNT;
 }
 
 const FEEDBACK_SEC_PER_LOOP = 60;

@@ -141,7 +141,7 @@ describe("MethodMaterialSetup", () => {
           },
           unitId: "sentence",
           unitLabel: "One sentence",
-          timeLabel: "",
+          timeLabel: "~1 min",
           demandingCopy: "Still demanding — 4 words to comfortable",
         })}
       />,

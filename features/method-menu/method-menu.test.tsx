@@ -101,7 +101,7 @@ describe("cards", () => {
     show();
     const srs = catalogue.entries.filter(isMethod).find((m) => m.id === "srs-session")!;
     const link = screen.getByRole("link", { name: new RegExp(srs.name) });
-    expect(link.getAttribute("href")).toBe("/words/review?method=srs-session&minutes=2");
+    expect(link.getAttribute("href")).toBe("/words/review?method=srs-session");
   });
 
   it("links hosted methods with built runners to method overview", () => {

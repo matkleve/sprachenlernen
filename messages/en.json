@@ -517,6 +517,8 @@
       "researchConfidence": "How sure is the research?"
     },
     "startSession": "Start",
+    "durationHeading": "Session length",
+    "durationChip": "{minutes} min",
     "sessionNotBuilt": "The app will run this method here once its session is built. For now, read what it does and try it off-app if you can.",
     "sessionContract": {
       "line": "~{minutes} min · {volume} · {feedback}"

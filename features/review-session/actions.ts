@@ -12,7 +12,7 @@ import {
   logHandledErrorFromRequest,
   sessionBuildFailed,
 } from "@/lib/errors";
-import { buildSession, DEFAULT_SESSION_LENGTH, sessionLengthForBudgetMinutes, type SessionCard } from "@/lib/session-builder";
+import { buildSession, DEFAULT_SESSION_LENGTH, type SessionCard } from "@/lib/session-builder";
 import { filterSchedulableCards } from "@/lib/form-recall-staging";
 import { isFormRecallTaskId } from "@/lib/form-recall-pool";
 import { buildFormCellExplanation } from "@/lib/form-cell-explanation";
@@ -62,13 +62,9 @@ export async function reportCardAction(wordId: string, input: ReportCardInput = 
 
 export async function buildSessionAction(input?: {
   deck?: ReviewDeck | string | null;
-  budgetMinutes?: number;
 }): Promise<BuildSessionOutcome> {
   const deck = parseReviewDeck(input?.deck ?? undefined);
-  const sessionLength =
-    input?.budgetMinutes !== undefined
-      ? sessionLengthForBudgetMinutes(input.budgetMinutes)
-      : DEFAULT_SESSION_LENGTH;
+  const sessionLength = DEFAULT_SESSION_LENGTH;
   try {
     // The language in focus, and only that one (UC-025, corrected
     // 2026-08-12): a session never draws from more than one learning
