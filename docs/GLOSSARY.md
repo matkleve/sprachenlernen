@@ -7,8 +7,11 @@ two concepts — and then someone builds it twice.
 **Rules**
 
 - One term, one meaning. If you need a second meaning, you need a second term.
-- The term used in the UI is the term used in the code. No internal-only
-  synonyms for user-visible things.
+- The term used in the UI is the term used in the code, unless a row below names
+  a **surface word** on purpose — the way **Card** is the user-facing name for
+  **Task**. Surface words are declared here and nowhere else; a synonym invented
+  ad hoc in a component is still forbidden. When one is warranted:
+  [`COPY-VOICE.md`](COPY-VOICE.md) § 2.
 - Renaming a term means renaming it **everywhere in the same change** — code,
   specs, tests, copy. Half-renames are the reason glossaries stop being trusted.
 - Add the term here *before* using it in a spec.
@@ -57,13 +60,13 @@ requires a `⚠ SPEC GAP` line, not a guess.
 | **Difficulty** | FSRS: how hard *this* Word is for *this* user. | the CEFR level of the Word |
 | **Retrievability** | FSRS: probability of recall right now. Drives what is due. | due date |
 | **Target retention** | The recall probability the schedule aims for (e.g. 0.9). A user setting. | accuracy |
-| **Held** | A Task in `review` with stability ≥ held threshold (~7 days), ≥2 successes, no trailing `again`. Counts toward vocabulary size. | graduated, mature, seen |
-| **Fragile** | Reviewed but not held — still in `learning`/`relearning`, below held threshold, or not enough evidence. | shaky, learning |
-| **Mature** | A held Task whose stability ≥ mature threshold (~21 days). Atlas display tier, not a separate count. | graduated |
+| **Held** | A Task in `review` with stability ≥ held threshold (~7 days), ≥2 successes, no trailing `again`. Counts toward vocabulary size. **Surface word:** *Solid* / de *Sitzt*. | graduated, mature, seen |
+| **Fragile** | Reviewed but not held — still in `learning`/`relearning`, below held threshold, or not enough evidence. **Surface word:** *Shaky* / de *Wackelt*. | learning |
+| **Mature** | A held Task whose stability ≥ mature threshold (~21 days). Atlas display tier, not a separate count. **Surface word:** *Rock solid* / de *Sitzt fest*. | graduated |
 | **Leech** | A Task that keeps failing. Suspended and flagged for repair, not repeated harder. | a hard Task |
-| **Paradigm cell** | The position a form occupies in its inflection pattern — class × tense/mood × person for verbs, number/gender for nouns. Stored **with** each form→lemma mapping. Failing `parliamo` while passing `parlare` is a form gap, not a vocabulary gap. | a word form, a grammar topic |
+| **Paradigm cell** | The position a form occupies in its inflection pattern — class × tense/mood × person for verbs, number/gender for nouns. Stored **with** each form→lemma mapping. Failing `parliamo` while passing `parlare` is a form gap, not a vocabulary gap. **Surface word:** *word form* / de *Wortform*; the technical term is named inside `ParadigmCellCallout`. | a grammar topic |
 | **Form mastery** | A level-model signal of its own: which paradigm cells the learner can produce. Never folded into vocabulary size. | vocabulary, grammar knowledge |
-| **Frequency rank** | Position of a Word in the language's frequency list. The bridge between Reviews and Level. | difficulty |
+| **Frequency rank** | Position of a Word in the language's frequency list. The bridge between Reviews and Level. **Surface word:** *rank* / de *Platz*, or *how common* / de *Häufigkeit*. | difficulty |
 
 ### Level and progress → [`study/03`](study/03-level-model.md)
 
@@ -75,7 +78,7 @@ requires a `⚠ SPEC GAP` line, not a guess.
 | **Skill status** | One of: measured · uncertain · not measured · not in profile. The last two are out of the Overall level. Defined in exactly one place — [`study/03`](study/03-level-model.md). | a difficulty, a goal |
 | **Estimated vocabulary size** | Modelled count of known word families, from Stability × Frequency rank. | the number of Cards |
 | **Coverage** | Share of tokens in a given text this user knows. Selects content; 95–98 % is the target band. | reading level |
-| **Signal** | One measured input to a Level (the six in `study/03`). The only thing recorded directly. | a score |
+| **Signal** | One measured input to a Level (the six in `study/03`). The only thing recorded directly. **Surface word:** *measurement* / de *Messwert*. | a score |
 | **Calibration** | The versioned mapping from Signals to Levels. Changing it is a dated, visible event. | a formula |
 | **Demonstrated level** | A level the learner just showed rather than one computed for them — the Demonstration sentence read without tapping anything. One item, and treated as one item. | the Level, a test result |
 | **Home** | The signed-in first screen. What it contains is a spec question, not a terminology one — an earlier version of this row listed four blocks (including a "stats" block that is not a term here) and thereby settled a composition no spec had decided. | the Landing page (that is signed-out), the Map |

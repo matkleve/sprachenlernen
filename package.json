@@ -12,6 +12,7 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "check:specs": "node scripts/check-specs.mjs",
+    "check:i18n-address": "node scripts/check-i18n-address.mjs",
     "check:tokens": "node scripts/check-tokens.mjs",
     "check:contrast": "node scripts/check-contrast.mjs",
     "check:neighbors": "node scripts/check-neighbor-candidates.mjs",

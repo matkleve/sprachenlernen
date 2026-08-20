@@ -122,7 +122,7 @@ feature needs it — not in anticipation of one.
 | **Anything with states, or a selection driving two surfaces** | [`docs/STATE.md`](docs/STATE.md) |
 | Touching styles or tokens | [`docs/DESIGN-SYSTEM.md`](docs/DESIGN-SYSTEM.md) |
 | **Building or changing a signed-in page** | [`docs/specs/feature/page-layout.md`](docs/specs/feature/page-layout.md) |
-| Naming anything | [`docs/GLOSSARY.md`](docs/GLOSSARY.md) |
+| Naming anything, or **writing any user-facing copy** | [`docs/GLOSSARY.md`](docs/GLOSSARY.md), [`docs/COPY-VOICE.md`](docs/COPY-VOICE.md) |
 | A "fix" isn't working | [`docs/TRAPS.md`](docs/TRAPS.md) ← read this before your second attempt |
 | Adding a database, or another learning language | [`docs/BACKEND.md`](docs/BACKEND.md), [`docs/I18N.md`](docs/I18N.md) |
 | Making a call you'll have to defend later | [`docs/adr/`](docs/adr/) |

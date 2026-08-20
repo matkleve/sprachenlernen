@@ -40,7 +40,7 @@ describe("ShellPageTitle", () => {
     vi.mocked(usePathname).mockReturnValue("/methods");
     render(<ShellPageTitle variant="mobile" />);
 
-    expect(screen.getByRole("heading", { level: 1, name: "Ways of practising" })).toBeDefined();
+    expect(screen.getByRole("heading", { level: 1, name: en.methodMenu.title })).toBeDefined();
   });
 
   it("expands shell top padding when the mobile title wraps to two lines", () => {
@@ -61,7 +61,7 @@ describe("ShellPageTitle", () => {
     vi.mocked(usePathname).mockReturnValue("/methods");
     render(<ShellPageTitle variant="desktop" />);
 
-    const title = screen.getByTitle("Ways of practising");
+    const title = screen.getByTitle(en.methodMenu.title);
     expect(title.className).toContain("truncate");
     expect(title.className).not.toContain("absolute");
     expect(title.className).toContain("justify-self-center");

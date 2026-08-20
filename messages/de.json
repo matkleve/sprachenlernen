@@ -6,23 +6,23 @@
     "sectionData": "Deine Daten",
     "sectionDevice": "Dieses Gerät",
     "spokenHeading": "Sprache, die du sprichst",
-    "spokenCaption": "Menüs, Schaltflächen und der Text, der Wörter auf Karten beschreibt. Eine Änderung setzt deinen Lernfortschritt nicht zurück.",
+    "spokenCaption": "In dieser Sprache siehst du Menüs, Buttons und die Erklärungen auf den Karten. Dein Lernfortschritt bleibt, wenn du sie änderst.",
     "spokenError": "Deine Sprache konnte nicht geladen werden.",
     "spokenChangeError": "Deine Sprache konnte nicht geändert werden. Es wurde nichts geändert.",
     "languagesHeading": "Sprachen",
     "languagesCaption": "Was du lernst. Die aktive Sprache bestimmt, was die App dir zeigt.",
     "active": "Aktiv",
-    "makeActive": "Hier wechseln",
+    "makeActive": "Zu dieser wechseln",
     "addLanguage": "Sprache hinzufügen",
     "noneYet": "Du hast noch keine Sprache gewählt.",
     "chooseFirst": "Sprache wählen",
     "languagesError": "Deine Sprachen konnten nicht geladen werden.",
     "switchError": "Sprache konnte nicht gewechselt werden. Es wurde nichts geändert.",
-    "standing": "{held} von {poolSize} Starterwörtern stabil behalten",
-    "viewProgress": "Auf Fortschritt ansehen",
+    "standing": "{held} von {poolSize} Wörtern sitzen sicher",
+    "viewProgress": "Bei Fortschritt ansehen",
     "signOut": "Abmelden",
     "appHeading": "App",
-    "appCaption": "Die Version auf diesem Gerät. Nach einem Update prüfen, falls etwas veraltet wirkt.",
+    "appCaption": "Die Version, die auf diesem Gerät läuft. Schau hier nach, wenn etwas veraltet aussieht.",
     "runningVersion": "Laufende Version",
     "versionFrom": "Dieses Update vom",
     "lastChecked": "Zuletzt geprüft",
@@ -32,10 +32,10 @@
     "reload": "Neu laden",
     "reloadAria": "Neu laden, um von {currentVersion} auf {nextVersion} zu aktualisieren",
     "homeScreenHeading": "Home-Screen-App (iPhone)",
-    "homeScreenCaption": "Auf dem iPhone fügen Sie die App über die Hauptadresse der Website hinzu, damit Methoden, Wörter und Fortschritt ohne Safaris untere Symbolleiste funktionieren. Apple erlaubt keinen Installationsbutton — Sie nutzen Teilen → Zum Home-Bildschirm.",
-    "homeScreenActive": "Über Ihr Home-Screen-Symbol geöffnet",
-    "homeScreenScopeHeading": "Welche Adresse verwenden",
-    "homeScreenScopeCaption": "Der Pfad in Safari beim Tippen auf „Zum Home-Bildschirm“ bestimmt, welche Bereiche sauber bleiben. Nur die Hauptwebsite verwenden.",
+    "homeScreenCaption": "Auf dem iPhone fügst du die App von der Startseite aus hinzu. Dann funktionieren Methoden, Wörter und Fortschritt ohne die untere Safari-Leiste. Einen Installieren-Button erlaubt Apple nicht — du machst das über Teilen → Zum Home-Bildschirm.",
+    "homeScreenActive": "Über dein Symbol auf dem Home-Bildschirm geöffnet",
+    "homeScreenScopeHeading": "Welche Adresse du nehmen musst",
+    "homeScreenScopeCaption": "Die Seite, auf der du „Zum Home-Bildschirm“ tippst, entscheidet, welche Bereiche später sauber aussehen. Nimm dafür nur die Startseite.",
     "homeScreenScopeRows": [
       {
         "path": "/",
@@ -60,7 +60,7 @@
     ],
     "homeScreenInstallButton": "Installationsanleitung",
     "homeScreenMainSiteButton": "Hauptwebsite öffnen",
-    "homeScreenReinstall": "Wenn die untere Symbolleiste auf einigen Seiten erscheint, entfernen Sie das Home-Screen-Symbol, öffnen die Hauptwebsite in Safari und fügen die App erneut von dort hinzu — nicht von einer Unterseite."
+    "homeScreenReinstall": "Wenn auf manchen Seiten die untere Leiste auftaucht: Symbol löschen, Startseite in Safari öffnen und die App von dort noch einmal hinzufügen. Nicht von einer Unterseite."
   },
   "appShell": {
     "navLabel": "Bereiche",
@@ -71,8 +71,8 @@
     "currentLanguage": "{endonym}, aktuelle Lernsprache",
     "active": "Aktiv",
     "addLanguage": "Sprache hinzufügen",
-    "standing": "{held} von {poolSize} Starterwörtern stabil behalten",
-    "viewProgress": "Auf Fortschritt ansehen",
+    "standing": "{held} von {poolSize} Wörtern sitzen sicher",
+    "viewProgress": "Bei Fortschritt ansehen",
     "backTo": "Zurück zu {destination}",
     "appUpdate": {
       "updateAvailable": "Update verfügbar",
@@ -86,7 +86,7 @@
     "holding": {
       "words": {
         "title": "Wörter",
-        "intent": "Alles zu Ihrem Wortschatz: was jetzt fällig ist, was behalten ist, was fragil ist. Wiederholen ist eine von mehreren Tätigkeiten hier — nicht der Name dieses Bereichs."
+        "intent": "Alles zu deinen Wörtern: was heute dran ist, was schon sitzt und was noch wackelt. Wiederholen ist eine von mehreren Sachen, die du hier machst."
       }
     }
   },
@@ -94,45 +94,45 @@
     "reviewCardHeaderLabel": "Wortschatz",
     "reviewHeading": "Wiederholen",
     "reviewMeaningsHeading": "Bedeutungen wiederholen",
-    "reviewMeaningsCaption": "Nur Grundformen — was jedes Wort bedeutet.",
+    "reviewMeaningsCaption": "Nur Grundformen — was ein Wort bedeutet.",
     "reviewMeaningsAction": "Bedeutungen wiederholen",
     "reviewMixedAction": "Gemischt wiederholen",
     "reviewFormsHeading": "Formen wiederholen",
-    "reviewFormsCaption": "Beugungsformen von Wörtern, deren Bedeutung Sie schon stabil kennen — getrennt von der Bedeutungswiederholung.",
-    "paradigmCellCalloutTitle": "Was ist eine Paradigmenzelle?",
-    "paradigmCellCalloutBody": "Ein Platz im Beugungsmuster eines Worts — zum Beispiel 1. Person Singular Präsens. Jede Formenkarte fragt genau eine Zelle ab, nicht die ganze Konjugationstabelle.",
-    "reviewCaption": "Eine Sitzung nach der anderen — tippen, wenn Sie bereit sind.",
-    "countsHeading": "Ihr Wortschatz",
-    "countsCaption": "Wie viele Starter-Lemmas Sie an die Bedeutung erinnern — nicht jede flektierte Form und kein Rückstau.",
-    "countsDefinitionsSummary": "Was Gehalten, Fragil und Neu bedeuten",
-    "lemmaCalloutTitle": "Was ist ein Lemma?",
-    "lemmaCalloutBody": "Die Wörterbuchform — laufen, nicht laufend; Kind, nicht Kinder. Auf dieser Seite ist jede Karte ein Wort in dieser Form (ein Lemma). „Behalten“ heißt: Sie wüssten die Bedeutung auch nach etwa einer Woche ohne erneutes Sehen. Flektierte Formen werden auf Fortschritt separat erfasst.",
-    "held": "Behalten",
-    "fragile": "Fragil",
+    "reviewFormsCaption": "Gebeugte Formen von Wörtern, deren Bedeutung schon sicher sitzt. Das läuft getrennt von den Bedeutungen.",
+    "paradigmCellCalloutTitle": "Was ist eine Wortform?",
+    "paradigmCellCalloutBody": "Ein einzelner Platz im Beugungsmuster eines Worts — zum Beispiel „ich gehe“ im Präsens. Jede Formenkarte fragt genau einen davon ab, nie die ganze Tabelle. (Fachwort: Paradigmenzelle.)",
+    "reviewCaption": "Eine Sitzung nach der anderen — tipp, wenn du bereit bist.",
+    "countsHeading": "Deine Wörter",
+    "countsCaption": "Bei wie vielen Wörtern aus deinem Startpaket dir die Bedeutung einfällt. Gezählt werden Grundformen, keine gebeugten Formen — und es ist kein Stapel offener Aufgaben.",
+    "countsDefinitionsSummary": "Was „sitzt“, „wackelt“ und „neu“ heißt",
+    "lemmaCalloutTitle": "Was ist eine Grundform?",
+    "lemmaCalloutBody": "Die Form, die im Wörterbuch steht — laufen, nicht laufend; Kind, nicht Kinder. Jede Karte auf dieser Seite ist ein Wort in dieser Form. „Sitzt“ heißt: Du wüsstest die Bedeutung auch noch nach etwa einer Woche. Gebeugte Formen zählen wir getrennt, bei Fortschritt. (Fachwort: Lemma.)",
+    "held": "Sitzt",
+    "fragile": "Wackelt",
     "newWords": "Neu",
-    "heldDescription": "Sie erinnern zuverlässig an die Bedeutung — mindestens zwei Abstände in der Wiederholung, etwa eine Woche stabil.",
-    "fragileDescription": "Sie haben die Bedeutung in der Wiederholung gesehen, sie ist aber noch nicht stabil genug, um als bekannt zu gelten.",
+    "heldDescription": "Die Bedeutung fällt dir zuverlässig ein: mindestens zweimal richtig, mit Abstand dazwischen, und seit etwa einer Woche stabil.",
+    "fragileDescription": "Du hast die Bedeutung schon wiederholt. Sicher sitzt sie aber noch nicht.",
     "newDescription": "Bedeutung noch nicht wiederholt.",
-    "blocksHeading": "Frequenzbänder",
-    "blocksCaption": "Wie sich Ihr Starterdeck nach Frequenzrang aufteilt — behalten, fragil und was noch fehlt. Im Kernband (Ränge 1–1000) heißen ungeprüfte Wörter Lücken: die wertvollsten Lücken auf Ihrer Karte.",
-    "blockLabel": "Ränge {start}–{end}",
-    "blockPoolSize": "{poolSize, plural, one {# Wort in diesem Band} other {# Wörter in diesem Band}}",
-    "blockHeldRowDescription": "Stabile Bedeutungserinnerung in diesem Band.",
-    "blockFragileRowDescription": "In diesem Band wiederholt, aber noch nicht stabil.",
-    "blockNewDescription": "Bedeutung in diesem Band noch nicht wiederholt.",
+    "blocksHeading": "Nach Häufigkeit",
+    "blocksCaption": "Wie sich dein Startpaket verteilt: was sitzt, was wackelt und was noch offen ist. Bei den 1000 häufigsten Wörtern nennen wir das Offene „Lücken“ — die lohnen sich am meisten.",
+    "blockLabel": "Platz {start}–{end}",
+    "blockPoolSize": "{poolSize, plural, one {# Wort auf diesen Plätzen} other {# Wörter auf diesen Plätzen}}",
+    "blockHeldRowDescription": "Diese Bedeutungen sitzen sicher.",
+    "blockFragileRowDescription": "Schon wiederholt, aber noch nicht sicher.",
+    "blockNewDescription": "Bedeutung noch nicht wiederholt.",
     "blockHoles": "Lücken",
-    "blockHolesDescription": "Häufige Wörter noch nicht wiederholt — die wertvollsten Lücken.",
-    "blockDistributionSummary": "{held} behalten · {fragile} fragil · {unreviewed} {unreviewedLabel} — {poolSize} Wörter im Band",
-    "blockBandAria": "Ränge {start} bis {end}: {held} behalten, {fragile} fragil, {unreviewed} {unreviewedLabel}, von {poolSize} Wörtern",
-    "horizonHeading": "Wiederholungshorizont",
-    "horizonCaption": "Wie Ihre geplanten Wiederholungen über die nächsten 30 Tage verteilt sind — nicht, was in der heutigen Sitzung fällig ist.",
+    "blockHolesDescription": "Häufige Wörter, die du noch nicht wiederholt hast — die lohnendsten Lücken.",
+    "blockDistributionSummary": "{held} sitzen · {fragile} wackeln · {unreviewed} {unreviewedLabel} — {poolSize} Wörter",
+    "blockBandAria": "Platz {start} bis {end}: {held} sitzen, {fragile} wackeln, {unreviewed} {unreviewedLabel}, von {poolSize} Wörtern",
+    "horizonHeading": "Was noch auf dich zukommt",
+    "horizonCaption": "Wie sich deine Wiederholungen auf die nächsten 30 Tage verteilen. Das ist nicht, was heute dran ist.",
     "horizonDayToday": "Heute",
     "horizonDay": "Tag {day}",
     "horizonExpand": "Vier-Wochen-Plan anzeigen",
     "horizonCollapse": "Plan ausblenden",
     "horizonSummaryLight": "Die nächsten vier Wochen sehen leicht aus.",
-    "horizonSummarySteady": "Gleichmäßige Verteilung geplanter Wiederholungen über die nächsten vier Wochen.",
-    "horizonSummaryPeakWeek": "Höhepunkt in Woche {week} (~{avgPerDay} geplant pro Tag).",
+    "horizonSummarySteady": "Deine Wiederholungen verteilen sich gleichmäßig über die nächsten vier Wochen.",
+    "horizonSummaryPeakWeek": "Spitze in Woche {week} (~{avgPerDay} pro Tag).",
     "horizonWeekLabel": "Woche {week}",
     "horizonWeekScheduledOne": "1 geplant",
     "horizonWeekScheduled": "{total} geplant",
@@ -140,89 +140,89 @@
     "horizonWeekStats": "{total} geplant · ~{avgPerDay}/Tag",
     "horizonWeekAria": "Woche {week}: {total} geplante Wiederholungen, etwa {avgPerDay} pro Tag",
     "horizonTileOverflow": "+{overflow}",
-    "horizonCausal": "Der Höhepunkt in Woche {week} kommt von den {count} Karten, die Sie am {dateLabel} hinzugefügt haben.",
-    "horizonReturnPlan": "Sie waren eine Weile weg. Ihre nächste Sitzung hat die übliche Länge — der Plan unten zeigt, wie sich geplante Wiederholungen verteilen.",
-    "horizonScheduledNote": "Jede Kachel ist ein geplantes Wiederholungsdatum aus dem Gedächtnisplan — keine Aufgabe, die Sie an diesem Tag erledigen müssen.",
+    "horizonCausal": "Die Spitze in Woche {week} kommt von den {count} Karten, die du am {dateLabel} dazugenommen hast.",
+    "horizonReturnPlan": "Du warst eine Weile weg. Deine nächste Sitzung ist so lang wie sonst — der Plan unten zeigt, wie sich der Rest verteilt.",
+    "horizonScheduledNote": "Jede Kachel ist ein geplantes Datum aus deinem Wiederholungsplan. Keine Aufgabe, die du an dem Tag schaffen musst.",
     "atlasColumns": {
       "word": "Wort",
-      "rank": "Rang",
-      "stability": "Stabilität (Tage)",
+      "rank": "Platz",
+      "stability": "Hält ca. (Tage)",
       "status": "Status"
     },
     "bucketNames": {
-      "held": "Behalten",
-      "fragile": "Fragil",
+      "held": "Sitzt",
+      "fragile": "Wackelt",
       "new": "Neu",
-      "mature": "Ausgereift"
+      "mature": "Sitzt fest"
     },
     "noStability": "—",
-    "orbitHeading": "Ihr Wortschatz-Orbit",
-    "orbitCaption": "Häufige Wörter liegen nahe der Mitte. Dunkle Striche leuchten auf, wenn Sie sie behalten — jeder Ring driftet für sich.",
-    "orbitAriaLabel": "Wortschatzfortschritt als konzentrische Ringe",
+    "orbitHeading": "Deine Wörter als Ringe",
+    "orbitCaption": "Häufige Wörter liegen innen. Dunkle Striche leuchten auf, sobald ein Wort sitzt. Jeder Ring dreht sich für sich.",
+    "orbitAriaLabel": "Deine Wörter als Ringe, häufige innen und seltene außen",
     "orbitShowList": "Liste anzeigen",
     "orbitListTitle": "Alle Wörter",
-    "orbitListCaption": "Frequenzrang und Status für jedes Wort in Ihrem Deck.",
-    "orbitAggregateLabel": "{count} Wörter, Ränge {start}–{end}",
-    "orbitAggregateHeading": "Ränge {start}–{end}",
-    "orbitAggregateBody": "{count} Wörter in diesem Band am äußeren Ring. {held} Bedeutungen stabil behalten.",
-    "orbitDetailRankLabel": "Frequenzrang",
-    "orbitDetailStabilityLabel": "Stabilität",
-    "orbitDetailBandLabel": "Band",
-    "orbitDetailBandCaption": "Ränge {start}–{end}",
-    "orbitDetailWordsInBandLabel": "Wörter im Band",
-    "orbitDetailHeldSummary": "{held} von {total} behalten",
-    "wordDetailScheduleNew": "Noch nicht geplant — Sie haben dieses Wort noch nicht wiederholt.",
-    "wordDetailScheduleSuspended": "Ausgesetzt — erscheint nicht in Wiederholungssitzungen.",
-    "wordDetailScheduleRetired": "Aus Ihrem Deck entfernt — Ihre Wiederholungshistorie bleibt erhalten.",
-    "wordDetailScheduleDueToday": "Heute geplant — zuletzt „{grade}“ gewählt.",
-    "wordDetailScheduleDueFuture": "Nächste Wiederholung in {days, plural, one {# Tag} other {# Tagen}} — zuletzt „{grade}“ gewählt.",
-    "wordDetailScheduleNoGrade": "Ihre letzte Antwort",
+    "orbitListCaption": "Häufigkeit und Status für jedes Wort in deiner Sammlung.",
+    "orbitAggregateLabel": "{count} Wörter, Platz {start}–{end}",
+    "orbitAggregateHeading": "Platz {start}–{end}",
+    "orbitAggregateBody": "{count} Wörter von diesen Plätzen liegen auf dem äußeren Ring. Bei {held} sitzt die Bedeutung sicher.",
+    "orbitDetailRankLabel": "Häufigkeit",
+    "orbitDetailStabilityLabel": "Hält ca.",
+    "orbitDetailBandLabel": "Gruppe",
+    "orbitDetailBandCaption": "Platz {start}–{end}",
+    "orbitDetailWordsInBandLabel": "Wörter in der Gruppe",
+    "orbitDetailHeldSummary": "{held} von {total} sitzen",
+    "wordDetailScheduleNew": "Noch nicht eingeplant — du hast dieses Wort noch nicht wiederholt.",
+    "wordDetailScheduleSuspended": "Pausiert — kommt in Wiederholungen gerade nicht vor.",
+    "wordDetailScheduleRetired": "Aus deiner Sammlung entfernt — was du bisher geübt hast, bleibt gespeichert.",
+    "wordDetailScheduleDueToday": "Heute dran — zuletzt hast du „{grade}“ gewählt.",
+    "wordDetailScheduleDueFuture": "Wieder dran in {days, plural, one {# Tag} other {# Tagen}} — zuletzt hast du „{grade}“ gewählt.",
+    "wordDetailScheduleNoGrade": "Deine letzte Antwort",
     "wordDetailSuspend": "Aussetzen",
-    "wordDetailRetire": "Aus Deck entfernen",
-    "wordDetailSuspendHelp": "Wiederholungen pausieren. Ihre Historie bleibt auf dem Konto.",
-    "wordDetailRetireHelpOnly": "Keine weiteren Wiederholungen. Ihre Historie bleibt auf dem Konto.",
-    "wordDetailActionFootnote": "Aussetzen pausiert; Entfernen beendet die Planung. Die Historie wird nie gelöscht."
+    "wordDetailRetire": "Aus Sammlung entfernen",
+    "wordDetailSuspendHelp": "Wiederholungen pausieren. Was du bisher geübt hast, bleibt gespeichert.",
+    "wordDetailRetireHelpOnly": "Keine weiteren Wiederholungen. Was du bisher geübt hast, bleibt gespeichert.",
+    "wordDetailActionFootnote": "Aussetzen pausiert nur. Entfernen beendet die Planung. Gelöscht wird nie etwas."
   },
   "contentTrace": {
     "word": {
-      "sectionLabel": "Wo dieses Wort in Ihren Inhalten vorkommt",
-      "summary": "In {count, plural, one {# gespeichertem Text oder einer Episode} other {# gespeicherten Texten oder Episoden}}",
-      "next": "Kommt in {count, plural, one {# Quelle} other {# Quellen}} vor — sehen, was es freischaltet",
+      "sectionLabel": "Wo dieses Wort in deinen Texten vorkommt",
+      "summary": "In {count, plural, one {# gespeicherten Text oder einer Folge} other {# gespeicherten Texten oder Folgen}}",
+      "next": "Kommt in {count, plural, one {# Quelle} other {# Quellen}} vor — sieh nach, was das aufmacht",
       "emptyHeading": "Keine Inhalts-Treffer",
-      "empty": "Dieses Wort kommt in keinem Ihrer gespeicherten Texte oder Episoden vor.",
+      "empty": "Dieses Wort kommt in keinem deiner gespeicherten Texte oder Folgen vor.",
       "emptyLink": "Inhaltsbibliothek öffnen"
     },
     "library": {
       "title": "Inhalte",
-      "caption": "Gespeicherte Texte und Episoden — mit dem Anteil, den Sie schon kennen.",
+      "caption": "Gespeicherte Texte und Folgen — mit dem Anteil, den du schon kennst.",
       "empty": "Für diese Sprache sind noch keine Inhalte gespeichert.",
       "back": "Zurück zu Inhalten",
-      "gapSummary": "{count, plural, one {# Wort bis komfortabel} other {# Wörter bis komfortabel}}",
+      "gapSummary": "{count, plural, one {noch # Wort bis angenehm} other {noch # Wörter bis angenehm}}",
       "origin": {
         "fixture": "Demo-Text",
         "catalogue": "App-Katalog",
-        "learner": "Ihr Upload"
+        "learner": "Von dir hochgeladen"
       }
     },
     "source": {
       "coverage": "{pct} % bekannt",
-      "comfortable": "Bei {pct} % — angenehm lesbar. Wörter, die Sie als Nächstes lernen, tauchen hier auf.",
-      "demanding": "{gapCount, plural, one {# Wort trennt Sie noch vom komfortablen Lesen — als Set lernen?} other {# Wörter trennen Sie noch vom komfortablen Lesen — als Set lernen?}}",
-      "speed": "Bei {pct} % — Sie können auf Tempo lesen. Neue Wörter kommen trotzdem dazu.",
-      "bandComfortable": "Komfortabel",
+      "comfortable": "Bei {pct} % — das liest sich angenehm. Wörter, die du als Nächstes lernst, kommen hier vor.",
+      "demanding": "{gapCount, plural, one {Noch # Wort, dann liest sich das angenehm — als Set lernen?} other {Noch # Wörter, dann liest sich das angenehm — als Set lernen?}}",
+      "speed": "Bei {pct} % — hier kannst du auf Tempo lesen. Neue Wörter kommen trotzdem vor.",
+      "bandComfortable": "Angenehm",
       "bandDemanding": "Anspruchsvoll",
       "bandSpeed": "Tempo-Lesen",
-      "notFound": "Dieser gespeicherte Eintrag wurde nicht gefunden."
+      "notFound": "Diesen gespeicherten Eintrag gibt es nicht."
     },
     "gap": {
-      "heading": "{count, plural, one {# Wort bis komfortabel (95 %)} other {# Wörter bis komfortabel (95 %)}}",
-      "rank": "Rang {rank}",
+      "heading": "{count, plural, one {Noch # Wort bis angenehm (95 %)} other {Noch # Wörter bis angenehm (95 %)}}",
+      "rank": "Platz {rank}",
       "learnSet": "Als Set lernen",
-      "paceSingle": "Etwa {days, plural, one {# Tag} other {# Tage}} in Ihrem aktuellen Tempo",
-      "paceRange": "Etwa {min}–{max} Tage in Ihrem aktuellen Tempo",
-      "progress": "{held} von {total} in diesem Set gelernt",
-      "complete": "Dieses Set ist fertig — öffnen Sie den Text, wenn Sie bereit sind.",
-      "tooLarge": "Mehr als 40 Wörter trennen Sie hier vom komfortablen Lesen — probieren Sie zuerst eine nähere Quelle.",
+      "paceSingle": "Etwa {days, plural, one {# Tag} other {# Tage}} in deinem jetzigen Tempo",
+      "paceRange": "Etwa {min}–{max} Tage in deinem jetzigen Tempo",
+      "progress": "{held} von {total} aus diesem Set gelernt",
+      "complete": "Dieses Set ist fertig — öffne den Text, wenn du magst.",
+      "tooLarge": "Bis zum angenehmen Lesen fehlen hier mehr als 40 Wörter. Nimm lieber erst einen leichteren Text.",
       "alternate": "Stattdessen {title} versuchen"
     }
   },
@@ -231,19 +231,19 @@
     "backToMethods": "Zurück zu Methoden",
     "backToWords": "Zurück zu Wörter",
     "unknownMethod": "Diese Methode gibt es im Katalog nicht.",
-    "notBuilt": "Diese Methode ist als in der App geführt gelistet, ihre Sitzung ist aber noch nicht gebaut. Der Katalog sagt ehrlich, was existiert.",
+    "notBuilt": "Diese Methode soll in der App laufen, ihre Sitzung ist aber noch nicht gebaut. Der Katalog sagt ehrlich, was es schon gibt.",
     "prompt": "Was bedeutet es?",
-    "formRecallPrompt": "Haben Sie sich an die Form erinnert?",
-    "formRecallInstruction": "Schreiben Sie die {language}-Form.",
-    "formRecallInstructionFallback": "Schreiben Sie die Form.",
+    "formRecallPrompt": "Ist dir die Form eingefallen?",
+    "formRecallInstruction": "Schreib die {language}-Form.",
+    "formRecallInstructionFallback": "Schreib die Form.",
     "cellLabelWithPerson": "{person} · {form}",
     "cellLabelFormOnly": "{form}",
     "flipHint": "Tippen zum Umdrehen",
     "graded": "Gespeichert.",
-    "saveError": "Ihre Bewertung konnte nicht gespeichert werden.",
+    "saveError": "Deine Bewertung konnte nicht gespeichert werden.",
     "saving": "Speichern…",
-    "loading": "Sitzung wird vorbereitet…",
-    "loadError": "Wiederholungssitzung konnte nicht vorbereitet werden.",
+    "loading": "Deine Sitzung wird vorbereitet…",
+    "loadError": "Deine Wiederholung konnte nicht vorbereitet werden.",
     "emptySession": "Derzeit nichts zu wiederholen.",
     "again": "Nochmal",
     "hard": "Schwer",
@@ -252,13 +252,13 @@
     "progress": "{position} von {total}",
     "runStatusLabel": "Sitzungsfortschritt nach Karte",
     "completeTitle": "Sitzung abgeschlossen",
-    "completeBodyOne": "Sie haben 1 Karte wiederholt.",
-    "completeBody": "Sie haben {count} Karten wiederholt.",
+    "completeBodyOne": "Du hast 1 Karte wiederholt.",
+    "completeBody": "Du hast {count} Karten wiederholt.",
     "startReview": "Wiederholung starten",
     "startFormReview": "Formen wiederholen",
     "formExplanationSummary": "Warum diese Form?",
     "formExplanationExamples": "Beispiele: {examples}",
-    "srsSessionName": "Abstands-Wiederholungssitzung",
+    "srsSessionName": "Wiederholen mit wachsenden Abständen",
     "languageLabel": "{name}",
     "syncingOne": "1 Wiederholung wird synchronisiert…",
     "syncing": "{count} Wiederholungen werden synchronisiert…",
@@ -277,7 +277,7 @@
       "other": "Sonstiges"
     },
     "reportNoteLabel": "Noch etwas? (optional)",
-    "reportNotePlaceholder": "Eine kurze Notiz hilft uns beim Beheben.",
+    "reportNotePlaceholder": "Eine kurze Notiz hilft uns, es schneller zu beheben.",
     "reportCancel": "Abbrechen",
     "reportSubmit": "Melden",
     "reportSuccessTitle": "Meldung erhalten.",
@@ -286,25 +286,25 @@
   "exerciseRunner": {
     "progress": "Schritt {current} von {total}",
     "pageSection": "Methoden",
-    "stepLabelPrepare": "Bevor Sie starten",
+    "stepLabelPrepare": "Bevor du startest",
     "stepLabelHowItWorks": "So geht's",
     "stepLabelWrite": "Schreiben",
     "stepLabelCompare": "Vergleichen",
-    "stepLabelDo": "Ihre Aufgabe",
+    "stepLabelDo": "Deine Aufgabe",
     "stepLabelWait": "Pause",
     "stepLabelSubmit": "Abgeben",
     "stepLabelReview": "Durchsehen",
     "stepLabelDecide": "Weiter",
-    "stepLabelYourWriting": "Ihr Text",
+    "stepLabelYourWriting": "Dein Text",
     "prevStep": "Vorheriger Schritt",
     "nextStep": "Nächster Schritt",
     "stop": "Übung beenden",
     "stopConfirmTitle": "Übung beenden?",
-    "stopConfirmBody": "Der Fortschritt in diesem Durchlauf geht verloren. Nichts wird in Ihrem Backlog gespeichert.",
+    "stopConfirmBody": "Was du in diesem Durchlauf gemacht hast, geht verloren. In deinem Wiederholungsplan wird nichts gespeichert.",
     "stopConfirm": "Beenden",
     "stopCancel": "Weitermachen",
     "timerRunning": "{seconds}s",
-    "timerExpired": "Die Zeit ist um — Sie entscheiden, wann Sie weitermachen.",
+    "timerExpired": "Die Zeit ist um — du entscheidest, wann du weitermachst.",
     "timerPause": "Pause",
     "timerResume": "Fortsetzen",
     "primaryPrepare": "Weiter",
@@ -313,34 +313,34 @@
     "primarySubmit": "Eingereicht",
     "primaryReview": "Durchgesehen",
     "primaryDecide": "Auswählen",
-    "submitNeedsInput": "Fügen Sie ein Foto oder Text hinzu, bevor Sie einreichen.",
+    "submitNeedsInput": "Füg ein Foto oder Text hinzu, bevor du abgibst.",
     "abandonedTitle": "Übung beendet",
     "abandonedBody": "Aus diesem Durchlauf wurde nichts gespeichert.",
     "completeTitle": "Übung abgeschlossen",
-    "completeBody": "Sie haben diese Übung beendet.",
+    "completeBody": "Du hast diese Übung beendet.",
     "decline": "Nicht jetzt — fertig",
-    "prepareChecklist": "Bevor Sie starten",
+    "prepareChecklist": "Bevor du startest",
     "prepareItemKeyboard": "Stift und Papier oder Tastatur",
     "prepareItemQuiet": "Ein paar ruhige Minuten",
-    "prepareItemTargetLang": "In Ihrer Zielsprache schreiben — nicht auf Englisch",
-    "introBuildASentence": "Sie bekommen ein Wort aus Ihrem Vokabular. Schreiben Sie genau einen Satz in der Sprache, die Sie lernen, und verwenden Sie das Wort natürlich — so, wie Sie es wirklich sagen würden.",
-    "introFreeProduction": "Schreiben Sie ein paar Minuten frei in Ihrer Zielsprache. Es gibt keinen Text zum Ablesen und keine einzige richtige Antwort — nur Übung, das zu sagen, was Sie meinen.",
-    "freeProductionPromptRecent": "Schreiben Sie über etwas, das Ihnen kürzlich passiert ist.",
-    "freeProductionPromptPlace": "Beschreiben Sie einen Ort, an dem Sie gerne Zeit verbringen.",
-    "freeProductionPromptFreeDay": "Was würden Sie tun, wenn Sie morgen völlig frei hätten?",
-    "freeProductionPromptPerson": "Schreiben Sie über eine Person, die Ihnen wichtig ist.",
-    "freeProductionPromptWeekend": "Beschreiben Sie Ihr ideales Wochenende.",
+    "prepareItemTargetLang": "In deiner Zielsprache schreiben — nicht auf Deutsch",
+    "introBuildASentence": "Du bekommst ein Wort aus deinem Wortschatz. Schreib damit genau einen Satz in deiner Zielsprache — so, wie du ihn wirklich sagen würdest.",
+    "introFreeProduction": "Schreib ein paar Minuten frei in deiner Zielsprache. Es gibt nichts zum Abschreiben und keine einzig richtige Antwort — nur Übung darin, zu sagen, was du meinst.",
+    "freeProductionPromptRecent": "Schreib über etwas, das dir kürzlich passiert ist.",
+    "freeProductionPromptPlace": "Beschreib einen Ort, an dem du gerne Zeit verbringst.",
+    "freeProductionPromptFreeDay": "Was würdest du tun, wenn du morgen ganz frei hättest?",
+    "freeProductionPromptPerson": "Schreib über eine Person, die dir wichtig ist.",
+    "freeProductionPromptWeekend": "Beschreib dein ideales Wochenende.",
     "submitPhoto": "Foto",
     "submitText": "Text",
-    "submitTextPlaceholder": "Eingefügten oder getippten Text hier einfügen…",
+    "submitTextPlaceholder": "Text hier einfügen oder tippen…",
     "reviewAnswerKey": "Lösung",
-    "reviewMarkErrors": "Tippen Sie auf Wörter, die falsch waren",
-    "feedbackPlaceholder": "Automatische Korrektur ist noch nicht verfügbar — vergleichen Sie mit der Lösung und markieren Sie eigene Fehler.",
-    "typeOnlyHint": "Tippen Sie die Lücken — Hören ist vorübergehend pausiert.",
+    "reviewMarkErrors": "Tipp die Wörter an, die falsch waren",
+    "feedbackPlaceholder": "Automatisch korrigieren können wir noch nicht. Vergleich mit der Lösung und markier deine Fehler selbst.",
+    "typeOnlyHint": "Tipp die Lücken — Hören ist gerade pausiert.",
     "playAudio": "Audio abspielen",
     "gapPlaceholder": "…",
     "gapInputLabel": "Lücke {word}",
-    "unknownComponent": "Dieser Schritttyp ({component}) ist noch nicht umgesetzt.",
+    "unknownComponent": "Diesen Schritt ({component}) gibt es noch nicht.",
     "fullDictationProgress": "Satz {current} von {total}",
     "fullDictationProtocol": "Hör {reads}-mal zu, dann schreib den ganzen Satz auf dein Blatt.",
     "fullDictationWriteOnPaper": "Hier nicht tippen — auf deinem Arbeitsblatt schreiben.",
@@ -355,8 +355,8 @@
     "materialPreviewCoverage": "Etwa {percent} % der Wörter kennst du schon.",
     "comprehensionEmpty": "Für diesen Text gibt es noch keine Kontrollfragen.",
     "comprehensionCorrect": "Das passt zum Text.",
-    "comprehensionIncorrect": "Lies noch einmal — eine andere Antwort passt besser.",
-    "speakPromptDefault": "Sag es laut, in Sprechtempo.",
+    "comprehensionIncorrect": "Lies noch mal — eine andere Antwort passt besser.",
+    "speakPromptDefault": "Sag es laut, in normalem Sprechtempo.",
     "typeWithWordPrompt": "Schreib einen Satz mit «{word}».",
     "typeWithWordGloss": "Bedeutung: {gloss}",
     "typeWithWordFieldLabel": "Dein Satz",
@@ -369,8 +369,8 @@
     "timedWriteHint": "Schreib weiter, bis die Zeit um ist, oder stoppe, wenn du fertig bist.",
     "feedbackYourWriting": "Dein Text",
     "feedbackNoText": "Kein Text eingereicht — geh zurück und füge deinen Text hinzu.",
-    "revealAnswerDefault": "Jeder grammatikalische Satz, der das Wort natürlich verwendet, zählt.",
-    "revealAnswerYourSentence": "Was Sie geschrieben haben",
+    "revealAnswerDefault": "Jeder richtige Satz zählt, in dem das Wort natürlich vorkommt.",
+    "revealAnswerYourSentence": "Was du geschrieben hast",
     "revealAnswerExemplarLabel": "Beispielsatz",
     "revealAnswerMeaning": "«{word}» bedeutet {gloss}.",
     "summaryDefault": "Durchlauf abgeschlossen."
@@ -379,41 +379,41 @@
     "sectionLabel": "Ton",
     "cantListenNow": "Jetzt nicht hören",
     "bannerTitle": "Hören pausiert",
-    "bannerBody": "Ton-Methoden sind ausgeblendet bis {time}.",
+    "bannerBody": "Methoden mit Ton sind ausgeblendet bis {time}.",
     "listenAgain": "Wieder hören"
   },
   "progress": {
-    "title": "Wo Sie stehen",
-    "intro": "Diese Seite zeigt, was tatsächlich über Ihre Sprache gemessen wurde — und sagt klar, wo noch nichts gemessen wurde. Ein Niveau, auf dem Sie nicht geprüft wurden, ist kein Niveau; Sie finden hier also noch keines.",
-    "skillsHeading": "Ihre vier Fertigkeiten",
-    "skillsCaption": "Jede Fertigkeit, ihr Messstatus und was sie messen würde",
+    "title": "Wo du stehst",
+    "intro": "Diese Seite zeigt, was wirklich gemessen wurde. Und sie sagt klar, wo noch nichts gemessen wurde. Ein Niveau, auf das du nie geprüft wurdest, ist kein Niveau — deshalb steht hier noch keins.",
+    "skillsHeading": "Deine vier Fertigkeiten",
+    "skillsCaption": "Jede Fertigkeit, was wir dazu wissen und was sie messbar machen würde",
     "skillColumns": {
       "skill": "Fertigkeit",
       "status": "Status",
-      "route": "Was sie messen würde"
+      "route": "Was sie messbar macht"
     },
     "overallHeading": "Gesamtniveau",
-    "overallWithheld": "Es gibt kein Gesamtniveau — eines zu erfinden wäre genau das Problem. Das Gesamtniveau ist das zweitniedrigste der zählenden Fertigkeiten, und heute zählt keine — es gibt also nichts, von dem man das Zweitniedrigste nehmen könnte.",
-    "signalsHeading": "Was tatsächlich erfasst ist",
-    "signalsIntro": "Dies sind die sieben Größen, aus denen das Niveaumodell aufgebaut ist. Ein Signal hat Wert und Status; nur eine Fertigkeit kann ein Niveau haben — Sie sehen deshalb neben keinem Signal Buchstabe und Zahl.",
-    "signalsCaption": "Die sieben Signale der ersten Ebene und ob für jedes etwas erfasst wurde",
+    "overallWithheld": "Es gibt noch kein Gesamtniveau. Wir nehmen dafür die zweitschwächste der Fertigkeiten, die zählen — und im Moment zählt keine. Eine Zahl zu erfinden wäre genau das, was wir nicht machen wollen.",
+    "signalsHeading": "Was wirklich erfasst ist",
+    "signalsIntro": "Aus diesen sieben Messwerten setzt sich dein Niveau später zusammen. Jeder hat einen Wert und einen Status. Ein Niveau hat immer nur eine Fertigkeit — deshalb steht neben keinem dieser Werte ein Buchstabe mit Zahl.",
+    "signalsCaption": "Die sieben Messwerte und ob dazu schon etwas erfasst ist",
     "signalColumns": {
-      "signal": "Signal",
+      "signal": "Messwert",
       "status": "Status",
       "value": "Wert"
     },
     "noData": "Noch nichts erfasst",
     "hasData": "Erfasst",
     "noValue": "—",
-    "stabilityValue": "{days} Tage, gemittelt über {taskCount, plural, one {# Karte} other {# Karten}}, die Sie wiederholt haben",
-    "vocabularyValue": "{held} von {poolSize} Starterwörtern stabil behalten — nicht auf die ganze Sprache hochgerechnet",
-    "formMasteryValue": "{held} von {poolSize} Starterformen stabil behalten — getrennt von der Wortschatzgröße",
-    "formMasteryPartialParadigmNote": "{count, plural, one {# gehaltenes Verb hat ein unvollständiges Paradigmata-Tableau — Formbeherrschung für dieses Lemma ist unsicher} other {# gehaltene Verben haben unvollständige Paradigmata-Tableaus — Formbeherrschung für diese Lemmata ist unsicher}}",
-    "emptyState": "Sie haben noch nichts wiederholt, deshalb hat nichts unten einen Wert. Das ist der ehrliche Ausgangszustand, kein Versagen.",
-    "startReview": "Wiederholungssitzung starten",
+    "stabilityValue": "{days} Tage im Schnitt, über {taskCount, plural, one {# Karte} other {# Karten}}, die du wiederholt hast",
+    "vocabularyValue": "{held} von {poolSize} Wörtern aus dem Startpaket sitzen sicher — nicht auf die ganze Sprache hochgerechnet",
+    "formMasteryValue": "{held} von {poolSize} Wortformen aus dem Startpaket sitzen sicher — getrennt vom Wortschatz gezählt",
+    "formMasteryPartialParadigmNote": "{count, plural, one {Von # gehaltenen Verb kennen wir noch nicht alle Formen — wie gut du seine Formen kannst, ist deshalb unsicher} other {Von # gehaltenen Verben kennen wir noch nicht alle Formen — wie gut du ihre Formen kannst, ist deshalb unsicher}}",
+    "emptyState": "Du hast noch nichts wiederholt, deshalb hat unten noch nichts einen Wert. So fängt es an — das ist kein Versagen.",
+    "startReview": "Wiederholung starten",
     "doseHeading": "Was ein Niveau kostet",
-    "doseIntro": "Die Stunden unten sind der Nenner, den niemand in dieser Kategorie veröffentlicht. Es sind geführte Lernstunden ab Null — die Summe bis zu diesem Niveau, nicht die Kosten des einzelnen Schritts.",
-    "doseCaption": "Kumulative geführte Stunden pro Niveau und was eine tägliche Gewohnheit erreicht",
+    "doseIntro": "Die Stunden unten sind die Zahl, die sonst niemand nennt: geführte Lernstunden, von null an gerechnet. Es ist die Summe bis zu diesem Niveau, nicht der einzelne Schritt.",
+    "doseCaption": "Geführte Stunden bis zu jedem Niveau, und was 15 Minuten am Tag davon schaffen",
     "doseColumns": {
       "level": "Niveau",
       "hours": "Geführte Stunden",
@@ -421,12 +421,12 @@
     },
     "doseHours": "{min}–{max} Stunden",
     "doseYears": "{minYears}–{maxYears} Jahre",
-    "doseHabit": "Fünfzehn Minuten täglich, jeden Tag ohne Auslassen, sind etwa {hours} Stunden im Jahr.",
-    "doseBorrowedUncalibrated": "Diese Zahlen sind entliehen und nicht kalibriert: {name}, englischsprachige institutionelle Schätzungen, hier für ein anderes Sprachenpaar verwendet. Als Größenordnung behandeln, nicht als Messung. Eine geführte Stunde ist angeleitete Zeit mit Rückmeldung; App-Minuten sind das nur teilweise — der Vergleich schmeichelt der App eher als umgekehrt.",
-    "doseBorrowedCalibrated": "Diese Zahlen stammen aus {name}, kalibriert für {calibratedFor}. Eine geführte Stunde ist angeleitete Zeit mit Rückmeldung; App-Minuten sind das nur teilweise.",
-    "doseNoNumerator": "Es gibt hier keine Zeile für die Stunden, die Sie geübt haben, weil die App sie nicht zählt. Sie erfasst, wie lange jede Karte dauerte — Zeit innerhalb von Wiederholungssitzungen und nichts anderes — und etwa ein Drittel bis die Hälfte der empfohlenen Übung passiert außerhalb der App. Eine Summe nur aus Kartenzeit wäre um einen unbekannten Betrag falsch; durch die Stunden oben zu teilen, würde den Fehler präzise wirken lassen.",
+    "doseHabit": "15 Minuten am Tag, ohne einen auszulassen, sind etwa {hours} Stunden im Jahr.",
+    "doseBorrowedUncalibrated": "Diese Zahlen sind geliehen und nicht auf deine Sprache abgestimmt: {name}, Schätzungen aus dem Englischunterricht. Nimm sie als grobe Hausnummer, nicht als Messwert. Eine geführte Stunde ist außerdem Unterricht mit Rückmeldung — Minuten in der App sind das nur zum Teil. Der Vergleich fällt also eher zu gut für die App aus.",
+    "doseBorrowedCalibrated": "Diese Zahlen kommen aus {name} und sind auf {calibratedFor} abgestimmt. Eine geführte Stunde ist Unterricht mit Rückmeldung — Minuten in der App sind das nur zum Teil.",
+    "doseNoNumerator": "Hier steht keine Zeile mit deinen eigenen Stunden, weil die App sie nicht zählt. Gemessen wird nur, wie lange du an jeder Karte warst — also die Zeit in Wiederholungen und sonst nichts. Ein Drittel bis die Hälfte von dem, was wir empfehlen, passiert aber außerhalb der App. Eine Summe nur aus Kartenzeit wäre um einen unbekannten Betrag falsch. Geteilt durch die Stunden oben würde dieser Fehler auch noch genau aussehen.",
     "gapHeading": "Was fehlt und warum",
-    "gapBody": "Eine sprachweite Wortschatzschätzung und jedes GER-Niveau, das sie speisen würde, sind nicht gebaut. Hochrechnung braucht einen frequenzsortierten Pool groß genug, um einen Grenzrang zu schätzen — das ausgelieferte Starterset hat zweitausend Wörter. Die Ankertabelle, die Wortschatz einem Niveau zuordnet, ist für dieses Sprachenpaar ebenfalls noch nicht kalibriert. Beides wird hier benannt statt geschätzt.",
+    "gapBody": "Eine Schätzung deines gesamten Wortschatzes gibt es noch nicht, und damit auch kein GER-Niveau daraus. Dafür bräuchten wir eine nach Häufigkeit sortierte Wortliste, die groß genug ist — das Startpaket hat zweitausend Wörter. Auch die Tabelle, die Wortschatz einem Niveau zuordnet, ist für dieses Sprachenpaar noch nicht abgestimmt. Wir nennen das lieber, als es zu schätzen.",
     "skillNames": {
       "reading": "Lesen",
       "listening": "Hören",
@@ -435,49 +435,49 @@
     },
     "statusNames": {
       "measured": "Gemessen",
-      "uncertain": "Unsicher — noch wenig Daten",
+      "uncertain": "Unsicher — noch zu wenig Daten",
       "not-measured": "Nicht gemessen",
-      "not-in-profile": "Nicht Teil Ihres Profils"
+      "not-in-profile": "Gehört nicht zu deinem Profil"
     },
     "signalNames": {
-      "vocabulary-size": "Geschätzte Wortschatzgröße",
-      "form-mastery": "Formbeherrschung",
-      "recall-stability": "Erinnerungsstabilität",
-      "lexical-coverage": "Lexikalische Abdeckung",
-      "response-time": "Reaktionszeit bei korrekter Erinnerung",
-      "success-by-difficulty": "Erfolg nach Aufgabenschwierigkeit",
-      "production-quality": "Produktionsqualität"
+      "vocabulary-size": "Geschätzter Wortschatz",
+      "form-mastery": "Wortformen, die du kannst",
+      "recall-stability": "Wie lange Wörter sitzen",
+      "lexical-coverage": "Anteil bekannter Wörter im Text",
+      "response-time": "Wie schnell dir ein Wort einfällt",
+      "success-by-difficulty": "Treffer nach Schwierigkeit",
+      "production-quality": "Wie gut du sprichst und schreibst"
     },
     "routeToMeasuring": {
-      "reading": "Texte lesen, deren Wörter diese App kennt — noch keine ausgeliefert.",
-      "listening": "Noch nichts. Kein Signal im Niveaumodell ist dem Hören zugeordnet — eine Lücke im Modell, nicht in Ihrer Übung.",
-      "speaking": "Sprechen, das die App aufzeichnet und bewertet — nicht gebaut.",
-      "writing": "Freies Schreiben oder Diktat, das die App bewerten kann — nicht gebaut."
+      "reading": "Texte lesen, deren Wörter die App kennt — solche gibt es noch nicht.",
+      "listening": "Noch nichts. Zum Hören gehört bisher kein Messwert. Das ist eine Lücke bei uns, nicht bei dir.",
+      "speaking": "Sprechen, das die App aufnimmt und bewertet — noch nicht gebaut.",
+      "writing": "Frei schreiben oder ein Diktat, das die App bewerten kann — noch nicht gebaut."
     }
   },
   "methodMenu": {
-    "title": "Übungsweisen",
+    "title": "So kannst du üben",
     "drillInShellTitle": "Methoden",
-    "intro": "Über sechzig Wege, wie Menschen tatsächlich Sprachen lernen. Drei Fragen grenzen die Liste ein — wie viel Zeit Sie haben, was Sie trainieren wollen und wie viel Energie Sie haben. Nur verfeinern, wenn nötig.",
-    "timeLabel": "Wie viel Zeit haben Sie?",
-    "timeScaleHint": "Kurze Schritte am Anfang — nach rechts ziehen für länger, bis zu einem Tag oder endlos",
-    "skillLabel": "Was möchten Sie trainieren?",
-    "anySkill": "Beliebige Fertigkeit",
+    "intro": "Über sechzig Wege, wie Menschen wirklich Sprachen lernen. Drei Fragen grenzen die Liste ein: Wie viel Zeit hast du? Was willst du üben? Wie viel Energie ist da? Weiter eingrenzen nur, wenn du magst.",
+    "timeLabel": "Wie viel Zeit hast du?",
+    "timeScaleHint": "Am Anfang kleine Schritte — nach rechts ziehen für länger, bis zu einem ganzen Tag",
+    "skillLabel": "Was willst du üben?",
+    "anySkill": "Egal was",
     "skillsHeading": "Fertigkeiten",
-    "energyLabel": "Wie viel Energie haben Sie?",
-    "anyEnergy": "Beliebige Energie",
+    "energyLabel": "Wie viel Energie hast du?",
+    "anyEnergy": "Egal wie viel",
     "refineLabel": "Weiter eingrenzen",
-    "refineHint": "Nur wenn die Liste noch zu breit wirkt — Hände, Stimme oder ob Sie die Augen brauchen.",
+    "refineHint": "Nur wenn die Liste noch zu lang ist — Hände, Stimme, oder ob du die Augen brauchst.",
     "refineAny": "Egal",
     "refineDimension": {
       "hands": "Hände",
       "voice": "Stimme",
       "eyes": "Augen"
     },
-    "nothingFits": "Nichts im Katalog passt zu diesen Filtern. Versuchen Sie mehr Zeit, eine andere Fertigkeit oder weniger Verfeinerungen.",
+    "nothingFits": "Dazu passt gerade nichts. Nimm mehr Zeit, eine andere Fertigkeit oder weniger Einschränkungen.",
     "dailyHeading": "Drei für heute",
-    "dailyIntro": "Echte Wahl ohne Entscheidungslast — eine leichte Option, eine gut belegte und eine zur Abwechslung. Die vollständige Liste steht weiter unten.",
-    "catalogueUnavailable": "Der Methodenkatalog konnte nicht gelesen werden — unten wird Ihnen nichts vorenthalten, es gibt nichts anzuzeigen. Was schiefging:",
+    "dailyIntro": "Drei echte Möglichkeiten, ohne langes Überlegen: eine leichte, eine gut belegte und eine zur Abwechslung. Die ganze Liste steht darunter.",
+    "catalogueUnavailable": "Wir konnten den Methodenkatalog nicht laden. Unten wird dir nichts vorenthalten — es gibt gerade nichts anzuzeigen. Was schiefging:",
     "card": {
       "trains": "Trainiert",
       "needs": "Braucht",
@@ -485,7 +485,7 @@
       "duration": "Dauert",
       "openEnded": "Ohne festes Ende",
       "intensity": "Anstrengung",
-      "doesNotDo": "Was sie nicht leistet",
+      "doesNotDo": "Was sie nicht bringt",
       "properties": "Methodeneigenschaften",
       "badges": "Methoden-Badges",
       "effort": "Anstrengung",
@@ -506,8 +506,8 @@
       "secondary": "sekundär",
       "slight": "gering"
     },
-    "hosted": "Die App führt das aus",
-    "notHosted": "Sie machen das selbst — die App führt es nicht aus",
+    "hosted": "Das läuft in der App",
+    "notHosted": "Das machst du selbst — die App führt es nicht aus",
     "hostedShort": "App führt aus",
     "notHostedShort": "Außerhalb der App",
     "detail": {
@@ -517,27 +517,27 @@
       "researchConfidence": "Wie sicher ist die Forschung?"
     },
     "startSession": "Starten",
-    "sessionNotBuilt": "Die App wird diese Methode hier ausführen, sobald ihre Sitzung gebaut ist. Lesen Sie vorerst, was sie tut, und probieren Sie sie außerhalb der App, wenn möglich.",
+    "sessionNotBuilt": "Sobald diese Methode in der App läuft, startest du sie hier. Bis dahin: Lies, was sie bringt, und probier sie außerhalb der App.",
     "sessionContract": {
       "line": "~{minutes} Min. · {volume} · {feedback}"
     },
     "sessionVolumeSentences": "{count, plural, one {# Satz} other {# Sätze}}",
     "sessionVolumeWords": "{count, plural, one {# Wort} other {# Wörter}}",
     "sessionVolumeCards": "{count, plural, one {# Karte} other {# Karten}}",
-    "sessionVolumeWriting": "freies Schreiben mit Zeitlimit",
+    "sessionVolumeWriting": "frei schreiben, mit Zeitlimit",
     "sessionVolumeUnits": "{count, plural, one {# Einheit} other {# Einheiten}}",
-    "sessionFeedbackSelfMark": "mit Musterlösung vergleichen",
+    "sessionFeedbackSelfMark": "mit der Lösung vergleichen",
     "sessionFeedbackExemplar": "mit Beispielen vergleichen",
     "sessionFeedbackAssisted": "mit Unterstützung korrigieren",
-    "sessionFeedbackRubric": "mit Rubrik bewertet",
-    "sessionFeedbackHonestNone": "ohne Muster — ehrlich vergleichen",
+    "sessionFeedbackRubric": "nach festen Kriterien bewertet",
+    "sessionFeedbackHonestNone": "ohne Lösung — du schätzt selbst ein",
     "backToMethods": "Zurück zu Methoden",
-    "methodNotFound": "Keine Methode mit diesem Namen im Katalog.",
-    "standingLabel": "Aktueller Stand",
-    "standingEmpty": "Noch nichts erfasst — Ihr Stand erscheint hier, sobald Sie einige Karten wiederholt haben.",
+    "methodNotFound": "Eine Methode mit diesem Namen gibt es im Katalog nicht.",
+    "standingLabel": "Wo du gerade stehst",
+    "standingEmpty": "Noch nichts erfasst — dein Stand steht hier, sobald du ein paar Karten wiederholt hast.",
     "standingStartReview": "Wiederholungssitzung starten",
-    "standingRecorded": "{held} von {poolSize} Starterwörtern stabil behalten. Noch keine Fertigkeitsniveaus — Bedeutungserinnerung misst nicht Lesen, Hören, Sprechen oder Schreiben.",
-    "standingSeeProgress": "Vollständigen Fortschrittsbericht ansehen",
+    "standingRecorded": "{held} von {poolSize} Wörtern aus dem Startpaket sitzen sicher. Noch keine Niveaus je Fertigkeit — Bedeutungen abrufen misst weder Lesen noch Hören, Sprechen oder Schreiben.",
+    "standingSeeProgress": "Ganzen Fortschritt ansehen",
     "minutes": "Min.",
     "or": "oder",
     "eitherOr": "oder",
@@ -549,35 +549,35 @@
       "form": "Grammatik und Form",
       "vocabulary": "Wortschatz",
       "world": "Draußen in der Welt",
-      "commitments": "Laufende Verpflichtungen"
+      "commitments": "Sachen, die du länger durchziehst"
     },
     "evidence": {
-      "A": "Evidenz A — repliziert, Wirkung auch außerhalb des Labors gezeigt",
-      "B": "Evidenz B — gut gestützt, mit Grenzen",
-      "C": "Evidenz C — plausibel und verbreitet, aber dünn belegt",
-      "D": "Evidenz D — eine Produktentscheidung, kein Befund"
+      "A": "Gut belegt (Stufe A) — mehrfach bestätigt, auch außerhalb des Labors",
+      "B": "Solide belegt (Stufe B) — gut gestützt, aber mit Grenzen",
+      "C": "Dünn belegt (Stufe C) — plausibel und verbreitet, aber wenig untersucht",
+      "D": "Nicht erforscht (Stufe D) — unsere Entscheidung, kein Forschungsergebnis"
     },
     "evidenceCard": {
-      "A": "Starke Evidenz",
-      "B": "Solide Evidenz",
-      "C": "Dünne Evidenz",
+      "A": "Gut belegt",
+      "B": "Solide belegt",
+      "C": "Dünn belegt",
       "D": "Nicht erforscht"
     },
     "evidenceProse": {
-      "A": "Repliziert, Wirkung auch außerhalb des Labors gezeigt",
-      "B": "Gut gestützt, mit Grenzen",
-      "C": "Plausibel und verbreitet, aber dünn belegt",
-      "D": "Eine Produktentscheidung, kein Befund"
+      "A": "Mehrfach bestätigt, auch außerhalb des Labors",
+      "B": "Gut gestützt, aber mit Grenzen",
+      "C": "Plausibel und verbreitet, aber wenig untersucht",
+      "D": "Unsere Entscheidung, kein Forschungsergebnis"
     },
     "effortCard": {
-      "1": "Leichte Anstrengung",
+      "1": "Leicht",
       "2": "Braucht Konzentration",
-      "3": "Erschöpfend"
+      "3": "Anstrengend"
     },
     "intensity": {
-      "1": "geht auch müde oder abgelenkt",
-      "2": "braucht Aufmerksamkeit, aber keine Anstrengung",
-      "3": "danach sind Sie müde"
+      "1": "geht auch müde oder nebenbei",
+      "2": "braucht Aufmerksamkeit, aber keine Kraft",
+      "3": "danach bist du müde"
     },
     "dimensionValues": {
       "eyes": {
@@ -608,7 +608,7 @@
       "attention": {
         "full": "volle Aufmerksamkeit",
         "divided": "geteilte Aufmerksamkeit",
-        "fragmented": "fragmentierte Aufmerksamkeit"
+        "fragmented": "immer wieder unterbrochen"
       },
       "company": {
         "alone": "allein",
@@ -681,19 +681,19 @@
         "name": "Rückübersetzung mit Vergleich",
         "summary": "Heraus übersetzen, zurück übersetzen, mit dem Original vergleichen",
         "trains": "Struktur — und es macht Vermeidung sichtbar",
-        "doesNotDo": "Es bewertet Sie gegen eine Referenz. Eine andere, völlig gute Formulierung wirkt als Unterschied — und der Diff kann die beiden nicht trennen."
+        "doesNotDo": "Es bewertet dich gegen eine Referenz. Eine andere, völlig gute Formulierung wirkt als Unterschied — und der Vergleich kann die beiden nicht trennen."
       },
       "background-listening": {
         "name": "Passives Hören ohne Aufgabe",
-        "summary": "Einfach laufen lassen, während Sie etwas anderes tun",
+        "summary": "Einfach laufen lassen, während du etwas anderes tust",
         "trains": "sehr wenig",
         "doesNotDo": "Ehrlich gesagt: fast nichts. Es steht im Katalog, weil Lernende danach fragen — und die Antwort ist, dass unbeachteter Klang fast kein Lernen erzeugt."
       },
       "book-you-know": {
-        "name": "Ein Buch, das Sie in Ihrer Sprache schon kennen",
-        "summary": "Ein Buch, das Sie auswendig kennen, in der neuen Sprache",
+        "name": "Ein Buch, das du in deiner Sprache schon kennst",
+        "summary": "Ein Buch, das du auswendig kennst, in der neuen Sprache",
         "trains": "Verstehen ohne Wörterbuch",
-        "doesNotDo": "Es lässt Sie die Geschichte verstehen, ohne die Sätze zu verstehen. Vorkenntnis füllt die Lücken — das Verständnis übersteigt, was Sie tatsächlich gelesen haben."
+        "doesNotDo": "Es lässt dich die Geschichte verstehen, ohne die Sätze zu verstehen. Vorkenntnis füllt die Lücken — das Verständnis übersteigt, was du tatsächlich gelesen hast."
       },
       "build-a-sentence": {
         "name": "Einen Satz mit einem Zielwort bilden",
@@ -704,18 +704,18 @@
       "caption-your-photos": {
         "name": "Eigene Fotos beschriften",
         "summary": "Eine Zeile unter ein eigenes Foto schreiben",
-        "trains": "Wortschatz, zu dem Sie eine Verbindung haben",
-        "doesNotDo": "Es lässt sich nicht zielen. Was Ihre Fotos zufällig zeigen, bestimmt den Wortschatz — und das ist selten, was Sie am meisten brauchen."
+        "trains": "Wortschatz, zu dem du eine Verbindung hast",
+        "doesNotDo": "Es lässt sich nicht zielen. Was deine Fotos zufällig zeigen, bestimmt den Wortschatz — und das ist selten, was du am meisten brauchst."
       },
       "close-a-frequency-block": {
         "name": "Einen Frequenzblock bewusst abschließen",
         "summary": "Ein Band der Frequenzliste fertig durcharbeiten",
         "trains": "Abdeckung",
-        "doesNotDo": "Es optimiert die Zahl, nicht den Bedarf. Einen Block abzuschließen ist befriedigend — und kann eine Woche mit Wörtern verbringen, die Sie nie vermisst hätten."
+        "doesNotDo": "Es optimiert die Zahl, nicht den Bedarf. Einen Block abzuschließen ist befriedigend — und kann eine Woche mit Wörtern verbringen, die du nie vermisst hättest."
       },
       "cloze-sentences": {
         "name": "Lückentextsätze",
-        "summary": "Ein Wort aus einem Satz entfernt — setzen Sie es wieder ein",
+        "summary": "Ein Wort aus einem Satz entfernt — setz es wieder ein",
         "trains": "Form im Kontext",
         "doesNotDo": "Der Satz um die Lücke trägt viel mit. Ein Lückentext, den man nur aus dem Kontext lösen kann, misst den Kontext, nicht die Form."
       },
@@ -729,7 +729,7 @@
         "name": "Nach einem Rezept in der Sprache kochen",
         "summary": "Etwas kochen, dem Rezept in der Sprache folgend",
         "trains": "Verstehen mit Konsequenzen",
-        "doesNotDo": "Es lehrt den Wortschatz einer Küche. Die Konsequenzen lassen Sie sorgfältig lesen — sie machen die Wörter nicht allgemein."
+        "doesNotDo": "Es lehrt den Wortschatz einer Küche. Die Konsequenzen lassen dich sorgfältig lesen — sie machen die Wörter nicht allgemein."
       },
       "copy-a-paragraph": {
         "name": "Einen guten Absatz abschreiben",
@@ -739,33 +739,33 @@
       },
       "describe-a-picture": {
         "name": "Ein Bild beschreiben",
-        "summary": "Alles sagen, was Sie auf einem Foto sehen",
+        "summary": "Alles sagen, was du auf einem Foto siehst",
         "trains": "offenen Wortschatz",
         "doesNotDo": "Es bleibt im Präsens und in der dritten Person. Bilder verlangen selten, zu erzählen, zu vermuten oder zu argumentieren."
       },
       "diary-three-sentences": {
         "name": "Tagebuch, drei Sätze",
-        "summary": "Drei Sätze über Ihren Tag",
+        "summary": "Drei Sätze über deinen Tag",
         "trains": "echte kommunikative Absicht",
-        "doesNotDo": "Es kreist um dasselbe Leben. Ihre Tage wiederholen sich — der Wortschatz, den es verlangt, wird über Monate enger statt breiter."
+        "doesNotDo": "Es kreist um dasselbe Leben. Deine Tage wiederholen sich — der Wortschatz, den es verlangt, wird über Monate enger statt breiter."
       },
       "dictogloss": {
         "name": "Dictogloss — rekonstruieren statt abschreiben",
         "summary": "Zweimal zuhören, dann den Text aus dem Gedächtnis nachbauen",
         "trains": "Hören und Grammatik zusammen",
-        "doesNotDo": "Es prüft nicht, ob Sie die Wörter gehört haben. Eine gute Rekonstruktion kann aus dem Kern plus Grammatik entstehen — genau das ist der Punkt und die Grenze."
+        "doesNotDo": "Es prüft nicht, ob du die Wörter gehört hast. Eine gute Rekonstruktion kann aus dem Kern plus Grammatik entstehen — genau das ist der Punkt und die Grenze."
       },
       "extensive-reading": {
         "name": "Extensives Lesen bei ausreichender Abdeckung",
-        "summary": "Etwas lesen, das Sie größtenteils verstehen, ohne anzuhalten",
+        "summary": "Etwas lesen, das du größtenteils verstehst, ohne anzuhalten",
         "trains": "Lesen, Wortschatz nebenbei",
         "doesNotDo": "Es verankert kein Wort im Gedächtnis. Wörter beim Lesen trifft man einmal; ohne den Plan, sie aufzugreifen, sind sie in einer Woche weg."
       },
       "film-you-know-by-heart": {
-        "name": "Einen Film schauen, den Sie auswendig kennen",
-        "summary": "Ein Film, dessen jede Zeile Sie kennen, in der Sprache",
+        "name": "Einen Film schauen, den du auswendig kennst",
+        "summary": "Ein Film, dessen Zeilen du alle kennst, in der Sprache",
         "trains": "Hören mit Sicherheitsnetz",
-        "doesNotDo": "Sie wissen schon, was gesagt wird. Das Gedächtnis leistet das Verstehen — genau das macht es angenehm und genau das begrenzt es."
+        "doesNotDo": "Du weißt schon, was gesagt wird. Das Gedächtnis leistet das Verstehen — genau das macht es angenehm und genau das begrenzt es."
       },
       "four-three-two": {
         "name": "4/3/2",
@@ -776,8 +776,8 @@
       "free-production": {
         "name": "Freie Produktion",
         "summary": "Frei zu einem Stichwort schreiben, ohne etwas zum Abschreiben",
-        "trains": "ungeforderte Produktion und das, was Sie meiden",
-        "doesNotDo": "Es kann Sie nicht zwingen, das zu nutzen, was Sie umgehen. Vermeidung ist das, was es sichtbar macht — nicht das, was es repariert."
+        "trains": "ungeforderte Produktion und das, was du meidest",
+        "doesNotDo": "Es kann dich nicht zwingen, das zu nutzen, was du umgehst. Vermeidung ist das, was es sichtbar macht — nicht das, was es repariert."
       },
       "full-dictation": {
         "name": "Vollständiges Diktat auf Papier",
@@ -787,13 +787,13 @@
       },
       "handwriting-shakiest": {
         "name": "Handschriftblatt der zwanzig wackeligsten Karten",
-        "summary": "Die zwanzig Karten aufschreiben, bei denen Sie immer scheitern",
+        "summary": "Die zwanzig Karten aufschreiben, bei denen du immer scheiterst",
         "trains": "Kodierung",
         "doesNotDo": "Es ist langsam und läuft außerhalb der App — das Ergebnis muss wieder eingetippt werden, sonst entsteht gar kein Signal."
       },
       "hobby-in-target-language": {
         "name": "Ein Hobby in der Zielsprache betreiben",
-        "summary": "Eine Sache, die Sie lieben, in der Sprache",
+        "summary": "Eine Sache, die du liebst, in der Sprache",
         "trains": "alles, freiwillig",
         "doesNotDo": "Es baut eine Domäne tief auf. Wer über Kletterausrüstung fließend reden kann, kann trotzdem seinen Tag nicht beschreiben."
       },
@@ -811,26 +811,26 @@
       },
       "label-the-flat": {
         "name": "Die Wohnung beschriften",
-        "summary": "Namen an den Dingen, an denen Sie jeden Tag vorbeigehen",
+        "summary": "Namen an den Dingen, an denen du jeden Tag vorbeigehst",
         "trains": "Alltagswortschatz",
-        "doesNotDo": "Etiketten lehren Substantive isoliert — und genau das machen Karten schon gut. Nach einer Woche sehen Sie sie nicht mehr."
+        "doesNotDo": "Etiketten lehren Substantive isoliert — und genau das machen Karten schon gut. Nach einer Woche siehst du sie nicht mehr."
       },
       "listening-faster": {
         "name": "Schneller hören (1,25×)",
-        "summary": "Etwas, das Sie schon verstehen, ein Viertel schneller",
+        "summary": "Etwas, das du schon verstehst, ein Viertel schneller",
         "trains": "Verarbeitungsgeschwindigkeit",
-        "doesNotDo": "Es fügt keinen Wortschatz hinzu. Schnelleres Material, das Sie schon verstehen, übt das Verarbeiten, das Sie haben — nicht die Wörter, die Ihnen fehlen."
+        "doesNotDo": "Es fügt keinen Wortschatz hinzu. Schnelleres Material, das du schon verstehst, übt das Verarbeiten, das du hast — nicht die Wörter, die dir fehlen."
       },
       "listening-level-1": {
         "name": "Hören auf Niveau 1, ohne Transkript",
         "summary": "Einmal zuhören, ohne Text als Stütze",
         "trains": "Hören",
-        "doesNotDo": "Es gibt keine Teilpunkte. Ohne Transkript sehen Sie nicht, welches Wort Sie verpasst haben — nur, dass Sie etwas verpasst haben."
+        "doesNotDo": "Es gibt keine Teilpunkte. Ohne Transkript siehst du nicht, welches Wort du verpasst hast — nur, dass du etwas verpasst hast."
       },
       "mine-your-own-sentences": {
         "name": "Sätze aus eigenem Material schürfen",
         "summary": "Sätze aus dem eigenen Lesestoff in Karten verwandeln",
-        "trains": "Wörter, die Sie nachweislich gebraucht haben",
+        "trains": "Wörter, die du nachweislich gebraucht hast",
         "doesNotDo": "Es ignoriert Frequenz. Wörter, denen man zufällig begegnet, sind nicht die, die am meisten Text erschließen — und allein Schürfen lässt häufige Wörter jahrelang ungelernt."
       },
       "minimal-pairs": {
@@ -843,7 +843,7 @@
         "name": "Enges Hören — eine Serie, eine Stimme",
         "summary": "Eine Serie, eine Stimme, bis die Stimme leicht wird",
         "trains": "Hören",
-        "doesNotDo": "Es stimmt Sie auf eine Stimme ein. Sich an Sprechtempo und Akzent einer Person zu gewöhnen überträgt sich auf andere Sprecher viel weniger, als es sich anfühlt."
+        "doesNotDo": "Es stimmt dich auf eine Stimme ein. Sich an Sprechtempo und Akzent einer Person zu gewöhnen überträgt sich auf andere Sprecher viel weniger, als es sich anfühlt."
       },
       "narrow-reading": {
         "name": "Enges Lesen",
@@ -853,7 +853,7 @@
       },
       "one-series-target-audio": {
         "name": "Eine Serie nur mit Zielsprachen-Ton",
-        "summary": "Eine Serie, die Sie nie in Ihrer Muttersprache schauen",
+        "summary": "Eine Serie, die du nie in deiner Muttersprache schaust",
         "trains": "Hören, indem die Wahl wegfällt",
         "doesNotDo": "Es setzt darauf, dass die Untertitel irgendwann ausgehen. Mit ihnen verbringt man die meisten Stunden mit Lesen."
       },
@@ -861,13 +861,13 @@
         "name": "Bestellen, fragen, reklamieren",
         "summary": "Einen echten Gang in der Sprache erledigen, laut",
         "trains": "das Echte",
-        "doesNotDo": "Es sind ein paar feste Gespräche. Sobald sie funktionieren, können Sie sie jahrelang wiederholen, ohne etwas hinzuzufügen."
+        "doesNotDo": "Es sind ein paar feste Gespräche. Sobald sie funktionieren, kannst du sie jahrelang wiederholen, ohne etwas hinzuzufügen."
       },
       "own-error-log": {
         "name": "Das eigene Fehlerprotokoll durcharbeiten",
-        "summary": "Die Fehler durcharbeiten, die Sie wirklich gemacht haben",
-        "trains": "Ihre eigenen Muster, nicht die des durchschnittlichen Lernenden",
-        "doesNotDo": "Es enthält nur Fehler, bei denen man Sie erwischt hat. Alles, was Sie vermeiden zu sagen, kommt nie ins Protokoll."
+        "summary": "Die Fehler durcharbeiten, die du wirklich gemacht hast",
+        "trains": "deine eigenen Muster, nicht die des durchschnittlichen Lernenden",
+        "doesNotDo": "Es enthält nur Fehler, bei denen man dich erwischt hat. Alles, was du zu sagen vermeidest, kommt nie ins Protokoll."
       },
       "paradigm-tables-mixed": {
         "name": "Paradigmentabellen, gemischt",
@@ -879,49 +879,49 @@
         "name": "Paralleler Text",
         "summary": "Dieselbe Passage in beiden Sprachen, nebeneinander",
         "trains": "Struktur, Idiom",
-        "doesNotDo": "Es nimmt den Abrufversuch weg. Mit der Übersetzung daneben zwingt nichts Sie, die Bedeutung herauszuarbeiten — und ungearbeitete Bedeutung bleibt nicht haften."
+        "doesNotDo": "Es nimmt den Abrufversuch weg. Mit der Übersetzung daneben zwingt dich nichts, die Bedeutung herauszuarbeiten — und ungearbeitete Bedeutung bleibt nicht haften."
       },
       "partial-dictation": {
         "name": "Teildiktat",
         "summary": "Einen Satz hören, die herausgenommenen Wörter einsetzen",
         "trains": "Lautform, auditiver Abruf",
-        "doesNotDo": "Es misst nur die Lücken. Die Wörter, die man Ihnen gibt, sagen nichts darüber aus, ob Sie sie gehört hätten."
+        "doesNotDo": "Es misst nur die Lücken. Die Wörter, die man dir gibt, sagen nichts darüber aus, ob du sie gehört hättest."
       },
       "reading-aloud": {
         "name": "Vorlesen",
         "summary": "Einen Text laut vorlesen, in Sprechtempo",
         "trains": "Aussprache, Fluss, Segmentierung",
-        "doesNotDo": "Es ist kein Sprechen. Jedes Wort ist für Sie gewählt — es trainiert Artikulation und Rhythmus, lässt den Abruf aber unberührt."
+        "doesNotDo": "Es ist kein Sprechen. Jedes Wort ist für dich gewählt — es trainiert Artikulation und Rhythmus, lässt den Abruf aber unberührt."
       },
       "reading-while-listening": {
         "name": "Lesen und Hören gleichzeitig",
         "summary": "Dem Text folgen, während eine Stimme ihn vorliest",
         "trains": "Hören, Segmentierung",
-        "doesNotDo": "Es testet kein Hören. Der Text trägt Sie — es kann nicht sagen, was Sie ohne ihn verstanden hätten."
+        "doesNotDo": "Es testet kein Hören. Der Text trägt dich — es kann nicht sagen, was du ohne ihn verstanden hättest."
       },
       "recite-memorised": {
         "name": "Ein auswendig gelerntes Gedicht oder Monolog vortragen",
-        "summary": "Ein Stück vorsagen, das Sie auswendig kennen",
+        "summary": "Ein Stück vorsagen, das du auswendig kennst",
         "trains": "Prosodie, Chunks",
-        "doesNotDo": "Es ist Abruf einer festen Zeichenkette. Nichts davon verallgemeinert sich auf einen Satz, den Sie nicht auswendig gelernt haben."
+        "doesNotDo": "Es ist Abruf einer festen Wortfolge. Nichts davon überträgt sich auf einen Satz, den du nicht auswendig gelernt hast."
       },
       "repeated-listening": {
         "name": "Wiederholtes Hören mit abnehmender Hilfe",
         "summary": "Derselbe Clip dreimal, mit weniger Hilfe bei jedem Durchgang",
         "trains": "Hören",
-        "doesNotDo": "Es baut kein Volumen auf, und beim dritten Mal erinnern Sie sich an die Passage, statt sie zu verarbeiten."
+        "doesNotDo": "Es baut kein Volumen auf, und beim dritten Mal erinnerst du dich an die Passage, statt sie zu verarbeiten."
       },
       "reread-something-hard": {
         "name": "Etwas Schwieriges erneut lesen",
-        "summary": "Etwas öffnen, das Sie vor Monaten überwältigt hat",
+        "summary": "Etwas öffnen, das dich vor Monaten überwältigt hat",
         "trains": "den Kompetenzmoment — zu merken, dass es leichter wurde",
         "doesNotDo": "Es lehrt fast nichts Neues. Sein ganzer Wert ist spürbare Fortschrittserfahrung — ein Motivationseffekt, kein Lerneffekt."
       },
       "retell-what-you-read": {
-        "name": "Nacherzählen, was Sie gerade gelesen haben",
+        "name": "Nacherzählen, was du gerade gelesen hast",
         "summary": "Den Text schließen und sagen, was drinstand",
         "trains": "Produktion und die Verbindung von Input zu Output",
-        "doesNotDo": "Es leiht sich den Wortschatz der Quelle. Was herauskommt, ist teils die Formulierung des Textes zurück — es überschätzt, was Sie unaufgefordert sagen können."
+        "doesNotDo": "Es leiht sich den Wortschatz der Quelle. Was herauskommt, ist teils die Formulierung des Textes zurück — es überschätzt, was du unaufgefordert sagen kannst."
       },
       "rewrite-in-your-own-words": {
         "name": "Einen Text mit eigenen Worten umschreiben",
@@ -933,7 +933,7 @@
         "name": "Rollenspiel oder Theater",
         "summary": "Eine Situation mit jemandem durchspielen",
         "trains": "Sprechen ohne die Angst",
-        "doesNotDo": "Es braucht andere Menschen — also kann es nicht die Methode sein, auf die Sie zurückgreifen. Eine Methode, die Gesellschaft braucht, ist konstruktionsbedingt die meiste Zeit nicht verfügbar."
+        "doesNotDo": "Es braucht andere Menschen — also kann es nicht die Methode sein, auf die du zurückgreifst. Eine Methode, die Gesellschaft braucht, ist die meiste Zeit schon von sich aus nicht verfügbar."
       },
       "rule-at-point-of-error": {
         "name": "Regelerklärung im Moment des Fehlers",
@@ -942,16 +942,16 @@
         "doesNotDo": "Eine Regel zu verstehen ist nicht, sie anwenden zu können. Es räumt Verwirrung weg; es erzeugt keine Automatik."
       },
       "self-talk": {
-        "name": "Selbstgespräch — beschreiben, was Sie sehen",
-        "summary": "Beschreiben, was vor Ihnen liegt, laut",
+        "name": "Selbstgespräch — beschreiben, was du siehst",
+        "summary": "Beschreiben, was vor dir liegt, laut",
         "trains": "Flüssigkeit unter Zeitdruck",
-        "doesNotDo": "Niemand korrigiert Sie. Fehler, die man laut für sich wiederholt, werden genauso eingeübt wie richtige Formen."
+        "doesNotDo": "Niemand korrigiert dich. Fehler, die man laut für sich wiederholt, werden genauso eingeübt wie richtige Formen."
       },
       "sentence-transformation": {
         "name": "Satztransformation — Zeit, Verneinung, Person",
-        "summary": "Nehmen Sie einen Satz und ändern Sie Zeitform oder Person",
-        "trains": "Flexibilität mit Formen, die Sie schon kennen",
-        "doesNotDo": "Es liefert den Satz. Sie müssen nie entscheiden, was Sie sagen wollen — nur, wie Sie ihn biegen."
+        "summary": "Nimm einen Satz und ändere Zeitform oder Person",
+        "trains": "Flexibilität mit Formen, die du schon kennst",
+        "doesNotDo": "Es liefert den Satz. Du musst nie entscheiden, was du sagen willst — nur, wie du ihn biegst."
       },
       "shadowing": {
         "name": "Shadowing",
@@ -963,41 +963,41 @@
         "name": "Die Einkaufsliste in der Zielsprache durchdenken",
         "summary": "Alltägliche Listen im Kopf durch die Sprache jagen",
         "trains": "Abruf mitten im normalen Leben",
-        "doesNotDo": "Sie merken die Wörter, die Ihnen fehlen — und gehen weiter, ohne nachzuschlagen. Die Lücke wird gefunden, aber nicht geschlossen."
+        "doesNotDo": "Du merkst, welche Wörter dir fehlen — und gehst weiter, ohne nachzuschlagen. Die Lücke wird gefunden, aber nicht geschlossen."
       },
       "singing-along": {
         "name": "Mitsingen",
         "summary": "Mit der Aufnahme singen, Wörter vor sich",
         "trains": "Prosodie, Chunks",
-        "doesNotDo": "Der Songrhythmus überschreibt den Sprachrhythmus. Betonung und Vokallänge biegen sich der Melodie — die Prosodie, die Sie üben, ist nicht die, die Sie brauchen."
+        "doesNotDo": "Der Songrhythmus überschreibt den Sprachrhythmus. Betonung und Vokallänge biegen sich der Melodie — der Sprachklang, den du übst, ist nicht der, den du brauchst."
       },
       "srs-session": {
-        "name": "Wiederholungssitzung mit verteilten Abständen",
+        "name": "Wiederholen mit wachsenden Abständen",
         "summary": "Die Karten, die der Plan für heute fällig sagt",
         "trains": "Behalten",
-        "doesNotDo": "Es baut nichts auf, das Sie in einem Satz nutzen können. Karten machen Wörter isoliert abrufbar — und der Rest der App existiert, weil das nicht dasselbe ist wie sie zu kennen."
+        "doesNotDo": "Es baut nichts auf, das du in einem Satz nutzen kannst. Karten machen Wörter isoliert abrufbar — und der Rest der App existiert, weil das nicht dasselbe ist wie sie zu kennen."
       },
       "summarise-what-you-read": {
-        "name": "Zusammenfassen, was Sie gelesen haben",
+        "name": "Zusammenfassen, was du gelesen hast",
         "summary": "Sagen, was ein Text gesagt hat — kürzer, schriftlich",
         "trains": "die Verbindung von Input zu Output",
         "doesNotDo": "Es lässt Formulierungen übernehmen. Ohne bewusste Pause zwischen Lesen und Schreiben ist viel davon abgeschrieben statt produziert."
       },
       "switch-phone-language": {
         "name": "Handysprache umstellen",
-        "summary": "Ihr Handy spricht ab jetzt die Sprache",
+        "summary": "Dein Handy spricht ab jetzt die Sprache",
         "trains": "alltäglichen Wortschatz nebenbei",
-        "doesNotDo": "Es lehrt Oberflächenwörter, und dann ist Schluss. Innerhalb von zwei Wochen lesen Sie die Menüs gar nicht mehr, und es wird unsichtbar."
+        "doesNotDo": "Es lehrt Oberflächenwörter, und dann ist Schluss. Innerhalb von zwei Wochen liest du die Menüs gar nicht mehr, und es wird unsichtbar."
       },
       "tandem-or-language-cafe": {
         "name": "Tandem oder Sprachcafé",
-        "summary": "Mit jemandem sprechen, der auch Ihre Sprache lernt",
+        "summary": "Mit jemandem sprechen, der auch deine Sprache lernt",
         "trains": "echte Interaktion",
-        "doesNotDo": "Die Hälfte läuft in Ihrer Muttersprache — und ein geduldiger Partner passt sich an, bis keiner merkt, was Sie nicht sagen können."
+        "doesNotDo": "Die Hälfte läuft in deiner Muttersprache — und ein geduldiger Partner passt sich an, bis keiner merkt, was du nicht sagen kannst."
       },
       "translate-a-song": {
         "name": "Ein Lied übersetzen",
-        "summary": "Herausfinden, was ein Lied, das Sie mögen, wirklich sagt",
+        "summary": "Herausfinden, was ein Lied, das du magst, wirklich sagt",
         "trains": "Idiom",
         "doesNotDo": "Songtexte sind nicht repräsentativ. Umgekehrte Wortstellung und veralteter Wortschatz sind in Liedern normal und in der Sprache falsch."
       },
@@ -1005,13 +1005,13 @@
         "name": "Ein Videospiel in der Zielsprache",
         "summary": "Etwas spielen mit umgestellter Sprache",
         "trains": "Lesen unter Zeitdruck",
-        "doesNotDo": "Spiele sind spielbar ohne zu lesen. Sobald Sie die Oberfläche kennen, hören Sie auf, den Text zu verarbeiten — und die Übung endet leise, während das Spiel weitergeht."
+        "doesNotDo": "Spiele sind spielbar ohne zu lesen. Sobald du die Oberfläche kennst, hörst du auf, den Text zu verarbeiten — und die Übung endet leise, während das Spiel weitergeht."
       },
       "voice-message": {
         "name": "Eine Sprachnachricht an eine echte Person",
         "summary": "Eine gesprochene Nachricht an jemanden Reales schicken",
         "trains": "echte Kommunikation",
-        "doesNotDo": "Es lässt sich nicht um Ihre schwachen Formen herum planen. Sie sagen, was Sie sagen mussten — das ist der Wert und auch, warum es nichts Bestimmtes trainiert."
+        "doesNotDo": "Es lässt sich nicht um deine schwachen Formen herum planen. Du sagst, was du sagen musstest — das ist der Wert und auch, warum es nichts Bestimmtes trainiert."
       },
       "write-and-perform-a-play": {
         "name": "Ein Stück schreiben und aufführen",
@@ -1021,9 +1021,9 @@
       },
       "write-to-one-friend": {
         "name": "Mit einer Person nur in der Zielsprache schreiben",
-        "summary": "Eine Person, der Sie immer nur in der Sprache schreiben",
+        "summary": "Eine Person, der du immer nur in der Sprache schreibst",
         "trains": "Produktion mit einem echten Grund, verstanden zu werden",
-        "doesNotDo": "Niemand korrigiert Sie, und nichts wird aufgezeichnet. Es ist der größte Hebel im Katalog — und die App sieht kein bisschen davon."
+        "doesNotDo": "Niemand korrigiert dich, und nichts wird aufgezeichnet. Es ist der größte Hebel im Katalog — und die App sieht kein bisschen davon."
       }
     }
   },
@@ -1051,40 +1051,40 @@
     "coverageLine": "{percent} % bekannt · {band}",
     "demandingLine": "Noch anspruchsvoll — {words} Wörter bis angenehm",
     "appPickPreview": "Ein Abschnitt bei ~{percent} % für dich heute · {band}",
-    "emptyTopic": "Noch nichts in der Bibliothek zu diesem Thema — probier Eigenes",
+    "emptyTopic": "Zu diesem Thema ist noch nichts in der Bibliothek — probier „Eigenes“",
     "keepInLibrary": "In meiner Bibliothek behalten",
-    "keepRequiresSignIn": "Melde dich an, um Texte in deiner Bibliothek zu speichern",
+    "keepRequiresSignIn": "Meld dich an, um Texte in deiner Bibliothek zu speichern",
     "uploadFile": "Datei hochladen",
     "pasteText": "Text einfügen",
     "pastePlaceholder": "Text einfügen oder tippen, mit dem du üben willst",
     "linkUrl": "Link"
   },
   "languagePicker": {
-    "title": "Welche Sprache möchten Sie lernen?",
-    "intro": "Sie können später eine weitere hinzufügen. Hier sind Sie nicht gebunden.",
-    "notStarted": "{poolSize} Wörter im Starterset",
-    "held": "{held} von {poolSize} Starterwörtern stabil behalten",
-    "unavailable": "Noch nicht verfügbar — wir haben noch kein Wortset für {name}, hinter dem wir stehen",
-    "alreadyLearning": "Bereits in Lernliste",
+    "title": "Welche Sprache möchtest du lernen?",
+    "intro": "Du kannst später weitere dazunehmen. Du legst dich hier nicht fest.",
+    "notStarted": "{poolSize} Wörter im Startpaket",
+    "held": "{held} von {poolSize} Wörtern sitzen sicher",
+    "unavailable": "Noch nicht verfügbar — für {name} haben wir noch kein Wortset, hinter dem wir stehen",
+    "alreadyLearning": "Lernst du schon",
     "active": "Aktiv",
     "choose": "Mit dieser Sprache starten",
-    "footnote": "Diese Zahlen beziehen sich nur auf das Starterset. Nichts hier ist eine Aussage über die Sprache insgesamt.",
+    "footnote": "Diese Zahlen gelten nur für das Startpaket. Über die Sprache insgesamt sagen sie nichts.",
     "error": "Diese Sprache konnte nicht hinzugefügt werden."
   },
   "accountData": {
     "title": "Deine Daten",
-    "intro": "Laden Sie alles herunter, was die App über Ihr Lernen gespeichert hat, oder löschen Sie Ihr Konto und alle zugehörigen Daten.",
+    "intro": "Lade alles herunter, was die App über dein Lernen gespeichert hat. Oder lösch dein Konto samt allen Daten.",
     "exportHeading": "Herunterladen",
-    "exportCaption": "Klares JSON, das Sie ohne diese App lesen können. Das Wiederholungsprotokoll reicht, um Ihren Plan woanders neu aufzubauen.",
+    "exportCaption": "Übersichtliches JSON, das du auch ohne diese App lesen kannst. Mit dem Wiederholungsprotokoll baust du deinen Plan woanders wieder auf.",
     "scopeLabel": "Was einschließen",
     "scopeComplete": "Vollständiges Archiv",
     "scopeReviews": "Nur Wiederholungsprotokoll",
     "download": "JSON herunterladen",
     "deleteHeading": "Konto löschen",
-    "deleteCaption": "Entfernt dauerhaft Ihr Konto und jede von Ihnen erfasste Wiederholung. Das kann nicht rückgängig gemacht werden.",
+    "deleteCaption": "Löscht dein Konto und jede Wiederholung, die du erfasst hast, endgültig. Das lässt sich nicht rückgängig machen.",
     "deleteAction": "Konto löschen",
     "confirmTitle": "Konto löschen?",
-    "confirmBody": "Ihr Konto, Wiederholungsverlauf und alle Lerndaten werden dauerhaft gelöscht. Sie werden sofort abgemeldet.",
+    "confirmBody": "Dein Konto, dein Wiederholungsverlauf und alle Lerndaten werden endgültig gelöscht. Du wirst sofort abgemeldet.",
     "confirmAction": "Ja, alles löschen",
     "cancel": "Abbrechen",
     "exportFileName": "sprachenlernen-export.json"
@@ -1096,8 +1096,8 @@
     "signUp": {
       "heading": "Konto erstellen",
       "submit": "Konto erstellen",
-      "confirmationSent": "Prüfen Sie Ihre E-Mail auf den Bestätigungslink und melden Sie sich danach an.",
-      "switchPrompt": "Haben Sie bereits ein Konto?",
+      "confirmationSent": "Wir haben dir einen Bestätigungslink geschickt. Klick ihn an und meld dich danach hier an.",
+      "switchPrompt": "Hast du schon ein Konto?",
       "switchLinkLabel": "Anmelden"
     },
     "signIn": {
@@ -1112,42 +1112,42 @@
   },
   "privacy": {
     "bannerTitle": "Cookies und Speicher",
-    "bannerBody": "Wir verwenden notwendige Cookies, damit Sie angemeldet bleiben. Optionale Analysen bleiben aus, bis Sie zustimmen.",
+    "bannerBody": "Wir setzen nur die Cookies, die nötig sind, damit du angemeldet bleibst. Optionale Analyse bleibt aus, bis du zustimmst.",
     "bannerLink": "Datenschutzerklärung",
     "acceptAll": "Akzeptieren",
     "essentialOnly": "Nur notwendige",
     "title": "Datenschutz",
-    "intro": "Diese Seite wird die vollständige Datenschutzerklärung enthalten. Bis zur rechtlichen Prüfung: Das speichert die App heute tatsächlich.",
+    "intro": "Hier steht später die vollständige Datenschutzerklärung. Bis die rechtlich geprüft ist: Das speichert die App heute wirklich.",
     "stores": [
-      "Konto: E-Mail und Benutzer-ID (Supabase Auth), erforderlich zur Anmeldung.",
-      "Sitzungs-Cookie: hält Sie angemeldet.",
-      "Wiederholungsprotokoll (wenn gebaut): Ihre Bewertungen und Karten-IDs, nur anhängend, Ihrem Konto zugeordnet.",
-      "Cookie-Wahl: Ihre Entscheidung Akzeptieren/nur Notwendige nur in diesem Browser."
+      "Konto: E-Mail und Nutzer-ID (Supabase Auth), nötig für die Anmeldung.",
+      "Sitzungs-Cookie: hält dich angemeldet.",
+      "Wiederholungsprotokoll (sobald gebaut): deine Bewertungen und Karten-IDs, nur angehängt, deinem Konto zugeordnet.",
+      "Cookie-Wahl: deine Entscheidung „Akzeptieren“ oder „Nur notwendige“, nur in diesem Browser."
     ],
-    "contact": "Fragen: Nutzen Sie die Adresse im Impressum, sobald es veröffentlicht ist.",
-    "accountLink": "Angemeldet? Öffnen Sie Konto im App-Menü, um Ihre Daten herunterzuladen oder zu löschen."
+    "contact": "Fragen: Nutz die Adresse im Impressum, sobald es online ist.",
+    "accountLink": "Angemeldet? Öffne „Konto“ im App-Menü, um deine Daten herunterzuladen oder zu löschen."
   },
   "notFound": {
     "title": "Seite nicht gefunden",
-    "body": "Diese Adresse existiert nicht. Sie wurde vielleicht verschoben, oder der Link ist alt.",
+    "body": "Diese Adresse gibt es nicht. Vielleicht ist die Seite umgezogen, oder der Link ist alt.",
     "back": "Zurück zum Start"
   },
   "install": {
     "title": "Zum Home-Bildschirm hinzufügen",
-    "intro": "Auf dem iPhone funktioniert die Home-Screen-App nur korrekt, wenn Sie sie von der Hauptadresse der Website hinzufügen — nicht von Methoden, Wörter oder Fortschritt.",
-    "whyHeading": "Warum die Hauptadresse",
-    "whyBody": "Apple bindet die Home-Screen-App an die Seite, auf der Sie „Zum Home-Bildschirm“ getippt haben. Von der Startseite hinzugefügt funktionieren alle Bereiche ohne Safaris untere Symbolleiste. Von einer Unterseite bleibt nur dieser Bereich (und seine Unterseiten) sauber.",
-    "noButton": "Das iPhone erlaubt Websites keinen Installationsbutton. Sie nutzen Safaris Teilen-Menü → Zum Home-Bildschirm.",
+    "intro": "Auf dem iPhone funktioniert die App vom Home-Bildschirm nur richtig, wenn du sie von der Startseite aus hinzufügst — nicht von Methoden, Wörter oder Fortschritt.",
+    "whyHeading": "Warum die Startseite",
+    "whyBody": "Apple merkt sich die Seite, auf der du „Zum Home-Bildschirm“ getippt hast. Von der Startseite aus funktionieren alle Bereiche ohne die untere Safari-Leiste. Von einer Unterseite aus bleibt nur dieser eine Bereich sauber.",
+    "noButton": "Das iPhone erlaubt Websites keinen Installieren-Button. Du machst das über das Teilen-Menü in Safari → Zum Home-Bildschirm.",
     "stepsHeading": "Schritte (iPhone)",
     "steps": [
-      "Entfernen Sie ein vorhandenes Home-Screen-Symbol für diese App.",
-      "Öffnen Sie die Hauptwebsite in Safari (Schaltfläche unten — kein Lesezeichen zu Methoden oder Wörter).",
-      "Tippen Sie Teilen (Quadrat mit Pfeil) → Zum Home-Bildschirm → Hinzufügen.",
-      "Öffnen Sie die App nur über das neue Symbol. Melden Sie sich bei Aufforderung an."
+      "Lösch ein vorhandenes Symbol dieser App vom Home-Bildschirm.",
+      "Öffne die Startseite in Safari (Button unten — kein Lesezeichen zu Methoden oder Wörter).",
+      "Tipp auf Teilen (Quadrat mit Pfeil) → Zum Home-Bildschirm → Hinzufügen.",
+      "Öffne die App nur noch über das neue Symbol. Meld dich an, wenn sie fragt."
     ],
-    "openSite": "Hauptwebsite in Safari öffnen",
-    "openSiteAria": "Hauptwebsite öffnen, um diese App zum Home-Bildschirm hinzuzufügen",
-    "alreadySignedIn": "Wenn Sie hier im Browser angemeldet sind, können Sie trotzdem vom Home-Bildschirm hinzufügen — die Home-Screen-App fordert Sie erneut zur Anmeldung auf.",
+    "openSite": "Startseite in Safari öffnen",
+    "openSiteAria": "Startseite öffnen, um diese App zum Home-Bildschirm hinzuzufügen",
+    "alreadySignedIn": "Wenn du hier im Browser angemeldet bist, kannst du trotzdem zum Home-Bildschirm hinzufügen. Die App fragt dich dort noch einmal nach der Anmeldung.",
     "backToApp": "Zurück zur App"
   },
   "marketing": {
@@ -1160,32 +1160,32 @@
       "menu": "Menü"
     },
     "landing": {
-      "eyebrow": "Evidenzbasiertes Sprachenlernen",
+      "eyebrow": "Sprachenlernen mit belegten Methoden",
       "headline": "Du suchst aus, wie du übst — wir zeigen, ob du wirklich weiterkommst.",
-      "subhead": "Über sechzig gut belegte Übungswege. Du nimmst, was heute passt — wir zeigen, was es für dein Niveau tut.",
-      "timeHonesty": "Fünfzehn Minuten täglich, jeden Tag ohne Auslassen, sind etwa {hours} Stunden im Jahr — grob ein Viertel des Wegs zu B1 ab Null. Langsam zu wirken in diesem Tempo ist Arithmetik, kein Versagen.",
+      "subhead": "Über sechzig gut belegte Übungswege. Du nimmst, was heute passt — wir zeigen dir, was es dir bringt.",
+      "timeHonesty": "15 Minuten am Tag, ohne einen auszulassen, sind etwa {hours} Stunden im Jahr. Von null aus ist das ungefähr ein Viertel des Wegs bis B1. Wenn sich das langsam anfühlt: Das liegt an der Rechnung, nicht an dir.",
       "pillarsHeading": "Woran wir das messen",
       "pillars": [
         {
-          "text": "Fortschritt wird als gemessene Kompetenz gezeigt, nie als Aktivität."
+          "text": "Wir zeigen dir, was du wirklich kannst — nicht, wie fleißig du warst."
         },
         {
-          "text": "Der Planer ist eine sichtbare Oberfläche, keine Blackbox."
+          "text": "Du kannst jederzeit nachsehen, warum eine Karte heute dran ist."
         },
         {
-          "text": "Zwei gleichwertige Säulen: SRS und Lesen/Hören."
+          "text": "Karten wiederholen und viel lesen und hören: Beides zählt bei uns gleich viel."
         },
         {
-          "text": "Ein Niveaumodell mit Teilniveaus pro Fertigkeit plus einer ehrlichen Gesamtzahl."
+          "text": "Lesen, Hören, Sprechen und Schreiben zählen wir einzeln — dazu kommt eine ehrliche Gesamtzahl."
         }
       ],
       "primaryCta": "Konto erstellen",
       "secondaryCta": "Anmelden",
-      "languagesLink": "Was die App für jede Sprache behauptet",
+      "languagesLink": "Was wir für welche Sprache versprechen können",
       "methodPreview": {
         "heading": "Probier das Methodenmenü",
-        "intro": "Die gleichen drei Filter wie in der App — Zeit, Fertigkeit und Energie. Drei Methoden aus dem Katalog. Tippe eine an, um zu lesen, wie sie funktioniert.",
-        "previewNote": "Nur Vorschau — zum Üben brauchst du ein Konto.",
+        "intro": "Die gleichen drei Filter wie in der App: Zeit, was du üben willst, und Energie. Tipp eine Methode an, um zu lesen, wie sie funktioniert.",
+        "previewNote": "Nur eine Vorschau — zum Üben brauchst du ein Konto.",
         "methodsLabel": "Drei Methoden aus dem Katalog"
       }
     }
