@@ -5,7 +5,7 @@ import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/Button";
 import { Dialog } from "@/components/ui/Dialog";
 import type { ExerciseRunnerState } from "@/lib/exercise-runner";
-import { progressLabel } from "@/lib/exercise-runner";
+import { progressLabel, segmentBarClass } from "@/lib/exercise-runner";
 import { cn } from "@/lib/utils";
 
 type ExerciseRunnerChromeProps = {
@@ -50,17 +50,6 @@ function primaryLabelKey(stepType: ExerciseRunnerState["recipe"]["steps"][number
   }
 }
 
-function segmentBarClass(status: ExerciseRunnerState["stepStatuses"][number]): string {
-  switch (status) {
-    case "done":
-      return "bg-accent-soft dark:bg-accent/35";
-    case "seen":
-      return "bg-line-strong/45";
-    default:
-      return "bg-line";
-  }
-}
-
 export function ExerciseRunnerProgressBar({
   state,
   showStepLabel = true,
@@ -90,7 +79,11 @@ export function ExerciseRunnerProgressBar({
             key={step.id}
             className={cn(
               "min-w-0 flex-1 rounded-full transition-colors max-md:h-1 md:h-2",
-              segmentBarClass(state.stepStatuses[index] ?? "unseen"),
+              segmentBarClass(
+                index,
+                state.activeStepIndex,
+                state.stepStatuses[index] ?? "unseen",
+              ),
             )}
             aria-hidden
           />

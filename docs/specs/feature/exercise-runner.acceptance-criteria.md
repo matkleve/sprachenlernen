@@ -8,9 +8,16 @@ Split child of [`exercise-runner.md`](exercise-runner.md).
 - [ ] Given an active step, when the footer renders, then **Schritt n/m** (or
       locale equivalent) and segmented progress sit above ◀ ▶ and the primary
       CTA — not in the hero belt.
-- [ ] Given step 2 is **seen** and step 1 is **done**, when the footer progress
-      renders, then segment 1 uses light accent, segment 2 uses lighter gray,
-      and unseen segments use the default line token.
+- [ ] Given step 2 is **active** (seen, not done) and step 1 is **done**, when
+      the footer progress renders, then segment 1 uses light accent, segment 2
+      uses **primary** (`bg-accent`), and unseen segments use the default line
+      token.
+- [ ] Given step 1 is **done** and the learner navigates back to step 1, when
+      the footer renders, then segment 1 stays light accent (done wins over
+      active) — not primary.
+- [ ] Given step 3 is **seen** but not active and not **done**, when the footer
+      renders, then segment 3 uses lighter gray (`bg-line-strong/45`), distinct
+      from both primary and unseen.
 - [ ] Given step 2 is active, when the learner taps ▶ without **Fertig**, then
       step 3 is **seen**, step 2 is not **done**, and any running wait timer
       continues.

@@ -21,13 +21,22 @@ or `--height-practice-session` (desktop). Zones never reorder.
 └─────────────────────────────────────────────┘
 ```
 
-**Step segments** (one bar per recipe step, not a single fill line):
+**Step segments** (one bar per recipe step, not a single fill line). Visual
+colour is resolved from **`activeStepIndex` + `stepStatuses[i]`** — not from
+status alone (same pattern as review session's run status strip: current card =
+primary fill).
 
-| `stepStatuses[i]` | Segment colour |
-| --- | --- |
-| `unseen` | `bg-line` |
-| `seen` | lighter gray (`bg-line-strong/45`) — visited, not finished |
-| `done` | light accent (`bg-accent-soft`, `dark:bg-accent/35`) |
+| Visual | Condition | Token |
+| --- | --- | --- |
+| **active** | `i === activeStepIndex` **and** status ≠ `done` | `bg-accent` (primary) |
+| **done** | status = `done` (even when navigated back to that step) | `bg-accent-soft` (`dark:bg-accent/35`) |
+| **seen** | status = `seen`, not active, not done | `bg-line-strong/45` |
+| **unseen** | status = `unseen` | `bg-line` |
+| **skipped** | status = `skipped` (future v1 — no skip UI yet) | `bg-line` (same as unseen until skip ships) |
+
+**Resolution order:** `done` → then `active` → then `seen` / `unseen` / `skipped`.
+The current step must read as **primary** while it is still open; completed steps
+stay light accent when the learner moves on.
 
 **Invariant:** footer controls stay at the **same vertical position** across
 steps on one device. **Short-profile steps never show a body scrollbar** — content

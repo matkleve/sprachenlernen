@@ -41,7 +41,7 @@ export function PracticePrepList({ entries, className }: PracticePrepListProps) 
           <li key={entry.id}>
             <label
               className={cn(
-                "flex min-h-11 items-start gap-3 rounded-card px-3 py-2",
+                "flex min-h-11 items-start gap-3 rounded-card border-x border-line px-3 py-2",
                 "max-md:gap-2 max-md:px-2 max-md:py-1.5",
                 touchTarget,
                 interactiveCursor,

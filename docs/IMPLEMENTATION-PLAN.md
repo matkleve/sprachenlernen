@@ -410,6 +410,7 @@ Cooking-app runner for multi-step Methods (dictation, writing, listening drills)
 | **T-MU2** | Principled gap selection — replace alternating-word placeholder | **Shipped 2026-08-18** | T-MU1, UC-028 |
 | **T-LD1** | Listening defer — infra shipped; **menu UI removed** 2026-08-18; UI on mixed stacks — UC-077 | Standard | [`listening-defer.md`](specs/feature/listening-defer.md) |
 | **T-E12** | ~~**Practice-surface UX + anchored layout**~~ — **shipped 2026-08-18** | Standard | T-E1 | [`practice-surface.md`](specs/feature/practice-surface.md), [`exercise-runner.layout.md`](specs/feature/exercise-runner.layout.md) AC |
+| **T-E12b** | Footer segment **active = primary** + prep row horizontal inset (`border-x`) | Trivial | T-E12 | Spec AC in [`exercise-runner.acceptance-criteria.md`](specs/feature/exercise-runner.acceptance-criteria.md), [`practice-surface.acceptance-criteria.md`](specs/feature/practice-surface.acceptance-criteria.md) |
 
 **Not this runner:** `srs-session` and card-engine form practice (T-W6) stay on
 `/words/review`.

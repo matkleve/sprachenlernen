@@ -65,6 +65,10 @@ optimistic.
   step progress (**Schritt n/m** + one bar per step) sits in the footer above ◀
   ▶ and the primary CTA, which stay at the bottom across steps; only reading
   steps scroll inside the body (`scroll` / `paginated` profile).
+- **Footer segments:** one bar per recipe step; the **current** step reads as
+  **primary** while it is still open; completed steps are light accent; visited
+  but incomplete steps are gray; untouched steps are neutral line — same
+  resolution as [`exercise-runner.layout.md`](../specs/feature/exercise-runner.layout.md).
 - **Content profiles:** recipe authors declare whether a step is short, scrollable,
   or paginated — long text never pushes the footer down.
 
