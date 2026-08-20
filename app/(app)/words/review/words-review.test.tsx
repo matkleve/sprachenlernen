@@ -39,14 +39,14 @@ describe("WordsReviewPage", () => {
     expect(screen.getByTestId("review-session")).toBeDefined();
     expect(screen.getByText(en.reviewSession.srsSessionName)).toBeDefined();
     expect(screen.getByTestId("queue-ready").textContent).toBe("1");
-    expect(buildSessionAction).toHaveBeenCalledWith({ deck: "mixed", budgetMinutes: 2 });
+    expect(buildSessionAction).toHaveBeenCalledWith({ deck: "mixed" });
   });
 
-  it("passes menu minutes through to buildSessionAction", async () => {
+  it("ignores minutes param for srs-session", async () => {
     await WordsReviewPage({
       searchParams: Promise.resolve({ method: "srs-session", minutes: "15" }),
     });
-    expect(buildSessionAction).toHaveBeenCalledWith({ deck: "mixed", budgetMinutes: 15 });
+    expect(buildSessionAction).toHaveBeenCalledWith({ deck: "mixed" });
   });
 
   it("shows unknown-method copy when method is missing", async () => {

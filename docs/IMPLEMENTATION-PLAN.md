@@ -379,7 +379,7 @@ honest Spanish/Italian; offline unlocks commute practice.
 | **6e** | **T-B10g** — card destination marker | **Shipped 2026-08-18** — [`plans/method-card-destination.md`](plans/method-card-destination.md); **routing fix 2026-08-19** — exercise cards → overview before `/practice` |
 | **7** | **T-B10b remainder** — ~~demonstration sentence~~ **shipped 2026-08-16**; readiness ([`study/26`](study/26-readiness-and-difficulty.md)) | Methods front door complete |
 | **7b** | ~~**Exercise runner** (T-E0–E9, T-MU*, T-LD1, T-E12)~~ — **shipped 2026-08-18**; six hosted runners + practice-surface UX | UC-049 |
-| **7c** | **Method viability + session budget** (T-MV1–T-MV5 shipped; **T-MV7–T-MV8** filter-only + catalogue packages) — study/42, study/45, study/46 | Menu filter ≠ session size; variant chips; SRS fixed 15 cards |
+| **7c** | ~~**Method viability + session budget** (T-MV1–T-MV5 shipped; **T-MV7–T-MV8** filter-only + catalogue packages)~~ — **shipped 2026-08-20** | Menu filter ≠ session size; all variant chips on detail; SRS fixed 15 cards |
 | **7d** | **Content ingestion + adaptation** (T-CI1–T-CI6) — study/48; specs draft | Licence-cleared news at target level (UC-007, UC-030); paste URL (UC-029) |
 | **8** | **T-B4 numerator** — guided hours practised (thesis 9: not card time alone) | Progress per hour invested (study/03 V3) |
 
@@ -438,8 +438,8 @@ Cooking-app runner for multi-step Methods (dictation, writing, listening drills)
 | **T-MV4** | `reading-aloud` rubric or record-and-replay | Standard | T-MV1 | G2 pass |
 | **T-MV5** | ~~`lib/exercise-recipe/budget.ts` — budget-driven compose + catalogue validator~~ — **shipped 2026-08-20** | Standard | T-MV1 | G7 gate + allowlist |
 | **T-MV6** | ~~Pass `minutes` from menu through Start URLs~~ — **shipped 2026-08-20** | Standard | T-MV1 | **Superseded** by owner filter-only decision — see T-MV7 |
-| **T-MV7** | **Filter-only menu time** — decouple `?minutes=` from session compose; duration variant chips on detail (≤ 2); Start uses selected package only | Standard | T-MV3, T-MV5 | [`method-menu.md`](specs/page/method-menu.md) + UC-045 AC; no `minutes` on srs-session Start |
-| **T-MV8** | **Catalogue duration packages** — `srs-session` fixed 15 cards + single filter hint; collapse `durations[]` to ≤ 2 per method; reading uses **full** unit estimate for filter | Standard | T-MV7 | `data/methods/*.json` + tests green |
+| **T-MV7** | ~~**Filter-only menu time** — decouple `?minutes=` from session compose; duration variant chips on detail (≤ 2, **all packages shown**); Start uses selected package only~~ — **shipped 2026-08-20** (PR #164) | Standard | T-MV3, T-MV5 | [`method-session-budget.md`](specs/service/method-session-budget.md); menu filter = `min(durations)` only |
+| **T-MV8** | ~~**Catalogue duration packages** — `srs-session` fixed 15 cards + single filter hint; collapse `durations[]` to ≤ 2 per method; reading uses **full** unit estimate for filter~~ — **shipped 2026-08-20** (PR #164) | Standard | T-MV7 | `data/methods/*.json` + tests green |
 
 **Order:** T-MV5 before T-MV8 catalogue edits. T-MV7 before T-MV8.
 
@@ -871,6 +871,11 @@ study/48 and the ingestion/adaptation specs when implementing.
     then** Start. Menu filter uses that estimate; no surprise 40 vs 20 min
     after tap. See [`method-session-budget.md`](specs/service/method-session-budget.md)
     § Resolved material, [`method-material-setup.md`](specs/feature/method-material-setup.md).
+36. **Detail duration chips vs menu filter** — **Answered 2026-08-20 (owner,
+    corrected):** menu filter uses `min(durations) ≤ filter` for catalogue
+    visibility only; detail shows **all** packages when `durations.length > 1`;
+    default selection = **longest** package. Menu filter must **not** hide chips.
+    See [`method-session-budget.md`](specs/service/method-session-budget.md).
 
 **Added 2026-08-16**, from [study/34](study/34-review-report-and-acknowledgement-ux.md)
 (T-B14a/b/c). Resolve before implementing report popover or DB columns.

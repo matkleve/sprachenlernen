@@ -30,7 +30,7 @@ export type MethodMaterialSetupProps = {
   method: MethodEntry;
   context: MaterialSetupContext;
   canPersist?: boolean;
-  budgetMinutes?: number;
+  variantMinutes?: number;
   sessionContract?: SessionContract | null;
   className?: string;
   /** Test hook — bypasses the server action for own-text preview. */
@@ -44,7 +44,7 @@ export function MethodMaterialSetup({
   method,
   context,
   canPersist = false,
-  budgetMinutes,
+  variantMinutes,
   sessionContract = null,
   className,
   previewOwnForTest,
@@ -92,7 +92,11 @@ export function MethodMaterialSetup({
   const cataloguePreview =
     topicId === OWN_TOPIC_ID ? ownPreview ?? undefined : context.previews[topicId]?.[unitId];
 
-  const startEnabled = Boolean(cataloguePreview?.sourceId) && !isPending;
+  const omitVariantOnStart = unitId === "full";
+  const startEnabled =
+    Boolean(cataloguePreview?.sourceId) &&
+    Boolean(cataloguePreview?.timeLabel) &&
+    !isPending;
   const showOwnIntake = topicId === OWN_TOPIC_ID;
   const showCataloguePreview = topicId !== OWN_TOPIC_ID && Boolean(cataloguePreview);
   const showOwnPreview = topicId === OWN_TOPIC_ID && Boolean(ownPreview);
@@ -106,7 +110,7 @@ export function MethodMaterialSetup({
           topicId,
           unitId,
           durationSec: selectedUnit?.durationSec,
-          budgetMinutes,
+          variantMinutes: omitVariantOnStart ? undefined : variantMinutes,
         })
       : null;
 
@@ -120,7 +124,7 @@ export function MethodMaterialSetup({
         topicId,
         unitId,
         durationSec: selectedUnit?.durationSec,
-        budgetMinutes,
+        variantMinutes: omitVariantOnStart ? undefined : variantMinutes,
         ownText: topicId === OWN_TOPIC_ID ? ownText : undefined,
         keepInLibrary: topicId === OWN_TOPIC_ID ? keepInLibrary : false,
         catalogueSourceId: topicId === OWN_TOPIC_ID ? undefined : cataloguePreview.sourceId,
@@ -241,6 +245,7 @@ export function MethodMaterialSetup({
               cataloguePreview.coverage.coveragePercent,
               labels.comfortBand(cataloguePreview.coverage.comfortBand),
             )}
+            {cataloguePreview.timeLabel ? ` · ${cataloguePreview.timeLabel}` : ""}
           </p>
           {cataloguePreview.demandingCopy ? (
             <p className="mt-2 text-muted">{cataloguePreview.demandingCopy}</p>

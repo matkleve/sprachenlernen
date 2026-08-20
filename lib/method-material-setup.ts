@@ -20,6 +20,7 @@ import {
 import type { Lexicon } from "@/lib/lexicon";
 import type { RecipeVariantId } from "@/lib/exercise-recipe/types";
 import { variantIdForMaterialSetup } from "@/lib/exercise-recipe/variant";
+import { formatReadingTimeLabel } from "@/lib/reading-time";
 
 export const APP_PICK_TOPIC_ID = "app-pick";
 export const OWN_TOPIC_ID = "own";
@@ -199,7 +200,7 @@ export function buildMaterialPreview(
   });
   const coverage = computeCoverage(resolved.text, lexicon, heldLemmas);
   const wordsGap = wordsToComfortable(coverage);
-  const durationHint = method.durations?.[0];
+  const timeLabel = formatReadingTimeLabel(coverage.tokenCount);
 
   return {
     sourceId: source.id,
@@ -207,7 +208,7 @@ export function buildMaterialPreview(
     coverage,
     unitId,
     unitLabel: labels.unitLabel(unitId, unitDeclaration?.durationSec),
-    timeLabel: durationHint ? `~${durationHint} min` : "",
+    timeLabel,
     demandingCopy:
       coverage.comfortBand === "demanding" && wordsGap > 0
         ? labels.demandingLine(coverage.coveragePercent, wordsGap)
@@ -290,7 +291,7 @@ export type PracticeSetupParams = {
   topicId: MaterialTopicSelection;
   unitId: MaterialUnitId;
   durationSec?: number;
-  budgetMinutes?: number;
+  variantMinutes?: number;
   variantId?: RecipeVariantId;
 };
 
@@ -309,7 +310,7 @@ export function practiceHrefForSetup(params: PracticeSetupParams): string {
   if (variantId) {
     search.set("variantId", variantId);
   }
-  if (params.budgetMinutes !== undefined) search.set("minutes", String(params.budgetMinutes));
+  if (params.variantMinutes !== undefined) search.set("minutes", String(params.variantMinutes));
   return `/practice?${search.toString()}`;
 }
 
@@ -331,8 +332,4 @@ export function isCatalogueTopicSelection(
   selection: MaterialTopicSelection,
 ): selection is string {
   return selection !== APP_PICK_TOPIC_ID && selection !== OWN_TOPIC_ID;
-}
-
-export function comfortBandLabelKey(band: ComfortBand): "demanding" | "comfortable" | "speed" {
-  return band;
 }

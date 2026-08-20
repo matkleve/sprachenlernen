@@ -8,13 +8,13 @@ import {
   CARD_CHROME_OVERHEAD_SEC,
   SEC_PER_CARD,
   budgetProfileForMethod,
-  cardCountForBudgetMinutes,
   countLearningUnits,
   estimateWallClockSec,
+  fixedSrsCardCount,
 } from "@/lib/exercise-recipe/budget";
 import { checkSessionViability } from "@/lib/exercise-recipe/viability";
 import type { ExerciseRecipe } from "@/lib/exercise-runner/types";
-import { resolveSessionBudgetMinutes } from "@/lib/method-session-budget";
+import { resolveVariantMinutes } from "@/lib/method-session-budget";
 import { usesExerciseRunner, usesWordsReview } from "@/lib/method-session";
 
 export type SessionFeedbackMode =
@@ -92,28 +92,29 @@ function sessionLearningUnits(recipe: ExerciseRecipe, methodId: string): number 
 
 export async function resolveSessionContract(
   method: MethodEntry,
-  budgetMinutes?: number,
+  variantMinutes?: number,
 ): Promise<SessionContract | null> {
   if (!method.hosted) return null;
 
-  const resolved =
-    budgetMinutes ?? resolveSessionBudgetMinutes(method.durations, undefined);
-  if (resolved === undefined) return null;
-
   if (usesWordsReview(method)) {
-    const learningUnits = cardCountForBudgetMinutes(resolved);
+    const learningUnits = fixedSrsCardCount();
     const wallSec = CARD_CHROME_OVERHEAD_SEC + learningUnits * SEC_PER_CARD;
+    const wallEstimateMinutes = Math.max(1, Math.round(wallSec / 60));
     return {
       learningUnits,
       feedbackMode: "self-mark",
       feedbackLabelKey: FEEDBACK_LABEL_KEYS["self-mark"],
-      budgetMinutes: resolved,
-      wallEstimateMinutes: Math.max(1, Math.round(wallSec / 60)),
+      budgetMinutes: wallEstimateMinutes,
+      wallEstimateMinutes,
       volumeLabelKey: volumeLabelKeyForMethod(method.id),
     };
   }
 
   if (!usesExerciseRunner(method)) return null;
+
+  const resolved =
+    variantMinutes ?? resolveVariantMinutes(method.durations, { methodId: method.id });
+  if (resolved === undefined) return null;
 
   const recipe = await resolveExerciseRecipe(method.id, { budgetMinutes: resolved });
   if (!recipe) return null;

@@ -555,6 +555,8 @@
       "researchConfidence": "Wie sicher ist die Forschung?"
     },
     "startSession": "Starten",
+    "durationHeading": "Sitzungsdauer",
+    "durationChip": "{minutes} Min.",
     "sessionNotBuilt": "Die App wird diese Methode hier ausführen, sobald ihre Sitzung gebaut ist. Lesen Sie vorerst, was sie tut, und probieren Sie sie außerhalb der App, wenn möglich.",
     "sessionContract": {
       "line": "~{minutes} Min. · {volume} · {feedback}"

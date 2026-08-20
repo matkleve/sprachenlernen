@@ -10,7 +10,7 @@ import { loadLexiconForLanguage } from "@/lib/shipped-language";
 
 function readingUnitId(ctx: SessionContext): MaterialUnitId {
   if (ctx.unitId) return ctx.unitId;
-  return ctx.budgetMinutes !== undefined ? "window" : "full";
+  return "full";
 }
 
 export function composeExtensiveReadingRecipe(
@@ -19,7 +19,8 @@ export function composeExtensiveReadingRecipe(
 ): ExerciseRecipe {
   const lexicon = loadLexiconForLanguage(source.languageCode);
   const unitId = readingUnitId(ctx);
-  const readDurationSec = extensiveReadingDurationSec(ctx);
+  const readDurationSec =
+    unitId === "window" ? extensiveReadingDurationSec(ctx) : undefined;
   const unit = resolveMaterialUnit(source, unitId, {
     durationSec: readDurationSec ?? ctx.durationSec,
     lexicon: lexicon ?? undefined,

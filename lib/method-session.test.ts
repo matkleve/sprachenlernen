@@ -66,7 +66,7 @@ describe("usesExerciseRunner", () => {
 });
 
 describe("exerciseSessionHref", () => {
-  it("builds practice URL with optional sourceId and budgetMinutes", () => {
+  it("builds practice URL with optional sourceId and variantMinutes", () => {
     expect(exerciseSessionHref("partial-dictation")).toBe(
       `${routes.practice}?method=partial-dictation`,
     );
@@ -74,15 +74,15 @@ describe("exerciseSessionHref", () => {
       `${routes.practice}?method=partial-dictation&sourceId=src-1`,
     );
     expect(
-      exerciseSessionHref("partial-dictation", { sourceId: "src-1", budgetMinutes: 15 }),
+      exerciseSessionHref("partial-dictation", { sourceId: "src-1", variantMinutes: 15 }),
     ).toBe(`${routes.practice}?method=partial-dictation&sourceId=src-1&minutes=15`);
   });
 });
 
 describe("sessionHrefForMethod", () => {
-  it("adds minutes to words review for srs-session", () => {
-    const href = sessionHrefForMethod(method({ id: "srs-session" }), { budgetMinutes: 20 });
-    expect(href).toBe(`${routes.wordsReview}?method=srs-session&minutes=20`);
+  it("opens words review without minutes for srs-session", () => {
+    const href = sessionHrefForMethod(method({ id: "srs-session" }), { variantMinutes: 20 });
+    expect(href).toBe(`${routes.wordsReview}?method=srs-session`);
   });
 });
 
@@ -110,16 +110,16 @@ describe("isRunnableFromMenu", () => {
 });
 
 describe("cardHrefForMethod", () => {
-  it("links srs-session to Words review with default budget minutes", () => {
+  it("links srs-session to Words review without minutes", () => {
     expect(
-      cardHrefForMethod(method({ id: "srs-session", durations: [2, 10, 20] })),
-    ).toBe(`${routes.wordsReview}?method=srs-session&minutes=2`);
+      cardHrefForMethod(method({ id: "srs-session", durations: [10] })),
+    ).toBe(`${routes.wordsReview}?method=srs-session`);
   });
 
-  it("passes menu minutes through to srs-session start URL", () => {
+  it("ignores menu minutes on srs-session start URL", () => {
     expect(
-      cardHrefForMethod(method({ id: "srs-session", durations: [2, 10, 20] }), "?minutes=15"),
-    ).toBe(`${routes.wordsReview}?method=srs-session&minutes=15`);
+      cardHrefForMethod(method({ id: "srs-session", durations: [10] }), "?minutes=15"),
+    ).toBe(`${routes.wordsReview}?method=srs-session`);
   });
 
   it("links partial-dictation to method overview", () => {

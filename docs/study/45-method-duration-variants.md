@@ -173,8 +173,8 @@ remaining gap — **one block, multiple methods** — is a separate feature
 
 1. **One number, one meaning** on the session contract — the chip they tapped.
 2. **Menu slider label** — *"Show methods that fit in …"* not *"Session length"*.
-3. **Default variant on detail** — longest package that still fits the menu
-   filter; sole package auto-selected.
+3. **Default variant on detail** — longest package in `durations[]`; sole package
+   auto-selected. Menu filter does **not** hide chips.
 4. **No variant picker** when `durations.length === 1`.
 5. **Remove lying durations** from catalogue before showing on card — validator
    (T-MV5) enforces G7 per package.
