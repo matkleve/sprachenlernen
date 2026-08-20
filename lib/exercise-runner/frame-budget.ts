@@ -10,8 +10,8 @@
 export const PRACTICE_FRAME_CHROME_REM = {
   /** Mobile: step strip + stop — no hero image */
   mobileHeader: 2.75,
-  /** Mobile: thin progress + nav row + safe padding */
-  mobileFooter: 4.25,
+  /** Mobile: segmented progress + nav row + safe padding */
+  mobileFooter: 3.75,
   /** Runner column gaps between chrome zones on mobile */
   mobileGaps: 0.75,
   /** Desktop hero belt */
