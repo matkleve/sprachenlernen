@@ -2,8 +2,9 @@
 
 import { useTranslations } from "next-intl";
 
-import { practiceLeadClass } from "@/features/exercise-runner/practice-surface/PracticeSurface";
+import { Field } from "@/components/ui/Field";
 import { Textarea } from "@/components/ui/Input";
+import { practiceLeadClass } from "@/features/exercise-runner/practice-surface/PracticeSurface";
 
 type TypeWithWordStepProps = {
   config: Record<string, unknown>;

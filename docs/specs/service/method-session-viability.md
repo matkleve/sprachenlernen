@@ -91,4 +91,4 @@ In [`method-session-viability.acceptance-criteria.md`](method-session-viability.
 
 ## Check
 
-`npm test -- exercise-recipe`
+`node scripts/check-session-viability.mjs` (also in `npm run verify`)

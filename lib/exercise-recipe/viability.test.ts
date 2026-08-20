@@ -9,7 +9,25 @@ import {
   estimateWallClockSec,
   isWithinBudgetTolerance,
 } from "@/lib/exercise-recipe/budget";
-import { checkSessionViability } from "@/lib/exercise-recipe/viability";
+import { checkSessionViability, type ViabilityGate } from "@/lib/exercise-recipe/viability";
+
+const BUILT_HOSTED_METHOD_IDS = [
+  "partial-dictation",
+  "full-dictation",
+  "extensive-reading",
+  "reading-aloud",
+  "build-a-sentence",
+  "free-production",
+] as const;
+
+/** Until T-MV2/T-MV5 — CI blocks new failures on these methods. */
+const KNOWN_VIABILITY_FAILURES: Partial<Record<string, readonly ViabilityGate[]>> = {
+  "build-a-sentence": ["G2", "G3"],
+  "partial-dictation": ["G3"],
+  "full-dictation": ["G3"],
+  "extensive-reading": ["G1", "G3"],
+  "reading-aloud": ["G2", "G3", "G5"],
+};
 
 describe("checkSessionViability", () => {
   it("fails G2 and G3 for build-a-sentence today", async () => {
@@ -56,4 +74,23 @@ describe("estimateWallClock", () => {
     const wallSec = estimateWallClockSec(recipe!);
     expect(isWithinBudgetTolerance(wallSec, 15)).toBe(false);
   });
+});
+
+describe("hosted recipe CI gate (T-MV1)", () => {
+  for (const methodId of BUILT_HOSTED_METHOD_IDS) {
+    it(`${methodId} matches viability allowlist or passes all gates`, async () => {
+      const recipe = await resolveExerciseRecipe(methodId);
+      expect(recipe).not.toBeNull();
+
+      const result = checkSessionViability(recipe!);
+      const expected = KNOWN_VIABILITY_FAILURES[methodId];
+
+      if (expected) {
+        expect([...result.failures].sort()).toEqual([...expected].sort());
+      } else {
+        expect(result.failures, methodId).toEqual([]);
+        expect(result.ok).toBe(true);
+      }
+    });
+  }
 });
