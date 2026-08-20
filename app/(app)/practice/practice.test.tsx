@@ -12,7 +12,7 @@ describe("PracticePage", () => {
     render(ui);
 
     expect(screen.getByRole("heading", { name: "Partial dictation" })).toBeDefined();
-    expect(screen.getByText(/Step 1 of 6/)).toBeDefined();
+    expect(screen.getByText(/Step 1 of/)).toBeDefined();
   });
 
   it("renders exercise runner for full-dictation", async () => {

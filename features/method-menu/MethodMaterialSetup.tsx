@@ -17,17 +17,20 @@ import {
   type MaterialTopicSelection,
   practiceHrefForSetup,
 } from "@/lib/method-material-setup";
+import type { SessionContract } from "@/lib/method-session-contract";
 import { usesExerciseRunner } from "@/lib/method-session";
 import type { MaterialUnitId } from "@/lib/material-unit";
 import { cn } from "@/lib/utils";
 
 import { previewOwnMaterialAction, startMaterialPracticeAction } from "./material-setup-actions";
+import { MethodSessionContractText } from "./MethodSessionContractText";
 
 export type MethodMaterialSetupProps = {
   method: MethodEntry;
   context: MaterialSetupContext;
   canPersist?: boolean;
   budgetMinutes?: number;
+  sessionContract?: SessionContract | null;
   className?: string;
   /** Test hook — bypasses the server action for own-text preview. */
   previewOwnForTest?: (
@@ -41,6 +44,7 @@ export function MethodMaterialSetup({
   context,
   canPersist = false,
   budgetMinutes,
+  sessionContract = null,
   className,
   previewOwnForTest,
 }: MethodMaterialSetupProps) {
@@ -251,6 +255,8 @@ export function MethodMaterialSetup({
           {startError}
         </p>
       ) : null}
+
+      {sessionContract ? <MethodSessionContractText contract={sessionContract} /> : null}
 
       {usesExerciseRunner(method) ? (
         topicId === OWN_TOPIC_ID ? (

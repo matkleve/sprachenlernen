@@ -79,7 +79,7 @@ examples"*.
 
 | # | Input | Output |
 | --- | --- | --- |
-| 1 | `build-a-sentence` recipe today | **Fails** G2, G3, G6 — see study/42 |
+| 1 | `build-a-sentence` at `budgetMinutes: 15` | Passes G2, G3, G7 — see study/42 |
 | 2 | `partial-dictation` N=1 | Passes with **warning** on G3 — prefer N≥3 in `standard` |
 | 3 | `free-production` | Passes G2 via `feedback` placeholder |
 | 4 | Valid composed recipe | `SessionContract` for detail |

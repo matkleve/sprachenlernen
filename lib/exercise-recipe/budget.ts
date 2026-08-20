@@ -27,14 +27,14 @@ const METHOD_BUDGET_PROFILES: Record<string, MethodBudgetProfile> = {
     family: "item-loop",
     secPerItem: 90,
     waitSecPerItem: 30,
-    minItems: 1,
+    minItems: 3,
     maxItems: 12,
   },
   "full-dictation": {
     family: "item-loop",
     secPerItem: 120,
     waitSecPerItem: 30,
-    minItems: 1,
+    minItems: 3,
     maxItems: 12,
   },
   "build-a-sentence": {
@@ -133,6 +133,11 @@ export function estimateWallClockSec(
     }
   }
 
+  if (profile.family === "timed-write") {
+    // prepare, capture submit, and decide chrome — deducted from write duration at compose.
+    active += 120;
+  }
+
   return chrome + active;
 }
 
@@ -155,14 +160,22 @@ export function cardCountForBudgetMinutes(budgetMinutes: number): number {
 
 const FEEDBACK_SEC_PER_LOOP = 60;
 
-/** Item-loop methods: do + review feedback per target word. */
+export function activeSecPerLoop(profile: MethodBudgetProfile): number {
+  const base = profile.secPerItem ?? 75;
+  if (profile.waitSecPerItem !== undefined) {
+    return base + profile.waitSecPerItem;
+  }
+  return base + FEEDBACK_SEC_PER_LOOP;
+}
+
+/** Item-loop methods: do (+ wait or review feedback) per target unit. */
 export function itemCountForBudgetMinutes(
   budgetMinutes: number,
   profile: MethodBudgetProfile,
 ): number {
   const chrome = profile.chromeOverheadSec ?? RUNNER_CHROME_OVERHEAD_SEC;
   const activeSec = Math.max(0, budgetMinutes * 60 - chrome);
-  const loopSec = (profile.secPerItem ?? 75) + FEEDBACK_SEC_PER_LOOP;
+  const loopSec = activeSecPerLoop(profile);
   const raw = loopSec > 0 ? Math.floor(activeSec / loopSec) : 0;
   const min = profile.minItems ?? 1;
   const max = profile.maxItems ?? 5;
