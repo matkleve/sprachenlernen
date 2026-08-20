@@ -32,5 +32,5 @@ export default async function ProgressPage() {
     );
   }
 
-  return <ProgressReport reading={outcome.reading} reflection={reflection} />;
+  return <ProgressReport reading={outcome.reading} formCellGroups={outcome.formCellGroups} reflection={reflection} />;
 }

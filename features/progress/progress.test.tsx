@@ -5,6 +5,8 @@ import { describe, expect, it } from "vitest";
 
 import { ProgressReport } from "@/features/progress/ProgressReport";
 import { DOSE_BAND_SOURCE, hoursPerYear, yearsToReach } from "@/lib/dose-band";
+import type { FormCellGroupRow } from "@/lib/form-mastery-breakdown";
+import { cardEngineSessionHref } from "@/lib/method-session";
 import { readLevel } from "@/lib/level-model";
 import { rebuild, type Review } from "@/lib/scheduler";
 import type { WeeklyReflectionModel } from "@/lib/weekly-reflection";
@@ -61,8 +63,13 @@ function leafText(container: HTMLElement): string {
 
 const hiddenReflection: WeeklyReflectionModel = { status: "hidden" };
 
-async function renderProgress(reading: typeof empty) {
-  return render(await ProgressReport({ reading, reflection: hiddenReflection }));
+async function renderProgress(
+  reading: typeof empty,
+  formCellGroups: readonly FormCellGroupRow[] = [],
+) {
+  return render(
+    await ProgressReport({ reading, formCellGroups, reflection: hiddenReflection }),
+  );
 }
 
 describe("ProgressReport", () => {
@@ -124,6 +131,23 @@ describe("ProgressReport", () => {
         }),
       ),
     ).toBeDefined();
+  });
+
+  it("shows a deck=form practice link for weak form cell groups", async () => {
+    const weakGroup: FormCellGroupRow = {
+      groupKey: "verb:present",
+      label: "present",
+      held: 1,
+      reviewed: 2,
+      poolSize: 4,
+      weak: true,
+    };
+
+    await renderProgress(withFormHistory, [weakGroup]);
+
+    const link = screen.getByRole("link", { name: en.progress.formGroupPracticeLink });
+    expect(link.getAttribute("href")).toBe(cardEngineSessionHref("form"));
+    expect(screen.getByRole("heading", { name: en.progress.formGroupsHeading })).toBeDefined();
   });
 
   it("shows the dose band with its borrowed label, and no numerator", async () => {

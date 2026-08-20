@@ -410,6 +410,16 @@
     "vocabularyValue": "{held} of {poolSize} starter words held stably — not extrapolated to the language",
     "formMasteryValue": "{held} of {poolSize} starter forms held stably — separate from vocabulary size",
     "formMasteryPartialParadigmNote": "{count, plural, one {# held verb has a partial paradigm table — form mastery for that lemma is uncertain} other {# held verbs have partial paradigm tables — form mastery for those lemmas is uncertain}}",
+    "formGroupsHeading": "Form patterns",
+    "formGroupsCaption": "Held forms grouped by inflection pattern — persons are combined within each tense.",
+    "formGroupsColumns": {
+      "pattern": "Pattern",
+      "held": "Held",
+      "practice": "Practice"
+    },
+    "formGroupHeld": "{held} of {poolSize}",
+    "formGroupPracticeLink": "Review forms",
+    "formGroupPracticeDone": "—",
     "emptyState": "You have not reviewed anything yet, so nothing below has a value. That is the honest starting state, not a failure.",
     "startReview": "Start a review session",
     "doseHeading": "What a level costs",

@@ -2,6 +2,7 @@ import { listTaskStatesForTaskIds } from "@/lib/db/task-state";
 import { internalUnexpected, logHandledError, type HandledError } from "@/lib/errors";
 import { loadLemmaTable } from "@/lib/lexicon";
 import { readLevel, type LevelReading } from "@/lib/level-model";
+import { buildFormCellGroupBreakdown, type FormCellGroupRow } from "@/lib/form-mastery-breakdown";
 import { createParadigmCompletenessChecker } from "@/lib/paradigm-completeness";
 import { newTask, type Task } from "@/lib/scheduler";
 import { poolForActiveLanguage } from "@/lib/db/learner-pools";
@@ -28,7 +29,7 @@ import itLemmaRaw from "@/data/lemma/it.json";
 export type ProgressOutcome =
   /** Signed in, no language chosen — the page routes to the picker. */
   | { status: "no-language" }
-  | { status: "ok"; reading: LevelReading }
+  | { status: "ok"; reading: LevelReading; formCellGroups: readonly FormCellGroupRow[] }
   | { status: "error"; error: HandledError };
 
 export async function readProgress(now: number = Date.now()): Promise<ProgressOutcome> {
@@ -79,7 +80,11 @@ async function read(now: number): Promise<ProgressOutcome> {
     ? { isLemmaParadigmIncomplete: createParadigmCompletenessChecker(lemmaTable) }
     : undefined;
 
-  return { status: "ok", reading: readLevel(tasks, now, options) };
+  return {
+    status: "ok",
+    reading: readLevel(tasks, now, options),
+    formCellGroups: buildFormCellGroupBreakdown(cards, tasksByTaskId),
+  };
 }
 
 function fail(cause: unknown): HandledError {

@@ -89,8 +89,8 @@ frequency blocks (derivation)
             → T-B3 extrapolation + skill levels
                 → forms home + deck filter (T-W20) — **shipped**
                     → form cell explanations (T-W21) — **shipped**
-                        → session sampling (T-W22) — [`session-sampling.md`](../specs/service/session-sampling.md), UC-079
-                        → per-cell group breakdown on Progress (T-W5)
+                        → session sampling (T-W22) — [`session-sampling.md`](../specs/service/session-sampling.md), UC-079 — **shipped**
+                        → per-cell group breakdown on Progress (T-W5) — **shipped 2026-08-20**
                             → full paradigm-cell engine (T-W6)
 ```
 
@@ -100,7 +100,7 @@ frequency blocks (derivation)
 | **T-W2** | **Word detail** — tap an atlas row (or review card) → rank, block, stability, schedule reason, one-action suspend/drop (history preserved). | UC-038 | `docs/specs/feature/word-detail.md` | Standard | T-W1 for block label | **Shipped 2026-08-17** — inline `OrbitDetailCard` + suspend/retire |
 | **T-W3** | **Vocabulary map (pool-local v1)** — extend `/words`: show distribution of held/fragile/new/new-hole across frequency bands; textual equivalent required (UC-021). Not language-wide until lexicon runtime. | UC-031 (partial) | extend [`words-home.md`](../specs/feature/words-home.md) | Standard | T-W1, W-2 answered | **Shipped 2026-08-17** — `FrequencyBlocksField`, core band labels unreviewed as holes |
 | **T-W4** | **T-B3 remainder** — language-wide vocabulary extrapolation, per-skill levels, demonstration sentence. | UC-004, UC-031, UC-054, UC-050 | existing [`progress.md`](../specs/page/progress.md), level-model specs | Standard / Sensitive | calibration (tier A) or widened band; anchor table [C] |
-| **T-W5** | **Per-cell form breakdown** — Progress drill-down: held forms by paradigm cell **group**; weak group links to `deck=form` practice. | UC-062, UC-064 (forms branch), UC-078 | extend [`form-mastery-signal.md`](../specs/service/form-mastery-signal.md) | Standard | W-5 answered |
+| **T-W5** | ~~**Per-cell form breakdown**~~ — Progress drill-down: held forms by paradigm cell **group**; weak group links to `deck=form` practice. **Shipped 2026-08-20.** | UC-062, UC-064 (forms branch), UC-078 | extend [`form-mastery-signal.md`](../specs/service/form-mastery-signal.md) | Standard | W-5 answered |
 | **T-W20** | **Forms home + deck filter** — second section card on `/words`; `deck=meaning\|form\|mixed` on session builder and review route. | UC-078, UC-063, UC-041 | [`words-home.md`](../specs/feature/words-home.md), [`words-review.md`](../specs/page/words-review.md), [`session-builder.md`](../specs/service/session-builder.md) | Standard | form-recall pool shipped |
 | **T-W21** | **Form cell explanation** — on-demand + post-Again/Hard disclosure on form-recall cards. | UC-022, UC-041 | [`form-cell-explanation.md`](../specs/service/form-cell-explanation.md), [`form-error-explanation.md`](../specs/component/form-error-explanation.md) | Standard | T-W20 (forms path exists) — **shipped** |
 | **T-W22** | ~~**Session sampling**~~ — weighted queue (`u×b×n×f`), sigmoid foundation taper, soft form staging; UC-079. **Shipped 2026-08-20.** | UC-079, UC-011 | [`session-sampling.md`](../specs/service/session-sampling.md) | Standard | T-W21 |
