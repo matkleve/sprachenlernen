@@ -39,6 +39,10 @@ A work item may enter stage 2 when **all** of these are true:
 - [ ] **Acceptance criteria** written and testable — behavior, not implementation.
 - [ ] **Dependencies named** — the data, components and services it touches,
       verified by reading them, not guessed from the prompt.
+- [ ] **Studies cited?** If reasoning from `docs/study/` shaped the work,
+      confirm owner, spec, and live code still agree with its thesis — studies
+      can be wrong ([`STUDY-FORMAT.md`](STUDY-FORMAT.md)). Fix the study if not;
+      do not implement to make a study paragraph true.
 - [ ] **Open questions** resolved or explicitly deferred. No "we'll figure it
       out while coding".
 
