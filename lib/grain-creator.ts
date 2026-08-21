@@ -1,6 +1,10 @@
 /**
- * Procedural horizontal wood graining — macro bands + micro fibre noise.
+ * Procedural horizontal wood graining — macro valleys + micro fibre noise.
  * Contract: docs/specs/page/grain-creator.md, STUDY-029.
+ *
+ * Macro = deep horizontal dark valleys (latewood lines), not vertical plank
+ * columns — those read like tiled game-map chunks and are absent from the
+ * reference board.
  */
 
 export type GrainBlendMode = "multiply" | "overlay" | "soft-light" | "normal";
@@ -8,21 +12,22 @@ export type GrainBlendMode = "multiply" | "overlay" | "soft-light" | "normal";
 export type GrainParams = {
   /** Flat backdrop so grain reads in isolation — not a material lighting stack. */
   baseColor: string;
-  /** Deep latewood line at each plank start. */
-  seamDarkOpacity: number;
-  seamWidthPx: number;
-  /** Transparent gap between primary seam and band colours. */
-  gapWidthPx: number;
-  secondarySeamOpacity: number;
-  secondarySeamWidthPx: number;
-  plankWidthPx: number;
-  bandColorA: string;
-  bandColorB: string;
-  bandColorC: string;
-  bandColorD: string;
-  /** feTurbulence baseFrequency X — low = wide horizontal structure. */
+  /** Deep horizontal valley line — the “separated along the grain” read. */
+  valleyDarkOpacity: number;
+  valleyWidthPx: number;
+  /** Light lift immediately below the valley before ridge colour returns. */
+  ridgeLiftPx: number;
+  secondaryValleyOpacity: number;
+  secondaryValleyWidthPx: number;
+  /** Height of each horizontal ridge tone band within one repeat cycle. */
+  ridgeBandPx: number;
+  ridgeColorA: string;
+  ridgeColorB: string;
+  ridgeColorC: string;
+  ridgeColorD: string;
+  /** feTurbulence baseFrequency X — low = wide structure along the fibre. */
   freqX: number;
-  /** feTurbulence baseFrequency Y — high = tight vertical sampling → horizontal streaks. */
+  /** feTurbulence baseFrequency Y — high = tight sampling → horizontal streaks. */
   freqY: number;
   octaves: number;
   tileWidthPx: number;
@@ -47,16 +52,16 @@ export const GRAIN_PRESET_IDS: readonly GrainPresetId[] = [
 
 export const DEFAULT_GRAIN_PARAMS: GrainParams = {
   baseColor: "#2a1c10",
-  seamDarkOpacity: 0.45,
-  seamWidthPx: 2,
-  gapWidthPx: 76,
-  secondarySeamOpacity: 0.28,
-  secondarySeamWidthPx: 2,
-  plankWidthPx: 78,
-  bandColorA: "#3f2a18",
-  bandColorB: "#362415",
-  bandColorC: "#422c1a",
-  bandColorD: "#342214",
+  valleyDarkOpacity: 0.52,
+  valleyWidthPx: 2,
+  ridgeLiftPx: 3,
+  secondaryValleyOpacity: 0.28,
+  secondaryValleyWidthPx: 1,
+  ridgeBandPx: 6,
+  ridgeColorA: "#3f2a18",
+  ridgeColorB: "#362415",
+  ridgeColorC: "#422c1a",
+  ridgeColorD: "#342214",
   freqX: 0.02,
   freqY: 0.45,
   octaves: 4,
@@ -74,54 +79,56 @@ export const GRAIN_PRESETS: Record<GrainPresetId, GrainParams> = {
   "sanded-bench": {
     ...DEFAULT_GRAIN_PARAMS,
     baseColor: "#342618",
-    seamDarkOpacity: 0.32,
-    gapWidthPx: 80,
-    secondarySeamOpacity: 0.18,
-    plankWidthPx: 82,
-    bandColorA: "#523820",
-    bandColorB: "#4a3220",
-    bandColorC: "#5a4030",
-    bandColorD: "#463020",
+    valleyDarkOpacity: 0.38,
+    ridgeLiftPx: 4,
+    secondaryValleyOpacity: 0.16,
+    ridgeBandPx: 7,
+    ridgeColorA: "#523820",
+    ridgeColorB: "#4a3220",
+    ridgeColorC: "#5a4030",
+    ridgeColorD: "#463020",
     blendMode: "overlay",
   },
   "oiled-timber": {
     ...DEFAULT_GRAIN_PARAMS,
     baseColor: "#3d2a18",
-    seamDarkOpacity: 0.22,
-    gapWidthPx: 84,
-    secondarySeamOpacity: 0.12,
-    plankWidthPx: 86,
-    bandColorA: "#6a4a32",
-    bandColorB: "#5f422c",
-    bandColorC: "#705038",
-    bandColorD: "#584028",
+    valleyDarkOpacity: 0.42,
+    valleyWidthPx: 1,
+    ridgeLiftPx: 2,
+    secondaryValleyOpacity: 0.18,
+    ridgeBandPx: 5,
+    ridgeColorA: "#6a4a32",
+    ridgeColorB: "#5f422c",
+    ridgeColorC: "#705038",
+    ridgeColorD: "#584028",
+    fibreContrast: 1.15,
     blendMode: "soft-light",
   },
   "stock-bar": {
     ...DEFAULT_GRAIN_PARAMS,
     baseColor: "#5c4028",
-    seamDarkOpacity: 0.14,
-    seamWidthPx: 1,
-    gapWidthPx: 47,
-    secondarySeamOpacity: 0.08,
-    secondarySeamWidthPx: 1,
-    plankWidthPx: 47,
-    bandColorA: "#7a5638",
-    bandColorB: "#6e4c30",
-    bandColorC: "#846040",
-    bandColorD: "#644830",
+    valleyDarkOpacity: 0.22,
+    valleyWidthPx: 1,
+    ridgeLiftPx: 2,
+    secondaryValleyOpacity: 0.1,
+    secondaryValleyWidthPx: 1,
+    ridgeBandPx: 4,
+    ridgeColorA: "#7a5638",
+    ridgeColorB: "#6e4c30",
+    ridgeColorC: "#846040",
+    ridgeColorD: "#644830",
     tileWidthPx: 240,
     tileHeightPx: 96,
     blendMode: "overlay",
   },
 };
 
-export function grainRepeatWidthPx(params: GrainParams): number {
+export function grainRepeatHeightPx(params: GrainParams): number {
   return (
-    params.seamWidthPx +
-    params.gapWidthPx +
-    params.secondarySeamWidthPx +
-    params.plankWidthPx * 4
+    params.valleyWidthPx +
+    params.ridgeLiftPx +
+    params.secondaryValleyWidthPx +
+    params.ridgeBandPx * 4
   );
 }
 
@@ -140,29 +147,30 @@ export function buildFibreSvgUri(
   return `url("data:image/svg+xml,${encodeURIComponent(svg)}")`;
 }
 
+/** Horizontal dark valleys + lighter ridges — 180deg, repeats vertically. */
 export function buildMacroGradient(params: GrainParams): string {
-  const seamEnd = params.seamWidthPx;
-  const gapEnd = seamEnd + params.gapWidthPx;
-  const secondaryEnd = gapEnd + params.secondarySeamWidthPx;
-  const bandAEnd = secondaryEnd + params.plankWidthPx;
-  const bandBEnd = bandAEnd + params.plankWidthPx;
-  const bandCEnd = bandBEnd + params.plankWidthPx;
-  const bandDEnd = bandCEnd + params.plankWidthPx;
+  const valleyEnd = params.valleyWidthPx;
+  const liftEnd = valleyEnd + params.ridgeLiftPx;
+  const secondaryEnd = liftEnd + params.secondaryValleyWidthPx;
+  const ridgeAEnd = secondaryEnd + params.ridgeBandPx;
+  const ridgeBEnd = ridgeAEnd + params.ridgeBandPx;
+  const ridgeCEnd = ridgeBEnd + params.ridgeBandPx;
+  const ridgeDEnd = ridgeCEnd + params.ridgeBandPx;
 
   return [
-    "repeating-linear-gradient(90deg,",
-    `rgb(0 0 0 / ${params.seamDarkOpacity}) 0 ${seamEnd}px,`,
-    `transparent ${seamEnd}px ${gapEnd}px,`,
-    `rgb(0 0 0 / ${params.secondarySeamOpacity}) ${gapEnd}px ${secondaryEnd}px,`,
-    `${params.bandColorA} ${secondaryEnd}px ${bandAEnd}px,`,
-    `${params.bandColorB} ${bandAEnd}px ${bandBEnd}px,`,
-    `${params.bandColorC} ${bandBEnd}px ${bandCEnd}px,`,
-    `${params.bandColorD} ${bandCEnd}px ${bandDEnd}px)`,
+    "repeating-linear-gradient(180deg,",
+    `rgb(0 0 0 / ${params.valleyDarkOpacity}) 0 ${valleyEnd}px,`,
+    `transparent ${valleyEnd}px ${liftEnd}px,`,
+    `rgb(0 0 0 / ${params.secondaryValleyOpacity}) ${liftEnd}px ${secondaryEnd}px,`,
+    `${params.ridgeColorA} ${secondaryEnd}px ${ridgeAEnd}px,`,
+    `${params.ridgeColorB} ${ridgeAEnd}px ${ridgeBEnd}px,`,
+    `${params.ridgeColorC} ${ridgeBEnd}px ${ridgeCEnd}px,`,
+    `${params.ridgeColorD} ${ridgeCEnd}px ${ridgeDEnd}px)`,
   ].join("\n  ");
 }
 
 export function buildGrainCssSnippet(params: GrainParams): string {
-  const repeatWidth = grainRepeatWidthPx(params);
+  const repeatHeight = grainRepeatHeightPx(params);
   const macro = buildMacroGradient(params);
   const fibre = buildFibreSvgUri(params);
   const filter =
@@ -171,7 +179,7 @@ export function buildGrainCssSnippet(params: GrainParams): string {
       : "";
 
   return [
-    "/* Horizontal wood graining — macro bands + micro fibre */",
+    "/* Horizontal wood graining — macro valleys + micro fibre */",
     ".grain-preview {",
     `  background-color: ${params.baseColor};`,
     "  background-image:",
@@ -180,7 +188,7 @@ export function buildGrainCssSnippet(params: GrainParams): string {
     `    ${macro};`,
     "  background-size:",
     `    ${params.tileWidthPx}px ${params.tileHeightPx}px,`,
-    `    ${repeatWidth}px 100%;`,
+    `    100% ${repeatHeight}px;`,
     `  background-blend-mode: ${params.blendMode}, normal;`,
     "}",
     "",
@@ -188,7 +196,7 @@ export function buildGrainCssSnippet(params: GrainParams): string {
     ".grain-preview__macro {",
     `  background-color: ${params.baseColor};`,
     `  background-image: ${macro.replace(/\n\s+/g, " ")};`,
-    `  background-size: ${repeatWidth}px 100%;`,
+    `  background-size: 100% ${repeatHeight}px;`,
     "}",
     ".grain-preview__fibre {",
     `  background-image: ${fibre};`,
@@ -201,4 +209,8 @@ export function buildGrainCssSnippet(params: GrainParams): string {
 
 export function isHorizontalFibre(params: Pick<GrainParams, "freqX" | "freqY">): boolean {
   return params.freqY > params.freqX;
+}
+
+export function isHorizontalMacroGradient(gradient: string): boolean {
+  return gradient.includes("repeating-linear-gradient(180deg");
 }

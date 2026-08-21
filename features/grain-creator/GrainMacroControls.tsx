@@ -19,88 +19,88 @@ export function GrainMacroControls({ params, onPatch }: GrainMacroControlsProps)
         onChange={(value) => onPatch({ baseColor: value })}
       />
       <RangeControl
-        id="grain-seam-dark"
-        label={controlLabels.seamDarkOpacity}
+        id="grain-valley-dark"
+        label={controlLabels.valleyDarkOpacity}
         min={0}
         max={1}
         step={0.01}
-        value={params.seamDarkOpacity}
-        displayValue={params.seamDarkOpacity.toFixed(2)}
-        onChange={(value) => onPatch({ seamDarkOpacity: value })}
+        value={params.valleyDarkOpacity}
+        displayValue={params.valleyDarkOpacity.toFixed(2)}
+        onChange={(value) => onPatch({ valleyDarkOpacity: value })}
       />
       <RangeControl
-        id="grain-seam-width"
-        label={controlLabels.seamWidthPx}
+        id="grain-valley-width"
+        label={controlLabels.valleyWidthPx}
         min={1}
         max={4}
         step={1}
-        value={params.seamWidthPx}
-        displayValue={`${params.seamWidthPx}px`}
-        onChange={(value) => onPatch({ seamWidthPx: value })}
+        value={params.valleyWidthPx}
+        displayValue={`${params.valleyWidthPx}px`}
+        onChange={(value) => onPatch({ valleyWidthPx: value })}
       />
       <RangeControl
-        id="grain-gap-width"
-        label={controlLabels.gapWidthPx}
-        min={20}
-        max={120}
+        id="grain-ridge-lift"
+        label={controlLabels.ridgeLiftPx}
+        min={0}
+        max={12}
         step={1}
-        value={params.gapWidthPx}
-        displayValue={`${params.gapWidthPx}px`}
-        onChange={(value) => onPatch({ gapWidthPx: value })}
+        value={params.ridgeLiftPx}
+        displayValue={`${params.ridgeLiftPx}px`}
+        onChange={(value) => onPatch({ ridgeLiftPx: value })}
       />
       <RangeControl
-        id="grain-secondary-seam"
-        label={controlLabels.secondarySeamOpacity}
+        id="grain-secondary-valley"
+        label={controlLabels.secondaryValleyOpacity}
         min={0}
         max={0.6}
         step={0.01}
-        value={params.secondarySeamOpacity}
-        displayValue={params.secondarySeamOpacity.toFixed(2)}
-        onChange={(value) => onPatch({ secondarySeamOpacity: value })}
+        value={params.secondaryValleyOpacity}
+        displayValue={params.secondaryValleyOpacity.toFixed(2)}
+        onChange={(value) => onPatch({ secondaryValleyOpacity: value })}
       />
       <RangeControl
         id="grain-secondary-width"
-        label={controlLabels.secondarySeamWidthPx}
+        label={controlLabels.secondaryValleyWidthPx}
         min={1}
         max={4}
         step={1}
-        value={params.secondarySeamWidthPx}
-        displayValue={`${params.secondarySeamWidthPx}px`}
-        onChange={(value) => onPatch({ secondarySeamWidthPx: value })}
+        value={params.secondaryValleyWidthPx}
+        displayValue={`${params.secondaryValleyWidthPx}px`}
+        onChange={(value) => onPatch({ secondaryValleyWidthPx: value })}
       />
       <RangeControl
-        id="grain-plank-width"
-        label={controlLabels.plankWidthPx}
-        min={32}
-        max={120}
+        id="grain-ridge-band"
+        label={controlLabels.ridgeBandPx}
+        min={2}
+        max={16}
         step={1}
-        value={params.plankWidthPx}
-        displayValue={`${params.plankWidthPx}px`}
-        onChange={(value) => onPatch({ plankWidthPx: value })}
+        value={params.ridgeBandPx}
+        displayValue={`${params.ridgeBandPx}px`}
+        onChange={(value) => onPatch({ ridgeBandPx: value })}
       />
       <ColorControl
-        id="grain-band-a"
-        label={controlLabels.bandColorA}
-        value={params.bandColorA}
-        onChange={(value) => onPatch({ bandColorA: value })}
+        id="grain-ridge-a"
+        label={controlLabels.ridgeColorA}
+        value={params.ridgeColorA}
+        onChange={(value) => onPatch({ ridgeColorA: value })}
       />
       <ColorControl
-        id="grain-band-b"
-        label={controlLabels.bandColorB}
-        value={params.bandColorB}
-        onChange={(value) => onPatch({ bandColorB: value })}
+        id="grain-ridge-b"
+        label={controlLabels.ridgeColorB}
+        value={params.ridgeColorB}
+        onChange={(value) => onPatch({ ridgeColorB: value })}
       />
       <ColorControl
-        id="grain-band-c"
-        label={controlLabels.bandColorC}
-        value={params.bandColorC}
-        onChange={(value) => onPatch({ bandColorC: value })}
+        id="grain-ridge-c"
+        label={controlLabels.ridgeColorC}
+        value={params.ridgeColorC}
+        onChange={(value) => onPatch({ ridgeColorC: value })}
       />
       <ColorControl
-        id="grain-band-d"
-        label={controlLabels.bandColorD}
-        value={params.bandColorD}
-        onChange={(value) => onPatch({ bandColorD: value })}
+        id="grain-ridge-d"
+        label={controlLabels.ridgeColorD}
+        value={params.ridgeColorD}
+        onChange={(value) => onPatch({ ridgeColorD: value })}
       />
     </section>
   );

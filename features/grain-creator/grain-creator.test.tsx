@@ -15,27 +15,27 @@ describe("GrainCreator", () => {
     render(<GrainCreator />);
 
     expect(screen.getByLabelText(page.previewHeading)).toBeTruthy();
-    expect(screen.getByLabelText(/Deep seam opacity/i)).toBeTruthy();
+    expect(screen.getByLabelText(/Valley depth \(opacity\)/i)).toBeTruthy();
     expect(screen.getByRole("button", { name: page.copyLabel })).toBeTruthy();
   });
 
-  it("loads the raw-planks preset with darker seams than oiled timber", () => {
+  it("loads the raw-planks preset with deeper valleys than stock bar", () => {
     render(<GrainCreator />);
 
-    fireEvent.click(screen.getByRole("button", { name: "Oiled timber" }));
-    const oiledSeam = Number(
-      (screen.getByLabelText(/Deep seam opacity/i) as HTMLInputElement).value,
+    fireEvent.click(screen.getByRole("button", { name: "Stock bar" }));
+    const stockValley = Number(
+      (screen.getByLabelText(/Valley depth \(opacity\)/i) as HTMLInputElement).value,
     );
 
     fireEvent.click(screen.getByRole("button", { name: "Raw planks" }));
-    const rawSeam = Number(
-      (screen.getByLabelText(/Deep seam opacity/i) as HTMLInputElement).value,
+    const rawValley = Number(
+      (screen.getByLabelText(/Valley depth \(opacity\)/i) as HTMLInputElement).value,
     );
 
-    expect(rawSeam).toBeGreaterThan(oiledSeam);
+    expect(rawValley).toBeGreaterThan(stockValley);
   });
 
-  it("copies a CSS snippet containing both grain layers", async () => {
+  it("copies a CSS snippet containing horizontal valleys and fibre noise", async () => {
     const writeText = vi.fn().mockResolvedValue(undefined);
     Object.assign(navigator, { clipboard: { writeText } });
 
@@ -44,7 +44,7 @@ describe("GrainCreator", () => {
 
     expect(writeText).toHaveBeenCalledOnce();
     const copied = String(writeText.mock.calls[0]?.[0]);
-    expect(copied).toContain("repeating-linear-gradient(90deg");
+    expect(copied).toContain("repeating-linear-gradient(180deg");
     expect(copied).toContain("feTurbulence");
   });
 });

@@ -6,16 +6,18 @@ import {
   buildMacroGradient,
   DEFAULT_GRAIN_PARAMS,
   GRAIN_PRESETS,
-  grainRepeatWidthPx,
+  grainRepeatHeightPx,
   isHorizontalFibre,
+  isHorizontalMacroGradient,
 } from "./grain-creator";
 
 describe("grain-creator", () => {
-  it("builds a horizontal repeating macro gradient", () => {
+  it("builds horizontal macro valleys (180deg), not vertical map columns", () => {
     const gradient = buildMacroGradient(DEFAULT_GRAIN_PARAMS);
-    expect(gradient).toContain("repeating-linear-gradient(90deg");
-    expect(gradient).toContain("rgb(0 0 0 / 0.45)");
-    expect(grainRepeatWidthPx(DEFAULT_GRAIN_PARAMS)).toBe(392);
+    expect(isHorizontalMacroGradient(gradient)).toBe(true);
+    expect(gradient).not.toContain("90deg");
+    expect(gradient).toContain("rgb(0 0 0 / 0.52)");
+    expect(grainRepeatHeightPx(DEFAULT_GRAIN_PARAMS)).toBe(30);
   });
 
   it("builds an anisotropic feTurbulence data URI", () => {
@@ -25,15 +27,16 @@ describe("grain-creator", () => {
     expect(isHorizontalFibre(DEFAULT_GRAIN_PARAMS)).toBe(true);
   });
 
-  it("raw planks have darker seams than oiled timber", () => {
-    expect(GRAIN_PRESETS["raw-planks"].seamDarkOpacity).toBeGreaterThan(
-      GRAIN_PRESETS["oiled-timber"].seamDarkOpacity,
+  it("raw planks have deeper valleys than stock bar", () => {
+    expect(GRAIN_PRESETS["raw-planks"].valleyDarkOpacity).toBeGreaterThan(
+      GRAIN_PRESETS["stock-bar"].valleyDarkOpacity,
     );
   });
 
-  it("exports a copyable CSS snippet with both layers", () => {
+  it("exports a copyable CSS snippet with horizontal macro repeat height", () => {
     const snippet = buildGrainCssSnippet(DEFAULT_GRAIN_PARAMS);
-    expect(snippet).toContain("repeating-linear-gradient(90deg");
+    expect(snippet).toContain("repeating-linear-gradient(180deg");
+    expect(snippet).toContain("100% 30px");
     expect(snippet).toContain("feTurbulence");
     expect(snippet).toContain(".grain-preview__fibre");
   });

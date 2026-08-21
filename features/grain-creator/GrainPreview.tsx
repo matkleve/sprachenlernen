@@ -3,7 +3,7 @@ import { useMemo } from "react";
 import {
   buildFibreSvgUri,
   buildMacroGradient,
-  grainRepeatWidthPx,
+  grainRepeatHeightPx,
   type GrainParams,
 } from "@/lib/grain-creator";
 
@@ -14,7 +14,7 @@ export function GrainPreview({ params }: { params: GrainParams }) {
     () => ({
       backgroundColor: params.baseColor,
       backgroundImage: buildMacroGradient(params),
-      backgroundSize: `${grainRepeatWidthPx(params)}px 100%`,
+      backgroundSize: `100% ${grainRepeatHeightPx(params)}px`,
     }),
     [params],
   );

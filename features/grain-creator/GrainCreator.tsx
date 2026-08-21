@@ -6,7 +6,7 @@ import {
   buildGrainCssSnippet,
   DEFAULT_GRAIN_PARAMS,
   GRAIN_PRESETS,
-  grainRepeatWidthPx,
+  grainRepeatHeightPx,
   type GrainParams,
   type GrainPresetId,
 } from "@/lib/grain-creator";
@@ -18,15 +18,13 @@ import { GrainPreview } from "./GrainPreview";
 
 /**
  * Contract: docs/specs/page/grain-creator.md
- *
- * Dev-only — no `components/ui/Slider`; same exemption as progression explorer.
  */
 export function GrainCreator() {
   const [params, setParams] = useState<GrainParams>(DEFAULT_GRAIN_PARAMS);
   const [activePreset, setActivePreset] = useState<GrainPresetId | null>("raw-planks");
   const [copied, setCopied] = useState(false);
 
-  const repeatWidth = grainRepeatWidthPx(params);
+  const repeatHeight = grainRepeatHeightPx(params);
   const cssSnippet = useMemo(() => buildGrainCssSnippet(params), [params]);
 
   function patchParams(patch: Partial<GrainParams>) {
@@ -50,7 +48,7 @@ export function GrainCreator() {
       <div className="flex min-w-0 flex-1 flex-col gap-4">
         <div>
           <h2 className="font-serif text-xl font-semibold text-ink">{page.previewHeading}</h2>
-          <p className="mt-1 text-sm text-muted">{page.repeatNote(repeatWidth)}</p>
+          <p className="mt-1 text-sm text-muted">{page.repeatNote(repeatHeight)}</p>
         </div>
         <GrainPreview params={params} />
         <div className="flex flex-wrap gap-2">
