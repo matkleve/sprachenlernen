@@ -1,16 +1,21 @@
 # Study format
 
 A **study** is a **reasoning document**: it explains *why* the product is shaped
-as it is and *why* certain directions were chosen. It is **not** an
-implementation contract.
+as it is and *why* certain directions were chosen at the time it was written.
+It is **not** an implementation contract — and it is **not guaranteed to be
+correct**. A study can be wrong, outdated, or superseded; that is normal.
 
 Normative hierarchy when documents disagree:
 
 1. [`CONSTITUTION.md`](CONSTITUTION.md)
 2. [`specs/`](specs/)
 3. [`use-cases/`](use-cases/)
-4. **`study/`** (reasoning — update when specs change)
+4. **`study/`** (reasoning — update or supersede when specs, code, or owner prove it wrong)
 5. [`diary/`](diary/) (what happened — not a rulebook)
+
+**Trust order when a study conflicts with reality:** owner correction → spec →
+live code → reference board → study thesis. Never "implement what the study
+says" when any of the above disagree.
 
 Read [`study/README.md`](study/README.md) for the thirteen core theses. Every
 study chapter either elaborates one of those theses or supports a use case that
@@ -117,6 +122,13 @@ links back.
 
 Implement **only** from specs. If study and spec disagree, the spec wins —
 update the study in the same session.
+
+**A study thesis can be totally wrong.** Evidence grades `[A]`–`[D]` rate how
+well a claim was argued at write time — they do not make it true forever.
+`STUDY-030` once mandated growth-ring shaders; the owner corrected that to
+layered horizontal fibres. If a study contradicts the spec, live code, the
+reference board, or the owner, **believe those** — then fix, supersede, or
+archive the study. Never ship to make a study paragraph true.
 
 **Studies must not read like build specs.** If a study names GLSL, shader papers,
 or 3D wood algorithms, that is background research — the UI model is layered

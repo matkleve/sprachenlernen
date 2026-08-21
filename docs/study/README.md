@@ -3,9 +3,12 @@
 Why this app is being built, what the research says, and what follows from that
 in product direction.
 
-**This folder is reasoning only — not a spec.** A spec says *what gets built*;
-study says *why that and not something else*. Where study and a spec disagree,
-**the spec wins** — update the study paragraph in the same session.
+**This folder is reasoning only — not a spec, and not necessarily true.** A spec
+says *what gets built*; study says *why that and not something else* — at the
+time someone wrote it. Studies can be **wrong**, **outdated**, or **superseded**
+(`<!-- status: superseded -->`, `<!-- corrected-by: … -->`). Where study and a
+spec disagree, **the spec wins** — update or supersede the study in the same
+session. Where study and live code or the owner disagree, **code and owner win**.
 
 Format: [`STUDY-FORMAT.md`](../STUDY-FORMAT.md). Old paths:
 [`MIGRATION-MAP.md`](MIGRATION-MAP.md).
