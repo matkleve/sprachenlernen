@@ -10,6 +10,13 @@ export type DesignThemeTokens = {
   surfaceRaised: string;
   ink: string;
   muted: string;
+  /**
+   * Ink for content drawn straight onto the canvas. Only needed when the canvas
+   * is a *material* that differs in lightness from `surface` — Workshop's wood
+   * bench against its pale stone cards. Defaults to `ink`/`muted`.
+   */
+  canvasInk?: string;
+  canvasMuted?: string;
   line: string;
   lineStrong: string;
   accent: string;
@@ -52,6 +59,10 @@ export function themeScopeStyle(tokens: DesignThemeTokens): CSSProperties {
     "--color-surface-raised": tokens.surfaceRaised,
     "--color-ink": tokens.ink,
     "--color-muted": tokens.muted,
+    "--color-surface-ink": tokens.ink,
+    "--color-surface-muted": tokens.muted,
+    "--color-canvas-ink": tokens.canvasInk ?? tokens.ink,
+    "--color-canvas-muted": tokens.canvasMuted ?? tokens.muted,
     "--color-line": tokens.line,
     "--color-line-strong": tokens.lineStrong,
     "--color-accent": tokens.accent,

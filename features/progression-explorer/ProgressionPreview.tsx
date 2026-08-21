@@ -8,7 +8,13 @@ import { GradeButton } from "@/components/ui/GradeButton";
 import { Input } from "@/components/ui/Input";
 import { SkillTierBadge } from "@/features/method-menu/SkillTierBadge";
 import { borderWeightClass } from "@/lib/design-themes";
-import { chapterForStage, stageDetail, stageScopeStyle, stageSkinClass } from "@/lib/progression-stage";
+import {
+  chapterForStage,
+  stageDetail,
+  stageRadiusPx,
+  stageScopeStyle,
+  stageSkinClass,
+} from "@/lib/progression-stage";
 import { cn } from "@/lib/utils";
 
 import { page } from "./content";
@@ -33,6 +39,7 @@ type ProgressionPreviewProps = {
 export function ProgressionPreview({ stage, className }: ProgressionPreviewProps) {
   const chapter = chapterForStage(stage);
   const detail = stageDetail(stage);
+  const radiusPx = stageRadiusPx(stage);
   const { preview } = page;
 
   return (
@@ -77,6 +84,7 @@ export function ProgressionPreview({ stage, className }: ProgressionPreviewProps
           </span>
           <StageFrame
             edgeRoughness={detail.edgeRoughness}
+            radiusPx={radiusPx}
             className="progression-card grid size-9 place-items-center rounded-card border border-line bg-surface text-ink"
           >
             <Menu className="size-4" />
@@ -85,6 +93,7 @@ export function ProgressionPreview({ stage, className }: ProgressionPreviewProps
 
         <StageFrame
           edgeRoughness={detail.edgeRoughness}
+          radiusPx={radiusPx}
           className="progression-card rounded-card border border-line bg-surface p-4 shadow-soft"
           style={{ boxShadow: "inset 0 var(--stage-bevel) 0 0 var(--color-surface-raised)" }}
         >
@@ -109,6 +118,7 @@ export function ProgressionPreview({ stage, className }: ProgressionPreviewProps
 
         <StageFrame
           edgeRoughness={detail.edgeRoughness}
+          radiusPx={radiusPx}
           className="progression-card rounded-card border border-line bg-surface-raised p-4 shadow-raised"
         >
           <p className="text-center font-serif text-2xl font-semibold text-ink">
@@ -125,6 +135,7 @@ export function ProgressionPreview({ stage, className }: ProgressionPreviewProps
 
         <StageFrame
           edgeRoughness={detail.edgeRoughness}
+          radiusPx={radiusPx}
           className="progression-card rounded-card border border-line bg-surface p-4 shadow-soft"
         >
           <div

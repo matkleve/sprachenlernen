@@ -10,6 +10,15 @@ type ProgressionFilterDefsProps = {
  * Scale is a React prop because SVG filter primitives cannot read CSS custom
  * properties reliably across browsers — the stage number still drives it via
  * progression.json → stageScopeStyle for everything else.
+ *
+ * `scale` displaces by up to ±scale/2 in each direction, and `StageFrame` draws
+ * in pixel user units, so the region has to clear the largest roughness we ship
+ * on the smallest framed element (a 36px icon button). -35%/170% covers it;
+ * a tighter region clips the corners rather than shrinking the wobble.
+ *
+ * The turbulence is desaturated before it displaces: chromatic noise pushes the
+ * x and y channels by uncorrelated amounts, which frays the stroke instead of
+ * chipping it.
  */
 export function ProgressionFilterDefs({ edgeRoughness }: ProgressionFilterDefsProps) {
   return (
@@ -21,10 +30,10 @@ export function ProgressionFilterDefs({ edgeRoughness }: ProgressionFilterDefsPr
       <defs>
         <filter
           id="progression-edge-rough"
-          x="-20%"
-          y="-20%"
-          width="140%"
-          height="140%"
+          x="-35%"
+          y="-35%"
+          width="170%"
+          height="170%"
           colorInterpolationFilters="sRGB"
         >
           <feTurbulence
@@ -32,8 +41,9 @@ export function ProgressionFilterDefs({ edgeRoughness }: ProgressionFilterDefsPr
             baseFrequency="0.05"
             numOctaves="3"
             seed="2"
-            result="noise"
+            result="rawNoise"
           />
+          <feColorMatrix type="saturate" values="0" in="rawNoise" result="noise" />
           <feDisplacementMap
             in="SourceGraphic"
             in2="noise"

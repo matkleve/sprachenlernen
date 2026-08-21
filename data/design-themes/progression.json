@@ -9,11 +9,13 @@
       "fontLabel": "Source Serif 4 + DM Sans",
       "borderWeight": "hairline",
       "tokens": {
-        "canvas": "#f3ede4",
+        "canvas": "#4e3622",
         "surface": "#fdf9f2",
         "surfaceRaised": "#fffdf8",
         "ink": "#2a2118",
-        "muted": "#665a4d",
+        "muted": "#4f4437",
+        "canvasInk": "#f7f0e6",
+        "canvasMuted": "#e8dccb",
         "line": "#e2d8c9",
         "lineStrong": "#93816d",
         "accent": "#b4532a",
@@ -108,7 +110,7 @@
       "rule": 0.0,
       "radiusCard": "0.25rem",
       "borderPx": 2,
-      "edgeRoughness": 8,
+      "edgeRoughness": 5,
       "stars": 0
     },
     {
@@ -121,7 +123,7 @@
       "rule": 0.0,
       "radiusCard": "0.5rem",
       "borderPx": 1,
-      "edgeRoughness": 5,
+      "edgeRoughness": 3,
       "stars": 0
     },
     {
@@ -134,7 +136,7 @@
       "rule": 0.35,
       "radiusCard": "0.75rem",
       "borderPx": 1,
-      "edgeRoughness": 2,
+      "edgeRoughness": 1.5,
       "stars": 0
     },
     {

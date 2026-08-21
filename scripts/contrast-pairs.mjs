@@ -11,6 +11,16 @@ export const PAIRS = [
   ["muted", "canvas", 4.5, "secondary text on the page"],
   ["muted", "surface", 4.5, "secondary text on a card"],
   ["muted", "surface-raised", 4.5, "secondary text on an elevated card"],
+  // The split ink pairs. Identical to ink/muted here, and only pulled apart by
+  // a theme whose canvas is a material — see lib/design-themes.ts. The chapter
+  // values that do split them are checked in lib/progression-stage.test.ts,
+  // because this gate reads app/globals.css only.
+  ["surface-ink", "surface", 4.5, "body text on a card"],
+  ["surface-ink", "surface-raised", 4.5, "body text on an elevated card"],
+  ["surface-muted", "surface", 4.5, "secondary text on a card"],
+  ["surface-muted", "surface-raised", 4.5, "secondary text on an elevated card"],
+  ["canvas-ink", "canvas", 4.5, "body text straight on the canvas"],
+  ["canvas-muted", "canvas", 4.5, "secondary text straight on the canvas"],
   ["accent", "canvas", 4.5, "link text on the page"],
   ["accent", "surface", 4.5, "link text on a card"],
   ["accent", "surface-raised", 4.5, "link text on an elevated card"],
