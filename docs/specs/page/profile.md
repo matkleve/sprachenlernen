@@ -47,6 +47,7 @@ Contract: [`study/33-profile-section-navigation.md`](../../study/33-profile-sect
 | `languages` | Languages | Spoken language + learning languages (default) |
 | `data` | Your data | Export + delete |
 | `device` | This device | App version + Home screen (iPhone) |
+| `dev` | Dev | Developer tooling links (non-production only) |
 
 Sign out stays below the panels, always visible. Section panels are server
 siblings toggled by `ProfileSectionNav` via element ids — panel markup is never

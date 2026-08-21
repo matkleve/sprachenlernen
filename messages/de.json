@@ -5,6 +5,12 @@
     "sectionLanguages": "Sprachen",
     "sectionData": "Deine Daten",
     "sectionDevice": "Dieses Gerät",
+    "sectionDev": "Dev",
+    "devHeading": "Entwicklerwerkzeuge",
+    "devCaption": "Interne Seiten zum Ausprobieren von Engines und UI-Experimenten. In Produktions-Builds nicht sichtbar.",
+    "devSentenceRealizer": "Satz-Realizer",
+    "devDesignExplorer": "Design-Explorer",
+    "devBrandExplorer": "Brand-Explorer",
     "spokenHeading": "Sprache, die du sprichst",
     "spokenCaption": "Menüs, Schaltflächen und der Text, der Wörter auf Karten beschreibt. Eine Änderung setzt deinen Lernfortschritt nicht zurück.",
     "spokenError": "Deine Sprache konnte nicht geladen werden.",
@@ -61,6 +67,19 @@
     "homeScreenInstallButton": "Installationsanleitung",
     "homeScreenMainSiteButton": "Hauptwebsite öffnen",
     "homeScreenReinstall": "Wenn die untere Symbolleiste auf einigen Seiten erscheint, entfernen Sie das Home-Screen-Symbol, öffnen die Hauptwebsite in Safari und fügen die App erneut von dort hinzu — nicht von einer Unterseite."
+  },
+  "sentenceRealizerDev": {
+    "eyebrow": "Dev",
+    "title": "Satz-Realizer",
+    "description": "Zufälliger Plan aus dem Speicher, für jede Person im Präsens über den Lemma-Tabellen-Inversindex gerendert.",
+    "anotherSentence": "Anderer Satz",
+    "back": "Zurück zu Profil Dev",
+    "planLabel": "Plan",
+    "tableCaption": "Gerenderte Satzvarianten nach Person",
+    "personColumn": "Person",
+    "cellColumn": "Zelle",
+    "sentenceColumn": "Satz",
+    "partialWarning": "Einige Personen konnten nicht gerendert werden — fehlende Verb- oder Nomenformen in der Lemma-Tabelle."
   },
   "learnerWorld": {
     "pageTitle": "Lernwelt",

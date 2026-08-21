@@ -43,6 +43,10 @@ const nextConfig: NextConfig = {
       "./data/starter/world-tags/**/*",
     ],
     "/languages": ["./data/languages/**/*"],
+    "/profile/dev/sentence-realizer": [
+      "./data/sentence-plans/**/*",
+      "./data/lemma/**/*",
+    ],
   },
   // `verify` sets this so its build cannot overwrite the `.next` a running dev
   // server is serving from. That collision empties the stylesheet and presents

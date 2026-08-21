@@ -285,14 +285,18 @@ describe("ProfileHomeScreenSection", () => {
 });
 
 describe("ProfileSectionNav", () => {
-  const renderNav = (initialSection?: "languages" | "data" | "device") => {
+  const renderNav = (
+    initialSection?: "languages" | "data" | "device" | "dev",
+    showDevSection = false,
+  ) => {
     const active = initialSection ?? "languages";
     document.body.innerHTML = `
       <div id="${profilePanelId("languages")}"${active === "languages" ? "" : " hidden"}>Languages panel</div>
       <div id="${profilePanelId("data")}"${active === "data" ? "" : " hidden"}>Data panel</div>
       <div id="${profilePanelId("device")}"${active === "device" ? "" : " hidden"}>Device panel</div>
+      ${showDevSection ? `<div id="${profilePanelId("dev")}"${active === "dev" ? "" : " hidden"}>Dev panel</div>` : ""}
     `;
-    return render(<ProfileSectionNav initialSection={initialSection} />);
+    return render(<ProfileSectionNav initialSection={initialSection} showDevSection={showDevSection} />);
   };
 
   it("shows section pills with Languages active by default", () => {
@@ -302,6 +306,13 @@ describe("ProfileSectionNav", () => {
     expect(screen.getByRole("button", { name: en.profile.sectionLanguages, pressed: true })).toBeDefined();
     expect(document.getElementById(profilePanelId("languages"))?.hidden).toBe(false);
     expect(document.getElementById(profilePanelId("data"))?.hidden).toBe(true);
+    expect(screen.queryByRole("button", { name: en.profile.sectionDev })).toBeNull();
+  });
+
+  it("shows the dev pill when showDevSection is true", () => {
+    renderNav(undefined, true);
+
+    expect(screen.getByRole("button", { name: en.profile.sectionDev })).toBeDefined();
   });
 
   it("switches panels instantly when a pill is tapped", async () => {
