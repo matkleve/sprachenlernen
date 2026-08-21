@@ -362,6 +362,19 @@ unmeasured, so the band per method stays a **[D]**.
 | ◐ | Sara Soueidan, Codrops — deep dive on `feTurbulence` textures (cited via Gammon 2024, not re-opened here) | [28](STUDY-028-irregular-borders.md) |
 | ◐ | Vanilla Breeze design tokens doc — compares rough/sketchy border techniques (cited via search, not re-opened here) | [28](STUDY-028-irregular-borders.md) |
 
+## Progressive textures
+
+| | Source | Used in |
+| --- | --- | --- |
+| ⬤ | Codrops / Sara Soueidan (2019): *SVG Filter Effects: Creating Texture with feTurbulence* — paper via fractalNoise + feDiffuseLighting. [Link](https://tympanus.net/codrops/2019/02/19/svg-filter-effects-creating-texture-with-feturbulence/) | [29](STUDY-029-progressive-textures.md) |
+| ⬤ | CSS-Tricks: *Grainy Gradients* — turbulence as background, contrast/brightness, mix-blend-mode. [Link](https://css-tricks.com/grainy-gradients/) | [29](STUDY-029-progressive-textures.md) |
+| ⬤ | CSS-Tricks: *Creating Patterns With SVG Filters* — baseFrequency, stitchTiles, anisotropic wood. [Link](https://css-tricks.com/creating-patterns-with-svg-filters/) | [29](STUDY-029-progressive-textures.md) |
+| ⬤ | freeCodeCamp: *Grainy CSS Backgrounds Using SVG Filters* — inline data-URI noise. [Link](https://www.freecodecamp.org/news/grainy-css-backgrounds-using-svg-filters/) | [29](STUDY-029-progressive-textures.md) |
+| ⬤ | zharr.is (2025): *The Grain of the Screen* — token-system grain overlay pattern. [Link](https://zharr.is/posts/grain-of-the-screen/) | [29](STUDY-029-progressive-textures.md) |
+| ⬤ | Google Chrome modern-web-guidance: *visually-texture-content* — mask-image weathering, progressive enhancement. [Link](https://github.com/GoogleChrome/modern-web-guidance/blob/main/skills/modern-web-guidance/guides/user-experience/visually-texture-content.md) | [29](STUDY-029-progressive-textures.md) |
+| ⬤ | Dream-Pixels-Forge/vanguard-wooden-uikit — procedural wood via feTurbulence + feColorMatrix + feDiffuseLighting, zero PNG. [Link](https://github.com/Dream-Pixels-Forge/vanguard-wooden-uikit) | [29](STUDY-029-progressive-textures.md) |
+| ⬤ | Vanseo Design: *feDiffuseLighting* — bump map lighting model. [Link](https://vanseodesign.com/web-design/svg-filter-primitives-fediffuselighting/) | [29](STUDY-029-progressive-textures.md) |
+
 ---
 
 ## Frameworks
