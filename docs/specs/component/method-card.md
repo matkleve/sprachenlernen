@@ -21,10 +21,11 @@ Implementation: `features/method-menu/MethodCard.tsx`,
 
 | Element | Class | Notes |
 | --- | --- | --- |
-| Method name (`h3`) | `text-3xl font-semibold leading-tight text-ink` | Primary identity on the card |
-| Summary | `text-sm text-ink line-clamp-2` | Session hook — `mt-0.5` below title |
-| Body padding | `p-3` | Tighter than detail surfaces |
-| Section gaps | `mt-2` between badge row, chips, does-not-do | Catalogue scan density |
+| Method name (`h3`) | `text-xl sm:text-2xl lg:text-3xl font-semibold leading-tight text-ink` | Smaller on phone; full scale from `lg` (3-col) |
+| Summary | `text-sm text-ink line-clamp-1 sm:line-clamp-2` | One line on phone; two from `sm` |
+| Body padding | `p-2.5 sm:p-3` | Tighter on phone |
+| Section gaps | `mt-1.5 sm:mt-2` between badge row, chips, does-not-do | Catalogue scan density |
+| Does-not-do | `hidden sm:block line-clamp-2` | Omitted on phone — detail page carries full copy |
 | Badge row | See [`method-badge.md`](method-badge.md) | `layout="row"` — shields left, effort right |
 | Property chips | [`chip.md`](chip.md) | `size="card"`; duration + requirements only |
 
@@ -45,7 +46,8 @@ Placement: top-right of card header — quiet text only (`text-muted` for Info,
 ## Acceptance criteria
 
 - [ ] Given any method card, when it renders, then the method name uses
-      `text-3xl` — primary identity at catalogue distance.
+      `text-xl` on viewports below `sm`, `text-2xl` from `sm` to below `lg`, and
+      `text-3xl` from `lg` — primary identity scales with card width.
 - [ ] Given any method card, when it renders, then the header graphic uses the
       card header rules in [`method-card-header.md`](method-card-header.md).
 - [ ] Given a runnable exercise method, when the card renders, then the header shows
