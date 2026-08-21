@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 
 import { ShellPageContent } from "@/features/app-shell/ShellPageContent";
 import { ProfileAppSection } from "@/features/profile/ProfileAppSection";
+import { ProfileDevSection } from "@/features/profile/ProfileDevSection";
 import { ProfileHomeScreenSection } from "@/features/profile/ProfileHomeScreenSection";
 import { ProfileLanguages } from "@/features/profile/ProfileLanguages";
 import { ProfileSectionNav } from "@/features/profile/ProfileSectionNav";
@@ -74,6 +75,16 @@ export default async function ProfilePage({
       >
         <ProfileAppSection />
         <ProfileHomeScreenSection />
+      </div>
+
+      <div
+        id={profilePanelId("dev")}
+        role="tabpanel"
+        aria-labelledby="profile-section-dev"
+        hidden={initialSection !== "dev"}
+        className="[&>section:first-child]:mt-0"
+      >
+        <ProfileDevSection />
       </div>
 
       <ProfileSignOut />

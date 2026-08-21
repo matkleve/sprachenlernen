@@ -1,0 +1,174 @@
+{
+  "chapters": [
+    {
+      "id": "workshop",
+      "name": "Workshop",
+      "tagline": "Warm, close, wooden — the bench you sit at",
+      "stageFrom": 1,
+      "stageTo": 3,
+      "fontLabel": "Source Serif 4 + DM Sans",
+      "borderWeight": "hairline",
+      "tokens": {
+        "canvas": "#f3ede4",
+        "surface": "#fdf9f2",
+        "surfaceRaised": "#fffdf8",
+        "ink": "#2a2118",
+        "muted": "#665a4d",
+        "line": "#e2d8c9",
+        "lineStrong": "#93816d",
+        "accent": "#b4532a",
+        "accentDeep": "#8f3f1f",
+        "accentSoft": "#f5ebe4",
+        "accentInk": "#ffffff",
+        "danger": "#a32e26",
+        "dangerDeep": "#7d221c",
+        "dangerSoft": "#fbe9e7",
+        "dangerInk": "#ffffff",
+        "success": "#3d6b4f",
+        "successDeep": "#2e5340",
+        "successSoft": "#e8f2ec",
+        "successInk": "#ffffff",
+        "radiusCard": "0.75rem",
+        "radiusPill": "9999px"
+      }
+    },
+    {
+      "id": "library",
+      "name": "Library",
+      "tagline": "Stone and air — the room grows taller",
+      "stageFrom": 4,
+      "stageTo": 6,
+      "fontLabel": "Source Serif 4 + DM Sans",
+      "borderWeight": "hairline",
+      "tokens": {
+        "canvas": "#eeeeea",
+        "surface": "#f9f9f6",
+        "surfaceRaised": "#ffffff",
+        "ink": "#232322",
+        "muted": "#5e5d57",
+        "line": "#dcdad2",
+        "lineStrong": "#84837a",
+        "accent": "#a85430",
+        "accentDeep": "#853f22",
+        "accentSoft": "#f0e8e2",
+        "accentInk": "#ffffff",
+        "danger": "#9c2f27",
+        "dangerDeep": "#78231d",
+        "dangerSoft": "#f8e8e6",
+        "dangerInk": "#ffffff",
+        "success": "#3a6650",
+        "successDeep": "#2b4d3d",
+        "successSoft": "#e6f0ea",
+        "successInk": "#ffffff",
+        "radiusCard": "1rem",
+        "radiusPill": "9999px"
+      }
+    },
+    {
+      "id": "observatory",
+      "name": "Observatory",
+      "tagline": "Night, brass and marble — the dome stands open",
+      "stageFrom": 7,
+      "stageTo": 8,
+      "fontLabel": "Source Serif 4 + DM Sans",
+      "borderWeight": "hairline",
+      "tokens": {
+        "canvas": "#15161c",
+        "surface": "#1e202a",
+        "surfaceRaised": "#272a36",
+        "ink": "#f1efe9",
+        "muted": "#a9a89f",
+        "line": "#333744",
+        "lineStrong": "#8d8c85",
+        "accent": "#dd8f56",
+        "accentDeep": "#eda772",
+        "accentSoft": "#2c2621",
+        "accentInk": "#15161c",
+        "danger": "#e88b80",
+        "dangerDeep": "#f0a79e",
+        "dangerSoft": "#33211f",
+        "dangerInk": "#15161c",
+        "success": "#7fc09b",
+        "successDeep": "#9ad2b2",
+        "successSoft": "#1c2b23",
+        "successInk": "#15161c",
+        "radiusCard": "1.25rem",
+        "radiusPill": "9999px"
+      }
+    }
+  ],
+  "stages": [
+    {
+      "stage": 1,
+      "label": "Bare bench",
+      "lamps": 0,
+      "glow": 0.0,
+      "grain": 0.05,
+      "bevel": 0,
+      "rule": 0.0
+    },
+    {
+      "stage": 2,
+      "label": "First lamp",
+      "lamps": 1,
+      "glow": 0.1,
+      "grain": 0.044,
+      "bevel": 1,
+      "rule": 0.0
+    },
+    {
+      "stage": 3,
+      "label": "Planed and lit",
+      "lamps": 2,
+      "glow": 0.18,
+      "grain": 0.038,
+      "bevel": 1,
+      "rule": 0.35
+    },
+    {
+      "stage": 4,
+      "label": "Shelves",
+      "lamps": 2,
+      "glow": 0.14,
+      "grain": 0.032,
+      "bevel": 1,
+      "rule": 0.45
+    },
+    {
+      "stage": 5,
+      "label": "Gallery",
+      "lamps": 3,
+      "glow": 0.22,
+      "grain": 0.028,
+      "bevel": 2,
+      "rule": 0.6
+    },
+    {
+      "stage": 6,
+      "label": "Map room",
+      "lamps": 4,
+      "glow": 0.3,
+      "grain": 0.024,
+      "bevel": 2,
+      "rule": 0.75
+    },
+    {
+      "stage": 7,
+      "label": "Dome by day",
+      "lamps": 4,
+      "glow": 0.24,
+      "grain": 0.022,
+      "bevel": 2,
+      "rule": 0.7
+    },
+    {
+      "stage": 8,
+      "label": "Dome by night",
+      "lamps": 6,
+      "glow": 0.38,
+      "grain": 0.018,
+      "bevel": 3,
+      "rule": 0.9
+    }
+  ]
+}

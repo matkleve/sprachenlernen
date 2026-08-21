@@ -5,6 +5,7 @@
     "sectionLanguages": "Sprachen",
     "sectionData": "Deine Daten",
     "sectionDevice": "Dieses Gerät",
+    "sectionDev": "Dev",
     "spokenHeading": "Sprache, die du sprichst",
     "spokenCaption": "Menüs, Schaltflächen und der Text, der Wörter auf Karten beschreibt. Eine Änderung setzt deinen Lernfortschritt nicht zurück.",
     "spokenError": "Deine Sprache konnte nicht geladen werden.",
