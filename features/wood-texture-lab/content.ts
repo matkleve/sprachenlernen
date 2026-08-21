@@ -11,14 +11,14 @@ export const woodTextures: readonly WoodTexture[] = [
     id: "raw-planks",
     number: 1,
     name: "Raw planks",
-    marks: ["Horizontal grain", "Dark weathered bench", "Wide plank seams"],
+    marks: ["Horizontal grain", "Dark weathered bench", "Horizontal plank seams"],
     swatchClass: "wood-texture-swatch--raw-planks",
   },
   {
     id: "sanded-bench",
     number: 2,
     name: "Sanded bench",
-    marks: ["Horizontal grain", "Medium brown tone", "Softer seam lines"],
+    marks: ["Horizontal grain", "Medium brown tone", "Horizontal plank seams"],
     swatchClass: "wood-texture-swatch--sanded-bench",
   },
   {

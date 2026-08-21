@@ -12,7 +12,8 @@ wood textures from the progression reference board before wiring them into
 
 - **In:** four labelled swatches (raw planks, sanded bench, oiled timber, stock
   bar); horizontal-grain note; bullet marks per swatch; CSS in
-  `app/wood-textures.css`.
+  `app/wood-textures.css`. **Invariant:** grain runs left→right only — no
+  vertical brightness bands or alternating plank colours.
 - **Out:** stone or card overlays; wiring to learner data; navigation entry in
   the app shell. Account required: **no** — `/dev/*` is public.
 
