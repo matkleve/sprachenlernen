@@ -37,6 +37,16 @@ export const page = {
   workshopHeading: "Workshop progression",
   workshopIntro:
     "Same geometry — only the material layer switches. If these three feel like one object becoming better-made, the system works.",
+  progression: {
+    insightHeading: "Rough → fine: what actually changes",
+    insightBody:
+      "Refinement is not “more texture.” Stage 1 shows strong grain and deep inset shadows; stage 3 keeps the same wood species but turns grain down, adds a warm highlight, and softens corners — like sanding and oiling the same bench.",
+    grainHintRough: "Full overlay — reads gritty",
+    grainHintFine: "Barely visible — reads smooth",
+    specularHintFine: "Oiled sheen from top highlight",
+    knobSummary:
+      "Within a chapter, only numeric knobs move: grain ↓, roughness ↓, specular ↑, radius ↑. Chapter boundaries (3→4, 6→7) swap the material family entirely.",
+  },
   preview: {
     cardTitle: "Narrow listening",
     cardBody: "Three short episodes on one topic. The vocabulary repeats itself.",

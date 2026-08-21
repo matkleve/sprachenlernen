@@ -13,6 +13,7 @@ import {
 import { cn } from "@/lib/utils";
 
 import { page } from "./content";
+import { MaterialProgressionGuide } from "./MaterialProgressionGuide";
 import { MaterialRecipeTable } from "./MaterialRecipeTable";
 import { MaterialSample } from "./MaterialSample";
 
@@ -130,6 +131,8 @@ export function MaterialExplorer() {
           ))}
         </div>
       </section>
+
+      <MaterialProgressionGuide />
     </div>
   );
 }
