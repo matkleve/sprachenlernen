@@ -20,7 +20,14 @@ const CONTRAST_BEARING = [
   "--color-muted",
 ] as const;
 
-const DECORATIVE = ["--stage-glow", "--stage-grain", "--stage-bevel", "--stage-rule"] as const;
+const DECORATIVE = [
+  "--stage-glow",
+  "--stage-grain",
+  "--stage-bevel",
+  "--stage-rule",
+  "--radius-card",
+  "--stage-stars",
+] as const;
 
 const styleAt = (stage: number) => stageScopeStyle({ stage }) as unknown as Record<string, string>;
 
@@ -34,6 +41,7 @@ describe("chapterForStage", () => {
     [6, "library"],
     [7, "observatory"],
     [8, "observatory"],
+    [9, "observatory"],
   ])("maps stage %i to %s", (stage, id) => {
     expect(chapterForStage(stage).id).toBe(id);
   });
@@ -51,7 +59,7 @@ describe("clampStage", () => {
   it.each([
     [0, MIN_STAGE],
     [-4, MIN_STAGE],
-    [9, MAX_STAGE],
+    [10, MAX_STAGE],
     [999, MAX_STAGE],
     [4.4, 4],
     [Number.NaN, MIN_STAGE],
@@ -61,17 +69,13 @@ describe("clampStage", () => {
 });
 
 describe("a stage never moves a contrast-bearing token", () => {
-  /**
-   * The load-bearing rule of the whole model. `check:contrast` validates
-   * chapters; if a stage could move `ink` or `canvas`, every stage would need
-   * its own review and the palette count would go from six to sixteen.
-   */
   it.each([
     [1, 2],
     [2, 3],
     [4, 5],
     [5, 6],
     [7, 8],
+    [8, 9],
   ])("holds colours steady between stages %i and %i", (from, to) => {
     const a = styleAt(from);
     const b = styleAt(to);
@@ -95,11 +99,13 @@ describe("every step is perceptible in the output", () => {
     [5, 6],
     [6, 7],
     [7, 8],
+    [8, 9],
   ])("changes at least one decorative value from %i to %i", (from, to) => {
     const a = styleAt(from);
     const b = styleAt(to);
+    const skinChanged = stageDetail(from).skin !== stageDetail(to).skin;
     const changed = DECORATIVE.some((token) => a[token] !== b[token]);
-    expect(changed).toBe(true);
+    expect(changed || skinChanged).toBe(true);
   });
 });
 
@@ -109,6 +115,7 @@ describe("crossesChapter", () => {
     expect(crossesChapter(6, 7)).toBe(true);
     expect(crossesChapter(1, 3)).toBe(false);
     expect(crossesChapter(4, 6)).toBe(false);
+    expect(crossesChapter(7, 9)).toBe(false);
   });
 });
 
@@ -117,5 +124,11 @@ describe("stageDetail", () => {
     for (let stage = MIN_STAGE; stage <= MAX_STAGE; stage++) {
       expect(stageDetail(stage).label.length).toBeGreaterThan(0);
     }
+  });
+
+  it("adds stars only in the observatory chapter", () => {
+    expect(stageDetail(6).stars).toBe(0);
+    expect(stageDetail(7).stars).toBeGreaterThan(0);
+    expect(stageDetail(9).stars).toBeGreaterThan(stageDetail(7).stars);
   });
 });

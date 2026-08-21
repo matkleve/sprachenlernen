@@ -11,7 +11,7 @@ export const page = {
   eyebrow: "Dev",
   title: "Progression explorer",
   intro:
-    "One control, eight stages. Chapters change the whole token set; stages only add texture and depth on top of the chapter you are in. Nothing here is wired to learner data — this exists to answer whether a single step is worth noticing.",
+    "One control, nine stages. Chapters change the whole token set; stages add material skins (wood, plaster, night sky), texture, radius, and depth on top of the chapter you are in. Nothing here is wired to learner data — this exists to answer whether a single step is worth noticing.",
   stageLabel: "Stage",
   chapterHeading: "Chapter",
   preview: {

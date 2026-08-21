@@ -8,17 +8,23 @@ import { themeScopeStyle, type BorderWeight, type DesignThemeTokens } from "@/li
  * docs/specs/page/progression-explorer.md
  *
  * **Chapter** is a full token set; **stage** is a decorative overlay on top of
- * it. They are separate because they cost differently: a chapter needs a
- * contrast review, a stage cannot need one — it is restricted to properties
- * that never carry text (glow, grain, bevel, rule).
- *
- * That restriction is the load-bearing part. Let a stage move `ink` or
- * `canvas` and every stage becomes a palette to validate: six goes to sixteen,
- * and the reason to have stages at all — that they are nearly free — is gone.
+ * it. Stages may also pick a material skin (CSS-only textures), radius, border
+ * weight, and star count — never contrast-bearing colours.
  */
 
 export const MIN_STAGE = 1;
-export const MAX_STAGE = 8;
+export const MAX_STAGE = 9;
+
+export type ProgressionSkinId =
+  | "workshop-1"
+  | "workshop-2"
+  | "workshop-3"
+  | "library-1"
+  | "library-2"
+  | "library-3"
+  | "observatory-1"
+  | "observatory-2"
+  | "observatory-3";
 
 export type ProgressionChapter = {
   id: string;
@@ -34,10 +40,16 @@ export type ProgressionChapter = {
 export type ProgressionStage = {
   stage: number;
   label: string;
+  skin: ProgressionSkinId;
   glow: number;
   grain: number;
   bevel: number;
   rule: number;
+  /** Stage-level card radius — decorative, not a contrast token. */
+  radiusCard: string;
+  borderPx: number;
+  /** Glowing sky dots in Observatory only. */
+  stars: number;
 };
 
 const data = progression as { chapters: ProgressionChapter[]; stages: ProgressionStage[] };
@@ -45,8 +57,6 @@ const data = progression as { chapters: ProgressionChapter[]; stages: Progressio
 export const progressionChapters = data.chapters;
 export const progressionStages = data.stages;
 
-// Constitution §4 — no silent failure. If the data file is ever emptied, that
-// is a broken build, not a page that renders in the wrong colours.
 function required<T>(value: T | undefined, what: string): T {
   if (!value) {
     throw new Error(`data/design-themes/progression.json defines no ${what}`);
@@ -57,7 +67,6 @@ function required<T>(value: T | undefined, what: string): T {
 const FIRST_CHAPTER = required(progressionChapters[0], "chapters");
 const FIRST_STAGE = required(progressionStages[0], "stages");
 
-/** Clamps rather than throws — a slider is the only caller and it cannot ask twice. */
 export function clampStage(stage: number): number {
   if (!Number.isFinite(stage)) return MIN_STAGE;
   return Math.min(MAX_STAGE, Math.max(MIN_STAGE, Math.round(stage)));
@@ -68,8 +77,6 @@ export function chapterForStage(stage: number): ProgressionChapter {
   const found = progressionChapters.find(
     (chapter) => clamped >= chapter.stageFrom && clamped <= chapter.stageTo,
   );
-  // The data covers 1–8 with no gaps; this fallback means a future edit that
-  // breaks that shows the wrong chapter rather than crashing the page.
   return found ?? FIRST_CHAPTER;
 }
 
@@ -78,28 +85,30 @@ export function stageDetail(stage: number): ProgressionStage {
   return progressionStages.find((entry) => entry.stage === clamped) ?? FIRST_STAGE;
 }
 
-/** True when moving between these two stages also changes the chapter. */
 export function crossesChapter(from: number, to: number): boolean {
   return chapterForStage(from).id !== chapterForStage(to).id;
+}
+
+export function stageSkinClass(skin: ProgressionSkinId): string {
+  return `progression-skin--${skin}`;
 }
 
 export type StageScopeInput = {
   stage: number;
 };
 
-/**
- * The chapter's tokens plus the stage's decorative variables, as one style
- * object for a scoping element — the same technique `/dev/design` uses.
- */
 export function stageScopeStyle({ stage }: StageScopeInput): CSSProperties {
   const chapter = chapterForStage(stage);
   const detail = stageDetail(stage);
 
   return {
     ...themeScopeStyle(chapter.tokens),
+    "--radius-card": detail.radiusCard,
     "--stage-glow": String(detail.glow),
     "--stage-grain": String(detail.grain),
     "--stage-bevel": `${detail.bevel}px`,
     "--stage-rule": String(detail.rule),
+    "--stage-border-px": `${detail.borderPx}px`,
+    "--stage-stars": String(detail.stars),
   } as CSSProperties;
 }

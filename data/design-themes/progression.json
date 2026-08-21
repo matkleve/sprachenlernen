@@ -3,7 +3,7 @@
     {
       "id": "workshop",
       "name": "Workshop",
-      "tagline": "Warm, close, wooden — the bench you sit at",
+      "tagline": "Warm wood / stone bench",
       "stageFrom": 1,
       "stageTo": 3,
       "fontLabel": "Source Serif 4 + DM Sans",
@@ -35,7 +35,7 @@
     {
       "id": "library",
       "name": "Library",
-      "tagline": "Stone and air — the room grows taller",
+      "tagline": "Stone / plaster / paper",
       "stageFrom": 4,
       "stageTo": 6,
       "fontLabel": "Source Serif 4 + DM Sans",
@@ -67,9 +67,9 @@
     {
       "id": "observatory",
       "name": "Observatory",
-      "tagline": "Night, brass and marble — the dome stands open",
+      "tagline": "Night sky / castle dome",
       "stageFrom": 7,
-      "stageTo": 8,
+      "stageTo": 9,
       "fontLabel": "Source Serif 4 + DM Sans",
       "borderWeight": "hairline",
       "tokens": {
@@ -100,67 +100,111 @@
   "stages": [
     {
       "stage": 1,
-      "label": "Bare bench",
+      "label": "Raw wood",
+      "skin": "workshop-1",
       "glow": 0.0,
-      "grain": 0.15,
+      "grain": 0.18,
       "bevel": 0,
-      "rule": 0.0
+      "rule": 0.0,
+      "radiusCard": "0.25rem",
+      "borderPx": 2,
+      "stars": 0
     },
     {
       "stage": 2,
-      "label": "First polish",
-      "glow": 0.1,
-      "grain": 0.13,
+      "label": "Sanded wood",
+      "skin": "workshop-2",
+      "glow": 0.08,
+      "grain": 0.14,
       "bevel": 1,
-      "rule": 0.0
+      "rule": 0.0,
+      "radiusCard": "0.5rem",
+      "borderPx": 1,
+      "stars": 0
     },
     {
       "stage": 3,
-      "label": "Planed and warm",
-      "glow": 0.18,
+      "label": "Oiled wood",
+      "skin": "workshop-3",
+      "glow": 0.16,
       "grain": 0.11,
       "bevel": 1,
-      "rule": 0.35
+      "rule": 0.35,
+      "radiusCard": "0.75rem",
+      "borderPx": 1,
+      "stars": 0
     },
     {
       "stage": 4,
-      "label": "Shelves",
-      "glow": 0.14,
-      "grain": 0.095,
+      "label": "Cool plaster wall",
+      "skin": "library-1",
+      "glow": 0.1,
+      "grain": 0.12,
       "bevel": 1,
-      "rule": 0.45
+      "rule": 0.45,
+      "radiusCard": "0.875rem",
+      "borderPx": 1,
+      "stars": 0
     },
     {
       "stage": 5,
-      "label": "Gallery",
-      "glow": 0.22,
-      "grain": 0.085,
+      "label": "Calmer wall",
+      "skin": "library-2",
+      "glow": 0.16,
+      "grain": 0.1,
       "bevel": 2,
-      "rule": 0.6
+      "rule": 0.6,
+      "radiusCard": "1rem",
+      "borderPx": 1,
+      "stars": 0
     },
     {
       "stage": 6,
-      "label": "Map room",
-      "glow": 0.3,
-      "grain": 0.075,
+      "label": "Soft paper wall",
+      "skin": "library-3",
+      "glow": 0.22,
+      "grain": 0.08,
       "bevel": 2,
-      "rule": 0.75
+      "rule": 0.75,
+      "radiusCard": "1.25rem",
+      "borderPx": 1,
+      "stars": 0
     },
     {
       "stage": 7,
-      "label": "Dome by day",
-      "glow": 0.24,
-      "grain": 0.07,
+      "label": "Night marble",
+      "skin": "observatory-1",
+      "glow": 0.28,
+      "grain": 0.06,
       "bevel": 2,
-      "rule": 0.7
+      "rule": 0.7,
+      "radiusCard": "1.25rem",
+      "borderPx": 1,
+      "stars": 6
     },
     {
       "stage": 8,
-      "label": "Dome by night",
-      "glow": 0.38,
-      "grain": 0.06,
+      "label": "More star lamps",
+      "skin": "observatory-2",
+      "glow": 0.34,
+      "grain": 0.05,
+      "bevel": 2,
+      "rule": 0.82,
+      "radiusCard": "1.375rem",
+      "borderPx": 1,
+      "stars": 12
+    },
+    {
+      "stage": 9,
+      "label": "Starry dome",
+      "skin": "observatory-3",
+      "glow": 0.45,
+      "grain": 0.04,
       "bevel": 3,
-      "rule": 0.9
+      "rule": 0.95,
+      "radiusCard": "1.5rem",
+      "borderPx": 1,
+      "stars": 20
     }
   ]
 }
