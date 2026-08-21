@@ -135,6 +135,86 @@ assets ignore `border-radius` (MDN), so a bordered-frame implementation of
 grain would desynchronize direction from the rounded corner exactly where the
 owner's screenshot showed the defect.
 
+### Interrupted ridges: a warp can be too fast for its own canvas
+
+**[D]** Once the CSS-only line stack became a canvas-warped ridge field
+(`lib/wood-grain-ridges.ts`), the owner flagged a second, more specific
+defect: on the "Raw planks" swatch, the hills and valleys did not pull
+through continuously left to right — they looked interrupted, as if a
+ridge's smooth curve suddenly kinked or dissolved into a tangle of tight
+zigzags for a short stretch before smoothing out again.
+
+Two independent causes were found, both about how fast the domain warp is
+allowed to change relative to the ridge grid it is bending:
+
+1. **The warp's *vertical* input changed too fast within one ridge's own
+   height.** It was sampled as `y / height`, so across one ridge-height
+   band the noise's y-coordinate advanced by a large fraction of a full
+   noise wavelength — meaning the same ridge sampled a visibly different
+   warp near its own top edge vs its own bottom edge, and the curve folded
+   on itself instead of reading as one continuous bend. Fix: sample the
+   warp's y-input in *ridge units* (`y / ridgeStep`), scaled down further by
+   a small constant, so one ridge-height step moves the noise field by only
+   a sliver — while ridges several steps apart still drift apart enough to
+   merge or split.
+2. **The warp's *horizontal* rate of change could exceed one ridge-step per
+   warp wavelength.** The ridge traced at a fixed row is
+   `y + warp(x, y)`; across one warp wavelength (`width / warpFrequency`
+   pixels) the offset can swing by up to `2 × warpAmount × ridgeStep`. Once
+   that swing approaches the wavelength itself, `y + warp(x, y)` is no
+   longer single-valued as x increases — the traced curve doubles back on
+   itself, which is exactly the "tight zigzag" tangle in the screenshot.
+   The "Raw planks" preset had the highest `warpAmount × warpFrequency`
+   product of the four (`0.9 × 3.2 = 2.88`), and the effect was strongest at
+   the narrowest rendered width and highest zoom — both increase how much of
+   the true curve's instability gets sampled instead of blurred away. Fix:
+   `stableWarpAmount()` caps `warpAmount` per render so
+   `warpAmount × warpFrequency × ridgeStep / width` stays under a fixed
+   safety margin, regardless of the card's actual pixel size on screen.
+
+Both fixes are regression-tested directly on the warp function
+(`lib/wood-grain-ridges.test.ts`) rather than by inspecting rendered pixels,
+because pixel-level "did it look broken" checks are exactly the kind of
+fine detail a screenshot diff or OCR-based review misses — the owner's own
+observation earlier in this study.
+
+### Owner-requested sources (2026-08-21): Wilkie distortion field, not warped stripes
+
+**[A]** The owner supplied two references and flagged that prior canvas attempts
+did not follow published wood algorithms:
+
+1. **Hafidi & Wilkie (CGF 2025, DOI 10.1111/cgf.70066)** — *From Words to Wood*.
+   Procedural model with growth rings, vessels, rays, knots, figure; novel
+   **brushiness distortion**, **influence points** (repulsive displacement on
+   rings), and per-feature control. Builds on the Liu/Wilkie cylindrical
+   solid-wood lineage ([LDHM16]; see also Nindel et al. arXiv:2302.01820).
+2. **jsabbott (Olde Tinkerer Studio / ArtStation)** — practical Blender shader
+   tutorial: **domain warp** (noise vector → Musgrave/noise vector), anisotropic
+   mapping (high X stretch, low Y), layered color ramps and bump.
+
+**[A]** The load-bearing algorithm across Wilkie/Liu/Nindel is not `sin(y +
+f(x))` warped stripes. It is:
+
+- An idealized **growth-ring coordinate** (ring age / radial distance in tree
+  space).
+- A **spatially varying distortion field** `f(p)` applied *before* sampling
+  that coordinate — radial distortion `mr(p)` bends ring shapes (blister /
+  island bulges); tangential distortion `mt(p)` adds figure along the grain
+  (Cornell procedural wood textures paper; Liu et al. [LDHM16]).
+- **Influence points** (Hafidi 2025) as localized repulsive terms on the
+  distortion field.
+
+**[D]** Owner correction: hills and valleys on a landscape vary in **both** x
+and y — localized islands, not stripes whose only motion is sliding on y as x
+changes. That matches `mr(x,y)` and `mt(x,y)` on the board face, not a 1D
+warp of horizontal sine lines.
+
+**Implementation (2026-08-21):** `lib/wood-grain-ridges.ts` now uses
+`ringAgeAt(x,y) = base_y + mr(x,y) + mt(x,y) + influence(x,y)` with multiband
+fbm distortion (4 bands, per Wilkie) and seeded influence points. Ridges are
+contours of `sin(ringAge × 2π)` with raking light on slope. This replaces
+`ridgePhaseAt` / `warpOffsetPx` sine-warp experiments.
+
 ### Tileability without visible seams
 
 **[B]** A texture that repeats via `background-size` must be seamless at the

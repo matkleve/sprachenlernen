@@ -395,6 +395,10 @@ unmeasured, so the band per method stays a **[D]**.
 | ⬤ | The Knotty Lumber Co.: *End Grain vs Edge Grain Cutting Boards* — face grain shows sweeping streaks, end grain shows concentric rings, edge grain is straighter/linear. [Link](https://theknottylumberco.ca/en-us/blogs/woodworking-tools-tips-and-techniques/end-grain-vs-edge-grain) | [30](STUDY-030-procedural-wood-grain.md) |
 | ◐ | AITextured product pages (*crosscut wood with knots*, *rustic wood planks*) — knot-adjacent grain variation, tileable PBR plank texture descriptions (marketing copy, cited for descriptive claims only). [Link](https://aitextured.com/textures/wood/wood-seamless-pbr-crosscut-wood-texture-with-knots-and-grain.html) | [30](STUDY-030-procedural-wood-grain.md) |
 | ⬤ | `symbios-texture` docs: toroidal 4D noise mapping for seamless tiling — `cos(0)=cos(2π)` guarantee. [Link](https://docs.rs/symbios-texture/latest/symbios_texture/noise/index.html) | [30](STUDY-030-procedural-wood-grain.md) |
+| ⬤ | Hafidi & Wilkie (2025): *From Words to Wood* (CGF, DOI 10.1111/cgf.70066) — growth rings, influence points, brushiness distortion, NLP parameter UI. [Link](https://doi.org/10.1111/cgf.70066) | [30](STUDY-030-procedural-wood-grain.md) |
+| ⬤ | Liu et al. [LDHM16] / Cornell: *Procedural wood textures* — cylindrical coords, radial `mr` and tangential `mt` distortion fields bend ring shapes; multiband noise. [Link](https://doi.org/10.48550/arxiv.1511.04224) | [30](STUDY-030-procedural-wood-grain.md) |
+| ⬤ | Nindel et al. (2023): automatic inference of procedural wood from photo — distortion texture recovery, curved Gabor ring detection. [Link](https://doi.org/10.48550/arxiv.2302.01820) | [30](STUDY-030-procedural-wood-grain.md) |
+| ⬤ | jsabbott / Olde Tinkerer Studio: *How do you make a procedurally generated realistic wood material in Blender 3D?* — noise→Musgrave domain warp, anisotropic mapping, layered ramps. [Link](https://oldetinkererstudio.com/how-do-you-make-a-procedurally-generated-realistic-wood-material-in-blender-3d/) | [30](STUDY-030-procedural-wood-grain.md) |
 
 ---
 
