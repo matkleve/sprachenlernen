@@ -91,6 +91,18 @@ export function crossesChapter(from: number, to: number): boolean {
   return chapterForStage(from).id !== chapterForStage(to).id;
 }
 
+/**
+ * Stage card radius in CSS pixels. `StageFrame` draws its rough border in an
+ * SVG with no viewBox — user units are pixels there, so `rx` needs a number,
+ * not the `rem` string the token carries.
+ */
+export function stageRadiusPx(stage: number): number {
+  const { radiusCard } = stageDetail(stage);
+  const value = Number.parseFloat(radiusCard);
+  if (!Number.isFinite(value)) return 0;
+  return radiusCard.trim().endsWith("rem") ? value * 16 : value;
+}
+
 export function stageSkinClass(skin: ProgressionSkinId): string {
   return `progression-skin--${skin}`;
 }
@@ -105,6 +117,13 @@ export function stageScopeStyle({ stage }: StageScopeInput): CSSProperties {
 
   return {
     ...themeScopeStyle(chapter.tokens),
+    // Everything in this scope sits on the material until a card or control
+    // puts it back on a surface — `.progression-card` restores the surface
+    // pair in globals.css. Without this, Workshop's near-black chapter ink
+    // lands on dark wood at 1.4:1.
+    "--color-ink": chapter.tokens.canvasInk ?? chapter.tokens.ink,
+    "--color-muted": chapter.tokens.canvasMuted ?? chapter.tokens.muted,
+    color: chapter.tokens.canvasInk ?? chapter.tokens.ink,
     "--radius-card": detail.radiusCard,
     "--stage-glow": String(detail.glow),
     "--stage-grain": String(detail.grain),
