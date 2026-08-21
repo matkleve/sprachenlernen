@@ -29,6 +29,8 @@ export const routes = {
   methodCardAssets: "/dev/method-card-assets",
   /** Public. Horizontal-grain wood texture swatches — dev tooling. */
   woodTextureLab: "/dev/wood-textures",
+  /** Public. Procedural wood-grain variable playground — dev tooling. */
+  grainCreator: "/dev/grain-creator",
   /** Public Home Screen install instructions (iPhone PWA scope). */
   install: "/install",
   privacy: "/privacy",

@@ -41,6 +41,11 @@ const DEV_LINKS: DevLink[] = [
     description: "Four horizontal-grain wood species from the reference board, labelled for marking.",
   },
   {
+    href: routes.grainCreator,
+    name: "Grain creator",
+    description: "Tune macro band seams and micro fibre noise; copy CSS into progression skins.",
+  },
+  {
     href: routes.designExplorer,
     name: "Design explorer",
     description: "The five base theme presets side by side.",
