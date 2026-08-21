@@ -375,6 +375,17 @@ unmeasured, so the band per method stays a **[D]**.
 | ⬤ | Dream-Pixels-Forge/vanguard-wooden-uikit — procedural wood via feTurbulence + feColorMatrix + feDiffuseLighting, zero PNG. [Link](https://github.com/Dream-Pixels-Forge/vanguard-wooden-uikit) | [29](STUDY-029-progressive-textures.md) |
 | ⬤ | Vanseo Design: *feDiffuseLighting* — bump map lighting model. [Link](https://vanseodesign.com/web-design/svg-filter-primitives-fediffuselighting/) | [29](STUDY-029-progressive-textures.md) |
 
+## UI wood grain (layer stacks)
+
+Not 3D growth-ring shaders. Build model: multi-scale horizontal fibres — see
+[STUDY-030](STUDY-030-procedural-wood-grain.md).
+
+| | Source | Used in |
+| --- | --- | --- |
+| ⬤ | CSS-Tricks: *Creating Patterns With SVG Filters* — anisotropic `baseFrequency` for directional grain; `stitchTiles`. [Link](https://css-tricks.com/creating-patterns-with-svg-filters/) | [30](STUDY-030-procedural-wood-grain.md) |
+| ⬤ | CSS-Tricks: *Grainy Gradients* — noise overlay + blend mode stack. [Link](https://css-tricks.com/grainy-gradients/) | [29](STUDY-029-progressive-textures.md), [30](STUDY-030-procedural-wood-grain.md) |
+| ◐ | OTOY / GLSL / Blender / Wilkie / Liu wood-shader papers — 3D ring models; background only. | [30](STUDY-030-procedural-wood-grain.md) |
+
 ---
 
 ## Frameworks

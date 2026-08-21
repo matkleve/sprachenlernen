@@ -397,6 +397,23 @@ explicitly asks — **state the reason**. Not justified: merge, shame, ship,
 
 See [`VERIFY-SCOPES.md`](VERIFY-SCOPES.md).
 
+## 23. Treating studies as true
+
+**The failure:** a study chapter (especially texture or visual reasoning) names
+shader papers, GLSL, or 3D wood algorithms. The agent treats it as **fact** and
+ships infrastructure the spec never asked for — while the live CSS/canvas layer
+stack was already correct. Worse: the study itself may have been **wrong**
+(`STUDY-030` once mandated growth rings; the owner corrected it to layered
+horizontal fibres).
+
+**The rule:** studies are **reasoning snapshots** ([`STUDY-FORMAT.md`](STUDY-FORMAT.md))
+— not build contracts, **not infallible**. Trust order when they conflict:
+owner → spec → live code → reference board → study thesis. For textures: read the
+**spec**, the **reference board**, and **live code**
+(`app/progression-skins.css`, `lib/wood-grain-ridges.ts`) first. If you prove a
+study wrong, fix or supersede it in the same session — do not implement to make
+the study paragraph true.
+
 ---
 
 ## For you, writing the prompt

@@ -1,9 +1,9 @@
-# 30 · Texture metrics: measuring whether a material looks right
+# 31 · Texture metrics: measuring whether a material looks right
 
-<!-- id: STUDY-030 -->
+<!-- id: STUDY-031 -->
 <!-- type: reasoning -->
 <!-- status: active -->
-<!-- related: STUDY-028, STUDY-029, progression-explorer -->
+<!-- related: STUDY-028, STUDY-029, STUDY-030, progression-explorer -->
 
 ## Thesis
 
@@ -15,6 +15,11 @@ guess. **They are a diagnostic, not a target.** Every one of them can be
 satisfied by something that looks worse, and this doc spends as much space on
 how they mislead as on what they measure, because the failure modes were all hit
 in practice while building them.
+
+What a given material should *look* like is not this doc's call.
+[STUDY-030](STUDY-030-procedural-wood-grain.md) owns that for wood — horizontal
+fibre layers, no growth rings — and the specs and live code own the build
+contract. This doc only supplies the measuring tape.
 
 `scripts/texture-metrics.mjs` implements them:
 
@@ -139,5 +144,7 @@ filter chain.
 
 - [STUDY-028](STUDY-028-irregular-borders.md) — irregular edges
 - [STUDY-029](STUDY-029-progressive-textures.md) — progressive textures
+- [STUDY-030](STUDY-030-procedural-wood-grain.md) — what wood grain should be;
+  this doc measures against it, it does not redefine it
 - [`docs/plans/progression-theme-system.md`](../plans/progression-theme-system.md)
 - `scripts/texture-metrics.mjs`, `scripts/lib/png.mjs`

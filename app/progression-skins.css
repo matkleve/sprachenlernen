@@ -4,9 +4,9 @@
 
 /* --- Shared procedural tiles (data URIs, zero PNG payload) --- */
 
-/* Directional wood grain — horizontal fibres across planks */
+/* Directional wood grain — horizontal fibres: baseFrequency X ≫ Y */
 .progression-skin {
-  --progression-wood-grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 256 256'%3E%3Cfilter id='g' color-interpolation-filters='sRGB'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.02 0.45' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)' opacity='0.65'/%3E%3C/svg%3E");
+  --progression-wood-grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 256 64'%3E%3Cfilter id='g' color-interpolation-filters='sRGB'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.45 0.02' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)' opacity='0.65'/%3E%3C/svg%3E");
   /* Coarse stone speckle for workshop card faces */
   --progression-stone-speckle: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Cfilter id='s' color-interpolation-filters='sRGB'%3E%3CfeTurbulence type='turbulence' baseFrequency='0.42' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23s)' opacity='0.72'/%3E%3C/svg%3E");
   /* Coarse blotching under the speckle — the scale that makes stone read as
@@ -33,7 +33,7 @@
 
 .progression-stage-grain--workshop {
   mix-blend-mode: multiply;
-  background-size: 280px 140px;
+  background-size: 320px 48px;
   background-image: var(--progression-wood-grain);
 }
 
@@ -194,7 +194,7 @@
   background-size:
     100% 100%,
     100% 100%,
-    280px 140px,
+    320px 48px,
     392px 100%,
     100% 100%;
   background-blend-mode: normal, normal, overlay, normal, normal;
@@ -220,7 +220,7 @@
   background-size:
     100% 100%,
     100% 100%,
-    280px 140px,
+    320px 48px,
     412px 100%,
     100% 100%;
   background-blend-mode: normal, normal, overlay, normal, normal;
@@ -246,7 +246,7 @@
   background-size:
     100% 100%,
     100% 100%,
-    280px 140px,
+    320px 48px,
     432px 100%,
     100% 100%;
   background-blend-mode: normal, normal, soft-light, normal, normal;

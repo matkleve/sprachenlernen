@@ -11,6 +11,36 @@ applying is still evidence about how this codebase misleads people.
 
 ---
 
+## Wood grain studies locked agents in
+
+`STUDY-030` once read like a Blender shader tutorial — growth rings, domain
+warping, Wilkie papers — and agents treated it as the build contract. The UI
+model is simpler: **stack horizontal grain at different scales** (fine fibres,
+coarse streaks, optional plank seams, colour wash). The reference board shows
+**no visible tree rings**.
+
+**The fix:** implement from `docs/specs/page/wood-texture-lab.md` and live
+code (`lib/wood-grain-ridges.ts`, `app/progression-skins.css`). Studies record
+reasoning and traps only. Invariant: grain left→right, **no vertical brightness
+bands** (`feTurbulence` low-X/high-Y pairing caused that twice).
+
+**The check:** before adding shader infrastructure, read the spec and existing
+layer stack; extend by new periods / `ridgeCount`, not by importing GLSL.
+
+## Treating a study as true when it is wrong
+
+Studies are **hypotheses at write time** — they can be totally false. Evidence
+grades `[A]`–`[D]` say how well something was argued, not that it is correct
+forever. `STUDY-030` once required growth-ring shaders; the owner corrected it
+to layered horizontal fibres.
+
+**The fix:** trust order is owner → spec → live code → reference board → study
+thesis. If those disagree, **fix or supersede the study** — never ship code to
+make a study paragraph true.
+
+**The check:** before citing a study as the reason for an implementation choice,
+confirm spec + code + board still agree with its thesis.
+
 ## Footer scrim floated while scrolling on iOS Safari
 
 `useVisualViewportBottomInset` listened to **scroll** on `visualViewport` and

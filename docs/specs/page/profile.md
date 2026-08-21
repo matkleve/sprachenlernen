@@ -49,6 +49,10 @@ Contract: [`reviews/design/DR-034-profile-section-navigation.md`](../../reviews/
 | `device` | This device | App version + Home screen (iPhone) |
 | `dev` | Dev | Links to dev preview pages (`/dev/*`) and the sentence realizer |
 
+Registry: `lib/dev-pages.ts` — each entry has `lastUpdatedAt` (UTC ms). Profile
+→ Dev sorts by that field (latest first) and shows **Last updated** on each
+card. Bump `lastUpdatedAt` when the preview or its tooling meaningfully changes.
+
 **`dev` is owner tooling on a learner's page, and it is visible in
 production.** That is deliberate: those pages exist to check deployed surfaces
 on a real phone, and gating them behind `NODE_ENV` would remove them from the
@@ -147,6 +151,8 @@ the learner's list ([`starter-deck.md`](../service/starter-deck.md)).
       default.
 - [ ] Given a tap on **Dev**, then the dev panel shows and every link in it
       points at a route in `lib/routes.ts` — no hand-written `/dev/...` string.
+- [ ] Given the dev panel, then links are ordered by `lastUpdatedAt` from
+      `lib/dev-pages.ts` (latest first) and each card shows **Last updated**.
 - [ ] Given a tap on **Your data**, then only the export and delete blocks show
       and sign out remains visible below.
 

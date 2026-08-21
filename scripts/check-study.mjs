@@ -76,6 +76,19 @@ for (const file of legacy) {
   fail(file, "legacy numbered study file — see docs/study/MIGRATION-MAP.md");
 }
 
+// Policy guard — studies-can-be-wrong must stay in the canonical entry points
+for (const [file, needles] of [
+  ["docs/STUDY-FORMAT.md", ["can be wrong", "study thesis"]],
+  ["docs/study/README.md", ["Studies can be", "superseded"]],
+]) {
+  const text = readFileSync(join(ROOT, file), "utf8");
+  for (const needle of needles) {
+    if (!text.includes(needle)) {
+      fail(file, `missing required policy phrase "${needle}" — studies can be wrong`);
+    }
+  }
+}
+
 if (problems.length) {
   console.error("check:study failed\n");
   for (const p of problems) console.error(p);

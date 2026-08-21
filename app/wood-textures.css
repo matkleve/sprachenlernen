@@ -1,0 +1,18 @@
+/* Wood texture swatches — `/dev/wood-textures` only.
+   Grain itself is procedural canvas (lib/wood-grain.ts). This just frames
+   and clips the canvas so a pill's rounded end reads as a clipped plank
+   face, not a rotated grain angle — see STUDY-030 § edges. */
+
+.wood-texture-swatch {
+  position: relative;
+  min-height: 12rem;
+  border-radius: var(--radius-card);
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.08),
+    0 10px 24px rgb(0 0 0 / 0.28);
+}
+
+.wood-texture-swatch--pill {
+  min-height: 4.5rem;
+  border-radius: 9999px;
+}

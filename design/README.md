@@ -7,12 +7,19 @@ promoted.
 ## Structure
 
 ```
-design/
+  design/
   logo/              App mark + wordmark explorations (SVG source)
   method-sections/   Catalogue banner explorations (grid PNG → WebP)
   progression/       Optional tile PNGs for `/dev/progression` material skins
   README.md          This file
 ```
+
+### Progression reference board (normative)
+
+The nine-column board is the visual contract — not optional art. See
+[`docs/specs/feature/progression-reference-board.md`](../docs/specs/feature/progression-reference-board.md).
+Commit `design/progression/reference-board.png` before agents wire materials.
+Tune procedural wood at `/dev/wood-grain` only to converge on a board column.
 
 ## Workflow
 
