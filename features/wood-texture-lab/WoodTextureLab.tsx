@@ -1,10 +1,11 @@
 import { cn } from "@/lib/utils";
 
 import { page, woodTextures } from "./content";
+import { WoodGrainCanvas } from "./WoodGrainCanvas";
 
 export function WoodTextureLab() {
   return (
-    <div className="wood-texture-lab flex flex-col gap-page-content">
+    <div className="flex flex-col gap-page-content">
       <p className="rounded-card border border-line bg-surface px-4 py-3 text-sm text-muted">
         {page.grainNote}
       </p>
@@ -17,9 +18,13 @@ export function WoodTextureLab() {
             aria-labelledby={`wood-texture-${texture.id}-title`}
           >
             <div
-              aria-hidden
-              className={cn("wood-texture-swatch w-full", texture.swatchClass)}
-            />
+              className={cn(
+                "wood-texture-swatch overflow-hidden",
+                texture.pill && "wood-texture-swatch--pill",
+              )}
+            >
+              <WoodGrainCanvas options={texture.grain} />
+            </div>
 
             <div>
               <p className="text-xs font-medium uppercase tracking-widest text-muted">

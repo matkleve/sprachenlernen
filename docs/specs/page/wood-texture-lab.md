@@ -11,10 +11,12 @@ wood textures from the progression reference board before wiring them into
 ## Scope
 
 - **In:** four labelled swatches (raw planks, sanded bench, oiled timber, stock
-  bar); horizontal-grain note; bullet marks per swatch; CSS in
-  `app/wood-textures.css`. **Invariant:** grain runs left→right only — no
-  vertical brightness bands. Grain is CSS `180deg` line stacks only (no SVG
-  feTurbulence — low baseFrequency-X reads as vertical columns).
+  bar); horizontal-grain note; bullet marks per swatch; procedural canvas
+  grain (`lib/wood-grain.ts`, `WoodGrainCanvas`), redrawn on resize.
+  **Invariant:** grain is a warped ridge field — undulating hills and valleys
+  whose y-position wanders as x changes — not colour bands, not growth
+  rings, not a periodic pattern on either axis. See
+  [STUDY-030](../../study/STUDY-030-procedural-wood-grain.md).
 - **Out:** stone or card overlays; wiring to learner data; navigation entry in
   the app shell. Account required: **no** — `/dev/*` is public.
 
@@ -24,7 +26,8 @@ wood textures from the progression reference board before wiring them into
 | --- | --- | --- |
 | 1 | Opens `/dev/wood-textures` | Four wood swatch cards in a responsive grid |
 | 2 | Reads a card | Sees number, name, texture preview, and mark bullets |
-| 3 | Reads the page intro | Sees that all four use horizontal grain |
+| 3 | Reads the page intro | Sees that all four are procedural hills-and-valleys grain |
+| 4 | Resizes the window | Each swatch redraws at the new size — ridge count stays readable |
 
 ## Acceptance criteria
 

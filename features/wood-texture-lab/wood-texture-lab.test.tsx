@@ -24,6 +24,7 @@ describe("WoodTextureLab", () => {
         within(entry).queryByRole("heading", { name: texture.name }),
       );
       expect(card).toBeTruthy();
+      expect(card!.querySelector("canvas")).toBeTruthy();
       for (const mark of texture.marks) {
         expect(within(card!).getByText(mark)).toBeTruthy();
       }
