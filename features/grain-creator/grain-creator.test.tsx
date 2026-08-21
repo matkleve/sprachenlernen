@@ -11,31 +11,32 @@ describe("GrainCreator", () => {
     cleanup();
   });
 
-  it("shows a grain preview and range controls", () => {
+  it("shows a grain preview and terrain noise controls", () => {
     render(<GrainCreator />);
 
     expect(screen.getByLabelText(page.previewHeading)).toBeTruthy();
-    expect(screen.getByLabelText(/Valley depth \(opacity\)/i)).toBeTruthy();
+    expect(screen.getByLabelText(/Valley depth \(contrast\)/i)).toBeTruthy();
+    expect(screen.getByLabelText(/Micro freq Y/i)).toBeTruthy();
     expect(screen.getByRole("button", { name: page.copyLabel })).toBeTruthy();
   });
 
-  it("loads the raw-planks preset with deeper valleys than stock bar", () => {
+  it("loads raw planks with deeper macro contrast than stock bar", () => {
     render(<GrainCreator />);
 
     fireEvent.click(screen.getByRole("button", { name: "Stock bar" }));
-    const stockValley = Number(
-      (screen.getByLabelText(/Valley depth \(opacity\)/i) as HTMLInputElement).value,
+    const stockContrast = Number(
+      (screen.getByLabelText(/Valley depth \(contrast\)/i) as HTMLInputElement).value,
     );
 
     fireEvent.click(screen.getByRole("button", { name: "Raw planks" }));
-    const rawValley = Number(
-      (screen.getByLabelText(/Valley depth \(opacity\)/i) as HTMLInputElement).value,
+    const rawContrast = Number(
+      (screen.getByLabelText(/Valley depth \(contrast\)/i) as HTMLInputElement).value,
     );
 
-    expect(rawValley).toBeGreaterThan(stockValley);
+    expect(rawContrast).toBeGreaterThan(stockContrast);
   });
 
-  it("copies a CSS snippet containing horizontal valleys and fibre noise", async () => {
+  it("copies a CSS snippet with procedural noise only", async () => {
     const writeText = vi.fn().mockResolvedValue(undefined);
     Object.assign(navigator, { clipboard: { writeText } });
 
@@ -44,7 +45,7 @@ describe("GrainCreator", () => {
 
     expect(writeText).toHaveBeenCalledOnce();
     const copied = String(writeText.mock.calls[0]?.[0]);
-    expect(copied).toContain("repeating-linear-gradient(180deg");
     expect(copied).toContain("feTurbulence");
+    expect(copied).not.toContain("repeating-linear-gradient");
   });
 });

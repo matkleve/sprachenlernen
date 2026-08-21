@@ -1,9 +1,9 @@
 import { useMemo } from "react";
 
 import {
-  buildFibreSvgUri,
-  buildMacroGradient,
-  grainRepeatHeightPx,
+  buildMacroNoiseUri,
+  buildMicroNoiseUri,
+  buildNoiseLayerFilter,
   type GrainParams,
 } from "@/lib/grain-creator";
 
@@ -12,20 +12,22 @@ import { page } from "./content";
 export function GrainPreview({ params }: { params: GrainParams }) {
   const macroStyle = useMemo(
     () => ({
-      backgroundColor: params.baseColor,
-      backgroundImage: buildMacroGradient(params),
-      backgroundSize: `100% ${grainRepeatHeightPx(params)}px`,
+      backgroundImage: buildMacroNoiseUri(params),
+      backgroundSize: `${params.macroTileWidthPx}px ${params.macroTileHeightPx}px`,
+      opacity: params.macroLayerOpacity,
+      mixBlendMode: params.macroBlendMode,
+      filter: buildNoiseLayerFilter(params.macroContrast, params.macroBrightness),
     }),
     [params],
   );
 
-  const fibreStyle = useMemo(
+  const microStyle = useMemo(
     () => ({
-      backgroundImage: buildFibreSvgUri(params),
-      backgroundSize: `${params.tileWidthPx}px ${params.tileHeightPx}px`,
-      opacity: params.fibreLayerOpacity,
-      mixBlendMode: params.blendMode,
-      filter: `contrast(${params.fibreContrast}) brightness(${params.fibreBrightness})`,
+      backgroundImage: buildMicroNoiseUri(params),
+      backgroundSize: `${params.microTileWidthPx}px ${params.microTileHeightPx}px`,
+      opacity: params.microLayerOpacity,
+      mixBlendMode: params.microBlendMode,
+      filter: buildNoiseLayerFilter(params.microContrast, params.microBrightness),
     }),
     [params],
   );
@@ -33,10 +35,11 @@ export function GrainPreview({ params }: { params: GrainParams }) {
   return (
     <div
       className="relative isolate min-h-72 overflow-hidden rounded-card border border-line shadow-soft"
+      style={{ backgroundColor: params.baseColor }}
       aria-label={page.previewHeading}
     >
-      <div className="absolute inset-0" style={macroStyle} />
-      <div className="pointer-events-none absolute inset-0" style={fibreStyle} />
+      <div className="pointer-events-none absolute inset-0" style={macroStyle} />
+      <div className="pointer-events-none absolute inset-0" style={microStyle} />
     </div>
   );
 }

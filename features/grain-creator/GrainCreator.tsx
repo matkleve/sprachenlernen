@@ -6,7 +6,6 @@ import {
   buildGrainCssSnippet,
   DEFAULT_GRAIN_PARAMS,
   GRAIN_PRESETS,
-  grainRepeatHeightPx,
   type GrainParams,
   type GrainPresetId,
 } from "@/lib/grain-creator";
@@ -24,7 +23,6 @@ export function GrainCreator() {
   const [activePreset, setActivePreset] = useState<GrainPresetId | null>("raw-planks");
   const [copied, setCopied] = useState(false);
 
-  const repeatHeight = grainRepeatHeightPx(params);
   const cssSnippet = useMemo(() => buildGrainCssSnippet(params), [params]);
 
   function patchParams(patch: Partial<GrainParams>) {
@@ -48,7 +46,9 @@ export function GrainCreator() {
       <div className="flex min-w-0 flex-1 flex-col gap-4">
         <div>
           <h2 className="font-serif text-xl font-semibold text-ink">{page.previewHeading}</h2>
-          <p className="mt-1 text-sm text-muted">{page.repeatNote(repeatHeight)}</p>
+          <p className="mt-1 text-sm text-muted">
+            {page.tileNote(params.macroTileWidthPx, params.microTileWidthPx)}
+          </p>
         </div>
         <GrainPreview params={params} />
         <div className="flex flex-wrap gap-2">

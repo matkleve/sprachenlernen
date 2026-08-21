@@ -1,43 +1,42 @@
 import { describe, expect, it } from "vitest";
 
 import {
-  buildFibreSvgUri,
   buildGrainCssSnippet,
-  buildMacroGradient,
+  buildMacroNoiseUri,
+  buildMicroNoiseUri,
   DEFAULT_GRAIN_PARAMS,
   GRAIN_PRESETS,
-  grainRepeatHeightPx,
-  isHorizontalFibre,
-  isHorizontalMacroGradient,
+  isAnisotropicAlongFibre,
+  usesProceduralNoiseOnly,
 } from "./grain-creator";
 
 describe("grain-creator", () => {
-  it("builds horizontal macro valleys (180deg), not vertical map columns", () => {
-    const gradient = buildMacroGradient(DEFAULT_GRAIN_PARAMS);
-    expect(isHorizontalMacroGradient(gradient)).toBe(true);
-    expect(gradient).not.toContain("90deg");
-    expect(gradient).toContain("rgb(0 0 0 / 0.52)");
-    expect(grainRepeatHeightPx(DEFAULT_GRAIN_PARAMS)).toBe(30);
+  it("builds macro terrain from feTurbulence fractalNoise, not stripe gradients", () => {
+    const snippet = buildGrainCssSnippet(DEFAULT_GRAIN_PARAMS);
+    expect(usesProceduralNoiseOnly(snippet)).toBe(true);
+    expect(buildMacroNoiseUri(DEFAULT_GRAIN_PARAMS)).toContain("feTurbulence");
+    expect(buildMicroNoiseUri(DEFAULT_GRAIN_PARAMS)).toContain("fractalNoise");
   });
 
-  it("builds an anisotropic feTurbulence data URI", () => {
-    const uri = buildFibreSvgUri(DEFAULT_GRAIN_PARAMS);
-    expect(uri).toContain("feTurbulence");
-    expect(decodeURIComponent(uri)).toContain("baseFrequency='0.02 0.45'");
-    expect(isHorizontalFibre(DEFAULT_GRAIN_PARAMS)).toBe(true);
-  });
-
-  it("raw planks have deeper valleys than stock bar", () => {
-    expect(GRAIN_PRESETS["raw-planks"].valleyDarkOpacity).toBeGreaterThan(
-      GRAIN_PRESETS["stock-bar"].valleyDarkOpacity,
+  it("uses anisotropic frequencies so detail elongates along the fibre", () => {
+    expect(isAnisotropicAlongFibre(DEFAULT_GRAIN_PARAMS.macroFreqX, DEFAULT_GRAIN_PARAMS.macroFreqY)).toBe(
+      true,
+    );
+    expect(isAnisotropicAlongFibre(DEFAULT_GRAIN_PARAMS.microFreqX, DEFAULT_GRAIN_PARAMS.microFreqY)).toBe(
+      true,
     );
   });
 
-  it("exports a copyable CSS snippet with horizontal macro repeat height", () => {
+  it("raw planks carve deeper valleys than stock bar via macro contrast", () => {
+    expect(GRAIN_PRESETS["raw-planks"].macroContrast).toBeGreaterThan(
+      GRAIN_PRESETS["stock-bar"].macroContrast,
+    );
+  });
+
+  it("exports split macro and micro noise layers with contrast filters", () => {
     const snippet = buildGrainCssSnippet(DEFAULT_GRAIN_PARAMS);
-    expect(snippet).toContain("repeating-linear-gradient(180deg");
-    expect(snippet).toContain("100% 30px");
-    expect(snippet).toContain("feTurbulence");
-    expect(snippet).toContain(".grain-preview__fibre");
+    expect(snippet).toContain(".grain-preview__macro");
+    expect(snippet).toContain(".grain-preview__micro");
+    expect(snippet).toContain("filter: contrast(2.4)");
   });
 });
