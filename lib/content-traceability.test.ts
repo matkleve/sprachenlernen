@@ -36,10 +36,11 @@ describe("content-traceability", () => {
     expect(trace.kind).toBe("appearances");
     if (trace.kind !== "appearances") return;
 
-    expect(trace.appearanceCount).toBe(2);
+    expect(trace.appearanceCount).toBe(3);
     expect(trace.topSources.map((source) => source.title)).toEqual([
       "Noticias: elecciones en Chile",
       "En el café",
+      "Un paseo por la calle",
     ]);
     expect(trace.topSources[0]?.id).toBe("es-catalogue-chile");
     expect(trace.topSources[1]?.id).toBe("es-fixture-cafe");

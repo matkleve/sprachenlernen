@@ -37,7 +37,11 @@ const nextConfig: NextConfig = {
       "./data/frequency/**/*",
       "./data/lemma/**/*",
     ],
-    "/words/review": ["./data/methods/**/*"],
+    "/words/review": [
+      "./data/methods/**/*",
+      "./data/example-sentences/**/*",
+      "./data/starter/world-tags/**/*",
+    ],
     "/languages": ["./data/languages/**/*"],
   },
   // `verify` sets this so its build cannot overwrite the `.next` a running dev

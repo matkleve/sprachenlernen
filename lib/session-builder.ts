@@ -15,6 +15,12 @@ import type { StarterCard } from "@/lib/starter-deck";
 import { newTask, type Task } from "@/lib/scheduler";
 import type { FormCellExplanationData } from "@/lib/form-cell-explanation";
 
+export type ExampleSentenceOnCard = {
+  id: string;
+  text: string;
+  translation: string;
+};
+
 export type SessionCard = StarterCard & {
   position: number;
   total: number;
@@ -22,6 +28,8 @@ export type SessionCard = StarterCard & {
   formExplanation?: FormCellExplanationData;
   /** Dominant sampling factor — UC-005 / T-W22. */
   samplingReason?: SamplingReason;
+  /** Target-language example sentence — UC-076 / T-W25. */
+  exampleSentence?: ExampleSentenceOnCard;
 };
 
 export const DEFAULT_SESSION_LENGTH = 15;

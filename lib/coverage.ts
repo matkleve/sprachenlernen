@@ -1,6 +1,8 @@
 /**
  * Lemma-level coverage over learner Sources. Contract: docs/specs/service/coverage.md
  */
+import type { LearnerWorldId } from "@/lib/learner-world";
+import { isLearnerWorldId } from "@/lib/learner-world";
 import type { LanguageProfile, Lexicon } from "@/lib/lexicon";
 
 export const SOURCE_ORIGINS = ["catalogue", "fixture", "learner"] as const;
@@ -20,6 +22,7 @@ export type Source = {
   body?: string;
   transcript?: string;
   tags?: string[];
+  world?: LearnerWorldId;
   series?: string;
   episodeLabel?: string;
   sourceUrl?: string;
@@ -234,6 +237,12 @@ const validateSource = (input: unknown, index: number): { source?: Source; error
   if (input.tags !== undefined) {
     if (!Array.isArray(input.tags) || input.tags.some((t) => typeof t !== "string")) {
       errors.push(`${prefix}.tags: must be an array of strings`);
+    }
+  }
+
+  if (input.world !== undefined) {
+    if (typeof input.world !== "string" || !isLearnerWorldId(input.world)) {
+      errors.push(`${prefix}.world: invalid learner world id`);
     }
   }
 

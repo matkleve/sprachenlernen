@@ -6,7 +6,14 @@ import { appendReview } from "@/lib/db/review-log";
 import { listTaskStatesForTaskIds } from "@/lib/db/task-state";
 import { flagCardContent, listFlaggedWordIds } from "@/lib/db/card-content-flags";
 import type { ReportCardInput } from "@/lib/card-report";
+import {
+  loadExampleSentenceBank,
+  pickExampleSentence,
+} from "@/lib/card-example-sentence";
+import { heldLemmaSet } from "@/lib/content-gap";
+import { sentenceTranslationKey } from "@/lib/description-keys";
 import { getSpokenLanguage } from "@/lib/db/profiles";
+import { resolveDescription } from "@/lib/gloss-resolver";
 import {
   catalogueLoadFailed,
   logHandledErrorFromRequest,
@@ -21,6 +28,7 @@ import { buildFormCellExplanation } from "@/lib/form-cell-explanation";
 import { poolForActiveLanguage } from "@/lib/db/learner-pools";
 import { languageLabel } from "@/lib/languages";
 import { localizeSessionCards } from "@/lib/localize-card-description";
+import { loadLexiconForLanguage } from "@/lib/shipped-language";
 import { parseGapSetCookie, GAP_SET_COOKIE } from "@/lib/gap-set-cookie";
 import { parseReviewDeck, type ReviewDeck } from "@/lib/review-deck";
 import { tasksByTaskIdForCards } from "@/lib/task-from-state";
@@ -136,7 +144,18 @@ export async function buildSessionAction(input?: {
         sampling,
       }),
       spoken.spokenLanguage,
-    ).map((card) => attachFormExplanation(card, activeCode ?? "es", poolCards, tasksByTaskId));
+    )
+      .map((card) => attachFormExplanation(card, activeCode ?? "es", poolCards, tasksByTaskId))
+      .map((card) =>
+        attachExampleSentence(
+          card,
+          activeCode ?? "es",
+          activeWorld,
+          spoken.spokenLanguage,
+          meaningRecallHeldLemmas(poolCards, tasksByTaskId),
+          now,
+        ),
+      );
     return { status: "ok", queue, languageName };
   } catch (cause) {
     const handled = sessionBuildFailed(
@@ -166,4 +185,50 @@ function attachFormExplanation(
     tasksByTaskId,
   });
   return explanation ? { ...card, formExplanation: explanation } : card;
+}
+
+function meaningRecallHeldLemmas(
+  pool: Parameters<typeof heldLemmaSet>[0],
+  tasksByTaskId: Record<string, import("@/lib/scheduler").Task>,
+): ReadonlySet<string> {
+  const meaningCards = pool.filter((card) => !isFormRecallTaskId(card.taskId));
+  return heldLemmaSet(meaningCards, tasksByTaskId);
+}
+
+function attachExampleSentence(
+  card: SessionCard,
+  languageCode: string,
+  activeWorld: import("@/lib/learner-world").LearnerWorldId,
+  spokenLanguage: string,
+  heldLemmas: ReadonlySet<string>,
+  now: number,
+): SessionCard {
+  if (isFormRecallTaskId(card.taskId)) return card;
+
+  const bank = loadExampleSentenceBank(languageCode);
+  const lexicon = loadLexiconForLanguage(languageCode);
+  if (!bank || !lexicon) return card;
+
+  const dayKey = new Date(now).toISOString().slice(0, 10);
+  const pick = pickExampleSentence({
+    bank,
+    wordId: card.wordId,
+    heldLemmas,
+    lexicon,
+    activeWorld,
+    salt: `${dayKey}:${card.taskId}`,
+  });
+  if (!pick) return card;
+
+  return {
+    ...card,
+    exampleSentence: {
+      ...pick,
+      translation: resolveDescription(
+        sentenceTranslationKey(pick.id),
+        spokenLanguage,
+        pick.translation,
+      ),
+    },
+  };
 }

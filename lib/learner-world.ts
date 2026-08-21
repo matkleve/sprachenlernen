@@ -39,3 +39,11 @@ export function worldMatchFactor(
 export function defaultLearnerWorld(): LearnerWorld {
   return { worldId: "general", setAt: null };
 }
+
+export function sourcesMatchingActiveWorld<T extends { world?: LearnerWorldId }>(
+  sources: readonly T[],
+  activeWorld: LearnerWorldId,
+): readonly T[] {
+  if (activeWorld === "general") return sources;
+  return sources.filter((source) => source.world === undefined || source.world === activeWorld);
+}

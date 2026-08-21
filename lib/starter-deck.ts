@@ -5,9 +5,11 @@
 import esMeaningRecall from "@/data/starter/es-meaning-recall.json";
 import esIdenticalCognates from "@/data/starter/es-meaning-recall.cognates.json";
 import esExclusions from "@/data/starter/es-meaning-recall.exclusions.json";
+import esWorldTags from "@/data/starter/world-tags/es.json";
 import itMeaningRecall from "@/data/starter/it-meaning-recall.json";
 import itIdenticalCognates from "@/data/starter/it-meaning-recall.cognates.json";
 import itExclusions from "@/data/starter/it-meaning-recall.exclusions.json";
+import itWorldTags from "@/data/starter/world-tags/it.json";
 import { taskTypeFromTaskId } from "@/lib/description-keys";
 import { loadDescriptionSnapshotFromDisk } from "@/lib/gloss-resolver";
 
@@ -156,6 +158,23 @@ export function loadItalianMeaningRecallDeck(): LoadStarterDeckResult {
  * derived from **this** — never from a second hand-kept list, which is how a
  * language becomes selectable months before it has anything to teach.
  */
+const WORLD_TAGS_BY_LANGUAGE: Record<string, Record<string, string[]>> = {
+  es: esWorldTags,
+  it: itWorldTags,
+};
+
+function applyWorldTags(deck: StarterDeck): StarterDeck {
+  const tags = WORLD_TAGS_BY_LANGUAGE[deck.language];
+  if (!tags) return deck;
+  return {
+    ...deck,
+    cards: deck.cards.map((card) => {
+      const worlds = tags[card.wordId];
+      return worlds ? { ...card, worlds } : card;
+    }),
+  };
+}
+
 const SHIPPED_DECKS: Record<string, () => LoadStarterDeckResult> = {
   es: loadSpanishMeaningRecallDeck,
   it: loadItalianMeaningRecallDeck,
@@ -189,7 +208,9 @@ export function loadMeaningRecallDeck(languageCode: string): LoadStarterDeckResu
   if (!load) {
     return { status: "error", errors: [`no meaning-recall pool ships for "${languageCode}"`] };
   }
-  return load();
+  const result = load();
+  if (result.status !== "ok") return result;
+  return { status: "ok", deck: applyWorldTags(result.deck) };
 }
 
 /** English gloss for a pool card — snapshot is source of truth after T-B11f. */

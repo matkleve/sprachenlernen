@@ -7,6 +7,7 @@
     "origin": "fixture",
     "body": "Uno dos tres. El café está en la mesa. La casa es grande. María bebe té con azúcar en la terraza. Los niños juegan en el parque pequeño. El sol brilla sobre la ciudad antigua. Por la tarde llegan más clientes al café.",
     "tags": ["daily"],
+    "world": "everyday",
     "addedAt": "2026-08-17T00:00:00.000Z"
   },
   {
@@ -17,6 +18,17 @@
     "origin": "catalogue",
     "body": "Uno dos tres cuatro cinco. El gobierno anuncia nuevas medidas. La economía crece este año.",
     "tags": ["news"],
+    "world": "politics",
     "addedAt": "2026-08-17T00:00:00.000Z"
+  },
+  {
+    "id": "es-fixture-neutral",
+    "languageCode": "es",
+    "kind": "text",
+    "title": "Un paseo por la calle",
+    "origin": "fixture",
+    "body": "Uno dos tres. El sol brilla. La gente camina por la calle. Los niños juegan cerca de la casa.",
+    "tags": ["daily"],
+    "addedAt": "2026-08-21T00:00:00.000Z"
   }
 ]
