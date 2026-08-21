@@ -7,23 +7,23 @@
     "sectionDevice": "This device",
     "sectionDev": "Dev",
     "spokenHeading": "Language you speak",
-    "spokenCaption": "Menus, buttons, and the text that describes words on cards. Changing this does not reset your learning progress.",
+    "spokenCaption": "The language of the menus, the buttons, and the notes that explain words on cards. Changing it keeps your learning progress.",
     "spokenError": "Could not load your spoken language.",
     "spokenChangeError": "Could not change your spoken language. Nothing changed.",
     "languagesHeading": "Languages",
     "languagesCaption": "What you are learning. The one in focus decides what the app shows you.",
     "active": "Active",
-    "makeActive": "Switch to this",
+    "makeActive": "Switch to this one",
     "addLanguage": "Add a language",
     "noneYet": "You have not chosen a language yet.",
     "chooseFirst": "Choose a language",
     "languagesError": "Could not load your languages.",
     "switchError": "Could not switch language. Nothing changed.",
-    "standing": "{held} of {poolSize} starter words held stably",
+    "standing": "{held} of {poolSize} words are solid",
     "viewProgress": "View on Progress",
     "signOut": "Sign out",
     "appHeading": "App",
-    "appCaption": "The version running on this device. Check after a deploy if something looks out of date.",
+    "appCaption": "The version running on this device. Check here if something looks out of date.",
     "runningVersion": "Running version",
     "versionFrom": "This update from",
     "lastChecked": "Last checked",
@@ -33,10 +33,10 @@
     "reload": "Reload",
     "reloadAria": "Reload to update from {currentVersion} to {nextVersion}",
     "homeScreenHeading": "Home screen app (iPhone)",
-    "homeScreenCaption": "On iPhone, add this app from the main website address so Methods, Words, and Progress all work without Safari's bottom toolbar. Apple does not allow an install button — you use Share → Add to Home Screen.",
+    "homeScreenCaption": "On iPhone, add the app from the site's main address so Methods, Words and Progress all work without Safari's bottom bar. Apple allows no install button — you use Share → Add to Home Screen.",
     "homeScreenActive": "Opened from your Home Screen icon",
     "homeScreenScopeHeading": "Which address to use",
-    "homeScreenScopeCaption": "The path in Safari when you tap Add to Home Screen decides which sections stay clean. Use the main website only.",
+    "homeScreenScopeCaption": "The page you are on when you tap Add to Home Screen decides which sections stay clean later. Use the main site only.",
     "homeScreenScopeRows": [
       {
         "path": "/",
@@ -61,12 +61,12 @@
     ],
     "homeScreenInstallButton": "Install instructions",
     "homeScreenMainSiteButton": "Open main website",
-    "homeScreenReinstall": "If the bottom toolbar appears on some pages, remove the Home Screen icon, open the main website in Safari, and add the app again from there — not from a section page."
+    "homeScreenReinstall": "If the bottom bar shows up on some pages: delete the icon, open the main site in Safari, and add the app again from there. Not from a section page."
   },
   "sentenceRealizerDev": {
     "eyebrow": "Dev",
     "title": "Sentence realizer",
-    "description": "Random plan from memory, rendered for every present-tense person via the lemma-table inverse index.",
+    "description": "A random plan from memory, rendered for every person in the present tense through the form-table reverse index.",
     "anotherSentence": "Another sentence",
     "back": "Back to Profile dev",
     "planLabel": "Plan",
@@ -74,7 +74,7 @@
     "personColumn": "Person",
     "cellColumn": "Cell",
     "sentenceColumn": "Sentence",
-    "partialWarning": "Some persons could not be realized — missing verb or noun forms in the lemma table."
+    "partialWarning": "Some persons could not be rendered — the form table is missing verb or noun forms."
   },
   "learnerWorld": {
     "pageTitle": "Learning world",
@@ -117,7 +117,7 @@
     "currentLanguage": "{endonym}, current learning language",
     "active": "Active",
     "addLanguage": "Add a language",
-    "standing": "{held} of {poolSize} starter words held stably",
+    "standing": "{held} of {poolSize} words are solid",
     "viewProgress": "View on Progress",
     "backTo": "Back to {destination}",
     "appUpdate": {
@@ -132,7 +132,7 @@
     "holding": {
       "words": {
         "title": "Words",
-        "intent": "Everything about your vocabulary: what is due now, what is held, what is fragile. Reviewing is one of the things you do here, not what this place is."
+        "intent": "Everything about your words: what is due today, what is solid, and what is still shaky. Reviewing is one of the things you do here."
       }
     }
   },
@@ -140,46 +140,46 @@
     "reviewCardHeaderLabel": "Vocabulary",
     "reviewHeading": "Review",
     "reviewMeaningsHeading": "Review meanings",
-    "reviewMeaningsCaption": "Dictionary forms only — what each word means.",
+    "reviewMeaningsCaption": "Dictionary forms only — what a word means.",
     "reviewMeaningsAction": "Review meanings",
     "reviewStartAction": "Start review",
     "reviewMixedAction": "Review mixed",
     "reviewFormsHeading": "Review forms",
-    "reviewFormsCaption": "Inflected forms from words you already hold stably — separate from meaning recall.",
-    "paradigmCellCalloutTitle": "What is a paradigm cell?",
-    "paradigmCellCalloutBody": "One slot in a word's inflection pattern — for example first-person singular present. Each form-recall card asks for exactly one cell, not the whole conjugation table.",
-    "reviewCaption": "One flashcard stack — meanings and inflected forms when you're ready for them.",
-    "countsHeading": "Your vocabulary",
-    "countsCaption": "How many starter lemmas you can recall the meaning of — not every inflected form, and not a backlog.",
-    "countsDefinitionsSummary": "What held, fragile, and new mean",
-    "lemmaCalloutTitle": "What is a lemma?",
-    "lemmaCalloutBody": "The dictionary form of a word — run, not running; child, not children. On this page, each card is one word in that form (a lemma). Held means you would still know what it means after about a week without seeing it again. Producing inflected forms is tracked separately on Progress.",
-    "held": "Held",
-    "fragile": "Fragile",
+    "reviewFormsCaption": "Inflected forms of words whose meaning is already solid. This runs separately from the meanings.",
+    "paradigmCellCalloutTitle": "What is a word form?",
+    "paradigmCellCalloutBody": "One slot in a word's inflection pattern — \"I go\" in the present, for instance. Each form card asks for exactly one of them, never the whole table. (Technical term: paradigm cell.)",
+    "reviewCaption": "One stack of cards — meanings, and word forms once you are ready for them.",
+    "countsHeading": "Your words",
+    "countsCaption": "How many words from your starter pack you can recall the meaning of. We count dictionary forms, not inflected ones — and this is not a pile of work waiting for you.",
+    "countsDefinitionsSummary": "What solid, shaky and new mean",
+    "lemmaCalloutTitle": "What is a dictionary form?",
+    "lemmaCalloutBody": "The form you would look up — run, not running; child, not children. Every card on this page is a word in that form. \"Solid\" means you would still know the meaning about a week from now. Inflected forms are counted separately, on Progress. (Technical term: lemma.)",
+    "held": "Solid",
+    "fragile": "Shaky",
     "newWords": "New",
-    "heldDescription": "You reliably recall what this word means — at least two spaced successes in review, stable for about a week.",
-    "fragileDescription": "You've seen the meaning in review but it is not yet stable enough to count as known.",
+    "heldDescription": "The meaning comes to you reliably: right at least twice, with a gap in between, and stable for about a week.",
+    "fragileDescription": "You have reviewed the meaning already. It is not solid yet.",
     "newDescription": "Meaning not reviewed yet.",
-    "blocksHeading": "Frequency bands",
-    "blocksCaption": "How your starter deck splits by frequency rank — held, fragile, and what is still missing. The core band (ranks 1–1000) calls unreviewed words holes: the highest-value gaps in your map.",
+    "blocksHeading": "By how common they are",
+    "blocksCaption": "How your starter pack splits up: what is solid, what is shaky, and what is still open. Among the 1000 commonest words we call the open ones gaps — those pay off most.",
     "blockLabel": "Ranks {start}–{end}",
     "blockPoolSize": "{poolSize, plural, one {# word in this band} other {# words in this band}}",
-    "blockHeldRowDescription": "Stable meaning recall in this band.",
-    "blockFragileRowDescription": "Reviewed in this band but not yet stable.",
-    "blockNewDescription": "Meaning not reviewed yet in this band.",
+    "blockHeldRowDescription": "These meanings are solid.",
+    "blockFragileRowDescription": "Reviewed already, but not solid yet.",
+    "blockNewDescription": "Meaning not reviewed yet.",
     "blockHoles": "Holes",
-    "blockHolesDescription": "Frequent words not reviewed yet — the highest-value gaps.",
-    "blockDistributionSummary": "{held} held · {fragile} fragile · {unreviewed} {unreviewedLabel} — {poolSize} words in band",
-    "blockBandAria": "Ranks {start} to {end}: {held} held, {fragile} fragile, {unreviewed} {unreviewedLabel}, out of {poolSize} words",
-    "horizonHeading": "Review horizon",
-    "horizonCaption": "How your scheduled reviews are spread over the next 30 days — not what is due in today's session.",
+    "blockHolesDescription": "Common words you have not reviewed yet — the gaps worth closing first.",
+    "blockDistributionSummary": "{held} solid · {fragile} shaky · {unreviewed} {unreviewedLabel} — {poolSize} words",
+    "blockBandAria": "Ranks {start} to {end}: {held} solid, {fragile} shaky, {unreviewed} {unreviewedLabel}, of {poolSize} words",
+    "horizonHeading": "What is coming up",
+    "horizonCaption": "How your reviews spread over the next 30 days. This is not what is due today.",
     "horizonDayToday": "Today",
     "horizonDay": "Day {day}",
     "horizonExpand": "Show four-week plan",
     "horizonCollapse": "Hide plan",
     "horizonSummaryLight": "The next four weeks look light.",
     "horizonSummarySteady": "A steady spread of scheduled reviews over the next four weeks.",
-    "horizonSummaryPeakWeek": "Peak in week {week} (~{avgPerDay} scheduled per day).",
+    "horizonSummaryPeakWeek": "Peak in week {week} (~{avgPerDay} a day).",
     "horizonWeekLabel": "Week {week}",
     "horizonWeekScheduledOne": "1 scheduled",
     "horizonWeekScheduled": "{total} scheduled",
@@ -188,47 +188,47 @@
     "horizonWeekAria": "Week {week}: {total} scheduled reviews, about {avgPerDay} per day",
     "horizonTileOverflow": "+{overflow}",
     "horizonCausal": "The peak in week {week} comes from the {count} cards you added on {dateLabel}.",
-    "horizonReturnPlan": "You were away for a while. Your next session is the usual length — the plan below shows how scheduled reviews spread out.",
-    "horizonScheduledNote": "Each tile is a scheduled review date from the memory schedule — not a task you must finish that day.",
+    "horizonReturnPlan": "You were away for a while. Your next session is the usual length — the plan below shows how the rest spreads out.",
+    "horizonScheduledNote": "Each tile is a date from your review plan. Not a task you have to finish that day.",
     "atlasColumns": {
       "word": "Word",
       "rank": "Rank",
-      "stability": "Stability (days)",
+      "stability": "Holds for (days)",
       "status": "Status"
     },
     "bucketNames": {
-      "held": "Held",
-      "fragile": "Fragile",
+      "held": "Solid",
+      "fragile": "Shaky",
       "new": "New",
-      "mature": "Mature"
+      "mature": "Rock solid"
     },
     "noStability": "—",
-    "orbitHeading": "Your vocabulary orbit",
-    "orbitCaption": "Common words sit near the center. Dark dashes light up as you hold them — each ring drifts on its own.",
-    "orbitAriaLabel": "Vocabulary progress shown as concentric rings",
+    "orbitHeading": "Your words as rings",
+    "orbitCaption": "Common words sit near the middle. Dark dashes light up once a word is solid. Each ring turns on its own.",
+    "orbitAriaLabel": "Your words as rings, common ones inside and rare ones outside",
     "orbitShowList": "Show list",
     "orbitListTitle": "All words",
-    "orbitListCaption": "Frequency rank and status for every word in your deck.",
+    "orbitListCaption": "How common each word is, and where it stands, for every word you have.",
     "orbitAggregateLabel": "{count} words, ranks {start}–{end}",
     "orbitAggregateHeading": "Ranks {start}–{end}",
-    "orbitAggregateBody": "{count} words in this band on the outer ring. {held} meanings held stably.",
-    "orbitDetailRankLabel": "Frequency rank",
-    "orbitDetailStabilityLabel": "Stability",
-    "orbitDetailBandLabel": "Band",
+    "orbitAggregateBody": "{count} words from these ranks sit on the outer ring. {held} meanings are solid.",
+    "orbitDetailRankLabel": "How common",
+    "orbitDetailStabilityLabel": "Holds for",
+    "orbitDetailBandLabel": "Group",
     "orbitDetailBandCaption": "Ranks {start}–{end}",
-    "orbitDetailWordsInBandLabel": "Words in band",
-    "orbitDetailHeldSummary": "{held} of {total} held",
+    "orbitDetailWordsInBandLabel": "Words in the group",
+    "orbitDetailHeldSummary": "{held} of {total} solid",
     "wordDetailScheduleNew": "Not scheduled yet — you have not reviewed this word.",
-    "wordDetailScheduleSuspended": "Suspended — not included in review sessions.",
-    "wordDetailScheduleRetired": "Removed from your deck — your review history is kept.",
+    "wordDetailScheduleSuspended": "Paused — it will not come up in reviews.",
+    "wordDetailScheduleRetired": "Removed from your collection — what you practised stays saved.",
     "wordDetailScheduleDueToday": "Scheduled for today — you last chose {grade}.",
     "wordDetailScheduleDueFuture": "Next review in {days, plural, one {# day} other {# days}} — you last chose {grade}.",
     "wordDetailScheduleNoGrade": "your last answer",
     "wordDetailSuspend": "Suspend",
-    "wordDetailRetire": "Remove from deck",
-    "wordDetailSuspendHelp": "Pause scheduling. Your review history stays on your account.",
-    "wordDetailRetireHelpOnly": "Stop scheduling this word. Your review history stays on your account.",
-    "wordDetailActionFootnote": "Suspend pauses scheduling; Remove stops it. History is never deleted."
+    "wordDetailRetire": "Remove from collection",
+    "wordDetailSuspendHelp": "Pause reviews. What you practised stays saved.",
+    "wordDetailRetireHelpOnly": "No more reviews. What you practised stays saved.",
+    "wordDetailActionFootnote": "Pausing only pauses. Removing ends the scheduling. Nothing is ever deleted."
   },
   "contentTrace": {
     "word": {
@@ -253,9 +253,9 @@
     },
     "source": {
       "coverage": "{pct} % known",
-      "comfortable": "At {pct} % — comfortable to read. Words you learn next show up here.",
+      "comfortable": "At {pct} % — this reads comfortably. Words you learn next show up here.",
       "demanding": "{gapCount, plural, one {# word stands between you and comfortable — learn them as a set?} other {# words stand between you and comfortable — learn them as a set?}}",
-      "speed": "At {pct} % — you can read for speed. New words will still appear as you go.",
+      "speed": "At {pct} % — you can read this at speed. New words still turn up.",
       "bandComfortable": "Comfortable",
       "bandDemanding": "Demanding",
       "bandSpeed": "Speed reading",
@@ -268,14 +268,14 @@
       "paceSingle": "About {days, plural, one {# day} other {# days}} at your recent pace",
       "paceRange": "About {min}–{max} days at your recent pace",
       "progress": "{held} of {total} learned in this set",
-      "complete": "This set is complete — open the text when you are ready.",
-      "tooLarge": "More than 40 words stand between you and comfortable here — try a closer source first.",
+      "complete": "This set is done — open the text whenever you like.",
+      "tooLarge": "More than 40 words stand between you and comfortable reading here. Try an easier text first.",
       "alternate": "Try {title} instead"
     },
     "reading": {
       "heading": "Read",
       "close": "Close",
-      "noGloss": "Not in your starter pool yet."
+      "noGloss": "Not in your starter pack yet."
     }
   },
   "reviewSession": {
@@ -283,7 +283,7 @@
     "backToMethods": "Back to methods",
     "backToWords": "Back to Words",
     "unknownMethod": "That method does not exist in the catalogue.",
-    "notBuilt": "This method is listed as hosted, but its session is not built yet. The catalogue is honest about what exists.",
+    "notBuilt": "This method is meant to run in the app, but its session is not built yet. The catalogue is honest about what exists.",
     "prompt": "What does it mean?",
     "formRecallPrompt": "Did you recall the form?",
     "formRecallInstruction": "Write the {language} form.",
@@ -352,7 +352,7 @@
     "nextStep": "Next step",
     "stop": "Stop exercise",
     "stopConfirmTitle": "Stop this exercise?",
-    "stopConfirmBody": "Your progress in this run will be lost. Nothing is added to your backlog.",
+    "stopConfirmBody": "What you did in this run is lost. Nothing is saved to your review plan.",
     "stopConfirm": "Stop",
     "stopCancel": "Keep going",
     "timerRunning": "{seconds}s",
@@ -375,8 +375,8 @@
     "prepareItemKeyboard": "Pen and paper or keyboard",
     "prepareItemQuiet": "A quiet few minutes",
     "prepareItemTargetLang": "Write in your target language — not English",
-    "introBuildASentence": "You get one word from your vocabulary. Write exactly one sentence in the language you are learning that uses that word naturally — like something you would actually say.",
-    "introFreeProduction": "Write freely for a few minutes in your target language. There is no text to copy and no single right answer — only practice saying what you mean.",
+    "introBuildASentence": "You get a word from your vocabulary. Write exactly one sentence with it in the language you are learning — the way you would really say it.",
+    "introFreeProduction": "Write freely in your target language for a few minutes. There is nothing to copy and no single right answer — just practice at saying what you mean.",
     "freeProductionPromptRecent": "Write about something that happened to you recently.",
     "freeProductionPromptPlace": "Describe a place you enjoy spending time.",
     "freeProductionPromptFreeDay": "What would you do if you had tomorrow completely free?",
@@ -387,12 +387,12 @@
     "submitTextPlaceholder": "Paste or type what you wrote…",
     "reviewAnswerKey": "Answer",
     "reviewMarkErrors": "Tap words you got wrong",
-    "feedbackPlaceholder": "Automatic correction is not available yet — compare against the answer and mark your own errors.",
+    "feedbackPlaceholder": "We cannot correct this automatically yet. Compare with the answer key and mark your own mistakes.",
     "typeOnlyHint": "Type the gaps — listening is paused for now.",
     "playAudio": "Play audio",
     "gapPlaceholder": "…",
     "gapInputLabel": "Gap {word}",
-    "unknownComponent": "This step type ({component}) is not built yet.",
+    "unknownComponent": "This step ({component}) does not exist yet.",
     "fullDictationProgress": "Sentence {current} of {total}",
     "fullDictationProtocol": "Listen {reads} times, then write the whole sentence on your paper.",
     "fullDictationWriteOnPaper": "Do not type here — write on your worksheet.",
@@ -416,7 +416,7 @@
     "timedWriteHint": "Keep going until the timer ends, or stop when you are done.",
     "feedbackYourWriting": "Your writing",
     "feedbackNoText": "No text was submitted — go back and add your writing first.",
-    "revealAnswerDefault": "Any grammatical sentence that uses the word naturally counts.",
+    "revealAnswerDefault": "Any correct sentence counts, as long as the word fits naturally.",
     "revealAnswerYourSentence": "What you wrote",
     "revealAnswerExemplarLabel": "Example sentence",
     "revealAnswerMeaning": "«{word}» means {gloss}.",
@@ -451,36 +451,36 @@
   },
   "progress": {
     "title": "Where you stand",
-    "intro": "This page shows what has actually been measured about your language, and says so plainly where nothing has been. A level you have not been tested on is not a level, so you will not find one here yet.",
+    "intro": "This page shows what has actually been measured. And it says plainly where nothing has been. A level you were never tested on is not a level — so there is none here yet.",
     "skillsHeading": "Your four skills",
-    "skillsCaption": "Each skill, its measurement status, and what would measure it",
+    "skillsCaption": "Each skill, what we know about it, and what would make it measurable",
     "skillColumns": {
       "skill": "Skill",
       "status": "Status",
-      "route": "What would measure it"
+      "route": "What makes it measurable"
     },
     "overallHeading": "Overall level",
-    "overallWithheld": "There is no overall level, and inventing one would be the whole problem. The overall level is the second-lowest of the skills that count, and today no skill counts — so there is nothing to take the second-lowest of.",
+    "overallWithheld": "There is no overall level yet. We take the second-lowest of the skills that count — and right now none of them count. Inventing a number is exactly what we will not do.",
     "signalsHeading": "What is actually recorded",
-    "signalsIntro": "These are the seven quantities the level model is built from. A signal has a value and a status; only a skill can have a level, so you will not see a letter and a number next to any of these.",
-    "signalsCaption": "The seven layer-1 signals and whether anything has been recorded for each",
+    "signalsIntro": "Your level will be built from these seven measurements. Each one has a value and a status. Only a skill can have a level — that is why none of these carry a letter and a number.",
+    "signalsCaption": "The seven measurements, and whether anything has been recorded for each",
     "signalColumns": {
-      "signal": "Signal",
+      "signal": "Measurement",
       "status": "Status",
       "value": "Value"
     },
     "noData": "Nothing recorded yet",
     "hasData": "Recorded",
     "noValue": "—",
-    "stabilityValue": "{days} days, averaged over {taskCount, plural, one {# card} other {# cards}} you have reviewed",
-    "vocabularyValue": "{held} of {poolSize} starter words held stably — not extrapolated to the language",
-    "formMasteryValue": "{held} of {poolSize} starter forms held stably — separate from vocabulary size",
-    "formMasteryPartialParadigmNote": "{count, plural, one {# held verb has a partial paradigm table — form mastery for that lemma is uncertain} other {# held verbs have partial paradigm tables — form mastery for those lemmas is uncertain}}",
-    "emptyState": "You have not reviewed anything yet, so nothing below has a value. That is the honest starting state, not a failure.",
+    "stabilityValue": "{days} days on average, over {taskCount, plural, one {# card} other {# cards}} you have reviewed",
+    "vocabularyValue": "{held} of {poolSize} starter-pack words are solid — not scaled up to the whole language",
+    "formMasteryValue": "{held} of {poolSize} starter-pack word forms are solid — counted separately from vocabulary",
+    "formMasteryPartialParadigmNote": "{count, plural, one {For # solid verb we do not know every form yet — how well you handle its forms is uncertain} other {For # solid verbs we do not know every form yet — how well you handle their forms is uncertain}}",
+    "emptyState": "You have not reviewed anything yet, so nothing below has a value. That is how it starts — not a failure.",
     "startReview": "Start a review session",
     "doseHeading": "What a level costs",
-    "doseIntro": "The hours below are the denominator nobody in this category publishes. They are guided learning hours from a standing start — the total to reach that level, not the cost of the step.",
-    "doseCaption": "Cumulative guided hours per level, and what a daily habit reaches",
+    "doseIntro": "The hours below are the number nobody else quotes: guided learning hours, counted from zero. It is the total up to that level, not the cost of one step.",
+    "doseCaption": "Guided hours up to each level, and what 15 minutes a day covers",
     "doseColumns": {
       "level": "Level",
       "hours": "Guided hours",
@@ -488,12 +488,12 @@
     },
     "doseHours": "{min}–{max} hours",
     "doseYears": "{minYears}–{maxYears} years",
-    "doseHabit": "Fifteen minutes a day, every day without missing one, is about {hours} hours a year.",
-    "doseBorrowedUncalibrated": "These figures are borrowed and uncalibrated: {name}, English-derived institutional estimates used here for a different language pair. Treat them as an order of magnitude, not a measurement. A guided hour is also instructed time with feedback, which app minutes only partly are — so the comparison flatters the app rather than the reverse.",
-    "doseBorrowedCalibrated": "These figures come from {name}, calibrated for {calibratedFor}. A guided hour is instructed time with feedback, which app minutes only partly are.",
-    "doseNoNumerator": "There is no line here for the hours you have practised, because the app does not count them. It records how long each card took, which is time inside review sessions and nothing else — and roughly a third to a half of the practice this app recommends happens away from it. A total built only from card time would be wrong by an unknowable amount, and dividing it into the hours above would make the error look precise.",
+    "doseHabit": "15 minutes a day, without missing one, is about {hours} hours a year.",
+    "doseBorrowedUncalibrated": "These figures are borrowed and not tuned to your language: {name}, estimates from English teaching. Treat them as a rough ballpark, not a measurement. A guided hour is also teaching with feedback, which app minutes only partly are. So the comparison flatters the app rather than the other way round.",
+    "doseBorrowedCalibrated": "These figures come from {name} and are tuned for {calibratedFor}. A guided hour is teaching with feedback, which app minutes only partly are.",
+    "doseNoNumerator": "There is no line here for your own hours, because the app does not count them. It only measures how long you spent on each card — time inside reviews and nothing else. But a third to a half of what we recommend happens away from the app. A total built from card time alone would be wrong by an unknown amount. Divided into the hours above, that error would look precise.",
     "gapHeading": "What is missing, and why",
-    "gapBody": "A language-wide vocabulary estimate and any CEFR level it would feed are not built. Extrapolation needs a frequency-ranked pool large enough to estimate a boundary rank — the shipped starter set is two thousand words. The anchor table that maps vocabulary to a level is also still uncalibrated for this language pair. Both are named here rather than approximated.",
+    "gapBody": "There is no estimate of your whole vocabulary yet, and so no CEFR level derived from one. That would need a frequency-ranked word list large enough — the starter pack has two thousand words. The table that maps vocabulary to a level is not tuned for this language pair either. We would rather name that than guess it.",
     "skillNames": {
       "reading": "Reading",
       "listening": "Listening",
@@ -502,22 +502,22 @@
     },
     "statusNames": {
       "measured": "Measured",
-      "uncertain": "Uncertain — few data yet",
+      "uncertain": "Uncertain — too little data yet",
       "not-measured": "Not measured",
       "not-in-profile": "Not part of your profile"
     },
     "signalNames": {
-      "vocabulary-size": "Estimated vocabulary size",
-      "form-mastery": "Form mastery",
-      "recall-stability": "Recall stability",
-      "lexical-coverage": "Lexical coverage",
-      "response-time": "Response time on correct recall",
-      "success-by-difficulty": "Success by task difficulty",
-      "production-quality": "Production quality"
+      "vocabulary-size": "Estimated vocabulary",
+      "form-mastery": "Word forms you can produce",
+      "recall-stability": "How long words stay with you",
+      "lexical-coverage": "Share of words you know in a text",
+      "response-time": "How fast a word comes to you",
+      "success-by-difficulty": "Hits by difficulty",
+      "production-quality": "How well you speak and write"
     },
     "routeToMeasuring": {
-      "reading": "Reading texts whose words this app knows — none are shipped yet.",
-      "listening": "Nothing yet. No signal in the level model is assigned to listening, which is a gap in the model rather than in your practice.",
+      "reading": "Reading texts whose words the app knows — there are none yet.",
+      "listening": "Nothing yet. No measurement is assigned to listening. That is a gap on our side, not yours.",
       "speaking": "Speaking that the app records and scores — not built.",
       "writing": "Free writing or dictation the app can score — not built."
     },
@@ -531,52 +531,52 @@
       "rowLabel": "Weekly reflection",
       "unreadLabel": "Unread reflection",
       "idleTeaser": "This week in {language} — nothing shifted yet",
-      "idleHeadline": "You did not review {language} this week. Nothing changed in your measured vocabulary — that is expected after a light week. The queue will be larger when you return; the schedule is unchanged.",
-      "movementHeadlineOne": "This week 1 word moved from shaky to held in {language}.",
-      "movementHeadline": "This week {count} words moved from shaky to held in {language}.",
-      "activityHeadlineOne": "You recorded 1 review answer in {language} this week.",
-      "activityHeadline": "You recorded {count} review answers in {language} this week.",
-      "horizonHeadline": "Here is when your {language} reviews are due over the next thirty days.",
-      "readyTeaserMovedOne": "1 word moved to held in {language} this week",
-      "readyTeaserMoved": "{count} words moved to held in {language} this week",
-      "readyTeaserActivityOne": "1 review answer in {language} this week",
-      "readyTeaserActivity": "{count} review answers in {language} this week",
+      "idleHeadline": "You did not review {language} this week. Nothing changed in your measured vocabulary — that is normal after a quiet week. The queue will be larger when you come back; the schedule stays the same.",
+      "movementHeadlineOne": "This week 1 word in {language} went from shaky to solid.",
+      "movementHeadline": "This week {count} words in {language} went from shaky to solid.",
+      "activityHeadlineOne": "You answered 1 card in {language} this week.",
+      "activityHeadline": "You answered {count} cards in {language} this week.",
+      "horizonHeadline": "When your {language} reviews come up over the next thirty days.",
+      "readyTeaserMovedOne": "1 word turned solid in {language} this week",
+      "readyTeaserMoved": "{count} words turned solid in {language} this week",
+      "readyTeaserActivityOne": "1 card answered in {language} this week",
+      "readyTeaserActivity": "{count} cards answered in {language} this week",
       "visual": {
         "beforeWeek": "Start of week",
         "afterWeek": "Now",
-        "bandShiftCaptionOne": "1 word crossed from shaky into held.",
-        "bandShiftCaption": "{count} words crossed from shaky into held.",
-        "bandBarsAria": "Held {held}, shaky {fragile}, new {newCount}.",
+        "bandShiftCaptionOne": "1 word crossed from shaky into solid.",
+        "bandShiftCaption": "{count} words crossed from shaky into solid.",
+        "bandBarsAria": "{held} solid, {fragile} shaky, {newCount} new.",
         "horizonCaption": "Reviews due per day over the next thirty days.",
-        "horizonAria": "Peak {count} reviews due on day {dayOffset}.",
-        "reviewActivityCaptionOne": "review answer recorded this week",
-        "reviewActivityCaption": "review answers recorded this week"
+        "horizonAria": "Peak: {count} reviews due on day {dayOffset}.",
+        "reviewActivityCaptionOne": "card answered this week",
+        "reviewActivityCaption": "cards answered this week"
       }
     }
   },
   "methodMenu": {
-    "title": "Ways of practising",
+    "title": "Ways you can practise",
     "drillInShellTitle": "Methods",
-    "intro": "Sixty-odd ways people actually learn languages. Three questions narrow the list — how long you have, what you want to train, and how much energy you have. Refine only if you need to.",
+    "intro": "Sixty-odd ways people really learn languages. Three questions narrow the list: How long do you have? What do you want to practise? How much energy is there? Narrow further only if you want to.",
     "timeLabel": "How much time do you have?",
     "timeScaleHint": "Short steps at the start — drag right for longer, up to a day or endless",
     "skillLabel": "What do you want to train?",
-    "anySkill": "Any skill",
+    "anySkill": "Anything",
     "skillsHeading": "Skills",
     "energyLabel": "How much energy do you have?",
-    "anyEnergy": "Any energy",
+    "anyEnergy": "Any amount",
     "refineLabel": "Refine further",
-    "refineHint": "Only if the list still feels too broad — hands, voice, or whether you need your eyes.",
+    "refineHint": "Only if the list is still too long — hands, voice, or whether you need your eyes.",
     "refineAny": "Does not matter",
     "refineDimension": {
       "hands": "Hands",
       "voice": "Voice",
       "eyes": "Eyes"
     },
-    "nothingFits": "Nothing in the catalogue fits those filters. Try more time, a different skill, or fewer refinements.",
+    "nothingFits": "Nothing fits that right now. Try more time, another skill, or fewer limits.",
     "dailyHeading": "Three to try today",
-    "dailyIntro": "Real choice without decision load — one easy option, one well-evidenced option, and one for variety. The full list is still below.",
-    "catalogueUnavailable": "The method catalogue could not be read, so nothing below is being hidden from you — there is nothing to show. What went wrong:",
+    "dailyIntro": "Three real options without a long decision: an easy one, a well-evidenced one, and one for variety. The full list is below.",
+    "catalogueUnavailable": "We could not load the method catalogue. Nothing is being kept from you below — there is nothing to show. What went wrong:",
     "card": {
       "trains": "Trains",
       "needs": "Needs",
@@ -605,7 +605,7 @@
       "secondary": "secondary",
       "slight": "slight"
     },
-    "hosted": "The app runs this",
+    "hosted": "This runs in the app",
     "notHosted": "You do this yourself — the app does not run it",
     "hostedShort": "App runs this",
     "notHostedShort": "Off-app",
@@ -618,7 +618,7 @@
     "startSession": "Start",
     "durationHeading": "Session length",
     "durationChip": "{minutes} min",
-    "sessionNotBuilt": "The app will run this method here once its session is built. For now, read what it does and try it off-app if you can.",
+    "sessionNotBuilt": "Once this method runs in the app, you start it here. Until then: read what it does, and try it away from the app.",
     "sessionContract": {
       "line": "~{minutes} min · {volume} · {feedback}",
       "adaptedSuffix": "adapted text"
@@ -628,18 +628,18 @@
     "sessionVolumeCards": "{count, plural, one {# card} other {# cards}}",
     "sessionVolumeWriting": "timed writing",
     "sessionVolumeUnits": "{count, plural, one {# item} other {# items}}",
-    "sessionFeedbackSelfMark": "compare to key",
+    "sessionFeedbackSelfMark": "compare with the answer key",
     "sessionFeedbackExemplar": "compared to examples",
     "sessionFeedbackAssisted": "assisted feedback",
-    "sessionFeedbackRubric": "scored with a rubric",
-    "sessionFeedbackHonestNone": "no exemplar — compare honestly",
+    "sessionFeedbackRubric": "scored against set criteria",
+    "sessionFeedbackHonestNone": "no answer key — you judge it yourself",
     "backToMethods": "Back to methods",
-    "methodNotFound": "No method with that name exists in the catalogue.",
-    "standingLabel": "Current standing",
+    "methodNotFound": "No method by that name exists in the catalogue.",
+    "standingLabel": "Where you stand",
     "standingEmpty": "Nothing recorded yet — your standing appears here once you have reviewed a few cards.",
     "standingStartReview": "Start a review session",
-    "standingRecorded": "{held} of {poolSize} starter words held stably. No skill levels yet — meaning-recall does not measure reading, listening, speaking or writing.",
-    "standingSeeProgress": "See the full progress report",
+    "standingRecorded": "{held} of {poolSize} starter-pack words are solid. No per-skill levels yet — recalling meanings measures neither reading nor listening, speaking or writing.",
+    "standingSeeProgress": "See your full progress",
     "minutes": "min",
     "or": "or",
     "eitherOr": "or",
@@ -662,13 +662,13 @@
       "form": "Grammar and form",
       "vocabulary": "Vocabulary",
       "world": "Out in the world",
-      "commitments": "Standing commitments"
+      "commitments": "Things you keep up over time"
     },
     "evidence": {
-      "A": "Evidence A — replicated, with the effect shown outside the lab",
-      "B": "Evidence B — well supported, with limits",
-      "C": "Evidence C — plausible and widespread, but thinly evidenced",
-      "D": "Evidence D — a product decision, not a finding"
+      "A": "Strong evidence (grade A) — replicated, and shown outside the lab too",
+      "B": "Solid evidence (grade B) — well supported, but with limits",
+      "C": "Thin evidence (grade C) — plausible and widespread, but little studied",
+      "D": "Not researched (grade D) — our decision, not a finding"
     },
     "evidenceCard": {
       "A": "Strong evidence",
@@ -677,15 +677,15 @@
       "D": "Not researched"
     },
     "evidenceProse": {
-      "A": "Replicated, with the effect shown outside the lab",
-      "B": "Well supported, with limits",
-      "C": "Plausible and widespread, but thinly evidenced",
-      "D": "A product decision, not a finding"
+      "A": "Replicated, and shown outside the lab too",
+      "B": "Well supported, but with limits",
+      "C": "Plausible and widespread, but little studied",
+      "D": "Our decision, not a finding"
     },
     "effortCard": {
-      "1": "Light effort",
+      "1": "Easy",
       "2": "Needs focus",
-      "3": "Draining"
+      "3": "Tiring"
     },
     "intensity": {
       "1": "can be done tired or distracted",
@@ -721,7 +721,7 @@
       "attention": {
         "full": "full attention",
         "divided": "divided attention",
-        "fragmented": "fragmented attention"
+        "fragmented": "interrupted again and again"
       },
       "company": {
         "alone": "alone",
@@ -785,19 +785,19 @@
     },
     "entries": {
       "audio-cards": {
-        "name": "Audio cards, operable blind",
+        "name": "Audio cards you can use without looking",
         "summary": "The same cards, spoken, with your eyes free",
-        "trains": "retention while your eyes are elsewhere",
-        "doesNotDo": "It cannot grade itself honestly. Marking your own spoken answer while walking is the loosest grading in the app, and the schedule inherits that noise."
+        "trains": "holding on to words while your eyes are elsewhere",
+        "doesNotDo": "It cannot grade itself honestly. Marking your own spoken answer while walking is the loosest grading in the app, and the schedule inherits that guesswork."
       },
       "back-translation": {
         "name": "Back-translation with comparison",
         "summary": "Translate out, translate back, compare with the original",
         "trains": "structure, and it makes avoidance visible",
-        "doesNotDo": "It grades you against one reference. A different wording that is perfectly good will read as a difference, and the diff cannot tell the two apart."
+        "doesNotDo": "It grades you against one wording. A different wording that is perfectly good will show up as a mistake, and the comparison cannot tell the two apart."
       },
       "background-listening": {
-        "name": "Background listening with no task",
+        "name": "Leaving it on in the background",
         "summary": "Leave it playing while you do something else",
         "trains": "very little",
         "doesNotDo": "Honestly: barely anything. It is in the catalogue because learners ask about it, and the answer is that unattended sound produces almost no learning."
@@ -811,7 +811,7 @@
       "build-a-sentence": {
         "name": "Build a sentence with a target word",
         "summary": "Write one sentence that uses a given word",
-        "trains": "production recall",
+        "trains": "putting a word to use yourself",
         "doesNotDo": "Each sentence stands on its own. Nothing in it exercises holding a thought across several sentences, which is where most learners actually break down — and the check finds spelling and agreement, not word order, word choice or idiom."
       },
       "caption-your-photos": {
@@ -821,55 +821,55 @@
         "doesNotDo": "It cannot be aimed. What your photos happen to contain decides the vocabulary, and that is unlikely to be what you most need."
       },
       "close-a-frequency-block": {
-        "name": "Closing a frequency block deliberately",
-        "summary": "Finish off a band of the frequency list",
-        "trains": "coverage",
-        "doesNotDo": "It optimises the number rather than the need. Finishing a block is satisfying and it can spend a week on words you would never have missed."
+        "name": "Finishing off a group of common words",
+        "summary": "Work all the way through one group of the frequency list",
+        "trains": "how much of a text you understand",
+        "doesNotDo": "It chases the number rather than the need. Finishing a group is satisfying, and it can spend a week on words you would never have missed."
       },
       "cloze-sentences": {
         "name": "Cloze sentences",
         "summary": "One word removed from a sentence; put it back",
-        "trains": "form in context",
+        "trains": "forms inside a sentence",
         "doesNotDo": "The sentence around the gap does much of the work. A cloze you can solve from context alone measures the context, not the form."
       },
       "collocation-cards": {
-        "name": "Collocation cards rather than single words",
-        "summary": "Learn the word with the words it travels with",
-        "trains": "fluency — the word with what it goes with",
-        "doesNotDo": "It counts as one item what is really several. A collocation card grows vocabulary size more slowly than the same minutes on single words."
+        "name": "Word pairs rather than single words (collocations)",
+        "summary": "Learn a word together with the words it usually travels with",
+        "trains": "fluency — the word together with what belongs to it",
+        "doesNotDo": "It counts as one item what is really several. A word-pair card grows your vocabulary more slowly than the same minutes on single words."
       },
       "cook-from-a-recipe": {
         "name": "Cooking from a recipe in the language",
         "summary": "Cook something, following the recipe in the language",
-        "trains": "comprehension with consequences",
+        "trains": "understanding, where it actually matters",
         "doesNotDo": "It teaches the vocabulary of one kitchen. The consequences make you read carefully; they do not make the words general."
       },
       "copy-a-paragraph": {
         "name": "Copying out a good paragraph",
         "summary": "Copy out a well-written paragraph by hand",
-        "trains": "orthography, phrases",
+        "trains": "spelling, set phrases",
         "doesNotDo": "It involves no choice at all. Every word is given, so it is handwriting and attention practice, not language production."
       },
       "describe-a-picture": {
         "name": "Describing a picture",
         "summary": "Say everything you can see in one photo",
-        "trains": "open vocabulary",
+        "trains": "vocabulary with nothing prompting you",
         "doesNotDo": "It stays in the present tense and the third person. Pictures rarely require you to narrate, hypothesise or argue."
       },
       "diary-three-sentences": {
         "name": "Diary, three sentences",
         "summary": "Three sentences about your day",
-        "trains": "genuine communicative intent",
+        "trains": "actually having something to say",
         "doesNotDo": "It circles the same life. Your days repeat, so the vocabulary it demands narrows rather than widens over months."
       },
       "dictogloss": {
-        "name": "Dictogloss — reconstruct rather than transcribe",
+        "name": "Listen, then rebuild it from memory (dictogloss)",
         "summary": "Listen twice, then rebuild the passage from memory",
         "trains": "listening and grammar together",
-        "doesNotDo": "It does not check that you heard the words. A good reconstruction can be built from gist plus grammar, which is the point and also the limitation."
+        "doesNotDo": "It does not check that you heard the words. A good rebuild can come from the gist plus grammar, which is both the point and the limit."
       },
       "extensive-reading": {
-        "name": "Extensive reading at coverage",
+        "name": "Reading a lot, without stopping",
         "summary": "Read something you mostly understand, without stopping",
         "trains": "reading, incidental vocabulary",
         "doesNotDo": "It does not fix a word in memory. Words met while reading are met once; without the schedule picking them up they are gone in a week."
@@ -887,81 +887,81 @@
         "doesNotDo": "It improves nothing about accuracy. Telling the same thing three times faster makes delivery smoother and leaves the errors intact."
       },
       "free-production": {
-        "name": "Free production",
+        "name": "Writing freely",
         "summary": "Write freely on a prompt, with nothing to copy from",
-        "trains": "unprompted production, and what you are avoiding",
-        "doesNotDo": "It cannot make you use what you are dodging. Avoidance is what it reveals, not what it repairs."
+        "trains": "writing under your own steam — and what you steer around",
+        "doesNotDo": "It cannot make you use what you are dodging. Steering around a word is what it reveals, not what it repairs."
       },
       "full-dictation": {
         "name": "Full dictation on paper",
         "summary": "Hear a sentence, write the whole of it down",
-        "trains": "sound form, orthography",
+        "trains": "hearing the sounds, spelling",
         "doesNotDo": "It is slow and it does not teach meaning. Ten minutes buys six sentences of sound-to-spelling, and comprehension is not what is being checked."
       },
       "handwriting-shakiest": {
         "name": "Handwriting sheet of the twenty shakiest cards",
         "summary": "Write out the twenty cards you keep failing",
-        "trains": "encoding",
+        "trains": "making it stick",
         "doesNotDo": "It is slow and it is off-app, so its result has to be typed back in or it produces no signal at all."
       },
       "hobby-in-target-language": {
         "name": "Pursue one hobby in the target language",
         "summary": "One thing you love, done in the language",
         "trains": "everything, voluntarily",
-        "doesNotDo": "It builds one domain deeply. A learner who can discuss climbing gear fluently may still be unable to describe their week."
+        "doesNotDo": "It builds one subject deeply. Someone who can discuss climbing gear fluently may still be unable to describe their week."
       },
       "intensive-reading": {
-        "name": "Intensive reading",
+        "name": "Reading closely, word by word",
         "summary": "One paragraph, taken apart until nothing is unclear",
-        "trains": "form, precision, noticing",
-        "doesNotDo": "It builds no volume. One paragraph exhaustively is the opposite of the input quantity fluency needs, and it cannot substitute for it."
+        "trains": "forms, precision, paying attention",
+        "doesNotDo": "It builds no quantity. One paragraph gone over exhaustively is the opposite of the reading volume fluency needs, and it cannot stand in for it."
       },
       "interpreting": {
         "name": "Interpreting for someone",
         "summary": "Carry what one person says across to another",
         "trains": "everything at once",
-        "doesNotDo": "It overloads before it teaches. Below a working command of both directions it produces failure rather than practice."
+        "doesNotDo": "It overwhelms before it teaches. Unless you already handle both directions reasonably well, it produces failure rather than practice."
       },
       "label-the-flat": {
         "name": "Label the flat",
         "summary": "Names on the things you walk past every day",
         "trains": "everyday vocabulary",
-        "doesNotDo": "Labels teach nouns in isolation, which is the one thing cards already do well. You stop seeing them after a week."
+        "doesNotDo": "Labels teach nouns on their own, which is the one thing cards already do well. You stop seeing them after a week."
       },
       "listening-faster": {
         "name": "Listening faster (1.25×)",
         "summary": "Something you already follow, a quarter faster",
-        "trains": "processing speed",
-        "doesNotDo": "It adds no vocabulary. Speeding up material you already understand rehearses the parsing you have, not the words you lack."
+        "trains": "keeping up at speed",
+        "doesNotDo": "It adds no vocabulary. Speeding up material you already understand rehearses the following-along you have, not the words you lack."
       },
       "listening-level-1": {
-        "name": "Listening at level 1, no transcript",
+        "name": "Listening only, with no text",
         "summary": "Listen once, with no text to fall back on",
         "trains": "listening",
-        "doesNotDo": "It gives no partial credit. Without a transcript you cannot see which word you missed, only that you missed it."
+        "doesNotDo": "It gives no partial credit. With no text in front of you, you cannot see which word you missed — only that you missed one."
       },
       "mine-your-own-sentences": {
-        "name": "Mining sentences from your own content",
-        "summary": "Turn sentences from your own reading into cards",
+        "name": "Collecting sentences from your own reading",
+        "summary": "Turn sentences from what you read into cards",
         "trains": "words you have demonstrably needed",
-        "doesNotDo": "It ignores frequency. Words you happen to meet are not the words that unlock the most text, and mining alone will leave common ones unlearned for years."
+        "doesNotDo": "It ignores how common a word is. Words you happen to meet are not the words that unlock the most text, and collecting alone leaves common ones unlearned for years."
       },
       "minimal-pairs": {
-        "name": "Minimal pairs / HVPT",
+        "name": "Telling similar sounds apart (minimal pairs)",
         "summary": "Two words that differ by one sound — which was it?",
-        "trains": "perception of contrasts",
-        "doesNotDo": "Hearing a contrast is not saying it. Perception training transfers to production only partly, and it trains sounds rather than words."
+        "trains": "hearing fine differences between sounds",
+        "doesNotDo": "Hearing a difference is not saying it. Training your ear carries over to your mouth only partly, and it trains sounds rather than words."
       },
       "narrow-listening": {
-        "name": "Narrow listening, one series, one speaker",
+        "name": "One series, one speaker",
         "summary": "One series, one voice, until the voice is easy",
         "trains": "listening",
         "doesNotDo": "It tunes you to one voice. Getting comfortable with one speaker's rate and accent transfers to other speakers far less than it feels like it should."
       },
       "narrow-reading": {
-        "name": "Narrow reading",
+        "name": "Several texts on the same subject",
         "summary": "Four texts on one subject, so the words come back",
-        "trains": "the same as extensive reading, faster, by reusing one topic's vocabulary",
+        "trains": "the same as reading a lot, faster — one subject's words keep coming back",
         "doesNotDo": "It broadens nothing. Four texts on one subject build that subject's vocabulary and leave the rest of the language exactly where it was."
       },
       "one-series-target-audio": {
@@ -977,70 +977,70 @@
         "doesNotDo": "It is a handful of fixed exchanges. Once they work you can repeat them for years without adding anything."
       },
       "own-error-log": {
-        "name": "Working through your own error log",
+        "name": "Working through your own list of mistakes",
         "summary": "Work through the mistakes you actually made",
         "trains": "your own patterns rather than the average learner's",
         "doesNotDo": "It only contains errors you were caught making. Everything you avoid saying never reaches the log."
       },
       "paradigm-tables-mixed": {
-        "name": "Paradigm tables, mixed",
-        "summary": "Fill in forms from mixed paradigms, not one table",
-        "trains": "automatisation of inflection",
-        "doesNotDo": "It does not carry into speech on its own. Producing a cell on demand in a table is a long way from producing it mid-sentence."
+        "name": "Form tables, mixed up",
+        "summary": "Fill in forms from different patterns, not one table at a time",
+        "trains": "hitting the right form without thinking",
+        "doesNotDo": "It does not carry into speech on its own. Filling a slot in a table on demand is a long way from producing it mid-sentence."
       },
       "parallel-text": {
         "name": "Parallel text",
         "summary": "The same passage in both languages, side by side",
-        "trains": "structure, idiom",
+        "trains": "sentence structure and set phrases",
         "doesNotDo": "It removes the retrieval attempt. With the translation beside it, nothing forces you to work the meaning out, and unworked meaning does not stick."
       },
       "partial-dictation": {
         "name": "Partial dictation",
         "summary": "Hear a sentence, fill in the words that were taken out",
-        "trains": "sound form, audio recall",
+        "trains": "hearing the sounds, recalling them by ear",
         "doesNotDo": "It measures the gaps and nothing else. The words you were handed tell you nothing about whether you would have heard them."
       },
       "reading-aloud": {
         "name": "Reading aloud",
         "summary": "Read a passage out loud, at a speaking pace",
-        "trains": "pronunciation, flow, segmentation",
-        "doesNotDo": "It is not speaking. Every word is chosen for you, so it trains articulation and rhythm while leaving retrieval untouched."
+        "trains": "pronunciation, flow, hearing where words begin and end",
+        "doesNotDo": "It is not speaking. Every word is chosen for you, so it trains how you form sounds and hold a rhythm while leaving recall untouched."
       },
       "reading-while-listening": {
         "name": "Reading and listening at once",
         "summary": "Follow the text while a voice reads it to you",
-        "trains": "listening, segmentation",
+        "trains": "listening, hearing where words begin and end",
         "doesNotDo": "It does not test listening. The text carries you, so it cannot tell you what you would have understood without it."
       },
       "recite-memorised": {
         "name": "Reciting a memorised poem or monologue",
         "summary": "Say a piece you have learned by heart",
-        "trains": "prosody, chunks",
+        "trains": "the melody of the language, set phrases",
         "doesNotDo": "It is recall of one fixed string. Nothing in it generalises to a sentence you have not memorised."
       },
       "repeated-listening": {
         "name": "Repeated listening with support removal",
         "summary": "The same clip three times, with less help each pass",
         "trains": "listening",
-        "doesNotDo": "It does not build volume, and by the third pass you are recalling the passage rather than parsing it."
+        "doesNotDo": "It does not build quantity, and by the third pass you are recalling the clip rather than working it out."
       },
       "reread-something-hard": {
         "name": "Re-read something that was too hard",
         "summary": "Open something that beat you months ago",
-        "trains": "the competence moment — noticing that it got easier",
+        "trains": "the feeling of having got somewhere",
         "doesNotDo": "It teaches almost nothing new. Its whole value is evidence of progress you can feel, which is a motivation effect and not a learning one."
       },
       "retell-what-you-read": {
         "name": "Retelling what you just read",
         "summary": "Close the text and say what it said",
-        "trains": "production, and the link from input to output",
+        "trains": "saying it yourself — from understanding to speaking",
         "doesNotDo": "It borrows the source's vocabulary. What comes out is partly the text's phrasing echoed back, so it overstates what you can say unprompted."
       },
       "rewrite-in-your-own-words": {
         "name": "Rewriting a text in your own words",
         "summary": "Say the same thing again, differently",
-        "trains": "reformulation",
-        "doesNotDo": "It rewards paraphrase over precision, and a learner short of vocabulary will reformulate downwards into what they already have."
+        "trains": "saying it another way",
+        "doesNotDo": "It rewards saying it another way over saying it precisely, and someone short of vocabulary will reformulate downwards into what they already have."
       },
       "role-play": {
         "name": "Role play or drama",
@@ -1057,44 +1057,44 @@
       "self-talk": {
         "name": "Self-talk — describe what you see",
         "summary": "Describe what is in front of you, out loud",
-        "trains": "fluency under time pressure",
+        "trains": "speaking fluently under time pressure",
         "doesNotDo": "Nobody corrects you. Errors repeated aloud in private get rehearsed as readily as correct forms do."
       },
       "sentence-transformation": {
-        "name": "Sentence transformation — tense, negation, person",
+        "name": "Rebuilding sentences — tense, negation, person",
         "summary": "Take a sentence and change its tense or its person",
         "trains": "flexibility with forms you already meet",
         "doesNotDo": "It supplies the sentence. You never have to decide what to say, only how to bend it."
       },
       "shadowing": {
-        "name": "Shadowing",
+        "name": "Speaking along, a beat behind (shadowing)",
         "summary": "Repeat a voice a beat behind it, without stopping",
-        "trains": "prosody, flow",
-        "doesNotDo": "It never asks you to choose a word. Following a voice at a delay is articulation practice, not retrieval, and it can be done with very little comprehension."
+        "trains": "the melody of the language, flow",
+        "doesNotDo": "It never asks you to choose a word. Following a voice at a delay trains how you form sounds, not recall, and it works with very little understanding."
       },
       "shopping-list-in-your-head": {
         "name": "Think through your shopping list in the target language",
         "summary": "Run everyday lists through the language in your head",
-        "trains": "retrieval in the middle of ordinary life",
+        "trains": "recalling words in the middle of ordinary life",
         "doesNotDo": "You will notice the words you lack and then move on without looking them up, so the gap gets found and not filled."
       },
       "singing-along": {
         "name": "Singing along",
         "summary": "Sing with the recording, words in front of you",
-        "trains": "prosody, chunks",
+        "trains": "the melody of the language, set phrases",
         "doesNotDo": "Song rhythm overrides speech rhythm. Stress and vowel length get bent to the melody, so the prosody you practise is not the prosody you need."
       },
       "srs-session": {
-        "name": "Spaced repetition session",
+        "name": "Reviewing at growing intervals",
         "summary": "The cards the schedule says are due today",
         "trains": "retention",
-        "doesNotDo": "It builds nothing you can use in a sentence. Cards make words retrievable in isolation, and the rest of the app exists because that is not the same as knowing them."
+        "doesNotDo": "It builds nothing you can use in a sentence. Cards make words come back on their own, and the rest of the app exists because that is not the same as knowing them."
       },
       "summarise-what-you-read": {
         "name": "Summarising what you read",
         "summary": "Say what a text said, shorter, in writing",
-        "trains": "the link from input to output",
-        "doesNotDo": "It lets you lift phrases. Without a deliberate delay between reading and writing, much of what appears is copied rather than produced."
+        "trains": "from understanding to writing",
+        "doesNotDo": "It lets you lift phrases straight out. Without a deliberate pause between reading and writing, much of what appears is copied rather than your own."
       },
       "switch-phone-language": {
         "name": "Switch your phone's language",
@@ -1105,13 +1105,13 @@
       "tandem-or-language-cafe": {
         "name": "Tandem or language café",
         "summary": "Talk to a speaker who is also learning yours",
-        "trains": "real interaction",
+        "trains": "a real conversation",
         "doesNotDo": "Half of it is in your own language, and a patient partner will accommodate you until neither of you notices what you cannot say."
       },
       "translate-a-song": {
         "name": "Translating a song",
         "summary": "Work out what a song you like actually says",
-        "trains": "idiom",
+        "trains": "set phrases",
         "doesNotDo": "Lyrics are unrepresentative. Inverted word order and archaic vocabulary are normal in songs and wrong in speech."
       },
       "video-game-in-target-language": {
@@ -1130,12 +1130,12 @@
         "name": "Writing and performing a play",
         "summary": "Write something short and put it on",
         "trains": "everything",
-        "doesNotDo": "It runs for weeks and produces one measurement. As a project it is excellent and as a source of signal it is nearly useless."
+        "doesNotDo": "It runs for weeks and produces one measurement. As a project it is excellent; as something to measure you by, nearly useless."
       },
       "write-to-one-friend": {
         "name": "Write to one friend only in the target language",
         "summary": "One person you only ever write to in the language",
-        "trains": "production with a genuine reason to be understood",
+        "trains": "writing when you really want to be understood",
         "doesNotDo": "Nobody corrects you and nothing is recorded. It is the highest-leverage entry in the catalogue and the app cannot see a single thing about it."
       }
     },
@@ -1180,7 +1180,7 @@
     "adapting": "Adapting to your level…",
     "viewOriginal": "View original article",
     "appPickPreview": "A passage at ~{percent}% for you today · {band}",
-    "emptyTopic": "Nothing in the library yet for this topic — try Your own",
+    "emptyTopic": "Nothing in the library on this topic yet — try Your own",
     "keepInLibrary": "Keep in my library",
     "keepRequiresSignIn": "Sign in to save text to your library",
     "uploadFile": "Upload file",
@@ -1191,20 +1191,20 @@
   "languagePicker": {
     "title": "Which language do you want to learn?",
     "intro": "You can add another later. Nothing here locks you in.",
-    "notStarted": "{poolSize} words in the starter set",
-    "held": "{held} of {poolSize} starter words held stably",
-    "unavailable": "Not available yet — we don't have a word set for {name} we'd stand behind",
+    "notStarted": "{poolSize} words in the starter pack",
+    "held": "{held} of {poolSize} words are solid",
+    "unavailable": "Not available yet — we have no word set for {name} that we would stand behind",
     "alreadyLearning": "Already learning",
     "active": "Active",
     "choose": "Start with this language",
-    "footnote": "These counts are about the starter set only. Nothing here is a claim about the language as a whole.",
+    "footnote": "These numbers are about the starter pack only. They say nothing about the language as a whole.",
     "error": "Could not add that language."
   },
   "accountData": {
     "title": "Your data",
     "intro": "Download everything the app has stored about your learning, or delete your account and all associated data.",
     "exportHeading": "Download",
-    "exportCaption": "Plain JSON you can read without this app. The review log is enough to rebuild your schedule elsewhere.",
+    "exportCaption": "Readable JSON you can open without this app. The review log is enough to rebuild your schedule elsewhere.",
     "scopeLabel": "What to include",
     "scopeComplete": "Complete archive",
     "scopeReviews": "Review log only",
@@ -1247,12 +1247,12 @@
   },
   "privacy": {
     "bannerTitle": "Cookies and storage",
-    "bannerBody": "We use essential cookies to keep you signed in. Optional analytics stay off until you accept.",
+    "bannerBody": "We set only the cookies needed to keep you signed in. Optional analytics stay off until you agree.",
     "bannerLink": "Privacy policy",
     "acceptAll": "Accept",
     "essentialOnly": "Essential only",
     "title": "Privacy",
-    "intro": "This page will hold the full Datenschutzerklärung. Until legal review, this is what the app actually stores today.",
+    "intro": "The full privacy policy will live here. Until it has had a legal check: this is what the app really stores today.",
     "stores": [
       "Account: email and user id (Supabase Auth), required to sign in.",
       "Session cookie: keeps you signed in.",
@@ -1269,10 +1269,10 @@
   },
   "install": {
     "title": "Add to Home Screen",
-    "intro": "On iPhone, the Home Screen app only works correctly when you add it from the main website address — not from Methods, Words, or Progress.",
+    "intro": "On iPhone, the Home Screen app only works properly if you add it from the main site — not from Methods, Words or Progress.",
     "whyHeading": "Why the main address",
-    "whyBody": "Apple ties the Home Screen app to the page you were on when you tapped Add to Home Screen. Add from the site root and every section works without Safari's bottom toolbar. Add from a sub-page and only that section (and its sub-pages) stay clean.",
-    "noButton": "iPhone does not allow websites to show an install button. You use Safari's Share menu → Add to Home Screen.",
+    "whyBody": "Apple remembers the page you were on when you tapped Add to Home Screen. Added from the main site, every section works without Safari's bottom bar. Added from a section page, only that one section stays clean.",
+    "noButton": "iPhone allows websites no install button. You do it through Safari's Share menu → Add to Home Screen.",
     "stepsHeading": "Steps (iPhone)",
     "steps": [
       "Remove any existing Home Screen icon for this app.",
@@ -1295,31 +1295,31 @@
       "menu": "Menu"
     },
     "landing": {
-      "eyebrow": "Evidence-driven language learning",
+      "eyebrow": "Language learning with methods that are backed up",
       "headline": "You choose how you practise — we show whether you're really getting somewhere.",
-      "subhead": "Sixty-plus evidence-backed practice methods. You pick what fits today — we show what it's doing for your level.",
-      "timeHonesty": "Fifteen minutes a day, every day without missing one, is about {hours} hours a year — roughly a quarter of the way to B1 from a standing start. Feeling slow at that pace is arithmetic, not failure.",
+      "subhead": "Sixty-plus well-evidenced ways to practise. You take what fits today — we show you what it does for you.",
+      "timeHonesty": "15 minutes a day, without missing one, is about {hours} hours a year. From a standing start that is roughly a quarter of the way to B1. If that feels slow, it is the arithmetic, not you.",
       "pillarsHeading": "How we measure it",
       "pillars": [
         {
-          "text": "Progress is shown as measured competence, never as activity."
+          "text": "We show you what you can actually do — not how busy you were."
         },
         {
-          "text": "The scheduler is a visible surface, not a black box."
+          "text": "You can always check why a card is due today."
         },
         {
-          "text": "Two equal pillars: SRS and reading/listening."
+          "text": "Reviewing cards and reading and listening a lot: both count the same here."
         },
         {
-          "text": "A level model with sub-levels per skill, plus an honest overall figure."
+          "text": "Reading, listening, speaking and writing are counted separately — plus one honest overall figure."
         }
       ],
       "primaryCta": "Create account",
       "secondaryCta": "Sign in",
-      "languagesLink": "What the app claims for each language",
+      "languagesLink": "What we can promise for which language",
       "methodPreview": {
         "heading": "Try the method menu",
-        "intro": "The same three filters as in the app — time, skill, and energy. Three methods from the catalogue. Tap one to read how it works.",
+        "intro": "The same three filters as in the app: time, what you want to practise, and energy. Tap a method to read how it works.",
         "previewNote": "Preview only — create an account to practise.",
         "methodsLabel": "Three methods from the catalogue"
       }

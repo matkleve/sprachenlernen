@@ -1,4 +1,4 @@
-import { renderWithIntl as render } from "@/tests/i18n-test-utils";
+import { renderWithIntl as render, en } from "@/tests/i18n-test-utils";
 import { screen } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 
@@ -28,7 +28,9 @@ describe("ExerciseStepBody registry", () => {
       />,
     );
 
-    expect(screen.getByText(/not built yet/i)).toBeDefined();
+    expect(
+      screen.getByText(en.exerciseRunner.unknownComponent.replace("{component}", "audio-play")),
+    ).toBeDefined();
   });
 
   it("AC-1: renders checklist for a shipped prepare step", () => {

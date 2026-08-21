@@ -3,7 +3,7 @@
   "entries": [
     {
       "id": "srs-session",
-      "name": "Spaced repetition session",
+      "name": "Reviewing at growing intervals",
       "summary": "The cards the schedule says are due today",
       "type": "method",
       "trains": "retention",
@@ -30,14 +30,14 @@
         }
       ],
       "offerEveryDays": 1,
-      "doesNotDo": "It builds nothing you can use in a sentence. Cards make words retrievable in isolation, and the rest of the app exists because that is not the same as knowing them."
+      "doesNotDo": "It builds nothing you can use in a sentence. Cards make words come back on their own, and the rest of the app exists because that is not the same as knowing them."
     },
     {
       "id": "audio-cards",
-      "name": "Audio cards, operable blind",
+      "name": "Audio cards you can use without looking",
       "summary": "The same cards, spoken, with your eyes free",
       "type": "method",
-      "trains": "retention while your eyes are elsewhere",
+      "trains": "holding on to words while your eyes are elsewhere",
       "skills": ["vocabulary"],
       "targetSignal": "recallStability",
       "evidence": "B",
@@ -59,12 +59,12 @@
         ]
       },
       "offerEveryDays": null,
-      "doesNotDo": "It cannot grade itself honestly. Marking your own spoken answer while walking is the loosest grading in the app, and the schedule inherits that noise."
+      "doesNotDo": "It cannot grade itself honestly. Marking your own spoken answer while walking is the loosest grading in the app, and the schedule inherits that guesswork."
     },
     {
       "id": "mine-your-own-sentences",
-      "name": "Mining sentences from your own content",
-      "summary": "Turn sentences from your own reading into cards",
+      "name": "Collecting sentences from your own reading",
+      "summary": "Turn sentences from what you read into cards",
       "type": "method",
       "trains": "words you have demonstrably needed",
       "skills": [
@@ -86,14 +86,14 @@
         ]
       },
       "offerEveryDays": null,
-      "doesNotDo": "It ignores frequency. Words you happen to meet are not the words that unlock the most text, and mining alone will leave common ones unlearned for years."
+      "doesNotDo": "It ignores how common a word is. Words you happen to meet are not the words that unlock the most text, and collecting alone leaves common ones unlearned for years."
     },
     {
       "id": "collocation-cards",
-      "name": "Collocation cards rather than single words",
-      "summary": "Learn the word with the words it travels with",
+      "name": "Word pairs rather than single words (collocations)",
+      "summary": "Learn a word together with the words it usually travels with",
       "type": "method",
-      "trains": "fluency — the word with what it goes with",
+      "trains": "fluency — the word together with what belongs to it",
       "skills": ["vocabulary"],
       "targetSignal": "recallStability",
       "evidence": "B",
@@ -111,14 +111,14 @@
         ]
       },
       "offerEveryDays": null,
-      "doesNotDo": "It counts as one item what is really several. A collocation card grows vocabulary size more slowly than the same minutes on single words."
+      "doesNotDo": "It counts as one item what is really several. A word-pair card grows your vocabulary more slowly than the same minutes on single words."
     },
     {
       "id": "close-a-frequency-block",
-      "name": "Closing a frequency block deliberately",
-      "summary": "Finish off a band of the frequency list",
+      "name": "Finishing off a group of common words",
+      "summary": "Work all the way through one group of the frequency list",
       "type": "method",
-      "trains": "coverage",
+      "trains": "how much of a text you understand",
       "skills": [
         "reading",
         "vocabulary"
@@ -139,14 +139,14 @@
         ]
       },
       "offerEveryDays": null,
-      "doesNotDo": "It optimises the number rather than the need. Finishing a block is satisfying and it can spend a week on words you would never have missed."
+      "doesNotDo": "It chases the number rather than the need. Finishing a group is satisfying, and it can spend a week on words you would never have missed."
     },
     {
       "id": "handwriting-shakiest",
       "name": "Handwriting sheet of the twenty shakiest cards",
       "summary": "Write out the twenty cards you keep failing",
       "type": "method",
-      "trains": "encoding",
+      "trains": "making it stick",
       "skills": [
         "writing"
       ],

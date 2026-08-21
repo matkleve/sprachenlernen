@@ -116,7 +116,7 @@ describe("ReviewSession", () => {
   it("renders the first card immediately when the queue is server-built", () => {
     render(
       <ReviewSession
-        methodName="Spaced repetition session"
+        methodName="Reviewing at growing intervals"
         initialData={testInitialData}
       />,
     );
@@ -129,7 +129,7 @@ describe("ReviewSession", () => {
     const user = userEvent.setup();
     render(
       <ReviewSession
-        methodName="Spaced repetition session"
+        methodName="Reviewing at growing intervals"
         initialData={testInitialData}
       />,
     );
@@ -162,7 +162,7 @@ describe("ReviewSession", () => {
 
   it("grades without flipping when the learner is confident", async () => {
     const user = userEvent.setup();
-    render(<ReviewSession methodName="Spaced repetition session" />);
+    render(<ReviewSession methodName="Reviewing at growing intervals" />);
 
     await waitFor(() => expect(screen.getByText("de")).toBeDefined());
     expect(screen.queryByText("of, from")).toBeNull();
@@ -192,7 +192,7 @@ describe("ReviewSession", () => {
     const user = userEvent.setup();
     render(
       <ReviewSession
-        methodName="Spaced repetition session"
+        methodName="Reviewing at growing intervals"
         initialData={testInitialData}
       />,
     );
@@ -230,7 +230,7 @@ describe("ReviewSession", () => {
     const user = userEvent.setup();
     render(
       <ReviewSession
-        methodName="Spaced repetition session"
+        methodName="Reviewing at growing intervals"
         initialData={testInitialData}
       />,
     );
@@ -249,7 +249,7 @@ describe("ReviewSession", () => {
   it("shows a load error when the queue cannot be built", () => {
     render(
       <ReviewSession
-        methodName="Spaced repetition session"
+        methodName="Reviewing at growing intervals"
         initialData={{ status: "error", error: "Not signed in." }}
       />,
     );
@@ -263,7 +263,7 @@ describe("ReviewSession", () => {
   it("shows inline load error when the server action rejects", async () => {
     vi.mocked(buildSessionAction).mockRejectedValueOnce(new Error("server action failed"));
 
-    render(<ReviewSession methodName="Spaced repetition session" />);
+    render(<ReviewSession methodName="Reviewing at growing intervals" />);
 
     await waitFor(() => {
       expect(screen.getByText(en.reviewSession.loadError)).toBeDefined();
@@ -275,7 +275,7 @@ describe("ReviewSession", () => {
     const user = userEvent.setup();
     render(
       <ReviewSession
-        methodName="Spaced repetition session"
+        methodName="Reviewing at growing intervals"
         initialData={testInitialData}
       />,
     );
@@ -300,7 +300,7 @@ describe("ReviewSession", () => {
     const user = userEvent.setup();
     const { container } = render(
       <ReviewSession
-        methodName="Spaced repetition session"
+        methodName="Reviewing at growing intervals"
         initialData={testInitialData}
       />,
     );
@@ -336,7 +336,7 @@ describe("ReviewSession", () => {
 
     render(
       <ReviewSession
-        methodName="Spaced repetition session"
+        methodName="Reviewing at growing intervals"
         initialData={testInitialData}
       />,
     );
@@ -353,7 +353,7 @@ describe("ReviewSession", () => {
 
     render(
       <ReviewSession
-        methodName="Spaced repetition session"
+        methodName="Reviewing at growing intervals"
         initialData={testInitialData}
       />,
     );
@@ -371,7 +371,7 @@ describe("ReviewSession", () => {
     const user = userEvent.setup();
     render(
       <ReviewSession
-        methodName="Spaced repetition session"
+        methodName="Reviewing at growing intervals"
         initialData={testInitialData}
       />,
     );
@@ -389,7 +389,7 @@ describe("ReviewSession", () => {
   it("shows a run status strip above the card during an active session", () => {
     render(
       <ReviewSession
-        methodName="Spaced repetition session"
+        methodName="Reviewing at growing intervals"
         initialData={testInitialData}
         compact
       />,
@@ -403,7 +403,7 @@ describe("ReviewSession", () => {
     const user = userEvent.setup();
     render(
       <ReviewSession
-        methodName="Spaced repetition session"
+        methodName="Reviewing at growing intervals"
         initialData={testInitialData}
       />,
     );

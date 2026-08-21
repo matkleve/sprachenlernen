@@ -3,7 +3,7 @@
   "entries": [
     {
       "id": "extensive-reading",
-      "name": "Extensive reading at coverage",
+      "name": "Reading a lot, without stopping",
       "summary": "Read something you mostly understand, without stopping",
       "type": "method",
       "trains": "reading, incidental vocabulary",
@@ -34,10 +34,10 @@
     },
     {
       "id": "narrow-reading",
-      "name": "Narrow reading",
+      "name": "Several texts on the same subject",
       "summary": "Four texts on one subject, so the words come back",
       "type": "method",
-      "trains": "the same as extensive reading, faster, by reusing one topic's vocabulary",
+      "trains": "the same as reading a lot, faster — one subject's words keep coming back",
       "skills": [
         "reading"
       ],
@@ -60,10 +60,10 @@
     },
     {
       "id": "intensive-reading",
-      "name": "Intensive reading",
+      "name": "Reading closely, word by word",
       "summary": "One paragraph, taken apart until nothing is unclear",
       "type": "method",
-      "trains": "form, precision, noticing",
+      "trains": "forms, precision, paying attention",
       "skills": [
         "reading"
       ],
@@ -85,14 +85,14 @@
         ]
       },
       "offerEveryDays": null,
-      "doesNotDo": "It builds no volume. One paragraph exhaustively is the opposite of the input quantity fluency needs, and it cannot substitute for it."
+      "doesNotDo": "It builds no quantity. One paragraph gone over exhaustively is the opposite of the reading volume fluency needs, and it cannot stand in for it."
     },
     {
       "id": "reading-aloud",
       "name": "Reading aloud",
       "summary": "Read a passage out loud, at a speaking pace",
       "type": "method",
-      "trains": "pronunciation, flow, segmentation",
+      "trains": "pronunciation, flow, hearing where words begin and end",
       "skills": [
         "reading",
         "speaking"
@@ -115,7 +115,7 @@
         ]
       },
       "offerEveryDays": null,
-      "doesNotDo": "It is not speaking. Every word is chosen for you, so it trains articulation and rhythm while leaving retrieval untouched.",
+      "doesNotDo": "It is not speaking. Every word is chosen for you, so it trains how you form sounds and hold a rhythm while leaving recall untouched.",
       "materialTopics": [
         { "id": "news", "labelKey": "news" },
         { "id": "daily", "labelKey": "daily" }
@@ -127,7 +127,7 @@
       "name": "Reading and listening at once",
       "summary": "Follow the text while a voice reads it to you",
       "type": "method",
-      "trains": "listening, segmentation",
+      "trains": "listening, hearing where words begin and end",
       "skills": [
         "reading",
         "listening"
@@ -159,7 +159,7 @@
       "name": "Re-read something that was too hard",
       "summary": "Open something that beat you months ago",
       "type": "method",
-      "trains": "the competence moment — noticing that it got easier",
+      "trains": "the feeling of having got somewhere",
       "skills": [
         "reading"
       ],
@@ -185,7 +185,7 @@
       "name": "Parallel text",
       "summary": "The same passage in both languages, side by side",
       "type": "method",
-      "trains": "structure, idiom",
+      "trains": "sentence structure and set phrases",
       "skills": [
         "reading"
       ],

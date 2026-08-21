@@ -3,7 +3,7 @@
   "entries": [
     {
       "id": "listening-level-1",
-      "name": "Listening at level 1, no transcript",
+      "name": "Listening only, with no text",
       "summary": "Listen once, with no text to fall back on",
       "type": "method",
       "trains": "listening",
@@ -27,11 +27,11 @@
         ]
       },
       "offerEveryDays": 3.5,
-      "doesNotDo": "It gives no partial credit. Without a transcript you cannot see which word you missed, only that you missed it."
+      "doesNotDo": "It gives no partial credit. With no text in front of you, you cannot see which word you missed — only that you missed one."
     },
     {
       "id": "narrow-listening",
-      "name": "Narrow listening, one series, one speaker",
+      "name": "One series, one speaker",
       "summary": "One series, one voice, until the voice is easy",
       "type": "method",
       "trains": "listening",
@@ -82,14 +82,14 @@
         ]
       },
       "offerEveryDays": null,
-      "doesNotDo": "It does not build volume, and by the third pass you are recalling the passage rather than parsing it."
+      "doesNotDo": "It does not build quantity, and by the third pass you are recalling the clip rather than working it out."
     },
     {
       "id": "partial-dictation",
       "name": "Partial dictation",
       "summary": "Hear a sentence, fill in the words that were taken out",
       "type": "method",
-      "trains": "sound form, audio recall",
+      "trains": "hearing the sounds, recalling them by ear",
       "skills": [
         "listening",
         "writing"
@@ -131,7 +131,7 @@
       "name": "Full dictation on paper",
       "summary": "Hear a sentence, write the whole of it down",
       "type": "method",
-      "trains": "sound form, orthography",
+      "trains": "hearing the sounds, spelling",
       "skills": [
         "listening",
         "writing"
@@ -172,7 +172,7 @@
     },
     {
       "id": "dictogloss",
-      "name": "Dictogloss — reconstruct rather than transcribe",
+      "name": "Listen, then rebuild it from memory (dictogloss)",
       "summary": "Listen twice, then rebuild the passage from memory",
       "type": "method",
       "trains": "listening and grammar together",
@@ -203,14 +203,14 @@
         ]
       },
       "offerEveryDays": null,
-      "doesNotDo": "It does not check that you heard the words. A good reconstruction can be built from gist plus grammar, which is the point and also the limitation."
+      "doesNotDo": "It does not check that you heard the words. A good rebuild can come from the gist plus grammar, which is both the point and the limit."
     },
     {
       "id": "listening-faster",
       "name": "Listening faster (1.25×)",
       "summary": "Something you already follow, a quarter faster",
       "type": "method",
-      "trains": "processing speed",
+      "trains": "keeping up at speed",
       "skills": [
         "listening"
       ],
@@ -230,11 +230,11 @@
         ]
       },
       "offerEveryDays": null,
-      "doesNotDo": "It adds no vocabulary. Speeding up material you already understand rehearses the parsing you have, not the words you lack."
+      "doesNotDo": "It adds no vocabulary. Speeding up material you already understand rehearses the following-along you have, not the words you lack."
     },
     {
       "id": "background-listening",
-      "name": "Background listening with no task",
+      "name": "Leaving it on in the background",
       "summary": "Leave it playing while you do something else",
       "type": "method",
       "trains": "very little",

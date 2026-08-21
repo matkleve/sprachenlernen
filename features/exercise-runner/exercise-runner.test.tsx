@@ -1,4 +1,4 @@
-import { renderWithIntl as render, renderWithIntlDe } from "@/tests/i18n-test-utils";
+import { renderWithIntl as render, renderWithIntlDe, de, en } from "@/tests/i18n-test-utils";
 import { screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { describe, expect, it } from "vitest";
@@ -200,8 +200,8 @@ describe("ChecklistStep i18n", () => {
       />,
     );
 
-    expect(screen.getByText(/Stift und Papier oder Tastatur/)).toBeDefined();
-    expect(screen.getByText(/In Ihrer Zielsprache schreiben/)).toBeDefined();
-    expect(screen.queryByText(/Pen and paper or keyboard/)).toBeNull();
+    expect(screen.getByText(de.exerciseRunner.prepareItemKeyboard)).toBeDefined();
+    expect(screen.getByText(de.exerciseRunner.prepareItemTargetLang)).toBeDefined();
+    expect(screen.queryByText(en.exerciseRunner.prepareItemKeyboard)).toBeNull();
   });
 });

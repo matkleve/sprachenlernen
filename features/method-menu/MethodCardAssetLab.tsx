@@ -28,7 +28,7 @@ const SECTIONS: Section[] = [
 const SAMPLE_METHODS: MethodEntry[] = [
   {
     id: "background-listening",
-    name: "Background listening with no task",
+    name: "Leaving it on in the background",
     summary: "Leave it playing while you do something else",
     type: "method",
     section: "listening",

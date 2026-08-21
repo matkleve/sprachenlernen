@@ -17,6 +17,7 @@ const CHECKS = [
   ["study", "node", ["scripts/check-study.mjs"]],
   ["secrets", "node", ["scripts/check-secrets.mjs"]],
   ["i18n", "node", ["scripts/check-i18n-keys.mjs"]],
+  ["i18n-address", "node", ["scripts/check-i18n-address.mjs"]],
   ["descriptions", "node", ["scripts/check-description-snapshots.mjs"]],
   ["tokens", "node", ["scripts/check-tokens.mjs"]],
   ["contrast", "node", ["scripts/check-contrast.mjs"]],

@@ -2,7 +2,7 @@ import userEvent from "@testing-library/user-event";
 import { describe, expect, it } from "vitest";
 
 import { DemonstrationSentence } from "./DemonstrationSentence";
-import { renderWithIntl, renderWithIntlDe, screen } from "@/tests/i18n-test-utils";
+import { renderWithIntl, renderWithIntlDe, screen, de } from "@/tests/i18n-test-utils";
 
 const pick = {
   id: "es-hoy-quiero-ir",
@@ -46,9 +46,9 @@ describe("DemonstrationSentence", () => {
     const user = userEvent.setup();
     renderWithIntlDe(<DemonstrationSentence pick={pick} />);
 
-    expect(screen.getByText("Können Sie das lesen?")).toBeDefined();
+    expect(screen.getByText(de.methodMenu.demonstration.label)).toBeDefined();
 
-    await user.click(screen.getByRole("button", { name: "Tippen zum Umdrehen" }));
-    expect(screen.getByRole("button", { name: "Leicht" })).toBeDefined();
+    await user.click(screen.getByRole("button", { name: de.methodMenu.demonstration.flipHint }));
+    expect(screen.getByRole("button", { name: de.methodMenu.demonstration.gradeEasy })).toBeDefined();
   });
 });

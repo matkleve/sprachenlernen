@@ -2,7 +2,7 @@ import userEvent from "@testing-library/user-event";
 import { describe, expect, it } from "vitest";
 
 import { ReadableText } from "./ReadableText";
-import { renderWithIntl, renderWithIntlDe, screen } from "@/tests/i18n-test-utils";
+import { renderWithIntl, renderWithIntlDe, screen, de } from "@/tests/i18n-test-utils";
 
 const segments = [
   { kind: "text" as const, value: "Un " },
@@ -37,7 +37,7 @@ describe("ReadableText", () => {
 
     await user.click(screen.getByRole("button", { name: "café" }));
 
-    expect(screen.getByRole("button", { name: "Schließen" })).toBeDefined();
-    expect(screen.getByText("Noch nicht in Ihrem Starter-Pool.")).toBeDefined();
+    expect(screen.getByRole("button", { name: de.contentTrace.reading.close })).toBeDefined();
+    expect(screen.getByText(de.contentTrace.reading.noGloss)).toBeDefined();
   });
 });

@@ -30,7 +30,7 @@ describe("practice surface", () => {
         entries={[
           {
             id: "target",
-            label: "In Ihrer Zielsprache schreiben — nicht auf Englisch",
+            label: "In deiner Zielsprache schreiben — nicht auf Deutsch",
           },
         ]}
       />,

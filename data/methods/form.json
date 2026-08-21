@@ -3,10 +3,10 @@
   "entries": [
     {
       "id": "paradigm-tables-mixed",
-      "name": "Paradigm tables, mixed",
-      "summary": "Fill in forms from mixed paradigms, not one table",
+      "name": "Form tables, mixed up",
+      "summary": "Fill in forms from different patterns, not one table at a time",
       "type": "method",
-      "trains": "automatisation of inflection",
+      "trains": "hitting the right form without thinking",
       "skills": [
         "writing"
       ],
@@ -26,14 +26,14 @@
         ]
       },
       "offerEveryDays": null,
-      "doesNotDo": "It does not carry into speech on its own. Producing a cell on demand in a table is a long way from producing it mid-sentence."
+      "doesNotDo": "It does not carry into speech on its own. Filling a slot in a table on demand is a long way from producing it mid-sentence."
     },
     {
       "id": "minimal-pairs",
-      "name": "Minimal pairs / HVPT",
+      "name": "Telling similar sounds apart (minimal pairs)",
       "summary": "Two words that differ by one sound — which was it?",
       "type": "method",
-      "trains": "perception of contrasts",
+      "trains": "hearing fine differences between sounds",
       "skills": [
         "listening"
       ],
@@ -52,14 +52,14 @@
         ]
       },
       "offerEveryDays": null,
-      "doesNotDo": "Hearing a contrast is not saying it. Perception training transfers to production only partly, and it trains sounds rather than words."
+      "doesNotDo": "Hearing a difference is not saying it. Training your ear carries over to your mouth only partly, and it trains sounds rather than words."
     },
     {
       "id": "cloze-sentences",
       "name": "Cloze sentences",
       "summary": "One word removed from a sentence; put it back",
       "type": "method",
-      "trains": "form in context",
+      "trains": "forms inside a sentence",
       "skills": [
         "reading",
         "writing"
@@ -85,7 +85,7 @@
     },
     {
       "id": "sentence-transformation",
-      "name": "Sentence transformation — tense, negation, person",
+      "name": "Rebuilding sentences — tense, negation, person",
       "summary": "Take a sentence and change its tense or its person",
       "type": "method",
       "trains": "flexibility with forms you already meet",
@@ -111,7 +111,7 @@
     },
     {
       "id": "own-error-log",
-      "name": "Working through your own error log",
+      "name": "Working through your own list of mistakes",
       "summary": "Work through the mistakes you actually made",
       "type": "method",
       "trains": "your own patterns rather than the average learner's",
