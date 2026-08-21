@@ -343,6 +343,7 @@ describe("ProfileDevSection", () => {
       routes.profileDevSentenceRealizer,
       routes.progressionExplorer,
       routes.materialExplorer,
+      routes.woodTextureLab,
       routes.designExplorer,
       routes.brandExplorer,
       routes.methodCardAssets,
