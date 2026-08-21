@@ -559,7 +559,8 @@
     "durationChip": "{minutes} Min.",
     "sessionNotBuilt": "Die App wird diese Methode hier ausführen, sobald ihre Sitzung gebaut ist. Lesen Sie vorerst, was sie tut, und probieren Sie sie außerhalb der App, wenn möglich.",
     "sessionContract": {
-      "line": "~{minutes} Min. · {volume} · {feedback}"
+      "line": "~{minutes} Min. · {volume} · {feedback}",
+      "adaptedSuffix": "adaptierter Text"
     },
     "sessionVolumeSentences": "{count, plural, one {# Satz} other {# Sätze}}",
     "sessionVolumeWords": "{count, plural, one {# Wort} other {# Wörter}}",
@@ -1101,6 +1102,10 @@
     },
     "coverageLine": "{percent} % bekannt · {band}",
     "demandingLine": "Noch anspruchsvoll — {words} Wörter bis angenehm",
+    "t1SupportLine": "{percent} % bekannt — {gaps} Wörter vor Start vormerken",
+    "blockedLine": "Zu schwer für deinen Wortschatz ({percent} % bekannt) — {level}-Text passt nicht für dich",
+    "adaptationLabel": "Für {level} angepasst · nicht der Originalartikel",
+    "viewOriginal": "Originalartikel ansehen",
     "appPickPreview": "Ein Abschnitt bei ~{percent} % für dich heute · {band}",
     "emptyTopic": "Noch nichts in der Bibliothek zu diesem Thema — probier Eigenes",
     "keepInLibrary": "In meiner Bibliothek behalten",

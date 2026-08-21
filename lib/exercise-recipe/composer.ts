@@ -43,5 +43,7 @@ export function toSessionContext(
     budgetMinutes: options.budgetMinutes,
     variantId: options.variantId,
     heldLemmas: options.heldLemmas,
+    adapted: options.adapted,
+    targetLevel: options.targetLevel,
   };
 }

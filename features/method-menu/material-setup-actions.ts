@@ -44,6 +44,17 @@ function labelsFromTranslator(t: Awaited<ReturnType<typeof getTranslations>>): M
         percent: Math.round(coveragePercent),
         words: wordsToComfortable,
       }),
+    t1SupportLine: (coveragePercent: number, gapCount: number) =>
+      t("t1SupportLine", {
+        percent: Math.round(coveragePercent),
+        gaps: gapCount,
+      }),
+    blockedLine: (coveragePercent: number, targetLevel: string) =>
+      t("blockedLine", {
+        percent: Math.round(coveragePercent),
+        level: targetLevel,
+      }),
+    adaptationLabel: (targetLevel: string) => t("adaptationLabel", { level: targetLevel }),
     appPickPreview: (coveragePercent: number, bandLabel: string) =>
       t("appPickPreview", { percent: Math.round(coveragePercent), band: bandLabel }),
     emptyTopic: t("emptyTopic"),
@@ -102,21 +113,42 @@ export type StartMaterialPracticeOutcome =
 export async function startMaterialPracticeAction(
   input: StartMaterialPracticeInput,
 ): Promise<StartMaterialPracticeOutcome> {
-  const hrefForCatalogue = () =>
-    practiceHrefForSetup({
-      methodId: input.methodId,
-      sourceId: input.catalogueSourceId ?? "",
-      topicId: input.topicId,
-      unitId: input.unitId,
-      durationSec: input.durationSec,
-      variantMinutes: input.variantMinutes,
-    });
+  const t = await getTranslations("methodMaterial");
+  const { catalogue } = loadMethodCatalogue();
+  const method = findMethod(catalogue, input.methodId);
+  if (!method) return { status: "error", error: "Method not found." };
 
   if (input.topicId !== OWN_TOPIC_ID) {
     if (!input.catalogueSourceId) {
       return { status: "error", error: "Choose material before starting." };
     }
-    return { status: "ok", href: hrefForCatalogue() };
+
+    const bundle = await readMaterialSetupBundle(method, labelsFromTranslator(t));
+    if (bundle.status !== "ok") {
+      return { status: "error", error: "Could not load your language settings." };
+    }
+
+    const preview = bundle.context.previews[input.topicId]?.[input.unitId];
+    if (preview?.startEnabled === false) {
+      return {
+        status: "error",
+        error: "This text is too hard for your vocabulary right now.",
+      };
+    }
+
+    return {
+      status: "ok",
+      href: practiceHrefForSetup({
+        methodId: input.methodId,
+        sourceId: input.catalogueSourceId,
+        topicId: input.topicId,
+        unitId: input.unitId,
+        durationSec: input.durationSec,
+        variantMinutes: input.variantMinutes,
+        adapted: preview?.adapted,
+        targetLevel: preview?.targetLevel,
+      }),
+    };
   }
 
   const trimmed = input.ownText?.trim() ?? "";
@@ -129,11 +161,6 @@ export async function startMaterialPracticeAction(
   // cookie serializer has its own, smaller cap (3500) for its own reason.
   const oversize = rejectOversizeLearnerText(trimmed);
   if (oversize) return oversize;
-
-  const t = await getTranslations("methodMaterial");
-  const { catalogue } = loadMethodCatalogue();
-  const method = findMethod(catalogue, input.methodId);
-  if (!method) return { status: "error", error: "Method not found." };
 
   const bundle = await readMaterialSetupBundle(method, labelsFromTranslator(t));
   if (bundle.status !== "ok") {

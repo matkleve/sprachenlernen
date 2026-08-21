@@ -93,17 +93,19 @@ export function MethodMaterialSetup({
     topicId === OWN_TOPIC_ID ? ownPreview ?? undefined : context.previews[topicId]?.[unitId];
 
   const omitVariantOnStart = unitId === "full";
-  const startEnabled =
+  const catalogueStartAllowed =
     Boolean(cataloguePreview?.sourceId) &&
     Boolean(cataloguePreview?.timeLabel) &&
-    !isPending;
+    cataloguePreview?.deliveryGate !== "blocked" &&
+    cataloguePreview?.startEnabled !== false;
+  const startEnabled = catalogueStartAllowed && !isPending;
   const showOwnIntake = topicId === OWN_TOPIC_ID;
   const showCataloguePreview = topicId !== OWN_TOPIC_ID && Boolean(cataloguePreview);
   const showOwnPreview = topicId === OWN_TOPIC_ID && Boolean(ownPreview);
 
   const selectedUnit = context.unitOptions.find((unit) => unit.id === unitId);
   const catalogueStartHref =
-    cataloguePreview && topicId !== OWN_TOPIC_ID && usesExerciseRunner(method)
+    cataloguePreview && topicId !== OWN_TOPIC_ID && usesExerciseRunner(method) && startEnabled
       ? practiceHrefForSetup({
           methodId: method.id,
           sourceId: cataloguePreview.sourceId,
@@ -111,8 +113,15 @@ export function MethodMaterialSetup({
           unitId,
           durationSec: selectedUnit?.durationSec,
           variantMinutes: omitVariantOnStart ? undefined : variantMinutes,
+          adapted: cataloguePreview.adapted,
+          targetLevel: cataloguePreview.targetLevel,
         })
       : null;
+
+  const sessionContractForPreview =
+    sessionContract && cataloguePreview?.adapted
+      ? { ...sessionContract, adapted: true }
+      : sessionContract;
 
   const handleStart = () => {
     if (!cataloguePreview || !usesExerciseRunner(method)) return;
@@ -220,6 +229,9 @@ export function MethodMaterialSetup({
       {showCataloguePreview && cataloguePreview ? (
         <div className="rounded-card border border-line bg-surface-raised p-4 text-sm text-muted">
           <p className="font-medium text-ink">{cataloguePreview.title}</p>
+          {cataloguePreview.adaptationLabel ? (
+            <p className="mt-1 text-muted">{cataloguePreview.adaptationLabel}</p>
+          ) : null}
           <p className="mt-1">
             {cataloguePreview.unitLabel}
             {" · "}
@@ -229,6 +241,16 @@ export function MethodMaterialSetup({
             )}
             {cataloguePreview.timeLabel ? ` · ${cataloguePreview.timeLabel}` : ""}
           </p>
+          {cataloguePreview.sourceUrl ? (
+            <a
+              href={cataloguePreview.sourceUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-2 inline-flex text-sm font-medium text-accent hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+            >
+              {t("viewOriginal")}
+            </a>
+          ) : null}
           {cataloguePreview.demandingCopy ? (
             <p className="mt-2 text-muted">{cataloguePreview.demandingCopy}</p>
           ) : null}
@@ -259,7 +281,9 @@ export function MethodMaterialSetup({
         </p>
       ) : null}
 
-      {sessionContract ? <MethodSessionContractText contract={sessionContract} /> : null}
+      {sessionContractForPreview ? (
+        <MethodSessionContractText contract={sessionContractForPreview} />
+      ) : null}
 
       {usesExerciseRunner(method) ? (
         topicId === OWN_TOPIC_ID ? (
@@ -272,7 +296,7 @@ export function MethodMaterialSetup({
           >
             {tMenu("startSession")}
           </Button>
-        ) : catalogueStartHref && startEnabled ? (
+        ) : catalogueStartHref && catalogueStartAllowed ? (
           <ActionLink href={catalogueStartHref} variant="primary" size="lg">
             {tMenu("startSession")}
           </ActionLink>

@@ -11,6 +11,7 @@ import { join } from "node:path";
 import { describe, expect, it } from "vitest";
 
 import { createFileAdaptationCache } from "@/lib/adaptation-cache";
+import { createAdaptationRewrite, rewriteWithFixture } from "@/lib/adaptation-rewrite";
 import { adaptCatalogueSource } from "@/lib/catalogue-adaptation";
 import { loadSources } from "@/lib/coverage";
 import {
@@ -43,13 +44,9 @@ const loadEsLexicon = () => {
   };
 };
 
-const rewriteForBatch = async ({ originalBody }: { originalBody: string }) => {
-  const mode = process.env.ADAPTATION_REWRITE ?? "none";
-  if (mode === "fixture") {
-    return "El gobierno anuncia nuevas medidas. La economía crece este año.";
-  }
-  throw new Error("Set ADAPTATION_REWRITE=fixture for offline batch.");
-};
+const rewriteForBatch = process.env.ADAPTATION_REWRITE === "openai"
+  ? createAdaptationRewrite()
+  : rewriteWithFixture;
 
 describe.runIf(shouldRun)("adapt-catalogue batch", () => {
   it("pre-warms T2 cache for catalogue sources", async () => {

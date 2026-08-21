@@ -16,6 +16,8 @@ export type SessionContext = {
   budgetMinutes?: number;
   variantId?: RecipeVariantId;
   heldLemmas?: ReadonlySet<string>;
+  adapted?: boolean;
+  targetLevel?: string;
 };
 
 export type RecipeComposer = (
@@ -30,4 +32,6 @@ export type ResolveRecipeOptions = {
   budgetMinutes?: number;
   variantId?: RecipeVariantId;
   heldLemmas?: ReadonlySet<string>;
+  adapted?: boolean;
+  targetLevel?: string;
 };

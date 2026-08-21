@@ -11,9 +11,11 @@ export function formatSessionContractLine(
 ): string {
   const volume = t(contract.volumeLabelKey, { count: contract.learningUnits });
   const feedback = t(contract.feedbackLabelKey);
-  return t("sessionContract.line", {
+  const base = t("sessionContract.line", {
     minutes: contract.wallEstimateMinutes,
     volume,
     feedback,
   });
+  if (!contract.adapted) return base;
+  return `${base} · ${t("sessionContract.adaptedSuffix")}`;
 }

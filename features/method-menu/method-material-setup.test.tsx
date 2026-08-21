@@ -67,6 +67,7 @@ const baseContext: MaterialSetupContext = {
         unitId: "sentence",
         unitLabel: "One sentence",
         timeLabel: "~8 min",
+        startEnabled: true,
       },
     },
   },
@@ -166,6 +167,48 @@ describe("MethodMaterialSetup", () => {
 
     render(<MethodMaterialSetup method={partialDictation} context={context} />);
     expect(screen.getByRole("button", { name: "Environment" }).getAttribute("disabled")).not.toBeNull();
+  });
+
+  it("AC-10: disables Start when personal delivery gate blocks", async () => {
+    const user = userEvent.setup();
+    const context: MaterialSetupContext = {
+      ...baseContext,
+      previews: {
+        ...baseContext.previews,
+        news: {
+          sentence: {
+            sourceId: "wikinews-es-3516",
+            title: "Egypt elections",
+            coverage: {
+              coveragePercent: 55,
+              tokenCount: 20,
+              knownCount: 11,
+              comfortBand: "demanding",
+            },
+            unitId: "sentence",
+            unitLabel: "One sentence",
+            timeLabel: "~1 min",
+            adapted: true,
+            targetLevel: "A2",
+            sourceUrl: "https://example.com/original",
+            adaptationLabel: "Adapted for A2 · not the original article",
+            deliveryGate: "blocked",
+            startEnabled: false,
+            demandingCopy: "Too hard for your vocabulary",
+          },
+        },
+      },
+    };
+
+    render(<MethodMaterialSetup method={extensiveReading} context={context} />);
+    await user.click(screen.getByRole("button", { name: "News" }));
+
+    expect(screen.getByText(/Adapted for A2/i)).toBeDefined();
+    expect(screen.getByRole("link", { name: en.methodMaterial.viewOriginal })).toBeDefined();
+    expect(screen.queryByRole("link", { name: en.methodMenu.startSession })).toBeNull();
+    expect(screen.getByRole("button", { name: en.methodMenu.startSession }).hasAttribute("disabled")).toBe(
+      true,
+    );
   });
 
   it("AC-8: shows unit chips and preview label for partial dictation", () => {
