@@ -141,9 +141,10 @@ export type RingSampleContext = {
 };
 
 /**
- * Ring age at board position `(x, y)` — the scalar whose contours are ridges.
- * Exported for regression tests. Combines base spacing (y), Wilkie radial
- * distortion mr, tangential distortion mt, and Hafidi influence points.
+ * Ring age from distorted radial distance — Liu et al. / Wilkie cylindrical
+ * model simplified for a tangential face-grain board. A virtual ring centre
+ * sits far above the board so local rings read as horizontal curves; mr(x,y)
+ * and mt(x,y) bend those curves in both dimensions (island bulges).
  */
 export function ringAgeAt(x: number, y: number, ctx: RingSampleContext): number {
   const { width, height, seed, ridgeCount, warpAmount, warpFrequency } = ctx;
@@ -153,8 +154,15 @@ export function ringAgeAt(x: number, y: number, ctx: RingSampleContext): number 
   const mt = (multibandFbm(nx + 2.7, ny + 1.3, seed + 47) - 0.5) * warpAmount * 0.52;
   const influence = influenceDisplacement(x, y, width, height, seed + 113, warpAmount * 0.38);
 
-  const base = (y / height) * ridgeCount;
-  return base + mr * ridgeCount * 0.48 + mt * ridgeCount * 0.22 + influence * ridgeCount;
+  // Virtual ring centre above the board — face-grain rings read horizontal locally
+  const cx = width * 0.5;
+  const cy = -height * 2.8;
+  const dx = (x - cx) / width;
+  const dy = (y - cy) / height;
+  const radius = Math.sqrt(dx * dx + dy * dy);
+
+  const ringScale = ridgeCount / 1.15;
+  return radius * ringScale + mr * ridgeCount * 0.42 + mt * ridgeCount * 0.18 + influence * ridgeCount;
 }
 
 /** Smoothed band signal from ring age — Liu et al. use a rectangular wave; sin is a close preview. */
