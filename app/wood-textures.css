@@ -1,35 +1,10 @@
 /* Wood texture swatches — `/dev/wood-textures` only.
-   Four horizontal-grain species for design-board marking.
-   Contract: docs/specs/page/wood-texture-lab.md
-   Invariant: grain runs left→right only — no vertical brightness bands.
-   Grain is CSS-only (180deg lines). SVG feTurbulence with low baseFrequency-X
-   reads as vertical columns — rejected after owner review 2026-08-21. */
-
-.wood-texture-lab {
-  /* Fine horizontal fibres — 180deg only, never 90deg */
-  --wood-grain-fine: repeating-linear-gradient(
-    180deg,
-    transparent 0 1px,
-    rgb(0 0 0 / 0.055) 1px 2px,
-    transparent 2px 4px,
-    rgb(255 240 220 / 0.035) 4px 5px,
-    transparent 5px 9px
-  );
-  --wood-grain-coarse: repeating-linear-gradient(
-    180deg,
-    transparent 0 7px,
-    rgb(0 0 0 / 0.04) 7px 8px,
-    transparent 8px 18px
-  );
-  /* Horizontal plank seams — dark hairlines between stacked planks */
-  --wood-plank-seams: repeating-linear-gradient(
-    180deg,
-    transparent 0 72px,
-    rgb(0 0 0 / 0.22) 72px 74px
-  );
-}
+   Grain itself is procedural canvas (lib/wood-grain.ts). This just frames
+   and clips the canvas so a pill's rounded end reads as a clipped plank
+   face, not a rotated grain angle — see STUDY-030 § edges. */
 
 .wood-texture-swatch {
+  position: relative;
   min-height: 12rem;
   border-radius: var(--radius-card);
   box-shadow:
@@ -37,59 +12,7 @@
     0 10px 24px rgb(0 0 0 / 0.28);
 }
 
-.wood-texture-swatch--raw-planks,
-.wood-texture-swatch--sanded-bench,
-.wood-texture-swatch--oiled-timber,
-.wood-texture-swatch--stock-bar {
-  background-repeat: no-repeat, repeat, repeat, repeat, no-repeat;
-}
-
-/* 1 · Raw planks — dark weathered bench */
-.wood-texture-swatch--raw-planks {
-  background-color: #342214;
-  background-image:
-    radial-gradient(ellipse 130% 90% at 50% 110%, rgb(0 0 0 / 0.35) 0%, transparent 55%),
-    var(--wood-grain-fine),
-    var(--wood-grain-coarse),
-    var(--wood-plank-seams),
-    linear-gradient(180deg, #3a2816 0%, #342214 100%);
-  background-size: 100% 100%, auto, auto, auto, 100% 100%;
-}
-
-/* 2 · Sanded bench — medium tone */
-.wood-texture-swatch--sanded-bench {
-  background-color: #4a3420;
-  background-image:
-    radial-gradient(ellipse 120% 80% at 50% 100%, rgb(0 0 0 / 0.18) 0%, transparent 50%),
-    var(--wood-grain-fine),
-    var(--wood-grain-coarse),
-    var(--wood-plank-seams),
-    linear-gradient(180deg, #523820 0%, #4a3420 100%);
-  background-size: 100% 100%, auto, auto, auto, 100% 100%;
-}
-
-/* 3 · Oiled timber — warm honey wash */
-.wood-texture-swatch--oiled-timber {
-  background-color: #523820;
-  background-image:
-    radial-gradient(ellipse 110% 70% at 50% 0%, rgb(255 220 180 / 0.08) 0%, transparent 45%),
-    var(--wood-grain-fine),
-    var(--wood-grain-coarse),
-    var(--wood-plank-seams),
-    linear-gradient(180deg, #5c4028 0%, #523820 100%);
-  background-size: 100% 100%, auto, auto, auto, 100% 100%;
-}
-
-/* 4 · Stock bar — polished button stock (no plank seams) */
-.wood-texture-swatch--stock-bar {
-  background-color: #6e4c30;
-  background-image:
-    linear-gradient(180deg, rgb(255 235 200 / 0.14) 0%, transparent 35%),
-    var(--wood-grain-fine),
-    var(--wood-grain-coarse),
-    linear-gradient(180deg, #7a5638 0%, #6e4c30 55%, #5c4028 100%);
-  background-size: 100% 100%, auto, auto, 100% 100%;
-  background-repeat: no-repeat, repeat, repeat, no-repeat;
-  border-radius: 9999px;
+.wood-texture-swatch--pill {
   min-height: 4.5rem;
+  border-radius: 9999px;
 }

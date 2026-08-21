@@ -1,9 +1,11 @@
+import { cn } from "@/lib/utils";
+
 import { page, woodTextures } from "./content";
-import { ProceduralWoodSwatch } from "./ProceduralWoodSwatch";
+import { WoodGrainCanvas } from "./WoodGrainCanvas";
 
 export function WoodTextureLab() {
   return (
-    <div className="wood-texture-lab flex flex-col gap-page-content">
+    <div className="flex flex-col gap-page-content">
       <p className="rounded-card border border-line bg-surface px-4 py-3 text-sm text-muted">
         {page.grainNote}
       </p>
@@ -15,11 +17,14 @@ export function WoodTextureLab() {
             className="flex flex-col gap-4 rounded-card border border-line bg-surface p-4 shadow-soft"
             aria-labelledby={`wood-texture-${texture.id}-title`}
           >
-            <ProceduralWoodSwatch
-              preset={texture.presetId}
-              topHighlight={texture.topHighlight ?? 0}
-              className={texture.roundedBar ? "min-h-20 rounded-pill" : undefined}
-            />
+            <div
+              className={cn(
+                "wood-texture-swatch overflow-hidden",
+                texture.pill && "wood-texture-swatch--pill",
+              )}
+            >
+              <WoodGrainCanvas options={texture.grain} />
+            </div>
 
             <div>
               <p className="text-xs font-medium uppercase tracking-widest text-muted">

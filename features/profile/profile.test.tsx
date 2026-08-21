@@ -8,6 +8,7 @@ import { ProfileAppSection } from "@/features/profile/ProfileAppSection";
 import { ProfileHomeScreenSection } from "@/features/profile/ProfileHomeScreenSection";
 import { ProfileLanguages } from "@/features/profile/ProfileLanguages";
 import { ProfileDevSection } from "@/features/profile/ProfileDevSection";
+import { devPagesSortedByLatest } from "@/lib/dev-pages";
 import { routes } from "@/lib/routes";
 import { ProfileSectionNav } from "@/features/profile/ProfileSectionNav";
 import { ProfileSpokenLanguage } from "@/features/profile/ProfileSpokenLanguage";
@@ -336,14 +337,6 @@ describe("ProfileDevSection", () => {
    * point of that file is that an address moved there is moved everywhere, and
    * a test with its own copy of "/dev/design" would quietly outlive a rename.
    */
-  it("sorts dev preview links by last updated, newest first", () => {
-    render(<ProfileDevSection />);
-
-    const timestamps = screen.getAllByText(/^Updated /);
-    expect(timestamps.length).toBeGreaterThan(0);
-    expect(timestamps[0]?.textContent).toMatch(/Updated 21 Aug 2026/);
-  });
-
   it("links to every dev preview page through lib/routes.ts", () => {
     render(<ProfileDevSection />);
 
@@ -372,5 +365,16 @@ describe("ProfileDevSection", () => {
   it("says plainly that nothing here touches the account", () => {
     render(<ProfileDevSection />);
     expect(screen.getByText(/changes your account or your learning data/i)).toBeTruthy();
+  });
+
+  it("sorts dev links by last updated with the newest first", () => {
+    render(<ProfileDevSection />);
+    const hrefs = screen.getAllByRole("link").map((link) => link.getAttribute("href"));
+    expect(hrefs).toEqual(devPagesSortedByLatest().map((page) => page.href));
+  });
+
+  it("shows last updated on every dev link card", () => {
+    render(<ProfileDevSection />);
+    expect(screen.getAllByText(/^Last updated /).length).toBe(10);
   });
 });

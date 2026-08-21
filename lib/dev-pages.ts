@@ -1,97 +1,92 @@
 import { routes } from "@/lib/routes";
 
 /**
- * Dev preview pages linked from Profile → Dev.
- * Contract: docs/specs/page/profile.md § Section navigation
+ * Owner dev preview pages linked from Profile → Dev.
+ * Contract: docs/specs/page/profile.md § Dev
  *
- * `updatedAt` is the last meaningful change to the page or its tooling — bump
- * when you ship a dev-page change so the list stays honest.
+ * Bump `lastUpdatedAt` when the page or its tooling meaningfully changes —
+ * ProfileDevSection sorts by this field (latest first).
  */
 
 export type DevPage = {
   href: string;
   name: string;
   description: string;
-  /** ISO calendar date (YYYY-MM-DD) */
-  updatedAt: string;
+  /** UTC ms when this preview was last meaningfully changed. */
+  lastUpdatedAt: number;
 };
 
-const DEV_PAGES: DevPage[] = [
+/** English-only dev tooling — not passed through i18n. */
+export const DEV_PAGES: DevPage[] = [
   {
     href: routes.materialExplorer,
     name: "Material explorer",
     description:
       "Nine material recipes on the same card + input + button — base, texture, edge, lighting.",
-    updatedAt: "2026-08-21",
-  },
-  {
-    href: routes.woodTextureLab,
-    name: "Wood textures",
-    description: "Four horizontal-grain wood species from the reference board, labelled for marking.",
-    updatedAt: "2026-08-21",
+    lastUpdatedAt: Date.parse("2026-08-21T18:00:00Z"),
   },
   {
     href: routes.woodGrainLab,
     name: "Wood grain lab",
     description:
       "Canvas procedural workshop wood — domain-warped rings and fibres before promoting to progression.",
-    updatedAt: "2026-08-21",
+    lastUpdatedAt: Date.parse("2026-08-21T17:30:00Z"),
   },
   {
-    href: routes.progressionExplorer,
-    name: "Progression explorer",
-    description: "One slider through nine interface stages — chapters, texture, depth.",
-    updatedAt: "2026-08-21",
+    href: routes.woodTextureLab,
+    name: "Wood textures",
+    description: "Four horizontal-grain wood species from the reference board, labelled for marking.",
+    lastUpdatedAt: Date.parse("2026-08-21T15:11:45Z"),
   },
   {
     href: routes.profileDevSentenceRealizer,
     name: "Sentence realizer",
     description:
       "Random plan from memory, rendered for every present-tense person via the lemma-table inverse index.",
-    updatedAt: "2026-08-21",
+    lastUpdatedAt: Date.parse("2026-08-21T11:05:58Z"),
   },
   {
-    href: routes.safariBisect,
-    name: "Safari bisect",
-    description: "The iOS/PWA layout bisect routes (study/31).",
-    updatedAt: "2026-08-20",
+    href: routes.progressionExplorer,
+    name: "Progression explorer",
+    description: "One slider through nine interface stages — chapters, texture, depth.",
+    lastUpdatedAt: Date.parse("2026-08-21T08:53:42Z"),
   },
   {
     href: routes.methodCardAssets,
     name: "Method card assets",
     description: "Section graphics and skill-tier badges as they render on cards.",
-    updatedAt: "2026-08-18",
+    lastUpdatedAt: Date.parse("2026-08-18T14:20:28Z"),
   },
   {
     href: routes.brandExplorer,
     name: "Brand explorer",
     description: "Logo and PWA icon directions at favicon, header and Home Screen sizes.",
-    updatedAt: "2026-08-16",
+    lastUpdatedAt: Date.parse("2026-08-16T17:10:02Z"),
+  },
+  {
+    href: routes.safariBisect,
+    name: "Safari bisect",
+    description: "The iOS/PWA layout bisect routes (study/31).",
+    lastUpdatedAt: Date.parse("2026-08-15T22:21:38Z"),
   },
   {
     href: routes.primitives,
     name: "Primitives",
     description: "Every UI primitive with all five interaction states.",
-    updatedAt: "2026-08-10",
+    lastUpdatedAt: Date.parse("2026-08-10T13:59:51Z"),
   },
   {
     href: routes.designExplorer,
     name: "Design explorer",
     description: "The five base theme presets side by side.",
-    updatedAt: "2026-08-09",
+    lastUpdatedAt: Date.parse("2026-08-09T17:17:46Z"),
   },
 ];
 
-export function formatDevPageUpdatedAt(isoDate: string): string {
-  const [year, month, day] = isoDate.split("-").map(Number);
-  return new Intl.DateTimeFormat("en-GB", {
-    day: "numeric",
-    month: "short",
-    year: "numeric",
-  }).format(new Date(year!, month! - 1, day));
+export function devPagesSortedByLatest(): DevPage[] {
+  return [...DEV_PAGES].sort((a, b) => b.lastUpdatedAt - a.lastUpdatedAt);
 }
 
-/** Newest first — for Profile → Dev. */
-export function devPagesByRecency(): DevPage[] {
-  return [...DEV_PAGES].sort((left, right) => right.updatedAt.localeCompare(left.updatedAt));
+export function formatDevPageLastUpdated(lastUpdatedAt: number): string {
+  return new Intl.DateTimeFormat(undefined, { dateStyle: "medium" }).format(lastUpdatedAt);
 }

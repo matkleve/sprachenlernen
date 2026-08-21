@@ -40,6 +40,7 @@ const hasCanvas2d =
 describe("renderProceduralWoodDataUrl", () => {
   it.skipIf(!hasCanvas2d)("returns a PNG data URL", () => {
     const url = renderProceduralWoodDataUrl(PROCEDURAL_WOOD_PRESETS["workshop-1-raw"]);
-    expect(url.startsWith("data:image/png")).toBe(true);
+    expect(url).not.toBeNull();
+    expect(url!.startsWith("data:image/png")).toBe(true);
   });
 });

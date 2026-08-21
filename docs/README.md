@@ -31,7 +31,7 @@ Start at [`../AGENTS.md`](../AGENTS.md). Everything here is what it links to.
 ```
 docs/
   STUDY-FORMAT.md   what a study is — and what it is not
-  study/            product reasoning (STUDY-NNN) — not a build contract
+  study/            product reasoning (STUDY-NNN) — may be wrong; not a build contract
   reviews/design/   UX designer reviews (DR-NNN)
   explorations/     non-binding brainstorms (EXP-NNN)
   qa/               test and browser reports (QA-NNN)
@@ -64,7 +64,7 @@ them means each gets read at the wrong time or not at all.
 
 | | Answers | Read when |
 | --- | --- | --- |
-| **study/** | *why* this product, *why* not X | shaping, reviewing a spec — **not** before implementing |
+| **study/** | *why* this product, *why* not X — **may be false** | shaping a spec — **not** before implementing |
 | **reviews/design/** | designer/owner UX input | before visual spec work |
 | **explorations/** | brainstorms, not binding | never for implementation |
 | **specs/** | what it *should* do | before building |

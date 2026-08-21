@@ -100,7 +100,7 @@ lib/                framework-free helpers. No React, no fetch.
 data/               content as data — language profiles, frequency lists, lemma
                     tables, the method catalogue. Never code.
 docs/specs/         implementation contracts ← source of truth
-docs/study/         product reasoning (why) — not a build contract
+docs/study/         product reasoning — may be wrong; not a build contract
 docs/use-cases/     what the user is trying to do, in their words
 scripts/            the gates behind `npm run verify`
 ```
@@ -126,8 +126,8 @@ feature needs it — not in anticipation of one.
 | Adding a database, or another learning language | [`docs/BACKEND.md`](docs/BACKEND.md), [`docs/I18N.md`](docs/I18N.md) |
 | Making a call you'll have to defend later | [`docs/adr/`](docs/adr/) |
 | Product rules you may not break | [`docs/CONSTITUTION.md`](docs/CONSTITUTION.md) |
-| **Progression materials / wood / stages** | [`docs/specs/feature/progression-reference-board.md`](docs/specs/feature/progression-reference-board.md) — match the board |
-| **Why (not what to build)** | [`docs/study/`](docs/study/) — [`STUDY-FORMAT.md`](docs/STUDY-FORMAT.md) |
+| **Progression materials / wood / stages** | Board spec + live CSS/canvas — studies are hints only |
+| **Why (not what to build)** | [`docs/study/`](docs/study/) — hypotheses; may be false — spec wins |
 | **Agent pitfalls (model, subagents, ship)** | [`docs/AGENT-PITFALLS.md`](docs/AGENT-PITFALLS.md) §19–§21; version: [`docs/VERSIONING.md`](docs/VERSIONING.md) |
 
 ---

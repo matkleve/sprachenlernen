@@ -12,6 +12,17 @@ built as **layered procedural overlays** driven by stage variables — not as ni
 image sets — and the web platform already documents how to do that with SVG
 filters, blend modes, and optional single tiles.
 
+## Build contract (read this first)
+
+**[D]** Implement from **`docs/specs/`** and **live CSS/canvas in the repo** —
+not from this study alone. Normative visual target:
+[`progression-reference-board.md`](../specs/feature/progression-reference-board.md).
+Wood on workshop stages is **multi-scale horizontal fibre layers** (fine +
+coarse + optional seams + colour wash) — see
+[STUDY-030](STUDY-030-procedural-wood-grain.md). Shader papers, bump maps, and
+Wilkie distortion fields cited below are **optional escalation**, not the
+default path.
+
 ## Evidence
 
 Findings marked `[A]`–`[D]`. Sources in
@@ -70,10 +81,11 @@ opacity and filter params, not component structure.
 
 Already approximated in-app via `repeating-linear-gradient` on `.progression-skin--workshop-*` and library plaster lines. Upgrade path: swap gradient grain for turbulence data-URI at same opacity knob.
 
-### 3 · feTurbulence + feDiffuseLighting (bump / paper / marble)
+### 3 · feTurbulence + feDiffuseLighting (optional — heavy)
 
-**[A]** Codrops (Sara Soueidan, 2019) and SVG Filters crash course: chain noise →
-light:
+**[C]** Escalation only if CSS gradient + grain overlay fails owner review on
+`/dev/progression`. Codrops (Sara Soueidan, 2019) and SVG Filters crash course:
+chain noise → light:
 
 ```svg
 <feTurbulence type="fractalNoise" baseFrequency="0.04" numOctaves="5" result="noise"/>
@@ -89,13 +101,12 @@ may add **`feSpecularLighting`** for brass/marble sheen on card chrome only.
 
 **Cost:** heavier than flat grain — restrict to preview card surfaces, not full viewport.
 
-### 4 · feColorMatrix + feBlend (material tinting)
+### 4 · feColorMatrix + feBlend (optional — 3D-shader path)
 
-**[B]** Vanguard Wooden UIKit (open-source reference) chains `feTurbulence` →
-`feColorMatrix` → `feDiffuseLighting` for **procedural wood species** with zero
-PNG assets. Species = different colour matrices, not different files.
-
-**Product mapping:** three chapter “species” (workshop wood, library plaster, observatory marble) as three filter presets; stages adjust `surfaceScale` and opacity inside the chapter.
+**[C]** Background reference only (Vanguard Wooden UIKit, game-engine wood
+shaders). **Not** the default UI path — workshop wood is layered horizontal
+fibres per [STUDY-030](STUDY-030-procedural-wood-grain.md). If ever needed:
+three chapter tint presets + stage opacity knobs.
 
 ### 5 · mask-image (weathering on the content itself)
 

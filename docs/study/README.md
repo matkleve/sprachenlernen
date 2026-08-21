@@ -3,9 +3,12 @@
 Why this app is being built, what the research says, and what follows from that
 in product direction.
 
-**This folder is reasoning only — not a spec.** A spec says *what gets built*;
-study says *why that and not something else*. Where study and a spec disagree,
-**the spec wins** — update the study paragraph in the same session.
+**This folder is reasoning only — not a spec, and not necessarily true.** A spec
+says *what gets built*; study says *why that and not something else* — at the
+time someone wrote it. Studies can be **wrong**, **outdated**, or **superseded**
+(`<!-- status: superseded -->`, `<!-- corrected-by: … -->`). Where study and a
+spec disagree, **the spec wins** — update or supersede the study in the same
+session. Where study and live code or the owner disagree, **code and owner win**.
 
 Format: [`STUDY-FORMAT.md`](../STUDY-FORMAT.md). Old paths:
 [`MIGRATION-MAP.md`](MIGRATION-MAP.md).
@@ -77,7 +80,7 @@ If you have five minutes, read only this table.
 | [STUDY-027](STUDY-027-material-units-and-listening-defer.md) | Material units and listening defer |
 | [STUDY-028](STUDY-028-irregular-borders.md) | Scalable rough borders — SVG, masks, Rough.js, trade-offs |
 | [STUDY-029](STUDY-029-progressive-textures.md) | Progressive surface textures — grain, lighting, blend stacks |
-| [STUDY-030](STUDY-030-procedural-wood-grain.md) | Procedural wood grain — rings, fibres, domain warping, edges |
+| [STUDY-030](STUDY-030-procedural-wood-grain.md) | UI wood grain — multi-scale horizontal layers (not growth rings) |
 | [STUDY-sources](STUDY-sources.md) | Literature — how far each was checked |
 
 **Correction chapters** (read after the chapter they amend): STUDY-013 →
