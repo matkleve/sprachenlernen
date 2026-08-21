@@ -26,6 +26,7 @@ const DECORATIVE = [
   "--stage-bevel",
   "--stage-rule",
   "--radius-card",
+  "--stage-edge-roughness",
   "--stage-stars",
 ] as const;
 
@@ -130,5 +131,14 @@ describe("stageDetail", () => {
     expect(stageDetail(6).stars).toBe(0);
     expect(stageDetail(7).stars).toBeGreaterThan(0);
     expect(stageDetail(9).stars).toBeGreaterThan(stageDetail(7).stars);
+  });
+
+  it("rough card edges only in workshop — library onward is straight", () => {
+    expect(Number(styleAt(1)["--stage-edge-roughness"])).toBeGreaterThan(0);
+    expect(Number(styleAt(3)["--stage-edge-roughness"])).toBeGreaterThan(0);
+    expect(Number(styleAt(4)["--stage-edge-roughness"])).toBe(0);
+    expect(Number(styleAt(9)["--stage-edge-roughness"])).toBe(0);
+    expect(stageDetail(1).edgeRoughness).toBeGreaterThan(stageDetail(2).edgeRoughness);
+    expect(stageDetail(2).edgeRoughness).toBeGreaterThan(stageDetail(3).edgeRoughness);
   });
 });

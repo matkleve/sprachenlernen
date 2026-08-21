@@ -84,8 +84,8 @@ Goal: `/dev/progression` reads close to the reference board at all 9 stages.
 
 | ID | Work | Class | Files | Done when |
 | --- | --- | --- | --- | --- |
-| **T-PT0a** | **Irregular border spike** — `StageFrame` wrapper: SVG filter on border rect only; `--stage-edge-roughness` in `progression.json` (Workshop high → 0 by Library) | Standard | `features/progression-explorer/`, `lib/progression-stage.ts`, `app/globals.css` (filter def), spec AC | Stages 1–3 show chipped edge; 4+ straight; slider resizes card height without clipping |
-| **T-PT0b** | **Grain upgrade** — replace or augment CSS `repeating-linear-gradient` grain with shared inline SVG noise (`feTurbulence` data-URI) on preview overlay; `--stage-grain` still drives opacity | Standard | `ProgressionPreview.tsx`, optional `app/globals.css` | Library stages visibly smoother than Workshop at same zoom |
+| **T-PT0a** | **Irregular border spike** — `StageFrame` wrapper: SVG filter on border rect only; `--stage-edge-roughness` in `progression.json` (Workshop high → 0 by Library) | Standard | `features/progression-explorer/`, `lib/progression-stage.ts`, `app/globals.css` (filter def), spec AC | **Done 2026-08-21** — `StageFrame`, `ProgressionFilterDefs`, workshop stages 8→5→2 |
+| **T-PT0b** | **Grain upgrade** — replace or augment CSS `repeating-linear-gradient` grain with shared inline SVG noise (`feTurbulence` data-URI) on preview overlay; `--stage-grain` still drives opacity | Standard | `ProgressionPreview.tsx`, optional `app/globals.css` | **Done 2026-08-21** — `.progression-stage-grain` in `globals.css` |
 | **T-PT0c** | **Skin token hygiene** — document which skin hex values are dev-only exceptions; extract repeated gradients to CSS custom properties scoped under `.progression-skin` | Trivial | `app/globals.css`, `DESIGN-SYSTEM.md` supplement or spec note | No mystery raw colours outside dev skin block |
 | **T-PT0d** | **Optional tile hook** — if `public/design/progression/workshop-1.webp` exists, skin uses it; else CSS fallback (spec already allows) | Standard | `globals.css` or skin module, `design/README.md` | One chapter tile provable without committing art |
 
