@@ -1,6 +1,6 @@
 import { cookies } from "next/headers";
 
-import { loadPersistedAdaptationCache } from "@/lib/adaptation-cache";
+import { loadPersistedAdaptationCache, loadPersonalAdaptationCache } from "@/lib/adaptation-cache";
 import { sourceWithShownBody } from "@/lib/adaptation-preview";
 import {
   DEFAULT_T2_PROMPT_VERSION,
@@ -13,12 +13,14 @@ import {
   EPHEMERAL_SOURCE_COOKIE,
   parseEphemeralSourceCookie,
 } from "@/lib/ephemeral-source-cookie";
+import { readCachedLearnerAdaptationBody } from "@/lib/learner-adaptation";
 import { inferTargetLevelFromHeldCount } from "@/lib/target-level";
 
 export type ResolveContentSourceOptions = {
   adapted?: boolean;
   targetLevel?: string;
   heldLemmaCount?: number;
+  heldLemmas?: ReadonlySet<string>;
 };
 
 /**
@@ -43,19 +45,38 @@ export async function resolveContentSourceById(
     if (learner.status === "ok") source = learner.source;
   }
 
-  if (!source || !options.adapted || source.origin !== "catalogue") return source;
+  if (!source || !options.adapted) return source;
 
-  const targetLevel =
-    options.targetLevel ?? inferTargetLevelFromHeldCount(options.heldLemmaCount ?? 0);
-  const cache = loadPersistedAdaptationCache();
-  const cachedBody = readCachedAdaptationBody(cache, {
-    sourceId: source.id,
-    languageCode: source.languageCode,
-    targetLevel,
-    tier: "T2",
-    promptVersion: DEFAULT_T2_PROMPT_VERSION,
-  });
+  if (source.origin === "catalogue") {
+    const targetLevel =
+      options.targetLevel ?? inferTargetLevelFromHeldCount(options.heldLemmaCount ?? 0);
+    const cache = loadPersistedAdaptationCache();
+    const cachedBody = readCachedAdaptationBody(cache, {
+      sourceId: source.id,
+      languageCode: source.languageCode,
+      targetLevel,
+      tier: "T2",
+      promptVersion: DEFAULT_T2_PROMPT_VERSION,
+    });
 
-  if (!cachedBody) return source;
-  return sourceWithShownBody(source, cachedBody);
+    if (!cachedBody) return source;
+    return sourceWithShownBody(source, cachedBody);
+  }
+
+  if (source.origin === "learner" && options.heldLemmas) {
+    const targetLevel =
+      options.targetLevel ??
+      inferTargetLevelFromHeldCount(options.heldLemmaCount ?? options.heldLemmas.size);
+    const cache = loadPersonalAdaptationCache();
+    const cachedBody = readCachedLearnerAdaptationBody(cache, {
+      originalBody: source.body ?? "",
+      languageCode: source.languageCode,
+      targetLevel,
+      heldLemmas: options.heldLemmas,
+    });
+    if (!cachedBody) return source;
+    return sourceWithShownBody(source, cachedBody);
+  }
+
+  return source;
 }

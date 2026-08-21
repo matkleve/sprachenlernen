@@ -93,6 +93,7 @@ export async function resolveReadingAloudRecipe(
     adapted: ctx.adapted,
     targetLevel: ctx.targetLevel,
     heldLemmaCount: ctx.heldLemmas?.size,
+    heldLemmas: ctx.heldLemmas,
   });
   if (!source) return null;
   return composeReadingAloudRecipe(source, ctx);

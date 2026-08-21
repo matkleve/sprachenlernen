@@ -85,6 +85,10 @@ export async function MethodDetail({ method, searchParams = {} }: MethodDetailPr
         level: targetLevel,
       }),
     adaptationLabel: (targetLevel: string) => tMaterial("adaptationLabel", { level: targetLevel }),
+    adaptationFailed: (targetLevel: string) =>
+      tMaterial("adaptationFailed", { level: targetLevel }),
+    processingConsent: tMaterial("processingConsent"),
+    processingConsentHint: tMaterial("processingConsentHint"),
     appPickPreview: (coveragePercent: number, bandLabel: string) =>
       tMaterial("appPickPreview", { percent: Math.round(coveragePercent), band: bandLabel }),
     emptyTopic: tMaterial("emptyTopic"),

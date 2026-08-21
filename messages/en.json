@@ -1101,10 +1101,21 @@
       "speed": "speed practice"
     },
     "coverageLine": "{percent}% known · {band}",
+    "ownMaterialCoverage": "You can read about {percent}% of this — that should feel {feel}.",
+    "ownMaterialFeel": {
+      "comfortable": "easy",
+      "demanding": "quite demanding",
+      "hard": "hard",
+      "veryHard": "very hard"
+    },
     "demandingLine": "Still demanding — {words} words to comfortable",
     "t1SupportLine": "{percent}% known — pre-teach {gaps} words, then Start",
     "blockedLine": "Too hard for your vocabulary ({percent}% known) — {level} text did not pass for you",
     "adaptationLabel": "Adapted for {level} · not the original article",
+    "adaptationFailed": "Could not adapt this text to {level} for your vocabulary — try a shorter passage or different text",
+    "processingConsent": "Adapt to my level",
+    "processingConsentHint": "Sends your text to a cloud service to simplify it for your vocabulary. Original stays private to your account.",
+    "adapting": "Adapting to your level…",
     "viewOriginal": "View original article",
     "appPickPreview": "A passage at ~{percent}% for you today · {band}",
     "emptyTopic": "Nothing in the library yet for this topic — try Your own",

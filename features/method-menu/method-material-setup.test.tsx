@@ -14,6 +14,7 @@ vi.mock("next/navigation", () => ({
 
 vi.mock("./material-setup-actions", () => ({
   previewOwnMaterialAction: vi.fn(),
+  grantAdaptationConsentAction: vi.fn(),
   startMaterialPracticeAction: vi.fn().mockResolvedValue({
     status: "ok",
     href: "/practice?method=partial-dictation&sourceId=learner-1",
@@ -151,7 +152,7 @@ describe("MethodMaterialSetup", () => {
     await user.click(screen.getByRole("button", { name: "Your own" }));
     await user.type(screen.getByPlaceholderText(/paste or type/i), "Hola");
 
-    expect(await screen.findByText(/Still demanding/i)).toBeDefined();
+    expect(await screen.findByText(/You can read about 78%/i)).toBeDefined();
     expect(screen.getByRole("button", { name: en.methodMenu.startSession }).getAttribute("disabled")).toBeNull();
   });
 

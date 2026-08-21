@@ -1101,10 +1101,21 @@
       "speed": "Tempotraining"
     },
     "coverageLine": "{percent} % bekannt · {band}",
+    "ownMaterialCoverage": "Du kannst etwa {percent} % davon lesen — das wird {feel}.",
+    "ownMaterialFeel": {
+      "comfortable": "leicht",
+      "demanding": "anspruchsvoll",
+      "hard": "schwer",
+      "veryHard": "sehr schwer"
+    },
     "demandingLine": "Noch anspruchsvoll — {words} Wörter bis angenehm",
     "t1SupportLine": "{percent} % bekannt — {gaps} Wörter vor Start vormerken",
     "blockedLine": "Zu schwer für deinen Wortschatz ({percent} % bekannt) — {level}-Text passt nicht für dich",
     "adaptationLabel": "Für {level} angepasst · nicht der Originalartikel",
+    "adaptationFailed": "Anpassung auf {level} für deinen Wortschatz nicht möglich — kürzeren Text oder anderen Inhalt versuchen",
+    "processingConsent": "Auf mein Niveau anpassen",
+    "processingConsentHint": "Dein Text wird in der Cloud vereinfacht. Das Original bleibt nur für dein Konto sichtbar.",
+    "adapting": "Wird an dein Niveau angepasst…",
     "viewOriginal": "Originalartikel ansehen",
     "appPickPreview": "Ein Abschnitt bei ~{percent} % für dich heute · {band}",
     "emptyTopic": "Noch nichts in der Bibliothek zu diesem Thema — probier Eigenes",

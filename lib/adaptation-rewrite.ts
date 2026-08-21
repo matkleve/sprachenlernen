@@ -8,6 +8,18 @@ const OPENAI_CHAT_URL = "https://api.openai.com/v1/chat/completions";
 const DEFAULT_MODEL = "gpt-4o-mini";
 
 function buildPrompt(input: AdaptationRewriteInput): string {
+  if (input.tier === "T3") {
+    const lemmaSample = [...input.heldLemmas].sort().slice(0, 80).join(", ");
+    return [
+      `Rewrite the following ${input.languageCode} text for CEFR ${input.targetLevel}.`,
+      "Use only vocabulary the learner already knows — prefer these lemmas:",
+      lemmaSample || "(none listed)",
+      "Keep facts; simplify sentence structure. Output only the rewritten body.",
+      "",
+      input.originalBody,
+    ].join("\n");
+  }
+
   return [
     `Rewrite the following ${input.languageCode} news text for CEFR ${input.targetLevel}.`,
     "Keep facts; simplify vocabulary and sentence structure.",
@@ -39,7 +51,7 @@ export async function rewriteWithOpenAI(input: AdaptationRewriteInput): Promise<
           content:
             "You simplify news articles for language learners. Preserve factual meaning; do not invent events.",
         },
-        { role: "user", content: buildPrompt(input) },
+        { role: "user", content: buildPrompt({ ...input, tier: input.tier ?? "T2" }) },
       ],
     }),
   });
@@ -59,6 +71,9 @@ export async function rewriteWithOpenAI(input: AdaptationRewriteInput): Promise<
 
 /** Offline batch fixture — predictable A2 body for cache warm-up without API cost. */
 export async function rewriteWithFixture(input: AdaptationRewriteInput): Promise<string> {
+  if (input.tier === "T3") {
+    return "Uno dos tres cuatro cinco uno dos tres cuatro cinco uno dos tres cuatro cinco uno dos tres cuatro cinco uno dos tres cuatro cinco.";
+  }
   if (input.targetLevel === "B1") {
     return "Las autoridades electorales de Egipto mantienen la prohibición de observadores internacionales en las elecciones. El presidente Mubarak busca otro período de seis años. Durante la campaña, los egipcios debaten el desempleo y la corrupción.";
   }

@@ -113,6 +113,7 @@ export type MaterialPreviewLabels = {
   t1SupportLine: (coveragePercent: number, gapCount: number) => string;
   blockedLine: (coveragePercent: number, targetLevel: string) => string;
   adaptationLabel: (targetLevel: string) => string;
+  adaptationFailed: (targetLevel: string) => string;
 };
 
 function wordsToComfortable(coverage: CoverageResult): number {
