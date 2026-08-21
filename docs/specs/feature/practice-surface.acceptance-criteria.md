@@ -21,7 +21,7 @@
 - [ ] Given step body text, when compared to method menu labels, then prompt copy
       uses practice-surface scale (`text-lg` or larger).
 - [ ] Given desktop `/practice` with build-a-sentence, when the learner moves from
-      prepare to type-with-word, then ◀ ▶ and primary CTA stay at the same
+      prepare to sentence-check, then ◀ ▶ and primary CTA stay at the same
       vertical position (footer anchored; only body content changes).
 - [ ] Given a focused textarea in the scroll body, when the learner tabs into the
       field, then the accent focus ring is fully visible (not clipped by overflow).

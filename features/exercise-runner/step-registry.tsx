@@ -69,21 +69,11 @@ const RENDERERS: Record<
   capture: ({ answer, onTextChange, onPhotoChange }) => (
     <CaptureStep answer={answer} onTextChange={onTextChange} onPhotoChange={onPhotoChange} />
   ),
-  "self-mark": ({ step, answer, markedErrorTokens, onToggleError }) => (
-    <SelfMarkStep
-      step={step}
-      answer={answer}
-      markedErrorTokens={markedErrorTokens}
-      onToggleError={onToggleError}
-    />
+  "self-mark": ({ step, answer, onToggleError }) => (
+    <SelfMarkStep step={step} answer={answer} onToggleError={onToggleError} />
   ),
-  feedback: ({ step, answer, markedErrorTokens, onToggleError }) => (
-    <SelfMarkStep
-      step={step}
-      answer={answer}
-      markedErrorTokens={markedErrorTokens}
-      onToggleError={onToggleError}
-    />
+  feedback: ({ step, answer, onToggleError }) => (
+    <SelfMarkStep step={step} answer={answer} onToggleError={onToggleError} />
   ),
   "comprehension-questions": ({ step }) => (
     <ComprehensionQuestionsStep config={step.config} />

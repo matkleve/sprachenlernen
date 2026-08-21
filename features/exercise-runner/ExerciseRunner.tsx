@@ -98,7 +98,6 @@ export function ExerciseRunner({
         <ExerciseStepBody
           step={activeStep}
           answer={runner.activeAnswer}
-          markedErrorTokens={runner.activeAnswer.markedErrorTokens}
           listeningDeferred={listeningDeferred}
           onTextChange={runner.setText}
           onPhotoChange={runner.setPhoto}

@@ -119,3 +119,30 @@ describe("SentenceCheckStep", () => {
     expect(screen.queryByText(en.exerciseRunner.sentenceCheckNoFindings)).toBeNull();
   });
 });
+
+describe("correcting after a check", () => {
+  it("lets the learner get back to the field to fix a flagged word", async () => {
+    const answer = answerWith(
+      {
+        status: "checked",
+        tokens: ["el", "casa"],
+        findings: [
+          {
+            tokenIndex: 0,
+            category: "agreement",
+            messageKey: "agreementGenderWithFix",
+            messageValues: { word: "el", noun: "casa", suggestion: "la" },
+            suggestion: "la",
+          },
+        ],
+      },
+      "el casa",
+    );
+    const { onCheckChange } = renderStep(answer);
+
+    await userEvent.click(screen.getByRole("button", { name: en.exerciseRunner.sentenceCheckEdit }));
+
+    // Back to writing: the findings on screen describe text about to change.
+    expect(onCheckChange).toHaveBeenCalledWith({ phase: "writing" });
+  });
+});

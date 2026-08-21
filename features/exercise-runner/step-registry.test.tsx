@@ -17,7 +17,6 @@ describe("ExerciseStepBody registry", () => {
           config: {},
         }}
         answer={EMPTY_STEP_ANSWER}
-        markedErrorTokens={[]}
         onTextChange={() => {}}
         onPhotoChange={() => {}}
         onCheckChange={() => {}}
@@ -41,7 +40,6 @@ describe("ExerciseStepBody registry", () => {
           config: { items: ["Pen and paper"] },
         }}
         answer={EMPTY_STEP_ANSWER}
-        markedErrorTokens={[]}
         onTextChange={() => {}}
         onPhotoChange={() => {}}
         onCheckChange={() => {}}
@@ -66,7 +64,6 @@ describe("ExerciseStepBody registry", () => {
           config: { body: "Say it out loud.", text: "Hola mundo." },
         }}
         answer={EMPTY_STEP_ANSWER}
-        markedErrorTokens={[]}
         onTextChange={() => {}}
         onPhotoChange={() => {}}
         onCheckChange={() => {}}
@@ -95,7 +92,6 @@ describe("registry consistency", () => {
         <ExerciseStepBody
           step={{ id: `step-${componentId}`, type: "do", component: componentId, config: {} }}
           answer={EMPTY_STEP_ANSWER}
-          markedErrorTokens={[]}
           onTextChange={() => {}}
           onPhotoChange={() => {}}
           onCheckChange={() => {}}

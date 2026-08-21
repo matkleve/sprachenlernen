@@ -8,9 +8,9 @@ import type { StepRenderProps } from "@/features/exercise-runner/steps/types";
 export function SelfMarkStep({
   step,
   answer,
-  markedErrorTokens,
   onToggleError,
-}: Pick<StepRenderProps, "step" | "answer" | "markedErrorTokens" | "onToggleError">) {
+}: Pick<StepRenderProps, "step" | "answer" | "onToggleError">) {
+  const markedErrorTokens = answer.markedErrorTokens;
   const t = useTranslations("exerciseRunner");
   const isFeedback = step.component === "feedback";
   const answerKey =

@@ -388,7 +388,8 @@
     "sentenceCheckUnavailable": "Die Prüfung ist gerade nicht möglich.",
     "sentenceCheckUnavailableHint": "Für diese Sprache liegt kein Wörterverzeichnis bereit. Du kannst weitermachen.",
     "primaryContinueAnyway": "Trotzdem weiter",
-    "misconfiguredComponent": "Dieser Schritt ist unvollständig konfiguriert ({component}: {keys})."
+    "misconfiguredComponent": "Dieser Schritt ist unvollständig konfiguriert ({component}: {keys}).",
+    "sentenceCheckEdit": "Ändern"
   },
   "listeningDefer": {
     "sectionLabel": "Ton",

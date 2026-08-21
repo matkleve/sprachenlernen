@@ -12,7 +12,6 @@ import { cn } from "@/lib/utils";
 type ExerciseStepBodyProps = {
   step: ExerciseRunnerState["recipe"]["steps"][number];
   answer: StepAnswer;
-  markedErrorTokens: readonly string[];
   listeningDeferred?: boolean;
   bodyScrolls?: boolean;
   onTextChange: (text: string) => void;

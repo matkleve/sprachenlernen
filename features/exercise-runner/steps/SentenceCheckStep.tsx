@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useTransition } from "react";
+import { useEffect, useRef, useState, useTransition } from "react";
 import { useTranslations } from "next-intl";
 
 import { Button } from "@/components/ui/Button";
@@ -39,12 +39,33 @@ export function SentenceCheckStep({
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const [pending, startTransition] = useTransition();
 
+  const [returningToField, setReturningToField] = useState(false);
   const result = answer.check.phase === "checked" ? answer.check.result : null;
   const busy = pending || answer.check.phase === "checking";
   const checkedTokens =
     result?.status === "checked" && result.tokens.length > 0
       ? { tokens: result.tokens, flagged: flaggedTokenIndices(result) }
       : null;
+
+  /**
+   * Back to the field with the marks still fresh in mind. Without this the
+   * learner could read what was wrong and not reach the words to fix it —
+   * which would make the whole prompt-instead-of-recast argument moot.
+   */
+  function edit() {
+    onCheckChange({ phase: "writing" });
+    setReturningToField(true);
+  }
+
+  useEffect(() => {
+    if (!returningToField || result) return;
+    textareaRef.current?.focus();
+    // Caret at the end, not at the start: the learner is continuing a sentence
+    // they already wrote, not starting one.
+    const length = textareaRef.current?.value.length ?? 0;
+    textareaRef.current?.setSelectionRange(length, length);
+    setReturningToField(false);
+  }, [returningToField, result]);
 
   function check() {
     if (!answer.text.trim()) return;
@@ -94,19 +115,21 @@ export function SentenceCheckStep({
 
       <SentenceCheckNotes result={result} busy={busy} />
 
-      {result ? null : (
-        <div className="flex justify-end">
-          <Button
-            type="button"
-            variant="secondary"
-            size="md"
-            onClick={check}
-            disabled={busy || answer.text.trim().length === 0}
-          >
-            {busy ? t("sentenceCheckChecking") : t("sentenceCheckAction")}
-          </Button>
-        </div>
-      )}
+      <div className="flex justify-end">
+        <Button
+          type="button"
+          variant="secondary"
+          size="md"
+          onClick={result ? edit : check}
+          disabled={busy || answer.text.trim().length === 0}
+        >
+          {result
+            ? t("sentenceCheckEdit")
+            : busy
+              ? t("sentenceCheckChecking")
+              : t("sentenceCheckAction")}
+        </Button>
+      </div>
     </div>
   );
 }

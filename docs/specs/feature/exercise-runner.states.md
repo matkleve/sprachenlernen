@@ -93,18 +93,27 @@ not `done`.
 ## Sentence check (one enum per `sentence-check` step)
 
 ```ts
-type CheckPhase = "writing" | "checking" | "checked" | "unavailable";
+type CheckPhase = "writing" | "checking" | "checked";
 ```
 
 | From | Legal to | Trigger |
 | --- | --- | --- |
 | `writing` | `checking` | Learner taps **Prüfen** with non-empty text |
-| `checking` | `checked`, `unavailable` | Result arrives |
-| `checked` | `writing` | Learner edits the text again |
-| `unavailable` | `writing` | Learner edits the text again |
+| `checking` | `checked` | A result arrives — including one that could not run |
+| `checked` | `writing` | Learner taps **Ändern**, or edits the text |
 
 One enum, not a pile of booleans ([`STATE.md`](../../STATE.md) §2): `isChecking`
 plus `hasChecked` plus `failed` would allow "checking and failed at once".
+
+**Three phases, not four.** "Could not check" is a `status` on the *result*
+([`sentence-check.md`](../service/sentence-check.md)), not a fourth phase — a
+phase named `unavailable` alongside a result that already says `unavailable`
+gives the same fact two owners, and they would eventually disagree.
+
+**Returning to the field is a state transition, not a scroll.** Once checked,
+the two lines show marked tokens rather than an editable field, so **Ändern**
+has to exist: findings the learner can read but not act on would make the
+prompt-over-recast argument moot.
 
 **Completion gate.** The step cannot complete in `writing` *before its first
 check* — that is the whole point of the method. Once any check has returned, the

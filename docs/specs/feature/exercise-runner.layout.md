@@ -52,7 +52,7 @@ Recipe authors pick a profile per step component — not per Method.
 
 | Profile | Step examples | Body behaviour |
 | --- | --- | --- |
-| **short** | prepare checklist, type-with-word, capture, offers | `overflow-hidden`; content fits frame |
+| **short** | prepare checklist, sentence-check, capture, offers | `overflow-hidden`; content fits frame |
 | **scroll** | long `material-preview` | `overflow-y-auto`; footer scrim |
 | **paginated** | extensive-reading `text-display` (future) | scroll until turns ship; chrome anchored |
 

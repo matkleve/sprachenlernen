@@ -388,7 +388,8 @@
     "sentenceCheckUnavailable": "The check is not available right now.",
     "sentenceCheckUnavailableHint": "No word list is available for this language. You can carry on.",
     "primaryContinueAnyway": "Continue anyway",
-    "misconfiguredComponent": "This step is missing part of its configuration ({component}: {keys})."
+    "misconfiguredComponent": "This step is missing part of its configuration ({component}: {keys}).",
+    "sentenceCheckEdit": "Edit"
   },
   "listeningDefer": {
     "sectionLabel": "Sound",
