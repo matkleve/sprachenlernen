@@ -15,10 +15,23 @@ import { SentenceCheckStep } from "@/features/exercise-runner/steps/SentenceChec
 import { EMPTY_STEP_ANSWER, type StepAnswer } from "@/lib/exercise-runner/types";
 import type { SentenceCheckResult } from "@/lib/sentence-check";
 
+/** Token spans for a space-separated sentence — what the real checker returns. */
+function spansFor(text: string) {
+  const spans: { text: string; start: number; end: number }[] = [];
+  for (const match of text.matchAll(/\p{L}+/gu)) {
+    spans.push({ text: match[0], start: match.index, end: match.index + match[0].length });
+  }
+  return spans;
+}
+
 vi.mock("@/features/exercise-runner/actions", () => ({
   checkSentenceAction: vi.fn(async () => ({
     status: "checked",
-    tokens: ["Mi", "casa"],
+    text: "Mi casa",
+    tokens: [
+      { text: "Mi", start: 0, end: 2 },
+      { text: "casa", start: 3, end: 7 },
+    ],
     findings: [],
   })),
 }));
@@ -70,12 +83,27 @@ describe("SentenceCheckStep", () => {
     expect(onCheckChange).toHaveBeenCalledWith({ phase: "checking" });
     expect(onCheckChange).toHaveBeenCalledWith({
       phase: "checked",
-      result: { status: "checked", tokens: ["Mi", "casa"], findings: [] },
+      result: {
+        status: "checked",
+        text: "Mi casa",
+        tokens: [
+          { text: "Mi", start: 0, end: 2 },
+          { text: "casa", start: 3, end: 7 },
+        ],
+        findings: [],
+      },
     });
   });
 
   it("says nothing was found — never that the sentence is correct", () => {
-    renderStep(answerWith({ status: "checked", tokens: ["Mi", "casa"], findings: [] }));
+    renderStep(
+      answerWith({
+        status: "checked",
+        text: "Mi casa",
+        tokens: spansFor("Mi casa"),
+        findings: [],
+      }),
+    );
 
     expect(screen.getByText(en.exerciseRunner.sentenceCheckNoFindings)).toBeDefined();
     expect(screen.getByText(en.exerciseRunner.sentenceCheckWhatWasChecked)).toBeDefined();
@@ -87,7 +115,8 @@ describe("SentenceCheckStep", () => {
       answerWith(
         {
           status: "checked",
-          tokens: ["el", "casa"],
+          text: "el casa",
+          tokens: spansFor("el casa"),
           findings: [
             {
               tokenIndex: 0,
@@ -103,11 +132,12 @@ describe("SentenceCheckStep", () => {
     );
 
     // "casa" is also the target word heading, so scope to the sentence line.
-    const line = screen.getByText("el").parentElement!;
-    expect(screen.getByText("el").className).toContain("text-danger");
+    const marked = screen.getByText("el");
+    const line = marked.parentElement!;
+    expect(marked.className).toContain("text-danger");
     expect(
       [...line.children].find((child) => child.textContent === "casa")!.className,
-    ).toContain("text-ink");
+    ).not.toContain("text-danger");
     expect(document.body.textContent).toContain(en.sentenceCheck.categoryAgreement);
     expect(document.body.textContent).toContain("«la»");
   });
@@ -125,7 +155,8 @@ describe("correcting after a check", () => {
     const answer = answerWith(
       {
         status: "checked",
-        tokens: ["el", "casa"],
+        text: "el casa",
+        tokens: spansFor("el casa"),
         findings: [
           {
             tokenIndex: 0,
@@ -144,5 +175,35 @@ describe("correcting after a check", () => {
 
     // Back to writing: the findings on screen describe text about to change.
     expect(onCheckChange).toHaveBeenCalledWith({ phase: "writing" });
+  });
+});
+
+describe("the sentence the learner sees back", () => {
+  it("keeps punctuation and spacing exactly as written", () => {
+    const written = "¿Dónde está el casa, mamá?";
+    renderStep(
+      answerWith(
+        {
+          status: "checked",
+          text: written,
+          tokens: spansFor(written),
+          findings: [
+            {
+              tokenIndex: 2,
+              category: "agreement",
+              messageKey: "agreementGenderWithFix",
+              messageValues: { word: "el", noun: "casa", suggestion: "la" },
+              suggestion: "la",
+            },
+          ],
+        },
+        written,
+      ),
+    );
+
+    // Rebuilt from the original string, not by joining the words with spaces —
+    // the old version showed "Dónde está el casa mamá".
+    const line = screen.getByText("el").parentElement!;
+    expect(line.textContent).toBe(written);
   });
 });

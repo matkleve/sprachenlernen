@@ -37,17 +37,41 @@ function flagged(text: string, category: FindingCategory): string[] {
   if (result.status !== "checked") throw new Error(`unavailable: ${result.reason}`);
   return result.findings
     .filter((finding) => finding.category === category && finding.tokenIndex >= 0)
-    .map((finding) => result.tokens[finding.tokenIndex]!);
+    .map((finding) => result.tokens[finding.tokenIndex]!.text);
 }
+
+function words(result: SentenceCheckResult): string[] {
+  return result.status === "checked" ? result.tokens.map((token) => token.text) : [];
+}
+
+describe("what the learner gets back (R)", () => {
+  it("R1 · the sentence survives the check exactly as written", () => {
+    const written = "¿Dónde está la casa, mamá? ¡No sé!";
+    const result = check(written);
+    if (result.status !== "checked") throw new Error("unavailable");
+
+    // The checked view rebuilds the line from this. Dropping punctuation would
+    // show the learner a sentence they did not write, right next to a claim
+    // about what is wrong with it.
+    expect(result.text).toBe(written);
+  });
+
+  it("R2 · every token points at its own characters in that text", () => {
+    const written = "Mi  casa, es grande";
+    const result = check(written);
+    if (result.status !== "checked") throw new Error("unavailable");
+
+    for (const token of result.tokens) {
+      expect(written.slice(token.start, token.end)).toBe(token.text);
+    }
+  });
+});
 
 describe("honesty (H)", () => {
   it("H1 · a clean sentence reports no findings and claims nothing", () => {
     const result = check("Mi casa es grande");
-    expect(result).toEqual({
-      status: "checked",
-      tokens: ["Mi", "casa", "es", "grande"],
-      findings: [],
-    });
+    expect(result).toMatchObject({ status: "checked", findings: [] });
+    expect(words(result)).toEqual(["Mi", "casa", "es", "grande"]);
   });
 
   it("H3 · a language without rules is unavailable, not silently clean", () => {
@@ -116,7 +140,7 @@ describe("agreement (A)", () => {
     const result = check("el casa es grande");
     if (result.status !== "checked") throw new Error("unavailable");
     const finding = result.findings.find((f) => f.category === "agreement");
-    expect(result.tokens[finding!.tokenIndex]).toBe("el");
+    expect(result.tokens[finding!.tokenIndex]?.text).toBe("el");
     expect(finding?.suggestion).toBe("la");
   });
 
@@ -146,7 +170,7 @@ describe("person (P)", () => {
     const result = check("yo tienes un perro");
     if (result.status !== "checked") throw new Error("unavailable");
     const finding = result.findings.find((f) => f.category === "person");
-    expect(result.tokens[finding!.tokenIndex]).toBe("tienes");
+    expect(result.tokens[finding!.tokenIndex]?.text).toBe("tienes");
     expect(finding?.suggestion).toBe("tengo");
   });
 
@@ -199,8 +223,7 @@ describe("target word (T)", () => {
 describe("tokenising (K)", () => {
   it("K1 · punctuation is never a token", () => {
     const result = check("¿Dónde está la casa?");
-    if (result.status !== "checked") throw new Error("unavailable");
-    expect(result.tokens).toEqual(["Dónde", "está", "la", "casa"]);
+    expect(words(result)).toEqual(["Dónde", "está", "la", "casa"]);
   });
 
   it("K2 · accents are significant and both spellings are real words", () => {
@@ -210,7 +233,6 @@ describe("tokenising (K)", () => {
 
   it("K3 · collapsed whitespace keeps indices contiguous", () => {
     const result = check("Mi   casa\n es grande");
-    if (result.status !== "checked") throw new Error("unavailable");
-    expect(result.tokens).toEqual(["Mi", "casa", "es", "grande"]);
+    expect(words(result)).toEqual(["Mi", "casa", "es", "grande"]);
   });
 });

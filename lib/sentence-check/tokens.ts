@@ -7,6 +7,9 @@ const WORD = /\p{L}+(?:['’]\p{L}+)*/gu;
 export type SentenceToken = {
   /** As the learner typed it — what the UI renders. */
   text: string;
+  /** Where it sits in the checked text, so the UI can mark it in place. */
+  start: number;
+  end: number;
   /** Case-folded, for table lookup. */
   normalised: string;
   /** True when the token is capitalised anywhere but sentence-initially. */
@@ -39,6 +42,8 @@ export function tokeniseSentence(text: string, table: LemmaTable): SentenceToken
 
     return {
       text: raw,
+      start: match.index,
+      end: match.index + raw.length,
       normalised,
       // Sentence-initial capitals carry no information about proper nouns, so
       // index 0 never earns the exemption — otherwise every typo that happens

@@ -28,8 +28,28 @@ export type SentenceFinding = {
   suggestion?: string;
 };
 
+/**
+ * One word and where it sits in the text the learner wrote. The offsets are the
+ * point: the checked view rebuilds the line from the original string and marks
+ * these ranges, rather than joining the words back together with spaces —
+ * which silently dropped punctuation and collapsed spacing, showing the learner
+ * a sentence they had not written next to a claim about what was wrong with it.
+ */
+export type SentenceTokenSpan = {
+  text: string;
+  /** Index into `SentenceCheckResult.text`. */
+  start: number;
+  end: number;
+};
+
 export type SentenceCheckResult =
-  | { status: "checked"; tokens: string[]; findings: SentenceFinding[] }
+  | {
+      status: "checked";
+      /** Exactly what was checked, unmodified. */
+      text: string;
+      tokens: SentenceTokenSpan[];
+      findings: SentenceFinding[];
+    }
   /**
    * A first-class outcome, not a swallowed error (Constitution §4). The step
    * says so and keeps Weiter open — a checker that cannot run must not trap a

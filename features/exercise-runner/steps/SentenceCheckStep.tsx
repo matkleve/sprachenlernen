@@ -44,7 +44,7 @@ export function SentenceCheckStep({
   const busy = pending || answer.check.phase === "checking";
   const checkedTokens =
     result?.status === "checked" && result.tokens.length > 0
-      ? { tokens: result.tokens, flagged: flaggedTokenIndices(result) }
+      ? { text: result.text, tokens: result.tokens, flagged: flaggedTokenIndices(result) }
       : null;
 
   /**

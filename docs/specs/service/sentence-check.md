@@ -83,11 +83,27 @@ type SentenceFinding = {
   suggestion?: string;         // the form that would fit, when one is provable
 };
 
+type SentenceTokenSpan = { text: string; start: number; end: number };
+
 type SentenceCheckResult =
-  | { status: "checked"; tokens: string[]; findings: SentenceFinding[] }
+  | {
+      status: "checked";
+      /** Exactly what was checked, unmodified. */
+      text: string;
+      tokens: SentenceTokenSpan[];
+      findings: SentenceFinding[];
+    }
   /** Lexicon unavailable for this language — say so, never fake a pass. */
   | { status: "unavailable"; reason: "no-lexicon" | "failed" };
 ```
+
+**The result carries the text, not a word list.** The checked view rebuilds the
+line from `text` and marks the token ranges. Joining the words back together
+with spaces silently dropped punctuation and collapsed the learner's own
+spacing — `¿Dónde está la casa, mamá?` came back as `Dónde está la casa mamá` —
+so the app showed a sentence nobody had written, directly beside a claim about
+what was wrong with it. A checker that misquotes makes every mark it draws
+suspect.
 
 `status: "unavailable"` is a first-class outcome, not an error to swallow
 (Constitution §4). The step renders it as "kann gerade nicht prüfen" and keeps
@@ -106,6 +122,7 @@ type SentenceCheckResult =
 | 7 | `la mano` (feminine noun in `-o`) | No finding — the table, not the ending, decides |
 | 8 | Target lemma absent from every token | `missing-target` with `tokenIndex: -1` |
 | 9 | Fused form (`del`, `al`) | Decomposed via the table's `fused` map before analysis |
+| 9b | Any input | `text` equals the input exactly; every token's `[start, end)` slices its own `text` out of it |
 | 10 | Language has no lemma table | `unavailable` / `no-lexicon` |
 
 ## Where it runs

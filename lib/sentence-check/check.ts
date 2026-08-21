@@ -28,7 +28,9 @@ export function checkSentence(
   if (!table || !rules) return { status: "unavailable", reason: "no-lexicon" };
 
   const tokens = tokeniseSentence(input.text, table);
-  if (tokens.length === 0) return { status: "checked", tokens: [], findings: [] };
+  if (tokens.length === 0) {
+    return { status: "checked", text: input.text, tokens: [], findings: [] };
+  }
 
   const findings: SentenceFinding[] = [
     ...spellingFindings(tokens, table),
@@ -41,7 +43,8 @@ export function checkSentence(
 
   return {
     status: "checked",
-    tokens: tokens.map((token) => token.text),
+    text: input.text,
+    tokens: tokens.map(({ text, start, end }) => ({ text, start, end })),
     // Sentence order, so the notes under the lines read left to right; the
     // whole-sentence finding (index -1) sorts to the end, not the front.
     findings: findings.sort((a, b) => {

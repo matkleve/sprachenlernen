@@ -5,5 +5,6 @@ export type {
   SentenceCheckInput,
   SentenceCheckResult,
   SentenceFinding,
+  SentenceTokenSpan,
   TokenVerdict,
 } from "./types";

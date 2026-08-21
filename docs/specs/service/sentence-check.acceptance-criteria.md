@@ -3,10 +3,12 @@
 Split child of [`sentence-check.md`](sentence-check.md). Each row is one test in
 `lib/sentence-check/`.
 
-## Honesty
+## Fidelity and honesty
 
 | # | Given | Then |
 | --- | --- | --- |
+| R1 | `¿Dónde está la casa, mamá? ¡No sé!` | `result.text` is that string, character for character |
+| R2 | Any checked sentence | `text.slice(token.start, token.end) === token.text` for every token |
 | H1 | Any sentence with no findings | `status: "checked"`, `findings: []` — no field anywhere claims correctness |
 | H2 | The result type | Has no `ok`/`correct`/`valid` token verdict — only `flagged` and `unchecked` |
 | H3 | Lemma table missing for the language | `status: "unavailable"`, `reason: "no-lexicon"` — never `checked` with zero findings |

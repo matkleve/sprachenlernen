@@ -42,7 +42,7 @@ const multiWordRecipe: ExerciseRecipe = {
 function checked(state: ExerciseRunnerState, stepId: string): ExerciseRunnerState {
   return setStepCheck(state, stepId, {
     phase: "checked",
-    result: { status: "checked", tokens: [], findings: [] },
+    result: { status: "checked", text: "", tokens: [], findings: [] },
   });
 }
 
