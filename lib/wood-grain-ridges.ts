@@ -1,21 +1,15 @@
 /**
- * Procedural wood grain for `/dev/wood-textures` — Liu et al. / Wilkie
- * distortion-field model (simplified 2D tangential face), not warped sine
- * stripes.
+ * Procedural wood grain for `/dev/wood-textures` — multi-scale horizontal
+ * fibre layers rendered as canvas ridges.
  *
- * Research basis:
- * - Liu, Dorsey, Hanrahan, Marschner (LDHM16): cylindrical wood model where
- *   growth rings are sampled at a **distorted** position f(p). Radial
- *   distortion mr(p) bends ring shapes (blister / island bulges); tangential
- *   distortion mt(p) adds figure along the grain. Both are spatial functions
- *   of (x, y) on the board face — see Cornell procedural wood textures paper.
- * - Hafidi & Wilkie (CGF 2025, "From Words to Wood"): influence points exert
- *   repulsive displacement on rings; brushiness distortion.
- * - jsabbott (Olde Tinkerer Studio): practical domain warp — noise vector
- *   feeds Musgrave/noise with anisotropic mapping (high X stretch, low Y).
+ * Visual model (spec: wood-texture-lab.md, study: STUDY-030):
+ * - `ridgeCount` — how many coarse horizontal bands fit the swatch height
+ * - `warpAmount` / `warpFrequency` — irregularity within each scale (2D field)
+ * - `speckle` — fine hairline variation on top
+ * - palette + raking light — species tone and matte/oiled read
  *
- * For horizontal face-grain: ring age is primarily y, plus mr(x,y) + mt(x,y)
- * + influence-point displacement. Contour lines of ring age are the ridges.
+ * Not botanic growth rings. Internal `ridgeFieldAt` is a contour height field;
+ * papers in STUDY-sources are background only.
  */
 
 export type WoodGrainPalette = {
@@ -28,11 +22,11 @@ export type WoodGrainPalette = {
 export type WoodGrainOptions = {
   seed: number;
   palette: WoodGrainPalette;
-  /** How many ridges fit down the texture height */
+  /** How many coarse horizontal bands fit down the texture height */
   ridgeCount: number;
-  /** Distortion-field strength (Wilkie mr / mt scale) */
+  /** Irregularity strength within each grain scale */
   warpAmount: number;
-  /** Horizontal feature scale for the distortion field */
+  /** Horizontal feature scale for the irregularity field */
   warpFrequency: number;
   /** 0–1 — how much ridge slope drives light/dark beyond the base mix */
   lightStrength: number;
@@ -68,7 +62,7 @@ function valueNoise(x: number, y: number, seed: number): number {
   return ab + (cd - ab) * ty;
 }
 
-/** Multiband fbm — Wilkie/Liu use ~4 bands for distortion magnitudes. */
+/** Multiband fbm for 2D irregularity within each grain scale. */
 function multibandFbm(x: number, y: number, seed: number, bands = 4): number {
   let value = 0;
   let amplitude = 0.5;
@@ -87,7 +81,7 @@ function mixChannel(a: number, b: number, t: number): number {
   return a + (b - a) * t;
 }
 
-/** Board-space coords for the distortion field — anisotropic like jsabbott mapping. */
+/** Board-space coords for the irregularity field — anisotropic (high X, low Y). */
 function distortionCoords(
   x: number,
   y: number,
@@ -103,8 +97,8 @@ function distortionCoords(
 }
 
 /**
- * Hafidi & Wilkie influence points — localized repulsive displacement on
- * ring age (bends rings around a point in both x and y).
+ * Localized bumps in the ridge field — optional irregularity so ridges are not
+ * perfectly parallel stripes.
  */
 function influenceDisplacement(
   x: number,
@@ -131,7 +125,7 @@ function influenceDisplacement(
   return displacement;
 }
 
-export type RingSampleContext = {
+export type RidgeFieldContext = {
   width: number;
   height: number;
   seed: number;
@@ -141,12 +135,11 @@ export type RingSampleContext = {
 };
 
 /**
- * Ring age from distorted radial distance — Liu et al. / Wilkie cylindrical
- * model simplified for a tangential face-grain board. A virtual ring centre
- * sits far above the board so local rings read as horizontal curves; mr(x,y)
- * and mt(x,y) bend those curves in both dimensions (island bulges).
+ * Height field for horizontal grain contours. Base spacing is mostly vertical
+ * (horizontal fibres on a face-grain plank) plus 2D warp so ridges vary in both
+ * x and y — not separable vertical stripes.
  */
-export function ringAgeAt(x: number, y: number, ctx: RingSampleContext): number {
+export function ridgeFieldAt(x: number, y: number, ctx: RidgeFieldContext): number {
   const { width, height, seed, ridgeCount, warpAmount, warpFrequency } = ctx;
   const { nx, ny } = distortionCoords(x, y, width, height, ridgeCount, warpFrequency);
 
@@ -154,7 +147,7 @@ export function ringAgeAt(x: number, y: number, ctx: RingSampleContext): number 
   const mt = (multibandFbm(nx + 2.7, ny + 1.3, seed + 47) - 0.5) * warpAmount * 0.52;
   const influence = influenceDisplacement(x, y, width, height, seed + 113, warpAmount * 0.38);
 
-  // Virtual ring centre above the board — face-grain rings read horizontal locally
+  // Mostly-horizontal contours: base spacing from y, curved by 2D warp
   const cx = width * 0.5;
   const cy = -height * 2.8;
   const dx = (x - cx) / width;
@@ -165,9 +158,9 @@ export function ringAgeAt(x: number, y: number, ctx: RingSampleContext): number 
   return radius * ringScale + mr * ridgeCount * 0.42 + mt * ridgeCount * 0.18 + influence * ridgeCount;
 }
 
-/** Smoothed band signal from ring age — Liu et al. use a rectangular wave; sin is a close preview. */
-function ringSignal(age: number): number {
-  return Math.sin(age * Math.PI * 2);
+/** Smoothed band signal from ridge field height. */
+function ridgeSignal(height: number): number {
+  return Math.sin(height * Math.PI * 2);
 }
 
 /** Paints procedural wood grain into `ctx` at `width` × `height` pixels. */
@@ -182,7 +175,7 @@ export function renderWoodGrain(
   const image = ctx.createImageData(width, height);
   const data = image.data;
   const { seed, palette, ridgeCount, warpAmount, warpFrequency, lightStrength, speckle } = opts;
-  const sampleCtx: RingSampleContext = {
+  const sampleCtx: RidgeFieldContext = {
     width,
     height,
     seed,
@@ -193,13 +186,13 @@ export function renderWoodGrain(
 
   for (let y = 0; y < height; y++) {
     for (let x = 0; x < width; x++) {
-      const age = ringAgeAt(x, y, sampleCtx);
-      const ageRight = ringAgeAt(x + 1, y, sampleCtx);
-      const ageDown = ringAgeAt(x, y + 1, sampleCtx);
+      const field = ridgeFieldAt(x, y, sampleCtx);
+      const fieldRight = ridgeFieldAt(x + 1, y, sampleCtx);
+      const fieldDown = ridgeFieldAt(x, y + 1, sampleCtx);
 
-      const ridge = ringSignal(age);
-      const slopeX = ringSignal(ageRight) - ridge;
-      const slopeY = ringSignal(ageDown) - ridge;
+      const ridge = ridgeSignal(field);
+      const slopeX = ridgeSignal(fieldRight) - ridge;
+      const slopeY = ridgeSignal(fieldDown) - ridge;
 
       const height01 = ridge * 0.5 + 0.5;
       const speck = (hash2(x * 0.9, y * 0.9, seed + 41) - 0.5) * speckle;

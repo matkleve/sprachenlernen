@@ -11,6 +11,22 @@ applying is still evidence about how this codebase misleads people.
 
 ---
 
+## Wood grain studies locked agents in
+
+`STUDY-030` once read like a Blender shader tutorial — growth rings, domain
+warping, Wilkie papers — and agents treated it as the build contract. The UI
+model is simpler: **stack horizontal grain at different scales** (fine fibres,
+coarse streaks, optional plank seams, colour wash). The reference board shows
+**no visible tree rings**.
+
+**The fix:** implement from `docs/specs/page/wood-texture-lab.md` and live
+code (`lib/wood-grain-ridges.ts`, `app/progression-skins.css`). Studies record
+reasoning and traps only. Invariant: grain left→right, **no vertical brightness
+bands** (`feTurbulence` low-X/high-Y pairing caused that twice).
+
+**The check:** before adding shader infrastructure, read the spec and existing
+layer stack; extend by new periods / `ridgeCount`, not by importing GLSL.
+
 ## Footer scrim floated while scrolling on iOS Safari
 
 `useVisualViewportBottomInset` listened to **scroll** on `visualViewport` and

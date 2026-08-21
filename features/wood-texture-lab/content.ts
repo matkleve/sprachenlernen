@@ -14,7 +14,7 @@ export const woodTextures: readonly WoodTexture[] = [
     id: "raw-planks",
     number: 1,
     name: "Raw planks",
-    marks: ["Hills and valleys, left to right", "Wide, uneven ridges", "High contrast"],
+    marks: ["Horizontal fibre layers", "Wide, uneven coarse grain", "High contrast"],
     grain: {
       seed: 11,
       palette: { dark: [42, 28, 16], light: [96, 70, 42] },
@@ -29,7 +29,7 @@ export const woodTextures: readonly WoodTexture[] = [
     id: "sanded-bench",
     number: 2,
     name: "Sanded bench",
-    marks: ["Hills and valleys, left to right", "Softer ridges", "Medium contrast"],
+    marks: ["Horizontal fibre layers", "Softer coarse grain", "Medium contrast"],
     grain: {
       seed: 27,
       palette: { dark: [58, 40, 22], light: [108, 82, 52] },
@@ -44,7 +44,7 @@ export const woodTextures: readonly WoodTexture[] = [
     id: "oiled-timber",
     number: 3,
     name: "Oiled timber",
-    marks: ["Hills and valleys, left to right", "Tight, warm ridges", "Soft sheen"],
+    marks: ["Horizontal fibre layers", "Tight fine grain", "Soft sheen"],
     grain: {
       seed: 44,
       palette: { dark: [70, 46, 24], light: [132, 96, 56] },
@@ -59,7 +59,7 @@ export const woodTextures: readonly WoodTexture[] = [
     id: "stock-bar",
     number: 4,
     name: "Stock bar",
-    marks: ["Hills and valleys, left to right", "Fine, dense ridges", "Rounded profile"],
+    marks: ["Horizontal fibre layers", "Fine, dense grain", "Rounded profile"],
     grain: {
       seed: 63,
       palette: { dark: [88, 60, 34], light: [152, 112, 68] },
@@ -76,7 +76,7 @@ export const woodTextures: readonly WoodTexture[] = [
 export const page = {
   title: "Wood textures",
   intro:
-    "Four procedural wood swatches from the progression reference board. Ring age is bent by a Wilkie/Liu distortion field (radial mr, tangential mt, influence points) — hills and valleys that vary in both x and y, not warped sine stripes.",
-  grainNote: "Wilkie distortion field + influence points; redrawn per size.",
+    "Four procedural wood swatches from the progression reference board. Each stacks horizontal grain at different scales — fine fibres over coarser streaks on a warm colour wash. Grain runs left to right only.",
+  grainNote: "Layered horizontal grain; canvas redraws per size.",
   marksHeading: "Marks",
 } as const;

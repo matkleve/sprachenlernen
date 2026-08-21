@@ -118,4 +118,10 @@ links back.
 Implement **only** from specs. If study and spec disagree, the spec wins —
 update the study in the same session.
 
+**Studies must not read like build specs.** If a study names GLSL, shader papers,
+or 3D wood algorithms, that is background research — the UI model is layered
+grain at different scales ([`STUDY-030`](study/STUDY-030-procedural-wood-grain.md)).
+Before touching textures, read the relevant **spec** and **live CSS/canvas** in
+the repo; cite the reference board, not the study thesis.
+
 Validated by `npm run check:study`.

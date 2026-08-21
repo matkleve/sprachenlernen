@@ -78,4 +78,4 @@ not replace the board.
 | [`progression-explorer.md`](../page/progression-explorer.md) | Dev page that must match the board |
 | [`material-explorer.md`](../page/material-explorer.md) | Isolated material stack — same columns |
 | [`wood-texture-lab.md`](../page/wood-texture-lab.md) | Mark workshop wood species before promotion |
-| [`STUDY-029`](../../study/STUDY-029-progressive-textures.md) | How to wire overlays — not what to draw |
+| [`STUDY-030`](../../study/STUDY-030-procedural-wood-grain.md) | Reasoning only — spec + live code are the contract |

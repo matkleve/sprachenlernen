@@ -375,30 +375,16 @@ unmeasured, so the band per method stays a **[D]**.
 | ⬤ | Dream-Pixels-Forge/vanguard-wooden-uikit — procedural wood via feTurbulence + feColorMatrix + feDiffuseLighting, zero PNG. [Link](https://github.com/Dream-Pixels-Forge/vanguard-wooden-uikit) | [29](STUDY-029-progressive-textures.md) |
 | ⬤ | Vanseo Design: *feDiffuseLighting* — bump map lighting model. [Link](https://vanseodesign.com/web-design/svg-filter-primitives-fediffuselighting/) | [29](STUDY-029-progressive-textures.md) |
 
-## Procedural wood grain
+## UI wood grain (layer stacks)
+
+Not 3D growth-ring shaders. Build model: multi-scale horizontal fibres — see
+[STUDY-030](STUDY-030-procedural-wood-grain.md).
 
 | | Source | Used in |
 | --- | --- | --- |
-| ⬤ | OTOY: *Procedural Wood: A Deep Dive* — ring noise, graininess frequency, earlywood/latewood gradient control. [Link](https://help.otoy.com/hc/en-us/articles/45411909964827-Procedural-Wood-A-Deep-Dive) | [30](STUDY-030-procedural-wood-grain.md) |
-| ⬤ | inleo.io (@hey2d): *Creating Procedural Wood Grain in GLSL* — distance-to-rings, fbm-distorted rings, flowing grain via coordinate distortion. [Link](https://inleo.io/@hey2d/creating-procedural-wood-grain-in-glsl-ghu) | [30](STUDY-030-procedural-wood-grain.md) |
-| ⬤ | Foundry Modo docs: *Wood Procedural* — ring scale, waviness, graininess, gain/gradient controls. [Link](https://learn.foundry.com/modo/content/help/pages/shading_lighting/shader_items/wood.html) | [30](STUDY-030-procedural-wood-grain.md) |
-| ⬤ | `symbios-texture` crate source: `wainscoting.rs` — separate grain FBM (anisotropic, high cross-grain frequency) and warp FBM (low frequency, domain-warps the grain UV). [Link](https://docs.rs/crate/symbios-texture/latest/source/src/wainscoting.rs) | [30](STUDY-030-procedural-wood-grain.md) |
-| ⬤ | Blender Artists: *Procedural wood — be honest, what do you think?* — rings and noise must covariate from one distorted coordinate, or they visually drift apart; knot distortion notes. [Link](https://blenderartists.org/t/procedural-wood-be-honest-what-do-you-think/1644469) | [30](STUDY-030-procedural-wood-grain.md) |
-| ⬤ | Blender Artists: *Weird texture warping on deformed cube* — isotropic 3D noise across a curved surface rotates the pattern at the curve; Generated vs Object coordinate spaces. [Link](https://blenderartists.org/t/weird-texture-warping-on-deformed-cube/1644148) | [30](STUDY-030-procedural-wood-grain.md) |
-| ⬤ | Blender Artists: *How to deform wave (wood rings) better?* — ring banding via colourised wave layers, thinning rings toward the outside. [Link](https://blenderartists.org/t/how-to-deform-wave-wood-rings-better/1462312) | [30](STUDY-030-procedural-wood-grain.md) |
-| ⬤ | Medium (Samuel Sullins): *Procedural Wood Material in Blender with 10 Nodes* — anisotropic mapping-node scale to stretch noise into grain; bump via noise-driven height. [Link](https://medium.com/@samuelsullins/make-this-easy-procedural-wood-material-in-blender-with-just-10-nodes-c94a3f8b54ad) | [30](STUDY-030-procedural-wood-grain.md) |
-| ⬤ | Inigo Quilez: *Domain warping* — `g(p) = p + h(p)`, evaluate every layer at the warped coordinate. [Link](https://iquilezles.org/articles/warp) | [30](STUDY-030-procedural-wood-grain.md) |
-| ⬤ | mysimulator.uk: *Procedural Textures in GLSL* — two-stage domain warp code, octave/perf notes for mobile GPUs. [Link](https://www.mysimulator.uk/content/articles/procedural-textures.html) | [30](STUDY-030-procedural-wood-grain.md) |
-| ⬤ | Lumitree: *Noise Texture — Beautiful Procedural Textures With Code* — concentric ring distortion for wood; 4D-torus mapping for seamless tiling. [Link](https://lumitree.art/blog/noise-texture) | [30](STUDY-030-procedural-wood-grain.md) |
-| ⬤ | texturize.app: *Free Wood Texture Generator* — anisotropic Perlin stretch + ring sine overlay, CSS `background-size` tiling guidance. [Link](https://texturize.app/generators/wood) | [30](STUDY-030-procedural-wood-grain.md) |
-| ⬤ | Jeff Mack Supply: *Edge Grain vs End Grain Cutting Boards* — face/edge/end grain defined by which part of the fibre faces up. [Link](https://jeffmacksupply.com/en-us/pages/edge-grain-vs-end-grain-cutting-boards) | [30](STUDY-030-procedural-wood-grain.md) |
-| ⬤ | The Knotty Lumber Co.: *End Grain vs Edge Grain Cutting Boards* — face grain shows sweeping streaks, end grain shows concentric rings, edge grain is straighter/linear. [Link](https://theknottylumberco.ca/en-us/blogs/woodworking-tools-tips-and-techniques/end-grain-vs-edge-grain) | [30](STUDY-030-procedural-wood-grain.md) |
-| ◐ | AITextured product pages (*crosscut wood with knots*, *rustic wood planks*) — knot-adjacent grain variation, tileable PBR plank texture descriptions (marketing copy, cited for descriptive claims only). [Link](https://aitextured.com/textures/wood/wood-seamless-pbr-crosscut-wood-texture-with-knots-and-grain.html) | [30](STUDY-030-procedural-wood-grain.md) |
-| ⬤ | `symbios-texture` docs: toroidal 4D noise mapping for seamless tiling — `cos(0)=cos(2π)` guarantee. [Link](https://docs.rs/symbios-texture/latest/symbios_texture/noise/index.html) | [30](STUDY-030-procedural-wood-grain.md) |
-| ⬤ | Hafidi & Wilkie (2025): *From Words to Wood* (CGF, DOI 10.1111/cgf.70066) — growth rings, influence points, brushiness distortion, NLP parameter UI. [Link](https://doi.org/10.1111/cgf.70066) | [30](STUDY-030-procedural-wood-grain.md) |
-| ⬤ | Liu et al. [LDHM16] / Cornell: *Procedural wood textures* — cylindrical coords, radial `mr` and tangential `mt` distortion fields bend ring shapes; multiband noise. [Link](https://doi.org/10.48550/arxiv.1511.04224) | [30](STUDY-030-procedural-wood-grain.md) |
-| ⬤ | Nindel et al. (2023): automatic inference of procedural wood from photo — distortion texture recovery, curved Gabor ring detection. [Link](https://doi.org/10.48550/arxiv.2302.01820) | [30](STUDY-030-procedural-wood-grain.md) |
-| ⬤ | jsabbott / Olde Tinkerer Studio: *How do you make a procedurally generated realistic wood material in Blender 3D?* — noise→Musgrave domain warp, anisotropic mapping, layered ramps. [Link](https://oldetinkererstudio.com/how-do-you-make-a-procedurally-generated-realistic-wood-material-in-blender-3d/) | [30](STUDY-030-procedural-wood-grain.md) |
+| ⬤ | CSS-Tricks: *Creating Patterns With SVG Filters* — anisotropic `baseFrequency` for directional grain; `stitchTiles`. [Link](https://css-tricks.com/creating-patterns-with-svg-filters/) | [30](STUDY-030-procedural-wood-grain.md) |
+| ⬤ | CSS-Tricks: *Grainy Gradients* — noise overlay + blend mode stack. [Link](https://css-tricks.com/grainy-gradients/) | [29](STUDY-029-progressive-textures.md), [30](STUDY-030-procedural-wood-grain.md) |
+| ◐ | OTOY / GLSL / Blender / Wilkie / Liu wood-shader papers — 3D ring models; background only. | [30](STUDY-030-procedural-wood-grain.md) |
 
 ---
 
