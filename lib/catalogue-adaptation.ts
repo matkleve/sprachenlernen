@@ -14,12 +14,14 @@ import { computeCoverage, sourceText, type Source } from "@/lib/coverage";
 import type { Lexicon } from "@/lib/lexicon";
 
 export const DEFAULT_T2_PROMPT_VERSION = "v1";
+export const DEFAULT_T3_PROMPT_VERSION = "v1";
 
 export type AdaptationRewriteInput = {
   originalBody: string;
   targetLevel: string;
   languageCode: string;
   heldLemmas: ReadonlySet<string>;
+  tier?: "T2" | "T3";
 };
 
 export type AdaptationRewriteFn = (input: AdaptationRewriteInput) => Promise<string>;
@@ -129,6 +131,7 @@ export async function adaptCatalogueSource(
       targetLevel: input.targetLevel,
       languageCode: input.source.languageCode,
       heldLemmas: input.heldLemmas,
+      tier,
     });
 
     const coverage = computeCoverage(lastBody, input.lexicon, input.heldLemmas);

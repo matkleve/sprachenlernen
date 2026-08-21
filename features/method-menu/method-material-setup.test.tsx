@@ -14,6 +14,7 @@ vi.mock("next/navigation", () => ({
 
 vi.mock("./material-setup-actions", () => ({
   previewOwnMaterialAction: vi.fn(),
+  grantAdaptationConsentAction: vi.fn(),
   startMaterialPracticeAction: vi.fn().mockResolvedValue({
     status: "ok",
     href: "/practice?method=partial-dictation&sourceId=learner-1",

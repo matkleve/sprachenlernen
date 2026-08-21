@@ -13,5 +13,5 @@
 - [x] Given any adapted source detail, when rendered, then adaptation label is
       visible, personal coverage % is shown, and `sourceUrl` links to original
       when lane B.
-- [ ] Given learner upload without processing consent, when opened, then only
+- [x] Given learner upload without processing consent, when opened, then only
       original text is shown.

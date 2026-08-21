@@ -35,6 +35,9 @@ export type MaterialSetupLabels = {
   t1SupportLine: (coveragePercent: number, gapCount: number) => string;
   blockedLine: (coveragePercent: number, targetLevel: string) => string;
   adaptationLabel: (targetLevel: string) => string;
+  adaptationFailed: (targetLevel: string) => string;
+  processingConsent: string;
+  processingConsentHint: string;
   appPickPreview: (coveragePercent: number, bandLabel: string) => string;
   emptyTopic: string;
   keepInLibrary: string;
@@ -72,6 +75,9 @@ export type MaterialSetupPreview = {
   deliveryGate?: DeliveryGate;
   startEnabled?: boolean;
   t1GapCount?: number;
+  needsAdaptation?: boolean;
+  processingConsentRequired?: boolean;
+  adaptationError?: string;
 };
 
 export type MaterialSetupContext = {
