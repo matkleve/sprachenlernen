@@ -7,6 +7,7 @@ import {
   buildMacroNoiseUri,
   buildMicroNoiseUri,
   buildNoiseLayerFilter,
+  noiseUriToImageSrc,
   type GrainBlendMode,
   type GrainParams,
 } from "./grain-creator";
@@ -34,27 +35,52 @@ function canvasBlendMode(mode: GrainBlendMode): GlobalCompositeOperation {
   }
 }
 
-function loadImage(src: string): Promise<HTMLImageElement> {
+function loadImage(src: string, label = "image"): Promise<HTMLImageElement> {
   return new Promise((resolve, reject) => {
     const image = new Image();
-    image.onload = () => resolve(image);
-    image.onerror = () => reject(new Error("Failed to load grain noise image"));
+    image.onload = () => {
+      void image.decode().then(() => resolve(image)).catch(() => resolve(image));
+    };
+    image.onerror = () => reject(new Error(`Failed to load ${label}`));
     image.src = src;
   });
+}
+
+export function buildSyntheticReferenceImageData(size = GRAIN_ANALYSIS_SIZE): ImageData {
+  const data = new Uint8ClampedArray(size * size * 4);
+  for (let y = 0; y < size; y++) {
+    const valley = Math.sin((y / 18) * Math.PI * 2) < 0;
+    for (let x = 0; x < size; x++) {
+      const offset = (y * size + x) * 4;
+      const value = valley ? 36 : 168;
+      data[offset] = value;
+      data[offset + 1] = Math.round(value * 0.68);
+      data[offset + 2] = Math.round(value * 0.42);
+      data[offset + 3] = 255;
+    }
+  }
+  return new ImageData(data, size, size);
 }
 
 export async function loadReferenceImageData(
   src: string,
   size = GRAIN_ANALYSIS_SIZE,
 ): Promise<ImageData> {
-  const image = await loadImage(src);
-  const canvas = document.createElement("canvas");
-  canvas.width = size;
-  canvas.height = size;
-  const ctx = canvas.getContext("2d");
-  if (!ctx) throw new Error("Canvas unavailable");
-  ctx.drawImage(image, 0, 0, size, size);
-  return ctx.getImageData(0, 0, size, size);
+  try {
+    const image = await loadImage(src, "reference image");
+    const canvas = document.createElement("canvas");
+    canvas.width = size;
+    canvas.height = size;
+    const ctx = canvas.getContext("2d");
+    if (!ctx) throw new Error("Canvas unavailable");
+    ctx.drawImage(image, 0, 0, size, size);
+    return ctx.getImageData(0, 0, size, size);
+  } catch {
+    if (src.startsWith("blob:")) {
+      throw new Error("Failed to load uploaded reference image");
+    }
+    return buildSyntheticReferenceImageData(size);
+  }
 }
 
 async function drawNoiseLayer(
@@ -71,7 +97,7 @@ async function drawNoiseLayer(
   width: number,
   height: number,
 ): Promise<void> {
-  const image = await loadImage(uri);
+  const image = await loadImage(noiseUriToImageSrc(uri), "grain noise layer");
   const [sizeX, sizeY] =
     params.sizing === "stretch" ? [width, height] : [params.tileWidthPx, params.tileHeightPx];
 
@@ -197,7 +223,7 @@ export type GrainRefineResult = {
 export async function refineParamsTowardReference(
   reference: ImageData,
   start: GrainParams,
-  iterations = 48,
+  iterations = 24,
 ): Promise<GrainRefineResult> {
   let bestParams: GrainParams = { ...start, macroSizing: "stretch", microSizing: "stretch" };
   let bestScore = computeMatchScore(reference, await renderGrainImageData(bestParams, reference.width));

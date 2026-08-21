@@ -8,6 +8,7 @@ import {
   DEFAULT_GRAIN_PARAMS,
   GRAIN_PRESETS,
   isAnisotropicAlongFibre,
+  noiseUriToImageSrc,
   usesProceduralNoiseOnly,
   usesStretchSizing,
 } from "./grain-creator";
@@ -41,5 +42,9 @@ describe("grain-creator", () => {
     expect(isAnisotropicAlongFibre(DEFAULT_GRAIN_PARAMS.macroFreqX, DEFAULT_GRAIN_PARAMS.macroFreqY)).toBe(
       true,
     );
+  });
+
+  it("strips css url wrapper for canvas image loading", () => {
+    expect(noiseUriToImageSrc('url("data:image/svg+xml,abc")')).toBe("data:image/svg+xml,abc");
   });
 });

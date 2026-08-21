@@ -50,8 +50,27 @@ export const GRAIN_PRESET_IDS: readonly GrainPresetId[] = [
   "stock-bar",
 ] as const;
 
-/** Workshop 1 raw-planks crop from the progression reference board. */
-export const GRAIN_REFERENCE_IMAGE = "/design/grain-creator/workshop-1-raw-planks.webp";
+/** Workshop 1 raw-planks stand-in — inline so img + canvas always load (no 404). */
+const GRAIN_REFERENCE_SVG =
+  "<svg xmlns='http://www.w3.org/2000/svg' width='512' height='512' viewBox='0 0 512 512'>" +
+  "<rect width='512' height='512' fill='%232a1c10'/>" +
+  "<rect width='512' height='36' y='0' fill='%231a1208' opacity='0.85'/>" +
+  "<rect width='512' height='28' y='44' fill='%233f2a18' opacity='0.75'/>" +
+  "<rect width='512' height='32' y='88' fill='%231f150c' opacity='0.9'/>" +
+  "<rect width='512' height='24' y='132' fill='%234a3220' opacity='0.7'/>" +
+  "<rect width='512' height='40' y='168' fill='%23181008' opacity='0.88'/>" +
+  "<rect width='512' height='30' y='220' fill='%23362415' opacity='0.78'/>" +
+  "<rect width='512' height='36' y='262' fill='%231a1208' opacity='0.86'/>" +
+  "<rect width='512' height='28' y='310' fill='%23422c1a' opacity='0.72'/>" +
+  "<rect width='512' height='34' y='352' fill='%2315100a' opacity='0.9'/>" +
+  "<rect width='512' height='26' y='398' fill='%233d2918' opacity='0.76'/>" +
+  "<rect width='512' height='38' y='438' fill='%23120c06' opacity='0.88'/>" +
+  "<rect width='512' height='36' y='476' fill='%23342214' opacity='0.74'/>" +
+  "</svg>";
+
+export const GRAIN_REFERENCE_IMAGE = `data:image/svg+xml,${encodeURIComponent(GRAIN_REFERENCE_SVG)}`;
+/** Static file copy for docs; the page uses {@link GRAIN_REFERENCE_IMAGE} data URI. */
+export const GRAIN_REFERENCE_FILE = "/design/grain-creator/workshop-1-raw-planks.svg";
 
 export const DEFAULT_GRAIN_PARAMS: GrainParams = {
   baseColor: "#2a1c10",
@@ -178,6 +197,12 @@ export function buildMicroNoiseUri(
     valleySharpness: params.microValleySharpness,
     svgOpacity: 0.75,
   });
+}
+
+/** Strip `url("…")` wrapper so canvas Image.src gets a bare data URI. */
+export function noiseUriToImageSrc(cssUrl: string): string {
+  const match = cssUrl.match(/^url\(["']?(.+?)["']?\)$/);
+  return match?.[1] ?? cssUrl;
 }
 
 export function buildNoiseLayerFilter(contrast: number, brightness: number): string {

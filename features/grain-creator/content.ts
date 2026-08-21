@@ -10,7 +10,7 @@ export const page = {
   generatedHeading: "Generated",
   referenceAlt: "Reference board crop — raw wood planks, workshop stage 1",
   referenceMissing: (path: string) =>
-    `Reference crop missing. Add ${path} (workshop 1 background from the design board).`,
+    `Reference crop missing. Upload your own image or add ${path}.`,
   sizingNote:
     "Stretch fills the area with one noise sample — no tile seam. Tile repeats a bitmap (can show a straight cut).",
   viewSplit: "Split",
@@ -22,7 +22,11 @@ export const page = {
   scoreLabel: (rmse: string) => `Diff RMSE: ${rmse} (lower = closer)`,
   diffHeading: "Difference heatmap",
   diffAlt: "Pixel difference between reference luminance and generated grain",
-  diffPending: "Computing diff… upload a reference crop if none is loaded.",
+  diffPending: "Computing diff… switch here after the reference loads.",
+  compareFailed: "Could not load or compare the reference image. Upload a crop or retry.",
+  analyzeDone: "Applied valley hints from the reference luminance.",
+  autoFitRunning: "Auto-fit running — about 10 seconds…",
+  autoFitDone: (rmse: string) => `Auto-fit finished. Diff RMSE: ${rmse} (lower = closer).`,
   macroHeading: "Macro terrain (valleys)",
   microHeading: "Micro fibre",
   presetsHeading: "Presets",

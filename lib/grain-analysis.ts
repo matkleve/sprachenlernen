@@ -9,13 +9,6 @@
 
 import type { GrainParams } from "./grain-creator";
 
-export {
-  loadReferenceImageData,
-  refineParamsTowardReference,
-  renderGrainImageData,
-  type GrainRefineResult,
-} from "./grain-analysis-render";
-
 export const GRAIN_ANALYSIS_SIZE = 256;
 
 export type GrainAnalysisMetrics = {

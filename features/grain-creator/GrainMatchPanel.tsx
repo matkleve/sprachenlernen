@@ -1,18 +1,20 @@
 "use client";
 
-import { useCallback, useEffect, useId, useMemo, useState } from "react";
+import { useCallback, useEffect, useId, useMemo, useRef, useState } from "react";
 
 import {
   analyzeReferenceImage,
   buildDiffHeatmapImage,
   computeMatchScore,
   GRAIN_ANALYSIS_SIZE,
+  type GrainMatchScore,
+} from "@/lib/grain-analysis";
+import {
   loadReferenceImageData,
   refineParamsTowardReference,
   renderGrainImageData,
-  type GrainMatchScore,
-} from "@/lib/grain-analysis";
-import { GRAIN_REFERENCE_IMAGE, type GrainParams } from "@/lib/grain-creator";
+} from "@/lib/grain-analysis-render";
+import { GRAIN_REFERENCE_FILE, GRAIN_REFERENCE_IMAGE, type GrainParams } from "@/lib/grain-creator";
 import { cn } from "@/lib/utils";
 
 import { page } from "./content";
@@ -28,56 +30,91 @@ type GrainMatchPanelProps = {
 
 export function GrainMatchPanel({ params, onApplyParams, onReplaceParams }: GrainMatchPanelProps) {
   const uploadId = useId();
+  const compareToken = useRef(0);
   const [referenceSrc, setReferenceSrc] = useState(GRAIN_REFERENCE_IMAGE);
-  const [referenceMissing, setReferenceMissing] = useState(false);
+  const [referenceReady, setReferenceReady] = useState(false);
   const [viewMode, setViewMode] = useState<ViewMode>("split");
   const [score, setScore] = useState<GrainMatchScore | null>(null);
   const [busy, setBusy] = useState(false);
+  const [statusMessage, setStatusMessage] = useState<string | null>(null);
   const [diffUrl, setDiffUrl] = useState<string | null>(null);
 
-  const recomputeScore = useCallback(async () => {
-    if (referenceMissing) {
+  const referenceMissing = !referenceReady;
+
+  const probeReference = useCallback(async (src: string) => {
+    try {
+      await loadReferenceImageData(src, GRAIN_ANALYSIS_SIZE);
+      setReferenceReady(true);
+      setStatusMessage(null);
+      return true;
+    } catch {
+      setReferenceReady(false);
       setScore(null);
+      setDiffUrl(null);
+      setStatusMessage(page.referenceMissing(GRAIN_REFERENCE_FILE));
+      return false;
+    }
+  }, []);
+
+  useEffect(() => {
+    void probeReference(referenceSrc);
+  }, [probeReference, referenceSrc]);
+
+  const compareToReference = useCallback(
+    async (nextParams: GrainParams, mode: ViewMode) => {
+      if (!referenceReady) return;
+
+      const token = ++compareToken.current;
+      try {
+        const reference = await loadReferenceImageData(referenceSrc, GRAIN_ANALYSIS_SIZE);
+        const generated = await renderGrainImageData(nextParams, GRAIN_ANALYSIS_SIZE);
+        if (token !== compareToken.current) return;
+
+        setScore(computeMatchScore(reference, generated));
+
+        if (mode === "diff") {
+          const heatmap = buildDiffHeatmapImage(reference, generated);
+          const canvas = document.createElement("canvas");
+          canvas.width = heatmap.width;
+          canvas.height = heatmap.height;
+          canvas.getContext("2d")?.putImageData(heatmap, 0, 0);
+          setDiffUrl(canvas.toDataURL("image/png"));
+        }
+    } catch {
+      if (token !== compareToken.current) return;
+      setScore(null);
+      setDiffUrl(null);
+      setStatusMessage(page.compareFailed);
+    }
+    },
+    [referenceReady, referenceSrc],
+  );
+
+  useEffect(() => {
+    if (viewMode !== "diff" || !referenceReady) {
       setDiffUrl(null);
       return;
     }
 
-    try {
-      const reference = await loadReferenceImageData(referenceSrc, GRAIN_ANALYSIS_SIZE);
-      const generated = await renderGrainImageData(params, GRAIN_ANALYSIS_SIZE);
-      const nextScore = computeMatchScore(reference, generated);
-      setScore(nextScore);
-
-      if (viewMode === "diff") {
-        const heatmap = buildDiffHeatmapImage(reference, generated);
-        const canvas = document.createElement("canvas");
-        canvas.width = heatmap.width;
-        canvas.height = heatmap.height;
-        canvas.getContext("2d")?.putImageData(heatmap, 0, 0);
-        setDiffUrl(canvas.toDataURL("image/png"));
-      } else {
-        setDiffUrl(null);
-      }
-    } catch {
-      setReferenceMissing(true);
-      setScore(null);
-      setDiffUrl(null);
-    }
-  }, [params, referenceMissing, referenceSrc, viewMode]);
-
-  useEffect(() => {
     const timer = window.setTimeout(() => {
-      void recomputeScore();
-    }, 180);
+      void compareToReference(params, "diff");
+    }, 400);
+
     return () => window.clearTimeout(timer);
-  }, [recomputeScore]);
+  }, [compareToReference, params, referenceReady, viewMode]);
 
   async function analyzeReference() {
     setBusy(true);
+    setStatusMessage(null);
     try {
       const reference = await loadReferenceImageData(referenceSrc, GRAIN_ANALYSIS_SIZE);
       const { suggested } = analyzeReferenceImage(reference);
       onApplyParams(suggested);
+      setReferenceReady(true);
+      setStatusMessage(page.analyzeDone);
+      await compareToReference({ ...params, ...suggested }, viewMode);
+    } catch {
+      setStatusMessage(page.compareFailed);
     } finally {
       setBusy(false);
     }
@@ -85,11 +122,19 @@ export function GrainMatchPanel({ params, onApplyParams, onReplaceParams }: Grai
 
   async function autoFit() {
     setBusy(true);
+    setStatusMessage(page.autoFitRunning);
     try {
       const reference = await loadReferenceImageData(referenceSrc, GRAIN_ANALYSIS_SIZE);
-      const result = await refineParamsTowardReference(reference, params, 56);
+      const result = await refineParamsTowardReference(reference, params, 24);
       onReplaceParams(result.params);
+      setReferenceReady(true);
       setScore(result.score);
+      setStatusMessage(page.autoFitDone(result.score.rmse.toFixed(1)));
+      if (viewMode === "diff") {
+        await compareToReference(result.params, "diff");
+      }
+    } catch {
+      setStatusMessage(page.compareFailed);
     } finally {
       setBusy(false);
     }
@@ -100,7 +145,10 @@ export function GrainMatchPanel({ params, onApplyParams, onReplaceParams }: Grai
     if (!file) return;
     const url = URL.createObjectURL(file);
     setReferenceSrc(url);
-    setReferenceMissing(false);
+    setReferenceReady(false);
+    setScore(null);
+    setDiffUrl(null);
+    setStatusMessage(null);
   }
 
   const viewButtons = useMemo(
@@ -142,7 +190,7 @@ export function GrainMatchPanel({ params, onApplyParams, onReplaceParams }: Grai
         <input id={uploadId} type="file" accept="image/*" className="sr-only" onChange={onUpload} />
       </div>
 
-      <div className="flex flex-wrap gap-2">
+      <div className="flex flex-wrap items-center gap-2">
         <button
           type="button"
           disabled={busy || referenceMissing}
@@ -170,19 +218,19 @@ export function GrainMatchPanel({ params, onApplyParams, onReplaceParams }: Grai
           {page.autoFit}
         </button>
         {score ? (
-          <p className="self-center text-sm text-muted">
-            {page.scoreLabel(score.rmse.toFixed(1))}
-          </p>
+          <p className="text-sm text-muted">{page.scoreLabel(score.rmse.toFixed(1))}</p>
         ) : null}
       </div>
 
+      {statusMessage ? (
+        <p className="text-sm text-muted" role="status">
+          {statusMessage}
+        </p>
+      ) : null}
+
       {viewMode === "split" ? (
         <div className="grid gap-3 sm:grid-cols-2">
-          <ReferencePanel
-            referenceSrc={referenceSrc}
-            referenceMissing={referenceMissing}
-            onMissing={() => setReferenceMissing(true)}
-          />
+          <ReferencePanel referenceSrc={referenceSrc} referenceMissing={referenceMissing} />
           <GeneratedPanel params={params} />
         </div>
       ) : null}
@@ -192,7 +240,9 @@ export function GrainMatchPanel({ params, onApplyParams, onReplaceParams }: Grai
           {!referenceMissing ? (
             // eslint-disable-next-line @next/next/no-img-element
             <img src={referenceSrc} alt={page.referenceAlt} className="absolute inset-0 size-full object-cover" />
-          ) : null}
+          ) : (
+            <div className="absolute inset-0 bg-surface-raised" aria-hidden />
+          )}
           <div className="absolute inset-0 opacity-55 mix-blend-multiply">
             <GrainPreview params={params} className="absolute inset-0" />
           </div>
@@ -210,7 +260,7 @@ export function GrainMatchPanel({ params, onApplyParams, onReplaceParams }: Grai
           </figure>
         ) : (
           <p className="min-h-72 rounded-card border border-line bg-surface-raised p-6 text-center text-sm text-muted">
-            {referenceMissing ? page.referenceMissing(GRAIN_REFERENCE_IMAGE) : page.diffPending}
+            {referenceMissing ? page.referenceMissing(GRAIN_REFERENCE_FILE) : page.diffPending}
           </p>
         )
       ) : null}
@@ -221,11 +271,9 @@ export function GrainMatchPanel({ params, onApplyParams, onReplaceParams }: Grai
 function ReferencePanel({
   referenceSrc,
   referenceMissing,
-  onMissing,
 }: {
   referenceSrc: string;
   referenceMissing: boolean;
-  onMissing: () => void;
 }) {
   return (
     <figure className="flex flex-col gap-2">
@@ -240,16 +288,11 @@ function ReferencePanel({
       >
         {referenceMissing ? (
           <p className="absolute inset-0 flex items-center justify-center p-6 text-center text-sm text-muted">
-            {page.referenceMissing(GRAIN_REFERENCE_IMAGE)}
+            {page.referenceMissing(GRAIN_REFERENCE_FILE)}
           </p>
         ) : (
           // eslint-disable-next-line @next/next/no-img-element
-          <img
-            src={referenceSrc}
-            alt={page.referenceAlt}
-            className="size-full object-cover object-left-top"
-            onError={onMissing}
-          />
+          <img src={referenceSrc} alt={page.referenceAlt} className="size-full object-cover object-left-top" />
         )}
       </div>
     </figure>

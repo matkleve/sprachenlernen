@@ -8,6 +8,7 @@ import {
   buildNoiseLayerFilter,
   type GrainParams,
 } from "@/lib/grain-creator";
+import { cn } from "@/lib/utils";
 
 export function GrainPreview({ params, className }: { params: GrainParams; className?: string }) {
   const macroStyle = useMemo(
@@ -44,7 +45,7 @@ export function GrainPreview({ params, className }: { params: GrainParams; class
 
   return (
     <div
-      className={className}
+      className={cn("relative", className)}
       style={{ backgroundColor: params.baseColor }}
       aria-hidden
     >
