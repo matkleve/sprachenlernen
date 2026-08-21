@@ -4,7 +4,6 @@ import {
   chapterForStage,
   clampStage,
   crossesChapter,
-  lampCount,
   MAX_STAGE,
   MIN_STAGE,
   progressionStages,
@@ -21,15 +20,9 @@ const CONTRAST_BEARING = [
   "--color-muted",
 ] as const;
 
-const DECORATIVE = [
-  "--stage-glow",
-  "--stage-grain",
-  "--stage-bevel",
-  "--stage-rule",
-] as const;
+const DECORATIVE = ["--stage-glow", "--stage-grain", "--stage-bevel", "--stage-rule"] as const;
 
-const styleAt = (stage: number, lit = true) =>
-  stageScopeStyle({ stage, lit }) as unknown as Record<string, string>;
+const styleAt = (stage: number) => stageScopeStyle({ stage }) as unknown as Record<string, string>;
 
 describe("chapterForStage", () => {
   it.each([
@@ -106,33 +99,7 @@ describe("every step is perceptible in the output", () => {
     const a = styleAt(from);
     const b = styleAt(to);
     const changed = DECORATIVE.some((token) => a[token] !== b[token]);
-    const lampsChanged = lampCount(from) !== lampCount(to);
-    expect(changed || lampsChanged).toBe(true);
-  });
-});
-
-describe("built versus lit", () => {
-  it("dims the light when nobody has been here", () => {
-    expect(Number(styleAt(6, false)["--stage-glow"])).toBeLessThan(
-      Number(styleAt(6, true)["--stage-glow"]),
-    );
-    expect(Number(styleAt(6, false)["--stage-lamp-opacity"])).toBeLessThan(1);
-  });
-
-  it("never takes a lamp away — structure is biography, not a punishment", () => {
-    for (const entry of progressionStages) {
-      expect(lampCount(entry.stage)).toBe(entry.lamps);
-    }
-    // `lit` is not even an input to the count.
-    expect(lampCount(8)).toBeGreaterThan(lampCount(1));
-  });
-
-  it("leaves colours untouched when unlit — dimming is not a theme change", () => {
-    const lit = styleAt(5, true);
-    const unlit = styleAt(5, false);
-    for (const token of CONTRAST_BEARING) {
-      expect(unlit[token]).toBe(lit[token]);
-    }
+    expect(changed).toBe(true);
   });
 });
 

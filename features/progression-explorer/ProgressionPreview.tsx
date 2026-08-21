@@ -8,7 +8,7 @@ import { GradeButton } from "@/components/ui/GradeButton";
 import { Input } from "@/components/ui/Input";
 import { SkillTierBadge } from "@/features/method-menu/SkillTierBadge";
 import { borderWeightClass } from "@/lib/design-themes";
-import { chapterForStage, lampCount, stageScopeStyle } from "@/lib/progression-stage";
+import { chapterForStage, stageScopeStyle } from "@/lib/progression-stage";
 import { cn } from "@/lib/utils";
 
 import { page } from "./content";
@@ -29,32 +29,10 @@ import { page } from "./content";
 
 type ProgressionPreviewProps = {
   stage: number;
-  lit: boolean;
   className?: string;
 };
 
-/** Fixed installations, drawn as a row of small warm points along the top edge. */
-function Lamps({ count }: { count: number }) {
-  if (count === 0) return null;
-
-  return (
-    <div
-      aria-hidden
-      className="pointer-events-none absolute inset-x-0 top-0 flex justify-center gap-6 pt-1"
-      style={{ opacity: "var(--stage-lamp-opacity)" }}
-    >
-      {Array.from({ length: count }, (_, index) => (
-        <span
-          key={index}
-          className="size-1.5 rounded-pill bg-accent"
-          style={{ boxShadow: "0 0 12px 3px var(--color-accent)" }}
-        />
-      ))}
-    </div>
-  );
-}
-
-export function ProgressionPreview({ stage, lit, className }: ProgressionPreviewProps) {
+export function ProgressionPreview({ stage, className }: ProgressionPreviewProps) {
   const chapter = chapterForStage(stage);
   const { preview } = page;
 
@@ -65,7 +43,7 @@ export function ProgressionPreview({ stage, lit, className }: ProgressionPreview
         borderWeightClass(chapter.borderWeight),
         className,
       )}
-      style={stageScopeStyle({ stage, lit })}
+      style={stageScopeStyle({ stage })}
     >
       {/* Light — a warm pool from above. Opacity is the stage's, colour is the chapter's. */}
       <div
@@ -84,17 +62,15 @@ export function ProgressionPreview({ stage, lit, className }: ProgressionPreview
         style={{
           opacity: "var(--stage-grain)",
           backgroundImage:
-            "repeating-linear-gradient(93deg, var(--color-ink) 0 0.5px, transparent 0.5px 3px, var(--color-ink) 3px 3.5px, transparent 3.5px 11px)",
+            "repeating-linear-gradient(93deg, var(--color-ink) 0 1px, transparent 1px 2.5px, var(--color-ink) 2.5px 4px, transparent 4px 9px)",
           // `black` here is an alpha value, not a colour: a mask uses only the
           // alpha channel, so no token applies and theming is unaffected. It
           // makes the grain strongest under the light and fade out below.
-          maskImage: "radial-gradient(120% 100% at 50% 0%, black 30%, transparent 100%)",
+          maskImage: "radial-gradient(120% 100% at 50% 0%, black 40%, transparent 100%)",
         }}
       />
 
-      <Lamps count={lampCount(stage)} />
-
-      <div className="relative flex flex-col gap-5 p-5 pt-6">
+      <div className="relative flex flex-col gap-5 p-5">
         {/* Shell header */}
         {/*
           Two lines, not one: the hairline is structure and is always there, the
@@ -157,7 +133,7 @@ export function ProgressionPreview({ stage, lit, className }: ProgressionPreview
         </article>
 
         {/* Progress stat + a rule whose weight is the stage's ornament */}
-        <div className="rounded-card border border-line bg-surface p-4">
+        <div className="rounded-card border border-line bg-surface p-4 shadow-soft">
           <div
             className="pb-2"
             style={{

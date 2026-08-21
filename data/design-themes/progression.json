@@ -101,72 +101,64 @@
     {
       "stage": 1,
       "label": "Bare bench",
-      "lamps": 0,
       "glow": 0.0,
-      "grain": 0.05,
+      "grain": 0.15,
       "bevel": 0,
       "rule": 0.0
     },
     {
       "stage": 2,
-      "label": "First lamp",
-      "lamps": 1,
+      "label": "First polish",
       "glow": 0.1,
-      "grain": 0.044,
+      "grain": 0.13,
       "bevel": 1,
       "rule": 0.0
     },
     {
       "stage": 3,
-      "label": "Planed and lit",
-      "lamps": 2,
+      "label": "Planed and warm",
       "glow": 0.18,
-      "grain": 0.038,
+      "grain": 0.11,
       "bevel": 1,
       "rule": 0.35
     },
     {
       "stage": 4,
       "label": "Shelves",
-      "lamps": 2,
       "glow": 0.14,
-      "grain": 0.032,
+      "grain": 0.095,
       "bevel": 1,
       "rule": 0.45
     },
     {
       "stage": 5,
       "label": "Gallery",
-      "lamps": 3,
       "glow": 0.22,
-      "grain": 0.028,
+      "grain": 0.085,
       "bevel": 2,
       "rule": 0.6
     },
     {
       "stage": 6,
       "label": "Map room",
-      "lamps": 4,
       "glow": 0.3,
-      "grain": 0.024,
+      "grain": 0.075,
       "bevel": 2,
       "rule": 0.75
     },
     {
       "stage": 7,
       "label": "Dome by day",
-      "lamps": 4,
       "glow": 0.24,
-      "grain": 0.022,
+      "grain": 0.07,
       "bevel": 2,
       "rule": 0.7
     },
     {
       "stage": 8,
       "label": "Dome by night",
-      "lamps": 6,
       "glow": 0.38,
-      "grain": 0.018,
+      "grain": 0.06,
       "bevel": 3,
       "rule": 0.9
     }

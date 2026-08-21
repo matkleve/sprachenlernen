@@ -118,9 +118,14 @@
   --radius-chip: 0.375rem;
   --radius-pill: 9999px;
 
-  /* Elevation */
-  --shadow-soft: 0 1px 2px rgb(44 36 25 / 0.06), 0 1px 3px rgb(44 36 25 / 0.04);
-  --shadow-raised: 0 4px 12px rgb(44 36 25 / 0.08), 0 2px 4px rgb(44 36 25 / 0.04);
+  /* Elevation — layered, warm-tinted; stronger than a hairline so cards read
+     as objects on the canvas (ForJu-style depth). */
+  --shadow-soft:
+    0 2px 6px rgb(44 36 25 / 0.12), 0 1px 3px rgb(44 36 25 / 0.08),
+    0 0 1px rgb(44 36 25 / 0.06);
+  --shadow-raised:
+    0 12px 32px rgb(44 36 25 / 0.16), 0 4px 12px rgb(44 36 25 / 0.1),
+    0 2px 4px rgb(44 36 25 / 0.06);
 
   /* Motion. Tailwind has no --duration theme namespace, so the duration scale
      is a convention instead: 150 for feedback, 200 for larger moves, 300 for
@@ -274,8 +279,12 @@
     --color-section-world: #90b0b8;
     --color-section-commitments: #b090b8;
 
-    --shadow-soft: 0 1px 2px rgb(0 0 0 / 0.4), 0 1px 3px rgb(0 0 0 / 0.3);
-    --shadow-raised: 0 4px 12px rgb(0 0 0 / 0.5), 0 2px 4px rgb(0 0 0 / 0.3);
+    --shadow-soft:
+      0 2px 6px rgb(0 0 0 / 0.45), 0 1px 3px rgb(0 0 0 / 0.35),
+      0 0 1px rgb(0 0 0 / 0.25);
+    --shadow-raised:
+      0 12px 32px rgb(0 0 0 / 0.55), 0 4px 12px rgb(0 0 0 / 0.4),
+      0 2px 4px rgb(0 0 0 / 0.3);
   }
 }
 
@@ -363,7 +372,7 @@
    tokens; if a stage could move `--color-ink` or `--color-canvas`, every stage
    would become a palette to review.
 
-   The values below are the neutral defaults — stage 1, fully lit, no overlay.
+   The values below are the neutral defaults — stage 1, no overlay. `stageScopeStyle()`
    `stageScopeStyle()` overrides them on a scoping element. They are declared
    here rather than only inline so that a component referencing one outside
    that scope renders nothing rather than silently dropping the property.
@@ -378,8 +387,6 @@
   --stage-bevel: 0px;
   /* Weight of the accent rule under a heading. */
   --stage-rule: 0;
-  /* Whether installed lamps are switched on. Never changes how many there are. */
-  --stage-lamp-opacity: 1;
 }
 
 /* --------------------------------------------------------------------------- */

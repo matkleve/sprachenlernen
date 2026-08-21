@@ -10,7 +10,7 @@ import { themeScopeStyle, type BorderWeight, type DesignThemeTokens } from "@/li
  * **Chapter** is a full token set; **stage** is a decorative overlay on top of
  * it. They are separate because they cost differently: a chapter needs a
  * contrast review, a stage cannot need one — it is restricted to properties
- * that never carry text (glow, grain, bevel, rule, lamps).
+ * that never carry text (glow, grain, bevel, rule).
  *
  * That restriction is the load-bearing part. Let a stage move `ink` or
  * `canvas` and every stage becomes a palette to validate: six goes to sixteen,
@@ -34,8 +34,6 @@ export type ProgressionChapter = {
 export type ProgressionStage = {
   stage: number;
   label: string;
-  /** Fixed installations — biography. Never decreases with the stage. */
-  lamps: number;
   glow: number;
   grain: number;
   bevel: number;
@@ -85,39 +83,23 @@ export function crossesChapter(from: number, to: number): boolean {
   return chapterForStage(from).id !== chapterForStage(to).id;
 }
 
-/**
- * How much a room dims when nobody has been there. Applies to *light*, never to
- * structure: the lamps a learner installed stay installed, they are simply off.
- * Coming back turns them on again, which is a welcome rather than a punishment.
- */
-const UNLIT_GLOW_FACTOR = 0.15;
-const UNLIT_LAMP_OPACITY = 0.25;
-
 export type StageScopeInput = {
   stage: number;
-  /** Whether the learner has been here recently. Structure ignores this. */
-  lit: boolean;
 };
 
 /**
  * The chapter's tokens plus the stage's decorative variables, as one style
  * object for a scoping element — the same technique `/dev/design` uses.
  */
-export function stageScopeStyle({ stage, lit }: StageScopeInput): CSSProperties {
+export function stageScopeStyle({ stage }: StageScopeInput): CSSProperties {
   const chapter = chapterForStage(stage);
   const detail = stageDetail(stage);
 
   return {
     ...themeScopeStyle(chapter.tokens),
-    "--stage-glow": String(lit ? detail.glow : detail.glow * UNLIT_GLOW_FACTOR),
+    "--stage-glow": String(detail.glow),
     "--stage-grain": String(detail.grain),
     "--stage-bevel": `${detail.bevel}px`,
     "--stage-rule": String(detail.rule),
-    "--stage-lamp-opacity": String(lit ? 1 : UNLIT_LAMP_OPACITY),
   } as CSSProperties;
-}
-
-/** Lamp count is biography — it never depends on `lit`. */
-export function lampCount(stage: number): number {
-  return stageDetail(stage).lamps;
 }
