@@ -60,6 +60,16 @@ primary label. Shipped ids, allowed types and the render switch are *derived*
 from those descriptors — four parallel lists were how a component could be
 half-registered and fall through to not-built copy in silence.
 
+**Session findings.** A `decide` component may read every step's answer, read
+only — a closing step is *about* the session, and assembling the recap anywhere
+else would put it somewhere that knows less. `summariseSessionFindings` is the
+one function allowed to cross steps; no other component receives it.
+
+**No offer the runner does not perform.** Selecting an offer is wired to
+"complete the step" and nothing else, so a button reading *"Schedule this word
+for review"* promises something that never happens. A closing step states what
+was found; an offer belongs there only once the action behind it exists.
+
 ## Runner chrome
 
 Layout zones and content profiles: [`exercise-runner.layout.md`](exercise-runner.layout.md).
@@ -119,6 +129,7 @@ Implementation: `lib/exercise-recipe.ts`, `lib/exercise-recipe/partial-dictation
 | 5 | `submit` with `capture` | Photo stored session-local; text in memory; **Eingereicht** requires ≥1 per `accept` |
 | 6 | `review` + `self-mark` | Answer key visible; tapped tokens become error list for `decide` |
 | 6b | `do` + `sentence-check` | Writes, taps **Prüfen**, corrects, re-checks; see [`sentence-check.md`](../service/sentence-check.md) |
+| 6c | `decide` + `summary` after checked steps | Recap of what the checks found across the session — categories by frequency, the marked words, and what was examined |
 | 7 | `decide` decline | Exercise **complete**; nothing queued |
 | 8 | Stop mid-recipe | No persistence beyond optional session log; no backlog |
 

@@ -389,7 +389,12 @@
     "sentenceCheckUnavailableHint": "No word list is available for this language. You can carry on.",
     "primaryContinueAnyway": "Continue anyway",
     "misconfiguredComponent": "This step is missing part of its configuration ({component}: {keys}).",
-    "sentenceCheckEdit": "Edit"
+    "sentenceCheckEdit": "Edit",
+    "recapHeading": "{total, plural, one {One finding} other {# findings}} across {checked, plural, one {one sentence} other {# sentences}}.",
+    "recapAllClean": "Nothing found in {checked, plural, one {your sentence} other {your # sentences}}.",
+    "recapCategoryCount": "{count, plural, one {once} other {# times}}",
+    "recapWords": "Marked: {words}",
+    "recapUnavailable": "{count, plural, one {One sentence} other {# sentences}} could not be checked."
   },
   "listeningDefer": {
     "sectionLabel": "Sound",
@@ -760,7 +765,7 @@
         "name": "Build a sentence with a target word",
         "summary": "Write one sentence that uses a given word",
         "trains": "production recall",
-        "doesNotDo": "It stays at one sentence. Nothing in it exercises holding a thought across several sentences, which is where most learners actually break down."
+        "doesNotDo": "Each sentence stands on its own. Nothing in it exercises holding a thought across several sentences, which is where most learners actually break down — and the check finds spelling and agreement, not word order, word choice or idiom."
       },
       "caption-your-photos": {
         "name": "Captioning your own photos",

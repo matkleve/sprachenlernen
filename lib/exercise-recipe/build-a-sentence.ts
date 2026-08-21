@@ -58,15 +58,18 @@ export function composeBuildASentenceRecipe(
     });
   });
 
+  // `summary`, not `offers`. The offer used to read "Schedule this word for
+  // review" while doing nothing but advancing the step — the runner wires
+  // selecting an offer straight to "complete". A promise the app does not keep
+  // has no place on a screen whose whole point is claiming only what it can
+  // support; the closing step now reports what the checks actually found. An
+  // offer returns here when queueing an error as a card exists for real.
   steps.push({
     id: "decide-1",
     type: "decide",
-    component: "offers",
+    component: "summary",
     labelKey: "stepLabelDecide",
-    config: {
-      offers: ["Schedule this word for review"],
-      declineLabel: "Not now — done",
-    },
+    config: {},
   });
 
   return {

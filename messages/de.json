@@ -389,7 +389,12 @@
     "sentenceCheckUnavailableHint": "Für diese Sprache liegt kein Wörterverzeichnis bereit. Du kannst weitermachen.",
     "primaryContinueAnyway": "Trotzdem weiter",
     "misconfiguredComponent": "Dieser Schritt ist unvollständig konfiguriert ({component}: {keys}).",
-    "sentenceCheckEdit": "Ändern"
+    "sentenceCheckEdit": "Ändern",
+    "recapHeading": "{total, plural, one {Ein Befund} other {# Befunde}} in {checked, plural, one {einem Satz} other {# Sätzen}}.",
+    "recapAllClean": "In {checked, plural, one {deinem Satz} other {deinen # Sätzen}} wurde nichts gefunden.",
+    "recapCategoryCount": "{count, plural, one {einmal} other {#-mal}}",
+    "recapWords": "Angestrichen: {words}",
+    "recapUnavailable": "{count, plural, one {Ein Satz konnte} other {# Sätze konnten}} nicht geprüft werden."
   },
   "listeningDefer": {
     "sectionLabel": "Ton",
@@ -760,7 +765,7 @@
         "name": "Einen Satz mit einem Zielwort bilden",
         "summary": "Einen Satz schreiben, der ein gegebenes Wort verwendet",
         "trains": "Produktionsabruf",
-        "doesNotDo": "Es bleibt bei einem Satz. Nichts darin übt, einen Gedanken über mehrere Sätze zu halten — und genau dort brechen die meisten Lernenden ab."
+        "doesNotDo": "Jeder Satz steht für sich. Nichts darin übt, einen Gedanken über mehrere Sätze zu halten — und genau dort brechen die meisten Lernenden ab. Die Prüfung findet Rechtschreibung und Übereinstimmung, nicht Wortstellung, Wortwahl oder Idiomatik."
       },
       "caption-your-photos": {
         "name": "Eigene Fotos beschriften",

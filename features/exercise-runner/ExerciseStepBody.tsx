@@ -4,6 +4,7 @@ import { PracticeSurface } from "@/features/exercise-runner/practice-surface/Pra
 import { renderExerciseStep } from "@/features/exercise-runner/step-registry";
 import type {
   ExerciseRunnerState,
+  SessionFindings,
   StepAnswer,
   StepCheckState,
 } from "@/lib/exercise-runner";
@@ -12,6 +13,7 @@ import { cn } from "@/lib/utils";
 type ExerciseStepBodyProps = {
   step: ExerciseRunnerState["recipe"]["steps"][number];
   answer: StepAnswer;
+  sessionFindings: SessionFindings;
   listeningDeferred?: boolean;
   bodyScrolls?: boolean;
   onTextChange: (text: string) => void;

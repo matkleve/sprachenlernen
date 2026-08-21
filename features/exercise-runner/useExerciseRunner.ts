@@ -13,11 +13,13 @@ import {
   setStepCheck,
   setStepPhoto,
   setStepText,
+  summariseSessionFindings,
   tickTimer,
   toggleMarkedError,
   toggleTimerPause,
   type ExerciseRecipe,
   type ExerciseRunnerState,
+  type SessionFindings,
   type StepAnswer,
   type StepCheckState,
 } from "@/lib/exercise-runner";
@@ -78,6 +80,8 @@ export type UseExerciseRunnerResult = {
   activeAnswer: StepAnswer;
   /** Component-specific primary label key, or `undefined` for the type default. */
   primaryLabelKey: string | undefined;
+  /** What the in-step checks found across the session — for `decide` steps. */
+  sessionFindings: SessionFindings;
   canGoBack: boolean;
   canGoForward: boolean;
   canComplete: boolean;
@@ -190,6 +194,7 @@ export function useExerciseRunner({
     methodName,
     activeStep,
     activeAnswer,
+    sessionFindings: summariseSessionFindings(state),
     primaryLabelKey: activeStep
       ? primaryLabelKeyForAnswer(activeStep, activeAnswer)
       : undefined,

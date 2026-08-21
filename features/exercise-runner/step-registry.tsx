@@ -84,8 +84,13 @@ const RENDERERS: Record<
   offers: ({ step, onDecline, onSelectOffer }) => (
     <OffersStep step={step} onDecline={onDecline} onSelectOffer={onSelectOffer} />
   ),
-  summary: ({ step, onDecline, onSelectOffer }) => (
-    <SummaryStep step={step} onDecline={onDecline} onSelectOffer={onSelectOffer} />
+  summary: ({ step, sessionFindings, onDecline, onSelectOffer }) => (
+    <SummaryStep
+      step={step}
+      sessionFindings={sessionFindings}
+      onDecline={onDecline}
+      onSelectOffer={onSelectOffer}
+    />
   ),
 };
 

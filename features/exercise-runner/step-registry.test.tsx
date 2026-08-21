@@ -3,6 +3,7 @@ import { screen } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 
 import { ExerciseStepBody } from "@/features/exercise-runner/ExerciseStepBody";
+import { NO_SESSION_FINDINGS } from "@/lib/exercise-runner";
 import { EMPTY_STEP_ANSWER } from "@/lib/exercise-runner/types";
 import { SHIPPED_STEP_COMPONENT_IDS } from "@/lib/exercise-step-components";
 
@@ -17,6 +18,7 @@ describe("ExerciseStepBody registry", () => {
           config: {},
         }}
         answer={EMPTY_STEP_ANSWER}
+        sessionFindings={NO_SESSION_FINDINGS}
         onTextChange={() => {}}
         onPhotoChange={() => {}}
         onCheckChange={() => {}}
@@ -40,6 +42,7 @@ describe("ExerciseStepBody registry", () => {
           config: { items: ["Pen and paper"] },
         }}
         answer={EMPTY_STEP_ANSWER}
+        sessionFindings={NO_SESSION_FINDINGS}
         onTextChange={() => {}}
         onPhotoChange={() => {}}
         onCheckChange={() => {}}
@@ -64,6 +67,7 @@ describe("ExerciseStepBody registry", () => {
           config: { body: "Say it out loud.", text: "Hola mundo." },
         }}
         answer={EMPTY_STEP_ANSWER}
+        sessionFindings={NO_SESSION_FINDINGS}
         onTextChange={() => {}}
         onPhotoChange={() => {}}
         onCheckChange={() => {}}
@@ -92,6 +96,7 @@ describe("registry consistency", () => {
         <ExerciseStepBody
           step={{ id: `step-${componentId}`, type: "do", component: componentId, config: {} }}
           answer={EMPTY_STEP_ANSWER}
+          sessionFindings={NO_SESSION_FINDINGS}
           onTextChange={() => {}}
           onPhotoChange={() => {}}
           onCheckChange={() => {}}
