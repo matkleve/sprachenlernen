@@ -27,7 +27,13 @@ const DEV_LINKS: DevLink[] = [
   {
     href: routes.progressionExplorer,
     name: "Progression explorer",
-    description: "One slider through eight interface stages — chapters, texture, depth.",
+    description: "One slider through nine interface stages — chapters, texture, depth.",
+  },
+  {
+    href: routes.materialExplorer,
+    name: "Material explorer",
+    description:
+      "Nine material recipes on the same card + input + button — base, texture, edge, lighting.",
   },
   {
     href: routes.woodTextureLab,
