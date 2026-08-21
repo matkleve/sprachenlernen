@@ -1,10 +1,16 @@
 /**
- * Procedural wood grain — hills and valleys, not growth rings, not colour
- * bands. The reference photo shows undulating horizontal ridges: their
- * height and spacing wander smoothly along x, occasionally merging or
- * splitting, and the light/dark read comes from a raking light across that
- * bump field. One warp field bends a set of horizontal ridges; ridge slope
- * drives brightness the way a real light source would.
+ * Procedural wood grain rendered as a warped ridge field — hills and
+ * valleys, not growth rings, not colour bands. Distinct from
+ * `features/wood-grain-lab/` (owner-tunable SVG-filter wood surface for the
+ * progression skins): this is the canvas renderer backing the
+ * `/dev/wood-textures` species-marking workbench specifically.
+ *
+ * The reference board (`design/progression/reference-board.png`, columns
+ * 1–3) shows undulating horizontal ridges: their height and spacing wander
+ * smoothly along x, occasionally merging or splitting, and the light/dark
+ * read comes from a raking light across that bump field. One warp field
+ * bends a set of horizontal ridges; ridge slope drives brightness the way a
+ * real light source would.
  *
  * See docs/study/STUDY-030-procedural-wood-grain.md for why the earlier
  * colour-band and SVG-turbulence attempts read as vertical stripes instead.

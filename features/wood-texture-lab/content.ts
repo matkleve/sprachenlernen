@@ -1,4 +1,4 @@
-import type { WoodGrainOptions } from "@/lib/wood-grain";
+import type { WoodGrainOptions } from "@/lib/wood-grain-ridges";
 
 export type WoodTexture = {
   id: string;

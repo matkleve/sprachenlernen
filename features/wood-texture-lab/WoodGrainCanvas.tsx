@@ -2,7 +2,7 @@
 
 import { useEffect, useRef } from "react";
 
-import { renderWoodGrain, type WoodGrainOptions } from "@/lib/wood-grain";
+import { renderWoodGrain, type WoodGrainOptions } from "@/lib/wood-grain-ridges";
 
 type WoodGrainCanvasProps = {
   options: WoodGrainOptions;
