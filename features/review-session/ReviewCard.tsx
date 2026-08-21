@@ -141,6 +141,17 @@ export function ReviewCard({
             </p>
           )}
 
+          {card.exampleSentence ? (
+            <p
+              className={cn(
+                "text-muted",
+                compact ? "mt-2 text-sm leading-relaxed md:mt-3" : "mt-3 text-base leading-relaxed",
+              )}
+            >
+              {card.exampleSentence.text}
+            </p>
+          ) : null}
+
           {isFormRecall && (
             <p className={cn("text-muted", compact ? "mt-1 text-xs md:mt-2 md:text-sm" : "mt-2 text-sm")}>
               {languageName

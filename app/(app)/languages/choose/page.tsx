@@ -25,7 +25,7 @@ export default async function ChooseLanguagePage({
   async function choose(code: string) {
     "use server";
     const added = await addLearningLanguage(code);
-    redirect(added.status === "ok" ? routes.appHome : `${routes.chooseLanguage}?failed`);
+    redirect(added.status === "ok" ? routes.learnerWorldSetup : `${routes.chooseLanguage}?failed`);
   }
 
   if (outcome.status === "error") {

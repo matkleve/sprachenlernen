@@ -6,6 +6,7 @@ import type { AdaptationCacheStore } from "@/lib/adaptation-cache";
 import { buildCatalogueMaterialPreview } from "@/lib/adaptation-preview";
 import { computeCoverage, type Source } from "@/lib/coverage";
 import type { Lexicon } from "@/lib/lexicon";
+import type { LearnerWorldId } from "@/lib/learner-world";
 import type { MethodEntry } from "@/lib/method-catalogue";
 import {
   APP_PICK_TOPIC_ID,
@@ -80,7 +81,7 @@ export function buildMaterialSetupContext(
   lexicon: Lexicon,
   heldLemmas: ReadonlySet<string>,
   labels: MaterialSetupLabels,
-  options?: { cache?: AdaptationCacheStore },
+  options?: { cache?: AdaptationCacheStore; activeWorld?: LearnerWorldId },
 ): MaterialSetupContext | null {
   if (!hasMaterialSetup(method)) return null;
 
@@ -89,8 +90,9 @@ export function buildMaterialSetupContext(
   const defaultUnitId = defaultMaterialUnitId(method);
   const previews: MaterialSetupContext["previews"] = {};
   const previewOptions = options?.cache ? { cache: options.cache } : undefined;
+  const activeWorld = options?.activeWorld ?? "general";
 
-  const appPickSource = pickAppPickSource(sources, lexicon, heldLemmas);
+  const appPickSource = pickAppPickSource(sources, lexicon, heldLemmas, activeWorld);
   if (appPickSource) {
     previews[APP_PICK_TOPIC_ID] = {};
     for (const unit of unitOptions) {

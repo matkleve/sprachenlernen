@@ -50,8 +50,12 @@ export const routes = {
   safariBisect: "/safari-bisect",
   /** The signed-in profile — languages, data, sign out. */
   profile: "/profile",
+  /** Dev-only sentence realizer matrix (non-production). */
+  profileDevSentenceRealizer: "/profile/dev/sentence-realizer",
   /** Where a learner chooses what to learn (UC-025). */
   chooseLanguage: "/languages/choose",
+  /** Optional Lernwelt onboarding after the first language (UC-019). */
+  learnerWorldSetup: "/languages/world-setup",
 } as const;
 
 /**

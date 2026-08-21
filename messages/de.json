@@ -63,6 +63,51 @@
     "homeScreenMainSiteButton": "Hauptwebsite öffnen",
     "homeScreenReinstall": "Wenn die untere Symbolleiste auf einigen Seiten erscheint, entfernen Sie das Home-Screen-Symbol, öffnen die Hauptwebsite in Safari und fügen die App erneut von dort hinzu — nicht von einer Unterseite."
   },
+  "sentenceRealizerDev": {
+    "eyebrow": "Dev",
+    "title": "Satz-Realizer",
+    "description": "Zufälliger Plan aus dem Speicher, für jede Person im Präsens über den Lemma-Tabellen-Inversindex gerendert.",
+    "anotherSentence": "Anderer Satz",
+    "back": "Zurück zu Profil Dev",
+    "planLabel": "Plan",
+    "tableCaption": "Gerenderte Satzvarianten nach Person",
+    "personColumn": "Person",
+    "cellColumn": "Zelle",
+    "sentenceColumn": "Satz",
+    "partialWarning": "Einige Personen konnten nicht gerendert werden — fehlende Verb- oder Nomenformen in der Lemma-Tabelle."
+  },
+  "learnerWorld": {
+    "pageTitle": "Lernwelt",
+    "hookTitle": "Wähle eine Lernwelt",
+    "hookBody": "Wörter, Sätze und Texte passen dazu — nicht alles auf einmal, aber spürbar.",
+    "pickTitle": "In welcher Welt willst du die Sprache lernen?",
+    "continue": "Weiter",
+    "skipGeneral": "Erstmal allgemein starten",
+    "startLearning": "Lernen starten",
+    "previewTitle": "Beispiel aus deiner Welt",
+    "profileWorld": "Lernwelt: {world}",
+    "profileAddWorld": "Lernwelt festlegen",
+    "switchTitle": "Lernwelt ändern?",
+    "switchBody": "Deine bisher gelernten Wörter bleiben. Ab der nächsten Session bekommst du mehr aus {world}.",
+    "switchConfirm": "Welt wechseln",
+    "switchCancel": "Abbrechen",
+    "world": {
+      "business": "Business",
+      "everyday": "Alltag",
+      "technical": "Technik",
+      "politics": "Politik",
+      "nature": "Natur & Garten",
+      "general": "Erstmal allgemein"
+    },
+    "preview": {
+      "business": "Beispiel: Der Quartalsbericht ist am Freitag fällig.",
+      "everyday": "Beispiel: Wir treffen uns im Café um die Ecke.",
+      "technical": "Beispiel: Starte den Dienst nach dem Config-Update neu.",
+      "politics": "Beispiel: Das Parlament debattierte das neue Gesetz.",
+      "nature": "Beispiel: Wir gießen die Pflanzen jeden Morgen.",
+      "general": "Beispiel: Sie liest jeden Tag ein bisschen."
+    }
+  },
   "appShell": {
     "navLabel": "Bereiche",
     "mobileNavLabel": "Bereich wechseln",

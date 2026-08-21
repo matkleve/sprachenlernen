@@ -1,7 +1,7 @@
 # UC-011 — Start learning in the first minute, without deciding anything
 
 <!-- id: UC-011 -->
-<!-- specs: SPEC-service-auth, SPEC-service-discovery, SPEC-page-landing, SPEC-feature-privacy-consent, SPEC-service-session-builder, SPEC-service-session-sampling, SPEC-service-method-session-budget, SPEC-feature-review-session, SPEC-service-starter-deck, SPEC-page-language-picker -->
+<!-- specs: SPEC-service-auth, SPEC-service-discovery, SPEC-page-landing, SPEC-feature-privacy-consent, SPEC-service-session-builder, SPEC-service-session-sampling, SPEC-service-method-session-budget, SPEC-feature-review-session, SPEC-service-starter-deck, SPEC-page-language-picker, SPEC-feature-learner-world-setup, SPEC-service-learner-world -->
 
 **Who:** someone who has just signed up and has not yet decided whether they
 mean it.
@@ -10,7 +10,8 @@ mean it.
 anything **beyond the account**.
 
 Derived from [`../study/STUDY-001-duolingo.md`](../study/STUDY-001-duolingo.md) S1 and S3,
-and [`../study/STUDY-009-antipatterns.md`](../study/STUDY-009-antipatterns.md) A9 and A10.
+[`../study/STUDY-009-antipatterns.md`](../study/STUDY-009-antipatterns.md) A9 and A10, and
+[`../study/56-lernwelt-single-choice.md`](../study/56-lernwelt-single-choice.md).
 
 ## Today
 
@@ -21,12 +22,17 @@ them — you tap a language and you are learning.
 
 ## Success looks like
 
-- Signing up and choosing the language pair are the **only** two things asked
-  before the first exercise. Nothing else — no deck, no settings, no level.
+- Signing up and choosing the language pair are the **only required** things
+  before the first exercise. No deck, no settings, no level, no name, no skill
+  survey.
+- **Optional Lernwelt popover** (≤ 3 screens, skippable → Allgemein) may appear
+  **after language pair, before first exercise** — one world pick + one preview
+  sentence ([`learner-world-setup.md`](../specs/feature/learner-world-setup.md)).
+  Skipping keeps the frequency path; it is not a second mandatory gate.
 - Signup asks for nothing beyond what authentication needs. No name, no goal, no
-  survey; each of those is a step S1 says costs users permanently.
-- From the end of signup, the first real exercise is reachable in well under a
-  minute.
+  extended survey; each extra step is a place S1 says costs users permanently.
+- From the end of signup (and optional Lernwelt skip), the first real exercise is
+  reachable in well under a minute.
 - The first session uses a **supplied, frequency-ordered starting set**. Nobody
   has to create a card, pick a deck, or understand card design first. Session
   length is **fixed for onboarding** (15 cards today); menu-driven **budget
@@ -46,12 +52,13 @@ criterion here, and contradicts S1's [A]-graded finding on purpose. The
 reasoning: the tool serves its author first, so the friction is paid once by
 someone who is already committed. Everything else on the list above therefore
 matters more, not less: the account is the only step that survives, so no second
-step may be added beside it.
+**mandatory** step may be added beside it.
 
 The trigger to revisit is in the ADR — the first time the product tries to gain a
 user who is not its author.
 
 ## Out of scope
 
-Choosing goals (UC-019), the level estimate itself (UC-004), and any
-personalisation that needs data that does not exist yet.
+The level estimate itself (UC-004), personalization that needs data that does
+not exist yet, and extended goal questionnaires beyond the single Lernwelt pick
+(full UC-019 lives in Profile edit after onboarding).

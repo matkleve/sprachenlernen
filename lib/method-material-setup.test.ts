@@ -15,6 +15,7 @@ import {
   buildMaterialSetupContext,
   createLearnerSourceFromText,
   hasMaterialSetup,
+  pickAppPickSource,
   pickTopicSource,
   practiceHrefForSetup,
   previewForOwnText,
@@ -84,6 +85,21 @@ describe("topicChipsForMethod", () => {
     const environment = chips.find((chip) => chip.id === "environment");
     expect(environment?.disabled).toBe(true);
     expect(environment?.emptyReason).toBe(labels.emptyTopic);
+  });
+});
+
+describe("pickAppPickSource", () => {
+  it("prefilters app-pick sources by activeWorld before coverage ranking", () => {
+    const politicsPick = pickAppPickSource(sources, lexicon, held, "politics");
+    expect(["es-catalogue-chile", "es-fixture-neutral"]).toContain(politicsPick?.id);
+    expect(politicsPick?.id).not.toBe("es-fixture-cafe");
+
+    const everydayPick = pickAppPickSource(sources, lexicon, held, "everyday");
+    expect(["es-fixture-cafe", "es-fixture-neutral"]).toContain(everydayPick?.id);
+    expect(everydayPick?.id).not.toBe("es-catalogue-chile");
+
+    const businessPick = pickAppPickSource(sources, lexicon, held, "business");
+    expect(businessPick?.id).toBe("es-fixture-neutral");
   });
 });
 

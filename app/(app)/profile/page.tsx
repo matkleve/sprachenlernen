@@ -10,6 +10,7 @@ import { ProfileSignOut } from "@/features/profile/ProfileSignOut";
 import { ProfileSpokenLanguage } from "@/features/profile/ProfileSpokenLanguage";
 import { ProfileYourDataSection } from "@/features/profile/ProfileYourDataSection";
 import { getTranslations } from "next-intl/server";
+import { listLearnerWorlds } from "@/lib/db/learner-world";
 import { readLanguageHoldings } from "@/lib/db/language-holdings";
 import { listLearningLanguages } from "@/lib/db/learning-languages";
 import { getSpokenLanguage } from "@/lib/db/profiles";
@@ -37,6 +38,7 @@ export default async function ProfilePage({
     languages.status === "ok"
       ? await readLanguageHoldings(languages.languages.map((language) => language.languageCode))
       : { status: "error" as const, error: "" };
+  const worlds = await listLearnerWorlds();
 
   return (
     <ShellPageContent width="narrow">
@@ -53,6 +55,7 @@ export default async function ProfilePage({
         <ProfileLanguages
           outcome={languages}
           holdings={holdings.status === "ok" ? holdings.byCode : undefined}
+          worlds={worlds.status === "ok" ? worlds.worlds : undefined}
           switchFailed={switchFailed}
         />
       </div>

@@ -19,6 +19,12 @@ type DevLink = {
 
 const DEV_LINKS: DevLink[] = [
   {
+    href: routes.profileDevSentenceRealizer,
+    name: "Sentence realizer",
+    description:
+      "Random plan from memory, rendered for every present-tense person via the lemma-table inverse index.",
+  },
+  {
     href: routes.progressionExplorer,
     name: "Progression explorer",
     description: "One slider through eight interface stages — chapters, light, lamps.",

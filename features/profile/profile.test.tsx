@@ -287,12 +287,13 @@ describe("ProfileHomeScreenSection", () => {
 });
 
 describe("ProfileSectionNav", () => {
-  const renderNav = (initialSection?: "languages" | "data" | "device") => {
+  const renderNav = (initialSection?: "languages" | "data" | "device" | "dev") => {
     const active = initialSection ?? "languages";
     document.body.innerHTML = `
       <div id="${profilePanelId("languages")}"${active === "languages" ? "" : " hidden"}>Languages panel</div>
       <div id="${profilePanelId("data")}"${active === "data" ? "" : " hidden"}>Data panel</div>
       <div id="${profilePanelId("device")}"${active === "device" ? "" : " hidden"}>Device panel</div>
+      <div id="${profilePanelId("dev")}"${active === "dev" ? "" : " hidden"}>Dev panel</div>
     `;
     return render(<ProfileSectionNav initialSection={initialSection} />);
   };
@@ -304,6 +305,7 @@ describe("ProfileSectionNav", () => {
     expect(screen.getByRole("button", { name: en.profile.sectionLanguages, pressed: true })).toBeDefined();
     expect(document.getElementById(profilePanelId("languages"))?.hidden).toBe(false);
     expect(document.getElementById(profilePanelId("data"))?.hidden).toBe(true);
+    expect(screen.getByRole("button", { name: en.profile.sectionDev })).toBeDefined();
   });
 
   it("switches panels instantly when a pill is tapped", async () => {
@@ -338,6 +340,7 @@ describe("ProfileDevSection", () => {
     render(<ProfileDevSection />);
 
     for (const href of [
+      routes.profileDevSentenceRealizer,
       routes.progressionExplorer,
       routes.designExplorer,
       routes.brandExplorer,

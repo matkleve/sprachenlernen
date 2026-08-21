@@ -13,7 +13,7 @@ import { filterSchedulableCards } from "@/lib/form-recall-staging";
 import { loadSpanishMeaningRecallDeck } from "@/lib/starter-deck";
 import { loadLemmaTable } from "@/lib/lemma-table";
 import { applyReview, newTask as schedulerNewTask } from "@/lib/scheduler";
-import { bucketForTask, isTaskHeld } from "@/lib/vocabulary-snapshot";
+import { bucketForTask } from "@/lib/vocabulary-snapshot";
 
 describe("form-recall pool", () => {
   it("loads the shipped Spanish form-recall pool", () => {
@@ -75,27 +75,12 @@ describe("form-recall staging", () => {
   const hablarMeaning = meaningDeck.deck.cards.find((card) => card.lemma === "hablar")!;
   const hablarForm = formDeck.deck.cards.find((card) => card.lemma === "hablar")! as FormRecallCard;
 
-  it("withholds form-recall until meaning-recall is held", () => {
-    const now = Date.now();
-    let meaningTask = schedulerNewTask(hablarMeaning.taskId, hablarMeaning.wordId);
+  it("passes form-recall through to session sampling (T-W22 soft staging)", () => {
+    const meaningTask = schedulerNewTask(hablarMeaning.taskId, hablarMeaning.wordId);
     expect(bucketForTask(meaningTask)).toBe("new");
 
-    const blocked = filterSchedulableCards(
-      [hablarMeaning, hablarForm],
-      { [hablarMeaning.taskId]: meaningTask },
-    );
-    expect(blocked.map((card) => card.taskId)).toEqual([hablarMeaning.taskId]);
-
-    meaningTask = applyReview(meaningTask, "easy", now - 15 * 86_400_000).task;
-    meaningTask = applyReview(meaningTask, "good", now - 10 * 86_400_000).task;
-    meaningTask = applyReview(meaningTask, "good", now - 5 * 86_400_000).task;
-    expect(isTaskHeld(meaningTask)).toBe(true);
-
-    const open = filterSchedulableCards(
-      [hablarMeaning, hablarForm],
-      { [hablarMeaning.taskId]: meaningTask },
-    );
-    expect(open.map((card) => card.taskId).sort()).toEqual(
+    const schedulable = filterSchedulableCards([hablarMeaning, hablarForm]);
+    expect(schedulable.map((card) => card.taskId).sort()).toEqual(
       [hablarMeaning.taskId, hablarForm.taskId].sort(),
     );
   });

@@ -6,13 +6,14 @@ import type { DeliveryGate } from "@/lib/adaptation-delivery";
 import {
   computeCoverage,
   sourceText,
-  sourcesForTopic,
   type ComfortBand,
   type CoverageResult,
   type Source,
 } from "@/lib/coverage";
 import { learnerPrivateLicence } from "@/lib/content-ingestion";
 import { DEFAULT_EXTENSIVE_READING_SOURCE_ID, DEFAULT_PARTIAL_DICTATION_SOURCE_ID } from "@/lib/content-source-constants";
+import type { LearnerWorldId } from "@/lib/learner-world";
+import { pickAppPickSource, pickTopicSource } from "@/lib/material-source-pick";
 import type { MaterialTopic, MethodEntry } from "@/lib/method-catalogue";
 import type { MaterialUnitId } from "@/lib/material-unit";
 import type { Lexicon } from "@/lib/lexicon";
@@ -134,38 +135,7 @@ export function topicChipsForMethod(
   return chips;
 }
 
-export function pickAppPickSource(
-  sources: readonly Source[],
-  lexicon: Lexicon,
-  heldLemmas: ReadonlySet<string>,
-): Source | null {
-  if (sources.length === 0) return null;
-
-  const ranked = [...sources]
-    .map((source) => ({
-      source,
-      coverage: computeCoverage(sourceText(source), lexicon, heldLemmas),
-    }))
-    .sort((a, b) => {
-      const comfortableDelta =
-        Number(b.coverage.comfortBand === "comfortable") -
-        Number(a.coverage.comfortBand === "comfortable");
-      if (comfortableDelta !== 0) return comfortableDelta;
-      return b.coverage.coveragePercent - a.coverage.coveragePercent;
-    });
-
-  return ranked[0]?.source ?? null;
-}
-
-export function pickTopicSource(
-  sources: readonly Source[],
-  topicId: string,
-  lexicon: Lexicon,
-  heldLemmas: ReadonlySet<string>,
-): Source | null {
-  const ranked = sourcesForTopic(sources, topicId, lexicon, heldLemmas);
-  return ranked[0]?.source ?? null;
-}
+export { pickAppPickSource, pickTopicSource } from "@/lib/material-source-pick";
 
 export function titleFromLearnerText(text: string): string {
   const line = text.trim().split(/\n/)[0]?.trim() ?? "";
