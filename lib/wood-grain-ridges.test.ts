@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import { renderWoodGrain, ringAgeAt, type WoodGrainOptions } from "@/lib/wood-grain-ridges";
+import { renderWoodGrain, ridgeFieldAt, type WoodGrainOptions } from "@/lib/wood-grain-ridges";
 
 function renderToPixels(width: number, height: number, opts: WoodGrainOptions): Uint8ClampedArray {
   let captured: Uint8ClampedArray | null = null;
@@ -30,7 +30,7 @@ const options: WoodGrainOptions = {
   speckle: 0,
 };
 
-describe("ringAgeAt (Wilkie distortion field)", () => {
+describe("ridgeFieldAt (layered horizontal grain field)", () => {
   const width = 240;
   const height = 200;
   const ctx = {
@@ -42,18 +42,18 @@ describe("ringAgeAt (Wilkie distortion field)", () => {
     warpFrequency: options.warpFrequency,
   };
 
-  it("varies along x at fixed y (tangential distortion mt and influence points)", () => {
+  it("varies along x at fixed y (coarse irregularity across the plank)", () => {
     const y = 80;
     const samples = Array.from({ length: 24 }, (_, i) =>
-      ringAgeAt(Math.round((i / 24) * width), y, ctx),
+      ridgeFieldAt(Math.round((i / 24) * width), y, ctx),
     );
     expect(Math.max(...samples) - Math.min(...samples)).toBeGreaterThan(0.15);
   });
 
-  it("varies along y at fixed x (radial distortion mr bends ring spacing)", () => {
+  it("varies along y at fixed x (ridge spacing bends vertically)", () => {
     const x = 120;
     const samples = Array.from({ length: 24 }, (_, i) =>
-      ringAgeAt(x, Math.round((i / 24) * height), ctx),
+      ridgeFieldAt(x, Math.round((i / 24) * height), ctx),
     );
     expect(Math.max(...samples) - Math.min(...samples)).toBeGreaterThan(0.15);
   });
@@ -61,7 +61,7 @@ describe("ringAgeAt (Wilkie distortion field)", () => {
   it("is not separable into y-only stripes (different rows have different x profiles)", () => {
     const spread = (rowY: number) => {
       const samples = Array.from({ length: 16 }, (_, i) =>
-        ringAgeAt(Math.round((i / 16) * width), rowY, ctx),
+        ridgeFieldAt(Math.round((i / 16) * width), rowY, ctx),
       );
       return Math.max(...samples) - Math.min(...samples);
     };

@@ -9,9 +9,8 @@ type WoodGrainCanvasProps = {
 };
 
 /**
- * Renders procedural wood grain straight to a canvas at the element's
- * rendered size — hills and valleys that flow left to right, redrawn on
- * resize so the ridge count stays readable at any card width.
+ * Renders procedural wood grain to a canvas at the element's rendered size —
+ * multi-scale horizontal fibre layers, redrawn on resize.
  */
 export function WoodGrainCanvas({ options }: WoodGrainCanvasProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);

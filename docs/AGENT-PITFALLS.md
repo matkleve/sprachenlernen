@@ -397,6 +397,20 @@ explicitly asks — **state the reason**. Not justified: merge, shame, ship,
 
 See [`VERIFY-SCOPES.md`](VERIFY-SCOPES.md).
 
+## 23. Implementing from studies instead of specs
+
+**The failure:** a study chapter (especially texture or visual reasoning) names
+shader papers, GLSL, or 3D wood algorithms. The agent treats it as the build
+contract and ships infrastructure the spec never asked for — while the live
+CSS/canvas layer stack was already correct.
+
+**The rule:** studies are **reasoning archives** ([`STUDY-FORMAT.md`](STUDY-FORMAT.md)).
+For textures: read the **spec**, the **reference board**, and **live code**
+(`app/progression-skins.css`, `lib/wood-grain-ridges.ts`) first. UI wood is
+**multi-scale horizontal layers** — not growth rings ([`STUDY-030`](study/STUDY-030-procedural-wood-grain.md),
+[`TRAPS.md`](TRAPS.md)). Extend existing layers; do not import a game-engine
+wood shader because a study cited one.
+
 ---
 
 ## For you, writing the prompt
