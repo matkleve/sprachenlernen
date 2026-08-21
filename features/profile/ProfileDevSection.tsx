@@ -1,6 +1,6 @@
 import { ExternalLink } from "lucide-react";
 
-import { routes } from "@/lib/routes";
+import { devPagesSortedByLatest, formatDevPageLastUpdated } from "@/lib/dev-pages";
 
 /**
  * Links to the dev-only preview pages. Contract:
@@ -11,69 +11,9 @@ import { routes } from "@/lib/routes";
  * courtesy that ends one tap later.
  */
 
-type DevLink = {
-  href: string;
-  name: string;
-  description: string;
-};
-
-const DEV_LINKS: DevLink[] = [
-  {
-    href: routes.profileDevSentenceRealizer,
-    name: "Sentence realizer",
-    description:
-      "Random plan from memory, rendered for every present-tense person via the lemma-table inverse index.",
-  },
-  {
-    href: routes.woodGrainLab,
-    name: "Wood grain lab",
-    description:
-      "Layer-by-layer workshop wood — tune feTurbulence direction, planks, and lighting before promoting to progression.",
-  },
-  {
-    href: routes.progressionExplorer,
-    name: "Progression explorer",
-    description: "One slider through nine interface stages — chapters, texture, depth.",
-  },
-  {
-    href: routes.materialExplorer,
-    name: "Material explorer",
-    description:
-      "Nine material recipes on the same card + input + button — base, texture, edge, lighting.",
-  },
-  {
-    href: routes.woodTextureLab,
-    name: "Wood textures",
-    description: "Four horizontal-grain wood species from the reference board, labelled for marking.",
-  },
-  {
-    href: routes.designExplorer,
-    name: "Design explorer",
-    description: "The five base theme presets side by side.",
-  },
-  {
-    href: routes.brandExplorer,
-    name: "Brand explorer",
-    description: "Logo and PWA icon directions at favicon, header and Home Screen sizes.",
-  },
-  {
-    href: routes.methodCardAssets,
-    name: "Method card assets",
-    description: "Section graphics and skill-tier badges as they render on cards.",
-  },
-  {
-    href: routes.primitives,
-    name: "Primitives",
-    description: "Every UI primitive with all five interaction states.",
-  },
-  {
-    href: routes.safariBisect,
-    name: "Safari bisect",
-    description: "The iOS/PWA layout bisect routes (study/31).",
-  },
-];
-
 export function ProfileDevSection() {
+  const devPages = devPagesSortedByLatest();
+
   return (
     <section className="mt-page-content">
       <h2 className="font-serif text-xl font-semibold text-ink">Dev</h2>
@@ -83,15 +23,18 @@ export function ProfileDevSection() {
       </p>
 
       <ul className="mt-4 flex flex-col gap-2">
-        {DEV_LINKS.map((link) => (
-          <li key={link.href}>
+        {devPages.map((page) => (
+          <li key={page.href}>
             <a
-              href={link.href}
+              href={page.href}
               className="group flex items-start gap-3 rounded-card border border-line bg-surface p-4 shadow-soft transition hover:-translate-y-px hover:border-line-strong hover:shadow-raised active:translate-y-0 active:scale-[0.99] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-canvas"
             >
               <span className="min-w-0 flex-1">
-                <span className="block text-base font-semibold text-ink">{link.name}</span>
-                <span className="mt-0.5 block text-sm text-muted">{link.description}</span>
+                <span className="block text-base font-semibold text-ink">{page.name}</span>
+                <span className="mt-0.5 block text-sm text-muted">{page.description}</span>
+                <span className="mt-1 block text-xs text-muted">
+                  Last updated {formatDevPageLastUpdated(page.lastUpdatedAt)}
+                </span>
               </span>
               <ExternalLink aria-hidden className="mt-0.5 size-4 shrink-0 text-muted" />
             </a>
