@@ -44,6 +44,8 @@ describe("PracticePage", () => {
     expect(
       screen.getByRole("heading", { name: en.methodMenu.entries["build-a-sentence"].name }),
     ).toBeDefined();
+    // Loose on purpose (from main): the step count follows the budget, and the
+    // recipe's shape is asserted properly in build-a-sentence.test.ts.
     expect(screen.getByText(/Step 1 of/)).toBeDefined();
   });
 

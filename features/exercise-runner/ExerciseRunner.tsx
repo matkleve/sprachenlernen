@@ -97,11 +97,12 @@ export function ExerciseRunner({
       >
         <ExerciseStepBody
           step={activeStep}
-          submitDraft={state.submitDraft}
-          markedErrorTokens={state.markedErrorTokens}
+          answer={runner.activeAnswer}
+          sessionFindings={runner.sessionFindings}
           listeningDeferred={listeningDeferred}
           onTextChange={runner.setText}
           onPhotoChange={runner.setPhoto}
+          onCheckChange={runner.setCheck}
           onToggleError={runner.toggleError}
           onDecline={runner.decline}
           onSelectOffer={runner.completeCurrentStep}
@@ -116,7 +117,7 @@ export function ExerciseRunner({
         canGoForward={runner.canGoForward}
         canComplete={runner.canComplete}
         showStopConfirm={runner.showStopConfirm}
-        primaryLabel={primaryLabelForStep(activeStep, t)}
+        primaryLabel={primaryLabelForStep(activeStep, t, runner.primaryLabelKey)}
         onBack={runner.goBack}
         onForward={runner.goForward}
         onComplete={runner.completeCurrentStep}

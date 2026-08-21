@@ -51,7 +51,7 @@ Notation: `→` sequence, `×N` loop, `+` combined on one step. Step =
 
 | Method id | Engine | Recipe mix |
 | --- | --- | --- |
-| `build-a-sentence` | runner | **shipped:** ×3–5 [ D:type-with-word → R:reveal-answer + honestyKey ] → C:offers — no prepare (G6); budget-scaled batch (T-MV2) |
+| `build-a-sentence` | runner | **shipped:** ×3–5 D:sentence-check → C:offers — write and correct in one step, feedback mode `checked` (G2 in-step); no prepare (G6); budget-scaled batch (T-MV2) |
 | `free-production` | runner | P:checklist → D:timed-write → S:capture → R:feedback → C:offers |
 | `diary-three-sentences` | runner | D:timed-write(3-sentences) → R:feedback → C:offers |
 | `summarise-what-you-read` | runner | P:material-preview → D:text-display → W:wait → D:timed-write → R:feedback → C:offers |

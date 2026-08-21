@@ -62,11 +62,19 @@ export function budgetProfileForMethod(methodId: string): MethodBudgetProfile | 
 
 const LEARNING_UNIT_COMPONENTS = new Set([
   "gap-fill",
-  "type-with-word",
+  "sentence-check",
   "cloze-type",
   "full-dictation",
   "speak-prompt",
 ]);
+
+/**
+ * Production components that carry their own feedback in the same step, so no
+ * `review` step follows them. The loop still costs both activities — the time
+ * moved into the step, it did not disappear — which is why the estimate adds
+ * the feedback seconds here rather than dropping them.
+ */
+export const IN_STEP_FEEDBACK_COMPONENTS = new Set(["sentence-check"]);
 
 const FEEDBACK_COMPONENTS = new Set([
   "self-mark",
@@ -79,7 +87,7 @@ const FEEDBACK_COMPONENTS = new Set([
 ]);
 
 const PRODUCTION_COMPONENTS = new Set([
-  "type-with-word",
+  "sentence-check",
   "timed-write",
   "gap-fill",
   "cloze-type",
@@ -133,6 +141,9 @@ export function estimateWallClockSec(
       profile.secPerItem
     ) {
       active += profile.secPerItem;
+      if (IN_STEP_FEEDBACK_COMPONENTS.has(step.component)) {
+        active += FEEDBACK_SEC_PER_LOOP;
+      }
       continue;
     }
 

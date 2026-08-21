@@ -10,6 +10,7 @@ import {
   loadLemmaTable,
   loadProfile,
   parseFrequencyList,
+  type LemmaTable,
   type Lexicon,
 } from "@/lib/lexicon";
 
@@ -46,4 +47,37 @@ export function loadLexiconForLanguage(languageCode: string): Lexicon | null {
   } catch {
     return null;
   }
+}
+
+/**
+ * Just the lemma table, cached for the process. Callers that only resolve forms
+ * (the sentence checker) should not pay for the frequency list too — it is a
+ * second multi-megabyte read for a ranking they never ask about.
+ */
+const LEMMA_TABLES = new Map<string, LemmaTable | null>();
+
+export function loadLemmaTableForLanguage(languageCode: string): LemmaTable | null {
+  const held = LEMMA_TABLES.get(languageCode);
+  if (held !== undefined) return held;
+
+  let table: LemmaTable | null = null;
+  if (
+    SHIPPED_CONTENT_LANGUAGES.includes(
+      languageCode as (typeof SHIPPED_CONTENT_LANGUAGES)[number],
+    )
+  ) {
+    try {
+      const raw = JSON.parse(
+        readFileSync(join(process.cwd(), `data/lemma/${languageCode}.json`), "utf8"),
+      );
+      table = loadLemmaTable(raw, languageCode).table ?? null;
+    } catch {
+      // A missing or malformed table is reported by the caller as "cannot check
+      // right now" — never as a sentence with nothing wrong in it.
+      table = null;
+    }
+  }
+
+  LEMMA_TABLES.set(languageCode, table);
+  return table;
 }

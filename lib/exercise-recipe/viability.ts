@@ -8,6 +8,7 @@ import {
   budgetProfileForMethod,
   countLearningUnits,
   estimateWallClockSec,
+  IN_STEP_FEEDBACK_COMPONENTS,
 } from "@/lib/exercise-recipe/budget";
 import type { ExerciseRecipe, ExerciseStep } from "@/lib/exercise-runner/types";
 
@@ -33,15 +34,26 @@ function productionDoSteps(recipe: ExerciseRecipe): ExerciseStep[] {
     (step) =>
       step.type === "do" &&
       step.component !== undefined &&
-      ["type-with-word", "timed-write", "gap-fill", "cloze-type", "speak-prompt"].includes(
+      ["sentence-check", "timed-write", "gap-fill", "cloze-type", "speak-prompt"].includes(
         step.component,
       ),
   );
 }
 
+/**
+ * Production steps still owed a `review`. A component that shows its findings
+ * inside the step has already satisfied G2 — a review after it would have
+ * nothing left to display (docs/specs/service/method-session-viability.md).
+ */
+function productionStepsNeedingReview(recipe: ExerciseRecipe): ExerciseStep[] {
+  return productionDoSteps(recipe).filter(
+    (step) => !step.component || !IN_STEP_FEEDBACK_COMPONENTS.has(step.component),
+  );
+}
+
 function reviewFollowsProduction(recipe: ExerciseRecipe): boolean {
   const productionIds = new Set(
-    productionDoSteps(recipe).map((step) => step.id),
+    productionStepsNeedingReview(recipe).map((step) => step.id),
   );
   if (productionIds.size === 0) return true;
 
@@ -95,7 +107,7 @@ export function checkSessionViability(
 
   if (!hasRetrievalStep(recipe)) failures.push("G1");
 
-  const productionSteps = productionDoSteps(recipe);
+  const productionSteps = productionStepsNeedingReview(recipe);
   if (productionSteps.length > 0 && !reviewFollowsProduction(recipe)) {
     failures.push("G2");
   }

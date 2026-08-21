@@ -4,19 +4,26 @@ import { useCallback, useEffect, useReducer, useState } from "react";
 
 import {
   abandonRunner,
+  activeStepAnswer,
   canCompleteStep,
   completeStep,
   createRunnerState,
   declineDecide,
   navigateRelative,
-  setSubmitPhoto,
-  setSubmitText,
+  setStepCheck,
+  setStepPhoto,
+  setStepText,
+  summariseSessionFindings,
   tickTimer,
   toggleMarkedError,
   toggleTimerPause,
   type ExerciseRecipe,
   type ExerciseRunnerState,
+  type SessionFindings,
+  type StepAnswer,
+  type StepCheckState,
 } from "@/lib/exercise-runner";
+import { primaryLabelKeyForAnswer } from "@/lib/exercise-step-components";
 
 type RunnerAction =
   | { type: "init"; recipe: ExerciseRecipe }
@@ -26,9 +33,10 @@ type RunnerAction =
   | { type: "abandon" }
   | { type: "tick"; now: number }
   | { type: "togglePause"; now: number }
-  | { type: "setText"; text: string }
-  | { type: "setPhoto"; photoDataUrl: string | null }
-  | { type: "toggleError"; token: string };
+  | { type: "setText"; stepId: string; text: string }
+  | { type: "setPhoto"; stepId: string; photoDataUrl: string | null }
+  | { type: "setCheck"; stepId: string; check: StepCheckState }
+  | { type: "toggleError"; stepId: string; token: string };
 
 function reducer(state: ExerciseRunnerState, action: RunnerAction): ExerciseRunnerState {
   switch (action.type) {
@@ -47,11 +55,13 @@ function reducer(state: ExerciseRunnerState, action: RunnerAction): ExerciseRunn
     case "togglePause":
       return toggleTimerPause(state, action.now);
     case "setText":
-      return setSubmitText(state, action.text);
+      return setStepText(state, action.stepId, action.text);
     case "setPhoto":
-      return setSubmitPhoto(state, action.photoDataUrl);
+      return setStepPhoto(state, action.stepId, action.photoDataUrl);
+    case "setCheck":
+      return setStepCheck(state, action.stepId, action.check);
     case "toggleError":
-      return toggleMarkedError(state, action.token);
+      return toggleMarkedError(state, action.stepId, action.token);
     default:
       return state;
   }
@@ -66,6 +76,12 @@ export type UseExerciseRunnerResult = {
   state: ExerciseRunnerState;
   methodName: string;
   activeStep: ExerciseRunnerState["recipe"]["steps"][number] | null;
+  /** The active step's own answer — the only one any surface should read. */
+  activeAnswer: StepAnswer;
+  /** Component-specific primary label key, or `undefined` for the type default. */
+  primaryLabelKey: string | undefined;
+  /** What the in-step checks found across the session — for `decide` steps. */
+  sessionFindings: SessionFindings;
   canGoBack: boolean;
   canGoForward: boolean;
   canComplete: boolean;
@@ -80,6 +96,7 @@ export type UseExerciseRunnerResult = {
   togglePause: () => void;
   setText: (text: string) => void;
   setPhoto: (photoDataUrl: string | null) => void;
+  setCheck: (check: StepCheckState) => void;
   toggleError: (token: string) => void;
 };
 
@@ -137,22 +154,50 @@ export function useExerciseRunner({
     dispatch({ type: "togglePause", now: Date.now() });
   }, []);
 
-  const setText = useCallback((text: string) => {
-    dispatch({ type: "setText", text });
-  }, []);
+  // Every write names the step it belongs to. Reading the id off the active
+  // step at dispatch time is what stops a late-arriving check result from
+  // landing on whichever item the learner has since moved to.
+  const activeStepId = activeStep?.id;
 
-  const setPhoto = useCallback((photoDataUrl: string | null) => {
-    dispatch({ type: "setPhoto", photoDataUrl });
-  }, []);
+  const setText = useCallback(
+    (text: string) => {
+      if (activeStepId) dispatch({ type: "setText", stepId: activeStepId, text });
+    },
+    [activeStepId],
+  );
 
-  const toggleError = useCallback((token: string) => {
-    dispatch({ type: "toggleError", token });
-  }, []);
+  const setPhoto = useCallback(
+    (photoDataUrl: string | null) => {
+      if (activeStepId) dispatch({ type: "setPhoto", stepId: activeStepId, photoDataUrl });
+    },
+    [activeStepId],
+  );
+
+  const setCheck = useCallback(
+    (check: StepCheckState) => {
+      if (activeStepId) dispatch({ type: "setCheck", stepId: activeStepId, check });
+    },
+    [activeStepId],
+  );
+
+  const toggleError = useCallback(
+    (token: string) => {
+      if (activeStepId) dispatch({ type: "toggleError", stepId: activeStepId, token });
+    },
+    [activeStepId],
+  );
+
+  const activeAnswer = activeStepAnswer(state);
 
   return {
     state,
     methodName,
     activeStep,
+    activeAnswer,
+    sessionFindings: summariseSessionFindings(state),
+    primaryLabelKey: activeStep
+      ? primaryLabelKeyForAnswer(activeStep, activeAnswer)
+      : undefined,
     canGoBack: state.activeStepIndex > 0,
     canGoForward: state.activeStepIndex < state.recipe.steps.length - 1,
     canComplete: canCompleteStep(state),
@@ -167,6 +212,7 @@ export function useExerciseRunner({
     togglePause,
     setText,
     setPhoto,
+    setCheck,
     toggleError,
   };
 }

@@ -10,6 +10,7 @@ promoted.
 design/
   logo/              App mark + wordmark explorations (SVG source)
   method-sections/   Catalogue banner explorations (grid PNG → WebP)
+  progression/       Optional tile PNGs for `/dev/progression` material skins
   README.md          This file
 ```
 
@@ -28,6 +29,13 @@ design/
 Visual tokens come from **Warm Scholar** (chosen 2026-08-09 via `/dev/design`).
 Do not introduce raw hex in components — reference token names in docs and use
 the values from `app/globals.css` in SVG source files only.
+
+### Progression material tiles (optional)
+
+ChatGPT or Figma exports for the nine-stage reference board can land in
+`design/progression/` as seamless PNG/WebP tiles, then sync to
+`public/design/progression/` (e.g. `workshop-1-canvas.webp`, `observatory-3-card.webp`).
+The dev page currently uses CSS gradients as a stand-in until those files exist.
 
 Method section graphics brief:
 [`docs/explorations/../../explorations/EXP-039-method-section-graphics-brief.md`](../docs/explorations/../../explorations/EXP-039-method-section-graphics-brief.md).

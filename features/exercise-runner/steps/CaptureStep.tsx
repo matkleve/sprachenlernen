@@ -7,17 +7,17 @@ import { Input } from "@/components/ui/Input";
 import type { StepRenderProps } from "@/features/exercise-runner/steps/types";
 
 export function CaptureStep({
-  submitDraft,
+  answer,
   onTextChange,
   onPhotoChange,
-}: Pick<StepRenderProps, "submitDraft" | "onTextChange" | "onPhotoChange">) {
+}: Pick<StepRenderProps, "answer" | "onTextChange" | "onPhotoChange">) {
   const t = useTranslations("exerciseRunner");
 
   return (
     <div className="space-y-4 max-md:space-y-2">
       <Field label={t("submitText")}>
         <Input
-          value={submitDraft.text}
+          value={answer.text}
           onChange={(e) => onTextChange(e.target.value)}
           placeholder={t("submitTextPlaceholder")}
         />
@@ -38,10 +38,10 @@ export function CaptureStep({
             onPhotoChange(URL.createObjectURL(file));
           }}
         />
-        {submitDraft.photoDataUrl ? (
+        {answer.photoDataUrl ? (
           // eslint-disable-next-line @next/next/no-img-element -- session-local blob preview
           <img
-            src={submitDraft.photoDataUrl}
+            src={answer.photoDataUrl}
             alt=""
             className="mt-2 max-h-40 rounded-lg border border-line max-md:max-h-24"
           />

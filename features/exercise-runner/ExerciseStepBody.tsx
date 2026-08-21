@@ -2,17 +2,23 @@
 
 import { PracticeSurface } from "@/features/exercise-runner/practice-surface/PracticeSurface";
 import { renderExerciseStep } from "@/features/exercise-runner/step-registry";
-import type { ExerciseRunnerState } from "@/lib/exercise-runner";
+import type {
+  ExerciseRunnerState,
+  SessionFindings,
+  StepAnswer,
+  StepCheckState,
+} from "@/lib/exercise-runner";
 import { cn } from "@/lib/utils";
 
 type ExerciseStepBodyProps = {
   step: ExerciseRunnerState["recipe"]["steps"][number];
-  submitDraft: ExerciseRunnerState["submitDraft"];
-  markedErrorTokens: string[];
+  answer: StepAnswer;
+  sessionFindings: SessionFindings;
   listeningDeferred?: boolean;
   bodyScrolls?: boolean;
   onTextChange: (text: string) => void;
   onPhotoChange: (photoDataUrl: string | null) => void;
+  onCheckChange: (check: StepCheckState) => void;
   onToggleError: (token: string) => void;
   onDecline: () => void;
   onSelectOffer: () => void;

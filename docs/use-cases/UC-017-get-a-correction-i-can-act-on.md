@@ -1,7 +1,7 @@
 # UC-017 — Write something and get a correction I can act on
 
 <!-- id: UC-017 -->
-<!-- specs:  -->
+<!-- specs: SPEC-service-sentence-check -->
 
 **Who:** a learner who wants to produce language but not in real time.
 **Wants to:** write a few sentences and see exactly what was wrong and why.

@@ -25,8 +25,6 @@ work; a step that is too loud is a distraction on every screen.
   buttons and fields, a skill-tier badge.
 - The three chapters (Workshop, Library, Observatory) are reachable from the
   same control, so the two chapter transitions can be judged as moments.
-- The difference between "built" and "present" is visible separately: what a
-  learner has installed stays, whether it is lit follows recent weeks.
 - It works on a phone against the deployed app, not only on a laptop.
 - Nothing a learner sees changes — this is a workbench, not a feature.
 

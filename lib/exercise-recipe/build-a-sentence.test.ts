@@ -13,7 +13,7 @@ import {
 import { resolveExerciseRecipe } from "@/lib/exercise-recipe";
 
 describe("build-a-sentence recipe", () => {
-  it("builds a batch of type-with-word and reveal-answer loops without prepare", () => {
+  it("builds one sentence-check step per target, with no prepare and no separate review", () => {
     const deck = loadMeaningRecallDeck("es");
     if (deck.status !== "ok") throw new Error("missing es deck");
 
@@ -23,8 +23,11 @@ describe("build-a-sentence recipe", () => {
     });
 
     expect(recipe?.methodId).toBe("build-a-sentence");
-    expect(recipe?.steps[0]?.component).toBe("type-with-word");
+    expect(recipe?.steps[0]?.component).toBe("sentence-check");
     expect(recipe?.steps.some((step) => step.component === "checklist")).toBe(false);
+    // Correcting happens inside the write step now — a review after it would
+    // have nothing left to show.
+    expect(recipe?.steps.some((step) => step.type === "review")).toBe(false);
     expect(countLearningUnits(recipe!)).toBeGreaterThanOrEqual(3);
     expect(checkSessionViability(recipe!).failures).not.toContain("G2");
     expect(checkSessionViability(recipe!).failures).not.toContain("G3");
@@ -36,7 +39,7 @@ describe("build-a-sentence recipe", () => {
       budgetMinutes: 15,
     });
     expect(recipe?.methodId).toBe("build-a-sentence");
-    expect(recipe?.steps.filter((step) => step.component === "type-with-word").length).toBe(5);
+    expect(recipe?.steps.filter((step) => step.component === "sentence-check").length).toBe(5);
   });
 });
 
@@ -44,6 +47,6 @@ describe("resolveExerciseRecipe build-a-sentence", () => {
   it("returns a batch recipe without a prepare checklist", async () => {
     const recipe = await resolveExerciseRecipe("build-a-sentence", { budgetMinutes: 8 });
     expect(recipe?.methodId).toBe("build-a-sentence");
-    expect(recipe?.steps[0]?.component).toBe("type-with-word");
+    expect(recipe?.steps[0]?.component).toBe("sentence-check");
   });
 });

@@ -12,6 +12,7 @@ import {
   estimateWallClockSec,
   fixedSrsCardCount,
 } from "@/lib/exercise-recipe/budget";
+import { IN_STEP_FEEDBACK_COMPONENTS } from "@/lib/exercise-recipe/budget";
 import { checkSessionViability } from "@/lib/exercise-recipe/viability";
 import type { ExerciseRecipe } from "@/lib/exercise-runner/types";
 import { resolveVariantMinutes } from "@/lib/method-session-budget";
@@ -22,7 +23,9 @@ export type SessionFeedbackMode =
   | "exemplar"
   | "assisted"
   | "rubric"
-  | "honest-none";
+  | "honest-none"
+  /** Findings inside the production step itself — `sentence-check`. */
+  | "checked";
 
 export type SessionContract = {
   learningUnits: number;
@@ -41,9 +44,21 @@ const FEEDBACK_LABEL_KEYS: Record<SessionFeedbackMode, string> = {
   assisted: "sessionFeedbackAssisted",
   rubric: "sessionFeedbackRubric",
   "honest-none": "sessionFeedbackHonestNone",
+  checked: "sessionFeedbackChecked",
 };
 
 export function detectFeedbackMode(recipe: ExerciseRecipe): SessionFeedbackMode {
+  // In-step feedback first: a method that corrects inside the `do` step has no
+  // `review` step to read the mode off, and the detail page would otherwise
+  // promise the fallback rather than what the learner will actually get.
+  if (
+    recipe.steps.some(
+      (step) => step.type === "do" && step.component && IN_STEP_FEEDBACK_COMPONENTS.has(step.component),
+    )
+  ) {
+    return "checked";
+  }
+
   for (const step of recipe.steps) {
     if (step.type !== "review" || !step.component) continue;
 

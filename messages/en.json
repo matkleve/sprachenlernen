@@ -409,11 +409,6 @@
     "comprehensionCorrect": "That matches the text.",
     "comprehensionIncorrect": "Re-read the passage — another answer fits better.",
     "speakPromptDefault": "Say it out loud at a speaking pace.",
-    "typeWithWordPrompt": "Write one sentence that uses «{word}».",
-    "typeWithWordGloss": "Meaning: {gloss}",
-    "typeWithWordFieldLabel": "Your sentence",
-    "typeWithWordPlaceholder": "Type your sentence here…",
-    "typeWithWordHint": "One sentence is enough. Grammar does not need to be perfect.",
     "timedWriteDuration": "You have about {minutes} minutes — the timer is in the header.",
     "timedWriteOptionalWords": "If you can, work in: {words}",
     "timedWriteFieldLabel": "Your writing",
@@ -425,7 +420,27 @@
     "revealAnswerYourSentence": "What you wrote",
     "revealAnswerExemplarLabel": "Example sentence",
     "revealAnswerMeaning": "«{word}» means {gloss}.",
-    "summaryDefault": "Session complete."
+    "summaryDefault": "Session complete.",
+    "sentenceCheckPrompt": "Build a sentence with this word.",
+    "sentenceCheckProgress": "Word {index} of {total}",
+    "sentenceCheckFieldLabel": "Your sentence",
+    "sentenceCheckPlaceholder": "Write here…",
+    "sentenceCheckHint": "Two lines are enough. Tap Check when you are done.",
+    "sentenceCheckAction": "Check",
+    "sentenceCheckChecking": "Checking…",
+    "sentenceCheckNoFindings": "Nothing found.",
+    "sentenceCheckWhatWasChecked": "Checked: spelling, and agreement of gender, number and person. The app cannot judge word order or word choice.",
+    "sentenceCheckFixHint": "Change the marked words and check again.",
+    "sentenceCheckUnavailable": "The check is not available right now.",
+    "sentenceCheckUnavailableHint": "No word list is available for this language. You can carry on.",
+    "primaryContinueAnyway": "Continue anyway",
+    "misconfiguredComponent": "This step is missing part of its configuration ({component}: {keys}).",
+    "sentenceCheckEdit": "Edit",
+    "recapHeading": "{total, plural, one {One finding} other {# findings}} across {checked, plural, one {one sentence} other {# sentences}}.",
+    "recapAllClean": "Nothing found in {checked, plural, one {your sentence} other {your # sentences}}.",
+    "recapCategoryCount": "{count, plural, one {once} other {# times}}",
+    "recapWords": "Marked: {words}",
+    "recapUnavailable": "{count, plural, one {One sentence} other {# sentences}} could not be checked."
   },
   "listeningDefer": {
     "sectionLabel": "Sound",
@@ -797,7 +812,7 @@
         "name": "Build a sentence with a target word",
         "summary": "Write one sentence that uses a given word",
         "trains": "putting a word to use yourself",
-        "doesNotDo": "It stays at one sentence. Nothing in it exercises holding a thought across several sentences, which is where most learners actually break down."
+        "doesNotDo": "Each sentence stands on its own. Nothing in it exercises holding a thought across several sentences, which is where most learners actually break down — and the check finds spelling and agreement, not word order, word choice or idiom."
       },
       "caption-your-photos": {
         "name": "Captioning your own photos",
@@ -1123,7 +1138,8 @@
         "trains": "writing when you really want to be understood",
         "doesNotDo": "Nobody corrects you and nothing is recorded. It is the highest-leverage entry in the catalogue and the app cannot see a single thing about it."
       }
-    }
+    },
+    "sessionFeedbackChecked": "spelling and forms are checked"
   },
   "methodMaterial": {
     "topicHeading": "Topic",
@@ -1364,5 +1380,20 @@
       },
       "irregular": "This verb is irregular — the usual class ending does not predict its forms. Learn this word's pattern on its own."
     }
+  },
+  "sentenceCheck": {
+    "categorySpelling": "Spelling",
+    "categoryAgreement": "Agreement",
+    "categoryPerson": "Person",
+    "categoryMissingTarget": "Target word",
+    "spellingUnknown": "«{word}» is not in the word list. Check the spelling.",
+    "spellingWithSuggestion": "The app does not know «{word}». Did you mean «{suggestion}»?",
+    "agreementGender": "«{word}» does not match the gender of «{noun}».",
+    "agreementNumber": "«{word}» does not match the number of «{noun}».",
+    "personMismatch": "«{verb}» does not follow «{pronoun}».",
+    "missingTarget": "«{word}» does not appear in the sentence — that was the point of it.",
+    "agreementGenderWithFix": "«{word}» does not match the gender of «{noun}». «{suggestion}» would fit.",
+    "agreementNumberWithFix": "«{word}» does not match the number of «{noun}». «{suggestion}» would fit.",
+    "personMismatchWithFix": "«{verb}» does not follow «{pronoun}». That person takes «{suggestion}»."
   }
 }

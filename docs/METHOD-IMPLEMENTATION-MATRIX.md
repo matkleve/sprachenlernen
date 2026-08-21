@@ -1,6 +1,6 @@
 # Method implementation matrix
 
-**Last synced:** 2026-08-20 — run `node scripts/generate-method-matrix.mjs` to refresh counts from `data/methods/`.
+**Last synced:** 2026-08-21 — run `node scripts/generate-method-matrix.mjs` to refresh counts from `data/methods/`.
 
 Single view of every catalogue Method: **evidence**, **hosting**, **planned engine**,
 **recipe** (specced in [`exercise-recipe-composer.methods.md`](specs/service/exercise-recipe-composer.methods.md)),

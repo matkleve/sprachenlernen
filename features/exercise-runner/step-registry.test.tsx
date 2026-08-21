@@ -3,6 +3,9 @@ import { screen } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 
 import { ExerciseStepBody } from "@/features/exercise-runner/ExerciseStepBody";
+import { NO_SESSION_FINDINGS } from "@/lib/exercise-runner";
+import { EMPTY_STEP_ANSWER } from "@/lib/exercise-runner/types";
+import { SHIPPED_STEP_COMPONENT_IDS } from "@/lib/exercise-step-components";
 
 describe("ExerciseStepBody registry", () => {
   it("AC-2: shows not-built copy for unknown components", () => {
@@ -14,10 +17,11 @@ describe("ExerciseStepBody registry", () => {
           component: "audio-play",
           config: {},
         }}
-        submitDraft={{ text: "", photoDataUrl: null }}
-        markedErrorTokens={[]}
+        answer={EMPTY_STEP_ANSWER}
+        sessionFindings={NO_SESSION_FINDINGS}
         onTextChange={() => {}}
         onPhotoChange={() => {}}
+        onCheckChange={() => {}}
         onToggleError={() => {}}
         onDecline={() => {}}
         onSelectOffer={() => {}}
@@ -39,10 +43,11 @@ describe("ExerciseStepBody registry", () => {
           label: "Get ready",
           config: { items: ["Pen and paper"] },
         }}
-        submitDraft={{ text: "", photoDataUrl: null }}
-        markedErrorTokens={[]}
+        answer={EMPTY_STEP_ANSWER}
+        sessionFindings={NO_SESSION_FINDINGS}
         onTextChange={() => {}}
         onPhotoChange={() => {}}
+        onCheckChange={() => {}}
         onToggleError={() => {}}
         onDecline={() => {}}
         onSelectOffer={() => {}}
@@ -63,10 +68,11 @@ describe("ExerciseStepBody registry", () => {
           label: "Read aloud",
           config: { body: "Say it out loud.", text: "Hola mundo." },
         }}
-        submitDraft={{ text: "", photoDataUrl: null }}
-        markedErrorTokens={[]}
+        answer={EMPTY_STEP_ANSWER}
+        sessionFindings={NO_SESSION_FINDINGS}
         onTextChange={() => {}}
         onPhotoChange={() => {}}
+        onCheckChange={() => {}}
         onToggleError={() => {}}
         onDecline={() => {}}
         onSelectOffer={() => {}}
@@ -75,5 +81,35 @@ describe("ExerciseStepBody registry", () => {
 
     expect(screen.getByText("Say it out loud.")).toBeDefined();
     expect(screen.getByText("Hola mundo.")).toBeDefined();
+  });
+});
+
+describe("registry consistency", () => {
+  /**
+   * The failure this guards against is silent: a component declared in the
+   * descriptors but missing a renderer used to fall through to *not built yet*
+   * copy in front of the learner. The renderer map is typed as a total record
+   * so that is now a compile error; this asserts the other direction at runtime
+   * and keeps the guarantee visible to anyone reading the tests.
+   */
+  it("renders something other than not-built for every shipped component", () => {
+    for (const componentId of SHIPPED_STEP_COMPONENT_IDS) {
+      const { unmount } = render(
+        <ExerciseStepBody
+          step={{ id: `step-${componentId}`, type: "do", component: componentId, config: {} }}
+          answer={EMPTY_STEP_ANSWER}
+          sessionFindings={NO_SESSION_FINDINGS}
+          onTextChange={() => {}}
+          onPhotoChange={() => {}}
+          onCheckChange={() => {}}
+          onToggleError={() => {}}
+          onDecline={() => {}}
+          onSelectOffer={() => {}}
+        />,
+      );
+
+      expect(screen.queryByText(/not built yet/i), componentId).toBeNull();
+      unmount();
+    }
   });
 });

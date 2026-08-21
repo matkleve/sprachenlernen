@@ -7,19 +7,19 @@ import type { StepRenderProps } from "@/features/exercise-runner/steps/types";
 
 export function SelfMarkStep({
   step,
-  submitDraft,
-  markedErrorTokens,
+  answer,
   onToggleError,
-}: Pick<StepRenderProps, "step" | "submitDraft" | "markedErrorTokens" | "onToggleError">) {
+}: Pick<StepRenderProps, "step" | "answer" | "onToggleError">) {
+  const markedErrorTokens = answer.markedErrorTokens;
   const t = useTranslations("exerciseRunner");
   const isFeedback = step.component === "feedback";
   const answerKey =
     typeof step.config.answerKey === "string" && step.config.answerKey.length > 0
       ? step.config.answerKey
       : isFeedback
-        ? submitDraft.text
+        ? answer.text
         : "";
-  const lines = answerKey.split("\n").filter(Boolean);
+  const lines: string[] = answerKey.split("\n").filter(Boolean);
   const tokenGroups =
     lines.length > 1
       ? lines.map((line) => line.split(/\s+/).filter(Boolean))

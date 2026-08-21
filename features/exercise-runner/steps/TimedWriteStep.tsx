@@ -21,13 +21,13 @@ function readOptionalWords(config: Record<string, unknown>): OptionalWord[] {
 
 type TimedWriteStepProps = {
   config: Record<string, unknown>;
-  submitDraft: StepRenderProps["submitDraft"];
+  answer: StepRenderProps["answer"];
   onTextChange: StepRenderProps["onTextChange"];
 };
 
 export function TimedWriteStep({
   config,
-  submitDraft,
+  answer,
   onTextChange,
 }: TimedWriteStepProps) {
   const t = useTranslations("exerciseRunner");
@@ -61,7 +61,7 @@ export function TimedWriteStep({
       ) : null}
       <Field label={t("timedWriteFieldLabel")}>
         <Textarea
-          value={submitDraft.text}
+          value={answer.text}
           onChange={(event) => onTextChange(event.target.value)}
           placeholder={t("timedWritePlaceholder")}
           rows={3}
