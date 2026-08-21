@@ -7,7 +7,7 @@
 
 Short, explicit rule text for one **paradigm cell** — the on-demand and
 after-error explanation for form practice. Implements
-[`study/02`](../../study/02-evidence.md) E5 and anti-pattern A8: available at
+[`study/02`](../../study/STUDY-002-evidence.md) E5 and anti-pattern A8: available at
 the point of need, never as a chapter up front.
 
 Parent: [`form-recall-pool.md`](form-recall-pool.md),

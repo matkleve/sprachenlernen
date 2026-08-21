@@ -9,9 +9,9 @@ them.
 **So that:** starting is a decision rather than a leap, and the session can be
 matched to the time and attention actually available.
 
-Derived from [`../study/01-duolingo.md`](../study/01-duolingo.md) S2,
-[`../study/12-method-cards.md`](../study/12-method-cards.md) and
-[`../study/04-flashcards-srs.md`](../study/04-flashcards-srs.md).
+Derived from [`../study/STUDY-001-duolingo.md`](../study/STUDY-001-duolingo.md) S2,
+[`../study/STUDY-010-method-cards.md`](../study/STUDY-010-method-cards.md) and
+[`../study/STUDY-004-flashcards-srs.md`](../study/STUDY-004-flashcards-srs.md).
 
 ## Today
 

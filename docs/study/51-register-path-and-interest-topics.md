@@ -18,8 +18,8 @@ from which **news, articles, and example sentences** are drawn.
 This chapter supersedes study 49 **§I2c–I3** (boost band) and extends study 50
 (popover content).
 
-Related: [37](37-content-and-method-setup-ux.md) (topic chips),
-[48](48-content-licensing-and-adaptation.md) (news ingest),
+Related: [37](../reviews/design/DR-037-content-and-method-setup-ux.md) (topic chips),
+[48](archive/ARCH-048-content-licensing-and-adaptation.md) (news ingest),
 [UC-007](../use-cases/UC-007-read-something-at-my-level.md),
 [UC-019](../use-cases/UC-019-learn-for-something-specific.md).
 
@@ -105,7 +105,7 @@ Source: [GAI personalization EuroCALL 2025](https://doi.org/10.4995/eurocall.202
 
 ### R2b · Already in the product model — onboarding should **seed** it
 
-[37](37-content-and-method-setup-ux.md): methods declare `materialTopics`; learner
+[37](../reviews/design/DR-037-content-and-method-setup-ux.md): methods declare `materialTopics`; learner
 picks chips (*News*, *Environment*, …); catalogue Sources carry matching `tags[]`.
 
 Today that choice is **per session on method detail**. Owner wants interests
@@ -156,7 +156,7 @@ Was interessiert dich in Nachrichten & Texten?
 (Wähle 1–3 — daraus kommen Artikel & Beispielsätze)
 ```
 
-**Not free text v1** — same chip pattern as method detail ([37](37-content-and-method-setup-ux.md));
+**Not free text v1** — same chip pattern as method detail ([37](../reviews/design/DR-037-content-and-method-setup-ux.md));
 discoverability over open search.
 
 ### Page 4 — Preview (honest)

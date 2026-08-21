@@ -10,7 +10,7 @@ export const VISUAL_VIEWPORT_BOTTOM_INSET_VAR = "--shell-visual-viewport-bottom-
  * browser-controlled (gestures, session state) — not per-route. Measure the gap
  * with visualViewport on **resize** only — scroll events jitter offsetTop while
  * the page moves and lift the footer scrim. Do not add pathname-specific inset;
- * see docs/study/29-ios-inset-by-route.md.
+ * see docs/qa/QA-029-ios-inset-by-route.md.
  */
 export function useVisualViewportBottomInset() {
   useEffect(() => {

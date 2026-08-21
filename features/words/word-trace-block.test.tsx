@@ -14,7 +14,7 @@ describe("WordTraceBlock", () => {
           appearanceCount: 2,
           topSources: [
             { id: "es-fixture-cafe", title: "En el café" },
-            { id: "es-catalogue-chile", title: "Noticias: elecciones en Chile" },
+            { id: "wikinews-es-3516", title: "Autoridades electorales mantienen prohibición de presencia de observadores en elecciones egipcias" },
           ],
         }}
       />,

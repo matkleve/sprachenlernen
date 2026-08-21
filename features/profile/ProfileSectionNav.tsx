@@ -5,8 +5,8 @@ import { useTranslations } from "next-intl";
 
 import { FilterPill } from "@/components/ui/FilterPill";
 import {
+  PROFILE_SECTIONS,
   profilePanelId,
-  profileSectionsForEnv,
   type ProfileSection,
 } from "@/lib/profile-section";
 
@@ -16,8 +16,8 @@ function sectionUrl(section: ProfileSection) {
   return `${url.pathname}${url.search}`;
 }
 
-function showPanel(sections: readonly ProfileSection[], section: ProfileSection) {
-  for (const id of sections) {
+function showPanel(section: ProfileSection) {
+  for (const id of PROFILE_SECTIONS) {
     const panel = document.getElementById(profilePanelId(id));
     if (panel) panel.hidden = id !== section;
   }
@@ -25,23 +25,15 @@ function showPanel(sections: readonly ProfileSection[], section: ProfileSection)
 
 export type ProfileSectionNavProps = {
   initialSection?: ProfileSection;
-  showDevSection?: boolean;
 };
 
 /**
  * In-page profile section pills. Toggles server-rendered panels by id — never
  * receives panel content as props (that crosses the RSC boundary in production).
- * Contract: docs/study/33-profile-section-navigation.md
+ * Contract: docs/reviews/design/DR-034-profile-section-navigation.md
  */
-export function ProfileSectionNav({
-  initialSection = "languages",
-  showDevSection = false,
-}: ProfileSectionNavProps) {
+export function ProfileSectionNav({ initialSection = "languages" }: ProfileSectionNavProps) {
   const t = useTranslations("profile");
-  const sections = useMemo(
-    () => (showDevSection ? profileSectionsForEnv() : profileSectionsForEnv().filter((id) => id !== "dev")),
-    [showDevSection],
-  );
   const [section, setSection] = useState<ProfileSection>(initialSection);
 
   const sectionCopy = useMemo(
@@ -54,19 +46,16 @@ export function ProfileSectionNav({
     [t],
   );
 
-  const selectSection = useCallback(
-    (next: ProfileSection) => {
-      setSection(next);
-      showPanel(sections, next);
-      window.history.replaceState(null, "", sectionUrl(next));
-    },
-    [sections],
-  );
+  const selectSection = useCallback((next: ProfileSection) => {
+    setSection(next);
+    showPanel(next);
+    window.history.replaceState(null, "", sectionUrl(next));
+  }, []);
 
   return (
     <nav aria-label={t("sectionsNavLabel")} className="mb-page-content">
       <ul className="flex flex-wrap items-center gap-1">
-        {sections.map((id) => (
+        {PROFILE_SECTIONS.map((id) => (
           <li key={id}>
             <FilterPill
               id={`profile-section-${id}`}

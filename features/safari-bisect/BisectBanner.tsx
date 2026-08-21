@@ -15,7 +15,7 @@ type BisectBannerProps = {
 };
 
 /**
- * Level controls for Safari body bisect routes. Contract: docs/study/31-ios-safari-pwa-test-report.md
+ * Level controls for Safari body bisect routes. Contract: docs/qa/QA-031-ios-safari-pwa-test-report.md
  */
 export function BisectBanner({ basePath, level, maxLevel, levelLabels }: BisectBannerProps) {
   const description = levelLabels[level] ?? levelLabels[0] ?? "";

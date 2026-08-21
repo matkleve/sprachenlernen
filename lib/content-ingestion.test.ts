@@ -6,6 +6,7 @@ import { describe, expect, it } from "vitest";
 import {
   isLearnerPrivateSource,
   validateCatalogueLicence,
+  validateSourceIngestion,
 } from "@/lib/content-ingestion";
 
 describe("content-ingestion", () => {
@@ -39,5 +40,11 @@ describe("content-ingestion", () => {
         licence: { kind: "learner-private", fetchedAt: "2026-08-20T00:00:00.000Z" },
       }),
     ).toBe(true);
+  });
+
+  it("prefixes catalogue ingestion errors for loadSources", () => {
+    expect(validateSourceIngestion({ origin: "catalogue" }, "sources[0]")).toMatch(
+      /sources\[0\]: catalogue sources require licence\.kind/,
+    );
   });
 });

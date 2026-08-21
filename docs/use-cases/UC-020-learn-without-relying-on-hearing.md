@@ -8,7 +8,7 @@
 worse at it than they are.
 **So that:** the product measures their competence rather than their hearing.
 
-Derived from [`../study/14-accessibility.md`](../study/14-accessibility.md).
+Derived from [`../study/STUDY-012-accessibility.md`](../study/STUDY-012-accessibility.md).
 
 ## Today
 

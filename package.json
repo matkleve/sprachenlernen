@@ -1,6 +1,6 @@
 {
   "name": "sprachenlernen",
-  "version": "0.45.1",
+  "version": "0.51.0",
   "private": true,
   "type": "module",
   "scripts": {
@@ -12,6 +12,7 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "check:specs": "node scripts/check-specs.mjs",
+    "check:study": "node scripts/check-study.mjs",
     "check:secrets": "node scripts/check-secrets.mjs",
     "check:tokens": "node scripts/check-tokens.mjs",
     "check:contrast": "node scripts/check-contrast.mjs",
@@ -20,6 +21,8 @@
     "verify:scope": "node scripts/verify-scope.mjs",
     "new:spec": "node scripts/new-spec.mjs",
     "build:starter-deck": "node scripts/build-starter-deck.mjs",
+    "ingest:wikinews": "node --experimental-strip-types scripts/ingest-wikinews.mjs",
+    "adapt:catalogue": "node --experimental-strip-types scripts/adapt-catalogue.mjs",
     "build:descriptions": "node scripts/export-description-snapshots.mjs",
     "import:app-texts": "RUN_APP_TEXTS_IMPORT=1 vitest run lib/db/import-app-texts.run.test.ts",
     "version:proud": "node scripts/bump-pride-version.mjs proud",

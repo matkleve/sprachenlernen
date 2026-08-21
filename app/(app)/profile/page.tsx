@@ -14,7 +14,7 @@ import { listLearnerWorlds } from "@/lib/db/learner-world";
 import { readLanguageHoldings } from "@/lib/db/language-holdings";
 import { listLearningLanguages } from "@/lib/db/learning-languages";
 import { getSpokenLanguage } from "@/lib/db/profiles";
-import { isProfileSection, profilePanelId, showProfileDevSection } from "@/lib/profile-section";
+import { isProfileSection, profilePanelId } from "@/lib/profile-section";
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations("profile");
@@ -32,7 +32,6 @@ export default async function ProfilePage({
   const spokenFailed = params.spoken !== undefined;
   const sectionParam = typeof params.section === "string" ? params.section : undefined;
   const initialSection = isProfileSection(sectionParam) ? sectionParam : "languages";
-  const showDevSection = showProfileDevSection();
   const languages = await listLearningLanguages();
   const spoken = await getSpokenLanguage();
   const holdings =
@@ -43,7 +42,7 @@ export default async function ProfilePage({
 
   return (
     <ShellPageContent width="narrow">
-      <ProfileSectionNav initialSection={initialSection} showDevSection={showDevSection} />
+      <ProfileSectionNav initialSection={initialSection} />
 
       <div
         id={profilePanelId("languages")}
@@ -81,16 +80,15 @@ export default async function ProfilePage({
         <ProfileHomeScreenSection />
       </div>
 
-      {showDevSection ? (
-        <div
-          id={profilePanelId("dev")}
-          role="tabpanel"
-          aria-labelledby="profile-section-dev"
-          hidden={initialSection !== "dev"}
-        >
-          <ProfileDevSection />
-        </div>
-      ) : null}
+      <div
+        id={profilePanelId("dev")}
+        role="tabpanel"
+        aria-labelledby="profile-section-dev"
+        hidden={initialSection !== "dev"}
+        className="[&>section:first-child]:mt-0"
+      >
+        <ProfileDevSection />
+      </div>
 
       <ProfileSignOut />
     </ShellPageContent>

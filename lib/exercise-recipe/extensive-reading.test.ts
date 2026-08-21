@@ -31,7 +31,7 @@ describe("extensive reading recipe", () => {
     expect(recipe.steps[2]?.config.questions).toBeTruthy();
   });
 
-  it("defaults to es-catalogue-chile without sourceId", async () => {
+  it("defaults to wikinews-es-3516 without sourceId", async () => {
     const recipe = await resolveExtensiveReadingRecipe(
       { methodId: "extensive-reading" },
       catalogueOnly,

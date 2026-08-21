@@ -9,8 +9,8 @@ to read — an article, a letter, a contract, a chapter.
 optionally **have it adapted to their level**.
 **So that:** the app helps with real life instead of only with its own material.
 
-Derived from [`../study/17-own-content.md`](../study/17-own-content.md),
-[`../study/48-content-licensing-and-adaptation.md`](../study/48-content-licensing-and-adaptation.md).
+Derived from [`../study/STUDY-015-own-content.md`](../study/STUDY-015-own-content.md),
+[`../study/archive/ARCH-048-content-licensing-and-adaptation.md`](../study/archive/ARCH-048-content-licensing-and-adaptation.md).
 
 ## Success looks like
 

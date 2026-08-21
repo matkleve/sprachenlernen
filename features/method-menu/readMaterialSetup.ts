@@ -13,6 +13,7 @@ import type { Source } from "@/lib/coverage";
 import type { Lexicon } from "@/lib/lexicon";
 import { tasksByTaskIdForCards } from "@/lib/task-from-state";
 import type { MethodEntry } from "@/lib/method-catalogue";
+import { loadPersistedAdaptationCache } from "@/lib/adaptation-cache";
 import {
   buildMaterialSetupContext,
   hasMaterialSetup,
@@ -57,14 +58,11 @@ export async function readMaterialSetupBundle(
     const worldOutcome = await getLearnerWorld(languageCode);
     const activeWorld =
       worldOutcome.status === "ok" ? worldOutcome.world.worldId : ("general" as const);
-    const context = buildMaterialSetupContext(
-      method,
-      sources,
-      lexicon,
-      heldLemmas,
-      labels,
+    const adaptationCache = loadPersistedAdaptationCache();
+    const context = buildMaterialSetupContext(method, sources, lexicon, heldLemmas, labels, {
+      cache: adaptationCache,
       activeWorld,
-    );
+    });
     if (!context) return { status: "omit" };
 
     const account = await getAccount();

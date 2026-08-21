@@ -9,9 +9,9 @@ want to read.
 **So that:** the words they learn are the words they will need, and the goal
 they gave the app is not just an onboarding question.
 
-Derived from [`../study/08-motivation.md`](../study/08-motivation.md) M7,
-[`../study/01-duolingo.md`](../study/01-duolingo.md) D7,
-[`../study/16-further-findings.md`](../study/16-further-findings.md) W4, and
+Derived from [`../study/STUDY-008-motivation.md`](../study/STUDY-008-motivation.md) M7,
+[`../study/STUDY-001-duolingo.md`](../study/STUDY-001-duolingo.md) D7,
+[`../study/STUDY-014-further-findings.md`](../study/STUDY-014-further-findings.md) W4, and
 [`../study/56-lernwelt-single-choice.md`](../study/56-lernwelt-single-choice.md).
 
 ## Today

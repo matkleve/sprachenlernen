@@ -16,6 +16,14 @@ export type AdaptationCacheKey = {
   promptVersion: string;
 };
 
+export type PersonalAdaptationCacheKey = {
+  sourceHash: string;
+  heldLemmaSetHash: string;
+  targetLevel: string;
+  languageCode: string;
+  promptVersion: string;
+};
+
 export const COMFORTABLE_COVERAGE_MIN = 95;
 
 export const buildAdaptationCacheKey = (input: AdaptationCacheKey): string =>
@@ -24,6 +32,16 @@ export const buildAdaptationCacheKey = (input: AdaptationCacheKey): string =>
     input.languageCode,
     input.targetLevel,
     input.tier,
+    input.promptVersion,
+  ].join(":");
+
+export const buildPersonalAdaptationCacheKey = (input: PersonalAdaptationCacheKey): string =>
+  [
+    input.sourceHash,
+    input.heldLemmaSetHash,
+    input.languageCode,
+    input.targetLevel,
+    "T3",
     input.promptVersion,
   ].join(":");
 

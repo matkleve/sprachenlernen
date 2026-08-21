@@ -38,12 +38,12 @@ describe("content-traceability", () => {
 
     expect(trace.appearanceCount).toBe(3);
     expect(trace.topSources.map((source) => source.title)).toEqual([
-      "Noticias: elecciones en Chile",
       "En el café",
       "Un paseo por la calle",
+      "Autoridades electorales mantienen prohibición de presencia de observadores en elecciones egipcias",
     ]);
-    expect(trace.topSources[0]?.id).toBe("es-catalogue-chile");
-    expect(trace.topSources[1]?.id).toBe("es-fixture-cafe");
+    expect(trace.topSources[0]?.id).toBe("es-fixture-cafe");
+    expect(trace.topSources[2]?.id).toBe("wikinews-es-3516");
   });
 
   it("returns an empty view when the lemma is not in any persisted source", () => {

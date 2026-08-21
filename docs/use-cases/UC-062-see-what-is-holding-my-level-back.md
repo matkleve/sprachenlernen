@@ -10,7 +10,7 @@ it.
 **So that:** a level becomes a diagnosis they can act on instead of a verdict
 they have to accept.
 
-Derived from [`../study/03-level-model.md`](../study/03-level-model.md), honesty
+Derived from [`../study/STUDY-003-level-model.md`](../study/STUDY-003-level-model.md), honesty
 rule 3 ("every number opens — a competence figure without a derivation is an
 oracle") and the overall-level formula. Extends UC-004 one layer deeper: UC-004
 opens a level into its **skills**; this opens a skill into its **signals**, and a

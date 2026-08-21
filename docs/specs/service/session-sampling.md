@@ -11,8 +11,8 @@ Weighted selection of review cards for one SRS session. Replaces the binary
 when T-W22 ships. FSRS still owns intervals and grades; this module only
 **composes** the queue.
 
-Study: [`43-early-foundation-sessions.md`](../../study/43-early-foundation-sessions.md),
-[`44-foundation-phase-expert-review.md`](../../study/44-foundation-phase-expert-review.md).
+Study: [`archive/ARCH-043-early-foundation-sessions.md`](../../study/archive/ARCH-043-early-foundation-sessions.md),
+[`archive/ARCH-044-foundation-phase-expert-review.md`](../../study/archive/ARCH-044-foundation-phase-expert-review.md).
 
 ## Scope
 

@@ -11,7 +11,7 @@ in the catalogue (UC-063, ADR-0009). Today that is `srs-session` only; future
 card-based Methods share this route. Reading, listening, and off-app Methods
 belong in the catalogue ([`method-menu.md`](method-menu.md)), not here.
 
-Thesis **3** ([`study/12`](../../study/12-method-cards.md)): SRS and input are
+Thesis **3** ([`study/12`](../../study/STUDY-010-method-cards.md)): SRS and input are
 both required long-term. Words is the SRS pillar's surface; it does not subsume
 the other fifty-two Methods.
 

@@ -10,9 +10,9 @@ its own daily load.
 **So that:** adding a new language never disturbs any language already in
 progress, no matter how many there are.
 
-Derived from [`../study/09-feature-catalogue.md`](../study/09-feature-catalogue.md)
+Derived from [`../backlog/BL-009-feature-catalogue.md`](../backlog/BL-009-feature-catalogue.md)
 F84 and question 6 in
-[`../study/11-roadmap-open-questions.md`](../study/11-roadmap-open-questions.md).
+[`../backlog/BL-011-roadmap-open-questions.md`](../backlog/BL-011-roadmap-open-questions.md).
 
 ## Today
 
@@ -51,7 +51,7 @@ how many languages the account holds.
   what exists, no new material, no pressure (related to UC-006). Still per
   language, still never shared with any other language's schedule, no matter
   how many are in maintenance at once.
-- Method floors ([`../study/12-method-cards.md`](../study/12-method-cards.md))
+- Method floors ([`../study/STUDY-010-method-cards.md`](../study/STUDY-010-method-cards.md))
   apply per language, same as everything else here — no global, cross-language
   version of anything, regardless of language count.
 

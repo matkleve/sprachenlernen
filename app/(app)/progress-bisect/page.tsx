@@ -21,7 +21,7 @@ export const metadata: Metadata = {
 };
 
 /**
- * Progressive Progress body for iOS PWA bisect. Contract: docs/study/31-ios-safari-pwa-test-report.md
+ * Progressive Progress body for iOS PWA bisect. Contract: docs/qa/QA-031-ios-safari-pwa-test-report.md
  */
 export default async function ProgressBisectPage({
   searchParams,

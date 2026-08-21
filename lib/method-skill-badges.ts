@@ -1,6 +1,6 @@
 /**
  * Derives skill contribution marks for method badges.
- * Contract: docs/study/27-method-badges.md, docs/specs/component/method-badge.md
+ * Contract: docs/study/STUDY-025-method-badges.md, docs/specs/component/method-badge.md
  */
 
 import {

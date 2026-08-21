@@ -280,7 +280,7 @@ describe("filtering by context", () => {
 
     // In bed the preset is "nothing to write on" and "quiet" — study/21's own
     // values, and between them they exclude both halves of "touch or voice".
-    expect(without).toEqual(["bed"]);
+    expect(without).toEqual(["bed", "waiting"]);
   });
 
   it("offers open-ended methods only in an open block", () => {

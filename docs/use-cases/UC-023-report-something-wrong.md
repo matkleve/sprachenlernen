@@ -9,8 +9,8 @@ wrong, or audio that does not match its text.
 **So that:** wrong content gets fixed instead of memorised — and the people
 running the app find out how good their generated material actually is.
 
-Derived from [`../study/10-antipatterns.md`](../study/10-antipatterns.md) A5
-and [`../study/01-duolingo.md`](../study/01-duolingo.md) D6.
+Derived from [`../study/STUDY-009-antipatterns.md`](../study/STUDY-009-antipatterns.md) A5
+and [`../study/STUDY-001-duolingo.md`](../study/STUDY-001-duolingo.md) D6.
 
 ## Today
 

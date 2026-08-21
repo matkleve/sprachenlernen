@@ -8,8 +8,8 @@
 **So that:** the rare long window is worth more than twenty short sessions.
 
 Derived from
-[`../study/21-method-catalogue-and-context.md`](../study/21-method-catalogue-and-context.md)
-and [`../study/02-evidence.md`](../study/02-evidence.md) E2.
+[`../study/STUDY-019-method-catalogue-and-context.md`](../study/STUDY-019-method-catalogue-and-context.md)
+and [`../study/STUDY-002-evidence.md`](../study/STUDY-002-evidence.md) E2.
 
 ## Today
 

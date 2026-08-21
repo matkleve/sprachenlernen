@@ -3,6 +3,8 @@
  */
 import { describe, expect, it } from "vitest";
 
+import { createMemoryAdaptationCache } from "@/lib/adaptation-cache";
+import { buildAdaptationCacheKey } from "@/lib/content-adaptation";
 import { loadMethodCatalogue } from "@/features/method-menu/catalogue";
 import { findMethod } from "@/features/method-menu/MethodDetail";
 import { loadLexiconForLanguage } from "@/lib/shipped-language";
@@ -38,6 +40,12 @@ const labels = {
   comfortBand: (band: string) => band,
   coverageLine: (percent: number, band: string) => `${percent}% · ${band}`,
   demandingLine: (percent: number, words: number) => `demanding ${percent}% ${words}`,
+  t1SupportLine: (percent: number, gaps: number) => `t1 ${percent}% ${gaps}`,
+  blockedLine: (percent: number, level: string) => `blocked ${percent}% ${level}`,
+  adaptationLabel: (level: string) => `Adapted for ${level}`,
+  adaptationFailed: (level: string) => `failed ${level}`,
+  processingConsent: "Adapt",
+  processingConsentHint: "Cloud processing",
   appPickPreview: (percent: number, band: string) => `~${percent}% ${band}`,
   emptyTopic: "Nothing yet",
   keepInLibrary: "Keep",
@@ -105,7 +113,7 @@ describe("buildMaterialSetupContext", () => {
       labels,
     )!;
     const newsPreview = context.previews.news?.sentence;
-    expect(newsPreview?.title).toContain("Chile");
+    expect(newsPreview?.title).toContain("elecciones");
     expect(newsPreview?.coverage.coveragePercent).toBeGreaterThan(0);
   });
 
@@ -153,12 +161,12 @@ describe("practiceHrefForSetup", () => {
   it("passes method, source, topic, unit, and variant on Start", () => {
     const href = practiceHrefForSetup({
       methodId: "partial-dictation",
-      sourceId: "es-catalogue-chile",
+      sourceId: "wikinews-es-3516",
       topicId: "news",
       unitId: "sentence",
     });
     expect(href).toContain("method=partial-dictation");
-    expect(href).toContain("sourceId=es-catalogue-chile");
+    expect(href).toContain("sourceId=wikinews-es-3516");
     expect(href).toContain("topicId=news");
     expect(href).toContain("unitId=sentence");
     expect(href).toContain("variantId=short");
@@ -167,7 +175,7 @@ describe("practiceHrefForSetup", () => {
   it("maps paragraph unit to standard variant", () => {
     const href = practiceHrefForSetup({
       methodId: "partial-dictation",
-      sourceId: "es-catalogue-chile",
+      sourceId: "wikinews-es-3516",
       topicId: "news",
       unitId: "paragraph",
     });
@@ -177,7 +185,7 @@ describe("practiceHrefForSetup", () => {
   it("maps window unit to long variant", () => {
     const href = practiceHrefForSetup({
       methodId: "partial-dictation",
-      sourceId: "es-catalogue-chile",
+      sourceId: "wikinews-es-3516",
       topicId: "news",
       unitId: "window",
       durationSec: 300,
@@ -187,9 +195,89 @@ describe("practiceHrefForSetup", () => {
   });
 });
 
+describe("adaptation delivery gate previews", () => {
+  const newsSource = sources.find((source) => source.id === "wikinews-es-3516")!;
+  const comfortableBody =
+    "Uno dos tres cuatro cinco uno dos tres cuatro cinco uno dos tres cuatro cinco uno dos tres cuatro cinco uno dos tres cuatro cinco.";
+  const cache = createMemoryAdaptationCache([
+    {
+      cacheKey: buildAdaptationCacheKey({
+        sourceId: newsSource.id,
+        languageCode: "es",
+        targetLevel: "A2",
+        tier: "T2",
+        promptVersion: "v1",
+      }),
+      sourceId: newsSource.id,
+      languageCode: "es",
+      targetLevel: "A2",
+      tier: "T2",
+      promptVersion: "v1",
+      adaptedBody: comfortableBody,
+      coveragePercent: 96,
+      cachedAt: "2026-08-20T00:00:00.000Z",
+    },
+  ]);
+
+  it("AC-7: adapted preview with personal coverage ≥ 95 % enables Start", () => {
+    const heldComfortable = new Set(["uno", "dos", "tres", "cuatro", "cinco"]);
+    const context = buildMaterialSetupContext(
+      extensiveReading,
+      sources,
+      lexicon,
+      heldComfortable,
+      labels,
+      { cache },
+    )!;
+    const preview = context.previews.news?.full;
+    expect(preview?.adapted).toBe(true);
+    expect(preview?.coverage.coveragePercent).toBeGreaterThanOrEqual(95);
+    expect(preview?.startEnabled).toBe(true);
+    expect(preview?.deliveryGate).toBe("comfortable");
+    expect(preview?.adaptationLabel).toContain("A2");
+  });
+
+  it("AC-10: adapted preview with personal coverage < 80 % blocks Start", () => {
+    const heldTiny = new Set(["uno"]);
+    const context = buildMaterialSetupContext(
+      extensiveReading,
+      sources,
+      lexicon,
+      heldTiny,
+      labels,
+      { cache },
+    )!;
+    const preview = context.previews.news?.full;
+    expect(preview?.adapted).toBe(true);
+    expect(preview?.coverage.coveragePercent).toBeLessThan(80);
+    expect(preview?.startEnabled).toBe(false);
+    expect(preview?.deliveryGate).toBe("blocked");
+    expect(preview?.demandingCopy).toContain("blocked");
+  });
+
+  it("AC-8: adapted preview with personal coverage 80–94 % keeps Start with T1 copy", () => {
+    const heldMid = new Set(["uno", "dos", "tres", "cuatro"]);
+    const context = buildMaterialSetupContext(
+      extensiveReading,
+      sources,
+      lexicon,
+      heldMid,
+      labels,
+      { cache },
+    )!;
+    const preview = context.previews.news?.full;
+    expect(preview?.adapted).toBe(true);
+    expect(preview?.coverage.coveragePercent).toBeGreaterThanOrEqual(80);
+    expect(preview?.coverage.coveragePercent).toBeLessThan(95);
+    expect(preview?.startEnabled).toBe(true);
+    expect(preview?.deliveryGate).toBe("t1-support");
+    expect(preview?.demandingCopy).toContain("t1");
+  });
+});
+
 describe("pickTopicSource", () => {
   it("prefers the best coverage source for a topic tag", () => {
     const source = pickTopicSource(sources, "news", lexicon, held);
-    expect(source?.id).toBe("es-catalogue-chile");
+    expect(source?.id).toBe("wikinews-es-3516");
   });
 });

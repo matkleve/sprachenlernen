@@ -40,7 +40,7 @@ export type Morphology = (typeof MORPHOLOGIES)[number];
  * What "one word" means in this language. Declared, never inferred: getting it
  * wrong does not fail, it produces a plausible vocabulary count that means
  * nothing — and it is least visible in the languages where it is most wrong.
- * See study/18-language-kit.md, U1.
+ * See study/STUDY-016-language-kit.md, U1.
  */
 export const COUNTING_UNITS = ["form", "lemma", "segment"] as const;
 export type CountingUnit = (typeof COUNTING_UNITS)[number];

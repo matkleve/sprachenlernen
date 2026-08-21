@@ -6,7 +6,7 @@ import type { ExerciseStep } from "./types";
 
 export type ExerciseContentProfile = "short" | "scroll" | "paginated";
 
-/** Short-profile content budget — study/42-exercise-mobile-fit-frame.md */
+/** Short-profile content budget — reviews/design/DR-043-exercise-mobile-fit-frame.md */
 export const SHORT_STEP_BUDGET = {
   maxPrepRows: 2,
   maxIntroChars: 140,

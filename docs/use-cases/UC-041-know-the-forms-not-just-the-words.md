@@ -11,8 +11,8 @@ practise the ones they cannot.
 something they can also say.
 
 Derived from
-[`../study/03-level-model.md`](../study/03-level-model.md), "Die zweite
-Achse", and [`../study/07-offline-and-paper.md`](../study/07-offline-and-paper.md) Ü3.
+[`../study/STUDY-003-level-model.md`](../study/STUDY-003-level-model.md), "Die zweite
+Achse", and [`../study/STUDY-007-offline-and-paper.md`](../study/STUDY-007-offline-and-paper.md) Ü3.
 
 ## Today
 
@@ -38,8 +38,9 @@ disconnected from the words the learner actually has.
   with weak forms cannot produce a high speaking or writing level.
 - Practice for a gap uses the learner's **own** words, not example verbs, and
   mixes classes rather than drilling one pattern in a block.
-- The learner can open a **forms-only** review from Words ([UC-078](UC-078-practise-forms-without-mixed-review.md))
-  without a separate nav destination.
+- The learner can reach **form-only** review from Progress or Methods
+  ([UC-078](UC-078-practise-forms-without-mixed-review.md)) — not a second entry
+  on Words.
 - After a form error, a **short rule for that cell** is available on demand
   ([UC-022](UC-022-understand-a-rule-when-i-get-it-wrong.md)) — not a grammar
   chapter up front.

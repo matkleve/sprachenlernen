@@ -16,7 +16,6 @@
       "hosted": true,
       "intensity": 2,
       "durations": [
-        10,
         20,
         45
       ],
@@ -104,7 +103,6 @@
       "hosted": true,
       "intensity": 2,
       "durations": [
-        5,
         10,
         20
       ],

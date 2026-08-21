@@ -32,7 +32,7 @@ type WordsBisectProps = {
 };
 
 /**
- * Progressive Words body for Safari bisect. Contract: docs/study/31-ios-safari-pwa-test-report.md
+ * Progressive Words body for Safari bisect. Contract: docs/qa/QA-031-ios-safari-pwa-test-report.md
  */
 export function WordsBisect({
   level,

@@ -29,6 +29,10 @@ export type SourceIngestInput = {
   licence?: SourceLicence;
 };
 
+export function learnerPrivateLicence(fetchedAt: string = new Date().toISOString()): SourceLicence {
+  return { kind: LEARNER_LICENCE_KIND, fetchedAt };
+}
+
 export const validateCatalogueLicence = (source: SourceIngestInput): string | null => {
   if (source.origin !== "catalogue") return null;
   const kind = source.licence?.kind;
@@ -43,3 +47,15 @@ export const validateCatalogueLicence = (source: SourceIngestInput): string | nu
 
 export const isLearnerPrivateSource = (source: SourceIngestInput): boolean =>
   source.origin === "learner" && source.licence?.kind === LEARNER_LICENCE_KIND;
+
+/** Catalogue rows must carry licence metadata — docs/specs/service/content-ingestion.md */
+export const validateSourceIngestion = (
+  source: SourceIngestInput,
+  prefix = "source",
+): string | null => {
+  if (source.origin === "catalogue") {
+    const error = validateCatalogueLicence(source);
+    return error ? `${prefix}: ${error}` : null;
+  }
+  return null;
+};

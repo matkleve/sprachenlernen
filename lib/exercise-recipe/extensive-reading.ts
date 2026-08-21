@@ -10,7 +10,7 @@ import { loadLexiconForLanguage } from "@/lib/shipped-language";
 
 function readingUnitId(ctx: SessionContext): MaterialUnitId {
   if (ctx.unitId) return ctx.unitId;
-  return ctx.budgetMinutes !== undefined ? "window" : "full";
+  return "full";
 }
 
 export function composeExtensiveReadingRecipe(
@@ -19,7 +19,8 @@ export function composeExtensiveReadingRecipe(
 ): ExerciseRecipe {
   const lexicon = loadLexiconForLanguage(source.languageCode);
   const unitId = readingUnitId(ctx);
-  const readDurationSec = extensiveReadingDurationSec(ctx);
+  const readDurationSec =
+    unitId === "window" ? extensiveReadingDurationSec(ctx) : undefined;
   const unit = resolveMaterialUnit(source, unitId, {
     durationSec: readDurationSec ?? ctx.durationSec,
     lexicon: lexicon ?? undefined,
@@ -87,10 +88,18 @@ export function composeExtensiveReadingRecipe(
 
 export async function resolveExtensiveReadingRecipe(
   ctx: SessionContext,
-  findSource: (id: string) => Promise<Source | null> | Source | null = resolveContentSourceById,
+  findSource: (
+    id: string,
+    options?: import("@/lib/content-source-resolve").ResolveContentSourceOptions,
+  ) => Promise<Source | null> | Source | null = resolveContentSourceById,
 ): Promise<ExerciseRecipe | null> {
   const resolvedId = ctx.sourceId ?? DEFAULT_EXTENSIVE_READING_SOURCE_ID;
-  const source = await findSource(resolvedId);
+  const source = await findSource(resolvedId, {
+    adapted: ctx.adapted,
+    targetLevel: ctx.targetLevel,
+    heldLemmaCount: ctx.heldLemmas?.size,
+    heldLemmas: ctx.heldLemmas,
+  });
   if (!source) return null;
   return composeExtensiveReadingRecipe(source, ctx);
 }

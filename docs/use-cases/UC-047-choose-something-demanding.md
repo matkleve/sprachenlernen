@@ -10,7 +10,7 @@ back-translation, an hour with one difficult text.
 app considered palatable.
 
 Derived from
-[`../study/21-method-catalogue-and-context.md`](../study/21-method-catalogue-and-context.md),
+[`../study/STUDY-019-method-catalogue-and-context.md`](../study/STUDY-019-method-catalogue-and-context.md),
 "Warum Apps die harten Methoden meiden".
 
 ## Today

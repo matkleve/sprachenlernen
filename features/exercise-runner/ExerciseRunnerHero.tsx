@@ -54,7 +54,7 @@ type ExerciseRunnerHeroProps = {
 
 /**
  * Desktop hero belt — full-bleed section graphic. Hidden on mobile (`md+` only).
- * Mobile uses `ExerciseRunnerMobileStrip` instead — study/42-exercise-mobile-fit-frame.md
+ * Mobile uses `ExerciseRunnerMobileStrip` instead — reviews/design/DR-043-exercise-mobile-fit-frame.md
  */
 export function ExerciseRunnerHero({
   section,

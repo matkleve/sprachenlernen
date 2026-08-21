@@ -13,8 +13,11 @@ Split child of [`method-material-setup.md`](method-material-setup.md).
       copy appears before Start is enabled.
 - [x] AC-6 · Given a catalogue topic chip with zero Sources, when rendered, then
       the chip is disabled or shows empty-state — **no** upload field under it.
-- [ ] Given learner upload below comfortable band with consent, when adaptation
-      completes, then preview shows **~N min** and Start enables — no Start during
-      processing.
+- [x] AC-7 · Given band-level adapted text with **personal** coverage ≥ 95 % on
+      shown body, when preview renders, then comfortable copy and Start after ~N min.
+- [x] AC-8 · Given band-level adapted text with personal coverage 80–94 %, when
+      preview renders, then T1/gap copy appears and Start follows support ladder.
+- [x] AC-10 · Given band-level adapted text with personal coverage &lt; 80 %, when
+      preview renders, then honest block copy — Start disabled.
 - [x] AC-9 · Given a method with `materialTopics`, when detail renders, then topic
       chips and Start appear **above** `trains` prose — not below the article body.

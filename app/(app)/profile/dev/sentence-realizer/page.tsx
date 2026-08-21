@@ -1,5 +1,3 @@
-import { notFound } from "next/navigation";
-
 import { ShellPageContent } from "@/features/app-shell/ShellPageContent";
 import { SentenceRealizerDev } from "@/features/sentence-realizer-dev/SentenceRealizerDev";
 import {
@@ -8,7 +6,6 @@ import {
   pickShuffledPlan,
 } from "@/lib/sentence-realizer/load-context";
 import { renderSpanishPlanAllPersons } from "@/lib/sentence-realizer/realize-es";
-import { showProfileDevSection } from "@/lib/profile-section";
 import { getTranslations } from "next-intl/server";
 
 function parseSeed(raw: string | string[] | undefined): number {
@@ -17,14 +14,12 @@ function parseSeed(raw: string | string[] | undefined): number {
   return Number.isFinite(parsed) ? parsed : 0;
 }
 
-/** Dev-only matrix for the Spanish sentence realizer. */
+/** Dev matrix for the Spanish sentence realizer. */
 export default async function ProfileDevSentenceRealizerPage({
   searchParams,
 }: {
   searchParams: Promise<Record<string, string | string[] | undefined>>;
 }) {
-  if (!showProfileDevSection()) notFound();
-
   const params = await searchParams;
   const seed = parseSeed(params.seed);
   const t = await getTranslations("sentenceRealizerDev");

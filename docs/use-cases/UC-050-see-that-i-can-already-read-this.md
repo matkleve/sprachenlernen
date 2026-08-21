@@ -10,7 +10,7 @@ whether they can read it.
 something they just did.
 
 Derived from
-[`../study/24-speaking-as-the-goal.md`](../study/24-speaking-as-the-goal.md) S2.
+[`../study/STUDY-022-speaking-as-the-goal.md`](../study/STUDY-022-speaking-as-the-goal.md) S2.
 
 ## Today
 

@@ -16,7 +16,7 @@ learner feels the app **respected their choice**.
 This chapter records a structured review from three roles — **UX designer
 (UX)**, **language teacher (LT)**, **data scientist (DS)** — and a single
 recommended design. It extends [UC-019](../use-cases/UC-019-learn-for-something-specific.md),
-[08](08-motivation.md) M7, [24](24-speaking-as-the-goal.md), and [21](21-method-catalogue-and-context.md).
+[08](STUDY-008-motivation.md) M7, [24](STUDY-022-speaking-as-the-goal.md), and [21](STUDY-019-method-catalogue-and-context.md).
 
 ---
 
@@ -30,7 +30,7 @@ Two separate knobs, often conflated:
 | **Domain register** | Business · Alltag · Technik | Which **lemmas** are boosted in the vocabulary queue — meeting, invoice, kitchen, API |
 
 The desired **feeling** — *"the app heard me"* — is a **competence signal**
-([08](08-motivation.md) M5), not a welcome animation. It requires **visible
+([08](STUDY-008-motivation.md) M5), not a welcome animation. It requires **visible
 consequence within the first week**, ideally within the **first three sessions**.
 
 ---
@@ -41,7 +41,7 @@ consequence within the first week**, ideally within the **first three sessions**
 
 ### I1a · The hard constraint — UC-011 wins the first minute
 
-[UC-011](../use-cases/UC-011-start-in-the-first-minute.md) and [01](01-duolingo.md)
+[UC-011](../use-cases/UC-011-start-in-the-first-minute.md) and [01](STUDY-001-duolingo.md)
 S1 are **[A]**: every screen before the first exercise costs users permanently.
 The account is already the one allowed step ([ADR-0006](../adr/0006-require-an-account.md)).
 
@@ -111,7 +111,7 @@ that is because you asked for it. Change anytime in Profile."*
 - Reuse existing **Field / Button** patterns — no new illustration-heavy wizard.
 - **Skip** is not greyed out; skipping is a valid answer (general path).
 - Profile entry: same two questions, editable, with **last changed** date.
-- No streak, no progress bar on the intent form itself ([08](08-motivation.md) —
+- No streak, no progress bar on the intent form itself ([08](STUDY-008-motivation.md) —
   controlling framing).
 
 ### I1f · UX verdict
@@ -130,7 +130,7 @@ that is because you asked for it. Change anytime in Profile."*
 
 ### I2a · Skill emphasis — align with study 24, do not corrupt measurement
 
-[24](24-speaking-as-the-goal.md) already resolves the "different goals" problem:
+[24](STUDY-022-speaking-as-the-goal.md) already resolves the "different goals" problem:
 
 > Input is the precondition. Speaking is the goal. The goal changes **what is
 > foregrounded**, never **what is true**.
@@ -145,7 +145,7 @@ So **Speaking** as skill emphasis should:
 for a learner preparing for an exam or audiobook immersion. **Balanced** restores
 today's neutral behaviour.
 
-This is **targeting**, not **gating** ([26](26-readiness-and-difficulty.md)):
+This is **targeting**, not **gating** ([26](STUDY-024-readiness-and-difficulty.md)):
 every method stays available; emphasis changes **offer rate** and **copy**, not
 permission.
 
@@ -191,11 +191,11 @@ The learner should still recognise the session as "normal vocabulary", with a
 Many learners pick **Speaking + Business**. Didactically:
 
 1. **Week 1–2:** meaning-recall on boosted Business lemmas + general spine
-2. **Week 2+:** production floors rise ([24](24-speaking-as-the-goal.md)); role-play
+2. **Week 2+:** production floors rise ([24](STUDY-022-speaking-as-the-goal.md)); role-play
    methods draw Business **sentence templates** from held lemmas
 3. **Do not** promise "you can negotiate contracts at B1" — UC-019 success criterion
 
-### I2e · Relation to learning context ([21](21-method-catalogue-and-context.md))
+### I2e · Relation to learning context ([21](STUDY-019-method-catalogue-and-context.md))
 
 **Intent ≠ context.** "Business" does not mean "at my desk". Context (eyes free,
 time, writing surface) still filters **methods first**. Intent filters **words and
@@ -209,7 +209,7 @@ Order remains: **context → floor → effect → preference → intent weightin
 | --- | --- |
 | **Ship?** | **Yes**, with narrow boost band and general spine preserved |
 | **Blocker** | Lemma register tags do not exist in `data/` yet — content work, not UI |
-| **Anti-pattern** | Separate Business deck that forks progress ([10](10-antipatterns.md) — parallel truths) |
+| **Anti-pattern** | Separate Business deck that forks progress ([10](STUDY-009-antipatterns.md) — parallel truths) |
 
 ---
 
@@ -219,7 +219,7 @@ Order remains: **context → floor → effect → preference → intent weightin
 
 ### I3a · One queue, weighted sampling — not a second deck
 
-Duolingo D7 and [09](09-feature-catalogue.md) F14 already say: goal-dependent
+Duolingo D7 and [09](../backlog/BL-009-feature-catalogue.md) F14 already say: goal-dependent
 selection is **cheap** because it is a **different frequency list**. The shipped
 code path today:
 
@@ -245,7 +245,7 @@ code path today:
 | `skillEmphasis` | Floor multipliers on method catalogue only | No change to FSRS |
 
 **FSRS unchanged.** Intent affects **which card enters the session**, not
-`applyReview` intervals ([44](44-foundation-phase-expert-review.md) P1a).
+`applyReview` intervals ([44](archive/ARCH-044-foundation-phase-expert-review.md) P1a).
 
 ### I3c · Data model (sketch)
 
@@ -272,7 +272,7 @@ type LemmaRegisterTag = {
 ```
 
 Start with **curated lists of ~150 lemmas per register per language** (ES, IT
-first). LLM-assisted tagging is lane C ([48](48-content-licensing-and-adaptation.md))
+first). LLM-assisted tagging is lane C ([48](archive/ARCH-048-content-licensing-and-adaptation.md))
 — human spot-check before boost.
 
 ### I3d · Measurability — prove "respected" or kill the feature
@@ -343,14 +343,14 @@ flowchart TD
 | **Session complete (once)** | Intent prompt |
 | **Next 3 session intros** | "Includes words for Business" chip |
 | **Card / G1 reason** | "Boosted: Business" when applicable |
-| **Home headline** | Skill emphasis ([24](24-speaking-as-the-goal.md)) |
+| **Home headline** | Skill emphasis ([24](STUDY-022-speaking-as-the-goal.md)) |
 | **Weekly reflection** | "Most progress toward **speaking** this week" / domain-aware examples |
 | **Methods menu** | Floors shift per skill emphasis |
 
 ### I4c · What does not change
 
-- Level measurement ([03](03-level-model.md))
-- FSRS intervals ([04](04-flashcards-srs.md))
+- Level measurement ([03](STUDY-003-level-model.md))
+- FSRS intervals ([04](STUDY-004-flashcards-srs.md))
 - UC-011 first-minute rule
 - Single task graph — no parallel Business deck
 
@@ -376,7 +376,7 @@ copy is wrong. If (3) fails, trust is destroyed — **Sensitive** regression.
 2. **Exam / travel intents** — fold into domain, add fourth bucket, or defer to v2?
 3. **Multi-intent** — "Business + Speaking" is two fields today; allow **secondary
    domain at 1.1×** or keep one domain only?
-4. **Tag ownership** — who curates ES/IT register lists ([18](18-language-kit.md))?
+4. **Tag ownership** — who curates ES/IT register lists ([18](STUDY-016-language-kit.md))?
 5. **Decay** — 60-day boost fade: too fast for slow learners, too slow for goal
    changers?
 6. **Placement test interaction** — if offered post-session-1, does intent pre-empt
@@ -410,12 +410,12 @@ lands). **Effort:** M (content tagging is the long pole).
 | --- | --- | --- | --- | --- |
 | F219 | Post-session-1 intent prompt (skill + domain), skippable | B | S | **V1 candidate** — [49](49-learner-intent-onboarding.md) |
 | F220 | Domain register lemma boost in session sampling | C | M | **V1 candidate** — extends F14 |
-| F221 | Skill emphasis → Home headline + method floors | B | M | **V1 candidate** — [24](24-speaking-as-the-goal.md) |
+| F221 | Skill emphasis → Home headline + method floors | B | M | **V1 candidate** — [24](STUDY-022-speaking-as-the-goal.md) |
 | F222 | G1 "Boosted: {register}" reason on cards | C | S | **V1 candidate** |
 | F223 | Intent boost decay over 60 days | D | S | **V2** — calibrate after F220 data |
 | F224 | Inferred register from reading sources | C | L | **later** — consent + cold start |
 
-F14 in [09](09-feature-catalogue.md) is **superseded in place** by F220 with
+F14 in [09](../backlog/BL-009-feature-catalogue.md) is **superseded in place** by F220 with
 narrower, measurable semantics — do not build both.
 
 ---
@@ -440,10 +440,10 @@ change it."*
 
 | | Claim | Grade |
 | --- | --- | --- |
-| ⬤ | Pre-first-exercise steps cost permanent users | [A] — [01](01-duolingo.md) S1 |
-| ◐ | Self-set goals support autonomy | [B] — [08](08-motivation.md) M7, SDT |
-| ⬤ | Goal changes foregrounding, not measurement | [D] — [24](24-speaking-as-the-goal.md) |
-| ○ | Goal-dependent frequency lists are cheap | [C] — [01](01-duolingo.md) D7, F14 |
-| ⬤ | Context filters before preference | [D] — [21](21-method-catalogue-and-context.md) |
-| ⬤ | One scheduler — composer layers only | [A] — [44](44-foundation-phase-expert-review.md) P1a |
+| ⬤ | Pre-first-exercise steps cost permanent users | [A] — [01](STUDY-001-duolingo.md) S1 |
+| ◐ | Self-set goals support autonomy | [B] — [08](STUDY-008-motivation.md) M7, SDT |
+| ⬤ | Goal changes foregrounding, not measurement | [D] — [24](STUDY-022-speaking-as-the-goal.md) |
+| ○ | Goal-dependent frequency lists are cheap | [C] — [01](STUDY-001-duolingo.md) D7, F14 |
+| ⬤ | Context filters before preference | [D] — [21](STUDY-019-method-catalogue-and-context.md) |
+| ⬤ | One scheduler — composer layers only | [A] — [44](archive/ARCH-044-foundation-phase-expert-review.md) P1a |
 | ○ | Register-tagged vocabulary lists in curriculum design | [C] — ESP / domain teaching practice |

@@ -85,7 +85,7 @@ this was measured against a production build, not reasoned about.
 Writes nothing except through `signOut()`.
 
 **No count, in any form.** Not a badge, not a dot, not "12 due". UC-063 forbids
-it, [`../../study/10-antipatterns.md`](../../study/10-antipatterns.md) A3 calls
+it, [`../../study/STUDY-009-antipatterns.md`](../../study/STUDY-009-antipatterns.md) A3 calls
 the backlog counter the most common exit route from Anki, and a navigation badge
 is the most prominent figure a phone can display. This is a data rule, not a
 visual one: the shell is never given a number, so it cannot render one.

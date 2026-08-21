@@ -1,6 +1,6 @@
 import type { MethodEntry } from "@/lib/method-catalogue";
 import { hasExerciseRecipe } from "@/lib/exercise-recipe-built";
-import { resolveSessionBudgetMinutes } from "@/lib/method-session-budget";
+import { resolveVariantMinutes } from "@/lib/method-session-budget";
 import { type ReviewDeck, parseReviewDeck } from "@/lib/review-deck";
 import { routes } from "@/lib/routes";
 
@@ -38,12 +38,12 @@ export function usesExerciseRunner(method: MethodEntry): boolean {
 
 export function exerciseSessionHref(
   methodId: string,
-  options?: { sourceId?: string | null; budgetMinutes?: number },
+  options?: { sourceId?: string | null; variantMinutes?: number },
 ): string {
   const params = new URLSearchParams({ method: methodId });
   if (options?.sourceId) params.set("sourceId", options.sourceId);
-  if (options?.budgetMinutes !== undefined) {
-    params.set("minutes", String(options.budgetMinutes));
+  if (options?.variantMinutes !== undefined) {
+    params.set("minutes", String(options.variantMinutes));
   }
   return `${routes.practice}?${params.toString()}`;
 }
@@ -51,14 +51,10 @@ export function exerciseSessionHref(
 /** Where a hosted session lives — card engine or exercise runner. */
 export function sessionHrefForMethod(
   method: MethodEntry,
-  options?: { sourceId?: string | null; budgetMinutes?: number },
+  options?: { sourceId?: string | null; variantMinutes?: number },
 ): string {
   if (usesWordsReview(method)) {
-    const params = new URLSearchParams({ method: method.id });
-    if (options?.budgetMinutes !== undefined) {
-      params.set("minutes", String(options.budgetMinutes));
-    }
-    return `${routes.wordsReview}?${params.toString()}`;
+    return cardEngineSessionHref();
   }
   if (usesExerciseRunner(method)) {
     return exerciseSessionHref(method.id, options);
@@ -68,27 +64,6 @@ export function sessionHrefForMethod(
 
 export function detailHrefForMethod(method: MethodEntry, returnQuery = ""): string {
   return `/methods/${method.id}${returnQuery}`;
-}
-
-function sessionBudgetFromReturnQuery(
-  durations: MethodEntry["durations"],
-  returnQuery: string,
-): number | undefined {
-  if (!returnQuery) return undefined;
-  const normalized = returnQuery.startsWith("?") ? returnQuery.slice(1) : returnQuery;
-  if (!normalized) return undefined;
-  const minutes = new URLSearchParams(normalized).get("minutes") ?? undefined;
-  return resolveSessionBudgetMinutes(durations, minutes);
-}
-
-function resolvedCardBudgetMinutes(
-  method: MethodEntry,
-  returnQuery: string,
-): number | undefined {
-  return (
-    sessionBudgetFromReturnQuery(method.durations, returnQuery) ??
-    resolveSessionBudgetMinutes(method.durations, undefined)
-  );
 }
 
 /** Whether the method menu card opens a session directly. */
@@ -106,9 +81,7 @@ export function cardDestinationMarker(method: MethodEntry): CardDestinationMarke
 /** Menu card destination: card engine opens session; everything else opens overview. */
 export function cardHrefForMethod(method: MethodEntry, returnQuery = ""): string {
   if (usesWordsReview(method)) {
-    return sessionHrefForMethod(method, {
-      budgetMinutes: resolvedCardBudgetMinutes(method, returnQuery),
-    });
+    return cardEngineSessionHref();
   }
   return detailHrefForMethod(method, returnQuery);
 }

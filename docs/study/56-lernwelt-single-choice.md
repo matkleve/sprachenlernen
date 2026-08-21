@@ -8,7 +8,7 @@
 - **Politik** and **Natur** are **registers** (Lernwelten), not “topics” under Business.
 - **“Business register + topic Nature”** is incoherent — withdraw that model entirely.
 - **Hidden situation tags** are **not transparent** — violates glass-walled honesty
-  ([04](04-flashcards-srs.md), [UC-005](../use-cases/UC-005-trust-the-review-schedule.md)).
+  ([04](STUDY-004-flashcards-srs.md), [UC-005](../use-cases/UC-005-trust-the-review-schedule.md)).
 - Previous chapters read like **layered product rules**, not something a learner
   can feel — this chapter replaces them with **one learner-visible knob**.
 
@@ -84,10 +84,10 @@ chapter (session intro, per-card G1 world tag).
 | Linear unit tree | **One world preference** + FSRS |
 | “Complete Unit 3” | **Held words** + honest level |
 | Opaque why-this-now | G1: *„Politik — deine Lernwelt“* |
-| Course % | No course % ([10](10-antipatterns.md) A4) |
+| Course % | No course % ([10](STUDY-009-antipatterns.md) A4) |
 
-Duolingo’s **short onboarding motivation quiz** is fine to copy ([01](01-duolingo.md));
-Duolingo’s **skill tree as spine** is not ([01](01-duolingo.md) D2).
+Duolingo’s **short onboarding motivation quiz** is fine to copy ([01](STUDY-001-duolingo.md));
+Duolingo’s **skill tree as spine** is not ([01](STUDY-001-duolingo.md) D2).
 
 ---
 
@@ -169,7 +169,7 @@ reading, dictation, Words — all receive `activeWorld`.
 
 **Owner question:** Should FSRS also weight words differently?
 
-**Two layers — do not merge them** ([44](44-foundation-phase-expert-review.md) P1a):
+**Two layers — do not merge them** ([44](archive/ARCH-044-foundation-phase-expert-review.md) P1a):
 
 | Layer | Lernwelt effect | Touch `applyReview` / stored `due`? |
 | --- | --- | --- |
@@ -229,7 +229,7 @@ remain as **history**; **W1–W6** is the current owner-aligned model.
 | | Claim | Grade |
 | --- | --- | --- |
 | ⬤ | Two-axis register+topic produced incoherent combos | [D] — owner 2026-08-20 |
-| ⬤ | Hidden personalization violates trust thesis | [D] — [04](04-flashcards-srs.md) |
-| ⬤ | Duolingo path ≠ our FSRS spine | [A] — [01](01-duolingo.md) D2 |
+| ⬤ | Hidden personalization violates trust thesis | [D] — [04](STUDY-004-flashcards-srs.md) |
+| ⬤ | Duolingo path ≠ our FSRS spine | [A] — [01](STUDY-001-duolingo.md) D2 |
 | ⬤ | Do not repeat the setting the user already chose | [D] — owner 2026-08-20 |
-| ⬤ | Lernwelt weights session pick, not `applyReview` | [D] — owner 2026-08-20, [44](44-foundation-phase-expert-review.md) |
+| ⬤ | Lernwelt weights session pick, not `applyReview` | [D] — owner 2026-08-20, [44](archive/ARCH-044-foundation-phase-expert-review.md) |

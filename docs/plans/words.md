@@ -6,7 +6,7 @@ specs, and code for vocabulary / words / lemmas / lexicon.
 **What this file owns:** the words-domain slice sequence — what to clean up, what
 to decide, what to spec next, and what order to build in. The project-wide queue
 lives in [`IMPLEMENTATION-PLAN.md`](../IMPLEMENTATION-PLAN.md); roadmap stage
-order lives in [`study/11-roadmap-open-questions.md`](../study/11-roadmap-open-questions.md).
+order lives in [`backlog/BL-011-roadmap-open-questions.md`](../backlog/BL-011-roadmap-open-questions.md).
 
 **What shipped today (stage-1 card engine):**
 
@@ -102,9 +102,9 @@ frequency blocks (derivation)
 | **T-W3** | **Vocabulary map (pool-local v1)** — extend `/words`: show distribution of held/fragile/new/new-hole across frequency bands; textual equivalent required (UC-021). Not language-wide until lexicon runtime. | UC-031 (partial) | extend [`words-home.md`](../specs/feature/words-home.md) | Standard | T-W1, W-2 answered | **Shipped 2026-08-17** — `FrequencyBlocksField`, core band labels unreviewed as holes |
 | **T-W4** | **T-B3 remainder** — language-wide vocabulary extrapolation, per-skill levels, demonstration sentence. | UC-004, UC-031, UC-054, UC-050 | existing [`progress.md`](../specs/page/progress.md), level-model specs | Standard / Sensitive | calibration (tier A) or widened band; anchor table [C] |
 | **T-W5** | **Per-cell form breakdown** — Progress drill-down: held forms by paradigm cell **group**; weak group links to `deck=form` practice. | UC-062, UC-064 (forms branch), UC-078 | extend [`form-mastery-signal.md`](../specs/service/form-mastery-signal.md) | Standard | W-5 answered |
-| **T-W20** | **Forms home + deck filter** — second section card on `/words`; `deck=meaning\|form\|mixed` on session builder and review route. | UC-078, UC-063, UC-041 | [`words-home.md`](../specs/feature/words-home.md), [`words-review.md`](../specs/page/words-review.md), [`session-builder.md`](../specs/service/session-builder.md) | Standard | form-recall pool shipped |
+| **T-W20** | **Deck filter + Words UX** — one **Start review** on `/words` → mixed `srs-session`; `deck=form` only from Progress / Methods deep links (owner UX pivot 2026-08-20). | UC-078, UC-063, UC-041 | [`words-home.md`](../specs/feature/words-home.md), [`words-review.md`](../specs/page/words-review.md), [`session-builder.md`](../specs/service/session-builder.md) | Standard | form-recall pool shipped — **shipped / revised 2026-08-20** |
 | **T-W21** | **Form cell explanation** — on-demand + post-Again/Hard disclosure on form-recall cards. | UC-022, UC-041 | [`form-cell-explanation.md`](../specs/service/form-cell-explanation.md), [`form-error-explanation.md`](../specs/component/form-error-explanation.md) | Standard | T-W20 (forms path exists) — **shipped** |
-| **T-W22** | **Session sampling** — weighted queue (`u×b×n×f×worldMatch`), sigmoid foundation taper, soft form staging; UC-079. | UC-079, UC-011, UC-019 | [`session-sampling.md`](../specs/service/session-sampling.md) | Standard | T-W21; study [43](../study/43-early-foundation-sessions.md), [44](../study/44-foundation-phase-expert-review.md) |
+| **T-W22** | **Session sampling** — weighted queue (`u×b×n×f×worldMatch`), sigmoid foundation taper, soft form staging; UC-079. | UC-079, UC-011, UC-019 | [`session-sampling.md`](../specs/service/session-sampling.md) | Standard | T-W21; study [43](../study/archive/ARCH-043-early-foundation-sessions.md), [44](../study/archive/ARCH-044-foundation-phase-expert-review.md) |
 | **T-W23** | **Lernwelt service + setup** — `learner_world` table, onboarding popover (≤3 screens), Profile picker + switch confirm; UC-019. | UC-019, UC-011 | [`learner-world.md`](../specs/service/learner-world.md), [`learner-world-setup.md`](../specs/feature/learner-world-setup.md), [`profile.md`](../specs/page/profile.md) | **Sensitive** | T-W22 spec landed; red-test-first |
 | **T-W24** | **Session `worldMatch`** — integrate `activeWorld` into `lib/session-sampling.ts`; lemma `worlds[]` on pool rows. | UC-019, UC-079 | [`session-sampling.md`](../specs/service/session-sampling.supplement.md), [`learner-world.md`](../specs/service/learner-world.md) | Standard | T-W23 |
 | **T-W25** | **Example sentences by world** — bank `world` field + picker bias; onboarding preview sentences. | UC-076, UC-019 | [`card-example-sentence.md`](../specs/feature/card-example-sentence.md) | Standard | T-W23, T-W19a content |
@@ -122,7 +122,7 @@ Specs: [`content-traceability.md`](../specs/feature/content-traceability.md)
 (loop), [`coverage.md`](../specs/service/coverage.md) (T-W7),
 [`content-gap.md`](../specs/feature/content-gap.md) (T-W8),
 [`method-material-setup.md`](../specs/feature/method-material-setup.md) (T-W10a).
-Study: [`37-content-and-method-setup-ux.md`](../study/37-content-and-method-setup-ux.md).
+Study: [`../reviews/design/DR-037-content-and-method-setup-ux.md`](../reviews/design/DR-037-content-and-method-setup-ux.md).
 
 Do not queue these until phase 2 map is honest at pool scope.
 
@@ -148,7 +148,7 @@ after T-W7; T-W11b after T-W8c. **T-W9 + T-W10a shipped 2026-08-18.**
 
 Specs: [`content-ingestion.md`](../specs/service/content-ingestion.md),
 [`content-adaptation.md`](../specs/service/content-adaptation.md). Study:
-[`48-content-licensing-and-adaptation.md`](../study/48-content-licensing-and-adaptation.md).
+[`archive/ARCH-048-content-licensing-and-adaptation.md`](../study/archive/ARCH-048-content-licensing-and-adaptation.md).
 Queue detail: [`IMPLEMENTATION-PLAN.md`](../IMPLEMENTATION-PLAN.md) Track B · T-CI1–T-CI8.
 
 | ID | Work | Serves | Spec | Class | Depends on |
@@ -156,14 +156,14 @@ Queue detail: [`IMPLEMENTATION-PLAN.md`](../IMPLEMENTATION-PLAN.md) Track B · T
 | **T-CI1** | `Source.licence` validator on persisted rows | UC-007, UC-029 | `content-ingestion.md` | Standard | T-W9 |
 | **T-CI2** | Wikinews ingest (lane B v1) | UC-007, UC-030 | `content-ingestion.md` | Standard | T-CI1 |
 | **T-CI3** | T2 adaptation + cache | UC-030 | `content-adaptation.md` | **Sensitive** | T-CI2, T-W7 |
-| **T-CI4** | Adaptation labelling on source detail + session contract | UC-007, UC-039 | `content-adaptation.md`, `content-traceability.md` | Standard | T-CI3, T-MV3 |
+| **T-CI4** | Adaptation labelling + **personal delivery gate** on material setup | UC-007, UC-030, UC-039 | `content-adaptation.md`, `method-material-setup.md` | Standard | T-CI3, T-MV3 |
 | **T-CI5** | Learner lane consent + T3 personal rewrite | UC-029 | both ingestion specs | **Sensitive** | T-CI1, T-CI3 |
 | **T-CI6** | Generated original news (lane C) | UC-030 | `content-ingestion.md` | Standard | T-CI3 |
 | **T-CI7** | Legal review memo (DW/BBC, CC BY-SA, DSM/UrhG) | — | study/48 | Docs | — |
 | **T-CI8** | Partner feeds after legal sign-off | UC-007 | `content-ingestion.md` | Standard | T-CI7 |
 
-**Open before scale:** catalogue `targetLevel` source; SRS &lt; 15 padding; adapted
-vs authentic Progress signal — see IMPLEMENTATION-PLAN decisions 27–30.
+**Open before scale:** refresh cadence for news adaptations; form-aware prompt v2;
+T3 scale when personal gate blocks often — see IMPLEMENTATION-PLAN #37.
 
 **T-W9 shipped 2026-08-18** — `content_sources` table, keep-in-library on
 material setup, ephemeral cookie for session-only paste.

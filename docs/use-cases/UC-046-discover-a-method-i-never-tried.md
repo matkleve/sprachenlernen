@@ -10,7 +10,7 @@ shown them.
 from one company's product decisions.
 
 Derived from
-[`../study/21-method-catalogue-and-context.md`](../study/21-method-catalogue-and-context.md).
+[`../study/STUDY-019-method-catalogue-and-context.md`](../study/STUDY-019-method-catalogue-and-context.md).
 
 ## Today
 

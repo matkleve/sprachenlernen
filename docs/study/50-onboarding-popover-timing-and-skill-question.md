@@ -153,7 +153,7 @@ closer to **outcome** than **skill checkbox**.
 
 ### O2c · What study 24 already decided for the product **[D]**
 
-[24](24-speaking-as-the-goal.md): **Speaking leads the headline** and raises
+[24](STUDY-022-speaking-as-the-goal.md): **Speaking leads the headline** and raises
 production floors — this is a **product default**, not something every learner
 must re-declare. A user who reads more still benefits from speaking-forward
 measurement honesty.
@@ -235,7 +235,7 @@ Das kannst du jederzeit ändern.
 
 [ Los geht’s — erste Session ]
 
-**No skill page.** No “how much time” in v1 (context presets come later per [21](21-method-catalogue-and-context.md)).
+**No skill page.** No “how much time” in v1 (context presets come later per [21](STUDY-019-method-catalogue-and-context.md)).
 
 ### O3c · What session 1 looks like after Business
 
@@ -278,7 +278,7 @@ product has **less** room than Duolingo; **2–3** screens is the ceiling.
 
 1. **UC-011 amendment** — owner GO to allow intent popover as third step?  
 2. **Alltag vs General** — same boost path or separate tags?  
-3. **Page 1 copy** — mascot / illustration or text-only ([22](22-visual-design.md))?  
+3. **Page 1 copy** — mascot / illustration or text-only ([STUDY-020](STUDY-020-visual-design.md))?  
 4. **A/B** — popover vs skip-default: does session-1 completion rate hold?
 
 ---
@@ -303,5 +303,5 @@ product has **less** room than Duolingo; **2–3** screens is the ceiling.
 | ⬤ | Four skills taught integrated > segregated | [B] — TVCR 2025, ISA literature |
 | ⬤ | Autonomous motivation ↔ L2 achievement | [B] — Alamer et al. 2025 meta |
 | ⬤ | Motivation surveys use situation/outcome not modality | [B] — Realia 2024, Gardner tradition |
-| ⬤ | Speaking leads headline — product default | [D] — [24](24-speaking-as-the-goal.md) |
+| ⬤ | Speaking leads headline — product default | [D] — [24](STUDY-022-speaking-as-the-goal.md) |
 | ⬤ | UC-011 current text forbids pre-exercise questions | [A] — repo spec |

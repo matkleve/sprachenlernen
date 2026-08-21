@@ -10,14 +10,14 @@ afterwards whether it was worth it.
 **So that:** practice varies, fits real life, and still includes the things that
 work but are unpleasant.
 
-Derived from [`../study/12-method-cards.md`](../study/12-method-cards.md).
+Derived from [`../study/STUDY-010-method-cards.md`](../study/STUDY-010-method-cards.md).
 
 ## Today
 
 Apps offer one path. Either it fits the day or it does not, and if it does not,
 nothing happens. Where there is choice, it is a long undifferentiated list, and
 learners pick what feels easiest — which, by
-[`../study/02-evidence.md`](../study/02-evidence.md) E13, is systematically
+[`../study/STUDY-002-evidence.md`](../study/STUDY-002-evidence.md) E13, is systematically
 what teaches them least.
 
 ## Success looks like

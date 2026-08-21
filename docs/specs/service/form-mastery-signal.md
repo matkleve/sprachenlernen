@@ -9,7 +9,7 @@ in the shipped deck are held stably. Answers UC-041's requirement that form
 gaps are reported separately from vocabulary size.
 
 Parent: [`form-recall-pool.md`](form-recall-pool.md),
-[`progress.md`](../page/progress.md), [`study/03`](../../study/03-level-model.md)
+[`progress.md`](../page/progress.md), [`study/03`](../../study/STUDY-003-level-model.md)
 § The second axis.
 
 ## Scope

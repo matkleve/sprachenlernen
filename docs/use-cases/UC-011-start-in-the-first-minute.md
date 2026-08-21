@@ -9,8 +9,8 @@ mean it.
 **So that:** they find out whether this is for them before being asked to invest
 anything **beyond the account**.
 
-Derived from [`../study/01-duolingo.md`](../study/01-duolingo.md) S1 and S3,
-[`../study/10-antipatterns.md`](../study/10-antipatterns.md) A9 and A10, and
+Derived from [`../study/STUDY-001-duolingo.md`](../study/STUDY-001-duolingo.md) S1 and S3,
+[`../study/STUDY-009-antipatterns.md`](../study/STUDY-009-antipatterns.md) A9 and A10, and
 [`../study/56-lernwelt-single-choice.md`](../study/56-lernwelt-single-choice.md).
 
 ## Today

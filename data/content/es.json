@@ -11,15 +11,22 @@
     "addedAt": "2026-08-17T00:00:00.000Z"
   },
   {
-    "id": "es-catalogue-chile",
+    "id": "wikinews-es-3516",
     "languageCode": "es",
     "kind": "text",
-    "title": "Noticias: elecciones en Chile",
+    "title": "Autoridades electorales mantienen prohibición de presencia de observadores en elecciones egipcias",
     "origin": "catalogue",
-    "body": "Uno dos tres cuatro cinco. El gobierno anuncia nuevas medidas. La economía crece este año.",
+    "body": "Miles marchan en Alemania contra la extrema derecha Mozambique: CNE confirma la victoria de Daniel Chapo por un 70 por ciento Mozambique: Albino Forquilha, nuevo líder de la oposición en un Parlamento dominado por el Frelimo Estallan protesta en Venezuela contra los resultados oficiales de las presidenciales Xóchitl Gálvez admite derrota en elecciones presidenciales mexicanas A pesar de una decisión judicial que ordena dar acceso a grupos independientes de observación electoral a los centros de votación, la Comisión Electoral Egipcia, nombrada por el actual gobierno, decidió mantener su prohibición de observadores, nacionales y internacionales en las primeras elecciones con múltiples candidatos que tendrá Egipto en su historia. Sólo tendrán acceso los testigos de las partes, afirmó Osama Attawiyah, jefe de la Comisión Electoral en una entrevista a la BBC. Igualmente mantendrán a un candidato invalidado por otra decisión judicial. El Presidente Mubarak se presenta como candidato para un nuevo período de seis años y es considerado como el candidato con más oportunidades de ganar. Sin embargo, la campaña electoral ha sido la oportunidad para que los egipcios discutan asuntos internos más que la situación internacional del país. De esta forma, han salido a relucir cantidad de problemas que existen en la sociedad egipcia y que no han sido atacados en las décadas de gobierno del actual presidente, entre ellos el desempleo, la corrupción de los funcionarios de estado y la casi ausencia de servicios públicos. Para Human Rights Watch, el riesgo de fraude en estas elecciones es muy grande dados los antecedentes de fraude en elecciones anteriores y el control que tiene el partido de gobierno sobre toda la actividad política del país. Esta organización considera como positivo el debate sobre al situación interna que tiene lugar durante la campaña electoral y considera que el gran reto de Mubarak no es ganar la elección sino mostrar que en realidad tiene suficiente apoyo luego de un cuarto de siglo de gobierno. La campaña electoral finaliza el domingo 11 de septiembre y ese día se espera que Mubarak organice una gran concentración en el Cairo.",
     "tags": ["news"],
     "world": "politics",
-    "addedAt": "2026-08-17T00:00:00.000Z"
+    "sourceUrl": "https://es.wikinews.org/wiki/Autoridades_electorales_mantienen_prohibici%C3%B3n_de_presencia_de_observadores_en_elecciones_egipcias",
+    "addedAt": "2026-08-20T19:10:27.253Z",
+    "licence": {
+      "kind": "cc-by",
+      "attribution": "Wikinews contributors",
+      "sourceUrl": "https://es.wikinews.org/wiki/Autoridades_electorales_mantienen_prohibici%C3%B3n_de_presencia_de_observadores_en_elecciones_egipcias",
+      "fetchedAt": "2026-08-20T19:10:27.253Z"
+    }
   },
   {
     "id": "es-fixture-neutral",

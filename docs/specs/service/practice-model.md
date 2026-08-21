@@ -8,7 +8,7 @@ How practice is supposed to work in this product: catalogue breadth, engine
 depth, and which surface owns which question. When a spec and this file
 disagree, fix whichever is wrong — both must match.
 
-Research: [`study/12`](../../study/12-method-cards.md) (methods and floors),
+Research: [`study/12`](../../study/STUDY-010-method-cards.md) (methods and floors),
 [`study/README.md`](../../study/README.md) thesis **3** (SRS **and** input).
 
 ## Scope

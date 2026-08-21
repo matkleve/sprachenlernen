@@ -46,11 +46,8 @@ export async function WordsHome({
   formsPracticeAvailable,
 }: WordsHomeProps) {
   const t = await getTranslations("words");
-  const tReview = await getTranslations("reviewSession");
   const tShell = await getTranslations("appShell");
-  const meaningsReviewHref = cardEngineSessionHref("meaning");
-  const formsReviewHref = cardEngineSessionHref("form");
-  const mixedReviewHref = cardEngineSessionHref("mixed");
+  const reviewHref = cardEngineSessionHref();
   const orbit = buildVocabularyOrbit(snapshot.atlas, translations);
 
   const countItems = [
@@ -68,32 +65,16 @@ export async function WordsHome({
       <section className={methodSectionSurface("vocabulary", "mt-6 rounded-card shadow-soft")}>
         {await WordsReviewCardHeader()}
         <div className="p-6">
-          <h2 className="text-lg font-semibold text-ink">{t("reviewMeaningsHeading")}</h2>
-          <p className="mt-1 max-w-2xl text-sm leading-relaxed text-muted">{t("reviewMeaningsCaption")}</p>
-          <div className="mt-4 flex flex-col gap-2 sm:flex-row sm:flex-wrap">
-            <ActionLink href={meaningsReviewHref} variant="primary" size="lg" className="w-full sm:w-auto">
-              {t("reviewMeaningsAction")}
-            </ActionLink>
-            <ActionLink href={mixedReviewHref} variant="secondary" size="lg" className="w-full sm:w-auto">
-              {t("reviewMixedAction")}
-            </ActionLink>
-          </div>
+          <h2 className="text-lg font-semibold text-ink">{t("reviewHeading")}</h2>
+          <p className="mt-1 max-w-2xl text-sm leading-relaxed text-muted">{t("reviewCaption")}</p>
+          <ActionLink href={reviewHref} variant="primary" size="lg" className="mt-4 w-full sm:w-auto">
+            {t("reviewStartAction")}
+          </ActionLink>
+          {formsPracticeAvailable ? (
+            <div className="mt-4">{await ParadigmCellCallout()}</div>
+          ) : null}
         </div>
       </section>
-
-      {formsPracticeAvailable ? (
-        <section className={methodSectionSurface("form", "mt-page-content rounded-card shadow-soft")}>
-          <MethodCardHeader section="form" />
-          <div className="p-6">
-            <h2 className="text-lg font-semibold text-ink">{t("reviewFormsHeading")}</h2>
-            <p className="mt-1 max-w-2xl text-sm leading-relaxed text-muted">{t("reviewFormsCaption")}</p>
-            {await ParadigmCellCallout()}
-            <ActionLink href={formsReviewHref} variant="primary" size="lg" className="mt-4 w-full sm:w-auto">
-              {tReview("startFormReview")}
-            </ActionLink>
-          </div>
-        </section>
-      ) : null}
 
       <section className="mt-page-content">
         <WordsSectionLabel>{t("countsHeading")}</WordsSectionLabel>

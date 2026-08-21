@@ -39,15 +39,23 @@ page — the affordance ADR-0009 described, finally built.
 
 ## Section navigation
 
-Three in-page sections, switched with **FilterPill** buttons — no nested routes.
-Contract: [`study/33-profile-section-navigation.md`](../../study/33-profile-section-navigation.md).
+Four in-page sections, switched with **FilterPill** buttons — no nested routes.
+Contract: [`reviews/design/DR-034-profile-section-navigation.md`](../../reviews/design/DR-034-profile-section-navigation.md).
 
 | Section | Label | Content |
 | --- | --- | --- |
 | `languages` | Languages | Spoken language + learning languages (default) |
 | `data` | Your data | Export + delete |
 | `device` | This device | App version + Home screen (iPhone) |
-| `dev` | Dev | Developer tooling links (non-production only) |
+| `dev` | Dev | Links to dev preview pages (`/dev/*`) and the sentence realizer |
+
+**`dev` is owner tooling on a learner's page, and it is visible in
+production.** That is deliberate: those pages exist to check deployed surfaces
+on a real phone, and gating them behind `NODE_ENV` would remove them from the
+only place they are needed. The targets are already public (`/dev/*` is in
+`publicRoutes`), so this adds a door, not access. **When the app has learners
+who are not the owner, `PROFILE_SECTIONS` in `lib/profile-section.ts` is the
+one line to gate.**
 
 Sign out stays below the panels, always visible. Section panels are server
 siblings toggled by `ProfileSectionNav` via element ids — panel markup is never
@@ -95,7 +103,7 @@ exists for that language, a one-line standing reads
 `0 of 2000 starter words held stably` before the first review — zero is a
 measurement, not an empty state — and `347 of 500 starter words held stably`
 after. Each standing links to `/progress`, per
-[`study/03`](../../study/03-level-model.md)'s rule that every figure opens into
+[`study/03`](../../study/STUDY-003-level-model.md)'s rule that every figure opens into
 what produced it.
 
 `Add a language` appears only when at least one shipped pool is not already on
@@ -126,7 +134,7 @@ the learner's list ([`starter-deck.md`](../service/starter-deck.md)).
       `0 of {pool}` before the first review.
 - [ ] **Negative:** no streak, no XP, no cards-reviewed total, and no progress
       bar against the starter set — the denominator is a shipped set, not a goal
-      ([`study/25`](../../study/25-why-it-does-not-feel-productive.md) C3).
+      ([`study/25`](../../study/STUDY-023-why-it-does-not-feel-productive.md) C3).
 - [ ] Given `/profile`, when the page renders, then the **App** section shows the
       running version and **Check for updates** per [`app-update.md`](../feature/app-update.md).
 - [ ] Given `/profile`, when the page renders, then a **Home screen app (iPhone)**
@@ -135,7 +143,10 @@ the learner's list ([`starter-deck.md`](../service/starter-deck.md)).
 - [ ] Given `/profile`, then the shell account control is marked as the current
       page with accent fill (mobile icon chip and desktop account link).
 - [ ] Given `/profile`, when the page renders, then **Languages**, **Your data**,
-      and **This device** pills appear and **Languages** is active by default.
+      **This device** and **Dev** pills appear and **Languages** is active by
+      default.
+- [ ] Given a tap on **Dev**, then the dev panel shows and every link in it
+      points at a route in `lib/routes.ts` — no hand-written `/dev/...` string.
 - [ ] Given a tap on **Your data**, then only the export and delete blocks show
       and sign out remains visible below.
 

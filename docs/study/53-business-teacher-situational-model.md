@@ -9,7 +9,7 @@ This chapter answers that question from ESP / Business English practice and
 translates it into product rules **without** a per-session word quota.
 
 Related: [51](51-register-path-and-interest-topics.md) (register + interests),
-[21](21-method-catalogue-and-context.md), [UC-019](../use-cases/UC-019-learn-for-something-specific.md).
+[21](STUDY-019-method-catalogue-and-context.md), [UC-019](../use-cases/UC-019-learn-for-something-specific.md).
 
 ---
 
