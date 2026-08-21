@@ -77,6 +77,7 @@ If you have five minutes, read only this table.
 | [STUDY-027](STUDY-027-material-units-and-listening-defer.md) | Material units and listening defer |
 | [STUDY-028](STUDY-028-irregular-borders.md) | Scalable rough borders — SVG, masks, Rough.js, trade-offs |
 | [STUDY-029](STUDY-029-progressive-textures.md) | Progressive surface textures — grain, lighting, blend stacks |
+| [STUDY-030](STUDY-030-procedural-wood-grain.md) | Procedural wood grain — rings, fibres, domain warping, edges |
 | [STUDY-sources](STUDY-sources.md) | Literature — how far each was checked |
 
 **Correction chapters** (read after the chapter they amend): STUDY-013 →
