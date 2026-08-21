@@ -23,6 +23,8 @@ export const routes = {
   brandExplorer: "/dev/brand",
   /** Public. Interface stages under one slider (UC-080) — dev tooling. */
   progressionExplorer: "/dev/progression",
+  /** Public. Material stack recipes for nine stages — dev tooling. */
+  materialExplorer: "/dev/materials",
   /** Public. Method card asset renders — dev tooling. */
   methodCardAssets: "/dev/method-card-assets",
   /** Public Home Screen install instructions (iPhone PWA scope). */

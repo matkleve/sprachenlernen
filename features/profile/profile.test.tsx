@@ -342,6 +342,7 @@ describe("ProfileDevSection", () => {
     for (const href of [
       routes.profileDevSentenceRealizer,
       routes.progressionExplorer,
+      routes.materialExplorer,
       routes.designExplorer,
       routes.brandExplorer,
       routes.methodCardAssets,
