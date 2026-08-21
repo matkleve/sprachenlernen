@@ -23,12 +23,30 @@ mixes: [`exercise-recipe-composer.methods.md`](exercise-recipe-composer.methods.
    fork in `ExerciseStepBody`.
 2. **Step type is the role; component is the face.** A `do` step may use
    `gap-fill`, `audio-play`, `speak-prompt`, …
-3. **Config is data.** Methods pass content via `step.config`; components do not
-   read the catalogue directly.
-4. **Build status:** `shipped` | `planned` | `card-engine` (different route).
+3. **Config is data, and the component owns its shape.** Methods pass content via
+   `step.config`; the component declares a `parseConfig` that turns
+   `Record<string, unknown>` into its own typed props. A composer key the
+   component does not know is a **loud** failure, not an empty screen.
+4. **A component declares itself once.** One descriptor carries id, allowed step
+   types, `parseConfig`, optional `canComplete` and `primaryLabelKey`, and the
+   React component. Shipped ids, the type map and the render switch are derived
+   from it.
+5. **The step owns its completion.** A component that must gate the primary
+   button (or rename it) says so in its descriptor. Runner chrome never grows a
+   branch per component.
+6. **Build status:** `shipped` | `planned` | `card-engine` (different route).
 
 Implementation target: `lib/exercise-step-components/` registry +
 `features/exercise-runner/steps/<Component>.tsx`.
+
+### Why one descriptor
+
+The id used to live in four hand-kept places — a shipped-ids array, a step-type
+map, the render `switch`, and this table. Nothing checked that they agreed, and
+the failure mode was silent: a component missing from the `switch` fell through
+to *not built yet* copy in front of the learner, with every test green. Deriving
+all four from one descriptor is what makes adding component 18 of 41 a
+single-file change.
 
 ## A · Setup and orientation (`prepare`)
 
@@ -65,7 +83,7 @@ Implementation target: `lib/exercise-step-components/` registry +
 | `cloze-select` | Pick missing word from 3–4 options | planned | cloze sentences (easy) |
 | `cloze-type` | Type missing word (no options) | planned | cloze sentences, paradigm tables |
 | `word-bank` | Drag words into sentence slots | planned | build a sentence (alt) |
-| `type-with-word` | “Use *casa* in one sentence” | shipped | build a sentence |
+| `sentence-check` | Write one sentence with a target word on two ruled lines, tap **Prüfen**, correct what is flagged ([`sentence-check.md`](sentence-check.md)) | shipped | build a sentence |
 | `type-freely` | Open text area + optional word count | planned | dictogloss reconstruct, caption |
 | `timed-write` | `type-freely` + embedded countdown | shipped | free production, diary, summarise, self-talk |
 | `transform` | Rewrite per rule (tense, person, translate) | planned | sentence transformation, back-translation |
@@ -101,7 +119,7 @@ Implementation target: `lib/exercise-step-components/` registry +
 | `compare` | Side-by-side learner vs reference | planned | back-translation |
 | `diff-highlight` | Inline added/removed/changed | planned | dictogloss, rewrite in own words |
 | `feedback` | Assisted correction (v1 placeholder) | shipped placeholder | free production, diary, summarise |
-| `reveal-answer` | Show exemplar or honest no-key copy | shipped | cloze · **not sole review for production without exemplar/honestyKey** (study/42) |
+| `reveal-answer` | Show exemplar or honest no-key copy | shipped | cloze · **not sole review for production without exemplar/honestyKey** (study/42) — build a sentence moved to `sentence-check`, which prompts self-correction instead of showing a model to compare against (Lyster & Ranta, [STUDY-006](../../study/STUDY-006-production.md)) |
 | `comprehension-check` | Post-input questions | planned | listening L1 |
 | `rubric` | Self-rate 2–3 dimensions | planned | free production, 4/3/2, retell |
 | `error-log-review` | Walk saved errors one by one | planned | own error log |

@@ -27,10 +27,10 @@ Parent: [`method-catalogue.md`](method-catalogue.md). Recipes:
 | Gate | Rule |
 | --- | --- |
 | **G1 Retrieval** | At least one `do` or card Task requires recall/production, not exposure-only |
-| **G2 Feedback** | Every production `do` has a following `review` with `self-mark`, `compare`, `diff-highlight`, `feedback`, or `rubric` — **or** `reveal-answer` with `config.exemplar` **or** `config.honestyKey` |
+| **G2 Feedback** | Every production `do` has a following `review` with `self-mark`, `compare`, `diff-highlight`, `feedback`, or `rubric` — **or** `reveal-answer` with `config.exemplar` **or** `config.honestyKey` — **or** the production `do` carries its own in-step feedback (`sentence-check`) |
 | **G3 Volume** | `learningUnits ≥ 3` **or** `durationSec ≥ 480` on a timed `do` **or** card stream `≥ 10` tasks |
 | **G4 Whole-task** | Catalogue `doesNotDo` names the limit; recipe does not pretend to exceed it |
-| **G5 Honest done** | Primary on production `do` does not set `done` without a review step marked done or explicit learner skip with copy |
+| **G5 Honest done** | Primary on production `do` does not set `done` without a review step marked done, an in-step check having run, or explicit learner skip with copy |
 | **G6 Overhead** | `prepare` omitted when recipe meta `prepareRequired: false` and only `keyboard`/`touch` writing |
 | **G7 Duration** | Composed wall estimate within **85–115 %** of `variantMinutes` for the chosen package — [`method-session-budget.md`](method-session-budget.md) |
 
@@ -46,15 +46,22 @@ target words, card tasks, timed-write blocks — not runner chrome steps.
 | `assisted` | `feedback` | `sessionFeedbackAssisted` |
 | `rubric` | `rubric` | `sessionFeedbackRubric` |
 | `honest-none` | `reveal-answer` + `honestyKey` only | `sessionFeedbackHonestNone` |
+| `checked` | `sentence-check` — findings in the same step | `sessionFeedbackChecked` |
 
 Production methods **forbidden:** `reveal-answer` without exemplar or honesty key.
+
+`checked` is feedback the learner can act on **inside** the step, so it needs no
+following `review` — the review would have nothing left to show. What it may
+claim is bounded by [`sentence-check.md`](sentence-check.md): findings, never a
+verdict.
 
 ## Session contract (method detail)
 
 ```ts
 type SessionContract = {
   learningUnits: number;
-  feedbackMode: "self-mark" | "exemplar" | "assisted" | "rubric" | "honest-none";
+  feedbackMode:
+    | "self-mark" | "exemplar" | "assisted" | "rubric" | "honest-none" | "checked";
   feedbackLabelKey: string; // i18n for detail surface
   variantMinutes: number; // package chosen on detail — not menu filter
   wallEstimateMinutes: number; // composer estimate — shown as "~10 min"
@@ -79,7 +86,7 @@ examples"*.
 
 | # | Input | Output |
 | --- | --- | --- |
-| 1 | `build-a-sentence` package `10` | Passes G2, G3, G7 — see study/42, study/45 |
+| 1 | `build-a-sentence` package `10` | Passes G2 via `checked` (in-step), plus G3, G7 — see study/42, study/45 |
 | 2 | `partial-dictation` N=1 | Passes with **warning** on G3 — prefer N≥3 in `standard` |
 | 3 | `free-production` | Passes G2 via `feedback` placeholder |
 | 4 | Valid composed recipe | `SessionContract` for detail |
