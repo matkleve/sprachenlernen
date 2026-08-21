@@ -20,7 +20,8 @@ const FILES = globSync("{app,components,features,lib}/**/*.{ts,tsx,css}", { cwd:
   (f) =>
     !f.endsWith("globals.css") &&
     // Dev-only material skins — imported by globals.css; raw hex is intentional (T-PT0c).
-    f !== "app/progression-skins.css",
+    f !== "app/progression-skins.css" &&
+    f !== "app/wood-textures.css",
 );
 
 const RULES = [

@@ -30,6 +30,11 @@ const DEV_LINKS: DevLink[] = [
     description: "One slider through eight interface stages — chapters, texture, depth.",
   },
   {
+    href: routes.woodTextureLab,
+    name: "Wood textures",
+    description: "Four horizontal-grain wood species from the reference board, labelled for marking.",
+  },
+  {
     href: routes.designExplorer,
     name: "Design explorer",
     description: "The five base theme presets side by side.",

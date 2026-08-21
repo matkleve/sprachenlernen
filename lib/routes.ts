@@ -25,6 +25,8 @@ export const routes = {
   progressionExplorer: "/dev/progression",
   /** Public. Method card asset renders — dev tooling. */
   methodCardAssets: "/dev/method-card-assets",
+  /** Public. Horizontal-grain wood texture swatches — dev tooling. */
+  woodTextureLab: "/dev/wood-textures",
   /** Public Home Screen install instructions (iPhone PWA scope). */
   install: "/install",
   privacy: "/privacy",
