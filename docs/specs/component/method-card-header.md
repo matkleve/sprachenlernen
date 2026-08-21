@@ -34,7 +34,7 @@ closing this spec.
 
 | Property | Value |
 | --- | --- |
-| Height | `h-24` (96px); `md:h-28` in the tablet 2-col band; `lg:h-24` when 3-col |
+| Height | `h-20` (80px) on phone; `sm:h-24`; `md:h-28` in the tablet 2-col band; `lg:h-24` when 3-col |
 | Image fit | **`object-cover object-top`** on card — crop, never stretch |
 | Fade | Three stops into **section soft** tint — matches card body |
 | Section label | Bottom-left; uppercase `text-muted` — quiet text, no scrim |
@@ -57,7 +57,9 @@ into `canvas`. Unchanged from card polish (T-B10f).
 
 - [ ] Given any method card, when it renders, then a header graphic appears
       above the title with full card width.
-- [ ] Given card size, when the header renders, then height is **`h-24`** at mobile and `lg+`, **`md:h-28`** in the tablet 2-col band.
+- [ ] Given card size, when the header renders, then height is **`h-20`** below
+      `sm`, **`h-24`** from `sm` to below `md` and at `lg+`, **`md:h-28`** in the
+      tablet 2-col band.
 - [ ] Given card size, when the header renders, then the image uses
       **`object-cover object-top`** — cropped, never stretched.
 - [ ] Given card size, when the header renders, then a **multi-stop** fade

@@ -2,26 +2,23 @@
  * Method detail material setup — topic chips, catalogue preview, practice href.
  * Contract: docs/specs/feature/method-material-setup.md
  */
+import type { DeliveryGate } from "@/lib/adaptation-delivery";
 import {
   computeCoverage,
   sourceText,
-  sourcesForTopic,
   type ComfortBand,
   type CoverageResult,
   type Source,
 } from "@/lib/coverage";
 import { learnerPrivateLicence } from "@/lib/content-ingestion";
 import { DEFAULT_EXTENSIVE_READING_SOURCE_ID, DEFAULT_PARTIAL_DICTATION_SOURCE_ID } from "@/lib/content-source-constants";
+import type { LearnerWorldId } from "@/lib/learner-world";
+import { pickAppPickSource, pickTopicSource } from "@/lib/material-source-pick";
 import type { MaterialTopic, MethodEntry } from "@/lib/method-catalogue";
-import {
-  DEFAULT_WINDOW_DURATION_SEC,
-  resolveMaterialUnit,
-  type MaterialUnitId,
-} from "@/lib/material-unit";
+import type { MaterialUnitId } from "@/lib/material-unit";
 import type { Lexicon } from "@/lib/lexicon";
 import type { RecipeVariantId } from "@/lib/exercise-recipe/types";
 import { variantIdForMaterialSetup } from "@/lib/exercise-recipe/variant";
-import { formatReadingTimeLabel } from "@/lib/reading-time";
 
 export const APP_PICK_TOPIC_ID = "app-pick";
 export const OWN_TOPIC_ID = "own";
@@ -36,6 +33,12 @@ export type MaterialSetupLabels = {
   comfortBand: (band: ComfortBand) => string;
   coverageLine: (coveragePercent: number, bandLabel: string) => string;
   demandingLine: (coveragePercent: number, wordsToComfortable: number) => string;
+  t1SupportLine: (coveragePercent: number, gapCount: number) => string;
+  blockedLine: (coveragePercent: number, targetLevel: string) => string;
+  adaptationLabel: (targetLevel: string) => string;
+  adaptationFailed: (targetLevel: string) => string;
+  processingConsent: string;
+  processingConsentHint: string;
   appPickPreview: (coveragePercent: number, bandLabel: string) => string;
   emptyTopic: string;
   keepInLibrary: string;
@@ -66,6 +69,16 @@ export type MaterialSetupPreview = {
   unitLabel: string;
   timeLabel: string;
   demandingCopy?: string;
+  adapted?: boolean;
+  targetLevel?: string;
+  sourceUrl?: string;
+  adaptationLabel?: string;
+  deliveryGate?: DeliveryGate;
+  startEnabled?: boolean;
+  t1GapCount?: number;
+  needsAdaptation?: boolean;
+  processingConsentRequired?: boolean;
+  adaptationError?: string;
 };
 
 export type MaterialSetupContext = {
@@ -122,38 +135,7 @@ export function topicChipsForMethod(
   return chips;
 }
 
-export function pickAppPickSource(
-  sources: readonly Source[],
-  lexicon: Lexicon,
-  heldLemmas: ReadonlySet<string>,
-): Source | null {
-  if (sources.length === 0) return null;
-
-  const ranked = [...sources]
-    .map((source) => ({
-      source,
-      coverage: computeCoverage(sourceText(source), lexicon, heldLemmas),
-    }))
-    .sort((a, b) => {
-      const comfortableDelta =
-        Number(b.coverage.comfortBand === "comfortable") -
-        Number(a.coverage.comfortBand === "comfortable");
-      if (comfortableDelta !== 0) return comfortableDelta;
-      return b.coverage.coveragePercent - a.coverage.coveragePercent;
-    });
-
-  return ranked[0]?.source ?? null;
-}
-
-export function pickTopicSource(
-  sources: readonly Source[],
-  topicId: string,
-  lexicon: Lexicon,
-  heldLemmas: ReadonlySet<string>,
-): Source | null {
-  const ranked = sourcesForTopic(sources, topicId, lexicon, heldLemmas);
-  return ranked[0]?.source ?? null;
-}
+export { pickAppPickSource, pickTopicSource } from "@/lib/material-source-pick";
 
 export function titleFromLearnerText(text: string): string {
   const line = text.trim().split(/\n/)[0]?.trim() ?? "";
@@ -186,106 +168,11 @@ export function wordsToComfortable(coverage: CoverageResult): number {
   return Math.max(0, targetKnown - coverage.knownCount);
 }
 
-export function buildMaterialPreview(
-  source: Source,
-  method: MethodEntry,
-  unitId: MaterialUnitId,
-  lexicon: Lexicon,
-  heldLemmas: ReadonlySet<string>,
-  labels: MaterialSetupLabels,
-): MaterialSetupPreview {
-  const unitDeclaration = method.materialUnits?.find((unit) => unit.id === unitId);
-  const resolved = resolveMaterialUnit(source, unitId, {
-    durationSec: unitDeclaration?.durationSec ?? DEFAULT_WINDOW_DURATION_SEC,
-    lexicon,
-    heldLemmas,
-  });
-  const coverage = computeCoverage(resolved.text, lexicon, heldLemmas);
-  const wordsGap = wordsToComfortable(coverage);
-  const timeLabel = formatReadingTimeLabel(coverage.tokenCount);
-
-  return {
-    sourceId: source.id,
-    title: source.title,
-    coverage,
-    unitId,
-    unitLabel: labels.unitLabel(unitId, unitDeclaration?.durationSec),
-    timeLabel,
-    demandingCopy:
-      coverage.comfortBand === "demanding" && wordsGap > 0
-        ? labels.demandingLine(coverage.coveragePercent, wordsGap)
-        : undefined,
-  };
-}
-
-export function buildMaterialSetupContext(
-  method: MethodEntry,
-  sources: readonly Source[],
-  lexicon: Lexicon,
-  heldLemmas: ReadonlySet<string>,
-  labels: MaterialSetupLabels,
-): MaterialSetupContext | null {
-  if (!hasMaterialSetup(method)) return null;
-
-  const topicChips = topicChipsForMethod(method, sources, labels);
-  const unitOptions = materialUnitOptions(method, labels);
-  const defaultUnitId = defaultMaterialUnitId(method);
-  const previews: MaterialSetupContext["previews"] = {};
-
-  const appPickSource = pickAppPickSource(sources, lexicon, heldLemmas);
-  if (appPickSource) {
-    previews[APP_PICK_TOPIC_ID] = {};
-    for (const unit of unitOptions) {
-      previews[APP_PICK_TOPIC_ID]![unit.id] = buildMaterialPreview(
-        appPickSource,
-        method,
-        unit.id,
-        lexicon,
-        heldLemmas,
-        labels,
-      );
-    }
-  }
-
-  for (const topic of method.materialTopics ?? []) {
-    const source = pickTopicSource(sources, topic.id, lexicon, heldLemmas);
-    if (!source) continue;
-    previews[topic.id] = {};
-    for (const unit of unitOptions) {
-      previews[topic.id]![unit.id] = buildMaterialPreview(
-        source,
-        method,
-        unit.id,
-        lexicon,
-        heldLemmas,
-        labels,
-      );
-    }
-  }
-
-  return {
-    topicChips,
-    unitOptions,
-    defaultTopicId: APP_PICK_TOPIC_ID,
-    defaultUnitId,
-    previews,
-  };
-}
-
-export function previewForOwnText(
-  text: string,
-  method: MethodEntry,
-  unitId: MaterialUnitId,
-  languageCode: string,
-  lexicon: Lexicon,
-  heldLemmas: ReadonlySet<string>,
-  labels: MaterialSetupLabels,
-): MaterialSetupPreview | null {
-  const trimmed = text.trim();
-  if (!trimmed) return null;
-  const source = createLearnerSourceFromText(trimmed, languageCode);
-  return buildMaterialPreview(source, method, unitId, lexicon, heldLemmas, labels);
-}
+export {
+  buildMaterialPreview,
+  buildMaterialSetupContext,
+  previewForOwnText,
+} from "@/lib/material-setup-context";
 
 export type PracticeSetupParams = {
   methodId: string;
@@ -295,6 +182,8 @@ export type PracticeSetupParams = {
   durationSec?: number;
   variantMinutes?: number;
   variantId?: RecipeVariantId;
+  adapted?: boolean;
+  targetLevel?: string;
 };
 
 export function practiceHrefForSetup(params: PracticeSetupParams): string {
@@ -313,6 +202,8 @@ export function practiceHrefForSetup(params: PracticeSetupParams): string {
     search.set("variantId", variantId);
   }
   if (params.variantMinutes !== undefined) search.set("minutes", String(params.variantMinutes));
+  if (params.adapted) search.set("adapted", "1");
+  if (params.targetLevel) search.set("targetLevel", params.targetLevel);
   return `/practice?${search.toString()}`;
 }
 

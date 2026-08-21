@@ -5,9 +5,17 @@ import { getTranslations } from "next-intl/server";
 
 import { loadMethodCatalogue } from "@/features/method-menu/catalogue";
 import { findMethod } from "@/features/method-menu/MethodDetail";
+import {
+  ADAPTATION_CONSENT_COOKIE,
+  parseAdaptationConsent,
+  serializeAdaptationConsent,
+} from "@/lib/adaptation-consent";
+import { createAdaptationRewrite } from "@/lib/adaptation-rewrite";
+import { loadPersonalAdaptationCache } from "@/lib/adaptation-cache";
+import { buildLearnerMaterialPreview } from "@/lib/learner-adaptation-preview";
+import { readCachedLearnerAdaptationBody } from "@/lib/learner-adaptation";
 import { createLearnerTextSource } from "@/lib/db/content-sources";
 import { getAccount } from "@/lib/db/auth";
-import { createServerSupabaseClient } from "@/lib/db/client";
 import {
   EPHEMERAL_SOURCE_COOKIE,
   serializeEphemeralSourceCookie,
@@ -16,12 +24,12 @@ import {
   createLearnerSourceFromText,
   OWN_TOPIC_ID,
   practiceHrefForSetup,
-  previewForOwnText,
   titleFromLearnerText,
   type MaterialSetupLabels,
   type MaterialSetupPreview,
   type MaterialTopicSelection,
 } from "@/lib/method-material-setup";
+import { inferTargetLevelFromHeldCount } from "@/lib/target-level";
 import { rejectOversizeLearnerText } from "@/lib/learner-text-limits";
 import type { MaterialUnitId } from "@/lib/material-unit";
 
@@ -44,6 +52,20 @@ function labelsFromTranslator(t: Awaited<ReturnType<typeof getTranslations>>): M
         percent: Math.round(coveragePercent),
         words: wordsToComfortable,
       }),
+    t1SupportLine: (coveragePercent: number, gapCount: number) =>
+      t("t1SupportLine", {
+        percent: Math.round(coveragePercent),
+        gaps: gapCount,
+      }),
+    blockedLine: (coveragePercent: number, targetLevel: string) =>
+      t("blockedLine", {
+        percent: Math.round(coveragePercent),
+        level: targetLevel,
+      }),
+    adaptationLabel: (targetLevel: string) => t("adaptationLabel", { level: targetLevel }),
+    adaptationFailed: (targetLevel: string) => t("adaptationFailed", { level: targetLevel }),
+    processingConsent: t("processingConsent"),
+    processingConsentHint: t("processingConsentHint"),
     appPickPreview: (coveragePercent: number, bandLabel: string) =>
       t("appPickPreview", { percent: Math.round(coveragePercent), band: bandLabel }),
     emptyTopic: t("emptyTopic"),
@@ -55,10 +77,21 @@ function labelsFromTranslator(t: Awaited<ReturnType<typeof getTranslations>>): M
   };
 }
 
+export async function grantAdaptationConsentAction(): Promise<void> {
+  const cookieStore = await cookies();
+  cookieStore.set(ADAPTATION_CONSENT_COOKIE, serializeAdaptationConsent(), {
+    httpOnly: true,
+    sameSite: "lax",
+    maxAge: 60 * 60 * 24 * 365,
+    path: "/",
+  });
+}
+
 export async function previewOwnMaterialAction(
   methodId: string,
   text: string,
   unitId: MaterialUnitId,
+  processingConsent?: boolean,
 ): Promise<MaterialSetupPreview | null> {
   // The preview tokenises the whole text and scores it against the lexicon on
   // every keystroke-triggered call. Bounding it here keeps the cost of one
@@ -73,7 +106,11 @@ export async function previewOwnMaterialAction(
   const bundle = await readMaterialSetupBundle(method, labelsFromTranslator(t));
   if (bundle.status !== "ok") return null;
 
-  return previewForOwnText(
+  const cookieStore = await cookies();
+  const consentGranted =
+    processingConsent ?? parseAdaptationConsent(cookieStore.get(ADAPTATION_CONSENT_COOKIE)?.value);
+
+  return buildLearnerMaterialPreview(
     text,
     method,
     unitId,
@@ -81,6 +118,11 @@ export async function previewOwnMaterialAction(
     bundle.lexicon,
     bundle.heldLemmas,
     labelsFromTranslator(t),
+    {
+      processingConsent: consentGranted,
+      rewrite: createAdaptationRewrite(),
+      cache: loadPersonalAdaptationCache(),
+    },
   );
 }
 
@@ -102,21 +144,42 @@ export type StartMaterialPracticeOutcome =
 export async function startMaterialPracticeAction(
   input: StartMaterialPracticeInput,
 ): Promise<StartMaterialPracticeOutcome> {
-  const hrefForCatalogue = () =>
-    practiceHrefForSetup({
-      methodId: input.methodId,
-      sourceId: input.catalogueSourceId ?? "",
-      topicId: input.topicId,
-      unitId: input.unitId,
-      durationSec: input.durationSec,
-      variantMinutes: input.variantMinutes,
-    });
+  const t = await getTranslations("methodMaterial");
+  const { catalogue } = loadMethodCatalogue();
+  const method = findMethod(catalogue, input.methodId);
+  if (!method) return { status: "error", error: "Method not found." };
 
   if (input.topicId !== OWN_TOPIC_ID) {
     if (!input.catalogueSourceId) {
       return { status: "error", error: "Choose material before starting." };
     }
-    return { status: "ok", href: hrefForCatalogue() };
+
+    const bundle = await readMaterialSetupBundle(method, labelsFromTranslator(t));
+    if (bundle.status !== "ok") {
+      return { status: "error", error: "Could not load your language settings." };
+    }
+
+    const preview = bundle.context.previews[input.topicId]?.[input.unitId];
+    if (preview?.startEnabled === false) {
+      return {
+        status: "error",
+        error: "This text is too hard for your vocabulary right now.",
+      };
+    }
+
+    return {
+      status: "ok",
+      href: practiceHrefForSetup({
+        methodId: input.methodId,
+        sourceId: input.catalogueSourceId,
+        topicId: input.topicId,
+        unitId: input.unitId,
+        durationSec: input.durationSec,
+        variantMinutes: input.variantMinutes,
+        adapted: preview?.adapted,
+        targetLevel: preview?.targetLevel,
+      }),
+    };
   }
 
   const trimmed = input.ownText?.trim() ?? "";
@@ -130,14 +193,52 @@ export async function startMaterialPracticeAction(
   const oversize = rejectOversizeLearnerText(trimmed);
   if (oversize) return oversize;
 
-  const t = await getTranslations("methodMaterial");
-  const { catalogue } = loadMethodCatalogue();
-  const method = findMethod(catalogue, input.methodId);
-  if (!method) return { status: "error", error: "Method not found." };
-
   const bundle = await readMaterialSetupBundle(method, labelsFromTranslator(t));
   if (bundle.status !== "ok") {
     return { status: "error", error: "Could not load your language settings." };
+  }
+
+  const labels = labelsFromTranslator(t);
+  const cookieStore = await cookies();
+  const consentGranted = parseAdaptationConsent(
+    cookieStore.get(ADAPTATION_CONSENT_COOKIE)?.value,
+  );
+  const preview = await buildLearnerMaterialPreview(
+    trimmed,
+    method,
+    input.unitId,
+    bundle.languageCode,
+    bundle.lexicon,
+    bundle.heldLemmas,
+    labels,
+    {
+      processingConsent: consentGranted,
+      rewrite: createAdaptationRewrite(),
+      cache: loadPersonalAdaptationCache(),
+    },
+  );
+
+  if (!preview || preview.startEnabled === false) {
+    return {
+      status: "error",
+      error:
+        preview?.adaptationError ??
+        "This text is too hard for your vocabulary right now.",
+    };
+  }
+
+  const targetLevel =
+    preview.targetLevel ?? inferTargetLevelFromHeldCount(bundle.heldLemmas.size);
+  const adapted = preview.adapted ?? false;
+  let practiceBody = trimmed;
+  if (adapted) {
+    const cachedBody = readCachedLearnerAdaptationBody(loadPersonalAdaptationCache(), {
+      originalBody: trimmed,
+      languageCode: bundle.languageCode,
+      targetLevel,
+      heldLemmas: bundle.heldLemmas,
+    });
+    if (cachedBody) practiceBody = cachedBody;
   }
 
   if (input.keepInLibrary) {
@@ -162,11 +263,13 @@ export async function startMaterialPracticeAction(
         unitId: input.unitId,
         durationSec: input.durationSec,
         variantMinutes: input.variantMinutes,
+        adapted,
+        targetLevel,
       }),
     };
   }
 
-  const source = createLearnerSourceFromText(trimmed, bundle.languageCode);
+  const source = createLearnerSourceFromText(practiceBody, bundle.languageCode);
   try {
     const cookieStore = await cookies();
     cookieStore.set(EPHEMERAL_SOURCE_COOKIE, serializeEphemeralSourceCookie(source), {
@@ -192,6 +295,8 @@ export async function startMaterialPracticeAction(
       unitId: input.unitId,
       durationSec: input.durationSec,
       variantMinutes: input.variantMinutes,
+      adapted,
+      targetLevel,
     }),
   };
 }

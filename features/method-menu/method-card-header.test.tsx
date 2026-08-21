@@ -24,7 +24,8 @@ describe("MethodCardHeader", () => {
 
   it("keeps a fixed header height for catalogue scanability", () => {
     const { container } = render(<MethodCardHeader section="reading" />);
-    expect(container.firstElementChild?.className).toContain("h-24");
+    expect(container.firstElementChild?.className).toContain("h-20");
+    expect(container.firstElementChild?.className).toContain("sm:h-24");
   });
 
   it("covers the card graphic without stretching (cover, top-aligned)", () => {

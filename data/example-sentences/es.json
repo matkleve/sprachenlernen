@@ -1,0 +1,85 @@
+{
+  "sentences": [
+    {
+      "id": "es-ex-hoy-leo",
+      "text": "Hoy leo el libro.",
+      "translation": "Today I read the book.",
+      "wordIds": ["es:hoy", "es:leer", "es:libro"],
+      "world": "everyday"
+    },
+    {
+      "id": "es-ex-hoy-trabajo",
+      "text": "Hoy tengo trabajo.",
+      "translation": "Today I have work.",
+      "wordIds": ["es:hoy", "es:tener", "es:trabajo"],
+      "world": "everyday"
+    },
+    {
+      "id": "es-ex-casa-grande",
+      "text": "La casa es grande.",
+      "translation": "The house is big.",
+      "wordIds": ["es:casa"]
+    },
+    {
+      "id": "es-ex-casa-familia",
+      "text": "Mi familia vive en la casa.",
+      "translation": "My family lives in the house.",
+      "wordIds": ["es:casa", "es:familia"],
+      "world": "everyday"
+    },
+    {
+      "id": "es-ex-gobierno-politics",
+      "text": "El gobierno anuncia medidas.",
+      "translation": "The government announces measures.",
+      "wordIds": ["es:gobierno"],
+      "world": "politics"
+    },
+    {
+      "id": "es-ex-gobierno-neutral",
+      "text": "El gobierno trabaja hoy.",
+      "translation": "The government works today.",
+      "wordIds": ["es:gobierno", "es:trabajo", "es:hoy"]
+    },
+    {
+      "id": "es-ex-empresa-reunion",
+      "text": "La empresa tiene una reunión hoy.",
+      "translation": "The company has a meeting today.",
+      "wordIds": ["es:empresa", "es:tener", "es:hoy"],
+      "world": "business"
+    },
+    {
+      "id": "es-ex-empresa-mercado",
+      "text": "La empresa vende en el mercado.",
+      "translation": "The company sells at the market.",
+      "wordIds": ["es:empresa", "es:mercado"],
+      "world": "business"
+    },
+    {
+      "id": "es-ex-ordenador-tecnico",
+      "text": "Uso el ordenador en el trabajo.",
+      "translation": "I use the computer at work.",
+      "wordIds": ["es:ordenador", "es:trabajo"],
+      "world": "technical"
+    },
+    {
+      "id": "es-ex-jardin-naturaleza",
+      "text": "El jardín tiene mucha naturaleza.",
+      "translation": "The garden has a lot of nature.",
+      "wordIds": ["es:jardín", "es:naturaleza"],
+      "world": "nature"
+    },
+    {
+      "id": "es-ex-cafe-comida",
+      "text": "Tomo café y comida en casa.",
+      "translation": "I have coffee and food at home.",
+      "wordIds": ["es:café", "es:comida", "es:casa"],
+      "world": "everyday"
+    },
+    {
+      "id": "es-ex-querer-libro",
+      "text": "Quiero leer el libro hoy.",
+      "translation": "I want to read the book today.",
+      "wordIds": ["es:querer", "es:libro", "es:hoy"]
+    }
+  ]
+}

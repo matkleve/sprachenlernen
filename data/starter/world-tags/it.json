@@ -1,0 +1,17 @@
+{
+  "it:casa": ["everyday"],
+  "it:lavoro": ["everyday", "business"],
+  "it:soldi": ["everyday", "business"],
+  "it:oggi": ["everyday"],
+  "it:famiglia": ["everyday"],
+  "it:libro": ["everyday"],
+  "it:cibo": ["everyday"],
+  "it:caffè": ["everyday"],
+  "it:governo": ["politics"],
+  "it:politica": ["politics"],
+  "it:azienda": ["business"],
+  "it:natura": ["nature"],
+  "it:giardino": ["nature"],
+  "it:tecnologia": ["technical"],
+  "it:computer": ["technical"]
+}

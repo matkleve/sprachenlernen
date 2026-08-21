@@ -12,7 +12,7 @@ Normative rules stay in the parent; this file owns the math and UX research note
 For each candidate task `i`:
 
 ```
-wᵢ = uᵢ × bᵢ × nᵢ × fᵢ
+wᵢ = uᵢ × bᵢ × nᵢ × fᵢ × worldMatchᵢ
 ```
 
 All factors ≥ `ε` (default `1e-6`) so every schedulable card keeps non-zero
@@ -76,6 +76,24 @@ Hard gate in [`form-recall-pool.md`](form-recall-pool.md) row 4 is **relaxed** w
 sampling ships: `fᵢ` near zero until meaning reviewed; rises toward 1 as meaning
 approaches held. Held meaning → `fᵢ = 1`.
 
+### Lernwelt `worldMatchᵢ` (T-W24)
+
+From [`learner-world.md`](learner-world.md). Session composition only — **does
+not** change FSRS `due` or `applyReview`.
+
+```
+worldMatchᵢ = 1                    if activeWorld = general
+worldMatchᵢ = γ                    if activeWorld ∈ lemma.worlds[]
+worldMatchᵢ = 1                    otherwise
+```
+
+Default `γ = 1.5` (`DEFAULT_LEARNER_WORLD_CONFIG.gammaMatch`). Non-matching due
+cards stay in the pool with `worldMatch = 1`; urgency `uᵢ` still governs when
+they appear.
+
+When attaching `samplingReason`, Lernwelt is **not** a default dominant factor —
+world bias is invisible unless learner opens optional G1 disclosure.
+
 ## Default config (`DEFAULT_SAMPLING_CONFIG`)
 
 | Key | Default | Role |
@@ -95,7 +113,7 @@ Six product parameters. FSRS weights unchanged.
 2. Normalize `pᵢ = wᵢ / Σw`.
 3. Repeat L times: pick index `j` with probability `p`, remove `j`, renormalize.
 4. Attach `samplingReason` = dominant factor (largest contribution among
-   `u,b,n,f`).
+   `u,b,n,f` — exclude `worldMatch` from default G1 copy).
 
 ## Learner reactions by scenario
 

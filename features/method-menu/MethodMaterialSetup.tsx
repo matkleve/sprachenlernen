@@ -6,10 +6,7 @@ import { useTranslations } from "next-intl";
 
 import { ActionLink } from "@/components/ui/ActionLink";
 import { Button } from "@/components/ui/Button";
-import { Field } from "@/components/ui/Field";
 import { FilterPill } from "@/components/ui/FilterPill";
-import { Textarea } from "@/components/ui/Input";
-import { Checkbox } from "@/components/ui/Checkbox";
 import type { MethodEntry } from "@/lib/method-catalogue";
 import {
   OWN_TOPIC_ID,
@@ -23,7 +20,13 @@ import { usesExerciseRunner } from "@/lib/method-session";
 import type { MaterialUnitId } from "@/lib/material-unit";
 import { cn } from "@/lib/utils";
 
-import { previewOwnMaterialAction, startMaterialPracticeAction } from "./material-setup-actions";
+import { MaterialSetupPreviewCard } from "./MaterialSetupPreviewCard";
+import { OwnMaterialIntake } from "./OwnMaterialIntake";
+import {
+  grantAdaptationConsentAction,
+  previewOwnMaterialAction,
+  startMaterialPracticeAction,
+} from "./material-setup-actions";
 import { MethodSessionContractText } from "./MethodSessionContractText";
 
 export type MethodMaterialSetupProps = {
@@ -56,6 +59,7 @@ export function MethodMaterialSetup({
   const [unitId, setUnitId] = useState<MaterialUnitId>(context.defaultUnitId);
   const [ownText, setOwnText] = useState("");
   const [ownPreview, setOwnPreview] = useState<MaterialSetupPreview | null>(null);
+  const [processingConsent, setProcessingConsent] = useState(false);
   const [keepInLibrary, setKeepInLibrary] = useState(false);
   const [startError, setStartError] = useState<string | null>(null);
   const [isPending, startTransition] = useTransition();
@@ -81,29 +85,35 @@ export function MethodMaterialSetup({
       return;
     }
 
-    startTransition(async () => {
-      const preview = previewOwnForTest
-        ? previewOwnForTest(trimmed, unitId)
-        : await previewOwnMaterialAction(method.id, trimmed, unitId);
-      setOwnPreview(preview);
-    });
-  }, [method.id, ownText, previewOwnForTest, topicId, unitId]);
+    const delayMs = processingConsent ? 600 : 0;
+    const timer = window.setTimeout(() => {
+      startTransition(async () => {
+        const preview = previewOwnForTest
+          ? previewOwnForTest(trimmed, unitId)
+          : await previewOwnMaterialAction(method.id, trimmed, unitId, processingConsent);
+        setOwnPreview(preview);
+      });
+    }, delayMs);
+
+    return () => window.clearTimeout(timer);
+  }, [method.id, ownText, previewOwnForTest, processingConsent, topicId, unitId]);
 
   const cataloguePreview =
     topicId === OWN_TOPIC_ID ? ownPreview ?? undefined : context.previews[topicId]?.[unitId];
 
   const omitVariantOnStart = unitId === "full";
-  const startEnabled =
+  const catalogueStartAllowed =
     Boolean(cataloguePreview?.sourceId) &&
     Boolean(cataloguePreview?.timeLabel) &&
-    !isPending;
+    cataloguePreview?.deliveryGate !== "blocked" &&
+    cataloguePreview?.startEnabled !== false;
+  const startEnabled = catalogueStartAllowed && !isPending;
   const showOwnIntake = topicId === OWN_TOPIC_ID;
   const showCataloguePreview = topicId !== OWN_TOPIC_ID && Boolean(cataloguePreview);
-  const showOwnPreview = topicId === OWN_TOPIC_ID && Boolean(ownPreview);
 
   const selectedUnit = context.unitOptions.find((unit) => unit.id === unitId);
   const catalogueStartHref =
-    cataloguePreview && topicId !== OWN_TOPIC_ID && usesExerciseRunner(method)
+    cataloguePreview && topicId !== OWN_TOPIC_ID && usesExerciseRunner(method) && startEnabled
       ? practiceHrefForSetup({
           methodId: method.id,
           sourceId: cataloguePreview.sourceId,
@@ -111,8 +121,24 @@ export function MethodMaterialSetup({
           unitId,
           durationSec: selectedUnit?.durationSec,
           variantMinutes: omitVariantOnStart ? undefined : variantMinutes,
+          adapted: cataloguePreview.adapted,
+          targetLevel: cataloguePreview.targetLevel,
         })
       : null;
+
+  const sessionContractForPreview =
+    sessionContract && cataloguePreview?.adapted
+      ? { ...sessionContract, adapted: true }
+      : sessionContract;
+
+  const handleProcessingConsentChange = (checked: boolean) => {
+    setProcessingConsent(checked);
+    if (checked) {
+      startTransition(async () => {
+        await grantAdaptationConsentAction();
+      });
+    }
+  };
 
   const handleStart = () => {
     if (!cataloguePreview || !usesExerciseRunner(method)) return;
@@ -188,69 +214,43 @@ export function MethodMaterialSetup({
       ) : null}
 
       {showOwnIntake ? (
-        <div className="space-y-4 rounded-card border border-line bg-surface-raised p-4">
-          <div className="flex flex-wrap gap-2">
-            <Button type="button" variant="secondary" size="sm" disabled>
-              {t("uploadFile")}
-            </Button>
-            <span className="self-center text-xs text-muted">{t("pasteText")}</span>
-            <Button type="button" variant="secondary" size="sm" disabled>
-              {t("linkUrl")}
-            </Button>
-          </div>
-          <Field label={t("pasteText")}>
-            <Textarea
-              value={ownText}
-              onChange={(event) => setOwnText(event.target.value)}
-              placeholder={t("pastePlaceholder")}
-              rows={4}
-            />
-          </Field>
-          <Checkbox
-            size="sm"
-            label={t("keepInLibrary")}
-            checked={keepInLibrary}
-            disabled={!canPersist}
-            title={canPersist ? undefined : t("keepRequiresSignIn")}
-            onChange={(event) => setKeepInLibrary(event.target.checked)}
-          />
-        </div>
+        <OwnMaterialIntake
+          ownText={ownText}
+          onOwnTextChange={setOwnText}
+          keepInLibrary={keepInLibrary}
+          onKeepInLibraryChange={setKeepInLibrary}
+          canPersist={canPersist}
+          processingConsent={processingConsent}
+          onProcessingConsentChange={handleProcessingConsentChange}
+          ownPreview={ownPreview}
+          ownMaterialCoverage={(percent, feel) =>
+            t("ownMaterialCoverage", {
+              percent: Math.round(percent),
+              feel: t(`ownMaterialFeel.${feel}`),
+            })
+          }
+          adaptingLabel={t("adapting")}
+          showAdapting={isPending && processingConsent}
+          labels={{
+            uploadFile: t("uploadFile"),
+            pasteText: t("pasteText"),
+            pastePlaceholder: t("pastePlaceholder"),
+            linkUrl: t("linkUrl"),
+            keepInLibrary: t("keepInLibrary"),
+            keepRequiresSignIn: t("keepRequiresSignIn"),
+            processingConsent: t("processingConsent"),
+            processingConsentHint: t("processingConsentHint"),
+          }}
+        />
       ) : null}
 
       {showCataloguePreview && cataloguePreview ? (
-        <div className="rounded-card border border-line bg-surface-raised p-4 text-sm text-muted">
-          <p className="font-medium text-ink">{cataloguePreview.title}</p>
-          <p className="mt-1">
-            {cataloguePreview.unitLabel}
-            {" · "}
-            {labels.coverageLine(
-              cataloguePreview.coverage.coveragePercent,
-              labels.comfortBand(cataloguePreview.coverage.comfortBand),
-            )}
-            {cataloguePreview.timeLabel ? ` · ${cataloguePreview.timeLabel}` : ""}
-          </p>
-          {cataloguePreview.demandingCopy ? (
-            <p className="mt-2 text-muted">{cataloguePreview.demandingCopy}</p>
-          ) : null}
-        </div>
-      ) : null}
-
-      {showOwnPreview && cataloguePreview ? (
-        <div className="rounded-card border border-line bg-surface-raised p-4 text-sm text-muted">
-          <p className="font-medium text-ink">{cataloguePreview.title}</p>
-          <p className="mt-1">
-            {cataloguePreview.unitLabel}
-            {" · "}
-            {labels.coverageLine(
-              cataloguePreview.coverage.coveragePercent,
-              labels.comfortBand(cataloguePreview.coverage.comfortBand),
-            )}
-            {cataloguePreview.timeLabel ? ` · ${cataloguePreview.timeLabel}` : ""}
-          </p>
-          {cataloguePreview.demandingCopy ? (
-            <p className="mt-2 text-muted">{cataloguePreview.demandingCopy}</p>
-          ) : null}
-        </div>
+        <MaterialSetupPreviewCard
+          preview={cataloguePreview}
+          labels={labels}
+          sourceUrl={cataloguePreview.sourceUrl}
+          viewOriginalLabel={t("viewOriginal")}
+        />
       ) : null}
 
       {startError ? (
@@ -259,7 +259,9 @@ export function MethodMaterialSetup({
         </p>
       ) : null}
 
-      {sessionContract ? <MethodSessionContractText contract={sessionContract} /> : null}
+      {sessionContractForPreview ? (
+        <MethodSessionContractText contract={sessionContractForPreview} />
+      ) : null}
 
       {usesExerciseRunner(method) ? (
         topicId === OWN_TOPIC_ID ? (
@@ -272,7 +274,7 @@ export function MethodMaterialSetup({
           >
             {tMenu("startSession")}
           </Button>
-        ) : catalogueStartHref && startEnabled ? (
+        ) : catalogueStartHref && catalogueStartAllowed ? (
           <ActionLink href={catalogueStartHref} variant="primary" size="lg">
             {tMenu("startSession")}
           </ActionLink>

@@ -29,6 +29,8 @@ export default async function PracticePage({
     durationSec?: string;
     variantId?: string;
     minutes?: string;
+    adapted?: string;
+    targetLevel?: string;
   }>;
 }) {
   const tReview = await getTranslations("reviewSession");
@@ -40,6 +42,8 @@ export default async function PracticePage({
     durationSec,
     variantId,
     minutes,
+    adapted,
+    targetLevel,
   } = await searchParams;
 
   if (methodId === CARD_ENGINE_METHOD_ID) {
@@ -75,6 +79,8 @@ export default async function PracticePage({
     variantId: resolvedVariantId,
     budgetMinutes: sessionVariantMinutes,
     heldLemmas,
+    adapted: adapted === "1",
+    targetLevel,
   });
 
   if (!method) {

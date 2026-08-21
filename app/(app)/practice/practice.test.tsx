@@ -42,8 +42,9 @@ describe("PracticePage", () => {
     render(ui);
 
     expect(screen.getByRole("heading", { name: "Build a sentence with a target word" })).toBeDefined();
-    // Five target words at the 15-minute default, each one step, plus decide.
-    expect(screen.getByText(/Step 1 of 6/)).toBeDefined();
+    // Loose on purpose (from main): the step count follows the budget, and the
+    // recipe's shape is asserted properly in build-a-sentence.test.ts.
+    expect(screen.getByText(/Step 1 of/)).toBeDefined();
   });
 
   it("renders exercise runner for free-production", async () => {

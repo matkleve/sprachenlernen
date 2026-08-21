@@ -96,7 +96,7 @@ describe("readWordsHome", () => {
     expect(outcome.status).toBe("ok");
     if (outcome.status !== "ok") return;
     expect(outcome.contentTraceIndex).not.toBeNull();
-    expect(outcome.contentTraceIndex?.lemmaSources["uno"]?.length).toBe(2);
+    expect(outcome.contentTraceIndex?.lemmaSources["uno"]?.length).toBe(3);
   });
 
   it("returns a handled error when task state cannot be read", async () => {

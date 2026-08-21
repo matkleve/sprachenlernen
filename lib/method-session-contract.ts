@@ -34,6 +34,8 @@ export type SessionContract = {
   budgetMinutes: number;
   wallEstimateMinutes: number;
   volumeLabelKey: string;
+  /** True when the shown material body is an adapted rewrite — T-CI4. */
+  adapted?: boolean;
 };
 
 const FEEDBACK_LABEL_KEYS: Record<SessionFeedbackMode, string> = {

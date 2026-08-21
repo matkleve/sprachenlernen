@@ -41,15 +41,17 @@ export function MethodCard({ method, returnQuery = "" }: MethodCardProps) {
         destination={cardDestinationMarker(method)}
       />
 
-      <div className="flex flex-1 flex-col p-3">
+      <div className="flex flex-1 flex-col p-2.5 sm:p-3">
         <div>
-          <h3 className="text-3xl font-semibold leading-tight text-ink">{localized.name}</h3>
-          <p className="mt-0.5 line-clamp-2 text-sm text-ink">{localized.summary}</p>
+          <h3 className="text-xl font-semibold leading-tight text-ink sm:text-2xl lg:text-3xl">
+            {localized.name}
+          </h3>
+          <p className="mt-0.5 line-clamp-1 text-sm text-ink sm:line-clamp-2">{localized.summary}</p>
         </div>
 
-        <MethodBadgeRow className="mt-2 shrink-0" method={method} inLink layout="row" />
+        <MethodBadgeRow className="mt-1.5 shrink-0 sm:mt-2" method={method} inLink layout="row" />
 
-        <ul className="mt-2 flex flex-wrap gap-1.5" aria-label={t("card.properties")}>
+        <ul className="mt-1.5 flex flex-wrap gap-1.5 sm:mt-2" aria-label={t("card.properties")}>
           {durationChips(method.durations).map((label) => (
             <li key={`duration-${label}`}>
               <Chip size="card">{label}</Chip>
@@ -62,7 +64,7 @@ export function MethodCard({ method, returnQuery = "" }: MethodCardProps) {
           ))}
         </ul>
 
-        <p className="mt-2 line-clamp-2 text-sm text-muted">
+        <p className="mt-1.5 hidden line-clamp-2 text-sm text-muted sm:mt-2 sm:block">
           <span className="font-medium text-ink">{t("card.doesNotDo")}: </span>
           {localized.doesNotDo}
         </p>

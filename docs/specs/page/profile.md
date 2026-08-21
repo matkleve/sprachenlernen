@@ -2,6 +2,7 @@
 
 <!-- id: SPEC-page-profile -->
 <!-- use-case: UC-024 -->
+<!-- use-case: UC-019 -->
 <!-- status: active -->
 
 The account surface, reached from the top-right corner chip. Holds who you are,
@@ -38,7 +39,7 @@ page — the affordance ADR-0009 described, finally built.
 
 ## Section navigation
 
-Three in-page sections, switched with **FilterPill** buttons — no nested routes.
+Four in-page sections, switched with **FilterPill** buttons — no nested routes.
 Contract: [`reviews/design/DR-034-profile-section-navigation.md`](../../reviews/design/DR-034-profile-section-navigation.md).
 
 | Section | Label | Content |
@@ -46,6 +47,15 @@ Contract: [`reviews/design/DR-034-profile-section-navigation.md`](../../reviews/
 | `languages` | Languages | Spoken language + learning languages (default) |
 | `data` | Your data | Export + delete |
 | `device` | This device | App version + Home screen (iPhone) |
+| `dev` | Dev | Links to dev preview pages (`/dev/*`) and the sentence realizer |
+
+**`dev` is owner tooling on a learner's page, and it is visible in
+production.** That is deliberate: those pages exist to check deployed surfaces
+on a real phone, and gating them behind `NODE_ENV` would remove them from the
+only place they are needed. The targets are already public (`/dev/*` is in
+`publicRoutes`), so this adds a door, not access. **When the app has learners
+who are not the owner, `PROFILE_SECTIONS` in `lib/profile-section.ts` is the
+one line to gate.**
 
 Sign out stays below the panels, always visible. Section panels are server
 siblings toggled by `ProfileSectionNav` via element ids — panel markup is never
@@ -61,7 +71,8 @@ passed as props to the client nav (see [`TRAPS.md`](../../TRAPS.md)).
 | 1a | Is already on `/profile` | Shell account chip (mobile icon or desktop link) carries `aria-current="page"` and accent fill |
 | 2 | Views spoken language | Every shipped spoken language, the current one marked |
 | 3 | Changes spoken language | Preference updates; learning languages and review history unchanged |
-| 4 | Views learning languages | Every learning language, the active one marked, ordered by when it was added |
+| 4 | Views learning languages | Every learning language, the active one marked, ordered by when it was added; each row shows **Lernwelt** label when not `general` ([`learner-world-setup.md`](../feature/learner-world-setup.md)) |
+| 4b | Taps Lernwelt on a language row | Opens world picker; on change, switch confirmation then `setWorld` |
 | 5 | Taps a non-active language | It becomes active; the interface follows. No session state is lost (UC-025) |
 | 6 | Taps `Add a language` | The picker ([`language-picker.md`](language-picker.md)) — only when a shipped pool is not already being learned |
 | 7 | Has no language yet | The list is replaced by a single call to action into the picker — never an empty table |
@@ -103,6 +114,11 @@ the learner's list ([`starter-deck.md`](../service/starter-deck.md)).
 - [ ] Given an Account with one language, when `/profile` renders, then that
       language appears, is marked active with an **Active** chip (accent outline
       and soft fill, top-right of the row), and its endonym is the primary label.
+- [ ] Given a learning language with `worldId = politics`, when `/profile`
+      renders, then the row shows *Lernwelt: Politik* (or localized equivalent)
+      and tap opens the picker.
+- [ ] Given `worldId = general`, when `/profile` renders, then no Lernwelt
+      sub-label is required — *Allgemein* may show on edit only.
 - [ ] Given an Account with no language, then the list is replaced by a call to
       action into the picker, and no empty table renders.
 - [ ] Given a tap on a non-active language, then it becomes active and exactly
@@ -127,7 +143,10 @@ the learner's list ([`starter-deck.md`](../service/starter-deck.md)).
 - [ ] Given `/profile`, then the shell account control is marked as the current
       page with accent fill (mobile icon chip and desktop account link).
 - [ ] Given `/profile`, when the page renders, then **Languages**, **Your data**,
-      and **This device** pills appear and **Languages** is active by default.
+      **This device** and **Dev** pills appear and **Languages** is active by
+      default.
+- [ ] Given a tap on **Dev**, then the dev panel shows and every link in it
+      points at a route in `lib/routes.ts` — no hand-written `/dev/...` string.
 - [ ] Given a tap on **Your data**, then only the export and delete blocks show
       and sign out remains visible below.
 

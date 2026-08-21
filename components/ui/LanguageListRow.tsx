@@ -33,6 +33,8 @@ export type LanguageListRowProps = {
   standingLabel?: (held: number, pool: number) => string;
   viewProgressHref?: string;
   viewProgressLabel?: string;
+  /** Extra controls under the standing line — e.g. Lernwelt editor on profile. */
+  footerSlot?: ReactNode;
   /**
    * Profile: Button calling a server action from the parent client block.
    * Switcher: omit and use `onSelect`.
@@ -52,6 +54,7 @@ export function LanguageListRow({
   standingLabel,
   viewProgressHref,
   viewProgressLabel,
+  footerSlot,
   actionSlot,
   onSelect,
   disabled = false,
@@ -75,7 +78,10 @@ export function LanguageListRow({
                 {viewProgressLabel}
               </TextLink>
             ) : null}
+            {footerSlot}
           </div>
+        ) : footerSlot ? (
+          <div className="mt-2">{footerSlot}</div>
         ) : null}
       </div>
 

@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 
+import { emptySamplingContext } from "@/lib/sampling-context";
 import { loadSpanishMeaningRecallDeck } from "@/lib/starter-deck";
 import { buildSession, DEFAULT_SESSION_LENGTH, sessionLengthForBudgetMinutes } from "@/lib/session-builder";
 import { applyReview, newTask } from "@/lib/scheduler";
@@ -7,9 +8,16 @@ import { applyReview, newTask } from "@/lib/scheduler";
 const pool = loadSpanishMeaningRecallDeck();
 const cards = pool.status === "ok" ? pool.deck.cards : [];
 
+/** Deterministic tests — always pick the heaviest remaining candidate. */
+function testSampling(now = Date.now()) {
+  return emptySamplingContext(now);
+}
+
 describe("session-builder", () => {
   it("returns 15 cards in frequency order with no history", () => {
-    const session = buildSession(cards, {}, Date.now());
+    const session = buildSession(cards, {}, Date.now(), DEFAULT_SESSION_LENGTH, {
+      sampling: testSampling(),
+    });
     expect(session).toHaveLength(DEFAULT_SESSION_LENGTH);
     expect(session[0]?.lemma).toBe("el");
     expect(session[14]?.frequencyRank).toBe(15);
@@ -20,14 +28,14 @@ describe("session-builder", () => {
   it("scales session length from budget minutes", () => {
     const budgetMinutes = 10;
     const length = sessionLengthForBudgetMinutes(budgetMinutes);
-    const session = buildSession(cards, {}, Date.now(), length);
+    const session = buildSession(cards, {}, Date.now(), length, { sampling: testSampling() });
     expect(session).toHaveLength(length);
     expect(session[0]?.total).toBe(length);
   });
 
   it("prioritises due tasks before new ones", () => {
     const dueCard = cards[0]!;
-    const freshCard = cards[1]!;
+    const freshCard = { ...cards[1]!, frequencyRank: 500 };
     const reviewedAt = Date.now() - 14 * 86_400_000;
     let task = newTask(dueCard.taskId, dueCard.wordId);
     task = applyReview(task, "good", reviewedAt).task;
@@ -38,13 +46,17 @@ describe("session-builder", () => {
       [freshCard, dueCard],
       { [dueCard.taskId]: task },
       now,
+      DEFAULT_SESSION_LENGTH,
+      { sampling: testSampling(now) },
     );
     expect(session[0]?.taskId).toBe(dueCard.taskId);
   });
 
   it("returns every card when the pool is smaller than the session length", () => {
     const tiny = cards.slice(0, 10);
-    const session = buildSession(tiny, {}, Date.now(), DEFAULT_SESSION_LENGTH);
+    const session = buildSession(tiny, {}, Date.now(), DEFAULT_SESSION_LENGTH, {
+      sampling: testSampling(),
+    });
     expect(session).toHaveLength(10);
   });
 
@@ -77,6 +89,8 @@ describe("session-builder", () => {
         [form.taskId]: makeDue(form.taskId, form.wordId),
       },
       now,
+      DEFAULT_SESSION_LENGTH,
+      { sampling: testSampling(now) },
     );
 
     const wordIds = session.map((card) => card.wordId);
@@ -98,6 +112,7 @@ describe("session-builder", () => {
 
     const session = buildSession([meaning, form], {}, Date.now(), DEFAULT_SESSION_LENGTH, {
       deck: "form",
+      sampling: testSampling(),
     });
     expect(session.every((card) => card.taskId.endsWith(":form-recall"))).toBe(true);
   });
@@ -113,6 +128,7 @@ describe("session-builder", () => {
 
     const session = buildSession([meaning, form], {}, Date.now(), DEFAULT_SESSION_LENGTH, {
       deck: "meaning",
+      sampling: testSampling(),
     });
     expect(session.every((card) => card.taskId.endsWith(":meaning-recall"))).toBe(true);
   });
@@ -121,6 +137,7 @@ describe("session-builder", () => {
     const priority = new Set([cards[5]!.lemma, cards[6]!.lemma]);
     const session = buildSession(cards.slice(0, 20), {}, Date.now(), 5, {
       priorityLemmas: priority,
+      sampling: testSampling(),
     });
     expect(priority.has(session[0]!.lemma)).toBe(true);
   });
