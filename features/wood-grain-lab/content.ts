@@ -4,7 +4,7 @@ export const page = {
   eyebrow: "Dev",
   title: "Wood grain lab",
   intro:
-    "Tune procedural workshop wood layer by layer. Grain must run horizontally along planks — that means baseFrequency X is much higher than Y. Copy the JSON when a combination reads right; we will promote values into progression skins.",
+    "Tune toward the normative reference board (docs/specs/feature/progression-reference-board.md). Copy JSON when a column reads right; owner marks pass on /dev/progression.",
   previewLabel: "Preview plank",
   directionHeading: "Grain direction",
   layersHeading: "Layers",
@@ -48,7 +48,7 @@ export const controlLabels = {
 } as const;
 
 export const directionCopy = {
-  horizontal: "Horizontal — fibres run left ↔ right along the plank.",
-  vertical: "Vertical — wrong for bench wood; raise freqX or lower freqY.",
-  mixed: "Mixed — neither axis dominates; grain direction is ambiguous.",
+  horizontal: "Matches reference board — fibres run left ↔ right along the plank.",
+  vertical: "Does not match the reference board — adjust until column 1–3 read.",
+  mixed: "Ambiguous — compare to the reference board column.",
 } as const;

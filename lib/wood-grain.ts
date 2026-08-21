@@ -1,11 +1,8 @@
 import type { CSSProperties } from "react";
 
 /**
- * Procedural workshop wood — shared between `/dev/wood-grain` and progression skins.
- * Contract: docs/study/STUDY-029-progressive-textures.md
- *
- * Horizontal grain = baseFrequency X ≫ Y (agents often swap these and get vertical
- * striations). The lab exists so owners tune params without re-reading SVG docs.
+ * Procedural workshop wood — wiring only. Visual target:
+ * docs/specs/feature/progression-reference-board.md (column 1–3).
  */
 
 export type WoodGrainNoiseType = "fractalNoise" | "turbulence";

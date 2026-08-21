@@ -32,9 +32,10 @@ border weight, edge roughness (SVG displacement on card frames), star count.
 
 Chapters map to stages: Workshop 1–3, Library 4–6, Observatory 7–9.
 
-Material skins approximate the reference board (wood bench → plaster wall →
-night dome). CSS gradients are the default; optional tile images in
-`public/design/progression/` replace them when supplied.
+Material skins **match** the normative reference board — see
+[`progression-reference-board.md`](../feature/progression-reference-board.md).
+CSS and tiles are wiring; the board is the exit criterion. Owner marks pass on
+`/dev/progression` before learner-facing promotion.
 
 ## Scope
 

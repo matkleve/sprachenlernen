@@ -123,7 +123,9 @@ Phases are sequential; do not wire learner data before dev preview is signed off
 
 ## Phase 0 · Dev preview fidelity (current sprint)
 
-Goal: `/dev/progression` reads close to the reference board at all 9 stages.
+Goal: `/dev/progression` **matches** the reference board at all 9 stages — owner
+marks pass column by column. See
+[`progression-reference-board.md`](../specs/feature/progression-reference-board.md).
 
 | ID | Work | Class | Files | Done when |
 | --- | --- | --- | --- | --- |
