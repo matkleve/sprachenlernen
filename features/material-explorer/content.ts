@@ -6,7 +6,7 @@ export const page = {
   eyebrow: "Dev",
   title: "Material explorer",
   intro:
-    "Nine levels of material sophistication — not nine skins. The same card, input, and button geometry; only the material stack changes: base fill, texture, edge, highlight, contact shadow, and environmental light. Workshop 1→2→3 should feel like the same bench getting better.",
+    "Nine levels of material sophistication — not nine skins. Workshop stages 1–3 use canvas-rendered wood (domain-warped rings + fibres, Texturize-style) instead of feTurbulence. The same card, input, and button geometry; only the material stack changes.",
   stageLabel: "Stage",
   chapterHeading: "Chapter",
   recipeHeading: "Material recipe",

@@ -1,12 +1,16 @@
+"use client";
+
 import {
   materialRecipeForStage,
   materialStageClass,
   materialStageStyle,
 } from "@/lib/material-recipes";
+import { proceduralWoodPresetForStage } from "@/lib/procedural-wood";
 import { cn } from "@/lib/utils";
 
 import { page } from "./content";
 import { MaterialStarField } from "./MaterialStarField";
+import { ProceduralWoodBackground } from "./ProceduralWoodBackground";
 
 type MaterialSampleProps = {
   stage: number;
@@ -20,6 +24,7 @@ type MaterialSampleProps = {
  */
 export function MaterialSample({ stage, compact = false, className }: MaterialSampleProps) {
   const recipe = materialRecipeForStage(stage);
+  const woodPreset = proceduralWoodPresetForStage(stage);
   const { preview } = page;
 
   return (
@@ -27,14 +32,22 @@ export function MaterialSample({ stage, compact = false, className }: MaterialSa
       className={cn(
         "material-system material-scene border border-line",
         materialStageClass(stage),
+        woodPreset ? "material-scene--procedural-wood" : null,
         compact ? "p-4" : "p-6",
         className,
       )}
       style={materialStageStyle(stage)}
     >
+      {woodPreset ? (
+        <ProceduralWoodBackground
+          preset={woodPreset}
+          vignette={stage === 1 ? 0.35 : stage === 2 ? 0.2 : 0.1}
+          topHighlight={stage === 3 ? 0.12 : stage === 2 ? 0.06 : 0}
+        />
+      ) : null}
       <MaterialStarField stage={stage} />
 
-      <div className={cn("relative flex flex-col", compact ? "gap-3" : "gap-4")}>
+      <div className={cn("relative z-[1] flex flex-col", compact ? "gap-3" : "gap-4")}>
         <div className={cn("material-card", compact ? "p-3" : "p-4")}>
           <h3
             className={cn(

@@ -1,6 +1,5 @@
-import { cn } from "@/lib/utils";
-
 import { page, woodTextures } from "./content";
+import { ProceduralWoodSwatch } from "./ProceduralWoodSwatch";
 
 export function WoodTextureLab() {
   return (
@@ -16,9 +15,10 @@ export function WoodTextureLab() {
             className="flex flex-col gap-4 rounded-card border border-line bg-surface p-4 shadow-soft"
             aria-labelledby={`wood-texture-${texture.id}-title`}
           >
-            <div
-              aria-hidden
-              className={cn("wood-texture-swatch w-full", texture.swatchClass)}
+            <ProceduralWoodSwatch
+              preset={texture.presetId}
+              topHighlight={texture.topHighlight ?? 0}
+              className={texture.roundedBar ? "min-h-20 rounded-pill" : undefined}
             />
 
             <div>

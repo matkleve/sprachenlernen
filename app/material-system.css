@@ -26,6 +26,12 @@
   border-radius: var(--material-radius, 12px);
 }
 
+/* Workshop scenes use canvas wood tiles — suppress legacy CSS plank stacks. */
+.material-scene--procedural-wood {
+  background-image: none !important;
+  background-color: #2a1c10;
+}
+
 .material-card,
 .material-input,
 .material-button {
