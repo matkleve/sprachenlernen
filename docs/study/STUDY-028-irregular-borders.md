@@ -247,6 +247,8 @@ Pointers only — not decided here.
 | --- | --- |
 | Visual design constraints | [STUDY-020](STUDY-020-visual-design.md) |
 | Progression model (chapter + stage) | [`specs/page/progression-explorer.md`](../specs/page/progression-explorer.md) |
+| Progressive textures | [STUDY-029](STUDY-029-progressive-textures.md) |
+| Work plan | [`plans/progression-theme-system.md`](../plans/progression-theme-system.md) |
 | Live preview | `/dev/progression` |
 | Design tokens | [`DESIGN-SYSTEM.md`](../DESIGN-SYSTEM.md) |
 | Web sources for this chapter | [STUDY-sources](STUDY-sources.md) |
