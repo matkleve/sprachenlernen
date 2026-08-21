@@ -35,35 +35,27 @@ export function composeBuildASentenceRecipe(
 
   const steps: ExerciseStep[] = [];
 
+  // One step per target, not two. Writing and correcting used to be separate
+  // screens with `reveal-answer` in between, which showed a model sentence to
+  // compare against — a recast, and recasts are often not noticed as
+  // corrections at all (docs/study/STUDY-006-production.md). `sentence-check`
+  // marks what it can prove and lets the learner fix it in place.
   targets.forEach((target, index) => {
     const suffix = targets.length > 1 ? ` (${index + 1}/${targets.length})` : "";
-    steps.push(
-      {
-        id: `write-${index + 1}`,
-        type: "do",
-        component: "type-with-word",
-        labelKey: "stepLabelWrite",
-        config: {
-          word: target.word,
-          gloss: target.gloss,
-          lemma: target.lemma,
-          itemIndex: index + 1,
-          itemCount: targets.length,
-          labelSuffix: suffix,
-        },
+    steps.push({
+      id: `write-${index + 1}`,
+      type: "do",
+      component: "sentence-check",
+      labelKey: "stepLabelWrite",
+      config: {
+        word: target.word,
+        gloss: target.gloss,
+        lemma: target.lemma,
+        itemIndex: index + 1,
+        itemCount: targets.length,
+        labelSuffix: suffix,
       },
-      {
-        id: `review-${index + 1}`,
-        type: "review",
-        component: "reveal-answer",
-        labelKey: "stepLabelCompare",
-        config: {
-          word: target.word,
-          gloss: target.gloss,
-          honestyKey: "revealAnswerDefault",
-        },
-      },
-    );
+    });
   });
 
   steps.push({

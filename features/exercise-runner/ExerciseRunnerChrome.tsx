@@ -295,10 +295,17 @@ export function ExerciseRunnerChrome(props: ExerciseRunnerChromeProps) {
   );
 }
 
+/**
+ * The primary button's label. A component may name its own key — `sentence-check`
+ * softens **Fertig** to **Trotzdem weiter** once a check has found something —
+ * and the step type supplies the default. Chrome never branches on component id
+ * itself; it only asks.
+ */
 export function primaryLabelForStep(
   step: ExerciseRunnerState["recipe"]["steps"][number] | null,
   t: ReturnType<typeof useTranslations<"exerciseRunner">>,
+  componentLabelKey?: string,
 ): string {
   if (!step) return "";
-  return t(primaryLabelKey(step.type) as "primaryPrepare");
+  return t((componentLabelKey ?? primaryLabelKey(step.type)) as "primaryPrepare");
 }

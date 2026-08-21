@@ -112,7 +112,7 @@ describe("MethodDetail", () => {
     const startLink = screen.getByRole("link", { name: en.methodMenu.startSession });
 
     expect(contract.textContent).toContain("min ·");
-    expect(contract.textContent).toContain(en.methodMenu.sessionFeedbackHonestNone);
+    expect(contract.textContent).toContain(en.methodMenu.sessionFeedbackChecked);
     expect(
       document.body.textContent!.indexOf(contract.textContent ?? ""),
     ).toBeLessThan(document.body.textContent!.indexOf(en.methodMenu.startSession));

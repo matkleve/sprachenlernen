@@ -1,5 +1,7 @@
 /** Contract: docs/specs/feature/exercise-runner.md */
 
+import type { SentenceCheckResult } from "@/lib/sentence-check";
+
 export type StepType =
   | "prepare"
   | "do"
@@ -37,9 +39,44 @@ export type TimerState = {
   expired: boolean;
 };
 
-export type SubmitDraft = {
+/**
+ * One `sentence-check` step's progress through its own check. One enum, not
+ * three booleans — `checking` and `unavailable` at once is a state that should
+ * not exist (STATE.md §2).
+ */
+export type StepCheckState =
+  | { phase: "writing" }
+  | { phase: "checking" }
+  | { phase: "checked"; result: SentenceCheckResult };
+
+/**
+ * Everything the learner produced on **one** step. Keyed by step id in
+ * `stepAnswers`, never shared: a recipe with three `sentence-check` items has
+ * three of these, and navigating between them keeps all three.
+ *
+ * The runner reducer stores this bag and never interprets it. Only the step's
+ * own component and its descriptor read the fields — which is why a repeated
+ * step no longer needs the reducer to know one Method's component name in order
+ * to clear a shared draft between items.
+ */
+export type StepAnswer = {
+  /** Typed text — `capture`, `sentence-check`, `timed-write`. */
   text: string;
+  /** Session-local photo — `capture` only. Never persisted. */
   photoDataUrl: string | null;
+  /** Tokens the learner tapped as wrong — `self-mark` only. */
+  markedErrorTokens: readonly string[];
+  /** Last in-step check — `sentence-check` only. */
+  check: StepCheckState;
+};
+
+export type StepAnswers = Readonly<Record<string, StepAnswer>>;
+
+export const EMPTY_STEP_ANSWER: StepAnswer = {
+  text: "",
+  photoDataUrl: null,
+  markedErrorTokens: [],
+  check: { phase: "writing" },
 };
 
 export type ExerciseRunnerState = {
@@ -48,6 +85,5 @@ export type ExerciseRunnerState = {
   activeStepIndex: number;
   stepStatuses: StepStatus[];
   timer: TimerState | null;
-  submitDraft: SubmitDraft;
-  markedErrorTokens: string[];
+  stepAnswers: StepAnswers;
 };

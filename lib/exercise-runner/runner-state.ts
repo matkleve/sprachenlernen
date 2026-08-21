@@ -1,11 +1,15 @@
 /**
  * Pure exercise-runner state. Contract: exercise-runner.states.md
  */
-import type {
-  ExerciseRecipe,
-  ExerciseRunnerState,
-  StepStatus,
-  TimerState,
+import { canCompleteStepAnswer } from "@/lib/exercise-step-components";
+import {
+  EMPTY_STEP_ANSWER,
+  type ExerciseRecipe,
+  type ExerciseRunnerState,
+  type StepAnswer,
+  type StepCheckState,
+  type StepStatus,
+  type TimerState,
 } from "@/lib/exercise-runner/types";
 
 export function createRunnerState(recipe: ExerciseRecipe): ExerciseRunnerState {
@@ -18,8 +22,35 @@ export function createRunnerState(recipe: ExerciseRecipe): ExerciseRunnerState {
     activeStepIndex: 0,
     stepStatuses,
     timer: null,
-    submitDraft: { text: "", photoDataUrl: null },
-    markedErrorTokens: [],
+    stepAnswers: {},
+  };
+}
+
+/**
+ * The answer for one step, or a fresh empty one. Callers never branch on
+ * "has this step been written on yet" — an untouched step and a cleared step
+ * are the same thing to every reader.
+ */
+export function answerForStep(state: ExerciseRunnerState, stepId: string): StepAnswer {
+  return state.stepAnswers[stepId] ?? EMPTY_STEP_ANSWER;
+}
+
+export function activeStepAnswer(state: ExerciseRunnerState): StepAnswer {
+  const step = state.recipe.steps[state.activeStepIndex];
+  return step ? answerForStep(state, step.id) : EMPTY_STEP_ANSWER;
+}
+
+function withAnswer(
+  state: ExerciseRunnerState,
+  stepId: string,
+  patch: Partial<StepAnswer>,
+): ExerciseRunnerState {
+  return {
+    ...state,
+    stepAnswers: {
+      ...state.stepAnswers,
+      [stepId]: { ...answerForStep(state, stepId), ...patch },
+    },
   };
 }
 
@@ -107,29 +138,18 @@ export function navigateRelative(
   return navigateToStep(state, state.activeStepIndex + delta, now);
 }
 
+/**
+ * Whether the primary button is live. The rule belongs to the step's component
+ * descriptor, not here: chrome that grows a branch per component is how a
+ * generic runner ends up knowing which Method it is running.
+ */
 export function canCompleteStep(state: ExerciseRunnerState): boolean {
   if (isTerminalPhase(state.phase)) return false;
 
   const step = state.recipe.steps[state.activeStepIndex];
   if (!step) return false;
 
-  if (step.type === "submit") {
-    const accept = step.config.accept;
-    const required = step.config.required !== false;
-    if (!required) return true;
-
-    const wantsPhoto = Array.isArray(accept) && accept.includes("photo");
-    const wantsText = Array.isArray(accept) && accept.includes("text");
-    const hasPhoto = Boolean(state.submitDraft.photoDataUrl);
-    const hasText = state.submitDraft.text.trim().length > 0;
-
-    if (wantsPhoto && wantsText) return hasPhoto || hasText;
-    if (wantsPhoto) return hasPhoto;
-    if (wantsText) return hasText;
-    return true;
-  }
-
-  return true;
+  return canCompleteStepAnswer(step, answerForStep(state, step.id));
 }
 
 export function completeStep(
@@ -152,18 +172,14 @@ export function completeStep(
     return { ...state, stepStatuses, phase: "complete" };
   }
 
+  // No draft is cleared here. Each step owns its answer, so moving on cannot
+  // overwrite the previous item's sentence — that clearing line is what made
+  // navigating back show an empty field.
   const nextIndex = state.activeStepIndex + 1;
-  const nextStep = state.recipe.steps[nextIndex];
-  const submitDraft =
-    step.type === "review" && nextStep?.component === "type-with-word"
-      ? { ...state.submitDraft, text: "" }
-      : state.submitDraft;
-
   const withDone: ExerciseRunnerState = {
     ...state,
     stepStatuses: withSeenAt(stepStatuses, nextIndex),
     activeStepIndex: nextIndex,
-    submitDraft,
   };
 
   return {
@@ -235,37 +251,48 @@ export function toggleTimerPause(
   };
 }
 
-export function setSubmitText(
+export function setStepText(
   state: ExerciseRunnerState,
+  stepId: string,
   text: string,
 ): ExerciseRunnerState {
-  return {
-    ...state,
-    submitDraft: { ...state.submitDraft, text },
-  };
+  const answer = answerForStep(state, stepId);
+  // Editing after a check returns the step to `writing`: the findings on screen
+  // describe text that no longer exists, and leaving them up would mark words
+  // the learner has already fixed.
+  const check: StepCheckState =
+    answer.check.phase === "writing" ? answer.check : { phase: "writing" };
+
+  return withAnswer(state, stepId, { text, check });
 }
 
-export function setSubmitPhoto(
+export function setStepPhoto(
   state: ExerciseRunnerState,
+  stepId: string,
   photoDataUrl: string | null,
 ): ExerciseRunnerState {
-  return {
-    ...state,
-    submitDraft: { ...state.submitDraft, photoDataUrl },
-  };
+  return withAnswer(state, stepId, { photoDataUrl });
+}
+
+export function setStepCheck(
+  state: ExerciseRunnerState,
+  stepId: string,
+  check: StepCheckState,
+): ExerciseRunnerState {
+  return withAnswer(state, stepId, { check });
 }
 
 export function toggleMarkedError(
   state: ExerciseRunnerState,
+  stepId: string,
   token: string,
 ): ExerciseRunnerState {
-  const has = state.markedErrorTokens.includes(token);
-  return {
-    ...state,
-    markedErrorTokens: has
-      ? state.markedErrorTokens.filter((t) => t !== token)
-      : [...state.markedErrorTokens, token],
-  };
+  const marked = answerForStep(state, stepId).markedErrorTokens;
+  return withAnswer(state, stepId, {
+    markedErrorTokens: marked.includes(token)
+      ? marked.filter((held) => held !== token)
+      : [...marked, token],
+  });
 }
 
 export function progressLabel(state: ExerciseRunnerState): string {

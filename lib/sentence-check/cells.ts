@@ -100,20 +100,21 @@ export function formFor(table: LemmaTable, lemma: string, cell: string): string 
   let index = REVERSE_CACHE.get(table);
 
   if (!index) {
-    index = new Map<string, { form: string; rank: number }>();
+    const built = new Map<string, { form: string; rank: number; tied: boolean }>();
     for (const [form, analyses] of Object.entries(table.forms)) {
       analyses.forEach((analysis, rank) => {
         if (!analysis.cell) return;
         const key = `${analysis.lemma}|${analysis.cell}`;
-        const held = index!.get(key);
+        const held = built.get(key);
         if (held && held.rank < rank) return;
         if (held && held.rank === rank) {
-          index!.set(key, { ...held, tied: true });
+          built.set(key, { ...held, tied: true });
           return;
         }
-        index!.set(key, { form, rank, tied: false });
+        built.set(key, { form, rank, tied: false });
       });
     }
+    index = built;
     REVERSE_CACHE.set(table, index);
   }
 

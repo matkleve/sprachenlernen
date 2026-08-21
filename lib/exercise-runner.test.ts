@@ -13,7 +13,7 @@ import {
   navigateRelative,
   navigateToStep,
   progressLabel,
-  setSubmitText,
+  setStepText,
   tickTimer,
 } from "@/lib/exercise-runner/runner-state";
 
@@ -70,10 +70,10 @@ describe("exercise-runner state", () => {
     let state = navigateToStep(createRunnerState(FIXTURE_EXERCISE_RECIPE), 3);
     expect(canCompleteStep(state)).toBe(false);
 
-    state = setSubmitText(state, "mi texto");
+    state = setStepText(state, "submit-1", "mi texto");
     expect(canCompleteStep(state)).toBe(true);
 
-    state = setSubmitText(state, "");
+    state = setStepText(state, "submit-1", "");
     expect(canCompleteStep(state)).toBe(false);
   });
 

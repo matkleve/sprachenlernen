@@ -363,11 +363,6 @@
     "comprehensionCorrect": "Das passt zum Text.",
     "comprehensionIncorrect": "Lies noch einmal — eine andere Antwort passt besser.",
     "speakPromptDefault": "Sag es laut, in Sprechtempo.",
-    "typeWithWordPrompt": "Schreib einen Satz mit «{word}».",
-    "typeWithWordGloss": "Bedeutung: {gloss}",
-    "typeWithWordFieldLabel": "Dein Satz",
-    "typeWithWordPlaceholder": "Schreib deinen Satz hier…",
-    "typeWithWordHint": "Ein Satz reicht. Die Grammatik muss nicht perfekt sein.",
     "timedWriteDuration": "Du hast etwa {minutes} Minuten — der Timer steht oben.",
     "timedWriteOptionalWords": "Wenn möglich, baue ein: {words}",
     "timedWriteFieldLabel": "Dein Text",
@@ -379,7 +374,21 @@
     "revealAnswerYourSentence": "Was Sie geschrieben haben",
     "revealAnswerExemplarLabel": "Beispielsatz",
     "revealAnswerMeaning": "«{word}» bedeutet {gloss}.",
-    "summaryDefault": "Durchlauf abgeschlossen."
+    "summaryDefault": "Durchlauf abgeschlossen.",
+    "sentenceCheckPrompt": "Baue einen Satz mit diesem Wort.",
+    "sentenceCheckProgress": "Wort {index} von {total}",
+    "sentenceCheckFieldLabel": "Dein Satz",
+    "sentenceCheckPlaceholder": "Schreib hier …",
+    "sentenceCheckHint": "Zwei Zeilen reichen. Wenn du fertig bist, tippe auf Prüfen.",
+    "sentenceCheckAction": "Prüfen",
+    "sentenceCheckChecking": "Wird geprüft …",
+    "sentenceCheckNoFindings": "Keine Fehler gefunden.",
+    "sentenceCheckWhatWasChecked": "Geprüft wurden Rechtschreibung und Übereinstimmung von Genus, Numerus und Person. Wortstellung und Wortwahl kann die App nicht beurteilen.",
+    "sentenceCheckFixHint": "Ändere die markierten Wörter und prüfe noch einmal.",
+    "sentenceCheckUnavailable": "Die Prüfung ist gerade nicht möglich.",
+    "sentenceCheckUnavailableHint": "Für diese Sprache liegt kein Wörterverzeichnis bereit. Du kannst weitermachen.",
+    "primaryContinueAnyway": "Trotzdem weiter",
+    "misconfiguredComponent": "Dieser Schritt ist unvollständig konfiguriert ({component}: {keys})."
   },
   "listeningDefer": {
     "sectionLabel": "Ton",
@@ -1076,7 +1085,8 @@
         "trains": "Produktion mit einem echten Grund, verstanden zu werden",
         "doesNotDo": "Niemand korrigiert Sie, und nichts wird aufgezeichnet. Es ist der größte Hebel im Katalog — und die App sieht kein bisschen davon."
       }
-    }
+    },
+    "sessionFeedbackChecked": "Rechtschreibung und Formen werden geprüft"
   },
   "methodMaterial": {
     "topicHeading": "Thema",
@@ -1302,5 +1312,20 @@
       },
       "irregular": "Dieses Verb ist unregelmäßig — die übliche Klassenendung sagt die Formen nicht voraus. Lerne dieses Wort einzeln."
     }
+  },
+  "sentenceCheck": {
+    "categorySpelling": "Rechtschreibung",
+    "categoryAgreement": "Übereinstimmung",
+    "categoryPerson": "Person",
+    "categoryMissingTarget": "Zielwort",
+    "spellingUnknown": "«{word}» steht nicht im Wörterverzeichnis. Prüfe die Schreibweise.",
+    "spellingWithSuggestion": "«{word}» kennt die App nicht. Meintest du «{suggestion}»?",
+    "agreementGender": "«{word}» passt im Genus nicht zu «{noun}».",
+    "agreementNumber": "«{word}» passt im Numerus nicht zu «{noun}».",
+    "personMismatch": "Nach «{pronoun}» passt «{verb}» nicht.",
+    "missingTarget": "«{word}» kommt im Satz nicht vor — darum ging es aber.",
+    "agreementGenderWithFix": "«{word}» passt im Genus nicht zu «{noun}». Richtig wäre «{suggestion}».",
+    "agreementNumberWithFix": "«{word}» passt im Numerus nicht zu «{noun}». Richtig wäre «{suggestion}».",
+    "personMismatchWithFix": "Nach «{pronoun}» passt «{verb}» nicht. Zu dieser Person gehört «{suggestion}»."
   }
 }

@@ -1,16 +1,29 @@
 /**
- * Framework-free step-component registry. Contract:
- * docs/specs/service/exercise-step-components.md
+ * Framework-free step-component registry, derived from the descriptors.
+ * Contract: docs/specs/service/exercise-step-components.md
  */
-import type { ExerciseStep, StepType } from "@/lib/exercise-runner/types";
+import type { ExerciseStep, StepAnswer, StepType } from "@/lib/exercise-runner/types";
 
 import {
-  SHIPPED_STEP_COMPONENT_IDS,
-  STEP_COMPONENT_DEFAULTS,
+  STEP_COMPONENT_DESCRIPTORS,
   type ShippedStepComponentId,
-} from "./types";
+  type StepComponentDescriptor,
+} from "./descriptors";
+import type { ConfigParse } from "./config";
+
+export const SHIPPED_STEP_COMPONENT_IDS = Object.keys(
+  STEP_COMPONENT_DESCRIPTORS,
+) as ShippedStepComponentId[];
 
 const SHIPPED = new Set<string>(SHIPPED_STEP_COMPONENT_IDS);
+
+export const STEP_COMPONENT_DEFAULTS: Partial<Record<StepType, ShippedStepComponentId>> = {
+  prepare: "checklist",
+  do: "prompt",
+  submit: "capture",
+  review: "self-mark",
+  decide: "offers",
+};
 
 export function isShippedStepComponent(
   componentId: string | undefined,
@@ -29,26 +42,40 @@ export function isStepComponentRenderable(step: Pick<ExerciseStep, "type" | "com
   return isShippedStepComponent(id);
 }
 
+export function stepComponentDescriptor(
+  step: Pick<ExerciseStep, "type" | "component">,
+): StepComponentDescriptor | undefined {
+  const id = resolveStepComponentId(step);
+  return isShippedStepComponent(id) ? STEP_COMPONENT_DESCRIPTORS[id] : undefined;
+}
+
 export function allowedStepTypesForComponent(componentId: string): StepType[] | null {
-  const map: Record<ShippedStepComponentId, StepType[]> = {
-    checklist: ["prepare"],
-    "material-preview": ["prepare"],
-    "sheet-download": ["prepare"],
-    prompt: ["do"],
-    "text-display": ["do"],
-    "speak-prompt": ["do"],
-    "type-with-word": ["do"],
-    "timed-write": ["do"],
-    "gap-fill": ["do"],
-    "full-dictation": ["do"],
-    capture: ["submit"],
-    "self-mark": ["review"],
-    feedback: ["review"],
-    "comprehension-questions": ["review"],
-    "reveal-answer": ["review"],
-    offers: ["decide"],
-    summary: ["decide"],
-  };
   if (!isShippedStepComponent(componentId)) return null;
-  return map[componentId];
+  return [...STEP_COMPONENT_DESCRIPTORS[componentId].stepTypes];
+}
+
+/** Parsed config for a step, or the keys its recipe failed to supply. */
+export function parseStepConfig(step: ExerciseStep): ConfigParse<unknown> {
+  const descriptor = stepComponentDescriptor(step);
+  if (!descriptor) return { ok: true, config: step.config };
+  return descriptor.parseConfig(step.config);
+}
+
+/**
+ * Whether this step's primary button is live. `wait` and unknown components
+ * always complete — the runner must not gate on a rule nobody declared.
+ */
+export function canCompleteStepAnswer(step: ExerciseStep, answer: StepAnswer): boolean {
+  const descriptor = stepComponentDescriptor(step);
+  if (!descriptor) return true;
+  return descriptor.canComplete(step.config, answer);
+}
+
+/** A component-specific primary label, or `undefined` to use the step type's. */
+export function primaryLabelKeyForAnswer(
+  step: ExerciseStep,
+  answer: StepAnswer,
+): string | undefined {
+  const descriptor = stepComponentDescriptor(step);
+  return descriptor?.primaryLabelKey(step.config, answer);
 }

@@ -189,10 +189,15 @@ function agreementFinding(
       ? formFor(table, modifierLemma, `${first.gender}.${first.number}`)
       : undefined;
 
+  // Two keys per clash, not one with an optional placeholder: a message that
+  // interpolates a suggestion it does not have renders "«»" at best and throws
+  // at worst.
+  const feature = clash.gender ? "Gender" : "Number";
+
   return {
     tokenIndex: index,
     category: "agreement",
-    messageKey: clash.gender ? "agreementGender" : "agreementNumber",
+    messageKey: suggestion ? `agreement${feature}WithFix` : `agreement${feature}`,
     messageValues: {
       word: modifier.text,
       noun: noun.text,
@@ -261,7 +266,7 @@ export function personFindings(
     findings.push({
       tokenIndex: index + 1,
       category: "person",
-      messageKey: "personMismatch",
+      messageKey: suggestion ? "personMismatchWithFix" : "personMismatch",
       messageValues: {
         pronoun: token.text,
         verb: next.text,
