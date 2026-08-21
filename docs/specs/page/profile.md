@@ -47,7 +47,8 @@ Contract: [`reviews/design/DR-034-profile-section-navigation.md`](../../reviews/
 | `languages` | Languages | Spoken language + learning languages (default) |
 | `data` | Your data | Export + delete |
 | `device` | This device | App version + Home screen (iPhone) |
-| `dev` | Dev | Links to dev preview pages (`/dev/*`) and the sentence realizer |
+| `dev` | Dev | Links to dev preview pages (`/dev/*`) and the sentence realizer, each
+  labelled with **last updated** and sorted newest first (`lib/dev-pages.ts`) |
 
 Registry: `lib/dev-pages.ts` — each entry has `lastUpdatedAt` (UTC ms). Profile
 → Dev sorts by that field (latest first) and shows **Last updated** on each

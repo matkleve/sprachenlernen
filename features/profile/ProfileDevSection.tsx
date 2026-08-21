@@ -19,7 +19,7 @@ export function ProfileDevSection() {
       <h2 className="font-serif text-xl font-semibold text-ink">Dev</h2>
       <p className="mt-1 text-sm text-muted">
         Preview pages for design decisions. Nothing here changes your account or your learning
-        data.
+        data. Sorted by last update.
       </p>
 
       <ul className="mt-4 flex flex-col gap-2">
