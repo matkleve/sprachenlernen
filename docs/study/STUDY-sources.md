@@ -343,6 +343,27 @@ unmeasured, so the band per method stays a **[D]**.
 
 ---
 
+## Web rendering — irregular edges
+
+| | Source | Used in |
+| --- | --- | --- |
+| ⬤ | Ben Gammon (2024): *Rough CSS borders with SVG filters feTurbulence and feDisplacementMap.* [Link](https://bengammon.co.uk/rough-css-borders-with-svg-filters/) | [28](STUDY-028-irregular-borders.md) |
+| ⬤ | MDN: `feTurbulence`, `feDisplacementMap`, `border-image`, `vector-effect`. [Turbulence](https://developer.mozilla.org/en-US/docs/Web/SVG/Reference/Element/feTurbulence) · [DisplacementMap](https://developer.mozilla.org/en-US/docs/Web/SVG/Reference/Element/feDisplacementMap) · [border-image](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/border-image) · [vector-effect](https://developer.mozilla.org/en-US/docs/Web/SVG/Reference/Attribute/vector-effect) | [28](STUDY-028-irregular-borders.md) |
+| ⬤ | CSS-Tricks: *Revisiting CSS border-image* — responsive SVG 9-slice borders. [Link](https://css-tricks.com/revisiting-css-border-image/) | [28](STUDY-028-irregular-borders.md) |
+| ⬤ | Daring Designs (2025): *Warp Elements with feTurbulence and feDisplacementMap* — filter region, `baseFrequency`, `scale`. [Link](https://daring-designs.com/blog/warping-elements-with-feturbulence-and-fedisplacementmap) | [28](STUDY-028-irregular-borders.md) |
+| ⬤ | Rough.js project site — sketchy SVG/canvas primitives, ~9 kB. [Link](https://roughjs.com/) | [28](STUDY-028-irregular-borders.md) |
+| ⬤ | rough-stuff/rough-notation — hand-drawn annotation boxes. [Link](https://github.com/rough-stuff/rough-notation) | [28](STUDY-028-irregular-borders.md) |
+| ⬤ | lxb-studio.com (2025): *Electric Borders Without the Lag* — animate `feOffset`, not turbulence; `scale` vs `baseFrequency`. [Link](https://lxb-studio.com/electric-borders-without-the-lag-4-animated-css-card-effects/) | [28](STUDY-028-irregular-borders.md) |
+| ⬤ | idealo Tech Blog / Medium (2024): *How to Build CSS Animations Without Sacrificing The INP* — `mask-image` animation cost. [Link](https://medium.com/idealo-tech-blog/how-to-build-css-animations-without-sacrificing-the-inp-0fd3db4f0064) | [28](STUDY-028-irregular-borders.md) |
+| ⬤ | ColorFYI (2025): *Web Color Performance* — filters, shadows, compositor-only animation. [Link](https://colorfyi.com/blog/web-color-performance/) | [28](STUDY-028-irregular-borders.md) |
+| ⬤ | Grida: *Chromium SVG Resources and Effects* — clip vs mask offscreen cost. [Link](https://grida.co/docs/wg/research/chromium/svg/resources-and-effects) | [28](STUDY-028-irregular-borders.md) |
+| ⬤ | web.dev / Chrome Developers: CSS Paint API (Houdini) — support and polyfill. [Link](https://developer.chrome.com/blog/paintapi) · [Cross-browser worklets](https://web.dev/articles/houdini-how) | [28](STUDY-028-irregular-borders.md) |
+| ⬤ | wiggly-border-generator (Marcus Michaels) — Catmull-Rom procedural SVG path, `non-scaling-stroke`. [Link](https://github.com/marcusmichaels/wiggly-border-generator) | [28](STUDY-028-irregular-borders.md) |
+| ◐ | Sara Soueidan, Codrops — deep dive on `feTurbulence` textures (cited via Gammon 2024, not re-opened here) | [28](STUDY-028-irregular-borders.md) |
+| ◐ | Vanilla Breeze design tokens doc — compares rough/sketchy border techniques (cited via search, not re-opened here) | [28](STUDY-028-irregular-borders.md) |
+
+---
+
 ## Frameworks
 
 | | Source | Used in |
