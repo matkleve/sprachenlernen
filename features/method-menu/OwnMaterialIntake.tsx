@@ -4,13 +4,8 @@ import { Button } from "@/components/ui/Button";
 import { Checkbox } from "@/components/ui/Checkbox";
 import { Field } from "@/components/ui/Field";
 import { Textarea } from "@/components/ui/Input";
-import type { ComfortBand } from "@/lib/coverage";
 import type { MaterialSetupPreview } from "@/lib/method-material-setup";
-
-type PreviewLabels = {
-  comfortBand: (band: ComfortBand) => string;
-  coverageLine: (coveragePercent: number, bandLabel: string) => string;
-};
+import { ownMaterialFeelForPreview, type OwnMaterialFeel } from "@/lib/own-material-preview";
 
 export type OwnMaterialIntakeProps = {
   ownText: string;
@@ -21,7 +16,7 @@ export type OwnMaterialIntakeProps = {
   processingConsent: boolean;
   onProcessingConsentChange: (checked: boolean) => void;
   ownPreview: MaterialSetupPreview | null;
-  previewLabels: PreviewLabels;
+  ownMaterialCoverage: (coveragePercent: number, feel: OwnMaterialFeel) => string;
   adaptingLabel: string;
   showAdapting: boolean;
   labels: {
@@ -45,7 +40,7 @@ export function OwnMaterialIntake({
   processingConsent,
   onProcessingConsentChange,
   ownPreview,
-  previewLabels,
+  ownMaterialCoverage,
   adaptingLabel,
   showAdapting,
   labels,
@@ -70,23 +65,18 @@ export function OwnMaterialIntake({
         />
       </Field>
       {ownPreview ? (
-        <div className="space-y-1 text-sm text-muted">
+        <div className="space-y-0.5 text-sm text-muted">
           <p>
             {ownPreview.unitLabel}
-            {" · "}
-            {previewLabels.coverageLine(
-              ownPreview.coverage.coveragePercent,
-              previewLabels.comfortBand(ownPreview.coverage.comfortBand),
-            )}
             {ownPreview.timeLabel ? ` · ${ownPreview.timeLabel}` : ""}
           </p>
+          <p>
+            {ownMaterialCoverage(
+              ownPreview.coverage.coveragePercent,
+              ownMaterialFeelForPreview(ownPreview),
+            )}
+          </p>
           {ownPreview.adaptationLabel ? <p>{ownPreview.adaptationLabel}</p> : null}
-          {ownPreview.adaptationError ? (
-            <p className="text-danger" role="alert">
-              {ownPreview.adaptationError}
-            </p>
-          ) : null}
-          {ownPreview.demandingCopy ? <p>{ownPreview.demandingCopy}</p> : null}
           {showAdapting ? <p>{adaptingLabel}</p> : null}
         </div>
       ) : null}

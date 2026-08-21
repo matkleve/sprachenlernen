@@ -1101,6 +1101,13 @@
       "speed": "Tempotraining"
     },
     "coverageLine": "{percent} % bekannt · {band}",
+    "ownMaterialCoverage": "Du kannst etwa {percent} % davon lesen — das wird {feel}.",
+    "ownMaterialFeel": {
+      "comfortable": "leicht",
+      "demanding": "anspruchsvoll",
+      "hard": "schwer",
+      "veryHard": "sehr schwer"
+    },
     "demandingLine": "Noch anspruchsvoll — {words} Wörter bis angenehm",
     "t1SupportLine": "{percent} % bekannt — {gaps} Wörter vor Start vormerken",
     "blockedLine": "Zu schwer für deinen Wortschatz ({percent} % bekannt) — {level}-Text passt nicht für dich",

@@ -223,7 +223,12 @@ export function MethodMaterialSetup({
           processingConsent={processingConsent}
           onProcessingConsentChange={handleProcessingConsentChange}
           ownPreview={ownPreview}
-          previewLabels={labels}
+          ownMaterialCoverage={(percent, feel) =>
+            t("ownMaterialCoverage", {
+              percent: Math.round(percent),
+              feel: t(`ownMaterialFeel.${feel}`),
+            })
+          }
           adaptingLabel={t("adapting")}
           showAdapting={isPending && processingConsent}
           labels={{

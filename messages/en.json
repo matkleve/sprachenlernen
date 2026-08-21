@@ -1101,6 +1101,13 @@
       "speed": "speed practice"
     },
     "coverageLine": "{percent}% known · {band}",
+    "ownMaterialCoverage": "You can read about {percent}% of this — that should feel {feel}.",
+    "ownMaterialFeel": {
+      "comfortable": "easy",
+      "demanding": "quite demanding",
+      "hard": "hard",
+      "veryHard": "very hard"
+    },
     "demandingLine": "Still demanding — {words} words to comfortable",
     "t1SupportLine": "{percent}% known — pre-teach {gaps} words, then Start",
     "blockedLine": "Too hard for your vocabulary ({percent}% known) — {level} text did not pass for you",

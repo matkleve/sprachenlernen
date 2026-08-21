@@ -152,7 +152,7 @@ describe("MethodMaterialSetup", () => {
     await user.click(screen.getByRole("button", { name: "Your own" }));
     await user.type(screen.getByPlaceholderText(/paste or type/i), "Hola");
 
-    expect(await screen.findByText(/Still demanding/i)).toBeDefined();
+    expect(await screen.findByText(/You can read about 78%/i)).toBeDefined();
     expect(screen.getByRole("button", { name: en.methodMenu.startSession }).getAttribute("disabled")).toBeNull();
   });
 
