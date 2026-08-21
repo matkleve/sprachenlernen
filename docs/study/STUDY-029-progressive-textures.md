@@ -168,9 +168,9 @@ change, not a stage overlay.
 
 ## Open questions
 
-- Does Workshop need **directional wood** (anisotropic turbulence) or is plank gradient enough?
-- Does Observatory marble need **specular** filter or box-shadow brass glow suffices?
-- Owner supplies tiles or CSS-only ship? → [`plans/progression-theme-system.md`](../plans/progression-theme-system.md) phase 0.
+None for workshop wood, observatory marble wiring, or tile vs CSS — the reference
+board and owner pass on `/dev/progression` are the gates. See
+[`progression-reference-board.md`](../specs/feature/progression-reference-board.md).
 
 ---
 

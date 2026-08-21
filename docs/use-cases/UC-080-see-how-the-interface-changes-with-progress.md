@@ -1,7 +1,7 @@
 # UC-080 — see how the interface changes with progress
 
 <!-- id: UC-080 -->
-<!-- specs: SPEC-page-progression-explorer, SPEC-page-wood-texture-lab -->
+<!-- specs: SPEC-feature-progression-reference-board, SPEC-page-progression-explorer, SPEC-page-wood-texture-lab, SPEC-page-material-explorer -->
 
 **Who:** a product owner or designer evaluating whether the interface should
 change as a learner's stable vocabulary grows

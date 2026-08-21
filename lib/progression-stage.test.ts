@@ -1,7 +1,10 @@
 import { describe, expect, it } from "vitest";
 
+// The gate's own colour maths, shared rather than reimplemented.
+import { contrast } from "../scripts/lib/color.mjs";
 import {
   chapterForStage,
+  progressionChapters,
   clampStage,
   crossesChapter,
   MAX_STAGE,
@@ -141,4 +144,40 @@ describe("stageDetail", () => {
     expect(stageDetail(1).edgeRoughness).toBeGreaterThan(stageDetail(2).edgeRoughness);
     expect(stageDetail(2).edgeRoughness).toBeGreaterThan(stageDetail(3).edgeRoughness);
   });
+});
+
+/**
+ * `check:contrast` reads `app/globals.css` only, so it never sees a chapter's
+ * tokens. Both ink pairs are enforced here instead: `ink`/`muted` against the
+ * surfaces they land on, and `canvasInk`/`canvasMuted` against the canvas.
+ *
+ * The pairs exist because Workshop's canvas is a dark wood bench while its
+ * cards are pale stone — one ink cannot serve both, and the version that tried
+ * put body copy on the bench at 1.4:1.
+ */
+describe("chapter tokens clear AA on the surface they land on", () => {
+  const AA_BODY = 4.5;
+  const AA_LARGE = 3;
+
+  it.each(progressionChapters.map((chapter) => [chapter.id, chapter] as const))(
+    "%s",
+    (_id, chapter) => {
+      const { tokens } = chapter;
+      const canvasInk = tokens.canvasInk ?? tokens.ink;
+      const canvasMuted = tokens.canvasMuted ?? tokens.muted;
+
+      for (const surface of [tokens.surface, tokens.surfaceRaised]) {
+        expect(contrast(tokens.ink, surface)).toBeGreaterThanOrEqual(AA_BODY);
+        expect(contrast(tokens.muted, surface)).toBeGreaterThanOrEqual(AA_BODY);
+      }
+
+      expect(contrast(canvasInk, tokens.canvas)).toBeGreaterThanOrEqual(AA_BODY);
+      expect(contrast(canvasMuted, tokens.canvas)).toBeGreaterThanOrEqual(AA_BODY);
+      // Accent never carries text on the canvas — it arrives as a button or
+      // pill *fill*, so the pairing that matters is its own ink against it.
+      expect(contrast(tokens.accentInk, tokens.accent)).toBeGreaterThanOrEqual(AA_LARGE);
+      expect(contrast(tokens.dangerInk, tokens.danger)).toBeGreaterThanOrEqual(AA_LARGE);
+      expect(contrast(tokens.successInk, tokens.success)).toBeGreaterThanOrEqual(AA_LARGE);
+    },
+  );
 });

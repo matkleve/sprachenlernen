@@ -26,6 +26,15 @@
   --color-ink: #2c2419;
   --color-muted: #6b5f52;
 
+  /* Ink for content sitting on a surface vs. straight on the canvas. They are
+     the same pair until a theme makes the canvas a *material* — Workshop's
+     wood bench is dark while its cards are pale stone, so one ink cannot serve
+     both. Chapters that do not split them inherit these. */
+  --color-surface-ink: #2c2419;
+  --color-surface-muted: #6b5f52;
+  --color-canvas-ink: #2c2419;
+  --color-canvas-muted: #6b5f52;
+
   /* Lines */
   /* `line` is decorative; `line-strong` bounds real controls and therefore
      has to clear 3:1 against the surface it sits on (WCAG 1.4.11). */
@@ -294,6 +303,10 @@
   --color-surface-raised: #2e2820;
   --color-ink: #f5f0e8;
   --color-muted: #a89f94;
+  --color-surface-ink: #f5f0e8;
+  --color-surface-muted: #a89f94;
+  --color-canvas-ink: #f5f0e8;
+  --color-canvas-muted: #a89f94;
   --color-line: #3d352c;
   --color-line-strong: #8f8275;
   --color-accent: #e8956a;
@@ -575,6 +588,6 @@
   background: color-mix(in srgb, var(--color-ink) 35%, transparent);
   backdrop-filter: blur(12px);
 }
-
 @import "./progression-skins.css";
 @import "./wood-textures.css";
+@import "./material-system.css";

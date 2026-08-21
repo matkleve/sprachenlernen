@@ -126,6 +126,7 @@ feature needs it — not in anticipation of one.
 | Adding a database, or another learning language | [`docs/BACKEND.md`](docs/BACKEND.md), [`docs/I18N.md`](docs/I18N.md) |
 | Making a call you'll have to defend later | [`docs/adr/`](docs/adr/) |
 | Product rules you may not break | [`docs/CONSTITUTION.md`](docs/CONSTITUTION.md) |
+| **Progression materials / wood / stages** | [`docs/specs/feature/progression-reference-board.md`](docs/specs/feature/progression-reference-board.md) — match the board |
 | **Why (not what to build)** | [`docs/study/`](docs/study/) — [`STUDY-FORMAT.md`](docs/STUDY-FORMAT.md) |
 | **Agent pitfalls (model, subagents, ship)** | [`docs/AGENT-PITFALLS.md`](docs/AGENT-PITFALLS.md) §19–§21; version: [`docs/VERSIONING.md`](docs/VERSIONING.md) |
 

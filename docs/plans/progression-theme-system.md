@@ -21,14 +21,57 @@ without forking components.
 | --- | --- |
 | **Chapter tokens** | 3 chapters in `data/design-themes/progression.json` — Workshop, Library, Observatory |
 | **Stage overlays** | 9 stages — `glow`, `grain`, `bevel`, `rule`, `radiusCard`, `borderPx`, `stars` via `stageScopeStyle()` |
-| **Material skins** | 9 CSS classes `.progression-skin--{chapter}-{1\|2\|3}` in `app/globals.css` — gradient stand-ins for wood / plaster / night dome |
+| **Material skins** | 9 CSS classes `.progression-skin--{chapter}-{1\|2\|3}` in `app/globals.css` — layer stacks (bands x rings x pores, gradient x tooth) blended with `background-blend-mode` |
 | **Dev preview** | `/dev/progression` — real primitives under scope; **not wired to learner data** |
 | **Shipped app theme** | Warm Scholar in `app/globals.css` — unchanged by progression work so far |
-| **Irregular borders** | Not built — studied in STUDY-028; recommended: SVG filter on border layer only |
+| **Irregular borders** | Built — `StageFrame` strokes a displaced `<rect>` on a sibling SVG layer, Workshop only |
 | **Optional tiles** | Spec allows PNG/WebP in `public/design/progression/` to replace CSS skins when supplied |
 
 The reference board shows **nine columns** (3 per chapter). The product model maps
 that to **9 stages × 3 chapters**, not nine independent themes.
+
+---
+
+## Fixed in the first pass on the material skins
+
+Four defects, found by rendering all nine stages rather than reading the CSS:
+
+1. **Chromatic noise.** `feTurbulence` emits independent R/G/B channels. The
+   grain overlay never desaturated them, so iOS Safari's rasteriser resolved the
+   Library stages as soft pastel rainbow blotches. Every texture now ends with
+   `feColorMatrix type='saturate' values='0'`, including the one feeding
+   `feDisplacementMap` — chromatic noise there pushes x and y by uncorrelated
+   amounts, which frays a stroke rather than chipping it.
+
+2. **Border geometry.** `StageFrame` drew into `viewBox="0 0 100 100"` with
+   `preserveAspectRatio="none"`. `feDisplacementMap`'s `scale` is in user units,
+   so on a real card those 100 units stretched ~7x across and ~12x down and a
+   scale of 8 became a ~56x96px ribbon wandering inside the card. The SVG now
+   carries no viewBox — one user unit is one CSS pixel — and takes the radius as
+   a number (`stageRadiusPx`). Stage roughness is retuned to px: 5 / 3 / 1.5.
+
+3. **Ink against material.** Workshop's skin painted a mid-grey slab under the
+   chapter's near-black ink: body copy at **1.4:1**. Slabs are now pale
+   sandstone, chosen so `ink`/`muted` still clear AA *after* the tooth layer
+   multiplies them down, and `muted` darkened to `#4f4437`.
+
+4. **One ink for two surfaces.** Workshop's canvas is a dark wood bench and its
+   cards are pale stone; a single `ink` cannot serve both, so everything drawn
+   straight on the bench (shell title, filter pills, field labels) was invisible.
+   `DesignThemeTokens` gains optional **`canvasInk`/`canvasMuted`** —
+   `stageScopeStyle()` points `--color-ink` at the canvas pair on the scope root
+   and `.progression-card` restores the surface pair. Controls deliberately keep
+   the canvas pair: a skin may cut its buttons from the material itself, as
+   Workshop's oiled-wood ones are.
+
+Also: Observatory now redeclares the `--color-grade-*` and `--color-skill-*`
+tokens. They are not part of `DesignThemeTokens`, so the light-theme pastels
+were surviving into a dark room.
+
+**Gate gap this exposed.** `check:contrast` reads `app/globals.css` only — it
+never sees a chapter's tokens, which is why a 1.4:1 pair shipped under a green
+gate. Both ink pairs are now asserted per chapter in
+`lib/progression-stage.test.ts`, sharing the gate's own `scripts/lib/color.mjs`.
 
 ---
 
@@ -80,7 +123,9 @@ Phases are sequential; do not wire learner data before dev preview is signed off
 
 ## Phase 0 · Dev preview fidelity (current sprint)
 
-Goal: `/dev/progression` reads close to the reference board at all 9 stages.
+Goal: `/dev/progression` **matches** the reference board at all 9 stages — owner
+marks pass column by column. See
+[`progression-reference-board.md`](../specs/feature/progression-reference-board.md).
 
 | ID | Work | Class | Files | Done when |
 | --- | --- | --- | --- | --- |

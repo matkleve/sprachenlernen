@@ -1,0 +1,515 @@
+/**
+ * Material system — `/dev/materials` only.
+ * Contract: docs/specs/page/material-explorer.md
+ *
+ * Stack per component:
+ *   base fill → texture (::before) → border → highlight (::after) → shadow
+ * Scene adds environmental light (gradients / stars).
+ */
+
+/* --- Shared procedural textures --- */
+
+.material-system {
+  --material-wood-grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 256 256'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.02 0.45' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)' opacity='0.65'/%3E%3C/svg%3E");
+  --material-stone-speckle: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Cfilter id='s'%3E%3CfeTurbulence type='turbulence' baseFrequency='0.42' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23s)' opacity='0.72'/%3E%3C/svg%3E");
+  --material-plaster: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cfilter id='p'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.012' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23p)' opacity='0.85'/%3E%3C/svg%3E");
+  --material-paper: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'%3E%3Cfilter id='f'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.55 0.08' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23f)' opacity='0.4'/%3E%3C/svg%3E");
+  --material-marble: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 256 256'%3E%3Cfilter id='m'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.04 0.015' numOctaves='5' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23m)' opacity='0.5'/%3E%3C/svg%3E");
+}
+
+/* --- Material stack primitives --- */
+
+.material-scene {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  border-radius: var(--material-radius, 12px);
+}
+
+.material-card,
+.material-input,
+.material-button {
+  position: relative;
+  isolation: isolate;
+  border-radius: var(--material-radius, 12px);
+  overflow: hidden;
+}
+
+.material-card::before,
+.material-input::before,
+.material-button::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border-radius: inherit;
+  opacity: var(--material-grain, 0.3);
+  mix-blend-mode: multiply;
+  z-index: 0;
+}
+
+.material-card::after,
+.material-input::after,
+.material-button::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border-radius: inherit;
+  z-index: 0;
+  background: linear-gradient(
+    180deg,
+    rgb(255 255 255 / calc(var(--material-specular, 0.1) * 0.35)),
+    transparent 30%
+  );
+}
+
+.material-card > *,
+.material-input > *,
+.material-button > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* --- Card --- */
+
+.material-card {
+  border: 1px solid var(--material-border, rgb(0 0 0 / 0.2));
+  background: var(--material-surface, #c4a882);
+  box-shadow: var(--material-shadow, 0 5px 12px rgb(0 0 0 / 0.25));
+}
+
+.material-card::before {
+  background-image: var(--material-texture, var(--material-stone-speckle));
+  background-size: var(--material-texture-size, 180px 180px);
+}
+
+/* --- Input (carved inset) --- */
+
+.material-input {
+  display: block;
+  width: 100%;
+  padding: 0.625rem 0.875rem;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  color: var(--material-ink, #2a1c10);
+  background: var(--material-input-bg, rgb(0 0 0 / 0.12));
+  border: 1px solid var(--material-input-border, rgb(0 0 0 / 0.25));
+  box-shadow: var(
+    --material-input-shadow,
+    inset 0 2px 4px rgb(0 0 0 / calc(var(--material-roughness, 0.5) * 0.35))
+  );
+}
+
+.material-input::placeholder {
+  color: var(--material-muted, rgb(0 0 0 / 0.45));
+}
+
+.material-input::before {
+  background-image: var(--material-texture, var(--material-stone-speckle));
+  background-size: var(--material-texture-size, 180px 180px);
+  mix-blend-mode: multiply;
+}
+
+.material-input:focus-visible {
+  outline: none;
+  box-shadow:
+    var(--material-input-shadow, inset 0 2px 4px rgb(0 0 0 / 0.2)),
+    0 0 0 2px var(--material-focus, rgb(180 130 80 / 0.6));
+}
+
+/* --- Button (separate slab) --- */
+
+.material-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  line-height: 1.25rem;
+  color: var(--material-button-ink, #f5efe6);
+  cursor: pointer;
+  background: var(--material-button-bg, #65482f);
+  border: 1px solid var(--material-button-border, #4a3420);
+  box-shadow: var(--material-button-shadow, 0 3px 8px rgb(0 0 0 / 0.22));
+  transition:
+    transform 120ms ease,
+    box-shadow 120ms ease;
+}
+
+.material-button::before {
+  background-image: var(--material-texture, var(--material-wood-grain));
+  background-size: var(--material-texture-size, 280px 140px);
+}
+
+.material-button:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--material-button-shadow-hover, 0 5px 12px rgb(0 0 0 / 0.28));
+}
+
+.material-button:active {
+  transform: translateY(0) scale(0.99);
+}
+
+.material-button:focus-visible {
+  outline: none;
+  box-shadow:
+    var(--material-button-shadow, 0 3px 8px rgb(0 0 0 / 0.22)),
+    0 0 0 2px var(--material-focus, rgb(180 130 80 / 0.6));
+}
+
+.material-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* --- Environmental stars (Observatory) --- */
+
+.material-star {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  background: radial-gradient(
+    circle,
+    rgb(255 230 180 / 0.95) 0%,
+    rgb(255 200 140 / 0.4) 35%,
+    transparent 70%
+  );
+  filter: blur(0.5px);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   Stage 1 — Raw Workshop
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.material-stage-1 {
+  --material-surface: #b8a088;
+  --material-border: #65482f;
+  --material-ink: #2a1c10;
+  --material-muted: rgb(42 28 16 / 0.55);
+  --material-texture: var(--material-stone-speckle);
+  --material-texture-size: 160px 160px;
+  --material-shadow: 0 5px 12px rgb(0 0 0 / 0.28);
+  --material-input-bg: rgb(0 0 0 / 0.18);
+  --material-input-border: rgb(0 0 0 / 0.35);
+  --material-input-shadow: inset 0 3px 6px rgb(0 0 0 / 0.35);
+  --material-button-bg: #5a4030;
+  --material-button-border: #3d2a18;
+  --material-button-ink: #f0e8dc;
+  --material-button-shadow: 0 4px 10px rgb(0 0 0 / 0.3);
+  --material-focus: rgb(180 130 80 / 0.5);
+}
+
+.material-stage-1.material-scene {
+  background-color: #2a1c10;
+  background-image:
+    var(--material-wood-grain),
+    repeating-linear-gradient(
+      90deg,
+      rgb(0 0 0 / 0.45) 0 2px,
+      transparent 2px 78px,
+      rgb(0 0 0 / 0.28) 78px 80px,
+      #3f2a18 80px 158px
+    ),
+    linear-gradient(180deg, #3d2918 0%, #2a1c10 100%);
+  background-size: 280px 140px, 158px 100%, 100% 100%;
+  background-blend-mode: overlay, normal, normal;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   Stage 2 — Sanded Workshop
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.material-stage-2 {
+  --material-surface: #c4a882;
+  --material-border: #765638;
+  --material-ink: #2a1c10;
+  --material-muted: rgb(42 28 16 / 0.5);
+  --material-texture: var(--material-stone-speckle);
+  --material-texture-size: 180px 180px;
+  --material-shadow: 0 5px 14px rgb(0 0 0 / 0.18);
+  --material-input-bg: rgb(0 0 0 / 0.14);
+  --material-input-border: rgb(0 0 0 / 0.28);
+  --material-input-shadow: inset 0 2px 5px rgb(0 0 0 / 0.25);
+  --material-button-bg: #6a5038;
+  --material-button-border: #4a3828;
+  --material-button-ink: #f5efe6;
+  --material-button-shadow: 0 4px 12px rgb(0 0 0 / 0.2);
+  --material-focus: rgb(180 130 80 / 0.55);
+}
+
+.material-stage-2.material-scene {
+  background-color: #342618;
+  background-image:
+    linear-gradient(180deg, rgb(255 240 220 / 0.07) 0%, transparent 35%),
+    var(--material-wood-grain),
+    repeating-linear-gradient(
+      90deg,
+      rgb(0 0 0 / 0.32) 0 1px,
+      transparent 1px 82px,
+      #523820 82px 164px
+    ),
+    linear-gradient(180deg, #4a3422 0%, #342618 100%);
+  background-size: 100% 100%, 280px 140px, 164px 100%, 100% 100%;
+  background-blend-mode: normal, overlay, normal, normal;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   Stage 3 — Oiled Workshop
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.material-stage-3 {
+  --material-surface: #d4b896;
+  --material-border: #7b5937;
+  --material-ink: #2a1c10;
+  --material-muted: rgb(42 28 16 / 0.45);
+  --material-texture: var(--material-stone-speckle);
+  --material-texture-size: 200px 200px;
+  --material-shadow: 0 6px 18px rgb(0 0 0 / 0.16);
+  --material-input-bg: rgb(0 0 0 / 0.1);
+  --material-input-border: rgb(0 0 0 / 0.22);
+  --material-input-shadow: inset 0 2px 4px rgb(0 0 0 / 0.18);
+  --material-button-bg: #7a5838;
+  --material-button-border: #5a4028;
+  --material-button-ink: #faf6f0;
+  --material-button-shadow: 0 5px 14px rgb(0 0 0 / 0.18);
+  --material-button-shadow-hover: 0 7px 18px rgb(0 0 0 / 0.22);
+  --material-focus: rgb(180 130 80 / 0.6);
+}
+
+.material-stage-3.material-scene {
+  background-color: #3d2a18;
+  background-image:
+    radial-gradient(ellipse 110% 70% at 50% 0%, rgb(255 220 180 / 0.12) 0%, transparent 45%),
+    linear-gradient(180deg, rgb(255 230 200 / 0.1) 0%, transparent 40%),
+    var(--material-wood-grain),
+    repeating-linear-gradient(
+      90deg,
+      rgb(0 0 0 / 0.22) 0 1px,
+      transparent 1px 86px,
+      #6a4a32 86px 172px
+    ),
+    linear-gradient(180deg, #523820 0%, #3d2a18 100%);
+  background-size: 100% 100%, 100% 100%, 280px 140px, 172px 100%, 100% 100%;
+  background-blend-mode: normal, normal, overlay, normal, normal;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   Stage 4 — Cool Plaster
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.material-stage-4 {
+  --material-surface: #f0ebe3;
+  --material-border: rgb(0 0 0 / 0.1);
+  --material-ink: #3a3530;
+  --material-muted: rgb(58 53 48 / 0.55);
+  --material-texture: var(--material-plaster);
+  --material-texture-size: 420px 420px;
+  --material-shadow: 0 4px 16px rgb(0 0 0 / 0.08);
+  --material-input-bg: rgb(0 0 0 / 0.04);
+  --material-input-border: rgb(0 0 0 / 0.12);
+  --material-input-shadow: inset 0 2px 4px rgb(0 0 0 / 0.06);
+  --material-button-bg: #8a8078;
+  --material-button-border: rgb(0 0 0 / 0.15);
+  --material-button-ink: #faf8f5;
+  --material-button-shadow: 0 3px 10px rgb(0 0 0 / 0.1);
+  --material-focus: rgb(120 110 100 / 0.4);
+}
+
+.material-stage-4.material-scene {
+  background-color: #d8d2c8;
+  background-image:
+    var(--material-plaster),
+    linear-gradient(180deg, #e8e4dc 0%, #d0cac0 100%);
+  background-size: 420px 420px, 100% 100%;
+  background-blend-mode: multiply, normal;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   Stage 5 — Refined Paper
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.material-stage-5 {
+  --material-surface: #f5f2eb;
+  --material-border: rgb(0 0 0 / 0.08);
+  --material-ink: #3a3530;
+  --material-muted: rgb(58 53 48 / 0.5);
+  --material-texture: var(--material-paper);
+  --material-texture-size: 180px 180px;
+  --material-shadow: 0 4px 20px rgb(0 0 0 / 0.06);
+  --material-input-bg: rgb(0 0 0 / 0.03);
+  --material-input-border: rgb(0 0 0 / 0.1);
+  --material-input-shadow: inset 0 1px 3px rgb(0 0 0 / 0.05);
+  --material-button-bg: #9a9088;
+  --material-button-border: rgb(0 0 0 / 0.12);
+  --material-button-ink: #faf8f5;
+  --material-button-shadow: 0 3px 12px rgb(0 0 0 / 0.08);
+  --material-focus: rgb(120 110 100 / 0.35);
+}
+
+.material-stage-5.material-scene {
+  background-color: #e8e4dc;
+  background-image:
+    var(--material-paper),
+    linear-gradient(180deg, #f0ece4 0%, #e0dcd4 100%);
+  background-size: 180px 180px, 100% 100%;
+  background-blend-mode: multiply, normal;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   Stage 6 — Fine Paper
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.material-stage-6 {
+  --material-surface: #f5f2eb;
+  --material-border: rgb(0 0 0 / 0.08);
+  --material-ink: #3a3530;
+  --material-muted: rgb(58 53 48 / 0.45);
+  --material-texture: var(--material-paper);
+  --material-texture-size: 240px 240px;
+  --material-shadow: 0 6px 24px rgb(0 0 0 / 0.04);
+  --material-input-bg: rgb(0 0 0 / 0.02);
+  --material-input-border: rgb(0 0 0 / 0.08);
+  --material-input-shadow: inset 0 1px 2px rgb(0 0 0 / 0.04);
+  --material-button-bg: #a8a098;
+  --material-button-border: rgb(0 0 0 / 0.1);
+  --material-button-ink: #faf8f5;
+  --material-button-shadow: 0 4px 16px rgb(0 0 0 / 0.06);
+  --material-focus: rgb(120 110 100 / 0.3);
+}
+
+.material-stage-6.material-scene {
+  background-color: #eae7e0;
+  background-image: linear-gradient(180deg, #f0ede6 0%, #e4e1da 100%);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   Stage 7 — Dark Marble
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.material-stage-7 {
+  --material-surface: #1a2430;
+  --material-border: rgb(180 150 90 / 0.35);
+  --material-ink: #e8e4dc;
+  --material-muted: rgb(232 228 220 / 0.55);
+  --material-texture: var(--material-marble);
+  --material-texture-size: 320px 320px;
+  --material-shadow: 0 8px 24px rgb(0 0 0 / 0.35);
+  --material-input-bg: rgb(0 0 0 / 0.25);
+  --material-input-border: rgb(180 150 90 / 0.2);
+  --material-input-shadow: inset 0 2px 6px rgb(0 0 0 / 0.3);
+  --material-button-bg: #2a3540;
+  --material-button-border: rgb(180 150 90 / 0.4);
+  --material-button-ink: #f0ece4;
+  --material-button-shadow: 0 4px 16px rgb(0 0 0 / 0.4);
+  --material-focus: rgb(180 150 90 / 0.5);
+}
+
+.material-stage-7.material-scene {
+  background-color: #101823;
+  background-image:
+    radial-gradient(ellipse 100% 80% at 50% 100%, rgb(20 30 50 / 0.6) 0%, transparent 60%),
+    var(--material-marble),
+    linear-gradient(180deg, #141e2a 0%, #0e1620 100%);
+  background-size: 100% 100%, 320px 320px, 100% 100%;
+  background-blend-mode: normal, soft-light, normal;
+}
+
+.material-stage-7 .material-card::before,
+.material-stage-7 .material-input::before,
+.material-stage-7 .material-button::before {
+  mix-blend-mode: soft-light;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   Stage 8 — Marble + Brass
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.material-stage-8 {
+  --material-surface: #182028;
+  --material-border: rgb(200 170 100 / 0.45);
+  --material-ink: #ece8e0;
+  --material-muted: rgb(236 232 224 / 0.55);
+  --material-texture: var(--material-marble);
+  --material-texture-size: 280px 280px;
+  --material-shadow:
+    0 8px 28px rgb(0 0 0 / 0.4),
+    inset 0 1px 0 rgb(200 170 100 / 0.15);
+  --material-input-bg: rgb(0 0 0 / 0.3);
+  --material-input-border: rgb(200 170 100 / 0.25);
+  --material-input-shadow: inset 0 2px 6px rgb(0 0 0 / 0.35);
+  --material-button-bg: #243040;
+  --material-button-border: rgb(200 170 100 / 0.5);
+  --material-button-ink: #f5f0e8;
+  --material-button-shadow: 0 5px 18px rgb(0 0 0 / 0.45);
+  --material-focus: rgb(200 170 100 / 0.55);
+}
+
+.material-stage-8.material-scene {
+  background-color: #0e141c;
+  background-image:
+    radial-gradient(ellipse 80% 50% at 50% 0%, rgb(40 60 90 / 0.3) 0%, transparent 55%),
+    var(--material-marble),
+    linear-gradient(180deg, #121a24 0%, #0a1018 100%);
+  background-size: 100% 100%, 280px 280px, 100% 100%;
+  background-blend-mode: normal, soft-light, normal;
+}
+
+.material-stage-8 .material-card::before,
+.material-stage-8 .material-input::before,
+.material-stage-8 .material-button::before {
+  mix-blend-mode: soft-light;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   Stage 9 — Observatory Premium
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.material-stage-9 {
+  --material-surface: #141c28;
+  --material-border: rgb(220 180 110 / 0.55);
+  --material-ink: #f0ece4;
+  --material-muted: rgb(240 236 228 / 0.55);
+  --material-texture: var(--material-marble);
+  --material-texture-size: 260px 260px;
+  --material-shadow:
+    0 10px 32px rgb(0 0 0 / 0.45),
+    inset 0 1px 0 rgb(220 180 110 / 0.2),
+    inset 0 -1px 0 rgb(0 0 0 / 0.2);
+  --material-input-bg: rgb(0 0 0 / 0.35);
+  --material-input-border: rgb(220 180 110 / 0.3);
+  --material-input-shadow: inset 0 2px 8px rgb(0 0 0 / 0.4);
+  --material-button-bg: #1e2838;
+  --material-button-border: rgb(220 180 110 / 0.6);
+  --material-button-ink: #faf6f0;
+  --material-button-shadow: 0 6px 22px rgb(0 0 0 / 0.5);
+  --material-button-shadow-hover: 0 8px 28px rgb(0 0 0 / 0.55);
+  --material-focus: rgb(220 180 110 / 0.6);
+}
+
+.material-stage-9.material-scene {
+  background-color: #0a1018;
+  background-image:
+    radial-gradient(ellipse 60% 40% at 85% 8%, rgb(255 200 140 / 0.15) 0%, transparent 50%),
+    radial-gradient(ellipse 100% 60% at 50% 0%, rgb(40 70 110 / 0.35) 0%, transparent 55%),
+    var(--material-marble),
+    linear-gradient(180deg, #101820 0%, #080c14 100%);
+  background-size: 100% 100%, 100% 100%, 260px 260px, 100% 100%;
+  background-blend-mode: normal, normal, soft-light, normal;
+}
+
+.material-stage-9 .material-card::before,
+.material-stage-9 .material-input::before,
+.material-stage-9 .material-button::before {
+  mix-blend-mode: soft-light;
+}
+
+.material-stage-9 .material-card::after {
+  background: linear-gradient(
+    180deg,
+    rgb(255 220 180 / calc(var(--material-specular, 0.4) * 0.25)),
+    transparent 35%
+  );
+}
