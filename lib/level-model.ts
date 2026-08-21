@@ -1,6 +1,6 @@
 /**
  * The level model, as far as the data reaches. Contract:
- * docs/specs/page/progress.md. Derives docs/study/03-level-model.md, which owns
+ * docs/specs/page/progress.md. Derives docs/study/STUDY-003-level-model.md, which owns
  * every rule here — this file computes, it does not decide.
  *
  * Framework-free and I/O-free: it takes rebuilt Tasks and returns readings.

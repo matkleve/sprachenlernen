@@ -26,7 +26,7 @@ a decision from you" list below in the same session, not later.
 
 **What this file owns, and what it does not.** It owns the queue: which task is
 next, who can safely do it, and what "done" means for that task.
-[`study/11-roadmap-open-questions.md`](study/11-roadmap-open-questions.md) owns
+[`backlog/BL-011-roadmap-open-questions.md`](backlog/BL-011-roadmap-open-questions.md) owns
 the **product** order — which stage comes before which, and why. Specs in
 [`specs/`](specs/) own **behaviour**. When this file and a spec disagree, the spec
 wins and this file is stale. Nothing normative may live only here.
@@ -250,7 +250,7 @@ are now the record of what was agreed, and the spec is what governs.
 · **Route:** `/languages`
 
 > **No longer "the first surface" (2026-08-08).** The method menu is
-> ([`study/11-roadmap-open-questions.md`](study/11-roadmap-open-questions.md),
+> ([`backlog/BL-011-roadmap-open-questions.md`](backlog/BL-011-roadmap-open-questions.md),
 > stage 1 — the user's correction that flashcards is one method among many). T-03
 > stays in the queue and stays first *in Track A*, because it is still the largest
 > honest surface a low-inference agent can build with no auth, no persistence and
@@ -272,7 +272,7 @@ instruction; everything else is derived from data.
 
 It is worth building first because it is the product's whole argument in one
 screen. Every competitor shows a number and hides its provenance
-([`study/25-why-it-does-not-feel-productive.md`](study/25-why-it-does-not-feel-productive.md)
+([`study/STUDY-023-why-it-does-not-feel-productive.md`](study/STUDY-023-why-it-does-not-feel-productive.md)
 C3); this screen shows the provenance before it shows any number.
 
 Requirements:
@@ -351,9 +351,10 @@ low-inference agent would silently invent.
 | **T-B11e** | Wire review session, reading, gap list, demonstration sentence | Standard | T-B11d | UC-069 AC | **shipped 2026-08-18** |
 | **T-B11f** | Pool migration: `descriptionKey` in JSON; drop inline `back` | Standard | T-B11e | [`starter-deck.md`](specs/service/starter-deck.md) | **shipped 2026-08-18** |
 | **T-B11g** | Method catalogue copy in spoken language ([UC-069](use-cases/UC-069-use-the-app-in-my-own-language.md)) | Standard | T-B11 slice 2 | [`method-catalogue.i18n.md`](specs/service/method-catalogue.i18n.md) | **shipped 2026-08-18** — `localize-method-entry`, `messages/*/entries`, sync script |
+| **T-B11h** | Chrome i18n stragglers — card report, demonstration sentence, reading gloss, weekly reflection | Standard | T-B11 slice 2 | [`chrome-i18n-stragglers.md`](specs/service/chrome-i18n-stragglers.md) | **shipped 2026-08-20** |
 | **T-B12** | ~~Scope `poolForScheduling` to the active language only~~ — **done 2026-08-12** ([UC-025](use-cases/UC-025-learn-multiple-languages.md)) | `poolForScheduling` and `poolForDisplay` (`lib/db/learner-pools.ts`) merged into one `poolForActiveLanguage()`, since the reason they differed — a cross-language budget — was rejected. `buildSessionAction` now calls it; a session can no longer contain more than one language's cards, and the `languageName` label is always correct as a result. Regression test: `learner-pools.test.ts` |
 | **T-B13** | ~~Same-session card requeue ([UC-071](use-cases/UC-071-get-a-wrong-card-back-before-the-session-ends.md))~~ — **shipped 2026-08-12** | **Sensitive.** [`lib/review-session-requeue.ts`](../lib/review-session-requeue.ts), `useReviewSession` re-insert on `again`/`hard`; [ADR-0012](adr/0012-ux-decisions-requeue-i18n-leech-nav.md) decisions 12–13 |
-| **T-B14** | Broken-card flagging + leech diagnosis ([UC-023](use-cases/UC-023-report-something-wrong.md), [UC-013](use-cases/UC-013-stop-losing-time-on-one-card.md)) | **T-B14a/b shipped 2026-08-16** — [`StatusBanner`](../components/ui/StatusBanner.tsx), [`CardReportPopover`](../features/review-session/CardReportPopover.tsx), optional `category`/`note` on `card_content_flag` ([UC-073](use-cases/UC-073-explain-what-is-wrong-with-a-card.md), [UC-074](use-cases/UC-074-know-my-report-was-received.md), [study/34](study/34-review-report-and-acknowledgement-ux.md)). **Remaining:** T-B14c scheduling-intent toggle (deferred); UC-013 tier-2/3 diagnosis. **Sensitive** |
+| **T-B14** | Broken-card flagging + leech diagnosis ([UC-023](use-cases/UC-023-report-something-wrong.md), [UC-013](use-cases/UC-013-stop-losing-time-on-one-card.md)) | **T-B14a/b shipped 2026-08-16** — [`StatusBanner`](../components/ui/StatusBanner.tsx), [`CardReportPopover`](../features/review-session/CardReportPopover.tsx), optional `category`/`note` on `card_content_flag` ([UC-073](use-cases/UC-073-explain-what-is-wrong-with-a-card.md), [UC-074](use-cases/UC-074-know-my-report-was-received.md), [study/34](reviews/design/DR-035-review-report-and-acknowledgement-ux.md)). **Remaining:** T-B14c scheduling-intent toggle (deferred); UC-013 tier-2/3 diagnosis. **Sensitive** |
 | **T-B15** | Maintenance mode per language ([UC-025](use-cases/UC-025-learn-multiple-languages.md)) | **Not spec-ready** — no per-language flag exists. Moved 2026-08-12 from [`plans/multi-language.md`](plans/multi-language.md) table item 10, so it has exactly one tracked home. The best-evidenced item in that plan's 2026-08-11 review (Cepeda et al. 2008, Bahrick et al. 1993: 10–20% of the retention interval as the review gap) and the one piece of that review's recommendation not yet built |
 ---
 
@@ -372,13 +373,13 @@ honest Spanish/Italian; offline unlocks commute practice.
 | **4** | **T-B3 remainder** — extrapolation + per-skill levels once (1) and calibration exist | F18–F22; demonstration sentence |
 | **5** | **T-B9 / offline-PWA** — cache deck + scheduler; flush queue on reconnect (ADR-0011 Option B) | UC-018 commute practice; installable PWA |
 | **6** | ~~**T-B10c** — method badges + detail layout~~ — **shipped 2026-08-15** | Scannable catalogue; fixes two-line chip + truncated-title UX |
-| **6b** | ~~**T-B10d** — property audit alignment ([`study/36`](study/36-method-surfaces-property-audit.md))~~ — **shipped 2026-08-16** | Plain effort everywhere; all requirement chips on cards; evidence disclosure-only on detail |
+| **6b** | ~~**T-B10d** — property audit alignment ([`study/36`](reviews/design/DR-036-method-surfaces-property-audit.md))~~ — **shipped 2026-08-16** | Plain effort everywhere; all requirement chips on cards; evidence disclosure-only on detail |
 | **6c** | ~~**T-B10e** — composite tier badges, effort dots, real assets~~ — **shipped 2026-08-18** | [`skill-tier.md`](specs/service/skill-tier.md); `scripts/slice-skill-tier-badges.py` |
 | **6d** | **T-B10f-b** — method card polish assets | **Blocked** — section WebP re-compose + shield card PNGs |
 | **6e** | **T-B10g** — card destination marker | **Shipped 2026-08-18** — [`plans/method-card-destination.md`](plans/method-card-destination.md); **routing fix 2026-08-19** — exercise cards → overview before `/practice` |
-| **7** | **T-B10b remainder** — ~~demonstration sentence~~ **shipped 2026-08-16**; readiness ([`study/26`](study/26-readiness-and-difficulty.md)) | Methods front door complete |
+| **7** | **T-B10b remainder** — ~~demonstration sentence~~ **shipped 2026-08-16**; readiness ([`study/26`](study/STUDY-024-readiness-and-difficulty.md)) | Methods front door complete |
 | **7b** | ~~**Exercise runner** (T-E0–E9, T-MU*, T-LD1, T-E12)~~ — **shipped 2026-08-18**; six hosted runners + practice-surface UX | UC-049 |
-| **7c** | **Method viability + session budget** (T-MV1–T-MV5 shipped; **T-MV7–T-MV8** filter-only + catalogue packages) — study/42, study/45, study/46 | Menu filter ≠ session size; variant chips; SRS fixed 15 cards |
+| **7c** | ~~**Method viability + session budget** (T-MV1–T-MV5 shipped; **T-MV7–T-MV8** filter-only + catalogue packages)~~ — **shipped 2026-08-20** | Menu filter ≠ session size; all variant chips on detail; SRS fixed 15 cards |
 | **7d** | **Content ingestion + adaptation** (T-CI1–T-CI6) — study/48; specs draft | Licence-cleared news at target level (UC-007, UC-030); paste URL (UC-029) |
 | **8** | **T-B4 numerator** — guided hours practised (thesis 9: not card time alone) | Progress per hour invested (study/03 V3) |
 
@@ -425,9 +426,9 @@ Cooking-app runner for multi-step Methods (dictation, writing, listening drills)
 `srs-session` is always **15 cards** (no variant chips).
 **Specs:** [`method-session-viability.md`](specs/service/method-session-viability.md),
 [`method-session-budget.md`](specs/service/method-session-budget.md) (draft).
-**Study:** [`study/42-method-usefulness-ux-audit.md`](study/42-method-usefulness-ux-audit.md),
-[`study/45-method-duration-variants.md`](study/45-method-duration-variants.md),
-[`study/46-method-length-and-level-matched-content.md`](study/46-method-length-and-level-matched-content.md).
+**Study:** [`reviews/design/DR-042-method-usefulness-ux-audit.md`](reviews/design/DR-042-method-usefulness-ux-audit.md),
+[`study/archive/ARCH-045-method-duration-variants.md`](study/archive/ARCH-045-method-duration-variants.md),
+[`study/archive/ARCH-046-method-length-and-level-matched-content.md`](study/archive/ARCH-046-method-length-and-level-matched-content.md).
 
 | ID | Work | Class | Depends on | Done when |
 | --- | --- | --- | --- | --- |
@@ -437,8 +438,8 @@ Cooking-app runner for multi-step Methods (dictation, writing, listening drills)
 | **T-MV4** | `reading-aloud` rubric or record-and-replay | Standard | T-MV1 | G2 pass |
 | **T-MV5** | ~~`lib/exercise-recipe/budget.ts` — budget-driven compose + catalogue validator~~ — **shipped 2026-08-20** | Standard | T-MV1 | G7 gate + allowlist |
 | **T-MV6** | ~~Pass `minutes` from menu through Start URLs~~ — **shipped 2026-08-20** | Standard | T-MV1 | **Superseded** by owner filter-only decision — see T-MV7 |
-| **T-MV7** | **Filter-only menu time** — decouple `?minutes=` from session compose; duration variant chips on detail (≤ 2); Start uses selected package only | Standard | T-MV3, T-MV5 | [`method-menu.md`](specs/page/method-menu.md) + UC-045 AC; no `minutes` on srs-session Start |
-| **T-MV8** | **Catalogue duration packages** — `srs-session` fixed 15 cards + single filter hint; collapse `durations[]` to ≤ 2 per method; reading uses **full** unit estimate for filter | Standard | T-MV7 | `data/methods/*.json` + tests green |
+| **T-MV7** | ~~**Filter-only menu time** — decouple `?minutes=` from session compose; duration variant chips on detail (≤ 2, **all packages shown**); Start uses selected package only~~ — **shipped 2026-08-20** (PR #164) | Standard | T-MV3, T-MV5 | [`method-session-budget.md`](specs/service/method-session-budget.md); menu filter = `min(durations)` only |
+| **T-MV8** | ~~**Catalogue duration packages** — `srs-session` fixed 15 cards + single filter hint; collapse `durations[]` to ≤ 2 per method; reading uses **full** unit estimate for filter~~ — **shipped 2026-08-20** (PR #164) | Standard | T-MV7 | `data/methods/*.json` + tests green |
 
 **Order:** T-MV5 before T-MV8 catalogue edits. T-MV7 before T-MV8.
 
@@ -448,15 +449,15 @@ Cooking-app runner for multi-step Methods (dictation, writing, listening drills)
 **paste-your-own** (UC-029) without copyright traps or runaway LLM cost.
 **Specs:** [`content-ingestion.md`](specs/service/content-ingestion.md),
 [`content-adaptation.md`](specs/service/content-adaptation.md) (draft).
-**Study:** [`study/48-content-licensing-and-adaptation.md`](study/48-content-licensing-and-adaptation.md).
+**Study:** [`study/archive/ARCH-048-content-licensing-and-adaptation.md`](study/archive/ARCH-048-content-licensing-and-adaptation.md).
 **Evaluated stories:** [`IDEAS.md`](IDEAS.md) § 2026-08-20 (stories 1–5).
 
 | ID | Work | Class | Depends on | Done when |
 | --- | --- | --- | --- | --- |
-| **T-CI1** | **`Source.licence` on persisted rows** — extend `Source` model + validator; refuse catalogue without `licence.kind` | Standard | T-W9 | `content-ingestion` AC #1; `loadSources` rejects bad catalogue rows |
-| **T-CI2** | **Wikinews ingest (lane B v1)** — allowlisted fetch, CC BY metadata, full body stored | Standard | T-CI1 | Fixture + one live language feed in `data/content/` or DB |
-| **T-CI3** | **T2 adaptation + cache** — `AdaptationCacheKey`, coverage validator loop, nightly batch for catalogue | **Sensitive** | T-CI2, coverage | UC-030 AC; second call cache hit |
-| **T-CI4** | **Adaptation labelling** — source detail + session contract show *adapted for {level}*; link to original | Standard | T-CI3, T-MV3 | UC-007, UC-039 AC |
+| **T-CI1** | ~~**`Source.licence` on persisted rows** — extend `Source` model + validator; refuse catalogue without `licence.kind`~~ — **shipped 2026-08-20** | Standard | T-W9 | `content-ingestion` AC #1; `loadSources` rejects bad catalogue rows |
+| **T-CI2** | ~~**Wikinews ingest (lane B v1)** — allowlisted fetch, CC BY metadata, full body stored~~ — **shipped 2026-08-20** | Standard | T-CI1 | Fixture + one live language feed in `data/content/` or DB |
+| **T-CI3** | ~~**T2 adaptation + cache** — `AdaptationCacheKey`, coverage validator loop, nightly batch for catalogue~~ — **shipped 2026-08-20** | **Sensitive** | T-CI2, coverage | UC-030 AC; second call cache hit |
+| **T-CI4** | **Adaptation labelling + personal delivery gate** — label, link to original, personal coverage on shown text; Start per gate (≥95 % / 80–94 % T1 / &lt;80 % block); session contract `adapted: true` | Standard | T-CI3, T-MV3 | UC-007, UC-030, UC-039 AC |
 | **T-CI5** | **Learner lane consent + T3** — paste/upload opt-in; private storage; optional personal rewrite | **Sensitive** | T-CI1, T-CI3 | UC-029 AC |
 | **T-CI6** | **Generated original news (lane C)** — facts-only graded article when no licence-cleared piece exists | Standard | T-CI3 | `generated: true`; UC-023 reporting |
 | **T-CI7** | **Legal review checklist** — DW/BBC TOS, CC BY-SA display, EU DSM / DE UrhG counsel memo | **Docs / counsel** | — | Blocks T-CI8 production ingest |
@@ -487,8 +488,9 @@ Progress counts; **content loop v1** — coverage (`lib/coverage.ts`), `/content
 library + detail, gap list, word trace; **word capture** (T-W9) and **method
 material setup** (T-W10a / T-E7) shipped 2026-08-18. **What is not:** reading
 runner remainder (T-W10 — comprehension + sentence translation on source
-detail); **T-W20** forms home + deck filter; **T-W21** form explanations;
-**T-W22** session sampling (UC-079);
+detail); **T-W20** Words mixed-deck UX + `deck` filter (revised 2026-08-20); **T-W21** form explanations;
+**T-W22** session sampling (UC-079); **T-W23–T-W26** Lernwelt (UC-019 —
+[`study/56`](study/56-lernwelt-single-choice.md));
 **T-W5** per-cell Progress breakdown; **T-W6** full form practice; most hosted exercise runners
 (6 of 34 built — see [`METHOD-IMPLEMENTATION-MATRIX.md`](METHOD-IMPLEMENTATION-MATRIX.md)).
 
@@ -498,13 +500,14 @@ Work in four phases; do not skip phase 0:
 | --- | --- | --- |
 | **0 · Hygiene** | Link repair, catalogue honesty (`hosted` vs built), test drift | **T-W0b/c shipped 2026-08-17** — vocabulary methods `hosted: false` except `srs-session`; `/words/atlas` test drift fixed. **T-W0a** if `check:specs` warns |
 | **1 · Decisions** | W-1 lemma-rank recomputation, W-2 pool atlas vs full map, W-3 `vocabulary` skill, W-4 sibling gap, W-5 incomplete paradigms | **W-3 answered 2026-08-17:** `vocabulary` skill. **W-5 answered 2026-08-17:** flag partial paradigms. W-1, W-2, W-4 already answered |
-| **2 · Stage-2 display** | Frequency blocks → word detail → pool-local map → T-B3 remainder → forms home + explanations → **session sampling** → per-cell breakdown → form-practice | **T-W20/T-W21 shipped** — next: **T-W22** weighted sampling (UC-079), **T-W5** Progress breakdown |
+| **2 · Stage-2 display** | Frequency blocks → word detail → pool-local map → T-B3 remainder → Words mixed review UX → **session sampling** → **Lernwelt** → per-cell breakdown → form-practice | **T-W20/T-W21 shipped** (T-W20 revised 2026-08-20) — next: **T-W22** weighted sampling (UC-079), then **T-W23** Lernwelt service + onboarding, **T-W5** Progress breakdown |
 | **3 · Stage-3 loop** | Coverage → trace + gaps → `/content` → method setup (study/37, study/39) → reading | **T-W9 + T-E7/T-W10a + T-MU* shipped 2026-08-18**; next: **T-W10** remainder or **T-W11** session loop line |
 | **4 · Stage-1 remainder** | Break return, leech diagnosis, i18n slices | T-W12 next; **T-W16** and **T-W17** shipped |
 
 **Relationship to existing queue rows:** T-W4 *is* T-B3 remainder (same work,
 words-framed). T-W20/T-W21 *are* UC-078 + UC-022 v1 on the existing card engine
-(owner UX review 2026-08-19). T-W6 *is* UC-041 full paradigm-cell engine
+(owner UX review 2026-08-19; **T-W20 UX pivot 2026-08-20:** one Start on Words →
+mixed deck; form-only via Progress/Methods). T-W6 *is* UC-041 full paradigm-cell engine
 (blocked on W-4). T-W13 *is* T-B14
 remainder. T-W14/T-W15 *are* T-B11 slices 2–3. Phase 0 does not compete with
 engine priority 4–7 above — it is a hygiene pass that can run in parallel.
@@ -539,7 +542,7 @@ behaviour lived only in scattered specs.
 | One-screen routes | `one-screen-runner` on `/words/review` (`< md`); `one-screen-exercise` on `/practice` (mobile + desktop) — see [`exercise-runner.layout.md`](specs/feature/exercise-runner.layout.md) |
 | Safari bottom toolbar | `useVisualViewportBottomInset`; cannot hide in-browser |
 
-**UX study:** [`study/28-mobile-desktop-layout.md`](study/28-mobile-desktop-layout.md)
+**UX study:** [`reviews/design/DR-028-mobile-desktop-layout.md`](reviews/design/DR-028-mobile-desktop-layout.md)
 — mobile floating vs desktop/iPad flat top nav; owner decisions 2026-08-15
 (floating phone, flat `≥ md`, pill visible in review, iPad first-class).
 
@@ -837,7 +840,8 @@ study/48 and the ingestion/adaptation specs when implementing.
     estimated read time of the **whole body**; session delivers `full` unit.
     Owner 2026-08-20. See [`material-unit.md`](specs/service/material-unit.md).
 26. **Catalogue news: level adaptation is primary** (not podcast slicing).
-    Lane B ingest + T2 cache; label honestly. Lane C generated fallback is v2.
+    Lane B ingest + **T2 band cache as proposal**; **personal coverage gate**
+    before Start (owner 2026-08-20, decision #37). Lane C generated fallback is v2.
     Owner 2026-08-20. See study/48, UC-030.
 27. ~~**Which `targetLevel` drives catalogue adaptation?**~~ **Answered 2026-08-20
     (owner): app-inferred** from active skill tier — no manual CEFR chip in v1.
@@ -869,13 +873,24 @@ study/48 and the ingestion/adaptation specs when implementing.
     then** Start. Menu filter uses that estimate; no surprise 40 vs 20 min
     after tap. See [`method-session-budget.md`](specs/service/method-session-budget.md)
     § Resolved material, [`method-material-setup.md`](specs/feature/method-material-setup.md).
+36. **Detail duration chips vs menu filter** — **Answered 2026-08-20 (owner,
+    corrected):** menu filter uses `min(durations) ≤ filter` for catalogue
+    visibility only; detail shows **all** packages when `durations.length > 1`;
+    default selection = **longest** package. Menu filter must **not** hide chips.
+    See [`method-session-budget.md`](specs/service/method-session-budget.md).
+37. **Band A2 vs personal fit — owner 2026-08-20.** Catalogue may **offer**
+    shared band-level A2 text (T2 cache) for cost — **not** as proof it fits this
+    user. Before Start: coverage on **shown** body with **this learner's held
+    lemmas**. ≥ 95 % → Start; 80–94 % → T1 gloss path; &lt; 80 % → honest block
+    (alternate source / T3). Measure first; do not fake generic A2 as personalised.
+    See [`content-adaptation.md`](specs/service/content-adaptation.md) delivery gate.
 
-**Added 2026-08-16**, from [study/34](study/34-review-report-and-acknowledgement-ux.md)
+**Added 2026-08-16**, from [study/34](reviews/design/DR-035-review-report-and-acknowledgement-ux.md)
 (T-B14a/b/c). Resolve before implementing report popover or DB columns.
 
 23. ~~**Report popover + acknowledgement banner (T-B14a/b)**~~ **Shipped 2026-08-16.**
     Flag-only v1 (no scheduling toggle); five category chips; banner clears on
-    next grade. Study: [study/34](study/34-review-report-and-acknowledgement-ux.md).
+    next grade. Study: [study/34](reviews/design/DR-035-review-report-and-acknowledgement-ux.md).
     T-B14c (scheduling-intent toggle) remains deferred.
 
 **Added 2026-08-12**, moved from [`plans/multi-language.md`](plans/multi-language.md)

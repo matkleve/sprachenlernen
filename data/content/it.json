@@ -7,6 +7,7 @@
     "origin": "fixture",
     "body": "Uno due tre. Il caffè è sul tavolo. La casa è grande.",
     "tags": ["daily"],
+    "world": "everyday",
     "addedAt": "2026-08-17T00:00:00.000Z"
   }
 ]

@@ -5,6 +5,7 @@
     "sectionLanguages": "Sprachen",
     "sectionData": "Deine Daten",
     "sectionDevice": "Dieses Gerät",
+    "sectionDev": "Dev",
     "spokenHeading": "Sprache, die du sprichst",
     "spokenCaption": "In dieser Sprache siehst du Menüs, Buttons und die Erklärungen auf den Karten. Dein Lernfortschritt bleibt, wenn du sie änderst.",
     "spokenError": "Deine Sprache konnte nicht geladen werden.",
@@ -62,6 +63,51 @@
     "homeScreenMainSiteButton": "Hauptwebsite öffnen",
     "homeScreenReinstall": "Wenn auf manchen Seiten die untere Leiste auftaucht: Symbol löschen, Startseite in Safari öffnen und die App von dort noch einmal hinzufügen. Nicht von einer Unterseite."
   },
+  "sentenceRealizerDev": {
+    "eyebrow": "Dev",
+    "title": "Satz-Realizer",
+    "description": "Zufälliger Plan aus dem Speicher, für jede Person im Präsens über den Umkehr-Index der Formentabellen gerendert.",
+    "anotherSentence": "Anderer Satz",
+    "back": "Zurück zu Profil Dev",
+    "planLabel": "Plan",
+    "tableCaption": "Gerenderte Satzvarianten nach Person",
+    "personColumn": "Person",
+    "cellColumn": "Zelle",
+    "sentenceColumn": "Satz",
+    "partialWarning": "Einige Personen konnten nicht gerendert werden — in der Formentabelle fehlen Verb- oder Nomenformen."
+  },
+  "learnerWorld": {
+    "pageTitle": "Lernwelt",
+    "hookTitle": "Wähle eine Lernwelt",
+    "hookBody": "Wörter, Sätze und Texte passen dazu — nicht alles auf einmal, aber spürbar.",
+    "pickTitle": "In welcher Welt willst du die Sprache lernen?",
+    "continue": "Weiter",
+    "skipGeneral": "Erstmal allgemein starten",
+    "startLearning": "Lernen starten",
+    "previewTitle": "Beispiel aus deiner Welt",
+    "profileWorld": "Lernwelt: {world}",
+    "profileAddWorld": "Lernwelt festlegen",
+    "switchTitle": "Lernwelt ändern?",
+    "switchBody": "Deine bisher gelernten Wörter bleiben. Ab der nächsten Session bekommst du mehr aus {world}.",
+    "switchConfirm": "Welt wechseln",
+    "switchCancel": "Abbrechen",
+    "world": {
+      "business": "Business",
+      "everyday": "Alltag",
+      "technical": "Technik",
+      "politics": "Politik",
+      "nature": "Natur & Garten",
+      "general": "Erstmal allgemein"
+    },
+    "preview": {
+      "business": "Beispiel: Der Quartalsbericht ist am Freitag fällig.",
+      "everyday": "Beispiel: Wir treffen uns im Café um die Ecke.",
+      "technical": "Beispiel: Starte den Dienst nach dem Config-Update neu.",
+      "politics": "Beispiel: Das Parlament debattierte das neue Gesetz.",
+      "nature": "Beispiel: Wir gießen die Pflanzen jeden Morgen.",
+      "general": "Beispiel: Sie liest jeden Tag ein bisschen."
+    }
+  },
   "appShell": {
     "navLabel": "Bereiche",
     "mobileNavLabel": "Bereich wechseln",
@@ -96,12 +142,13 @@
     "reviewMeaningsHeading": "Bedeutungen wiederholen",
     "reviewMeaningsCaption": "Nur Grundformen — was ein Wort bedeutet.",
     "reviewMeaningsAction": "Bedeutungen wiederholen",
+    "reviewStartAction": "Wiederholung starten",
     "reviewMixedAction": "Gemischt wiederholen",
     "reviewFormsHeading": "Formen wiederholen",
     "reviewFormsCaption": "Gebeugte Formen von Wörtern, deren Bedeutung schon sicher sitzt. Das läuft getrennt von den Bedeutungen.",
     "paradigmCellCalloutTitle": "Was ist eine Wortform?",
     "paradigmCellCalloutBody": "Ein einzelner Platz im Beugungsmuster eines Worts — zum Beispiel „ich gehe“ im Präsens. Jede Formenkarte fragt genau einen davon ab, nie die ganze Tabelle. (Fachwort: Paradigmenzelle.)",
-    "reviewCaption": "Eine Sitzung nach der anderen — tipp, wenn du bereit bist.",
+    "reviewCaption": "Ein Stapel Karten — Bedeutungen, und Formen, sobald du soweit bist.",
     "countsHeading": "Deine Wörter",
     "countsCaption": "Bei wie vielen Wörtern aus deinem Startpaket dir die Bedeutung einfällt. Gezählt werden Grundformen, keine gebeugten Formen — und es ist kein Stapel offener Aufgaben.",
     "countsDefinitionsSummary": "Was „sitzt“, „wackelt“ und „neu“ heißt",
@@ -224,6 +271,11 @@
       "complete": "Dieses Set ist fertig — öffne den Text, wenn du magst.",
       "tooLarge": "Bis zum angenehmen Lesen fehlen hier mehr als 40 Wörter. Nimm lieber erst einen leichteren Text.",
       "alternate": "Stattdessen {title} versuchen"
+    },
+    "reading": {
+      "heading": "Lesen",
+      "close": "Schließen",
+      "noGloss": "Noch nicht in deinem Startpaket."
     }
   },
   "reviewSession": {
@@ -453,6 +505,38 @@
       "listening": "Noch nichts. Zum Hören gehört bisher kein Messwert. Das ist eine Lücke bei uns, nicht bei dir.",
       "speaking": "Sprechen, das die App aufnimmt und bewertet — noch nicht gebaut.",
       "writing": "Frei schreiben oder ein Diktat, das die App bewerten kann — noch nicht gebaut."
+    },
+    "weeklyReflection": {
+      "periodLabel": "Diese Woche",
+      "close": "Schließen",
+      "previous": "Zurück",
+      "next": "Weiter",
+      "seeData": "Daten ansehen",
+      "cardStatus": "Karte {index} von {total}",
+      "rowLabel": "Wochenrückblick",
+      "unreadLabel": "Ungelesener Rückblick",
+      "idleTeaser": "Diese Woche in {language} — noch nichts in Bewegung",
+      "idleHeadline": "Du hast {language} diese Woche nicht wiederholt. An deinem gemessenen Wortschatz hat sich nichts geändert — nach einer ruhigen Woche ist das normal. Wenn du zurückkommst, ist die Warteschlange größer, der Plan bleibt gleich.",
+      "movementHeadlineOne": "Diese Woche sitzt 1 Wort in {language} sicher, das vorher noch wackelte.",
+      "movementHeadline": "Diese Woche sitzen {count} Wörter in {language} sicher, die vorher noch wackelten.",
+      "activityHeadlineOne": "Du hast diese Woche 1 Karte in {language} beantwortet.",
+      "activityHeadline": "Du hast diese Woche {count} Karten in {language} beantwortet.",
+      "horizonHeadline": "Wann deine {language}-Wiederholungen in den nächsten dreißig Tagen dran sind.",
+      "readyTeaserMovedOne": "1 Wort sitzt diese Woche in {language} sicher",
+      "readyTeaserMoved": "{count} Wörter sitzen diese Woche in {language} sicher",
+      "readyTeaserActivityOne": "1 Karte diese Woche in {language} beantwortet",
+      "readyTeaserActivity": "{count} Karten diese Woche in {language} beantwortet",
+      "visual": {
+        "beforeWeek": "Wochenbeginn",
+        "afterWeek": "Jetzt",
+        "bandShiftCaptionOne": "1 Wort ist von „wackelt“ auf „sitzt“ gewechselt.",
+        "bandShiftCaption": "{count} Wörter sind von „wackelt“ auf „sitzt“ gewechselt.",
+        "bandBarsAria": "{held} sitzen, {fragile} wackeln, {newCount} neu.",
+        "horizonCaption": "Fällige Wiederholungen pro Tag in den nächsten dreißig Tagen.",
+        "horizonAria": "Spitze: {count} fällige Wiederholungen an Tag {dayOffset}.",
+        "reviewActivityCaptionOne": "Karte diese Woche beantwortet",
+        "reviewActivityCaption": "Karten diese Woche beantwortet"
+      }
     }
   },
   "methodMenu": {
@@ -517,9 +601,12 @@
       "researchConfidence": "Wie sicher ist die Forschung?"
     },
     "startSession": "Starten",
+    "durationHeading": "Sitzungsdauer",
+    "durationChip": "{minutes} Min.",
     "sessionNotBuilt": "Sobald diese Methode in der App läuft, startest du sie hier. Bis dahin: Lies, was sie bringt, und probier sie außerhalb der App.",
     "sessionContract": {
-      "line": "~{minutes} Min. · {volume} · {feedback}"
+      "line": "~{minutes} Min. · {volume} · {feedback}",
+      "adaptedSuffix": "adaptierter Text"
     },
     "sessionVolumeSentences": "{count, plural, one {# Satz} other {# Sätze}}",
     "sessionVolumeWords": "{count, plural, one {# Wort} other {# Wörter}}",
@@ -541,6 +628,17 @@
     "minutes": "Min.",
     "or": "oder",
     "eitherOr": "oder",
+    "demonstration": {
+      "label": "Kannst du das lesen?",
+      "flipHint": "Tippen zum Umdrehen",
+      "gradePrompt": "Wie gut hast du es gelesen?",
+      "feedbackHard": "Das war schwierig — beim Wiederholen noch einmal ansehen.",
+      "feedbackGood": "Du hast es gelesen — ein paar Wörter brauchen vielleicht noch einen Blick.",
+      "feedbackEasy": "Das hast du leicht gelesen.",
+      "gradeHard": "Schwer",
+      "gradeGood": "Gut",
+      "gradeEasy": "Leicht"
+    },
     "sections": {
       "reading": "Lesen",
       "listening": "Hören",
@@ -1049,7 +1147,22 @@
       "speed": "Tempotraining"
     },
     "coverageLine": "{percent} % bekannt · {band}",
+    "ownMaterialCoverage": "Du kannst etwa {percent} % davon lesen — das wird {feel}.",
+    "ownMaterialFeel": {
+      "comfortable": "leicht",
+      "demanding": "anspruchsvoll",
+      "hard": "schwer",
+      "veryHard": "sehr schwer"
+    },
     "demandingLine": "Noch anspruchsvoll — {words} Wörter bis angenehm",
+    "t1SupportLine": "{percent} % bekannt — {gaps} Wörter vor Start vormerken",
+    "blockedLine": "Zu schwer für deinen Wortschatz ({percent} % bekannt) — {level}-Text passt nicht für dich",
+    "adaptationLabel": "Für {level} angepasst · nicht der Originalartikel",
+    "adaptationFailed": "Anpassung auf {level} für deinen Wortschatz nicht möglich — kürzeren Text oder anderen Inhalt versuchen",
+    "processingConsent": "Auf mein Niveau anpassen",
+    "processingConsentHint": "Dein Text wird in der Cloud vereinfacht. Das Original bleibt nur für dein Konto sichtbar.",
+    "adapting": "Wird an dein Niveau angepasst…",
+    "viewOriginal": "Originalartikel ansehen",
     "appPickPreview": "Ein Abschnitt bei ~{percent} % für dich heute · {band}",
     "emptyTopic": "Zu diesem Thema ist noch nichts in der Bibliothek — probier „Eigenes“",
     "keepInLibrary": "In meiner Bibliothek behalten",
@@ -1108,7 +1221,13 @@
     },
     "oauthDivider": "oder fortfahren mit",
     "oauthGoogleAria": "Mit Google fortfahren",
-    "oauthAppleAria": "Mit Apple fortfahren"
+    "oauthAppleAria": "Mit Apple fortfahren",
+    "errors": {
+      "invalid-credentials": "E-Mail oder Passwort stimmt nicht.",
+      "confirmation-missing": "Der Bestätigungslink ist unvollständig. Öffne den vollständigen Link aus deiner E-Mail – oder melde dich an, wenn du schon bestätigt hast.",
+      "confirmation-failed": "Dieser Bestätigungslink gilt nicht mehr. Fordere einen neuen an, indem du dich erneut registrierst – oder melde dich an, wenn du schon bestätigt hast.",
+      "unexpected": "Bei uns ist etwas schiefgelaufen. Versuch es noch einmal – wenn es weiter fehlschlägt, notiere die Referenz unten."
+    }
   },
   "privacy": {
     "bannerTitle": "Cookies und Speicher",

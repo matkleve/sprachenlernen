@@ -8,7 +8,7 @@ The contract for stacking **shell chrome**, **scrims**, and **page content** on
 every signed-in route. Answers: who owns padding, when the page scrolls, and
 when content must fit one screen. **Parent:** [`app-shell.md`](app-shell.md),
 [`mobile-nav-v2.md`](mobile-nav-v2.md). **Reasoning:**
-[`../../study/28-mobile-desktop-layout.md`](../../study/28-mobile-desktop-layout.md).
+[`../../reviews/design/DR-028-mobile-desktop-layout.md`](../../reviews/design/DR-028-mobile-desktop-layout.md).
 Layer stack and agent handoff:
 [`page-layout.layers.md`](page-layout.layers.md).
 
@@ -119,7 +119,7 @@ When the mobile title wraps to two lines, `ShellPageTitle` sets
 
 `/methods`, `/words`, `/progress` use **document vertical scroll** only — feature
 bodies must not nest `overflow-x-auto` or `overflow-y-auto` (popover overlays
-excepted); see [`../../study/29-ios-inset-by-route.md`](../../study/29-ios-inset-by-route.md).
+excepted); see [`../../qa/QA-029-ios-inset-by-route.md`](../../qa/QA-029-ios-inset-by-route.md).
 Wide tables: `Table layout="fit"`; Words horizon: four week columns (collapsed
 default; see [`review-horizon.md`](review-horizon.md)). iOS
 in-browser toolbar is browser-controlled — shell measures via

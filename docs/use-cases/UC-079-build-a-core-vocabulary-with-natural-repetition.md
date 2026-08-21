@@ -10,8 +10,8 @@ first session to show up again, especially ones they struggled with.
 new cards, and without the app going silent after a good session.
 **So that:** the base actually sticks before long FSRS intervals kick in.
 
-Derived from owner review 2026-08-20, [`43-early-foundation-sessions.md`](../study/43-early-foundation-sessions.md),
-[`44-foundation-phase-expert-review.md`](../study/44-foundation-phase-expert-review.md).
+Derived from owner review 2026-08-20, [`archive/ARCH-043-early-foundation-sessions.md`](../study/archive/ARCH-043-early-foundation-sessions.md),
+[`archive/ARCH-044-foundation-phase-expert-review.md`](../study/archive/ARCH-044-foundation-phase-expert-review.md).
 Implements study decision: **probabilistic load reduction**, not hard caps
 (T-W22).
 
@@ -55,7 +55,7 @@ wrong**, and what **success** looks like. For formulas see
 | | |
 | --- | --- |
 | **Likely reaction** | "OK, lots of new words — that's what I expected." |
-| **Risk** | Too many hard failures → quit ([02](../study/02-evidence.md) E3). |
+| **Risk** | Too many hard failures → quit ([02](../study/STUDY-002-evidence.md) E3). |
 | **Success** | UC-071 catches `again` inside the run; no false promise of repeats yet. |
 
 ### R2 · Second session same day — first session went well
@@ -64,7 +64,7 @@ wrong**, and what **success** looks like. For formulas see
 
 | | |
 | --- | --- |
-| **Likely reaction (today)** | "Where did my words go? Only new stuff." → mistrust ([25](../study/25-why-it-does-not-feel-productive.md) P2). |
+| **Likely reaction (today)** | "Where did my words go? Only new stuff." → mistrust ([25](../study/STUDY-023-why-it-does-not-feel-productive.md) P2). |
 | **Likely reaction (target)** | "A few from before came back, plus some new — feels like building." |
 | **Risk** | Resurfacing *everything* including easy → "I already knew that" annoyance. |
 | **Success** | ~30–50% overlap with session 1 lemmas (stochastic); **no** boost for last grade `good`/`easy`. |

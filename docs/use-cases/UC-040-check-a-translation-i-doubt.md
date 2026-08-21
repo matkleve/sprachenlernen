@@ -8,8 +8,8 @@
 **So that:** a machine translation error does not become a memorised fact.
 
 Derived from
-[`../study/18-language-kit.md`](../study/18-language-kit.md) U4 and
-[`../study/10-antipatterns.md`](../study/10-antipatterns.md) A5.
+[`../study/STUDY-016-language-kit.md`](../study/STUDY-016-language-kit.md) U4 and
+[`../study/STUDY-009-antipatterns.md`](../study/STUDY-009-antipatterns.md) A5.
 
 ## Today
 

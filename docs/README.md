@@ -6,7 +6,9 @@ Start at [`../AGENTS.md`](../AGENTS.md). Everything here is what it links to.
 
 | | Read |
 | --- | --- |
-| …understand what this product is and why | [`study/`](study/) |
+| …understand what this product is and why | [`study/`](study/) · [`STUDY-FORMAT.md`](STUDY-FORMAT.md) |
+| …see UX designer or owner review input | [`reviews/design/`](reviews/design/) |
+| …see a brainstorm that is not binding yet | [`explorations/`](explorations/) |
 | …know what to build next, and who may build it | [`IMPLEMENTATION-PLAN.md`](IMPLEMENTATION-PLAN.md) |
 | …park a mechanism someone noticed elsewhere, before it's a use case | [`IDEAS.md`](IDEAS.md) |
 | …understand how work flows here | [`WORKFLOW.md`](WORKFLOW.md) |
@@ -28,7 +30,12 @@ Start at [`../AGENTS.md`](../AGENTS.md). Everything here is what it links to.
 
 ```
 docs/
-  study/            the research this product is derived from
+  STUDY-FORMAT.md   what a study is — and what it is not
+  study/            product reasoning (STUDY-NNN) — not a build contract
+  reviews/design/   UX designer reviews (DR-NNN)
+  explorations/     non-binding brainstorms (EXP-NNN)
+  qa/               test and browser reports (QA-NNN)
+  backlog/          historical feature catalogue and roadmap (BL-NNN)
   CONSTITUTION.md    non-negotiables — outranks everything
   IMPLEMENTATION-PLAN.md  the code queue — what is next and who may do it
   IDEAS.md           raw mechanisms, not yet a use case — status: unevaluated/graduated/rejected
@@ -57,6 +64,9 @@ them means each gets read at the wrong time or not at all.
 
 | | Answers | Read when |
 | --- | --- | --- |
+| **study/** | *why* this product, *why* not X | shaping, reviewing a spec — **not** before implementing |
+| **reviews/design/** | designer/owner UX input | before visual spec work |
+| **explorations/** | brainstorms, not binding | never for implementation |
 | **specs/** | what it *should* do | before building |
 | **diary/** | what happened and what was decided | before resuming an area |
 | **TRAPS / PITFALLS** | how this misleads people | before your second attempt |

@@ -27,13 +27,13 @@ export const copy = {
      */
     headline: "You choose how you practise — we show whether you're really getting somewhere.",
     /**
-     * Method catalogue with evidence grades ([21](21-method-catalogue-and-context.md));
+     * Method catalogue with evidence grades ([21](STUDY-019-method-catalogue-and-context.md));
      * thesis 10 scale without "not the handful an app implements".
      */
     subhead:
       "Sixty-plus evidence-backed practice methods. You pick what fits today — we show what it's doing for your level.",
     /**
-     * docs/study/25-why-it-does-not-feel-productive.md C4 — thesis 12.
+     * docs/study/STUDY-023-why-it-does-not-feel-productive.md C4 — thesis 12.
      */
     timeHonesty: `Fifteen minutes a day, every day without missing one, is about ${Math.round(hoursPerYear(HABIT_MINUTES_PER_DAY))} hours a year — roughly a quarter of the way to B1 from a standing start. Feeling slow at that pace is arithmetic, not failure.`,
     pillarsHeading: "How we measure it",

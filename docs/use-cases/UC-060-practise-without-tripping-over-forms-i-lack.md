@@ -10,8 +10,8 @@ turning into an unrelated grammar problem.
 **So that:** a session trains the thing it claims to train.
 
 Derived from
-[`../study/03-level-model.md`](../study/03-level-model.md) ("the second axis")
-and [`../study/05-input-reading-listening.md`](../study/05-input-reading-listening.md)
+[`../study/STUDY-003-level-model.md`](../study/STUDY-003-level-model.md) ("the second axis")
+and [`../study/STUDY-005-input-reading-listening.md`](../study/STUDY-005-input-reading-listening.md)
 (the 95–98 % bands). This is the mechanism that answers *"if someone is not as
 good at the plural of certain words you can't give him those"* — and it is
 **material selection inside a running method**, not a readiness state. UC-057 is
@@ -33,14 +33,14 @@ which of the two failed, and neither can the app.
   failed. An item the learner can attempt and get wrong is the valuable case:
   errorful retrieval with feedback outperforms study alone, and confidently-held
   errors are the best corrected of all
-  ([26](../study/26-readiness-and-difficulty.md) R4). The line E3 draws is "no
+  ([26](../study/STUDY-024-readiness-and-difficulty.md) R4). The line E3 draws is "no
   chance of *retrieval*", not "no chance of success".
 - When the method's purpose is form mastery, the weak cells are the **target**
   rather than the exclusion (UC-041).
 - Density of unheld forms is a **dial with a purpose behind it**, not a value to
   minimise. A method that exists to create learning opportunities runs at the
   lower band even though it feels worse
-  ([26](../study/26-readiness-and-difficulty.md) R5).
+  ([26](../study/STUDY-024-readiness-and-difficulty.md) R5).
 - The learner is never shown a text or task engineered so heavily that it stops
   resembling the language. Where that is the only way to hit the band, the app
   says the band cannot be hit rather than faking it.

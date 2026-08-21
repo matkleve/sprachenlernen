@@ -11,8 +11,8 @@ listen-and-fill methods. Framework-free resolver; UI in
 [`method-material-setup.md`](../feature/method-material-setup.md); runner
 consumes resolved text in [`exercise-runner.md`](../feature/exercise-runner.md).
 
-Study: [`../../study/39-material-units-and-listening-defer.md`](../../study/39-material-units-and-listening-defer.md),
-[`../../study/46-method-length-and-level-matched-content.md`](../../study/46-method-length-and-level-matched-content.md).
+Study: [`../../study/STUDY-027-material-units-and-listening-defer.md`](../../study/STUDY-027-material-units-and-listening-defer.md),
+[`../../study/archive/ARCH-046-method-length-and-level-matched-content.md`](../../study/archive/ARCH-046-method-length-and-level-matched-content.md).
 
 ## Reading — full text (owner 2026-08-20)
 

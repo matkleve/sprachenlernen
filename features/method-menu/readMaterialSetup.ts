@@ -4,6 +4,7 @@
  */
 import { getAccount } from "@/lib/db/auth";
 import { createServerSupabaseClient } from "@/lib/db/client";
+import { getLearnerWorld } from "@/lib/db/learner-world";
 import { listTaskStatesForTaskIds } from "@/lib/db/task-state";
 import { poolForActiveLanguage } from "@/lib/db/learner-pools";
 import { isMeaningRecallTaskId } from "@/lib/form-recall-pool";
@@ -12,6 +13,7 @@ import type { Source } from "@/lib/coverage";
 import type { Lexicon } from "@/lib/lexicon";
 import { tasksByTaskIdForCards } from "@/lib/task-from-state";
 import type { MethodEntry } from "@/lib/method-catalogue";
+import { loadPersistedAdaptationCache } from "@/lib/adaptation-cache";
 import {
   buildMaterialSetupContext,
   hasMaterialSetup,
@@ -53,7 +55,14 @@ export async function readMaterialSetupBundle(
 
     const tasksByTaskId = tasksByTaskIdForCards(meaningCards, statesResult.rows);
     const heldLemmas = heldLemmaSet(meaningCards, tasksByTaskId);
-    const context = buildMaterialSetupContext(method, sources, lexicon, heldLemmas, labels);
+    const worldOutcome = await getLearnerWorld(languageCode);
+    const activeWorld =
+      worldOutcome.status === "ok" ? worldOutcome.world.worldId : ("general" as const);
+    const adaptationCache = loadPersistedAdaptationCache();
+    const context = buildMaterialSetupContext(method, sources, lexicon, heldLemmas, labels, {
+      cache: adaptationCache,
+      activeWorld,
+    });
     if (!context) return { status: "omit" };
 
     const account = await getAccount();

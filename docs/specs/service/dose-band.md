@@ -6,7 +6,7 @@
 
 T-B4, first half. What a level costs in hours, and what a daily habit buys
 against it — F184's denominator, the number
-[`study/25`](../../study/25-why-it-does-not-feel-productive.md) C4 says nobody
+[`study/25`](../../study/STUDY-023-why-it-does-not-feel-productive.md) C4 says nobody
 in the category shows. **Standard** — a pure module and one section on an
 existing page.
 

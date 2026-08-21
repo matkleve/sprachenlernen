@@ -1,0 +1,18 @@
+{
+  "es:casa": ["everyday"],
+  "es:trabajo": ["everyday", "business"],
+  "es:dinero": ["everyday", "business"],
+  "es:hoy": ["everyday"],
+  "es:familia": ["everyday"],
+  "es:libro": ["everyday"],
+  "es:comida": ["everyday"],
+  "es:café": ["everyday"],
+  "es:mercado": ["everyday", "business"],
+  "es:gobierno": ["politics"],
+  "es:política": ["politics"],
+  "es:empresa": ["business"],
+  "es:naturaleza": ["nature"],
+  "es:jardín": ["nature"],
+  "es:tecnología": ["technical"],
+  "es:ordenador": ["technical"]
+}

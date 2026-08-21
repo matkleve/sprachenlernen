@@ -6,19 +6,30 @@ import { appendReview } from "@/lib/db/review-log";
 import { listTaskStatesForTaskIds } from "@/lib/db/task-state";
 import { flagCardContent, listFlaggedWordIds } from "@/lib/db/card-content-flags";
 import type { ReportCardInput } from "@/lib/card-report";
+import {
+  loadExampleSentenceBank,
+  pickExampleSentence,
+} from "@/lib/card-example-sentence";
+import { heldLemmaSet } from "@/lib/content-gap";
+import { sentenceTranslationKey } from "@/lib/description-keys";
 import { getSpokenLanguage } from "@/lib/db/profiles";
+import { resolveDescription } from "@/lib/gloss-resolver";
 import {
   catalogueLoadFailed,
   logHandledErrorFromRequest,
   sessionBuildFailed,
 } from "@/lib/errors";
-import { buildSession, DEFAULT_SESSION_LENGTH, sessionLengthForBudgetMinutes, type SessionCard } from "@/lib/session-builder";
+import { buildSession, DEFAULT_SESSION_LENGTH, type SessionCard } from "@/lib/session-builder";
 import { filterSchedulableCards } from "@/lib/form-recall-staging";
+import { getLearnerWorld } from "@/lib/db/learner-world";
+import { activeLanguageOf, listLearningLanguages } from "@/lib/db/learning-languages";
+import { buildSamplingContext } from "@/lib/sampling-context";
 import { isFormRecallTaskId } from "@/lib/form-recall-pool";
 import { buildFormCellExplanation } from "@/lib/form-cell-explanation";
 import { poolForActiveLanguage } from "@/lib/db/learner-pools";
 import { languageLabel } from "@/lib/languages";
 import { localizeSessionCards } from "@/lib/localize-card-description";
+import { loadLexiconForLanguage } from "@/lib/shipped-language";
 import { parseGapSetCookie, GAP_SET_COOKIE } from "@/lib/gap-set-cookie";
 import { parseReviewDeck, type ReviewDeck } from "@/lib/review-deck";
 import { tasksByTaskIdForCards } from "@/lib/task-from-state";
@@ -62,13 +73,9 @@ export async function reportCardAction(wordId: string, input: ReportCardInput = 
 
 export async function buildSessionAction(input?: {
   deck?: ReviewDeck | string | null;
-  budgetMinutes?: number;
 }): Promise<BuildSessionOutcome> {
   const deck = parseReviewDeck(input?.deck ?? undefined);
-  const sessionLength =
-    input?.budgetMinutes !== undefined
-      ? sessionLengthForBudgetMinutes(input.budgetMinutes)
-      : DEFAULT_SESSION_LENGTH;
+  const sessionLength = DEFAULT_SESSION_LENGTH;
   try {
     // The language in focus, and only that one (UC-025, corrected
     // 2026-08-12): a session never draws from more than one learning
@@ -108,17 +115,44 @@ export async function buildSessionAction(input?: {
     }
 
     const tasksByTaskId = tasksByTaskIdForCards(poolCards, statesResult.rows);
-    const schedulable = filterSchedulableCards(poolCards, tasksByTaskId);
+    const schedulable = filterSchedulableCards(poolCards);
+    const now = Date.now();
+    const languages = await listLearningLanguages();
+    const activeLanguageCode =
+      languages.status === "ok"
+        ? activeLanguageOf(languages.languages) ?? activeCode ?? ""
+        : activeCode ?? "";
+    const worldOutcome = activeLanguageCode
+      ? await getLearnerWorld(activeLanguageCode)
+      : { status: "ok" as const, world: { worldId: "general" as const, setAt: null }, hasRow: false };
+    const activeWorld =
+      worldOutcome.status === "ok" ? worldOutcome.world.worldId : ("general" as const);
+    const sampling = {
+      ...buildSamplingContext(poolCards, tasksByTaskId, statesResult.rows, now),
+      activeWorld,
+    };
     const cookieStore = await cookies();
     const gapSet = parseGapSetCookie(cookieStore.get(GAP_SET_COOKIE)?.value);
     const priorityLemmas = gapSet ? new Set(gapSet.lemmas) : undefined;
     const queue = localizeSessionCards(
-      buildSession(schedulable, tasksByTaskId, Date.now(), sessionLength, {
+      buildSession(schedulable, tasksByTaskId, now, sessionLength, {
         priorityLemmas,
         deck,
+        sampling,
       }),
       spoken.spokenLanguage,
-    ).map((card) => attachFormExplanation(card, activeCode ?? "es", poolCards, tasksByTaskId));
+    )
+      .map((card) => attachFormExplanation(card, activeCode ?? "es", poolCards, tasksByTaskId))
+      .map((card) =>
+        attachExampleSentence(
+          card,
+          activeCode ?? "es",
+          activeWorld,
+          spoken.spokenLanguage,
+          meaningRecallHeldLemmas(poolCards, tasksByTaskId),
+          now,
+        ),
+      );
     return { status: "ok", queue, languageName };
   } catch (cause) {
     const handled = sessionBuildFailed(
@@ -148,4 +182,50 @@ function attachFormExplanation(
     tasksByTaskId,
   });
   return explanation ? { ...card, formExplanation: explanation } : card;
+}
+
+function meaningRecallHeldLemmas(
+  pool: Parameters<typeof heldLemmaSet>[0],
+  tasksByTaskId: Record<string, import("@/lib/scheduler").Task>,
+): ReadonlySet<string> {
+  const meaningCards = pool.filter((card) => !isFormRecallTaskId(card.taskId));
+  return heldLemmaSet(meaningCards, tasksByTaskId);
+}
+
+function attachExampleSentence(
+  card: SessionCard,
+  languageCode: string,
+  activeWorld: import("@/lib/learner-world").LearnerWorldId,
+  spokenLanguage: string,
+  heldLemmas: ReadonlySet<string>,
+  now: number,
+): SessionCard {
+  if (isFormRecallTaskId(card.taskId)) return card;
+
+  const bank = loadExampleSentenceBank(languageCode);
+  const lexicon = loadLexiconForLanguage(languageCode);
+  if (!bank || !lexicon) return card;
+
+  const dayKey = new Date(now).toISOString().slice(0, 10);
+  const pick = pickExampleSentence({
+    bank,
+    wordId: card.wordId,
+    heldLemmas,
+    lexicon,
+    activeWorld,
+    salt: `${dayKey}:${card.taskId}`,
+  });
+  if (!pick) return card;
+
+  return {
+    ...card,
+    exampleSentence: {
+      ...pick,
+      translation: resolveDescription(
+        sentenceTranslationKey(pick.id),
+        spokenLanguage,
+        pick.translation,
+      ),
+    },
+  };
 }

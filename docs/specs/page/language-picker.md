@@ -15,7 +15,7 @@ Where an Account chooses what to learn — at first run, and later from
   about **data quality** and is not a control; goals, minutes-per-day or any
   other onboarding questionnaire — the time slider on `/methods` already asks
   that at the moment it matters; the optional calibration test, which
-  [`study/03`](../../study/03-level-model.md) places **after** the first
+  [`study/03`](../../study/STUDY-003-level-model.md) places **after** the first
   exercise and never before.
 
 **Reuse: `SubmitButton`** for the tiles' action. **Gap: none** — a tile is a heading,

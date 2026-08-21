@@ -150,12 +150,46 @@ export async function getAccount(client?: SupabaseClient): Promise<Account | nul
 }
 
 /**
+ * The Account **confirmed by Supabase Auth**, or null. Costs one round trip.
+ *
+ * `getAccount()` above is deliberately cheap: it decodes the session cookie
+ * and returns what it says. That is safe for every caller whose next step is a
+ * query through the request-scoped client, because PostgREST verifies the JWT
+ * signature before RLS runs — a forged cookie reaches the database and comes
+ * back with nothing.
+ *
+ * It is **not** safe for a caller that acts on `account.id` with elevated
+ * privileges, because `getSession()` verifies no signature at all: it checks
+ * the stored session's shape and `expires_at` and returns it (see
+ * `@supabase/auth-js` `__loadSession`, which wraps the user in an
+ * `insecureUserWarningProxy` on the server for precisely this reason). Anyone
+ * can write their own cookie. So a caller that leaves the RLS path — today
+ * that is `deleteAccount` and its service-role client — must establish the
+ * identity here instead, where the Auth server is the one answering.
+ */
+export async function getVerifiedAccount(client?: SupabaseClient): Promise<Account | null> {
+  const supabase = await resolveClient(client);
+  const {
+    data: { user },
+    error,
+  } = await supabase.auth.getUser();
+
+  if (error || !user) return null;
+  return { id: user.id, email: user.email ?? "" };
+}
+
+/**
  * Permanently deletes the signed-in account and cascades review_log rows.
  * Contract: docs/specs/feature/account-data.md (UC-024).
  */
 export async function deleteAccount(client?: SupabaseClient): Promise<DeleteAccountOutcome> {
   const supabase = await resolveClient(client);
-  const account = await getAccount();
+
+  // `getVerifiedAccount`, not `getAccount`: the id below is handed to a
+  // service-role client, which bypasses row-level security. Read from the
+  // session cookie instead and a self-made cookie naming any account deletes
+  // that account — RLS is not in the path to refuse it.
+  const account = await getVerifiedAccount(supabase);
   if (!account) {
     return { status: "error", error: "You must be signed in to delete your account." };
   }

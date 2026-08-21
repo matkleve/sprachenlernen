@@ -7,7 +7,7 @@ import { comprehensionQuestionsForSource } from "@/lib/exercise-recipe/comprehen
 
 describe("comprehensionQuestionsForSource", () => {
   it("returns fixture-specific questions for catalogue sources", () => {
-    const questions = comprehensionQuestionsForSource("es-catalogue-chile");
+    const questions = comprehensionQuestionsForSource("wikinews-es-3516");
     expect(questions.length).toBeGreaterThanOrEqual(2);
     expect(questions[0]?.correctOptionId).toBeTruthy();
   });

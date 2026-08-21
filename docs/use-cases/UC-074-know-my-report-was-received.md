@@ -16,7 +16,7 @@ copy. This use case owns the **shared acknowledgement surface** — today a plai
 `<p>` in `ReviewSession`, tomorrow a reusable primitive other features can use.
 
 Derived from owner feedback 2026-08-16 and
-[`study/34-review-report-and-acknowledgement-ux.md`](../study/34-review-report-and-acknowledgement-ux.md).
+[`reviews/design/DR-035-review-report-and-acknowledgement-ux.md`](../reviews/design/DR-035-review-report-and-acknowledgement-ux.md).
 
 ## Today
 

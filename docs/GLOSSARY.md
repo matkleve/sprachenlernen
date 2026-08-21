@@ -47,7 +47,7 @@ requires a `⚠ SPEC GAP` line, not a guess.
 | **Account** | The authenticated identity a person signs up for and signs in with — one row in Supabase Auth, one UUID, required before the first Review. | a Profile, a subscription, a device |
 | **Auth session** | The signed-in state a browser holds after sign-in, restored on every request from Supabase's session cookie. Always qualified with "auth" because **Session** already means a fixed-length run of Tasks — the two must never share a bare name. | a Session, a review |
 
-### Vocabulary and scheduling → [`study/04`](study/04-flashcards-srs.md)
+### Vocabulary and scheduling → [`study/04`](study/STUDY-004-flashcards-srs.md)
 
 | Term | Means | Not |
 | --- | --- | --- |
@@ -68,14 +68,14 @@ requires a `⚠ SPEC GAP` line, not a guess.
 | **Form mastery** | A level-model signal of its own: which paradigm cells the learner can produce. Never folded into vocabulary size. | vocabulary, grammar knowledge |
 | **Frequency rank** | Position of a Word in the language's frequency list. The bridge between Reviews and Level. **Surface word:** *rank* / de *Platz*, or *how common* / de *Häufigkeit*. | difficulty |
 
-### Level and progress → [`study/03`](study/03-level-model.md)
+### Level and progress → [`study/03`](study/STUDY-003-level-model.md)
 
 | Term | Means | Not |
 | --- | --- | --- |
 | **Skill** | One of exactly four: reading, listening, speaking, writing. | a topic, an exercise type |
 | **Level** | A CEFR sub-level, `A1.1` … `C2.4`, plus percent within it. Always per Skill. | XP, a course position |
 | **Overall level** | Derived from the Skills that **count**: second-lowest of three or four, the minimum of two, undefined for one. Never stored as truth. | the average, a score over all four regardless of status |
-| **Skill status** | One of: measured · uncertain · not measured · not in profile. The last two are out of the Overall level. Defined in exactly one place — [`study/03`](study/03-level-model.md). | a difficulty, a goal |
+| **Skill status** | One of: measured · uncertain · not measured · not in profile. The last two are out of the Overall level. Defined in exactly one place — [`study/03`](study/STUDY-003-level-model.md). | a difficulty, a goal |
 | **Estimated vocabulary size** | Modelled count of known word families, from Stability × Frequency rank. | the number of Cards |
 | **Coverage** | Share of tokens in a given text this user knows. Selects content; 95–98 % is the target band. | reading level |
 | **Signal** | One measured input to a Level (the six in `study/03`). The only thing recorded directly. **Surface word:** *measurement* / de *Messwert*. | a score |
@@ -86,7 +86,7 @@ requires a `⚠ SPEC GAP` line, not a guess.
 | **Demonstration sentence** | One sentence shown on Home, a level step above the estimate, that the learner checks by tapping what they are unsure of. A demonstration, never a claim or a self-report. | a test, a placement question, a daily goal |
 | **Stagnation marker** | One of four observable patterns: below-norm accuracy on a cell, **alternation** on the same cell, backsliding, de-acceleration. Named as an observation with a matched Method, never as a verdict. | a plateau, low activity |
 
-### Content → [`study/05`](study/05-input-reading-listening.md)
+### Content → [`study/05`](study/STUDY-005-input-reading-listening.md)
 
 | Term | Means | Not |
 | --- | --- | --- |
@@ -99,7 +99,7 @@ requires a `⚠ SPEC GAP` line, not a guess.
 | **Series** | 4–6 Texts or Tracks on one topic (narrow reading/listening). | a course, a unit |
 | **Sheet** | A printable offline exercise, and the record that closes its loop back into Reviews. | a worksheet PDF |
 
-### Practice methods → [`study/12`](study/12-method-cards.md)
+### Practice methods → [`study/12`](study/STUDY-010-method-cards.md)
 
 | Term | Means | Not |
 | --- | --- | --- |
@@ -128,7 +128,7 @@ requires a `⚠ SPEC GAP` line, not a guess.
 | **Effect estimate** | Measured movement of a Method's target signal per hour invested, with uncertainty. Governs **selection**. | Preference |
 | **Floor** | The minimum rate at which a Method is **offered** regardless of Preference, derived from its role. A floor on what the app offers, never on what the learner owes — declining costs nothing except measurement. | a goal, a streak, an obligation, a minimum amount of practice |
 | **Readiness** | Whether the app can build material for a Method right now, in three states: **ready** · **better later** (startable, with a reason) · **no material yet** (nothing exists to start). A statement about the app's stock, never about the learner's worth. May demote a Method; may never hide or block one. | a level requirement, a lock, a prerequisite, permission |
-| **Targeting** | The app's answer to a form the learner has not got: weight it into the material rather than withhold anything until it is learned. The opposite of gating, and the reason no Method is ever locked. **Scope: Method availability.** Ordering which *content* a learner meets first is a weighting decision and is allowed — what may never happen is a Method becoming unreachable, or content being removed from input — see [`study/26`](study/26-readiness-and-difficulty.md). | gating, unlocking, a prerequisite chain |
+| **Targeting** | The app's answer to a form the learner has not got: weight it into the material rather than withhold anything until it is learned. The opposite of gating, and the reason no Method is ever locked. **Scope: Method availability.** Ordering which *content* a learner meets first is a weighting decision and is allowed — what may never happen is a Method becoming unreachable, or content being removed from input — see [`study/26`](study/STUDY-024-readiness-and-difficulty.md). | gating, unlocking, a prerequisite chain |
 | **Exploration** | The share of menu slots deliberately filled with a Method the system would not have chosen, so the Effect estimate has causal footing. | randomness, variety |
 | **Hidden** | A Method the *learner* deliberately switched off, from settings. Stays visibly hidden and is restorable. The **algorithm** may never put a Method in this state — that is A15. | a Method with a low share |
 | **Commitment** | The catalogue's **second entry type**: a standing rule about ordinary life (write to one friend only in Italian, switch the phone's language). Active or inactive, never done or not done. No completion tracking, no streak, at most two or three at once. | a Method, a habit tracker, a goal |
@@ -136,13 +136,13 @@ requires a `⚠ SPEC GAP` line, not a guess.
 
 **Preference and Effect estimate are never combined into one number.** Once they
 are, the distinction is gone and nothing surfaces the loss — see
-[`study/12`](study/12-method-cards.md).
+[`study/12`](study/STUDY-010-method-cards.md).
 
 **A Goal never touches a measurement.** If setting a goal changes a number, the
 number was reporting the goal and not the learner — see
-[`study/24`](study/24-speaking-as-the-goal.md).
+[`study/24`](study/STUDY-022-speaking-as-the-goal.md).
 
-### Perception and access → [`study/13`](study/13-pronunciation-perception.md), [`study/14`](study/14-accessibility.md)
+### Perception and access → [`study/13`](study/STUDY-011-pronunciation-perception.md), [`study/14`](study/STUDY-012-accessibility.md)
 
 | Term | Means | Not |
 | --- | --- | --- |
@@ -151,7 +151,7 @@ number was reporting the goal and not the learner — see
 | **Skill profile** | Which of the four Skills a user counts as theirs. Excluded Skills are left out of the overall level rather than scored low. | a difficulty setting, an accessibility toggle |
 | **Alternative route** | The second way to answer a Task that is bound to one Skill — speaking or choosing instead of typing. Every such spec names one or says why there is none. | a fallback, an accommodation |
 
-### Languages and own content → [`study/17`](study/17-own-content.md), [`study/18`](study/18-language-kit.md), [`study/19`](study/19-milestones-and-map.md)
+### Languages and own content → [`study/17`](study/STUDY-015-own-content.md), [`study/18`](study/STUDY-016-language-kit.md), [`study/19`](study/STUDY-017-milestones-and-map.md)
 
 | Term | Means | Not |
 | --- | --- | --- |
@@ -161,7 +161,7 @@ number was reporting the goal and not the learner — see
 | **Active language** | The Learning language currently in focus, exactly one at a time — chosen from the profile, exactly like choosing which course you are in. Decides **both** what is displayed and what a session schedules: **corrected 2026-08-12** (UC-025) — languages never share a session or a schedule, so there is no longer a reason for display and scheduling to look at different languages. Switching it changes what happens next; every other language's stored progress is untouched and exactly where it was left. | two languages sharing one session, a language whose switch loses the other's progress |
 | **Counting unit** | What "one word" means in this language — lemma, word family, or segment. Declared per language; without it the vocabulary estimate has no meaning. | a word |
 | **Quality tier** | A / B / C, **derived** from what the profile contains. Governs how much the app is willing to claim, especially whether a level value exists at all. | a rating of the language |
-| **Source** | An audio or text item the app can run coverage on — app catalogue, fixture seed, or learner upload. Same model for all origins ([`study/37`](study/37-content-and-method-setup-ux.md)). | content, a lesson |
+| **Source** | An audio or text item the app can run coverage on — app catalogue, fixture seed, or learner upload. Same model for all origins ([`study/37`](reviews/design/DR-037-content-and-method-setup-ux.md)). | content, a lesson |
 | **Window coverage** | Coverage over a sliding window inside an item, so a hard episode can still offer a workable passage. | coverage of the item |
 | **Support rung** | One of five levels of help on a hard text, from untouched original to rewritten version. The app offers the lowest rung that reaches the comfortable band. | a difficulty level |
 | **Block** | A frequency band of the language, carrying its own **marginal** coverage payoff. Progress counts stable knowledge only. | a level, a lesson group |
@@ -171,7 +171,7 @@ number was reporting the goal and not the learner — see
 
 | Term | What is unresolved |
 | --- | --- |
-| **Word family vs. word form** | The vocabulary estimate counts lemmas; Tasks train forms. Resolved in part: form mastery is now its own signal, not part of vocabulary size — see [`study/03`](study/03-level-model.md). What is still open is whether the *estimate* counts lemmas or families. |
+| **Word family vs. word form** | The vocabulary estimate counts lemmas; Tasks train forms. Resolved in part: form mastery is now its own signal, not part of vocabulary size — see [`study/03`](study/STUDY-003-level-model.md). What is still open is whether the *estimate* counts lemmas or families. |
 | **Description-text source** | **Resolved 2026-08-12:** chrome = `I18N.md` stage 1 (`next-intl`); card descriptions = stage 3 DB (`app_texts` / `app_text_translations`) + snapshot JSON. One string per card face per spoken language — no split parts for v1. See UC-069. |
-| **Error category** | The closed list used by writing/speaking feedback. Must be fixed before it is counted over time — see [`study/06`](study/06-production.md). |
-| **Multiword item** | Collocations and fixed expressions are Words for practice but must **not** count as *n* Words in the vocabulary estimate, or the calibration breaks. Belongs with the Word/Task decision — see [`study/16`](study/16-further-findings.md) W2. |
+| **Error category** | The closed list used by writing/speaking feedback. Must be fixed before it is counted over time — see [`study/06`](study/STUDY-006-production.md). |
+| **Multiword item** | Collocations and fixed expressions are Words for practice but must **not** count as *n* Words in the vocabulary estimate, or the calibration breaks. Belongs with the Word/Task decision — see [`study/16`](study/STUDY-014-further-findings.md) W2. |

@@ -17,7 +17,7 @@ starter/<lang>-<task>.cognates.json    lemmas whose English gloss is the lemma i
 Almost everything in this app is language-independent: the scheduler, the
 coverage maths, the level model, the whole interface. What differs per language
 is data. Adding a language means adding files here, not extending the app.
-Background: `docs/study/18-language-kit.md`.
+Background: `docs/study/STUDY-016-language-kit.md`.
 
 ## The frequency lists are FORM frequencies
 
@@ -56,4 +56,4 @@ all — and the generator measures and records what it actually produced
 | Register | subtitles — dialogue-heavy, interjection-heavy. Not representative of written prose |
 
 Provenance travels with the data because a rank cannot be compared across
-recalibrations without it (`docs/study/03-level-model.md`, honesty rule 4).
+recalibrations without it (`docs/study/STUDY-003-level-model.md`, honesty rule 4).

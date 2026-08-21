@@ -8,7 +8,7 @@ Arts shield badge for **one skill value tier** on method cards and detail. Icons
 only — no visible tier/skill text. Tier metric:
 [`../service/skill-tier.md`](../service/skill-tier.md).
 
-Card polish: [`../../study/40-method-card-visual-polish.md`](../../study/40-method-card-visual-polish.md).
+Card polish: [`../../reviews/design/DR-040-method-card-visual-polish.md`](../../reviews/design/DR-040-method-card-visual-polish.md).
 
 ## Scope
 

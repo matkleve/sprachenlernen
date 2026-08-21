@@ -10,7 +10,7 @@ then acknowledgement via [`status-banner.md`](../component/status-banner.md).
 
 **Sensitive** — persisted learner input + session UI state.
 
-UX: [`study/34-review-report-and-acknowledgement-ux.md`](../../study/34-review-report-and-acknowledgement-ux.md).
+UX: [`reviews/design/DR-035-review-report-and-acknowledgement-ux.md`](../../reviews/design/DR-035-review-report-and-acknowledgement-ux.md).
 
 ## Scope
 

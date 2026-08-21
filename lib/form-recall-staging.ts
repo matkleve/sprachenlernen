@@ -1,31 +1,13 @@
 /**
  * Staging gate for form-recall Tasks. Contract:
  * docs/specs/service/form-recall-pool.md
+ *
+ * T-W22: hard held-gate removed — form staging weights live in session-sampling.
  */
 
-import {
-  isFormRecallTaskId,
-  meaningRecallTaskIdFor,
-} from "@/lib/form-recall-pool";
 import type { StarterCard } from "@/lib/starter-deck";
-import { newTask, type Task } from "@/lib/scheduler";
-import { isTaskHeld } from "@/lib/vocabulary-snapshot";
 
-/**
- * Form-recall Tasks enter the schedulable pool only when meaning-recall for the
- * same Word is held. Meaning-recall and all other task types pass through.
- */
-export function filterSchedulableCards(
-  cards: readonly StarterCard[],
-  tasksByTaskId: Record<string, Task>,
-): StarterCard[] {
-  return cards.filter((card) => {
-    if (!isFormRecallTaskId(card.taskId)) return true;
-
-    const meaningId = meaningRecallTaskIdFor(card);
-    const meaningTask = tasksByTaskId[meaningId] ?? newTask(meaningId, card.wordId);
-    if (meaningTask.reviews.length === 0) return false;
-
-    return isTaskHeld(meaningTask);
-  });
+/** Pass-through — sampling down-weights form tasks until meaning succeeds. */
+export function filterSchedulableCards(cards: readonly StarterCard[]): StarterCard[] {
+  return [...cards];
 }

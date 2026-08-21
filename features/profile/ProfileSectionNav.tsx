@@ -30,7 +30,7 @@ export type ProfileSectionNavProps = {
 /**
  * In-page profile section pills. Toggles server-rendered panels by id — never
  * receives panel content as props (that crosses the RSC boundary in production).
- * Contract: docs/study/33-profile-section-navigation.md
+ * Contract: docs/reviews/design/DR-034-profile-section-navigation.md
  */
 export function ProfileSectionNav({ initialSection = "languages" }: ProfileSectionNavProps) {
   const t = useTranslations("profile");
@@ -41,6 +41,7 @@ export function ProfileSectionNav({ initialSection = "languages" }: ProfileSecti
       languages: t("sectionLanguages"),
       data: t("sectionData"),
       device: t("sectionDevice"),
+      dev: t("sectionDev"),
     }),
     [t],
   );

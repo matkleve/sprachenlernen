@@ -12,7 +12,7 @@ earned.
 
 Derived from the same **[D — user decision, 2026-08-08]** as UC-057: *"it's not a
 hard order — soft block, you can still do it if you click on it."* Constrained by
-[`../study/02-evidence.md`](../study/02-evidence.md) E7 (a structure that cannot
+[`../study/STUDY-002-evidence.md`](../study/STUDY-002-evidence.md) E7 (a structure that cannot
 be declined is controlling) and UC-047.
 
 ## Today
@@ -38,7 +38,7 @@ estimate with a wide band.
   weight, feeding the same cards.
 - Afterwards, the one existing rating follow-up applies unchanged: "too hard"
   makes the **material** easier, not the method rarer
-  ([12](../study/12-method-cards.md)).
+  ([12](../study/STUDY-010-method-cards.md)).
 - If the learner overrides the same readiness judgement repeatedly and the
   sessions go well, that is evidence about the **judgement**, and the app treats
   it as such rather than as a habit to correct.

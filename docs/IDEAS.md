@@ -27,7 +27,7 @@ in six months.
 ## 2026-08-20 — Five user stories: content, sessions, and enthusiasm
 
 **Status:** **🔍 evaluated** (owner review 2026-08-20). Normative overrides in
-[`study/46-method-length-and-level-matched-content.md`](study/46-method-length-and-level-matched-content.md).
+[`study/archive/ARCH-046-method-length-and-level-matched-content.md`](study/archive/ARCH-046-method-length-and-level-matched-content.md).
 
 **Clarification — "topic on the fly" (rejected):** an earlier draft meant
 *picking a random slice of a long podcast at session compose time*. Owner
@@ -42,7 +42,7 @@ session size.
 
 | | |
 | --- | --- |
-| **Evidence** | SRS + predictable session end ([04](study/04-flashcards-srs.md), Duolingo S2 **[A]**) |
+| **Evidence** | SRS + predictable session end ([04](study/STUDY-004-flashcards-srs.md), Duolingo S2 **[A]**) |
 | **Enthusiasm** | **High** for habit learners — removes one decision |
 | **Risk** | Due queue &lt; 15 some days — spec must define padding |
 | **Verdict** | **✅ Ship** — `srs-session` `durations: [15]` only |
@@ -55,7 +55,7 @@ not a timed excerpt with "more elsewhere", so that I read something real.
 
 | | |
 | --- | --- |
-| **Evidence** | Connected discourse **[A/B]** ([05](study/05-input-reading-listening.md)) |
+| **Evidence** | Connected discourse **[A/B]** ([05](study/STUDY-005-input-reading-listening.md)) |
 | **Enthusiasm** | **Very high** — windowed readers frustrate |
 | **Risk** | Menu filter uses **full-body read estimate**, not truncation |
 | **Verdict** | **✅ Ship** — `full` unit only for text extensive-reading |
@@ -68,7 +68,7 @@ follow current events without a dictionary wall.
 
 | | |
 | --- | --- |
-| **Evidence** | Simplification comprehension **[B]**; authenticity **[C]** ([17](study/17-own-content.md)) |
+| **Evidence** | Simplification comprehension **[B]**; authenticity **[C]** ([17](study/STUDY-015-own-content.md)) |
 | **Enthusiasm** | **Very high** — timely, personal, shareable |
 | **Risk** | Factual/adaptation errors — label **adapted**, UC-023 |
 | **Verdict** | **✅ Ship as primary** for catalogue news — owner 2026-08-20 |
@@ -81,7 +81,7 @@ adapted · ~6 min"*) so starting is not a leap.
 
 | | |
 | --- | --- |
-| **Evidence** | Visible session end **[A]** ([01](study/01-duolingo.md) S2) |
+| **Evidence** | Visible session end **[A]** ([01](study/STUDY-001-duolingo.md) S2) |
 | **Enthusiasm** | **High** — trust |
 | **Verdict** | **✅ Ship** — session contract on detail |
 | **Links** | UC-039, [`method-session-viability.md`](specs/service/method-session-viability.md) |
@@ -93,7 +93,7 @@ helps real life not only its catalogue.
 
 | | |
 | --- | --- |
-| **Evidence** | Own content **[D]** product fit ([17](study/17-own-content.md)) |
+| **Evidence** | Own content **[D]** product fit ([17](study/STUDY-015-own-content.md)) |
 | **Enthusiasm** | **Very high** — word-of-mouth |
 | **Risk** | Privacy (UC-029), consent, paywalls, quality |
 | **Verdict** | **✅ Ship after catalogue news** — same engine as #3 |
@@ -155,7 +155,7 @@ is already built.**
 - The opposite proposal — "all cards that finish a run get 3 or 8 days ±
   randomness, regardless of tries" — would be a **downgrade**: it discards the
   per-card difficulty signal that is the documented reason this app uses FSRS
-  over a cruder scheduler ([`study/04-flashcards-srs.md`](study/04-flashcards-srs.md)).
+  over a cruder scheduler ([`study/STUDY-004-flashcards-srs.md`](study/STUDY-004-flashcards-srs.md)).
 - What genuinely has no existing equivalent: the **within-run** gap ("back in
   ~5 cards"). FSRS's shortest native interval is fractional *days* (its
   `again` weight is ≈0.49 days) — it cannot express "N cards from now" at any

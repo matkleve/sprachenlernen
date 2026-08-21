@@ -2,7 +2,7 @@
 
 <!-- status: superseded — merged into method-detail.md 2026-08-16 -->
 <!-- parent: docs/specs/page/method-detail.md -->
-<!-- study: docs/study/33-skill-tier-badges-exploration.md -->
+<!-- study: docs/reviews/design/DR-033-skill-tier-badges-exploration.md -->
 
 Proposed changes from the 2026-08-16 methods detail redesign discussion.
 **Nothing here is normative** until merged into `method-detail.md` and accepted
@@ -93,7 +93,7 @@ full name — worse for sighted users.
 
 ## Skill tier badge band (draft)
 
-See [study/33](../../study/33-skill-tier-badges-exploration.md) for tier semantics
+See [study/33](../../reviews/design/DR-033-skill-tier-badges-exploration.md) for tier semantics
 and the v3 asset brief (repo only — not for chat paste).
 
 **In scope when promoted**

@@ -1,7 +1,7 @@
 # UC-069 — Use the app in the language I speak
 
 <!-- id: UC-069 -->
-<!-- specs: SPEC-service-spoken-language, SPEC-service-app-texts, SPEC-service-gloss-resolver, SPEC-service-method-catalogue-i18n -->
+<!-- specs: SPEC-service-spoken-language, SPEC-service-app-texts, SPEC-service-gloss-resolver, SPEC-service-method-catalogue-i18n, SPEC-service-chrome-i18n-stragglers -->
 
 **Who:** a learner whose comfortable language is not English — for example a
 German speaker learning Spanish or Italian.
@@ -11,7 +11,7 @@ that describes each card in a language they already know.
 learning the target language.
 
 Derived from [`../I18N.md`](../I18N.md) (interface copy stages 0→1),
-[`../study/18-language-kit.md`](../study/18-language-kit.md) (the product
+[`../study/STUDY-016-language-kit.md`](../study/STUDY-016-language-kit.md) (the product
 targets German → Romance pairs from day one), and
 [`../../data/README.md`](../../data/README.md) (starter pools ship English
 descriptions today).

@@ -15,7 +15,7 @@ account is required.**
 This decision has a cost that is documented rather than discovered, because the
 study argues against it twice with evidence:
 
-- [`../study/01-duolingo.md`](../study/01-duolingo.md) S1, graded **[A]**: "every
+- [`../study/STUDY-001-duolingo.md`](../study/STUDY-001-duolingo.md) S1, graded **[A]**: "every
   step we put between 'app opened' and 'first exercise' costs a share of users
   permanently." A signup form is exactly such a step, and the chapter names
   account creation among the barriers that serious tools erect and Duolingo does
@@ -46,7 +46,7 @@ with **one UUID per review**, carrying the **installation** it came from, and
 **no component knows where it lives** — access goes through the `lib/db/` adapter
 ([`../BACKEND.md`](../BACKEND.md) §3). The browser store also stays, but its job
 changes: it is the offline write path and cache
-([`../study/09-feature-catalogue.md`](../study/09-feature-catalogue.md) F82), not
+([`../backlog/BL-009-feature-catalogue.md`](../backlog/BL-009-feature-catalogue.md) F82), not
 the authority. Because the log is append-only, the two stores hold the same rows
 and reconciliation is a union rather than a judgement — which is the property that
 made 0005's rejection of "two authorities" unnecessary here.

@@ -5,6 +5,7 @@
     "sectionLanguages": "Languages",
     "sectionData": "Your data",
     "sectionDevice": "This device",
+    "sectionDev": "Dev",
     "spokenHeading": "Language you speak",
     "spokenCaption": "The language of the menus, the buttons, and the notes that explain words on cards. Changing it keeps your learning progress.",
     "spokenError": "Could not load your spoken language.",
@@ -62,6 +63,51 @@
     "homeScreenMainSiteButton": "Open main website",
     "homeScreenReinstall": "If the bottom bar shows up on some pages: delete the icon, open the main site in Safari, and add the app again from there. Not from a section page."
   },
+  "sentenceRealizerDev": {
+    "eyebrow": "Dev",
+    "title": "Sentence realizer",
+    "description": "A random plan from memory, rendered for every person in the present tense through the form-table reverse index.",
+    "anotherSentence": "Another sentence",
+    "back": "Back to Profile dev",
+    "planLabel": "Plan",
+    "tableCaption": "Rendered sentence variants by person",
+    "personColumn": "Person",
+    "cellColumn": "Cell",
+    "sentenceColumn": "Sentence",
+    "partialWarning": "Some persons could not be rendered — the form table is missing verb or noun forms."
+  },
+  "learnerWorld": {
+    "pageTitle": "Learning world",
+    "hookTitle": "Choose a learning world",
+    "hookBody": "Words, sentences, and texts will lean toward that world — not all at once, but noticeably.",
+    "pickTitle": "Which world do you want to learn in?",
+    "continue": "Continue",
+    "skipGeneral": "Start general for now",
+    "startLearning": "Start learning",
+    "previewTitle": "Example from your world",
+    "profileWorld": "Learning world: {world}",
+    "profileAddWorld": "Set a learning world",
+    "switchTitle": "Change learning world?",
+    "switchBody": "Your words so far stay. From the next session you will see more from {world}.",
+    "switchConfirm": "Change world",
+    "switchCancel": "Cancel",
+    "world": {
+      "business": "Business",
+      "everyday": "Everyday life",
+      "technical": "Technical",
+      "politics": "Politics",
+      "nature": "Nature & garden",
+      "general": "General for now"
+    },
+    "preview": {
+      "business": "Example: The quarterly report is due on Friday.",
+      "everyday": "Example: We meet at the café around the corner.",
+      "technical": "Example: Restart the service after updating the config.",
+      "politics": "Example: Parliament debated the new law.",
+      "nature": "Example: We water the plants every morning.",
+      "general": "Example: She reads a little every day."
+    }
+  },
   "appShell": {
     "navLabel": "Destinations",
     "mobileNavLabel": "Switch destination",
@@ -96,12 +142,13 @@
     "reviewMeaningsHeading": "Review meanings",
     "reviewMeaningsCaption": "Dictionary forms only — what a word means.",
     "reviewMeaningsAction": "Review meanings",
+    "reviewStartAction": "Start review",
     "reviewMixedAction": "Review mixed",
     "reviewFormsHeading": "Review forms",
     "reviewFormsCaption": "Inflected forms of words whose meaning is already solid. This runs separately from the meanings.",
     "paradigmCellCalloutTitle": "What is a word form?",
     "paradigmCellCalloutBody": "One slot in a word's inflection pattern — \"I go\" in the present, for instance. Each form card asks for exactly one of them, never the whole table. (Technical term: paradigm cell.)",
-    "reviewCaption": "One session at a time — tap when you are ready.",
+    "reviewCaption": "One stack of cards — meanings, and word forms once you are ready for them.",
     "countsHeading": "Your words",
     "countsCaption": "How many words from your starter pack you can recall the meaning of. We count dictionary forms, not inflected ones — and this is not a pile of work waiting for you.",
     "countsDefinitionsSummary": "What solid, shaky and new mean",
@@ -224,6 +271,11 @@
       "complete": "This set is done — open the text whenever you like.",
       "tooLarge": "More than 40 words stand between you and comfortable reading here. Try an easier text first.",
       "alternate": "Try {title} instead"
+    },
+    "reading": {
+      "heading": "Read",
+      "close": "Close",
+      "noGloss": "Not in your starter pack yet."
     }
   },
   "reviewSession": {
@@ -453,6 +505,38 @@
       "listening": "Nothing yet. No measurement is assigned to listening. That is a gap on our side, not yours.",
       "speaking": "Speaking that the app records and scores — not built.",
       "writing": "Free writing or dictation the app can score — not built."
+    },
+    "weeklyReflection": {
+      "periodLabel": "This week",
+      "close": "Close",
+      "previous": "Previous",
+      "next": "Next",
+      "seeData": "See the data",
+      "cardStatus": "Card {index} of {total}",
+      "rowLabel": "Weekly reflection",
+      "unreadLabel": "Unread reflection",
+      "idleTeaser": "This week in {language} — nothing shifted yet",
+      "idleHeadline": "You did not review {language} this week. Nothing changed in your measured vocabulary — that is normal after a quiet week. The queue will be larger when you come back; the schedule stays the same.",
+      "movementHeadlineOne": "This week 1 word in {language} went from shaky to solid.",
+      "movementHeadline": "This week {count} words in {language} went from shaky to solid.",
+      "activityHeadlineOne": "You answered 1 card in {language} this week.",
+      "activityHeadline": "You answered {count} cards in {language} this week.",
+      "horizonHeadline": "When your {language} reviews come up over the next thirty days.",
+      "readyTeaserMovedOne": "1 word turned solid in {language} this week",
+      "readyTeaserMoved": "{count} words turned solid in {language} this week",
+      "readyTeaserActivityOne": "1 card answered in {language} this week",
+      "readyTeaserActivity": "{count} cards answered in {language} this week",
+      "visual": {
+        "beforeWeek": "Start of week",
+        "afterWeek": "Now",
+        "bandShiftCaptionOne": "1 word crossed from shaky into solid.",
+        "bandShiftCaption": "{count} words crossed from shaky into solid.",
+        "bandBarsAria": "{held} solid, {fragile} shaky, {newCount} new.",
+        "horizonCaption": "Reviews due per day over the next thirty days.",
+        "horizonAria": "Peak: {count} reviews due on day {dayOffset}.",
+        "reviewActivityCaptionOne": "card answered this week",
+        "reviewActivityCaption": "cards answered this week"
+      }
     }
   },
   "methodMenu": {
@@ -517,9 +601,12 @@
       "researchConfidence": "How sure is the research?"
     },
     "startSession": "Start",
+    "durationHeading": "Session length",
+    "durationChip": "{minutes} min",
     "sessionNotBuilt": "Once this method runs in the app, you start it here. Until then: read what it does, and try it away from the app.",
     "sessionContract": {
-      "line": "~{minutes} min · {volume} · {feedback}"
+      "line": "~{minutes} min · {volume} · {feedback}",
+      "adaptedSuffix": "adapted text"
     },
     "sessionVolumeSentences": "{count, plural, one {# sentence} other {# sentences}}",
     "sessionVolumeWords": "{count, plural, one {# word} other {# words}}",
@@ -541,6 +628,17 @@
     "minutes": "min",
     "or": "or",
     "eitherOr": "or",
+    "demonstration": {
+      "label": "Can you read this?",
+      "flipHint": "Tap to turn",
+      "gradePrompt": "How well did you read it?",
+      "feedbackHard": "That one was tough — worth another look when you review.",
+      "feedbackGood": "You read that — a few words may need another look.",
+      "feedbackEasy": "You read that easily.",
+      "gradeHard": "Hard",
+      "gradeGood": "Good",
+      "gradeEasy": "Easy"
+    },
     "sections": {
       "reading": "Reading",
       "listening": "Listening",
@@ -1049,7 +1147,22 @@
       "speed": "speed practice"
     },
     "coverageLine": "{percent}% known · {band}",
+    "ownMaterialCoverage": "You can read about {percent}% of this — that should feel {feel}.",
+    "ownMaterialFeel": {
+      "comfortable": "easy",
+      "demanding": "quite demanding",
+      "hard": "hard",
+      "veryHard": "very hard"
+    },
     "demandingLine": "Still demanding — {words} words to comfortable",
+    "t1SupportLine": "{percent}% known — pre-teach {gaps} words, then Start",
+    "blockedLine": "Too hard for your vocabulary ({percent}% known) — {level} text did not pass for you",
+    "adaptationLabel": "Adapted for {level} · not the original article",
+    "adaptationFailed": "Could not adapt this text to {level} for your vocabulary — try a shorter passage or different text",
+    "processingConsent": "Adapt to my level",
+    "processingConsentHint": "Sends your text to a cloud service to simplify it for your vocabulary. Original stays private to your account.",
+    "adapting": "Adapting to your level…",
+    "viewOriginal": "View original article",
     "appPickPreview": "A passage at ~{percent}% for you today · {band}",
     "emptyTopic": "Nothing in the library on this topic yet — try Your own",
     "keepInLibrary": "Keep in my library",
@@ -1108,7 +1221,13 @@
     },
     "oauthDivider": "or continue with",
     "oauthGoogleAria": "Continue with Google",
-    "oauthAppleAria": "Continue with Apple"
+    "oauthAppleAria": "Continue with Apple",
+    "errors": {
+      "invalid-credentials": "The email or password is not correct.",
+      "confirmation-missing": "The confirmation link is incomplete. Open the full link from your email, or sign in if you have already confirmed.",
+      "confirmation-failed": "That confirmation link is no longer valid. Request a new one by signing up again, or sign in if you have already confirmed.",
+      "unexpected": "Something on our side went wrong. Try again — if it keeps failing, note the reference below."
+    }
   },
   "privacy": {
     "bannerTitle": "Cookies and storage",

@@ -27,7 +27,7 @@ The shell **measures** it via `useVisualViewportBottomInset` and lifts the pill.
 **Why `/methods` looks different:** session/gesture state (often landing page,
 fewer bottom taps yet), **not** shorter content — Methods is ~10× longer than
 Words/Progress. Full analysis:
-[`../../study/29-ios-inset-by-route.md`](../../study/29-ios-inset-by-route.md).
+[`../../qa/QA-029-ios-inset-by-route.md`](../../qa/QA-029-ios-inset-by-route.md).
 
 ---
 
@@ -103,7 +103,7 @@ top/bottom inside the bleed area).
 
 ### Invariants — do not break
 
-From [`28-mobile-desktop-layout.md`](../../study/28-mobile-desktop-layout.md):
+From [`28-mobile-desktop-layout.md`](../../reviews/design/DR-028-mobile-desktop-layout.md):
 
 - Phone (`< md`): floating pill + corner chips.
 - Desktop + iPad (`≥ md`): flat top nav, no bottom pill.
@@ -257,5 +257,5 @@ flowchart TB
 - [`page-layout.md`](page-layout.md)
 - [`mobile-nav-v2.md`](mobile-nav-v2.md) — behaviour #9 (update when fixed)
 - [`../../TRAPS.md`](../../TRAPS.md) — Safari / visualViewport
-- [`../../study/28-mobile-desktop-layout.md`](../../study/28-mobile-desktop-layout.md)
-- [`../../study/29-ios-inset-by-route.md`](../../study/29-ios-inset-by-route.md) — why `/methods` often shows no bottom inset (Safari, not per-route code)
+- [`../../reviews/design/DR-028-mobile-desktop-layout.md`](../../reviews/design/DR-028-mobile-desktop-layout.md)
+- [`../../qa/QA-029-ios-inset-by-route.md`](../../qa/QA-029-ios-inset-by-route.md) — why `/methods` often shows no bottom inset (Safari, not per-route code)

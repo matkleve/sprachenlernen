@@ -10,7 +10,7 @@ anyone actually is.
 **So that:** they can decide to do it for their own reasons instead of because
 an app told them to.
 
-Derived from [`../study/12-method-cards.md`](../study/12-method-cards.md),
+Derived from [`../study/STUDY-010-method-cards.md`](../study/STUDY-010-method-cards.md),
 "Die Infoseite je Methode".
 
 ## Today

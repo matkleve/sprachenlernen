@@ -12,7 +12,7 @@ and from toast overlays.
 ([`review-card-report.md`](../feature/review-card-report.md) hands off after
 submit).
 
-UX: [`study/34-review-report-and-acknowledgement-ux.md`](../../study/34-review-report-and-acknowledgement-ux.md).
+UX: [`reviews/design/DR-035-review-report-and-acknowledgement-ux.md`](../../reviews/design/DR-035-review-report-and-acknowledgement-ux.md).
 
 ## Scope
 

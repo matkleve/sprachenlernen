@@ -12,7 +12,7 @@ Normative rules stay in the parent; this file owns the math and UX research note
 For each candidate task `i`:
 
 ```
-wᵢ = uᵢ × bᵢ × nᵢ × fᵢ
+wᵢ = uᵢ × bᵢ × nᵢ × fᵢ × worldMatchᵢ
 ```
 
 All factors ≥ `ε` (default `1e-6`) so every schedulable card keeps non-zero
@@ -76,6 +76,24 @@ Hard gate in [`form-recall-pool.md`](form-recall-pool.md) row 4 is **relaxed** w
 sampling ships: `fᵢ` near zero until meaning reviewed; rises toward 1 as meaning
 approaches held. Held meaning → `fᵢ = 1`.
 
+### Lernwelt `worldMatchᵢ` (T-W24)
+
+From [`learner-world.md`](learner-world.md). Session composition only — **does
+not** change FSRS `due` or `applyReview`.
+
+```
+worldMatchᵢ = 1                    if activeWorld = general
+worldMatchᵢ = γ                    if activeWorld ∈ lemma.worlds[]
+worldMatchᵢ = 1                    otherwise
+```
+
+Default `γ = 1.5` (`DEFAULT_LEARNER_WORLD_CONFIG.gammaMatch`). Non-matching due
+cards stay in the pool with `worldMatch = 1`; urgency `uᵢ` still governs when
+they appear.
+
+When attaching `samplingReason`, Lernwelt is **not** a default dominant factor —
+world bias is invisible unless learner opens optional G1 disclosure.
+
 ## Default config (`DEFAULT_SAMPLING_CONFIG`)
 
 | Key | Default | Role |
@@ -95,12 +113,12 @@ Six product parameters. FSRS weights unchanged.
 2. Normalize `pᵢ = wᵢ / Σw`.
 3. Repeat L times: pick index `j` with probability `p`, remove `j`, renormalize.
 4. Attach `samplingReason` = dominant factor (largest contribution among
-   `u,b,n,f`).
+   `u,b,n,f` — exclude `worldMatch` from default G1 copy).
 
 ## Learner reactions by scenario
 
 Qualitative — for copy and AC review ([UC-079](../../use-cases/UC-079-build-a-core-vocabulary-with-natural-repetition.md)).
-Evidence: [25](../../study/25-why-it-does-not-feel-productive.md) P2, ch 43–44.
+Evidence: [25](../../study/STUDY-023-why-it-does-not-feel-productive.md) P2, ch 43–44.
 
 ### S1 · First session ever
 
@@ -115,7 +133,7 @@ Evidence: [25](../../study/25-why-it-does-not-feel-productive.md) P2, ch 43–44
 | Aspect | Without sampling | With sampling |
 | --- | --- | --- |
 | Feel | "Only new words — I forgot session 1" | "Some words came back" |
-| Reaction | Mistrust, [25](../../study/25-why-it-does-not-feel-productive.md) illusion of no learning | Relief — struggle boost + low `R` on fragile |
+| Reaction | Mistrust, [25](../../study/STUDY-023-why-it-does-not-feel-productive.md) illusion of no learning | Relief — struggle boost + low `R` on fragile |
 | `% new` | Often 60–80% | Target **30–50%** (stochastic) |
 
 ### S3 · Second session, same day, session 1 was hard
@@ -131,7 +149,7 @@ Evidence: [25](../../study/25-why-it-does-not-feel-productive.md) P2, ch 43–44
 | Aspect | Reaction | Design |
 | --- | --- | --- |
 | `N_newToday` high | "Too many new words today" | `nᵢ` drops — new still possible, less likely |
-| Feel | Less conveyor-belt | Dose ledger narrative ([25](../../study/25-why-it-does-not-feel-productive.md) F184) later |
+| Feel | Less conveyor-belt | Dose ledger narrative ([25](../../study/STUDY-023-why-it-does-not-feel-productive.md) F184) later |
 
 ### S5 · Approaching 50 held — no cliff
 
@@ -145,13 +163,13 @@ Evidence: [25](../../study/25-why-it-does-not-feel-productive.md) P2, ch 43–44
 | Aspect | Expected mix | Reaction |
 | --- | --- | --- |
 | Cards | ~65% review / ~35% new (simulation) | "Balanced" |
-| G1 | Shows `R` and reason | Trust in schedule ([04](../../study/04-flashcards-srs.md)) |
+| G1 | Shows `R` and reason | Trust in schedule ([04](../../study/STUDY-004-flashcards-srs.md)) |
 
 ### S7 · After ~50 held, two sessions, S1 all `good`
 
 | Aspect | Risk | Mitigation |
 | --- | --- | --- |
-| S2 mostly new | Overload, [44](../../study/44-foundation-phase-expert-review.md) worst case ~80% new | `nᵢ` + `uᵢ` on fragile still in pool |
+| S2 mostly new | Overload, [44](../../study/archive/ARCH-044-foundation-phase-expert-review.md) worst case ~80% new | `nᵢ` + `uᵢ` on fragile still in pool |
 | Reaction | "Punished for doing well" | Copy: *"You cleared the urgent queue — today leans new"* |
 
 ### S8 · Empty or short queue

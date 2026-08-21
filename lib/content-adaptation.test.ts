@@ -12,14 +12,14 @@ import {
 describe("content-adaptation", () => {
   it("builds a stable cache key for catalogue adaptations", () => {
     const key = buildAdaptationCacheKey({
-      sourceId: "es-catalogue-chile",
+      sourceId: "wikinews-es-3516",
       languageCode: "es",
       targetLevel: "A2",
       tier: "T2",
       promptVersion: "v1",
     });
 
-    expect(key).toBe("es-catalogue-chile:es:A2:T2:v1");
+    expect(key).toBe("wikinews-es-3516:es:A2:T2:v1");
   });
 
   it("labels adapted copy honestly", () => {

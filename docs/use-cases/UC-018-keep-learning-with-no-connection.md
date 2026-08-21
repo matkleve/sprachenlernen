@@ -8,9 +8,9 @@
 **So that:** the most reliable block of learning time in a normal week — the
 commute — does not depend on signal.
 
-Derived from [`../study/09-feature-catalogue.md`](../study/09-feature-catalogue.md)
+Derived from [`../backlog/BL-009-feature-catalogue.md`](../backlog/BL-009-feature-catalogue.md)
 F82, and the listening scenario in
-[`../study/05-input-reading-listening.md`](../study/05-input-reading-listening.md).
+[`../study/STUDY-005-input-reading-listening.md`](../study/STUDY-005-input-reading-listening.md).
 
 ## Today
 

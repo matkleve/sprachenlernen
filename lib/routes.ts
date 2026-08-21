@@ -19,6 +19,12 @@ export const routes = {
   primitives: "/primitives",
   /** Public. Design-direction comparison — dev tooling, no account. */
   designExplorer: "/dev/design",
+  /** Public. Logo and PWA icon directions at real sizes — dev tooling. */
+  brandExplorer: "/dev/brand",
+  /** Public. Interface stages under one slider (UC-080) — dev tooling. */
+  progressionExplorer: "/dev/progression",
+  /** Public. Method card asset renders — dev tooling. */
+  methodCardAssets: "/dev/method-card-assets",
   /** Public Home Screen install instructions (iPhone PWA scope). */
   install: "/install",
   privacy: "/privacy",
@@ -44,8 +50,12 @@ export const routes = {
   safariBisect: "/safari-bisect",
   /** The signed-in profile — languages, data, sign out. */
   profile: "/profile",
+  /** Dev-only sentence realizer matrix (non-production). */
+  profileDevSentenceRealizer: "/profile/dev/sentence-realizer",
   /** Where a learner chooses what to learn (UC-025). */
   chooseLanguage: "/languages/choose",
+  /** Optional Lernwelt onboarding after the first language (UC-019). */
+  learnerWorldSetup: "/languages/world-setup",
 } as const;
 
 /**

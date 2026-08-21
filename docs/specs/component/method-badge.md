@@ -8,7 +8,7 @@ Badge layout on **method cards**: shields left, effort right on one row under
 `summary`. Detail badge band keeps effort right — see [`method-detail.md`](../page/method-detail.md).
 Tier metric: [`../service/skill-tier.md`](../service/skill-tier.md). Card shield sizing:
 [`skill-tier-badge.md`](skill-tier-badge.md); row polish:
-[`../../study/40-method-card-visual-polish.md`](../../study/40-method-card-visual-polish.md).
+[`../../reviews/design/DR-040-method-card-visual-polish.md`](../../reviews/design/DR-040-method-card-visual-polish.md).
 
 ## Scope
 

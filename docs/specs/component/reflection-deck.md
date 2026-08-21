@@ -40,7 +40,7 @@ Each card is data, not JSX in the spec:
 | Field | Required | Notes |
 | --- | --- | --- |
 | `id` | yes | Stable key; also names the metric slice for analytics |
-| `headline` | yes | One or two sentences — personal tone, factual claim ([`study/30`](../../study/30-notifications-and-reflections.md)) |
+| `headline` | yes | One or two sentences — personal tone, factual claim ([`study/30`](../../study/STUDY-026-notifications-and-reflections.md)) |
 | `visual` | yes | React node: sparkline, band chart, orbit excerpt, structure diagram — must match the headline |
 | `derivationHref` | no | Usually only on the final card |
 

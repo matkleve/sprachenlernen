@@ -164,6 +164,7 @@ export const filterMethods = (
 export const METHODS_PATH = "/methods";
 
 const PARAM_KEYS = ["minutes", "skill", "energy", ...REFINE_KEYS] as const;
+const DETAIL_PARAM_KEYS = [...PARAM_KEYS, "variantMinutes"] as const;
 
 /** Merge filter updates into search params without navigation — for client-side filtering. */
 export const applySearchParamUpdates = (
@@ -172,7 +173,7 @@ export const applySearchParamUpdates = (
 ): SearchParams => {
   const next: Record<string, string | undefined> = {};
 
-  for (const key of PARAM_KEYS) {
+  for (const key of DETAIL_PARAM_KEYS) {
     const value = first(current[key]);
     if (value) next[key] = value;
   }
@@ -185,9 +186,13 @@ export const applySearchParamUpdates = (
   return next;
 };
 
-export const menuQueryString = (params: SearchParams): string => {
+export const menuQueryString = (
+  params: SearchParams,
+  options?: { includeVariantMinutes?: boolean },
+): string => {
+  const keys = options?.includeVariantMinutes ? DETAIL_PARAM_KEYS : PARAM_KEYS;
   const parts: string[] = [];
-  for (const key of PARAM_KEYS) {
+  for (const key of keys) {
     const value = first(params[key]);
     if (value) parts.push(`${key}=${encodeURIComponent(value)}`);
   }

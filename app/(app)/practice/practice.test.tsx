@@ -41,8 +41,10 @@ describe("PracticePage", () => {
     });
     render(ui);
 
-    expect(screen.getByRole("heading", { name: en.methodMenu.entries["build-a-sentence"].name })).toBeDefined();
-    expect(screen.getByText(/Step 1 of 7/)).toBeDefined();
+    expect(
+      screen.getByRole("heading", { name: en.methodMenu.entries["build-a-sentence"].name }),
+    ).toBeDefined();
+    expect(screen.getByText(/Step 1 of/)).toBeDefined();
   });
 
   it("renders exercise runner for free-production", async () => {

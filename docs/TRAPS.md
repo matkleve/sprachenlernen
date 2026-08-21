@@ -117,13 +117,13 @@ A fixed `3rem` lift was wrong when the toolbar was absent.
 **Owner QA (2026-08-15, true PWA):** asymmetry persisted — Methods/mirror OK,
 Words/Progress not. That is **not** session-only: mirror shares Methods body.
 Forcing inset `0` in standalone (`v0.5.0`) **did not fix** it and **worsened
-pill taps** — reverted. See [`study/31-ios-safari-pwa-test-report.md`](study/31-ios-safari-pwa-test-report.md).
+pill taps** — reverted. See [`qa/QA-031-ios-safari-pwa-test-report.md`](qa/QA-031-ios-safari-pwa-test-report.md).
 
 **The fix (keep):** `useVisualViewportBottomInset` —
 `max(0, innerHeight - visualViewport.height - visualViewport.offsetTop)` →
 `--shell-visual-viewport-bottom-inset`. Pill lifts when measured inset > 0; sits
 low when 0. **Do not** add per-route inset. Study:
-[`study/29-ios-inset-by-route.md`](study/29-ios-inset-by-route.md).
+[`qa/QA-029-ios-inset-by-route.md`](qa/QA-029-ios-inset-by-route.md).
 
 **`interactive-widget: resizes-content` nuance:** removed from `app/layout.tsx`
 during mobile-nav work, but iOS Safari **does not implement** `interactive-widget`
@@ -677,3 +677,38 @@ ignored by the shell — the worst combination, because it looks like it was rea
 Use `set -o pipefail`, or check the gate in its own command before chaining
 anything to it. Do not summarise a gate's output in the same command that acts
 on its result.
+
+## `getSession()` verifies nothing, and reads like it verifies everything
+
+`supabase.auth.getSession()` returns the session **as stored in the cookie**.
+It checks the shape and `expires_at`. It does not check the JWT signature —
+`@supabase/auth-js` `__loadSession` wraps the user object in an
+`insecureUserWarningProxy` on the server for exactly this reason, and the SDK's
+own doc comment says "`getSession` is insecure on the server".
+
+This is safe almost everywhere in this codebase, which is what makes it a trap:
+every adapter's next step is a query through the request-scoped client, and
+PostgREST verifies the JWT before RLS runs, so a forged cookie reaches the
+database and comes back with nothing. The code looks like it is trusting the
+cookie and is in fact trusting Postgres.
+
+It stops being safe the moment a caller **leaves the RLS path**.
+`deleteAccount` did: it read the id from `getSession()` and handed it to the
+service-role client, which bypasses RLS entirely. A self-made cookie naming any
+account deleted that account.
+
+Use `getVerifiedAccount()` (a `getUser()` round trip) for anything that acts on
+`account.id` with elevated privileges. Keep `getAccount()` for everything else —
+the round trip it avoids is a real cost on every navigation.
+
+## `startsWith("/")` is not a check for "is this a path on my site"
+
+`/auth/callback?next=//evil.com` redirected to `evil.com`. A protocol-relative
+URL starts with `/`, and `new URL("//evil.com", origin)` resolves to a foreign
+origin. `/\evil.com` does the same, because WHATWG URL parsing normalises the
+backslash to a slash.
+
+Lengthening the prefix test does not fix it; there is always another spelling.
+Parse the candidate against a base you control and compare origins —
+`lib/safe-redirect.ts`. The same applies to any value that ends up in
+`new URL(value, origin)`, not just `next`.

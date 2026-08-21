@@ -20,7 +20,7 @@ export const metadata: Metadata = {
 };
 
 /**
- * Progressive Words body for iOS PWA bisect. Contract: docs/study/31-ios-safari-pwa-test-report.md
+ * Progressive Words body for iOS PWA bisect. Contract: docs/qa/QA-031-ios-safari-pwa-test-report.md
  */
 export default async function WordsBisectPage({
   searchParams,

@@ -7,7 +7,10 @@ import type { SearchParams } from "@/lib/method-menu-filter";
 import { menuQueryString } from "@/lib/method-menu-filter";
 import { hasMaterialSetup } from "@/lib/method-material-setup";
 import type { MaterialUnitId } from "@/lib/material-unit";
-import { resolveSessionBudgetMinutes } from "@/lib/method-session-budget";
+import {
+  resolveVariantMinutes,
+  showDurationVariantPicker,
+} from "@/lib/method-session-budget";
 import { resolveSessionContract } from "@/lib/method-session-contract";
 import {
   sessionHrefForMethod,
@@ -21,6 +24,7 @@ import { cn } from "@/lib/utils";
 import { MethodDetailBadgeBand } from "./MethodDetailBadgeBand";
 import { MethodDetailFacts } from "./MethodDetailFacts";
 import { MethodDetailHero } from "./MethodDetailHero";
+import { MethodDurationPicker } from "./MethodDurationPicker";
 import { MethodMaterialSetup } from "./MethodMaterialSetup";
 import { MethodSessionContractText } from "./MethodSessionContractText";
 import { readMaterialSetupBundle } from "./readMaterialSetup";
@@ -70,6 +74,21 @@ export async function MethodDetail({ method, searchParams = {} }: MethodDetailPr
         percent: Math.round(coveragePercent),
         words: wordsToComfortable,
       }),
+    t1SupportLine: (coveragePercent: number, gapCount: number) =>
+      tMaterial("t1SupportLine", {
+        percent: Math.round(coveragePercent),
+        gaps: gapCount,
+      }),
+    blockedLine: (coveragePercent: number, targetLevel: string) =>
+      tMaterial("blockedLine", {
+        percent: Math.round(coveragePercent),
+        level: targetLevel,
+      }),
+    adaptationLabel: (targetLevel: string) => tMaterial("adaptationLabel", { level: targetLevel }),
+    adaptationFailed: (targetLevel: string) =>
+      tMaterial("adaptationFailed", { level: targetLevel }),
+    processingConsent: tMaterial("processingConsent"),
+    processingConsentHint: tMaterial("processingConsentHint"),
     appPickPreview: (coveragePercent: number, bandLabel: string) =>
       tMaterial("appPickPreview", { percent: Math.round(coveragePercent), band: bandLabel }),
     emptyTopic: tMaterial("emptyTopic"),
@@ -84,15 +103,19 @@ export async function MethodDetail({ method, searchParams = {} }: MethodDetailPr
     : { status: "omit" as const };
   const showMaterialSetup = materialBundle.status === "ok";
   const localized = localizeMethodEntry(method, (key) => t(key as "entries.background-listening.name"));
-  const sessionBudgetMinutes = resolveSessionBudgetMinutes(
-    method.durations,
-    typeof searchParams.minutes === "string"
-      ? searchParams.minutes
-      : Array.isArray(searchParams.minutes)
-        ? searchParams.minutes[0]
-        : undefined,
-  );
-  const sessionContract = await resolveSessionContract(method, sessionBudgetMinutes);
+  const variantRaw =
+    typeof searchParams.variantMinutes === "string"
+      ? searchParams.variantMinutes
+      : Array.isArray(searchParams.variantMinutes)
+        ? searchParams.variantMinutes[0]
+        : undefined;
+  const variantMinutes = resolveVariantMinutes(method.durations, {
+    selectedVariantRaw: variantRaw,
+    methodId: method.id,
+  });
+  const sessionContract = await resolveSessionContract(method, variantMinutes);
+  const showVariantPicker =
+    showDurationVariantPicker(method.durations, method.id) && !showMaterialSetup;
   const hasPreStart =
     showMaterialSetup ||
     usesWordsReview(method) ||
@@ -139,7 +162,7 @@ export async function MethodDetail({ method, searchParams = {} }: MethodDetailPr
                 method={method}
                 context={materialBundle.context}
                 canPersist={materialBundle.canPersist}
-                budgetMinutes={sessionBudgetMinutes}
+                variantMinutes={variantMinutes}
                 sessionContract={sessionContract}
                 className="mt-4 md:mt-6"
               />
@@ -147,6 +170,15 @@ export async function MethodDetail({ method, searchParams = {} }: MethodDetailPr
 
             {!showMaterialSetup && (usesWordsReview(method) || usesExerciseRunner(method)) ? (
               <>
+                {showVariantPicker && variantMinutes !== undefined ? (
+                  <MethodDurationPicker
+                    methodId={method.id}
+                    durations={method.durations ?? []}
+                    searchParams={searchParams}
+                    selectedVariantMinutes={variantMinutes}
+                    className="mt-4 md:mt-6"
+                  />
+                ) : null}
                 {sessionContract ? (
                   <MethodSessionContractText
                     contract={sessionContract}
@@ -154,7 +186,7 @@ export async function MethodDetail({ method, searchParams = {} }: MethodDetailPr
                   />
                 ) : null}
                 <ActionLink
-                  href={sessionHrefForMethod(method, { budgetMinutes: sessionBudgetMinutes })}
+                  href={sessionHrefForMethod(method, { variantMinutes })}
                   variant="primary"
                   size="lg"
                   className={sessionContract ? "mt-3" : "mt-4 md:mt-6"}

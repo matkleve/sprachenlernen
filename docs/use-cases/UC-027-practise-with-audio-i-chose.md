@@ -10,8 +10,8 @@ disappointment.
 **So that:** the thing they were motivated to listen to anyway becomes the thing
 that teaches them.
 
-Derived from [`../study/17-own-content.md`](../study/17-own-content.md),
-[`../study/48-content-licensing-and-adaptation.md`](../study/48-content-licensing-and-adaptation.md).
+Derived from [`../study/STUDY-015-own-content.md`](../study/STUDY-015-own-content.md),
+[`../study/archive/ARCH-048-content-licensing-and-adaptation.md`](../study/archive/ARCH-048-content-licensing-and-adaptation.md).
 
 **Note (owner 2026-08-20):** **text articles** are always read in **full**
 (UC-007). **Audio** may still use a **transcript window** for one session when

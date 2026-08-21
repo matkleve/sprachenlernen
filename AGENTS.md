@@ -1,12 +1,10 @@
 # AGENTS.md
 
 **Sprachenlernen** — evidence-driven language-learning app, built on Grundriss.
-Next.js 15 (App Router) · React 19 · TypeScript · Tailwind CSS v4.
+Next.js 15 · React 19 · TypeScript · Tailwind CSS v4.
 
-The contract for every agent and every human. Deliberately short — detail lives
-in `docs/` and is linked from here. Read a link when the task touches it, not
-before. **Keep this file under 150 lines** (enforced by `check:specs`); anything
-longer gets skimmed instead of read.
+The contract for every agent and human. Detail lives in `docs/` — read a link
+when the task touches it, not before. **Keep under 150 lines** (`check:specs`).
 
 > **Specs are the source of truth.** Code implements specs. When they disagree,
 > one of them is wrong — fix it in the same change. "Both are fine" is not an
@@ -102,6 +100,7 @@ lib/                framework-free helpers. No React, no fetch.
 data/               content as data — language profiles, frequency lists, lemma
                     tables, the method catalogue. Never code.
 docs/specs/         implementation contracts ← source of truth
+docs/study/         product reasoning (why) — not a build contract
 docs/use-cases/     what the user is trying to do, in their words
 scripts/            the gates behind `npm run verify`
 ```
@@ -127,7 +126,7 @@ feature needs it — not in anticipation of one.
 | Adding a database, or another learning language | [`docs/BACKEND.md`](docs/BACKEND.md), [`docs/I18N.md`](docs/I18N.md) |
 | Making a call you'll have to defend later | [`docs/adr/`](docs/adr/) |
 | Product rules you may not break | [`docs/CONSTITUTION.md`](docs/CONSTITUTION.md) |
-| **Why a feature exists at all** | [`docs/study/`](docs/study/) — the research this product is derived from |
+| **Why (not what to build)** | [`docs/study/`](docs/study/) — [`STUDY-FORMAT.md`](docs/STUDY-FORMAT.md) |
 | **Agent pitfalls (model, subagents, ship)** | [`docs/AGENT-PITFALLS.md`](docs/AGENT-PITFALLS.md) §19–§21; version: [`docs/VERSIONING.md`](docs/VERSIONING.md) |
 
 ---

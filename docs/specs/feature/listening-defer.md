@@ -10,7 +10,7 @@ Temporary *"I can't listen now"* preference — hide sound-requiring methods and
 offer text-only exercise variants for **15 minutes** (default). Situational;
 not UC-020 profile exclusion.
 
-Study: [`../../study/39-material-units-and-listening-defer.md`](../../study/39-material-units-and-listening-defer.md).
+Study: [`../../study/STUDY-027-material-units-and-listening-defer.md`](../../study/STUDY-027-material-units-and-listening-defer.md).
 
 **Owner 2026-08-18:** menu UI removed — premature without **mixed stacks**
 (sessions that interleave listening and non-listening steps). Entry point moves

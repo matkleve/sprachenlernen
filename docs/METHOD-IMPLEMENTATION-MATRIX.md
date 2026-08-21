@@ -23,7 +23,7 @@ and **build status** (code in [`lib/exercise-recipe-built.ts`](../lib/exercise-r
 
 | Column | Meaning |
 | --- | --- |
-| **Ev** | Evidence grade A–D ([study/21](study/21-method-catalogue-and-context.md)) |
+| **Ev** | Evidence grade A–D ([study/21](study/STUDY-019-method-catalogue-and-context.md)) |
 | **Host** | `hosted: true` — product intends to run in-app |
 | **Engine** | `card` → `/words/review`; `runner` → `/practice`; `off` → detail + optional debrief |
 | **Mat.** | Material setup on detail (`materialTopics`) |
@@ -149,4 +149,4 @@ and **build status** (code in [`lib/exercise-recipe-built.ts`](../lib/exercise-r
 | [`exercise-recipe-composer.methods.md`](specs/service/exercise-recipe-composer.methods.md) | Specced step sequence |
 | [`exercise-step-components.md`](specs/service/exercise-step-components.md) | Component catalogue |
 | [`method-engines.md`](specs/service/method-engines.md) | Routing contract |
-| [`study/21-method-catalogue-and-context.md`](study/21-method-catalogue-and-context.md) | Pedagogy narrative |
+| [`study/STUDY-019-method-catalogue-and-context.md`](study/STUDY-019-method-catalogue-and-context.md) | Pedagogy narrative |

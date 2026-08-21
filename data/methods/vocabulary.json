@@ -14,9 +14,7 @@
       "hosted": true,
       "intensity": 2,
       "durations": [
-        2,
-        10,
-        20
+        10
       ],
       "requires": [
         {

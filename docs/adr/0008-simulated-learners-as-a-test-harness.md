@@ -2,12 +2,12 @@
 
 **Status:** accepted · 2026-08-08
 **Context:** [`../SIMULATION.md`](../SIMULATION.md),
-[`../study/26-readiness-and-difficulty.md`](../study/26-readiness-and-difficulty.md)
+[`../study/STUDY-024-readiness-and-difficulty.md`](../study/STUDY-024-readiness-and-difficulty.md)
 
 ## Context
 
 This product's central claim is that it **measures** a level rather than
-asserting one ([`../study/03-level-model.md`](../study/03-level-model.md)). That
+asserting one ([`../study/STUDY-003-level-model.md`](../study/STUDY-003-level-model.md)). That
 claim cannot be checked against real learners for months, and the failure modes
 that matter — a skill stuck at "not measured" forever, a level that falls
 spuriously, a menu with no legal composition, a schedule that over-practises —
@@ -21,7 +21,7 @@ simulated learner's learning is **whatever we programmed**. Type in "dictation
 raises audio recall" and the simulation will report that dictation raises audio
 recall, in charts indistinguishable from findings. That is the same
 self-confirming loop as inferring method effectiveness from usage data
-([`../study/12-method-cards.md`](../study/12-method-cards.md)) — and the
+([`../study/STUDY-010-method-cards.md`](../study/STUDY-010-method-cards.md)) — and the
 literature on reinforcement learning for instructional sequencing is full of
 policies that beat baselines against simulated students and then fail with real
 ones.
@@ -73,7 +73,7 @@ tested the first time somebody wants a number they do not have.
 pure functions of their inputs. Today only the scheduler qualifies, so that is
 where it starts. This is an argument for keeping menu composition and the
 coverage calculator pure when they are written — which
-[`../study/12-method-cards.md`](../study/12-method-cards.md) already asks for.
+[`../study/STUDY-010-method-cards.md`](../study/STUDY-010-method-cards.md) already asks for.
 
 ## Alternatives considered
 

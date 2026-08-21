@@ -7,9 +7,9 @@
 **Wants to:** resume learning.
 **So that:** the break costs them a few days of catching up, not the habit.
 
-Derived from [`../study/04-flashcards-srs.md`](../study/04-flashcards-srs.md)
+Derived from [`../study/STUDY-004-flashcards-srs.md`](../study/STUDY-004-flashcards-srs.md)
 ("Die Rückstandsfalle") and
-[`../study/08-motivation.md`](../study/08-motivation.md).
+[`../study/STUDY-008-motivation.md`](../study/STUDY-008-motivation.md).
 
 ## Today
 

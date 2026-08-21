@@ -9,8 +9,8 @@ words, which form belongs to which lemma, **which cell of which paradigm that
 form occupies**, and how frequent it is. Framework-free. The foundation the
 vocabulary estimate, the coverage calculator and form mastery all stand on.
 
-Background: [`../../study/18-language-kit.md`](../../study/18-language-kit.md),
-[`../../study/03-level-model.md`](../../study/03-level-model.md).
+Background: [`../../study/STUDY-016-language-kit.md`](../../study/STUDY-016-language-kit.md),
+[`../../study/STUDY-003-level-model.md`](../../study/STUDY-003-level-model.md).
 Data model: [ADR-0004](../../adr/0004-word-task-data-model.md).
 
 ## Scope
@@ -62,7 +62,7 @@ The level model needs this and nothing else in the pipeline can supply it: an
 Italian learner who produces *parlare* and *parliamo* has not thereby shown
 anything about *dormiamo*, because the three conjugation classes diverge, and the
 divergence is worst in exactly the frequent verbs
-([`../../study/03-level-model.md`](../../study/03-level-model.md), form mastery).
+([`../../study/STUDY-003-level-model.md`](../../study/STUDY-003-level-model.md), form mastery).
 
 So every mapping carries a **paradigm cell**, in one canonical vocabulary shared
 across languages and across source formats — otherwise "produces the 1sg present
@@ -99,7 +99,7 @@ the vocabulary estimate inflates.
 The vocabulary estimate counts whatever the profile declares. Getting it wrong
 does not fail — it produces a plausible number that means nothing, and it is
 least visible in the languages where it is most wrong
-([`../../study/18-language-kit.md`](../../study/18-language-kit.md) U1).
+([`../../study/STUDY-016-language-kit.md`](../../study/STUDY-016-language-kit.md) U1).
 Hence behavior row 1: a profile without it must not load.
 
 **The shipped frequency data is form frequency, not lemma frequency.** It is
@@ -137,7 +137,7 @@ form mastery it cannot actually see.
 ## Quality tier
 
 Derived, never a field someone sets
-([`../../study/18-language-kit.md`](../../study/18-language-kit.md)):
+([`../../study/STUDY-016-language-kit.md`](../../study/STUDY-016-language-kit.md)):
 
 | Tier | Requires | Effect |
 | --- | --- | --- |

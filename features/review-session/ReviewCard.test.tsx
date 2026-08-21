@@ -55,6 +55,28 @@ describe("ReviewCard", () => {
     expect(container.textContent).not.toMatch(/present|Write the/);
   });
 
+  it("shows an example sentence below the lemma when present", () => {
+    render(
+      <ReviewCard
+        card={{
+          ...baseCard,
+          exampleSentence: {
+            id: "es-ex-casa-grande",
+            text: "La casa es grande.",
+            translation: "The house is big.",
+          },
+        }}
+        languageName="Spanish"
+        phase="prompting"
+        onFlip={() => {}}
+        onGrade={() => {}}
+        onSubmitReport={async () => {}}
+      />,
+    );
+
+    expect(screen.getByText("La casa es grande.")).toBeDefined();
+  });
+
   it("asks whether the form was recalled on a form-recall card", () => {
     render(
       <ReviewCard

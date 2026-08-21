@@ -9,8 +9,8 @@ was tapped**. Install from `/` → all routes under the site work without Safari
 bottom toolbar. Install from `/methods` → only Methods and sub-paths do.
 
 Parent: [`page/profile.md`](../page/profile.md). UX study:
-[`../../study/32-pwa-profile-ux.md`](../../study/32-pwa-profile-ux.md). Research:
-[`../../study/31-ios-safari-pwa-test-report.md`](../../study/31-ios-safari-pwa-test-report.md).
+[`../../reviews/design/DR-032-pwa-profile-ux.md`](../../reviews/design/DR-032-pwa-profile-ux.md). Research:
+[`../../qa/QA-031-ios-safari-pwa-test-report.md`](../../qa/QA-031-ios-safari-pwa-test-report.md).
 
 ## Scope
 

@@ -7,7 +7,7 @@
 Phone-width signed-in chrome: a **floating destination pill** at the bottom and
 **floating corner chips** at the top (back when drill-in, account always).
 **Applies only below `md`** — iPad and desktop use flat top nav
-([`page-layout.md`](page-layout.md), [`../../study/28-mobile-desktop-layout.md`](../../study/28-mobile-desktop-layout.md)).
+([`page-layout.md`](page-layout.md), [`../../reviews/design/DR-028-mobile-desktop-layout.md`](../../reviews/design/DR-028-mobile-desktop-layout.md)).
 Desktop keeps the horizontal header from [`app-shell.md`](app-shell.md).
 
 **Parent:** [`app-shell.md`](app-shell.md). Supersedes
@@ -79,7 +79,7 @@ when visible (not on scroll — offsetTop jitters while the page moves).
 positions the pill above measured chrome (legacy `.shell-float-nav-bottom` is
 pill-only). Toolbar show/hide is **Safari-controlled** — same measurement on every
 route; do not add pathname-specific inset. Study:
-[`../../study/29-ios-inset-by-route.md`](../../study/29-ios-inset-by-route.md).
+[`../../qa/QA-029-ios-inset-by-route.md`](../../qa/QA-029-ios-inset-by-route.md).
 `ShellPageTitle` sets `--shell-float-top-active` to the expanded value when the
 title wraps to two lines.
 

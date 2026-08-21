@@ -18,9 +18,21 @@ a bookmark should land on the page rather than a 404.
 - **In:** the export and delete blocks of `/profile` under `(app)`; export scope `Select` (complete archive vs
   review log only); download as JSON; delete-account `Dialog` with
   `dismissOnBackdrop={false}`; server actions; `deleteAccount` in `lib/db/auth.ts`
-  using service role after session check.
+  using service role after **`getVerifiedAccount()`** — a `getUser()` round trip,
+  never `getAccount()`: the id goes to a client that bypasses RLS, so the
+  session cookie cannot be the authority for which account is deleted
+  ([`../service/auth.md`](../service/auth.md) behaviour 9).
 - **Out:** import; migration from other apps; audio recordings; paid tiers;
   level-history export (nothing stored yet); multi-device merge (T-B9).
+
+**⚠ SPEC GAP: `content_sources` rows cannot be deleted.** The table ships with
+`select` and `insert` grants and no delete policy
+(`20260818140000_content_sources.sql`), and `word-capture.md` lists delete/edit
+UI as out of scope. So a learner can export a saved text and can delete their
+whole account, but cannot remove one text — which UC-024's "the data stays
+theirs" implies they should be able to. Whether removal is offered, and whether
+it is a hard delete or a hidden flag, is a product decision this spec has not
+made; nothing here guesses it.
 
 **Reuse:** `Button`, `Field`, `Select`, `Dialog`, `SubmitButton`.
 
@@ -49,7 +61,17 @@ a bookmark should land on the page rather than a 404.
 - [ ] Given a signed-in learner on `/profile`, when they choose **Review log
       only** and download, then the JSON contains only `review_log` rows.
 - [ ] Given a signed-in learner, when they choose **Complete archive** and
-      download, then the JSON includes account email and `review_log`.
+      download, then the JSON carries **every table the account owns** —
+      `review_log`, `task_state`, `content_sources`, `card_content_flag`,
+      `learner_language` — plus the account's email and spoken language, keyed
+      by table name so a reader can line the file up against
+      `supabase/migrations/` without this app.
+- [ ] Given a learner who wrote a free-text note on a card report, when they
+      download the complete archive, then that note is in it — it is their
+      writing, not the app's telemetry.
+- [ ] Given any of the archive's queries failing, when the export runs, then it
+      fails as a whole rather than downloading a partial file that looks
+      complete.
 - [ ] Given the delete dialog, when the learner confirms, then they land on `/`
       and cannot access `(app)` routes without signing in again.
 - [ ] Given the delete dialog, when backdrop is clicked, then nothing happens

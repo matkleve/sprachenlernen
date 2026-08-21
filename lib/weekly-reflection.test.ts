@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 
 import { buildWeeklyReflection, isoWeekId, startOfIsoWeek } from "@/lib/weekly-reflection";
+import { englishWeeklyReflectionCopy } from "@/lib/weekly-reflection.test-copy";
 import type { Grade } from "@/lib/scheduler";
 
 /**
@@ -36,29 +37,32 @@ function review(taskId: string, grade: Grade, at: number) {
   return { taskId, reviewedAtMs: at, grade };
 }
 
+function baseInput(overrides: Partial<Parameters<typeof buildWeeklyReflection>[0]> = {}) {
+  return {
+    now,
+    languageCode: "es",
+    languageName: "Español",
+    cards,
+    reviews: [] as const,
+    seenValue: undefined,
+    copy: englishWeeklyReflectionCopy,
+    ...overrides,
+  };
+}
+
 describe("buildWeeklyReflection", () => {
   it("hides the row when there is no review history", () => {
-    const result = buildWeeklyReflection({
-      now,
-      languageCode: "es",
-      languageName: "Español",
-      cards,
-      reviews: [],
-      seenValue: undefined,
-    });
+    const result = buildWeeklyReflection(baseInput());
 
     expect(result.status).toBe("hidden");
   });
 
   it("returns a single idle card when history exists but not this week", () => {
-    const result = buildWeeklyReflection({
-      now,
-      languageCode: "es",
-      languageName: "Español",
-      cards,
-      reviews: [review("es:hola:meaning-recall", "good", weekStart - 10 * DAY)],
-      seenValue: undefined,
-    });
+    const result = buildWeeklyReflection(
+      baseInput({
+        reviews: [review("es:hola:meaning-recall", "good", weekStart - 10 * DAY)],
+      }),
+    );
 
     if (result.status === "hidden") throw new Error("expected visible reflection");
     expect(result.cards).toHaveLength(1);
@@ -76,14 +80,11 @@ describe("buildWeeklyReflection", () => {
       review("es:hola:meaning-recall", "easy", weekStart + 9 * DAY),
     ];
 
-    const result = buildWeeklyReflection({
-      now,
-      languageCode: "es",
-      languageName: "Español",
-      cards,
-      reviews,
-      seenValue: undefined,
-    });
+    const result = buildWeeklyReflection(
+      baseInput({
+        reviews,
+      }),
+    );
 
     if (result.status === "hidden") throw new Error("expected visible reflection");
     expect(result.teaser).toMatch(/1 word moved/i);
@@ -96,14 +97,12 @@ describe("buildWeeklyReflection", () => {
   it("marks the reflection read when the seen cookie matches this week", () => {
     const reviews = [review("es:hola:meaning-recall", "good", weekStart + DAY)];
 
-    const result = buildWeeklyReflection({
-      now,
-      languageCode: "es",
-      languageName: "Español",
-      cards,
-      reviews,
-      seenValue: `${isoWeekId(now)}:es`,
-    });
+    const result = buildWeeklyReflection(
+      baseInput({
+        reviews,
+        seenValue: `${isoWeekId(now)}:es`,
+      }),
+    );
 
     if (result.status === "hidden") throw new Error("expected visible reflection");
     expect(result.unread).toBe(false);

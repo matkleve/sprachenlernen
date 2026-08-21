@@ -1,0 +1,68 @@
+{
+  "plans": [
+    {
+      "id": "es-plan-querer-libro",
+      "languageCode": "es",
+      "label": "want + book",
+      "verb": { "lemma": "querer" },
+      "object": { "lemma": "libro", "number": "sg" },
+      "world": "everyday"
+    },
+    {
+      "id": "es-plan-tener-trabajo",
+      "languageCode": "es",
+      "label": "have + work",
+      "verb": { "lemma": "tener" },
+      "object": { "lemma": "trabajo", "number": "sg" },
+      "world": "everyday"
+    },
+    {
+      "id": "es-plan-leer-libro",
+      "languageCode": "es",
+      "label": "read + book",
+      "verb": { "lemma": "leer" },
+      "object": { "lemma": "libro", "number": "sg" },
+      "world": "everyday"
+    },
+    {
+      "id": "es-plan-escribir-carta",
+      "languageCode": "es",
+      "label": "write + letter",
+      "verb": { "lemma": "escribir" },
+      "object": { "lemma": "carta", "number": "sg" },
+      "world": "business"
+    },
+    {
+      "id": "es-plan-anunciar-medida",
+      "languageCode": "es",
+      "label": "announce + measure",
+      "verb": { "lemma": "anunciar" },
+      "object": { "lemma": "medida", "number": "sg" },
+      "world": "politics"
+    },
+    {
+      "id": "es-plan-usar-ordenador",
+      "languageCode": "es",
+      "label": "use + computer",
+      "verb": { "lemma": "usar" },
+      "object": { "lemma": "ordenador", "number": "sg" },
+      "world": "technical"
+    },
+    {
+      "id": "es-plan-plantar-arbol",
+      "languageCode": "es",
+      "label": "plant + tree",
+      "verb": { "lemma": "plantar" },
+      "object": { "lemma": "árbol", "number": "sg" },
+      "world": "nature"
+    },
+    {
+      "id": "es-plan-comer-comida",
+      "languageCode": "es",
+      "label": "eat + food",
+      "verb": { "lemma": "comer" },
+      "object": { "lemma": "comida", "number": "sg" },
+      "world": "everyday"
+    }
+  ]
+}

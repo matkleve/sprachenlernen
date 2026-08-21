@@ -1,41 +1,65 @@
 import { describe, expect, it } from "vitest";
 
 import {
-  appendBudgetMinutesParam,
-  resolveSessionBudgetMinutes,
+  appendVariantMinutesParam,
+  catalogueVariantMinutes,
+  resolveDefaultVariantMinutes,
+  resolveVariantMinutes,
+  showDurationVariantPicker,
 } from "@/lib/method-session-budget";
 
-describe("resolveSessionBudgetMinutes", () => {
-  it("returns catalogue min when minutes param is missing", () => {
-    expect(resolveSessionBudgetMinutes([8, 15, 20])).toBe(8);
-  });
-
-  it("clamps requested minutes into catalogue range", () => {
-    expect(resolveSessionBudgetMinutes([8, 15, 20], "12")).toBe(12);
-    expect(resolveSessionBudgetMinutes([8, 15, 20], "25")).toBe(20);
-    expect(resolveSessionBudgetMinutes([8, 15, 20], "5")).toBe(8);
-  });
-
-  it("returns min when endless is requested", () => {
-    expect(resolveSessionBudgetMinutes([8, 15, 20], "endless")).toBe(8);
-  });
-
-  it("returns undefined when catalogue has no durations", () => {
-    expect(resolveSessionBudgetMinutes(null)).toBeUndefined();
-    expect(resolveSessionBudgetMinutes([])).toBeUndefined();
+describe("catalogueVariantMinutes", () => {
+  it("returns all catalogue packages regardless of menu context", () => {
+    expect(catalogueVariantMinutes([8, 15, 20])).toEqual([8, 15, 20]);
+    expect(catalogueVariantMinutes(null)).toEqual([]);
+    expect(catalogueVariantMinutes([])).toEqual([]);
   });
 });
 
-describe("appendBudgetMinutesParam", () => {
-  it("adds minutes when budget is defined", () => {
+describe("resolveVariantMinutes", () => {
+  it("defaults to the longest catalogue package", () => {
+    expect(resolveVariantMinutes([8, 15, 20])).toBe(20);
+  });
+
+  it("honours selected variant when it is in the catalogue", () => {
+    expect(
+      resolveVariantMinutes([8, 15, 20], {
+        selectedVariantRaw: "8",
+      }),
+    ).toBe(8);
+  });
+
+  it("returns undefined for srs-session and empty catalogues", () => {
+    expect(resolveVariantMinutes([10], { methodId: "srs-session" })).toBeUndefined();
+    expect(resolveVariantMinutes(null)).toBeUndefined();
+    expect(resolveVariantMinutes([])).toBeUndefined();
+  });
+});
+
+describe("resolveDefaultVariantMinutes", () => {
+  it("matches the longest catalogue package", () => {
+    expect(resolveDefaultVariantMinutes([8, 15, 20])).toBe(20);
+  });
+});
+
+describe("showDurationVariantPicker", () => {
+  it("is false for srs-session and single-package methods", () => {
+    expect(showDurationVariantPicker([10], "srs-session")).toBe(false);
+    expect(showDurationVariantPicker([10], "build-a-sentence")).toBe(false);
+    expect(showDurationVariantPicker([8, 15], "build-a-sentence")).toBe(true);
+  });
+});
+
+describe("appendVariantMinutesParam", () => {
+  it("adds minutes when variant is defined", () => {
     const params = new URLSearchParams({ method: "partial-dictation" });
-    appendBudgetMinutesParam(params, 15);
+    appendVariantMinutesParam(params, 15);
     expect(params.get("minutes")).toBe("15");
   });
 
-  it("leaves params unchanged when budget is undefined", () => {
+  it("leaves params unchanged when variant is undefined", () => {
     const params = new URLSearchParams({ method: "partial-dictation" });
-    appendBudgetMinutesParam(params, undefined);
+    appendVariantMinutesParam(params, undefined);
     expect(params.has("minutes")).toBe(false);
   });
 });

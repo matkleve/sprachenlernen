@@ -14,6 +14,7 @@ vi.mock("next/navigation", () => ({
 
 vi.mock("./material-setup-actions", () => ({
   previewOwnMaterialAction: vi.fn(),
+  grantAdaptationConsentAction: vi.fn(),
   startMaterialPracticeAction: vi.fn().mockResolvedValue({
     status: "ok",
     href: "/practice?method=partial-dictation&sourceId=learner-1",
@@ -56,7 +57,7 @@ const baseContext: MaterialSetupContext = {
     },
     news: {
       sentence: {
-        sourceId: "es-catalogue-chile",
+        sourceId: "wikinews-es-3516",
         title: "Noticias: elecciones en Chile",
         coverage: {
           coveragePercent: 93,
@@ -67,6 +68,7 @@ const baseContext: MaterialSetupContext = {
         unitId: "sentence",
         unitLabel: "One sentence",
         timeLabel: "~8 min",
+        startEnabled: true,
       },
     },
   },
@@ -108,7 +110,7 @@ describe("MethodMaterialSetup", () => {
     expect(screen.getByText(/93% known/i)).toBeDefined();
     expect(screen.queryByPlaceholderText(/paste or type/i)).toBeNull();
     expect(screen.getByRole("link", { name: en.methodMenu.startSession }).getAttribute("href")).toContain(
-      "sourceId=es-catalogue-chile",
+      "sourceId=wikinews-es-3516",
     );
   });
 
@@ -141,7 +143,7 @@ describe("MethodMaterialSetup", () => {
           },
           unitId: "sentence",
           unitLabel: "One sentence",
-          timeLabel: "",
+          timeLabel: "~1 min",
           demandingCopy: "Still demanding — 4 words to comfortable",
         })}
       />,
@@ -150,7 +152,7 @@ describe("MethodMaterialSetup", () => {
     await user.click(screen.getByRole("button", { name: "Your own" }));
     await user.type(screen.getByPlaceholderText(/paste or type/i), "Hola");
 
-    expect(await screen.findByText(/Still demanding/i)).toBeDefined();
+    expect(await screen.findByText(/You can read about 78%/i)).toBeDefined();
     expect(screen.getByRole("button", { name: en.methodMenu.startSession }).getAttribute("disabled")).toBeNull();
   });
 
@@ -166,6 +168,48 @@ describe("MethodMaterialSetup", () => {
 
     render(<MethodMaterialSetup method={partialDictation} context={context} />);
     expect(screen.getByRole("button", { name: "Environment" }).getAttribute("disabled")).not.toBeNull();
+  });
+
+  it("AC-10: disables Start when personal delivery gate blocks", async () => {
+    const user = userEvent.setup();
+    const context: MaterialSetupContext = {
+      ...baseContext,
+      previews: {
+        ...baseContext.previews,
+        news: {
+          sentence: {
+            sourceId: "wikinews-es-3516",
+            title: "Egypt elections",
+            coverage: {
+              coveragePercent: 55,
+              tokenCount: 20,
+              knownCount: 11,
+              comfortBand: "demanding",
+            },
+            unitId: "sentence",
+            unitLabel: "One sentence",
+            timeLabel: "~1 min",
+            adapted: true,
+            targetLevel: "A2",
+            sourceUrl: "https://example.com/original",
+            adaptationLabel: "Adapted for A2 · not the original article",
+            deliveryGate: "blocked",
+            startEnabled: false,
+            demandingCopy: "Too hard for your vocabulary",
+          },
+        },
+      },
+    };
+
+    render(<MethodMaterialSetup method={extensiveReading} context={context} />);
+    await user.click(screen.getByRole("button", { name: "News" }));
+
+    expect(screen.getByText(/Adapted for A2/i)).toBeDefined();
+    expect(screen.getByRole("link", { name: en.methodMaterial.viewOriginal })).toBeDefined();
+    expect(screen.queryByRole("link", { name: en.methodMenu.startSession })).toBeNull();
+    expect(screen.getByRole("button", { name: en.methodMenu.startSession }).hasAttribute("disabled")).toBe(
+      true,
+    );
   });
 
   it("AC-8: shows unit chips and preview label for partial dictation", () => {

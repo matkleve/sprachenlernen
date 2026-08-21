@@ -7,8 +7,8 @@
 Decorative **section graphic** at the top of every method card — one abstract
 image per catalogue section, with a gradient fade into the card body and a
 section label. Gives visual identity at catalogue scale without per-method
-assets. Contract: [`../../study/27-method-badges.md`](../../study/27-method-badges.md)
-(card layout). Polish rationale: [`../../study/40-method-card-visual-polish.md`](../../study/40-method-card-visual-polish.md).
+assets. Contract: [`../../study/STUDY-025-method-badges.md`](../../study/STUDY-025-method-badges.md)
+(card layout). Polish rationale: [`../../reviews/design/DR-040-method-card-visual-polish.md`](../../reviews/design/DR-040-method-card-visual-polish.md).
 
 ## Scope
 
@@ -24,7 +24,7 @@ assets. Contract: [`../../study/27-method-badges.md`](../../study/27-method-badg
 Implementation: `features/method-menu/MethodCardHeader.tsx`,
 `features/method-menu/section-graphic.ts`.
 
-Asset brief: [`../../study/39-method-section-graphics-brief.md`](../../study/39-method-section-graphics-brief.md).
+Asset brief: [`EXP-039`](../../explorations/EXP-039-method-section-graphics-brief.md).
 
 **Art dependency (T-B10f-b):** code layout shipped; owner still reports wrong crop
 on listening headphones — **re-export section WebPs** per study/40 H5–H6 before
@@ -34,7 +34,7 @@ closing this spec.
 
 | Property | Value |
 | --- | --- |
-| Height | `h-24` (96px); `md:h-28` in the tablet 2-col band; `lg:h-24` when 3-col |
+| Height | `h-20` (80px) on phone; `sm:h-24`; `md:h-28` in the tablet 2-col band; `lg:h-24` when 3-col |
 | Image fit | **`object-cover object-top`** on card — crop, never stretch |
 | Fade | Three stops into **section soft** tint — matches card body |
 | Section label | Bottom-left; uppercase `text-muted` — quiet text, no scrim |
@@ -57,7 +57,9 @@ into `canvas`. Unchanged from card polish (T-B10f).
 
 - [ ] Given any method card, when it renders, then a header graphic appears
       above the title with full card width.
-- [ ] Given card size, when the header renders, then height is **`h-24`** at mobile and `lg+`, **`md:h-28`** in the tablet 2-col band.
+- [ ] Given card size, when the header renders, then height is **`h-20`** below
+      `sm`, **`h-24`** from `sm` to below `md` and at `lg+`, **`md:h-28`** in the
+      tablet 2-col band.
 - [ ] Given card size, when the header renders, then the image uses
       **`object-cover object-top`** — cropped, never stretched.
 - [ ] Given card size, when the header renders, then a **multi-stop** fade

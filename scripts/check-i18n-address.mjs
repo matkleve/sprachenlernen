@@ -34,12 +34,18 @@ const FILES = ["messages/de.json", "data/i18n/method-catalogue/de.json"];
 const POLITE = /\b(Sie|Ihnen|Ihr|Ihre|Ihrem|Ihren|Ihrer|Ihres)\b/;
 
 /**
- * Sentence-initial `Sie`/`Ihr` cannot be told apart from third-person plural by
- * regex ("Sie sind Muttersprachler" vs. "Sie kommen nie zurück"). There is no
- * such string in the corpus today; if one is ever needed, list its key path
- * here with the reason rather than weakening the pattern for everything.
+ * Sentence-initial `Sie`/`Ihr` cannot be told apart from the third person by
+ * regex ("Sie sind Muttersprachler" vs. "Sie liest jeden Tag"). List such a key
+ * here with the reason rather than weakening the pattern for everything — and
+ * check the English source before adding one, which settles it in a second.
  */
-const ALLOWED_KEYS = new Set([]);
+const ALLOWED_KEYS = new Set([
+  // "Beispiel: Sie liest jeden Tag ein bisschen." — a sample sentence in the
+  // third person ("She reads a little every day"), not the polite form. The
+  // English source confirms it. Sentence-initial "Sie" is the one case regex
+  // cannot resolve, so it is listed rather than pattern-matched away.
+  "messages/de.json:learnerWorld.preview.general",
+]);
 
 function leaves(value, prefix = "") {
   if (value !== null && typeof value === "object") {

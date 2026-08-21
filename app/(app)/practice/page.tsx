@@ -9,7 +9,7 @@ import { resolveExerciseRecipe } from "@/lib/exercise-recipe";
 import type { RecipeVariantId } from "@/lib/exercise-recipe/types";
 import { variantIdForMaterialSetup } from "@/lib/exercise-recipe/variant";
 import { CARD_ENGINE_METHOD_ID } from "@/lib/method-session";
-import { resolveSessionBudgetMinutes } from "@/lib/method-session-budget";
+import { resolveVariantMinutes } from "@/lib/method-session-budget";
 import type { MaterialUnitId } from "@/lib/material-unit";
 import { localizeMethodEntry } from "@/lib/localize-method-entry";
 import { loadPracticeHeldLemmas } from "@/lib/practice-session";
@@ -29,6 +29,8 @@ export default async function PracticePage({
     durationSec?: string;
     variantId?: string;
     minutes?: string;
+    adapted?: string;
+    targetLevel?: string;
   }>;
 }) {
   const tReview = await getTranslations("reviewSession");
@@ -40,6 +42,8 @@ export default async function PracticePage({
     durationSec,
     variantId,
     minutes,
+    adapted,
+    targetLevel,
   } = await searchParams;
 
   if (methodId === CARD_ENGINE_METHOD_ID) {
@@ -60,8 +64,8 @@ export default async function PracticePage({
 
   const { catalogue } = loadMethodCatalogue();
   const method = findMethod(catalogue, methodId);
-  const sessionBudgetMinutes = method
-    ? resolveSessionBudgetMinutes(method.durations, minutes)
+  const sessionVariantMinutes = method
+    ? resolveVariantMinutes(method.durations, { selectedVariantRaw: minutes, methodId })
     : undefined;
   const resolvedUnitId = unitId as MaterialUnitId | undefined;
   const resolvedVariantId =
@@ -73,8 +77,10 @@ export default async function PracticePage({
     unitId: resolvedUnitId,
     durationSec: durationSec ? Number(durationSec) : undefined,
     variantId: resolvedVariantId,
-    budgetMinutes: sessionBudgetMinutes,
+    budgetMinutes: sessionVariantMinutes,
     heldLemmas,
+    adapted: adapted === "1",
+    targetLevel,
   });
 
   if (!method) {

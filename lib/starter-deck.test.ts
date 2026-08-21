@@ -12,6 +12,7 @@ import {
   englishGlossForCard,
   hasUnaddedShippedLanguage,
   loadItalianMeaningRecallDeck,
+  loadMeaningRecallDeck,
   loadSpanishMeaningRecallDeck,
   validateStarterDeck,
 } from "@/lib/starter-deck";
@@ -185,5 +186,16 @@ describe("hasUnaddedShippedLanguage", () => {
 
   it("matches availableLanguages as the shipped set", () => {
     expect(hasUnaddedShippedLanguage([...availableLanguages()])).toBe(false);
+  });
+});
+
+describe("loadMeaningRecallDeck world tags", () => {
+  it("merges curated Lernwelt tags onto pool rows", () => {
+    const deck = loadMeaningRecallDeck("es");
+    expect(deck.status).toBe("ok");
+    if (deck.status !== "ok") return;
+
+    const gobierno = deck.deck.cards.find((card) => card.wordId === "es:gobierno");
+    expect(gobierno?.worlds).toEqual(["politics"]);
   });
 });

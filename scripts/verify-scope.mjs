@@ -10,12 +10,15 @@ import { spawnSync } from "node:child_process";
 const SCOPES = {
   docs: {
     desc: "Specs, use cases, studies only — no code",
-    checks: ["specs"],
+    checks: ["specs", "study"],
     tests: [],
   },
   changed: {
     desc: "Git-changed files — vitest runs related tests automatically",
-    checks: ["typecheck", "lint", "specs", "tokens", "contrast"],
+    // `secrets` is in the default scope because it is the one gate whose miss
+    // is unrecoverable: a key that reached a commit is a key to rotate, and no
+    // later run can undo that. It greps 700-odd files in well under a second.
+    checks: ["typecheck", "lint", "specs", "secrets", "tokens", "contrast"],
     tests: [],
     vitestChanged: true,
   },

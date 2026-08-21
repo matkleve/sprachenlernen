@@ -11,10 +11,10 @@ cost an edit, and finding out that it *is* authored should cost one lookup.
 
 ## Transcribed
 
-From [21](../../study/21-method-catalogue-and-context.md): the entries
+From [21](../../study/STUDY-019-method-catalogue-and-context.md): the entries
 themselves, their section, `trains`, `evidence`, `demanding`, and the context
-requirements. From [12](../../study/12-method-cards.md): the five floors. From
-[24](../../study/24-speaking-as-the-goal.md): the commitments.
+requirements. From [12](../../study/STUDY-010-method-cards.md): the five floors. From
+[24](../../study/STUDY-022-speaking-as-the-goal.md): the commitments.
 
 Chapter 21's seven tables hold 55 rows. Minus the three entries moved to
 commitments (reconciliation 3) that is 52, plus free production is 53 methods.
@@ -47,26 +47,26 @@ It now uses extensive reading, whose eyes-free requirement is in the chapter.
 Six places where two chapters disagreed, or where the schema could hold only one
 of two values. Listed rather than performed quietly.
 
-1. **Free production** carries a floor in [12](../../study/12-method-cards.md)
-   and appears in none of [21](../../study/21-method-catalogue-and-context.md)'s
-   tables. Added to *Writing*, since [06](../../study/06-production.md) treats it
+1. **Free production** carries a floor in [12](../../study/STUDY-010-method-cards.md)
+   and appears in none of [21](../../study/STUDY-019-method-catalogue-and-context.md)'s
+   tables. Added to *Writing*, since [06](../../study/STUDY-006-production.md) treats it
    as a method and a floor presupposes one.
 2. **Its evidence grade is authored too**, and is the only grade in the
    catalogue with no row behind it. Set to **B**, the strongest mark
-   [06](../../study/06-production.md) gives. This matters more than it looks:
+   [06](../../study/STUDY-006-production.md) gives. This matters more than it looks:
    evidence grade is normative for menu ranking until an effect estimate exists,
    so an invented A would have ranked the one sourceless entry above fifty-two
    sourced ones.
 3. **The dictation floor** (1× / 10 days) attaches to full dictation on paper,
-   which is what [07](../../study/07-offline-and-paper.md) describes and what
-   [12](../../study/12-method-cards.md)'s own card illustration implies
+   which is what [07](../../study/STUDY-007-offline-and-paper.md) describes and what
+   [12](../../study/STUDY-010-method-cards.md)'s own card illustration implies
    ("headphones + pen & paper"). Partial dictation carries none.
 4. **Switch your phone's language**, **label the flat** and **pursue a hobby**
-   are methods in [21](../../study/21-method-catalogue-and-context.md) and meet
-   [24](../../study/24-speaking-as-the-goal.md)'s definition of a commitment.
+   are methods in [21](../../study/STUDY-019-method-catalogue-and-context.md) and meet
+   [24](../../study/STUDY-022-speaking-as-the-goal.md)'s definition of a commitment.
    They are commitments, and appear once.
 5. **Background listening** is marked "C, weak" in
-   [21](../../study/21-method-catalogue-and-context.md). The grade is `C`; the
+   [21](../../study/STUDY-019-method-catalogue-and-context.md). The grade is `C`; the
    "weak" half lives in its `doesNotDo`. It was briefly `D`, which is the worst
    entry in the catalogue to shift by hand — the chapter singles it out as the
    test of whether weak methods are included honestly.

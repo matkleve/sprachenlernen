@@ -20,7 +20,7 @@ design/
    `data/brand/logo-directions.json`; source SVGs live in
    `design/logo/directions/`.
 2. **Review** — UX notes and constraints are in
-   [`docs/study/35-logo-and-pwa-icon-exploration.md`](../docs/study/35-logo-and-pwa-icon-exploration.md).
+   [`docs/explorations/EXP-035-logo-and-pwa-icon-exploration.md`](../docs/explorations/EXP-035-logo-and-pwa-icon-exploration.md).
 3. **Choose** — pick a direction on `/dev/brand` (persisted in `localStorage`).
 4. **Ship** — run `node scripts/sync-brand-assets.mjs <direction-id>` to copy
    the chosen mark to `public/icon.svg` and `app/icon.svg`.
@@ -30,7 +30,7 @@ Do not introduce raw hex in components — reference token names in docs and use
 the values from `app/globals.css` in SVG source files only.
 
 Method section graphics brief:
-[`docs/study/39-method-section-graphics-brief.md`](../docs/study/39-method-section-graphics-brief.md).
+[`docs/explorations/../../explorations/EXP-039-method-section-graphics-brief.md`](../docs/explorations/../../explorations/EXP-039-method-section-graphics-brief.md).
 
 Skill-tier badge grid: save the owner’s **4×5 grid as RGBA PNG** with a
 **transparent sheet** between cells (preferred — slice is crop-only). White RGB

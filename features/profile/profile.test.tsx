@@ -7,6 +7,8 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { ProfileAppSection } from "@/features/profile/ProfileAppSection";
 import { ProfileHomeScreenSection } from "@/features/profile/ProfileHomeScreenSection";
 import { ProfileLanguages } from "@/features/profile/ProfileLanguages";
+import { ProfileDevSection } from "@/features/profile/ProfileDevSection";
+import { routes } from "@/lib/routes";
 import { ProfileSectionNav } from "@/features/profile/ProfileSectionNav";
 import { ProfileSpokenLanguage } from "@/features/profile/ProfileSpokenLanguage";
 import { profilePanelId } from "@/lib/profile-section";
@@ -285,12 +287,13 @@ describe("ProfileHomeScreenSection", () => {
 });
 
 describe("ProfileSectionNav", () => {
-  const renderNav = (initialSection?: "languages" | "data" | "device") => {
+  const renderNav = (initialSection?: "languages" | "data" | "device" | "dev") => {
     const active = initialSection ?? "languages";
     document.body.innerHTML = `
       <div id="${profilePanelId("languages")}"${active === "languages" ? "" : " hidden"}>Languages panel</div>
       <div id="${profilePanelId("data")}"${active === "data" ? "" : " hidden"}>Data panel</div>
       <div id="${profilePanelId("device")}"${active === "device" ? "" : " hidden"}>Device panel</div>
+      <div id="${profilePanelId("dev")}"${active === "dev" ? "" : " hidden"}>Dev panel</div>
     `;
     return render(<ProfileSectionNav initialSection={initialSection} />);
   };
@@ -302,6 +305,7 @@ describe("ProfileSectionNav", () => {
     expect(screen.getByRole("button", { name: en.profile.sectionLanguages, pressed: true })).toBeDefined();
     expect(document.getElementById(profilePanelId("languages"))?.hidden).toBe(false);
     expect(document.getElementById(profilePanelId("data"))?.hidden).toBe(true);
+    expect(screen.getByRole("button", { name: en.profile.sectionDev })).toBeDefined();
   });
 
   it("switches panels instantly when a pill is tapped", async () => {
@@ -321,5 +325,41 @@ describe("ProfileSectionNav", () => {
     expect(screen.getByRole("button", { name: en.profile.sectionData, pressed: true })).toBeDefined();
     expect(document.getElementById(profilePanelId("data"))?.hidden).toBe(false);
     expect(document.getElementById(profilePanelId("languages"))?.hidden).toBe(true);
+  });
+});
+
+describe("ProfileDevSection", () => {
+  /**
+   * Contract: docs/specs/page/profile.md § Section navigation.
+   *
+   * The link targets are asserted against `routes`, not against literals: the
+   * point of that file is that an address moved there is moved everywhere, and
+   * a test with its own copy of "/dev/design" would quietly outlive a rename.
+   */
+  it("links to every dev preview page through lib/routes.ts", () => {
+    render(<ProfileDevSection />);
+
+    for (const href of [
+      routes.profileDevSentenceRealizer,
+      routes.progressionExplorer,
+      routes.designExplorer,
+      routes.brandExplorer,
+      routes.methodCardAssets,
+      routes.primitives,
+      routes.safariBisect,
+    ]) {
+      const link = document.querySelector(`a[href="${href}"]`);
+      expect(link, `expected a link to ${href}`).not.toBeNull();
+    }
+  });
+
+  it("names the progression explorer, the reason this section exists", () => {
+    render(<ProfileDevSection />);
+    expect(screen.getByText("Progression explorer")).toBeTruthy();
+  });
+
+  it("says plainly that nothing here touches the account", () => {
+    render(<ProfileDevSection />);
+    expect(screen.getByText(/changes your account or your learning data/i)).toBeTruthy();
   });
 });

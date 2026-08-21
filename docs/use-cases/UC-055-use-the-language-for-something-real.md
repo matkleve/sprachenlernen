@@ -11,7 +11,7 @@ something to a person, write a message with a recipient.
 experienced, not something they have been informed of.
 
 Derived from
-[`../study/25-why-it-does-not-feel-productive.md`](../study/25-why-it-does-not-feel-productive.md)
+[`../study/STUDY-023-why-it-does-not-feel-productive.md`](../study/STUDY-023-why-it-does-not-feel-productive.md)
 C2 and P5.
 
 ## Today

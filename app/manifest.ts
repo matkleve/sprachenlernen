@@ -4,7 +4,7 @@ import { site } from "@/lib/site-metadata";
 
 /**
  * Web app manifest — standalone scope for all signed-in routes.
- * Contract: docs/study/31-ios-safari-pwa-test-report.md § PWA install.
+ * Contract: docs/qa/QA-031-ios-safari-pwa-test-report.md § PWA install.
  */
 export default function manifest(): MetadataRoute.Manifest {
   return {

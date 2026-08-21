@@ -8,8 +8,8 @@
 **So that:** they find out what they cannot yet express — which is the thing
 that makes them notice it in everything they read and hear afterwards.
 
-Derived from [`../study/06-production.md`](../study/06-production.md) and
-[`../study/16-further-findings.md`](../study/16-further-findings.md) W4.
+Derived from [`../study/STUDY-006-production.md`](../study/STUDY-006-production.md) and
+[`../study/STUDY-014-further-findings.md`](../study/STUDY-014-further-findings.md) W4.
 
 ## Today
 

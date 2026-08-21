@@ -1,10 +1,24 @@
 import type { NextConfig } from "next";
 import createNextIntlPlugin from "next-intl/plugin";
 
+import { securityHeaders } from "./lib/security-headers";
+
 const withNextIntl = createNextIntlPlugin("./i18n/request.ts");
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
+  // Contract: docs/adr/0013-security-response-headers.md
+  async headers() {
+    return [
+      {
+        source: "/:path*",
+        headers: securityHeaders({
+          isProduction: process.env.NODE_ENV === "production",
+          supabaseUrl: process.env.NEXT_PUBLIC_SUPABASE_URL,
+        }),
+      },
+    ];
+  },
   // Baked once per `next build` / dev server start — profile shows when this
   // version shipped. Contract: docs/specs/feature/app-update.md
   env: {
@@ -23,8 +37,16 @@ const nextConfig: NextConfig = {
       "./data/frequency/**/*",
       "./data/lemma/**/*",
     ],
-    "/words/review": ["./data/methods/**/*"],
+    "/words/review": [
+      "./data/methods/**/*",
+      "./data/example-sentences/**/*",
+      "./data/starter/world-tags/**/*",
+    ],
     "/languages": ["./data/languages/**/*"],
+    "/profile/dev/sentence-realizer": [
+      "./data/sentence-plans/**/*",
+      "./data/lemma/**/*",
+    ],
   },
   // `verify` sets this so its build cannot overwrite the `.next` a running dev
   // server is serving from. That collision empties the stylesheet and presents

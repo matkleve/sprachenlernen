@@ -37,8 +37,8 @@ List all scopes: `npm run verify:scope -- --help`
 
 Defined in `scripts/verify-scope.mjs`. Summary:
 
-- **docs** — `specs` only
-- **changed** — typecheck, lint, tokens, contrast, specs + vitest `--changed`
+- **docs** — `specs`, `study`
+- **changed** — typecheck, lint, tokens, contrast, specs, **secrets** + vitest `--changed`
 - **ui** — typecheck, lint, tokens, contrast, specs + **your** vitest patterns
 - **method-menu** — above + method-menu feature + method lib tests (~15s)
 - **app-shell** — above + interaction + shell tests

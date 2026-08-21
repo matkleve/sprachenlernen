@@ -1,9 +1,8 @@
-import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { describe, expect, it } from "vitest";
 
-import { copy } from "./content";
 import { ReadableText } from "./ReadableText";
+import { renderWithIntl, renderWithIntlDe, screen, de } from "@/tests/i18n-test-utils";
 
 const segments = [
   { kind: "text" as const, value: "Un " },
@@ -14,7 +13,7 @@ const segments = [
 describe("ReadableText", () => {
   it("opens a gloss dialog when a word is tapped", async () => {
     const user = userEvent.setup();
-    render(<ReadableText segments={segments} />);
+    renderWithIntl(<ReadableText segments={segments} />);
 
     await user.click(screen.getByRole("button", { name: "café" }));
 
@@ -24,11 +23,21 @@ describe("ReadableText", () => {
 
   it("closes the gloss dialog", async () => {
     const user = userEvent.setup();
-    render(<ReadableText segments={segments} />);
+    renderWithIntl(<ReadableText segments={segments} />);
 
     await user.click(screen.getByRole("button", { name: "café" }));
-    await user.click(screen.getByRole("button", { name: copy.readingClose }));
+    await user.click(screen.getByRole("button", { name: "Close" }));
 
     expect(screen.queryByRole("dialog")).toBeNull();
+  });
+
+  it("renders German dialog chrome when locale is de", async () => {
+    const user = userEvent.setup();
+    renderWithIntlDe(<ReadableText segments={[{ kind: "word", text: "café", gloss: null }]} />);
+
+    await user.click(screen.getByRole("button", { name: "café" }));
+
+    expect(screen.getByRole("button", { name: de.contentTrace.reading.close })).toBeDefined();
+    expect(screen.getByText(de.contentTrace.reading.noGloss)).toBeDefined();
   });
 });

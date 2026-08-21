@@ -123,7 +123,7 @@ Components needed by **≥5 Methods** (build first): `checklist`, `prompt`,
 | `build-a-sentence` | 5, 10 | 3 / 5 target words (+ feedback each) |
 | `free-production` | 10, 20 | `timed-write` = budget − overhead |
 
-Full audit: [`../../study/42-method-usefulness-ux-audit.md`](../../study/42-method-usefulness-ux-audit.md).
+Full audit: [`../../reviews/design/DR-042-method-usefulness-ux-audit.md`](../../reviews/design/DR-042-method-usefulness-ux-audit.md).
 
 **Card-engine only:** `meaning-recall`, `form-recall`, `audio-recall`,
 `collocation-match`, `recognition`.
