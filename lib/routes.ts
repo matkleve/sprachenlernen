@@ -21,6 +21,8 @@ export const routes = {
   designExplorer: "/dev/design",
   /** Public. Logo and PWA icon directions at real sizes — dev tooling. */
   brandExplorer: "/dev/brand",
+  /** Public. Workshop wood grain tuning — dev tooling. */
+  woodGrainLab: "/dev/wood-grain",
   /** Public. Interface stages under one slider (UC-080) — dev tooling. */
   progressionExplorer: "/dev/progression",
   /** Public. Material stack recipes for nine stages — dev tooling. */

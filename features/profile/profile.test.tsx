@@ -341,6 +341,7 @@ describe("ProfileDevSection", () => {
 
     for (const href of [
       routes.profileDevSentenceRealizer,
+      routes.woodGrainLab,
       routes.progressionExplorer,
       routes.materialExplorer,
       routes.woodTextureLab,
