@@ -13,9 +13,6 @@ export type MaterialSetupPreviewCardProps = {
   labels: PreviewLabels;
   viewOriginalLabel?: string;
   sourceUrl?: string;
-  adaptationError?: string;
-  adaptingLabel?: string;
-  showAdapting?: boolean;
 };
 
 export function MaterialSetupPreviewCard({
@@ -23,17 +20,12 @@ export function MaterialSetupPreviewCard({
   labels,
   viewOriginalLabel,
   sourceUrl,
-  adaptationError,
-  adaptingLabel,
-  showAdapting = false,
 }: MaterialSetupPreviewCardProps) {
   return (
-    <div className="rounded-card border border-line bg-surface-raised p-4 text-sm text-muted">
+    <div className="space-y-1 border-t border-line pt-3 text-sm text-muted">
       <p className="font-medium text-ink">{preview.title}</p>
-      {preview.adaptationLabel ? (
-        <p className="mt-1 text-muted">{preview.adaptationLabel}</p>
-      ) : null}
-      <p className="mt-1">
+      {preview.adaptationLabel ? <p>{preview.adaptationLabel}</p> : null}
+      <p>
         {preview.unitLabel}
         {" · "}
         {labels.coverageLine(
@@ -47,22 +39,12 @@ export function MaterialSetupPreviewCard({
           href={sourceUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="mt-2 inline-flex text-sm font-medium text-accent hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+          className="inline-flex font-medium text-accent hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
         >
           {viewOriginalLabel}
         </a>
       ) : null}
-      {adaptationError ? (
-        <p className="mt-2 text-danger" role="alert">
-          {adaptationError}
-        </p>
-      ) : null}
-      {preview.demandingCopy ? (
-        <p className="mt-2 text-muted">{preview.demandingCopy}</p>
-      ) : null}
-      {showAdapting && adaptingLabel ? (
-        <p className="mt-2 text-muted">{adaptingLabel}</p>
-      ) : null}
+      {preview.demandingCopy ? <p>{preview.demandingCopy}</p> : null}
     </div>
   );
 }

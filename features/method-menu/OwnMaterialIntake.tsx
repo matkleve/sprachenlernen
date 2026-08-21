@@ -4,7 +4,13 @@ import { Button } from "@/components/ui/Button";
 import { Checkbox } from "@/components/ui/Checkbox";
 import { Field } from "@/components/ui/Field";
 import { Textarea } from "@/components/ui/Input";
+import type { ComfortBand } from "@/lib/coverage";
 import type { MaterialSetupPreview } from "@/lib/method-material-setup";
+
+type PreviewLabels = {
+  comfortBand: (band: ComfortBand) => string;
+  coverageLine: (coveragePercent: number, bandLabel: string) => string;
+};
 
 export type OwnMaterialIntakeProps = {
   ownText: string;
@@ -15,6 +21,9 @@ export type OwnMaterialIntakeProps = {
   processingConsent: boolean;
   onProcessingConsentChange: (checked: boolean) => void;
   ownPreview: MaterialSetupPreview | null;
+  previewLabels: PreviewLabels;
+  adaptingLabel: string;
+  showAdapting: boolean;
   labels: {
     uploadFile: string;
     pasteText: string;
@@ -36,11 +45,14 @@ export function OwnMaterialIntake({
   processingConsent,
   onProcessingConsentChange,
   ownPreview,
+  previewLabels,
+  adaptingLabel,
+  showAdapting,
   labels,
 }: OwnMaterialIntakeProps) {
   return (
-    <div className="space-y-4 rounded-card border border-line bg-surface-raised p-4">
-      <div className="flex flex-wrap gap-2">
+    <div className="space-y-3">
+      <div className="hidden flex-wrap gap-2 sm:flex">
         <Button type="button" variant="secondary" size="sm" disabled>
           {labels.uploadFile}
         </Button>
@@ -57,23 +69,46 @@ export function OwnMaterialIntake({
           rows={4}
         />
       </Field>
-      <Checkbox
-        size="sm"
-        label={labels.keepInLibrary}
-        checked={keepInLibrary}
-        disabled={!canPersist}
-        title={canPersist ? undefined : labels.keepRequiresSignIn}
-        onChange={(event) => onKeepInLibraryChange(event.target.checked)}
-      />
-      {ownPreview?.needsAdaptation ? (
+      {ownPreview ? (
+        <div className="space-y-1 text-sm text-muted">
+          <p>
+            {ownPreview.unitLabel}
+            {" · "}
+            {previewLabels.coverageLine(
+              ownPreview.coverage.coveragePercent,
+              previewLabels.comfortBand(ownPreview.coverage.comfortBand),
+            )}
+            {ownPreview.timeLabel ? ` · ${ownPreview.timeLabel}` : ""}
+          </p>
+          {ownPreview.adaptationLabel ? <p>{ownPreview.adaptationLabel}</p> : null}
+          {ownPreview.adaptationError ? (
+            <p className="text-danger" role="alert">
+              {ownPreview.adaptationError}
+            </p>
+          ) : null}
+          {ownPreview.demandingCopy ? <p>{ownPreview.demandingCopy}</p> : null}
+          {showAdapting ? <p>{adaptingLabel}</p> : null}
+        </div>
+      ) : null}
+      <div className="space-y-2">
         <Checkbox
           size="sm"
-          label={labels.processingConsent}
-          checked={processingConsent}
-          title={labels.processingConsentHint}
-          onChange={(event) => onProcessingConsentChange(event.target.checked)}
+          label={labels.keepInLibrary}
+          checked={keepInLibrary}
+          disabled={!canPersist}
+          title={canPersist ? undefined : labels.keepRequiresSignIn}
+          onChange={(event) => onKeepInLibraryChange(event.target.checked)}
         />
-      ) : null}
+        {ownPreview?.needsAdaptation ? (
+          <Checkbox
+            size="sm"
+            label={labels.processingConsent}
+            checked={processingConsent}
+            title={labels.processingConsentHint}
+            onChange={(event) => onProcessingConsentChange(event.target.checked)}
+          />
+        ) : null}
+      </div>
     </div>
   );
 }

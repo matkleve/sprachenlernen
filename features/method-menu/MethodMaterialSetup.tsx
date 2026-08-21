@@ -110,7 +110,6 @@ export function MethodMaterialSetup({
   const startEnabled = catalogueStartAllowed && !isPending;
   const showOwnIntake = topicId === OWN_TOPIC_ID;
   const showCataloguePreview = topicId !== OWN_TOPIC_ID && Boolean(cataloguePreview);
-  const showOwnPreview = topicId === OWN_TOPIC_ID && Boolean(ownPreview);
 
   const selectedUnit = context.unitOptions.find((unit) => unit.id === unitId);
   const catalogueStartHref =
@@ -224,6 +223,9 @@ export function MethodMaterialSetup({
           processingConsent={processingConsent}
           onProcessingConsentChange={handleProcessingConsentChange}
           ownPreview={ownPreview}
+          previewLabels={labels}
+          adaptingLabel={t("adapting")}
+          showAdapting={isPending && processingConsent}
           labels={{
             uploadFile: t("uploadFile"),
             pasteText: t("pasteText"),
@@ -243,16 +245,6 @@ export function MethodMaterialSetup({
           labels={labels}
           sourceUrl={cataloguePreview.sourceUrl}
           viewOriginalLabel={t("viewOriginal")}
-        />
-      ) : null}
-
-      {showOwnPreview && cataloguePreview ? (
-        <MaterialSetupPreviewCard
-          preview={cataloguePreview}
-          labels={labels}
-          adaptationError={cataloguePreview.adaptationError}
-          adaptingLabel={t("adapting")}
-          showAdapting={isPending && processingConsent}
         />
       ) : null}
 
