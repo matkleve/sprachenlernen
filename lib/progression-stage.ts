@@ -48,6 +48,8 @@ export type ProgressionStage = {
   /** Stage-level card radius — decorative, not a contrast token. */
   radiusCard: string;
   borderPx: number;
+  /** SVG feDisplacementMap scale on card borders — Workshop only; 0 = straight edge. */
+  edgeRoughness: number;
   /** Glowing sky dots in Observatory only. */
   stars: number;
 };
@@ -109,6 +111,7 @@ export function stageScopeStyle({ stage }: StageScopeInput): CSSProperties {
     "--stage-bevel": `${detail.bevel}px`,
     "--stage-rule": String(detail.rule),
     "--stage-border-px": `${detail.borderPx}px`,
+    "--stage-edge-roughness": String(detail.edgeRoughness),
     "--stage-stars": String(detail.stars),
   } as CSSProperties;
 }

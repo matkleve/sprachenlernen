@@ -28,7 +28,7 @@ text contrast, and `check:contrast` validates **chapters** only. The moment a
 stage touches them, the gate's guarantee is void and the palette count goes
 from six to sixteen. Stages are therefore restricted to properties that cannot
 carry text: material skin (CSS), glow, grain, bevel, rule opacity, card radius,
-border weight, star count.
+border weight, edge roughness (SVG displacement on card frames), star count.
 
 Chapters map to stages: Workshop 1–3, Library 4–6, Observatory 7–9.
 
@@ -54,7 +54,7 @@ night dome). CSS gradients are the default; optional tile images in
 | 1 | Opens `/dev/progression` | Preview renders at stage 1, chapter Workshop |
 | 2 | Moves the slider to 5 | Preview re-renders in the Library chapter with stage 5's overlay; the chapter label reads Library |
 | 3 | Crosses a chapter boundary (3→4, 6→7) | Colours, radii and heading font change — the transition is meant to be visible as a moment |
-| 4 | Moves within a chapter (4→5) | Only grain, bevel, rule and glow change; colours hold |
+| 4 | Moves within a chapter (4→5) | Only grain, bevel, rule, glow and edge roughness (Workshop) change; colours hold |
 | 5 | Reads the preview | Sees the app's real components, not stand-ins |
 
 ## States
@@ -85,8 +85,14 @@ Loading, error and empty do not apply — chapters and stages are static data.
       `--color-muted` are identical — a stage never moves a contrast-bearing
       token.
 - [ ] Given two stages in the same chapter, when compared, then at least one
-      decorative value (glow, grain, bevel, rule) differs — every step is
+      decorative value (glow, grain, bevel, rule, edge roughness) differs — every step is
       perceptible in the output, whatever the eye later decides.
+- [ ] Given stage 1 (Workshop), when the preview renders, then card frames use
+      a non-zero `--stage-edge-roughness` SVG border; given stage 4 (Library),
+      then `--stage-edge-roughness` is zero and borders are straight.
+- [ ] Given the preview at any stage, when inspected, then procedural grain uses
+      the shared `.progression-stage-grain` overlay (feTurbulence data-URI) with
+      opacity from `--stage-grain`.
 - [ ] Given stage 9 and stage 1, when compared, then the chapter differs and so
       does the token set.
 - [ ] Given the slider, when it is operated by keyboard, then it has an

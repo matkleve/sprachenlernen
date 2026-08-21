@@ -389,6 +389,8 @@
   --stage-rule: 0;
   /* Card border width for material skins (px). */
   --stage-border-px: 1px;
+  /* feDisplacementMap scale on rough card frames. 0 = straight SVG/CSS border. */
+  --stage-edge-roughness: 0;
   /* Star-lamp count in Observatory skins. */
   --stage-stars: 0;
 }
@@ -787,4 +789,25 @@
   box-shadow:
     0 0 8px 3px rgb(237 167 114 / 0.65),
     0 0 24px 6px rgb(221 143 86 / 0.25);
+}
+
+/* Procedural grain overlay — `/dev/progression` preview scope only.
+   Opacity comes from --stage-grain; blend respects chapter canvas tone. */
+.progression-stage-grain {
+  opacity: var(--stage-grain);
+  mix-blend-mode: multiply;
+  background-size: 180px 180px;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.55'/%3E%3C/svg%3E");
+  mask-image: radial-gradient(120% 100% at 50% 0%, black 40%, transparent 100%);
+}
+
+.progression-skin--observatory-1 .progression-stage-grain,
+.progression-skin--observatory-2 .progression-stage-grain,
+.progression-skin--observatory-3 .progression-stage-grain {
+  mix-blend-mode: overlay;
+}
+
+/* Rough SVG frame replaces the CSS border on these cards — avoids double stroke. */
+.progression-card--rough-edge {
+  border-color: transparent !important;
 }

@@ -12,7 +12,9 @@ import { chapterForStage, stageDetail, stageScopeStyle, stageSkinClass } from "@
 import { cn } from "@/lib/utils";
 
 import { page } from "./content";
+import { ProgressionFilterDefs } from "./ProgressionFilterDefs";
 import { ProgressionStarField } from "./ProgressionStarField";
+import { StageFrame } from "./StageFrame";
 
 /**
  * The app's real surfaces under a chapter + stage scope. Contract:
@@ -20,7 +22,7 @@ import { ProgressionStarField } from "./ProgressionStarField";
  *
  * Material skins (wood / plaster / night sky) are CSS-only approximations of
  * the reference board — swap in tile images from `public/design/progression/`
- * when available.
+ * when available. Rough borders and procedural grain: docs/plans/progression-theme-system.md
  */
 
 type ProgressionPreviewProps = {
@@ -43,6 +45,7 @@ export function ProgressionPreview({ stage, className }: ProgressionPreviewProps
       )}
       style={stageScopeStyle({ stage })}
     >
+      <ProgressionFilterDefs edgeRoughness={detail.edgeRoughness} />
       <ProgressionStarField stage={stage} />
 
       {/* Warm pool from above — stage opacity, chapter accent colour */}
@@ -56,16 +59,10 @@ export function ProgressionPreview({ stage, className }: ProgressionPreviewProps
         }}
       />
 
-      {/* Fine pinstripe grain — material overlay */}
+      {/* Procedural grain — opacity from --stage-grain (STUDY-029 / T-PT0b) */}
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-0 -z-10"
-        style={{
-          opacity: "var(--stage-grain)",
-          backgroundImage:
-            "repeating-linear-gradient(93deg, var(--color-ink) 0 1px, transparent 1px 2.5px, var(--color-ink) 2.5px 4px, transparent 4px 9px)",
-          maskImage: "radial-gradient(120% 100% at 50% 0%, black 40%, transparent 100%)",
-        }}
+        className="progression-stage-grain pointer-events-none absolute inset-0 -z-10"
       />
 
       <div className="relative flex flex-col gap-5 p-5">
@@ -78,15 +75,16 @@ export function ProgressionPreview({ stage, className }: ProgressionPreviewProps
           <span className="font-serif text-base font-semibold text-ink">
             {preview.shellTitle}
           </span>
-          <span
-            aria-hidden
+          <StageFrame
+            edgeRoughness={detail.edgeRoughness}
             className="progression-card grid size-9 place-items-center rounded-card border border-line bg-surface text-ink"
           >
             <Menu className="size-4" />
-          </span>
+          </StageFrame>
         </div>
 
-        <article
+        <StageFrame
+          edgeRoughness={detail.edgeRoughness}
           className="progression-card rounded-card border border-line bg-surface p-4 shadow-soft"
           style={{ boxShadow: "inset 0 var(--stage-bevel) 0 0 var(--color-surface-raised)" }}
         >
@@ -107,9 +105,12 @@ export function ProgressionPreview({ stage, className }: ProgressionPreviewProps
             </div>
             <SkillTierBadge skill="listening" tier="silver" size="detail" />
           </div>
-        </article>
+        </StageFrame>
 
-        <article className="progression-card rounded-card border border-line bg-surface-raised p-4 shadow-raised">
+        <StageFrame
+          edgeRoughness={detail.edgeRoughness}
+          className="progression-card rounded-card border border-line bg-surface-raised p-4 shadow-raised"
+        >
           <p className="text-center font-serif text-2xl font-semibold text-ink">
             {preview.reviewPrompt}
           </p>
@@ -120,9 +121,12 @@ export function ProgressionPreview({ stage, className }: ProgressionPreviewProps
             <GradeButton grade="good">{preview.grades.good}</GradeButton>
             <GradeButton grade="easy">{preview.grades.easy}</GradeButton>
           </div>
-        </article>
+        </StageFrame>
 
-        <div className="progression-card rounded-card border border-line bg-surface p-4 shadow-soft">
+        <StageFrame
+          edgeRoughness={detail.edgeRoughness}
+          className="progression-card rounded-card border border-line bg-surface p-4 shadow-soft"
+        >
           <div
             className="pb-2"
             style={{
@@ -134,7 +138,7 @@ export function ProgressionPreview({ stage, className }: ProgressionPreviewProps
           </div>
           <p className="mt-2 font-serif text-3xl font-semibold text-ink">{preview.statValue}</p>
           <p className="text-sm text-muted">{preview.statCaption}</p>
-        </div>
+        </StageFrame>
 
         <div className="flex flex-wrap gap-1">
           {preview.navItems.map((item, index) => (

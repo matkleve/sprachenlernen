@@ -524,7 +524,23 @@ the language picker / switcher answered the third. Detail:
 Both languages are fully isolated per [UC-025](use-cases/UC-025-learn-multiple-languages.md) —
 own pool, own scheduling, own progress, never mixed in a session.
 
+### Progression theme system — dev preview → learner chrome (not queued for ship yet)
 
+**Added 2026-08-21** after design-board review of chapter/stage materials
+(Workshop → Library → Observatory). Reasoning:
+[STUDY-028](study/STUDY-028-irregular-borders.md),
+[STUDY-029](study/STUDY-029-progressive-textures.md). Work plan:
+[`plans/progression-theme-system.md`](plans/progression-theme-system.md).
+
+**What exists:** `/dev/progression` (9 stages), material skins in
+`app/globals.css`, data in `data/design-themes/progression.json`. **Not wired**
+to learner metrics or the shipped Warm Scholar shell.
+
+**Next up (phase 0 — dev fidelity only):** irregular border spike (SVG filter),
+grain overlay upgrade, owner sign-off at `/dev/progression`. **Blocked on owner:**
+which learner metric maps to stage 1–9 before any production wiring.
+
+---
 ## Page layout — shell, scrims, and scroll modes
 
 **Added 2026-08-15** after mobile-nav iterations exposed gaps: padding was split
