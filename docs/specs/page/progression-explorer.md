@@ -92,7 +92,11 @@ Loading, error and empty do not apply — chapters and stages are static data.
       then `--stage-edge-roughness` is zero and borders are straight.
 - [ ] Given the preview at any stage, when inspected, then procedural grain uses
       the shared `.progression-stage-grain` overlay (feTurbulence data-URI) with
-      opacity from `--stage-grain`.
+      opacity from `--stage-grain`, plus a chapter modifier
+      (`.progression-stage-grain--workshop|library|observatory`).
+- [ ] Given Workshop stages, when card faces render, then a stone speckle layer
+      (`.progression-card::before`) is visible under content; Library uses paper
+      fibre; Observatory uses marble grain and soft veins.
 - [ ] Given stage 9 and stage 1, when compared, then the chapter differs and so
       does the token set.
 - [ ] Given the slider, when it is operated by keyboard, then it has an
