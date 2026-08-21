@@ -43,6 +43,7 @@ board, over roughly a dozen measured iterations.
 | `skew` | skew of the lightness histogram | *mostly light with narrow dark notches* (grain cracks) vs *mostly dark with bright specks* (brass, stars). Negative and positive are different materials. |
 | `localContrast` | mean per-pixel gradient | whether edges fall clean or fray into noise |
 | `directionality` | energy in the strongest orientation wedge | grain and brushed metal are directional; paper and plaster are not |
+| `runLength` | mean horizontal run of below-p30 pixels, as a fraction of width | whether dark features *run* or close into blobs — see failure 5 |
 | `scale` bands | energy per octave, coarse → fine | how many distinct depths of structure exist, and at what sizes |
 
 Two are worth dwelling on.
@@ -87,7 +88,17 @@ Four real failures, in the order they happened:
    drawn from the first crop — including "the scale gap is the big unfixable
    problem" — were largely an artefact. Crop pure material, no edges, no
    specular blowouts, and look at two crops before believing anything.
-4. **Legitimate lighting scores badly.** Adding the warm top-and-bottom wash the
+4. **`directionality` can be lowered two ways and only one is right.** A
+   candidate measured 0.66 against the reference's 0.51, so the anisotropy was
+   reduced to close the gap. That produced closed lens shapes — "stretched
+   circles" — because as elongation drops, contours stop running off the edge
+   and close into loops. The reference is *less* directional because it carries
+   more fine detail, not because its lines are shorter. Neither the orientation
+   histogram nor structure-tensor coherence separates those two cases; both
+   score a loop and a line the same. `runLength` was added because of this, and
+   does separate them: the loopy version reads -0.023 against the reference
+   where the correct one reads -0.009.
+5. **Legitimate lighting scores badly.** Adding the warm top-and-bottom wash the
    reference clearly has made the distance worse, because it is low-frequency
    energy the spectrum penalises. The metric is blind to whether a difference is
    the material or the light on it.
@@ -133,6 +144,8 @@ filter chain.
 ## Open questions
 
 - Percentile-based colour comparison instead of means, to close failure mode 2.
+- Whether `runLength` needs a vertical counterpart for materials whose features
+  run the other way, or a rotation-aware version for marble veins.
 - Whether a lighting-invariant variant is worth it — high-pass the image before
   the spectrum so the warm wash stops being penalised.
 - Whether the per-material expectation table above survives contact with marble

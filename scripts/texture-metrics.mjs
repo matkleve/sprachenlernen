@@ -91,6 +91,27 @@ export function measure(png) {
     gn += 2;
   }
 
+  // --- run length: do dark features run, or do they close into blobs?
+  //
+  // Galloway's run-length texture feature. Threshold at the 30th percentile of
+  // lightness, then measure how far a dark region continues along the grain
+  // before it ends, as a fraction of the image width. A grain crack runs a long
+  // way; a closed loop cannot run further than its own diameter. This is the
+  // one that separates "grain" from "stretched circles" — orientation and
+  // structure-tensor coherence both score those the same, which is how a
+  // too-low anisotropy once got shipped as an improvement.
+  const cut = Ls[Math.floor(0.30 * (Ls.length - 1))];
+  let runSum = 0, runCount = 0;
+  for (let y = 0; y < H; y++) {
+    let run = 0;
+    for (let x = 0; x < W; x++) {
+      if (oklab(...at(x, y))[0] <= cut) run++;
+      else { if (run) { runSum += run; runCount++; } run = 0; }
+    }
+    if (run) { runSum += run; runCount++; }
+  }
+  const runLength = runCount ? runSum / runCount / W : 0;
+
   // --- 2-D spectrum, binned by orientation and by scale
   const g = [];
   for (let y = 0; y < FFT_H; y++) {
@@ -139,6 +160,7 @@ export function measure(png) {
     chroma: meanChroma,
     hue: (Math.atan2(hy, hx) * 180 / Math.PI + 360) % 360,
     localContrast: grad / gn,
+    runLength,
     ang: Array.from(ang, (v) => v / total),
     rad: Array.from(rad, (v) => v / total),
   };
@@ -161,6 +183,7 @@ export function compare(ref, cand) {
     hue: ((cand.hue - ref.hue + 540) % 360) - 180,
     skew: cand.skew - ref.skew,
     localContrast: cand.localContrast - ref.localContrast,
+    runLength: cand.runLength - ref.runLength,
     orientation: Math.sqrt(orient),
     scale: Math.sqrt(scale),
   };
@@ -181,7 +204,7 @@ if (process.argv[1]?.endsWith("texture-metrics.mjs")) {
   console.log(`  tone(mid) ${ref.toneMid.toFixed(3)}   contrast ${ref.contrast.toFixed(3)}   ` +
     `chroma ${ref.chroma.toFixed(4)}   hue ${ref.hue.toFixed(0)}deg`);
   console.log(`  skew ${ref.skew.toFixed(2)}   localContrast ${ref.localContrast.toFixed(4)}   ` +
-    `directionality ${directionality(ref).toFixed(2)}`);
+    `directionality ${directionality(ref).toFixed(2)}   runLength ${ref.runLength.toFixed(3)}`);
   console.log(`  scale bands (coarse->fine)  ${ref.rad.map((v) => (v * 100).toFixed(0).padStart(3)).join("")}`);
 
   for (const path of cands) {
@@ -194,6 +217,7 @@ if (process.argv[1]?.endsWith("texture-metrics.mjs")) {
     console.log(`  hue         ${f(d.hue, 0)}deg`);
     console.log(`  skew        ${f(d.skew, 2)}`);
     console.log(`  localCtrst  ${f(d.localContrast, 4)}`);
+    console.log(`  runLength   ${f(d.runLength, 3)}   ${d.runLength < -0.02 ? "<< features breaking up / closing into loops" : d.runLength > 0.02 ? "<< features too continuous" : "ok"}`);
     console.log(`  orientation ${d.orientation.toFixed(2)}   (directionality ${directionality(c).toFixed(2)} vs ${directionality(ref).toFixed(2)})`);
     console.log(`  scale       ${d.scale.toFixed(2)}   bands ${c.rad.map((v) => (v * 100).toFixed(0).padStart(3)).join("")}`);
   }
