@@ -44,6 +44,7 @@ export function StageFrame({
         <svg
           aria-hidden
           className={cn(
+            "progression-frame-layer",
             "pointer-events-none absolute inset-px overflow-visible",
             "h-[calc(100%-2px)] w-[calc(100%-2px)]",
           )}

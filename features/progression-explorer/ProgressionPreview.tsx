@@ -66,10 +66,13 @@ export function ProgressionPreview({ stage, className }: ProgressionPreviewProps
         }}
       />
 
-      {/* Procedural grain — opacity from --stage-grain (STUDY-029 / T-PT0b) */}
+      {/* Chapter material grain — opacity from --stage-grain (STUDY-029 / T-PT0b) */}
       <div
         aria-hidden
-        className="progression-stage-grain pointer-events-none absolute inset-0 -z-10"
+        className={cn(
+          "progression-stage-grain pointer-events-none absolute inset-0 -z-10",
+          `progression-stage-grain--${chapter.id}`,
+        )}
       />
 
       <div className="relative flex flex-col gap-5 p-5">
@@ -85,7 +88,7 @@ export function ProgressionPreview({ stage, className }: ProgressionPreviewProps
           <StageFrame
             edgeRoughness={detail.edgeRoughness}
             radiusPx={radiusPx}
-            className="progression-card grid size-9 place-items-center rounded-card border border-line bg-surface text-ink"
+            className="progression-card grid size-9 place-items-center rounded-card border border-line text-ink"
           >
             <Menu className="size-4" />
           </StageFrame>
@@ -94,8 +97,7 @@ export function ProgressionPreview({ stage, className }: ProgressionPreviewProps
         <StageFrame
           edgeRoughness={detail.edgeRoughness}
           radiusPx={radiusPx}
-          className="progression-card rounded-card border border-line bg-surface p-4 shadow-soft"
-          style={{ boxShadow: "inset 0 var(--stage-bevel) 0 0 var(--color-surface-raised)" }}
+          className="progression-card rounded-card border border-line p-4"
         >
           <div className="flex items-start gap-3">
             <div className="min-w-0 flex-1">
@@ -119,7 +121,7 @@ export function ProgressionPreview({ stage, className }: ProgressionPreviewProps
         <StageFrame
           edgeRoughness={detail.edgeRoughness}
           radiusPx={radiusPx}
-          className="progression-card rounded-card border border-line bg-surface-raised p-4 shadow-raised"
+          className="progression-card rounded-card border border-line p-4"
         >
           <p className="text-center font-serif text-2xl font-semibold text-ink">
             {preview.reviewPrompt}
@@ -136,7 +138,7 @@ export function ProgressionPreview({ stage, className }: ProgressionPreviewProps
         <StageFrame
           edgeRoughness={detail.edgeRoughness}
           radiusPx={radiusPx}
-          className="progression-card rounded-card border border-line bg-surface p-4 shadow-soft"
+          className="progression-card rounded-card border border-line p-4"
         >
           <div
             className="pb-2"
