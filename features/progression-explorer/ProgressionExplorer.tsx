@@ -2,12 +2,10 @@
 
 import { useId, useState } from "react";
 
-import { Checkbox } from "@/components/ui/Checkbox";
 import { Chip } from "@/components/ui/Chip";
 import {
   chapterForStage,
   crossesChapter,
-  lampCount,
   MAX_STAGE,
   MIN_STAGE,
   progressionChapters,
@@ -21,7 +19,7 @@ import { ProgressionPreview } from "./ProgressionPreview";
 /**
  * Contract: docs/specs/page/progression-explorer.md
  *
- * **Reuse: `Checkbox`, `Chip`** — and everything inside `ProgressionPreview`.
+ * **Reuse: `Chip`** — and everything inside `ProgressionPreview`.
  *
  * **Gap: no range primitive.** `components/ui/` has no slider, and this one
  * stays local rather than becoming `components/ui/Slider.tsx`: it is dev
@@ -33,7 +31,6 @@ import { ProgressionPreview } from "./ProgressionPreview";
  */
 export function ProgressionExplorer() {
   const [stage, setStage] = useState<number>(MIN_STAGE);
-  const [lit, setLit] = useState(true);
   const sliderId = useId();
 
   const chapter = chapterForStage(stage);
@@ -71,7 +68,7 @@ export function ProgressionExplorer() {
           />
 
           <p id={`${sliderId}-detail`} className="mt-2 text-sm text-muted">
-            {detail.label} · {lampCount(stage)} {page.lampsUnit}
+            {detail.label}
           </p>
         </div>
 
@@ -116,18 +113,9 @@ export function ProgressionExplorer() {
             </p>
           ) : null}
         </div>
-
-        <div>
-          <Checkbox
-            checked={lit}
-            onChange={(event) => setLit(event.target.checked)}
-            label={page.litLabel}
-          />
-          <p className="mt-1 text-xs text-muted">{page.litHint}</p>
-        </div>
       </div>
 
-      <ProgressionPreview stage={stage} lit={lit} className="min-w-0 flex-1" />
+      <ProgressionPreview stage={stage} className="min-w-0 flex-1" />
     </div>
   );
 }

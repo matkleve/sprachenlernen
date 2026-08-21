@@ -27,7 +27,7 @@ const DEV_LINKS: DevLink[] = [
   {
     href: routes.progressionExplorer,
     name: "Progression explorer",
-    description: "One slider through eight interface stages — chapters, light, lamps.",
+    description: "One slider through eight interface stages — chapters, texture, depth.",
   },
   {
     href: routes.designExplorer,
