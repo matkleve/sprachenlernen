@@ -9,10 +9,10 @@
 
 Wood surfaces in this app read as wood when **fine and coarse horizontal fibre
 layers** stack over a colour wash — not when a shader models botanic growth
-rings. **`docs/specs/` and the live implementation** (`app/wood-textures.css`,
-`lib/wood-grain-ridges.ts`, `app/progression-skins.css`) **are the build
-contract**; this study records reasoning and traps only. Do not implement from
-this chapter without reading the spec and the code first.
+rings. **`docs/specs/` and the live implementation** are the build contract;
+this study records reasoning and traps only — **and this study has been wrong
+before** (growth-ring / Wilkie shader thesis, owner-corrected 2026-08-21). Do
+not implement from this chapter without reading the spec and the code first.
 
 ## Evidence
 
