@@ -12,8 +12,8 @@ import {
 import { cn } from "@/lib/utils";
 
 import { page } from "./content";
+import { GrainCompare } from "./GrainCompare";
 import { GrainControls } from "./GrainControls";
-import { GrainPreview } from "./GrainPreview";
 
 /**
  * Contract: docs/specs/page/grain-creator.md
@@ -46,11 +46,9 @@ export function GrainCreator() {
       <div className="flex min-w-0 flex-1 flex-col gap-4">
         <div>
           <h2 className="font-serif text-xl font-semibold text-ink">{page.previewHeading}</h2>
-          <p className="mt-1 text-sm text-muted">
-            {page.tileNote(params.macroTileWidthPx, params.microTileWidthPx)}
-          </p>
+          <p className="mt-1 text-sm text-muted">{page.sizingNote}</p>
         </div>
-        <GrainPreview params={params} />
+        <GrainCompare params={params} />
         <div className="flex flex-wrap gap-2">
           <button
             type="button"

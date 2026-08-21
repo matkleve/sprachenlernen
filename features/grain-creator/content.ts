@@ -5,7 +5,14 @@ export const page = {
   title: "Grain creator",
   intro:
     "Tune procedural wood graining — fBm-style macro hills and valleys (like terrain heightmaps) plus anisotropic micro fibre. No stripe gradients.",
-  previewHeading: "Preview",
+  previewHeading: "Generated preview",
+  referenceHeading: "Reference — workshop 1",
+  generatedHeading: "Generated",
+  referenceAlt: "Reference board crop — raw wood planks, workshop stage 1",
+  referenceMissing: (path: string) =>
+    `Reference crop missing. Add ${path} (workshop 1 background from the design board).`,
+  sizingNote:
+    "Stretch fills the area with one noise sample — no tile seam. Tile repeats a bitmap (can show a straight cut).",
   macroHeading: "Macro terrain (valleys)",
   microHeading: "Micro fibre",
   presetsHeading: "Presets",
@@ -29,23 +36,32 @@ export const controlLabels = {
   macroFreqY: "Macro freq Y (cross grain)",
   macroOctaves: "Macro octaves",
   macroSeed: "Macro seed",
+  macroValleySharpness: "Valley abruptness (gamma)",
   macroContrast: "Valley depth (contrast)",
   macroBrightness: "Macro brightness",
   macroLayerOpacity: "Macro layer opacity",
   macroBlendMode: "Macro blend mode",
+  macroSizing: "Macro sizing",
   macroTileWidthPx: "Macro tile width (px)",
   macroTileHeightPx: "Macro tile height (px)",
   microFreqX: "Micro freq X",
   microFreqY: "Micro freq Y",
   microOctaves: "Micro octaves",
   microSeed: "Micro seed",
+  microValleySharpness: "Micro sharpness (gamma)",
   microContrast: "Micro contrast",
   microBrightness: "Micro brightness",
   microLayerOpacity: "Micro layer opacity",
   microBlendMode: "Micro blend mode",
+  microSizing: "Micro sizing",
   microTileWidthPx: "Micro tile width (px)",
   microTileHeightPx: "Micro tile height (px)",
 } as const;
+
+export const sizingOptions = [
+  { value: "stretch", label: "Stretch (no seam)" },
+  { value: "tile", label: "Tile (repeat)" },
+] as const;
 
 export const blendModeOptions = [
   { value: "multiply", label: "Multiply" },

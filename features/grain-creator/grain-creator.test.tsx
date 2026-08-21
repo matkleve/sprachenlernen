@@ -11,12 +11,12 @@ describe("GrainCreator", () => {
     cleanup();
   });
 
-  it("shows a grain preview and terrain noise controls", () => {
+  it("shows reference and generated panels with terrain controls", () => {
     render(<GrainCreator />);
 
-    expect(screen.getByLabelText(page.previewHeading)).toBeTruthy();
-    expect(screen.getByLabelText(/Valley depth \(contrast\)/i)).toBeTruthy();
-    expect(screen.getByLabelText(/Micro freq Y/i)).toBeTruthy();
+    expect(screen.getByText(page.referenceHeading)).toBeTruthy();
+    expect(screen.getByText(page.generatedHeading)).toBeTruthy();
+    expect(screen.getByLabelText(/Valley abruptness \(gamma\)/i)).toBeTruthy();
     expect(screen.getByRole("button", { name: page.copyLabel })).toBeTruthy();
   });
 
@@ -36,7 +36,7 @@ describe("GrainCreator", () => {
     expect(rawContrast).toBeGreaterThan(stockContrast);
   });
 
-  it("copies a CSS snippet with procedural noise only", async () => {
+  it("copies a CSS snippet with stretch sizing and procedural noise", async () => {
     const writeText = vi.fn().mockResolvedValue(undefined);
     Object.assign(navigator, { clipboard: { writeText } });
 
@@ -46,6 +46,7 @@ describe("GrainCreator", () => {
     expect(writeText).toHaveBeenCalledOnce();
     const copied = String(writeText.mock.calls[0]?.[0]);
     expect(copied).toContain("feTurbulence");
+    expect(copied).toContain("background-repeat: no-repeat");
     expect(copied).not.toContain("repeating-linear-gradient");
   });
 });

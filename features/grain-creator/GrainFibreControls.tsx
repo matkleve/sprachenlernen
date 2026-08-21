@@ -2,6 +2,7 @@ import type { GrainParams } from "@/lib/grain-creator";
 
 import { controlLabels, page } from "./content";
 import { BlendModeSelect } from "./GrainBlendModeSelect";
+import { SizingSelect } from "./GrainSizingSelect";
 import { RangeControl } from "./GrainControlFields";
 
 type GrainFibreControlsProps = {
@@ -57,6 +58,16 @@ export function GrainFibreControls({ params, onPatch }: GrainFibreControlsProps)
         onChange={(value) => onPatch({ microSeed: value })}
       />
       <RangeControl
+        id="grain-micro-sharpness"
+        label={controlLabels.microValleySharpness}
+        min={1}
+        max={4}
+        step={0.1}
+        value={params.microValleySharpness}
+        displayValue={params.microValleySharpness.toFixed(1)}
+        onChange={(value) => onPatch({ microValleySharpness: value })}
+      />
+      <RangeControl
         id="grain-micro-contrast"
         label={controlLabels.microContrast}
         min={0.5}
@@ -91,6 +102,12 @@ export function GrainFibreControls({ params, onPatch }: GrainFibreControlsProps)
         label={controlLabels.microBlendMode}
         value={params.microBlendMode}
         onChange={(value) => onPatch({ microBlendMode: value })}
+      />
+      <SizingSelect
+        id="grain-micro-sizing"
+        label={controlLabels.microSizing}
+        value={params.microSizing}
+        onChange={(value) => onPatch({ microSizing: value })}
       />
       <RangeControl
         id="grain-micro-tile-w"

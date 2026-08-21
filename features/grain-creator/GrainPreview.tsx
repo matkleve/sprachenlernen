@@ -3,17 +3,22 @@ import { useMemo } from "react";
 import {
   buildMacroNoiseUri,
   buildMicroNoiseUri,
+  buildNoiseBackgroundRepeat,
+  buildNoiseBackgroundSize,
   buildNoiseLayerFilter,
   type GrainParams,
 } from "@/lib/grain-creator";
 
-import { page } from "./content";
-
-export function GrainPreview({ params }: { params: GrainParams }) {
+export function GrainPreview({ params, className }: { params: GrainParams; className?: string }) {
   const macroStyle = useMemo(
     () => ({
       backgroundImage: buildMacroNoiseUri(params),
-      backgroundSize: `${params.macroTileWidthPx}px ${params.macroTileHeightPx}px`,
+      backgroundSize: buildNoiseBackgroundSize(
+        params.macroSizing,
+        params.macroTileWidthPx,
+        params.macroTileHeightPx,
+      ),
+      backgroundRepeat: buildNoiseBackgroundRepeat(params.macroSizing),
       opacity: params.macroLayerOpacity,
       mixBlendMode: params.macroBlendMode,
       filter: buildNoiseLayerFilter(params.macroContrast, params.macroBrightness),
@@ -24,7 +29,12 @@ export function GrainPreview({ params }: { params: GrainParams }) {
   const microStyle = useMemo(
     () => ({
       backgroundImage: buildMicroNoiseUri(params),
-      backgroundSize: `${params.microTileWidthPx}px ${params.microTileHeightPx}px`,
+      backgroundSize: buildNoiseBackgroundSize(
+        params.microSizing,
+        params.microTileWidthPx,
+        params.microTileHeightPx,
+      ),
+      backgroundRepeat: buildNoiseBackgroundRepeat(params.microSizing),
       opacity: params.microLayerOpacity,
       mixBlendMode: params.microBlendMode,
       filter: buildNoiseLayerFilter(params.microContrast, params.microBrightness),
@@ -34,9 +44,9 @@ export function GrainPreview({ params }: { params: GrainParams }) {
 
   return (
     <div
-      className="relative isolate min-h-72 overflow-hidden rounded-card border border-line shadow-soft"
+      className={className}
       style={{ backgroundColor: params.baseColor }}
-      aria-label={page.previewHeading}
+      aria-hidden
     >
       <div className="pointer-events-none absolute inset-0" style={macroStyle} />
       <div className="pointer-events-none absolute inset-0" style={microStyle} />

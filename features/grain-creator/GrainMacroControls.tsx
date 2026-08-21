@@ -3,6 +3,7 @@ import type { GrainParams } from "@/lib/grain-creator";
 import { blendModeOptions, controlLabels, page } from "./content";
 import { ColorControl, RangeControl } from "./GrainControlFields";
 import { BlendModeSelect } from "./GrainBlendModeSelect";
+import { SizingSelect } from "./GrainSizingSelect";
 
 type GrainMacroControlsProps = {
   params: GrainParams;
@@ -64,6 +65,16 @@ export function GrainMacroControls({ params, onPatch }: GrainMacroControlsProps)
         onChange={(value) => onPatch({ macroSeed: value })}
       />
       <RangeControl
+        id="grain-macro-sharpness"
+        label={controlLabels.macroValleySharpness}
+        min={1}
+        max={5}
+        step={0.1}
+        value={params.macroValleySharpness}
+        displayValue={params.macroValleySharpness.toFixed(1)}
+        onChange={(value) => onPatch({ macroValleySharpness: value })}
+      />
+      <RangeControl
         id="grain-macro-contrast"
         label={controlLabels.macroContrast}
         min={1}
@@ -98,6 +109,12 @@ export function GrainMacroControls({ params, onPatch }: GrainMacroControlsProps)
         label={controlLabels.macroBlendMode}
         value={params.macroBlendMode}
         onChange={(value) => onPatch({ macroBlendMode: value })}
+      />
+      <SizingSelect
+        id="grain-macro-sizing"
+        label={controlLabels.macroSizing}
+        value={params.macroSizing}
+        onChange={(value) => onPatch({ macroSizing: value })}
       />
       <RangeControl
         id="grain-macro-tile-w"
