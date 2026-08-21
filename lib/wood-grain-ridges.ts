@@ -73,6 +73,65 @@ function mixChannel(a: number, b: number, t: number): number {
   return a + (b - a) * t;
 }
 
+/**
+ * Vertical noise input in *ridge units*, not height units, and scaled small:
+ * one ridge-height step must move the noise field by only a sliver, or a
+ * single ridge samples a visibly different warp near its own top vs its own
+ * bottom — the curve then folds on itself and reads as broken into pieces
+ * instead of flowing continuously left to right. Neighbouring ridges still
+ * drift apart over several ridge-steps, which is what lets two ridges merge
+ * or split. See STUDY-030 § interrupted ridges.
+ */
+const VERTICAL_CORRELATION = 0.22;
+
+/** How far (in pixels) the warp field bends the ridge at `(x, y)`. Exported for its own continuity test. */
+export function warpOffsetPx(
+  x: number,
+  y: number,
+  width: number,
+  ridgeStep: number,
+  seed: number,
+  warpAmount: number,
+  warpFrequency: number,
+): number {
+  const wx = (x / width) * warpFrequency;
+  const wy = (y / ridgeStep) * VERTICAL_CORRELATION;
+  return warpField(wx, wy, seed) * warpAmount * ridgeStep;
+}
+
+/**
+ * Empirical bound on `warpField`'s steepest slope per unit of its own input
+ * — two octaves of bilinear value noise, smoothstep-blended. Used only to
+ * size the stability clamp below.
+ */
+const WARP_FIELD_MAX_SLOPE = 2.5;
+
+/**
+ * Caps `warpAmount` so the warped ridge cannot fold on itself along x.
+ *
+ * The ridge traced at a fixed row is `y + warpOffsetPx(x, y, ...)`; as x
+ * sweeps across one warp wavelength (`width / warpFrequency` pixels), the
+ * offset can swing by up to `2 * warpAmount * ridgeStep`. Once that swing
+ * approaches one ridge-step within one wavelength, the traced curve stops
+ * being single-valued — it doubles back on itself — and reads as the ridge
+ * breaking into disconnected pieces instead of flowing continuously left to
+ * right (the defect the owner flagged as "interrupted"). Capping keeps every
+ * card size honest to the same warpAmount/warpFrequency the preset authored,
+ * shrinking amplitude before it destabilises rather than after. See
+ * STUDY-030 § interrupted ridges.
+ */
+export function stableWarpAmount(
+  width: number,
+  ridgeStep: number,
+  warpFrequency: number,
+  warpAmount: number,
+): number {
+  if (width <= 0 || ridgeStep <= 0 || warpFrequency <= 0) return warpAmount;
+  const safetyMargin = 0.6;
+  const maxStable = (safetyMargin * width) / (WARP_FIELD_MAX_SLOPE * ridgeStep * warpFrequency);
+  return Math.min(warpAmount, maxStable);
+}
+
 /** Paints procedural wood grain into `ctx` at `width` × `height` pixels. */
 export function renderWoodGrain(
   ctx: CanvasRenderingContext2D,
@@ -86,12 +145,11 @@ export function renderWoodGrain(
   const data = image.data;
   const { seed, palette, ridgeCount, warpAmount, warpFrequency, lightStrength, speckle } = opts;
   const ridgeStep = height / ridgeCount;
+  const safeWarpAmount = stableWarpAmount(width, ridgeStep, warpFrequency, warpAmount);
 
   for (let y = 0; y < height; y++) {
     for (let x = 0; x < width; x++) {
-      const wx = (x / width) * warpFrequency;
-      const wy = (y / height) * warpFrequency * 0.6;
-      const warp = warpField(wx, wy, seed) * warpAmount * ridgeStep;
+      const warp = warpOffsetPx(x, y, width, ridgeStep, seed, safeWarpAmount, warpFrequency);
 
       const ridge = Math.sin(((y + warp) / ridgeStep) * Math.PI * 2);
       const ridgeAbove = Math.sin(((y - 1 + warp) / ridgeStep) * Math.PI * 2);
