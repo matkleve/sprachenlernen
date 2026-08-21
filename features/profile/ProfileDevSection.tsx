@@ -25,6 +25,12 @@ const DEV_LINKS: DevLink[] = [
       "Random plan from memory, rendered for every present-tense person via the lemma-table inverse index.",
   },
   {
+    href: routes.woodGrainLab,
+    name: "Wood grain lab",
+    description:
+      "Layer-by-layer workshop wood — tune feTurbulence direction, planks, and lighting before promoting to progression.",
+  },
+  {
     href: routes.progressionExplorer,
     name: "Progression explorer",
     description: "One slider through eight interface stages — chapters, texture, depth.",

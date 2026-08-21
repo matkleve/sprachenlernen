@@ -7,12 +7,14 @@ promoted.
 ## Structure
 
 ```
-design/
+  design/
   logo/              App mark + wordmark explorations (SVG source)
   method-sections/   Catalogue banner explorations (grid PNG → WebP)
   progression/       Optional tile PNGs for `/dev/progression` material skins
   README.md          This file
 ```
+
+Tune procedural wood at `/dev/wood-grain` before exporting tiles here.
 
 ## Workflow
 
