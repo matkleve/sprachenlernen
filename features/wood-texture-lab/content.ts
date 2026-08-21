@@ -76,7 +76,7 @@ export const woodTextures: readonly WoodTexture[] = [
 export const page = {
   title: "Wood textures",
   intro:
-    "Four procedural wood swatches from the progression reference board. Each one is undulating hills and valleys — no colour bands, no rings — rendered on canvas and warped so ridges wander, merge and split left to right.",
-  grainNote: "All four are procedural: hills and valleys flowing left to right, redrawn per size.",
+    "Four procedural wood swatches from the progression reference board. Each one is continuous horizontal ridges bent by a 2D domain-warp field — bulges and pinches in both dimensions, like hills on a landscape map — not stripes that only slide up and down.",
+  grainNote: "All four are procedural: domain-warped terrain, redrawn per size.",
   marksHeading: "Marks",
 } as const;

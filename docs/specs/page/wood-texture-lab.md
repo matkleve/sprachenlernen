@@ -13,13 +13,10 @@ wood textures from the progression reference board before wiring them into
 - **In:** four labelled swatches (raw planks, sanded bench, oiled timber, stock
   bar); horizontal-grain note; bullet marks per swatch; procedural canvas
   grain (`lib/wood-grain-ridges.ts`, `WoodGrainCanvas`), redrawn on resize.
-  **Invariant:** grain is a warped ridge field — undulating hills and valleys
-  whose y-position wanders as x changes — not colour bands, not growth
-  rings, not a periodic pattern on either axis. Each ridge must read as one
-  continuous curve at any card width, not fold on itself into a tangle —
-  `stableWarpAmount()` caps the warp so it cannot outrun the width it is
-  rendered at. See [STUDY-030](../../study/STUDY-030-procedural-wood-grain.md)
-  § interrupted ridges.
+  **Invariant:** grain is continuous horizontal ridges whose phase is bent by a
+  2D domain-warped field — ridges bulge and pinch in both x and y (localized
+  islands, merge/split), not stripes that only slide up and down as x changes.
+  See [STUDY-030](../../study/STUDY-030-procedural-wood-grain.md).
 - **Out:** stone or card overlays; wiring to learner data; navigation entry in
   the app shell. Account required: **no** — `/dev/*` is public.
 
