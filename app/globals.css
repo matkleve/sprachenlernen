@@ -354,6 +354,34 @@
   color-scheme: light;
 }
 
+/* ---------------------------------------------------------------------------
+   Progression stage overlay — docs/specs/page/progression-explorer.md
+
+   Decorative only, and that restriction is the point: a stage may add light,
+   texture, depth and ornament on top of whatever theme is active, and may
+   never touch a token that carries text. `check:contrast` validates colour
+   tokens; if a stage could move `--color-ink` or `--color-canvas`, every stage
+   would become a palette to review.
+
+   The values below are the neutral defaults — stage 1, fully lit, no overlay.
+   `stageScopeStyle()` overrides them on a scoping element. They are declared
+   here rather than only inline so that a component referencing one outside
+   that scope renders nothing rather than silently dropping the property.
+   --------------------------------------------------------------------------- */
+
+:root {
+  /* Warm light pooling from above. 0 = no lamp is throwing light. */
+  --stage-glow: 0;
+  /* Material grain of the room. Fades as the room gets finer. */
+  --stage-grain: 0;
+  /* Inner highlight along a card's top edge — how worked the surface looks. */
+  --stage-bevel: 0px;
+  /* Weight of the accent rule under a heading. */
+  --stage-rule: 0;
+  /* Whether installed lamps are switched on. Never changes how many there are. */
+  --stage-lamp-opacity: 1;
+}
+
 /* --------------------------------------------------------------------------- */
 
 @layer base {

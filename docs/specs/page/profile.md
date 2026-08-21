@@ -38,7 +38,7 @@ page — the affordance ADR-0009 described, finally built.
 
 ## Section navigation
 
-Three in-page sections, switched with **FilterPill** buttons — no nested routes.
+Four in-page sections, switched with **FilterPill** buttons — no nested routes.
 Contract: [`study/33-profile-section-navigation.md`](../../study/33-profile-section-navigation.md).
 
 | Section | Label | Content |
@@ -46,6 +46,15 @@ Contract: [`study/33-profile-section-navigation.md`](../../study/33-profile-sect
 | `languages` | Languages | Spoken language + learning languages (default) |
 | `data` | Your data | Export + delete |
 | `device` | This device | App version + Home screen (iPhone) |
+| `dev` | Dev | Links to the `/dev/*` preview pages |
+
+**`dev` is owner tooling on a learner's page, and it is visible in
+production.** That is deliberate: those pages exist to check deployed surfaces
+on a real phone, and gating them behind `NODE_ENV` would remove them from the
+only place they are needed. The targets are already public (`/dev/*` is in
+`publicRoutes`), so this adds a door, not access. **When the app has learners
+who are not the owner, `PROFILE_SECTIONS` in `lib/profile-section.ts` is the
+one line to gate.**
 
 Sign out stays below the panels, always visible. Section panels are server
 siblings toggled by `ProfileSectionNav` via element ids — panel markup is never
@@ -127,7 +136,10 @@ the learner's list ([`starter-deck.md`](../service/starter-deck.md)).
 - [ ] Given `/profile`, then the shell account control is marked as the current
       page with accent fill (mobile icon chip and desktop account link).
 - [ ] Given `/profile`, when the page renders, then **Languages**, **Your data**,
-      and **This device** pills appear and **Languages** is active by default.
+      **This device** and **Dev** pills appear and **Languages** is active by
+      default.
+- [ ] Given a tap on **Dev**, then the dev panel shows and every link in it
+      points at a route in `lib/routes.ts` — no hand-written `/dev/...` string.
 - [ ] Given a tap on **Your data**, then only the export and delete blocks show
       and sign out remains visible below.
 

@@ -41,6 +41,7 @@ export function ProfileSectionNav({ initialSection = "languages" }: ProfileSecti
       languages: t("sectionLanguages"),
       data: t("sectionData"),
       device: t("sectionDevice"),
+      dev: t("sectionDev"),
     }),
     [t],
   );
