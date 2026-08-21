@@ -12,7 +12,7 @@ import {
 import { cn } from "@/lib/utils";
 
 import { page } from "./content";
-import { GrainCompare } from "./GrainCompare";
+import { GrainMatchPanel } from "./GrainMatchPanel";
 import { GrainControls } from "./GrainControls";
 
 /**
@@ -48,7 +48,14 @@ export function GrainCreator() {
           <h2 className="font-serif text-xl font-semibold text-ink">{page.previewHeading}</h2>
           <p className="mt-1 text-sm text-muted">{page.sizingNote}</p>
         </div>
-        <GrainCompare params={params} />
+        <GrainMatchPanel
+          params={params}
+          onApplyParams={patchParams}
+          onReplaceParams={(next) => {
+            setParams(next);
+            setActivePreset(null);
+          }}
+        />
         <div className="flex flex-wrap gap-2">
           <button
             type="button"

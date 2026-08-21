@@ -31,9 +31,10 @@ power-curve) plus CSS contrast — reference raw planks have sharp valley walls.
 
 ## Scope
 
-- **In:** side-by-side reference crop + generated preview; macro + micro noise
-  controls (freq, octaves, seed, gamma, contrast, sizing stretch/tile); four
-  presets; copyable CSS; `lib/grain-creator.ts`.
+- **In:** side-by-side reference crop + generated preview; overlay and diff
+  heatmap; **Analyze valleys** (luminance → param hints); **Auto-fit** (random
+  search minimizing RMSE); upload reference image; macro + micro noise controls;
+  four presets; copyable CSS; `lib/grain-creator.ts`, `lib/grain-analysis.ts`.
 - **Out:** full material stack; learner wiring; persistence; shell nav. Public
   `/dev/*`.
 
@@ -47,12 +48,11 @@ power-curve) plus CSS contrast — reference raw planks have sharp valley walls.
       stock-bar's value.
 - [ ] Given copy CSS, when clicked, then the snippet contains `feTurbulence` and
       does **not** contain `repeating-linear-gradient`.
-- [ ] Given default params, when CSS is generated, then macro and micro use
-      `background-repeat: no-repeat` and `background-size: 100% 100%`.
-- [ ] Given the page, when reference crop exists at
-      `public/design/grain-creator/workshop-1-raw-planks.webp`, then it renders
-      beside the generated preview.
+- [ ] Given a reference image, when **Analyze valleys** runs, then macro contrast
+      and frequency sliders update from luminance statistics.
+- [ ] Given a reference image, when **Auto-fit** runs, then diff RMSE decreases
+      or stays equal versus the pre-fit score.
 
 ## Check
 
-`npm test -- grain-creator`
+`npm test -- grain-creator grain-analysis`

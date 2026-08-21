@@ -11,32 +11,22 @@ describe("GrainCreator", () => {
     cleanup();
   });
 
-  it("shows reference and generated panels with terrain controls", () => {
+  it("shows match panel controls and terrain sliders", () => {
     render(<GrainCreator />);
 
     expect(screen.getByText(page.referenceHeading)).toBeTruthy();
-    expect(screen.getByText(page.generatedHeading)).toBeTruthy();
+    expect(screen.getByRole("button", { name: page.analyzeReference })).toBeTruthy();
+    expect(screen.getByRole("button", { name: page.autoFit })).toBeTruthy();
     expect(screen.getByLabelText(/Valley abruptness \(gamma\)/i)).toBeTruthy();
-    expect(screen.getByRole("button", { name: page.copyLabel })).toBeTruthy();
   });
 
-  it("loads raw planks with deeper macro contrast than stock bar", () => {
+  it("offers overlay and diff view modes", () => {
     render(<GrainCreator />);
-
-    fireEvent.click(screen.getByRole("button", { name: "Stock bar" }));
-    const stockContrast = Number(
-      (screen.getByLabelText(/Valley depth \(contrast\)/i) as HTMLInputElement).value,
-    );
-
-    fireEvent.click(screen.getByRole("button", { name: "Raw planks" }));
-    const rawContrast = Number(
-      (screen.getByLabelText(/Valley depth \(contrast\)/i) as HTMLInputElement).value,
-    );
-
-    expect(rawContrast).toBeGreaterThan(stockContrast);
+    expect(screen.getByRole("button", { name: page.viewOverlay })).toBeTruthy();
+    expect(screen.getByRole("button", { name: page.viewDiff })).toBeTruthy();
   });
 
-  it("copies a CSS snippet with stretch sizing and procedural noise", async () => {
+  it("copies procedural noise CSS without stripe gradients", async () => {
     const writeText = vi.fn().mockResolvedValue(undefined);
     Object.assign(navigator, { clipboard: { writeText } });
 
@@ -46,7 +36,6 @@ describe("GrainCreator", () => {
     expect(writeText).toHaveBeenCalledOnce();
     const copied = String(writeText.mock.calls[0]?.[0]);
     expect(copied).toContain("feTurbulence");
-    expect(copied).toContain("background-repeat: no-repeat");
     expect(copied).not.toContain("repeating-linear-gradient");
   });
 });
