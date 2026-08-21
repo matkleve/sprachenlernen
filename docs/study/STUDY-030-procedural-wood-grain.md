@@ -178,6 +178,43 @@ because pixel-level "did it look broken" checks are exactly the kind of
 fine detail a screenshot diff or OCR-based review misses — the owner's own
 observation earlier in this study.
 
+### Owner-requested sources (2026-08-21): Wilkie distortion field, not warped stripes
+
+**[A]** The owner supplied two references and flagged that prior canvas attempts
+did not follow published wood algorithms:
+
+1. **Hafidi & Wilkie (CGF 2025, DOI 10.1111/cgf.70066)** — *From Words to Wood*.
+   Procedural model with growth rings, vessels, rays, knots, figure; novel
+   **brushiness distortion**, **influence points** (repulsive displacement on
+   rings), and per-feature control. Builds on the Liu/Wilkie cylindrical
+   solid-wood lineage ([LDHM16]; see also Nindel et al. arXiv:2302.01820).
+2. **jsabbott (Olde Tinkerer Studio / ArtStation)** — practical Blender shader
+   tutorial: **domain warp** (noise vector → Musgrave/noise vector), anisotropic
+   mapping (high X stretch, low Y), layered color ramps and bump.
+
+**[A]** The load-bearing algorithm across Wilkie/Liu/Nindel is not `sin(y +
+f(x))` warped stripes. It is:
+
+- An idealized **growth-ring coordinate** (ring age / radial distance in tree
+  space).
+- A **spatially varying distortion field** `f(p)` applied *before* sampling
+  that coordinate — radial distortion `mr(p)` bends ring shapes (blister /
+  island bulges); tangential distortion `mt(p)` adds figure along the grain
+  (Cornell procedural wood textures paper; Liu et al. [LDHM16]).
+- **Influence points** (Hafidi 2025) as localized repulsive terms on the
+  distortion field.
+
+**[D]** Owner correction: hills and valleys on a landscape vary in **both** x
+and y — localized islands, not stripes whose only motion is sliding on y as x
+changes. That matches `mr(x,y)` and `mt(x,y)` on the board face, not a 1D
+warp of horizontal sine lines.
+
+**Implementation (2026-08-21):** `lib/wood-grain-ridges.ts` now uses
+`ringAgeAt(x,y) = base_y + mr(x,y) + mt(x,y) + influence(x,y)` with multiband
+fbm distortion (4 bands, per Wilkie) and seeded influence points. Ridges are
+contours of `sin(ringAge × 2π)` with raking light on slope. This replaces
+`ridgePhaseAt` / `warpOffsetPx` sine-warp experiments.
+
 ### Tileability without visible seams
 
 **[B]** A texture that repeats via `background-size` must be seamless at the

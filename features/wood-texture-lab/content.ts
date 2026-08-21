@@ -76,7 +76,7 @@ export const woodTextures: readonly WoodTexture[] = [
 export const page = {
   title: "Wood textures",
   intro:
-    "Four procedural wood swatches from the progression reference board. Each one is continuous horizontal ridges bent by a 2D domain-warp field — bulges and pinches in both dimensions, like hills on a landscape map — not stripes that only slide up and down.",
-  grainNote: "All four are procedural: domain-warped terrain, redrawn per size.",
+    "Four procedural wood swatches from the progression reference board. Ring age is bent by a Wilkie/Liu distortion field (radial mr, tangential mt, influence points) — hills and valleys that vary in both x and y, not warped sine stripes.",
+  grainNote: "Wilkie distortion field + influence points; redrawn per size.",
   marksHeading: "Marks",
 } as const;

@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import { renderWoodGrain, ridgePhaseAt, type WoodGrainOptions } from "@/lib/wood-grain-ridges";
+import { renderWoodGrain, ringAgeAt, type WoodGrainOptions } from "@/lib/wood-grain-ridges";
 
 function renderToPixels(width: number, height: number, opts: WoodGrainOptions): Uint8ClampedArray {
   let captured: Uint8ClampedArray | null = null;
@@ -30,11 +30,7 @@ const options: WoodGrainOptions = {
   speckle: 0,
 };
 
-function mean(values: number[]): number {
-  return values.reduce((a, b) => a + b, 0) / values.length;
-}
-
-describe("ridgePhaseAt", () => {
+describe("ringAgeAt (Wilkie distortion field)", () => {
   const width = 240;
   const height = 200;
   const ctx = {
@@ -46,40 +42,31 @@ describe("ridgePhaseAt", () => {
     warpFrequency: options.warpFrequency,
   };
 
-  it("varies along x at a fixed y (ridges wave left to right)", () => {
+  it("varies along x at fixed y (tangential distortion mt and influence points)", () => {
     const y = 80;
     const samples = Array.from({ length: 24 }, (_, i) =>
-      ridgePhaseAt(Math.round((i / 24) * width), y, ctx),
+      ringAgeAt(Math.round((i / 24) * width), y, ctx),
     );
-    const spread = Math.max(...samples) - Math.min(...samples);
-    expect(spread).toBeGreaterThan(0.5);
+    expect(Math.max(...samples) - Math.min(...samples)).toBeGreaterThan(0.15);
   });
 
-  it("varies along y at a fixed x (2D warp — not pure x-only stripes)", () => {
+  it("varies along y at fixed x (radial distortion mr bends ring spacing)", () => {
     const x = 120;
     const samples = Array.from({ length: 24 }, (_, i) =>
-      ridgePhaseAt(x, Math.round((i / 24) * height), ctx),
+      ringAgeAt(x, Math.round((i / 24) * height), ctx),
     );
-    const spread = Math.max(...samples) - Math.min(...samples);
-    expect(spread).toBeGreaterThan(0.5);
+    expect(Math.max(...samples) - Math.min(...samples)).toBeGreaterThan(0.15);
   });
 
-  it("changes when x moves at different y rows (2D islands — phase depends on both axes)", () => {
-    const xSpreadAtTop = Math.max(
-      ...Array.from({ length: 12 }, (_, i) => ridgePhaseAt(Math.round((i / 12) * width), 40, ctx)),
-    ) - Math.min(
-      ...Array.from({ length: 12 }, (_, i) => ridgePhaseAt(Math.round((i / 12) * width), 40, ctx)),
-    );
-    const xSpreadAtBottom = Math.max(
-      ...Array.from({ length: 12 }, (_, i) => ridgePhaseAt(Math.round((i / 12) * width), 160, ctx)),
-    ) - Math.min(
-      ...Array.from({ length: 12 }, (_, i) => ridgePhaseAt(Math.round((i / 12) * width), 160, ctx)),
-    );
-    expect(xSpreadAtTop).toBeGreaterThan(0.3);
-    expect(xSpreadAtBottom).toBeGreaterThan(0.3);
-    expect(Math.abs(xSpreadAtTop - xSpreadAtBottom)).toBeGreaterThan(0.05);
+  it("is not separable into y-only stripes (different rows have different x profiles)", () => {
+    const spread = (rowY: number) => {
+      const samples = Array.from({ length: 16 }, (_, i) =>
+        ringAgeAt(Math.round((i / 16) * width), rowY, ctx),
+      );
+      return Math.max(...samples) - Math.min(...samples);
+    };
+    expect(Math.abs(spread(40) - spread(160))).toBeGreaterThan(0.05);
   });
-
 });
 
 describe("renderWoodGrain", () => {

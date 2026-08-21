@@ -13,10 +13,12 @@ wood textures from the progression reference board before wiring them into
 - **In:** four labelled swatches (raw planks, sanded bench, oiled timber, stock
   bar); horizontal-grain note; bullet marks per swatch; procedural canvas
   grain (`lib/wood-grain-ridges.ts`, `WoodGrainCanvas`), redrawn on resize.
-  **Invariant:** grain is continuous horizontal ridges whose phase is bent by a
-  2D domain-warped field — ridges bulge and pinch in both x and y (localized
-  islands, merge/split), not stripes that only slide up and down as x changes.
-  See [STUDY-030](../../study/STUDY-030-procedural-wood-grain.md).
+  **Invariant:** grain follows a Wilkie/Liu **distortion field** on ring age —
+  `ringAgeAt(x,y) = base spacing + radial distortion mr(x,y) + tangential
+  distortion mt(x,y) + influence-point displacement` (Hafidi 2025), then
+  `sin(ringAge)` contours with raking light. Not warped sine stripes. See
+  [STUDY-030](../../study/STUDY-030-procedural-wood-grain.md) § owner-requested
+  sources.
 - **Out:** stone or card overlays; wiring to learner data; navigation entry in
   the app shell. Account required: **no** — `/dev/*` is public.
 
