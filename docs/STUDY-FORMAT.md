@@ -110,6 +110,28 @@ links back.
 
 ---
 
+## When a study is wrong or outdated
+
+**Do not leave known-false theses active with no trace** — that is how agents get
+locked in. **Do not assume specs track which paragraph you meant** — there is no
+versioned permalink; git history is the archive.
+
+| Situation | Do this |
+| --- | --- |
+| Same research question, thesis refined (e.g. rings → layered grain) | **Revise in place.** Diary note for major reversals. `grep STUDY-NNN docs/specs/` — update specs that **repeated the retracted claim**. |
+| Another study's evidence was overstated | **Correction chapter** (`type: correction`). Amended study gets a callout linking forward — see [STUDY-013](study/STUDY-013-landscape.md) → [STUDY-005](study/STUDY-005-input-reading-listening.md). Do not rewrite the amended study's thesis. |
+| Whole chapter abandoned | `status: superseded`; new ID if the question continues. Old file stays readable. |
+
+**Specs are the glue for build rules.** Studies are bibliography for *why*. If a
+rule must hold in production, **state it in the spec** — do not rely on a study
+link. Acceptance criteria must never say "per STUDY-NNN".
+
+**Before merging a study change:** `grep STUDY-NNN` across `docs/specs/` and
+`docs/use-cases/`. Fix specs that echoed a retracted claim. Section links
+(`STUDY-003 § What a signal may claim`) survive only while that heading exists.
+
+---
+
 ## For agents
 
 | Question | Read |
