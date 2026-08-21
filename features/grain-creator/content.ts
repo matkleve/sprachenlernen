@@ -22,6 +22,7 @@ export const page = {
   scoreLabel: (rmse: string) => `Diff RMSE: ${rmse} (lower = closer)`,
   diffHeading: "Difference heatmap",
   diffAlt: "Pixel difference between reference luminance and generated grain",
+  diffPending: "Computing diff… upload a reference crop if none is loaded.",
   macroHeading: "Macro terrain (valleys)",
   microHeading: "Micro fibre",
   presetsHeading: "Presets",

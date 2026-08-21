@@ -55,9 +55,13 @@ export function GrainMatchPanel({ params, onApplyParams, onReplaceParams }: Grai
         canvas.height = heatmap.height;
         canvas.getContext("2d")?.putImageData(heatmap, 0, 0);
         setDiffUrl(canvas.toDataURL("image/png"));
+      } else {
+        setDiffUrl(null);
       }
     } catch {
+      setReferenceMissing(true);
       setScore(null);
+      setDiffUrl(null);
     }
   }, [params, referenceMissing, referenceSrc, viewMode]);
 
@@ -195,14 +199,20 @@ export function GrainMatchPanel({ params, onApplyParams, onReplaceParams }: Grai
         </div>
       ) : null}
 
-      {viewMode === "diff" && diffUrl ? (
-        <figure className="flex flex-col gap-2">
-          <figcaption className="text-xs font-medium uppercase tracking-widest text-muted">
-            {page.diffHeading}
-          </figcaption>
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={diffUrl} alt={page.diffAlt} className="min-h-72 rounded-card border border-line object-cover" />
-        </figure>
+      {viewMode === "diff" ? (
+        diffUrl ? (
+          <figure className="flex flex-col gap-2">
+            <figcaption className="text-xs font-medium uppercase tracking-widest text-muted">
+              {page.diffHeading}
+            </figcaption>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src={diffUrl} alt={page.diffAlt} className="min-h-72 rounded-card border border-line object-cover" />
+          </figure>
+        ) : (
+          <p className="min-h-72 rounded-card border border-line bg-surface-raised p-6 text-center text-sm text-muted">
+            {referenceMissing ? page.referenceMissing(GRAIN_REFERENCE_IMAGE) : page.diffPending}
+          </p>
+        )
       ) : null}
     </div>
   );
