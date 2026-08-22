@@ -540,4 +540,58 @@ describe.skipIf(!hasLiveProject)("task_state row-level security", () => {
 
     expect(error).not.toBeNull();
   });
+
+  // --- coverage_history -----------------------------------------------------
+
+  async function clearCoverageHistory() {
+    await admin.from("coverage_history").delete().in("user_id", [userA.id, userB.id]);
+  }
+
+  it("lets a signed-in user insert their own coverage_history row", async (ctx) => {
+    if (skipSuite) ctx.skip();
+    await clearCoverageHistory();
+    const asA = await signInAs(userA.email);
+
+    const { error } = await asA.from("coverage_history").insert({
+      user_id: userA.id,
+      language_code: "es",
+      source_id: "es-fixture-cafe",
+      coverage_percent: 88.5,
+      calibration_dated: "2026-08-01",
+    });
+    expect(error).toBeNull();
+  });
+
+  it("never returns another user's coverage_history rows", async (ctx) => {
+    if (skipSuite) ctx.skip();
+    await clearCoverageHistory();
+    const asA = await signInAs(userA.email);
+    await asA.from("coverage_history").insert({
+      user_id: userA.id,
+      language_code: "es",
+      source_id: "es-fixture-cafe",
+      coverage_percent: 88.5,
+    });
+
+    const asB = await signInAs(userB.email);
+    const { data, error } = await asB.from("coverage_history").select("*");
+
+    expect(error).toBeNull();
+    expect(data).toEqual([]);
+  });
+
+  it("refuses to insert a coverage_history row owned by someone else", async (ctx) => {
+    if (skipSuite) ctx.skip();
+    await clearCoverageHistory();
+    const asB = await signInAs(userB.email);
+
+    const { error } = await asB.from("coverage_history").insert({
+      user_id: userA.id,
+      language_code: "es",
+      source_id: "es-fixture-cafe",
+      coverage_percent: 88.5,
+    });
+
+    expect(error).not.toBeNull();
+  });
 });

@@ -245,6 +245,7 @@
       "empty": "No saved content yet for this language.",
       "back": "Back to content",
       "gapSummary": "{count, plural, one {# word to comfortable} other {# words to comfortable}}",
+      "month": "This month {count, plural, one {# item moved to comfortable} other {# items moved to comfortable}}",
       "origin": {
         "fixture": "Demo text",
         "catalogue": "App catalogue",
@@ -261,7 +262,8 @@
       "bandSpeed": "Speed reading",
       "notFound": "That saved item was not found.",
       "adaptationLabel": "Adapted for {level} · not the original article",
-      "viewOriginal": "View original article"
+      "viewOriginal": "View original article",
+      "unlocked": "Was {before} % on {date}; now {after} %"
     },
     "gap": {
       "heading": "{count, plural, one {# word to comfortable (95 %)} other {# words to comfortable (95 %)}}",

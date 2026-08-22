@@ -10,6 +10,8 @@ import {
   loadExampleSentenceBank,
   pickExampleSentence,
 } from "@/lib/card-example-sentence";
+import { appendCoverageSnapshots, listCoverageHistoryForLanguage } from "@/lib/db/coverage-history";
+import { coverageSnapshotsToAppend, mapLatestPercentBySource } from "@/lib/coverage-snapshots";
 import { heldLemmaSet } from "@/lib/content-gap";
 import { loadPersistedSources } from "@/features/content/language-runtime";
 import { listLearnerSourcesForLanguage } from "@/lib/db/content-sources";
@@ -223,6 +225,22 @@ export async function sessionLoopPayoffAction(input: {
       sources,
       lexicon,
     );
+
+    if (payoff.kind === "payoff" && payoff.newlyHeldCount > 0) {
+      const historyResult = await listCoverageHistoryForLanguage(languageCode);
+      const latest =
+        historyResult.status === "ok"
+          ? mapLatestPercentBySource(historyResult.rows)
+          : new Map<string, number>();
+
+      const heldAfter = new Set(heldAtStart);
+      for (const lemma of payoff.newlyHeldLemmas) heldAfter.add(lemma);
+
+      const snapshots = coverageSnapshotsToAppend(sources, lexicon, heldAfter, latest);
+      if (snapshots.length > 0) {
+        await appendCoverageSnapshots(languageCode, snapshots);
+      }
+    }
 
     return { status: "ok", payoff };
   } catch (cause) {

@@ -1,4 +1,4 @@
-import { getTranslations } from "next-intl/server";
+import { getLocale, getTranslations } from "next-intl/server";
 
 import { Button } from "@/components/ui/Button";
 import { ActionLink } from "@/components/ui/ActionLink";
@@ -29,6 +29,14 @@ function bandCopy(
 
 export async function SourceDetail({ reading }: SourceDetailProps) {
   const t = await getTranslations("contentTrace");
+  const locale = await getLocale();
+
+  const unlockDate =
+    reading.unlockLine
+      ? new Intl.DateTimeFormat(locale, { dateStyle: "medium" }).format(
+          new Date(reading.unlockLine.measuredAt),
+        )
+      : null;
 
   return (
     <ShellPageContent mode="scrollable-drill-in" width="wide">
@@ -50,6 +58,15 @@ export async function SourceDetail({ reading }: SourceDetailProps) {
             {t("source.coverage", { pct: reading.coverage.coveragePercent })}
           </p>
           <p className="mt-2 text-base leading-relaxed text-muted">{bandCopy(reading, t)}</p>
+          {reading.unlockLine && unlockDate ? (
+            <p className="mt-2 text-sm text-muted">
+              {t("source.unlocked", {
+                before: reading.unlockLine.beforePercent,
+                after: reading.unlockLine.afterPercent,
+                date: unlockDate,
+              })}
+            </p>
+          ) : null}
         </section>
 
         {reading.textSentences ? (
