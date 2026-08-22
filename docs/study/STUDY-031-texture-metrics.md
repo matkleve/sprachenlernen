@@ -98,7 +98,15 @@ Four real failures, in the order they happened:
    score a loop and a line the same. `runLength` was added because of this, and
    does separate them: the loopy version reads -0.023 against the reference
    where the correct one reads -0.009.
-5. **Legitimate lighting scores badly.** Adding the warm top-and-bottom wash the
+5. **Measure at the size the surface is actually displayed.** Every band in
+   this suite is in cycles per *pixel*, so the same texture measured on a 680px
+   swatch and a 200px one gives different answers — and the 680px one is not the
+   one that ships. A Workshop column on the reference board is ~210px wide.
+   A recipe tuned on wide swatches measured 11/29/30/21/6/4 there against the
+   board's 3/6/7/25/40/18: far too coarse, reading as soft mush at the size it
+   will be seen. Crop the reference at display scale and render the candidate at
+   display scale, or the numbers describe a zoom nobody will look at.
+6. **Legitimate lighting scores badly.** Adding the warm top-and-bottom wash the
    reference clearly has made the distance worse, because it is low-frequency
    energy the spectrum penalises. The metric is blind to whether a difference is
    the material or the light on it.
@@ -144,6 +152,8 @@ filter chain.
 ## Open questions
 
 - Percentile-based colour comparison instead of means, to close failure mode 2.
+- Whether the suite should take an explicit display width and resample both
+  inputs to it, so failure mode 5 cannot happen by accident.
 - Whether `runLength` needs a vertical counterpart for materials whose features
   run the other way, or a rotation-aware version for marble veins.
 - Whether a lighting-invariant variant is worth it — high-pass the image before
