@@ -3,7 +3,7 @@
 FFT spectral analysis — the primary technique for producing wood texture
 source material (design/progression/, design/skill-tier-badges/-style assets).
 
-Reasoning and evidence: docs/study/STUDY-031-photographic-wood-grain-synthesis.md
+Reasoning and evidence: docs/study/STUDY-032-photographic-wood-grain-synthesis.md
 Does NOT replace the live-redrawing procedural canvas at /dev/wood-textures
 (lib/wood-grain-ridges.ts) — that stays the resize-safe renderer per
 docs/specs/page/wood-texture-lab.md. This script produces baked reference

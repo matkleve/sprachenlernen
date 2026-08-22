@@ -49,7 +49,7 @@ The dev page currently uses CSS gradients as a stand-in until those files exist.
 FFT analysis of a single-species reference photo, synthesized back into a
 seamless tile (grain direction, crack layer, and lighting all measured from
 the source rather than hand-tuned). Reasoning and evidence:
-[`docs/study/STUDY-031-photographic-wood-grain-synthesis.md`](../docs/study/STUDY-031-photographic-wood-grain-synthesis.md).
+[`docs/study/STUDY-032-photographic-wood-grain-synthesis.md`](../docs/study/STUDY-032-photographic-wood-grain-synthesis.md).
 Source photo: one wood species per image (not a multi-species grid — that
 splits resolution and creates seam artifacts), max resolution, flat lighting,
 zero perspective, PNG.
