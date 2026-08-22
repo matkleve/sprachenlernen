@@ -131,6 +131,20 @@ describe("buildMaterialSetupContext", () => {
     expect(context.previews[APP_PICK_TOPIC_ID]?.paragraph?.unitLabel).toBe("paragraph");
     expect(context.previews[APP_PICK_TOPIC_ID]?.window?.unitLabel).toBe("window");
   });
+
+  it("prefilters topic catalogue picks by activeWorld (T-W26)", () => {
+    const context = buildMaterialSetupContext(
+      extensiveReading,
+      sources,
+      lexicon,
+      held,
+      labels,
+      { activeWorld: "politics" },
+    )!;
+    const dailyPreview = context.previews.daily?.full;
+    expect(dailyPreview?.title).toBe("Un paseo por la calle");
+    expect(dailyPreview?.title).not.toBe("En el café");
+  });
 });
 
 describe("previewForOwnText", () => {
