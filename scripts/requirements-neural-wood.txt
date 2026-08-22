@@ -1,0 +1,6 @@
+# Optional deps for scripts/wood-grain-neural-synthesis.py only.
+# Replaces nothing in the main app — PyTorch is not used by Next.js.
+# CPU wheels (no CUDA):
+#   pip install -r scripts/requirements-neural-wood.txt --index-url https://download.pytorch.org/whl/cpu
+torch>=2.0
+torchvision>=0.15

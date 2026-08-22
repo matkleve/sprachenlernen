@@ -1,0 +1,289 @@
+"""Fully generative neural wood texture synthesis — no valley stamping.
+
+Two modes:
+  gatys  — optimize random noise until VGG Gram matrices match the reference
+           (Gatys et al. 2015 neural texture synthesis).
+  vae    — train a small convolutional VAE on augmented crops, sample a new tile
+           from the latent prior (fully generative at inference).
+"""
+
+from __future__ import annotations
+
+from dataclasses import dataclass
+from typing import Callable
+
+import numpy as np
+import torch
+import torch.nn as nn
+import torch.nn.functional as F
+from PIL import Image
+from torchvision import models, transforms
+
+
+def _device() -> torch.device:
+    return torch.device("cuda" if torch.cuda.is_available() else "cpu")
+
+
+def _pil_to_tensor(img: Image.Image) -> torch.Tensor:
+    """RGB float tensor (1, 3, H, W) in [0, 1]."""
+    arr = np.asarray(img.convert("RGB"), dtype=np.float32) / 255.0
+    t = torch.from_numpy(arr).permute(2, 0, 1).unsqueeze(0)
+    return t
+
+
+def _tensor_to_pil(t: torch.Tensor) -> Image.Image:
+    """(1, 3, H, W) or (3, H, W) in [0, 1] -> PIL RGB."""
+    if t.dim() == 4:
+        t = t[0]
+    arr = (t.detach().clamp(0, 1).permute(1, 2, 0).cpu().numpy() * 255).astype(np.uint8)
+    return Image.fromarray(arr, mode="RGB")
+
+
+def _gram_matrix(features: torch.Tensor) -> torch.Tensor:
+    """(1, C, H, W) -> (C, C) Gram matrix."""
+    _, c, h, w = features.shape
+    f = features.view(c, h * w)
+    return torch.mm(f, f.t()) / (c * h * w)
+
+
+class VGGFeatureExtractor(nn.Module):
+    """VGG19 relu layers for Gatys texture synthesis."""
+
+    LAYER_WEIGHTS = {
+        "relu1_1": 1.0,
+        "relu2_1": 0.8,
+        "relu3_1": 0.4,
+        "relu4_1": 0.2,
+        "relu5_1": 0.1,
+    }
+
+    def __init__(self) -> None:
+        super().__init__()
+        vgg = models.vgg19(weights=models.VGG19_Weights.IMAGENET1K_V1).features
+        self.slice1 = nn.Sequential(*list(vgg.children())[:2])   # relu1_1
+        self.slice2 = nn.Sequential(*list(vgg.children())[2:7])  # relu2_1
+        self.slice3 = nn.Sequential(*list(vgg.children())[7:12])
+        self.slice4 = nn.Sequential(*list(vgg.children())[12:21])
+        self.slice5 = nn.Sequential(*list(vgg.children())[21:30])
+        for p in self.parameters():
+            p.requires_grad = False
+
+    def forward(self, x: torch.Tensor) -> dict[str, torch.Tensor]:
+        h = self.slice1(x)
+        out = {"relu1_1": h}
+        h = self.slice2(h)
+        out["relu2_1"] = h
+        h = self.slice3(h)
+        out["relu3_1"] = h
+        h = self.slice4(h)
+        out["relu4_1"] = h
+        h = self.slice5(h)
+        out["relu5_1"] = h
+        return out
+
+
+@dataclass
+class GatysConfig:
+    steps: int = 400
+    lr: float = 0.08
+    tv_weight: float = 1e-4
+    seed: int = 0
+    log_every: int = 50
+
+
+def synthesize_gatys(
+    reference: Image.Image,
+    out_size: tuple[int, int] | None = None,
+    config: GatysConfig | None = None,
+    progress: Callable[[int, float], None] | None = None,
+) -> Image.Image:
+    """Generate a new texture tile by matching VGG texture statistics.
+
+    Starts from random noise and optimizes pixels — no crack stamping.
+    """
+    cfg = config or GatysConfig()
+    device = _device()
+    torch.manual_seed(cfg.seed)
+
+    ref = reference.convert("RGB")
+    if out_size is None:
+        out_size = ref.size
+
+    # ImageNet normalization for VGG
+    normalize = transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
+    ref_t = normalize(_pil_to_tensor(ref.resize(out_size, Image.Resampling.LANCZOS)).to(device))
+
+    vgg = VGGFeatureExtractor().to(device).eval()
+    with torch.no_grad():
+        ref_feats = vgg(ref_t)
+        target_grams = {k: _gram_matrix(v) for k, v in ref_feats.items()}
+
+    # Optimizable noise image
+    gen = torch.randn(1, 3, out_size[1], out_size[0], device=device) * 0.01
+    gen.requires_grad_(True)
+    opt = torch.optim.Adam([gen], lr=cfg.lr)
+
+    for step in range(cfg.steps):
+        opt.zero_grad()
+        normed = normalize(gen)
+        feats = vgg(normed)
+        loss = torch.tensor(0.0, device=device)
+        for name, weight in VGGFeatureExtractor.LAYER_WEIGHTS.items():
+            g = _gram_matrix(feats[name])
+            loss = loss + weight * F.mse_loss(g, target_grams[name])
+
+        # Total variation — discourages salt-and-pepper without blurring valleys
+        dx = gen[:, :, :, 1:] - gen[:, :, :, :-1]
+        dy = gen[:, :, 1:, :] - gen[:, :, :-1, :]
+        tv = (dx.abs().mean() + dy.abs().mean()) * cfg.tv_weight
+        loss = loss + tv
+        loss.backward()
+        opt.step()
+        with torch.no_grad():
+            gen.clamp_(0, 1)
+
+        if progress and (step % cfg.log_every == 0 or step == cfg.steps - 1):
+            progress(step, float(loss.item()))
+
+    return _tensor_to_pil(gen)
+
+
+@dataclass
+class VAEConfig:
+    crop_size: int = 128
+    latent_dim: int = 64
+    epochs: int = 80
+    batch_size: int = 16
+    lr: float = 2e-3
+    kl_weight: float = 0.002
+    seed: int = 0
+    log_every: int = 10
+
+
+class WoodVAE(nn.Module):
+    """Small conv VAE for wood patch distribution."""
+
+    def __init__(self, latent_dim: int = 64) -> None:
+        super().__init__()
+        self.enc = nn.Sequential(
+            nn.Conv2d(3, 32, 4, 2, 1),
+            nn.ReLU(inplace=True),
+            nn.Conv2d(32, 64, 4, 2, 1),
+            nn.ReLU(inplace=True),
+            nn.Conv2d(64, 128, 4, 2, 1),
+            nn.ReLU(inplace=True),
+            nn.Conv2d(128, 256, 4, 2, 1),
+            nn.ReLU(inplace=True),
+        )
+        self.fc_mu = nn.Linear(256 * 8 * 8, latent_dim)
+        self.fc_logvar = nn.Linear(256 * 8 * 8, latent_dim)
+        self.fc_dec = nn.Linear(latent_dim, 256 * 8 * 8)
+        self.dec = nn.Sequential(
+            nn.ConvTranspose2d(256, 128, 4, 2, 1),
+            nn.ReLU(inplace=True),
+            nn.ConvTranspose2d(128, 64, 4, 2, 1),
+            nn.ReLU(inplace=True),
+            nn.ConvTranspose2d(64, 32, 4, 2, 1),
+            nn.ReLU(inplace=True),
+            nn.ConvTranspose2d(32, 3, 4, 2, 1),
+            nn.Sigmoid(),
+        )
+
+    def encode(self, x: torch.Tensor) -> tuple[torch.Tensor, torch.Tensor]:
+        h = self.enc(x).reshape(x.size(0), -1)
+        return self.fc_mu(h), self.fc_logvar(h)
+
+    def reparameterize(self, mu: torch.Tensor, logvar: torch.Tensor) -> torch.Tensor:
+        std = torch.exp(0.5 * logvar)
+        eps = torch.randn_like(std)
+        return mu + eps * std
+
+    def decode(self, z: torch.Tensor) -> torch.Tensor:
+        h = self.fc_dec(z).reshape(z.size(0), 256, 8, 8)
+        return self.dec(h)
+
+    def forward(self, x: torch.Tensor) -> tuple[torch.Tensor, torch.Tensor, torch.Tensor]:
+        mu, logvar = self.encode(x)
+        z = self.reparameterize(mu, logvar)
+        return self.decode(z), mu, logvar
+
+
+def _random_crops(
+    img: np.ndarray,
+    crop_size: int,
+    n: int,
+    rng: np.random.Generator,
+) -> np.ndarray:
+    h, w = img.shape[:2]
+    crops = []
+    for _ in range(n):
+        y = rng.integers(0, max(1, h - crop_size))
+        x = rng.integers(0, max(1, w - crop_size))
+        patch = img[y : y + crop_size, x : x + crop_size].copy()
+        if rng.random() < 0.5:
+            patch = np.fliplr(patch)
+        if rng.random() < 0.5:
+            patch = np.flipud(patch)
+        crops.append(patch)
+    return np.stack(crops, axis=0)
+
+
+def synthesize_vae(
+    reference: Image.Image,
+    out_size: tuple[int, int] | None = None,
+    config: VAEConfig | None = None,
+    progress: Callable[[int, float], None] | None = None,
+) -> Image.Image:
+    """Train a VAE on augmented crops, then sample one new full-size tile."""
+    cfg = config or VAEConfig()
+    device = _device()
+    torch.manual_seed(cfg.seed)
+    rng = np.random.default_rng(cfg.seed)
+
+    ref = reference.convert("RGB")
+    if out_size is None:
+        out_size = ref.size
+    ref_arr = np.asarray(ref.resize((cfg.crop_size * 4, cfg.crop_size * 4), Image.Resampling.LANCZOS))
+
+    n_crops = max(cfg.batch_size * cfg.epochs, 512)
+    crops = _random_crops(ref_arr, cfg.crop_size, n_crops, rng)
+    data = torch.from_numpy(crops).permute(0, 3, 1, 2).float() / 255.0
+
+    model = WoodVAE(latent_dim=cfg.latent_dim).to(device)
+    opt = torch.optim.Adam(model.parameters(), lr=cfg.lr)
+
+    for epoch in range(cfg.epochs):
+        perm = torch.randperm(data.size(0))
+        epoch_loss = 0.0
+        batches = 0
+        for i in range(0, data.size(0), cfg.batch_size):
+            batch = data[perm[i : i + cfg.batch_size]].to(device)
+            opt.zero_grad()
+            recon, mu, logvar = model(batch)
+            recon_loss = F.mse_loss(recon, batch)
+            kl = -0.5 * torch.mean(1 + logvar - mu.pow(2) - logvar.exp())
+            loss = recon_loss + cfg.kl_weight * kl
+            loss.backward()
+            opt.step()
+            epoch_loss += float(loss.item())
+            batches += 1
+        if progress and (epoch % cfg.log_every == 0 or epoch == cfg.epochs - 1):
+            progress(epoch, epoch_loss / max(1, batches))
+
+    # Sample latent and decode at target resolution via overlapping tiles
+    model.eval()
+    tw, th = out_size
+    tile = cfg.crop_size
+    canvas = np.zeros((th, tw, 3), dtype=np.float32)
+    weight = np.zeros((th, tw, 1), dtype=np.float32)
+    stride = tile // 2
+    with torch.no_grad():
+        for y in range(0, th - tile + 1, stride):
+            for x in range(0, tw - tile + 1, stride):
+                z = torch.randn(1, cfg.latent_dim, device=device)
+                patch = model.decode(z)[0].permute(1, 2, 0).cpu().numpy()
+                canvas[y : y + tile, x : x + tile] += patch
+                weight[y : y + tile, x : x + tile] += 1.0
+    canvas /= np.maximum(weight, 1e-6)
+    arr = (np.clip(canvas, 0, 1) * 255).astype(np.uint8)
+    return Image.fromarray(arr, mode="RGB")
