@@ -44,12 +44,9 @@ export const FIXTURE_EXERCISE_RECIPE: ExerciseRecipe = {
     {
       id: "decide-1",
       type: "decide",
-      component: "offers",
+      component: "summary",
       label: "Next",
-      config: {
-        offers: ["Add errors as cards", "Explain one error"],
-        declineLabel: "Not now — done",
-      },
+      config: {},
     },
   ],
 };
