@@ -351,6 +351,9 @@ def anisotropic_multiscale_crack_field(
     coarse_keep_percentile: float = 99.0,
     fine_strength: float = 0.38,
     coarse_strength: float = 1.0,
+    supersample: int = 4,
+    fine_mix: float = 0.52,
+    n_fine_base: int = 100,
 ) -> np.ndarray:
     """Long flowing fine stripes + few dark major faults on a supersampled canvas.
 
@@ -359,7 +362,7 @@ def anisotropic_multiscale_crack_field(
     """
     del fine_sigma_y, fine_sigma_x, coarse_sigma_y, coarse_keep_percentile, fine_strength
     major_scale = max(1.0, coarse_sigma_x / 42.0)
-    ss = 4  # supersample for anti-pixelation
+    ss = max(1, int(supersample))
     h4, w4 = h * ss, w * ss
     fine_layer = np.zeros((h4, w4), dtype=np.float64)
     major_layer = np.zeros((h4, w4), dtype=np.float64)
@@ -371,14 +374,14 @@ def anisotropic_multiscale_crack_field(
             major_layer, h4, w4, rng4, major_scale, coarse_strength
         )
 
-    n_fine = int(100 + (100 - fine_keep_percentile) * 14)
+    n_fine = int(n_fine_base + (100 - fine_keep_percentile) * 14)
     for _ in range(n_fine):
         _paint_fine_run(fine_layer, h4, w4, rng4)
 
     # Blur layers separately so majors stay dark; fines soften more.
     fine_soft = gaussian_filter(fine_layer, sigma=(1.6, 5.0))
     major_soft = gaussian_filter(major_layer, sigma=(1.0, 2.6))
-    combined = np.maximum(fine_soft * 0.52, major_soft)
+    combined = np.maximum(fine_soft * fine_mix, major_soft)
     combined = np.clip(combined, 0, 1)
 
     small = np.asarray(
