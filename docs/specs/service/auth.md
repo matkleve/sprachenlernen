@@ -14,28 +14,30 @@ user cannot read another Account's rows. **Sensitive** (`AGENTS.md`).
 
 - **In:** `lib/db/client.ts` (the Supabase client factory for Server and
   Client Components), `lib/db/auth.ts` (`signUp`, `signIn`, `signOut`,
-  `getAccount`), `middleware.ts` (session refresh), the `public.review_log`
-  table's ownership columns and RLS policies, and thin `/signup` and `/login`
-  pages built only from `Field` and `Button` (reuse — no new component).
-  `lib/db/client.ts` and `middleware.ts` are the only two files besides this
-  spec's tests allowed to import `@supabase/*` directly — `middleware.ts` is
-  a necessary second seam because it runs before any Server Component and
-  needs the request/response cookie API, not `next/headers`'s `cookies()`
-  that `lib/db/client.ts` uses.
+  `resendConfirmation`, `getAccount`), `middleware.ts` (session refresh), the
+  `public.review_log` table's ownership columns and RLS policies, and thin
+  `/signup` and `/login` pages built only from `Field`, `Input`, `SubmitButton`
+  and `TextLink` (reuse — no new component). `lib/db/client.ts` and
+  `middleware.ts` are the only two files besides this spec's tests allowed to
+  import `@supabase/*` directly — `middleware.ts` is a necessary second seam
+  because it runs before any Server Component and needs the request/response
+  cookie API, not `next/headers`'s `cookies()` that `lib/db/client.ts` uses.
 - **Out:** the review row's payload — see
   [`review-log.md`](review-log.md) (T-B2); the account gate on signed-in routes and the
   visible sign-out control, both of which this spec listed as out for want of a
   signed-in surface and which
   [`../feature/app-shell.md`](../feature/app-shell.md) took over on 2026-08-09;
-  password reset and changing an Account's email. **OAuth (Google, Apple) is in**
-  — providers that return a verified session without a separate email-confirmation
-  step.
+  password reset and changing a **confirmed** Account's email. **OAuth (Google,
+  Apple) is in** — providers that return a verified session without a separate
+  email-confirmation step. **Correcting a typo before the first confirmation is
+  in** (Behaviors 10–11) — no Account is usable yet, so there is nothing to
+  reconcile, only a pending signup to resend or replace.
 
 ## Behavior
 
 | # | User action | System response |
 | --- | --- | --- |
-| 1 | Submits the signup form with an email and a password | An Account is created. If Supabase's project settings return a session immediately, the visitor is signed in and sent to **`/languages/choose`** — a new Account has no learning language, and UC-011 makes choosing it one of the only two things asked before the first exercise. This is the short path, not the guarantee: every destination redirects an account with no language, because signup is only one of four ways in. If email confirmation is required, they see "check your email" and no session is created yet. The confirmation mail links to `/auth/callback` on this deployment's origin (`NEXT_PUBLIC_SITE_URL`, or `VERCEL_URL` on previews, or `http://localhost:3000` locally) — not Supabase's project Site URL alone |
+| 1 | Submits the signup form with an email and a password | An Account is created. If Supabase's project settings return a session immediately, the visitor is signed in and sent to **`/languages/choose`** — a new Account has no learning language, and UC-011 makes choosing it one of the only two things asked before the first exercise. This is the short path, not the guarantee: every destination redirects an account with no language, because signup is only one of four ways in. If email confirmation is required, they see "check your email" — naming the address they just submitted, with a way to resend to it or correct it (Behaviors 10–11) — and no session is created yet. The confirmation mail links to `/auth/callback` on this deployment's origin (`NEXT_PUBLIC_SITE_URL`, or `VERCEL_URL` on previews, or `http://localhost:3000` locally) — not Supabase's project Site URL alone |
 | 2 | Submits the sign-in form with valid credentials | An auth session is created (cookie, via `middleware.ts`) and the visitor is sent to `/methods` |
 | 3 | Submits either form with invalid input | The page re-renders with copy for the **error code** next to the password field, resolved from `messages/*.json` (`auth.errors.*`) — never with text taken from the URL, which is how `/login?error=<any sentence>` put an attacker's words on the real sign-in form. Codes are the four in `lib/auth-error-code.ts`; anything else renders no error at all. No account or session is created |
 | 4 | Opens `/login` or `/signup` while already signed in | Redirected to `/methods`; the form is never shown |
@@ -56,6 +58,8 @@ rather than alternate entry points.
 | 7 | Signs up with email and password | Email confirmation remains required before a session exists (project setting) |
 | 8 | Follows a confirmation link carrying `?next=` | The visitor lands on that path **only if it is a path on this deployment**; anything else lands on `/methods`. Validated by `safeInternalPath` (`lib/safe-redirect.ts`), which parses rather than prefix-matches — `//evil.com` and `/\evil.com` both start with `/` and both resolve to a foreign origin |
 | 9 | Confirms account deletion | The account id comes from `getVerifiedAccount()` — a `getUser()` round trip to Supabase Auth — never from `getAccount()`. Deletion runs on the service-role client, which bypasses RLS, so the cookie cannot be the authority for **which** account is deleted |
+| 10 | Asks for another confirmation email from the "check your email" screen | `resendConfirmation` calls Supabase's `auth.resend({ type: "signup" })` for that address. No new Account and no session is created either way. A Supabase error (most commonly its own rate limit) renders through the same mapped-error-code surface as Behavior 3, back on the plain signup form — never a raw message |
+| 11 | Says the address was wrong, from the "check your email" screen | Returned to the signup form with that address prefilled in the email field, cursor free to correct it — password is not carried over, so it must be re-entered. Submitting runs Behavior 1 again for the corrected address. Nothing is deleted or reconciled: the mistyped attempt is simply abandoned unconfirmed, same as if it were never resent |
 
 ## States
 
@@ -97,6 +101,15 @@ to signed-out; a successful sign-in moves the other way.
 - [ ] Given valid, unused credentials, when a visitor submits `/signup`, then
       an Account exists and they are either signed in or told to confirm by
       email — never left on a bare error.
+- [ ] Given the "check your email" screen, when it renders, then the address
+      just submitted is shown, used only as a field default and as the resend
+      action's input — never as freeform text, per Behavior 3's discipline.
+- [ ] Given the "check your email" screen, when the visitor asks to resend,
+      then Supabase resends to that exact address, no new Account or session
+      is created, and a Supabase failure renders the mapped error copy.
+- [ ] Given the "check your email" screen, when the visitor says the address
+      was wrong, then they land on the signup form with it prefilled and the
+      password field empty — never resubmitted silently on their behalf.
 - [ ] Given a Supabase error on signup or sign-in, when the form is submitted,
       then the page shows the copy for that error's code and creates no Account
       and no session.
@@ -138,10 +151,15 @@ to signed-out; a successful sign-in moves the other way.
 
 ## Open questions
 
-**⚠ SPEC GAP: mandatory email confirmation for password signup contradicts
-UC-011's speed goal for that path only.** OAuth paths are immediate. Email/password
-signup keeps confirmation on (`mailer_autoconfirm: false`). Turning confirmation
-off for email signup is a product decision for UC-011; OAuth does not need it.
+~~**⚠ SPEC GAP: mandatory email confirmation for password signup contradicts
+UC-011's speed goal for that path only.**~~ **Answered 2026-08-22:**
+confirmation stays mandatory — OAuth is already the fast path for anyone who
+wants zero-confirmation entry. The real cost was that a mistyped or
+never-arriving address was a **dead end**: `SignUpForm` rendered one static
+paragraph with no way to correct it or ask again. Behaviors 10–11 fix that
+failure mode; the confirmation requirement itself is unchanged. Not fixed
+here: Supabase's own send-rate limit, which surfaces through the existing
+mapped-error-code path rather than a bespoke retry-after countdown.
 
 ## Check
 
@@ -151,6 +169,7 @@ validation and the displayable error codes.
 `npm test -- access-control` — `lib/db/access-control.test.ts` is the
 BACKEND.md §8 policy test and runs against the real Supabase project; it
 `describe.skipIf`s, visibly, when the three Supabase secrets are absent.
-`npm test -- auth` also runs `lib/db/auth.test.ts`, the offline unit coverage
-for the adapter's outcome mapping, and `features/auth/oauth-buttons.test.tsx`
-for OAuth control layout.
+`npm test -- auth` also runs `lib/db/auth.test.ts` (adapter outcome mapping,
+including `resendConfirmation`), `features/auth/actions.test.ts` (server-action
+redirects) and `features/auth/oauth-buttons.test.tsx` (OAuth control layout).
+`npm test -- SignUpForm` covers the "check your email" screen.

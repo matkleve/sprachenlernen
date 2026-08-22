@@ -1,10 +1,10 @@
 import { redirect } from "next/navigation";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
-import { signIn, signUp } from "@/lib/db/auth";
+import { resendConfirmation, signIn, signUp } from "@/lib/db/auth";
 import { setReferenceIdFactory } from "@/lib/errors";
 
-import { signInAction, signUpAction } from "./actions";
+import { resendConfirmationAction, signInAction, signUpAction } from "./actions";
 
 /**
  * Covers acceptance criteria 1–3 in docs/specs/service/auth.md — the redirect
@@ -23,7 +23,11 @@ vi.mock("@/lib/db/profiles", () => ({
   ensureProfileFromAcceptLanguage: vi.fn().mockResolvedValue({ status: "ok" }),
   getSpokenLanguage: vi.fn().mockResolvedValue({ status: "ok", spokenLanguage: "en" }),
 }));
-vi.mock("@/lib/db/auth", () => ({ signIn: vi.fn(), signUp: vi.fn() }));
+vi.mock("@/lib/db/auth", () => ({
+  signIn: vi.fn(),
+  signUp: vi.fn(),
+  resendConfirmation: vi.fn(),
+}));
 
 function formData(fields: Record<string, string>): FormData {
   const data = new FormData();
@@ -51,7 +55,7 @@ describe("signUpAction", () => {
     expect(redirect).toHaveBeenCalledWith("/languages/choose");
   });
 
-  it("redirects to the confirmation-sent state, not /", async () => {
+  it("redirects to the confirmation-sent state with the submitted address, not /", async () => {
     vi.mocked(signUp).mockResolvedValue({
       status: "confirmation-required",
       account: { id: "u1", email: "a@example.com" },
@@ -59,7 +63,11 @@ describe("signUpAction", () => {
 
     await signUpAction(formData({ email: "a@example.com", password: "correct horse battery staple" }));
 
-    expect(redirect).toHaveBeenCalledWith("/signup?sent=1");
+    // The address travels in the URL so the "check your email" screen can
+    // show it and the resend/wrong-address actions know what it was — never
+    // rendered as freeform text, only used as a field default and an action
+    // input (docs/specs/service/auth.md § Acceptance criteria).
+    expect(redirect).toHaveBeenCalledWith("/signup?sent=1&email=a%40example.com");
   });
 
   it("redirects back to /signup with an error code and a reference id", async () => {
@@ -69,6 +77,28 @@ describe("signUpAction", () => {
 
     // A code, not the copy: /signup?error=<message> put an attacker's sentence
     // on the real form, beside the real password field.
+    expect(redirect).toHaveBeenCalledWith("/signup?error=unexpected&ref=abcd1234");
+  });
+});
+
+describe("resendConfirmationAction", () => {
+  it("resends to the submitted address and returns to the sent screen", async () => {
+    vi.mocked(resendConfirmation).mockResolvedValue({ status: "sent" });
+
+    await resendConfirmationAction(formData({ email: "a@example.com" }));
+
+    expect(resendConfirmation).toHaveBeenCalledWith("a@example.com");
+    expect(redirect).toHaveBeenCalledWith("/signup?sent=1&resent=1&email=a%40example.com");
+  });
+
+  it("redirects back to the plain signup form with the mapped error code on failure", async () => {
+    vi.mocked(resendConfirmation).mockResolvedValue({
+      status: "error",
+      error: "For security purposes, you can only request this after 39 seconds.",
+    });
+
+    await resendConfirmationAction(formData({ email: "a@example.com" }));
+
     expect(redirect).toHaveBeenCalledWith("/signup?error=unexpected&ref=abcd1234");
   });
 });

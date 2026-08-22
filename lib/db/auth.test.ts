@@ -1,7 +1,14 @@
 import type { SupabaseClient } from "@supabase/supabase-js";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
-import { deleteAccount, getAccount, signIn, signOut, signUp } from "@/lib/db/auth";
+import {
+  deleteAccount,
+  getAccount,
+  resendConfirmation,
+  signIn,
+  signOut,
+  signUp,
+} from "@/lib/db/auth";
 
 /**
  * Unit coverage for the outcome mapping in lib/db/auth.ts — offline, no
@@ -27,6 +34,7 @@ function fakeClient(overrides: {
   signOut?: unknown;
   getUser?: unknown;
   getSession?: unknown;
+  resend?: unknown;
 }): SupabaseClient {
   const sessionFromGetUser =
     overrides.getUser !== undefined
@@ -50,6 +58,7 @@ function fakeClient(overrides: {
       signOut: vi.fn().mockResolvedValue(overrides.signOut),
       getUser: vi.fn().mockResolvedValue(overrides.getUser),
       getSession: vi.fn().mockResolvedValue(overrides.getSession ?? sessionFromGetUser),
+      resend: vi.fn().mockResolvedValue(overrides.resend),
     },
   } as unknown as SupabaseClient;
 }
@@ -106,6 +115,35 @@ describe("signUp", () => {
     const result = await signUp("a@example.com", "x", client);
 
     expect(result).toEqual({ status: "error", error: "Password too short" });
+  });
+});
+
+describe("resendConfirmation", () => {
+  it("asks Supabase to resend the signup confirmation to that exact address", async () => {
+    process.env.NEXT_PUBLIC_SITE_URL = "https://sprachenlernen.vercel.app";
+    const client = fakeClient({ resend: { data: {}, error: null } });
+
+    const result = await resendConfirmation("a@example.com", client);
+
+    expect(client.auth.resend).toHaveBeenCalledWith({
+      type: "signup",
+      email: "a@example.com",
+      options: { emailRedirectTo: "https://sprachenlernen.vercel.app/auth/callback" },
+    });
+    expect(result).toEqual({ status: "sent" });
+  });
+
+  it("surfaces the error Supabase reports, rather than swallowing it", async () => {
+    const client = fakeClient({
+      resend: { data: null, error: { message: "For security purposes, you can only request this after 39 seconds." } },
+    });
+
+    const result = await resendConfirmation("a@example.com", client);
+
+    expect(result).toEqual({
+      status: "error",
+      error: "For security purposes, you can only request this after 39 seconds.",
+    });
   });
 });
 
