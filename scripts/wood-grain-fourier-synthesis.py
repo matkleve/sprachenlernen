@@ -27,7 +27,8 @@ STAGES:
                      coarse = deep envelope minus fine (big fissures only).
   3. Feature scale -- optional spectrum zoom per layer (native = 1.0).
   4. Heeger-Bergen -- match spectrum + sparse depth histogram per layer.
-  5. Sharpen      -- steepen valley walls before compositing (not Gaussian).
+  5. Canalize     -- threshold HB placement, bridge gaps along grain, flat floor
+                     bands (stops spray-can stipple).
   6. Directional rim -- vertical gradient of combined valley depth.
   7. Patchy rim   -- thresholded low-frequency mask on the rim.
   8. Composite    -- height map: neutral + grain ripple - valley cuts + rim.
@@ -44,7 +45,7 @@ from pathlib import Path
 
 import numpy as np
 from PIL import Image
-from scipy.ndimage import gaussian_filter, grey_dilation, zoom
+from scipy.ndimage import gaussian_filter, grey_closing, grey_dilation, zoom
 
 # ---- tuned parameters (see STUDY-032) ----
 FINE_VALLEY_RADIUS = 7         # vertical ridge envelope for fine checking (px)
@@ -54,11 +55,18 @@ FEATURE_SCALE = 1.0            # native scale (9.0 was bubbly blobs — 2026-08-
 COARSE_FEATURE_SCALE = 1.0
 ITERATIONS = 6                 # Heeger-Bergen rounds per valley layer
 FINE_VALLEY_STRENGTH = 0.72    # how deep fine grooves cut the height map
-COARSE_VALLEY_STRENGTH = 1.35  # big fissures cut deeper
-FINE_VALLEY_FLOOR = 0.12       # sharpen: discard shallow noise
-FINE_VALLEY_POWER = 1.55
-COARSE_VALLEY_FLOOR = 0.08
-COARSE_VALLEY_POWER = 1.75
+COARSE_VALLEY_STRENGTH = 0.95  # big fissures — visible but not black holes
+FINE_VALLEY_FLOOR = 0.10       # sharpen: discard shallow noise
+FINE_VALLEY_POWER = 1.35       # lower power — less stipple before canalize
+COARSE_VALLEY_FLOOR = 0.06
+COARSE_VALLEY_POWER = 1.25
+FINE_VALLEY_CONNECT = 20       # bridge gaps along grain (px)
+FINE_VALLEY_BAND = 2           # flat groove thickness (px tall)
+COARSE_VALLEY_CONNECT = 36
+COARSE_VALLEY_BAND = 4
+COARSE_GROOVE_QUANTILE = 0.97  # coarse layer: slightly more ink
+GROOVE_THRESHOLD = 0.35        # floor for adaptive quantile threshold
+GROOVE_QUANTILE = 0.98         # sparse seeds — HB stipple is mostly sub-threshold
 RIM_PRE_BLUR = 2.0             # rim only — valleys stay sharp
 RIM_STRENGTH = 0.6
 TOP_FRACTION = 0.2
@@ -122,6 +130,50 @@ def sharpen_valleys(field: np.ndarray, floor: float, power: float) -> np.ndarray
     return scaled**power
 
 
+def flat_band(mask: np.ndarray, band_px: int) -> np.ndarray:
+    """Thicken horizontal grooves in-place — flat floor, no vertical morph merge."""
+    band = max(1, int(band_px))
+    if band == 1:
+        return mask
+    out = mask.copy()
+    for k in range(1, band):
+        out[k:] |= mask[:-k]
+        out[:-k] |= mask[k:]
+    return out
+
+
+def canalize_valleys(
+    field: np.ndarray,
+    floor: float,
+    power: float,
+    connect_px: int,
+    band_px: int,
+    groove_quantile: float = GROOVE_QUANTILE,
+) -> np.ndarray:
+    """Horizontal grooves with flat floors — not spray-can stipple.
+
+    HB + sharpen alone leaves isolated spikes. Real checking is elongated:
+    bridge gaps along the grain, cap vertical thickness, then fill each groove
+    band to uniform depth (flat valley floor).
+    """
+    norm = sharpen_valleys(field, floor, power)
+    peak = norm.max()
+    if peak <= 0:
+        return norm
+    norm = norm / peak
+    positives = norm[norm > 1e-6]
+    thr = GROOVE_THRESHOLD
+    if positives.size:
+        thr = max(thr, float(np.quantile(positives, groove_quantile)))
+    groove = norm >= thr
+
+    connect = max(3, int(connect_px) | 1)
+    groove = grey_closing(groove.astype(np.uint8), structure=np.ones((1, connect), dtype=bool)) > 0
+    groove = flat_band(groove, band_px)
+
+    return groove.astype(np.float32)
+
+
 def synthesize_valley_field(
     valley_real: np.ndarray,
     win: np.ndarray,
@@ -177,8 +229,17 @@ def synthesize(input_path: Path, name: str, out_dir: Path) -> None:
     valley_coarse = synthesize_valley_field(
         valley_coarse_real, win, COARSE_FEATURE_SCALE, rng_coarse
     )
-    valley_fine = sharpen_valleys(valley_fine, FINE_VALLEY_FLOOR, FINE_VALLEY_POWER)
-    valley_coarse = sharpen_valleys(valley_coarse, COARSE_VALLEY_FLOOR, COARSE_VALLEY_POWER)
+    valley_fine = canalize_valleys(
+        valley_fine, FINE_VALLEY_FLOOR, FINE_VALLEY_POWER, FINE_VALLEY_CONNECT, FINE_VALLEY_BAND
+    )
+    valley_coarse = canalize_valleys(
+        valley_coarse,
+        COARSE_VALLEY_FLOOR,
+        COARSE_VALLEY_POWER,
+        COARSE_VALLEY_CONNECT,
+        COARSE_VALLEY_BAND,
+        COARSE_GROOVE_QUANTILE,
+    )
     valley_combined = np.clip(valley_fine + valley_coarse, 0, 1)
 
     # 6. directional rim from valley relief (fiber lip beside the groove)

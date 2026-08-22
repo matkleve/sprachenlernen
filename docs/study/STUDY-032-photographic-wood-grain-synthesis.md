@@ -76,12 +76,12 @@ wood-01) synthesised separately via Heeger–Bergen, sharpened (`floor` +
 `shading = 128 + grain − valley_fine − valley_coarse + rim`. Rim still uses a
 directional vertical gradient of combined valley depth (one-sided fiber lip).
 
-**[D]** `FEATURE_SCALE` on the valley spectrum is the dominant knob for crack
-*placement density*, not valley **shape** (shape comes from morphological depth
-+ sharpen). At **9.0** (early tuning) the synthesized field was fat and bubbly.
-At **1.0** (native measured scale) wood-01 remakes read as fine horizontal
-checking; owner marked this a major breakthrough 2026-08-22. Reference:
-`design/progression/breakthrough-wood-01-final.png`.
+**[D]** HB + sharpen alone reads as spray-can stipple — isolated spikes with
+no grain direction. Post-process **canalize**: adaptive quantile threshold,
+horizontal `grey_closing` to bridge gaps along the grain, then `flat_band`
+(row-shift thicken, not vertical morph dilation) for uniform-depth groove
+floors. Owner pass 2026-08-22: directionality and flat valleys improved;
+coarse fissure band still tuning.
 
 **[D]** Feature size is controllable independently of the recipe's shape via
 the **Fourier scaling theorem** (`f(kx,ky) ↔ (1/k²)F(u/k,v/k)`): zooming the
