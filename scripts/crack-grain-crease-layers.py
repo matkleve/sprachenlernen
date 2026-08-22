@@ -48,6 +48,8 @@ class LayerSpec:
     close_x_frac: float
     stretch_blur_x: float
     thin_frac: float = 0.016
+    post_thin_frac: float = 0.0
+    layer_stretch_mul: float = 1.0
 
 
 def _load_synth():
@@ -72,7 +74,8 @@ def _sparsify(field: np.ndarray, keep_p: float) -> np.ndarray:
 def grain_crease_layer(base: np.ndarray, spec: LayerSpec, stretch_mul: float = 1.0) -> np.ndarray:
     """One depth layer with horizontal stretch to lengthen runs along grain."""
     h, w = base.shape
-    blur_x = spec.pre_blur_x * stretch_mul
+    total_mul = stretch_mul * spec.layer_stretch_mul
+    blur_x = spec.pre_blur_x * total_mul
     smooth = gaussian_filter(base, sigma=(spec.pre_blur_y, blur_x))
     grad_y = np.gradient(smooth, axis=0)
     dark = np.clip(-smooth, 0, None)
@@ -80,26 +83,40 @@ def grain_crease_layer(base: np.ndarray, spec: LayerSpec, stretch_mul: float = 1
     field = dark * spec.neg_weight + crease * spec.grad_weight
     field = _sparsify(field, spec.keep_p)
 
-    # Horizontal connect — lengthen runs without vertical blob merge
-    close_frac = spec.close_x_frac * stretch_mul
+    close_frac = spec.close_x_frac * total_mul
     if close_frac > 0:
         close_w = max(14, int(w * close_frac))
         field = grey_closing(field, size=(3, close_w))
 
-    thin_w = max(5, int(w * spec.thin_frac))
+    thin_w = max(3, int(w * spec.thin_frac))
     field = grey_opening(field, size=(3, thin_w))
 
-    stretch_x = spec.stretch_blur_x * stretch_mul
+    stretch_x = spec.stretch_blur_x * total_mul
     if stretch_x > 0:
-        field = gaussian_filter(field, sigma=(0.35, stretch_x))
+        field = gaussian_filter(field, sigma=(0.22, stretch_x))
+
+    if spec.post_thin_frac > 0:
+        post_w = max(3, int(w * spec.post_thin_frac))
+        field = grey_opening(field, size=(3, post_w))
 
     peak = float(field.max())
     return field / (peak + 1e-8) if peak > 0 else field
 
 
 def _layer_specs() -> tuple[LayerSpec, LayerSpec, LayerSpec]:
+    # Micro: hairline, long, dense — extra stretch_mul vs other layers
     micro = LayerSpec(
-        "micro", 0.7, 10.0, 87.0, 0.22, 1.15, 0.07, 5.0, 0.014,
+        "micro",
+        pre_blur_y=0.42,
+        pre_blur_x=18.0,
+        keep_p=79.0,
+        neg_weight=0.12,
+        grad_weight=1.35,
+        close_x_frac=0.30,
+        stretch_blur_x=22.0,
+        thin_frac=0.006,
+        post_thin_frac=0.004,
+        layer_stretch_mul=1.4,
     )
     fine = LayerSpec(
         "fine", 1.2, 18.0, 89.0, 0.32, 1.0, 0.11, 9.0, 0.016,
@@ -108,6 +125,16 @@ def _layer_specs() -> tuple[LayerSpec, LayerSpec, LayerSpec]:
         "major", 1.8, 28.0, 93.0, 0.28, 0.85, 0.20, 16.0, 0.018,
     )
     return micro, fine, major
+
+
+def micro_only_rgb(micro: np.ndarray) -> np.ndarray:
+    h, w = micro.shape
+    rgb = np.full((h, w, 3), 255.0, dtype=np.float64)
+    color = LAYER_COLORS["micro"]
+    alpha = np.clip(micro, 0, 1)
+    for c in range(3):
+        rgb[:, :, c] = rgb[:, :, c] * (1.0 - alpha) + color[c] * alpha
+    return np.clip(rgb, 0, 255).astype(np.uint8)
 
 
 def composite_rgb(
@@ -266,12 +293,51 @@ def main() -> None:
         y += m.height
     stack.save(ARTIFACTS / "crack_layers_by_depth_stretch.png")
 
-    # Default stretch 1.5 as hero preview
-    hero = rgb_panels[2][1]  # stretch×1.5
+    # Hero: full RGB + micro-only at stretch×1.5
+    hero = rgb_panels[2][1]
     hero.save(ARTIFACTS / "crack_layers_rgb_hero_stretch1p5.png")
+
+    micro_hero = grain_crease_layer(base, micro_spec, stretch_mul=1.5)
+    Image.fromarray(micro_only_rgb(micro_hero)).save(
+        out_dir / "micro_only_stretch1p5.png"
+    )
+    Image.fromarray(micro_only_rgb(micro_hero)).save(
+        ARTIFACTS / "crack_micro_blue_tuned.png"
+    )
+
+    # Micro density sweep (5 knobs on blue layer only)
+    micro_sweep = [
+        ("dense k77", 77.0, 1.4),
+        ("★ tuned k79", 79.0, 1.4),
+        ("k81", 81.0, 1.4),
+        ("longer close×1.6", 79.0, 1.6),
+        ("longest close×1.8", 79.0, 1.8),
+    ]
+    micro_panels: list[tuple[str, Image.Image]] = []
+    for label, keep, lmul in micro_sweep:
+        tuned = LayerSpec(
+            micro_spec.name,
+            micro_spec.pre_blur_y,
+            micro_spec.pre_blur_x,
+            keep,
+            micro_spec.neg_weight,
+            micro_spec.grad_weight,
+            micro_spec.close_x_frac,
+            micro_spec.stretch_blur_x,
+            micro_spec.thin_frac,
+            micro_spec.post_thin_frac,
+            layer_stretch_mul=lmul,
+        )
+        field = grain_crease_layer(base, tuned, stretch_mul=1.5)
+        micro_panels.append((label, Image.fromarray(micro_only_rgb(field))))
+    micro_montage = _montage_row(
+        micro_panels, "L0 micro (blue) — thinner · longer · more",
+    )
+    micro_montage.save(ARTIFACTS / "crack_micro_blue_sweep.png")
 
     print(f"\nOut: {out_dir}")
     print(f"RGB sweep: {ARTIFACTS / 'crack_layers_rgb_stretch_sweep.png'}")
+    print(f"Micro tuned: {ARTIFACTS / 'crack_micro_blue_tuned.png'}")
 
 
 if __name__ == "__main__":
