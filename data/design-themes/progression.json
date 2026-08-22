@@ -48,6 +48,7 @@
         "surfaceRaised": "#ffffff",
         "ink": "#232322",
         "muted": "#5e5d57",
+        "canvasMuted": "#42413c",
         "line": "#dcdad2",
         "lineStrong": "#84837a",
         "accent": "#a85430",

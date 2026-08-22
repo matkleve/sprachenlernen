@@ -21,6 +21,7 @@ without forking components.
 | --- | --- |
 | **Chapter tokens** | 3 chapters in `data/design-themes/progression.json` — Workshop, Library, Observatory |
 | **Stage overlays** | 9 stages — `glow`, `grain`, `bevel`, `rule`, `radiusCard`, `borderPx`, `stars` via `stageScopeStyle()` |
+| **Wood recipe** | Measured against the reference board and validated; recorded below, not yet in the skins |
 | **Material skins** | 9 CSS classes `.progression-skin--{chapter}-{1\|2\|3}` in `app/globals.css` — layer stacks (bands x rings x pores, gradient x tooth) blended with `background-blend-mode` |
 | **Dev preview** | `/dev/progression` — real primitives under scope; **not wired to learner data** |
 | **Shipped app theme** | Warm Scholar in `app/globals.css` — unchanged by progression work so far |
@@ -72,6 +73,84 @@ were surviving into a dark room.
 never sees a chapter's tokens, which is why a 1.4:1 pair shipped under a green
 gate. Both ink pairs are now asserted per chapter in
 `lib/progression-stage.test.ts`, sharing the gate's own `scripts/lib/color.mjs`.
+
+---
+
+## Measured wood recipe — SUPERSEDED, do not build from this
+
+**Stopped 2026-08-22 by the owner.** A 2-D FFT resynthesis from the reference
+photo gets closer than this did, and needs none of the fitting below: it uses
+the reference's actual spectrum rather than approximating it with four
+parameterised noise layers. Keep this section as the record of what a
+hand-fitted procedural stack could and could not reach — it is not the plan.
+
+What survives the change of approach, because none of it is specific to
+procedural generation:
+
+- `scripts/texture-metrics.mjs` and STUDY-031 — the measuring apparatus, which
+  is what identified the gaps in the first place and applies to marble, brass
+  and paper equally. An FFT resynthesis still needs checking against the
+  reference, and these are how.
+- The `color-interpolation-filters="sRGB"` fix on all eight filters, and the
+  Workshop chroma correction. Both are live and unrelated to this recipe.
+- The finding that the reference bench has **no plank seams**.
+
+### The recipe as it stood (historical)
+
+Built against `design/progression/reference-board.png` column 1 and measured
+with `scripts/texture-metrics.mjs`. Reasoning and the traps behind each choice:
+[STUDY-031](../study/STUDY-031-texture-metrics.md). What wood should *look* like
+is [STUDY-030](../study/STUDY-030-procedural-wood-grain.md)'s call, not this
+file's — this is the arithmetic that hits it.
+
+**Structure and colour are separate.** Every layer is grayscale and they are
+summed inside *one* filter; a single ramp at the end turns that signal into
+colour. This is what makes the colour exact: the ramp is solved from the
+reference — signal value → its quantile → the reference's lightness there — and
+authored in OKLCH, so hue and chroma are held by construction rather than
+chased. It measures **hue −0°, chroma ±0.0000**.
+
+Layering colour per-layer and correcting afterwards does not work: per-channel
+histogram matching decorrelates R/G/B and turns the wood pink, and iterating a
+lightness map over blended layers oscillates rather than converging (the blend
+means output lightness is not a monotone image of any one ramp).
+
+All layers `numOctaves="1"` (a stack of single-octave layers is band-limited
+noise; multi-octave drags a power-law tail and cannot be made to peak), all with
+`color-interpolation-filters="sRGB"`, all anisotropic at roughly **5:1** with the
+long axis along the grain.
+
+| Layer | Frequency (y) | Weight | Carries |
+| --- | --- | --- | --- |
+| Coarse octave | ~0.056 | 0.30 | the broader lighter areas that follow the grain |
+| Grain | ~0.53 | 0.40 | the paired light/dark — the groove |
+| Fine flow | ~1.19 | 0.18 | tooth, so no region is ever flat |
+| Highlights | ~0.11 gated at 0.62 | 0.45 | the rare bright spots |
+
+**Emboss** means one noise field offset up and down and differenced
+(`feOffset` ×2 into `feComposite operator="arithmetic"`), which is what makes a
+lit groove: its two walls are the same feature, so light and dark cannot drift
+apart. Colour comes from an OKLCH ramp per layer, not an sRGB two-colour mix.
+
+**No plank seams.** The reference bench is one continuous surface and so are its
+cards; the lines that look like seams are the accent rule and a button edge.
+
+Standing against the same-material noise floor (two patches of the same bench):
+
+| | ours | floor | |
+| --- | --- | --- | --- |
+| sorted-curve lightness | 0.023 | 0.077 | inside |
+| tone | +0.009 | −0.080 | inside |
+| hue / chroma | −0° / ±0.0000 | — | exact |
+| aspect | ×0.87 | ×1.03 | inside |
+| pairing | −0.274 @2 | −0.235 / −0.087 | inside |
+| scale | 1.60 | 0.87 | **outside** |
+| tailHigh | 0.15 | 0.53 | **outside** |
+
+Still open: the bright tail (the ramp's top stops compress the reference's steep
+p99→p100 rise, so rare very bright pixels never appear), and the coarsest band —
+bands 2–5 line up at 25/50/12/8 against 21/43/13/9, but band 1 reads 3 against
+10, which is most of the remaining scale distance.
 
 ---
 

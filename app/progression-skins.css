@@ -6,17 +6,20 @@
 
 /* Directional wood grain — horizontal fibres: baseFrequency X ≫ Y */
 .progression-skin {
-  --progression-wood-grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 256 64'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.45 0.02' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)' opacity='0.65'/%3E%3C/svg%3E");
+  --progression-wood-grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 256 64'%3E%3Cfilter id='g' color-interpolation-filters='sRGB'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.45 0.02' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)' opacity='0.65'/%3E%3C/svg%3E");
   /* Coarse stone speckle for workshop card faces */
-  --progression-stone-speckle: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Cfilter id='s'%3E%3CfeTurbulence type='turbulence' baseFrequency='0.42' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23s)' opacity='0.72'/%3E%3C/svg%3E");
+  --progression-stone-speckle: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Cfilter id='s' color-interpolation-filters='sRGB'%3E%3CfeTurbulence type='turbulence' baseFrequency='0.42' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23s)' opacity='0.72'/%3E%3C/svg%3E");
+  /* Coarse blotching under the speckle — the scale that makes stone read as
+     stone. Speckle alone is uniform, which the eye takes for spray paint. */
+  --progression-stone-mottle: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 240 240'%3E%3Cfilter id='b' color-interpolation-filters='sRGB'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.012 0.016' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23b)' opacity='0.9'/%3E%3C/svg%3E");
   /* Fine grit on top of stone */
-  --progression-stone-grit: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.95' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)' opacity='0.35'/%3E%3C/svg%3E");
+  --progression-stone-grit: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'%3E%3Cfilter id='g' color-interpolation-filters='sRGB'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.95' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)' opacity='0.35'/%3E%3C/svg%3E");
   /* Large mottling for plaster walls */
-  --progression-plaster-mottle: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cfilter id='p'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.012' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23p)' opacity='0.85'/%3E%3C/svg%3E");
+  --progression-plaster-mottle: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cfilter id='p' color-interpolation-filters='sRGB'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.012' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23p)' opacity='0.85'/%3E%3C/svg%3E");
   /* Paper fibre for library cards */
-  --progression-paper-fibre: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'%3E%3Cfilter id='f'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.55 0.08' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23f)' opacity='0.4'/%3E%3C/svg%3E");
+  --progression-paper-fibre: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'%3E%3Cfilter id='f' color-interpolation-filters='sRGB'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.55 0.08' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23f)' opacity='0.4'/%3E%3C/svg%3E");
   /* Marble crystalline grain + soft vein noise */
-  --progression-marble-grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 256 256'%3E%3Cfilter id='m'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.04 0.015' numOctaves='5' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23m)' opacity='0.5'/%3E%3C/svg%3E");
+  --progression-marble-grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 256 256'%3E%3Cfilter id='m' color-interpolation-filters='sRGB'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.04 0.015' numOctaves='5' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23m)' opacity='0.5'/%3E%3C/svg%3E");
   background-color: var(--color-canvas);
 }
 
@@ -25,7 +28,7 @@
   opacity: var(--stage-grain);
   mix-blend-mode: multiply;
   background-size: 220px 220px;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 220 220' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.6'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 220 220' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n' color-interpolation-filters='sRGB'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.6'/%3E%3C/svg%3E");
 }
 
 .progression-stage-grain--workshop {
@@ -97,12 +100,84 @@
   color: var(--color-surface-ink);
 }
 
+/* Elevation, in three parts. A single wide blur reads as floating — the cue
+   the reference board has and a lone drop shadow cannot give is the *contact*
+   shadow: a tight, dense line right under the edge where light cannot reach
+   the gap. Key is the directional throw from the light above; ambient is the
+   wide faint pool that seats the card in the room.
+
+   Skins set --elev-card / --elev-control; the rules below compose them after
+   their own insets, so bevel and highlight stay per-stage. */
+
+.progression-skin--workshop-1 {
+  --elev-card:
+    0 1px 2px rgb(0 0 0 / 0.5), 0 2px 4px -1px rgb(0 0 0 / 0.38),
+    0 5px 10px -3px rgb(0 0 0 / 0.4), 0 14px 26px -10px rgb(0 0 0 / 0.45);
+  --elev-control: 0 1px 1px rgb(0 0 0 / 0.5), 0 2px 4px -1px rgb(0 0 0 / 0.35);
+}
+
+.progression-skin--workshop-2 {
+  --elev-card:
+    0 1px 2px rgb(0 0 0 / 0.44), 0 2px 5px -1px rgb(0 0 0 / 0.32),
+    0 7px 13px -4px rgb(0 0 0 / 0.34), 0 18px 30px -12px rgb(0 0 0 / 0.4);
+  --elev-control: 0 1px 1px rgb(0 0 0 / 0.45), 0 2px 5px -1px rgb(0 0 0 / 0.3);
+}
+
+.progression-skin--workshop-3 {
+  --elev-card:
+    0 1px 2px rgb(0 0 0 / 0.38), 0 2px 6px -1px rgb(0 0 0 / 0.26),
+    0 9px 16px -5px rgb(0 0 0 / 0.28), 0 22px 36px -14px rgb(0 0 0 / 0.34);
+  --elev-control: 0 1px 1px rgb(0 0 0 / 0.4), 0 3px 6px -1px rgb(0 0 0 / 0.26);
+}
+
+.progression-skin--library-1 {
+  --elev-card:
+    0 1px 2px rgb(58 48 36 / 0.2), 0 2px 4px -1px rgb(58 48 36 / 0.12),
+    0 6px 12px -4px rgb(58 48 36 / 0.12), 0 16px 28px -12px rgb(58 48 36 / 0.14);
+  --elev-control: 0 1px 1px rgb(58 48 36 / 0.16), 0 2px 4px -1px rgb(58 48 36 / 0.1);
+}
+
+.progression-skin--library-2 {
+  --elev-card:
+    0 1px 2px rgb(58 48 36 / 0.17), 0 2px 5px -1px rgb(58 48 36 / 0.1),
+    0 8px 15px -5px rgb(58 48 36 / 0.1), 0 20px 34px -14px rgb(58 48 36 / 0.12);
+  --elev-control: 0 1px 1px rgb(58 48 36 / 0.14), 0 2px 5px -1px rgb(58 48 36 / 0.09);
+}
+
+.progression-skin--library-3 {
+  --elev-card:
+    0 1px 2px rgb(58 48 36 / 0.14), 0 2px 6px -1px rgb(58 48 36 / 0.08),
+    0 10px 18px -6px rgb(58 48 36 / 0.09), 0 24px 40px -16px rgb(58 48 36 / 0.1);
+  --elev-control: 0 1px 1px rgb(58 48 36 / 0.12), 0 3px 6px -1px rgb(58 48 36 / 0.08);
+}
+
+.progression-skin--observatory-1 {
+  --elev-card:
+    0 1px 2px rgb(0 0 0 / 0.62), 0 2px 5px -1px rgb(0 0 0 / 0.5),
+    0 10px 20px -5px rgb(0 0 0 / 0.55), 0 24px 44px -14px rgb(0 0 0 / 0.6);
+  --elev-control: 0 1px 2px rgb(0 0 0 / 0.6), 0 3px 7px -1px rgb(0 0 0 / 0.45);
+}
+
+.progression-skin--observatory-2 {
+  --elev-card:
+    0 1px 2px rgb(0 0 0 / 0.68), 0 2px 6px -1px rgb(0 0 0 / 0.55),
+    0 12px 24px -6px rgb(0 0 0 / 0.6), 0 28px 52px -16px rgb(0 0 0 / 0.65);
+  --elev-control: 0 1px 2px rgb(0 0 0 / 0.65), 0 3px 8px -1px rgb(0 0 0 / 0.5);
+}
+
+.progression-skin--observatory-3 {
+  --elev-card:
+    0 1px 2px rgb(0 0 0 / 0.74), 0 2px 7px -1px rgb(0 0 0 / 0.6),
+    0 14px 28px -7px rgb(0 0 0 / 0.65), 0 32px 60px -18px rgb(0 0 0 / 0.7);
+  --elev-control: 0 1px 2px rgb(0 0 0 / 0.7), 0 4px 9px -1px rgb(0 0 0 / 0.55);
+}
+
 /* --- Workshop: warm plank bench + pale sandstone cards --- */
 
 .progression-skin--workshop-1 {
-  background-color: #2a1c10;
+  background-color: #422200;
   background-image:
-    radial-gradient(ellipse 130% 90% at 50% 110%, rgb(0 0 0 / 0.55) 0%, transparent 55%),
+    radial-gradient(ellipse 130% 90% at 50% 110%, rgb(0 0 0 / 0.32) 0%, transparent 55%),
     linear-gradient(180deg, rgb(255 255 255 / 0.04) 0%, transparent 28%),
     var(--progression-wood-grain),
     repeating-linear-gradient(
@@ -110,12 +185,12 @@
       rgb(0 0 0 / 0.45) 0 2px,
       transparent 2px 78px,
       rgb(0 0 0 / 0.28) 78px 80px,
-      #3f2a18 80px 158px,
-      #362415 158px 236px,
-      #422c1a 236px 314px,
-      #342214 314px 392px
+      #5f3200 80px 158px,
+      #542a00 158px 236px,
+      #673901 236px 314px,
+      #512900 314px 392px
     ),
-    linear-gradient(180deg, #3d2918 0%, #2a1c10 100%);
+    linear-gradient(180deg, #583007 0%, #422200 100%);
   background-size:
     100% 100%,
     100% 100%,
@@ -126,9 +201,9 @@
 }
 
 .progression-skin--workshop-2 {
-  background-color: #342618;
+  background-color: #542d01;
   background-image:
-    radial-gradient(ellipse 120% 80% at 50% 100%, rgb(0 0 0 / 0.35) 0%, transparent 50%),
+    radial-gradient(ellipse 120% 80% at 50% 100%, rgb(0 0 0 / 0.22) 0%, transparent 50%),
     linear-gradient(180deg, rgb(255 240 220 / 0.07) 0%, transparent 35%),
     var(--progression-wood-grain),
     repeating-linear-gradient(
@@ -136,12 +211,12 @@
       rgb(0 0 0 / 0.32) 0 1px,
       transparent 1px 82px,
       rgb(0 0 0 / 0.18) 82px 84px,
-      #523820 84px 166px,
-      #4a3220 166px 248px,
-      #5a4030 248px 330px,
-      #463020 330px 412px
+      #7a4700 84px 166px,
+      #6f3f00 166px 248px,
+      #814e0c 248px 330px,
+      #683900 330px 412px
     ),
-    linear-gradient(180deg, #4a3422 0%, #342618 100%);
+    linear-gradient(180deg, #6f3f00 0%, #542d01 100%);
   background-size:
     100% 100%,
     100% 100%,
@@ -152,7 +227,7 @@
 }
 
 .progression-skin--workshop-3 {
-  background-color: #3d2a18;
+  background-color: #5c3302;
   background-image:
     radial-gradient(ellipse 110% 70% at 50% 0%, rgb(255 220 180 / 0.12) 0%, transparent 45%),
     linear-gradient(180deg, rgb(255 230 200 / 0.1) 0%, transparent 40%),
@@ -162,12 +237,12 @@
       rgb(0 0 0 / 0.22) 0 1px,
       transparent 1px 86px,
       rgb(0 0 0 / 0.12) 86px 88px,
-      #6a4a32 88px 174px,
-      #5f422c 174px 260px,
-      #705038 260px 346px,
-      #584028 346px 432px
+      #884e00 88px 174px,
+      #7c4400 174px 260px,
+      #8e5300 260px 346px,
+      #743f00 346px 432px
     ),
-    linear-gradient(180deg, #523820 0%, #3d2a18 100%);
+    linear-gradient(180deg, #7b4500 0%, #5c3302 100%);
   background-size:
     100% 100%,
     100% 100%,
@@ -184,72 +259,75 @@
 }
 
 .progression-skin--workshop-1 .progression-card {
-  border-color: #9c8a74;
+  border-color: #a48865;
   background:
     linear-gradient(155deg, rgb(255 255 255 / 0.10) 0%, transparent 42%),
-    linear-gradient(165deg, #e4dcce 0%, #d9cfbe 38%, #d0c5b3 72%, #cabfae 100%);
+    linear-gradient(165deg, #e8dcc6 0%, #ddcfb4 38%, #d6c5a7 72%, #d0bfa4 100%);
   box-shadow:
     inset 0 2px 0 rgb(255 255 255 / 0.5),
     inset 0 -3px 0 rgb(0 0 0 / 0.14),
     inset 0 0 24px rgb(90 70 45 / 0.1),
-    0 8px 20px rgb(0 0 0 / 0.45);
+    var(--elev-card);
 }
 
 .progression-skin--workshop-1 .progression-card::before {
-  opacity: 0.38;
+  opacity: 0.55;
   mix-blend-mode: soft-light;
-  background-image: var(--progression-stone-speckle), var(--progression-stone-grit);
-  background-size: 72px 72px, 48px 48px;
+  background-image: var(--progression-stone-mottle),
+    var(--progression-stone-speckle), var(--progression-stone-grit);
+  background-size: 190px 190px, 72px 72px, 48px 48px;
 }
 
 .progression-skin--workshop-2 .progression-card {
-  border-color: #ab9b86;
+  border-color: #b39978;
   background:
     linear-gradient(155deg, rgb(255 255 255 / 0.14) 0%, transparent 45%),
-    linear-gradient(165deg, #eae3d7 0%, #e0d8ca 40%, #d7cdbc 75%, #d2c8b7 100%);
+    linear-gradient(165deg, #eee3cf 0%, #e4d8c2 40%, #dbcdb2 75%, #d6c8ad 100%);
   box-shadow:
     inset 0 2px 0 rgb(255 255 255 / 0.65),
     inset 0 -2px 0 rgb(0 0 0 / 0.1),
     inset 0 0 20px rgb(90 70 45 / 0.07),
-    0 10px 24px rgb(0 0 0 / 0.35);
+    var(--elev-card);
 }
 
 .progression-skin--workshop-2 .progression-card::before {
-  opacity: 0.30;
+  opacity: 0.42;
   mix-blend-mode: soft-light;
-  background-image: var(--progression-stone-speckle), var(--progression-stone-grit);
-  background-size: 80px 80px, 52px 52px;
+  background-image: var(--progression-stone-mottle),
+    var(--progression-stone-speckle), var(--progression-stone-grit);
+  background-size: 190px 190px, 80px 80px, 52px 52px;
 }
 
 .progression-skin--workshop-3 .progression-card {
-  border-color: #bcae99;
+  border-color: #c2ac8b;
   background:
     linear-gradient(155deg, rgb(255 255 255 / 0.18) 0%, transparent 48%),
-    linear-gradient(165deg, #f1ebe0 0%, #e9e2d5 42%, #e0d8ca 78%, #dcd3c4 100%);
+    linear-gradient(165deg, #f5ebda 0%, #ede2cd 42%, #e4d8c2 78%, #e0d3ba 100%);
   box-shadow:
     inset 0 2px 0 rgb(255 255 255 / 0.8),
     inset 0 -2px 0 rgb(0 0 0 / 0.08),
-    0 12px 28px rgb(0 0 0 / 0.28);
+    var(--elev-card);
 }
 
 .progression-skin--workshop-3 .progression-card::before {
-  opacity: 0.22;
+  opacity: 0.28;
   mix-blend-mode: soft-light;
-  background-image: var(--progression-stone-speckle), var(--progression-stone-grit);
-  background-size: 88px 88px, 56px 56px;
+  background-image: var(--progression-stone-mottle),
+    var(--progression-stone-speckle), var(--progression-stone-grit);
+  background-size: 190px 190px, 88px 88px, 56px 56px;
 }
 
 .progression-skin--workshop-1 .progression-control,
 .progression-skin--workshop-2 .progression-control,
 .progression-skin--workshop-3 .progression-control {
   border-radius: 0.25rem !important;
-  border-color: #3f2c1c !important;
-  background: linear-gradient(180deg, #6b4c31 0%, #5a3f28 55%, #4a3320 100%) !important;
+  border-color: #47280c !important;
+  background: linear-gradient(180deg, #774615 0%, #643a0e 55%, #522f0b 100%) !important;
   box-shadow:
     inset 0 2px 0 rgb(255 226 186 / 0.16),
     inset 0 -3px 0 rgb(0 0 0 / 0.26),
-    0 2px 4px rgb(0 0 0 / 0.28) !important;
-  color: #f7f2ea !important;
+    var(--elev-control) !important;
+  color: #f9f2e6 !important;
 }
 
 /* --- Library: cool plaster wall + paper cards --- */
@@ -293,8 +371,7 @@
   background: linear-gradient(180deg, #fcfbfa 0%, #f2f0ec 55%, #eae6e0 100%);
   box-shadow:
     inset 0 1px 0 rgb(255 255 255 / 0.95),
-    0 10px 24px rgb(44 36 25 / 0.07),
-    0 2px 8px rgb(44 36 25 / 0.04);
+    var(--elev-card);
 }
 
 .progression-skin--library-1 .progression-card::before,
@@ -309,16 +386,14 @@
 .progression-skin--library-2 .progression-card {
   box-shadow:
     inset 0 1px 0 rgb(255 255 255 / 1),
-    0 12px 28px rgb(44 36 25 / 0.06),
-    0 3px 10px rgb(44 36 25 / 0.03);
+    var(--elev-card);
 }
 
 .progression-skin--library-3 .progression-card {
   border-color: #dcd8d0;
   box-shadow:
     inset 0 2px 0 rgb(255 255 255 / 1),
-    0 14px 32px rgb(44 36 25 / 0.05),
-    0 4px 12px rgb(44 36 25 / 0.025);
+    var(--elev-card);
 }
 
 .progression-skin--library-3 .progression-card::before {
@@ -336,7 +411,7 @@
   box-shadow:
     inset 0 1px 0 rgb(255 255 255 / 1),
     inset 0 -1px 0 rgb(0 0 0 / 0.04),
-    0 2px 4px rgb(44 36 25 / 0.06) !important;
+    var(--elev-control) !important;
 }
 
 /* --- Observatory: night dome + dark marble cards --- */
@@ -373,8 +448,7 @@
     linear-gradient(165deg, #2a2c38 0%, #22242e 48%, #181a24 100%);
   box-shadow:
     inset 0 1px 0 rgb(221 143 86 / 0.18),
-    0 12px 32px rgb(0 0 0 / 0.55),
-    0 0 0 1px rgb(221 143 86 / 0.14);
+    var(--elev-card);
 }
 
 .progression-skin--observatory-1 .progression-card::before {
@@ -393,9 +467,7 @@
     linear-gradient(165deg, #2e303c 0%, #242630 50%, #1a1c26 100%);
   box-shadow:
     inset 0 1px 0 rgb(221 143 86 / 0.25),
-    0 14px 36px rgb(0 0 0 / 0.6),
-    0 0 0 1px rgb(221 143 86 / 0.22),
-    0 0 24px rgb(221 143 86 / 0.08);
+    var(--elev-card);
 }
 
 .progression-skin--observatory-2 .progression-card::before {
@@ -414,9 +486,7 @@
     linear-gradient(165deg, #32343f 0%, #282a34 50%, #1c1e28 100%);
   box-shadow:
     inset 0 1px 0 rgb(237 167 114 / 0.35),
-    0 16px 40px rgb(0 0 0 / 0.65),
-    0 0 0 1px rgb(237 167 114 / 0.35),
-    0 0 32px rgb(221 143 86 / 0.12);
+    var(--elev-card);
 }
 
 .progression-skin--observatory-3 .progression-card::before {
@@ -461,23 +531,21 @@
   background: linear-gradient(180deg, #32343e 0%, #22242e 100%) !important;
   box-shadow:
     inset 0 1px 0 rgb(221 143 86 / 0.12),
-    0 2px 8px rgb(0 0 0 / 0.4) !important;
+    var(--elev-control) !important;
   color: #f1efe9 !important;
 }
 
 .progression-skin--observatory-2 .progression-control {
   box-shadow:
     inset 0 1px 0 rgb(221 143 86 / 0.18),
-    0 0 16px rgb(221 143 86 / 0.08),
-    0 2px 8px rgb(0 0 0 / 0.45) !important;
+    var(--elev-control) !important;
 }
 
 .progression-skin--observatory-3 .progression-control {
   border-color: #8a6840 !important;
   box-shadow:
     inset 0 1px 0 rgb(237 167 114 / 0.25),
-    0 0 20px rgb(221 143 86 / 0.12),
-    0 2px 8px rgb(0 0 0 / 0.5) !important;
+    var(--elev-control) !important;
 }
 
 .progression-star {
