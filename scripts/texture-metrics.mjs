@@ -109,6 +109,30 @@ export function measure(png) {
     gn += 2;
   }
 
+  // --- sorted distribution: the whole curve, not a few landmarks on it
+  //
+  // Sort every pixel by lightness and compare the two curves point for point.
+  // This is the most diagnostic thing in the suite and the cheapest: a texture
+  // whose transfer function saturates shows a dead flat run at one or both ends
+  // — many pixels sharing one value — which every summary statistic averages
+  // away. Clipped highlights read as "no bright spots" long before any mean or
+  // quintile notices.
+  const sortedL = [...Ls].sort((p, q) => p - q);
+  const sortedC = [...chroma].sort((p, q) => p - q);
+  const QS = [0, 1, 5, 25, 50, 75, 95, 99, 100];
+  const pick = (arr, q) => arr[Math.min(arr.length - 1, Math.round(q / 100 * (arr.length - 1)))];
+  const curveL = QS.map((q) => pick(sortedL, q));
+  const curveC = QS.map((q) => pick(sortedC, q));
+  // How much tail is left above p95 and below p5, relative to the body of the
+  // distribution. Near zero means the transfer saturated and the extremes were
+  // cut off. Counting pixels that share the maximum value does NOT work here —
+  // a low-variance signal has few distinct 8-bit levels and looks clipped when
+  // it is merely compressed.
+  const p50 = pick(sortedL, 50), p95 = pick(sortedL, 95), p5 = pick(sortedL, 5);
+  const p100 = pick(sortedL, 100), p0 = pick(sortedL, 0);
+  const tailHigh = p100 - p50 > 1e-6 ? (p100 - p95) / (p100 - p50) : 0;
+  const tailLow = p50 - p0 > 1e-6 ? (p5 - p0) / (p50 - p0) : 0;
+
   // --- pairing: is the light next to the dark, or somewhere else entirely?
   //
   // A grain line is a groove. Lit from one side it has a shadowed wall and a
@@ -249,6 +273,10 @@ export function measure(png) {
     aspect,
     pairing,
     pairingLag,
+    curveL,
+    curveC,
+    tailHigh,
+    tailLow,
     ang: Array.from(ang, (v) => v / total),
     rad: Array.from(rad, (v) => v / total),
   };
@@ -274,6 +302,8 @@ export function compare(ref, cand) {
     runLength: cand.runLength - ref.runLength,
     aspectRatio: cand.aspect / ref.aspect,
     pairing: cand.pairing - ref.pairing,
+    curveDistL: cand.curveL.reduce((a, v, i) => a + Math.abs(v - ref.curveL[i]), 0) / ref.curveL.length,
+    curveDistC: cand.curveC.reduce((a, v, i) => a + Math.abs(v - ref.curveC[i]), 0) / ref.curveC.length,
     lightnessRange: (cand.quintiles[4].L - cand.quintiles[0].L) - (ref.quintiles[4].L - ref.quintiles[0].L),
     chromaProfile: Math.sqrt(ref.quintiles.reduce((a, q, i) =>
       a + (cand.quintiles[i].C - q.C) ** 2, 0) / ref.quintiles.length),
@@ -299,6 +329,7 @@ if (process.argv[1]?.endsWith("texture-metrics.mjs")) {
   console.log(`  skew ${ref.skew.toFixed(2)}   localContrast ${ref.localContrast.toFixed(4)}   ` +
     `directionality ${directionality(ref).toFixed(2)}   runLength ${ref.runLength.toFixed(3)}   aspect ${ref.aspect.toFixed(1)}:1`);
   console.log(`  scale bands (coarse->fine)  ${ref.rad.map((v) => (v * 100).toFixed(0).padStart(3)).join("")}`);
+  console.log(`  sorted L  p0/1/5/25/50/75/95/99/100  ${ref.curveL.map((v) => v.toFixed(3).padStart(6)).join("")}`);
   console.log(`  by lightness quintile  L ${ref.quintiles.map((q) => q.L.toFixed(2).padStart(6)).join("")}`);
   console.log(`                         C ${ref.quintiles.map((q) => q.C.toFixed(3).padStart(6)).join("")}`);
 
@@ -316,6 +347,9 @@ if (process.argv[1]?.endsWith("texture-metrics.mjs")) {
     console.log(`                       C ${c.quintiles.map((q) => q.C.toFixed(3).padStart(6)).join("")}`);
     console.log(`  localCtrst  ${f(d.localContrast, 4)}`);
     console.log(`  aspect      ${c.aspect.toFixed(1)}:1 vs ${ref.aspect.toFixed(1)}:1   x${d.aspectRatio.toFixed(2)}   ${d.aspectRatio > 1.35 ? "<< too stretched" : d.aspectRatio < 0.74 ? "<< not stretched enough" : "ok"}`);
+    console.log(`  sortedL     ${c.curveL.map((v) => v.toFixed(3).padStart(6)).join("")}   dist ${d.curveDistL.toFixed(4)}`);
+    console.log(`  tails       high ${c.tailHigh.toFixed(2)} vs ${ref.tailHigh.toFixed(2)}, low ${c.tailLow.toFixed(2)} vs ${ref.tailLow.toFixed(2)}` +
+      `   ${c.tailHigh < ref.tailHigh * 0.5 ? "<< highlights clipped off" : c.tailLow < ref.tailLow * 0.5 ? "<< shadows clipped off" : "ok"}`);
     console.log(`  pairing     ${c.pairing.toFixed(3)} at lag ${c.pairingLag} vs ${ref.pairing.toFixed(3)} at lag ${ref.pairingLag}   ${c.pairing > ref.pairing + 0.06 ? "<< light not caused by the dark — no groove shading" : "ok"}`);
     console.log(`  runLength   ${f(d.runLength, 3)}   ${d.runLength < -0.02 ? "<< features breaking up / closing into loops" : d.runLength > 0.02 ? "<< features too continuous" : "ok"}`);
     console.log(`  orientation ${d.orientation.toFixed(2)}   (directionality ${directionality(c).toFixed(2)} vs ${directionality(ref).toFixed(2)})`);

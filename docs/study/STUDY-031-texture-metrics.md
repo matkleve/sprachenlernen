@@ -48,6 +48,8 @@ board, over roughly a dozen measured iterations.
 | `runLength` | mean horizontal run of below-p30 pixels, as a fraction of width | whether dark features *run* or close into blobs |
 | `aspect` | autocorrelation length along x ÷ along y | how many times longer a feature is than it is tall — the "too stretched" number |
 | `pairing` | depth of the negative lobe in the vertical autocorrelation | whether each light streak sits beside a dark one, i.e. whether the light is *caused* by the grain rather than sprinkled independently |
+| `sortedL` / `curveDistL` | every pixel sorted by lightness, compared point for point | the whole distribution rather than landmarks on it — the most diagnostic thing here, and the cheapest |
+| `tailHigh` / `tailLow` | (p100−p95) ÷ (p100−p50), and its mirror | whether rare bright or dark extremes exist at all, or the ends are flat |
 | `scale` bands | energy per octave, coarse → fine | how many distinct depths of structure exist, and at what sizes |
 
 Two are worth dwelling on.
@@ -166,7 +168,25 @@ Four real failures, in the order they happened:
    independent layers only to -0.074. Deriving both from one height field via
    its vertical derivative (`feOffset` up and down, differenced with
    `feComposite arithmetic`) reaches -0.223 at the same lag.
-9. **Legitimate lighting scores badly.** Adding the warm top-and-bottom wash the
+9. **Sort the pixels. Landmarks lie; the curve does not.** Owner's suggestion,
+   and it immediately found something six other metrics had passed. A texture
+   reading tone −0.001, lightRange +0.005 and chromaByL 0.0019 — all "ok" —
+   turns out to have its **top 10% of pixels at one identical value**:
+
+   | percentile | 0 | 5 | 50 | 95 | 99 | 100 |
+   | --- | --- | --- | --- | --- | --- | --- |
+   | reference | 0.233 | 0.334 | 0.395 | 0.470 | 0.505 | 0.557 |
+   | candidate | 0.304 | 0.304 | 0.393 | 0.438 | 0.438 | 0.438 |
+
+   No bright spots anywhere, which is exactly what the owner saw. Quintile means
+   average across the flat plateau and report a healthy range.
+
+   The cause is not clipping in the filter chain — tested from gain 0.8 to 6,
+   the tail never appears. It is that **smooth bounded noise has no rare
+   extremes by construction**. A bright tail is spatially sparse: a few small
+   very bright spots. Producing it needs a threshold-gated sparse layer, a
+   different mechanism from the smooth layers, not a parameter change to them.
+10. **Legitimate lighting scores badly.** Adding the warm top-and-bottom wash the
    reference clearly has made the distance worse, because it is low-frequency
    energy the spectrum penalises. The metric is blind to whether a difference is
    the material or the light on it.
