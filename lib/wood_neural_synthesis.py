@@ -52,10 +52,10 @@ class VGGFeatureExtractor(nn.Module):
 
     LAYER_WEIGHTS = {
         "relu1_1": 1.0,
-        "relu2_1": 0.8,
-        "relu3_1": 0.4,
-        "relu4_1": 0.2,
-        "relu5_1": 0.1,
+        "relu2_1": 0.9,
+        "relu3_1": 0.5,
+        "relu4_1": 0.08,  # deep layers → blurry clouds; keep low
+        "relu5_1": 0.02,
     }
 
     def __init__(self) -> None:
@@ -125,6 +125,44 @@ def gray_to_shading(gray01: np.ndarray, ref_luminance: np.ndarray) -> np.ndarray
     return np.clip(matched * 255.0, 0, 255)
 
 
+def suppress_lowfreq_blobs(gray01: np.ndarray, sigma: float = 32.0) -> np.ndarray:
+    """Remove large-scale luminance clouds while keeping grain/crack detail.
+
+    Gatys deep VGG layers match low-frequency Gram stats with blobby regions;
+  the top of wood-01 often ends up smoother than the bottom.
+    """
+    low = gaussian_filter(gray01.astype(np.float64), sigma=sigma)
+    return np.clip(gray01 - low + low.mean(), 0, 1).astype(np.float32)
+
+
+def boost_weak_detail(gray01: np.ndarray, window: int = 48, floor_ratio: float = 0.72) -> np.ndarray:
+    """Raise grain contrast in locally flat regions (e.g. upper cloud)."""
+    from numpy.lib.stride_tricks import sliding_window_view
+
+    win = max(16, window | 1)
+    if gray01.shape[0] < win or gray01.shape[1] < win:
+        return gray01
+    patches = sliding_window_view(gray01, (win, win))
+    local_std = patches.std(axis=(-2, -1))
+    target = float(gray01.std())
+    # map each pixel to its window's std (approximate via stride-1 overlap mean)
+    h, w = gray01.shape
+    std_map = np.zeros((h, w), dtype=np.float32)
+    count = np.zeros((h, w), dtype=np.float32)
+    ph, pw = patches.shape[:2]
+    for iy in range(ph):
+        for ix in range(pw):
+            std_map[iy : iy + win, ix : ix + win] += local_std[iy, ix]
+            count[iy : iy + win, ix : ix + win] += 1
+    std_map /= np.maximum(count, 1)
+    weak = std_map < target * floor_ratio
+    if not weak.any():
+        return gray01
+    centered = gray01 - gray01.mean()
+    boosted = gray01 + centered * np.where(weak, (target / (std_map + 1e-8) - 1) * 0.35, 0)
+    return np.clip(boosted, 0, 1).astype(np.float32)
+
+
 @dataclass
 class GatysConfig:
     steps: int = 400
@@ -135,6 +173,8 @@ class GatysConfig:
     grayscale: bool = True
     histogram_match: bool = True
     albedo_blur_sigma: float = 14.0
+    lowfreq_suppress_sigma: float = 32.0
+    detail_boost: bool = True
 
 
 def _run_gatys_loop(
@@ -222,6 +262,10 @@ def synthesize_gatys_shading(
         ref_t, target_grams, out_size, cfg, device, vgg, progress, cfg.grayscale
     )
     gray01 = _tensor_to_gray01(gen)
+    if cfg.lowfreq_suppress_sigma > 0:
+        gray01 = suppress_lowfreq_blobs(gray01, sigma=cfg.lowfreq_suppress_sigma)
+    if cfg.detail_boost:
+        gray01 = boost_weak_detail(gray01)
 
     if cfg.histogram_match:
         shading = gray_to_shading(gray01, ref_lum)
