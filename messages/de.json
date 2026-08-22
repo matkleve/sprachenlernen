@@ -281,6 +281,12 @@
       "sentenceGlossNote": "Wortbedeutungen — keine vollständige Satzübersetzung.",
       "sentenceTapAgain": "Nochmal tippen, um Wortbedeutungen für diesen Satz zu sehen."
     },
+    "session": {
+      "next": "{heldCount, plural, one {# Wort wurde stabil} other {# Wörter wurden stabil}} — sieh nach, was sich bewegt hat",
+      "sourceDelta": "{title}: {before} % → {after} %",
+      "linkWords": "Wortkarte ansehen",
+      "linkContent": "Inhalte ansehen"
+    },
     "comprehension": {
       "heading": "Verständnis prüfen",
       "caption": "Kurze Fragen nach dem Lesen — keine Bewertung wird gespeichert."

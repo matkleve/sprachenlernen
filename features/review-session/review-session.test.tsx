@@ -22,9 +22,11 @@ vi.mock("next/navigation", () => ({
 vi.mock("@/features/review-session/actions", () => ({
   appendReviewAction: vi.fn().mockResolvedValue({ status: "appended", id: "row-1" }),
   reportCardAction: vi.fn().mockResolvedValue({ status: "ok" }),
+  sessionLoopPayoffAction: vi.fn().mockResolvedValue({ status: "ok", payoff: { kind: "none" } }),
   buildSessionAction: vi.fn().mockResolvedValue({
     status: "ok",
     languageName: "Spanish",
+    heldLemmasAtStart: [],
     queue: [
       {
         taskId: "es:de:meaning-recall",
@@ -80,6 +82,7 @@ function installTestQueue() {
 const testInitialData = {
   status: "ok" as const,
   languageName: "Spanish",
+  heldLemmasAtStart: [],
   queue: [
     {
       taskId: "es:de:meaning-recall",

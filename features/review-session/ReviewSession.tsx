@@ -35,6 +35,8 @@ export function ReviewSession({ methodName, compact = false, deck = "mixed", ini
     languageName,
     syncCount,
     gradedCount,
+    sessionGrades,
+    heldLemmasAtStart,
     runSegments,
     reportAck,
     reportPending,
@@ -117,6 +119,8 @@ export function ReviewSession({ methodName, compact = false, deck = "mixed", ini
           gradedCount={gradedCount}
           pendingCount={syncCount}
           compact={compact}
+          sessionGrades={sessionGrades}
+          heldLemmasAtStart={heldLemmasAtStart}
         />
       ) : showsActiveCard(phase) && currentCard ? (
         <div className={cn(compact && "flex min-h-0 flex-1 flex-col")}>

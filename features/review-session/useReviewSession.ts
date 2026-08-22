@@ -8,6 +8,7 @@ import {
   buildSessionAction,
   reportCardAction,
 } from "@/features/review-session/actions";
+import type { SessionGrade } from "@/lib/session-loop-payoff";
 import { routes } from "@/lib/routes";
 import { getReviewQueue } from "@/features/review-session/review-queue";
 import {
@@ -33,7 +34,7 @@ import type { Grade } from "@/lib/scheduler";
 export type ReviewSessionStatus = "loading" | "ready" | "error";
 
 export type ReviewSessionInitialData =
-  | { status: "ok"; queue: SessionCard[]; languageName: string }
+  | { status: "ok"; queue: SessionCard[]; languageName: string; heldLemmasAtStart: readonly string[] }
   | { status: "error"; error: string };
 
 export type UseReviewSessionOptions = {
@@ -54,6 +55,8 @@ export type UseReviewSessionResult = {
   languageName: string | null;
   syncCount: number;
   gradedCount: number;
+  sessionGrades: SessionGrade[];
+  heldLemmasAtStart: readonly string[];
   runSegments: RunSegment[];
   reportAck: ReportAck | null;
   reportPending: boolean;
@@ -95,6 +98,10 @@ export function useReviewSession(options: UseReviewSessionOptions = {}): UseRevi
   const [sessionIndex, setSessionIndex] = useState(0);
   const [syncCount, setSyncCount] = useState(0);
   const [gradedCount, setGradedCount] = useState(0);
+  const [sessionGrades, setSessionGrades] = useState<SessionGrade[]>([]);
+  const [heldLemmasAtStart, setHeldLemmasAtStart] = useState<readonly string[]>(() =>
+    initialData?.status === "ok" ? initialData.heldLemmasAtStart : [],
+  );
   const [runSegments, setRunSegments] = useState<RunSegment[]>(() =>
     initialData?.status === "ok" ? initRunSegments(initialData.queue) : [],
   );
@@ -130,6 +137,7 @@ export function useReviewSession(options: UseReviewSessionOptions = {}): UseRevi
         setQueue(result.queue);
         setRunSegments(initRunSegments(result.queue));
         setLanguageName(result.languageName);
+        setHeldLemmasAtStart(result.heldLemmasAtStart);
         setStatus("ready");
         if (result.queue.length === 0) {
           setPhase("complete");
@@ -204,6 +212,10 @@ export function useReviewSession(options: UseReviewSessionOptions = {}): UseRevi
       });
 
       setGradedCount((count) => count + 1);
+      setSessionGrades((grades) => [
+        ...grades,
+        { taskId: currentCard.taskId, grade: value, reviewedAtMs },
+      ]);
 
       const insertAt = requeueInsertIndex(sessionIndex, queue.length, value);
       let nextQueue = queue;
@@ -287,6 +299,8 @@ export function useReviewSession(options: UseReviewSessionOptions = {}): UseRevi
     languageName,
     syncCount,
     gradedCount,
+    sessionGrades,
+    heldLemmasAtStart,
     runSegments: visibleRunSegments,
     reportAck,
     reportPending,

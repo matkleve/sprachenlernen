@@ -281,6 +281,12 @@
       "sentenceGlossNote": "Word glosses — not a full sentence translation.",
       "sentenceTapAgain": "Tap again to see word glosses for this sentence."
     },
+    "session": {
+      "next": "{heldCount, plural, one {# word became stable} other {# words became stable}} — see what moved",
+      "sourceDelta": "{title}: {before} % → {after} %",
+      "linkWords": "See your word map",
+      "linkContent": "See your content"
+    },
     "comprehension": {
       "heading": "Check your understanding",
       "caption": "Quick questions after reading — no grade saved."
