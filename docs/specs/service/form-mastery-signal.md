@@ -14,12 +14,12 @@ Parent: [`form-recall-pool.md`](form-recall-pool.md),
 
 ## Scope
 
-- **In:** `readFormMastery` in `lib/level-model.ts`; `poolForActiveLanguage`
-  includes the form-recall deck for the active language; Progress copy and
-  rendering.
-- **Out:** per-cell or per-pattern breakdown on Progress (T-W5 — cell groups
-  with link to `deck=form`); feeding speaking or writing skills; paradigm-table
-  method.
+- **In:** `readFormMastery` in `lib/level-model.ts`; `readFormMasteryGroups` in
+  `lib/form-mastery-groups.ts`; `poolForActiveLanguage` includes the form-recall
+  deck for the active language; Progress copy, group breakdown table, and weak-group
+  link to `deck=form` practice.
+- **Out:** per-cell detail on Progress (T-W6 — inside form practice); feeding
+  speaking or writing skills; paradigm-table method.
 
 ## Behavior
 
@@ -31,6 +31,7 @@ Parent: [`form-recall-pool.md`](form-recall-pool.md),
 | 4 | Vocabulary-size signal | Counts meaning-recall Tasks only — form-recall Tasks excluded from both value and pool size |
 | 5 | Recall-stability signal | Unchanged — averages stability across all reviewed Tasks |
 | 6 | Verb lemma with an incomplete paradigm table (< 30 cells) and at least one held form-recall Task | `partialParadigmLemmaCount` increments; held count unchanged; Progress names the uncertainty |
+| 7 | Form-recall pool loaded | Progress shows **cell group** breakdown: held vs total per pattern (verb class + tense, or nominal shape); weak groups link to `deck=form` review |
 
 ## Acceptance criteria
 
@@ -47,7 +48,11 @@ Parent: [`form-recall-pool.md`](form-recall-pool.md),
 - [ ] Given a held form-recall Task on a verb lemma whose paradigm table is
       incomplete, when `/progress` renders, then the held count is unchanged and
       a footnote names how many held lemmas have partial paradigms.
+- [ ] Given form-recall cards in the pool, when `/progress` renders, then a
+      breakdown table lists each cell group with held and total counts.
+- [ ] Given a cell group with fewer held forms than total, when `/progress`
+      renders, then a link to `deck=form` practice is offered.
 
 ## Check
 
-`npm test -- level-model progress form-recall-pool paradigm-completeness`
+`npm test -- level-model progress form-recall-pool paradigm-completeness form-mastery-groups form-cell-groups`

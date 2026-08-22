@@ -32,5 +32,12 @@ export default async function ProgressPage() {
     );
   }
 
-  return <ProgressReport reading={outcome.reading} reflection={reflection} />;
+  return (
+    <ProgressReport
+      reading={outcome.reading}
+      reflection={reflection}
+      formMasteryGroups={outcome.formMasteryGroups}
+      languageCode={outcome.languageCode}
+    />
+  );
 }

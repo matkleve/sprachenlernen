@@ -476,6 +476,15 @@
     "vocabularyValue": "{held} of {poolSize} starter-pack words are solid — not scaled up to the whole language",
     "formMasteryValue": "{held} of {poolSize} starter-pack word forms are solid — counted separately from vocabulary",
     "formMasteryPartialParadigmNote": "{count, plural, one {For # solid verb we do not know every form yet — how well you handle its forms is uncertain} other {For # solid verbs we do not know every form yet — how well you handle their forms is uncertain}}",
+    "formMasteryGroupsHeading": "Form patterns in your starter pack",
+    "formMasteryGroupsIntro": "Which verb endings and noun shapes are solid — separate from the vocabulary count above.",
+    "formMasteryGroupsCaption": "Held forms by pattern",
+    "formMasteryGroupColumns": {
+      "pattern": "Pattern",
+      "held": "Solid forms"
+    },
+    "formMasteryGroupValue": "{held} of {total}",
+    "formMasteryPracticeWeak": "Practise forms",
     "emptyState": "You have not reviewed anything yet, so nothing below has a value. That is how it starts — not a failure.",
     "startReview": "Start a review session",
     "doseHeading": "What a level costs",

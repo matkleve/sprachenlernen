@@ -476,6 +476,15 @@
     "vocabularyValue": "{held} von {poolSize} Wörtern aus dem Startpaket sitzen sicher — nicht auf die ganze Sprache hochgerechnet",
     "formMasteryValue": "{held} von {poolSize} Wortformen aus dem Startpaket sitzen sicher — getrennt vom Wortschatz gezählt",
     "formMasteryPartialParadigmNote": "{count, plural, one {Von # gehaltenen Verb kennen wir noch nicht alle Formen — wie gut du seine Formen kannst, ist deshalb unsicher} other {Von # gehaltenen Verben kennen wir noch nicht alle Formen — wie gut du ihre Formen kannst, ist deshalb unsicher}}",
+    "formMasteryGroupsHeading": "Formmuster in deinem Starter-Paket",
+    "formMasteryGroupsIntro": "Welche Verbendungen und Wortformen sitzen — getrennt von der Vokabelzahl oben.",
+    "formMasteryGroupsCaption": "Gehaltene Formen nach Muster",
+    "formMasteryGroupColumns": {
+      "pattern": "Muster",
+      "held": "Gehaltene Formen"
+    },
+    "formMasteryGroupValue": "{held} von {total}",
+    "formMasteryPracticeWeak": "Formen üben",
     "emptyState": "Du hast noch nichts wiederholt, deshalb hat unten noch nichts einen Wert. So fängt es an — das ist kein Versagen.",
     "startReview": "Wiederholung starten",
     "doseHeading": "Was ein Niveau kostet",

@@ -126,6 +126,33 @@ describe("ProgressReport", () => {
     ).toBeDefined();
   });
 
+  it("shows form pattern breakdown and a practice link when a group is weak", async () => {
+    await render(
+      await ProgressReport({
+        reading: withFormHistory,
+        reflection: hiddenReflection,
+        languageCode: "es",
+        formMasteryGroups: [
+          {
+            groupKey: "verb-1-ind.pres",
+            labelKey: "formCellGroups.es.verb-1-ind.pres",
+            held: 1,
+            total: 1,
+          },
+          {
+            groupKey: "irregular-ind.pres",
+            labelKey: "formCellGroups.es.irregular-ind.pres",
+            held: 0,
+            total: 1,
+          },
+        ],
+      }),
+    );
+
+    expect(screen.getByText(en.progress.formMasteryGroupsHeading)).toBeDefined();
+    expect(screen.getByText(en.progress.formMasteryPracticeWeak)).toBeDefined();
+  });
+
   it("shows the dose band with its borrowed label, and no numerator", async () => {
     await renderProgress(withHistory);
 
