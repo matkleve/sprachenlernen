@@ -6,26 +6,17 @@ import { PracticePrepList } from "@/features/exercise-runner/practice-surface/Pr
 import { PracticeSurface } from "@/features/exercise-runner/practice-surface/PracticeSurface";
 
 describe("practice surface", () => {
-  it("renders prep rows with horizontal inset borders and checkbox on the right", () => {
-    const { container } = render(
-      <PracticePrepList entries={[{ id: "a", label: "Keyboard ready" }]} />,
-    );
-    const row = container.querySelector("label");
-    expect(row?.className).toContain("min-h-11");
-    expect(row?.className).toContain("items-center");
-    expect(row?.className).toContain("px-4");
-    expect(row?.className).toContain("bg-surface");
-    expect(row?.className).toContain("border-x");
-    expect(row?.className).toContain("border-line-strong");
+  it("renders prep rows as full-width option buttons", () => {
+    render(<PracticePrepList entries={[{ id: "a", label: "Keyboard ready" }]} />);
 
-    const text = screen.getByText("Keyboard ready");
-    expect(text.className).toContain("font-semibold");
-    const marker = row?.querySelector("[aria-hidden]");
-    expect(marker?.compareDocumentPosition(text)).toBe(Node.DOCUMENT_POSITION_PRECEDING);
+    const button = screen.getByRole("button", { name: "Keyboard ready" });
+    expect(button.className).toContain("w-full");
+    expect(button.className).toContain("justify-start");
+    expect(button.getAttribute("aria-pressed")).toBe("false");
   });
 
-  it("keeps the checkbox vertically centered with multi-line label text", () => {
-    const { container } = render(
+  it("keeps option buttons readable with multi-line label text", () => {
+    render(
       <PracticePrepList
         entries={[
           {
@@ -36,26 +27,26 @@ describe("practice surface", () => {
       />,
     );
 
-    const row = container.querySelector("label");
-    expect(row?.className).toContain("items-center");
+    expect(
+      screen.getByRole("button", {
+        name: "In deiner Zielsprache schreiben — nicht auf Deutsch",
+      }),
+    ).not.toBeNull();
   });
 
-  it("toggles a prep row when the learner checks it", async () => {
+  it("toggles a prep row when the learner selects it", async () => {
     const user = userEvent.setup();
     render(
       <PracticePrepList entries={[{ id: "keyboard", label: "Keyboard ready" }]} />,
     );
 
-    const checkbox = screen.getByRole("checkbox", { name: "Keyboard ready" });
-    expect((checkbox as HTMLInputElement).checked).toBe(false);
+    const button = screen.getByRole("button", { name: "Keyboard ready" });
+    expect(button.getAttribute("aria-pressed")).toBe("false");
+    expect(button.className).toContain("border-line");
 
-    await user.click(checkbox);
-    expect((checkbox as HTMLInputElement).checked).toBe(true);
-
-    const checkedRow = checkbox.closest("label");
-    expect(checkedRow?.className).toContain("bg-accent-soft");
-    expect(checkedRow?.className).toContain("border-x");
-    expect(checkedRow?.className).toContain("border-line");
+    await user.click(button);
+    expect(button.getAttribute("aria-pressed")).toBe("true");
+    expect(button.className).toContain("bg-accent");
   });
 
   it("wraps children at task density", () => {

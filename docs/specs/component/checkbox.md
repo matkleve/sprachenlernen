@@ -7,14 +7,14 @@
 Custom checkbox control — native `input` stays for forms and screen readers; the
 visible box is drawn in-app so browsers cannot paint asymmetric borders.
 
-Parent: [`field.md`](field.md). Prep rows:
+Parent: [`field.md`](field.md). Material setup consent rows use the inline
+`label` prop; exercise prep checklists use option `Button`s instead — see
 [`practice-surface.md`](../feature/practice-surface.md).
 
 ## Scope
 
 - **In:** marker sizing, five interaction states, optional inline label, disabled.
-- **Out:** tri-state, radio behaviour, row chrome (owned by callers such as
-  `PracticePrepList`).
+- **Out:** tri-state, radio behaviour, exercise prep rows (use option `Button`s).
 
 ## Marker
 
@@ -24,8 +24,7 @@ Parent: [`field.md`](field.md). Prep rows:
 | `sm` | `size-5` | same | same |
 
 With `label`: row uses `items-center gap-2.5` so a single-line label aligns with
-the marker. Callers that embed the control in their own `<label>` (prep rows) use
-`items-center` on the row and `font-semibold` on task copy.
+the marker.
 
 Native input: `sr-only`. Marker: `aria-hidden`.
 

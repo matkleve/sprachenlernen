@@ -41,15 +41,14 @@ Applied via `PracticeSurface` wrapper — not new CSS color tokens.
 | Lead prompt | `practiceLeadClass`: `text-xl font-medium` desktop; `text-base font-semibold` mobile — reads above prep rows |
 | Body | `text-lg leading-relaxed text-ink` |
 | Secondary | `text-base text-muted` |
-| Prep row | `min-h-11 items-center` flex row — `bg-surface`, **`border-x border-line-strong`**, `px-4 py-3`; label left `font-semibold`, checkbox right; checked: `bg-accent-soft` |
-| Prep checkbox | `Checkbox` `md` at row end — sr-only input; marker `size-6 border-2 border-line-strong rounded-md` |
+| Prep row | `Button` `secondary` `md`, `w-full justify-start` — same option pattern as comprehension choices; checked: `primary` + `aria-pressed` |
 
 ## Behaviour
 
 | # | Element | Rule |
 | --- | --- | --- |
 | 1 | Step body | Wrapped in `PracticeSurface` |
-| 2 | Prepare checklist | `PracticePrepList` — label left, checkbox right, vertically centered; optional row `bg-accent-soft` when checked; does not gate **Weiter** |
+| 2 | Prepare checklist | `PracticePrepList` — full-width option `Button`s; `primary` when checked; does not gate **Weiter** |
 | 3 | Runner footer | `border-t border-line` only — no `bg-surface` panel on `canvas` |
 | 4 | Primary CTA | `Button` `lg` desktop; `h-10` mobile; bottom-right with nav on one row on phone |
 | 5 | New step UI | Must use practice-surface primitives before app-scale fields |
