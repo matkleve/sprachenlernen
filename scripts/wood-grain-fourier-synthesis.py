@@ -73,7 +73,7 @@ ITERATIONS = 6              # stage 4: Heeger-Bergen alternation rounds
 CRACK_STRENGTH = 0.8        # stage 7: how dark cracks cut into the grain
 CRACK_FLOOR = 0.0           # post-HB: zero crack_field below this (0–1)
 CRACK_KEEP_PERCENTILE = 0.0 # pre-HB: drop weak extraction pixels
-PROCEDURAL_CRACK_COUNT = 5  # sparse horizontal strokes when --crack-source procedural
+PROCEDURAL_CRACK_COUNT = 4  # few major checks, like photo extract
 RIM_PRE_BLUR = 3.0           # stage 5: smooths crack field before gradient
 RIM_STRENGTH = 0.6           # stage 7: brightness of the highlight
 TOP_FRACTION = 0.2           # stage 5: faint highlight kept above (vs below)
@@ -143,27 +143,92 @@ def _apply_crack_floor(crack_field: np.ndarray, floor: float) -> np.ndarray:
     return out
 
 
+def _smooth_jitter_profile(length: int, rng: np.random.Generator, sigma: float, amp: float) -> np.ndarray:
+    """Low-frequency vertical wobble — organic, not per-pixel sawtooth."""
+    if length <= 1:
+        return np.zeros(length, dtype=np.float32)
+    raw = rng.normal(0, 1, size=length).astype(np.float32)
+    smooth = gaussian_filter(raw, sigma=max(1.0, min(sigma, length / 3)), mode="nearest")
+    peak = float(np.max(np.abs(smooth)))
+    if peak > 0:
+        smooth /= peak
+    return smooth * amp
+
+
+def _stamp_crack_pixel(
+    field: np.ndarray,
+    x: int,
+    y_center: float,
+    thickness: float,
+    strength: float,
+) -> None:
+    h = field.shape[0]
+    t = max(1, int(round(thickness)))
+    for dy in range(-t, t + 1):
+        yyy = int(round(y_center)) + dy
+        if 0 <= yyy < h and 0 <= x < field.shape[1]:
+            core = 1.0 - abs(dy) / (t + 0.5)
+            field[yyy, x] = max(field[yyy, x], core * strength)
+
+
+def _draw_dashed_crack(
+    field: np.ndarray,
+    rng: np.random.Generator,
+    y0: float,
+    x0: int,
+    x1: int,
+    thickness: float,
+    jitter_amp: float,
+    jitter_sigma: float,
+) -> None:
+    """One major check: dashed segments, tapered ends, smooth wander."""
+    length = x1 - x0
+    if length <= 0:
+        return
+    wander = _smooth_jitter_profile(length, rng, sigma=jitter_sigma, amp=jitter_amp)
+    on = np.ones(length, dtype=bool)
+    i = 0
+    while i < length:
+        dash_len = int(rng.integers(max(10, length // 10), max(14, length // 4)))
+        gap_len = int(rng.integers(2, max(5, length // 18)))
+        gap_start = min(i + dash_len, length)
+        gap_end = min(i + dash_len + gap_len, length)
+        on[gap_start:gap_end] = False
+        i += dash_len + gap_len
+
+    for i in range(length):
+        if not on[i]:
+            continue
+        x = x0 + i
+        progress = i / max(length - 1, 1)
+        envelope = float(np.sin(np.pi * progress) ** 0.65)
+        local_thick = thickness * (0.8 + 0.3 * rng.random())
+        _stamp_crack_pixel(field, x, y0 + wander[i], local_thick, envelope)
+
+
 def procedural_crack_field(
     h: int,
     w: int,
     rng: np.random.Generator,
     count: int = PROCEDURAL_CRACK_COUNT,
-    min_gap_frac: float = 0.1,
-    min_span_frac: float = 0.45,
-    thickness: int = 2,
-    jitter_sigma: float = 1.0,
+    min_gap_frac: float = 0.14,
+    min_span_frac: float = 0.55,
+    thickness: float = 2.0,
+    jitter_sigma: float = 10.0,
+    jitter_amp: float = 2.5,
+    micro_count: int = 0,
 ) -> np.ndarray:
-    """Sparse horizontal crack strokes — generates sharp B&W-style masks without a photo.
+    """Sparse horizontal crack strokes — sharp mask, tileable, photo-extract-like.
 
-    Poisson-style Y placement + jittered polylines. Not HB: lines stay thin because
-    geometry is drawn, not inferred from a soft correlation field.
+    Major checks: Poisson Y spacing, long dashed runs, smooth wander, tapered ends,
+    variable thickness. Optional micro_count adds faint short dashes at low weight.
     """
     field = np.zeros((h, w), dtype=np.float32)
-    min_gap = max(6, int(h * min_gap_frac))
-    margin = thickness + 2
+    min_gap = max(10, int(h * min_gap_frac))
+    margin = int(max(4, thickness + 3))
     ys: list[int] = []
     attempts = 0
-    while len(ys) < count and attempts < count * 40:
+    while len(ys) < count and attempts < count * 50:
         attempts += 1
         y = int(rng.integers(margin, h - margin))
         if all(abs(y - yy) >= min_gap for yy in ys):
@@ -173,14 +238,18 @@ def procedural_crack_field(
         span = int(w * (min_span_frac + rng.random() * (1 - min_span_frac)))
         x0 = int(rng.integers(0, max(1, w - span)))
         x1 = min(w, x0 + span)
-        jitter = rng.normal(0, jitter_sigma, size=x1 - x0)
-        for i, x in enumerate(range(x0, x1)):
-            yy = int(np.clip(y0 + jitter[i], 0, h - 1))
-            for dy in range(-thickness, thickness + 1):
-                yyy = yy + dy
-                if 0 <= yyy < h:
-                    taper = 1.0 - abs(dy) / (thickness + 0.5)
-                    field[yyy, x] = max(field[yyy, x], taper)
+        crack_thick = thickness * (0.7 + rng.random() * 0.9)
+        _draw_dashed_crack(
+            field, rng, float(y0), x0, x1, crack_thick, jitter_amp, jitter_sigma
+        )
+
+    for _ in range(micro_count):
+        y = int(rng.integers(margin, h - margin))
+        span = int(w * rng.uniform(0.12, 0.35))
+        x0 = int(rng.integers(0, max(1, w - span)))
+        x1 = min(w, x0 + span)
+        _draw_dashed_crack(field, rng, float(y), x0, x1, 1.0, jitter_amp * 0.5, jitter_sigma * 0.6)
+
     peak = float(field.max())
     return field / peak if peak > 0 else field
 
