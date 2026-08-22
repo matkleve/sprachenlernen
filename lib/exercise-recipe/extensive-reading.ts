@@ -1,6 +1,7 @@
 import { resolveContentSourceById } from "@/lib/content-source-resolve";
 import { DEFAULT_EXTENSIVE_READING_SOURCE_ID } from "@/lib/content-source-constants";
 import { comprehensionQuestionsForSource } from "@/lib/exercise-recipe/comprehension-questions";
+import { OFFER_KEYS } from "@/lib/exercise-recipe/offer-keys";
 import { extensiveReadingDurationSec } from "@/lib/exercise-recipe/read-window-budget";
 import type { SessionContext } from "@/lib/exercise-recipe/types";
 import type { ExerciseRecipe } from "@/lib/exercise-runner/types";
@@ -78,8 +79,7 @@ export function composeExtensiveReadingRecipe(
         component: "offers",
         label: "Next",
         config: {
-          offers: ["Save a word as a card", "Read something else"],
-          declineLabel: "Not now — done",
+          offerKeys: [OFFER_KEYS.saveWordAsCard, OFFER_KEYS.readSomethingElse],
         },
       },
     ],

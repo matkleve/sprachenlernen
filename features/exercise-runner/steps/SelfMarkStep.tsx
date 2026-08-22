@@ -47,7 +47,7 @@ export function SelfMarkStep({
         <p className="text-base text-ink">{answerKey}</p>
       ) : null}
       <p className="text-sm text-muted">{t("reviewMarkErrors")}</p>
-      <div className="flex flex-wrap gap-2 max-md:gap-1">
+      <div className="flex flex-wrap gap-2 px-0.5 max-md:gap-1">
         {tokenGroups.flat().map((token, index) => {
           const selected = markedErrorTokens.includes(token);
           return (

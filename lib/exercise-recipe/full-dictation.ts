@@ -6,6 +6,7 @@ import {
   dictationWaitSecForVariant,
   resolvedVariantId,
 } from "@/lib/exercise-recipe/dictation-shared";
+import { OFFER_KEYS } from "@/lib/exercise-recipe/offer-keys";
 import type { SessionContext } from "@/lib/exercise-recipe/types";
 import type { ExerciseRecipe, ExerciseStep } from "@/lib/exercise-runner/types";
 import type { Source } from "@/lib/coverage";
@@ -88,8 +89,7 @@ export function composeFullDictationRecipe(source: Source, ctx: SessionContext):
         component: "offers",
         label: "Next",
         config: {
-          offers: ["Add errors as cards", "Explain one error"],
-          declineLabel: "Not now — done",
+          offerKeys: [OFFER_KEYS.addErrorsAsCards, OFFER_KEYS.explainOneError],
         },
       },
     ],
