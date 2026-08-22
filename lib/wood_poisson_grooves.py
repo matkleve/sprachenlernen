@@ -1,7 +1,8 @@
-"""Poisson horizontal groove carving for wood height fields.
+"""Sparse horizontal fissure carving for wood height fields.
 
-Marked Poisson line segments with plateau cross-section — sparse trenches
-with flat floors and steep walls. See docs/study/STUDY-032-photographic-wood-grain-synthesis.md.
+Big valleys are few long bands — not scattered Poisson segments. Parameters
+are fit from measured coarse valley depth on the source photo; ink budget is
+checked against photo stats before export.
 """
 
 from __future__ import annotations
@@ -34,14 +35,23 @@ def plateau_profile(r: np.ndarray, w_flat: float, w_wall: float) -> np.ndarray:
 
 
 @dataclass(frozen=True)
-class PoissonGrooveParams:
-    """One Poisson groove layer (fine checking or coarse fissures)."""
+class FissureBand:
+  y: int
+  x0: int
+  x1: int
+  depth: float
+  w_flat: float
+  w_wall: float
 
+
+@dataclass(frozen=True)
+class SparseFissureParams:
     name: str
-    # expected segment count ≈ density_per_mpx2 * width * height
-    density_per_mpx2: float
-    length_min: int
-    length_max: int
+    n_bands_min: int
+    n_bands_max: int
+    min_row_sep: int
+    length_frac_min: float
+    length_frac_max: float
     depth_min: float
     depth_max: float
     w_flat: float
@@ -49,167 +59,204 @@ class PoissonGrooveParams:
     seed: int = 0
 
 
-def _sample_lengths(rng: np.random.Generator, n: int, p: PoissonGrooveParams) -> np.ndarray:
-    lo, hi = p.length_min, max(p.length_min + 1, p.length_max)
-    return rng.integers(lo, hi + 1, size=n)
+def _carve_band(field: np.ndarray, band: FissureBand) -> None:
+    h, w = field.shape
+    y = int(np.clip(band.y, 0, h - 1))
+    x0 = int(np.clip(min(band.x0, band.x1), 0, w - 1))
+    x1 = int(np.clip(max(band.x0, band.x1), 0, w - 1))
+    if x1 <= x0:
+        return
+    y0 = max(0, y - int(np.ceil(band.w_wall / 2)))
+    y1 = min(h, y + int(np.ceil(band.w_wall / 2)) + 1)
+    yy = np.arange(y0, y1, dtype=np.float64)[:, None]
+    dist = np.abs(yy - float(y))
+    profile = plateau_profile(dist, band.w_flat, band.w_wall)
+    cut = band.depth * profile
+    field[y0:y1, x0 : x1 + 1] = np.maximum(field[y0:y1, x0 : x1 + 1], cut)
 
 
-def carve_poisson_grooves(
-    height: int,
-    width: int,
-    params: PoissonGrooveParams,
-    rng: np.random.Generator | None = None,
-) -> np.ndarray:
-    """Return normalized groove depth field in [0, 1] — continuous, not boolean."""
-    if rng is None:
-        rng = np.random.default_rng(params.seed)
+def carve_fissure_bands(height: int, width: int, bands: list[FissureBand]) -> np.ndarray:
+    """Continuous depth field [0, 1] from explicit horizontal fissure bands."""
     field = np.zeros((height, width), dtype=np.float64)
-    n = int(rng.poisson(max(0.0, params.density_per_mpx2 * width * height)))
-    n = max(n, 1) if params.density_per_mpx2 > 0 else 0
-
-    for _ in range(n):
-        y = int(rng.integers(0, height))
-        length = int(_sample_lengths(rng, 1, params)[0])
-        x0 = int(rng.integers(0, max(1, width - length)))
-        depth = float(rng.uniform(params.depth_min, params.depth_max))
-        y0 = max(0, y - int(np.ceil(params.w_wall / 2)))
-        y1 = min(height, y + int(np.ceil(params.w_wall / 2)) + 1)
-        x1 = min(width, x0 + length)
-        yy = np.arange(y0, y1, dtype=np.float64)[:, None]
-        dist = np.abs(yy - float(y))
-        profile = plateau_profile(dist, params.w_flat, params.w_wall)
-        cut = depth * profile
-        field[y0:y1, x0:x1] = np.maximum(field[y0:y1, x0:x1], cut)
-
+    for band in bands:
+        _carve_band(field, band)
     peak = field.max()
     if peak > 0:
         field /= peak
     return field.astype(np.float32)
 
 
-def measure_coarse_groove_params(
+def _pick_row_centers(
+    height: int,
+    count: int,
+    min_sep: int,
+    rng: np.random.Generator,
+) -> list[int]:
+    """Place `count` horizontal bands with minimum vertical separation."""
+    if count <= 0:
+        return []
+    margin = max(8, int(min_sep // 2))
+    lo, hi = margin, height - margin
+    if hi <= lo:
+        return [height // 2] * count
+    min_sep = max(8, int(min_sep))
+    for _ in range(200):
+        ys = sorted(int(rng.integers(lo, hi)) for _ in range(count))
+        ok = all(b - a >= min_sep for a, b in zip(ys, ys[1:], strict=False))
+        if ok or count == 1:
+            return ys
+    # fallback: evenly spaced
+    step = max(min_sep, (hi - lo) // max(1, count))
+    return [min(hi, lo + i * step) for i in range(count)]
+
+
+def sample_sparse_fissures(
+    height: int,
+    width: int,
+    params: SparseFissureParams,
+    rng: np.random.Generator | None = None,
+) -> tuple[list[FissureBand], np.ndarray]:
+    if rng is None:
+        rng = np.random.default_rng(params.seed)
+    n = int(rng.integers(params.n_bands_min, params.n_bands_max + 1))
+    rows = _pick_row_centers(height, n, params.min_row_sep, rng)
+    bands: list[FissureBand] = []
+    for y in rows:
+        frac = float(rng.uniform(params.length_frac_min, params.length_frac_max))
+        length = max(24, int(frac * width))
+        x0 = int(rng.integers(0, max(1, width - length)))
+        depth = float(rng.uniform(params.depth_min, params.depth_max))
+        bands.append(
+            FissureBand(
+                y=y,
+                x0=x0,
+                x1=x0 + length,
+                depth=depth,
+                w_flat=params.w_flat,
+                w_wall=params.w_wall,
+            )
+        )
+    field = carve_fissure_bands(height, width, bands)
+    return bands, field
+
+
+def extract_fissure_bands_from_photo(
     coarse_depth: np.ndarray,
-    quantile: float = 0.92,
-) -> PoissonGrooveParams:
-    """Fit Poisson groove params from measured coarse valley depth (photo)."""
+    row_peak_quantile: float = 0.98,
+    run_depth_quantile: float = 0.99,
+    min_row_gap: int = 20,
+) -> list[FissureBand]:
+    """Pull the few major horizontal fissures from measured coarse valley depth."""
     h, w = coarse_depth.shape
     peak = coarse_depth.max()
     if peak <= 0:
-        return PoissonGrooveParams(
-            name="photo_fit",
-            density_per_mpx2=0.00008,
-            length_min=40,
-            length_max=180,
-            depth_min=0.5,
-            depth_max=1.0,
-            w_flat=4,
-            w_wall=10,
-        )
+        return []
     norm = coarse_depth / peak
-    thr = float(np.quantile(norm[norm > 0], quantile)) if np.any(norm > 0) else 0.5
-    mask = norm >= thr
+    positives = norm[norm > 0]
+    if positives.size == 0:
+        return []
 
-    run_lengths: list[int] = []
-    widths: list[int] = []
-    depths: list[float] = []
-    for y in range(h):
-        row = mask[y]
-        if not row.any():
+    row_max = norm.max(axis=1)
+    row_thr = float(np.quantile(row_max, row_peak_quantile))
+    peak_rows = np.where(row_max >= row_thr)[0]
+    if peak_rows.size == 0:
+        return []
+
+    bands_rows: list[tuple[int, int]] = []
+    start = int(peak_rows[0])
+    prev = int(peak_rows[0])
+    for r in peak_rows[1:]:
+        r = int(r)
+        if r - prev > min_row_gap:
+            bands_rows.append((start, prev))
+            start = r
+        prev = r
+    bands_rows.append((start, prev))
+
+    out: list[FissureBand] = []
+    for y0, y1 in bands_rows:
+        y = (y0 + y1) // 2
+        region = norm[y0 : y1 + 1]
+        band_peak = float(region.max())
+        if band_peak <= 0:
             continue
-        xs = np.where(row)[0]
-        starts = [xs[0]]
-        ends: list[int] = []
-        for i in range(1, len(xs)):
-            if xs[i] - xs[i - 1] > 1:
-                ends.append(xs[i - 1])
-                starts.append(xs[i])
-        ends.append(xs[-1])
-        for s, e in zip(starts, ends, strict=True):
-            run_lengths.append(e - s + 1)
-            depths.append(float(norm[y, s : e + 1].max()))
-        # vertical extent at this row
-        if row.any():
-            widths.append(1)
-
-    # vertical band width: rows with mask in same column runs
-    col_active = mask.sum(axis=1)
-    active_rows = np.where(col_active > w * 0.02)[0]
-    band_est = max(3, int(np.median(np.diff(active_rows))) if len(active_rows) > 2 else 6)
-
-    if not run_lengths:
-        run_lengths = [80]
-    if not depths:
-        depths = [0.8]
-
-    raw_density = len(run_lengths) / (w * h)
-    density = float(np.clip(raw_density * 0.15, 0.00003, 0.00008))
-
-    return PoissonGrooveParams(
-        name="photo_fit",
-        density_per_mpx2=density,
-        length_min=max(12, int(np.percentile(run_lengths, 25))),
-        length_max=max(24, int(np.percentile(run_lengths, 90))),
-        depth_min=float(np.percentile(depths, 40)),
-        depth_max=float(np.percentile(depths, 95)),
-        w_flat=max(2.0, band_est * 0.6),
-        w_wall=max(4.0, band_est * 1.8),
-    )
+        # Full horizontal extent of this fissure band — not only the deepest pixels
+        band_mask = region >= band_peak * 0.35
+        cols = np.where(band_mask.any(axis=0))[0]
+        if cols.size == 0:
+            continue
+        x0, x1 = int(cols[0]), int(cols[-1])
+        band_h = max(3, y1 - y0 + 1)
+        depth = band_peak
+        out.append(
+            FissureBand(
+                y=y,
+                x0=x0,
+                x1=x1,
+                depth=depth,
+                w_flat=max(2.0, band_h * 0.8),
+                w_wall=max(5.0, band_h * 2.0),
+            )
+        )
+    return out
 
 
-# Named presets for layer explorer
-POISSON_PRESETS: dict[str, PoissonGrooveParams] = {
-    "sparse_coarse": PoissonGrooveParams(
-        name="sparse_coarse",
-        density_per_mpx2=0.00004,
-        length_min=80,
-        length_max=220,
-        depth_min=0.55,
+def ink_fraction(depth: np.ndarray, threshold: float = 0.08) -> float:
+    return float((depth >= threshold).mean())
+
+
+# Calibrated: wood-01 photo has ~2 major bands, ~0.8–2% ink at coarse scale
+SPARSE_PRESETS: dict[str, SparseFissureParams] = {
+    "photo_2band": SparseFissureParams(
+        name="photo_2band",
+        n_bands_min=2,
+        n_bands_max=2,
+        min_row_sep=80,
+        length_frac_min=0.45,
+        length_frac_max=0.85,
+        depth_min=0.75,
         depth_max=1.0,
-        w_flat=5,
-        w_wall=14,
-        seed=10,
-    ),
-    "medium_coarse": PoissonGrooveParams(
-        name="medium_coarse",
-        density_per_mpx2=0.0001,
-        length_min=50,
-        length_max=160,
-        depth_min=0.45,
-        depth_max=0.95,
         w_flat=4,
-        w_wall=11,
-        seed=11,
+        w_wall=12,
+        seed=20,
     ),
-    "heavy_fissure": PoissonGrooveParams(
-        name="heavy_fissure",
-        density_per_mpx2=0.00006,
-        length_min=120,
-        length_max=280,
-        depth_min=0.7,
-        depth_max=1.0,
-        w_flat=7,
-        w_wall=18,
-        seed=12,
+    "sparse_2": SparseFissureParams(
+        name="sparse_2",
+        n_bands_min=2,
+        n_bands_max=2,
+        min_row_sep=100,
+        length_frac_min=0.35,
+        length_frac_max=0.75,
+        depth_min=0.6,
+        depth_max=0.95,
+        w_flat=3,
+        w_wall=10,
+        seed=21,
     ),
-    "fine_checking": PoissonGrooveParams(
-        name="fine_checking",
-        density_per_mpx2=0.00035,
-        length_min=18,
-        length_max=70,
-        depth_min=0.25,
-        depth_max=0.65,
+    "sparse_3": SparseFissureParams(
+        name="sparse_3",
+        n_bands_min=3,
+        n_bands_max=3,
+        min_row_sep=70,
+        length_frac_min=0.25,
+        length_frac_max=0.65,
+        depth_min=0.5,
+        depth_max=0.9,
+        w_flat=3,
+        w_wall=9,
+        seed=22,
+    ),
+    "sparse_4": SparseFissureParams(
+        name="sparse_4",
+        n_bands_min=4,
+        n_bands_max=4,
+        min_row_sep=55,
+        length_frac_min=0.2,
+        length_frac_max=0.55,
+        depth_min=0.45,
+        depth_max=0.85,
         w_flat=2,
-        w_wall=5,
-        seed=13,
-    ),
-    "fine_plus_coarse": PoissonGrooveParams(
-        name="fine_plus_coarse_stub",
-        density_per_mpx2=0.0,
-        length_min=1,
-        length_max=2,
-        depth_min=0.0,
-        depth_max=0.0,
-        w_flat=1,
-        w_wall=2,
+        w_wall=8,
+        seed=23,
     ),
 }

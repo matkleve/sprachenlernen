@@ -1,28 +1,27 @@
 #!/usr/bin/env python3
-"""Export every FFT wood-synthesis layer + Poisson groove variants for one patch.
-
-Usage:
-    python3 scripts/wood-layer-explorer.py design/progression/patches/wood-01.png
-"""
+"""Export FFT pipeline layers + sparse fissure variants with texture-metrics."""
 
 from __future__ import annotations
 
 import importlib.util
+import json
+import subprocess
 import sys
 from pathlib import Path
 
 import matplotlib.pyplot as plt
 import numpy as np
-from PIL import Image, ImageDraw, ImageFont
+from PIL import Image, ImageDraw
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
 from lib.wood_poisson_grooves import (  # noqa: E402
-    POISSON_PRESETS,
-    PoissonGrooveParams,
-    carve_poisson_grooves,
-    measure_coarse_groove_params,
+    SPARSE_PRESETS,
+    carve_fissure_bands,
+    extract_fissure_bands_from_photo,
+    ink_fraction,
+    sample_sparse_fissures,
 )
 
 SYNTH_PATH = ROOT / "scripts" / "wood-grain-fourier-synthesis.py"
@@ -48,45 +47,54 @@ def save_rgb(path: Path, arr: np.ndarray) -> None:
     Image.fromarray(np.clip(arr, 0, 255).astype(np.uint8), mode="RGB").save(path)
 
 
-def composite_poisson(
+def composite_fissures(
     layers: dict,
     coarse: np.ndarray,
-    fine: np.ndarray | None,
-    coarse_strength: float = 0.72,
-    fine_strength: float = 0.45,
+    coarse_strength: float = 0.82,
 ) -> tuple[np.ndarray, np.ndarray]:
-    """Base grain + Poisson grooves → shading + RGB final."""
     grain_px = layers["grain_px"]
     valley_px = coarse * 255 * coarse_strength
-    if fine is not None:
-        valley_px = valley_px + fine * 255 * fine_strength
     shading = np.clip(128 + grain_px - valley_px, 0, 255)
     albedo = layers["albedo"]
     final = np.clip(albedo * (shading[..., None] / 128.0), 0, 255)
     return shading, final
 
 
-def make_layer_grid(layer_paths: list[tuple[str, Path]], out_path: Path, cols: int = 4) -> None:
-    n = len(layer_paths)
-    rows = (n + cols - 1) // cols
+def run_metrics(reference: Path, candidate: Path) -> dict[str, str]:
+    out = subprocess.run(
+        ["node", "scripts/texture-metrics.mjs", str(reference), str(candidate)],
+        cwd=ROOT,
+        capture_output=True,
+        text=True,
+        check=True,
+    )
+    flags: dict[str, str] = {}
+    for line in out.stdout.splitlines():
+        if "<<" in line:
+            key = line.strip().split()[0]
+            flags[key] = line.strip()
+    return flags
+
+
+def make_grid(items: list[tuple[str, Path]], out_path: Path, cols: int = 4) -> None:
     cell = 256
     pad = 8
     label_h = 22
-    grid = Image.new("RGB", (cols * (cell + pad) + pad, rows * (cell + label_h + pad) + pad), (24, 24, 24))
+    rows = (len(items) + cols - 1) // cols
+    grid = Image.new(
+        "RGB",
+        (cols * (cell + pad) + pad, rows * (cell + label_h + pad) + pad),
+        (24, 24, 24),
+    )
     draw = ImageDraw.Draw(grid)
-    for i, (label, path) in enumerate(layer_paths):
+    for i, (label, path) in enumerate(items):
         r, c = divmod(i, cols)
         x = pad + c * (cell + pad)
         y = pad + r * (cell + label_h + pad)
-        im = Image.open(path).convert("RGB")
-        im = im.resize((cell, cell), Image.Resampling.LANCZOS)
+        im = Image.open(path).convert("RGB").resize((cell, cell), Image.Resampling.LANCZOS)
         grid.paste(im, (x, y + label_h))
-        draw.text((x, y), label, fill=(220, 220, 220))
+        draw.text((x, y), label[:42], fill=(220, 220, 220))
     grid.save(out_path)
-
-
-def make_poisson_grid(variants: list[tuple[str, Path]], out_path: Path, cols: int = 3) -> None:
-    make_layer_grid(variants, out_path, cols=cols)
 
 
 def main(source: Path) -> None:
@@ -99,12 +107,11 @@ def main(source: Path) -> None:
     layers = synth.build_layers(source)
     h, w = layers["height"].shape
 
-    # --- current pipeline layers ---
     layer_specs = [
-        ("01 height (source L)", "height"),
-        ("02 measured fine valley", "measured_fine_valley"),
-        ("03 measured coarse valley", "measured_coarse_valley"),
-        ("04 base grain (FFT)", "base_grain"),
+        ("01 height", "height"),
+        ("02 meas fine valley", "measured_fine_valley"),
+        ("03 meas coarse valley", "measured_coarse_valley"),
+        ("04 base grain", "base_grain"),
         ("05 HB fine raw", "hb_fine_raw"),
         ("06 HB coarse raw", "hb_coarse_raw"),
         ("07 fine shaped", "fine_shaped"),
@@ -119,94 +126,113 @@ def main(source: Path) -> None:
         p = out_layers / f"{key}.png"
         if key == "shading":
             save_gray01(p, layers[key] / 255.0)
-        elif key in ("rim", "rim_patchy", "fine_shaped", "coarse_shaped", "valley_combined", "hb_fine_raw", "hb_coarse_raw"):
-            save_gray01(p, layers[key])
         else:
             save_gray01(p, layers[key])
         exported.append((label, p))
-
     save_rgb(out_layers / "13_final_rgb.png", layers["final_rgb"])
     exported.append(("13 final RGB", out_layers / "13_final_rgb.png"))
+    make_grid(exported, OUT_ARTIFACTS / f"{name}-current-pipeline-layers.png", cols=4)
 
-    current_grid = OUT_ARTIFACTS / f"{name}-current-pipeline-layers.png"
-    make_layer_grid(exported, current_grid, cols=4)
+    photo_coarse = layers["measured_coarse_valley_raw"]
+    photo_ink = ink_fraction(photo_coarse / (photo_coarse.max() + 1e-8), 0.15)
+    extracted = extract_fissure_bands_from_photo(photo_coarse)
+    extracted_depth = carve_fissure_bands(h, w, extracted)
+    extracted_ink = ink_fraction(extracted_depth)
 
-    # --- Poisson groove presets ---
-    measured_coarse = layers["measured_coarse_valley_raw"]
-    photo_fit = measure_coarse_groove_params(measured_coarse)
-
-    fine_preset = POISSON_PRESETS["fine_checking"]
-    poisson_jobs: list[tuple[str, PoissonGrooveParams, PoissonGrooveParams | None]] = [
-        ("poisson_sparse_coarse", POISSON_PRESETS["sparse_coarse"], None),
-        ("poisson_medium_coarse", POISSON_PRESETS["medium_coarse"], None),
-        ("poisson_heavy_fissure", POISSON_PRESETS["heavy_fissure"], None),
-        ("poisson_photo_fit", photo_fit, None),
-        (
-            "poisson_fine_plus_coarse",
-            POISSON_PRESETS["sparse_coarse"],
-            fine_preset,
-        ),
+    fissure_jobs: list[tuple[str, np.ndarray, list]] = [
+        ("photo_extracted", extracted_depth, extracted),
     ]
+    metrics_rows: list[dict] = []
 
-    poisson_exported: list[tuple[str, Path]] = []
-    depth_exported: list[tuple[str, Path]] = []
+    for preset_name, params in SPARSE_PRESETS.items():
+        bands, depth = sample_sparse_fissures(h, w, params, np.random.default_rng(params.seed))
+        fissure_jobs.append((preset_name, depth, bands))
 
-    for job_name, coarse_p, fine_p in poisson_jobs:
-        rng_c = np.random.default_rng(coarse_p.seed)
-        coarse_depth = carve_poisson_grooves(h, w, coarse_p, rng_c)
-        fine_depth = None
-        if fine_p is not None:
-            fine_depth = carve_poisson_grooves(h, w, fine_p, np.random.default_rng(fine_p.seed))
-
-        depth_path = out_layers / f"{job_name}_depth.png"
-        save_gray01(depth_path, coarse_depth if fine_depth is None else np.clip(coarse_depth + fine_depth * 0.5, 0, 1))
-        depth_exported.append((job_name.replace("_", " "), depth_path))
-
-        shading, final = composite_poisson(layers, coarse_depth, fine_depth)
-        shade_path = out_layers / f"{job_name}_shading.png"
-        final_path = out_layers / f"{job_name}_final.png"
-        save_gray01(shade_path, shading / 255.0)
+    for job_name, depth, bands in fissure_jobs:
+        depth_path = out_layers / f"fissure_{job_name}_depth.png"
+        save_gray01(depth_path, depth)
+        shading, final = composite_fissures(layers, depth)
+        final_path = out_layers / f"fissure_{job_name}_final.png"
         save_rgb(final_path, final)
-        poisson_exported.append((job_name.replace("_", " "), final_path))
+        flags = run_metrics(source, final_path)
+        metrics_rows.append(
+            {
+                "variant": job_name,
+                "ink": round(ink_fraction(depth), 5),
+                "n_bands": len(bands),
+                "contrast": flags.get("contrast", ""),
+                "lightRange": flags.get("lightRange", ""),
+                "sortedL": flags.get("sortedL", ""),
+            }
+        )
 
-    # profile cross-section demo (plateau shape)
+    # current pipeline metrics for comparison
+    cur_final = out_layers / "13_final_rgb.png"
+    flags_cur = run_metrics(source, cur_final)
+    metrics_rows.insert(
+        0,
+        {
+            "variant": "current_fft_hb",
+            "ink": round(float(layers["coarse_shaped"].mean()), 5),
+            "n_bands": "—",
+            "contrast": flags_cur.get("contrast", ""),
+            "lightRange": flags_cur.get("lightRange", ""),
+            "sortedL": flags_cur.get("sortedL", ""),
+        },
+    )
+    metrics_rows.insert(
+        0,
+        {
+            "variant": "source_photo",
+            "ink": round(photo_ink, 5),
+            "n_bands": len(extracted),
+            "contrast": "—",
+            "lightRange": "—",
+            "sortedL": "—",
+        },
+    )
+
+    metrics_path = OUT_ARTIFACTS / f"{name}-fissure-metrics.json"
+    metrics_path.write_text(json.dumps(metrics_rows, indent=2), encoding="utf-8")
+
+    # grid: only fissure finals (not scatter poisson)
+    variant_items = [
+        (row["variant"], out_layers / f"fissure_{row['variant']}_final.png")
+        for row in metrics_rows
+        if row["variant"] not in ("source_photo", "current_fft_hb")
+    ]
+    make_grid(variant_items, OUT_ARTIFACTS / f"{name}-sparse-fissure-variants.png", cols=3)
+
+    # stack: source | photo_extracted | sparse_2
+    src = Image.open(source).convert("RGB")
+    best = Image.open(out_layers / "fissure_photo_extracted_final.png")
+    s2 = Image.open(out_layers / "fissure_sparse_2_final.png")
+    sw, sh = src.size
+    stack = Image.new("RGB", (sw * 3 + 32, sh + 28), (20, 20, 20))
+    draw = ImageDraw.Draw(stack)
+    for i, (im, lab) in enumerate(
+        [(src, "source"), (best, f"photo extracted ({len(extracted)} bands)"), (s2, "sparse_2")]
+    ):
+        stack.paste(im.resize((sw, sh)), (8 + i * (sw + 8), 24))
+        draw.text((8 + i * (sw + 8), 4), lab, fill=(230, 230, 230))
+    stack.save(OUT_ARTIFACTS / f"{name}-sparse-fissure-compare.png")
+
+    # profile
     from lib.wood_poisson_grooves import plateau_profile
 
     r = np.linspace(0, 12, 200)
     prof = plateau_profile(r, w_flat=4, w_wall=12)
     fig, ax = plt.subplots(figsize=(6, 2.5))
     ax.plot(r, prof, color="#c4a574", linewidth=2)
-    ax.set_title("Plateau groove profile φ(r) — flat floor, steep wall")
-    ax.set_xlabel("distance from groove center (px)")
-    ax.set_ylabel("depth")
-    ax.grid(True, alpha=0.3)
-    profile_path = OUT_ARTIFACTS / f"{name}-plateau-profile.png"
-    fig.savefig(profile_path, dpi=120, bbox_inches="tight")
+    ax.set_title("Plateau fissure cross-section")
+    ax.set_xlabel("px from groove center")
+    fig.savefig(OUT_ARTIFACTS / f"{name}-plateau-profile.png", dpi=120, bbox_inches="tight")
     plt.close(fig)
 
-    poisson_grid = OUT_ARTIFACTS / f"{name}-poisson-variants.png"
-    make_poisson_grid(poisson_exported, poisson_grid, cols=3)
-
-    depth_grid = OUT_ARTIFACTS / f"{name}-poisson-depth-fields.png"
-    make_poisson_grid(depth_exported, depth_grid, cols=3)
-
-    # stacked: source | current final | best poisson candidate
-    src = Image.open(source).convert("RGB")
-    cur = Image.open(out_layers / "13_final_rgb.png")
-    pois = Image.open(out_layers / "poisson_photo_fit_final.png")
-    sw, sh = src.size
-    stack = Image.new("RGB", (sw * 3 + 32, sh + 28), (20, 20, 20))
-    draw = ImageDraw.Draw(stack)
-    for i, (im, lab) in enumerate([(src, "source"), (cur, "current FFT+HB"), (pois, "Poisson photo_fit")]):
-        stack.paste(im.resize((sw, sh)), (8 + i * (sw + 8), 24))
-        draw.text((8 + i * (sw + 8), 4), lab, fill=(230, 230, 230))
-    stack_path = OUT_ARTIFACTS / f"{name}-source-current-poisson.png"
-    stack.save(stack_path)
-
-    print(f"Layers written to {out_layers}")
-    print(f"Montages written to {OUT_ARTIFACTS}")
-    for p in [current_grid, poisson_grid, depth_grid, stack_path, profile_path]:
-        print(f"  {p}")
+    print(f"Photo coarse ink ~{photo_ink:.4f}, extracted bands={len(extracted)}, extracted ink={extracted_ink:.4f}")
+    print(f"Metrics: {metrics_path}")
+    for row in metrics_rows:
+        print(f"  {row['variant']:18} ink={row['ink']} bands={row['n_bands']}  {row.get('contrast','')}")
 
 
 if __name__ == "__main__":
