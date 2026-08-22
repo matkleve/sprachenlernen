@@ -61,12 +61,26 @@ scaling R, G, B together. Adopting STUDY-031's exact ramp-from-quantiles
 technique in place of the albedo multiply is the likely next step if measured
 colour drifts.
 
-**[D]** `FEATURE_SCALE` on the crack spectrum is the dominant knob for crack
-*morphology*. At **9.0** (early tuning for sparse, large checking on tiles) the
-synthesized crack field is fat, bubbly, and rim-blurred — profile slices show
-broad humps vs narrow spikes in the real `relu(blur−img)` layer. At **1.0**
-(native measured scale) wood-01 remakes read as fine horizontal checking; owner
-marked this a major breakthrough 2026-08-22. Reference:
+**[D]** Defect extraction must follow the height field, not blur residuals.
+Luminance **is** relief (line 26–27). Valley depth = vertical ridge envelope
+minus height (`grey_dilation` footprint `(radius, 1)` — max along columns for
+horizontal grain). Fine checking uses a small radius; coarse fissures use a
+large radius with `coarse = clip(deep − fine, 0)` so wide splits are a
+**band-pass in valley depth**, not `relu(blur_22 − blur_6)`. Blur-difference
+was tried and rejected: it produces symmetric soft blobs, contradicts the
+ridge/valley model, and reads bubbly when `FEATURE_SCALE` widens the spectrum.
+
+**[D]** Big fissures need that **second valley band** (coarse radius ~41 px on
+wood-01) synthesised separately via Heeger–Bergen, sharpened (`floor` +
+`power` on normalised depth), then composited into the height map as cuts:
+`shading = 128 + grain − valley_fine − valley_coarse + rim`. Rim still uses a
+directional vertical gradient of combined valley depth (one-sided fiber lip).
+
+**[D]** `FEATURE_SCALE` on the valley spectrum is the dominant knob for crack
+*placement density*, not valley **shape** (shape comes from morphological depth
++ sharpen). At **9.0** (early tuning) the synthesized field was fat and bubbly.
+At **1.0** (native measured scale) wood-01 remakes read as fine horizontal
+checking; owner marked this a major breakthrough 2026-08-22. Reference:
 `design/progression/breakthrough-wood-01-final.png`.
 
 **[D]** Feature size is controllable independently of the recipe's shape via
@@ -123,6 +137,7 @@ rule or a button edge, not the material.
 | Spectrum-matching alone for sparse defects (cracks, knots) | Gaussian marginal distribution — diffuse haze, not lines; needs histogram matching too |
 | Per-channel RGB histogram matching for colour | STUDY-031 finding 11 — decorrelates channels, turns wood pink; this pipeline histogram-matches one grayscale layer instead |
 | Symmetric (blur-difference) rim highlight | Real fiber-lip highlighting is one-sided; needs a directional gradient |
+| `relu(blur − img)` as the defect layer | Violates the height-field model; soft symmetric blobs, not sharp grooves |
 | Multi-species grid source photos | Splits resolution N ways; seams inject spurious FFT energy even with no drawn divider |
 | Calling this validated before measurement | Tuned on placeholder photos only — `scripts/texture-metrics.mjs` against the real board hasn't run yet |
 | Treating this study as the implementation of `/dev/wood-textures`'s resize behavior | That page's tested contract is the live canvas renderer — see [STUDY-030](STUDY-030-procedural-wood-grain.md) and [`wood-texture-lab.md`](../specs/page/wood-texture-lab.md) |
