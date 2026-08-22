@@ -48,7 +48,8 @@ export const navLinkVariants = cva(
     variants: {
       current: {
         true: navCurrentFill,
-        false: "text-muted hover:bg-accent-soft hover:text-ink",
+        false:
+          "text-muted hover:bg-accent-soft hover:text-ink active:bg-accent active:text-accent-ink",
       },
     },
     defaultVariants: { current: false },
