@@ -32,8 +32,8 @@ const multiWordRecipe: ExerciseRecipe = {
     {
       id: "decide-1",
       type: "decide",
-      component: "offers",
-      config: { offers: [] },
+      component: "summary",
+      config: {},
     },
   ],
 };
