@@ -70,11 +70,29 @@ export function measure(png) {
   let hx = 0, hy = 0;
   for (let y = 0; y < H; y++) for (let x = 0; x < W; x++) {
     const [L, a, b] = oklab(...at(x, y));
-    Ls.push(L);
+    Ls.push(L);                       // index-aligned with `chroma` below
     const c = Math.hypot(a, b);
     chroma.push(c);
     if (c > 1e-4) { hx += a; hy += b; }
   }
+  // Colour conditioned on lightness. Median lightness and mean chroma can both
+  // match while the material looks wrong, because what differs is how chroma
+  // moves *with* lightness. Measure it rather than assuming: this reference's
+  // chroma RISES with lightness (0.050 -> 0.059), so its light grain is warm,
+  // not pale — the opposite of the intuition that light grain is desaturated.
+  // Other species may well go the other way. That is the point of measuring.
+  const byL = Ls.map((L, i) => ({ L, C: chroma[i] }));
+  byL.sort((p, q) => p.L - q.L);
+  const QUINT = 5;
+  const quintiles = [];
+  for (let q = 0; q < QUINT; q++) {
+    const sl = byL.slice(Math.floor(q * byL.length / QUINT), Math.floor((q + 1) * byL.length / QUINT));
+    quintiles.push({
+      L: sl.reduce((a, v) => a + v.L, 0) / sl.length,
+      C: sl.reduce((a, v) => a + v.C, 0) / sl.length,
+    });
+  }
+
   Ls.sort((p, q) => p - q);
   const q = (t) => Ls[Math.floor(t * (Ls.length - 1))];
   const mean = Ls.reduce((s, v) => s + v, 0) / Ls.length;
@@ -161,6 +179,7 @@ export function measure(png) {
     hue: (Math.atan2(hy, hx) * 180 / Math.PI + 360) % 360,
     localContrast: grad / gn,
     runLength,
+    quintiles,
     ang: Array.from(ang, (v) => v / total),
     rad: Array.from(rad, (v) => v / total),
   };
@@ -184,6 +203,9 @@ export function compare(ref, cand) {
     skew: cand.skew - ref.skew,
     localContrast: cand.localContrast - ref.localContrast,
     runLength: cand.runLength - ref.runLength,
+    lightnessRange: (cand.quintiles[4].L - cand.quintiles[0].L) - (ref.quintiles[4].L - ref.quintiles[0].L),
+    chromaProfile: Math.sqrt(ref.quintiles.reduce((a, q, i) =>
+      a + (cand.quintiles[i].C - q.C) ** 2, 0) / ref.quintiles.length),
     orientation: Math.sqrt(orient),
     scale: Math.sqrt(scale),
   };
@@ -206,16 +228,21 @@ if (process.argv[1]?.endsWith("texture-metrics.mjs")) {
   console.log(`  skew ${ref.skew.toFixed(2)}   localContrast ${ref.localContrast.toFixed(4)}   ` +
     `directionality ${directionality(ref).toFixed(2)}   runLength ${ref.runLength.toFixed(3)}`);
   console.log(`  scale bands (coarse->fine)  ${ref.rad.map((v) => (v * 100).toFixed(0).padStart(3)).join("")}`);
+  console.log(`  by lightness quintile  L ${ref.quintiles.map((q) => q.L.toFixed(2).padStart(6)).join("")}`);
+  console.log(`                         C ${ref.quintiles.map((q) => q.C.toFixed(3).padStart(6)).join("")}`);
 
   for (const path of cands) {
     const c = measure(readPng(readFileSync(path)));
     const d = compare(ref, c);
     console.log(`\ncandidate  ${path}`);
     console.log(`  tone        ${f(d.tone)}   ${Math.abs(d.tone) > 0.05 ? (d.tone < 0 ? "<< too dark" : "<< too light") : "ok"}`);
-    console.log(`  contrast    ${f(d.contrast)}`);
+    console.log(`  contrast    ${f(d.contrast)}   ${Math.abs(d.contrast) > 0.04 ? (d.contrast < 0 ? "<< tonal range too narrow" : "<< tonal range too wide") : "ok"}`);
     console.log(`  chroma      ${f(d.chroma, 4)}   ${Math.abs(d.chroma) > 0.01 ? (d.chroma < 0 ? "<< too grey" : "<< too saturated") : "ok"}`);
     console.log(`  hue         ${f(d.hue, 0)}deg`);
     console.log(`  skew        ${f(d.skew, 2)}`);
+    console.log(`  lightRange  ${f(d.lightnessRange, 3)}   ${d.lightnessRange < -0.03 ? "<< no light grain — darks and lights too close" : "ok"}`);
+    console.log(`  chromaByL   ${d.chromaProfile.toFixed(4)}   L ${c.quintiles.map((q) => q.L.toFixed(2).padStart(6)).join("")}`);
+    console.log(`                       C ${c.quintiles.map((q) => q.C.toFixed(3).padStart(6)).join("")}`);
     console.log(`  localCtrst  ${f(d.localContrast, 4)}`);
     console.log(`  runLength   ${f(d.runLength, 3)}   ${d.runLength < -0.02 ? "<< features breaking up / closing into loops" : d.runLength > 0.02 ? "<< features too continuous" : "ok"}`);
     console.log(`  orientation ${d.orientation.toFixed(2)}   (directionality ${directionality(c).toFixed(2)} vs ${directionality(ref).toFixed(2)})`);

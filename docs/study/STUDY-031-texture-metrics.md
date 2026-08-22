@@ -39,6 +39,8 @@ board, over roughly a dozen measured iterations.
 | `tone` | median OKLab lightness | "too dark" / "too light" — the single most common miss |
 | `contrast` | p95 − p5 lightness | flat, washed, or over-crushed surfaces |
 | `chroma` | mean OKLab chroma | "too grey" / "too candy" |
+| `lightRange` | lightness spread, p80 quintile − p20 quintile | no light grain: darks and lights sitting too close |
+| `chromaByL` | mean chroma per lightness quintile | *where* in the tonal range the colour goes wrong |
 | `hue` | mean OKLab hue angle | wrong wood species, brass gone pink |
 | `skew` | skew of the lightness histogram | *mostly light with narrow dark notches* (grain cracks) vs *mostly dark with bright specks* (brass, stars). Negative and positive are different materials. |
 | `localContrast` | mean per-pixel gradient | whether edges fall clean or fray into noise |
@@ -100,8 +102,20 @@ Four real failures, in the order they happened:
 2. **Matching mean colour is not matching the colour distribution.** A candidate
    hit mean hue and mean chroma almost exactly and looked like varnished pine,
    because the reference is many dark low-chroma pixels plus a few warm bright
-   ones while the candidate was uniformly golden. Percentiles would catch this;
-   means do not.
+   ones while the candidate was uniformly golden. `chromaByL` and `lightRange`
+   were added for this and do catch it — a texture reading "chroma ok" turned
+   out to span lightness 0.33–0.38 where the reference spans 0.34–0.46, i.e. no
+   light grain at all. Two lessons came with them:
+
+   - **A stack of `multiply` layers cannot produce light grain.** Multiply only
+     darkens, so no ramp adjustment will lift the top end; widening the ramp's
+     light endpoint moved rendered lightness range from 0.023 to 0.049 and just
+     darkened everything. A `screen` layer took it to 0.108 against the
+     reference's 0.115.
+   - **Do not assume which way chroma moves with lightness.** The intuition that
+     light grain is pale and desaturated is wrong for this reference, whose
+     chroma *rises* with lightness. Building to the assumption gave grey
+     scratches; building to the measurement gave warm fibre.
 3. **The reference crop dominates the result.** An early crop included a card
    edge and a blown highlight. It reported contrast 0.227 and directionality
    0.70; a clean crop of the same plank reported 0.135 and 0.51. Conclusions
