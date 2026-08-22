@@ -1,10 +1,13 @@
 #!/usr/bin/env python3
-"""Generate N crack-mask tries with different methods/settings; build montage.
+"""Generate 10 *generative* crack-mask algorithms (no photo extraction in tries).
 
-Target form: tapered horizontal fissures ("big cracks only"), not blobs or stripes.
+Scores each against a reference target mask (extracted big-cracks-only) for QA only.
 
 Usage:
     python3 scripts/generate-crack-mask-tries.py [source.png] [out_dir]
+
+    source.png — used only to size the tile and build FFT grain context for some
+    algorithms; crack masks are not photo-extracted in the 10 tries.
 """
 
 from __future__ import annotations
@@ -22,11 +25,12 @@ from scipy.ndimage import (
     generate_binary_structure,
     grey_closing,
     grey_opening,
+    maximum_filter,
     label as cc_label,
 )
 
 ROOT = Path(__file__).resolve().parents[1]
-SYNTH_PATH = ROOT / "scripts" / "wood-grain-fourier-synthesis.py"
+SYNTH_PATH = ROOT / "scripts/wood-grain-fourier-synthesis.py"
 
 
 def _load_synth():
@@ -36,6 +40,11 @@ def _load_synth():
     return mod
 
 
+def _norm(field: np.ndarray) -> np.ndarray:
+    peak = float(field.max())
+    return field / (peak + 1e-8) if peak > 0 else field
+
+
 def _crack_bw(crack: np.ndarray) -> np.ndarray:
     peak = float(crack.max())
     if peak <= 0:
@@ -43,28 +52,16 @@ def _crack_bw(crack: np.ndarray) -> np.ndarray:
     return (255 - np.clip(crack / peak * 255, 0, 255)).astype(np.uint8)
 
 
-def dash_generator_mask(
-    h: int,
-    w: int,
-    rng: np.random.Generator,
-    n_major: int = 6,
-    n_minor: int = 18,
-) -> np.ndarray:
-    """Tapered horizontal dash cracks — stats loosely from extracted wood-01."""
-    field = np.zeros((h, w), dtype=np.float64)
-    for _ in range(n_major):
-        y = int(rng.integers(h * 0.08, h * 0.92))
-        x0 = int(rng.integers(0, w * 0.15))
-        length = int(rng.integers(w * 0.25, w * 0.75))
-        thickness = rng.uniform(2.0, 5.0)
-        _paint_tapered_dash(field, y, x0, length, thickness, rng, gap_prob=0.12)
-    for _ in range(n_minor):
-        y = int(rng.integers(0, h))
-        x0 = int(rng.integers(0, w * 0.4))
-        length = int(rng.integers(w * 0.08, w * 0.35))
-        thickness = rng.uniform(1.0, 2.5)
-        _paint_tapered_dash(field, y, x0, length, thickness, rng, gap_prob=0.35)
-    return field / (field.max() + 1e-8)
+def _sparsify(field: np.ndarray, keep_p: float) -> np.ndarray:
+    if keep_p <= 0:
+        return field
+    out = field.copy()
+    pos = out[out > 0]
+    if pos.size == 0:
+        return out
+    cut = float(np.percentile(pos, keep_p))
+    out[out < cut] = 0.0
+    return out
 
 
 def _paint_tapered_dash(
@@ -77,16 +74,14 @@ def _paint_tapered_dash(
     gap_prob: float,
 ) -> None:
     h, w = field.shape
-    y += int(rng.integers(-3, 4))
-    y = int(np.clip(y, 0, h - 1))
+    y = int(np.clip(y + rng.integers(-2, 3), 0, h - 1))
     x1 = min(w, x0 + length)
-    for x in range(x0, x1):
+    for x in range(max(0, x0), x1):
         if rng.random() < gap_prob:
             continue
         t = (x - x0) / max(length, 1)
-        taper = np.sin(np.pi * t) ** 0.7
-        wobble = int(rng.integers(-1, 2))
-        yy = int(np.clip(y + wobble, 0, h - 1))
+        taper = float(np.sin(np.pi * t) ** 0.65)
+        yy = int(np.clip(y + rng.integers(-1, 2), 0, h - 1))
         rad = max(1, int(thickness * taper * 0.5))
         for dy in range(-rad, rad + 1):
             yi = yy + dy
@@ -94,119 +89,220 @@ def _paint_tapered_dash(
                 field[yi, x] = max(field[yi, x], taper)
 
 
-def morph_thin_valleys(
-    synth,
-    base: np.ndarray,
-    h: int,
-    w: int,
-    rng: np.random.Generator,
-    keep_percentile: float,
-    crack_blur_sigma: float,
-    use_closing: bool,
-    seed: int,
+# ---- 10 generative algorithms -----------------------------------------------
+
+def algo01_heeger_bergen(
+    synth, h: int, w: int, rng: np.random.Generator, win: np.ndarray
 ) -> np.ndarray:
-    """Morphological valleys with optional closing off (less blob merge)."""
-    height = synth.synthetic_height_field(base, h, w, rng)
-    span = min(h, w)
-    coarse = synth._aniso_blur(height, span / 22.0, span / 14.0)
-    major = np.clip(
-        synth._aniso_blur(coarse, crack_blur_sigma * 0.35, crack_blur_sigma) - coarse,
-        0,
-        None,
+    """HB on synthetic sparse anisotropic noise target — no photo crack layer."""
+    sparse = rng.normal(size=(h, w))
+    sparse = gaussian_filter(sparse, sigma=(2.0, 18.0))
+    sparse = _sparsify(np.clip(sparse, 0, None), 92)
+    crack_c = sparse - sparse.mean()
+    spec_c = np.fft.fft2(crack_c * win)
+    mag = gaussian_filter(np.fft.fftshift(np.abs(spec_c)), sigma=synth.SPEC_SMOOTH_SIGMA)
+    target_mag = np.fft.ifftshift(mag)
+    target_mag[0, 0] = 0.0
+    target_sorted = np.sort(sparse.ravel())
+    cur = rng.normal(size=(h, w))
+    for _ in range(synth.ITERATIONS):
+        f_cur = np.fft.fft2(cur)
+        cur = np.fft.ifft2(target_mag * np.exp(1j * np.angle(f_cur))).real
+        cur = synth.histogram_match(cur, target_sorted)
+    return _norm(np.clip(cur, 0, None))
+
+
+def algo02_morphological_valleys(
+    synth, base: np.ndarray, h: int, w: int, rng: np.random.Generator
+) -> np.ndarray:
+    """Synthetic height → morphological valley extract (no photo)."""
+    return synth.morphological_crack_field(
+        synth.synthetic_height_field(base, h, w, rng),
+        keep_percentile=90.0,
+        crack_blur_sigma=18.0,
     )
-    valleys = np.zeros_like(coarse)
-    for sigma in synth.MORPH_VALLEY_SIGMAS:
-        valleys += np.clip(synth._aniso_blur(coarse, sigma * 0.4, sigma) - coarse, 0, None)
-    valleys /= max(len(synth.MORPH_VALLEY_SIGMAS), 1)
-    bt_w = max(24, int(w * 0.14))
-    morph_valleys = np.clip(black_tophat(coarse, size=(3, bt_w)), 0, None)
-    combined = np.maximum(major, valleys * 0.55)
-    combined = np.maximum(combined, morph_valleys * 0.7)
-    if use_closing:
-        close_w = max(28, int(w * synth.MORPH_CLOSE_FRAC))
-        combined = grey_closing(combined, size=(3, close_w))
-    open_w = max(16, int(w * synth.MORPH_OPEN_FRAC))
-    combined = grey_opening(combined, size=(3, open_w))
-    combined = grey_opening(combined, size=(5, 1))
-    thin_w = max(10, int(w * 0.025))
-    opened = grey_opening(combined, size=(3, thin_w))
-    combined = np.clip(combined - opened * 0.9, 0, None)
-    combined = synth._sparsify_crack_real(combined, keep_percentile)
-    return synth._normalize_crack_field(combined)
 
 
-def ridge_centerline_mask(
-    synth,
-    base: np.ndarray,
-    h: int,
-    w: int,
-    rng: np.random.Generator,
-    keep_percentile: float,
-    crack_blur_sigma: float,
+def algo03_tapered_dash_scatter(h: int, w: int, rng: np.random.Generator) -> np.ndarray:
+    """Random tapered horizontal dashes with gap breaks."""
+    field = np.zeros((h, w), dtype=np.float64)
+    for _ in range(rng.integers(5, 9)):
+        y = int(rng.integers(h * 0.1, h * 0.9))
+        x0 = int(rng.integers(0, int(w * 0.2)))
+        length = int(rng.integers(int(w * 0.3), int(w * 0.8)))
+        _paint_tapered_dash(field, y, x0, length, rng.uniform(2.5, 5.0), rng, 0.15)
+    for _ in range(rng.integers(12, 28)):
+        y = int(rng.integers(0, h))
+        x0 = int(rng.integers(0, int(w * 0.5)))
+        length = int(rng.integers(int(w * 0.06), int(w * 0.3)))
+        _paint_tapered_dash(field, y, x0, length, rng.uniform(1.0, 2.5), rng, 0.4)
+    return _norm(field)
+
+
+def algo04_poisson_horizontal_runs(h: int, w: int, rng: np.random.Generator) -> np.ndarray:
+    """Poisson Y positions; each run is a tapered intensity profile along X."""
+    field = np.zeros((h, w), dtype=np.float64)
+    n_lines = int(rng.integers(40, 90))
+    ys = rng.integers(0, h, size=n_lines)
+    for y in ys:
+        x0 = int(rng.integers(0, int(w * 0.6)))
+        run_len = int(rng.integers(int(w * 0.05), int(w * 0.45)))
+        thick = rng.uniform(0.8, 3.0)
+        gap = rng.uniform(0.1, 0.35)
+        _paint_tapered_dash(field, int(y), x0, run_len, thick, rng, gap)
+    return _norm(field)
+
+
+def algo05_anisotropic_noise_threshold(h: int, w: int, rng: np.random.Generator) -> np.ndarray:
+    """Horizontally stretched noise → heavy-tail sparsify."""
+    noise = rng.normal(size=(h, w))
+    stretched = gaussian_filter(noise, sigma=(1.5, 24.0))
+    field = np.clip(-stretched, 0, None)  # valleys as dark
+    field = _sparsify(field, 94)
+    return _norm(field)
+
+
+def algo06_gabor_horizontal_bank(h: int, w: int, rng: np.random.Generator) -> np.ndarray:
+    """Horizontal edge filter bank on noise — picks thin horizontal grooves."""
+    noise = rng.normal(size=(h, w))
+    field = np.zeros((h, w), dtype=np.float64)
+    for sigma_x in (8.0, 14.0, 22.0):
+        smooth = gaussian_filter(noise, sigma=(1.2, sigma_x))
+        grad_y = np.gradient(smooth, axis=0)
+        field += np.clip(-grad_y, 0, None) / sigma_x
+    field = _sparsify(field, 91)
+    field = grey_opening(field, size=(3, max(12, w // 20)))
+    return _norm(field)
+
+
+def algo07_distance_ridge_centerlines(
+    synth, base: np.ndarray, h: int, w: int, rng: np.random.Generator
 ) -> np.ndarray:
-    """Valley basins → binary → distance-transform ridge (1px centerlines)."""
+    """Synthetic valleys → binary → distance-transform ridge lines."""
     height = synth.synthetic_height_field(base, h, w, rng)
-    span = min(h, w)
-    coarse = synth._aniso_blur(height, span / 22.0, span / 14.0)
-    valleys = np.clip(gaussian_filter(coarse, sigma=crack_blur_sigma) - coarse, 0, None)
-    valleys = synth._sparsify_crack_real(valleys, keep_percentile if keep_percentile else 85)
-    binary = (valleys > valleys.max() * 0.25).astype(np.uint8)
+    coarse = synth._aniso_blur(height, min(h, w) / 22, min(h, w) / 14)
+    valleys = np.clip(gaussian_filter(coarse, sigma=20) - coarse, 0, None)
+    valleys = _sparsify(valleys, 88)
+    binary = (valleys > valleys.max() * 0.35).astype(np.uint8)
     if binary.sum() == 0:
-        return valleys / (valleys.max() + 1e-8)
+        return _norm(valleys)
     dist = distance_transform_edt(binary)
-    # ridge: local maxima of distance on binary support
-    from scipy.ndimage import maximum_filter
-
-    local_max = maximum_filter(dist, size=(3, 7)) == dist
-    ridge = (local_max & binary.astype(bool)).astype(np.float64)
-    ridge = gaussian_filter(ridge, sigma=0.8)
-    return ridge / (ridge.max() + 1e-8)
+    ridge = (maximum_filter(dist, size=(3, 9)) == dist) & binary.astype(bool)
+    field = gaussian_filter(ridge.astype(np.float64), sigma=0.6)
+    return _norm(field)
 
 
-def extract_majors_only(
-    synth,
-    img: np.ndarray,
-    blur_sigma: float,
-    keep_percentile: float,
-    drop_fine_open: int,
+def algo08_fft_horizontal_crack_spectrum(
+    h: int, w: int, rng: np.random.Generator, win: np.ndarray
 ) -> np.ndarray:
-    """Photo extract then drop fine horizontal speckle via wide opening."""
-    base_tone = gaussian_filter(img, sigma=blur_sigma)
-    crack_real = np.clip(base_tone - img, 0, None)
-    crack_real = synth._sparsify_crack_real(crack_real, keep_percentile)
-    if drop_fine_open > 1:
-        opened = grey_opening(crack_real, size=(3, drop_fine_open))
-        crack_real = np.clip(crack_real - opened * 0.85, 0, None)
-    return synth._normalize_crack_field(crack_real)
+    """Artificial horizontally-elongated spectrum — no photo measurement."""
+    # Build synthetic magnitude: energy along horizontal frequency axis
+    fy = np.fft.fftfreq(h)
+    fx = np.fft.fftfreq(w)
+    mag = np.zeros((h, w), dtype=np.float64)
+    for i in range(h):
+        for j in range(w):
+            horiz = abs(fx[j]) / (abs(fy[i]) + 0.02)
+            if horiz > 2.0 and abs(fx[j]) > 0.01:
+                mag[i, j] = horiz ** -1.2
+    mag = gaussian_filter(mag, sigma=1.5)
+    mag = np.fft.ifftshift(mag)
+    mag[0, 0] = 0.0
+    mag /= mag.max() + 1e-8
+    noise = rng.normal(size=(h, w))
+    field = np.fft.ifft2(np.fft.fft2(noise * win) * mag).real
+    field = np.clip(-field, 0, None)
+    field = _sparsify(field, 93)
+    return _norm(field)
 
 
-def build_montage(entries: list[tuple[str, Path]], out_path: Path) -> None:
-    cell = entries[0][1]
-    sample = Image.open(cell)
+def algo09_stress_curve_faults(h: int, w: int, rng: np.random.Generator) -> np.ndarray:
+    """Few random horizontal fault curves (noisy y-offset along x)."""
+    field = np.zeros((h, w), dtype=np.float64)
+    for _ in range(rng.integers(4, 8)):
+        y0 = rng.uniform(h * 0.15, h * 0.85)
+        x0 = int(rng.integers(0, int(w * 0.15)))
+        length = int(rng.integers(int(w * 0.35), int(w * 0.85)))
+        thick = rng.uniform(2.0, 4.5)
+        phase = rng.uniform(0, np.pi * 2)
+        amp = rng.uniform(1.0, 4.0)
+        freq = rng.uniform(0.008, 0.025)
+        for xi in range(length):
+            x = x0 + xi
+            if x >= w:
+                break
+            y = int(y0 + amp * np.sin(freq * xi + phase) + rng.normal(0, 0.8))
+            t = xi / max(length, 1)
+            taper = float(np.sin(np.pi * t) ** 0.7)
+            yy = int(np.clip(y, 0, h - 1))
+            rad = max(1, int(thick * taper * 0.45))
+            for dy in range(-rad, rad + 1):
+                yi = yy + dy
+                if 0 <= yi < h:
+                    field[yi, x] = max(field[yi, x], taper)
+    return _norm(field)
+
+
+def algo10_fragment_cluster_field(h: int, w: int, rng: np.random.Generator) -> np.ndarray:
+    """Clustered short tapered fragments — mimics broken checking runs."""
+    field = np.zeros((h, w), dtype=np.float64)
+    n_clusters = int(rng.integers(6, 12))
+    for _ in range(n_clusters):
+        cy = int(rng.integers(h * 0.08, h * 0.92))
+        cx = int(rng.integers(0, int(w * 0.5)))
+        n_frag = int(rng.integers(3, 9))
+        for _ in range(n_frag):
+            y = cy + int(rng.integers(-6, 7))
+            x0 = cx + int(rng.integers(-20, 40))
+            length = int(rng.integers(int(w * 0.04), int(w * 0.18)))
+            _paint_tapered_dash(field, y, x0, length, rng.uniform(1.2, 3.0), rng, 0.25)
+    return _norm(field)
+
+
+def reference_target_mask(synth, img: np.ndarray) -> np.ndarray:
+    """Scoring reference only — not one of the 10 algorithms."""
+    base_tone = gaussian_filter(img, sigma=18.0)
+    crack = np.clip(base_tone - img, 0, None)
+    crack = synth._sparsify_crack_real(crack, 92.0)
+    return synth._normalize_crack_field(crack)
+
+
+def score_mask(bw: np.ndarray, ref_bw: np.ndarray) -> tuple[float, int, float]:
+    c = 1.0 - bw.astype(np.float64) / 255.0
+    r = 1.0 - ref_bw.astype(np.float64) / 255.0
+    corr = float(np.corrcoef(c.ravel(), r.ravel())[0, 1])
+    binary = (c > 0.3).astype(np.uint8)
+    _, n = cc_label(binary, structure=generate_binary_structure(2, 2))
+    blob = float(binary.sum()) / max(n, 1)
+    return corr, n, blob
+
+
+def build_montage(entries: list[tuple[str, Path]], out_path: Path, title: str) -> None:
+    sample = Image.open(entries[0][1])
     cw, ch = sample.size
-    label_h = 36
+    label_h = 40
     gap = 8
     pad = 12
     cols = 5
     rows_n = 2
     width = pad * 2 + cols * cw + (cols - 1) * gap
-    height = pad * 2 + rows_n * (label_h + ch) + gap
+    height = pad * 2 + 20 + rows_n * (label_h + ch) + gap
     canvas = Image.new("RGB", (width, height), (24, 24, 24))
     draw = ImageDraw.Draw(canvas)
     try:
-        font = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf", 10)
+        font = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf", 9)
         font_b = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf", 11)
     except OSError:
         font = font_b = ImageFont.load_default()
-    draw.text((pad, pad), "10 crack-mask tries — target: tapered horizontal fissures", fill=(220, 220, 220), font=font_b)
+    draw.text((pad, pad), title, fill=(220, 220, 220), font=font_b)
     for i, (label, path) in enumerate(entries):
         col = i % cols
         row = i // cols
         x = pad + col * (cw + gap)
         y = pad + 20 + row * (label_h + ch + gap)
-        draw.text((x, y), label, fill=(180, 180, 180), font=font)
-        img = Image.open(path).convert("L")
-        canvas.paste(img, (x, y + label_h))
+        # wrap long labels
+        draw.text((x, y), label, fill=(175, 175, 175), font=font)
+        canvas.paste(Image.open(path).convert("L"), (x, y + label_h))
     canvas.save(out_path)
 
 
@@ -215,91 +311,69 @@ def main() -> None:
     out_dir = Path(sys.argv[2]) if len(sys.argv) > 2 else ROOT / "design/progression/crack-mask-tries"
     art_dir = Path("/opt/cursor/artifacts")
     out_dir.mkdir(parents=True, exist_ok=True)
-    art_dir.mkdir(parents=True, exist_ok=True)
 
     synth = _load_synth()
     img = np.asarray(Image.open(source).convert("L"), dtype=float)
     h, w = img.shape
-    rng_base = np.random.default_rng(0)
     win = np.outer(np.hanning(h), np.hanning(w))
-
-    # minimal base grain for morph methods
+    rng0 = np.random.default_rng(0)
     img_c = img - img.mean()
     spec = np.fft.fft2(img_c * win)
     mag_shifted = gaussian_filter(np.fft.fftshift(np.abs(spec)), sigma=synth.SPEC_SMOOTH_SIGMA)
     filt = np.fft.ifftshift(mag_shifted)
     filt[0, 0] = 0.0
     filt = filt / (filt.max() + 1e-8)
-    base = np.fft.ifft2(np.fft.fft2(rng_base.normal(size=(h, w))) * filt).real
+    base = np.fft.ifft2(np.fft.fft2(rng0.normal(size=(h, w))) * filt).real
     base = (base - base.mean()) / (base.std() + 1e-8)
 
-    tries: list[tuple[str, callable]] = []
+    ref_field = reference_target_mask(synth, img)
+    ref_path = out_dir / "00_reference_target_only_scoring.png"
+    Image.fromarray(_crack_bw(ref_field), mode="L").save(ref_path)
+    ref_bw = np.asarray(Image.open(ref_path).convert("L"))
 
-    # 10 distinct methods/settings
-    configs = [
-        ("01 extract blur22 keep90", lambda: extract_majors_only(synth, img, 22, 90, 0)),
-        ("02 extract blur18 keep92", lambda: extract_majors_only(synth, img, 18, 92, 0)),
-        ("03 extract blur18 keep92 +drop fine", lambda: extract_majors_only(synth, img, 18, 92, 24)),
-        ("04 extract blur14 keep95 majors", lambda: extract_majors_only(synth, img, 14, 95, 32)),
-        ("05 HB scale1 keep90 blur14", lambda: _hb_mask(synth, img, win, rng_base, 1.0, 14, 90, 0)),
-        ("06 HB scale1 keep88 blur18", lambda: _hb_mask(synth, img, win, rng_base, 1.0, 18, 88, 0.25)),
-        ("07 morph thin no-close p92", lambda: morph_thin_valleys(synth, base, h, w, np.random.default_rng(17), 92, 18, False, 17)),
-        ("08 morph thin close p90", lambda: morph_thin_valleys(synth, base, h, w, np.random.default_rng(42), 90, 16, True, 42)),
-        ("09 dash generator seed0", lambda: dash_generator_mask(h, w, np.random.default_rng(0))),
-        ("10 ridge centerline p88", lambda: ridge_centerline_mask(synth, base, h, w, np.random.default_rng(99), 88, 20)),
+    algorithms: list[tuple[str, str, callable]] = [
+        ("01", "Heeger–Bergen (synthetic target)", lambda: algo01_heeger_bergen(synth, h, w, np.random.default_rng(1), win)),
+        ("02", "Morphological valleys", lambda: algo02_morphological_valleys(synth, base, h, w, np.random.default_rng(2))),
+        ("03", "Tapered dash scatter", lambda: algo03_tapered_dash_scatter(h, w, np.random.default_rng(3))),
+        ("04", "Poisson horizontal runs", lambda: algo04_poisson_horizontal_runs(h, w, np.random.default_rng(4))),
+        ("05", "Anisotropic noise threshold", lambda: algo05_anisotropic_noise_threshold(h, w, np.random.default_rng(5))),
+        ("06", "Gabor horizontal bank", lambda: algo06_gabor_horizontal_bank(h, w, np.random.default_rng(6))),
+        ("07", "Distance-ridge centerlines", lambda: algo07_distance_ridge_centerlines(synth, base, h, w, np.random.default_rng(7))),
+        ("08", "FFT horizontal crack spectrum", lambda: algo08_fft_horizontal_crack_spectrum(h, w, np.random.default_rng(8), win)),
+        ("09", "Stress-curve faults", lambda: algo09_stress_curve_faults(h, w, np.random.default_rng(9))),
+        ("10", "Fragment cluster field", lambda: algo10_fragment_cluster_field(h, w, np.random.default_rng(10))),
     ]
 
-    ref_path = out_dir / "00_reference_big_cracks.png"
-    ref_field = extract_majors_only(synth, img, 18, 92, 0)
-    Image.fromarray(_crack_bw(ref_field), mode="L").save(ref_path)
+    print("10 GENERATIVE algorithms (reference = extracted target, scoring only)")
+    print(f"{'algo':<6} {'name':<28} {'corr':>7} {'#cc':>6} {'blob':>8}")
+    print("-" * 62)
 
     entries: list[tuple[str, Path]] = []
-    ref_img = Image.open(ref_path)
+    ranked: list[tuple[float, str, Path]] = []
 
-    print(f"{'try':<28} {'corr':>7} {'#cc':>6} {'blob':>8}")
-    print("-" * 50)
-    ref_bw = np.asarray(ref_img.convert("L"))
-
-    for label, fn in configs:
+    for num, name, fn in algorithms:
         field = fn()
-        path = out_dir / f"try_{label.replace(' ', '_')}.png"
+        slug = f"algo{num}_{name.lower().replace(' ', '_').replace('–', '')[:40]}"
+        path = out_dir / f"{slug}.png"
         Image.fromarray(_crack_bw(field), mode="L").save(path)
         bw = np.asarray(Image.open(path).convert("L"))
-        c = 1.0 - bw.astype(np.float64) / 255.0
-        r = 1.0 - ref_bw.astype(np.float64) / 255.0
-        corr = float(np.corrcoef(c.ravel(), r.ravel())[0, 1])
-        binary = (c > 0.3).astype(np.uint8)
-        _, n = cc_label(binary, structure=generate_binary_structure(2, 2))
-        blob = float(binary.sum()) / max(n, 1)
-        print(f"{label:<28} {corr:7.4f} {n:6d} {blob:8.0f}")
-        entries.append((f"{label} corr={corr:.2f}", path))
+        corr, n, blob = score_mask(bw, ref_bw)
+        print(f"{num:<6} {name:<28} {corr:7.4f} {n:6d} {blob:8.0f}")
+        ranked.append((corr, f"{num} {name} corr={corr:.2f}", path))
 
-    montage_out = art_dir / "ten_crack_mask_tries.png"
-    build_montage(entries, montage_out)
-    print(f"\nWrote masks to {out_dir}")
-    print(f"Wrote montage {montage_out}")
+    ranked.sort(key=lambda x: -x[0])
+    for _, label, path in ranked:
+        entries.append((label, path))
 
-
-def _hb_mask(synth, img, win, rng, feature_scale, blur_sigma, keep_p, floor):
-    base_tone = gaussian_filter(img, sigma=blur_sigma)
-    crack_real = np.clip(base_tone - img, 0, None)
-    crack_for_hb = synth._sparsify_crack_real(crack_real, keep_p)
-    crack_c = crack_for_hb - crack_for_hb.mean()
-    spec_c = np.fft.fft2(crack_c * win)
-    mag_c_shifted = gaussian_filter(np.fft.fftshift(np.abs(spec_c)), sigma=synth.SPEC_SMOOTH_SIGMA)
-    mag_c_shifted = synth.scale_spectrum(mag_c_shifted, feature_scale)
-    target_mag = np.fft.ifftshift(mag_c_shifted)
-    target_mag[0, 0] = 0.0
-    target_sorted = np.sort(crack_for_hb.ravel())
-    cur = rng.normal(size=img.shape)
-    for _ in range(synth.ITERATIONS):
-        f_cur = np.fft.fft2(cur)
-        f2 = target_mag * np.exp(1j * np.angle(f_cur))
-        cur = np.fft.ifft2(f2).real
-        cur = synth.histogram_match(cur, target_sorted)
-    crack_field = np.clip(cur, 0, None)
-    crack_field = synth._normalize_crack_field(crack_field)
-    return synth._apply_crack_floor(crack_field, floor)
+    montage = art_dir / "ten_generative_crack_algorithms.png"
+    build_montage(
+        entries,
+        montage,
+        "10 generative crack-mask algorithms (ranked by corr to target form)",
+    )
+    print(f"\nReference (scoring only): {ref_path}")
+    print(f"Masks: {out_dir}")
+    print(f"Montage: {montage}")
 
 
 if __name__ == "__main__":
