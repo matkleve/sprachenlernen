@@ -1,6 +1,7 @@
 import { poolForActiveLanguage } from "@/lib/db/learner-pools";
 import { RUNNER_CHROME_OVERHEAD_SEC } from "@/lib/exercise-recipe/budget";
 import type { SessionContext } from "@/lib/exercise-recipe/types";
+import { OFFER_KEYS } from "@/lib/exercise-recipe/offer-keys";
 import { pickProductionHints } from "@/lib/exercise-recipe/sentence-target";
 import type { ExerciseRecipe } from "@/lib/exercise-runner/types";
 import { loadMeaningRecallDeck } from "@/lib/starter-deck";
@@ -92,8 +93,7 @@ export function composeFreeProductionRecipe(
         component: "offers",
         labelKey: "stepLabelDecide",
         config: {
-          offers: ["Add errors as cards", "Explain one error"],
-          declineLabel: "Not now — done",
+          offerKeys: [OFFER_KEYS.addErrorsAsCards, OFFER_KEYS.explainOneError],
         },
       },
     ],
