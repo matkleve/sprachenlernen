@@ -55,7 +55,11 @@ the source rather than hand-tuned). Reasoning and evidence:
 — native `FEATURE_SCALE=1`; do not reintroduce scale 9 without owner GO.
 Source photo: one wood species per image (not a multi-species grid — that
 splits resolution and creates seam artifacts), max resolution, flat lighting,
-zero perspective, PNG.
+zero perspective, PNG. Multi-species exploration grids are sliced first:
+save as `design/progression/source-grid-wood-upload.png`, then
+`python3 scripts/slice-wood-texture-grid.py` (0.5% edge margin) and
+`python3 scripts/wood-grain-fourier-synthesis.py` per patch. Chat image
+uploads are not written to the Cloud Agent VM — commit the PNG in git.
 
 Every image from building this pipeline — source photos, cropped patches,
 and the full iteration trail — is archived and indexed at
