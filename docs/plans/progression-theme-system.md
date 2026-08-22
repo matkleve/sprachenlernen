@@ -215,6 +215,19 @@ marks pass column by column. See
 
 **Exit gate:** product owner signs off at `/dev/progression` after walking stages 1, 3, 5, 7, 9.
 
+### Phase 0e · FFT photographic tiles (started 2026-08-22)
+
+Owner breakthrough on wood-01 at native crack scale (`FEATURE_SCALE=1`).
+Reference: `design/progression/breakthrough-wood-01-final.png`. Diary:
+[`2026-08-22.md`](../diary/2026-08-22.md).
+
+| ID | Work | Class | Done when |
+| --- | --- | --- | --- |
+| **T-PT0e1** | Land six source patches + synthesis script defaults | Standard | **Done** — PR #195 |
+| **T-PT0e2** | `texture-metrics.mjs` — breakthrough tile vs board Workshop col 1 | Standard | Metrics within STUDY-031 bands + owner pass |
+| **T-PT0e3** | Export `workshop-1.webp` from best tile → `public/design/progression/` | Standard | T-PT0d hook shows tile on `/dev/progression` |
+| **T-PT0e4** | Per-species param overrides + knot pass (05/06) if board needs it | Standard | Spec gap closed in STUDY-032 first |
+
 ---
 
 ## Phase 1 · Data model for real progression

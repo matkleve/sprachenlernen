@@ -68,7 +68,7 @@ from scipy.ndimage import black_tophat, gaussian_filter, grey_closing, grey_open
 BLUR_SIGMA = 6.0            # legacy alias; crack extraction uses CRACK_BLUR_SIGMA
 CRACK_BLUR_SIGMA = 6.0      # extraction blur; higher = big cracks only
 SPEC_SMOOTH_SIGMA = 2.5     # stages 1 & 2: smooths the measured spectrum
-FEATURE_SCALE = 9.0         # stage 3: >1 = cracks bigger & sparser (HB only)
+FEATURE_SCALE = 1.0         # stage 3: native crack size from photo (9.0 was bubbly blobs — 2026-08-22)
 ITERATIONS = 6              # stage 4: Heeger-Bergen alternation rounds
 CRACK_STRENGTH = 0.8        # stage 7: how dark cracks cut into the grain
 CRACK_FLOOR = 0.0           # post-HB: zero crack_field below this (0–1)

@@ -69,6 +69,14 @@ with `scripts/wood-crack-metrics.py` on crack masks and
 `scripts/texture-metrics.mjs` on finals — coverage alone does not prove crack
 geometry.
 
+**[D]** `FEATURE_SCALE` on the crack spectrum is the dominant knob for crack
+*morphology* when using HB. At **9.0** (early tuning for sparse, large checking
+on tiles) the synthesized crack field is fat, bubbly, and rim-blurred — profile
+slices show broad humps vs narrow spikes in the real `relu(blur−img)` layer. At
+**1.0** (native measured scale) wood-01 remakes read as fine horizontal
+checking; owner marked this a major breakthrough 2026-08-22. Reference:
+`design/progression/breakthrough-wood-01-final.png`.
+
 **[D]** Feature size is controllable independently of the recipe's shape via
 the **Fourier scaling theorem** (`f(kx,ky) ↔ (1/k²)F(u/k,v/k)`): zooming the
 frequency-domain filter about its DC center resizes the real-space features
@@ -152,3 +160,4 @@ rule or a button edge, not the material.
 | [`progression-reference-board.md`](../specs/feature/progression-reference-board.md) | Visual target; permits "tile" as an implementation choice |
 | [`docs/plans/progression-theme-system.md`](../plans/progression-theme-system.md) | § *Measured wood recipe* — the owner decision this pipeline implements |
 | `scripts/wood-grain-fourier-synthesis.py` | The implementation |
+| [`design/wood-grain-fourier/README.md`](../../design/wood-grain-fourier/README.md) | Every image from this work — source photos, patches, and the full iteration trail — indexed |
