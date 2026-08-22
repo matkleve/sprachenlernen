@@ -15,8 +15,8 @@ W2, W5.
 ## Scope
 
 - **In:** 2–3 screen popover on first learning-language attach; Profile edit per
-  language row; switch confirmation dialog; copy keys in `lib/content.ts` /
-  `messages/`; routes only as redirect targets — no new destination.
+  language row; switch confirmation dialog; copy in `features/learner-world/content.ts`
+  and `messages/`; routes only as redirect targets — no new destination.
 - **Out:** skill fork; register + topic chips; session intro banners; per-card
   G1 world labels; Duolingo-style unit tree; nagging *"because you chose…"*
   copy on Home or every review.

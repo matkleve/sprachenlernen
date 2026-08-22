@@ -10,12 +10,11 @@
 ## Before you commit
 
 ```bash
-npm run verify
+npm run verify:scope -- <scope>   # default — see docs/VERIFY-SCOPES.md
 ```
 
-That is the whole checklist. It runs types, lint, spec structure and
-traceability, token discipline, contrast in both themes, tests and the build —
-the same command CI runs, so there is nothing to keep in sync.
+Scoped verify is the day-to-day gate. Run full `npm run verify` only when
+cross-cutting (auth, i18n keys, several areas) — state why in the PR.
 
 Failing one check? Re-run it alone: `node scripts/verify.mjs tokens`.
 
