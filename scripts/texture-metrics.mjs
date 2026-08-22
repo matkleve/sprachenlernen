@@ -109,6 +109,37 @@ export function measure(png) {
     gn += 2;
   }
 
+  // --- pairing: is the light next to the dark, or somewhere else entirely?
+  //
+  // A grain line is a groove. Lit from one side it has a shadowed wall and a
+  // bright wall, so its dark and light are the SAME feature, a pixel or two
+  // apart. Independent dark and light layers cannot produce that however well
+  // each one is tuned. It shows up as a negative lobe in the vertical
+  // autocorrelation: `pairing` is that lobe's depth and `pairingLag` its
+  // distance in pixels. No lobe means the light is decorative rather than
+  // caused by anything.
+  const PLAG = 14;
+  const vacf = new Float64Array(PLAG + 1);
+  for (let x = 0; x < W; x++) {
+    const v = new Float64Array(H);
+    let mu = 0;
+    for (let y = 0; y < H; y++) { v[y] = oklab(...at(x, y))[0]; mu += v[y]; }
+    mu /= H;
+    for (let y = 0; y < H; y++) v[y] -= mu;
+    for (let lag = 0; lag <= PLAG; lag++) {
+      let sum = 0;
+      for (let y = 0; y + lag < H; y++) sum += v[y] * v[y + lag];
+      vacf[lag] += sum / (H - lag);
+    }
+  }
+  let pairing = 0, pairingLag = 0;
+  if (vacf[0] > 0) {
+    for (let lag = 1; lag <= PLAG; lag++) {
+      const r = vacf[lag] / vacf[0];
+      if (r < pairing) { pairing = r; pairingLag = lag; }
+    }
+  }
+
   // --- aspect: how many times longer is a feature than it is tall?
   //
   // `directionality` answers "is there a dominant direction" but its noise floor
@@ -216,6 +247,8 @@ export function measure(png) {
     runLength,
     quintiles,
     aspect,
+    pairing,
+    pairingLag,
     ang: Array.from(ang, (v) => v / total),
     rad: Array.from(rad, (v) => v / total),
   };
@@ -240,6 +273,7 @@ export function compare(ref, cand) {
     localContrast: cand.localContrast - ref.localContrast,
     runLength: cand.runLength - ref.runLength,
     aspectRatio: cand.aspect / ref.aspect,
+    pairing: cand.pairing - ref.pairing,
     lightnessRange: (cand.quintiles[4].L - cand.quintiles[0].L) - (ref.quintiles[4].L - ref.quintiles[0].L),
     chromaProfile: Math.sqrt(ref.quintiles.reduce((a, q, i) =>
       a + (cand.quintiles[i].C - q.C) ** 2, 0) / ref.quintiles.length),
@@ -282,6 +316,7 @@ if (process.argv[1]?.endsWith("texture-metrics.mjs")) {
     console.log(`                       C ${c.quintiles.map((q) => q.C.toFixed(3).padStart(6)).join("")}`);
     console.log(`  localCtrst  ${f(d.localContrast, 4)}`);
     console.log(`  aspect      ${c.aspect.toFixed(1)}:1 vs ${ref.aspect.toFixed(1)}:1   x${d.aspectRatio.toFixed(2)}   ${d.aspectRatio > 1.35 ? "<< too stretched" : d.aspectRatio < 0.74 ? "<< not stretched enough" : "ok"}`);
+    console.log(`  pairing     ${c.pairing.toFixed(3)} at lag ${c.pairingLag} vs ${ref.pairing.toFixed(3)} at lag ${ref.pairingLag}   ${c.pairing > ref.pairing + 0.06 ? "<< light not caused by the dark — no groove shading" : "ok"}`);
     console.log(`  runLength   ${f(d.runLength, 3)}   ${d.runLength < -0.02 ? "<< features breaking up / closing into loops" : d.runLength > 0.02 ? "<< features too continuous" : "ok"}`);
     console.log(`  orientation ${d.orientation.toFixed(2)}   (directionality ${directionality(c).toFixed(2)} vs ${directionality(ref).toFixed(2)})`);
     console.log(`  scale       ${d.scale.toFixed(2)}   bands ${c.rad.map((v) => (v * 100).toFixed(0).padStart(3)).join("")}`);

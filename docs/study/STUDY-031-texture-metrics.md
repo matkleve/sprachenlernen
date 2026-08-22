@@ -47,6 +47,7 @@ board, over roughly a dozen measured iterations.
 | `directionality` | energy in the strongest orientation wedge | grain and brushed metal are directional; paper and plaster are not |
 | `runLength` | mean horizontal run of below-p30 pixels, as a fraction of width | whether dark features *run* or close into blobs |
 | `aspect` | autocorrelation length along x ÷ along y | how many times longer a feature is than it is tall — the "too stretched" number |
+| `pairing` | depth of the negative lobe in the vertical autocorrelation | whether each light streak sits beside a dark one, i.e. whether the light is *caused* by the grain rather than sprinkled independently |
 | `scale` bands | energy per octave, coarse → fine | how many distinct depths of structure exist, and at what sizes |
 
 Two are worth dwelling on.
@@ -156,7 +157,16 @@ Four real failures, in the order they happened:
    The autocorrelation aspect ratio is direct and stable to ×1.03: a candidate
    that read "ok" on directionality measured 14.5:1 against the reference's
    7.3:1, exactly the 2x over-stretch the owner had already called by eye.
-8. **Legitimate lighting scores badly.** Adding the warm top-and-bottom wash the
+8. **Light and dark have to come from the same feature.** A grain line is a
+   groove: lit from one side it has a shadowed wall and a bright wall a pixel or
+   two apart. Drawing dark grain and light grain as two layers with different
+   noise seeds cannot produce that no matter how well each is tuned separately,
+   and every summary statistic can still match. It shows as a negative lobe in
+   the vertical autocorrelation — the reference dips to **-0.235 at lag 2**,
+   independent layers only to -0.074. Deriving both from one height field via
+   its vertical derivative (`feOffset` up and down, differenced with
+   `feComposite arithmetic`) reaches -0.223 at the same lag.
+9. **Legitimate lighting scores badly.** Adding the warm top-and-bottom wash the
    reference clearly has made the distance worse, because it is low-frequency
    energy the spectrum penalises. The metric is blind to whether a difference is
    the material or the light on it.
