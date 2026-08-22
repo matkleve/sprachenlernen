@@ -63,7 +63,7 @@ if (!allowed.has(kind)) {
   process.exit(1);
 }
 
-const root = join(dirname(fileURLToPath(import.meta.url)), "..");
+const root = join(dirname(fileURLToPath(import.meta.url)), "..", "..");
 const packagePath = join(root, "package.json");
 const pkg = JSON.parse(readFileSync(packagePath, "utf8"));
 const next = formatPrideVersion(bumpPrideVersion(parsePrideVersion(pkg.version), kind));
