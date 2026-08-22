@@ -62,7 +62,16 @@ technique in place of the albedo multiply is the likely next step if measured
 colour drifts.
 
 **[D]** Defect extraction must follow the height field, not blur residuals.
-Luminance **is** relief (line 26–27). Valley depth = vertical ridge envelope
+Luminance **is** relief (line 26–27). **Threshold luminance valleys (q≈0.12)**
+won for crack **width** in the 2026-08-22 session: `depth = clip(thr − L, 0) / thr`
+with no blur preserves true fissure width (~168 px on wood-01 row 242) where
+ridge-envelope (`grey_dilation` minus height) narrows wide cracks (~102 px).
+See `lib/wood_valley_threshold.py` and
+[`design/progression/WOOD-SYNTHESIS-FINDINGS.md`](../../design/progression/WOOD-SYNTHESIS-FINDINGS.md).
+Envelope + coarse band remain as **diagnostic** layers in the FFT script, not
+the primary crack source.
+
+Earlier approach (envelope-based): valley depth = vertical ridge envelope
 minus height (`grey_dilation` footprint `(radius, 1)` — max along columns for
 horizontal grain). Fine checking uses a small radius; coarse fissures use a
 large radius with `coarse = clip(deep − fine, 0)` so wide splits are a
@@ -136,6 +145,8 @@ rule or a button edge, not the material.
 | Per-channel RGB histogram matching for colour | STUDY-031 finding 11 — decorrelates channels, turns wood pink; this pipeline histogram-matches one grayscale layer instead |
 | Symmetric (blur-difference) rim highlight | Real fiber-lip highlighting is one-sided; needs a directional gradient |
 | `relu(blur − img)` as the defect layer | Violates the height-field model; soft symmetric blobs, not sharp grooves |
+| Ridge-envelope alone for wide fissures | Narrows crack width vs threshold luminance (session 2026-08-22) |
+| Poisson scatter / boolean canalize | Solid black rectangles; wrong ink fraction (~7% vs ~0.8%) |
 | Boolean groove masks in the composite | Solid black rectangles — depth must stay continuous in [0, 1] |
 | Multi-species grid source photos | Splits resolution N ways; seams inject spurious FFT energy even with no drawn divider |
 | Calling this validated before measurement | Tuned on placeholder photos only — `scripts/texture-metrics.mjs` against the real board hasn't run yet |
@@ -143,6 +154,9 @@ rule or a button edge, not the material.
 
 ## Open questions
 
+- **Procedural runtime** — owner rejected 2026-08-22 calibration pass as "really
+  bad"; Gatys shading is the best visual target for preset tuning. See
+  [`WOOD-SYNTHESIS-FINDINGS.md`](../../design/progression/WOOD-SYNTHESIS-FINDINGS.md).
 - Run `scripts/texture-metrics.mjs` against `design/progression/reference-board.png`
   once a photo of the actual board's wood (or a close match) is analyzed —
   this is the real gate, not eyeballing placeholder output.
@@ -165,4 +179,5 @@ rule or a button edge, not the material.
 | [`progression-reference-board.md`](../specs/feature/progression-reference-board.md) | Visual target; permits "tile" as an implementation choice |
 | [`docs/plans/progression-theme-system.md`](../plans/progression-theme-system.md) | § *Measured wood recipe* — the owner decision this pipeline implements |
 | `scripts/wood-grain-fourier-synthesis.py` | The implementation |
+| [`design/progression/WOOD-SYNTHESIS-FINDINGS.md`](../../design/progression/WOOD-SYNTHESIS-FINDINGS.md) | Session wrap-up — best vs bad results |
 | [`design/wood-grain-fourier/README.md`](../../design/wood-grain-fourier/README.md) | Every image from this work — source photos, patches, and the full iteration trail — indexed |

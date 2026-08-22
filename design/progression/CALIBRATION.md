@@ -1,5 +1,8 @@
 # Wood calibration — procedural runtime target
 
+**Session wrap-up:** [`WOOD-SYNTHESIS-FINDINGS.md`](WOOD-SYNTHESIS-FINDINGS.md) records
+best vs bad results from the full 2026-08-22 exploration (FFT, neural, procedural).
+
 **Contract:** offline synthesis (FFT, Gatys) is a **lab only** — tune presets here,
 ship **zero PNG tiles** in the app. Runtime = `lib/wood-grain-ridges.ts` canvas.
 

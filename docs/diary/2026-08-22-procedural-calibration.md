@@ -26,6 +26,18 @@ outputs are **lab targets**, never shipped as `public/` tiles.
 
 Owner eye on `/dev/wood-textures` #1 remains the gate — numbers are diagnostic only.
 
+## Session wrap-up (owner request)
+
+Owner verdict on procedural: **"really bad"**. Full findings documented in
+[`design/progression/WOOD-SYNTHESIS-FINDINGS.md`](../../design/progression/WOOD-SYNTHESIS-FINDINGS.md).
+
+**Best results to preserve:**
+- Threshold luminance valleys q=0.12 (crack width)
+- Gatys grey+albedo at 507px ("looks amazing")
+- FFT breakthrough `FEATURE_SCALE=1` ("so close")
+
+**Rejected:** procedural visual, VAE, full RGB Gatys, Poisson scatter, envelope-only cracks.
+
 ## Next
 
 - Compare `/dev/progression` stage 1 bench (CSS stack) vs canvas swatch — unify if drift

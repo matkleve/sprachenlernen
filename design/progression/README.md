@@ -1,5 +1,8 @@
 # Progression reference board (normative)
 
+**Wood synthesis findings (2026-08-22):** [`WOOD-SYNTHESIS-FINDINGS.md`](WOOD-SYNTHESIS-FINDINGS.md) —
+what worked, what failed, artifact paths, and app vs lab boundaries.
+
 **Contract:** [`docs/specs/feature/progression-reference-board.md`](../docs/specs/feature/progression-reference-board.md)
 
 Place the owner-supplied nine-column board here:
