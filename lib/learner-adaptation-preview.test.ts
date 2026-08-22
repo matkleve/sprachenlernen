@@ -21,6 +21,7 @@ const labels = {
   blockedLine: (percent: number, level: string) => `blocked ${percent}% ${level}`,
   adaptationLabel: (level: string) => `Adapted for ${level}`,
   adaptationFailed: (level: string) => `failed ${level}`,
+  generatedLabel: () => "Generated article",
 };
 
 const comfortableFixture = vi.fn(async () =>

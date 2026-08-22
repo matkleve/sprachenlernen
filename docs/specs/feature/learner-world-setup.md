@@ -98,19 +98,18 @@ onboarding preview only.
 
 ## Acceptance criteria
 
-- [ ] Given first language attach, when popover completes with Politik, then
+- [x] Given first language attach, when popover completes with Politik, then
       first exercise starts without account/name/level questions and
       `getWorld` returns `politics`.
-- [ ] Given skip on step 2, when first exercise starts, then `worldId` is
+- [x] Given skip on step 2, when first exercise starts, then `worldId` is
       `general` and UC-011 time budget still holds.
-- [ ] Given world change in Profile, when user confirms, then prior review log
+- [x] Given world change in Profile, when user confirms, then prior review log
       rows are unchanged and Profile shows the new label.
-- [ ] Given any review session, when cards render, then there is **no** session
+- [x] Given any review session, when cards render, then there is **no** session
       intro banner naming the Lernwelt.
-- [ ] **Negative:** no per-card G1 line *Politik — deine Lernwelt* on every
+- [x] **Negative:** no per-card G1 line *Politik — deine Lernwelt* on every
       flip (default off).
 
 ## Check
 
-Pending T-W23. Until `features/learner-world/` tests exist, verify via
-`npm test -- learner-world` and manual onboarding path.
+`npm test -- learner-world`

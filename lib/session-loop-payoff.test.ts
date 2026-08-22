@@ -57,12 +57,16 @@ const meaningCards: StarterCard[] = [
     taskId: "es:uno:meaning-recall",
     wordId: "es:uno",
     lemma: "uno",
+    front: "uno",
+    descriptionKey: "word.es.uno",
     frequencyRank: 1,
   },
   {
     taskId: "es:casa:meaning-recall",
     wordId: "es:casa",
     lemma: "casa",
+    front: "casa",
+    descriptionKey: "word.es.casa",
     frequencyRank: 2,
   },
 ];

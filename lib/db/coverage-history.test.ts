@@ -86,7 +86,7 @@ describe("coverage-history db adapter", () => {
   it("appends snapshots for the signed-in user", async () => {
     const insert = vi.fn().mockResolvedValue({ error: null });
     const client = historyClient({ userId: "user-1", insert: { error: null } });
-    vi.mocked(client.from).mockImplementation((table: string) => {
+    vi.mocked(client.from).mockImplementation(((table: string) => {
       if (table === "coverage_history") {
         return {
           select: vi.fn().mockReturnValue({
@@ -97,7 +97,7 @@ describe("coverage-history db adapter", () => {
         };
       }
       throw new Error(`unexpected table ${table}`);
-    });
+    }) as unknown as typeof client.from);
     vi.mocked(createServerSupabaseClient).mockResolvedValue(client);
 
     const outcome = await appendCoverageSnapshots("es", [

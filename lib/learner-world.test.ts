@@ -5,6 +5,7 @@ import {
   isLearnerWorldId,
   worldMatchFactor,
 } from "@/lib/learner-world";
+import { applyReview, newTask } from "@/lib/scheduler";
 
 describe("learner-world", () => {
   it("defaults general to neutral worldMatch", () => {
@@ -30,5 +31,18 @@ describe("learner-world", () => {
   it("validates world ids", () => {
     expect(isLearnerWorldId("politics")).toBe(true);
     expect(isLearnerWorldId("news")).toBe(false);
+  });
+
+  it("never changes scheduler state — worldMatch is a sampling weight only (AC negative)", () => {
+    const now = Date.now();
+    let task = newTask("es:hablar:meaning-recall", "es:hablar");
+    task = applyReview(task, "good", now - 86_400_000).task;
+    const dueBefore = task.due;
+    const reviewsBefore = task.reviews.length;
+
+    worldMatchFactor(["politics"], "politics");
+
+    expect(task.due).toBe(dueBefore);
+    expect(task.reviews.length).toBe(reviewsBefore);
   });
 });
