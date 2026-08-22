@@ -49,11 +49,13 @@ STAGES:
 
 Usage:
     python3 scripts/wood-grain-fourier-synthesis.py <source_photo.png> <wood_name> [out_dir]
+        [--rim-strength 0.6] [--no-rim] [--feature-scale 9]
+        [--debug-layers] [--suffix _tag]
 """
 
 from __future__ import annotations
 
-import sys
+import argparse
 from pathlib import Path
 
 import numpy as np
@@ -102,8 +104,26 @@ def histogram_match(source: np.ndarray, target_sorted_vals: np.ndarray) -> np.nd
     return target_sorted_vals[ranks].reshape(source.shape)
 
 
-def synthesize(input_path: Path, name: str, out_dir: Path) -> None:
+def _crack_bw(crack: np.ndarray) -> np.ndarray:
+    """White background, dark cracks — matches oak_crack_layer / HB debug exports."""
+    peak = float(crack.max())
+    if peak <= 0:
+        return np.full(crack.shape, 255, dtype=np.uint8)
+    return (255 - np.clip(crack / peak * 255, 0, 255)).astype(np.uint8)
+
+
+def synthesize(
+    input_path: Path,
+    name: str,
+    out_dir: Path,
+    *,
+    rim_strength: float = RIM_STRENGTH,
+    feature_scale: float = FEATURE_SCALE,
+    debug_layers: bool = False,
+    suffix: str = "",
+) -> None:
     out_dir.mkdir(parents=True, exist_ok=True)
+    tag = f"{name}{suffix}"
     img_rgb = np.asarray(Image.open(input_path).convert("RGB"), dtype=float)
     img = np.asarray(Image.open(input_path).convert("L"), dtype=float)
     h, w = img.shape
@@ -129,7 +149,7 @@ def synthesize(input_path: Path, name: str, out_dir: Path) -> None:
     mag_c_shifted = gaussian_filter(np.fft.fftshift(np.abs(spec_c)), sigma=SPEC_SMOOTH_SIGMA)
 
     # 3. Fourier-scale the crack spectrum
-    mag_c_shifted = scale_spectrum(mag_c_shifted, FEATURE_SCALE)
+    mag_c_shifted = scale_spectrum(mag_c_shifted, feature_scale)
     target_mag = np.fft.ifftshift(mag_c_shifted)
     target_mag[0, 0] = 0.0
     target_sorted = np.sort(crack_real.ravel())
@@ -143,6 +163,14 @@ def synthesize(input_path: Path, name: str, out_dir: Path) -> None:
         cur = histogram_match(cur, target_sorted)
     crack_field = np.clip(cur, 0, None)
     crack_field = crack_field / (crack_field.max() + 1e-8)
+
+    if debug_layers:
+        Image.fromarray(_crack_bw(crack_real), mode="L").save(
+            out_dir / f"{tag}_crack_layer.png"
+        )
+        Image.fromarray(_crack_bw(crack_field), mode="L").save(
+            out_dir / f"{tag}_crack_synth_hb_scale{int(feature_scale)}.png"
+        )
 
     # 5. directional rim
     smoothed = gaussian_filter(crack_field, sigma=RIM_PRE_BLUR)
@@ -161,26 +189,55 @@ def synthesize(input_path: Path, name: str, out_dir: Path) -> None:
     # 7. composite (grayscale height/shading map)
     grain_px = base * GRAIN_CONTRAST
     crack_px = crack_field * 255 * CRACK_STRENGTH
-    rim_px = rim_patchy * 255 * RIM_STRENGTH
+    rim_px = rim_patchy * 255 * rim_strength
     shading = np.clip(128 + grain_px - crack_px + rim_px, 0, 255)
-    Image.fromarray(shading.astype(np.uint8), mode="L").save(out_dir / f"{name}_shading.png")
+    Image.fromarray(shading.astype(np.uint8), mode="L").save(out_dir / f"{tag}_shading.png")
 
     # 8. colorize: albedo x shading
     albedo = np.stack(
         [gaussian_filter(img_rgb[..., c], sigma=ALBEDO_BLUR_SIGMA) for c in range(3)], axis=-1
     )
     final = np.clip(albedo * (shading[..., None] / 128.0), 0, 255).astype(np.uint8)
-    Image.fromarray(final, mode="RGB").save(out_dir / f"{name}_final.png")
+    Image.fromarray(final, mode="RGB").save(out_dir / f"{tag}_final.png")
 
-    print(f"[{name}] {w}x{h} -> {name}_shading.png, {name}_final.png (in {out_dir})")
+    rim_note = f"rim={rim_strength}" if rim_strength else "no-rim"
+    print(
+        f"[{tag}] {w}x{h} scale={feature_scale} {rim_note} -> "
+        f"{tag}_shading.png, {tag}_final.png (in {out_dir})"
+    )
+
+
+def main() -> None:
+    parser = argparse.ArgumentParser(description="FFT wood-grain synthesis from a reference photo.")
+    parser.add_argument("source", type=Path, help="Source PNG (one wood species)")
+    parser.add_argument("name", help="Output basename prefix")
+    parser.add_argument(
+        "out_dir",
+        type=Path,
+        nargs="?",
+        default=Path("design/progression/synthesized"),
+    )
+    parser.add_argument("--rim-strength", type=float, default=RIM_STRENGTH)
+    parser.add_argument("--no-rim", action="store_true", help="Set rim strength to 0")
+    parser.add_argument("--feature-scale", type=float, default=FEATURE_SCALE)
+    parser.add_argument(
+        "--debug-layers",
+        action="store_true",
+        help="Export crack_layer and crack_synth_hb_scaleN B&W debug PNGs",
+    )
+    parser.add_argument("--suffix", default="", help="Append to output basename (e.g. _norim)")
+    args = parser.parse_args()
+    rim_strength = 0.0 if args.no_rim else args.rim_strength
+    synthesize(
+        args.source,
+        args.name,
+        args.out_dir,
+        rim_strength=rim_strength,
+        feature_scale=args.feature_scale,
+        debug_layers=args.debug_layers,
+        suffix=args.suffix,
+    )
 
 
 if __name__ == "__main__":
-    if len(sys.argv) < 3:
-        print(__doc__)
-        sys.exit(1)
-    synthesize(
-        Path(sys.argv[1]),
-        sys.argv[2],
-        Path(sys.argv[3]) if len(sys.argv) > 3 else Path("design/progression/synthesized"),
-    )
+    main()
