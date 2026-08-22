@@ -154,6 +154,26 @@ bands 2–5 line up at 25/50/12/8 against 21/43/13/9, but band 1 reads 3 against
 
 ---
 
+## Algorithmic live canvas — PAUSED 2026-08-22
+
+**Owner decision:** stop further texture synthesis; full record in
+[STUDY-034](../study/STUDY-034-texture-generation-archive.md).
+
+What landed in `lib/wood-grain-ridges.ts` + `lib/wood-grain-tuned-variants.ts`
+(merged on `main`):
+
+- Longitudinal plank field (Y-periodic + X-warp, **no** radial rings)
+- Morphological groove proxy (horizontal blur-difference valleys)
+- Ten tuned presets on `/dev/wood-textures` (`WOOD_TUNED_VARIANT_COUNT = 10`)
+- Y-axis fine striations (fixes vertical barcode when stretch was on X)
+
+**Not the plan for Workshop ship.** Breakthrough FFT tiles
+(`design/progression/synthesized/wood-01_final.png`, `FEATURE_SCALE=1`) remain
+the owner-validated near-match. Wire those when T-PT0d resumes — not more
+canvas tuning.
+
+---
+
 ## Invariants (do not break)
 
 1. **Stages never move contrast tokens** — `--color-ink`, `canvas`, `surface`, `muted` are chapter-only; `check:contrast` validates chapters only.

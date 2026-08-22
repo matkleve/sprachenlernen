@@ -21,6 +21,9 @@ wood textures from the progression reference board before wiring them into
   vertical brightness bands.
 - **Out:** stone or card overlays; wiring to learner data; navigation entry in
   the app shell. Account required: **no** — `/dev/*` is public.
+- **Exploration status (2026-08-22):** owner paused further texture synthesis —
+  see [STUDY-034](../../study/STUDY-034-texture-generation-archive.md). Page
+  remains as a reference grid; do not tune presets without explicit GO.
 
 ## Behavior
 
