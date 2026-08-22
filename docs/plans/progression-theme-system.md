@@ -21,6 +21,7 @@ without forking components.
 | --- | --- |
 | **Chapter tokens** | 3 chapters in `data/design-themes/progression.json` — Workshop, Library, Observatory |
 | **Stage overlays** | 9 stages — `glow`, `grain`, `bevel`, `rule`, `radiusCard`, `borderPx`, `stars` via `stageScopeStyle()` |
+| **Wood recipe** | Measured against the reference board and validated; recorded below, not yet in the skins |
 | **Material skins** | 9 CSS classes `.progression-skin--{chapter}-{1\|2\|3}` in `app/globals.css` — layer stacks (bands x rings x pores, gradient x tooth) blended with `background-blend-mode` |
 | **Dev preview** | `/dev/progression` — real primitives under scope; **not wired to learner data** |
 | **Shipped app theme** | Warm Scholar in `app/globals.css` — unchanged by progression work so far |
@@ -72,6 +73,52 @@ were surviving into a dark room.
 never sees a chapter's tokens, which is why a 1.4:1 pair shipped under a green
 gate. Both ink pairs are now asserted per chapter in
 `lib/progression-stage.test.ts`, sharing the gate's own `scripts/lib/color.mjs`.
+
+---
+
+## Measured wood recipe (validated, not yet wired in)
+
+Built against `design/progression/reference-board.png` column 1 and measured
+with `scripts/texture-metrics.mjs`. Reasoning and the traps behind each choice:
+[STUDY-031](../study/STUDY-031-texture-metrics.md). What wood should *look* like
+is [STUDY-030](../study/STUDY-030-procedural-wood-grain.md)'s call, not this
+file's — this is the arithmetic that hits it.
+
+Four layers over a base colour, all `numOctaves="1"` (a stack of single-octave
+layers is band-limited noise; multi-octave drags a power-law tail and cannot be
+made to peak), all with `color-interpolation-filters="sRGB"`, all anisotropic at
+roughly **5:1** with the long axis along the grain.
+
+| Layer | Frequency (y) | Mechanism | Carries |
+| --- | --- | --- | --- |
+| Coarse octave | ~0.08 | emboss, gain ~2.2, opacity 0.5 | the broader lighter areas that follow the grain |
+| Grain | ~0.375 | emboss, gain ~10, opacity 0.9 | the paired light/dark — the groove |
+| Fine flow | ~0.85 | emboss, gain ~4.5, opacity 0.5 | tooth, so no region is ever flat |
+| Highlights | ~0.65 | threshold-gated, `screen`, cut 0.62 | the rare bright spots |
+
+**Emboss** means one noise field offset up and down and differenced
+(`feOffset` ×2 into `feComposite operator="arithmetic"`), which is what makes a
+lit groove: its two walls are the same feature, so light and dark cannot drift
+apart. Colour comes from an OKLCH ramp per layer, not an sRGB two-colour mix.
+
+**No plank seams.** The reference bench is one continuous surface and so are its
+cards; the lines that look like seams are the accent rule and a button edge.
+
+Standing against the same-material noise floor (two patches of the same bench):
+
+| | ours | floor | |
+| --- | --- | --- | --- |
+| sorted-curve lightness | 0.033 | 0.077 | inside |
+| aspect | ×0.93 | ×1.03 | inside |
+| tone | +0.050 | −0.080 | inside |
+| chroma / hue | +0.004 / −2° | — | inside |
+| pairing | −0.171 @2 | −0.235 / −0.087 | between the two patches |
+| scale | 1.32 | 0.87 | **outside** |
+| runLength | +0.044 | +0.023 | **~2× floor** |
+| tailLow | 0.25 | 0.37–0.63 | **outside** |
+
+Still open: the coarse band, feature continuity (fibres run further without
+breaking than the reference's do), and the shadow tail.
 
 ---
 
