@@ -81,6 +81,7 @@ If you have five minutes, read only this table.
 | [STUDY-028](STUDY-028-irregular-borders.md) | Scalable rough borders — SVG, masks, Rough.js, trade-offs |
 | [STUDY-029](STUDY-029-progressive-textures.md) | Progressive surface textures — grain, lighting, blend stacks |
 | [STUDY-030](STUDY-030-procedural-wood-grain.md) | UI wood grain — multi-scale horizontal layers (not growth rings) |
+| [STUDY-031](STUDY-031-photographic-wood-grain-synthesis.md) | Photographic wood-grain synthesis via 2D FFT — source tile pipeline |
 | [STUDY-sources](STUDY-sources.md) | Literature — how far each was checked |
 
 **Correction chapters** (read after the chapter they amend): STUDY-013 →

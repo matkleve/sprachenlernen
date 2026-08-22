@@ -110,5 +110,6 @@ Shared rejection catalogue: [STUDY-009](STUDY-009-antipatterns.md).
 | Build contract | [`specs/page/wood-texture-lab.md`](../specs/page/wood-texture-lab.md) |
 | Visual target | [`specs/feature/progression-reference-board.md`](../specs/feature/progression-reference-board.md) |
 | Progressive overlays | [STUDY-029](STUDY-029-progressive-textures.md) |
+| Source-tile pipeline (different problem: baked reference tiles, not live redraw) | [STUDY-031](STUDY-031-photographic-wood-grain-synthesis.md) |
 | Agent trap | [`TRAPS.md`](../TRAPS.md) |
 | Live preview | `/dev/wood-textures`, `/dev/progression` |
