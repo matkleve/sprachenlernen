@@ -25,6 +25,8 @@ export type SamplingConfig = {
   betaFirstGood: number;
   lambdaNewToday: number;
   formStagingK: number;
+  /** UC-006 / T-W12 — scales urgency by days past `due` (supplement α). */
+  alphaOverdue: number;
 };
 
 export const DEFAULT_SAMPLING_CONFIG: SamplingConfig = {
@@ -36,7 +38,10 @@ export const DEFAULT_SAMPLING_CONFIG: SamplingConfig = {
   betaFirstGood: 1,
   lambdaNewToday: 0.2,
   formStagingK: 4,
+  alphaOverdue: 0.08,
 };
+
+const MS_PER_DAY = 86_400_000;
 
 export type SamplingContext = {
   now: number;
@@ -94,13 +99,21 @@ function meaningSuccesses(wordId: string, context: SamplingContext): number {
   return context.meaningSuccessCountByWordId.get(wordId) ?? 0;
 }
 
+function daysOverdue(task: Task, now: number, isNew: boolean): number {
+  if (isNew || task.due >= now) return 0;
+  return (now - task.due) / MS_PER_DAY;
+}
+
 function computeFactors(
   candidate: { card: StarterCard; task: Task; isNew: boolean },
   context: SamplingContext,
   config: SamplingConfig,
 ): { u: number; b: number; n: number; f: number; freq: number; world: number } {
   const { task, card, isNew } = candidate;
-  const u = Math.max(config.epsilon, 1 - retrievability(task, context.now));
+  const overdueDays = daysOverdue(task, context.now, isNew);
+  const u =
+    Math.max(config.epsilon, 1 - retrievability(task, context.now))
+    * (1 + config.alphaOverdue * overdueDays);
   const phi = phiHeld(context.heldMeaningRecall, config);
   const fragile = bucketForTask(task) === "fragile" ? 1 : 0;
   const struggled = struggledToday(card.taskId, context) ? 1 : 0;
@@ -119,7 +132,7 @@ function computeFactors(
     f = logistic(config.formStagingK * (successes - 1));
   }
 
-  const freq = isNew ? frequencyFactor(card.frequencyRank) : 1;
+  const freq = isNew || overdueDays > 0 ? frequencyFactor(card.frequencyRank) : 1;
   const activeWorld = context.activeWorld ?? "general";
   const world = worldMatchFactor(card.worlds, activeWorld);
   return { u, b, n, f, freq, world };

@@ -24,8 +24,9 @@ probability — **no hard exclusion** except suspended/retired and deck filter.
 uᵢ = max(ε, 1 − Rᵢ(now))
 ```
 
-`Rᵢ` from [`scheduler.md`](scheduler.md) `retrievability(task, now)` on the rebuilt task. Optional
-overdue boost (v1 off): `uᵢ × (1 + α × daysOverdue)` with `α` default `0`.
+`Rᵢ` from [`scheduler.md`](scheduler.md) `retrievability(task, now)` on the rebuilt task.
+Overdue boost (UC-006 / T-W12): `uᵢ × (1 + α × daysOverdue)` when `due < now`,
+with `α = alphaOverdue` default `0.08` (`DEFAULT_SAMPLING_CONFIG`).
 
 Replaces binary `due ≤ now`: a card with `due` tomorrow but `R = 0.88` can still
 appear, with lower weight than `R = 0.55`.
@@ -104,8 +105,15 @@ world bias is invisible unless learner opens optional G1 disclosure.
 | `betaStruggled` | `3` | β₂ |
 | `betaFirstGood` | `1` | β₃ |
 | `lambdaNewToday` | `0.2` | λ |
+| `alphaOverdue` | `0.08` | α — overdue urgency per day past `due` (T-W12) |
 
-Six product parameters. FSRS weights unchanged.
+Seven product parameters. FSRS weights unchanged.
+
+### Frequency on overdue (T-W12)
+
+New cards always carry `freqᵢ = 1 / max(1, frequencyRank)`. **Overdue** due cards
+(`due < now`) use the same factor so break-return sessions favour frequent lemmas
+among the overdue set — not strict sort, but weighted with urgency.
 
 ## Sampling algorithm
 
