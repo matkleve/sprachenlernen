@@ -4,7 +4,13 @@ import { cookies, headers } from "next/headers";
 import { redirect } from "next/navigation";
 
 import { authErrorCodeFor } from "@/lib/auth-error-code";
-import { signIn, signUp, signInWithOAuth, type OAuthProvider } from "@/lib/db/auth";
+import {
+  resendConfirmation,
+  signIn,
+  signUp,
+  signInWithOAuth,
+  type OAuthProvider,
+} from "@/lib/db/auth";
 import { ensureProfileFromAcceptLanguage, getSpokenLanguage } from "@/lib/db/profiles";
 import { fromAuthError, logHandledError, type HandledError } from "@/lib/errors";
 import { LOCALE_COOKIE, LOCALE_COOKIE_MAX_AGE } from "@/lib/i18n/locale-cookie";
@@ -39,6 +45,21 @@ function redirectWithHandledError(path: string, handled: HandledError): never {
   redirect(`${path}?${params}`);
 }
 
+/**
+ * The "check your email" screen's address, `sent=1` and (on a resend)
+ * `resent=1` travel in the URL so the screen can show the address and the
+ * resend/wrong-address actions know what it was — `URLSearchParams` encodes
+ * it, and `SignUpForm` only ever uses it as a field default value or an
+ * action input, never as rendered prose (docs/specs/service/auth.md §
+ * Acceptance criteria — the same discipline `redirectWithHandledError`
+ * applies to error copy, extended to this value).
+ */
+function confirmationSentPath(email: string, options: { resent?: boolean } = {}): string {
+  const params = new URLSearchParams({ sent: "1", ...(options.resent ? { resent: "1" } : {}) });
+  params.set("email", email);
+  return `${routes.signUp}?${params}`;
+}
+
 async function syncLocaleCookieFromProfile(): Promise<void> {
   const spoken = await getSpokenLanguage();
   if (spoken.status !== "ok") return;
@@ -62,13 +83,32 @@ export async function signUpAction(formData: FormData): Promise<void> {
     );
   }
   if (result.status === "confirmation-required") {
-    redirect(`${routes.signUp}?sent=1`);
+    redirect(confirmationSentPath(email));
   }
 
   const acceptLanguage = (await headers()).get("accept-language");
   await ensureProfileFromAcceptLanguage(acceptLanguage);
   await syncLocaleCookieFromProfile();
   redirect(routes.chooseLanguage);
+}
+
+/**
+ * Behavior 10: resends the pending signup confirmation to the address on the
+ * "check your email" screen. No password — Supabase's resend endpoint needs
+ * only the email, and re-asking for a password the visitor already typed once
+ * is exactly the friction this action exists to remove.
+ */
+export async function resendConfirmationAction(formData: FormData): Promise<void> {
+  const email = String(formData.get("email") ?? "").trim();
+  const result = await resendConfirmation(email);
+
+  if (result.status === "error") {
+    redirectWithHandledError(
+      routes.signUp,
+      fromAuthError(result.error, { operation: "resend the confirmation email" }),
+    );
+  }
+  redirect(confirmationSentPath(email, { resent: true }));
 }
 
 export async function signInAction(formData: FormData): Promise<void> {
