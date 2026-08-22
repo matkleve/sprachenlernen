@@ -51,6 +51,7 @@ Usage:
     python3 scripts/wood-grain-fourier-synthesis.py <source_photo.png> <wood_name> [out_dir]
         [--rim-strength 0.6] [--no-rim] [--feature-scale 9]
         [--crack-blur-sigma 6] [--crack-floor 0] [--crack-keep-percentile 0]
+        [--crack-source hb|extracted|procedural] [--crack-count 5]
         [--debug-layers] [--suffix _tag]
 """
 
@@ -64,17 +65,15 @@ from PIL import Image
 from scipy.ndimage import gaussian_filter, zoom
 
 # ---- tuned parameters (see STUDY-031 for how each was arrived at) ----
-BLUR_SIGMA = 6.0            # stage 2: "smooth base tone" scale for crack extraction
-CRACK_BLUR_SIGMA = 6.0      # override via --crack-blur-sigma; higher = big cracks only
+BLUR_SIGMA = 6.0            # legacy alias; crack extraction uses CRACK_BLUR_SIGMA
+CRACK_BLUR_SIGMA = 6.0      # extraction blur; higher = big cracks only
 SPEC_SMOOTH_SIGMA = 2.5     # stages 1 & 2: smooths the measured spectrum
-FEATURE_SCALE = 9.0         # stage 3: >1 = cracks bigger & sparser
-ITERATIONS = 6               # stage 4: Heeger-Bergen alternation rounds
-CRACK_STRENGTH = 0.8         # stage 7: how dark cracks cut into the grain
-CRACK_FLOOR = 0.0            # post-HB: zero crack_field below this (0–1); kills rim noise
-CRACK_KEEP_PERCENTILE = 0.0  # pre-HB: drop crack_real below this percentile among >0 px
-FEATURE_SCALE = 9.0         # stage 3: >1 = cracks bigger & sparser
-ITERATIONS = 6               # stage 4: Heeger-Bergen alternation rounds
-CRACK_STRENGTH = 0.8         # stage 7: how dark cracks cut into the grain
+FEATURE_SCALE = 9.0         # stage 3: >1 = cracks bigger & sparser (HB only)
+ITERATIONS = 6              # stage 4: Heeger-Bergen alternation rounds
+CRACK_STRENGTH = 0.8        # stage 7: how dark cracks cut into the grain
+CRACK_FLOOR = 0.0           # post-HB: zero crack_field below this (0–1)
+CRACK_KEEP_PERCENTILE = 0.0 # pre-HB: drop weak extraction pixels
+PROCEDURAL_CRACK_COUNT = 5  # sparse horizontal strokes when --crack-source procedural
 RIM_PRE_BLUR = 3.0           # stage 5: smooths crack field before gradient
 RIM_STRENGTH = 0.6           # stage 7: brightness of the highlight
 TOP_FRACTION = 0.2           # stage 5: faint highlight kept above (vs below)
@@ -144,6 +143,53 @@ def _apply_crack_floor(crack_field: np.ndarray, floor: float) -> np.ndarray:
     return out
 
 
+def procedural_crack_field(
+    h: int,
+    w: int,
+    rng: np.random.Generator,
+    count: int = PROCEDURAL_CRACK_COUNT,
+    min_gap_frac: float = 0.1,
+    min_span_frac: float = 0.45,
+    thickness: int = 2,
+    jitter_sigma: float = 1.0,
+) -> np.ndarray:
+    """Sparse horizontal crack strokes — generates sharp B&W-style masks without a photo.
+
+    Poisson-style Y placement + jittered polylines. Not HB: lines stay thin because
+    geometry is drawn, not inferred from a soft correlation field.
+    """
+    field = np.zeros((h, w), dtype=np.float32)
+    min_gap = max(6, int(h * min_gap_frac))
+    margin = thickness + 2
+    ys: list[int] = []
+    attempts = 0
+    while len(ys) < count and attempts < count * 40:
+        attempts += 1
+        y = int(rng.integers(margin, h - margin))
+        if all(abs(y - yy) >= min_gap for yy in ys):
+            ys.append(y)
+
+    for y0 in ys:
+        span = int(w * (min_span_frac + rng.random() * (1 - min_span_frac)))
+        x0 = int(rng.integers(0, max(1, w - span)))
+        x1 = min(w, x0 + span)
+        jitter = rng.normal(0, jitter_sigma, size=x1 - x0)
+        for i, x in enumerate(range(x0, x1)):
+            yy = int(np.clip(y0 + jitter[i], 0, h - 1))
+            for dy in range(-thickness, thickness + 1):
+                yyy = yy + dy
+                if 0 <= yyy < h:
+                    taper = 1.0 - abs(dy) / (thickness + 0.5)
+                    field[yyy, x] = max(field[yyy, x], taper)
+    peak = float(field.max())
+    return field / peak if peak > 0 else field
+
+
+def _normalize_crack_field(crack: np.ndarray) -> np.ndarray:
+    peak = float(np.max(crack))
+    return crack / (peak + 1e-8) if peak > 0 else crack
+
+
 def synthesize(
     input_path: Path,
     name: str,
@@ -154,6 +200,8 @@ def synthesize(
     crack_blur_sigma: float = CRACK_BLUR_SIGMA,
     crack_floor: float = CRACK_FLOOR,
     crack_keep_percentile: float = CRACK_KEEP_PERCENTILE,
+    crack_source: str = "hb",
+    procedural_crack_count: int = PROCEDURAL_CRACK_COUNT,
     debug_layers: bool = False,
     suffix: str = "",
 ) -> None:
@@ -180,26 +228,30 @@ def synthesize(
     base_tone = gaussian_filter(img, sigma=crack_blur_sigma)
     crack_real = np.clip(base_tone - img, 0, None)
     crack_for_hb = _sparsify_crack_real(crack_real, crack_keep_percentile)
-    crack_c = crack_for_hb - crack_for_hb.mean()
-    spec_c = np.fft.fft2(crack_c * win)
-    mag_c_shifted = gaussian_filter(np.fft.fftshift(np.abs(spec_c)), sigma=SPEC_SMOOTH_SIGMA)
 
-    # 3. Fourier-scale the crack spectrum
-    mag_c_shifted = scale_spectrum(mag_c_shifted, feature_scale)
-    target_mag = np.fft.ifftshift(mag_c_shifted)
-    target_mag[0, 0] = 0.0
-    target_sorted = np.sort(crack_for_hb.ravel())
-
-    # 4. Heeger-Bergen: spectrum + histogram matching
-    cur = rng.normal(size=(h, w))
-    for _ in range(ITERATIONS):
-        f_cur = np.fft.fft2(cur)
-        f2 = target_mag * np.exp(1j * np.angle(f_cur))
-        cur = np.fft.ifft2(f2).real
-        cur = histogram_match(cur, target_sorted)
-    crack_field = np.clip(cur, 0, None)
-    crack_field = crack_field / (crack_field.max() + 1e-8)
-    crack_field = _apply_crack_floor(crack_field, crack_floor)
+    if crack_source == "procedural":
+        crack_field = procedural_crack_field(h, w, rng, count=procedural_crack_count)
+        crack_field = _apply_crack_floor(crack_field, crack_floor)
+    elif crack_source == "extracted":
+        crack_field = _normalize_crack_field(crack_for_hb)
+        crack_field = _apply_crack_floor(crack_field, crack_floor)
+    else:
+        crack_c = crack_for_hb - crack_for_hb.mean()
+        spec_c = np.fft.fft2(crack_c * win)
+        mag_c_shifted = gaussian_filter(np.fft.fftshift(np.abs(spec_c)), sigma=SPEC_SMOOTH_SIGMA)
+        mag_c_shifted = scale_spectrum(mag_c_shifted, feature_scale)
+        target_mag = np.fft.ifftshift(mag_c_shifted)
+        target_mag[0, 0] = 0.0
+        target_sorted = np.sort(crack_for_hb.ravel())
+        cur = rng.normal(size=(h, w))
+        for _ in range(ITERATIONS):
+            f_cur = np.fft.fft2(cur)
+            f2 = target_mag * np.exp(1j * np.angle(f_cur))
+            cur = np.fft.ifft2(f2).real
+            cur = histogram_match(cur, target_sorted)
+        crack_field = np.clip(cur, 0, None)
+        crack_field = _normalize_crack_field(crack_field)
+        crack_field = _apply_crack_floor(crack_field, crack_floor)
 
     if debug_layers:
         Image.fromarray(_crack_bw(crack_real), mode="L").save(
@@ -209,7 +261,7 @@ def synthesize(
             out_dir / f"{tag}_crack_sparse.png"
         )
         Image.fromarray(_crack_bw(crack_field), mode="L").save(
-            out_dir / f"{tag}_crack_synth_hb_scale{int(feature_scale)}.png"
+            out_dir / f"{tag}_crack_{crack_source}.png"
         )
 
     # 5. directional rim
@@ -248,7 +300,7 @@ def synthesize(
             f" keep_p={crack_keep_percentile}"
         )
     print(
-        f"[{tag}] {w}x{h} scale={feature_scale} {rim_note}{sparse_note} -> "
+        f"[{tag}] {w}x{h} cracks={crack_source} scale={feature_scale} {rim_note}{sparse_note} -> "
         f"{tag}_shading.png, {tag}_final.png (in {out_dir})"
     )
 
@@ -285,9 +337,21 @@ def main() -> None:
         help="Drop crack_real below this percentile among positive pixels (e.g. 85)",
     )
     parser.add_argument(
+        "--crack-source",
+        choices=("hb", "extracted", "procedural"),
+        default="hb",
+        help="hb=Heeger-Bergen resynth; extracted=layer photo mask; procedural=draw strokes",
+    )
+    parser.add_argument(
+        "--crack-count",
+        type=int,
+        default=PROCEDURAL_CRACK_COUNT,
+        help="Horizontal crack strokes for --crack-source procedural",
+    )
+    parser.add_argument(
         "--debug-layers",
         action="store_true",
-        help="Export crack_layer and crack_synth_hb_scaleN B&W debug PNGs",
+        help="Export crack_layer, crack_sparse, and crack mask debug PNGs",
     )
     parser.add_argument("--suffix", default="", help="Append to output basename (e.g. _norim)")
     args = parser.parse_args()
@@ -301,6 +365,8 @@ def main() -> None:
         crack_blur_sigma=args.crack_blur_sigma,
         crack_floor=args.crack_floor,
         crack_keep_percentile=args.crack_keep_percentile,
+        crack_source=args.crack_source,
+        procedural_crack_count=args.crack_count,
         debug_layers=args.debug_layers,
         suffix=args.suffix,
     )
