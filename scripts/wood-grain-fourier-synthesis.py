@@ -26,9 +26,9 @@ STAGES:
   2. Valley layers -- fine + coarse depth from vertical ridge envelope;
                      coarse = deep envelope minus fine (big fissures only).
   3. Feature scale -- optional spectrum zoom per layer (native = 1.0).
-  4. Heeger-Bergen -- match spectrum + sparse depth histogram per layer.
-  5. Canalize     -- threshold HB placement, bridge gaps along grain, flat floor
-                     bands (stops spray-can stipple).
+  4. Heeger-Bergen -- match spectrum + elongated depth histogram per layer.
+  5. Shape grooves -- horizontal max-pool on continuous depth (flat floors,
+                     grain direction; never binarize to black rectangles).
   6. Directional rim -- vertical gradient of combined valley depth.
   7. Patchy rim   -- thresholded low-frequency mask on the rim.
   8. Composite    -- height map: neutral + grain ripple - valley cuts + rim.
@@ -45,7 +45,7 @@ from pathlib import Path
 
 import numpy as np
 from PIL import Image
-from scipy.ndimage import gaussian_filter, grey_closing, grey_dilation, zoom
+from scipy.ndimage import gaussian_filter, grey_dilation, maximum_filter, zoom
 
 # ---- tuned parameters (see STUDY-032) ----
 FINE_VALLEY_RADIUS = 7         # vertical ridge envelope for fine checking (px)
@@ -54,19 +54,17 @@ SPEC_SMOOTH_SIGMA = 2.5        # smooth measured spectra before synthesis
 FEATURE_SCALE = 1.0            # native scale (9.0 was bubbly blobs — 2026-08-22)
 COARSE_FEATURE_SCALE = 1.0
 ITERATIONS = 6                 # Heeger-Bergen rounds per valley layer
-FINE_VALLEY_STRENGTH = 0.72    # how deep fine grooves cut the height map
-COARSE_VALLEY_STRENGTH = 0.95  # big fissures — visible but not black holes
-FINE_VALLEY_FLOOR = 0.10       # sharpen: discard shallow noise
-FINE_VALLEY_POWER = 1.35       # lower power — less stipple before canalize
-COARSE_VALLEY_FLOOR = 0.06
-COARSE_VALLEY_POWER = 1.25
-FINE_VALLEY_CONNECT = 20       # bridge gaps along grain (px)
-FINE_VALLEY_BAND = 2           # flat groove thickness (px tall)
-COARSE_VALLEY_CONNECT = 36
-COARSE_VALLEY_BAND = 4
-COARSE_GROOVE_QUANTILE = 0.97  # coarse layer: slightly more ink
-GROOVE_THRESHOLD = 0.35        # floor for adaptive quantile threshold
-GROOVE_QUANTILE = 0.98         # sparse seeds — HB stipple is mostly sub-threshold
+FINE_VALLEY_STRENGTH = 0.52    # depth cut — keep wood visible between grooves
+COARSE_VALLEY_STRENGTH = 0.68
+FINE_VALLEY_FLOOR = 0.12
+FINE_VALLEY_POWER = 1.45
+COARSE_VALLEY_FLOOR = 0.08
+COARSE_VALLEY_POWER = 1.35
+FINE_RUN_W = 22                # horizontal max-pool along grain (px)
+FINE_BAND_H = 2                # groove height (px)
+COARSE_RUN_W = 48
+COARSE_BAND_H = 5
+GROOVE_ACTIVE = 0.10           # min normalized depth before elongation applies
 RIM_PRE_BLUR = 2.0             # rim only — valleys stay sharp
 RIM_STRENGTH = 0.6
 TOP_FRACTION = 0.2
@@ -130,48 +128,36 @@ def sharpen_valleys(field: np.ndarray, floor: float, power: float) -> np.ndarray
     return scaled**power
 
 
-def flat_band(mask: np.ndarray, band_px: int) -> np.ndarray:
-    """Thicken horizontal grooves in-place — flat floor, no vertical morph merge."""
-    band = max(1, int(band_px))
-    if band == 1:
-        return mask
-    out = mask.copy()
-    for k in range(1, band):
-        out[k:] |= mask[:-k]
-        out[:-k] |= mask[k:]
-    return out
+def elongate_grooves(depth: np.ndarray, run_w: int, band_h: int) -> np.ndarray:
+    """Continuous horizontal max-pool — flat groove floors, grain direction.
+
+    Binarizing grooves (canalize) punched black rectangles through the tile.
+    This stays in [0, 1] depth space: max along horizontal windows bridges HB
+    stipple into elongated plateaus without voiding the whole surface.
+    """
+    peak = depth.max()
+    if peak <= 0:
+        return depth
+    norm = depth / peak
+    run_w = max(3, int(run_w) | 1)
+    band_h = max(1, int(band_h))
+    pooled = maximum_filter(norm, size=(band_h, run_w), mode="nearest")
+    active = norm >= GROOVE_ACTIVE
+    out = np.where(active, pooled, 0.0)
+    peak2 = out.max()
+    return out / peak2 if peak2 > 0 else out
 
 
-def canalize_valleys(
+def shape_grooves(
     field: np.ndarray,
     floor: float,
     power: float,
-    connect_px: int,
-    band_px: int,
-    groove_quantile: float = GROOVE_QUANTILE,
+    run_w: int,
+    band_h: int,
 ) -> np.ndarray:
-    """Horizontal grooves with flat floors — not spray-can stipple.
-
-    HB + sharpen alone leaves isolated spikes. Real checking is elongated:
-    bridge gaps along the grain, cap vertical thickness, then fill each groove
-    band to uniform depth (flat valley floor).
-    """
-    norm = sharpen_valleys(field, floor, power)
-    peak = norm.max()
-    if peak <= 0:
-        return norm
-    norm = norm / peak
-    positives = norm[norm > 1e-6]
-    thr = GROOVE_THRESHOLD
-    if positives.size:
-        thr = max(thr, float(np.quantile(positives, groove_quantile)))
-    groove = norm >= thr
-
-    connect = max(3, int(connect_px) | 1)
-    groove = grey_closing(groove.astype(np.uint8), structure=np.ones((1, connect), dtype=bool)) > 0
-    groove = flat_band(groove, band_px)
-
-    return groove.astype(np.float32)
+    """Sharpen then elongate — continuous depth, not a boolean mask."""
+    sharpened = sharpen_valleys(field, floor, power)
+    return elongate_grooves(sharpened, run_w, band_h)
 
 
 def synthesize_valley_field(
@@ -179,16 +165,19 @@ def synthesize_valley_field(
     win: np.ndarray,
     feature_scale: float,
     rng: np.random.Generator,
+    run_w: int,
+    band_h: int,
 ) -> np.ndarray:
-    """Heeger–Bergen placement + sparsity from measured valley depth."""
+    """Heeger–Bergen placement + sparsity from measured, elongated valley depth."""
     h, w = valley_real.shape
-    valley_c = valley_real - valley_real.mean()
+    valley_model = elongate_grooves(valley_real, run_w, band_h)
+    valley_c = valley_model - valley_model.mean()
     spec_c = np.fft.fft2(valley_c * win)
     mag_c_shifted = gaussian_filter(np.fft.fftshift(np.abs(spec_c)), sigma=SPEC_SMOOTH_SIGMA)
     mag_c_shifted = scale_spectrum(mag_c_shifted, feature_scale)
     target_mag = np.fft.ifftshift(mag_c_shifted)
     target_mag[0, 0] = 0.0
-    target_sorted = np.sort(valley_real.ravel())
+    target_sorted = np.sort(valley_model.ravel())
 
     cur = rng.normal(size=(h, w))
     for _ in range(ITERATIONS):
@@ -225,20 +214,17 @@ def synthesize(input_path: Path, name: str, out_dir: Path) -> None:
 
     # 2–5. synthesize valley depth layers (fine checking + coarse fissures)
     valley_fine_real, valley_coarse_real = extract_valley_layers(height)
-    valley_fine = synthesize_valley_field(valley_fine_real, win, FEATURE_SCALE, rng_fine)
+    valley_fine = synthesize_valley_field(
+        valley_fine_real, win, FEATURE_SCALE, rng_fine, FINE_RUN_W, FINE_BAND_H
+    )
     valley_coarse = synthesize_valley_field(
-        valley_coarse_real, win, COARSE_FEATURE_SCALE, rng_coarse
+        valley_coarse_real, win, COARSE_FEATURE_SCALE, rng_coarse, COARSE_RUN_W, COARSE_BAND_H
     )
-    valley_fine = canalize_valleys(
-        valley_fine, FINE_VALLEY_FLOOR, FINE_VALLEY_POWER, FINE_VALLEY_CONNECT, FINE_VALLEY_BAND
+    valley_fine = shape_grooves(
+        valley_fine, FINE_VALLEY_FLOOR, FINE_VALLEY_POWER, FINE_RUN_W, FINE_BAND_H
     )
-    valley_coarse = canalize_valleys(
-        valley_coarse,
-        COARSE_VALLEY_FLOOR,
-        COARSE_VALLEY_POWER,
-        COARSE_VALLEY_CONNECT,
-        COARSE_VALLEY_BAND,
-        COARSE_GROOVE_QUANTILE,
+    valley_coarse = shape_grooves(
+        valley_coarse, COARSE_VALLEY_FLOOR, COARSE_VALLEY_POWER, COARSE_RUN_W, COARSE_BAND_H
     )
     valley_combined = np.clip(valley_fine + valley_coarse, 0, 1)
 
