@@ -1,6 +1,10 @@
 import { describe, expect, it } from "vitest";
 
-import { DEV_PAGES, devPagesSortedByLatest } from "@/lib/dev-pages";
+import {
+  DEV_PAGES,
+  devPagesSortedByLatest,
+  formatDevPageLastUpdated,
+} from "@/lib/dev-pages";
 import { routes } from "@/lib/routes";
 
 describe("devPagesSortedByLatest", () => {
@@ -21,6 +25,12 @@ describe("devPagesSortedByLatest", () => {
         routes.safariBisect,
       ]),
     );
+  });
+
+  it("formats last updated with date and time", () => {
+    const formatted = formatDevPageLastUpdated(Date.parse("2026-08-21T15:11:45Z"));
+    expect(formatted).toMatch(/\d/);
+    expect(formatted).toMatch(/:/);
   });
 
   it("sorts newest lastUpdatedAt first", () => {
