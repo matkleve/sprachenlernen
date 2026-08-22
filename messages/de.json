@@ -1254,7 +1254,11 @@
     "signUp": {
       "heading": "Konto erstellen",
       "submit": "Konto erstellen",
-      "confirmationSent": "Wir haben dir einen Bestätigungslink geschickt. Klick ihn an und meld dich danach hier an.",
+      "confirmationSent": "Wir haben dir einen Bestätigungslink an {email} geschickt. Klick ihn an und meld dich danach hier an.",
+      "confirmationResent": "Nochmal geschickt — schau bei {email} nach.",
+      "resendSubmit": "E-Mail erneut senden",
+      "wrongEmailPrompt": "Falsche Adresse eingegeben?",
+      "wrongEmailLink": "Korrigieren",
       "switchPrompt": "Hast du schon ein Konto?",
       "switchLinkLabel": "Anmelden"
     },

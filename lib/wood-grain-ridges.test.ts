@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import { renderWoodGrain, ridgeFieldAt, type WoodGrainOptions } from "@/lib/wood-grain-ridges";
+import { renderWoodGrain, ridgeFieldAt, stableWarpAmount, type WoodGrainOptions } from "@/lib/wood-grain-ridges";
 
 function renderToPixels(width: number, height: number, opts: WoodGrainOptions): Uint8ClampedArray {
   let captured: Uint8ClampedArray | null = null;
@@ -67,6 +67,22 @@ describe("ridgeFieldAt (layered horizontal grain field)", () => {
     };
     expect(Math.abs(spread(40) - spread(160))).toBeGreaterThan(0.05);
   });
+
+  it("uses Y-periodic spacing, not a radial growth-ring field", () => {
+    const midY = height / 2;
+    const left = ridgeFieldAt(width * 0.2, midY, ctx);
+    const right = ridgeFieldAt(width * 0.8, midY, ctx);
+    const top = ridgeFieldAt(width / 2, height * 0.2, ctx);
+    const bottom = ridgeFieldAt(width / 2, height * 0.8, ctx);
+    expect(Math.abs(bottom - top)).toBeGreaterThan(Math.abs(right - left) * 0.8);
+  });
+});
+
+describe("stableWarpAmount", () => {
+  it("caps warp at narrow widths", () => {
+    expect(stableWarpAmount(0.9, 120, 3.2)).toBeLessThan(0.9);
+    expect(stableWarpAmount(0.2, 512, 3.2)).toBe(0.2);
+  });
 });
 
 describe("renderWoodGrain", () => {
@@ -78,5 +94,37 @@ describe("renderWoodGrain", () => {
     for (let i = 3; i < pixels.length; i += 4) {
       expect(pixels[i]).toBe(255);
     }
+  });
+
+  it("does not produce dominant vertical brightness columns", () => {
+    const width = 240;
+    const height = 200;
+    const pixels = renderToPixels(width, height, {
+      ...options,
+      speckle: 0,
+      fissureStrength: 0.35,
+      grooveStrength: 0.4,
+      coarseBandStrength: 0.02,
+      fissureSeeds: 4,
+    });
+    const colMeans: number[] = [];
+    const rowMeans: number[] = [];
+    for (let x = 0; x < width; x++) {
+      let sum = 0;
+      for (let y = 0; y < height; y++) {
+        sum += pixels[(y * width + x) * 4] ?? 0;
+      }
+      colMeans.push(sum / height);
+    }
+    for (let y = 0; y < height; y++) {
+      let sum = 0;
+      for (let x = 0; x < width; x++) {
+        sum += pixels[(y * width + x) * 4] ?? 0;
+      }
+      rowMeans.push(sum / width);
+    }
+    const colSpread = Math.max(...colMeans) - Math.min(...colMeans);
+    const rowSpread = Math.max(...rowMeans) - Math.min(...rowMeans);
+    expect(colSpread).toBeLessThan(rowSpread * 0.92);
   });
 });

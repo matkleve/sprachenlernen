@@ -9,7 +9,8 @@ specification is the source of truth and the code implements it.
 ```bash
 npm install
 npm run dev       # http://localhost:3000
-npm run verify    # the gate: types, lint, specs, tokens, contrast, tests, build
+npm run verify:scope -- <scope>   # default gate — docs/VERIFY-SCOPES.md
+npm run verify                    # full gate (~10min) — cross-cutting only
 ```
 
 ---
@@ -82,7 +83,8 @@ components/ui/      primitives used by ≥2 features.
 lib/                framework-free helpers.
 docs/study/        the research this product is derived from  ← read this first
 docs/               the process — start at docs/README.md
-scripts/            the gates behind `npm run verify`
+features/           one folder per feature — index in features/README.md
+scripts/            verify gates and build tooling — scripts/README.md
 .claude/            skills and the reviewer agent
 ```
 

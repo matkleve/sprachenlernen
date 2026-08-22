@@ -1254,7 +1254,11 @@
     "signUp": {
       "heading": "Create your account",
       "submit": "Create account",
-      "confirmationSent": "Check your email for a confirmation link, then come back and sign in.",
+      "confirmationSent": "We've sent a confirmation link to {email}. Open it, then come back and sign in.",
+      "confirmationResent": "Sent again — check {email}.",
+      "resendSubmit": "Resend the email",
+      "wrongEmailPrompt": "Typed the wrong address?",
+      "wrongEmailLink": "Fix it",
       "switchPrompt": "Already have an account?",
       "switchLinkLabel": "Sign in"
     },

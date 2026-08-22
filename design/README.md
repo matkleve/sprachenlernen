@@ -31,7 +31,7 @@ Tune procedural wood at `/dev/wood-grain` only to converge on a board column.
 2. **Review** — UX notes and constraints are in
    [`docs/explorations/EXP-035-logo-and-pwa-icon-exploration.md`](../docs/explorations/EXP-035-logo-and-pwa-icon-exploration.md).
 3. **Choose** — pick a direction on `/dev/brand` (persisted in `localStorage`).
-4. **Ship** — run `node scripts/sync-brand-assets.mjs <direction-id>` to copy
+4. **Ship** — run `node scripts/design/sync-brand-assets.mjs <direction-id>` to copy
    the chosen mark to `public/icon.svg` and `app/icon.svg`.
 
 Visual tokens come from **Warm Scholar** (chosen 2026-08-09 via `/dev/design`).
@@ -46,14 +46,20 @@ ChatGPT or Figma exports for the nine-stage reference board can land in
 The dev page currently uses CSS gradients as a stand-in until those files exist.
 
 **Wood tiles specifically:** the primary method is
-`python3 scripts/wood-grain-fourier-synthesis.py <photo.png> <wood-name>` — 2D
+`python3 scripts/design/wood-grain-fourier-synthesis.py <photo.png> <wood-name>` — 2D
 FFT analysis of a single-species reference photo, synthesized back into a
 seamless tile (grain direction, crack layer, and lighting all measured from
 the source rather than hand-tuned). Reasoning and evidence:
 [`docs/study/STUDY-032-photographic-wood-grain-synthesis.md`](../docs/study/STUDY-032-photographic-wood-grain-synthesis.md).
+**Breakthrough reference (2026-08-22):** `design/progression/breakthrough-wood-01-final.png`
+— native `FEATURE_SCALE=1`; do not reintroduce scale 9 without owner GO.
 Source photo: one wood species per image (not a multi-species grid — that
 splits resolution and creates seam artifacts), max resolution, flat lighting,
-zero perspective, PNG.
+zero perspective, PNG. Multi-species exploration grids are sliced first:
+save as `design/progression/source-grid-wood-upload.png`, then
+`python3 scripts/slice-wood-texture-grid.py` (0.5% edge margin) and
+`python3 scripts/wood-grain-fourier-synthesis.py` per patch. Chat image
+uploads are not written to the Cloud Agent VM — commit the PNG in git.
 
 Every image from building this pipeline — source photos, cropped patches,
 and the full iteration trail — is archived and indexed at
@@ -61,13 +67,13 @@ and the full iteration trail — is archived and indexed at
 Current best output: `design/wood-grain-fourier/outputs/final/`.
 
 Method section graphics brief:
-[`docs/explorations/../../explorations/EXP-039-method-section-graphics-brief.md`](../docs/explorations/../../explorations/EXP-039-method-section-graphics-brief.md).
+[`docs/explorations/EXP-039-method-section-graphics-brief.md`](../docs/explorations/EXP-039-method-section-graphics-brief.md).
 
 Skill-tier badge grid: save the owner’s **4×5 grid as RGBA PNG** with a
 **transparent sheet** between cells (preferred — slice is crop-only). White RGB
 uploads still work; the script keys only border-connected white (not interior
 highlights). Save as `design/skill-tier-badges/source-grid-upload.png`, then
-`python3 scripts/slice-skill-tier-badges.py`. Chat image uploads are not written
+`python3 scripts/design/slice-skill-tier-badges.py`. Chat image uploads are not written
 to the Cloud Agent VM — the PNG must be committed in git.
 
 ## What does not live here

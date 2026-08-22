@@ -44,8 +44,22 @@ Colocation over categorization: a folder that holds one feature end-to-end is
 easier to reason about — and delete — than the same files scattered across
 `/components`, `/hooks` and `/utils`.
 
-A feature does **not** import from another feature. If two need the same thing,
-it moves down to `components/ui/` or `lib/`.
+A feature does **not** import from another feature — **except** the patterns
+below. If your case does not match one of them, extract shared code to
+`components/ui/` or `lib/` instead.
+
+### Cross-feature reuse (allowed)
+
+| Pattern | Example | Why |
+| --- | --- | --- |
+| **Shell chrome** | `marketing` → `app-shell` | Public header reuses signed-in shell bar |
+| **Catalogue preview** | `marketing` → `method-menu` | Landing shows real method cards |
+| **QA harness** | `safari-bisect` → `words`, `progress` | Bisect wraps production page bodies |
+| **Dev lab reuse** | `wood-grain-lab` → `material-explorer` | Shared procedural wood canvas |
+| **Same feature tree** | `profile` → `account-data` | Sub-sections of one destination |
+
+Everything else is a layering violation. The index of features and routes is in
+[`features/README.md`](../features/README.md).
 
 ## `components/ui/` — earned primitives
 
@@ -61,6 +75,8 @@ Everything here is generic: no domain vocabulary, no feature-specific props.
 Framework-free and side-effect-free. Given the same input, returns the same
 output. That is what makes it trivially testable, and the test is worth writing
 because everything above depends on it.
+
+Domain map and subfolders: [`lib/README.md`](../lib/README.md).
 
 ---
 

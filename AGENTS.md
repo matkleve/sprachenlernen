@@ -81,8 +81,8 @@ Full pipeline, Definition of Ready and Definition of Done:
   class string. Later classes win — that is what lets a caller override.
 - **`cva`** for anything with variants. Never `if/else` on class strings.
 - Imports use the **`@/`** alias. No `../../`.
-- Copy lives in `lib/content.ts` (or a feature's `content.ts`), not inline in
-  JSX — so it can be reviewed, reused, and later translated.
+- Copy lives in a feature's `content.ts` or `messages/<locale>.json`, not
+  inline in JSX — so it can be reviewed, reused, and later translated.
 - Comment the **why**, not the what. A comment that records a rejected
   alternative and its reason is what stops the next agent reintroducing the bug.
 - Conventional Commits: `feat:`, `fix:`, `docs:`, `refactor:`, `chore:`.
@@ -102,7 +102,7 @@ data/               content as data — language profiles, frequency lists, lemm
 docs/specs/         implementation contracts ← source of truth
 docs/study/         product reasoning — may be wrong; not a build contract
 docs/use-cases/     what the user is trying to do, in their words
-scripts/            the gates behind `npm run verify`
+scripts/            verify gates and build tooling — see scripts/README.md
 ```
 
 A file moves from `features/x/` to `components/ui/` the moment a **second**

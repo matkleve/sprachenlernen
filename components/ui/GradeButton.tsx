@@ -75,8 +75,3 @@ export const GradeButton = forwardRef<HTMLButtonElement, GradeButtonProps>(funct
     </button>
   );
 });
-
-/** @deprecated Use GradeButton — kept for one release so imports can be grep-cleaned. */
-export function gradeButtonClass(grade: Grade): string {
-  return gradeButtonVariants({ grade });
-}

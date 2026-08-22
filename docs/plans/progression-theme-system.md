@@ -154,6 +154,26 @@ bands 2–5 line up at 25/50/12/8 against 21/43/13/9, but band 1 reads 3 against
 
 ---
 
+## Algorithmic live canvas — PAUSED 2026-08-22
+
+**Owner decision:** stop further texture synthesis; full record in
+[STUDY-034](../study/STUDY-034-texture-generation-archive.md).
+
+What landed in `lib/wood-grain-ridges.ts` + `lib/wood-grain-tuned-variants.ts`
+(merged on `main`):
+
+- Longitudinal plank field (Y-periodic + X-warp, **no** radial rings)
+- Morphological groove proxy (horizontal blur-difference valleys)
+- Ten tuned presets on `/dev/wood-textures` (`WOOD_TUNED_VARIANT_COUNT = 10`)
+- Y-axis fine striations (fixes vertical barcode when stretch was on X)
+
+**Not the plan for Workshop ship.** Breakthrough FFT tiles
+(`design/progression/synthesized/wood-01_final.png`, `FEATURE_SCALE=1`) remain
+the owner-validated near-match. Wire those when T-PT0d resumes — not more
+canvas tuning.
+
+---
+
 ## Invariants (do not break)
 
 1. **Stages never move contrast tokens** — `--color-ink`, `canvas`, `surface`, `muted` are chapter-only; `check:contrast` validates chapters only.
@@ -214,6 +234,19 @@ marks pass column by column. See
 | **T-PT0d** | **Optional tile hook** — if `public/design/progression/workshop-1.webp` exists, skin uses it; else CSS fallback (spec already allows) | Standard | `globals.css` or skin module, `design/README.md` | One chapter tile provable without committing art |
 
 **Exit gate:** product owner signs off at `/dev/progression` after walking stages 1, 3, 5, 7, 9.
+
+### Phase 0e · FFT photographic tiles (started 2026-08-22)
+
+Owner breakthrough on wood-01 at native crack scale (`FEATURE_SCALE=1`).
+Reference: `design/progression/breakthrough-wood-01-final.png`. Diary:
+[`2026-08-22.md`](../diary/2026-08-22.md).
+
+| ID | Work | Class | Done when |
+| --- | --- | --- | --- |
+| **T-PT0e1** | Land six source patches + synthesis script defaults | Standard | **Done** — PR #195 |
+| **T-PT0e2** | `texture-metrics.mjs` — breakthrough tile vs board Workshop col 1 | Standard | Metrics within STUDY-031 bands + owner pass |
+| **T-PT0e3** | Export `workshop-1.webp` from best tile → `public/design/progression/` | Standard | T-PT0d hook shows tile on `/dev/progression` |
+| **T-PT0e4** | Per-species param overrides + knot pass (05/06) if board needs it | Standard | Spec gap closed in STUDY-032 first |
 
 ---
 

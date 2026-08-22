@@ -18,13 +18,13 @@ export async function generateMetadata(): Promise<Metadata> {
 export default async function SignUpPage({
   searchParams,
 }: {
-  searchParams: Promise<{ error?: string; sent?: string; ref?: string }>;
+  searchParams: Promise<{ error?: string; sent?: string; resent?: string; ref?: string; email?: string }>;
 }) {
   const t = await getTranslations("auth");
   const account = await getAccount();
   if (account) redirect(routes.appHome);
 
-  const { error, sent, ref } = await searchParams;
+  const { error, sent, resent, ref, email } = await searchParams;
   const errorCode = parseAuthErrorCode(error);
 
   return (
@@ -34,6 +34,8 @@ export default async function SignUpPage({
         error={errorCode ? t(`errors.${errorCode}`) : undefined}
         referenceId={errorCode ? ref : undefined}
         sent={sent === "1"}
+        resent={resent === "1"}
+        email={email}
       />
     </div>
   );

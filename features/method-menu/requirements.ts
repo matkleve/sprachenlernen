@@ -53,10 +53,3 @@ export function formatDurationLabel(durations: number[] | null): string {
   if (min === max) return `${min} ${copy.minutes}`;
   return `${min}–${max} ${copy.minutes}`;
 }
-
-/** @deprecated Use durationChips — kept for any external callers. */
-export function describeDurations(durations: number[] | null): string {
-  const chips = durationChips(durations);
-  if (chips.length === 1) return chips[0]!;
-  return `${chips.slice(0, -1).join(", ")} ${copy.or} ${chips[chips.length - 1]}`;
-}

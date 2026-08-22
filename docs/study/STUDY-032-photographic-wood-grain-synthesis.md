@@ -61,6 +61,22 @@ scaling R, G, B together. Adopting STUDY-031's exact ramp-from-quantiles
 technique in place of the albedo multiply is the likely next step if measured
 colour drifts.
 
+**[D] — crack sources and measurement.** Cracks are not grain — see
+[STUDY-033](STUDY-033-wood-crack-morphology.md) for the mathematician/naturalist
+account. CLI `--crack-source`: `extracted` (photo mask, best), `morphological`
+(generated valleys on synthetic hills), `hb` (Heeger–Bergen, blobby). Verify
+with `scripts/wood-crack-metrics.py` on crack masks and
+`scripts/texture-metrics.mjs` on finals — coverage alone does not prove crack
+geometry.
+
+**[D]** `FEATURE_SCALE` on the crack spectrum is the dominant knob for crack
+*morphology* when using HB. At **9.0** (early tuning for sparse, large checking
+on tiles) the synthesized crack field is fat, bubbly, and rim-blurred — profile
+slices show broad humps vs narrow spikes in the real `relu(blur−img)` layer. At
+**1.0** (native measured scale) wood-01 remakes read as fine horizontal
+checking; owner marked this a major breakthrough 2026-08-22. Reference:
+`design/progression/breakthrough-wood-01-final.png`.
+
 **[D]** Feature size is controllable independently of the recipe's shape via
 the **Fourier scaling theorem** (`f(kx,ky) ↔ (1/k²)F(u/k,v/k)`): zooming the
 frequency-domain filter about its DC center resizes the real-space features
@@ -132,6 +148,7 @@ rule or a button edge, not the material.
 - Reproducing a knot as a discrete feature needs a separate mechanism (domain
   warping the base grain's sampling coordinates around the knot center, plus
   its own small radial-ring stamp) — not built yet, noted for a future pass.
+- **Further synthesis paused** — see [STUDY-034](STUDY-034-texture-generation-archive.md).
 
 ## Related
 
@@ -139,6 +156,7 @@ rule or a button edge, not the material.
 | --- | --- |
 | [STUDY-030](STUDY-030-procedural-wood-grain.md) | The live-renderer counterpart — layered horizontal fibres, resize-safe |
 | [STUDY-031](STUDY-031-texture-metrics.md) | The measuring apparatus this pipeline still needs to run through; also the source of the histogram-matching pink-wood finding this doc scopes against |
+| [STUDY-033](STUDY-033-wood-crack-morphology.md) | Crack vs grain; morphological valleys; metric interpretation (mathematician + naturalist) |
 | [`wood-texture-lab.md`](../specs/page/wood-texture-lab.md) | Build contract for `/dev/wood-textures` (unaffected by this study) |
 | [`progression-reference-board.md`](../specs/feature/progression-reference-board.md) | Visual target; permits "tile" as an implementation choice |
 | [`docs/plans/progression-theme-system.md`](../plans/progression-theme-system.md) | § *Measured wood recipe* — the owner decision this pipeline implements |

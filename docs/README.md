@@ -2,6 +2,8 @@
 
 Start at [`../AGENTS.md`](../AGENTS.md). Everything here is what it links to.
 
+**Agents:** one-page checklist at [`AGENT-START.md`](AGENT-START.md).
+
 ## "I want to…"
 
 | | Read |
