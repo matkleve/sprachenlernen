@@ -228,6 +228,14 @@ scale-d 1.90 with a monotonically falling profile. Single-octave layers at the
 same frequencies scaled 5x finer reach 6/9/24/33/20/8 against 5/10/21/43/13/9,
 scale-d **0.60** — below the noise floor above.
 
+## Status of the wood that drove this
+
+The procedural wood these metrics were built against was **stopped** in favour
+of 2-D FFT resynthesis from the reference photo, which measured closer. The
+metrics outlive it: the question "does this material match its reference" is the
+same whether the pixels come from a filter chain, a resynthesis, or a baked
+tile, and marble, brass and paper are all still to do.
+
 ## Product consequences
 
 - Materials get measured against a reference crop before they are called done,

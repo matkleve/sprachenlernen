@@ -76,7 +76,26 @@ gate. Both ink pairs are now asserted per chapter in
 
 ---
 
-## Measured wood recipe (validated, not yet wired in)
+## Measured wood recipe — SUPERSEDED, do not build from this
+
+**Stopped 2026-08-22 by the owner.** A 2-D FFT resynthesis from the reference
+photo gets closer than this did, and needs none of the fitting below: it uses
+the reference's actual spectrum rather than approximating it with four
+parameterised noise layers. Keep this section as the record of what a
+hand-fitted procedural stack could and could not reach — it is not the plan.
+
+What survives the change of approach, because none of it is specific to
+procedural generation:
+
+- `scripts/texture-metrics.mjs` and STUDY-031 — the measuring apparatus, which
+  is what identified the gaps in the first place and applies to marble, brass
+  and paper equally. An FFT resynthesis still needs checking against the
+  reference, and these are how.
+- The `color-interpolation-filters="sRGB"` fix on all eight filters, and the
+  Workshop chroma correction. Both are live and unrelated to this recipe.
+- The finding that the reference bench has **no plank seams**.
+
+### The recipe as it stood (historical)
 
 Built against `design/progression/reference-board.png` column 1 and measured
 with `scripts/texture-metrics.mjs`. Reasoning and the traps behind each choice:
