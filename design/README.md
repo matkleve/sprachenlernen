@@ -52,7 +52,11 @@ the source rather than hand-tuned). Reasoning and evidence:
 [`docs/study/STUDY-032-photographic-wood-grain-synthesis.md`](../docs/study/STUDY-032-photographic-wood-grain-synthesis.md).
 Source photo: one wood species per image (not a multi-species grid — that
 splits resolution and creates seam artifacts), max resolution, flat lighting,
-zero perspective, PNG.
+zero perspective, PNG. Multi-species exploration grids are sliced first:
+save as `design/progression/source-grid-wood-upload.png`, then
+`python3 scripts/slice-wood-texture-grid.py` (0.5% edge margin) and
+`python3 scripts/wood-grain-fourier-synthesis.py` per patch. Chat image
+uploads are not written to the Cloud Agent VM — commit the PNG in git.
 
 Method section graphics brief:
 [`docs/explorations/../../explorations/EXP-039-method-section-graphics-brief.md`](../docs/explorations/../../explorations/EXP-039-method-section-graphics-brief.md).
