@@ -76,12 +76,10 @@ wood-01) synthesised separately via Heeger–Bergen, sharpened (`floor` +
 `shading = 128 + grain − valley_fine − valley_coarse + rim`. Rim still uses a
 directional vertical gradient of combined valley depth (one-sided fiber lip).
 
-**[D]** HB + sharpen alone reads as spray-can stipple — isolated spikes with
-no grain direction. Post-process **canalize**: adaptive quantile threshold,
-horizontal `grey_closing` to bridge gaps along the grain, then `flat_band`
-(row-shift thicken, not vertical morph dilation) for uniform-depth groove
-floors. Owner pass 2026-08-22: directionality and flat valleys improved;
-coarse fissure band still tuning.
+**[D]** HB + sharpen alone reads as spray-can stipple. **Binarizing** grooves
+(boolean mask × 255) was rejected — solid black rectangles. Groove shaping
+stays in continuous depth: horizontal `maximum_filter` bridges stipple into
+elongated plateaus without voiding the surface.
 
 **[D]** Feature size is controllable independently of the recipe's shape via
 the **Fourier scaling theorem** (`f(kx,ky) ↔ (1/k²)F(u/k,v/k)`): zooming the
@@ -138,6 +136,7 @@ rule or a button edge, not the material.
 | Per-channel RGB histogram matching for colour | STUDY-031 finding 11 — decorrelates channels, turns wood pink; this pipeline histogram-matches one grayscale layer instead |
 | Symmetric (blur-difference) rim highlight | Real fiber-lip highlighting is one-sided; needs a directional gradient |
 | `relu(blur − img)` as the defect layer | Violates the height-field model; soft symmetric blobs, not sharp grooves |
+| Boolean groove masks in the composite | Solid black rectangles — depth must stay continuous in [0, 1] |
 | Multi-species grid source photos | Splits resolution N ways; seams inject spurious FFT energy even with no drawn divider |
 | Calling this validated before measurement | Tuned on placeholder photos only — `scripts/texture-metrics.mjs` against the real board hasn't run yet |
 | Treating this study as the implementation of `/dev/wood-textures`'s resize behavior | That page's tested contract is the live canvas renderer — see [STUDY-030](STUDY-030-procedural-wood-grain.md) and [`wood-texture-lab.md`](../specs/page/wood-texture-lab.md) |
