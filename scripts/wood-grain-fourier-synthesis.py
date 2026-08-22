@@ -222,6 +222,37 @@ def morphological_crack_field(
     return _normalize_crack_field(combined)
 
 
+def anisotropic_multiscale_crack_field(
+    h: int,
+    w: int,
+    rng: np.random.Generator,
+    *,
+    fine_sigma_y: float = 0.7,
+    fine_sigma_x: float = 5.0,
+    coarse_sigma_y: float = 2.5,
+    coarse_sigma_x: float = 34.0,
+    fine_keep_percentile: float = 84.0,
+    coarse_keep_percentile: float = 97.0,
+    fine_strength: float = 0.7,
+    coarse_strength: float = 1.0,
+) -> np.ndarray:
+    """Dual-scale anisotropic noise valleys — many short stripes + few long majors.
+
+    Fine layer: tight horizontal blur → many small dashes (lower keep = denser).
+    Coarse layer: wide horizontal blur → few elongated cracks (high keep = sparse).
+    """
+    fine_n = gaussian_filter(rng.normal(size=(h, w)), sigma=(fine_sigma_y, fine_sigma_x))
+    fine = _sparsify_crack_real(np.clip(-fine_n, 0, None), fine_keep_percentile)
+    open_w = max(6, int(w * 0.018))
+    fine = grey_opening(fine, size=(3, open_w))
+
+    coarse_n = gaussian_filter(rng.normal(size=(h, w)), sigma=(coarse_sigma_y, coarse_sigma_x))
+    coarse = _sparsify_crack_real(np.clip(-coarse_n, 0, None), coarse_keep_percentile)
+
+    combined = np.maximum(fine * fine_strength, coarse * coarse_strength)
+    return _normalize_crack_field(combined)
+
+
 def _normalize_crack_field(crack: np.ndarray) -> np.ndarray:
     peak = float(np.max(crack))
     return crack / (peak + 1e-8) if peak > 0 else crack
@@ -276,6 +307,21 @@ def synthesize(
             synthetic_height,
             keep_percentile=morph_keep,
             crack_blur_sigma=crack_blur_sigma,
+        )
+        crack_field = _apply_crack_floor(crack_field, crack_floor)
+    elif crack_source == "anisotropic":
+        # crack_blur_sigma scales coarse horizontal extent; keep_p drives fine density
+        span = min(h, w)
+        coarse_x = max(12.0, crack_blur_sigma * 2.2)
+        fine_keep = crack_keep_percentile if crack_keep_percentile > 0 else 84.0
+        crack_field = anisotropic_multiscale_crack_field(
+            h,
+            w,
+            rng,
+            fine_sigma_x=max(4.0, span / 100.0),
+            coarse_sigma_x=coarse_x,
+            fine_keep_percentile=fine_keep,
+            coarse_keep_percentile=min(99.0, fine_keep + 13.0),
         )
         crack_field = _apply_crack_floor(crack_field, crack_floor)
     elif crack_source == "extracted":
@@ -388,9 +434,9 @@ def main() -> None:
     )
     parser.add_argument(
         "--crack-source",
-        choices=("hb", "extracted", "morphological", "procedural"),
+        choices=("hb", "extracted", "morphological", "procedural", "anisotropic"),
         default="hb",
-        help="hb=Heeger-Bergen; extracted=photo mask; morphological/procedural=valley extract on synthetic hills",
+        help="hb=Heeger-Bergen; extracted=photo; morphological=valleys; anisotropic=dual-scale noise stripes",
     )
     parser.add_argument(
         "--crack-count",

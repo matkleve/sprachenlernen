@@ -154,12 +154,33 @@ def algo04_poisson_horizontal_runs(h: int, w: int, rng: np.random.Generator) -> 
 
 
 def algo05_anisotropic_noise_threshold(h: int, w: int, rng: np.random.Generator) -> np.ndarray:
-    """Horizontally stretched noise → heavy-tail sparsify."""
+    """Single-scale baseline (original algo 05)."""
     noise = rng.normal(size=(h, w))
     stretched = gaussian_filter(noise, sigma=(1.5, 24.0))
-    field = np.clip(-stretched, 0, None)  # valleys as dark
-    field = _sparsify(field, 94)
-    return _norm(field)
+    field = np.clip(-stretched, 0, None)
+    return _norm(_sparsify(field, 94))
+
+
+def algo05_multiscale_anisotropic(
+    h: int,
+    w: int,
+    rng: np.random.Generator,
+    *,
+    fine_sigma_x: float = 5.0,
+    coarse_sigma_x: float = 34.0,
+    fine_keep: float = 84.0,
+    coarse_keep: float = 97.0,
+    fine_strength: float = 0.7,
+) -> np.ndarray:
+    """Dual-scale: many small horizontal stripes + few long majors."""
+    fine_n = gaussian_filter(rng.normal(size=(h, w)), sigma=(0.7, fine_sigma_x))
+    fine = _sparsify(np.clip(-fine_n, 0, None), fine_keep)
+    fine = grey_opening(fine, size=(3, max(6, int(w * 0.018))))
+
+    coarse_n = gaussian_filter(rng.normal(size=(h, w)), sigma=(2.5, coarse_sigma_x))
+    coarse = _sparsify(np.clip(-coarse_n, 0, None), coarse_keep)
+
+    return _norm(np.maximum(fine * fine_strength, coarse))
 
 
 def algo06_gabor_horizontal_bank(h: int, w: int, rng: np.random.Generator) -> np.ndarray:
@@ -336,7 +357,7 @@ def main() -> None:
         ("02", "Morphological valleys", lambda: algo02_morphological_valleys(synth, base, h, w, np.random.default_rng(2))),
         ("03", "Tapered dash scatter", lambda: algo03_tapered_dash_scatter(h, w, np.random.default_rng(3))),
         ("04", "Poisson horizontal runs", lambda: algo04_poisson_horizontal_runs(h, w, np.random.default_rng(4))),
-        ("05", "Anisotropic noise threshold", lambda: algo05_anisotropic_noise_threshold(h, w, np.random.default_rng(5))),
+        ("05", "Anisotropic multiscale", lambda: algo05_multiscale_anisotropic(h, w, np.random.default_rng(5), fine_keep=82, coarse_keep=98, coarse_sigma_x=42)),
         ("06", "Gabor horizontal bank", lambda: algo06_gabor_horizontal_bank(h, w, np.random.default_rng(6))),
         ("07", "Distance-ridge centerlines", lambda: algo07_distance_ridge_centerlines(synth, base, h, w, np.random.default_rng(7))),
         ("08", "FFT horizontal crack spectrum", lambda: algo08_fft_horizontal_crack_spectrum(h, w, np.random.default_rng(8), win)),
