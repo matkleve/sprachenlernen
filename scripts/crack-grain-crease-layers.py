@@ -21,7 +21,7 @@ from pathlib import Path
 
 import numpy as np
 from PIL import Image, ImageDraw, ImageFont
-from scipy.ndimage import gaussian_filter, grey_closing, grey_opening
+from scipy.ndimage import gaussian_filter, grey_closing, grey_opening, maximum_filter, generate_binary_structure, label as cc_label
 
 ROOT = Path(__file__).resolve().parents[1]
 SYNTH_PATH = ROOT / "scripts/wood-grain-fourier-synthesis.py"
@@ -52,6 +52,7 @@ class LayerSpec:
     layer_stretch_mul: float = 1.0
     hairline: bool = False
     centerline_thresh_frac: float = 0.12
+    peak_mode: str = "local"  # local | column — local = more lines, column = one per x
 
 
 def _load_synth():
@@ -73,12 +74,58 @@ def _sparsify(field: np.ndarray, keep_p: float) -> np.ndarray:
     return out
 
 
+def field_metrics(field: np.ndarray) -> dict[str, float | int]:
+    """Quick mask stats so knob changes are visible in numbers."""
+    cracks = np.clip(field, 0, 1)
+    binary = (cracks > 0.12).astype(np.uint8)
+    labeled, n = cc_label(binary, structure=generate_binary_structure(2, 2))
+    aspects: list[float] = []
+    widths: list[float] = []
+    for i in range(1, n + 1):
+        ys, xs = np.where(labeled == i)
+        if len(xs) < 3:
+            continue
+        bw = int(xs.max() - xs.min() + 1)
+        bh = int(ys.max() - ys.min() + 1)
+        aspects.append(max(bw, bh) / (min(bw, bh) + 1e-8))
+        widths.append(min(bw, bh))
+    return {
+        "coverage_pct": round(float(cracks.mean()) * 100, 2),
+        "n_components": int(n),
+        "width_median": round(float(np.median(widths)) if widths else 0.0, 1),
+        "aspect_median": round(float(np.median(aspects)) if aspects else 0.0, 1),
+    }
+
+
+def _print_metrics(label: str, m: dict[str, float | int]) -> None:
+    print(
+        f"  {label}: cover={m['coverage_pct']}% #cc={m['n_components']} "
+        f"width={m['width_median']}px aspect={m['aspect_median']}"
+    )
+
+
+KNOB_GUIDE = """
+Micro hairline knobs (mostly independent):
+  keep_p          AMOUNT   — lower = more ink (e.g. 66 dense, 78 sparse)
+  centerline_thresh_frac  AMOUNT — lower = more peaks (e.g. 0.05 vs 0.10)
+  close_x_frac    LENGTH   — bridges gaps along grain; does not add thickness
+  peak_mode       AMOUNT   — local (many peaks) vs column (one y per x)
+  pre_blur_x      DETECT   — how far crease detector looks along grain
+  hairline=True   THICKNESS — 1px lines; False + stretch_blur_x = soft blobs
+
+Why count dropped: blob mode smeared ink across pixels; hairline mode only keeps peaks.
+Use keep + thresh to restore count without going back to stretched circles.
+
+CLI: --micro-keep 66 --micro-close 0.28 --micro-thresh 0.05 --knob-report
+"""
+
+
 def grain_crease_micro_hairlines(
     base: np.ndarray,
     spec: LayerSpec,
     stretch_mul: float = 1.0,
 ) -> np.ndarray:
-    """1 px centerline per column — wanders vertically with crease, not stretched blobs."""
+    """Hairline creases from local peaks — wanders in y, not horizontal Gaussian smear."""
     h, w = base.shape
     total_mul = stretch_mul * spec.layer_stretch_mul
     blur_x = spec.pre_blur_x * total_mul
@@ -95,19 +142,23 @@ def grain_crease_micro_hairlines(
 
     thresh = peak * spec.centerline_thresh_frac
     center = np.zeros_like(field)
-    for x in range(w):
-        col = field[:, x]
-        m = float(col.max())
-        if m < thresh:
-            continue
-        ym = int(np.argmax(col))
-        center[ym, x] = m
 
-    # Bridge gaps along grain only — footprint (1, close_w), zero vertical smear
+    if spec.peak_mode == "column":
+        for x in range(w):
+            col = field[:, x]
+            m = float(col.max())
+            if m < thresh:
+                continue
+            ym = int(np.argmax(col))
+            center[ym, x] = m
+    else:
+        # Local maxima — multiple y levels per column (more lines than column mode)
+        nm = maximum_filter(field, size=(3, 3))
+        peaks = (field >= nm - 1e-9) & (field >= thresh)
+        center = np.where(peaks, field, 0.0)
+
     close_w = max(10, int(w * spec.close_x_frac * total_mul))
     center = grey_closing(center, size=(1, close_w))
-
-    # Drop any vertical thickening from closing — force single-pixel rows
     center = grey_opening(center, size=(1, max(3, int(w * spec.thin_frac))))
 
     peak = float(center.max())
@@ -155,16 +206,17 @@ def _layer_specs() -> tuple[LayerSpec, LayerSpec, LayerSpec]:
         "micro",
         pre_blur_y=0.55,
         pre_blur_x=14.0,
-        keep_p=72.0,
+        keep_p=66.0,
         neg_weight=0.10,
         grad_weight=1.4,
-        close_x_frac=0.26,
+        close_x_frac=0.28,
         stretch_blur_x=0.0,
         thin_frac=0.010,
         post_thin_frac=0.0,
         layer_stretch_mul=1.35,
         hairline=True,
-        centerline_thresh_frac=0.08,
+        centerline_thresh_frac=0.05,
+        peak_mode="local",
     )
     fine = LayerSpec(
         "fine", 1.2, 18.0, 89.0, 0.32, 1.0, 0.11, 9.0, 0.016,
@@ -247,9 +299,87 @@ def _montage_row(
     return canvas
 
 
+def _apply_micro_cli(micro_spec: LayerSpec, args) -> LayerSpec:
+    return LayerSpec(
+        micro_spec.name,
+        micro_spec.pre_blur_y,
+        micro_spec.pre_blur_x,
+        args.micro_keep if args.micro_keep is not None else micro_spec.keep_p,
+        micro_spec.neg_weight,
+        micro_spec.grad_weight,
+        args.micro_close if args.micro_close is not None else micro_spec.close_x_frac,
+        micro_spec.stretch_blur_x,
+        micro_spec.thin_frac,
+        micro_spec.post_thin_frac,
+        micro_spec.layer_stretch_mul,
+        hairline=micro_spec.hairline,
+        centerline_thresh_frac=(
+            args.micro_thresh if args.micro_thresh is not None else micro_spec.centerline_thresh_frac
+        ),
+        peak_mode=args.micro_peak_mode if args.micro_peak_mode else micro_spec.peak_mode,
+    )
+
+
+def _knob_isolation_report(base: np.ndarray, micro_template: LayerSpec, stretch: float) -> None:
+    """Sweep one knob at a time — shows which dial moves count vs length."""
+    print("\n--- KNOB ISOLATION (metrics only) ---")
+    for keep in (62, 66, 70, 74, 78):
+        spec = LayerSpec(
+            micro_template.name,
+            micro_template.pre_blur_y,
+            micro_template.pre_blur_x,
+            keep,
+            micro_template.neg_weight,
+            micro_template.grad_weight,
+            micro_template.close_x_frac,
+            micro_template.stretch_blur_x,
+            micro_template.thin_frac,
+            micro_template.post_thin_frac,
+            micro_template.layer_stretch_mul,
+            hairline=True,
+            centerline_thresh_frac=micro_template.centerline_thresh_frac,
+            peak_mode=micro_template.peak_mode,
+        )
+        m = field_metrics(grain_crease_layer(base, spec, stretch_mul=stretch))
+        _print_metrics(f"keep_p={keep} (amount only)", m)
+
+    for close in (0.18, 0.22, 0.26, 0.30, 0.34):
+        spec = LayerSpec(
+            micro_template.name,
+            micro_template.pre_blur_y,
+            micro_template.pre_blur_x,
+            micro_template.keep_p,
+            micro_template.neg_weight,
+            micro_template.grad_weight,
+            close,
+            micro_template.stretch_blur_x,
+            micro_template.thin_frac,
+            micro_template.post_thin_frac,
+            micro_template.layer_stretch_mul,
+            hairline=True,
+            centerline_thresh_frac=micro_template.centerline_thresh_frac,
+            peak_mode=micro_template.peak_mode,
+        )
+        m = field_metrics(grain_crease_layer(base, spec, stretch_mul=stretch))
+        _print_metrics(f"close_x={close:.2f} (length only)", m)
+
+
 def main() -> None:
-    source = Path(sys.argv[1]) if len(sys.argv) > 1 else DEFAULT_SOURCE
-    out_dir = Path(sys.argv[2]) if len(sys.argv) > 2 else DEFAULT_OUT
+    import argparse
+
+    parser = argparse.ArgumentParser(description="Grain crease 3-layer RGB + micro knobs")
+    parser.add_argument("source", nargs="?", default=str(DEFAULT_SOURCE))
+    parser.add_argument("out_dir", nargs="?", default=str(DEFAULT_OUT))
+    parser.add_argument("--micro-keep", type=float, help="Amount: lower = more lines")
+    parser.add_argument("--micro-close", type=float, help="Length: close_x_frac along grain")
+    parser.add_argument("--micro-thresh", type=float, help="Amount: peak threshold fraction")
+    parser.add_argument("--micro-peak-mode", choices=("local", "column"), default=None)
+    parser.add_argument("--micro-stretch", type=float, default=1.5, help="Global stretch multiplier")
+    parser.add_argument("--knob-report", action="store_true", help="Print isolated knob metrics table")
+    args = parser.parse_args()
+
+    source = Path(args.source)
+    out_dir = Path(args.out_dir)
     out_dir.mkdir(parents=True, exist_ok=True)
     ARTIFACTS.mkdir(parents=True, exist_ok=True)
 
@@ -268,6 +398,20 @@ def main() -> None:
     base = (base - base.mean()) / (base.std() + 1e-8)
 
     micro_spec, fine_spec, major_spec = _layer_specs()
+    micro_spec = _apply_micro_cli(micro_spec, args)
+
+    if args.knob_report:
+        print(KNOB_GUIDE)
+        _knob_isolation_report(base, micro_spec, args.micro_stretch)
+
+    print("\n--- CURRENT MICRO SETTINGS ---")
+    print(
+        f"  keep={micro_spec.keep_p} close={micro_spec.close_x_frac} "
+        f"thresh={micro_spec.centerline_thresh_frac} peak={micro_spec.peak_mode} "
+        f"stretch={args.micro_stretch}"
+    )
+    micro_preview = grain_crease_layer(base, micro_spec, stretch_mul=args.micro_stretch)
+    _print_metrics("micro preview", field_metrics(micro_preview))
     stretch_levels = [
         ("stretch×1.0", 1.0),
         ("stretch×1.25", 1.25),
@@ -345,7 +489,7 @@ def main() -> None:
     hero = rgb_panels[2][1]
     hero.save(ARTIFACTS / "crack_layers_rgb_hero_stretch1p5.png")
 
-    micro_hero = grain_crease_layer(base, micro_spec, stretch_mul=1.5)
+    micro_hero = grain_crease_layer(base, micro_spec, stretch_mul=args.micro_stretch)
     Image.fromarray(micro_only_rgb(micro_hero)).save(
         out_dir / "micro_only_stretch1p5.png"
     )
@@ -377,9 +521,12 @@ def main() -> None:
             layer_stretch_mul=lmul,
             hairline=micro_spec.hairline,
             centerline_thresh_frac=micro_spec.centerline_thresh_frac,
+            peak_mode=micro_spec.peak_mode,
         )
-        field = grain_crease_layer(base, tuned, stretch_mul=1.5)
-        micro_panels.append((label, Image.fromarray(micro_only_rgb(field))))
+        field = grain_crease_layer(base, tuned, stretch_mul=args.micro_stretch)
+        m = field_metrics(field)
+        micro_panels.append((f"{label} #{m['n_components']}", Image.fromarray(micro_only_rgb(field))))
+        _print_metrics(label, m)
     micro_montage = _montage_row(
         micro_panels, "L0 micro — 1px centerlines (wander y), not stretched blobs",
     )
