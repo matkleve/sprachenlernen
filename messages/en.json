@@ -259,7 +259,9 @@
       "bandComfortable": "Comfortable",
       "bandDemanding": "Demanding",
       "bandSpeed": "Speed reading",
-      "notFound": "That saved item was not found."
+      "notFound": "That saved item was not found.",
+      "adaptationLabel": "Adapted for {level} · not the original article",
+      "viewOriginal": "View original article"
     },
     "gap": {
       "heading": "{count, plural, one {# word to comfortable (95 %)} other {# words to comfortable (95 %)}}",
@@ -275,7 +277,9 @@
     "reading": {
       "heading": "Read",
       "close": "Close",
-      "noGloss": "Not in your starter pack yet."
+      "noGloss": "Not in your starter pack yet.",
+      "sentenceGlossNote": "Word glosses — not a full sentence translation.",
+      "sentenceTapAgain": "Tap again to see word glosses for this sentence."
     }
   },
   "reviewSession": {

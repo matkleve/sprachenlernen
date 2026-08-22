@@ -51,11 +51,26 @@ export async function SourceDetail({ reading }: SourceDetailProps) {
           <p className="mt-2 text-base leading-relaxed text-muted">{bandCopy(reading, t)}</p>
         </section>
 
-        {reading.textSegments ? (
+        {reading.textSentences ? (
           <section className="mt-6 rounded-card border border-line bg-surface-raised p-5 shadow-soft">
             <h2 className="text-lg font-semibold text-ink">{t("reading.heading")}</h2>
+            {reading.adapted ? (
+              <p className="mt-2 text-sm text-muted">
+                {t("source.adaptationLabel", { level: reading.targetLevel })}
+              </p>
+            ) : null}
+            {reading.adapted && reading.sourceUrl ? (
+              <a
+                href={reading.sourceUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-2 inline-flex text-sm font-medium text-accent hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+              >
+                {t("source.viewOriginal")}
+              </a>
+            ) : null}
             <div className="mt-4">
-              <ReadableText segments={reading.textSegments} />
+              <ReadableText sentences={reading.textSentences} />
             </div>
           </section>
         ) : null}

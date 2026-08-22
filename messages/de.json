@@ -259,7 +259,9 @@
       "bandComfortable": "Angenehm",
       "bandDemanding": "Anspruchsvoll",
       "bandSpeed": "Tempo-Lesen",
-      "notFound": "Diesen gespeicherten Eintrag gibt es nicht."
+      "notFound": "Diesen gespeicherten Eintrag gibt es nicht.",
+      "adaptationLabel": "Für {level} angepasst · nicht der Originalartikel",
+      "viewOriginal": "Originalartikel ansehen"
     },
     "gap": {
       "heading": "{count, plural, one {Noch # Wort bis angenehm (95 %)} other {Noch # Wörter bis angenehm (95 %)}}",
@@ -275,7 +277,9 @@
     "reading": {
       "heading": "Lesen",
       "close": "Schließen",
-      "noGloss": "Noch nicht in deinem Startpaket."
+      "noGloss": "Noch nicht in deinem Startpaket.",
+      "sentenceGlossNote": "Wortbedeutungen — keine vollständige Satzübersetzung.",
+      "sentenceTapAgain": "Nochmal tippen, um Wortbedeutungen für diesen Satz zu sehen."
     }
   },
   "reviewSession": {

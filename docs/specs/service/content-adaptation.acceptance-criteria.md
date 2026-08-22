@@ -2,7 +2,7 @@
 
 <!-- parent: SPEC-service-content-adaptation -->
 
-- [ ] Given a catalogue source and target level A2, when adaptation runs twice,
+- [x] Given a catalogue source and target level A2, when adaptation runs twice,
       then the second call reads from cache — no second LLM request.
 - [x] Given band-level T2 output, when personal coverage is computed for the
       active learner's held set on the **shown** body, then Start follows the

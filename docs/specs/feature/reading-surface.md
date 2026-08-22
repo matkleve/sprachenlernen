@@ -5,19 +5,21 @@
 <!-- status: active -->
 
 Tokenised text on **source detail** (`/content/[id]`) for text sources. Tap a
-word for its pool gloss. Parent loop:
-[`content-traceability.md`](content-traceability.md). Adapted catalogue bodies
-show the honesty label from [`content-adaptation.md`](../service/content-adaptation.md)
-above the readable text. Full runner (comprehension,
-sentence translation, card capture) is **Out** until T-W10 remainder.
+word for its pool gloss; second-tap a sentence for deduped word gloss hints.
+Parent loop: [`content-traceability.md`](content-traceability.md). Adapted
+catalogue bodies show the honesty label from
+[`content-adaptation.md`](../service/content-adaptation.md) above the readable
+text. Full runner (comprehension, sentence translation, card capture) is **Out**
+until T-W10 remainder.
 
 ## Scope
 
-- **In:** `lib/readable-text.ts`; `ReadableText` client component on source
-  detail when `kind === "text"`; tap word → dialog with starter-pool gloss when
-  the lemma resolves; punctuation preserved between tokens; adaptation label when
-  `adaptedFromSourceId` or `targetLevel` is set.
-- **Out:** sentence-level translation; comprehension questions; FSRS from taps;
+- **In:** `lib/readable-text.ts`, `lib/readable-sentences.ts`; `ReadableText`
+  client component on source detail when `kind === "text"`; tap word → dialog
+  with starter-pool gloss when the lemma resolves; second-tap sentence → deduped
+  gloss line from known pool words; punctuation preserved between tokens;
+  adaptation label when shown body is adapted; `sourceUrl` link when lane B.
+- **Out:** full sentence translation; comprehension questions; FSRS from taps;
   audio transcript runner.
 
 **Reuse: `Button`, `Dialog`** — word taps and gloss dialog.
@@ -31,18 +33,22 @@ sentence translation, card capture) is **Out** until T-W10 remainder.
 | 3 | Taps a word with no pool gloss | Dialog names the word; gloss line empty |
 | 4 | Closes dialog | Reading text stays; dialog dismisses |
 | 5 | Opens adapted catalogue text | Adaptation label visible above body; link to original when `sourceUrl` set |
+| 6 | Taps a sentence once | Hint to tap again when glosses are available |
+| 7 | Taps the same sentence again | Deduped gloss line from pool-known words in that sentence |
 
 ## Acceptance criteria
 
-- [ ] Given a fixture text source, when detail renders, then the body text is
+- [x] Given a fixture text source, when detail renders, then the body text is
       visible with clickable words.
-- [ ] Given a resolved lemma in the starter pool, when the learner taps that
+- [x] Given a resolved lemma in the starter pool, when the learner taps that
       word, then the dialog shows the pool `back` gloss.
-- [ ] Given an audio-only source, when detail renders, then no reading surface
+- [x] Given an audio-only source, when detail renders, then no reading surface
       appears.
-- [ ] Given an adapted source with `targetLevel`, when detail renders, then the
+- [x] Given an adapted source with `targetLevel`, when detail renders, then the
       adaptation honesty line appears above the body.
+- [x] Given a sentence with pool glosses, when the learner taps the sentence
+      twice, then deduped gloss hints appear below the sentence.
 
 ## Check
 
-`npm test -- readable-text content`
+`npm test -- readable-text content readable-sentences`
