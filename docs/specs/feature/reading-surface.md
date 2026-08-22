@@ -5,12 +5,12 @@
 <!-- status: active -->
 
 Tokenised text on **source detail** (`/content/[id]`) for text sources. Tap a
-word for its pool gloss; second-tap a sentence for deduped word gloss hints.
-Parent loop: [`content-traceability.md`](content-traceability.md). Adapted
-catalogue bodies show the honesty label from
+word for its pool gloss; second-tap a sentence for deduped word gloss hints;
+comprehension check after the body. Parent loop:
+[`content-traceability.md`](content-traceability.md). Adapted catalogue bodies
+show the honesty label from
 [`content-adaptation.md`](../service/content-adaptation.md) above the readable
-text. Full runner (comprehension, sentence translation, card capture) is **Out**
-until T-W10 remainder.
+text. Full runner (sentence translation, card capture) is **Out** for v1.
 
 ## Scope
 
@@ -18,11 +18,13 @@ until T-W10 remainder.
   client component on source detail when `kind === "text"`; tap word → dialog
   with starter-pool gloss when the lemma resolves; second-tap sentence → deduped
   gloss line from known pool words; punctuation preserved between tokens;
-  adaptation label when shown body is adapted; `sourceUrl` link when lane B.
-- **Out:** full sentence translation; comprehension questions; FSRS from taps;
-  audio transcript runner.
+  adaptation label when shown body is adapted; `sourceUrl` link when lane B;
+  comprehension questions after the body (reuse exercise-runner step UI).
+- **Out:** full sentence translation; FSRS from taps; audio transcript runner;
+  comprehension in exercise runner only (also on detail now).
 
-**Reuse: `Button`, `Dialog`** — word taps and gloss dialog.
+**Reuse: `Button`, `Dialog`, `ComprehensionQuestionsStep`** — word taps, gloss
+dialog, comprehension check.
 
 ## Behavior
 
@@ -35,6 +37,7 @@ until T-W10 remainder.
 | 5 | Opens adapted catalogue text | Adaptation label visible above body; link to original when `sourceUrl` set |
 | 6 | Taps a sentence once | Hint to tap again when glosses are available |
 | 7 | Taps the same sentence again | Deduped gloss line from pool-known words in that sentence |
+| 8 | Finishes reading a text source | Comprehension questions appear below the body |
 
 ## Acceptance criteria
 
@@ -48,6 +51,8 @@ until T-W10 remainder.
       adaptation honesty line appears above the body.
 - [x] Given a sentence with pool glosses, when the learner taps the sentence
       twice, then deduped gloss hints appear below the sentence.
+- [x] Given a text source with fixture questions, when detail renders, then
+      comprehension check appears below the reading body.
 
 ## Check
 

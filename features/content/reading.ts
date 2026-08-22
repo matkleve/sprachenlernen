@@ -34,8 +34,11 @@ import type { StarterCard } from "@/lib/starter-deck";
 import { tasksByTaskIdForCards } from "@/lib/task-from-state";
 
 import { loadLexiconForLanguage, loadPersistedSources } from "@/features/content/language-runtime";
-import { loadPersistedAdaptationCache } from "@/lib/adaptation-cache";
-import { resolveCatalogueShownBody } from "@/lib/adaptation-preview";
+import { loadPersistedAdaptationCache, loadPersonalAdaptationCache } from "@/lib/adaptation-cache";
+import { parseAdaptationConsent, ADAPTATION_CONSENT_COOKIE } from "@/lib/adaptation-consent";
+import { resolveSourceShownBody } from "@/lib/adaptation-preview";
+import { comprehensionQuestionsForSource } from "@/lib/exercise-recipe/comprehension-questions";
+import type { ComprehensionQuestion } from "@/lib/exercise-recipe/comprehension-questions";
 import { sentenceBlocksForText, type ReadableSentenceBlock } from "@/lib/readable-sentences";
 
 export type SourceListItem = {
@@ -55,6 +58,7 @@ export type SourceDetailReading = {
   gapProgress: { held: number; total: number } | null;
   activeGapLemmas: readonly string[];
   textSentences: readonly ReadableSentenceBlock[] | null;
+  comprehensionQuestions: readonly ComprehensionQuestion[];
   adapted: boolean;
   targetLevel: string;
   sourceUrl?: string;
@@ -137,9 +141,20 @@ async function readDetail(sourceId: string): Promise<SourceDetailOutcome> {
   const cookieStore = await cookies();
   const gapSet = parseGapSetCookie(cookieStore.get(GAP_SET_COOKIE)?.value);
   const activeGapLemmas = gapSet?.sourceId === sourceId ? gapSet.lemmas : [];
+  const processingConsent = parseAdaptationConsent(
+    cookieStore.get(ADAPTATION_CONSENT_COOKIE)?.value,
+  );
 
-  const cache = loadPersistedAdaptationCache();
-  const shown = resolveCatalogueShownBody(source, bundle.lexicon, bundle.heldLemmas, cache);
+  const catalogueCache = loadPersistedAdaptationCache();
+  const personalCache = loadPersonalAdaptationCache();
+  const shown = resolveSourceShownBody(
+    source,
+    bundle.lexicon,
+    bundle.heldLemmas,
+    catalogueCache,
+    personalCache,
+    processingConsent,
+  );
   const text = shown.body;
   const coverage = shown.coverage;
   let gap = computeGapSet(text, bundle.lexicon, bundle.heldLemmas, {
@@ -195,6 +210,8 @@ async function readDetail(sourceId: string): Promise<SourceDetailOutcome> {
         source.kind === "text" && text.trim() !== ""
           ? sentenceBlocksForText(text, bundle.lexicon, (lemma) => bundle.translations[lemma] ?? "")
           : null,
+      comprehensionQuestions:
+        source.kind === "text" ? comprehensionQuestionsForSource(source.id) : [],
       adapted: shown.adapted,
       targetLevel: shown.targetLevel,
       sourceUrl: shown.sourceUrl,

@@ -280,6 +280,10 @@
       "noGloss": "Noch nicht in deinem Startpaket.",
       "sentenceGlossNote": "Wortbedeutungen — keine vollständige Satzübersetzung.",
       "sentenceTapAgain": "Nochmal tippen, um Wortbedeutungen für diesen Satz zu sehen."
+    },
+    "comprehension": {
+      "heading": "Verständnis prüfen",
+      "caption": "Kurze Fragen nach dem Lesen — keine Bewertung wird gespeichert."
     }
   },
   "reviewSession": {

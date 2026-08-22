@@ -6,6 +6,7 @@ import { TextLink } from "@/components/ui/TextLink";
 import { ShellPageContent } from "@/features/app-shell/ShellPageContent";
 import { startGapSetAction } from "@/features/content/actions";
 import { ReadableText } from "@/features/content/ReadableText";
+import { SourceDetailComprehension } from "@/features/content/SourceDetailComprehension";
 import type { SourceDetailReading } from "@/features/content/reading";
 import { routes } from "@/lib/routes";
 
@@ -71,6 +72,16 @@ export async function SourceDetail({ reading }: SourceDetailProps) {
             ) : null}
             <div className="mt-4">
               <ReadableText sentences={reading.textSentences} />
+            </div>
+          </section>
+        ) : null}
+
+        {reading.comprehensionQuestions.length > 0 ? (
+          <section className="mt-6 rounded-card border border-line bg-surface-raised p-5 shadow-soft">
+            <h2 className="text-lg font-semibold text-ink">{t("comprehension.heading")}</h2>
+            <p className="mt-2 text-sm text-muted">{t("comprehension.caption")}</p>
+            <div className="mt-4">
+              <SourceDetailComprehension questions={reading.comprehensionQuestions} />
             </div>
           </section>
         ) : null}

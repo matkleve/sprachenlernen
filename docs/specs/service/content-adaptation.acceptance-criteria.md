@@ -8,7 +8,7 @@
       active learner's held set on the **shown** body, then Start follows the
       delivery gate (≥ 95 % enable; 80–94 % T1 path; &lt; 80 % block with honest
       copy).
-- [ ] Given adapted output after personal rewrite (T3), when coverage is computed,
+- [x] Given adapted output after personal rewrite (T3), when coverage is computed,
       then result is ≥ 95 % for that learner's held set OR the job fails honestly.
 - [x] Given any adapted source detail, when rendered, then adaptation label is
       visible, personal coverage % is shown, and `sourceUrl` links to original

@@ -280,6 +280,10 @@
       "noGloss": "Not in your starter pack yet.",
       "sentenceGlossNote": "Word glosses — not a full sentence translation.",
       "sentenceTapAgain": "Tap again to see word glosses for this sentence."
+    },
+    "comprehension": {
+      "heading": "Check your understanding",
+      "caption": "Quick questions after reading — no grade saved."
     }
   },
   "reviewSession": {
