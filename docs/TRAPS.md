@@ -11,6 +11,19 @@ applying is still evidence about how this codebase misleads people.
 
 ---
 
+## Texture synthesis paused — do not reopen without GO
+
+Owner stopped further wood texture generation 2026-08-22 after CSS measured
+recipe, FFT tiles, morphological cracks, and ten algorithmic canvas variants.
+Only FFT `wood-01` at `FEATURE_SCALE=1` got owner *"so close"*; canvas tuning
+did not pass eye against weathered plank photos.
+
+**The fix:** read [STUDY-034](study/STUDY-034-texture-generation-archive.md) before
+any texture work. Wire `design/progression/synthesized/` when progression
+needs Workshop wood — not more `wood-grain-ridges` presets.
+
+**The check:** owner explicit GO + named target (board column or patch file).
+
 ## Wood grain studies locked agents in
 
 `STUDY-030` once read like a Blender shader tutorial — growth rings, domain

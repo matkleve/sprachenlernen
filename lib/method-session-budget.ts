@@ -23,14 +23,6 @@ export function catalogueVariantMinutes(durations: MethodEntry["durations"]): nu
   return [...durations];
 }
 
-/** @deprecated Use catalogueVariantMinutes — menu filter does not hide detail chips. */
-export function availableVariantMinutes(
-  durations: MethodEntry["durations"],
-  _menuFilter?: MenuTimeFilter,
-): number[] {
-  return catalogueVariantMinutes(durations);
-}
-
 export function resolveDefaultVariantMinutes(
   durations: MethodEntry["durations"],
 ): number | undefined {
@@ -59,14 +51,6 @@ export function resolveVariantMinutes(
   return Math.max(...packages);
 }
 
-/** @deprecated Use resolveVariantMinutes — kept for call sites migrating to filter-only menu. */
-export function resolveSessionBudgetMinutes(
-  durations: MethodEntry["durations"],
-  rawMinutes?: string,
-): number | undefined {
-  return resolveVariantMinutes(durations, { selectedVariantRaw: rawMinutes });
-}
-
 export function appendVariantMinutesParam(
   params: URLSearchParams,
   variantMinutes: number | undefined,
@@ -75,9 +59,6 @@ export function appendVariantMinutesParam(
     params.set("minutes", String(variantMinutes));
   }
 }
-
-/** @deprecated Use appendVariantMinutesParam */
-export const appendBudgetMinutesParam = appendVariantMinutesParam;
 
 export function showDurationVariantPicker(
   durations: MethodEntry["durations"],

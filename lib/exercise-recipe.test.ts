@@ -13,7 +13,6 @@ import {
 import { loadLexiconForLanguage } from "@/lib/shipped-language";
 import { resolveExerciseRecipe } from "@/lib/exercise-recipe";
 import {
-  buildPartialDictationRecipe,
   composePartialDictationRecipe,
   resolvePartialDictationRecipe,
 } from "@/lib/exercise-recipe/partial-dictation";
@@ -44,7 +43,10 @@ describe("partial dictation recipe", () => {
 
   it("builds six steps from a catalogue source", () => {
     const source = findContentSourceById(DEFAULT_PARTIAL_DICTATION_SOURCE_ID)!;
-    const recipe = buildPartialDictationRecipe(source);
+    const recipe = composePartialDictationRecipe(source, {
+      methodId: "partial-dictation",
+      variantId: "short",
+    });
 
     expect(recipe.methodId).toBe("partial-dictation");
     expect(recipe.sourceId).toBe(DEFAULT_PARTIAL_DICTATION_SOURCE_ID);

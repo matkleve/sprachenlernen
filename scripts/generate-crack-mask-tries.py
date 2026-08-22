@@ -30,7 +30,7 @@ from scipy.ndimage import (
 )
 
 ROOT = Path(__file__).resolve().parents[1]
-SYNTH_PATH = ROOT / "scripts/wood-grain-fourier-synthesis.py"
+SYNTH_PATH = ROOT / "scripts/design/wood-grain-fourier-synthesis.py"
 
 
 def _load_synth():

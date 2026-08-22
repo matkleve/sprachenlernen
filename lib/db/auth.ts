@@ -32,6 +32,8 @@ export type SignInOutcome =
 
 export type SignOutOutcome = { status: "signed-out" } | { status: "error"; error: string };
 
+export type ResendConfirmationOutcome = { status: "sent" } | { status: "error"; error: string };
+
 export type OAuthProvider = "google" | "apple";
 
 export type OAuthOutcome =
@@ -79,6 +81,29 @@ export async function signUp(
   return data.session
     ? { status: "signed-in", account }
     : { status: "confirmation-required", account };
+}
+
+/**
+ * Resends the signup confirmation email to an address still pending
+ * confirmation. Contract: docs/specs/service/auth.md § Behavior 10.
+ *
+ * Same `emailRedirectTo` as `signUp` — the confirmation link must still land
+ * on this deployment's own `/auth/callback`, not Supabase's project Site URL.
+ * No new Account and no session either way; the only observable difference
+ * from a fresh `signUp` call is that Supabase does not require a password.
+ */
+export async function resendConfirmation(
+  email: string,
+  client?: SupabaseClient,
+): Promise<ResendConfirmationOutcome> {
+  const supabase = await resolveClient(client);
+  const { error } = await supabase.auth.resend({
+    type: "signup",
+    email,
+    options: { emailRedirectTo: `${getSiteUrl()}${routes.authCallback}` },
+  });
+
+  return error ? { status: "error", error: error.message } : { status: "sent" };
 }
 
 export async function signIn(

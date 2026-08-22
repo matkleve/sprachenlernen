@@ -23,7 +23,7 @@ from PIL import Image, ImageDraw, ImageFont
 from scipy.ndimage import gaussian_filter, grey_opening
 
 ROOT = Path(__file__).resolve().parents[1]
-SYNTH_PATH = ROOT / "scripts/wood-grain-fourier-synthesis.py"
+SYNTH_PATH = ROOT / "scripts/design/wood-grain-fourier-synthesis.py"
 DEFAULT_SOURCE = ROOT / "design/progression/patches/wood-01.png"
 DEFAULT_OUT = ROOT / "design/progression/crack-mask-tries/bundles-batch3"
 ARTIFACTS = Path("/opt/cursor/artifacts")
