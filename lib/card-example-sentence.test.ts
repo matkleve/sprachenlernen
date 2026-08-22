@@ -10,6 +10,8 @@ import {
   loadExampleSentenceBank,
   pickExampleSentence,
 } from "@/lib/card-example-sentence";
+import { sentenceTranslationKey } from "@/lib/description-keys";
+import { resolveDescription } from "@/lib/gloss-resolver";
 import {
   buildLexicon,
   loadLemmaTable,
@@ -107,5 +109,15 @@ describe("card-example-sentence", () => {
     expect(["comfortable", "speed"]).toContain(
       exampleSentenceComfortBand(pick!.text, esLexicon(), held),
     );
+  });
+
+  it("resolves sentence translation in the spoken language (German)", () => {
+    const german = resolveDescription(
+      sentenceTranslationKey("es-hoy-leo-libro"),
+      "de",
+      "Today I read the book.",
+    );
+    expect(german).toBe("Heute habe ich das Buch gelesen.");
+    expect(german).not.toBe("Today I read the book.");
   });
 });

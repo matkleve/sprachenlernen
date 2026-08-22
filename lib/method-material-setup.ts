@@ -36,6 +36,7 @@ export type MaterialSetupLabels = {
   t1SupportLine: (coveragePercent: number, gapCount: number) => string;
   blockedLine: (coveragePercent: number, targetLevel: string) => string;
   adaptationLabel: (targetLevel: string) => string;
+  generatedLabel: () => string;
   adaptationFailed: (targetLevel: string) => string;
   processingConsent: string;
   processingConsentHint: string;
@@ -73,6 +74,9 @@ export type MaterialSetupPreview = {
   targetLevel?: string;
   sourceUrl?: string;
   adaptationLabel?: string;
+  generatedLabel?: string;
+  attributionText?: string;
+  attributionUrl?: string;
   deliveryGate?: DeliveryGate;
   startEnabled?: boolean;
   t1GapCount?: number;
@@ -136,6 +140,7 @@ export function topicChipsForMethod(
 }
 
 export { pickAppPickSource, pickTopicSource } from "@/lib/material-source-pick";
+export { pickTopicSourceWithLaneFallback } from "@/lib/generated-news";
 
 export function titleFromLearnerText(text: string): string {
   const line = text.trim().split(/\n/)[0]?.trim() ?? "";

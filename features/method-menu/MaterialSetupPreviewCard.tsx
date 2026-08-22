@@ -24,6 +24,25 @@ export function MaterialSetupPreviewCard({
   return (
     <div className="space-y-1 border-t border-line pt-3 text-sm text-muted">
       <p className="font-medium text-ink">{preview.title}</p>
+      {preview.attributionText ? (
+        <p>
+          {preview.attributionText}
+          {preview.attributionUrl ? (
+            <>
+              {" · "}
+              <a
+                href={preview.attributionUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-medium text-accent hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+              >
+                {viewOriginalLabel ?? "View original"}
+              </a>
+            </>
+          ) : null}
+        </p>
+      ) : null}
+      {preview.generatedLabel ? <p>{preview.generatedLabel}</p> : null}
       {preview.adaptationLabel ? <p>{preview.adaptationLabel}</p> : null}
       <p>
         {preview.unitLabel}
@@ -34,7 +53,7 @@ export function MaterialSetupPreviewCard({
         )}
         {preview.timeLabel ? ` · ${preview.timeLabel}` : ""}
       </p>
-      {sourceUrl && viewOriginalLabel ? (
+      {sourceUrl && viewOriginalLabel && !preview.attributionUrl ? (
         <a
           href={sourceUrl}
           target="_blank"

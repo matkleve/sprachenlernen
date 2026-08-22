@@ -63,6 +63,7 @@ function labelsFromTranslator(t: Awaited<ReturnType<typeof getTranslations>>): M
         level: targetLevel,
       }),
     adaptationLabel: (targetLevel: string) => t("adaptationLabel", { level: targetLevel }),
+    generatedLabel: () => t("generatedLabel"),
     adaptationFailed: (targetLevel: string) => t("adaptationFailed", { level: targetLevel }),
     processingConsent: t("processingConsent"),
     processingConsentHint: t("processingConsentHint"),

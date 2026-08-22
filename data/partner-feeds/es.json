@@ -1,0 +1,14 @@
+[
+  {
+    "partnerId": "dw",
+    "languageCode": "es",
+    "slug": "lgsn-2026-08",
+    "kind": "text",
+    "title": "Noticias lentas: elecciones locales en Alemania",
+    "body": "En Alemania hay elecciones locales este mes. El gobierno presenta un plan para la energía y el clima. Los expertos discutan el cambio en la ciudad. Muchos ciudadanos leen las noticias lentas en la radio cada tarde. La Unión Europea habla de nuevas reglas para el futuro.",
+    "tags": ["politics"],
+    "world": "politics",
+    "series": "DW en español — Langsam gesprochene Nachrichten",
+    "sourceUrl": "https://www.dw.com/es/noticias-lentas/ejemplo-fixture"
+  }
+]

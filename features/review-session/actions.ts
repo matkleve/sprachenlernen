@@ -10,7 +10,16 @@ import {
   loadExampleSentenceBank,
   pickExampleSentence,
 } from "@/lib/card-example-sentence";
+import { appendCoverageSnapshots, listCoverageHistoryForLanguage } from "@/lib/db/coverage-history";
+import { coverageSnapshotsToAppend, mapLatestPercentBySource } from "@/lib/coverage-snapshots";
 import { heldLemmaSet } from "@/lib/content-gap";
+import { loadPersistedSources } from "@/features/content/language-runtime";
+import { listLearnerSourcesForLanguage } from "@/lib/db/content-sources";
+import {
+  computeSessionLoopPayoff,
+  type SessionGrade,
+  type SessionLoopPayoff,
+} from "@/lib/session-loop-payoff";
 import { sentenceTranslationKey } from "@/lib/description-keys";
 import { getSpokenLanguage } from "@/lib/db/profiles";
 import { resolveDescription } from "@/lib/gloss-resolver";
@@ -62,7 +71,7 @@ export async function appendReviewAction(input: AppendReviewActionInput) {
 }
 
 export type BuildSessionOutcome =
-  | { status: "ok"; queue: SessionCard[]; languageName: string }
+  | { status: "ok"; queue: SessionCard[]; languageName: string; heldLemmasAtStart: readonly string[] }
   /** Signed in, no language chosen — the caller sends them to the picker. */
   | { status: "no-language" }
   | { status: "error"; error: string };
@@ -153,7 +162,12 @@ export async function buildSessionAction(input?: {
           now,
         ),
       );
-    return { status: "ok", queue, languageName };
+    return {
+      status: "ok",
+      queue,
+      languageName,
+      heldLemmasAtStart: [...meaningRecallHeldLemmas(poolCards, tasksByTaskId)],
+    };
   } catch (cause) {
     const handled = sessionBuildFailed(
       cause instanceof Error ? cause.message : String(cause),
@@ -163,6 +177,75 @@ export async function buildSessionAction(input?: {
     // AppError does not survive the server-action wire and hits the route
     // boundary as a generic render/boundary instead.
     return { status: "error", error: handled.userMessage };
+  }
+}
+
+export type SessionLoopPayoffOutcome =
+  | { status: "ok"; payoff: SessionLoopPayoff }
+  | { status: "no-language" }
+  | { status: "error"; error: string };
+
+export async function sessionLoopPayoffAction(input: {
+  heldLemmasAtStart: readonly string[];
+  sessionGrades: readonly SessionGrade[];
+}): Promise<SessionLoopPayoffOutcome> {
+  try {
+    const pool = await poolForActiveLanguage();
+    if (pool.status === "no-language") return { status: "no-language" };
+    if (pool.status === "error") {
+      return { status: "error", error: pool.error };
+    }
+
+    const languageCode = pool.languageCodes[0] ?? "es";
+    const lexicon = loadLexiconForLanguage(languageCode);
+    if (!lexicon) {
+      return { status: "error", error: "Could not load language data." };
+    }
+
+    const taskIds = pool.cards.map((card) => card.taskId);
+    const statesResult = await listTaskStatesForTaskIds(taskIds);
+    if (statesResult.status === "error") {
+      return { status: "error", error: statesResult.error };
+    }
+
+    const tasksByTaskId = tasksByTaskIdForCards(pool.cards, statesResult.rows);
+    const meaningCards = pool.cards.filter((card) => !isFormRecallTaskId(card.taskId));
+    const heldAtStart = new Set(input.heldLemmasAtStart);
+
+    const fixture = loadPersistedSources(languageCode);
+    const learner = await listLearnerSourcesForLanguage(languageCode);
+    const sources =
+      learner.status === "ok" ? [...fixture, ...learner.sources] : fixture;
+
+    const payoff = computeSessionLoopPayoff(
+      meaningCards,
+      tasksByTaskId,
+      heldAtStart,
+      input.sessionGrades,
+      sources,
+      lexicon,
+    );
+
+    if (payoff.kind === "payoff" && payoff.newlyHeldCount > 0) {
+      const historyResult = await listCoverageHistoryForLanguage(languageCode);
+      const latest =
+        historyResult.status === "ok"
+          ? mapLatestPercentBySource(historyResult.rows)
+          : new Map<string, number>();
+
+      const heldAfter = new Set(heldAtStart);
+      for (const lemma of payoff.newlyHeldLemmas) heldAfter.add(lemma);
+
+      const snapshots = coverageSnapshotsToAppend(sources, lexicon, heldAfter, latest);
+      if (snapshots.length > 0) {
+        await appendCoverageSnapshots(languageCode, snapshots);
+      }
+    }
+
+    return { status: "ok", payoff };
+  } catch (cause) {
+    const message = cause instanceof Error ? cause.message : "Could not compute session payoff.";
+    return { status: "error", error: message };
   }
 }
 

@@ -1,6 +1,9 @@
 import { listTaskStatesForTaskIds } from "@/lib/db/task-state";
 import { internalUnexpected, logHandledError, type HandledError } from "@/lib/errors";
 import { loadLemmaTable } from "@/lib/lexicon";
+import type { FormRecallCard } from "@/lib/form-recall-pool";
+import { isFormRecallTaskId } from "@/lib/form-recall-pool";
+import { readFormMasteryGroups, type FormMasteryGroupRow } from "@/lib/form-mastery-groups";
 import { readLevel, type LevelReading } from "@/lib/level-model";
 import { createParadigmCompletenessChecker } from "@/lib/paradigm-completeness";
 import { newTask, type Task } from "@/lib/scheduler";
@@ -28,7 +31,7 @@ import itLemmaRaw from "@/data/lemma/it.json";
 export type ProgressOutcome =
   /** Signed in, no language chosen — the page routes to the picker. */
   | { status: "no-language" }
-  | { status: "ok"; reading: LevelReading }
+  | { status: "ok"; reading: LevelReading; formMasteryGroups: FormMasteryGroupRow[]; languageCode: string }
   | { status: "error"; error: HandledError };
 
 export async function readProgress(now: number = Date.now()): Promise<ProgressOutcome> {
@@ -69,6 +72,9 @@ async function read(now: number): Promise<ProgressOutcome> {
   );
 
   const language = pool.languageCodes[0];
+  if (!language) {
+    return { status: "error", error: fail(new Error("active language missing from pool")) };
+  }
   const lemmaTable =
     language === "es"
       ? loadLemmaTable(esLemmaRaw, "es").table
@@ -79,7 +85,15 @@ async function read(now: number): Promise<ProgressOutcome> {
     ? { isLemmaParadigmIncomplete: createParadigmCompletenessChecker(lemmaTable) }
     : undefined;
 
-  return { status: "ok", reading: readLevel(tasks, now, options) };
+  const formCards = cards.filter((card) => isFormRecallTaskId(card.taskId)) as FormRecallCard[];
+  const formMasteryGroups = readFormMasteryGroups(formCards, tasks, language);
+
+  return {
+    status: "ok",
+    reading: readLevel(tasks, now, options),
+    formMasteryGroups,
+    languageCode: language,
+  };
 }
 
 function fail(cause: unknown): HandledError {

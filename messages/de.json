@@ -245,6 +245,7 @@
       "empty": "Für diese Sprache sind noch keine Inhalte gespeichert.",
       "back": "Zurück zu Inhalten",
       "gapSummary": "{count, plural, one {noch # Wort bis angenehm} other {noch # Wörter bis angenehm}}",
+      "month": "Diesen Monat {count, plural, one {# Inhalt wurde angenehm} other {# Inhalte wurden angenehm}}",
       "origin": {
         "fixture": "Demo-Text",
         "catalogue": "App-Katalog",
@@ -259,7 +260,13 @@
       "bandComfortable": "Angenehm",
       "bandDemanding": "Anspruchsvoll",
       "bandSpeed": "Tempo-Lesen",
-      "notFound": "Diesen gespeicherten Eintrag gibt es nicht."
+      "notFound": "Diesen gespeicherten Eintrag gibt es nicht.",
+      "adaptationLabel": "Für {level} angepasst · nicht der Originalartikel",
+      "viewOriginal": "Originalartikel ansehen",
+      "unlocked": "War {before} % am {date}; jetzt {after} %",
+      "generatedLabel": "Generierter Artikel — keine Originalnachricht",
+      "attribution": "Quelle: {name}",
+      "attributionLink": "Original ansehen"
     },
     "gap": {
       "heading": "{count, plural, one {Noch # Wort bis angenehm (95 %)} other {Noch # Wörter bis angenehm (95 %)}}",
@@ -275,7 +282,19 @@
     "reading": {
       "heading": "Lesen",
       "close": "Schließen",
-      "noGloss": "Noch nicht in deinem Startpaket."
+      "noGloss": "Noch nicht in deinem Startpaket.",
+      "sentenceGlossNote": "Wortbedeutungen — keine vollständige Satzübersetzung.",
+      "sentenceTapAgain": "Nochmal tippen, um Wortbedeutungen für diesen Satz zu sehen."
+    },
+    "session": {
+      "next": "{heldCount, plural, one {# Wort wurde stabil} other {# Wörter wurden stabil}} — sieh nach, was sich bewegt hat",
+      "sourceDelta": "{title}: {before} % → {after} %",
+      "linkWords": "Wortkarte ansehen",
+      "linkContent": "Inhalte ansehen"
+    },
+    "comprehension": {
+      "heading": "Verständnis prüfen",
+      "caption": "Kurze Fragen nach dem Lesen — keine Bewertung wird gespeichert."
     }
   },
   "reviewSession": {
@@ -476,6 +495,15 @@
     "vocabularyValue": "{held} von {poolSize} Wörtern aus dem Startpaket sitzen sicher — nicht auf die ganze Sprache hochgerechnet",
     "formMasteryValue": "{held} von {poolSize} Wortformen aus dem Startpaket sitzen sicher — getrennt vom Wortschatz gezählt",
     "formMasteryPartialParadigmNote": "{count, plural, one {Von # gehaltenen Verb kennen wir noch nicht alle Formen — wie gut du seine Formen kannst, ist deshalb unsicher} other {Von # gehaltenen Verben kennen wir noch nicht alle Formen — wie gut du ihre Formen kannst, ist deshalb unsicher}}",
+    "formMasteryGroupsHeading": "Formmuster in deinem Starter-Paket",
+    "formMasteryGroupsIntro": "Welche Verbendungen und Wortformen sitzen — getrennt von der Vokabelzahl oben.",
+    "formMasteryGroupsCaption": "Gehaltene Formen nach Muster",
+    "formMasteryGroupColumns": {
+      "pattern": "Muster",
+      "held": "Gehaltene Formen"
+    },
+    "formMasteryGroupValue": "{held} von {total}",
+    "formMasteryPracticeWeak": "Formen üben",
     "emptyState": "Du hast noch nichts wiederholt, deshalb hat unten noch nichts einen Wert. So fängt es an — das ist kein Versagen.",
     "startReview": "Wiederholung starten",
     "doseHeading": "Was ein Niveau kostet",
@@ -1174,6 +1202,7 @@
     "t1SupportLine": "{percent} % bekannt — {gaps} Wörter vor Start vormerken",
     "blockedLine": "Zu schwer für deinen Wortschatz ({percent} % bekannt) — {level}-Text passt nicht für dich",
     "adaptationLabel": "Für {level} angepasst · nicht der Originalartikel",
+    "generatedLabel": "Generierter Artikel — keine Originalnachricht",
     "adaptationFailed": "Anpassung auf {level} für deinen Wortschatz nicht möglich — kürzeren Text oder anderen Inhalt versuchen",
     "processingConsent": "Auf mein Niveau anpassen",
     "processingConsentHint": "Dein Text wird in der Cloud vereinfacht. Das Original bleibt nur für dein Konto sichtbar.",

@@ -1,4 +1,4 @@
-import { getTranslations } from "next-intl/server";
+import { getLocale, getTranslations } from "next-intl/server";
 
 import { Button } from "@/components/ui/Button";
 import { ActionLink } from "@/components/ui/ActionLink";
@@ -6,8 +6,10 @@ import { TextLink } from "@/components/ui/TextLink";
 import { ShellPageContent } from "@/features/app-shell/ShellPageContent";
 import { startGapSetAction } from "@/features/content/actions";
 import { ReadableText } from "@/features/content/ReadableText";
+import { SourceDetailComprehension } from "@/features/content/SourceDetailComprehension";
 import type { SourceDetailReading } from "@/features/content/reading";
 import { routes } from "@/lib/routes";
+import { attributionForSource } from "@/lib/partner-feed-ingest";
 
 type SourceDetailProps = {
   reading: SourceDetailReading;
@@ -28,6 +30,16 @@ function bandCopy(
 
 export async function SourceDetail({ reading }: SourceDetailProps) {
   const t = await getTranslations("contentTrace");
+  const locale = await getLocale();
+
+  const unlockDate =
+    reading.unlockLine
+      ? new Intl.DateTimeFormat(locale, { dateStyle: "medium" }).format(
+          new Date(reading.unlockLine.measuredAt),
+        )
+      : null;
+
+  const attribution = attributionForSource(reading.source);
 
   return (
     <ShellPageContent mode="scrollable-drill-in" width="wide">
@@ -43,19 +55,74 @@ export async function SourceDetail({ reading }: SourceDetailProps) {
       <article>
         <h1 className="text-3xl font-semibold tracking-tight text-ink">{reading.source.title}</h1>
         <p className="mt-2 text-sm text-muted">{t(`library.origin.${reading.source.origin}`)}</p>
+        {attribution ? (
+          <p className="mt-2 text-sm text-muted">
+            {t("source.attribution", { name: attribution.text })}
+            {attribution.url ? (
+              <>
+                {" · "}
+                <a
+                  href={attribution.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-medium text-accent hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+                >
+                  {t("source.attributionLink")}
+                </a>
+              </>
+            ) : null}
+          </p>
+        ) : null}
 
         <section className="mt-6 rounded-card border border-line bg-surface-raised p-5 shadow-soft">
           <p className="text-lg font-semibold tabular-nums text-ink">
             {t("source.coverage", { pct: reading.coverage.coveragePercent })}
           </p>
           <p className="mt-2 text-base leading-relaxed text-muted">{bandCopy(reading, t)}</p>
+          {reading.unlockLine && unlockDate ? (
+            <p className="mt-2 text-sm text-muted">
+              {t("source.unlocked", {
+                before: reading.unlockLine.beforePercent,
+                after: reading.unlockLine.afterPercent,
+                date: unlockDate,
+              })}
+            </p>
+          ) : null}
         </section>
 
-        {reading.textSegments ? (
+        {reading.textSentences ? (
           <section className="mt-6 rounded-card border border-line bg-surface-raised p-5 shadow-soft">
             <h2 className="text-lg font-semibold text-ink">{t("reading.heading")}</h2>
+            {reading.adapted ? (
+              <p className="mt-2 text-sm text-muted">
+                {t("source.adaptationLabel", { level: reading.targetLevel })}
+              </p>
+            ) : null}
+            {reading.generated ? (
+              <p className="mt-2 text-sm text-muted">{t("source.generatedLabel")}</p>
+            ) : null}
+            {reading.adapted && reading.sourceUrl ? (
+              <a
+                href={reading.sourceUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-2 inline-flex text-sm font-medium text-accent hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+              >
+                {t("source.viewOriginal")}
+              </a>
+            ) : null}
             <div className="mt-4">
-              <ReadableText segments={reading.textSegments} />
+              <ReadableText sentences={reading.textSentences} />
+            </div>
+          </section>
+        ) : null}
+
+        {reading.comprehensionQuestions.length > 0 ? (
+          <section className="mt-6 rounded-card border border-line bg-surface-raised p-5 shadow-soft">
+            <h2 className="text-lg font-semibold text-ink">{t("comprehension.heading")}</h2>
+            <p className="mt-2 text-sm text-muted">{t("comprehension.caption")}</p>
+            <div className="mt-4">
+              <SourceDetailComprehension questions={reading.comprehensionQuestions} />
             </div>
           </section>
         ) : null}

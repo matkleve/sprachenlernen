@@ -72,21 +72,7 @@ Sentence **text** is target language (stored under `sentence.{id}.text` or bank
 
 ## Acceptance criteria
 
-- [ ] Given active world `politics` and two comfortable sentences for a lemma —
-      one `world: politics`, one untagged — when the card renders, then the
-      politics-tagged sentence is **more likely** but an untagged sentence may
-      still appear.
-- [ ] Given Italian with held lemmas covering 95% of a bank sentence containing
-      `fare`, when the `fare` card renders, then that sentence (or one in the
-      same comfort band) appears on the front.
-- [ ] Given no sentence for a lemma reaches the comfort band, when the card
-      renders, then the UI matches today's lemma-only card — no broken layout.
-- [ ] Given `spoken_language` `de`, when the sentence translation is shown,
-      then it is German — not English from the bank file.
-- [ ] Given the learner flips, when the back renders, then the sentence remains
-      visible and the gloss is in the spoken language.
-- [ ] Given two sessions the same day, when the same `taskId` appears, then the
-      same sentence is chosen (stable salt).
+See [`card-example-sentence.acceptance-criteria.md`](card-example-sentence.acceptance-criteria.md).
 
 ## Check
 

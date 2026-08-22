@@ -29,6 +29,42 @@
     }
   },
   {
+    "id": "generated-news-es-environment-2026-08",
+    "languageCode": "es",
+    "kind": "text",
+    "title": "Europa registra un verano con temperaturas altas",
+    "origin": "catalogue",
+    "generated": true,
+    "body": "En agosto de dos mil veintiséis muchas ciudades de Europa registraron temperaturas por encima de los treinta grados. Los servicios meteorológicos informaron que varias regiones tuvieron noches muy calientes. En España el gobierno recomendó reducir el uso de aire acondicionado en horas punta. En Italia los médicos pidieron agua y sombra para personas mayores. Los expertos señalan que las olas de calor duran más días que en el pasado. Este texto no es un artículo de periódico original: resume hechos públicos en un nivel para aprender español.",
+    "tags": ["environment"],
+    "world": "general",
+    "addedAt": "2026-08-22T12:00:00.000Z",
+    "licence": {
+      "kind": "generated",
+      "fetchedAt": "2026-08-22T12:00:00.000Z"
+    }
+  },
+  {
+    "id": "partner-dw-es-lgsn-2026-08",
+    "languageCode": "es",
+    "kind": "text",
+    "title": "Noticias lentas: elecciones locales en Alemania",
+    "origin": "catalogue",
+    "body": "En Alemania hay elecciones locales este mes. El gobierno presenta un plan para la energía y el clima. Los expertos discutan el cambio en la ciudad. Muchos ciudadanos leen las noticias lentas en la radio cada tarde. La Unión Europea habla de nuevas reglas para el futuro.",
+    "tags": ["politics"],
+    "world": "politics",
+    "series": "DW en español — Langsam gesprochene Nachrichten",
+    "sourceUrl": "https://www.dw.com/es/noticias-lentas/ejemplo-fixture",
+    "addedAt": "2026-08-22T12:00:00.000Z",
+    "licence": {
+      "kind": "partner-tos",
+      "partnerId": "dw",
+      "attribution": "Deutsche Welle",
+      "sourceUrl": "https://www.dw.com/es/noticias-lentas/ejemplo-fixture",
+      "fetchedAt": "2026-08-22T12:00:00.000Z"
+    }
+  },
+  {
     "id": "es-fixture-neutral",
     "languageCode": "es",
     "kind": "text",

@@ -23,6 +23,7 @@
     "new:spec": "node scripts/docs/new-spec.mjs",
     "build:starter-deck": "node scripts/build/build-starter-deck.mjs",
     "ingest:wikinews": "node --experimental-strip-types scripts/build/ingest-wikinews.mjs",
+    "ingest:partner-feed": "node --experimental-strip-types scripts/build/ingest-partner-feed.mjs",
     "adapt:catalogue": "node --experimental-strip-types scripts/build/adapt-catalogue.mjs",
     "build:descriptions": "node scripts/build/export-description-snapshots.mjs",
     "wood:crack-metrics": "python3 scripts/wood-crack-metrics.py",

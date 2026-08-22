@@ -17,6 +17,7 @@ import {
   hasMaterialSetup,
   pickAppPickSource,
   pickTopicSource,
+  pickTopicSourceWithLaneFallback,
   practiceHrefForSetup,
   previewForOwnText,
   topicChipsForMethod,
@@ -43,6 +44,7 @@ const labels = {
   t1SupportLine: (percent: number, gaps: number) => `t1 ${percent}% ${gaps}`,
   blockedLine: (percent: number, level: string) => `blocked ${percent}% ${level}`,
   adaptationLabel: (level: string) => `Adapted for ${level}`,
+  generatedLabel: () => "Generated article",
   adaptationFailed: (level: string) => `failed ${level}`,
   processingConsent: "Adapt",
   processingConsentHint: "Cloud processing",
@@ -83,8 +85,7 @@ describe("topicChipsForMethod", () => {
   it("AC-6: disables catalogue topic chips with zero sources", () => {
     const chips = topicChipsForMethod(partialDictation, sources, labels);
     const environment = chips.find((chip) => chip.id === "environment");
-    expect(environment?.disabled).toBe(true);
-    expect(environment?.emptyReason).toBe(labels.emptyTopic);
+    expect(environment?.disabled).toBe(false);
   });
 });
 
@@ -129,6 +130,20 @@ describe("buildMaterialSetupContext", () => {
     expect(context.previews[APP_PICK_TOPIC_ID]?.sentence?.unitLabel).toBe("sentence");
     expect(context.previews[APP_PICK_TOPIC_ID]?.paragraph?.unitLabel).toBe("paragraph");
     expect(context.previews[APP_PICK_TOPIC_ID]?.window?.unitLabel).toBe("window");
+  });
+
+  it("prefilters topic catalogue picks by activeWorld (T-W26)", () => {
+    const context = buildMaterialSetupContext(
+      extensiveReading,
+      sources,
+      lexicon,
+      held,
+      labels,
+      { activeWorld: "politics" },
+    )!;
+    const dailyPreview = context.previews.daily?.full;
+    expect(dailyPreview?.title).toBe("Un paseo por la calle");
+    expect(dailyPreview?.title).not.toBe("En el café");
   });
 });
 
@@ -279,5 +294,16 @@ describe("pickTopicSource", () => {
   it("prefers the best coverage source for a topic tag", () => {
     const source = pickTopicSource(sources, "news", lexicon, held);
     expect(source?.id).toBe("wikinews-es-3516");
+  });
+
+  it("includes partner-tos sources in the catalogue pool", () => {
+    const partner = sources.find((source) => source.id === "partner-dw-es-lgsn-2026-08");
+    expect(partner?.licence?.kind).toBe("partner-tos");
+    expect(partner?.tags).toContain("politics");
+  });
+
+  it("falls back to generated lane C for environment when only generated exists", () => {
+    const source = pickTopicSourceWithLaneFallback(sources, "environment", lexicon, held);
+    expect(source?.id).toBe("generated-news-es-environment-2026-08");
   });
 });

@@ -27,5 +27,5 @@ export default async function ContentPage() {
     );
   }
 
-  return <ContentLibrary sources={outcome.sources} />;
+  return <ContentLibrary sources={outcome.sources} monthMovedCount={outcome.monthMovedCount} />;
 }

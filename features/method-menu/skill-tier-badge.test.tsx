@@ -24,6 +24,8 @@ describe("SkillTierBadge", () => {
     const { container } = render(
       <SkillTierBadge skill="listening" tier="wood" size="card" />,
     );
+    const img = screen.getByRole("img", { name: "Wood Listening" });
+    expect(img.getAttribute("src")).toContain("listening-wood-card.png");
     const wrapper = container.firstElementChild;
     expect(wrapper?.className).toContain("h-16");
     expect(wrapper?.className).toContain("md:h-20");

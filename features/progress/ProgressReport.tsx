@@ -3,6 +3,8 @@ import { getTranslations } from "next-intl/server";
 import { ActionLink } from "@/components/ui/ActionLink";
 import { ShellPageContent } from "@/features/app-shell/ShellPageContent";
 import { DOSE_BANDS, DOSE_BAND_SOURCE, hoursPerYear, yearsToReach } from "@/lib/dose-band";
+import { formCellGroupShortLabel } from "@/lib/form-cell-groups";
+import { isWeakFormGroup, type FormMasteryGroupRow } from "@/lib/form-mastery-groups";
 import type { LevelReading } from "@/lib/level-model";
 import { cardEngineSessionHref } from "@/lib/method-session";
 
@@ -18,11 +20,16 @@ const HABIT_MINUTES_PER_DAY = 15;
 export async function ProgressReport({
   reading,
   reflection,
+  formMasteryGroups = [],
+  languageCode = "es",
 }: {
   reading: LevelReading;
   reflection: WeeklyReflectionModel;
+  formMasteryGroups?: FormMasteryGroupRow[];
+  languageCode?: string;
 }) {
   const t = await getTranslations("progress");
+  const weakFormGroups = formMasteryGroups.filter(isWeakFormGroup);
   const stability = reading.signals.find((signal) => signal.id === "recall-stability");
   const vocabulary = reading.signals.find((signal) => signal.id === "vocabulary-size");
   const formMastery = reading.signals.find((signal) => signal.id === "form-mastery");
@@ -131,6 +138,41 @@ export async function ProgressReport({
               count: formMastery.partialParadigmLemmaCount,
             })}
           </p>
+        ) : null}
+        {formMasteryGroups.length > 0 ? (
+          <div className="mt-6">
+            <h3 className="text-base font-semibold text-ink">{t("formMasteryGroupsHeading")}</h3>
+            <p className="mt-2 max-w-2xl text-sm leading-relaxed text-muted">
+              {t("formMasteryGroupsIntro")}
+            </p>
+            <Table caption={t("formMasteryGroupsCaption")} layout="fit" className="mt-4">
+              <thead>
+                <tr>
+                  <Th scope="col">{t("formMasteryGroupColumns.pattern")}</Th>
+                  <Th scope="col">{t("formMasteryGroupColumns.held")}</Th>
+                </tr>
+              </thead>
+              <tbody>
+                {formMasteryGroups.map((row) => (
+                  <tr key={row.groupKey}>
+                    <Th scope="row">
+                      {t(row.labelKey, {
+                        defaultMessage: formCellGroupShortLabel(languageCode, row.groupKey),
+                      })}
+                    </Th>
+                    <Td>
+                      {t("formMasteryGroupValue", { held: row.held, total: row.total })}
+                    </Td>
+                  </tr>
+                ))}
+              </tbody>
+            </Table>
+            {weakFormGroups.length > 0 ? (
+              <ActionLink href={cardEngineSessionHref("form")} className="mt-4">
+                {t("formMasteryPracticeWeak")}
+              </ActionLink>
+            ) : null}
+          </div>
         ) : null}
       </section>
 

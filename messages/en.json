@@ -245,6 +245,7 @@
       "empty": "No saved content yet for this language.",
       "back": "Back to content",
       "gapSummary": "{count, plural, one {# word to comfortable} other {# words to comfortable}}",
+      "month": "This month {count, plural, one {# item moved to comfortable} other {# items moved to comfortable}}",
       "origin": {
         "fixture": "Demo text",
         "catalogue": "App catalogue",
@@ -259,7 +260,13 @@
       "bandComfortable": "Comfortable",
       "bandDemanding": "Demanding",
       "bandSpeed": "Speed reading",
-      "notFound": "That saved item was not found."
+      "notFound": "That saved item was not found.",
+      "adaptationLabel": "Adapted for {level} · not the original article",
+      "viewOriginal": "View original article",
+      "unlocked": "Was {before} % on {date}; now {after} %",
+      "generatedLabel": "Generated article — not an original news story",
+      "attribution": "Source: {name}",
+      "attributionLink": "View original"
     },
     "gap": {
       "heading": "{count, plural, one {# word to comfortable (95 %)} other {# words to comfortable (95 %)}}",
@@ -275,7 +282,19 @@
     "reading": {
       "heading": "Read",
       "close": "Close",
-      "noGloss": "Not in your starter pack yet."
+      "noGloss": "Not in your starter pack yet.",
+      "sentenceGlossNote": "Word glosses — not a full sentence translation.",
+      "sentenceTapAgain": "Tap again to see word glosses for this sentence."
+    },
+    "session": {
+      "next": "{heldCount, plural, one {# word became stable} other {# words became stable}} — see what moved",
+      "sourceDelta": "{title}: {before} % → {after} %",
+      "linkWords": "See your word map",
+      "linkContent": "See your content"
+    },
+    "comprehension": {
+      "heading": "Check your understanding",
+      "caption": "Quick questions after reading — no grade saved."
     }
   },
   "reviewSession": {
@@ -476,6 +495,15 @@
     "vocabularyValue": "{held} of {poolSize} starter-pack words are solid — not scaled up to the whole language",
     "formMasteryValue": "{held} of {poolSize} starter-pack word forms are solid — counted separately from vocabulary",
     "formMasteryPartialParadigmNote": "{count, plural, one {For # solid verb we do not know every form yet — how well you handle its forms is uncertain} other {For # solid verbs we do not know every form yet — how well you handle their forms is uncertain}}",
+    "formMasteryGroupsHeading": "Form patterns in your starter pack",
+    "formMasteryGroupsIntro": "Which verb endings and noun shapes are solid — separate from the vocabulary count above.",
+    "formMasteryGroupsCaption": "Held forms by pattern",
+    "formMasteryGroupColumns": {
+      "pattern": "Pattern",
+      "held": "Solid forms"
+    },
+    "formMasteryGroupValue": "{held} of {total}",
+    "formMasteryPracticeWeak": "Practise forms",
     "emptyState": "You have not reviewed anything yet, so nothing below has a value. That is how it starts — not a failure.",
     "startReview": "Start a review session",
     "doseHeading": "What a level costs",
@@ -1174,6 +1202,7 @@
     "t1SupportLine": "{percent}% known — pre-teach {gaps} words, then Start",
     "blockedLine": "Too hard for your vocabulary ({percent}% known) — {level} text did not pass for you",
     "adaptationLabel": "Adapted for {level} · not the original article",
+    "generatedLabel": "Generated article — not an original news story",
     "adaptationFailed": "Could not adapt this text to {level} for your vocabulary — try a shorter passage or different text",
     "processingConsent": "Adapt to my level",
     "processingConsentHint": "Sends your text to a cloud service to simplify it for your vocabulary. Original stays private to your account.",

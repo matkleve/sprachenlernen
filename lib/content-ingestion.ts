@@ -1,6 +1,7 @@
 /**
  * Catalogue ingestion rules. Contract: docs/specs/service/content-ingestion.md
  */
+import { validatePartnerLicence } from "@/lib/partner-feed-ingest";
 
 export const CATALOGUE_LICENCE_KINDS = [
   "cc-by",
@@ -27,10 +28,15 @@ export type SourceLicence = {
 export type SourceIngestInput = {
   origin: "catalogue" | "fixture" | "learner";
   licence?: SourceLicence;
+  generated?: boolean;
 };
 
 export function learnerPrivateLicence(fetchedAt: string = new Date().toISOString()): SourceLicence {
   return { kind: LEARNER_LICENCE_KIND, fetchedAt };
+}
+
+export function generatedLicence(fetchedAt: string = new Date().toISOString()): SourceLicence {
+  return { kind: "generated", fetchedAt };
 }
 
 export const validateCatalogueLicence = (source: SourceIngestInput): string | null => {
@@ -42,6 +48,17 @@ export const validateCatalogueLicence = (source: SourceIngestInput): string | nu
   if (!source.licence?.fetchedAt) {
     return "catalogue sources require licence.fetchedAt";
   }
+  if (source.generated === true && kind !== "generated") {
+    return "generated catalogue sources require licence.kind generated";
+  }
+  if (kind === "generated" && source.generated !== true) {
+    return "licence.kind generated requires generated: true";
+  }
+  const partnerError =
+    kind === "partner-tos" && source.licence
+      ? validatePartnerLicence(source.licence)
+      : null;
+  if (partnerError) return partnerError;
   return null;
 };
 

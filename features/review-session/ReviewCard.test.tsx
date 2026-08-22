@@ -77,6 +77,29 @@ describe("ReviewCard", () => {
     expect(screen.getByText("La casa es grande.")).toBeDefined();
   });
 
+  it("keeps the example sentence visible after flip when the back is shown", () => {
+    render(
+      <ReviewCard
+        card={{
+          ...baseCard,
+          exampleSentence: {
+            id: "es-ex-casa-grande",
+            text: "La casa es grande.",
+            translation: "The house is big.",
+          },
+        }}
+        languageName="Spanish"
+        phase="revealed"
+        onFlip={() => {}}
+        onGrade={() => {}}
+        onSubmitReport={async () => {}}
+      />,
+    );
+
+    expect(screen.getByText("La casa es grande.")).toBeDefined();
+    expect(screen.getByText("hablar")).toBeDefined();
+  });
+
   it("asks whether the form was recalled on a form-recall card", () => {
     render(
       <ReviewCard

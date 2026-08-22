@@ -5,6 +5,7 @@
 import { cookies } from "next/headers";
 
 import { listLearnerSourcesForLanguage } from "@/lib/db/content-sources";
+import { listCoverageHistoryForLanguage } from "@/lib/db/coverage-history";
 import { listReviewsForTaskIds } from "@/lib/db/review-log";
 import { listTaskStatesForTaskIds } from "@/lib/db/task-state";
 import { internalUnexpected, logHandledError, type HandledError } from "@/lib/errors";
@@ -29,12 +30,23 @@ import {
   type CoverageResult,
   type Source,
 } from "@/lib/coverage";
-import { parseGapSetCookie, GAP_SET_COOKIE } from "@/lib/gap-set-cookie";
+import {
+  countMovedToComfortableThisMonth,
+  historyBySourceId,
+  unlockLineForSource,
+  type UnlockLine,
+} from "@/lib/coverage-unlock";
 import type { StarterCard } from "@/lib/starter-deck";
 import { tasksByTaskIdForCards } from "@/lib/task-from-state";
 
 import { loadLexiconForLanguage, loadPersistedSources } from "@/features/content/language-runtime";
-import { segmentsForReadableText, type ReadableSegment } from "@/lib/readable-text";
+import { loadPersistedAdaptationCache, loadPersonalAdaptationCache } from "@/lib/adaptation-cache";
+import { parseAdaptationConsent, ADAPTATION_CONSENT_COOKIE } from "@/lib/adaptation-consent";
+import { parseGapSetCookie, GAP_SET_COOKIE } from "@/lib/gap-set-cookie";
+import { resolveSourceShownBody } from "@/lib/adaptation-shown-body";
+import { comprehensionQuestionsForSource } from "@/lib/exercise-recipe/comprehension-questions";
+import type { ComprehensionQuestion } from "@/lib/exercise-recipe/comprehension-questions";
+import { sentenceBlocksForText, type ReadableSentenceBlock } from "@/lib/readable-sentences";
 
 export type SourceListItem = {
   id: string;
@@ -52,12 +64,23 @@ export type SourceDetailReading = {
   pace: GapPaceEstimate;
   gapProgress: { held: number; total: number } | null;
   activeGapLemmas: readonly string[];
-  textSegments: readonly ReadableSegment[] | null;
+  textSentences: readonly ReadableSentenceBlock[] | null;
+  comprehensionQuestions: readonly ComprehensionQuestion[];
+  adapted: boolean;
+  targetLevel: string;
+  sourceUrl?: string;
+  generated: boolean;
+  unlockLine: UnlockLine | null;
 };
 
 export type ContentLibraryOutcome =
   | { status: "no-language" }
-  | { status: "ok"; sources: SourceListItem[]; languageCode: string }
+  | {
+      status: "ok";
+      sources: SourceListItem[];
+      languageCode: string;
+      monthMovedCount: number;
+    }
   | { status: "error"; error: HandledError };
 
 export type SourceDetailOutcome =
@@ -93,7 +116,7 @@ async function readLibrary(): Promise<ContentLibraryOutcome> {
     return { status: "error", error: fail(new Error(spoken.error)) };
   }
   const bundle = await buildContentBundle(pool.cards, languageCode, spoken.spokenLanguage);
-  if (!bundle) return { status: "ok", sources: [], languageCode };
+  if (!bundle) return { status: "ok", sources: [], languageCode, monthMovedCount: 0 };
 
   const sources = bundle.sources.map((source) => {
     const coverage = computeCoverage(sourceText(source), bundle.lexicon, bundle.heldLemmas);
@@ -110,7 +133,30 @@ async function readLibrary(): Promise<ContentLibraryOutcome> {
     };
   });
 
-  return { status: "ok", sources, languageCode };
+  const historyOutcome = await listCoverageHistoryForLanguage(languageCode);
+  if (historyOutcome.status === "error") {
+    return { status: "error", error: fail(new Error(historyOutcome.error)) };
+  }
+
+  const historyMap = historyBySourceId(historyOutcome.rows);
+  const nowMs = Date.now();
+  const monthMovedCount = countMovedToComfortableThisMonth(
+    bundle.sources.map((source) => {
+      const coverage = computeCoverage(
+        sourceText(source),
+        bundle.lexicon,
+        bundle.heldLemmas,
+      );
+      return {
+        sourceId: source.id,
+        history: historyMap.get(source.id) ?? [],
+        currentPercent: coverage.coveragePercent,
+      };
+    }),
+    nowMs,
+  );
+
+  return { status: "ok", sources, languageCode, monthMovedCount };
 }
 
 async function readDetail(sourceId: string): Promise<SourceDetailOutcome> {
@@ -132,9 +178,22 @@ async function readDetail(sourceId: string): Promise<SourceDetailOutcome> {
   const cookieStore = await cookies();
   const gapSet = parseGapSetCookie(cookieStore.get(GAP_SET_COOKIE)?.value);
   const activeGapLemmas = gapSet?.sourceId === sourceId ? gapSet.lemmas : [];
+  const processingConsent = parseAdaptationConsent(
+    cookieStore.get(ADAPTATION_CONSENT_COOKIE)?.value,
+  );
 
-  const text = sourceText(source);
-  const coverage = computeCoverage(text, bundle.lexicon, bundle.heldLemmas);
+  const catalogueCache = loadPersistedAdaptationCache();
+  const personalCache = loadPersonalAdaptationCache();
+  const shown = resolveSourceShownBody(
+    source,
+    bundle.lexicon,
+    bundle.heldLemmas,
+    catalogueCache,
+    personalCache,
+    processingConsent,
+  );
+  const text = shown.body;
+  const coverage = shown.coverage;
   let gap = computeGapSet(text, bundle.lexicon, bundle.heldLemmas, {
     glossForLemma: (lemma) => bundle.translations[lemma] ?? "",
   });
@@ -174,6 +233,17 @@ async function readDetail(sourceId: string): Promise<SourceDetailOutcome> {
           }
         : null;
 
+  const historyOutcome = await listCoverageHistoryForLanguage(languageCode);
+  if (historyOutcome.status === "error") {
+    return { status: "error", error: fail(new Error(historyOutcome.error)) };
+  }
+
+  const historyMap = historyBySourceId(historyOutcome.rows);
+  const unlockLine = unlockLineForSource(
+    historyMap.get(source.id) ?? [],
+    coverage.coveragePercent,
+  );
+
   return {
     status: "ok",
     languageCode,
@@ -184,10 +254,17 @@ async function readDetail(sourceId: string): Promise<SourceDetailOutcome> {
       pace,
       gapProgress,
       activeGapLemmas,
-      textSegments:
+      textSentences:
         source.kind === "text" && text.trim() !== ""
-          ? segmentsForReadableText(text, bundle.lexicon, (lemma) => bundle.translations[lemma] ?? "")
+          ? sentenceBlocksForText(text, bundle.lexicon, (lemma) => bundle.translations[lemma] ?? "")
           : null,
+      comprehensionQuestions:
+        source.kind === "text" ? comprehensionQuestionsForSource(source.id) : [],
+      adapted: shown.adapted,
+      targetLevel: shown.targetLevel,
+      sourceUrl: shown.sourceUrl,
+      generated: shown.generated ?? false,
+      unlockLine,
     },
   };
 }

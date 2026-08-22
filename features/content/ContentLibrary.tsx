@@ -7,6 +7,7 @@ import { routes } from "@/lib/routes";
 
 type ContentLibraryProps = {
   sources: readonly SourceListItem[];
+  monthMovedCount: number;
 };
 
 function bandLabel(
@@ -18,12 +19,16 @@ function bandLabel(
   return t("source.bandDemanding");
 }
 
-export async function ContentLibrary({ sources }: ContentLibraryProps) {
+export async function ContentLibrary({ sources, monthMovedCount }: ContentLibraryProps) {
   const t = await getTranslations("contentTrace");
 
   return (
     <ShellPageContent width="wide">
       <p className="max-w-2xl text-base leading-relaxed text-muted">{t("library.caption")}</p>
+
+      {monthMovedCount > 0 ? (
+        <p className="mt-4 text-base text-ink">{t("library.month", { count: monthMovedCount })}</p>
+      ) : null}
 
       {sources.length === 0 ? (
         <p className="mt-6 text-base text-muted">{t("library.empty")}</p>

@@ -21,3 +21,8 @@ Split child of [`method-material-setup.md`](method-material-setup.md).
       preview renders, then honest block copy — Start disabled.
 - [x] AC-9 · Given a method with `materialTopics`, when detail renders, then topic
       chips and Start appear **above** `trains` prose — not below the article body.
+- [x] AC-11 · Given active Lernwelt `politics`, when App picks runs, then only
+      sources with `world = politics` or unset are ranked (T-W26).
+- [x] AC-12 · Given active Lernwelt `politics`, when a topic chip resolves a
+      catalogue source, then the same world prefilter applies before tag ranking
+      (T-W26).
