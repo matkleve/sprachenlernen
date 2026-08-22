@@ -88,5 +88,8 @@ export function devPagesSortedByLatest(): DevPage[] {
 }
 
 export function formatDevPageLastUpdated(lastUpdatedAt: number): string {
-  return new Intl.DateTimeFormat(undefined, { dateStyle: "medium" }).format(lastUpdatedAt);
+  return new Intl.DateTimeFormat(undefined, {
+    dateStyle: "medium",
+    timeStyle: "short",
+  }).format(lastUpdatedAt);
 }

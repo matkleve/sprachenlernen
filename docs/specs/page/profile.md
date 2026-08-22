@@ -51,8 +51,9 @@ Contract: [`reviews/design/DR-034-profile-section-navigation.md`](../../reviews/
   labelled with **last updated** and sorted newest first (`lib/dev-pages.ts`) |
 
 Registry: `lib/dev-pages.ts` — each entry has `lastUpdatedAt` (UTC ms). Profile
-→ Dev sorts by that field (latest first) and shows **Last updated** on each
-card. Bump `lastUpdatedAt` when the preview or its tooling meaningfully changes.
+→ Dev sorts by that field (latest first) and shows **Last updated** (date and
+time) on each card. Bump `lastUpdatedAt` when the preview or its tooling
+meaningfully changes.
 
 **`dev` is owner tooling on a learner's page, and it is visible in
 production.** That is deliberate: those pages exist to check deployed surfaces
