@@ -14,7 +14,7 @@ export const woodTextures: readonly WoodTexture[] = [
     id: "raw-planks",
     number: 1,
     name: "Raw planks",
-    marks: ["Horizontal fibre layers", "Wide, uneven coarse grain", "High contrast"],
+    marks: ["Horizontal fibre layers", "Wide, uneven coarse grain", "High contrast", "Weathered fissures"],
     grain: {
       seed: 11,
       palette: { dark: [42, 28, 16], light: [96, 70, 42] },
@@ -23,6 +23,8 @@ export const woodTextures: readonly WoodTexture[] = [
       warpFrequency: 3.2,
       lightStrength: 0.85,
       speckle: 0.05,
+      fissureStrength: 0.52,
+      fineStretch: 68,
     },
   },
   {
@@ -38,6 +40,8 @@ export const woodTextures: readonly WoodTexture[] = [
       warpFrequency: 4.1,
       lightStrength: 0.55,
       speckle: 0.03,
+      fissureStrength: 0.18,
+      fineStretch: 56,
     },
   },
   {
@@ -53,6 +57,8 @@ export const woodTextures: readonly WoodTexture[] = [
       warpFrequency: 5,
       lightStrength: 0.4,
       speckle: 0.02,
+      fissureStrength: 0.08,
+      fineStretch: 52,
     },
   },
   {
@@ -68,6 +74,8 @@ export const woodTextures: readonly WoodTexture[] = [
       warpFrequency: 6,
       lightStrength: 0.35,
       speckle: 0.02,
+      fissureStrength: 0.04,
+      fineStretch: 48,
     },
     pill: true,
   },
@@ -76,7 +84,7 @@ export const woodTextures: readonly WoodTexture[] = [
 export const page = {
   title: "Wood textures",
   intro:
-    "Four procedural wood swatches from the progression reference board. Each stacks horizontal grain at different scales — fine fibres over coarser streaks on a warm colour wash. Grain runs left to right only.",
-  grainNote: "Layered horizontal grain; canvas redraws per size.",
+    "Four procedural wood swatches from the progression reference board. Longitudinal plank fibres — fine striations, coarse bands, optional weathered fissures. Grain runs left to right only.",
+  grainNote: "Algorithmic longitudinal grain; canvas redraws per size.",
   marksHeading: "Marks",
 } as const;

@@ -14,10 +14,11 @@ wood textures from the progression reference board before wiring them into
   bar); horizontal-grain note; bullet marks per swatch; procedural canvas grain
   (`lib/wood-grain-ridges.ts`, `WoodGrainCanvas`), redrawn on resize. Styling
   frame in `app/wood-textures.css`.
-- **Grain model:** **multi-scale horizontal fibre layers** — fine + coarse ridges
-  (`ridgeCount`), irregularity within each scale (`warpAmount`,
-  `warpFrequency`), optional speckle, species palette. **Not** botanic growth
-  rings. **Invariant:** grain reads left→right; no vertical brightness bands.
+- **Grain model:** **longitudinal plank fibres** — Y-periodic coarse bands with
+  X-warp only (no radial growth-ring field), anisotropic fine striations,
+  sparse horizontal fissures (`fissureStrength`), species palette. **Not**
+  botanic growth rings. **Invariant:** grain reads left→right; no vertical
+  brightness bands.
 - **Out:** stone or card overlays; wiring to learner data; navigation entry in
   the app shell. Account required: **no** — `/dev/*` is public.
 
