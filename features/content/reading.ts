@@ -36,7 +36,7 @@ import { tasksByTaskIdForCards } from "@/lib/task-from-state";
 import { loadLexiconForLanguage, loadPersistedSources } from "@/features/content/language-runtime";
 import { loadPersistedAdaptationCache, loadPersonalAdaptationCache } from "@/lib/adaptation-cache";
 import { parseAdaptationConsent, ADAPTATION_CONSENT_COOKIE } from "@/lib/adaptation-consent";
-import { resolveSourceShownBody } from "@/lib/adaptation-preview";
+import { resolveSourceShownBody } from "@/lib/adaptation-shown-body";
 import { comprehensionQuestionsForSource } from "@/lib/exercise-recipe/comprehension-questions";
 import type { ComprehensionQuestion } from "@/lib/exercise-recipe/comprehension-questions";
 import { sentenceBlocksForText, type ReadableSentenceBlock } from "@/lib/readable-sentences";
