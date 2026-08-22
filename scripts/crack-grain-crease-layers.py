@@ -50,6 +50,8 @@ class LayerSpec:
     thin_frac: float = 0.016
     post_thin_frac: float = 0.0
     layer_stretch_mul: float = 1.0
+    hairline: bool = False
+    centerline_thresh_frac: float = 0.12
 
 
 def _load_synth():
@@ -71,8 +73,52 @@ def _sparsify(field: np.ndarray, keep_p: float) -> np.ndarray:
     return out
 
 
+def grain_crease_micro_hairlines(
+    base: np.ndarray,
+    spec: LayerSpec,
+    stretch_mul: float = 1.0,
+) -> np.ndarray:
+    """1 px centerline per column — wanders vertically with crease, not stretched blobs."""
+    h, w = base.shape
+    total_mul = stretch_mul * spec.layer_stretch_mul
+    blur_x = spec.pre_blur_x * total_mul
+    smooth = gaussian_filter(base, sigma=(spec.pre_blur_y, blur_x))
+    grad_y = np.gradient(smooth, axis=0)
+    dark = np.clip(-smooth, 0, None)
+    crease = np.clip(-grad_y, 0, None)
+    field = dark * spec.neg_weight + crease * spec.grad_weight
+    field = _sparsify(field, spec.keep_p)
+
+    peak = float(field.max())
+    if peak <= 0:
+        return field
+
+    thresh = peak * spec.centerline_thresh_frac
+    center = np.zeros_like(field)
+    for x in range(w):
+        col = field[:, x]
+        m = float(col.max())
+        if m < thresh:
+            continue
+        ym = int(np.argmax(col))
+        center[ym, x] = m
+
+    # Bridge gaps along grain only — footprint (1, close_w), zero vertical smear
+    close_w = max(10, int(w * spec.close_x_frac * total_mul))
+    center = grey_closing(center, size=(1, close_w))
+
+    # Drop any vertical thickening from closing — force single-pixel rows
+    center = grey_opening(center, size=(1, max(3, int(w * spec.thin_frac))))
+
+    peak = float(center.max())
+    return center / (peak + 1e-8) if peak > 0 else center
+
+
 def grain_crease_layer(base: np.ndarray, spec: LayerSpec, stretch_mul: float = 1.0) -> np.ndarray:
     """One depth layer with horizontal stretch to lengthen runs along grain."""
+    if spec.hairline:
+        return grain_crease_micro_hairlines(base, spec, stretch_mul)
+
     h, w = base.shape
     total_mul = stretch_mul * spec.layer_stretch_mul
     blur_x = spec.pre_blur_x * total_mul
@@ -104,19 +150,21 @@ def grain_crease_layer(base: np.ndarray, spec: LayerSpec, stretch_mul: float = 1
 
 
 def _layer_specs() -> tuple[LayerSpec, LayerSpec, LayerSpec]:
-    # Micro: hairline, long, dense — extra stretch_mul vs other layers
+    # Micro: 1px centerlines — NOT horizontal Gaussian smear (that was stretched circles)
     micro = LayerSpec(
         "micro",
-        pre_blur_y=0.42,
-        pre_blur_x=18.0,
-        keep_p=79.0,
-        neg_weight=0.12,
-        grad_weight=1.35,
-        close_x_frac=0.30,
-        stretch_blur_x=22.0,
-        thin_frac=0.006,
-        post_thin_frac=0.004,
-        layer_stretch_mul=1.4,
+        pre_blur_y=0.55,
+        pre_blur_x=14.0,
+        keep_p=72.0,
+        neg_weight=0.10,
+        grad_weight=1.4,
+        close_x_frac=0.26,
+        stretch_blur_x=0.0,
+        thin_frac=0.010,
+        post_thin_frac=0.0,
+        layer_stretch_mul=1.35,
+        hairline=True,
+        centerline_thresh_frac=0.08,
     )
     fine = LayerSpec(
         "fine", 1.2, 18.0, 89.0, 0.32, 1.0, 0.11, 9.0, 0.016,
@@ -307,11 +355,11 @@ def main() -> None:
 
     # Micro density sweep (5 knobs on blue layer only)
     micro_sweep = [
-        ("dense k77", 77.0, 1.4),
-        ("★ tuned k79", 79.0, 1.4),
-        ("k81", 81.0, 1.4),
-        ("longer close×1.6", 79.0, 1.6),
-        ("longest close×1.8", 79.0, 1.8),
+        ("dense k70", 70.0, 1.35),
+        ("★ hairline k72", 72.0, 1.35),
+        ("k74", 74.0, 1.35),
+        ("long close×1.55", 72.0, 1.55),
+        ("long close×1.75", 72.0, 1.75),
     ]
     micro_panels: list[tuple[str, Image.Image]] = []
     for label, keep, lmul in micro_sweep:
@@ -327,11 +375,13 @@ def main() -> None:
             micro_spec.thin_frac,
             micro_spec.post_thin_frac,
             layer_stretch_mul=lmul,
+            hairline=micro_spec.hairline,
+            centerline_thresh_frac=micro_spec.centerline_thresh_frac,
         )
         field = grain_crease_layer(base, tuned, stretch_mul=1.5)
         micro_panels.append((label, Image.fromarray(micro_only_rgb(field))))
     micro_montage = _montage_row(
-        micro_panels, "L0 micro (blue) — thinner · longer · more",
+        micro_panels, "L0 micro — 1px centerlines (wander y), not stretched blobs",
     )
     micro_montage.save(ARTIFACTS / "crack_micro_blue_sweep.png")
 
