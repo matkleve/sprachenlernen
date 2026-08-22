@@ -6,11 +6,15 @@
  * - `ridgeCount` — how many coarse horizontal bands fit the swatch height
  * - `warpAmount` / `warpFrequency` — irregularity within each scale (2D field)
  * - `speckle` — fine hairline variation on top
- * - palette + raking light — species tone and matte/oiled read
+ * - `valleys` — sparse procedural fissures (lib/wood-valleys.ts)
  *
  * Not botanic growth rings. Internal `ridgeFieldAt` is a contour height field;
  * papers in STUDY-sources are background only.
  */
+
+import { DEFAULT_WOOD_VALLEYS, buildValleyMap, type WoodValleyOptions } from "@/lib/wood-valleys";
+
+export type { WoodValleyOptions };
 
 export type WoodGrainPalette = {
   /** Valley colour (low ridge) */
@@ -32,6 +36,8 @@ export type WoodGrainOptions = {
   lightStrength: number;
   /** 0–1 — fine per-pixel speckle so it does not look too clean */
   speckle: number;
+  /** Sparse horizontal fissures — omit for grain-only swatches */
+  valleys?: WoodValleyOptions;
 };
 
 function hash2(x: number, y: number, seed: number): number {
@@ -170,11 +176,35 @@ export function renderWoodGrain(
   height: number,
   opts: WoodGrainOptions,
 ): void {
-  if (width <= 0 || height <= 0) return;
+  const image = buildWoodGrainImageData(width, height, opts);
+  ctx.putImageData(image, 0, 0);
+}
 
-  const image = ctx.createImageData(width, height);
-  const data = image.data;
+/** Headless RGBA buffer for calibration scripts (no DOM). */
+export function buildWoodGrainImageData(
+  width: number,
+  height: number,
+  opts: WoodGrainOptions,
+): ImageData {
+  if (width <= 0 || height <= 0) {
+    return { data: new Uint8ClampedArray(0), width: 0, height: 0 } as ImageData;
+  }
+
+  const data = new Uint8ClampedArray(width * height * 4);
+  fillWoodGrainBuffer(data, width, height, opts);
+  return { data, width, height } as ImageData;
+}
+
+/** Write RGBA into `data` (length width × height × 4). */
+export function fillWoodGrainBuffer(
+  data: Uint8ClampedArray,
+  width: number,
+  height: number,
+  opts: WoodGrainOptions,
+): void {
   const { seed, palette, ridgeCount, warpAmount, warpFrequency, lightStrength, speckle } = opts;
+  const valleys = opts.valleys ?? DEFAULT_WOOD_VALLEYS;
+  const valleyMap = buildValleyMap(width, height, seed, valleys);
   const sampleCtx: RidgeFieldContext = {
     width,
     height,
@@ -194,10 +224,13 @@ export function renderWoodGrain(
       const slopeX = ridgeSignal(fieldRight) - ridge;
       const slopeY = ridgeSignal(fieldDown) - ridge;
 
-      const height01 = ridge * 0.5 + 0.5;
+      let height01 = ridge * 0.5 + 0.5;
       const speck = (hash2(x * 0.9, y * 0.9, seed + 41) - 0.5) * speckle;
       const light = Math.max(-1, Math.min(1, slopeX * 0.35 + slopeY * 0.65)) * lightStrength * 3;
-      const t = clamp01(height01 + light * 0.5 + speck);
+      height01 = height01 + light * 0.5 + speck;
+
+      const cut = valleyMap[y * width + x] ?? 0;
+      const t = clamp01(height01 - cut);
 
       const idx = (y * width + x) * 4;
       data[idx] = mixChannel(palette.dark[0], palette.light[0], t);
@@ -206,6 +239,4 @@ export function renderWoodGrain(
       data[idx + 3] = 255;
     }
   }
-
-  ctx.putImageData(image, 0, 0);
 }

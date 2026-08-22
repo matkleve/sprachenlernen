@@ -16,8 +16,10 @@ wood textures from the progression reference board before wiring them into
   frame in `app/wood-textures.css`.
 - **Grain model:** **multi-scale horizontal fibre layers** — fine + coarse ridges
   (`ridgeCount`), irregularity within each scale (`warpAmount`,
-  `warpFrequency`), optional speckle, species palette. **Not** botanic growth
-  rings. **Invariant:** grain reads left→right; no vertical brightness bands.
+  `warpFrequency`), optional speckle, species palette, **sparse procedural
+  fissures** (`valleys` in `lib/wood-grain-presets.ts` / `lib/wood-valleys.ts`).
+  **Not** botanic growth rings. **Invariant:** grain reads left→right; no
+  vertical brightness bands.
 - **Out:** stone or card overlays; wiring to learner data; navigation entry in
   the app shell. Account required: **no** — `/dev/*` is public.
 
