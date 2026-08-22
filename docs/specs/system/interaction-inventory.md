@@ -47,11 +47,13 @@ is a sixth layer for async work — see [`interaction-feedback.md`](../feature/i
 | `focusRing` | `focus-visible:ring-2 ring-accent ring-offset-2` |
 | `pressScale` | `active:scale-[0.98]` |
 | `disclosureShellPress` | shell scale + border deepen when summary is `:active` |
-| `pressFill` | `active:bg-accent-soft` — icon chips, card links |
+| `hoverFillSoft` | `hover:bg-accent-soft` — neutral chips and secondary buttons |
+| `pressFill` | `active:bg-accent` — icon chips, secondary/floating buttons |
+| `pressFillSoft` | `active:bg-accent-soft` — card-shaped pressables |
 | `navCurrentFill` | accent fill at rest for text nav links (`NavLink`, `ActionLink` `current`) |
 | `iconChipCurrentFill` | accent fill at rest for bordered icon chips (`IconLink` `current`) |
 | `hoverLift` | `hover:-translate-y-px hover:shadow-raised` |
-| `cardPressable` | `cardInteractive` + `pressFill` — card-shaped buttons and links |
+| `cardPressable` | `cardInteractive` + `pressFillSoft` — card-shaped buttons and links |
 | `disabledState` | opacity + `pointer-events-none` |
 | `pendingBusy` | muted + blocks clicks |
 | `pendingNavRing` | accent ring for icon nav pending |
