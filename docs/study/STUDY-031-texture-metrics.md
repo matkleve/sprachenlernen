@@ -186,7 +186,29 @@ Four real failures, in the order they happened:
    extremes by construction**. A bright tail is spatially sparse: a few small
    very bright spots. Producing it needs a threshold-gated sparse layer, a
    different mechanism from the smooth layers, not a parameter change to them.
-10. **Legitimate lighting scores badly.** Adding the warm top-and-bottom wash the
+10. **A noise floor is not a tolerance for everything it happens to cover.** The
+    floor is measured between two patches of the same material, so it is only
+    valid for quantities that *should* be identical between them — structure:
+    aspect, scale, curve shape. Absolute tone is not one of those: the board's
+    wood genuinely varies from patch to patch by design. Using the A-to-B tone
+    spread as a tolerance waved through a candidate reading `tone +0.050 <<
+    too light`, which the owner then spotted by eye. Per-percentile differences
+    showed it plainly: +0.050 at p50 and +0.057 at p75, i.e. the bulk of the
+    image running bright, while both ends ran dark. Check the *sign pattern*
+    across percentiles, not one aggregate.
+11. **Histogram matching fixes the distribution and breaks the colour.** The
+    obvious correction — build a transfer table carrying our distribution onto
+    the reference's — works on the numbers and fails on the look. Per-channel
+    LUTs got sorted-curve distance to 0.0146 (floor 0.077) and turned the wood
+    pink, because matching R, G and B independently decorrelates them. One
+    shared luminance-derived curve keeps aspect and pairing but shifts hue to
+    -16deg, since a non-linear curve applied equally to three differently
+    distributed channels still moves their ratios. Doing it properly means
+    remapping lightness while holding chroma, which `feComponentTransfer`
+    cannot express. The fix belongs at the source: shape each layer's OKLCH
+    ramp from the reference's lightness quantiles, where hue and chroma are
+    held by construction.
+12. **Legitimate lighting scores badly.** Adding the warm top-and-bottom wash the
    reference clearly has made the distance worse, because it is low-frequency
    energy the spectrum penalises. The metric is blind to whether a difference is
    the material or the light on it.
