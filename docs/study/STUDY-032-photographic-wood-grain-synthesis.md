@@ -61,6 +61,14 @@ scaling R, G, B together. Adopting STUDY-031's exact ramp-from-quantiles
 technique in place of the albedo multiply is the likely next step if measured
 colour drifts.
 
+**[D]** `FEATURE_SCALE` on the crack spectrum is the dominant knob for crack
+*morphology*. At **9.0** (early tuning for sparse, large checking on tiles) the
+synthesized crack field is fat, bubbly, and rim-blurred — profile slices show
+broad humps vs narrow spikes in the real `relu(blur−img)` layer. At **1.0**
+(native measured scale) wood-01 remakes read as fine horizontal checking; owner
+marked this a major breakthrough 2026-08-22. Reference:
+`design/progression/breakthrough-wood-01-final.png`.
+
 **[D]** Feature size is controllable independently of the recipe's shape via
 the **Fourier scaling theorem** (`f(kx,ky) ↔ (1/k²)F(u/k,v/k)`): zooming the
 frequency-domain filter about its DC center resizes the real-space features
