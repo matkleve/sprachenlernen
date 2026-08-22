@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Crack-layer and final-image metrics for wood FFT synthesis QA.
 
-Complements scripts/texture-metrics.mjs (tone, aspect, runLength on finals).
+Complements scripts/design/texture-metrics.mjs (tone, aspect, runLength on finals).
 This script measures the *crack mask* structure that texture-metrics cannot see:
 component count, blob size, crack width, mask correlation to a reference.
 
@@ -184,7 +184,7 @@ def main() -> None:
             row = measure_final(path, source)
             print(f"  candidate  {row['path']}")
             print(f"    MSE={row['mse_vs_source']}  corr={row['corr_vs_source']}")
-        print("\nAlso run: node scripts/texture-metrics.mjs <source> <finals...>")
+        print("\nAlso run: node scripts/design/texture-metrics.mjs <source> <finals...>")
         return
 
     print("CRACK MASK METRICS  (reference = first image)")
@@ -209,7 +209,7 @@ def main() -> None:
             print(f"  {Path(row['path']).name}: corr={row.get('_mask_corr', 0):.4f}")
 
     print("\nTarget structure (real cracks): many components, ~2px width, aspect ~6, small blobs.")
-    print("General texture: node scripts/texture-metrics.mjs <source.png> <final.png>")
+    print("General texture: node scripts/design/texture-metrics.mjs <source.png> <final.png>")
 
 
 if __name__ == "__main__":

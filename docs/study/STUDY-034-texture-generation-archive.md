@@ -79,6 +79,28 @@ Useful for diagnosis; **not** production default.
 `scripts/wood-landscape-layer-demo.py`, `scripts/weathered-plank-layer-demo.py`
 — greyscale layer decompositions for algorithm comparison. Not wired to UI.
 
+### 7 · Generative crack families — afternoon 2026-08-22 (abandoned)
+
+**[D]** After morphological blobs failed `wood-crack-metrics`, owner asked to push
+generative crack placement further. Same-day owner decision: **forget it** — document
+and stop. Hero cracks remain **extracted** (`relu(blur−photo)`).
+
+| Attempt | Scripts | Outcome |
+| --- | --- | --- |
+| Anisotropic multiscale | `--crack-source anisotropic` in `scripts/design/wood-grain-fourier-synthesis.py`; `scripts/brute-force-aniso-cracks.py` (100 variants) | Wiggly scoring dashes; brute sweep did not find woody faults |
+| Bundle batch 1 | `scripts/crack-bundle-variations.py` | Side-by-side extracted / morph / poisson / fragment / layer-stack — extracted wins structure |
+| Bundle batch 2 | `scripts/crack-bundle-variations-batch2.py` | Gabor, FFT, blur-diff, ridge, grain-crease — grain-crease sparse best generative lead |
+| Bundle batch 3 | `scripts/crack-bundle-variations-batch3.py` | Sweeps around batch2 winner — marginal |
+| 3-layer RGB viz | `scripts/crack-grain-crease-layers.py` | Micro / fine / major layers + horizontal stretch; micro knobs = stretched blobs |
+| Ten-algorithm montage | `scripts/generate-crack-mask-tries.py` | Confirms no generative family matches extracted component stats |
+
+Best generative mask: grain-crease sparse (`blur_y=1.5 blur_x=12 keep=90`) — tapered
+spindle fragments from synth grain creases, not photo checking lines (~1500 components
+× ~2 px width). Curve and anisotropic families read as machined scoring.
+
+**Outcome:** archive scripts kept for QA; **not** wired to production tiles. See
+[STUDY-033](STUDY-033-wood-crack-morphology.md) § Generative attempts.
+
 ## Product consequences
 
 - **Stop line:** No further texture synthesis work unless owner reopens with a
@@ -89,13 +111,14 @@ Useful for diagnosis; **not** production default.
   T-PT0d.
 - **Dev pages kept:** `/dev/wood-textures` (10 tuned + 4 board presets),
   `/dev/progression` CSS skins — reference only.
-- **Measuring tools kept:** `scripts/texture-metrics.mjs`, `scripts/wood-crack-metrics.py`.
+- **Measuring tools kept:** `scripts/design/texture-metrics.mjs`, `scripts/wood-crack-metrics.py`.
 
 ## What we reject (going forward without new GO)
 
 | Path | Why |
 | --- | --- |
 | More algorithmic canvas tuning | Owner pause; FFT + extracted cracks already closer |
+| Generative crack tuning (aniso, grain-crease, bundles) | Owner abandoned 2026-08-22; extracted masks win structure metrics |
 | Radial / ring height fields | Face-grain plank invariant |
 | `feTurbulence` low-X frequency for wood | Vertical barcode ([`TRAPS.md`](../TRAPS.md)) |
 | HB/morph as default crack generator | Blob stats vs photo fissures |

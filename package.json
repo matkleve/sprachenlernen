@@ -20,20 +20,12 @@
     "check:neighbors": "node scripts/checks/check-neighbor-candidates.mjs",
     "verify": "node scripts/verify.mjs",
     "verify:scope": "node scripts/verify-scope.mjs",
-<<<<<<< HEAD
-    "new:spec": "node scripts/new-spec.mjs",
-    "build:starter-deck": "node scripts/build-starter-deck.mjs",
-    "ingest:wikinews": "node --experimental-strip-types scripts/ingest-wikinews.mjs",
-    "adapt:catalogue": "node --experimental-strip-types scripts/adapt-catalogue.mjs",
-    "build:descriptions": "node scripts/export-description-snapshots.mjs",
-    "wood:crack-metrics": "python3 scripts/wood-crack-metrics.py",
-=======
     "new:spec": "node scripts/docs/new-spec.mjs",
     "build:starter-deck": "node scripts/build/build-starter-deck.mjs",
     "ingest:wikinews": "node --experimental-strip-types scripts/build/ingest-wikinews.mjs",
     "adapt:catalogue": "node --experimental-strip-types scripts/build/adapt-catalogue.mjs",
     "build:descriptions": "node scripts/build/export-description-snapshots.mjs",
->>>>>>> 6d3e937 (chore: reorganize scripts and remove deprecated exports)
+    "wood:crack-metrics": "python3 scripts/wood-crack-metrics.py",
     "import:app-texts": "RUN_APP_TEXTS_IMPORT=1 vitest run lib/db/import-app-texts.run.test.ts",
     "version:proud": "node scripts/release/bump-pride-version.mjs proud",
     "version:default": "node scripts/release/bump-pride-version.mjs default",

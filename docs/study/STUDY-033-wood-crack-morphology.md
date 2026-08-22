@@ -14,8 +14,8 @@ stripe generator that draws four horizontal dashes fails on both biology and
 math. This chapter records two independent readings of the same pipeline:
 a **mathematician's** account of the operators and metrics, and a **naturalist's**
 account of what oak is doing in the image. Together they define what
-`scripts/wood-grain-fourier-synthesis.py` must approximate and what
-`scripts/wood-crack-metrics.py` and `scripts/texture-metrics.mjs` must catch
+`scripts/design/wood-grain-fourier-synthesis.py` must approximate and what
+`scripts/wood-crack-metrics.py` and `scripts/design/texture-metrics.mjs` must catch
 when it does not.
 
 ## Evidence
@@ -117,17 +117,44 @@ failed. That is the target distribution for any generator that claims to be wood
 only belongs beside a real groove. On blob masks, rim turns ponds into raised
 craters — the halo problem from STUDY-032.
 
+## Generative attempts — 2026-08-22 (abandoned)
+
+After morphological blobs failed `wood-crack-metrics`, the repo tried several
+**fully generated** crack families. Owner decision same day: **stop tuning
+generators**; ship extracted masks for hero tiles. Full archive in
+[STUDY-034](STUDY-034-texture-generation-archive.md) §7.
+
+| Family | Mechanism | Outcome |
+| --- | --- | --- |
+| Anisotropic multiscale | Curve-painted fine runs + major faults on supersampled canvas (`--crack-source anisotropic`) | Machined scoring / wiggly dashes; 100-variant brute sweep did not improve |
+| Morphological valleys | Blur-difference + grey morphology on synthetic hills | ~8 blobs × ~2200 px — ponds, not fissures |
+| Bundle batch 1 | Side-by-side: extracted, morph, poisson, fragment, layer-stack | Confirms extracted wins on structure |
+| Bundle batch 2 | Gabor, FFT, blur-diff, ridge, grain-crease sparse | Grain-crease sparse best generative lead — still spindle fragments |
+| Bundle batch 3 | Grain-crease sweeps around batch2 winner | Marginal; not photo checking |
+| 3-layer grain crease | RGB micro / fine / major + horizontal stretch | Micro hairlines = stretched blobs; knob coupling frustrated tuning |
+
+Best generative mask: grain-crease sparse (`blur_y=1.5 blur_x=12 keep=90`) —
+tapered spindle fragments from synth grain creases, not measured checking lines.
+
+Archive scripts (QA only, not production defaults):
+
+- `scripts/brute-force-aniso-cracks.py`
+- `scripts/crack-bundle-variations.py` (+ batch2, batch3)
+- `scripts/crack-grain-crease-layers.py`
+- `scripts/generate-crack-mask-tries.py`
+
 ## Product consequences
 
-- `--crack-source extracted` for hero tiles where crack fidelity matters; layer
+- **`--crack-source extracted`** for hero tiles where crack fidelity matters; layer
   the measured mask, do not resynthesise it.
-- `--crack-source morphological` for tiles that need **generated** placement
-  without a photo — unpredictable, but not yet metric-valid against extracted.
+- **`hb`, `morphological`, `procedural`, `anisotropic`** — kept in
+  `scripts/design/wood-grain-fourier-synthesis.py` for diagnosis and archive
+  scripts; **not** production defaults without owner GO.
 - Always verify with **both** metric scripts before shipping a tile into
   `design/progression/`:
 
 ```bash
-node scripts/texture-metrics.mjs patches/wood-01.png synthesized/wood-01_final.png
+node scripts/design/texture-metrics.mjs patches/wood-01.png synthesized/wood-01_final.png
 python3 scripts/wood-crack-metrics.py reference_crack_sparse.png candidate_crack.png
 python3 scripts/wood-crack-metrics.py --source patches/wood-01.png synthesized/wood-01_final.png
 ```
@@ -141,16 +168,17 @@ python3 scripts/wood-crack-metrics.py --source patches/wood-01.png synthesized/w
 | Four horizontal procedural stripes | Regular spacing; not checking statistics |
 | HB-only crack synthesis | Blobby marginals; rim halos on wrong geometry |
 | Morphological valleys without thinning | Basins and ponds, not fissures |
+| Anisotropic / curve-painted generators | Scoring dashes; not checking statistics |
+| Grain-crease sparse as production default | Best generative lead; still spindle fragments vs photo fissures |
 | Metrics on finals only | Misses crack-mask structure (`wood-crack-metrics` required) |
 | Claiming morph v4 "matches" photo on coverage alone | Same mean intensity, 200× blob size |
+| Further generative crack tuning without owner GO | Owner abandoned 2026-08-22 — see STUDY-034 pause |
 
 ## Open questions
 
-- Watershed ridge lines or skeleton on inverted topography as morph v5 — target
-  the extracted component statistics, not just coverage.
 - Run both metric suites against `design/progression/reference-board.png` once
   the owner's grid photo is committed (STUDY-032 gate).
-- Per-tile `--seed` for morphological placement — does not fix width/blob metrics yet.
+- Morph v5 / watershed skeleton — **frozen** until owner reopens texture work.
 
 ## Related
 
@@ -158,7 +186,8 @@ python3 scripts/wood-crack-metrics.py --source patches/wood-01.png synthesized/w
 | --- | --- |
 | [STUDY-032](STUDY-032-photographic-wood-grain-synthesis.md) | Full FFT grain + rim pipeline |
 | [STUDY-031](STUDY-031-texture-metrics.md) | General texture measuring tape |
-| `scripts/wood-grain-fourier-synthesis.py` | Synthesis implementation |
+| `scripts/design/wood-grain-fourier-synthesis.py` | Synthesis implementation |
 | `scripts/wood-crack-metrics.py` | Crack-mask structure metrics |
-| `scripts/texture-metrics.mjs` | Final-tile texture metrics |
+| `scripts/design/texture-metrics.mjs` | Final-tile texture metrics |
+| [STUDY-034](STUDY-034-texture-generation-archive.md) | Texture + generative crack attempt archive |
 | `scripts/build-morph-comparison.py` | Visual comparison montage |
