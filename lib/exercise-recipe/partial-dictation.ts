@@ -109,14 +109,6 @@ export function composePartialDictationRecipe(
   };
 }
 
-/** @deprecated Use composePartialDictationRecipe — kept for tests during migration. */
-export function buildPartialDictationRecipe(source: Source): ExerciseRecipe {
-  return composePartialDictationRecipe(source, {
-    methodId: "partial-dictation",
-    variantId: "short",
-  });
-}
-
 export async function resolvePartialDictationRecipe(
   ctx: SessionContext,
   findSource: (

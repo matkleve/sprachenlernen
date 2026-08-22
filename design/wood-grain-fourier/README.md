@@ -50,7 +50,7 @@ whether more source resolution improves output.
 | `oak-shading-512.png` | Same 512 run, grayscale shading map |
 
 **Not yet done:** measuring any of these against
-`design/progression/reference-board.png` with `scripts/texture-metrics.mjs`
+`design/progression/reference-board.png` with `scripts/design/texture-metrics.mjs`
 ([STUDY-031](../../docs/study/STUDY-031-texture-metrics.md)) — that's the
 real validation gate before treating a result as board-matched, per
 STUDY-032's open questions.
@@ -116,5 +116,5 @@ supersedes it.
 | --- | --- |
 | [`docs/study/STUDY-032-photographic-wood-grain-synthesis.md`](../../docs/study/STUDY-032-photographic-wood-grain-synthesis.md) | Reasoning and evidence behind every technique used here |
 | [`docs/study/STUDY-031-texture-metrics.md`](../../docs/study/STUDY-031-texture-metrics.md) | The measuring tool this pipeline's output still needs to run through |
-| [`scripts/wood-grain-fourier-synthesis.py`](../../scripts/wood-grain-fourier-synthesis.py) | The consolidated, runnable pipeline |
+| [`scripts/design/wood-grain-fourier-synthesis.py`](../../scripts/design/wood-grain-fourier-synthesis.py) | The consolidated, runnable pipeline |
 | [`design/README.md`](../README.md) | Design workspace overview |

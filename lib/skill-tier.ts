@@ -94,16 +94,6 @@ export function displaySkillTierMarks(method: MethodEntry): DisplaySkillTierMark
   };
 }
 
-/** @deprecated Use displaySkillTierMarks */
-export function detailSkillTiers(method: MethodEntry): SkillTierMark[] {
-  return displaySkillTierMarks(method).visible;
-}
-
-/** @deprecated Use displaySkillTierMarks */
-export function visibleSkillTiers(method: MethodEntry): SkillTierMark[] {
-  return displaySkillTierMarks(method).visible;
-}
-
 export function formatTierOverflowLabel(
   overflow: SkillTierMark[],
   skillLabel: (skill: Skill) => string,
