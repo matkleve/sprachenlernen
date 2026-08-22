@@ -178,7 +178,7 @@ table. Queue after phase 0 hygiene, parallel to phase 2 where independent.
 | ID | Work | Serves | Notes |
 | --- | --- | --- | --- |
 | **T-W18** | ~~**UC-012 spec only**~~ — folded into T-W9 `word-capture.md` | UC-012 | **Shipped 2026-08-18** with T-W9 |
-| **T-W12** | **UC-006 break return** — overdue prioritisation by frequency + urgency | UC-006 | Extends session-builder; pairs with horizon expand-on-return |
+| **T-W12** | ~~**UC-006 break return**~~ — overdue prioritisation by frequency + urgency | UC-006 | **shipped 2026-08-22** — `alphaOverdue` + frequency on overdue in `session-sampling` |
 | **T-W16** | ~~**Review horizon v2**~~ — **shipped 2026-08-15** | UC-005, UC-006, UC-063 | Collapsed default, week tile columns, relevance triggers, causal line |
 | **T-W17** | ~~**Words home layout parity with Methods**~~ — **shipped 2026-08-16** | UC-063, UC-031 | Canvas intent; `methodSectionSurface` cards; section labels; stat disclosure; reuse `MethodCardHeader` |
 | **T-W13** | **UC-013 remainder** — tier-2/3 leech diagnosis | UC-013 | T-B14 remainder in main queue |
