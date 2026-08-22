@@ -63,7 +63,7 @@ from scipy.ndimage import gaussian_filter, zoom
 # ---- tuned parameters (see STUDY-031 for how each was arrived at) ----
 BLUR_SIGMA = 6.0            # stage 2: "smooth base tone" scale
 SPEC_SMOOTH_SIGMA = 2.5     # stages 1 & 2: smooths the measured spectrum
-FEATURE_SCALE = 9.0         # stage 3: >1 = cracks bigger & sparser
+FEATURE_SCALE = 1.0         # stage 3: native crack size from photo (9.0 was bubbly blobs — 2026-08-22)
 ITERATIONS = 6               # stage 4: Heeger-Bergen alternation rounds
 CRACK_STRENGTH = 0.8         # stage 7: how dark cracks cut into the grain
 RIM_PRE_BLUR = 3.0           # stage 5: smooths crack field before gradient

@@ -51,6 +51,8 @@ FFT analysis of a single-species reference photo, synthesized back into a
 seamless tile (grain direction, crack layer, and lighting all measured from
 the source rather than hand-tuned). Reasoning and evidence:
 [`docs/study/STUDY-032-photographic-wood-grain-synthesis.md`](../docs/study/STUDY-032-photographic-wood-grain-synthesis.md).
+**Breakthrough reference (2026-08-22):** `design/progression/breakthrough-wood-01-final.png`
+— native `FEATURE_SCALE=1`; do not reintroduce scale 9 without owner GO.
 Source photo: one wood species per image (not a multi-species grid — that
 splits resolution and creates seam artifacts), max resolution, flat lighting,
 zero perspective, PNG.
