@@ -166,21 +166,24 @@ def algo05_multiscale_anisotropic(
     w: int,
     rng: np.random.Generator,
     *,
-    fine_sigma_x: float = 5.0,
-    coarse_sigma_x: float = 34.0,
-    fine_keep: float = 84.0,
-    coarse_keep: float = 97.0,
-    fine_strength: float = 0.7,
+    fine_sigma_x: float = 36.0,
+    coarse_sigma_x: float = 58.0,
+    fine_keep: float = 86.0,
+    coarse_keep: float = 98.5,
+    fine_strength: float = 0.48,
 ) -> np.ndarray:
-    """Dual-scale: many small horizontal stripes + few long majors."""
-    fine_n = gaussian_filter(rng.normal(size=(h, w)), sigma=(0.7, fine_sigma_x))
-    fine = _sparsify(np.clip(-fine_n, 0, None), fine_keep)
-    fine = grey_opening(fine, size=(3, max(6, int(w * 0.018))))
-
-    coarse_n = gaussian_filter(rng.normal(size=(h, w)), sigma=(2.5, coarse_sigma_x))
-    coarse = _sparsify(np.clip(-coarse_n, 0, None), coarse_keep)
-
-    return _norm(np.maximum(fine * fine_strength, coarse))
+    """Dual-scale: long fine runs + few large dark majors (matches synthesis defaults)."""
+    synth = _load_synth()
+    return synth.anisotropic_multiscale_crack_field(
+        h,
+        w,
+        rng,
+        fine_sigma_x=fine_sigma_x,
+        coarse_sigma_x=coarse_sigma_x,
+        fine_keep_percentile=fine_keep,
+        coarse_keep_percentile=coarse_keep,
+        fine_strength=fine_strength,
+    )
 
 
 def algo06_gabor_horizontal_bank(h: int, w: int, rng: np.random.Generator) -> np.ndarray:

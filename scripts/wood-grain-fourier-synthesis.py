@@ -222,35 +222,175 @@ def morphological_crack_field(
     return _normalize_crack_field(combined)
 
 
+def _crack_end_taper(
+    t: float,
+    *,
+    power: float = 0.45,
+    core_floor: float = 0.0,
+) -> float:
+    """Sin taper along run length; core_floor keeps the middle at full strength."""
+    taper = float(np.sin(np.pi * np.clip(t, 0, 1)) ** power)
+    if core_floor > 0 and 0.12 < t < 0.88:
+        taper = max(taper, core_floor)
+    return taper
+
+
+def _paint_flowing_crack(
+    field: np.ndarray,
+    rng: np.random.Generator,
+    x0: int,
+    y0: float,
+    length: int,
+    thickness: float,
+    *,
+    gap_prob: float = 0.0,
+    wobble_amp: float = 0.0,
+    wobble_freq: float = 0.01,
+    strength: float = 1.0,
+    core_floor: float = 0.0,
+    taper_power: float = 0.55,
+) -> None:
+    """Gaussian-stamped horizontal crack — soft edges, no hard pixel disks."""
+    h, w = field.shape
+    phase = rng.uniform(0, 2 * np.pi)
+    span = max(length - 1, 1)
+    for xi in range(length):
+        if gap_prob > 0 and rng.random() < gap_prob:
+            continue
+        x = x0 + xi
+        if x < 0 or x >= w:
+            continue
+        t = xi / span
+        taper = _crack_end_taper(t, power=taper_power, core_floor=core_floor) * strength
+        y = y0 + wobble_amp * np.sin(wobble_freq * xi + phase)
+        sigma_y = max(0.9, thickness * taper * 0.5)
+        iy = int(round(y))
+        rad = max(2, int(sigma_y * 3.5))
+        for dy in range(-rad, rad + 1):
+            yi = iy + dy
+            if 0 <= yi < h:
+                g = taper * float(np.exp(-0.5 * (dy / sigma_y) ** 2))
+                field[yi, x] = max(field[yi, x], g)
+
+
+def _paint_stress_fault(
+    field: np.ndarray,
+    h: int,
+    w: int,
+    rng: np.random.Generator,
+    major_scale: float,
+    coarse_strength: float,
+) -> None:
+    """One long wavy major crack — wide dark core, not a grey smear."""
+    y0 = rng.uniform(h * 0.1, h * 0.9)
+    x0 = int(rng.integers(0, int(w * 0.04)))
+    length = int(rng.integers(int(w * 0.62), int(w * 0.98)))
+    thick = rng.uniform(12.0, 22.0) * major_scale * coarse_strength
+    amp = rng.uniform(2.0, 7.0)
+    freq = rng.uniform(0.004, 0.016)
+    _paint_flowing_crack(
+        field,
+        rng,
+        x0,
+        y0,
+        length,
+        thick,
+        wobble_amp=amp,
+        wobble_freq=freq,
+        strength=1.0,
+        core_floor=0.94,
+        taper_power=0.38,
+    )
+
+
+def _paint_fine_run(
+    field: np.ndarray,
+    h: int,
+    w: int,
+    rng: np.random.Generator,
+) -> None:
+    """Long fine stripe — often chained so runs flow across most of the tile."""
+    y0 = float(rng.integers(0, h))
+    x_start = int(rng.integers(0, int(w * 0.12)))
+    segments = int(rng.integers(1, 4))
+    thick = rng.uniform(6.0, 12.0)
+    for _ in range(segments):
+        length = int(rng.integers(int(w * 0.34), int(w * 0.58)))
+        gap_prob = rng.uniform(0.0, 0.035)
+        amp = rng.uniform(0.4, 2.2)
+        freq = rng.uniform(0.008, 0.028)
+        _paint_flowing_crack(
+            field,
+            rng,
+            x_start,
+            y0,
+            length,
+            thick,
+            gap_prob=gap_prob,
+            wobble_amp=amp,
+            wobble_freq=freq,
+            strength=0.72,
+            taper_power=0.5,
+        )
+        x_start += length + int(rng.integers(0, int(w * 0.04)))
+        if x_start >= int(w * 0.94):
+            break
+        y0 += rng.uniform(-1.5, 1.5)
+
+
 def anisotropic_multiscale_crack_field(
     h: int,
     w: int,
     rng: np.random.Generator,
     *,
-    fine_sigma_y: float = 0.7,
-    fine_sigma_x: float = 5.0,
-    coarse_sigma_y: float = 2.5,
-    coarse_sigma_x: float = 34.0,
-    fine_keep_percentile: float = 84.0,
-    coarse_keep_percentile: float = 97.0,
-    fine_strength: float = 0.7,
+    fine_sigma_y: float = 1.2,
+    fine_sigma_x: float = 72.0,
+    coarse_sigma_y: float = 7.0,
+    coarse_sigma_x: float = 120.0,
+    fine_keep_percentile: float = 88.0,
+    coarse_keep_percentile: float = 99.0,
+    fine_strength: float = 0.38,
     coarse_strength: float = 1.0,
 ) -> np.ndarray:
-    """Dual-scale anisotropic noise valleys — many short stripes + few long majors.
+    """Long flowing fine stripes + few dark major faults on a supersampled canvas.
 
-    Fine layer: tight horizontal blur → many small dashes (lower keep = denser).
-    Coarse layer: wide horizontal blur → few elongated cracks (high keep = sparse).
+    fine_keep_percentile controls dash count (lower = more fine stripes).
+    coarse_sigma_x / crack_blur_sigma scales major fault thickness via major_scale.
     """
-    fine_n = gaussian_filter(rng.normal(size=(h, w)), sigma=(fine_sigma_y, fine_sigma_x))
-    fine = _sparsify_crack_real(np.clip(-fine_n, 0, None), fine_keep_percentile)
-    open_w = max(6, int(w * 0.018))
-    fine = grey_opening(fine, size=(3, open_w))
+    del fine_sigma_y, fine_sigma_x, coarse_sigma_y, coarse_keep_percentile, fine_strength
+    major_scale = max(1.0, coarse_sigma_x / 42.0)
+    ss = 4  # supersample for anti-pixelation
+    h4, w4 = h * ss, w * ss
+    fine_layer = np.zeros((h4, w4), dtype=np.float64)
+    major_layer = np.zeros((h4, w4), dtype=np.float64)
+    rng4 = np.random.default_rng(rng.integers(0, 2**31))
 
-    coarse_n = gaussian_filter(rng.normal(size=(h, w)), sigma=(coarse_sigma_y, coarse_sigma_x))
-    coarse = _sparsify_crack_real(np.clip(-coarse_n, 0, None), coarse_keep_percentile)
+    n_majors = max(3, int(5 - (fine_keep_percentile - 82) / 10))
+    for _ in range(n_majors):
+        _paint_stress_fault(
+            major_layer, h4, w4, rng4, major_scale, coarse_strength
+        )
 
-    combined = np.maximum(fine * fine_strength, coarse * coarse_strength)
-    return _normalize_crack_field(combined)
+    n_fine = int(100 + (100 - fine_keep_percentile) * 14)
+    for _ in range(n_fine):
+        _paint_fine_run(fine_layer, h4, w4, rng4)
+
+    # Blur layers separately so majors stay dark; fines soften more.
+    fine_soft = gaussian_filter(fine_layer, sigma=(1.6, 5.0))
+    major_soft = gaussian_filter(major_layer, sigma=(1.0, 2.6))
+    combined = np.maximum(fine_soft * 0.52, major_soft)
+    combined = np.clip(combined, 0, 1)
+
+    small = np.asarray(
+        Image.fromarray((combined * 255).astype(np.uint8)).resize(
+            (w, h), Image.Resampling.LANCZOS
+        ),
+        dtype=np.float64,
+    ) / 255.0
+    peak = float(np.max(small))
+    if peak > 1.0:
+        small /= peak
+    return small
 
 
 def _normalize_crack_field(crack: np.ndarray) -> np.ndarray:
@@ -310,18 +450,15 @@ def synthesize(
         )
         crack_field = _apply_crack_floor(crack_field, crack_floor)
     elif crack_source == "anisotropic":
-        # crack_blur_sigma scales coarse horizontal extent; keep_p drives fine density
-        span = min(h, w)
-        coarse_x = max(12.0, crack_blur_sigma * 2.2)
-        fine_keep = crack_keep_percentile if crack_keep_percentile > 0 else 84.0
+        major_scale = max(1.2, crack_blur_sigma / 10.0)
+        fine_keep = crack_keep_percentile if crack_keep_percentile > 0 else 86.0
         crack_field = anisotropic_multiscale_crack_field(
             h,
             w,
             rng,
-            fine_sigma_x=max(4.0, span / 100.0),
-            coarse_sigma_x=coarse_x,
+            coarse_sigma_x=major_scale * 42.0,
             fine_keep_percentile=fine_keep,
-            coarse_keep_percentile=min(99.0, fine_keep + 13.0),
+            coarse_strength=1.0,
         )
         crack_field = _apply_crack_floor(crack_field, crack_floor)
     elif crack_source == "extracted":
