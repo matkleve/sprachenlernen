@@ -24,6 +24,7 @@ export function MaterialSetupPreviewCard({
   return (
     <div className="space-y-1 border-t border-line pt-3 text-sm text-muted">
       <p className="font-medium text-ink">{preview.title}</p>
+      {preview.generatedLabel ? <p>{preview.generatedLabel}</p> : null}
       {preview.adaptationLabel ? <p>{preview.adaptationLabel}</p> : null}
       <p>
         {preview.unitLabel}

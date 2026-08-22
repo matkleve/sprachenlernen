@@ -10,3 +10,5 @@
       is visible.
 - [ ] Given a paywalled fetch failure, when intake runs, then the UI offers
       manual paste — no silent empty source.
+- [ ] Given a generated catalogue Source (`generated: true`), when material setup
+      or source detail renders, then the generated honesty label is visible as text.

@@ -263,7 +263,8 @@
       "notFound": "Diesen gespeicherten Eintrag gibt es nicht.",
       "adaptationLabel": "Für {level} angepasst · nicht der Originalartikel",
       "viewOriginal": "Originalartikel ansehen",
-      "unlocked": "War {before} % am {date}; jetzt {after} %"
+      "unlocked": "War {before} % am {date}; jetzt {after} %",
+      "generatedLabel": "Generierter Artikel — keine Originalnachricht"
     },
     "gap": {
       "heading": "{count, plural, one {Noch # Wort bis angenehm (95 %)} other {Noch # Wörter bis angenehm (95 %)}}",
@@ -1199,6 +1200,7 @@
     "t1SupportLine": "{percent} % bekannt — {gaps} Wörter vor Start vormerken",
     "blockedLine": "Zu schwer für deinen Wortschatz ({percent} % bekannt) — {level}-Text passt nicht für dich",
     "adaptationLabel": "Für {level} angepasst · nicht der Originalartikel",
+    "generatedLabel": "Generierter Artikel — keine Originalnachricht",
     "adaptationFailed": "Anpassung auf {level} für deinen Wortschatz nicht möglich — kürzeren Text oder anderen Inhalt versuchen",
     "processingConsent": "Auf mein Niveau anpassen",
     "processingConsentHint": "Dein Text wird in der Cloud vereinfacht. Das Original bleibt nur für dein Konto sichtbar.",

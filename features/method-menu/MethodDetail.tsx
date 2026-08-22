@@ -85,6 +85,7 @@ export async function MethodDetail({ method, searchParams = {} }: MethodDetailPr
         level: targetLevel,
       }),
     adaptationLabel: (targetLevel: string) => tMaterial("adaptationLabel", { level: targetLevel }),
+    generatedLabel: () => tMaterial("generatedLabel"),
     adaptationFailed: (targetLevel: string) =>
       tMaterial("adaptationFailed", { level: targetLevel }),
     processingConsent: tMaterial("processingConsent"),

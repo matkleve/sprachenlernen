@@ -108,6 +108,20 @@ export async function adaptCatalogueSource(
     return { status: "failed", reason: "empty-source-body", cacheKey, targetLevel: input.targetLevel };
   }
 
+  if (input.source.generated === true || input.source.licence?.kind === "generated") {
+    const coverage = computeCoverage(originalBody, input.lexicon, input.heldLemmas);
+    return {
+      status: "ready",
+      adapted: false,
+      body: originalBody,
+      coveragePercent: coverage.coveragePercent,
+      targetLevel: input.targetLevel,
+      tier: "T0",
+      cacheKey,
+      fromCache: false,
+    };
+  }
+
   const originalCoverage = computeCoverage(originalBody, input.lexicon, input.heldLemmas);
   if (meetsAdaptationCoverage(originalCoverage.coveragePercent)) {
     return {

@@ -263,7 +263,8 @@
       "notFound": "That saved item was not found.",
       "adaptationLabel": "Adapted for {level} · not the original article",
       "viewOriginal": "View original article",
-      "unlocked": "Was {before} % on {date}; now {after} %"
+      "unlocked": "Was {before} % on {date}; now {after} %",
+      "generatedLabel": "Generated article — not an original news story"
     },
     "gap": {
       "heading": "{count, plural, one {# word to comfortable (95 %)} other {# words to comfortable (95 %)}}",
@@ -1199,6 +1200,7 @@
     "t1SupportLine": "{percent}% known — pre-teach {gaps} words, then Start",
     "blockedLine": "Too hard for your vocabulary ({percent}% known) — {level} text did not pass for you",
     "adaptationLabel": "Adapted for {level} · not the original article",
+    "generatedLabel": "Generated article — not an original news story",
     "adaptationFailed": "Could not adapt this text to {level} for your vocabulary — try a shorter passage or different text",
     "processingConsent": "Adapt to my level",
     "processingConsentHint": "Sends your text to a cloud service to simplify it for your vocabulary. Original stays private to your account.",

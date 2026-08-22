@@ -77,6 +77,9 @@ export async function SourceDetail({ reading }: SourceDetailProps) {
                 {t("source.adaptationLabel", { level: reading.targetLevel })}
               </p>
             ) : null}
+            {reading.generated ? (
+              <p className="mt-2 text-sm text-muted">{t("source.generatedLabel")}</p>
+            ) : null}
             {reading.adapted && reading.sourceUrl ? (
               <a
                 href={reading.sourceUrl}

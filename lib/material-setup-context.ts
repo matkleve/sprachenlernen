@@ -15,13 +15,13 @@ import {
   hasMaterialSetup,
   materialUnitOptions,
   pickAppPickSource,
-  pickTopicSource,
   topicChipsForMethod,
   wordsToComfortable,
   type MaterialSetupContext,
   type MaterialSetupLabels,
   type MaterialSetupPreview,
 } from "@/lib/method-material-setup";
+import { pickTopicSourceWithLaneFallback } from "@/lib/generated-news";
 import {
   DEFAULT_WINDOW_DURATION_SEC,
   resolveMaterialUnit,
@@ -109,7 +109,7 @@ export function buildMaterialSetupContext(
   }
 
   for (const topic of method.materialTopics ?? []) {
-    const source = pickTopicSource(sources, topic.id, lexicon, heldLemmas);
+    const source = pickTopicSourceWithLaneFallback(sources, topic.id, lexicon, heldLemmas);
     if (!source) continue;
     previews[topic.id] = {};
     for (const unit of unitOptions) {

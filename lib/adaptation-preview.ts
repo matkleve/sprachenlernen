@@ -19,6 +19,7 @@ import {
   type DeliveryGate,
 } from "@/lib/adaptation-delivery";
 import { computeCoverage, sourceText, type CoverageResult, type Source } from "@/lib/coverage";
+import { isGeneratedCatalogueSource } from "@/lib/generated-news";
 import type { Lexicon } from "@/lib/lexicon";
 import {
   DEFAULT_WINDOW_DURATION_SEC,
@@ -35,6 +36,7 @@ export type CatalogueShownBody = {
   targetLevel: string;
   sourceUrl?: string;
   adaptationLabel?: string;
+  generated?: boolean;
   coverage: CoverageResult;
   deliveryGate: DeliveryGate;
   startEnabled: boolean;
@@ -61,6 +63,20 @@ export function resolveCatalogueShownBody(
   const originalCoverage = computeCoverage(originalBody, lexicon, heldLemmas);
   const targetLevel = inferTargetLevelFromHeldCount(heldLemmas.size);
   const sourceUrl = source.sourceUrl ?? source.licence?.sourceUrl;
+
+  if (isGeneratedCatalogueSource(source)) {
+    const gate = deliveryGateForCoverage(originalCoverage.coveragePercent);
+    return {
+      body: originalBody,
+      adapted: false,
+      targetLevel,
+      coverage: originalCoverage,
+      deliveryGate: gate,
+      startEnabled: startEnabledForGate(gate),
+      t1GapCount: 0,
+      generated: true,
+    };
+  }
 
   if (meetsAdaptationCoverage(originalCoverage.coveragePercent)) {
     const gate = deliveryGateForCoverage(originalCoverage.coveragePercent);
@@ -113,6 +129,7 @@ export type MaterialPreviewLabels = {
   t1SupportLine: (coveragePercent: number, gapCount: number) => string;
   blockedLine: (coveragePercent: number, targetLevel: string) => string;
   adaptationLabel: (targetLevel: string) => string;
+  generatedLabel: () => string;
   adaptationFailed: (targetLevel: string) => string;
 };
 
@@ -156,6 +173,7 @@ export function buildCatalogueMaterialPreview(
     adaptationLabel: shown.adaptationLabel
       ? labels.adaptationLabel(shown.targetLevel)
       : undefined,
+    generatedLabel: shown.generated ? labels.generatedLabel() : undefined,
     deliveryGate: gate,
     startEnabled: shown.startEnabled,
     t1GapCount: shown.t1GapCount,

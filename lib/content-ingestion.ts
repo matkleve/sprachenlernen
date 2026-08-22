@@ -27,10 +27,15 @@ export type SourceLicence = {
 export type SourceIngestInput = {
   origin: "catalogue" | "fixture" | "learner";
   licence?: SourceLicence;
+  generated?: boolean;
 };
 
 export function learnerPrivateLicence(fetchedAt: string = new Date().toISOString()): SourceLicence {
   return { kind: LEARNER_LICENCE_KIND, fetchedAt };
+}
+
+export function generatedLicence(fetchedAt: string = new Date().toISOString()): SourceLicence {
+  return { kind: "generated", fetchedAt };
 }
 
 export const validateCatalogueLicence = (source: SourceIngestInput): string | null => {
@@ -41,6 +46,12 @@ export const validateCatalogueLicence = (source: SourceIngestInput): string | nu
   }
   if (!source.licence?.fetchedAt) {
     return "catalogue sources require licence.fetchedAt";
+  }
+  if (source.generated === true && kind !== "generated") {
+    return "generated catalogue sources require licence.kind generated";
+  }
+  if (kind === "generated" && source.generated !== true) {
+    return "licence.kind generated requires generated: true";
   }
   return null;
 };

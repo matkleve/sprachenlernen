@@ -69,6 +69,7 @@ export type SourceDetailReading = {
   adapted: boolean;
   targetLevel: string;
   sourceUrl?: string;
+  generated: boolean;
   unlockLine: UnlockLine | null;
 };
 
@@ -262,6 +263,7 @@ async function readDetail(sourceId: string): Promise<SourceDetailOutcome> {
       adapted: shown.adapted,
       targetLevel: shown.targetLevel,
       sourceUrl: shown.sourceUrl,
+      generated: shown.generated ?? false,
       unlockLine,
     },
   };

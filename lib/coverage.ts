@@ -31,6 +31,7 @@ export type Source = {
   addedAt: string;
   ephemeral?: boolean;
   licence?: SourceLicence;
+  generated?: boolean;
 };
 
 export type CoverageResult = {
@@ -249,6 +250,14 @@ const validateSource = (input: unknown, index: number): { source?: Source; error
     }
   }
 
+  if (input.ephemeral !== undefined && typeof input.ephemeral !== "boolean") {
+    errors.push(`${prefix}.ephemeral: must be a boolean`);
+  }
+
+  if (input.generated !== undefined && typeof input.generated !== "boolean") {
+    errors.push(`${prefix}.generated: must be a boolean`);
+  }
+
   const origin = input.origin as SourceOrigin;
   let licence: SourceLicence | undefined;
   if (input.licence !== undefined) {
@@ -268,7 +277,7 @@ const validateSource = (input: unknown, index: number): { source?: Source; error
     }
   }
 
-  const ingestError = validateSourceIngestion({ origin, licence }, prefix);
+  const ingestError = validateSourceIngestion({ origin, licence, generated: input.generated === true }, prefix);
   if (ingestError) errors.push(ingestError);
 
   if (errors.length) return { errors };
@@ -277,6 +286,7 @@ const validateSource = (input: unknown, index: number): { source?: Source; error
     source: {
       ...(input as unknown as Source),
       licence,
+      generated: input.generated === true ? true : undefined,
     },
     errors: [],
   };

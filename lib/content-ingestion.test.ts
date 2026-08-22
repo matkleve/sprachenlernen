@@ -47,4 +47,27 @@ describe("content-ingestion", () => {
       /sources\[0\]: catalogue sources require licence\.kind/,
     );
   });
+
+  it("requires generated flag and licence.kind generated to match", () => {
+    expect(
+      validateCatalogueLicence({
+        origin: "catalogue",
+        generated: true,
+        licence: { kind: "cc-by", fetchedAt: "2026-08-22T00:00:00.000Z" },
+      }),
+    ).toMatch(/generated/);
+    expect(
+      validateCatalogueLicence({
+        origin: "catalogue",
+        licence: { kind: "generated", fetchedAt: "2026-08-22T00:00:00.000Z" },
+      }),
+    ).toMatch(/generated: true/);
+    expect(
+      validateCatalogueLicence({
+        origin: "catalogue",
+        generated: true,
+        licence: { kind: "generated", fetchedAt: "2026-08-22T00:00:00.000Z" },
+      }),
+    ).toBeNull();
+  });
 });

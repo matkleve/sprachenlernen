@@ -17,6 +17,7 @@ import {
   hasMaterialSetup,
   pickAppPickSource,
   pickTopicSource,
+  pickTopicSourceWithLaneFallback,
   practiceHrefForSetup,
   previewForOwnText,
   topicChipsForMethod,
@@ -43,6 +44,7 @@ const labels = {
   t1SupportLine: (percent: number, gaps: number) => `t1 ${percent}% ${gaps}`,
   blockedLine: (percent: number, level: string) => `blocked ${percent}% ${level}`,
   adaptationLabel: (level: string) => `Adapted for ${level}`,
+  generatedLabel: () => "Generated article",
   adaptationFailed: (level: string) => `failed ${level}`,
   processingConsent: "Adapt",
   processingConsentHint: "Cloud processing",
@@ -83,8 +85,7 @@ describe("topicChipsForMethod", () => {
   it("AC-6: disables catalogue topic chips with zero sources", () => {
     const chips = topicChipsForMethod(partialDictation, sources, labels);
     const environment = chips.find((chip) => chip.id === "environment");
-    expect(environment?.disabled).toBe(true);
-    expect(environment?.emptyReason).toBe(labels.emptyTopic);
+    expect(environment?.disabled).toBe(false);
   });
 });
 
@@ -279,5 +280,10 @@ describe("pickTopicSource", () => {
   it("prefers the best coverage source for a topic tag", () => {
     const source = pickTopicSource(sources, "news", lexicon, held);
     expect(source?.id).toBe("wikinews-es-3516");
+  });
+
+  it("falls back to generated lane C for environment when only generated exists", () => {
+    const source = pickTopicSourceWithLaneFallback(sources, "environment", lexicon, held);
+    expect(source?.id).toBe("generated-news-es-environment-2026-08");
   });
 });
