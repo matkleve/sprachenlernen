@@ -30,6 +30,7 @@
     "wood:crack-bundles": "python3 scripts/crack-bundle-variations.py",
     "wood:crack-bundles-2": "python3 scripts/crack-bundle-variations-batch2.py",
     "wood:crack-bundles-3": "python3 scripts/crack-bundle-variations-batch3.py",
+    "wood:crack-layers": "python3 scripts/crack-grain-crease-layers.py",
     "import:app-texts": "RUN_APP_TEXTS_IMPORT=1 vitest run lib/db/import-app-texts.run.test.ts",
     "version:proud": "node scripts/bump-pride-version.mjs proud",
     "version:default": "node scripts/bump-pride-version.mjs default",
