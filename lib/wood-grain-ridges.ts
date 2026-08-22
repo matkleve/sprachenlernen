@@ -1,11 +1,11 @@
 /**
  * Procedural wood grain for `/dev/wood-textures` — longitudinal plank fibres.
  *
- * Visual model (spec: wood-texture-lab.md, study: STUDY-030):
- * - Y-periodic coarse bands + X-warp only (no radial / growth-ring field)
- * - Anisotropic fine striations along the plank
- * - Sparse horizontal fissures (algorithmic defect layer)
- * - palette + raking light — species tone and matte/oiled read
+ * Visual model (spec: wood-texture-lab.md, study: STUDY-030 / STUDY-033):
+ * - Anisotropic fine striations (primary tone)
+ * - Morphological horizontal grooves (blur-difference valleys)
+ * - Irregular sparse fissures (elongated seeds + defect noise)
+ * - Optional weak Y-band warp — never radial growth rings
  */
 
 export type WoodGrainPalette = {
@@ -28,11 +28,20 @@ export type WoodGrainOptions = {
   lightStrength: number;
   /** 0–1 — fine per-pixel speckle so it does not look too clean */
   speckle: number;
-  /** 0–1 — sparse dark horizontal fissures (weathered plank) */
+  /** 0–1 — dark horizontal fissures and grooves */
   fissureStrength?: number;
   /** Anisotropic stretch for hairline striations along the plank */
   fineStretch?: number;
+  /** 0–1 — morphological horizontal groove layer (blur-difference valleys) */
+  grooveStrength?: number;
+  /** 0–1 — weak sin-band accent from warp field (0 = fibre-only) */
+  coarseBandStrength?: number;
+  /** Max irregular horizontal seam seeds (actual count derived from seed) */
+  fissureSeeds?: number;
 };
+
+/** Always show ten tuned algorithmic variants on the wood texture lab. */
+export const WOOD_TUNED_VARIANT_COUNT = 10;
 
 function hash2(x: number, y: number, seed: number): number {
   const s = Math.sin(x * 127.1 + y * 311.7 + seed * 74.7) * 43758.5453123;
@@ -108,10 +117,6 @@ function distortionCoords(
   };
 }
 
-/**
- * Localized bumps in the ridge field — optional irregularity so ridges are not
- * perfectly parallel stripes.
- */
 function influenceDisplacement(
   x: number,
   y: number,
@@ -147,12 +152,11 @@ export type RidgeFieldContext = {
 };
 
 /**
- * Height field for horizontal grain contours on a longitudinal plank.
- * Base spacing from Y only, curved by X-warp — never radial / growth-ring arcs.
+ * Warp field for optional weak band accent — Y spacing + X warp, never radial rings.
  */
 export function ridgeFieldAt(x: number, y: number, ctx: RidgeFieldContext): number {
   const { width, height, seed, ridgeCount, warpAmount, warpFrequency } = ctx;
-  const { nx, ny, u, v } = distortionCoords(x, y, width, height, ridgeCount, warpFrequency);
+  const { nx, ny, v } = distortionCoords(x, y, width, height, ridgeCount, warpFrequency);
   const warp = stableWarpAmount(warpAmount, width, warpFrequency);
 
   const warpX = (multibandFbm(nx, ny, seed) - 0.5) * warp * 0.42;
@@ -164,47 +168,75 @@ export function ridgeFieldAt(x: number, y: number, ctx: RidgeFieldContext): numb
   return baseY * ridgeCount + influence * ridgeCount * 0.35;
 }
 
-/** Hairline striations along the plank (high X stretch, low Y). */
-function fineStriations(u: number, v: number, seed: number, fineStretch: number): number {
-  return multibandFbm(u * fineStretch, v * (fineStretch * 0.035), seed + 91, 4) - 0.5;
+function ridgeSignal(height: number): number {
+  return Math.sin(height * Math.PI * 2);
 }
 
-/** Sparse defect peaks from elongated noise — horizontal-biased statistics. */
+function fineStriations(u: number, v: number, seed: number, fineStretch: number): number {
+  const fine1 = multibandFbm(u * (fineStretch * 0.038), v * fineStretch, seed + 91, 5);
+  const fine2 = multibandFbm(u * (fineStretch * 0.026), v * (fineStretch * 1.28), seed + 102, 3);
+  return (fine1 * 0.72 + fine2 * 0.28) - 0.5;
+}
+
+function slowToneWash(u: number, v: number, seed: number): number {
+  return multibandFbm(u * 1.4, v * 0.16, seed + 5, 2) - 0.5;
+}
+
+/** Coarse relief for morphological groove extraction. */
+function coarseRelief(u: number, v: number, seed: number): number {
+  return multibandFbm(u * 0.34, v * 3.6, seed + 400, 4);
+}
+
+function horizontalBlurRelief(u: number, v: number, seed: number, step: number): number {
+  let sum = 0;
+  for (let i = -3; i <= 3; i++) {
+    sum += coarseRelief(u + i * step, v, seed);
+  }
+  return sum / 7;
+}
+
+/**
+ * Horizontal blur-difference valleys (STUDY-033 morphological proxy, per-pixel).
+ */
+function morphologicalGroove(u: number, v: number, seed: number): number {
+  const h = coarseRelief(u, v, seed);
+  const wide = Math.max(0, horizontalBlurRelief(u, v, seed, 0.016) - h);
+  const mid = Math.max(0, horizontalBlurRelief(u, v, seed, 0.008) - h);
+  return wide * 0.85 + mid * 0.45;
+}
+
 function sparseDefectNoise(u: number, v: number, seed: number): number {
-  const n1 = multibandFbm(u * 5.2, v * 0.65, seed + 200, 3);
-  const n2 = multibandFbm(u * 2.4, v * 0.28, seed + 220, 2);
-  const combined = n1 * 0.72 + n2 * 0.28;
-  const thresh = 0.68;
+  const n1 = multibandFbm(u * 0.52, v * 5.4, seed + 200, 3);
+  const n2 = multibandFbm(u * 0.24, v * 2.4, seed + 220, 2);
+  const combined = n1 * 0.68 + n2 * 0.32;
+  const thresh = 0.7 + hash2(seed, 17, seed + 1) * 0.08;
   return Math.max(0, combined - thresh) / (1 - thresh);
 }
 
-/** Occasional long horizontal fissures (weathered seam lines). */
 function horizontalFissureSeeds(
   x: number,
   y: number,
   width: number,
   height: number,
   seed: number,
+  maxSeeds: number,
 ): number {
+  const count = 2 + Math.floor(hash2(seed, 99, seed + 301) * maxSeeds);
   let peak = 0;
-  const count = 5;
   for (let i = 0; i < count; i++) {
-    const h = i * 5.31 + seed * 0.017;
+    const h = i * 5.31 + seed * 0.017 + hash2(i, 2.1, seed) * 1.7;
     const cy = hash2(h, 0, seed + 301) * height;
     const cx = hash2(h, 1, seed + 301) * width;
-    const halfLen = width * (0.42 + hash2(h, 2, seed + 301) * 0.48) * 0.5;
-    const halfThick = height * (0.0015 + hash2(h, 3, seed + 301) * 0.005);
+    const lenBias = hash2(h, 2, seed + 301);
+    const halfLen = width * (0.28 + lenBias * 0.62) * 0.5;
+    const halfThick = height * (0.001 + hash2(h, 3, seed + 301) * 0.0045);
     const dx = (x - cx) / halfLen;
     const dy = (y - cy) / halfThick;
     const dist2 = dx * dx + dy * dy;
-    const depth = hash2(h, 4, seed + 301) * 0.35 + 0.65;
-    peak = Math.max(peak, depth * Math.exp(-dist2 * 1.15));
+    const depth = hash2(h, 4, seed + 301) * 0.4 + 0.6;
+    peak = Math.max(peak, depth * Math.exp(-dist2 * 1.2));
   }
   return peak;
-}
-
-function slowToneWash(u: number, v: number, seed: number): number {
-  return multibandFbm(u * 1.4, v * 0.18, seed + 5, 2) - 0.5;
 }
 
 function fissureAt(
@@ -213,17 +245,22 @@ function fissureAt(
   width: number,
   height: number,
   seed: number,
+  maxSeeds: number,
+  grooveStrength: number,
 ): number {
   const u = x / width;
   const v = y / height;
+  const grooves = morphologicalGroove(u, v, seed);
   const sparse = sparseDefectNoise(u, v, seed);
-  const seams = horizontalFissureSeeds(x, y, width, height, seed);
-  return Math.max(seams, sparse * 0.35);
+  const seams = horizontalFissureSeeds(x, y, width, height, seed, maxSeeds);
+  const grooveMix = grooves * grooveStrength;
+  return Math.max(seams, grooveMix, sparse * 0.28);
 }
 
-/** Smoothed band signal from ridge field height. */
-function ridgeSignal(height: number): number {
-  return Math.sin(height * Math.PI * 2);
+function fissureShadow(u: number, v: number, seed: number, grooveStrength: number): number {
+  const g = morphologicalGroove(u, v, seed);
+  const gDown = morphologicalGroove(u, v + 0.003, seed);
+  return Math.max(0, g - gDown) * grooveStrength * 0.35;
 }
 
 /** Paints procedural wood grain into `ctx` at `width` × `height` pixels. */
@@ -245,8 +282,11 @@ export function renderWoodGrain(
     warpFrequency,
     lightStrength,
     speckle,
-    fissureStrength = 0.52,
-    fineStretch = 68,
+    fissureStrength = 0.48,
+    fineStretch = 72,
+    grooveStrength = 0.55,
+    coarseBandStrength = 0.04,
+    fissureSeeds = 6,
   } = opts;
   const sampleCtx: RidgeFieldContext = {
     width,
@@ -259,28 +299,37 @@ export function renderWoodGrain(
 
   for (let y = 0; y < height; y++) {
     for (let x = 0; x < width; x++) {
-      const field = ridgeFieldAt(x, y, sampleCtx);
-      const fieldRight = ridgeFieldAt(x + 1, y, sampleCtx);
-
       const u = x / width;
       const v = y / height;
+
       const fine = fineStriations(u, v, seed, fineStretch);
       const fineRight = fineStriations((x + 1) / width, v, seed, fineStretch);
       const fineDown = fineStriations(u, (y + 1) / height, seed, fineStretch);
       const slow = slowToneWash(u, v, seed);
-      const ridge = ridgeSignal(field);
-      const fissure = fissureAt(x, y, width, height, seed);
 
-      const height01 =
-        0.52 + fine * 0.13 + slow * 0.035 + ridge * 0.07 + ridgeSignal(fieldRight) * 0.02;
+      const field = ridgeFieldAt(x, y, sampleCtx);
+      const fieldRight = ridgeFieldAt(x + 1, y, sampleCtx);
+      const ridge = ridgeSignal(field);
+      const ridgeAccent = ridge * coarseBandStrength;
+
+      const fissure = fissureAt(x, y, width, height, seed, fissureSeeds, grooveStrength);
+      const shadow = fissureShadow(u, v, seed, grooveStrength);
+
+      const height01 = 0.5 + fine * 0.145 + slow * 0.03 + ridgeAccent;
       const speck = (hash2(x * 0.9, y * 0.9, seed + 41) - 0.5) * speckle;
       const slopeX = fineRight - fine;
       const slopeY = fineDown - fine;
+      const ridgeSlope = ridgeSignal(fieldRight) - ridge;
       const light =
-        Math.max(-1, Math.min(1, slopeX * 0.55 + slopeY * 0.25 + (ridgeSignal(fieldRight) - ridge) * 0.2)) *
+        Math.max(
+          -1,
+          Math.min(1, slopeX * 0.62 + slopeY * 0.18 + ridgeSlope * coarseBandStrength * 4),
+        ) *
         lightStrength *
-        2.2;
-      const t = clamp01(height01 + light * 0.45 + speck - fissure * fissureStrength);
+        2.4;
+      const t = clamp01(
+        height01 + light * 0.42 + speck - fissure * fissureStrength - shadow * fissureStrength,
+      );
 
       const idx = (y * width + x) * 4;
       data[idx] = mixChannel(palette.dark[0], palette.light[0], t);

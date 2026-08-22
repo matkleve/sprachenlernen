@@ -1,4 +1,5 @@
 import type { WoodGrainOptions } from "@/lib/wood-grain-ridges";
+import { tunedWoodVariants } from "@/lib/wood-grain-tuned-variants";
 
 export type WoodTexture = {
   id: string;
@@ -14,24 +15,14 @@ export const woodTextures: readonly WoodTexture[] = [
     id: "raw-planks",
     number: 1,
     name: "Raw planks",
-    marks: ["Horizontal fibre layers", "Wide, uneven coarse grain", "High contrast", "Weathered fissures"],
-    grain: {
-      seed: 11,
-      palette: { dark: [42, 28, 16], light: [96, 70, 42] },
-      ridgeCount: 9,
-      warpAmount: 0.9,
-      warpFrequency: 3.2,
-      lightStrength: 0.85,
-      speckle: 0.05,
-      fissureStrength: 0.52,
-      fineStretch: 68,
-    },
+    marks: ["Horizontal fibre layers", "Weathered grooves", "High contrast"],
+    grain: tunedWoodVariants[9]!.grain,
   },
   {
     id: "sanded-bench",
     number: 2,
     name: "Sanded bench",
-    marks: ["Horizontal fibre layers", "Softer coarse grain", "Medium contrast"],
+    marks: ["Horizontal fibre layers", "Softer grooves", "Medium contrast"],
     grain: {
       seed: 27,
       palette: { dark: [58, 40, 22], light: [108, 82, 52] },
@@ -40,8 +31,11 @@ export const woodTextures: readonly WoodTexture[] = [
       warpFrequency: 4.1,
       lightStrength: 0.55,
       speckle: 0.03,
-      fissureStrength: 0.18,
-      fineStretch: 56,
+      fissureStrength: 0.22,
+      fineStretch: 58,
+      grooveStrength: 0.32,
+      coarseBandStrength: 0.05,
+      fissureSeeds: 4,
     },
   },
   {
@@ -57,8 +51,11 @@ export const woodTextures: readonly WoodTexture[] = [
       warpFrequency: 5,
       lightStrength: 0.4,
       speckle: 0.02,
-      fissureStrength: 0.08,
-      fineStretch: 52,
+      fissureStrength: 0.1,
+      fineStretch: 54,
+      grooveStrength: 0.18,
+      coarseBandStrength: 0.06,
+      fissureSeeds: 3,
     },
   },
   {
@@ -74,8 +71,11 @@ export const woodTextures: readonly WoodTexture[] = [
       warpFrequency: 6,
       lightStrength: 0.35,
       speckle: 0.02,
-      fissureStrength: 0.04,
-      fineStretch: 48,
+      fissureStrength: 0.06,
+      fineStretch: 50,
+      grooveStrength: 0.12,
+      coarseBandStrength: 0.05,
+      fissureSeeds: 2,
     },
     pill: true,
   },
@@ -84,7 +84,12 @@ export const woodTextures: readonly WoodTexture[] = [
 export const page = {
   title: "Wood textures",
   intro:
-    "Four procedural wood swatches from the progression reference board. Longitudinal plank fibres — fine striations, coarse bands, optional weathered fissures. Grain runs left to right only.",
-  grainNote: "Algorithmic longitudinal grain; canvas redraws per size.",
+    "Algorithmic longitudinal plank grain — fine striations, morphological grooves, sparse fissures. Ten tuned variants plus four reference-board species presets.",
+  grainNote: "Canvas redraws per size. No photo or FFT input.",
+  tunedHeading: "Ten tuned variants",
+  tunedIntro: "Always ten algorithmically tuned weathered-plank explorations. Pick a winner for raw planks.",
+  boardHeading: "Reference board species",
+  boardIntro: "Four progression reference-board swatches. Raw planks uses tuned variant 10.",
+  tunedVariants: tunedWoodVariants,
   marksHeading: "Marks",
 } as const;

@@ -99,7 +99,14 @@ describe("renderWoodGrain", () => {
   it("does not produce dominant vertical brightness columns", () => {
     const width = 240;
     const height = 200;
-    const pixels = renderToPixels(width, height, { ...options, speckle: 0 });
+    const pixels = renderToPixels(width, height, {
+      ...options,
+      speckle: 0,
+      fissureStrength: 0.35,
+      grooveStrength: 0.4,
+      coarseBandStrength: 0.02,
+      fissureSeeds: 4,
+    });
     const colMeans: number[] = [];
     const rowMeans: number[] = [];
     for (let x = 0; x < width; x++) {
