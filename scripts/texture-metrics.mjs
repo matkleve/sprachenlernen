@@ -109,6 +109,41 @@ export function measure(png) {
     gn += 2;
   }
 
+  // --- aspect: how many times longer is a feature than it is tall?
+  //
+  // `directionality` answers "is there a dominant direction" but its noise floor
+  // on real material is ~1.4, so it cannot rank two textures that both run
+  // horizontally. This can. Autocorrelate along each axis, take the lag at which
+  // correlation falls to 1/e, and divide. A value of 6 means features are six
+  // times wider than tall. It is the number to reach for when something looks
+  // "too stretched", because it is exactly that and nothing else.
+  const acLen = (axis) => {
+    const N = axis === "x" ? W : H, M = axis === "x" ? H : W;
+    const maxLag = Math.min(64, N - 1);
+    const acf = new Float64Array(maxLag + 1);
+    for (let l = 0; l < M; l++) {
+      const v = new Float64Array(N);
+      let mu = 0;
+      for (let i = 0; i < N; i++) { v[i] = oklab(...(axis === "x" ? at(i, l) : at(l, i)))[0]; mu += v[i]; }
+      mu /= N;
+      for (let i = 0; i < N; i++) v[i] -= mu;
+      for (let lag = 0; lag <= maxLag; lag++) {
+        let sum = 0;
+        for (let i = 0; i + lag < N; i++) sum += v[i] * v[i + lag];
+        acf[lag] += sum / (N - lag);
+      }
+    }
+    if (acf[0] <= 0) return 1;
+    for (let lag = 1; lag <= maxLag; lag++) {
+      if (acf[lag] / acf[0] < Math.exp(-1)) {
+        const prev = acf[lag - 1] / acf[0], cur = acf[lag] / acf[0];
+        return lag - 1 + (prev - Math.exp(-1)) / Math.max(prev - cur, 1e-9);
+      }
+    }
+    return maxLag;
+  };
+  const aspect = acLen("x") / Math.max(acLen("y"), 1e-6);
+
   // --- run length: do dark features run, or do they close into blobs?
   //
   // Galloway's run-length texture feature. Threshold at the 30th percentile of
@@ -180,6 +215,7 @@ export function measure(png) {
     localContrast: grad / gn,
     runLength,
     quintiles,
+    aspect,
     ang: Array.from(ang, (v) => v / total),
     rad: Array.from(rad, (v) => v / total),
   };
@@ -203,6 +239,7 @@ export function compare(ref, cand) {
     skew: cand.skew - ref.skew,
     localContrast: cand.localContrast - ref.localContrast,
     runLength: cand.runLength - ref.runLength,
+    aspectRatio: cand.aspect / ref.aspect,
     lightnessRange: (cand.quintiles[4].L - cand.quintiles[0].L) - (ref.quintiles[4].L - ref.quintiles[0].L),
     chromaProfile: Math.sqrt(ref.quintiles.reduce((a, q, i) =>
       a + (cand.quintiles[i].C - q.C) ** 2, 0) / ref.quintiles.length),
@@ -226,7 +263,7 @@ if (process.argv[1]?.endsWith("texture-metrics.mjs")) {
   console.log(`  tone(mid) ${ref.toneMid.toFixed(3)}   contrast ${ref.contrast.toFixed(3)}   ` +
     `chroma ${ref.chroma.toFixed(4)}   hue ${ref.hue.toFixed(0)}deg`);
   console.log(`  skew ${ref.skew.toFixed(2)}   localContrast ${ref.localContrast.toFixed(4)}   ` +
-    `directionality ${directionality(ref).toFixed(2)}   runLength ${ref.runLength.toFixed(3)}`);
+    `directionality ${directionality(ref).toFixed(2)}   runLength ${ref.runLength.toFixed(3)}   aspect ${ref.aspect.toFixed(1)}:1`);
   console.log(`  scale bands (coarse->fine)  ${ref.rad.map((v) => (v * 100).toFixed(0).padStart(3)).join("")}`);
   console.log(`  by lightness quintile  L ${ref.quintiles.map((q) => q.L.toFixed(2).padStart(6)).join("")}`);
   console.log(`                         C ${ref.quintiles.map((q) => q.C.toFixed(3).padStart(6)).join("")}`);
@@ -244,6 +281,7 @@ if (process.argv[1]?.endsWith("texture-metrics.mjs")) {
     console.log(`  chromaByL   ${d.chromaProfile.toFixed(4)}   L ${c.quintiles.map((q) => q.L.toFixed(2).padStart(6)).join("")}`);
     console.log(`                       C ${c.quintiles.map((q) => q.C.toFixed(3).padStart(6)).join("")}`);
     console.log(`  localCtrst  ${f(d.localContrast, 4)}`);
+    console.log(`  aspect      ${c.aspect.toFixed(1)}:1 vs ${ref.aspect.toFixed(1)}:1   x${d.aspectRatio.toFixed(2)}   ${d.aspectRatio > 1.35 ? "<< too stretched" : d.aspectRatio < 0.74 ? "<< not stretched enough" : "ok"}`);
     console.log(`  runLength   ${f(d.runLength, 3)}   ${d.runLength < -0.02 ? "<< features breaking up / closing into loops" : d.runLength > 0.02 ? "<< features too continuous" : "ok"}`);
     console.log(`  orientation ${d.orientation.toFixed(2)}   (directionality ${directionality(c).toFixed(2)} vs ${directionality(ref).toFixed(2)})`);
     console.log(`  scale       ${d.scale.toFixed(2)}   bands ${c.rad.map((v) => (v * 100).toFixed(0).padStart(3)).join("")}`);

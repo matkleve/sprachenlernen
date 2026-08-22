@@ -45,7 +45,8 @@ board, over roughly a dozen measured iterations.
 | `skew` | skew of the lightness histogram | *mostly light with narrow dark notches* (grain cracks) vs *mostly dark with bright specks* (brass, stars). Negative and positive are different materials. |
 | `localContrast` | mean per-pixel gradient | whether edges fall clean or fray into noise |
 | `directionality` | energy in the strongest orientation wedge | grain and brushed metal are directional; paper and plaster are not |
-| `runLength` | mean horizontal run of below-p30 pixels, as a fraction of width | whether dark features *run* or close into blobs — see failure 5 |
+| `runLength` | mean horizontal run of below-p30 pixels, as a fraction of width | whether dark features *run* or close into blobs |
+| `aspect` | autocorrelation length along x ÷ along y | how many times longer a feature is than it is tall — the "too stretched" number |
 | `scale` bands | energy per octave, coarse → fine | how many distinct depths of structure exist, and at what sizes |
 
 Two are worth dwelling on.
@@ -73,19 +74,21 @@ tell you.
 ### The noise floor, and why you need one
 
 Measure two clean patches of the *same* material before comparing anything to
-it. Three patches of the Workshop bench, from columns 1 to 3 of the reference
-board, give:
+it — and make sure they really are the same. Columns 1 to 3 of the reference
+board are three *different* wood stages by design, so using them as a floor
+overstates it. Two patches from the same column give:
 
-| | scale bands (coarse → fine) | scale-d | orientation-d | runLength |
-| --- | --- | --- | --- | --- |
-| patch 1 | 5 10 21 **43** 13 9 | — | — | 0.031 |
-| patch 2 | 9 8 21 **38** 15 9 | 0.65 | 1.41 | 0.033 |
-| patch 3 | 15 7 13 **40** 17 8 | 1.34 | 1.36 | 0.040 |
+| | aspect | scale-d | runLength |
+| --- | --- | --- | --- |
+| patch A (above the card) | 7.3:1 | — | 0.031 |
+| patch B (below the button) | 7.5:1 | 0.87 | 0.054 |
 
-So on this material a scale distance under ~1.3 is **indistinguishable from the
-real thing**, and any orientation distance under ~1.4 is noise — which
-retroactively voids most of the orientation comparisons made before this was
-measured. `runLength` is the steadiest of the three.
+So on this material: **aspect is stable to ×1.03** and is the sharpest
+discriminator in the suite; a scale distance under ~0.9 is indistinguishable
+from the real thing. Orientation distance between clean patches of the same
+material runs ~1.4, which makes that term useless for ranking and voids the
+orientation comparisons made before this was measured — `aspect` replaces it
+for anything to do with stretch.
 
 Without a floor there is no way to know when to stop, and it is easy to keep
 "improving" a number that stopped meaning anything.
@@ -147,7 +150,13 @@ Four real failures, in the order they happened:
    one continuous surface, and so are the cards. This is failure 3 again in a
    new costume: check what is physically in the crop at 4x zoom before drawing
    any conclusion from its numbers.
-7. **Legitimate lighting scores badly.** Adding the warm top-and-bottom wash the
+7. **`directionality` cannot rank stretch; `aspect` can.** Two textures that both
+   run horizontally get near-identical orientation histograms however different
+   their elongation, and the term's own noise floor (~1.4) swamps the signal.
+   The autocorrelation aspect ratio is direct and stable to ×1.03: a candidate
+   that read "ok" on directionality measured 14.5:1 against the reference's
+   7.3:1, exactly the 2x over-stretch the owner had already called by eye.
+8. **Legitimate lighting scores badly.** Adding the warm top-and-bottom wash the
    reference clearly has made the distance worse, because it is low-frequency
    energy the spectrum penalises. The metric is blind to whether a difference is
    the material or the light on it.
