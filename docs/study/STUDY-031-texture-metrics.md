@@ -68,6 +68,26 @@ tell you.
 | Brass | high, but from the *highlight*, not the body | mostly fine | positive — bright specular on a dark body | mid, narrow hue |
 | Paper / plaster | low, near isotropic | fine only | near zero | very low |
 
+### The noise floor, and why you need one
+
+Measure two clean patches of the *same* material before comparing anything to
+it. Three patches of the Workshop bench, from columns 1 to 3 of the reference
+board, give:
+
+| | scale bands (coarse → fine) | scale-d | orientation-d | runLength |
+| --- | --- | --- | --- | --- |
+| patch 1 | 5 10 21 **43** 13 9 | — | — | 0.031 |
+| patch 2 | 9 8 21 **38** 15 9 | 0.65 | 1.41 | 0.033 |
+| patch 3 | 15 7 13 **40** 17 8 | 1.34 | 1.36 | 0.040 |
+
+So on this material a scale distance under ~1.3 is **indistinguishable from the
+real thing**, and any orientation distance under ~1.4 is noise — which
+retroactively voids most of the orientation comparisons made before this was
+measured. `runLength` is the steadiest of the three.
+
+Without a floor there is no way to know when to stop, and it is easy to keep
+"improving" a number that stopped meaning anything.
+
 ### How they mislead
 
 Four real failures, in the order they happened:
@@ -106,19 +126,32 @@ Four real failures, in the order they happened:
    board's 3/6/7/25/40/18: far too coarse, reading as soft mush at the size it
    will be seen. Crop the reference at display scale and render the candidate at
    display scale, or the numbers describe a zoom nobody will look at.
-6. **Legitimate lighting scores badly.** Adding the warm top-and-bottom wash the
+6. **A crop can contain the design, not just the material.** Coarse-band energy
+   in a bench strip was read as a plank seam and nearly became a feature. It was
+   the accent rule under the chapter numeral in one crop and the shadowed edge
+   of a button in another. The reference bench has **no seams at all** — it is
+   one continuous surface, and so are the cards. This is failure 3 again in a
+   new costume: check what is physically in the crop at 4x zoom before drawing
+   any conclusion from its numbers.
+7. **Legitimate lighting scores badly.** Adding the warm top-and-bottom wash the
    reference clearly has made the distance worse, because it is low-frequency
    energy the spectrum penalises. The metric is blind to whether a difference is
    the material or the light on it.
 
-### A limit that is not the metric's fault
+### A limit that turned out not to be one
 
-`feTurbulence` produces fractal noise: a power-law falloff spreading down from
-its base frequency. It cannot be made to *peak* in one octave. Where a reference
-concentrates half its energy in a single band, parameter search plateaus — two
-searches over ~250 candidates would not move it. Reaching that shape needs
-band-limited noise, i.e. baking the tile offline rather than generating it in a
-filter chain.
+An earlier version of this doc claimed `feTurbulence` cannot be made to peak in
+one octave, and that matching a reference which does would need baked tiles.
+That was wrong, and the error was `numOctaves`. Fractal noise at 2+ octaves
+*does* spread a power-law tail downward and no amount of parameter search fixes
+it. At **`numOctaves="1"` each layer is narrow-band**, and a stack of
+single-octave layers at staggered frequencies is band-limited noise — which is
+the thing that was supposed to be impossible.
+
+The reference bench peaks at 43% in one band. Multi-octave layers plateaued at
+scale-d 1.90 with a monotonically falling profile. Single-octave layers at the
+same frequencies scaled 5x finer reach 6/9/24/33/20/8 against 5/10/21/43/13/9,
+scale-d **0.60** — below the noise floor above.
 
 ## Product consequences
 
