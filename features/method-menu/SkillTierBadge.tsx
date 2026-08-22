@@ -51,7 +51,8 @@ export type SkillTierBadgeProps = {
 
 export function SkillTierBadge({ skill, tier, size, className }: SkillTierBadgeProps) {
   const { skillLabels } = useMethodMenuCopy();
-  const src = skillTierBadgeSrc(skill, tier);
+  const badgeSurface = size === "card" ? "card" : "detail";
+  const src = skillTierBadgeSrc(skill, tier, badgeSurface);
   const label = `${TIER_LABEL[tier]} ${skillLabels[skill]}`;
   const dimensions =
     size === "card" ? { width: 64, height: 64 } : { width: 56, height: 56 };

@@ -25,6 +25,8 @@ TIERS = ["wood", "bronze", "silver", "gold", "platinum"]
 
 OUTPUT_SIZE = 256
 CONTENT_FILL = 0.50
+CARD_OUTPUT_SIZE = 96
+CARD_CONTENT_FILL = 0.65  # shield ≤ ~70% of cell — tips never touch bbox (DR-040 S2)
 
 LEGACY_MARGIN_X = 0.08
 LEGACY_MARGIN_Y = 0.08
@@ -295,7 +297,13 @@ def crop_cell(
     return crop_cell_legacy(image, col, row, sheet_alpha=sheet_alpha)
 
 
-def normalize_badge(cell: Image.Image, *, sheet_alpha: bool) -> Image.Image:
+def normalize_badge_on_canvas(
+    cell: Image.Image,
+    *,
+    sheet_alpha: bool,
+    canvas_size: int,
+    content_fill: float,
+) -> Image.Image:
     """Centre shield on a canvas — equal **height** across tiers (width may vary)."""
     if cell.mode != "RGBA":
         cell = key_cell_rgb_sheet(cell)
@@ -308,15 +316,42 @@ def normalize_badge(cell: Image.Image, *, sheet_alpha: bool) -> Image.Image:
 
     content = cell.crop(bbox)
     cw, ch = content.size
-    target_h = int(OUTPUT_SIZE * CONTENT_FILL)
+    target_h = int(canvas_size * content_fill)
     scale = target_h / ch
     nw, nh = max(1, int(cw * scale)), target_h
     content = content.resize((nw, nh), Image.Resampling.LANCZOS)
 
-    canvas_w = max(OUTPUT_SIZE, nw + 16)
-    canvas = Image.new("RGBA", (canvas_w, OUTPUT_SIZE), (0, 0, 0, 0))
-    canvas.paste(content, ((canvas_w - nw) // 2, (OUTPUT_SIZE - nh) // 2), content)
+    canvas_w = max(canvas_size, nw + 16)
+    canvas = Image.new("RGBA", (canvas_w, canvas_size), (0, 0, 0, 0))
+    canvas.paste(content, ((canvas_w - nw) // 2, (canvas_size - nh) // 2), content)
     return canvas
+
+
+def normalize_badge(cell: Image.Image, *, sheet_alpha: bool) -> Image.Image:
+    return normalize_badge_on_canvas(
+        cell,
+        sheet_alpha=sheet_alpha,
+        canvas_size=OUTPUT_SIZE,
+        content_fill=CONTENT_FILL,
+    )
+
+
+def normalize_badge_card(cell: Image.Image, *, sheet_alpha: bool) -> Image.Image:
+    """Card catalogue size — more margin so heraldic tips stay inside the box."""
+    normalized = normalize_badge_on_canvas(
+        cell,
+        sheet_alpha=sheet_alpha,
+        canvas_size=CARD_OUTPUT_SIZE,
+        content_fill=CARD_CONTENT_FILL,
+    )
+    # Force square 96×96 export for predictable object-contain in the card row.
+    if normalized.size != (CARD_OUTPUT_SIZE, CARD_OUTPUT_SIZE):
+        square = Image.new("RGBA", (CARD_OUTPUT_SIZE, CARD_OUTPUT_SIZE), (0, 0, 0, 0))
+        x = (CARD_OUTPUT_SIZE - normalized.width) // 2
+        y = (CARD_OUTPUT_SIZE - normalized.height) // 2
+        square.paste(normalized, (x, y), normalized)
+        return square
+    return normalized
 
 
 def pick_source() -> Path:
@@ -352,10 +387,14 @@ def main() -> None:
     for row, tier in enumerate(TIERS):
         for col, skill in enumerate(SKILLS):
             cell = crop_cell(grid, col, row, v2=v2, sheet_alpha=sheet_alpha)
-            cell = normalize_badge(cell, sheet_alpha=sheet_alpha)
+            detail = normalize_badge(cell, sheet_alpha=sheet_alpha)
             out = OUT_DIR / f"{skill}-{tier}.png"
-            cell.save(out, format="PNG", optimize=True)
+            detail.save(out, format="PNG", optimize=True)
             print(f"wrote {out.relative_to(ROOT)}")
+            card = normalize_badge_card(cell, sheet_alpha=sheet_alpha)
+            card_out = OUT_DIR / f"{skill}-{tier}-card.png"
+            card.save(card_out, format="PNG", optimize=True)
+            print(f"wrote {card_out.relative_to(ROOT)}")
 
     print("Done — vocabulary-* SVG placeholders unchanged.")
 
