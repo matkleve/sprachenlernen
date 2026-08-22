@@ -192,8 +192,8 @@ def synthesize_valley_field(
     return field
 
 
-def synthesize(input_path: Path, name: str, out_dir: Path) -> None:
-    out_dir.mkdir(parents=True, exist_ok=True)
+def build_layers(input_path: Path) -> dict[str, np.ndarray]:
+    """All intermediate layers for diagnostics (grayscale fields in ~0–1 or 0–255)."""
     img_rgb = np.asarray(Image.open(input_path).convert("RGB"), dtype=float)
     height = np.asarray(Image.open(input_path).convert("L"), dtype=float)
     h, w = height.shape
@@ -201,7 +201,6 @@ def synthesize(input_path: Path, name: str, out_dir: Path) -> None:
     rng_coarse = np.random.default_rng(SEED + 1)
     win = np.outer(np.hanning(h), np.hanning(w))
 
-    # 1. base grain ripple on the height field
     height_c = height - height.mean()
     spec = np.fft.fft2(height_c * win)
     mag_shifted = gaussian_filter(np.fft.fftshift(np.abs(spec)), sigma=SPEC_SMOOTH_SIGMA)
@@ -212,23 +211,21 @@ def synthesize(input_path: Path, name: str, out_dir: Path) -> None:
     base = np.fft.ifft2(np.fft.fft2(noise) * filt).real
     base = (base - base.mean()) / (base.std() + 1e-8)
 
-    # 2–5. synthesize valley depth layers (fine checking + coarse fissures)
     valley_fine_real, valley_coarse_real = extract_valley_layers(height)
-    valley_fine = synthesize_valley_field(
+    fine_hb_raw = synthesize_valley_field(
         valley_fine_real, win, FEATURE_SCALE, rng_fine, FINE_RUN_W, FINE_BAND_H
     )
-    valley_coarse = synthesize_valley_field(
+    coarse_hb_raw = synthesize_valley_field(
         valley_coarse_real, win, COARSE_FEATURE_SCALE, rng_coarse, COARSE_RUN_W, COARSE_BAND_H
     )
     valley_fine = shape_grooves(
-        valley_fine, FINE_VALLEY_FLOOR, FINE_VALLEY_POWER, FINE_RUN_W, FINE_BAND_H
+        fine_hb_raw, FINE_VALLEY_FLOOR, FINE_VALLEY_POWER, FINE_RUN_W, FINE_BAND_H
     )
     valley_coarse = shape_grooves(
-        valley_coarse, COARSE_VALLEY_FLOOR, COARSE_VALLEY_POWER, COARSE_RUN_W, COARSE_BAND_H
+        coarse_hb_raw, COARSE_VALLEY_FLOOR, COARSE_VALLEY_POWER, COARSE_RUN_W, COARSE_BAND_H
     )
     valley_combined = np.clip(valley_fine + valley_coarse, 0, 1)
 
-    # 6. directional rim from valley relief (fiber lip beside the groove)
     smoothed = gaussian_filter(valley_combined, sigma=RIM_PRE_BLUR)
     grad_y = np.gradient(smoothed, axis=0)
     rim_below = np.clip(-grad_y, 0, None)
@@ -236,13 +233,11 @@ def synthesize(input_path: Path, name: str, out_dir: Path) -> None:
     rim = rim_below + TOP_FRACTION * rim_above
     rim = rim / (rim.max() + 1e-8)
 
-    # 7. patchy rim
     patch_noise = gaussian_filter(rng_fine.normal(size=(h, w)), sigma=PATCH_NOISE_SIGMA)
     patch_noise = (patch_noise - patch_noise.min()) / (patch_noise.max() - patch_noise.min() + 1e-8)
     patch_mask = np.clip((patch_noise - PATCH_THRESHOLD) / (1 - PATCH_THRESHOLD), 0, 1)
     rim_patchy = rim * patch_mask
 
-    # 8. height / shading composite — valleys cut down from neutral
     grain_px = base * GRAIN_CONTRAST
     valley_px = (
         valley_fine * 255 * FINE_VALLEY_STRENGTH
@@ -250,15 +245,46 @@ def synthesize(input_path: Path, name: str, out_dir: Path) -> None:
     )
     rim_px = rim_patchy * 255 * RIM_STRENGTH
     shading = np.clip(128 + grain_px - valley_px + rim_px, 0, 255)
-    Image.fromarray(shading.astype(np.uint8), mode="L").save(out_dir / f"{name}_shading.png")
 
-    # 9. colorize
     albedo = np.stack(
         [gaussian_filter(img_rgb[..., c], sigma=ALBEDO_BLUR_SIGMA) for c in range(3)], axis=-1
     )
-    final = np.clip(albedo * (shading[..., None] / 128.0), 0, 255).astype(np.uint8)
-    Image.fromarray(final, mode="RGB").save(out_dir / f"{name}_final.png")
+    final = np.clip(albedo * (shading[..., None] / 128.0), 0, 255)
 
+    def norm01(a: np.ndarray) -> np.ndarray:
+        p = a.max()
+        return (a / p) if p > 0 else a
+
+    return {
+        "height": norm01(height),
+        "measured_fine_valley": norm01(valley_fine_real),
+        "measured_coarse_valley": norm01(valley_coarse_real),
+        "measured_fine_valley_raw": valley_fine_real,
+        "measured_coarse_valley_raw": valley_coarse_real,
+        "base_grain": norm01(base),
+        "hb_fine_raw": fine_hb_raw,
+        "hb_coarse_raw": coarse_hb_raw,
+        "fine_shaped": valley_fine,
+        "coarse_shaped": valley_coarse,
+        "valley_combined": valley_combined,
+        "rim": rim,
+        "rim_patchy": rim_patchy,
+        "shading": shading,
+        "final_rgb": final,
+        "albedo": albedo,
+        "img_rgb": img_rgb,
+        "grain_px": grain_px,
+    }
+
+
+def synthesize(input_path: Path, name: str, out_dir: Path) -> None:
+    out_dir.mkdir(parents=True, exist_ok=True)
+    layers = build_layers(input_path)
+    shading = layers["shading"]
+    final = layers["final_rgb"]
+    Image.fromarray(shading.astype(np.uint8), mode="L").save(out_dir / f"{name}_shading.png")
+    Image.fromarray(final.astype(np.uint8), mode="RGB").save(out_dir / f"{name}_final.png")
+    h, w = shading.shape
     print(f"[{name}] {w}x{h} -> {name}_shading.png, {name}_final.png (in {out_dir})")
 
 
