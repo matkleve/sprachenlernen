@@ -148,6 +148,7 @@ rule or a button edge, not the material.
 - Reproducing a knot as a discrete feature needs a separate mechanism (domain
   warping the base grain's sampling coordinates around the knot center, plus
   its own small radial-ring stamp) — not built yet, noted for a future pass.
+- **Further synthesis paused** — see [STUDY-034](STUDY-034-texture-generation-archive.md).
 
 ## Related
 

@@ -12,7 +12,10 @@
     0 10px 24px rgb(0 0 0 / 0.28);
 }
 
-.wood-texture-swatch--pill {
+.wood-texture-swatch--tuned {
+  min-height: 9rem;
+}
+
   min-height: 4.5rem;
   border-radius: 9999px;
 }
