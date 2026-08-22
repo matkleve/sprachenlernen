@@ -8,10 +8,11 @@ promoted.
 
 ```
   design/
-  logo/              App mark + wordmark explorations (SVG source)
-  method-sections/   Catalogue banner explorations (grid PNG → WebP)
-  progression/       Optional tile PNGs for `/dev/progression` material skins
-  README.md          This file
+  logo/                App mark + wordmark explorations (SVG source)
+  method-sections/     Catalogue banner explorations (grid PNG → WebP)
+  progression/         Optional tile PNGs for `/dev/progression` material skins
+  wood-grain-fourier/  2D-FFT wood-grain synthesis: source photos, patches, outputs
+  README.md            This file
 ```
 
 ### Progression reference board (normative)
@@ -53,6 +54,11 @@ the source rather than hand-tuned). Reasoning and evidence:
 Source photo: one wood species per image (not a multi-species grid — that
 splits resolution and creates seam artifacts), max resolution, flat lighting,
 zero perspective, PNG.
+
+Every image from building this pipeline — source photos, cropped patches,
+and the full iteration trail — is archived and indexed at
+[`design/wood-grain-fourier/README.md`](wood-grain-fourier/README.md).
+Current best output: `design/wood-grain-fourier/outputs/final/`.
 
 Method section graphics brief:
 [`docs/explorations/../../explorations/EXP-039-method-section-graphics-brief.md`](../docs/explorations/../../explorations/EXP-039-method-section-graphics-brief.md).
