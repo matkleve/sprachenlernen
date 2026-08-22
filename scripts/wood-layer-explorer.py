@@ -102,17 +102,15 @@ def main(source: Path) -> None:
 
     pipeline_layers = [
         ("01 height", layers["height"]),
-        ("02 meas fine valley", layers["measured_fine_valley"]),
-        ("03 meas coarse valley", layers["measured_coarse_valley"]),
-        ("04 base grain", layers["base_grain"]),
-        ("05 HB fine raw", layers["hb_fine_raw"]),
-        ("06 HB coarse raw", layers["hb_coarse_raw"]),
-        ("07 fine shaped", layers["fine_shaped"]),
-        ("08 coarse shaped", layers["coarse_shaped"]),
-        ("09 valley combined", layers["valley_combined"]),
-        ("10 rim", layers["rim"]),
-        ("11 rim patchy", layers["rim_patchy"]),
-        ("12 shading", layers["shading"] / 255.0),
+        ("02 valley threshold q=0.12", layers["valley_threshold"]),
+        ("03 valley combined (final)", layers["valley_combined"]),
+        ("04 base grain FFT", layers["base_grain"]),
+        ("05 rim", layers["rim"]),
+        ("06 rim patchy", layers["rim_patchy"]),
+        ("07 shading", layers["shading"] / 255.0),
+        ("08 envelope HB (diag)", layers["valley_envelope_hb"]),
+        ("09 meas coarse (diag)", layers["measured_coarse_valley"]),
+        ("10 HB coarse (diag)", layers["coarse_shaped"]),
     ]
     exported: list[tuple[str, Path]] = []
     for label, arr in pipeline_layers:
@@ -155,9 +153,9 @@ def main(source: Path) -> None:
     metrics_rows.insert(
         0,
         {
-            "variant": "current_fft_hb",
+            "variant": "threshold_valley_q0.12",
             "components": "—",
-            "depth_ink": round(float(layers["coarse_shaped"].mean()), 5),
+            "depth_ink": round(float((layers["valley_threshold"] > 0.05).mean()), 5),
             "contrast": flags_cur.get("contrast", ""),
             "lightRange": flags_cur.get("lightRange", ""),
             "tails": flags_cur.get("tails", ""),
@@ -171,17 +169,16 @@ def main(source: Path) -> None:
     make_grid(sparse_final_exports, OUT_ARTIFACTS / f"{name}-sparse-finals.png", cols=3)
 
     src = Image.open(source).convert("RGB")
-    meas = Image.open(out_layers / "03_pipeline.png").convert("RGB")
-    best = Image.open(out_layers / "sparse_major_2_final.png")
+    thr = Image.open(out_layers / "02_pipeline.png").convert("RGB")
     cur = Image.open(out_layers / "13_final_rgb.png")
     sw, sh = src.size
     stack = Image.new("RGB", (sw * 2 + 16, sh * 2 + 40), (20, 20, 20))
     draw = ImageDraw.Draw(stack)
     panels = [
         (src, "source"),
-        (meas, "measured coarse (continuous)"),
-        (best, "sparse major_2 + capped cut"),
-        (cur, "current FFT+HB"),
+        (thr, "valley threshold q=0.12"),
+        (cur, "synthesis final (threshold + FFT grain)"),
+        (Image.open(out_layers / "08_pipeline.png"), "envelope HB (rejected)"),
     ]
     for i, (im, lab) in enumerate(panels):
         r, c = divmod(i, 2)

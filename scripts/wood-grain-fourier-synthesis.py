@@ -16,23 +16,19 @@ splits resolution N ways and creates hard seams that contaminate the FFT),
 maximum resolution, flat/uniform lighting, zero perspective, PNG not JPEG.
 
 Height-field model (STUDY-032): luminance is relief — light = ridge, dark =
-valley. Cracks are directional grooves cut into that surface, not soft blur
-blobs. Valley depth = local ridge envelope minus height; horizontal grooves
-use a vertical morphological ridge envelope (max along columns).
+valley. Crack depth = threshold on source luminance (lib/wood_valley_threshold)
+— preserves true crack width. Ridge-envelope extraction is diagnostic only;
+Heeger–Bergen is for base grain ripple, not crack placement.
 
 STAGES:
   1. Base grain   -- FFT the real photo -> smoothed magnitude spectrum ->
                      filter fresh white noise with it (spectral synthesis).
-  2. Valley layers -- fine + coarse depth from vertical ridge envelope;
-                     coarse = deep envelope minus fine (big fissures only).
-  3. Feature scale -- optional spectrum zoom per layer (native = 1.0).
-  4. Heeger-Bergen -- match spectrum + elongated depth histogram per layer.
-  5. Shape grooves -- horizontal max-pool on continuous depth (flat floors,
-                     grain direction; never binarize to black rectangles).
-  6. Directional rim -- vertical gradient of combined valley depth.
-  7. Patchy rim   -- thresholded low-frequency mask on the rim.
-  8. Composite    -- height map: neutral + grain ripple - valley cuts + rim.
-  9. Colorize     -- albedo x shading / 128.
+  2. Valley depth -- clip(threshold - luminance) at dark quantile (default 0.12).
+                     Sharp edges, correct width — measured from this photo.
+  3. Directional rim -- vertical gradient of valley depth.
+  4. Patchy rim   -- thresholded low-frequency mask on the rim.
+  5. Composite    -- height map: neutral + grain ripple - valley cuts + rim.
+  6. Colorize     -- albedo x shading / 128.
 
 Usage:
     python3 scripts/wood-grain-fourier-synthesis.py <source_photo.png> <wood_name> [out_dir]
@@ -43,28 +39,20 @@ from __future__ import annotations
 import sys
 from pathlib import Path
 
+_ROOT = Path(__file__).resolve().parents[1]
+if str(_ROOT) not in sys.path:
+    sys.path.insert(0, str(_ROOT))
+
 import numpy as np
 from PIL import Image
 from scipy.ndimage import gaussian_filter, grey_dilation, maximum_filter, zoom
 
+from lib.wood_valley_threshold import luminance_valley_depth
+
 # ---- tuned parameters (see STUDY-032) ----
-FINE_VALLEY_RADIUS = 7         # vertical ridge envelope for fine checking (px)
-COARSE_VALLEY_RADIUS = 41      # vertical envelope for wide fissures (px)
-SPEC_SMOOTH_SIGMA = 2.5        # smooth measured spectra before synthesis
-FEATURE_SCALE = 1.0            # native scale (9.0 was bubbly blobs — 2026-08-22)
-COARSE_FEATURE_SCALE = 1.0
-ITERATIONS = 6                 # Heeger-Bergen rounds per valley layer
-FINE_VALLEY_STRENGTH = 0.52    # depth cut — keep wood visible between grooves
-COARSE_VALLEY_STRENGTH = 0.68
-FINE_VALLEY_FLOOR = 0.12
-FINE_VALLEY_POWER = 1.45
-COARSE_VALLEY_FLOOR = 0.08
-COARSE_VALLEY_POWER = 1.35
-FINE_RUN_W = 22                # horizontal max-pool along grain (px)
-FINE_BAND_H = 2                # groove height (px)
-COARSE_RUN_W = 48
-COARSE_BAND_H = 5
-GROOVE_ACTIVE = 0.10           # min normalized depth before elongation applies
+VALLEY_LUMINANCE_QUANTILE = 0.12   # dark quantile — overlay winner on wood-01
+VALLEY_STRENGTH = 0.62             # depth cut into shading (continuous, not binary)
+VALLEY_MAX_CUT = 0.52              # cap subtract so grooves stay dark brown not #000
 RIM_PRE_BLUR = 2.0             # rim only — valleys stay sharp
 RIM_STRENGTH = 0.6
 TOP_FRACTION = 0.2
@@ -73,6 +61,24 @@ PATCH_THRESHOLD = 0.55
 GRAIN_CONTRAST = 14
 ALBEDO_BLUR_SIGMA = 14.0
 SEED = 0
+# envelope + HB — diagnostic export only
+FINE_VALLEY_RADIUS = 7
+COARSE_VALLEY_RADIUS = 41
+SPEC_SMOOTH_SIGMA = 2.5
+FEATURE_SCALE = 1.0
+COARSE_FEATURE_SCALE = 1.0
+ITERATIONS = 6
+FINE_VALLEY_FLOOR = 0.12
+FINE_VALLEY_POWER = 1.45
+COARSE_VALLEY_FLOOR = 0.08
+COARSE_VALLEY_POWER = 1.35
+FINE_RUN_W = 22
+FINE_BAND_H = 2
+COARSE_RUN_W = 48
+COARSE_BAND_H = 5
+GROOVE_ACTIVE = 0.10
+FINE_VALLEY_STRENGTH = 0.52
+COARSE_VALLEY_STRENGTH = 0.68
 
 
 def scale_spectrum(mag_shifted: np.ndarray, feature_scale: float) -> np.ndarray:
@@ -211,6 +217,9 @@ def build_layers(input_path: Path) -> dict[str, np.ndarray]:
     base = np.fft.ifft2(np.fft.fft2(noise) * filt).real
     base = (base - base.mean()) / (base.std() + 1e-8)
 
+    valley_threshold = luminance_valley_depth(height, VALLEY_LUMINANCE_QUANTILE)
+
+    # legacy envelope + HB (layer export only — not used in final composite)
     valley_fine_real, valley_coarse_real = extract_valley_layers(height)
     fine_hb_raw = synthesize_valley_field(
         valley_fine_real, win, FEATURE_SCALE, rng_fine, FINE_RUN_W, FINE_BAND_H
@@ -224,7 +233,9 @@ def build_layers(input_path: Path) -> dict[str, np.ndarray]:
     valley_coarse = shape_grooves(
         coarse_hb_raw, COARSE_VALLEY_FLOOR, COARSE_VALLEY_POWER, COARSE_RUN_W, COARSE_BAND_H
     )
-    valley_combined = np.clip(valley_fine + valley_coarse, 0, 1)
+    valley_envelope_hb = np.clip(valley_fine + valley_coarse, 0, 1)
+
+    valley_combined = valley_threshold
 
     smoothed = gaussian_filter(valley_combined, sigma=RIM_PRE_BLUR)
     grad_y = np.gradient(smoothed, axis=0)
@@ -240,8 +251,7 @@ def build_layers(input_path: Path) -> dict[str, np.ndarray]:
 
     grain_px = base * GRAIN_CONTRAST
     valley_px = (
-        valley_fine * 255 * FINE_VALLEY_STRENGTH
-        + valley_coarse * 255 * COARSE_VALLEY_STRENGTH
+        valley_combined * 255.0 * VALLEY_STRENGTH * VALLEY_MAX_CUT
     )
     rim_px = rim_patchy * 255 * RIM_STRENGTH
     shading = np.clip(128 + grain_px - valley_px + rim_px, 0, 255)
@@ -266,7 +276,9 @@ def build_layers(input_path: Path) -> dict[str, np.ndarray]:
         "hb_coarse_raw": coarse_hb_raw,
         "fine_shaped": valley_fine,
         "coarse_shaped": valley_coarse,
+        "valley_threshold": valley_threshold,
         "valley_combined": valley_combined,
+        "valley_envelope_hb": valley_envelope_hb,
         "rim": rim,
         "rim_patchy": rim_patchy,
         "shading": shading,
