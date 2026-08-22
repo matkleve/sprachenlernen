@@ -143,3 +143,4 @@ rule or a button edge, not the material.
 | [`progression-reference-board.md`](../specs/feature/progression-reference-board.md) | Visual target; permits "tile" as an implementation choice |
 | [`docs/plans/progression-theme-system.md`](../plans/progression-theme-system.md) | § *Measured wood recipe* — the owner decision this pipeline implements |
 | `scripts/wood-grain-fourier-synthesis.py` | The implementation |
+| [`design/wood-grain-fourier/README.md`](../../design/wood-grain-fourier/README.md) | Every image from this work — source photos, patches, and the full iteration trail — indexed |
