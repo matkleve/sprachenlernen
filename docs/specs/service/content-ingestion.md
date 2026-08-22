@@ -109,5 +109,6 @@ In [`content-ingestion.acceptance-criteria.md`](content-ingestion.acceptance-cri
 ## Open
 
 - **⚠ SPEC GAP:** legal review checklist for DW/BBC feeds before production ingest.
+  **Resolved 2026-08-22:** [`docs/legal/content-ingestion-legal-review.md`](../../legal/content-ingestion-legal-review.md) (T-CI7). Production partner ingest still requires TOS URL on each row.
 - **⚠ SPEC GAP:** EU DSM directive / Germany UrhG — private adaptation vs
   catalogue redistribution — needs counsel before lane B scales.
