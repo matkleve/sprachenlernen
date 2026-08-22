@@ -24,7 +24,7 @@
 import { existsSync, globSync, readFileSync } from "node:fs";
 import { basename, dirname, join, resolve } from "node:path";
 
-const ROOT = join(import.meta.dirname, "..");
+const ROOT = join(import.meta.dirname, "../..");
 
 const WARN_LINES = 150;
 const ERROR_LINES = 180;

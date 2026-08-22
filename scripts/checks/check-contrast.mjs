@@ -12,9 +12,9 @@ import {
   PAIRS,
   STATE_DELTAS,
 } from "./contrast-pairs.mjs";
-import { composite, contrast } from "./lib/color.mjs";
+import { composite, contrast } from "../lib/color.mjs";
 
-const CSS = join(import.meta.dirname, "..", "app", "globals.css");
+const CSS = join(import.meta.dirname, "../..", "app", "globals.css");
 
 function block(css, startPattern) {
   const start = css.search(startPattern);
@@ -120,7 +120,7 @@ for (const row of rows.filter((r) => r.ok === "FAIL")) {
 if (uncovered.length) {
   console.error(
     `✗ tokens with no contrast coverage: ${uncovered.join(", ")}\n` +
-      `  Add them to scripts/contrast-pairs.mjs, or to EXEMPT if decoration only.`,
+      `  Add them to scripts/checks/contrast-pairs.mjs, or to EXEMPT if decoration only.`,
   );
   failed += uncovered.length;
 }

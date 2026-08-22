@@ -22,12 +22,12 @@ import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 
-import { assembleTable } from "./lemma/assemble.mjs";
-import { fetchCached, readFrequency } from "./lemma/io.mjs";
-import { LANGUAGES } from "./lemma/languages.mjs";
-import { readMorphit } from "./lemma/morphit.mjs";
-import { readTreebank } from "./lemma/treebank.mjs";
-import { readUnimorph } from "./lemma/unimorph.mjs";
+import { assembleTable } from "../lemma/assemble.mjs";
+import { fetchCached, readFrequency } from "../lemma/io.mjs";
+import { LANGUAGES } from "../lemma/languages.mjs";
+import { readMorphit } from "../lemma/morphit.mjs";
+import { readTreebank } from "../lemma/treebank.mjs";
+import { readUnimorph } from "../lemma/unimorph.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const CACHE = process.env.MORPH_CACHE ?? join(ROOT, ".cache/morph");

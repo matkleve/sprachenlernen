@@ -5,7 +5,7 @@
 import { globSync, readFileSync, writeFileSync } from "node:fs";
 import { basename, join } from "node:path";
 
-const ROOT = join(import.meta.dirname, "..");
+const ROOT = join(import.meta.dirname, "../..");
 
 const meta = (text, key) =>
   text.match(new RegExp(`<!--\\s*${key}:\\s*(.+?)\\s*-->`))?.[1] ?? null;

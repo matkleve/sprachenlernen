@@ -9,7 +9,7 @@ import { execSync } from "node:child_process";
 import { existsSync } from "node:fs";
 import { join } from "node:path";
 
-const ROOT = join(import.meta.dirname, "..");
+const ROOT = join(import.meta.dirname, "../..");
 const svg = join(ROOT, "public/icon.svg");
 
 if (!existsSync(svg)) {

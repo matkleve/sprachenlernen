@@ -22,7 +22,7 @@
 import { globSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 
-const ROOT = join(import.meta.dirname, "..");
+const ROOT = join(import.meta.dirname, "../..");
 
 /** Files permitted to read the elevated key. Adding one is a review decision. */
 const SERVICE_ROLE_ALLOWLIST = new Set([
@@ -34,11 +34,11 @@ const SERVICE_ROLE_ALLOWLIST = new Set([
   // gates itself on an explicit env flag or refuses a production environment.
   "lib/db/backfill-task-state.run.test.ts",
   "lib/db/import-app-texts.run.test.ts",
-  "scripts/smoke-progress.mjs",
-  "scripts/smoke-progress-browser.mjs",
-  "scripts/create-test-user.mjs",
+  "scripts/smoke/smoke-progress.mjs",
+  "scripts/smoke/smoke-progress-browser.mjs",
+  "scripts/build/create-test-user.mjs",
   // This gate.
-  "scripts/check-secrets.mjs",
+  "scripts/checks/check-secrets.mjs",
 ]);
 
 const SECRET_WORDS = /(SECRET|SERVICE_ROLE|PASSWORD|PRIVATE_KEY|ACCESS_TOKEN)/;

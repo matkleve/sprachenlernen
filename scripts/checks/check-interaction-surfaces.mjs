@@ -9,7 +9,7 @@
 import { readFileSync, globSync } from "node:fs";
 import { join, relative } from "node:path";
 
-const ROOT = join(import.meta.dirname, "..");
+const ROOT = join(import.meta.dirname, "../..");
 const REGISTRY_PATH = join(ROOT, "docs/specs/system/interaction-registry.json");
 
 const registry = JSON.parse(readFileSync(REGISTRY_PATH, "utf8"));

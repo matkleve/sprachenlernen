@@ -19,7 +19,7 @@ if (branch !== "main" && !allowBranch) {
   process.exit(1);
 }
 
-const next = execSync("node scripts/bump-pride-version.mjs default", {
+const next = execSync("node scripts/release/bump-pride-version.mjs default", {
   encoding: "utf8",
   cwd: root,
 }).trim();

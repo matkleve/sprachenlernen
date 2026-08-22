@@ -5,7 +5,7 @@
 import { globSync, readFileSync, statSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 
-const ROOT = join(import.meta.dirname, "..");
+const ROOT = join(import.meta.dirname, "../..");
 
 /** @type {Array<[string, string]>} old → new (substring replace) */
 const REPLACEMENTS = [
@@ -103,7 +103,7 @@ const REPLACEMENTS = [
 
 REPLACEMENTS.sort((a, b) => b[0].length - a[0].length);
 
-const SKIP = new Set(["scripts/migrate-study-docs.mjs", "scripts/study-frontmatter.mjs", "scripts/study-link-rewrite.mjs"]);
+const SKIP = new Set(["scripts/migrate-study-docs.mjs", "scripts/docs/study-frontmatter.mjs", "scripts/docs/study-link-rewrite.mjs"]);
 
 const files = globSync("**/*.{md,ts,tsx,mjs,js,json,py}", {
   cwd: ROOT,

@@ -10,7 +10,7 @@ import { readFile, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
-import { buildNeighborCandidateIndex } from "../lib/neighbor-candidates.mjs";
+import { buildNeighborCandidateIndex } from "../../lib/neighbor-candidates.mjs";
 import { pathsFor, resolveLang } from "./starter-deck-lang.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");

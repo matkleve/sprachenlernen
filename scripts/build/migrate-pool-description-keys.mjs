@@ -12,7 +12,7 @@ import {
   taskTypeFromTaskId,
 } from "./description-keys.mjs";
 
-const ROOT = join(import.meta.dirname, "..");
+const ROOT = join(import.meta.dirname, "../..");
 
 const POOLS = [
   "data/starter/es-meaning-recall.json",

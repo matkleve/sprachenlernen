@@ -130,8 +130,8 @@ function ExerciseRunnerTimer({
   );
 }
 
-/** @deprecated Titles live on ExerciseRunnerHero; progress lives in footer */
-export function ExerciseRunnerProgress({
+/** Progress bar + timer row — desktop footer header. */
+function ExerciseRunnerProgress({
   state,
   onTogglePause,
 }: Pick<ExerciseRunnerChromeProps, "state" | "onTogglePause">) {
@@ -141,14 +141,6 @@ export function ExerciseRunnerProgress({
       <ExerciseRunnerTimer state={state} onTogglePause={onTogglePause} />
     </div>
   );
-}
-
-/** @deprecated Titles live on ExerciseRunnerHero; use ExerciseRunnerProgress */
-export function ExerciseRunnerHeader({
-  state,
-  onTogglePause,
-}: Pick<ExerciseRunnerChromeProps, "state" | "onTogglePause">) {
-  return <ExerciseRunnerProgress state={state} onTogglePause={onTogglePause} />;
 }
 
 export function ExerciseRunnerFooter({
@@ -271,27 +263,6 @@ export function ExerciseRunnerFooter({
         </div>
       </Dialog>
     </>
-  );
-}
-
-/** @deprecated Use ExerciseRunnerHero + ExerciseRunnerFooter */
-export function ExerciseRunnerChrome(props: ExerciseRunnerChromeProps) {
-  return (
-    <ExerciseRunnerFooter
-      state={props.state}
-      bodyScrolls={props.bodyScrolls}
-      canGoBack={props.canGoBack}
-      canGoForward={props.canGoForward}
-      canComplete={props.canComplete}
-      showStopConfirm={props.showStopConfirm}
-      primaryLabel={props.primaryLabel}
-      onBack={props.onBack}
-      onForward={props.onForward}
-      onComplete={props.onComplete}
-      onCancelStop={props.onCancelStop}
-      onConfirmStop={props.onConfirmStop}
-      onTogglePause={props.onTogglePause}
-    />
   );
 }
 

@@ -14,7 +14,7 @@
 import { globSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 
-const ROOT = join(import.meta.dirname, "..");
+const ROOT = join(import.meta.dirname, "../..");
 
 const FILES = globSync("{app,components,features,lib}/**/*.{ts,tsx,css}", { cwd: ROOT }).filter(
   (f) =>

@@ -7,9 +7,9 @@ import { readFileSync, readdirSync } from "node:fs";
 import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 
-import { hasDuplicateGlossSegments } from "./gloss-segments.mjs";
+import { hasDuplicateGlossSegments } from "../build/gloss-segments.mjs";
 
-const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
+const ROOT = join(dirname(fileURLToPath(import.meta.url)), "../..");
 const OUT_DIR = join(ROOT, "data/i18n/descriptions");
 
 const failures = [];

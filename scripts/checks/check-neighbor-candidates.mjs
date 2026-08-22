@@ -8,9 +8,9 @@ import { readFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
-import { buildNeighborCandidateIndex } from "../lib/neighbor-candidates.mjs";
+import { buildNeighborCandidateIndex } from "../../lib/neighbor-candidates.mjs";
 
-const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
+const ROOT = join(dirname(fileURLToPath(import.meta.url)), "../..");
 const LANGS = ["es", "it"];
 
 let failed = false;
@@ -24,7 +24,7 @@ for (const lang of LANGS) {
   const expected = buildNeighborCandidateIndex(lang, pool.cards.map((card) => card.lemma));
 
   if (JSON.stringify(committed) !== JSON.stringify(expected)) {
-    console.error(`✗ ${lang}: ${sidecarPath} is stale — run: node scripts/build-neighbor-candidates.mjs ${lang}`);
+    console.error(`✗ ${lang}: ${sidecarPath} is stale — run: node scripts/build/build-neighbor-candidates.mjs ${lang}`);
     failed = true;
     continue;
   }

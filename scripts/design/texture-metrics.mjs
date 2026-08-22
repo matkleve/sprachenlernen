@@ -13,7 +13,7 @@
  * Every metric is scale-normalised, so images of different sizes compare fine.
  */
 import { readFileSync } from "node:fs";
-import { readPng } from "./lib/png.mjs";
+import { readPng } from "../lib/png.mjs";
 
 /* ---------- colour ------------------------------------------------------ */
 

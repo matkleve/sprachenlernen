@@ -16,8 +16,8 @@ function leafPaths(value, prefix = "") {
   return paths;
 }
 
-const en = JSON.parse(readFileSync(path.join(root, "../messages/en.json"), "utf8"));
-const de = JSON.parse(readFileSync(path.join(root, "../messages/de.json"), "utf8"));
+const en = JSON.parse(readFileSync(path.join(root, "../../messages/en.json"), "utf8"));
+const de = JSON.parse(readFileSync(path.join(root, "../../messages/de.json"), "utf8"));
 
 const enPaths = new Set(leafPaths(en));
 const dePaths = new Set(leafPaths(de));

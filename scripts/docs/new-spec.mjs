@@ -14,7 +14,7 @@
 import { existsSync, mkdirSync, readFileSync, readdirSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 
-const ROOT = join(import.meta.dirname, "..");
+const ROOT = join(import.meta.dirname, "../..");
 const KINDS = ["component", "feature", "page", "service"];
 
 const [kind, name, useCase] = process.argv.slice(2);

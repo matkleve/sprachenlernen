@@ -58,7 +58,7 @@ const shortenForOverride = (shaped) => {
 };
 
 const runAnalyze = () => {
-  const result = spawnSync("node", ["scripts/analyze-pool-glosses.mjs", LANG], {
+  const result = spawnSync("node", ["scripts/build/analyze-pool-glosses.mjs", LANG], {
     cwd: ROOT,
     env: { ...process.env, POOL_SIZE: String(POOL_SIZE) },
     encoding: "utf8",

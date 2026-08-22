@@ -16,7 +16,7 @@ import {
   parseWikinewsSearchResponse,
   wikinewsParseUrl,
   wikinewsSearchUrl,
-} from "../lib/wikinews-ingest.ts";
+} from "../../lib/wikinews-ingest.ts";
 
 const args = process.argv.slice(2);
 const language = args.includes("--language")

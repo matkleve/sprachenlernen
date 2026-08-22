@@ -8,12 +8,12 @@ import { copyFileSync, existsSync, readFileSync, writeFileSync } from "node:fs";
 import { execSync } from "node:child_process";
 import { join } from "node:path";
 
-const ROOT = join(import.meta.dirname, "..");
+const ROOT = join(import.meta.dirname, "../..");
 
 const LOGO_BUILDERS = {
-  "fanned-pages": "scripts/build-fanned-pages-logo.py",
-  "steady-path": "scripts/build-steady-path-logo.py",
-  "spiral-learning": "scripts/build-spiral-learning-logo.py",
+  "fanned-pages": "scripts/design/build-fanned-pages-logo.py",
+  "steady-path": "scripts/design/build-steady-path-logo.py",
+  "spiral-learning": "scripts/design/build-spiral-learning-logo.py",
 };
 
 const id = process.argv[2];
@@ -56,7 +56,7 @@ for (const target of targets) {
 const publicDirection = join(ROOT, "public/design/logo/directions", sourceName);
 copyFileSync(source, publicDirection);
 
-execSync("node scripts/generate-pwa-icons.mjs", { stdio: "inherit", cwd: ROOT });
+execSync("node scripts/build/generate-pwa-icons.mjs", { stdio: "inherit", cwd: ROOT });
 
 const updated = directions.map((entry) => ({
   ...entry,

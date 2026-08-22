@@ -2,7 +2,7 @@
 import { readFileSync, writeFileSync, globSync } from "node:fs";
 import { basename, join } from "node:path";
 
-const ROOT = join(import.meta.dirname, "..");
+const ROOT = join(import.meta.dirname, "../..");
 
 const files = globSync("docs/specs/*/**/*.md", { cwd: ROOT })
   .filter((f) => basename(f) !== "README.md" && basename(f).split(".").length === 2)

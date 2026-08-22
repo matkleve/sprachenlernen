@@ -22,7 +22,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 
 const root = path.dirname(fileURLToPath(import.meta.url));
-const repoRoot = path.join(root, "..");
+const repoRoot = path.join(root, "../..");
 
 const FILES = ["messages/de.json", "data/i18n/method-catalogue/de.json"];
 

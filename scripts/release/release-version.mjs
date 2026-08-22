@@ -48,7 +48,7 @@ if (!noPull) {
 }
 
 const before = JSON.parse(readFileSync(join(root, "package.json"), "utf8")).version;
-const next = execSync(`node scripts/bump-pride-version.mjs ${bumpKind[kind]}`, {
+const next = execSync(`node scripts/release/bump-pride-version.mjs ${bumpKind[kind]}`, {
   encoding: "utf8",
   cwd: root,
 }).trim();

@@ -7,7 +7,7 @@
 import { mkdirSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 
-const ROOT = join(import.meta.dirname, "..");
+const ROOT = join(import.meta.dirname, "../..");
 
 const SKILLS = ["reading", "listening", "speaking", "writing", "vocabulary"];
 const TIERS = ["wood", "bronze", "silver", "gold", "platinum"];
