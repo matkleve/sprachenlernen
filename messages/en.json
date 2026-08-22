@@ -264,7 +264,9 @@
       "adaptationLabel": "Adapted for {level} · not the original article",
       "viewOriginal": "View original article",
       "unlocked": "Was {before} % on {date}; now {after} %",
-      "generatedLabel": "Generated article — not an original news story"
+      "generatedLabel": "Generated article — not an original news story",
+      "attribution": "Source: {name}",
+      "attributionLink": "View original"
     },
     "gap": {
       "heading": "{count, plural, one {# word to comfortable (95 %)} other {# words to comfortable (95 %)}}",

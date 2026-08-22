@@ -264,7 +264,9 @@
       "adaptationLabel": "Für {level} angepasst · nicht der Originalartikel",
       "viewOriginal": "Originalartikel ansehen",
       "unlocked": "War {before} % am {date}; jetzt {after} %",
-      "generatedLabel": "Generierter Artikel — keine Originalnachricht"
+      "generatedLabel": "Generierter Artikel — keine Originalnachricht",
+      "attribution": "Quelle: {name}",
+      "attributionLink": "Original ansehen"
     },
     "gap": {
       "heading": "{count, plural, one {Noch # Wort bis angenehm (95 %)} other {Noch # Wörter bis angenehm (95 %)}}",

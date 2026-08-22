@@ -19,6 +19,7 @@ import {
   type DeliveryGate,
 } from "@/lib/adaptation-delivery";
 import { computeCoverage, sourceText, type CoverageResult, type Source } from "@/lib/coverage";
+import { attributionForSource } from "@/lib/partner-feed-ingest";
 import { isGeneratedCatalogueSource } from "@/lib/generated-news";
 import type { Lexicon } from "@/lib/lexicon";
 import {
@@ -159,6 +160,7 @@ export function buildCatalogueMaterialPreview(
   const wordsGap = wordsToComfortable(coverage);
   const timeLabel = formatReadingTimeLabel(coverage.tokenCount);
   const gate = shown.deliveryGate;
+  const attribution = attributionForSource(source);
 
   return {
     sourceId: source.id,
@@ -174,6 +176,8 @@ export function buildCatalogueMaterialPreview(
       ? labels.adaptationLabel(shown.targetLevel)
       : undefined,
     generatedLabel: shown.generated ? labels.generatedLabel() : undefined,
+    attributionText: attribution?.text,
+    attributionUrl: attribution?.url,
     deliveryGate: gate,
     startEnabled: shown.startEnabled,
     t1GapCount: shown.t1GapCount,

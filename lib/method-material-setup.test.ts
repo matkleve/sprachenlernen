@@ -282,6 +282,12 @@ describe("pickTopicSource", () => {
     expect(source?.id).toBe("wikinews-es-3516");
   });
 
+  it("includes partner-tos sources in the catalogue pool", () => {
+    const partner = sources.find((source) => source.id === "partner-dw-es-lgsn-2026-08");
+    expect(partner?.licence?.kind).toBe("partner-tos");
+    expect(partner?.tags).toContain("politics");
+  });
+
   it("falls back to generated lane C for environment when only generated exists", () => {
     const source = pickTopicSourceWithLaneFallback(sources, "environment", lexicon, held);
     expect(source?.id).toBe("generated-news-es-environment-2026-08");

@@ -75,6 +75,8 @@ export type MaterialSetupPreview = {
   sourceUrl?: string;
   adaptationLabel?: string;
   generatedLabel?: string;
+  attributionText?: string;
+  attributionUrl?: string;
   deliveryGate?: DeliveryGate;
   startEnabled?: boolean;
   t1GapCount?: number;

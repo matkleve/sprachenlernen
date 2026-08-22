@@ -1,6 +1,7 @@
 /**
  * Catalogue ingestion rules. Contract: docs/specs/service/content-ingestion.md
  */
+import { validatePartnerLicence } from "@/lib/partner-feed-ingest";
 
 export const CATALOGUE_LICENCE_KINDS = [
   "cc-by",
@@ -53,6 +54,11 @@ export const validateCatalogueLicence = (source: SourceIngestInput): string | nu
   if (kind === "generated" && source.generated !== true) {
     return "licence.kind generated requires generated: true";
   }
+  const partnerError =
+    kind === "partner-tos" && source.licence
+      ? validatePartnerLicence(source.licence)
+      : null;
+  if (partnerError) return partnerError;
   return null;
 };
 

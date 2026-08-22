@@ -70,4 +70,19 @@ describe("content-ingestion", () => {
       }),
     ).toBeNull();
   });
+
+  it("accepts partner-tos catalogue sources with partner metadata", () => {
+    expect(
+      validateCatalogueLicence({
+        origin: "catalogue",
+        licence: {
+          kind: "partner-tos",
+          partnerId: "dw",
+          attribution: "Deutsche Welle",
+          sourceUrl: "https://www.dw.com/es/ejemplo",
+          fetchedAt: "2026-08-22T00:00:00.000Z",
+        },
+      }),
+    ).toBeNull();
+  });
 });

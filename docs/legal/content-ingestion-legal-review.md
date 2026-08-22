@@ -181,12 +181,12 @@ tool — Terms should state user responsibility for pasted URLs/text.
 
 ## Checklist before T-CI8 production ingest
 
-- [ ] DW TOS URL recorded + `partner-tos` row template in ingest script
+- [x] DW TOS URL recorded + `partner-tos` row template in ingest script
 - [ ] BBC Learning English TOS URL recorded (if used)
-- [ ] Attribution strings in `messages/` for each partner
+- [x] Attribution strings in `messages/` for each partner
 - [ ] CC BY-SA sources: counsel note on SA display OR defer ingest
 - [ ] Privacy policy mentions adaptation + storage (Constitution §2 follow-up)
-- [ ] `npm run verify` green with fixture partner rows
+- [x] `npm run verify` green with fixture partner rows
 
 ---
 
