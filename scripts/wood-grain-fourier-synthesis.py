@@ -50,6 +50,7 @@ STAGES:
 Usage:
     python3 scripts/wood-grain-fourier-synthesis.py <source_photo.png> <wood_name> [out_dir]
         [--rim-strength 0.6] [--no-rim] [--feature-scale 9]
+        [--crack-blur-sigma 6] [--crack-floor 0] [--crack-keep-percentile 0]
         [--debug-layers] [--suffix _tag]
 """
 
@@ -63,8 +64,14 @@ from PIL import Image
 from scipy.ndimage import gaussian_filter, zoom
 
 # ---- tuned parameters (see STUDY-031 for how each was arrived at) ----
-BLUR_SIGMA = 6.0            # stage 2: "smooth base tone" scale
+BLUR_SIGMA = 6.0            # stage 2: "smooth base tone" scale for crack extraction
+CRACK_BLUR_SIGMA = 6.0      # override via --crack-blur-sigma; higher = big cracks only
 SPEC_SMOOTH_SIGMA = 2.5     # stages 1 & 2: smooths the measured spectrum
+FEATURE_SCALE = 9.0         # stage 3: >1 = cracks bigger & sparser
+ITERATIONS = 6               # stage 4: Heeger-Bergen alternation rounds
+CRACK_STRENGTH = 0.8         # stage 7: how dark cracks cut into the grain
+CRACK_FLOOR = 0.0            # post-HB: zero crack_field below this (0–1); kills rim noise
+CRACK_KEEP_PERCENTILE = 0.0  # pre-HB: drop crack_real below this percentile among >0 px
 FEATURE_SCALE = 9.0         # stage 3: >1 = cracks bigger & sparser
 ITERATIONS = 6               # stage 4: Heeger-Bergen alternation rounds
 CRACK_STRENGTH = 0.8         # stage 7: how dark cracks cut into the grain
@@ -112,6 +119,31 @@ def _crack_bw(crack: np.ndarray) -> np.ndarray:
     return (255 - np.clip(crack / peak * 255, 0, 255)).astype(np.uint8)
 
 
+def _sparsify_crack_real(crack_real: np.ndarray, keep_percentile: float) -> np.ndarray:
+    """Keep only the strongest crack residuals — fewer, bigger defects for HB."""
+    if keep_percentile <= 0:
+        return crack_real
+    out = crack_real.copy()
+    positive = out[out > 0]
+    if positive.size == 0:
+        return out
+    cut = float(np.percentile(positive, keep_percentile))
+    out[out < cut] = 0.0
+    return out
+
+
+def _apply_crack_floor(crack_field: np.ndarray, floor: float) -> np.ndarray:
+    """Drop faint crack noise before rim + composite."""
+    if floor <= 0:
+        return crack_field
+    out = crack_field.copy()
+    out[out < floor] = 0.0
+    peak = float(out.max())
+    if peak > 0:
+        out /= peak
+    return out
+
+
 def synthesize(
     input_path: Path,
     name: str,
@@ -119,6 +151,9 @@ def synthesize(
     *,
     rim_strength: float = RIM_STRENGTH,
     feature_scale: float = FEATURE_SCALE,
+    crack_blur_sigma: float = CRACK_BLUR_SIGMA,
+    crack_floor: float = CRACK_FLOOR,
+    crack_keep_percentile: float = CRACK_KEEP_PERCENTILE,
     debug_layers: bool = False,
     suffix: str = "",
 ) -> None:
@@ -141,10 +176,11 @@ def synthesize(
     base = np.fft.ifft2(np.fft.fft2(noise) * filt).real
     base = (base - base.mean()) / (base.std() + 1e-8)
 
-    # 2. isolate crack/defect residual
-    base_tone = gaussian_filter(img, sigma=BLUR_SIGMA)
+    # 2. isolate crack/defect residual (wider blur = large cracks only, not fine grain)
+    base_tone = gaussian_filter(img, sigma=crack_blur_sigma)
     crack_real = np.clip(base_tone - img, 0, None)
-    crack_c = crack_real - crack_real.mean()
+    crack_for_hb = _sparsify_crack_real(crack_real, crack_keep_percentile)
+    crack_c = crack_for_hb - crack_for_hb.mean()
     spec_c = np.fft.fft2(crack_c * win)
     mag_c_shifted = gaussian_filter(np.fft.fftshift(np.abs(spec_c)), sigma=SPEC_SMOOTH_SIGMA)
 
@@ -152,7 +188,7 @@ def synthesize(
     mag_c_shifted = scale_spectrum(mag_c_shifted, feature_scale)
     target_mag = np.fft.ifftshift(mag_c_shifted)
     target_mag[0, 0] = 0.0
-    target_sorted = np.sort(crack_real.ravel())
+    target_sorted = np.sort(crack_for_hb.ravel())
 
     # 4. Heeger-Bergen: spectrum + histogram matching
     cur = rng.normal(size=(h, w))
@@ -163,10 +199,14 @@ def synthesize(
         cur = histogram_match(cur, target_sorted)
     crack_field = np.clip(cur, 0, None)
     crack_field = crack_field / (crack_field.max() + 1e-8)
+    crack_field = _apply_crack_floor(crack_field, crack_floor)
 
     if debug_layers:
         Image.fromarray(_crack_bw(crack_real), mode="L").save(
             out_dir / f"{tag}_crack_layer.png"
+        )
+        Image.fromarray(_crack_bw(crack_for_hb), mode="L").save(
+            out_dir / f"{tag}_crack_sparse.png"
         )
         Image.fromarray(_crack_bw(crack_field), mode="L").save(
             out_dir / f"{tag}_crack_synth_hb_scale{int(feature_scale)}.png"
@@ -201,8 +241,14 @@ def synthesize(
     Image.fromarray(final, mode="RGB").save(out_dir / f"{tag}_final.png")
 
     rim_note = f"rim={rim_strength}" if rim_strength else "no-rim"
+    sparse_note = ""
+    if crack_blur_sigma != CRACK_BLUR_SIGMA or crack_floor or crack_keep_percentile:
+        sparse_note = (
+            f" crack_blur={crack_blur_sigma} floor={crack_floor}"
+            f" keep_p={crack_keep_percentile}"
+        )
     print(
-        f"[{tag}] {w}x{h} scale={feature_scale} {rim_note} -> "
+        f"[{tag}] {w}x{h} scale={feature_scale} {rim_note}{sparse_note} -> "
         f"{tag}_shading.png, {tag}_final.png (in {out_dir})"
     )
 
@@ -221,6 +267,24 @@ def main() -> None:
     parser.add_argument("--no-rim", action="store_true", help="Set rim strength to 0")
     parser.add_argument("--feature-scale", type=float, default=FEATURE_SCALE)
     parser.add_argument(
+        "--crack-blur-sigma",
+        type=float,
+        default=CRACK_BLUR_SIGMA,
+        help="Extraction blur; higher keeps only larger cracks (default 6)",
+    )
+    parser.add_argument(
+        "--crack-floor",
+        type=float,
+        default=CRACK_FLOOR,
+        help="Zero synthesized crack field below this 0–1 level before rim",
+    )
+    parser.add_argument(
+        "--crack-keep-percentile",
+        type=float,
+        default=CRACK_KEEP_PERCENTILE,
+        help="Drop crack_real below this percentile among positive pixels (e.g. 85)",
+    )
+    parser.add_argument(
         "--debug-layers",
         action="store_true",
         help="Export crack_layer and crack_synth_hb_scaleN B&W debug PNGs",
@@ -234,6 +298,9 @@ def main() -> None:
         args.out_dir,
         rim_strength=rim_strength,
         feature_scale=args.feature_scale,
+        crack_blur_sigma=args.crack_blur_sigma,
+        crack_floor=args.crack_floor,
+        crack_keep_percentile=args.crack_keep_percentile,
         debug_layers=args.debug_layers,
         suffix=args.suffix,
     )
