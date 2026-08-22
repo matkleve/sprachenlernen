@@ -129,3 +129,16 @@ prevents the most rework, because it catches the assumption gap before code.
 **Update it when the user corrects you** — in the same session, before you write
 the fix. A spec that lags behind the code has stopped being a contract and
 become a rumor.
+
+## Linking studies
+
+Studies are **optional background** in a spec's Related section — never in
+acceptance criteria.
+
+- If the build depends on a claim, **write the claim in the spec**; link the
+  study as further reading.
+- Prefer **section anchors** (`STUDY-003 § What a signal may claim`) over a bare
+  file link when you mean one finding.
+- When a linked study is revised, `grep` the spec for echoed claims. Update the
+  spec if it repeated something retracted. A link that only says "reasoning:
+  STUDY-030" usually needs no change when the study thesis moves.

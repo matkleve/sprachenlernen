@@ -4,18 +4,12 @@ export const page = {
   eyebrow: "Dev",
   title: "Wood grain lab",
   intro:
-    "Tune toward the normative reference board (docs/specs/feature/progression-reference-board.md). Copy JSON when a column reads right; owner marks pass on /dev/progression.",
+    "Canvas procedural wood (domain-warped rings + fibres). Tune presets toward the reference board; wire winners into /dev/materials and /dev/progression.",
   previewLabel: "Preview plank",
-  directionHeading: "Grain direction",
-  layersHeading: "Layers",
-  grainHeading: "Grain (feTurbulence)",
-  planksHeading: "Planks",
-  lightHeading: "Lighting",
-  baseHeading: "Base colour",
-  presetsHeading: "Presets",
-  exportHeading: "Export",
-  exportHint: "Paste this back to an agent or into progression.json notes.",
-  soloHint: "Solo shows one layer on a flat mid-tone so direction is obvious.",
+  proceduralNote:
+    "Replaces feTurbulence/CSS line stacks. Algorithm follows texturize.app/generators/wood + STUDY-030.",
+  paramsHeading: "Active preset knobs",
+  presetsHeading: "Workshop presets",
 } as const;
 
 export const layerLabels = {

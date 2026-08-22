@@ -30,6 +30,8 @@ describe("material-recipes", () => {
     const raw = materialRecipeForStage(1);
     const oiled = materialRecipeForStage(3);
     expect(raw.roughness).toBeGreaterThan(oiled.roughness);
+    expect(raw.grain).toBeGreaterThan(oiled.grain);
+    expect(oiled.specular).toBeGreaterThan(raw.specular);
   });
 
   it("gives stage 9 higher specular than stage 7", () => {

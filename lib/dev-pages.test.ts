@@ -1,11 +1,36 @@
 import { describe, expect, it } from "vitest";
 
-import { DEV_PAGES, devPagesSortedByLatest } from "@/lib/dev-pages";
+import {
+  DEV_PAGES,
+  devPagesSortedByLatest,
+  formatDevPageLastUpdated,
+} from "@/lib/dev-pages";
 import { routes } from "@/lib/routes";
 
 describe("devPagesSortedByLatest", () => {
   it("lists every dev page from the registry", () => {
     expect(DEV_PAGES.length).toBe(10);
+    const hrefs = DEV_PAGES.map((page) => page.href);
+    expect(hrefs).toEqual(
+      expect.arrayContaining([
+        routes.profileDevSentenceRealizer,
+        routes.woodGrainLab,
+        routes.progressionExplorer,
+        routes.materialExplorer,
+        routes.woodTextureLab,
+        routes.designExplorer,
+        routes.brandExplorer,
+        routes.methodCardAssets,
+        routes.primitives,
+        routes.safariBisect,
+      ]),
+    );
+  });
+
+  it("formats last updated with date and time", () => {
+    const formatted = formatDevPageLastUpdated(Date.parse("2026-08-21T15:11:45Z"));
+    expect(formatted).toMatch(/\d/);
+    expect(formatted).toMatch(/:/);
   });
 
   it("sorts newest lastUpdatedAt first", () => {
@@ -17,7 +42,7 @@ describe("devPagesSortedByLatest", () => {
       expect(older).toBeDefined();
       expect(newer!.lastUpdatedAt).toBeGreaterThanOrEqual(older!.lastUpdatedAt);
     }
-    expect(sorted[0]?.href).toBe(routes.woodGrainLab);
+    expect(sorted[0]?.href).toBe(routes.materialExplorer);
     expect(sorted.at(-1)?.href).toBe(routes.designExplorer);
   });
 });

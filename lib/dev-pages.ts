@@ -19,18 +19,18 @@ export type DevPage = {
 /** English-only dev tooling — not passed through i18n. */
 export const DEV_PAGES: DevPage[] = [
   {
-    href: routes.woodGrainLab,
-    name: "Wood grain lab",
-    description:
-      "Layer-by-layer workshop wood — tune feTurbulence direction, planks, and lighting before promoting to progression.",
-    lastUpdatedAt: Date.parse("2026-08-21T15:57:48Z"),
-  },
-  {
     href: routes.materialExplorer,
     name: "Material explorer",
     description:
       "Nine material recipes on the same card + input + button — base, texture, edge, lighting.",
-    lastUpdatedAt: Date.parse("2026-08-21T15:22:33Z"),
+    lastUpdatedAt: Date.parse("2026-08-21T18:00:00Z"),
+  },
+  {
+    href: routes.woodGrainLab,
+    name: "Wood grain lab",
+    description:
+      "Canvas procedural workshop wood — domain-warped rings and fibres before promoting to progression.",
+    lastUpdatedAt: Date.parse("2026-08-21T17:30:00Z"),
   },
   {
     href: routes.woodTextureLab,
@@ -88,5 +88,8 @@ export function devPagesSortedByLatest(): DevPage[] {
 }
 
 export function formatDevPageLastUpdated(lastUpdatedAt: number): string {
-  return new Intl.DateTimeFormat(undefined, { dateStyle: "medium" }).format(lastUpdatedAt);
+  return new Intl.DateTimeFormat(undefined, {
+    dateStyle: "medium",
+    timeStyle: "short",
+  }).format(lastUpdatedAt);
 }

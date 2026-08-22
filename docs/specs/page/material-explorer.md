@@ -37,8 +37,10 @@ recipe table so a stage change is auditable, not magical.
 
 - **In:** stage slider (1–9); recipe table for the selected stage; one preview
   (card + input + button) at the selected stage; a Workshop 1–3 comparison row
-  (same geometry, three material layers side by side); chapter label; material
-  recipe data in `lib/material-recipes.ts`; CSS in `app/material-system.css`.
+  (same geometry, three material layers side by side); a **rough → fine guide**
+  with knob bars for Workshop 1–3 and a nine-stage grid grouped by chapter;
+  chapter label; material recipe data in `lib/material-recipes.ts`; CSS in
+  `app/material-system.css`.
 - **Out:** coupling to learner data; persistence; changes to shipped theme or
   `/dev/progression`; navigation entry in the app shell. Account required:
   **no** — `/dev/*` is public.
@@ -78,6 +80,8 @@ recipe table so a stage change is auditable, not magical.
       `--material-roughness`) differs.
 - [ ] Given stage 1, when the preview renders, then `--material-roughness` is
       greater than stage 3's value — raw is rougher than oiled.
+- [ ] Given stages 1 and 3, when grain is compared, then stage 1's value exceeds
+      stage 3's — refinement reduces visible texture, not increases it.
 - [ ] Given stage 9, when the preview renders, then environmental star elements
       are present and `--material-specular` exceeds stage 7's value.
 - [ ] Given the slider, when operated by keyboard, then it has an accessible
