@@ -1,8 +1,8 @@
 """Fully generative neural wood texture synthesis — no valley stamping.
 
-Two modes:
+Modes:
   gatys  — optimize random noise until VGG Gram matrices match the reference
-           (Gatys et al. 2015 neural texture synthesis).
+           (Gatys et al. 2015). Default: grayscale relief only, color from albedo.
   vae    — train a small convolutional VAE on augmented crops, sample a new tile
            from the latent prior (fully generative at inference).
 """
@@ -17,6 +17,7 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 from PIL import Image
+from scipy.ndimage import gaussian_filter
 from torchvision import models, transforms
 
 
@@ -82,6 +83,48 @@ class VGGFeatureExtractor(nn.Module):
         return out
 
 
+def _tensor_to_gray01(t: torch.Tensor) -> np.ndarray:
+    """(1, 1, H, W) or (1, 3, H, W) -> float32 (H, W) in [0, 1]."""
+    if t.dim() == 4:
+        t = t[0]
+    if t.shape[0] == 3:
+        arr = t.detach().clamp(0, 1).mean(dim=0).cpu().numpy()
+    else:
+        arr = t.detach().clamp(0, 1)[0].cpu().numpy()
+    return arr.astype(np.float32)
+
+
+def _histogram_match(source: np.ndarray, target_sorted: np.ndarray) -> np.ndarray:
+    flat = source.ravel()
+    ranks = np.argsort(np.argsort(flat))
+    return target_sorted[ranks].reshape(source.shape)
+
+
+def extract_albedo(img_rgb: np.ndarray, sigma: float = 14.0) -> np.ndarray:
+    """Low-frequency wood colour — same separation as FFT pipeline."""
+    return np.stack(
+        [gaussian_filter(img_rgb[..., c], sigma=sigma) for c in range(3)],
+        axis=-1,
+    )
+
+
+def colorize_shading(shading: np.ndarray, albedo: np.ndarray) -> np.ndarray:
+    """Relief × colour: final = albedo × (shading / 128)."""
+    return np.clip(albedo * (shading[..., None] / 128.0), 0, 255)
+
+
+def gray_to_shading(gray01: np.ndarray, ref_luminance: np.ndarray) -> np.ndarray:
+    """Map generated grey relief to 0–255 shading.
+
+    Preserves Gatys spatial structure; scales mean/std to reference luminance so
+    albedo × shading / 128 lands near the right tone (histogram-only match
+    darkens after the albedo multiply).
+    """
+    g = (gray01 - gray01.mean()) / (gray01.std() + 1e-8)
+    matched = g * ref_luminance.std() + ref_luminance.mean()
+    return np.clip(matched * 255.0, 0, 255)
+
+
 @dataclass
 class GatysConfig:
     steps: int = 400
@@ -89,52 +132,44 @@ class GatysConfig:
     tv_weight: float = 1e-4
     seed: int = 0
     log_every: int = 50
+    grayscale: bool = True
+    histogram_match: bool = True
+    albedo_blur_sigma: float = 14.0
 
 
-def synthesize_gatys(
-    reference: Image.Image,
-    out_size: tuple[int, int] | None = None,
-    config: GatysConfig | None = None,
-    progress: Callable[[int, float], None] | None = None,
-) -> Image.Image:
-    """Generate a new texture tile by matching VGG texture statistics.
-
-    Starts from random noise and optimizes pixels — no crack stamping.
-    """
-    cfg = config or GatysConfig()
-    device = _device()
-    torch.manual_seed(cfg.seed)
-
-    ref = reference.convert("RGB")
-    if out_size is None:
-        out_size = ref.size
-
-    # ImageNet normalization for VGG
+def _run_gatys_loop(
+    ref_t: torch.Tensor,
+    target_grams: dict[str, torch.Tensor],
+    out_size: tuple[int, int],
+    cfg: GatysConfig,
+    device: torch.device,
+    vgg: VGGFeatureExtractor,
+    progress: Callable[[int, float], None] | None,
+    grayscale: bool,
+) -> torch.Tensor:
+    """Core Gatys optimization — returns tensor (1, C, H, W) in [0, 1]."""
     normalize = transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
-    ref_t = normalize(_pil_to_tensor(ref.resize(out_size, Image.Resampling.LANCZOS)).to(device))
+    w, h = out_size
 
-    vgg = VGGFeatureExtractor().to(device).eval()
-    with torch.no_grad():
-        ref_feats = vgg(ref_t)
-        target_grams = {k: _gram_matrix(v) for k, v in ref_feats.items()}
-
-    # Optimizable noise image
-    gen = torch.randn(1, 3, out_size[1], out_size[0], device=device) * 0.01
+    if grayscale:
+        gen = torch.randn(1, 1, h, w, device=device) * 0.01
+    else:
+        gen = torch.randn(1, 3, h, w, device=device) * 0.01
     gen.requires_grad_(True)
     opt = torch.optim.Adam([gen], lr=cfg.lr)
 
     for step in range(cfg.steps):
         opt.zero_grad()
-        normed = normalize(gen)
+        gen_rgb = gen.repeat(1, 3, 1, 1) if grayscale else gen
+        normed = normalize(gen_rgb)
         feats = vgg(normed)
         loss = torch.tensor(0.0, device=device)
         for name, weight in VGGFeatureExtractor.LAYER_WEIGHTS.items():
             g = _gram_matrix(feats[name])
             loss = loss + weight * F.mse_loss(g, target_grams[name])
 
-        # Total variation — discourages salt-and-pepper without blurring valleys
-        dx = gen[:, :, :, 1:] - gen[:, :, :, :-1]
-        dy = gen[:, :, 1:, :] - gen[:, :, :-1, :]
+        dx = gen_rgb[:, :, :, 1:] - gen_rgb[:, :, :, :-1]
+        dy = gen_rgb[:, :, 1:, :] - gen_rgb[:, :, :-1, :]
         tv = (dx.abs().mean() + dy.abs().mean()) * cfg.tv_weight
         loss = loss + tv
         loss.backward()
@@ -145,6 +180,92 @@ def synthesize_gatys(
         if progress and (step % cfg.log_every == 0 or step == cfg.steps - 1):
             progress(step, float(loss.item()))
 
+    return gen.repeat(1, 3, 1, 1) if grayscale else gen
+
+
+def synthesize_gatys_shading(
+    reference: Image.Image,
+    out_size: tuple[int, int] | None = None,
+    config: GatysConfig | None = None,
+    progress: Callable[[int, float], None] | None = None,
+) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
+    """Gatys on grayscale relief only; colour from blurred reference albedo.
+
+    Returns (shading 0–255, albedo float, final_rgb float).
+    Structure is fully generated; albedo carries wood colour only (no crack positions).
+    """
+    cfg = config or GatysConfig()
+    device = _device()
+    torch.manual_seed(cfg.seed)
+
+    ref_rgb = reference.convert("RGB")
+    if out_size is None:
+        out_size = ref_rgb.size
+    w, h = out_size
+
+    ref_arr = np.asarray(ref_rgb.resize(out_size, Image.Resampling.LANCZOS), dtype=np.float32)
+    ref_lum = ref_arr.mean(axis=-1) / 255.0
+
+    normalize = transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
+    if cfg.grayscale:
+        lum_t = torch.from_numpy(ref_lum).unsqueeze(0).unsqueeze(0).to(device)
+        ref_t = normalize(lum_t.repeat(1, 3, 1, 1))
+    else:
+        ref_t = normalize(_pil_to_tensor(ref_rgb.resize(out_size, Image.Resampling.LANCZOS)).to(device))
+
+    vgg = VGGFeatureExtractor().to(device).eval()
+    with torch.no_grad():
+        ref_feats = vgg(ref_t)
+        target_grams = {k: _gram_matrix(v) for k, v in ref_feats.items()}
+
+    gen = _run_gatys_loop(
+        ref_t, target_grams, out_size, cfg, device, vgg, progress, cfg.grayscale
+    )
+    gray01 = _tensor_to_gray01(gen)
+
+    if cfg.histogram_match:
+        shading = gray_to_shading(gray01, ref_lum)
+    else:
+        shading = np.clip(gray01 * 255.0, 0, 255)
+
+    albedo = extract_albedo(ref_arr, sigma=cfg.albedo_blur_sigma)
+
+    # Compensate for albedo × shading / 128 darkening the tile vs raw shading
+    preview_lum = (albedo * (shading[..., None] / 128.0)).mean(axis=-1) / 255.0
+    tone_scale = ref_lum.mean() / (preview_lum.mean() + 1e-8)
+    shading = np.clip(shading.astype(np.float64) * tone_scale, 0, 255)
+
+    final = colorize_shading(shading, albedo)
+    return shading, albedo, final
+
+
+def synthesize_gatys(
+    reference: Image.Image,
+    out_size: tuple[int, int] | None = None,
+    config: GatysConfig | None = None,
+    progress: Callable[[int, float], None] | None = None,
+) -> Image.Image:
+    """Generate RGB texture (legacy) or grayscale+albedo when config.grayscale=True."""
+    cfg = config or GatysConfig()
+    if cfg.grayscale:
+        _, _, final = synthesize_gatys_shading(reference, out_size, cfg, progress)
+        return Image.fromarray(final.astype(np.uint8), mode="RGB")
+
+    device = _device()
+    torch.manual_seed(cfg.seed)
+    ref = reference.convert("RGB")
+    if out_size is None:
+        out_size = ref.size
+
+    normalize = transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
+    ref_t = normalize(_pil_to_tensor(ref.resize(out_size, Image.Resampling.LANCZOS)).to(device))
+
+    vgg = VGGFeatureExtractor().to(device).eval()
+    with torch.no_grad():
+        ref_feats = vgg(ref_t)
+        target_grams = {k: _gram_matrix(v) for k, v in ref_feats.items()}
+
+    gen = _run_gatys_loop(ref_t, target_grams, out_size, cfg, device, vgg, progress, False)
     return _tensor_to_pil(gen)
 
 

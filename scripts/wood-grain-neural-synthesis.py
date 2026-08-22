@@ -6,10 +6,11 @@ source photo), this script generates a NEW tile from learned statistics only.
 
 Modes
 -----
-gatys  Match VGG Gram matrices by optimizing random noise (Gatys et al. 2015).
-       Best for: same-scale texture with similar grain statistics; slow on CPU.
+gatys  Grayscale hills/valleys via VGG Gram matching, then albedo × shading / 128
+       for colour (same separation as the FFT pipeline). Structure is generated;
+       colour is low-frequency wood tone from the reference — not crack positions.
+       Pass --rgb for legacy full-colour Gatys (often hue-drifts).
 vae    Train a small conv VAE on augmented crops, sample from the latent prior.
-       Best for: fast iteration; quality depends on training epochs.
 
 Dependencies (not in main package.json — install once):
     pip install -r scripts/requirements-neural-wood.txt \\
@@ -56,9 +57,11 @@ def main() -> None:
         GatysConfig,
         VAEConfig,
         synthesize_gatys,
+        synthesize_gatys_shading,
         synthesize_vae,
     )
     from PIL import Image
+    import numpy as np
 
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument("source", type=Path, help="Reference wood photo (statistics only — not stamped)")
@@ -66,7 +69,7 @@ def main() -> None:
     parser.add_argument(
         "mode",
         choices=["gatys", "vae"],
-        help="gatys = VGG texture synthesis; vae = latent generator",
+        help="gatys = VGG relief + albedo colorize; vae = latent generator",
     )
     parser.add_argument("--out-dir", type=Path, default=Path("design/progression/synthesized"))
     parser.add_argument("--width", type=int, default=0, help="Output width (default: same as source)")
@@ -74,6 +77,17 @@ def main() -> None:
     parser.add_argument("--steps", type=int, default=400, help="Gatys optimization steps")
     parser.add_argument("--epochs", type=int, default=80, help="VAE training epochs")
     parser.add_argument("--seed", type=int, default=0)
+    parser.add_argument(
+        "--rgb",
+        action="store_true",
+        help="Gatys: optimize full RGB (legacy — colours often drift)",
+    )
+    parser.add_argument(
+        "--albedo-sigma",
+        type=float,
+        default=14.0,
+        help="Gaussian blur sigma for reference albedo (default 14)",
+    )
     args = parser.parse_args()
 
     ref = Image.open(args.source)
@@ -85,25 +99,39 @@ def main() -> None:
         print(f"  step {step:4d}  loss={loss:.6f}")
 
     print(f"[{args.name}] mode={args.mode}  ref={args.source.name}  out={w}x{h}")
-    if args.mode == "gatys":
-        out = synthesize_gatys(
-            ref,
-            out_size=out_size,
-            config=GatysConfig(steps=args.steps, seed=args.seed),
-            progress=log,
-        )
-        suffix = "neural_gatys"
-    else:
-        out = synthesize_vae(
-            ref,
-            out_size=out_size,
-            config=VAEConfig(epochs=args.epochs, seed=args.seed),
-            progress=lambda e, loss: log(e, loss),
-        )
-        suffix = "neural_vae"
-
     args.out_dir.mkdir(parents=True, exist_ok=True)
-    out_path = args.out_dir / f"{args.name}_{suffix}.png"
+
+    if args.mode == "gatys":
+        cfg = GatysConfig(
+            steps=args.steps,
+            seed=args.seed,
+            grayscale=not args.rgb,
+            albedo_blur_sigma=args.albedo_sigma,
+        )
+        if args.rgb:
+            out = synthesize_gatys(ref, out_size=out_size, config=cfg, progress=log)
+            out_path = args.out_dir / f"{args.name}_neural_gatys_rgb.png"
+            out.save(out_path)
+            print(f"-> {out_path}")
+        else:
+            shading, _albedo, final = synthesize_gatys_shading(
+                ref, out_size=out_size, config=cfg, progress=log
+            )
+            shading_path = args.out_dir / f"{args.name}_neural_gatys_shading.png"
+            final_path = args.out_dir / f"{args.name}_neural_gatys_final.png"
+            Image.fromarray(shading.astype(np.uint8), mode="L").save(shading_path)
+            Image.fromarray(final.astype(np.uint8), mode="RGB").save(final_path)
+            print(f"-> {shading_path}")
+            print(f"-> {final_path}")
+        return
+
+    out = synthesize_vae(
+        ref,
+        out_size=out_size,
+        config=VAEConfig(epochs=args.epochs, seed=args.seed),
+        progress=lambda e, loss: log(e, loss),
+    )
+    out_path = args.out_dir / f"{args.name}_neural_vae.png"
     out.save(out_path)
     print(f"-> {out_path}")
 
