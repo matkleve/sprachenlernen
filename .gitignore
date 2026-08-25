@@ -23,6 +23,11 @@ tmp/
 # committed; these are not.
 .cache/
 
+# Personal adaptations are learner text, written at runtime where the
+# filesystem allows it. The shared catalogue cache under data/adaptations/ is
+# committed on purpose; this one must never be.
+data/adaptations-personal/
+
 # Written by `supabase link`. Machine-local state, and pooler-url embeds the
 # database user — the migrations under supabase/migrations/ are the artefact
 # worth committing, not the link.
