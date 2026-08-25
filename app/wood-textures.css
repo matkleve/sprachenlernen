@@ -16,6 +16,10 @@
   min-height: 9rem;
 }
 
+/* Still used: WoodTextureLab applies it for `texture.pill`. Its selector line
+   was lost in 7f33122 when --pill was renamed to --tuned, which left this body
+   orphaned and broke `next build` for every route. */
+.wood-texture-swatch--pill {
   min-height: 4.5rem;
   border-radius: 9999px;
 }
