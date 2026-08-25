@@ -16,5 +16,7 @@ describe("comprehensionQuestionsForSource", () => {
     const questions = comprehensionQuestionsForSource("unknown-source");
     expect(questions.length).toBe(2);
     expect(questions[0]?.correctOptionId).toBeUndefined();
+    expect(questions[0]?.promptKey).toBe("comprehensionReadWholePrompt");
+    expect(questions[0]?.options[0]?.labelKey).toBe("comprehensionReadWholeYes");
   });
 });

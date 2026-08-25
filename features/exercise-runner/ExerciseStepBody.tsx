@@ -31,7 +31,7 @@ export function ExerciseStepBody(props: ExerciseStepBodyProps) {
     <PracticeSurface
       className={cn(
         "min-h-0 flex-1",
-        !bodyScrolls && "overflow-hidden",
+        !bodyScrolls && "overflow-hidden px-1",
       )}
     >
       {renderExerciseStep(props)}

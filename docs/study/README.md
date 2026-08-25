@@ -47,7 +47,7 @@ If you have five minutes, read only this table.
 
 ---
 
-## Chapters (STUDY-001 … STUDY-027)
+## Chapters (STUDY-001 … STUDY-056)
 
 | ID | Answers |
 | --- | --- |
@@ -83,6 +83,10 @@ If you have five minutes, read only this table.
 | [STUDY-030](STUDY-030-procedural-wood-grain.md) | UI wood grain — multi-scale horizontal layers (not growth rings) |
 | [STUDY-031](STUDY-031-texture-metrics.md) | Texture metrics — measuring whether a material looks right |
 | [STUDY-032](STUDY-032-photographic-wood-grain-synthesis.md) | Photographic wood-grain synthesis via 2D FFT — source tile pipeline |
+| [STUDY-033](STUDY-033-wood-crack-morphology.md) | Wood cracks — morphology, measurement, what the tree does |
+| [STUDY-034](STUDY-034-texture-generation-archive.md) | Texture generation attempts — archive and pause |
+| [STUDY-055](STUDY-055-after-read-word-taps.md) | After reading — word taps versus the review screen |
+| [STUDY-056](STUDY-056-skill-evidence-from-every-method.md) | Skill evidence — what a method may claim, and how strong |
 | [STUDY-sources](STUDY-sources.md) | Literature — how far each was checked |
 
 **Correction chapters** (read after the chapter they amend): STUDY-013 →

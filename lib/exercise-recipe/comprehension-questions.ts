@@ -2,10 +2,17 @@
  * Comprehension checks for reading recipes — v1 uses fixture-specific questions.
  * Contract: docs/specs/service/exercise-recipe-composer.md
  */
+export type ComprehensionQuestionOption = {
+  id: string;
+  label?: string;
+  labelKey?: string;
+};
+
 export type ComprehensionQuestion = {
   id: string;
-  prompt: string;
-  options: readonly { id: string; label: string }[];
+  prompt?: string;
+  promptKey?: string;
+  options: readonly ComprehensionQuestionOption[];
   correctOptionId?: string;
 };
 
@@ -56,23 +63,24 @@ const QUESTIONS_BY_SOURCE: Record<string, ComprehensionQuestion[]> = {
   ],
 };
 
+/** Self-assessment when no source-specific questions exist — keys resolved in UI locale. */
 const FALLBACK_QUESTIONS: ComprehensionQuestion[] = [
   {
     id: "read-whole",
-    prompt: "Did you read the whole passage without stopping for long?",
+    promptKey: "comprehensionReadWholePrompt",
     options: [
-      { id: "yes", label: "Yes, mostly" },
-      { id: "partly", label: "I stopped a few times" },
-      { id: "no", label: "No — too hard" },
+      { id: "yes", labelKey: "comprehensionReadWholeYes" },
+      { id: "partly", labelKey: "comprehensionReadWholePartly" },
+      { id: "no", labelKey: "comprehensionReadWholeNo" },
     ],
   },
   {
     id: "main-idea",
-    prompt: "Could you follow the main idea?",
+    promptKey: "comprehensionMainIdeaPrompt",
     options: [
-      { id: "yes", label: "Yes" },
-      { id: "partly", label: "Partly" },
-      { id: "no", label: "Not really" },
+      { id: "yes", labelKey: "comprehensionMainIdeaYes" },
+      { id: "partly", labelKey: "comprehensionMainIdeaPartly" },
+      { id: "no", labelKey: "comprehensionMainIdeaNo" },
     ],
   },
 ];

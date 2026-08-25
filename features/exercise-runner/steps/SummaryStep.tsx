@@ -17,12 +17,16 @@ export function SummaryStep({
   // A session that was checked describes itself; the static body would only
   // repeat "Durchlauf abgeschlossen" above a real account of what happened.
   const body = typeof step.config.body === "string" ? step.config.body : t("summaryDefault");
-  const offers = Array.isArray(step.config.offers) ? (step.config.offers as string[]) : [];
-  const declineLabel =
-    typeof step.config.declineLabel === "string" ? step.config.declineLabel : t("decline");
+  const offers = Array.isArray(step.config.offerKeys)
+    ? step.config.offerKeys.flatMap((key) =>
+        typeof key === "string" ? [t(key)] : [],
+      )
+    : Array.isArray(step.config.offers)
+      ? (step.config.offers as string[])
+      : [];
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-4 px-0.5">
       {recap ? (
         <SessionFindingsRecap findings={sessionFindings} />
       ) : (
@@ -34,7 +38,7 @@ export function SummaryStep({
         </Button>
       ))}
       <Button type="button" variant="secondary" className="w-full" onClick={onDecline}>
-        {declineLabel}
+        {t("decline")}
       </Button>
     </div>
   );
