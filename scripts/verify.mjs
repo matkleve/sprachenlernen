@@ -24,6 +24,7 @@ const CHECKS = [
   ["session-viability", "node", ["scripts/checks/check-session-viability.mjs"]],
   ["catalogue-budget", "node", ["scripts/checks/check-catalogue-budget.mjs"]],
   ["interaction", "node", ["scripts/checks/check-interaction-surfaces.mjs"]],
+  ["file-tracing", "node", ["scripts/checks/check-file-tracing.mjs"]],
   ["neighbors", "node", ["scripts/checks/check-neighbor-candidates.mjs"]],
   ["version-branch", "node", ["scripts/checks/check-version-branch.mjs"]],
   ["version-shipped", "node", ["scripts/checks/check-version-shipped.mjs"]],

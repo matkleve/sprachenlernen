@@ -18,6 +18,7 @@
     "check:tokens": "node scripts/checks/check-tokens.mjs",
     "check:contrast": "node scripts/checks/check-contrast.mjs",
     "check:neighbors": "node scripts/checks/check-neighbor-candidates.mjs",
+    "check:file-tracing": "node scripts/checks/check-file-tracing.mjs",
     "verify": "node scripts/verify.mjs",
     "verify:scope": "node scripts/verify-scope.mjs",
     "new:spec": "node scripts/docs/new-spec.mjs",

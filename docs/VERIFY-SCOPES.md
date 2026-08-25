@@ -38,13 +38,13 @@ List all scopes: `npm run verify:scope -- --help`
 Defined in `scripts/verify-scope.mjs`. Summary:
 
 - **docs** — `specs`, `study`
-- **changed** — typecheck, lint, tokens, contrast, specs, **secrets** + vitest `--changed`
+- **changed** — typecheck, lint, tokens, contrast, specs, **secrets**, file-tracing + vitest `--changed`
 - **ui** — typecheck, lint, tokens, contrast, specs + **your** vitest patterns
 - **method-menu** — above + method-menu feature + method lib tests (~15s)
 - **app-shell** — above + interaction + shell tests
 - **words** — above + words/vocabulary/review tests
 - **lib** — typecheck, lint + **your** test file(s)
-- **route** — typecheck, lint, specs, **build** (no full test suite)
+- **route** — typecheck, lint, specs, **file-tracing**, **build** (no full test suite)
 
 Scoped gates **omit**: full test suite, `neighbors`, `i18n`, `version-*`, and
 (except `route`) **build**.

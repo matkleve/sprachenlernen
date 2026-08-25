@@ -24,6 +24,7 @@ scripts/
 | `npm run verify` | `verify.mjs` → `checks/*` |
 | `npm run verify:scope -- <scope>` | `verify-scope.mjs` |
 | `npm run check:specs` | `checks/check-specs.mjs` |
+| `npm run check:file-tracing` | `checks/check-file-tracing.mjs` |
 | `npm run new:spec` | `docs/new-spec.mjs` |
 | `npm run build:starter-deck` | `build/build-starter-deck.mjs` |
 | `npm run release:ship` | `release/release-version.mjs` |

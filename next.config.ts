@@ -25,12 +25,49 @@ const nextConfig: NextConfig = {
     NEXT_PUBLIC_APP_BUILT_AT:
       process.env.NEXT_PUBLIC_APP_BUILT_AT ?? new Date().toISOString(),
   },
-  // Runtime reads under data/ via readFileSync (method menu, language status).
-  // Vercel's file tracer does not follow those paths — without this, /methods
-  // shows "Could not load the method catalogue" in production. See TRAPS.md.
+  // Runtime reads under data/ via readFileSync (method menu, language status,
+  // content library, adaptation cache). Vercel's file tracer follows imports,
+  // not paths built at runtime — without these entries the file is absent from
+  // the deployment and the route shows its error state, with nothing failing at
+  // build time. /methods shipped that way once; see docs/TRAPS.md.
+  //
+  // This list was hand-written and drifted: /content and /content/[id] read four
+  // directories between them and were never in it at all. `check:file-tracing`
+  // now derives what each route needs from the import graph and fails when an
+  // entry is missing, so the list below is checked rather than remembered.
   outputFileTracingIncludes: {
     "/methods": ["./data/methods/**/*", "./data/demonstration-sentences/**/*"],
-    "/methods/[id]": ["./data/methods/**/*"],
+    "/methods/[id]": [
+      "./data/methods/**/*",
+      "./data/content/**/*",
+      "./data/languages/**/*",
+      "./data/frequency/**/*",
+      "./data/lemma/**/*",
+      "./data/adaptations/**/*",
+    ],
+    "/content": [
+      "./data/content/**/*",
+      "./data/languages/**/*",
+      "./data/frequency/**/*",
+      "./data/lemma/**/*",
+      "./data/adaptations/**/*",
+    ],
+    "/content/[id]": [
+      "./data/content/**/*",
+      "./data/languages/**/*",
+      "./data/frequency/**/*",
+      "./data/lemma/**/*",
+      "./data/adaptations/**/*",
+    ],
+    "/practice": [
+      "./data/methods/**/*",
+      "./data/content/**/*",
+      "./data/languages/**/*",
+      "./data/frequency/**/*",
+      "./data/lemma/**/*",
+      "./data/example-sentences/**/*",
+      "./data/starter/**/*",
+    ],
     "/words": [
       "./data/content/**/*",
       "./data/languages/**/*",
@@ -40,9 +77,20 @@ const nextConfig: NextConfig = {
     "/words/review": [
       "./data/methods/**/*",
       "./data/example-sentences/**/*",
-      "./data/starter/world-tags/**/*",
+      "./data/starter/**/*",
+      "./data/content/**/*",
+      "./data/languages/**/*",
+      "./data/frequency/**/*",
+      "./data/lemma/**/*",
     ],
-    "/languages": ["./data/languages/**/*"],
+    "/words-bisect": [
+      "./data/content/**/*",
+      "./data/languages/**/*",
+      "./data/frequency/**/*",
+      "./data/lemma/**/*",
+    ],
+    "/languages": ["./data/languages/**/*", "./data/frequency/**/*"],
+    "/dev/progression": ["./data/design-themes/**/*"],
     "/profile/dev/sentence-realizer": [
       "./data/sentence-plans/**/*",
       "./data/lemma/**/*",

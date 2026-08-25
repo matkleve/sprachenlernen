@@ -18,7 +18,7 @@ const SCOPES = {
     // `secrets` is in the default scope because it is the one gate whose miss
     // is unrecoverable: a key that reached a commit is a key to rotate, and no
     // later run can undo that. It greps 700-odd files in well under a second.
-    checks: ["typecheck", "lint", "specs", "secrets", "tokens", "contrast"],
+    checks: ["typecheck", "lint", "specs", "secrets", "tokens", "contrast", "file-tracing"],
     tests: [],
     vitestChanged: true,
   },
@@ -55,7 +55,7 @@ const SCOPES = {
   },
   route: {
     desc: "New/changed app routes — adds build (no full test suite)",
-    checks: ["typecheck", "lint", "specs", "build"],
+    checks: ["typecheck", "lint", "specs", "file-tracing", "build"],
     tests: [],
   },
 };
