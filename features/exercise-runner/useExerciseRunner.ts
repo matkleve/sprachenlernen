@@ -123,6 +123,13 @@ export function useExerciseRunner({
     }, 250);
 
     return () => window.clearInterval(id);
+    // Deliberately narrower than `state.timer`. The interval reads nothing from
+    // the timer — it dispatches `tick` with the current clock and lets the
+    // reducer do the arithmetic — so the only changes that should tear it down
+    // and rebuild it are a different step or a pause. Depending on the whole
+    // object would clear and recreate the interval four times a second, which
+    // is the drift the reducer exists to avoid.
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- see above
   }, [state.timer?.stepId, state.timer?.pausedAt]);
 
   const activeStep = state.recipe.steps[state.activeStepIndex] ?? null;

@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 
 import {
   METHODS_PATH,
@@ -44,8 +44,12 @@ export function useMenuFilter(initialSearchParams: SearchParams) {
     });
   }, []);
 
-  const filter: MenuFilter = parseMenuFilter(searchParams);
-  const returnQuery = menuQueryString(searchParams);
+  // Both are derived from `searchParams` and both are handed to consumers as
+  // dependencies — MethodMenu memoises the filtered catalogue on `filter`.
+  // Rebuilding them on every render would give that memo a new dependency every render,
+  // which is a memo that never hits while looking like one that does.
+  const filter: MenuFilter = useMemo(() => parseMenuFilter(searchParams), [searchParams]);
+  const returnQuery = useMemo(() => menuQueryString(searchParams), [searchParams]);
 
   return { searchParams, filter, returnQuery, updateSearchParams };
 }

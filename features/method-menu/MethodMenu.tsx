@@ -62,7 +62,14 @@ export function MethodMenu({
 }: MethodMenuProps) {
   const { t, sections } = useMethodMenuCopy();
   const { filter, returnQuery, updateSearchParams } = useMenuFilter(initialSearchParams);
-  const methods = catalogue ? filterMethods(catalogue, filter) : [];
+  // `methods` has to be memoised for `dailyThree` below to memoise at all: a
+  // fresh array every render is a fresh dependency every render, so the memo
+  // recomputed `pickDailyThree` over the whole catalogue on each one while
+  // looking like it did not.
+  const methods = useMemo(
+    () => (catalogue ? filterMethods(catalogue, filter) : []),
+    [catalogue, filter],
+  );
   const dailyThree = useMemo(
     () => pickDailyThree(methods.filter(isMethod), dayKey),
     [methods, dayKey],
