@@ -12,7 +12,7 @@ import {
 import { filterSchedulableCards } from "@/lib/form-recall-staging";
 import { loadSpanishMeaningRecallDeck } from "@/lib/starter-deck";
 import { loadLemmaTable } from "@/lib/lemma-table";
-import { applyReview, newTask as schedulerNewTask } from "@/lib/scheduler";
+import { newTask as schedulerNewTask } from "@/lib/scheduler";
 import { bucketForTask } from "@/lib/vocabulary-snapshot";
 
 describe("form-recall pool", () => {

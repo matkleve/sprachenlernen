@@ -1,4 +1,4 @@
-import { renderWithIntl as render, formatMessage, en } from "@/tests/i18n-test-utils";
+import { renderWithIntl as render, en } from "@/tests/i18n-test-utils";
 import {screen} from "@testing-library/react";
 
 import { describe, expect, it } from "vitest";
@@ -6,7 +6,7 @@ import { describe, expect, it } from "vitest";
 import { expectNoA11yViolations } from "@/tests/axe";
 
 import { MethodCardHeader } from "./MethodCardHeader";
-import { sectionGraphicAlt, sectionGraphicSrc } from "./section-graphic";
+import { sectionGraphicAlt } from "./section-graphic";
 
 describe("MethodCardHeader", () => {
   it("shows the section label on the header overlay", () => {

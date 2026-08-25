@@ -175,10 +175,6 @@ export function readWindowDurationSec(
   return Math.max(180, budgetMinutes * 60 - chrome - extraActiveSec);
 }
 
-export function estimateWallClockMinutes(recipe: ExerciseRecipe): number {
-  return estimateWallClockSec(recipe) / 60;
-}
-
 export function isWithinBudgetTolerance(
   wallClockSec: number,
   budgetMinutes: number,

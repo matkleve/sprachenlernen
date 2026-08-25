@@ -7,7 +7,6 @@ import type { EvidenceGrade, MethodEntry, Skill } from "@/lib/method-catalogue";
 import { SKILLS } from "@/lib/method-catalogue";
 import {
   type ContributionLevel,
-  type SkillMark,
   isWeakTrains,
   skillMarksForMethod,
 } from "@/lib/method-skill-badges";

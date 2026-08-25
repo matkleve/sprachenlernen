@@ -206,23 +206,19 @@ export function buildVocabularyOrbit(
 }
 
 /** Deterministic slot angular width — fewer, larger dots and dashes. */
-export function slotAngularWidth(ringIndex: number, slotIndex: number, slotCount: number): number {
+export function slotAngularWidth(ringIndex: number, slotIndex: number): number {
   const hash = (ringIndex * 31 + slotIndex * 17) % 11;
   if (hash <= 2) return 10;
   if (hash <= 6) return 18 + (hash % 3) * 2;
   return 28 + (hash % 4) * 3;
 }
 
-export function slotStartAngle(
-  ringIndex: number,
-  slotIndex: number,
-  slotCount: number,
-): number {
+export function slotStartAngle(ringIndex: number, slotIndex: number): number {
   const phase = ringPhaseOffset(ringIndex);
   const gap = ORBIT_SLOT_GAP;
   let angle = phase;
   for (let i = 0; i < slotIndex; i++) {
-    angle += slotAngularWidth(ringIndex, i, slotCount) + gap;
+    angle += slotAngularWidth(ringIndex, i) + gap;
   }
   return angle % 360;
 }

@@ -71,7 +71,7 @@ Rules:
 3. **Variant changes step count or durations**, not step types.
 4. **Context may skip steps** — e.g. omit `sheet-download` when keyboard-only.
 5. **Terminal step is `decide`** when the Method offers cards; else `summary`.
-6. **Hosted recipes pass** `assertSessionViable` — see [`method-session-viability.md`](method-session-viability.md).
+6. **Hosted recipes pass** `checkSessionViability` — see [`method-session-viability.md`](method-session-viability.md).
 7. **`variantMinutes`** selects a **fixed package** — see
    [`method-session-budget.md`](method-session-budget.md). Composers must not
    scale volume from the menu time filter.

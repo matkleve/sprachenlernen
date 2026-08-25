@@ -9,7 +9,6 @@ import {
   type ErrorCode,
   type HandledError,
 } from "@/lib/errors";
-import { routes } from "@/lib/routes";
 
 export type { RouteEscape } from "@/features/app-shell/use-route-escape";
 

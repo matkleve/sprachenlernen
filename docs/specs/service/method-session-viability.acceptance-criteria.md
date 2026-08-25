@@ -3,10 +3,10 @@
 <!-- parent: SPEC-service-method-session-viability -->
 
 - [ ] Given a hosted runner recipe with one production `do` and `review: reveal-answer`
-      without `exemplar` or `honestyKey`, when `assertSessionViable` runs, then it
+      without `exemplar` or `honestyKey`, when `checkSessionViability` runs, then it
       fails with gate G2.
 - [ ] Given a runner recipe with one `timed-write` and no loops, when
-      `assertSessionViable` runs, then it fails with gate G3.
+      `checkSessionViability` runs, then it fails with gate G3.
 - [ ] Given `partial-dictation` composed with N≥3 sentences, when viability runs,
       then G3 passes and `learningUnits` equals N.
 - [ ] Given `build-a-sentence` after T-MV2 ships, when composed, then viability

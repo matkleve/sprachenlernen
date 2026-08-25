@@ -5,7 +5,6 @@ import {
   Space_Grotesk,
 } from "next/font/google";
 
-import { cn } from "@/lib/utils";
 
 export const dmSans = DM_Sans({
   subsets: ["latin"],

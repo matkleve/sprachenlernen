@@ -97,7 +97,6 @@ export function normalizePartnerFeedToSource(
   input: PartnerFeedInput,
   fetchedAt: string = new Date().toISOString(),
 ): Source | null {
-  const config = PARTNER_FEED_REGISTRY[input.partnerId];
   const text =
     input.kind === "text" ? input.body?.trim() : input.transcript?.trim();
   if (!text) return null;

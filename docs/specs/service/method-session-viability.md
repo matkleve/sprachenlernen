@@ -75,7 +75,7 @@ examples"*.
 
 ## Composer rules
 
-1. `compose*Recipe` return value is run through `assertSessionViable(recipe)` in
+1. `compose*Recipe` return value is run through `checkSessionViability(recipe)` in
    tests and CI (`T-MV1`).
 2. Failing recipe → composer throws in dev/CI; production returns `null` and
    detail shows not-built honestly.

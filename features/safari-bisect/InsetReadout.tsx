@@ -3,7 +3,6 @@
 import { useEffect, useState } from "react";
 
 import { VISUAL_VIEWPORT_BOTTOM_INSET_VAR } from "@/features/app-shell/useVisualViewportBottomInset";
-import { isStandaloneDisplay } from "@/lib/is-standalone-display";
 import { copy } from "@/features/safari-bisect/content";
 
 /**

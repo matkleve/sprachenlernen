@@ -1,4 +1,4 @@
-import { renderWithIntl as render, formatMessage, en } from "@/tests/i18n-test-utils";
+import { renderWithIntl as render, en } from "@/tests/i18n-test-utils";
 import { screen } from "@testing-library/react";
 
 import { describe, expect, it } from "vitest";

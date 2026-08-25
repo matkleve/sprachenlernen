@@ -18,7 +18,7 @@ Parent: [`method-catalogue.md`](method-catalogue.md) (schema and validation).
 - **In:** resolver in `lib/localize-method-entry.ts`; client hook
   `useLocalizedMethod`; server helper `localizeMethodForLocale`; wiring on
   `MethodCard`, `MethodDetail`, `LandingPreviewMethodCard`, `/practice` runner
-  title, and drill-in shell titles (`methodTitlesById`); German translations for
+  title, and drill-in shell titles (`useShellPageTitle`); German translations for
   every shipped entry id; sync script `scripts/sync-method-catalogue-i18n.mjs`
   that copies English from catalogue into `messages/en.json` for key parity;
   fallback to catalogue English when a locale row is missing.

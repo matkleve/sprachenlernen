@@ -4,19 +4,14 @@
  */
 import type { DeliveryGate } from "@/lib/adaptation-delivery";
 import {
-  computeCoverage,
-  sourceText,
   type ComfortBand,
   type CoverageResult,
   type Source,
 } from "@/lib/coverage";
 import { learnerPrivateLicence } from "@/lib/content-ingestion";
 import { DEFAULT_EXTENSIVE_READING_SOURCE_ID, DEFAULT_PARTIAL_DICTATION_SOURCE_ID } from "@/lib/content-source-constants";
-import type { LearnerWorldId } from "@/lib/learner-world";
-import { pickAppPickSource, pickTopicSource } from "@/lib/material-source-pick";
 import type { MaterialTopic, MethodEntry } from "@/lib/method-catalogue";
 import type { MaterialUnitId } from "@/lib/material-unit";
-import type { Lexicon } from "@/lib/lexicon";
 import type { RecipeVariantId } from "@/lib/exercise-recipe/types";
 import { variantIdForMaterialSetup } from "@/lib/exercise-recipe/variant";
 

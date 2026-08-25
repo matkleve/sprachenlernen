@@ -6,7 +6,7 @@
  */
 
 import type { StarterCard } from "@/lib/starter-deck";
-import { DEFAULT_CONFIG, newTask, type Config, type Grade, type Review, type Task } from "@/lib/scheduler";
+import { DEFAULT_CONFIG, newTask, type Config, type Review, type Task } from "@/lib/scheduler";
 
 const DAY_MS = 86_400_000;
 export const HORIZON_DAYS = 30;

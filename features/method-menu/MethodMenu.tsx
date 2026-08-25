@@ -12,7 +12,6 @@ import {
   isMethod,
   type Catalogue,
   type MethodEntry,
-  type Preset,
   type Section,
 } from "@/lib/method-catalogue";
 import { filterMethods } from "@/lib/method-menu-filter";
@@ -36,7 +35,6 @@ import { useMethodMenuCopy } from "./use-method-menu-copy";
 
 export type MethodMenuProps = {
   catalogue?: Catalogue;
-  presets?: Preset[];
   loadError?: UserFacingError;
   initialSearchParams?: SearchParams;
   standing?: StandingSummary;
@@ -53,7 +51,6 @@ const bySection = (methods: MethodEntry[]): [Section, MethodEntry[]][] =>
 
 export function MethodMenu({
   catalogue,
-  presets: _presets = [],
   loadError,
   initialSearchParams = {},
   standing,

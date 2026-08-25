@@ -3,7 +3,7 @@
  * docs/specs/feature/review-horizon.md
  */
 
-import { HORIZON_DAYS, type HorizonBin } from "@/lib/vocabulary-snapshot";
+import { type HorizonBin } from "@/lib/vocabulary-snapshot";
 
 const DAY_MS = 86_400_000;
 const WEEKS = 4;

@@ -138,10 +138,3 @@ export function checkSessionViability(
 
   return { ok: failures.length === 0, failures };
 }
-
-export function assertSessionViable(
-  recipe: ExerciseRecipe,
-  options?: { budgetMinutes?: number },
-): SessionViabilityResult {
-  return checkSessionViability(recipe, options);
-}

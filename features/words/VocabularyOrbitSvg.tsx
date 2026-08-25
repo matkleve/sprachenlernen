@@ -14,7 +14,6 @@ import {
   strokeArcPath,
 } from "@/lib/orbit-geometry";
 import {
-  ORBIT_SLOTS_PER_RING,
   slotAngularWidth,
   slotStartAngle,
   type OrbitLit,
@@ -126,13 +125,12 @@ type RingLayerProps = {
 
 function RingLayer({ ringIndex, segments, selectedId, onSelect, t }: RingLayerProps) {
   const mid = ringMidRadius(ringIndex);
-  const slotCount = ORBIT_SLOTS_PER_RING[ringIndex] ?? 40;
 
   return (
     <g className="orbit-ring" style={ringSpinStyle(ringIndex)}>
       {segments.map((segment) => {
-        const start = slotStartAngle(ringIndex, segment.slotIndex, slotCount);
-        const width = slotAngularWidth(ringIndex, segment.slotIndex, slotCount);
+        const start = slotStartAngle(ringIndex, segment.slotIndex);
+        const width = slotAngularWidth(ringIndex, segment.slotIndex);
         const end = start + width;
         const path = strokeArcPath(CENTER, CENTER, mid, start, end);
         const interactive = segment.kind !== "tick";

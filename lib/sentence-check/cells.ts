@@ -68,10 +68,6 @@ export function featuresAgree(a: NominalFeatures, b: NominalFeatures): boolean {
   return true;
 }
 
-export function isPos(analysis: Analysis, ...pos: readonly Analysis["pos"][]): boolean {
-  return pos.includes(analysis.pos);
-}
-
 /**
  * `lemma|cell → form`, built once per table and cached. The shipped table maps
  * form → analyses; producing the form that *would* have fitted needs the other

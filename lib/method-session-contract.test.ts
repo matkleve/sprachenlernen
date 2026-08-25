@@ -6,7 +6,6 @@ import { describe, expect, it } from "vitest";
 import { loadMethodCatalogue } from "@/features/method-menu/catalogue";
 import { findMethod } from "@/features/method-menu/MethodDetail";
 import {
-  detectFeedbackMode,
   resolveSessionContract,
   volumeLabelKeyForMethod,
 } from "@/lib/method-session-contract";

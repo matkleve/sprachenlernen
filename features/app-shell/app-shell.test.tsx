@@ -1,7 +1,7 @@
 import { readFileSync, readdirSync } from "node:fs";
 import { join } from "node:path";
 
-import { renderWithIntl as render, formatMessage, en } from "@/tests/i18n-test-utils";
+import { renderWithIntl as render, en } from "@/tests/i18n-test-utils";
 import {within} from "@testing-library/react";
 
 import { redirect } from "next/navigation";

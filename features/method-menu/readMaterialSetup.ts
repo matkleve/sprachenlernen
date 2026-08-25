@@ -3,7 +3,6 @@
  * docs/specs/feature/method-material-setup.md
  */
 import { getAccount } from "@/lib/db/auth";
-import { createServerSupabaseClient } from "@/lib/db/client";
 import { getLearnerWorld } from "@/lib/db/learner-world";
 import { listTaskStatesForTaskIds } from "@/lib/db/task-state";
 import { poolForActiveLanguage } from "@/lib/db/learner-pools";

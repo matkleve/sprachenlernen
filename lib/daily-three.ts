@@ -6,7 +6,7 @@
  * effect" is proxied by evidence grade (A strongest). Variety is section-based.
  */
 
-import type { EvidenceGrade, MethodEntry, Section } from "@/lib/method-catalogue";
+import type { EvidenceGrade, MethodEntry } from "@/lib/method-catalogue";
 
 const EVIDENCE_RANK: Record<EvidenceGrade, number> = { A: 4, B: 3, C: 2, D: 1 };
 

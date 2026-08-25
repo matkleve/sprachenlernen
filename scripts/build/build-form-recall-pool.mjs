@@ -14,7 +14,7 @@ import { pathsFor, resolveLang } from "./starter-deck-lang.mjs";
 import { cardDescriptionKey } from "./description-keys.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
-const { code: LANG, config: LANG_CONFIG } = resolveLang(process.argv[2]);
+const { code: LANG } = resolveLang(process.argv[2]);
 const paths = pathsFor(ROOT, LANG);
 
 const readFormCounts = async () => {

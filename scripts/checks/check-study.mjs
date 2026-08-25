@@ -8,10 +8,8 @@ import { join } from "node:path";
 const ROOT = join(import.meta.dirname, "../..");
 
 const problems = [];
-const warnings = [];
 
 const fail = (file, msg) => problems.push(`✗ ${file}  ${msg}`);
-const warn = (file, msg) => warnings.push(`⚠ ${file}  ${msg}`);
 
 const meta = (text, key) =>
   text.match(new RegExp(`<!--\\s*${key}:\\s*(.+?)\\s*-->`))?.[1] ?? null;
@@ -92,14 +90,7 @@ for (const [file, needles] of [
 if (problems.length) {
   console.error("check:study failed\n");
   for (const p of problems) console.error(p);
-  if (warnings.length) {
-    console.error("\nWarnings:");
-    for (const w of warnings) console.warn(w);
-  }
   process.exit(1);
 }
 
 console.log("check:study ok");
-if (warnings.length) {
-  for (const w of warnings) console.warn(w);
-}

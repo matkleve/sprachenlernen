@@ -4,7 +4,7 @@ import { catalogueLoadFailed, logHandledError, toUserFacing } from "@/lib/errors
 import type { UserFacingError } from "@/lib/errors";
 import type { DemonstrationSentencePick } from "@/lib/demonstration-sentence";
 import { readDemonstrationSentence } from "@/lib/demonstration-sentence";
-import type { Catalogue, Preset } from "@/lib/method-catalogue";
+import type { Catalogue } from "@/lib/method-catalogue";
 import { routes } from "@/lib/routes";
 
 import { loadMethodCatalogue } from "./catalogue";
@@ -13,7 +13,6 @@ import { readStanding } from "./readStanding";
 
 export type MethodsDestinationData = {
   catalogue?: Catalogue;
-  presets?: Preset[];
   loadError?: UserFacingError;
   initialSearchParams: Record<string, string | string[] | undefined>;
   standing?: StandingSummary;
@@ -29,7 +28,7 @@ export async function loadMethodsDestination(
 ): Promise<MethodsDestinationData> {
   const params = await searchParams;
   const dayKey = new Date().toISOString().slice(0, 10);
-  const [{ catalogue, presets, errors }, standing, demonstration] = await Promise.all([
+  const [{ catalogue, errors }, standing, demonstration] = await Promise.all([
     Promise.resolve(loadMethodCatalogue()),
     readStanding(),
     readDemonstrationSentence(dayKey),
@@ -46,7 +45,6 @@ export async function loadMethodsDestination(
 
   return {
     catalogue,
-    presets,
     loadError,
     initialSearchParams: params,
     standing: standing.status === "ok" ? standing.summary : undefined,

@@ -33,7 +33,7 @@ function mockSupabase(rows: { spoken_language: string }[] = []) {
         return { error: null };
       }),
       update: vi.fn(() => ({
-        eq: vi.fn(async (column: string, value: string) => {
+        eq: vi.fn(async (column: string) => {
           if (column !== "user_id") return { error: null };
           if (state.rows[0]) state.rows[0].spoken_language = "de";
           return { error: null };

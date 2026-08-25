@@ -1,4 +1,4 @@
-import { createClient, type SupabaseClient } from "@supabase/supabase-js";
+import { type SupabaseClient } from "@supabase/supabase-js";
 
 import { DEFAULT_CONFIG, rebuild, type Grade } from "@/lib/scheduler";
 import { taskStatePayloadFromTask, wordIdFromTaskId } from "@/lib/task-from-state";

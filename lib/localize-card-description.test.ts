@@ -99,7 +99,3 @@ describe("localize-card-description", () => {
   });
 });
 
-function resolve(key: string, spokenLanguage: string, fallback: string): string {
-  const resolver = createGlossResolver(fareSnapshots);
-  return resolver(key, spokenLanguage, fallback);
-}
