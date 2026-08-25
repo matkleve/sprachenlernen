@@ -52,6 +52,11 @@
       "file": "components/ui/error-callout.test.tsx",
       "pattern": "<button",
       "reason": "Test fixture only — not production UI."
+    },
+    {
+      "file": "features/material-explorer/MaterialSample.tsx",
+      "pattern": "material-button",
+      "reason": "Material swatch, not a control — tabIndex={-1} and no handler. /dev/materials exists to show what the material CSS renders; a Button primitive here would show the design system instead of the thing under test."
     }
   ]
 }
