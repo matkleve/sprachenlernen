@@ -70,6 +70,7 @@ Per-primitive state matrix:
 | Primitive | Element | Pending |
 | --- | --- | --- |
 | `Button` | `<button>` | `pending` prop; policies `cta` / `nav` / `none` |
+| `OptionButton` | `<button>` toggle | `selected` + `aria-pressed`; instant |
 | `SubmitButton` | `<button type="submit">` | auto via `useFormStatus` |
 | `ActionLink` | `<Link>` as button | `usePendingNavigation`; default `cta` |
 | `NavLink` | `<Link>` pill | `usePendingNavigation` |
@@ -83,6 +84,7 @@ Per-primitive state matrix:
 | `LanguageListRow` | row `<button>` or card | disabled while parent pending |
 | `Disclosure` | `<details>` + `<summary>` + `DisclosurePanel` | none (instant toggle; 150ms panel motion) |
 | `Input` / `Textarea` / `Select` | native | platform H/A; F + X styled |
+| `Checkbox` | native (sr-only) | marker drawn in-app; form consent only |
 
 Non-interactive: `Chip`, `LanguageFlag` (decorative), `ErrorCallout` (container;
 retry slot uses `Button`), `Dialog` (shell; actions in footer).
@@ -107,6 +109,8 @@ Per-route control list:
 | --- | --- | --- |
 | `LanguageSwitcher.tsx` | `language-switcher-scrim` | Full-screen dismiss overlay |
 | `PublicHeaderMenu.tsx` | `language-switcher-scrim` | Full-screen dismiss overlay |
+| `ReflectionDeck.tsx` | `language-switcher-scrim` | Full-screen dismiss overlay |
+| `WoodGrainLab.tsx` | raw `<button>` | Design explorer preset list |
 | `app/layout.tsx` | Skip to content `<a>` | Focus-only keyboard skip link |
 | `error-callout.test.tsx` | `<button` | Test fixture only |
 

@@ -2,7 +2,7 @@
 
 import { useTranslations } from "next-intl";
 
-import { Button } from "@/components/ui/Button";
+import { OptionButton } from "@/components/ui/OptionButton";
 import type { StepRenderProps } from "@/features/exercise-runner/steps/types";
 
 export function SelfMarkStep({
@@ -51,16 +51,14 @@ export function SelfMarkStep({
         {tokenGroups.flat().map((token, index) => {
           const selected = markedErrorTokens.includes(token);
           return (
-            <Button
+            <OptionButton
               key={`${token}-${index}`}
-              type="button"
-              variant={selected ? "primary" : "secondary"}
-              size="sm"
-              className="rounded-pill"
+              layout="chip"
+              selected={selected}
               onClick={() => onToggleError(token)}
             >
               {token}
-            </Button>
+            </OptionButton>
           );
         })}
       </div>

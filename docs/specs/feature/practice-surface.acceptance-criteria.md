@@ -3,9 +3,8 @@
 <!-- parent: SPEC-feature-practice-surface -->
 
 - [ ] Given a prepare step on `/practice`, when the learner views prep rows, then
-      each row is a full-width `Button` (`secondary` at rest, `primary` when
-      checked) with left-aligned label text — same option pattern as comprehension
-      choices.
+      each row is an `OptionButton` (`layout="row"`) — `secondary` at rest,
+      `primary` when checked, with `aria-pressed`.
 - [ ] Given a checked prep row, when rendered, then the button uses `variant="primary"`
       and `aria-pressed="true"`.
 - [ ] Given build-a-sentence prepare on mobile (`< md`), when rendered, then the

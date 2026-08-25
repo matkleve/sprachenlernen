@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useTranslations } from "next-intl";
 
-import { Button } from "@/components/ui/Button";
+import { OptionButton } from "@/components/ui/OptionButton";
 import { cn } from "@/lib/utils";
 
 type QuestionOption = { id: string; label: string };
@@ -67,19 +67,17 @@ export function ComprehensionQuestionsStep({ config }: ComprehensionQuestionsSte
             <legend className="text-base font-medium text-ink">{question.prompt}</legend>
             <div className="flex flex-col gap-2">
               {question.options.map((option) => (
-                <Button
+                <OptionButton
                   key={option.id}
-                  type="button"
-                  variant={selected === option.id ? "primary" : "secondary"}
-                  size="sm"
-                  className={cn("justify-start")}
+                  layout="row"
+                  selected={selected === option.id}
                   onClick={() => {
                     setAnswers((current) => ({ ...current, [question.id]: option.id }));
                     setRevealed((current) => ({ ...current, [question.id]: true }));
                   }}
                 >
                   {option.label}
-                </Button>
+                </OptionButton>
               ))}
             </div>
             {showFeedback ? (

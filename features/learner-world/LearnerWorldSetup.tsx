@@ -4,10 +4,9 @@ import { useState, useTransition } from "react";
 import { useTranslations } from "next-intl";
 
 import { Button } from "@/components/ui/Button";
-import { PressableCard } from "@/components/ui/PressableCard";
+import { OptionButton } from "@/components/ui/OptionButton";
 import { saveLearnerWorldAction } from "@/features/learner-world/actions";
 import { LEARNER_WORLD_IDS, type LearnerWorldId } from "@/lib/learner-world";
-import { cn } from "@/lib/utils";
 
 /**
  * Onboarding Lernwelt picker. Contract: docs/specs/feature/learner-world-setup.md
@@ -44,17 +43,13 @@ export function LearnerWorldSetup() {
         <ul className="mt-6 grid gap-3">
           {LEARNER_WORLD_IDS.map((worldId) => (
             <li key={worldId}>
-              <PressableCard
-                type="button"
-                aria-pressed={selected === worldId}
+              <OptionButton
+                layout="row"
+                selected={selected === worldId}
                 onClick={() => setSelected(worldId)}
-                className={cn(
-                  "w-full text-left",
-                  selected === worldId && "border-accent bg-accent-soft",
-                )}
               >
-                <span className="text-base font-medium text-ink">{t(`world.${worldId}`)}</span>
-              </PressableCard>
+                {t(`world.${worldId}`)}
+              </OptionButton>
             </li>
           ))}
         </ul>

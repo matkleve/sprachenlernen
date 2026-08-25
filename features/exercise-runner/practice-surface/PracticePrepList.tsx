@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 
-import { Button } from "@/components/ui/Button";
+import { OptionButton } from "@/components/ui/OptionButton";
 import { cn } from "@/lib/utils";
 
 export type PracticePrepEntry = {
@@ -16,8 +16,8 @@ type PracticePrepListProps = {
 };
 
 /**
- * Prep checklist rows — full-width option buttons, same pattern as comprehension
- * choices. Contract: docs/specs/feature/practice-surface.md
+ * Prep checklist rows — full-width option buttons. Contract:
+ * docs/specs/feature/practice-surface.md
  */
 export function PracticePrepList({ entries, className }: PracticePrepListProps) {
   const [checked, setChecked] = useState<Readonly<Record<string, boolean>>>({});
@@ -34,16 +34,13 @@ export function PracticePrepList({ entries, className }: PracticePrepListProps) 
         const isChecked = checked[entry.id] === true;
         return (
           <li key={entry.id}>
-            <Button
-              type="button"
-              variant={isChecked ? "primary" : "secondary"}
-              size="md"
-              className="w-full justify-start"
-              aria-pressed={isChecked}
+            <OptionButton
+              layout="row"
+              selected={isChecked}
               onClick={() => toggle(entry.id)}
             >
               {entry.label}
-            </Button>
+            </OptionButton>
           </li>
         );
       })}

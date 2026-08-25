@@ -75,9 +75,9 @@ export function MaterialSample({ stage, compact = false, className }: MaterialSa
           aria-label={preview.inputPlaceholder}
         />
 
-        <button type="button" tabIndex={-1} className="material-button self-start">
+        <span className="material-button self-start" aria-hidden="true">
           {preview.buttonLabel}
-        </button>
+        </span>
       </div>
 
       {compact ? (
