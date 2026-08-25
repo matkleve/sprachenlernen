@@ -901,6 +901,85 @@ study/48 and the ingestion/adaptation specs when implementing.
     (alternate source / T3). Measure first; do not fake generic A2 as personalised.
     See [`content-adaptation.md`](specs/service/content-adaptation.md) delivery gate.
 
+**Added 2026-08-25**, from
+[`study/STUDY-056`](study/STUDY-056-skill-evidence-from-every-method.md) (skill
+evidence across all 59 methods). **Nothing in this block may be answered by an
+agent picking something reasonable** — each one either writes a contract that does
+not exist or decides what the app is allowed to claim about a learner. Resolve
+before any evidence-layer code. Cite STUDY-056 findings `S1`–`S12`, not this list,
+when implementing.
+
+Context that makes the block urgent rather than tidy: every skill currently reads
+`not-measured` for every learner **by construction** — the three signals the code
+computes and the two that feed a skill are disjoint sets (`S1`). This was recorded
+as decision 1 on 2026-08-09 ("twenty-one methods train something none of the seven
+layer-1 signals measures") and has been open since.
+
+38. **What is the signal-to-skill mapping, and what feeds listening?**
+    `SIGNALS_FEEDING` in `lib/level-model.ts` is an undocumented invention:
+    [`STUDY-003`](study/STUDY-003-level-model.md) has **no** signal-to-skill
+    table, and the four entries were inferred from two prose fragments in its
+    layer-1 list. `listening: []` exists because no sentence in the chapter
+    mentions listening — not because anyone decided (`S3`). This is the root
+    blocker; nothing else in this block can be built without it.
+39. **Does production quality split by modality now, or after it has data?**
+    It currently feeds speaking **and** writing, and 9 methods target it — 7
+    write-only, 2 speak-only. The day a writing method emits, a learner who has
+    never spoken aloud reads **speaking: measured**, dominated 7:2 by writing
+    (`S4`). Splitting is cheap while nothing depends on it and expensive after.
+    Recommendation: split now.
+40. **Does `targetSignal` split into an evaluation signal and an emitted set?**
+    Tier 2 of [`STUDY-024`](study/STUDY-024-readiness-and-difficulty.md) defines
+    the field as how a *method is judged*; it was read as what a session
+    *observes*. That conflation is why 19 of 32 signalled methods emit into a
+    signal that reaches no skill (`S12`, `S2`).
+41. **Can receptive evidence alone make a skill `measured`, or does it cap at
+    `uncertain`?** Capping is the conservative reading of R9 and E3, and it means
+    a heavy reader still sees no movement — which is the complaint that opened
+    this. Deciding otherwise requires saying what makes receptive evidence
+    sufficient (`S6`, `S8`).
+42. **How weak is a weak observation, numerically?** An untapped word is a weak
+    positive of recognition-in-context (`S6`). Whether that is worth a tenth of a
+    graded retrieval or a hundredth is not derivable from anything in `study/`.
+    Will be specced as a named constant with the reasoning attached, and not
+    dressed up as derived.
+43. **Does an untapped word create anything besides coverage** — nothing, a
+    candidate in a suggestion pool, or a low-priority card? And does a **tapped**
+    word auto-create a card or offer one (`S6`, and
+    [`STUDY-055`](study/STUDY-055-after-read-word-taps.md))?
+44. **Is the *Durchsehen* comprehension step kept as the admissibility gate?**
+    STUDY-055 argued for removing it; `S6` and `S9` then found that tap evidence
+    is uninterpretable without something showing the text was actually read —
+    not tapping and not noticing are indistinguishable. Reversal of the earlier
+    recommendation: keep one check per session, with a new job.
+45. **Is Source history per learner stored, and does the cascade use it?**
+    "Read the article → dictate its sentences → card its words" is a spaced
+    strength ladder over one vocabulary set (`S7`, E1/E2/E3/E9), and
+    [`material-unit.md`](specs/service/material-unit.md) already resolves one
+    Source at `sentence`/`paragraph`/`full`. The plumbing exists; nothing
+    remembers what was read, so the cascade cannot be chosen deliberately.
+46. **How often may one Source be reused before it reproduces the *book you know*
+    overestimate?** Repeated exposure to the same text inflates comprehension
+    through prior knowledge — the catalogue says so in that method's
+    `doesNotDo`. The cascade deliberately reuses content, so it needs a limit
+    (`S7`).
+47. **Which of the 9 hosted-but-unsignalled methods get a signal, and does
+    minimal pairs go first?** Minimal pairs is hosted, declares `listening`, and
+    is a forced-choice discrimination task — the cheapest objective listening
+    measurement in the catalogue, needing no audio pipeline or transcript
+    alignment (`S11`). The other eight: rule at point of error, reading aloud,
+    reread something hard, parallel text, shadowing, recite memorised, copy a
+    paragraph, caption your photos.
+48. **Does the learner see what a session contributed** — something like
+    "coverage, weak, 340 words" — or is per-session attribution noise? Bears on
+    whether the evidence layer is learner-visible at all.
+
+Scope note: persisted evidence is **Sensitive** class — red-test-first plus
+fresh-context adversarial review by a different agent than the implementer. Open
+sub-question for the owner: full evidence record across all engines, or a narrow
+first cut that persists reading evidence only and proves the pipeline end to end
+before the other engines are wired.
+
 **Added 2026-08-16**, from [study/34](reviews/design/DR-035-review-report-and-acknowledgement-ux.md)
 (T-B14a/b/c). Resolve before implementing report popover or DB columns.
 
