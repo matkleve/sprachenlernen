@@ -8,6 +8,7 @@ import {
   hitAreaExpandMd,
   hitAreaExpandSm,
   hitAreaPseudo,
+  hoverFillSoft,
   hoverLift,
   interactiveCursor,
   interactiveEmphasis,
@@ -51,14 +52,16 @@ export const buttonVariants = cva(
           "bg-accent text-accent-ink shadow-soft hover:bg-accent-deep hover:-translate-y-px hover:shadow-raised",
         secondary: cn(
           "border border-line bg-surface text-ink shadow-soft hover:border-line-strong hover:-translate-y-px hover:shadow-raised",
+          hoverFillSoft,
           pressFill,
         ),
         floating: cn(
           "border border-line bg-surface text-ink shadow-soft hover:border-line-strong",
+          hoverFillSoft,
           hoverLift,
           pressFill,
         ),
-        ghost: "text-ink hover:bg-accent-soft active:bg-accent-soft",
+        ghost: cn("text-ink", hoverFillSoft, pressFill),
         danger:
           "bg-danger text-danger-ink shadow-soft hover:bg-danger-deep hover:-translate-y-px hover:shadow-raised",
       },

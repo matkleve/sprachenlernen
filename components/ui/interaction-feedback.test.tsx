@@ -35,17 +35,21 @@ describe("interaction-feedback contract", () => {
         Chip
       </Button>,
     );
-    expect(screen.getByRole("button").className).toContain("active:bg-accent-soft");
+    expect(screen.getByRole("button").className).toContain("active:bg-accent");
+    expect(screen.getByRole("button").className).toContain("hover:bg-accent-soft");
   });
 
   it("secondary Button includes active fill for touch-visible press", () => {
     render(<Button variant="secondary">Try again</Button>);
-    expect(screen.getByRole("button").className).toContain("active:bg-accent-soft");
+    expect(screen.getByRole("button").className).toContain("active:bg-accent");
+    expect(screen.getByRole("button").className).toContain("hover:bg-accent-soft");
   });
 
   it("NavLink variants include press (active) feedback classes", () => {
     expect(navLinkVariants()).toContain("active:scale");
     expect(navLinkVariants()).toContain("cursor-pointer");
+    expect(navLinkVariants({ current: false })).toContain("hover:bg-accent-soft");
+    expect(navLinkVariants({ current: false })).toContain("active:bg-accent");
   });
 
   it("TextLink variants include press (active) feedback classes", () => {

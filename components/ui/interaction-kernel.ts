@@ -33,8 +33,15 @@ export const disclosureShellPress = [
   "[&:has(summary:active)]:translate-y-0 [&:has(summary:active)]:scale-[0.98] [&:has(summary:active)]:border-line-strong",
 ] as const;
 
-/** Stronger press for large surfaces and icon chips where scale alone is subtle. */
-export const pressFill = "active:bg-accent-soft active:border-line-strong";
+/** Light orange tint on hover for neutral fills (chips, secondary buttons). */
+export const hoverFillSoft = "hover:bg-accent-soft";
+
+/** Full primary flash on press — mobile-nav-v2 back chip, secondary/floating chips. */
+export const pressFill =
+  "active:bg-accent active:text-accent-ink active:border-accent";
+
+/** Soft fill on press for large card surfaces where full accent is too loud. */
+export const pressFillSoft = "active:bg-accent-soft active:border-line-strong";
 
 export const hoverLift = "hover:-translate-y-px hover:shadow-raised";
 
@@ -93,4 +100,4 @@ export const cardInteractive = [
 ] as const;
 
 /** Card-shaped pressables — lift on hover, accent fill on press. Shared by SurfaceLink, PressableCard, LanguageListRow. */
-export const cardPressable = [...cardInteractive, pressFill] as const;
+export const cardPressable = [...cardInteractive, pressFillSoft] as const;
