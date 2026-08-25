@@ -17,6 +17,7 @@ import { checkSessionViability } from "@/lib/exercise-recipe/viability";
 import type { ExerciseRecipe } from "@/lib/exercise-runner/types";
 import { resolveVariantMinutes } from "@/lib/method-session-budget";
 import { usesExerciseRunner, usesWordsReview } from "@/lib/method-session";
+import { countSentences } from "@/lib/read-session-material";
 
 export type SessionFeedbackMode =
   | "self-mark"
@@ -93,6 +94,9 @@ export function volumeLabelKeyForMethod(methodId: string): string {
     case "partial-dictation":
     case "full-dictation":
       return "sessionVolumeSentences";
+    case "extensive-reading":
+    case "reading-aloud":
+      return "sessionVolumeSentences";
     default:
       return "sessionVolumeUnits";
   }
@@ -101,8 +105,11 @@ export function volumeLabelKeyForMethod(methodId: string): string {
 function sessionLearningUnits(recipe: ExerciseRecipe, methodId: string): number {
   const units = countLearningUnits(recipe);
   if (units > 0) return units;
+  const readSteps = recipe.steps.filter((step) => step.component === "text-display");
+  if (readSteps.length > 0) {
+    return readSteps.reduce((sum, step) => sum + countSentences(String(step.config.text ?? "")), 0);
+  }
   if (recipe.steps.some((step) => step.component === "timed-write")) return 1;
-  if (recipe.steps.some((step) => step.component === "text-display")) return 1;
   if (methodId === "free-production") return 1;
   return 0;
 }
@@ -133,7 +140,10 @@ export async function resolveSessionContract(
     variantMinutes ?? resolveVariantMinutes(method.durations, { methodId: method.id });
   if (resolved === undefined) return null;
 
-  const recipe = await resolveExerciseRecipe(method.id, { budgetMinutes: resolved });
+  const recipe = await resolveExerciseRecipe(method.id, {
+    budgetMinutes: resolved,
+    unitId: method.id === "extensive-reading" || method.id === "reading-aloud" ? "window" : undefined,
+  });
   if (!recipe) return null;
 
   const viability = checkSessionViability(recipe, { budgetMinutes: resolved });

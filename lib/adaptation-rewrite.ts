@@ -75,9 +75,9 @@ export async function rewriteWithFixture(input: AdaptationRewriteInput): Promise
     return "Uno dos tres cuatro cinco uno dos tres cuatro cinco uno dos tres cuatro cinco uno dos tres cuatro cinco uno dos tres cuatro cinco.";
   }
   if (input.targetLevel === "B1") {
-    return "Las autoridades electorales de Egipto mantienen la prohibición de observadores internacionales en las elecciones. El presidente Mubarak busca otro período de seis años. Durante la campaña, los egipcios debaten el desempleo y la corrupción.";
+    return "Las autoridades electorales de Egipto mantienen la prohibición de observadores internacionales en las elecciones. El presidente Mubarak busca otro período de seis años. Durante la campaña, los egipcios debaten el desempleo y la corrupción en el país. Miles de personas marcharon en Alemania contra la extrema derecha. En Mozambique confirmaron la victoria electoral con un gran margen. Los expertos discuten los resultados en varios países.";
   }
-  return "Las autoridades de Egipto no permiten observadores en las elecciones. Mubarak quiere gobernar seis años más. La gente habla del desempleo y la corrupción en el país.";
+  return "Las autoridades de Egipto no permiten observadores en las elecciones. Mubarak quiere gobernar seis años más. La gente habla del desempleo y la corrupción en el país. En Alemania muchas personas marchan contra la extrema derecha. En Mozambique hay elecciones y la oposición pide más transparencia. Los ciudadanos leen las noticias cada día y discuten el futuro del país.";
 }
 
 export function createAdaptationRewrite(): AdaptationRewriteFn {

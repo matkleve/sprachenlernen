@@ -1187,7 +1187,7 @@
     "units": {
       "sentence": "One sentence",
       "paragraph": "One paragraph",
-      "window": "{minutes} min listening",
+      "window": "{minutes} min read",
       "full": "Full text"
     },
     "comfort": {
@@ -1206,6 +1206,9 @@
     "demandingLine": "Still demanding — {words} words to comfortable",
     "t1SupportLine": "{percent}% known — pre-teach {gaps} words, then Start",
     "blockedLine": "Too hard for your vocabulary ({percent}% known) — {level} text did not pass for you",
+    "materialInsufficientLine": "Only {sentences} sentences for a {minutes}-minute session — need at least {min} on screen, or review vocabulary first",
+    "reviewVocabularyFirst": "Review vocabulary first",
+    "trySentenceDictation": "Try one-sentence dictation",
     "adaptationLabel": "Adapted for {level} · not the original article",
     "generatedLabel": "Generated article — not an original news story",
     "adaptationFailed": "Could not adapt this text to {level} for your vocabulary — try a shorter passage or different text",

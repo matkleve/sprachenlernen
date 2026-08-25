@@ -1187,7 +1187,7 @@
     "units": {
       "sentence": "Ein Satz",
       "paragraph": "Ein Absatz",
-      "window": "{minutes} Min. Hören",
+      "window": "{minutes} Min. lesen",
       "full": "Ganzer Text"
     },
     "comfort": {
@@ -1206,6 +1206,9 @@
     "demandingLine": "Noch anspruchsvoll — {words} Wörter bis angenehm",
     "t1SupportLine": "{percent} % bekannt — {gaps} Wörter vor Start vormerken",
     "blockedLine": "Zu schwer für deinen Wortschatz ({percent} % bekannt) — {level}-Text passt nicht für dich",
+    "materialInsufficientLine": "Nur {sentences} Sätze für eine {minutes}-Minuten-Session — mindestens {min} auf dem Bildschirm, oder zuerst Vokabeln wiederholen",
+    "reviewVocabularyFirst": "Zuerst Vokabeln wiederholen",
+    "trySentenceDictation": "Ein-Satz-Diktat probieren",
     "adaptationLabel": "Für {level} angepasst · nicht der Originalartikel",
     "generatedLabel": "Generierter Artikel — keine Originalnachricht",
     "adaptationFailed": "Anpassung auf {level} für deinen Wortschatz nicht möglich — kürzeren Text oder anderen Inhalt versuchen",

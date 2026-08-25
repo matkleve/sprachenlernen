@@ -30,7 +30,7 @@
         { "id": "news", "labelKey": "news" },
         { "id": "daily", "labelKey": "daily" }
       ],
-      "materialUnits": [{ "id": "full", "default": true }]
+      "materialUnits": [{ "id": "window", "default": true }]
     },
     {
       "id": "narrow-reading",
@@ -120,7 +120,7 @@
         { "id": "news", "labelKey": "news" },
         { "id": "daily", "labelKey": "daily" }
       ],
-      "materialUnits": [{ "id": "full", "default": true }]
+      "materialUnits": [{ "id": "window", "default": true }]
     },
     {
       "id": "reading-while-listening",

@@ -3,7 +3,9 @@
  */
 import { describe, expect, it } from "vitest";
 
+import { loadMethodCatalogue } from "@/features/method-menu/catalogue";
 import { resolveExerciseRecipe } from "@/lib/exercise-recipe";
+import type { MethodEntry } from "@/lib/method-catalogue";
 import {
   cardCountForBudgetMinutes,
   estimateWallClockSec,
@@ -22,8 +24,6 @@ const BUILT_HOSTED_METHOD_IDS = [
 
 /** Until T-MV2/T-MV5 — CI blocks new failures on these methods. */
 const KNOWN_VIABILITY_FAILURES: Partial<Record<string, readonly ViabilityGate[]>> = {
-  "partial-dictation": ["G3"],
-  "extensive-reading": ["G1", "G3"],
   "reading-aloud": ["G2", "G3", "G5"],
 };
 
@@ -76,10 +76,24 @@ describe("estimateWallClock", () => {
 describe("hosted recipe CI gate (T-MV1)", () => {
   for (const methodId of BUILT_HOSTED_METHOD_IDS) {
     it(`${methodId} matches viability allowlist or passes all gates`, async () => {
-      const recipe = await resolveExerciseRecipe(methodId);
+      const { catalogue } = loadMethodCatalogue();
+      const method = catalogue!.entries.find(
+        (entry): entry is MethodEntry => entry.type === "method" && entry.id === methodId,
+      );
+      const budgetMinutes =
+        methodId === "free-production"
+          ? method?.durations?.[method.durations.length - 1]
+          : method?.durations?.[0];
+      const recipe = await resolveExerciseRecipe(methodId, {
+        budgetMinutes,
+        unitId:
+          methodId === "extensive-reading" || methodId === "reading-aloud"
+            ? "window"
+            : undefined,
+      });
       expect(recipe).not.toBeNull();
 
-      const result = checkSessionViability(recipe!);
+      const result = checkSessionViability(recipe!, { budgetMinutes });
       const expected = KNOWN_VIABILITY_FAILURES[methodId];
 
       if (expected) {
