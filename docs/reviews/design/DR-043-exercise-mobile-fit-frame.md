@@ -74,7 +74,7 @@ tight and may need recipe trim or scroll profile.
 
 | Component | Typical slots |
 | --- | --- |
-| `checklist` | intro (clamp 3 lines) + ≤2 prep rows |
+| `checklist` | intro (clamp 3 lines) + ≤2 static prep rows |
 | `type-with-word` | prompt + gloss + 3-row field + hint |
 | `timed-write` | prompt + meta + 3-row field (md: tall) |
 | `prompt` | one lead block |

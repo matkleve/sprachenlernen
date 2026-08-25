@@ -58,7 +58,7 @@ export function composeFreeProductionRecipe(
         labelKey: "stepLabelPrepare",
         config: {
           introKey: "introFreeProduction",
-          itemKeys: ["prepareItemKeyboard", "prepareItemQuiet", "prepareItemTargetLang"],
+          itemKeys: ["prepareItemKeyboard", "prepareItemTargetLang"],
         },
       },
       {

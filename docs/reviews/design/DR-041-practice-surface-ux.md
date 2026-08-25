@@ -66,7 +66,7 @@ the primary CTA — not under the hero belt.
 | Primary action in thumb zone, 48px+ | Mobile wizard guides | Footer primary `lg` |
 | **Larger controls inside the task** | Duolingo, Brilliant, Khan | **Practice surface scale** |
 | **No scroll on short steps** | Khan lesson cards | **Fit-frame** profile |
-| 3:1 non-text contrast on controls | WCAG 1.4.11 | `line-strong` border on checkbox marker (not row card) |
+| 3:1 non-text contrast on controls | WCAG 1.4.11 | `line-strong` on borders and option markers |
 | Chrome vs content separation | Material “display” vs “body” | Two layers, two density rules |
 
 Duolingo is not the spec — **confidence and legibility under stress** is. Learners
@@ -92,12 +92,12 @@ primitives — never raw app-scale fields for the main task.
 ## Practice surface rules
 
 1. **Lead copy** — `text-lg`, `leading-snug`, `text-ink`. One block per step.
-2. **Interactive rows** — min height 44px (`min-h-11`), `items-center`, `px-4 py-3`,
-   `font-semibold` label left, `Checkbox` right, `border-x border-line-strong` inset
-   (no top/bottom stroke). Checked: `bg-accent-soft`. WCAG contrast on the marker.
+2. **Prep requirements** — static rows only (`PracticePrepList`): `px-4 py-3`,
+   `font-semibold`, `border-x border-line-strong` inset (no top/bottom stroke). Not
+   interactive — **Weiter** does not wait on them.
 3. **Primary fields** — `Field` + `Textarea`, 3 rows default in short steps.
-4. **Checkboxes** — `Checkbox` primitive (`components/ui/Checkbox.tsx`) — 2px
-   `line-strong`, 24px box (`md`), no native browser painting.
+4. **Task toggles** — `OptionButton` (`row` or `chip`) for comprehension, self-mark,
+   world picker; `FilterPill` for chrome filters; `Checkbox` for form consent only.
 5. **i18n** — recipe carries `itemKeys` / `introKey`; no English in recipe JSON.
 6. **Footer** — no extra `surface` panel; `border-t border-line` on `canvas` only.
 7. **Anchored footer** — chrome bottom stays fixed; only scroll profile scrolls.
