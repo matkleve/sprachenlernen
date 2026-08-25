@@ -17,12 +17,36 @@ import { join } from "node:path";
 const ROOT = join(import.meta.dirname, "../..");
 
 const FILES = globSync("{app,components,features,lib}/**/*.{ts,tsx,css}", { cwd: ROOT }).filter(
-  (f) =>
-    !f.endsWith("globals.css") &&
-    // Dev-only material skins — imported by globals.css; raw hex is intentional (T-PT0c).
-    f !== "app/progression-skins.css" &&
-    f !== "app/wood-textures.css",
+  (f) => !f.endsWith("globals.css"),
 );
+
+/**
+ * Files where a raw colour is the **medium**, not a style decision: the
+ * dev-only material and texture labs (`/dev/materials`, `/dev/wood-*`), and the
+ * procedural generators that compute pixel values one channel at a time. A
+ * token cannot express "this ring is 4% darker than the last one".
+ *
+ * Exempt from the three *colour* rules only — z-index, transition, duration and
+ * easing still apply to these files, and so does the `var()` resolution check
+ * below. Listed one by one on purpose: a new lab file fails the gate until
+ * somebody adds it here with a reason, which is the friction that keeps the
+ * list from becoming a hole. Nothing a learner sees may appear on it.
+ */
+const COLOR_EXEMPT = new Set([
+  // Dev-only material skins — imported by globals.css; raw hex is intentional (T-PT0c).
+  "app/progression-skins.css",
+  "app/wood-textures.css",
+  // `/dev/materials` only, per its own file header — the material stack is
+  // built out of literal light values (specular, vignette, grain opacity).
+  "app/material-system.css",
+  "features/material-explorer/ProceduralWoodBackground.tsx",
+  "features/material-explorer/MaterialSample.tsx",
+  // Canvas wood-grain synthesis: these hex values are sampled from reference
+  // photographs and interpolated per pixel. See lib/wood-grain-ridges.ts.
+  "lib/wood-grain.ts",
+]);
+
+const COLOR_RULE_IDS = new Set(["hex-color", "color-function", "arbitrary-color"]);
 
 const RULES = [
   {
@@ -75,6 +99,8 @@ for (const file of FILES) {
     if (line.includes("token-check-ignore")) return;
 
     for (const rule of RULES) {
+      if (COLOR_RULE_IDS.has(rule.id) && COLOR_EXEMPT.has(file)) continue;
+
       rule.pattern.lastIndex = 0;
       const match = rule.pattern.exec(line);
       if (!match) continue;
@@ -98,7 +124,11 @@ for (const file of FILES) {
 const THEME = readFileSync(join(ROOT, "app/globals.css"), "utf8");
 const UTILS = readFileSync(join(ROOT, "lib/utils.ts"), "utf8");
 
-const themeBlock = THEME.slice(THEME.indexOf("@theme"), THEME.indexOf("\n}\n"));
+// Anchored to `@theme`, not to the first `}` in the file: searching from offset
+// 0 means any rule added above the block silently truncates this slice to
+// nothing, and every check below it then passes by measuring an empty string.
+const themeStart = THEME.indexOf("@theme");
+const themeBlock = THEME.slice(themeStart, THEME.indexOf("\n}\n", themeStart));
 
 // Tailwind namespace → the `theme` key tailwind-merge uses for it.
 const NAMESPACES = ["color", "radius", "shadow", "spacing", "ease"];
@@ -133,13 +163,26 @@ for (const namespace of NAMESPACES) {
 // "the transition does nothing" — which reliably sends people off refactoring
 // the logic instead. Renaming or removing a token is how these appear.
 
-const DEFINED = new Set([...THEME.matchAll(/(--[\w-]+):/g)].map((m) => m[1]));
+// Every stylesheet, not just globals.css: `@import`ed sheets declare their own
+// custom properties (app/material-system.css defines the whole --material-*
+// family), and reading only the theme file reported every one of them as a
+// phantom — 48 false failures that taught people to ignore this gate.
+const CSS_FILES = ["app/globals.css", ...FILES.filter((f) => f.endsWith(".css"))];
+const DEFINED = new Set(
+  CSS_FILES.flatMap((file) =>
+    [...readFileSync(join(ROOT, file), "utf8").matchAll(/(--[\w-]+):/g)].map((m) => m[1]),
+  ),
+);
 
 for (const file of [...FILES, "app/globals.css"]) {
   const lines = readFileSync(join(ROOT, file), "utf8").split("\n");
 
   lines.forEach((line, i) => {
-    for (const [, name] of line.matchAll(/var\((--[\w-]+)/g)) {
+    // `var(--x, fallback)` resolves to the fallback when --x is absent — that
+    // is a documented default, not a dropped property. Only the bare form is
+    // the failure this check is about.
+    for (const [, name, delimiter] of line.matchAll(/var\((--[\w-]+)\s*([,)])/g)) {
+      if (delimiter === ",") continue;
       if (DEFINED.has(name)) continue;
 
       problems++;

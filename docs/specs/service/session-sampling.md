@@ -22,7 +22,7 @@ Study: [`archive/ARCH-043-early-foundation-sessions.md`](../../study/archive/ARC
   today's grades per task, **active Lernwelt** from
   [`learner-world.md`](learner-world.md)). Form-recall **soft staging** weights
   live here, not in a hard gate. Optional per-card `samplingReason` for G1 copy
-  (UC-005) — not Lernwelt labels by default ([`study/56`](../../study/56-lernwelt-single-choice.md)).
+  (UC-005) — not Lernwelt labels by default ([`study/56`](../../study/STUDY-035-lernwelt-single-choice.md)).
 - **Out:** changing `applyReview` or FSRS weights; session-length picker (T-MV5);
   UC-071 same-session requeue; backlog counters (A3). **No hard caps** on new or
   resurfacing cards — load is reduced by **probability** only.

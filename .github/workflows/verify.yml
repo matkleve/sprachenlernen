@@ -5,8 +5,21 @@ on:
     branches: [main]
   pull_request:
 
-# CI runs exactly what you run locally. If those two lists ever drift, CI stops
-# being trusted — and a check nobody trusts is a check nobody fixes.
+# ⚠ THIS WORKFLOW DOES NOT RUN. GitHub Actions is not executing for this
+# repository — every run on `main` concludes `failure` within seconds and
+# produces no job logs, because the jobs are never started. The blocker is
+# account-level (Actions billing/minutes), not this file, so editing it, a
+# re-run, or another push cannot revive it.
+#
+# The consequence, spelled out because agents keep assuming otherwise
+# (docs/AGENT-PITFALLS.md §24): **the local gate is the only gate.** Nothing
+# below has verified any commit on this repository. Do not wait for it, do not
+# cite it, do not report work done on the strength of it. Run
+# `npm run verify` and paste the output.
+#
+# The definition is kept, not deleted, so that it is ready the day Actions is
+# restored — and because it still documents what the gate is. It mirrors what
+# you run locally; if the two lists ever drift, fix the drift here too.
 jobs:
   verify:
     runs-on: ubuntu-latest

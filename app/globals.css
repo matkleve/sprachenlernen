@@ -199,6 +199,11 @@
   --z-index-language-switcher-scrim: 100;
   --z-index-language-switcher-menu: 101;
   --z-index-language-switcher-trigger: 102;
+
+  /* Inside a `.material-scene` (isolation: isolate) — lifts the sample's own
+     content above the texture ::before and the highlight ::after. Local to
+     that stacking context, which is why it is 1 and not in the 100s. */
+  --z-index-material-content: 1;
 }
 
 /* ---------------------------------------------------------------------------

@@ -1,8 +1,12 @@
 # 50 · Onboarding popover — timing, abholen, and whether to ask “skill”
 
+<!-- id: ARCH-050 -->
+<!-- type: archived-bridge -->
+<!-- status: archived -->
+
 **Status:** study only — supersedes the **timing** and **skill-question** parts of
-[49](49-learner-intent-onboarding.md). Register **boost** from chapter 49 is
-**withdrawn** by [51](51-register-path-and-interest-topics.md); this chapter fixes
+[49](ARCH-049-learner-intent-onboarding.md). Register **boost** from chapter 49 is
+**withdrawn** by [51](ARCH-051-register-path-and-interest-topics.md); this chapter fixes
 *when* and *what* to ask (popover + interests page in 51).
 
 **Owner correction (2026-08-20):** Study 49 recommended asking intent **after
@@ -24,7 +28,7 @@ This chapter adds **internet-sourced evidence** and a revised recommendation.
 | “Earned question” pattern | **Abholen** — meet them before they feel lost | Different UX goal |
 
 Study 49 remains valid for **transparency and profile-edit patterns** only.
-Register **boost** mechanics are **withdrawn** — see [51](51-register-path-and-interest-topics.md).
+Register **boost** mechanics are **withdrawn** — see [51](ARCH-051-register-path-and-interest-topics.md).
 
 **Unanimous:** Drop skill question v1. **Register = full path**, not boost (51).
 
@@ -53,7 +57,7 @@ Sources: [Page Flows Duolingo iOS recording](https://pageflows.com/post/ios/onbo
 **Why it works (product psychology, not SLA):** answers act as a **commitment
 device** — the learner has already invested identity (“I’m here for career”) before
 the first tap on a word. Duolingo also **defers signup** until after lesson 1,
-which this product **cannot** ([ADR-0006](../adr/0006-require-an-account.md)).
+which this product **cannot** ([ADR-0006](../../adr/0006-require-an-account.md)).
 
 > **Implication for us:** Duolingo’s “zero barrier” is **zero before any
 > question**, not zero before any **goal** question. Our stricter UC-011 (“only
@@ -153,7 +157,7 @@ closer to **outcome** than **skill checkbox**.
 
 ### O2c · What study 24 already decided for the product **[D]**
 
-[24](STUDY-022-speaking-as-the-goal.md): **Speaking leads the headline** and raises
+[24](../STUDY-022-speaking-as-the-goal.md): **Speaking leads the headline** and raises
 production floors — this is a **product default**, not something every learner
 must re-declare. A user who reads more still benefits from speaking-forward
 measurement honesty.
@@ -235,7 +239,7 @@ Das kannst du jederzeit ändern.
 
 [ Los geht’s — erste Session ]
 
-**No skill page.** No “how much time” in v1 (context presets come later per [21](STUDY-019-method-catalogue-and-context.md)).
+**No skill page.** No “how much time” in v1 (context presets come later per [21](../STUDY-019-method-catalogue-and-context.md)).
 
 ### O3c · What session 1 looks like after Business
 
@@ -270,7 +274,7 @@ product has **less** room than Duolingo; **2–3** screens is the ceiling.
 | **LT** | Skill + domain | **Domain only**; skills integrated; study 24 default |
 | **DS** | Post-session prompt | **Intent before session 1** OK if ≤3 screens + session 1 proves it |
 
-**Unanimous:** Drop skill question v1. **Register path + interests** — [51](51-register-path-and-interest-topics.md).
+**Unanimous:** Drop skill question v1. **Register path + interests** — [51](ARCH-051-register-path-and-interest-topics.md).
 
 ---
 
@@ -278,7 +282,7 @@ product has **less** room than Duolingo; **2–3** screens is the ceiling.
 
 1. **UC-011 amendment** — owner GO to allow intent popover as third step?  
 2. **Alltag vs General** — same boost path or separate tags?  
-3. **Page 1 copy** — mascot / illustration or text-only ([STUDY-020](STUDY-020-visual-design.md))?  
+3. **Page 1 copy** — mascot / illustration or text-only ([STUDY-020](../STUDY-020-visual-design.md))?  
 4. **A/B** — popover vs skip-default: does session-1 completion rate hold?
 
 ---
@@ -303,5 +307,5 @@ product has **less** room than Duolingo; **2–3** screens is the ceiling.
 | ⬤ | Four skills taught integrated > segregated | [B] — TVCR 2025, ISA literature |
 | ⬤ | Autonomous motivation ↔ L2 achievement | [B] — Alamer et al. 2025 meta |
 | ⬤ | Motivation surveys use situation/outcome not modality | [B] — Realia 2024, Gardner tradition |
-| ⬤ | Speaking leads headline — product default | [D] — [24](STUDY-022-speaking-as-the-goal.md) |
+| ⬤ | Speaking leads headline — product default | [D] — [24](../STUDY-022-speaking-as-the-goal.md) |
 | ⬤ | UC-011 current text forbids pre-exercise questions | [A] — repo spec |

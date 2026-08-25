@@ -1,8 +1,12 @@
 # 55 · Situations vs tags — not Duolingo units; switching register
 
+<!-- id: ARCH-055 -->
+<!-- type: archived-bridge -->
+<!-- status: archived -->
+
 **Status:** study only — resolves owner concern about **Situation** in
-[53](53-business-teacher-situational-model.md) and **situationUnit** in
-[54](54-context-tags-methods-and-words.md).
+[53](ARCH-053-business-teacher-situational-model.md) and **situationUnit** in
+[54](ARCH-054-context-tags-methods-and-words.md).
 
 **Owner question (2026-08-20):** *Is “Situation” just course modules again
 (Kursabschnitte)? Does that make language-learning sense? Is it Duolingo? What
@@ -16,9 +20,9 @@ happens if I switch mid-way to Garten/Natur?*
 | --- | --- |
 | Is Situation = Kursabschnitt? | **Only if we show it in the UI** — that we should **not** |
 | Language-learning sense? | Situations help **organize material** (ESP) — learners don't need a **unit counter** |
-| Like Duolingo? | **Duolingo path = yes, bad fit for us** ([01](STUDY-001-duolingo.md) D2). **Tags = no** |
+| Like Duolingo? | **Duolingo path = yes, bad fit for us** ([01](../STUDY-001-duolingo.md) D2). **Tags = no** |
 | Switch to Garten/Natur mid-way? | **Nothing lost.** Weights change **immediately**; FSRS keeps all held words |
-| What to ship? | **Register + topic tags + weights** ([54](54-context-tags-methods-and-words.md)). Situations = **hidden metadata**, not “Einheit 2/6” |
+| What to ship? | **Register + topic tags + weights** ([54](ARCH-054-context-tags-methods-and-words.md)). Situations = **hidden metadata**, not “Einheit 2/6” |
 
 ---
 
@@ -43,11 +47,11 @@ trade, landscaping contracts — odd but valid tags.
 | **Spine** | Linear **unit tree** — you advance sections | **FSRS** — each word has its own schedule |
 | **Why word now** | Path algorithm + heuristics | **Retrievability** + weights (explainable) |
 | **Personalization** | Motivation quiz → mostly same tree | Register/topic **weights** on same pool |
-| **Progress UI** | “Unit 3, Lesson 4” | Level model + held count — **not** “course %” ([10](STUDY-009-antipatterns.md) A4) |
+| **Progress UI** | “Unit 3, Lesson 4” | Level model + held count — **not** “course %” ([10](../STUDY-009-antipatterns.md) A4) |
 | **Switch goal** | Awkward — tree is fixed | Change profile → **weights flip**, no reset |
 
-[01](STUDY-001-duolingo.md) **D2:** Duolingo’s plan is a **path**, not a memory model — our
-**central difference** is glass-walled FSRS ([04](STUDY-004-flashcards-srs.md)).
+[01](../STUDY-001-duolingo.md) **D2:** Duolingo’s plan is a **path**, not a memory model — our
+**central difference** is glass-walled FSRS ([04](../STUDY-004-flashcards-srs.md)).
 
 > **If we show “Meetings 2/6” we rebuilt Duolingo’s weakness**, not the Business
 > teacher’s invisible lesson plan.
@@ -66,7 +70,7 @@ bar. **No** locked units. Optional profile line later: *“Recently: email phras
 
 ## S3 · What we ship instead of situation units
 
-From [54](54-context-tags-methods-and-words.md) only:
+From [54](ARCH-054-context-tags-methods-and-words.md) only:
 
 1. **Register** on profile  
 2. **Topics** on profile (Politik, Natur, …)  
@@ -88,7 +92,7 @@ writes sentence banks — not a learner-facing course.
 | Asset | Fate |
 | --- | --- |
 | All **held** lemmas (*reunión, cliente, …*) | **Stay held** — FSRS `due` unchanged |
-| Level / snapshot | **Unchanged** — honesty rule ([03](STUDY-003-level-model.md)) |
+| Level / snapshot | **Unchanged** — honesty rule ([03](../STUDY-003-level-model.md)) |
 | Review **due** today | **Still appear** — schedule is schedule |
 
 ### What changes **immediately** (next session)
@@ -106,7 +110,7 @@ writes sentence banks — not a learner-facing course.
 - No course reset  
 - No “start Unit 1 again”  
 - No deletion of business vocabulary  
-- No punishment / streak loss ([08](STUDY-008-motivation.md))  
+- No punishment / streak loss ([08](../STUDY-008-motivation.md))  
 - Business words **fade from new picks**, not from **reviews** — *cliente* still
   reviews when due; just fewer **new** business lemmas until you switch back  
 
@@ -153,9 +157,9 @@ FSRS: independent memory for every lemma
 
 | Doc | Change |
 | --- | --- |
-| [53](53-business-teacher-situational-model.md) | §T2 progress UI “Meetings 4/6” — **withdrawn** |
-| [54](54-context-tags-methods-and-words.md) | `situationUnit` on profile — **optional author tag only**, not progression |
-| [52](52-register-mix-ratio-calibration.md) | already superseded |
+| [53](ARCH-053-business-teacher-situational-model.md) | §T2 progress UI “Meetings 4/6” — **withdrawn** |
+| [54](ARCH-054-context-tags-methods-and-words.md) | `situationUnit` on profile — **optional author tag only**, not progression |
+| [52](ARCH-052-register-mix-ratio-calibration.md) | already superseded |
 
 ---
 
@@ -163,8 +167,8 @@ FSRS: independent memory for every lemma
 
 | | Claim | Grade |
 | --- | --- | --- |
-| ⬤ | Duolingo path ≠ explainable memory model | [A] — [01](STUDY-001-duolingo.md) D2 |
-| ⬤ | Single course % bar is anti-pattern | [D] — [10](STUDY-009-antipatterns.md) A4 |
-| ⬤ | ESP situations = material organization | [B] — [53](53-business-teacher-situational-model.md) sources |
+| ⬤ | Duolingo path ≠ explainable memory model | [A] — [01](../STUDY-001-duolingo.md) D2 |
+| ⬤ | Single course % bar is anti-pattern | [D] — [10](../STUDY-009-antipatterns.md) A4 |
+| ⬤ | ESP situations = material organization | [B] — [53](ARCH-053-business-teacher-situational-model.md) sources |
 | ⬤ | No reset on preference change | [D] — UC-019, owner 2026-08-20 |
 | ⬤ | No visible situation units in v1 | [D] — owner 2026-08-20 |

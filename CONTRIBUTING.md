@@ -18,6 +18,11 @@ cross-cutting (auth, i18n keys, several areas) — state why in the PR.
 
 Failing one check? Re-run it alone: `node scripts/verify.mjs tokens`.
 
+**Nothing runs this for you.** GitHub Actions is not executing for this
+repository — `.github/workflows/verify.yml` is defined but inert, and its runs
+fail in seconds without starting. If you did not run the gate and paste its
+output, the change is unverified ([`docs/AGENT-PITFALLS.md`](docs/AGENT-PITFALLS.md) §24).
+
 ## Commits
 
 Conventional Commits: `feat:`, `fix:`, `docs:`, `refactor:`, `test:`, `chore:`.

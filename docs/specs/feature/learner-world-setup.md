@@ -9,7 +9,7 @@ Onboarding popover and Profile control for the single **Lernwelt** choice.
 Amends UC-011: one optional step **after language pair, before first
 exercise** — still no deck, level, or survey beyond auth + language.
 
-Study: [`56-lernwelt-single-choice.md`](../../study/56-lernwelt-single-choice.md)
+Study: [`56-lernwelt-single-choice.md`](../../study/STUDY-035-lernwelt-single-choice.md)
 W2, W5.
 
 ## Scope

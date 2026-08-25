@@ -104,3 +104,46 @@ When updating links, replace any of:
 - old numbered filename in cross-refs within old study cross-refs → `STUDY-NNN` filenames
 
 Prose references like `study/34 §3` → `DR-035-review-report-and-acknowledgement-ux.md §3`.
+
+---
+
+## Late arrivals (migrated 2026-08-25)
+
+Chapters 49–56 were written **on 2026-08-20**, the same day the migration
+completed, using the old numbered scheme — so they were never in the table
+above and `check:study` failed on all eight of them from that day on.
+
+Migrated to match what had already been done to their neighbours 43–48: the
+seven that declare themselves superseded in their own headers became archived
+bridges keeping their numbers, and the one the specs still cite became a
+`STUDY-` chapter.
+
+| Old path | New path | Class | New ID |
+| --- | --- | --- | --- |
+| `study/49-learner-intent-onboarding.md` | `study/archive/ARCH-049-learner-intent-onboarding.md` | archived-bridge | ARCH-049 |
+| `study/50-onboarding-popover-timing-and-skill-question.md` | `study/archive/ARCH-050-onboarding-popover-timing-and-skill-question.md` | archived-bridge | ARCH-050 |
+| `study/51-register-path-and-interest-topics.md` | `study/archive/ARCH-051-register-path-and-interest-topics.md` | archived-bridge | ARCH-051 |
+| `study/52-register-mix-ratio-calibration.md` | `study/archive/ARCH-052-register-mix-ratio-calibration.md` | archived-bridge | ARCH-052 |
+| `study/53-business-teacher-situational-model.md` | `study/archive/ARCH-053-business-teacher-situational-model.md` | archived-bridge | ARCH-053 |
+| `study/54-context-tags-methods-and-words.md` | `study/archive/ARCH-054-context-tags-methods-and-words.md` | archived-bridge | ARCH-054 |
+| `study/55-situations-not-units-register-switch.md` | `study/archive/ARCH-055-situations-not-units-register-switch.md` | archived-bridge | ARCH-055 |
+| `study/56-lernwelt-single-choice.md` | `study/STUDY-035-lernwelt-single-choice.md` | reasoning | STUDY-035 |
+
+Two decisions were made in the course of it, and both are open to reversal:
+
+- **56 became a `STUDY-`, not an `ARCH-`,** because ten lines across
+  `specs/service/learner-world.md`, `specs/feature/learner-world-setup.md`,
+  `specs/service/session-sampling.md`, `specs/feature/card-example-sentence.md`,
+  UC-011 and UC-019 cite it as current reasoning. Calling it read-only would
+  have been false.
+- **Its two `⚠ SPEC GAP` markers moved to `IMPLEMENTATION-PLAN.md` questions 38
+  and 39** — where the gate itself says they belong — with their wording intact
+  and a pointer left in the chapter. Neither question was answered.
+
+The six required section headings in STUDY-035 are a **map into** the owner's
+W0–W9 structure, added at the top on migration. The reasoning below them was
+not rewritten.
+
+**This section is still not an invitation to add rows.** New docs use the ID
+scheme in [`STUDY-FORMAT.md`](../STUDY-FORMAT.md) from the start.
+

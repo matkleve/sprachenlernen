@@ -1,15 +1,19 @@
 # 53 · How a Business language teacher would do it — situations, not card counts
 
+<!-- id: ARCH-053 -->
+<!-- type: archived-bridge -->
+<!-- status: archived -->
+
 **Status:** study only — replaces the **card-counting** logic in
-[52](52-register-mix-ratio-calibration.md) (2–3/session, 10 %, 15/15).  
+[52](ARCH-052-register-mix-ratio-calibration.md) (2–3/session, 10 %, 15/15).  
 **Owner (2026-08-20):** Fixed numbers are too rigid. *How would a Business
 Sprachlehrer vorgehen?*
 
 This chapter answers that question from ESP / Business English practice and
 translates it into product rules **without** a per-session word quota.
 
-Related: [51](51-register-path-and-interest-topics.md) (register + interests),
-[21](STUDY-019-method-catalogue-and-context.md), [UC-019](../use-cases/UC-019-learn-for-something-specific.md).
+Related: [51](ARCH-051-register-path-and-interest-topics.md) (register + interests),
+[21](../STUDY-019-method-catalogue-and-context.md), [UC-019](../../use-cases/UC-019-learn-for-something-specific.md).
 
 ---
 
@@ -186,9 +190,9 @@ Not because card #13 is *cliente* vs *servidor*. Because:
 
 | Withdraw | Replace with |
 | --- | --- |
-| [52](52-register-mix-ratio-calibration.md) §M1 formula | T2b situation-led composition |
-| [49](49-learner-intent-onboarding.md) boost/decay | Situation units + chunk SRS |
-| [51](51-register-path-and-interest-topics.md) ordered lemma list as **primary** | **Situation units** contain lemmas + chunks; list is implementation detail |
+| [52](ARCH-052-register-mix-ratio-calibration.md) §M1 formula | T2b situation-led composition |
+| [49](ARCH-049-learner-intent-onboarding.md) boost/decay | Situation units + chunk SRS |
+| [51](ARCH-051-register-path-and-interest-topics.md) ordered lemma list as **primary** | **Situation units** contain lemmas + chunks; list is implementation detail |
 
 **Keep from 51:** register path, interest topics, news filter, register-shaped
 sentences, no decay.

@@ -39,7 +39,7 @@ a second card.
 1. Candidates: sentences tagged with the card's `wordId` (or lemma) in the bank.
 2. When `activeWorld ≠ general`, prefer candidates whose bank row `world`
    equals `activeWorld` or is omitted (neutral glue). Weighted pick among ties
-   — not 100% in-world ([`study/56`](../../study/56-lernwelt-single-choice.md)).
+   — not 100% in-world ([`study/56`](../../study/STUDY-035-lernwelt-single-choice.md)).
 3. Score each remaining candidate with [`coverage.md`](../service/coverage.md)
    over the learner's held-lemma set.
 4. Prefer **comfortable** band (95–98% coverage). If none: closest to 95% from

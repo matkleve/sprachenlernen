@@ -1,7 +1,10 @@
 # 56 · Lernwelt — one flat choice, no hidden layers
 
+<!-- id: STUDY-035 -->
+<!-- type: reasoning -->
+
 **Status:** study only — **collapses** register/topic/situation split from
-[51](51-register-path-and-interest-topics.md)–[55](55-situations-not-units-register-switch.md).
+[51](archive/ARCH-051-register-path-and-interest-topics.md)–[55](archive/ARCH-055-situations-not-units-register-switch.md).
 
 **Owner correction (2026-08-20, late):**
 
@@ -11,6 +14,49 @@
   ([04](STUDY-004-flashcards-srs.md), [UC-005](../use-cases/UC-005-trust-the-review-schedule.md)).
 - Previous chapters read like **layered product rules**, not something a learner
   can feel — this chapter replaces them with **one learner-visible knob**.
+
+---
+
+## Thesis
+
+One flat choice — the **Lernwelt** — replaces the register/topic/situation split
+that chapters 49–55 built up. It weights what a session *picks*; it never moves
+what FSRS believes about forgetting.
+
+## Evidence
+
+W0 (what went wrong in 51–55), W1 (the one concept), W3 (why this is not a
+Duolingo path) and W9 (the FSRS boundary), with the graded claim table under
+[Sources](#sources).
+
+## Product consequences
+
+W1 · W2 · W4 · W5 · W6 — one active world, no nagging about a setting the
+learner already made, mid-way switching, onboarding, and method tagging.
+
+## What we reject
+
+W0 and the supersession table in W7: two-axis register+topic, card-count quotas
+(2–3/session, 10 %, 15/15), hidden personalization, and any Lernwelt effect on
+`due` dates or `applyReview`.
+
+## Open questions
+
+W8. Two further questions this chapter left open now live where undecided
+product questions belong — 38 and 39 in
+[`IMPLEMENTATION-PLAN.md`](../IMPLEMENTATION-PLAN.md).
+
+## Related
+
+[`specs/service/learner-world.md`](../specs/service/learner-world.md) ·
+[`specs/feature/learner-world-setup.md`](../specs/feature/learner-world-setup.md) ·
+[`specs/service/session-sampling.md`](../specs/service/session-sampling.md) ·
+[`UC-019`](../use-cases/UC-019-learn-for-something-specific.md) ·
+[`UC-011`](../use-cases/UC-011-start-in-the-first-minute.md)
+
+> The six headings above are a **map into the chapter, added on migration** —
+> the reasoning itself is unchanged and lives in W0–W9 below, in the owner's
+> own structure.
 
 ---
 
@@ -41,8 +87,9 @@ The learner chooses **one primary Lernwelt** (learning world). Peers, not hierar
 | `nature` | Natur & Garten — Pflanzen, Wetter, draußen |
 | `general` | Allgemein — keine Schwerpunktwelt |
 
-**v1:** exactly **one** active world (no multi-select). Optional second world is
-⚠ SPEC GAP — owner has not asked for it.
+**v1:** exactly **one** active world (no multi-select). An optional second world
+is undecided and unasked-for — it is open question 38 in
+[`IMPLEMENTATION-PLAN.md`](../IMPLEMENTATION-PLAN.md).
 
 Everything flows from that **one** choice:
 
@@ -192,7 +239,8 @@ reading, dictation, Words — all receive `activeWorld`.
 
 - Change `due` dates because of Lernwelt alone  
 - Hide non-world due cards  
-- Per-world retention dial (85 % vs 90 %) — ⚠ SPEC GAP; sensitive; v2 only  
+- Per-world retention dial (85 % vs 90 %) — sensitive; v2 only, and only on
+  open question 39 in [`IMPLEMENTATION-PLAN.md`](../IMPLEMENTATION-PLAN.md)  
 
 **One sentence:** Lernwelt steuert **Wahrscheinlichkeit in der Session**, FSRS
 steuert **wann du ein Wort vergisst** — beides, aber getrennt.
@@ -210,7 +258,7 @@ steuert **wann du ein Wort vergisst** — beides, aber getrennt.
 | 2–3 cards / 10 % / 15/15 quotas | Weighted pool, no fixed count |
 | 60-day decay | Dropped |
 
-Chapters [49](49-learner-intent-onboarding.md)–[55](55-situations-not-units-register-switch.md)
+Chapters [49](archive/ARCH-049-learner-intent-onboarding.md)–[55](archive/ARCH-055-situations-not-units-register-switch.md)
 remain as **history**; **W1–W6** is the current owner-aligned model.
 
 ---

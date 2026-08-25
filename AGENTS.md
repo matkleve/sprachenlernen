@@ -21,8 +21,9 @@ npm run verify                    # rare (~10min) — only with good reason
 ```
 
 Default: scoped always — commit, merge to `main`, `release:shame`, `release:ship`.
-Full verify only when cross-cutting or user asks — state why. Not automatic for
-ship — [`docs/VERIFY-SCOPES.md`](docs/VERIFY-SCOPES.md).
+Full verify only when cross-cutting or user asks — state why; not automatic for
+ship ([`docs/VERIFY-SCOPES.md`](docs/VERIFY-SCOPES.md)). **CI does not run** — this
+is the only gate; never wait for or cite a check ([pitfalls](docs/AGENT-PITFALLS.md) §24).
 
 ---
 
@@ -128,17 +129,16 @@ feature needs it — not in anticipation of one.
 | Product rules you may not break | [`docs/CONSTITUTION.md`](docs/CONSTITUTION.md) |
 | **Progression materials / wood / stages** | Board spec + live CSS/canvas — studies are hints only |
 | **Why (not what to build)** | [`docs/study/`](docs/study/) — hypotheses; may be false — spec wins |
-| **Agent pitfalls (model, subagents, ship)** | [`docs/AGENT-PITFALLS.md`](docs/AGENT-PITFALLS.md) §19–§21; version: [`docs/VERSIONING.md`](docs/VERSIONING.md) |
+| **Agent pitfalls (model, subagents, ship, no CI)** | [`docs/AGENT-PITFALLS.md`](docs/AGENT-PITFALLS.md) §19–§24; version: [`docs/VERSIONING.md`](docs/VERSIONING.md) |
 
 ---
 
 ## Working with the user
 
-Ask **as many questions as it takes** to make the requirements unambiguous — there
-is no budget of one or two. Batch them into a single message. Before multi-file
+Ask **as many questions as it takes** to make the requirements unambiguous —
+there is no budget of one or two; batch them into one message. Before multi-file
 work, state: the invariant in your own words, the open questions, the files you
-will touch, the files you will not touch, and how you will verify. The checklist of
-what to ask about is in [`docs/AGENT-PITFALLS.md`](docs/AGENT-PITFALLS.md).
+will and will not touch, and how you will verify ([pitfalls](docs/AGENT-PITFALLS.md)).
 
 When the user corrects you, treat it as an invariant update: fix the code, sync
 the spec in the same session, and note it in today's

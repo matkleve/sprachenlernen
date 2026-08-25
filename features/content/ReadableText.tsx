@@ -46,10 +46,12 @@ function ReadableSentence({
 
   return (
     // Sentence gloss uses a focusable group; word glosses stay on nested Buttons.
-    // eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions -- nested word Buttons cannot share role=button
-    <div
-      role="group"
-      tabIndex={0}
+    // Two rules fire here and each reports at the node it found, so `role` and
+    // `tabIndex` stay on the opening line — that is what lets a single
+    // directive answer both. Splitting them across lines silently un-suppresses
+    // `no-noninteractive-tabindex` and turns the lint gate red.
+    // eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions, jsx-a11y/no-noninteractive-tabindex -- nested word Buttons cannot share role=button
+    <div role="group" tabIndex={0}
       className={cn(
         "mb-3 block rounded-chip px-1 -mx-1 last:mb-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent",
         attemptedSentence === sentenceIndex && !revealed ? "bg-surface-raised" : undefined,

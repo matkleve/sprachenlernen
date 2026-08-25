@@ -1,6 +1,10 @@
 # 54 · Context tags — methods, Words, and weighted sentences
 
-**Status:** study only — implements [53](53-business-teacher-situational-model.md)
+<!-- id: ARCH-054 -->
+<!-- type: archived-bridge -->
+<!-- status: archived -->
+
+**Status:** study only — implements [53](ARCH-053-business-teacher-situational-model.md)
 via **existing method machinery**, not card quotas.
 
 **Owner question (2026-08-20):** Can we pass tags like **Business**, **Garten**,
@@ -32,7 +36,7 @@ type LearnerContext = {
 | **Methods without material** (HVPT, srs-session) | Example sentence on card only (if any) | — |
 
 **Default:** onboarding profile. **Override:** method-detail topic chip (already
-in [`method-material-setup.md`](../specs/feature/method-material-setup.md)).
+in [`method-material-setup.md`](../../specs/feature/method-material-setup.md)).
 
 ---
 
@@ -82,7 +86,7 @@ score = coverageFit × registerWeight × topicWeight × randomNoise
 | **registerWeight** | **3.0** | 1.0 (untagged or `general`) | **0.4** (still possible) |
 | **topicWeight** | **2.5** per matching topic (cap 1) | 1.0 | 0.5 |
 
-- **coverageFit** — existing 95–98 % band ([`coverage.md`](../specs/service/coverage.md));
+- **coverageFit** — existing 95–98 % band ([`coverage.md`](../../specs/service/coverage.md));
   never pick unreadable text for a tag.
 - **randomNoise** — small jitter so the same tag doesn't always win.
 - **No candidate gets weight 0** unless coverage rejects it — owner: *not all*.
@@ -99,7 +103,7 @@ All three can appear over time; business/nature **more often**.
 
 ## C3 · Words — what changes
 
-### C3a · Session sampling ([`session-sampling.md`](../specs/service/session-sampling.md))
+### C3a · Session sampling ([`session-sampling.md`](../../specs/service/session-sampling.md))
 
 Add factor **`rᵢ`** to weight formula:
 
@@ -113,7 +117,7 @@ wᵢ = uᵢ × bᵢ × nᵢ × fᵢ × rᵢ × tᵢ
 Still **probabilistic** — no hard “3 business cards.” A **Meetings** week naturally
 draws more meeting lemmas because their **situation unit** boosts them.
 
-### C3b · Example sentences on cards ([`card-example-sentence.md`](../specs/feature/card-example-sentence.md))
+### C3b · Example sentences on cards ([`card-example-sentence.md`](../../specs/feature/card-example-sentence.md))
 
 Sentence bank row:
 
@@ -126,7 +130,7 @@ Sentence bank row:
 }
 ```
 
-Picker ([`card-example-sentence.md`](../specs/feature/card-example-sentence.md)):
+Picker ([`card-example-sentence.md`](../../specs/feature/card-example-sentence.md)):
 
 1. Candidates for lemma  
 2. Filter by coverage band  
@@ -146,7 +150,7 @@ business sentences for the same lemma.
 | **`srs-session`** (Words) | `rᵢ`, `tᵢ`, example sentence | 1 example sentence per card (UC-076) |
 | **`build-a-sentence`** | Target word + **prompt line** from `situation:*` | Show **1 model sentence** in register; learner writes another |
 | **`free-production`** | Prompt from situation unit + register | Optional 2–3 phrase hints (chunks), not all business |
-| **`extensive-reading`** | **Source** pick via tags + chips | Full article ([UC-007](../use-cases/UC-007-read-something-at-my-level.md)) |
+| **`extensive-reading`** | **Source** pick via tags + chips | Full article ([UC-007](../../use-cases/UC-007-read-something-at-my-level.md)) |
 | **`narrow-reading`** | Topic chip **required** — ideal for `topic:nature` etc. | 4–6 texts same topic |
 | **`intensive-reading`** | Source tags | Shorter text |
 | **`partial-dictation`** | Audio Source tags | Passage from tagged catalogue |
@@ -185,7 +189,7 @@ Not all words in the batch are business — weighted pool from held + situation 
 
 ### C4c · Reading / news
 
-Already designed: Source `tags[]` ↔ `materialTopics` chips ([`content-traceability.md`](../specs/feature/content-traceability.md)).
+Already designed: Source `tags[]` ↔ `materialTopics` chips ([`content-traceability.md`](../../specs/feature/content-traceability.md)).
 
 **Add:** `register:*` on Source metadata. Filter:
 
@@ -226,7 +230,7 @@ Extend `data/methods/*.json`:
 | Fixed N tagged cards per session | Study 52 withdrawn |
 | Tag without tagged content in bank | Honest fallback to neutral |
 | Separate Business method fork | One catalogue, weighted material |
-| Generate sentences at runtime v1 | [`card-example-sentence.md`](../specs/feature/card-example-sentence.md) — bank only |
+| Generate sentences at runtime v1 | [`card-example-sentence.md`](../../specs/feature/card-example-sentence.md) — bank only |
 
 ---
 

@@ -11,7 +11,7 @@ anything **beyond the account**.
 
 Derived from [`../study/STUDY-001-duolingo.md`](../study/STUDY-001-duolingo.md) S1 and S3,
 [`../study/STUDY-009-antipatterns.md`](../study/STUDY-009-antipatterns.md) A9 and A10, and
-[`../study/56-lernwelt-single-choice.md`](../study/56-lernwelt-single-choice.md).
+[`../study/STUDY-035-lernwelt-single-choice.md`](../study/STUDY-035-lernwelt-single-choice.md).
 
 ## Today
 

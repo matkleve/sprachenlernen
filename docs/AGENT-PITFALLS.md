@@ -416,6 +416,39 @@ the study paragraph true.
 
 ---
 
+## 24. Waiting for CI — there is no CI
+
+**The failure:** an agent pushes, says "waiting for CI", and reports the work
+done on the strength of a check that never ran. Or it reads
+`.github/workflows/verify.yml`, sees the gate defined there, and treats the
+local gate as a formality something else will repeat. Every agent so far has
+had to rediscover this, and the owner has had to say it again each time.
+
+**The fact: GitHub Actions does not run for this repository.** Not "is
+sometimes flaky" — does not run. Every `verify` run on `main` concludes
+`failure` within seconds and produces no job logs at all, because the jobs are
+never started. The blocker is account-level (Actions billing/minutes), not the
+workflow file, so *editing `verify.yml` cannot fix it* and neither can a
+re-run, an empty commit, or a new push.
+
+**The rule:**
+
+- **The local gate is the only gate.** `npm run verify:scope -- <scope>` each
+  turn, `npm run verify` before a merge to `main`. Paste the output — that
+  paste is the only evidence any check ran anywhere.
+- **Never cite a check mark, a PR status, or "CI is green".** No such signal
+  exists. A PR whose checks look pending is not pending; it is dead.
+- **Never wait.** Nothing will arrive.
+- The RLS suite (`lib/db/access-control.test.ts`) — [`BACKEND.md`](BACKEND.md)
+  §8 calls it the highest-value test in the product — therefore runs *nowhere*
+  unless a human runs it against a live project. It `skipIf`s itself silently
+  when the env is absent, so a green suite says nothing about row-level
+  security. Run it by hand before touching RLS, policies, or `lib/db/`.
+- If Actions is ever restored, **delete this section** rather than softening
+  it. A half-true warning about CI is worse than none.
+
+---
+
 ## For you, writing the prompt
 
 The other half of this. What consistently produces good work:

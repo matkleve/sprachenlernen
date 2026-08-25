@@ -54,7 +54,8 @@ export function Table({
              * the standard wins. Removing this would make wide tables mouse-only.
              * REMOVE only if the container stops being scrollable.
              */
-            // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex
+            // (No eslint-disable needed: the rule cannot see attributes that
+            // arrive through a spread, so it never fires on this object.)
             tabIndex: 0,
             role: "region" as const,
             "aria-label": typeof caption === "string" ? caption : undefined,

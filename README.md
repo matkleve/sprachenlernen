@@ -13,6 +13,11 @@ npm run verify:scope -- <scope>   # default gate — docs/VERIFY-SCOPES.md
 npm run verify                    # full gate (~10min) — cross-cutting only
 ```
 
+**There is no CI.** GitHub Actions does not run for this repository, so the
+commands above are the only thing that has ever checked a commit here — never
+wait for a check to report, and never treat one as evidence
+([`docs/AGENT-PITFALLS.md`](docs/AGENT-PITFALLS.md) §24).
+
 ---
 
 ## The idea in one paragraph

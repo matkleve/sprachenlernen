@@ -7,7 +7,7 @@
 
 Persisted **Lernwelt** preference per learning language. One flat `worldId`
 choice weights session composition and content pickers — it does **not** change
-FSRS intervals or stored `due` dates ([`study/56`](../../study/56-lernwelt-single-choice.md)
+FSRS intervals or stored `due` dates ([`study/56`](../../study/STUDY-035-lernwelt-single-choice.md)
 W9, UC-005).
 
 ## Scope
@@ -113,7 +113,7 @@ See [`learner-world.acceptance-criteria.md`](learner-world.acceptance-criteria.m
 ## Relationship to withdrawn models
 
 Register + topic two axes, hidden `situation:*`, 2–3 card quotas, and 60-day
-decay are **withdrawn** — [`study/56`](../../study/56-lernwelt-single-choice.md).
+decay are **withdrawn** — [`study/56`](../../study/STUDY-035-lernwelt-single-choice.md).
 
 ## Check
 

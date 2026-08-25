@@ -12,7 +12,7 @@ they gave the app is not just an onboarding question.
 Derived from [`../study/STUDY-008-motivation.md`](../study/STUDY-008-motivation.md) M7,
 [`../study/STUDY-001-duolingo.md`](../study/STUDY-001-duolingo.md) D7,
 [`../study/STUDY-014-further-findings.md`](../study/STUDY-014-further-findings.md) W4, and
-[`../study/56-lernwelt-single-choice.md`](../study/56-lernwelt-single-choice.md).
+[`../study/STUDY-035-lernwelt-single-choice.md`](../study/STUDY-035-lernwelt-single-choice.md).
 
 ## Today
 
@@ -25,12 +25,12 @@ use for years.
 
 - The learner picks **one Lernwelt** (Business, Alltag, Technik, Politik, Natur
   & Garten, or Allgemein) — a flat choice, not register plus topic, not hidden
-  situation tags ([`56`](../study/56-lernwelt-single-choice.md) W1).
+  situation tags ([`56`](../study/STUDY-035-lernwelt-single-choice.md) W1).
 - The choice **weights** what appears: new words in a session, example sentences,
   reading catalogue picks, and method material — via probability, **not** fixed
   card quotas or a 100% exclusive filter.
 - **FSRS stays honest:** due dates and grades follow memory only; Lernwelt affects
-  session composition, not `applyReview` ([`56`](../study/56-lernwelt-single-choice.md)
+  session composition, not `applyReview` ([`56`](../study/STUDY-035-lernwelt-single-choice.md)
   W9, UC-005).
 - The learner can **see and change** the active Lernwelt in Profile; switching
   shows a one-time confirmation that held words are kept — no reset.
@@ -38,7 +38,7 @@ use for years.
   frequency-ordered path remains legitimate.
 - **Transparency without nagging:** the app does **not** repeat *"because you
   chose Politik"* on every session, Home banner, or card — the learner already
-  knows what they picked ([`56`](../study/56-lernwelt-single-choice.md) W2).
+  knows what they picked ([`56`](../study/STUDY-035-lernwelt-single-choice.md) W2).
 - Changing the Lernwelt does not discard what was already learned; reviews for
   words from a previous world still run when due.
 

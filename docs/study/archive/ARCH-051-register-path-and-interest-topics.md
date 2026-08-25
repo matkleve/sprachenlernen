@@ -1,14 +1,18 @@
 # 51 · Register path + interest topics — full immersion, not a sprinkle
 
+<!-- id: ARCH-051 -->
+<!-- type: archived-bridge -->
+<!-- status: archived -->
+
 **Status:** study only — no implementation.  
-**⚠ Mix ratio superseded by [52](52-register-mix-ratio-calibration.md):** not 15/15
+**⚠ Mix ratio superseded by [52](ARCH-052-register-mix-ratio-calibration.md):** not 15/15
 register cards; **2–3 per session** + spine + register sentences on all cards.
 
-**Owner correction (2026-08-20, evening):** Studies [49](49-learner-intent-onboarding.md) and
-[50](50-onboarding-popover-timing-and-skill-question.md) assumed the app would
+**Owner correction (2026-08-20, evening):** Studies [49](ARCH-049-learner-intent-onboarding.md) and
+[50](ARCH-050-onboarding-popover-timing-and-skill-question.md) assumed the app would
 **mix a few** register-tagged words into the general frequency queue. That felt
 too weak. A first correction made session 1 **all register** — **also wrong**
-([52](52-register-mix-ratio-calibration.md)). **Locked rule:** ~**2–3 register
+([52](ARCH-052-register-mix-ratio-calibration.md)). **Locked rule:** ~**2–3 register
 cards per 15-card session** + basics spine + register-shaped sentences on every
 card; **no decay**.
 
@@ -18,10 +22,10 @@ from which **news, articles, and example sentences** are drawn.
 This chapter supersedes study 49 **§I2c–I3** (boost band) and extends study 50
 (popover content).
 
-Related: [37](../reviews/design/DR-037-content-and-method-setup-ux.md) (topic chips),
-[48](archive/ARCH-048-content-licensing-and-adaptation.md) (news ingest),
-[UC-007](../use-cases/UC-007-read-something-at-my-level.md),
-[UC-019](../use-cases/UC-019-learn-for-something-specific.md).
+Related: [37](../../reviews/design/DR-037-content-and-method-setup-ux.md) (topic chips),
+[48](ARCH-048-content-licensing-and-adaptation.md) (news ingest),
+[UC-007](../../use-cases/UC-007-read-something-at-my-level.md),
+[UC-019](../../use-cases/UC-019-learn-for-something-specific.md).
 
 ---
 
@@ -105,7 +109,7 @@ Source: [GAI personalization EuroCALL 2025](https://doi.org/10.4995/eurocall.202
 
 ### R2b · Already in the product model — onboarding should **seed** it
 
-[37](../reviews/design/DR-037-content-and-method-setup-ux.md): methods declare `materialTopics`; learner
+[37](../../reviews/design/DR-037-content-and-method-setup-ux.md): methods declare `materialTopics`; learner
 picks chips (*News*, *Environment*, …); catalogue Sources carry matching `tags[]`.
 
 Today that choice is **per session on method detail**. Owner wants interests
@@ -122,7 +126,7 @@ learner can override per session.
 
 ## R3 · Revised onboarding popover (owner-aligned)
 
-Extends [50](50-onboarding-popover-timing-and-skill-question.md) — still **after
+Extends [50](ARCH-050-onboarding-popover-timing-and-skill-question.md) — still **after
 language pair, before session 1**, still **no skill fork**.
 
 ```mermaid
@@ -156,7 +160,7 @@ Was interessiert dich in Nachrichten & Texten?
 (Wähle 1–3 — daraus kommen Artikel & Beispielsätze)
 ```
 
-**Not free text v1** — same chip pattern as method detail ([37](../reviews/design/DR-037-content-and-method-setup-ux.md));
+**Not free text v1** — same chip pattern as method detail ([37](../../reviews/design/DR-037-content-and-method-setup-ux.md));
 discoverability over open search.
 
 ### Page 4 — Preview (honest)
@@ -180,7 +184,7 @@ Lesen: adaptierte Artikel zu Sport & Wirtschaft.
 | Layer | Old (study 49 boost) | **New (register path)** |
 | --- | --- | --- |
 | Card queue | Global frequency + 1.25× sprinkle | **`registerPath` ordered list** for chosen register |
-| Session 1 | Ranks 1–15 **within Business path** | **2–3 register + 12–13 spine** ([52](52-register-mix-ratio-calibration.md)) |
+| Session 1 | Ranks 1–15 **within Business path** | **2–3 register + 12–13 spine** ([52](ARCH-052-register-mix-ratio-calibration.md)) |
 | Example sentence on card | Generic or random | **From register + interest corpus** |
 | G1 reason | "Boosted: Business" | **"Business path · Wort 7/200"** |
 | Form recall | Same staging | Forms practiced in **register sentences** |
@@ -329,8 +333,8 @@ type ContentSource = {
 
 | Chapter | Still valid | Withdrawn |
 | --- | --- | --- |
-| [49](49-learner-intent-onboarding.md) | Transparency, G1, profile edit, UC-019 link | Boost band §I2c–I3, F220–F222 boost framing |
-| [50](50-onboarding-popover-timing-and-skill-question.md) | Timing, no skill fork | Domain-only single question → add interests page |
+| [49](ARCH-049-learner-intent-onboarding.md) | Transparency, G1, profile edit, UC-019 link | Boost band §I2c–I3, F220–F222 boost framing |
+| [50](ARCH-050-onboarding-popover-timing-and-skill-question.md) | Timing, no skill fork | Domain-only single question → add interests page |
 | **51 (this)** | Register path + interest topics | — |
 
 ---

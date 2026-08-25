@@ -47,7 +47,7 @@ export function MaterialSample({ stage, compact = false, className }: MaterialSa
       ) : null}
       <MaterialStarField stage={stage} />
 
-      <div className={cn("relative z-[1] flex flex-col", compact ? "gap-3" : "gap-4")}>
+      <div className={cn("relative z-[var(--z-index-material-content)] flex flex-col", compact ? "gap-3" : "gap-4")}>
         <div className={cn("material-card", compact ? "p-3" : "p-4")}>
           <h3
             className={cn(

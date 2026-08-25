@@ -490,7 +490,7 @@ material setup** (T-W10a / T-E7) shipped 2026-08-18. **What is not:** reading
 runner remainder (T-W10 — comprehension + sentence translation on source
 detail); **T-W20** Words mixed-deck UX + `deck` filter (revised 2026-08-20); **T-W21** form explanations;
 **T-W22** session sampling (UC-079); **T-W23–T-W26** Lernwelt (UC-019 —
-[`study/56`](study/56-lernwelt-single-choice.md));
+[`study/56`](study/STUDY-035-lernwelt-single-choice.md));
 **T-W5** per-cell Progress breakdown; **T-W6** full form practice; most hosted exercise runners
 (6 of 34 built — see [`METHOD-IMPLEMENTATION-MATRIX.md`](METHOD-IMPLEMENTATION-MATRIX.md)).
 
@@ -922,3 +922,19 @@ so open items live in exactly one queue:
     the level model a footnote ([`IMPLEMENTATION-PLAN.md`](IMPLEMENTATION-PLAN.md)
     PM/UX debate, 2026-08-08). Two destinations (Methods + Words) fails the
     same test. This closes the question raised in passing; no ADR change.
+
+**Added 2026-08-25**, moved out of `study/56` when that chapter was migrated to
+[`STUDY-035`](study/STUDY-035-lernwelt-single-choice.md). Both were written there
+as `⚠ SPEC GAP`, which a study may not carry — the question is unchanged, only
+its address is:
+
+38. **A second active Lernwelt.** v1 is exactly one active world, no
+    multi-select ([`STUDY-035`](study/STUDY-035-lernwelt-single-choice.md) W1).
+    An optional second world has never been asked for, so nothing has been
+    designed for it — it is listed here so that the absence is a recorded
+    decision rather than an oversight. No work is blocked on it.
+39. **Per-world retention dial (85 % vs 90 %).**
+    [`STUDY-035`](study/STUDY-035-lernwelt-single-choice.md) W9 rules it out for
+    v1 and marks it sensitive: it moves what the scheduler claims about
+    forgetting, which is the one thing Lernwelt is designed *not* to touch.
+    v2 at the earliest, and only on an explicit decision here.

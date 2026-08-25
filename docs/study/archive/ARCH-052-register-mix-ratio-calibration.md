@@ -1,6 +1,10 @@
 # 52 · Register mix ratio — owner calibration (not 15/15, not sprinkle)
 
-**Status:** study only — **superseded by [53](53-business-teacher-situational-model.md)**.
+<!-- id: ARCH-052 -->
+<!-- type: archived-bridge -->
+<!-- status: archived -->
+
+**Status:** study only — **superseded by [53](ARCH-053-business-teacher-situational-model.md)**.
 Card-count rules (2–3, 10 %, floor/cap) withdrawn — teacher uses **situation units**.  
 **Owner correction (2026-08-20, late):** Study 51 over-corrected to **15/15 Business
 cards** — that is **also wrong**. Owner wants:
@@ -150,10 +154,10 @@ Sätze & Artikel: Büro, News zu Sport & Wirtschaft.
 
 | Chapter | Withdraw |
 | --- | --- |
-| [51](51-register-path-and-interest-topics.md) §R4a table “Session 1 = ranks 1–15 within Business” | **Yes** |
-| [51](51-register-path-and-interest-topics.md) §R3 page 4 “alle reunión, agenda…” | **Reword** per M6 |
-| [49](49-learner-intent-onboarding.md) 60-day decay §I3b | **Yes — already hated** |
-| [51](51-register-path-and-interest-topics.md) interest topics, register path data model, news filter | **Stands** |
+| [51](ARCH-051-register-path-and-interest-topics.md) §R4a table “Session 1 = ranks 1–15 within Business” | **Yes** |
+| [51](ARCH-051-register-path-and-interest-topics.md) §R3 page 4 “alle reunión, agenda…” | **Reword** per M6 |
+| [49](ARCH-049-learner-intent-onboarding.md) 60-day decay §I3b | **Yes — already hated** |
+| [51](ARCH-051-register-path-and-interest-topics.md) interest topics, register path data model, news filter | **Stands** |
 
 ---
 
@@ -168,6 +172,6 @@ Sätze & Artikel: Büro, News zu Sport & Wirtschaft.
 
 | | Claim | Grade |
 | --- | --- | --- |
-| ⬤ | ESP = domain path + general foundation in parallel | [B] — [51](51-register-path-and-interest-topics.md) §R1b |
+| ⬤ | ESP = domain path + general foundation in parallel | [B] — [51](ARCH-051-register-path-and-interest-topics.md) §R1b |
 | ⬤ | Owner calibration 2–3/session, no decay, not 15/15 | [D] — 2026-08-20 |
 | ◐ | ~10–20 % domain exposure per unit visible to learners | [C] — product calibration, not one paper |
