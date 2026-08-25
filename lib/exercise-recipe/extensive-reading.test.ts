@@ -16,7 +16,7 @@ import { resolveExerciseRecipe } from "@/lib/exercise-recipe";
 describe("extensive reading recipe", () => {
   const catalogueOnly = (id: string) => findContentSourceById(id);
 
-  it("builds material-preview, text-display, comprehension, and offers", () => {
+  it("builds material-preview, text-display, comprehension, and summary close", () => {
     const source = findContentSourceById(DEFAULT_EXTENSIVE_READING_SOURCE_ID)!;
     const recipe = composeExtensiveReadingRecipe(source, { methodId: "extensive-reading" });
 
@@ -25,7 +25,7 @@ describe("extensive reading recipe", () => {
       "material-preview",
       "text-display",
       "comprehension-questions",
-      "offers",
+      "summary",
     ]);
     expect(recipe.steps[1]?.config.text).toContain("gobierno");
     expect(recipe.steps[2]?.config.questions).toBeTruthy();

@@ -11,7 +11,7 @@ import { resolveExerciseRecipe } from "@/lib/exercise-recipe";
 import { loadMeaningRecallDeck } from "@/lib/starter-deck";
 
 describe("free-production recipe", () => {
-  it("builds checklist, timed-write, capture, feedback, and offers", () => {
+  it("builds checklist, timed-write, capture, feedback, and summary close", () => {
     const deck = loadMeaningRecallDeck("es");
     if (deck.status !== "ok") throw new Error("missing es deck");
 
@@ -27,7 +27,7 @@ describe("free-production recipe", () => {
       "timed-write",
       "capture",
       "feedback",
-      "offers",
+      "summary",
     ]);
     expect(recipe.steps[1]?.config.durationSec).toBe(900);
     expect(recipe.steps[0]?.config.introKey).toBe("introFreeProduction");

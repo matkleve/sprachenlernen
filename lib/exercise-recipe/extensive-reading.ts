@@ -75,12 +75,9 @@ export function composeExtensiveReadingRecipe(
       {
         id: "decide-1",
         type: "decide",
-        component: "offers",
+        component: "summary",
         label: "Next",
-        config: {
-          offers: ["Save a word as a card", "Read something else"],
-          declineLabel: "Not now — done",
-        },
+        config: {},
       },
     ],
   };

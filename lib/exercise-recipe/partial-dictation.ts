@@ -95,15 +95,14 @@ export function composePartialDictationRecipe(
         label: "Compare",
         config: { answerKey },
       },
+      // `summary`, not `offers` — scheduling errors as cards is not implemented;
+      // fake offer buttons only advanced the step (exercise-runner.md).
       {
         id: "decide-1",
         type: "decide",
-        component: "offers",
+        component: "summary",
         label: "Next",
-        config: {
-          offers: ["Add errors as cards", "Explain one error"],
-          declineLabel: "Not now — done",
-        },
+        config: {},
       },
     ],
   };

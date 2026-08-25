@@ -63,6 +63,10 @@ describe("partial dictation recipe", () => {
     expect(Array.isArray(doStep?.config.tokens)).toBe(true);
     const tokens = doStep?.config.tokens as Array<{ gapped: boolean }>;
     expect(tokens.some((token) => token.gapped)).toBe(true);
+
+    const decide = recipe.steps.find((step) => step.type === "decide");
+    expect(decide?.component).toBe("summary");
+    expect(decide?.config.offers).toBeUndefined();
   });
 
   it("defaults to es-fixture-cafe without sourceId", async () => {
