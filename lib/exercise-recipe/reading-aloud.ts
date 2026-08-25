@@ -43,7 +43,7 @@ export function composeReadingAloudRecipe(
         component: "checklist",
         label: "Get ready",
         config: {
-          items: ["A quiet place", "Text you can read comfortably"],
+          itemKeys: ["prepareItemQuietPlace", "prepareItemReadableText"],
         },
       },
       {

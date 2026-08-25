@@ -54,7 +54,7 @@ export function composeFullDictationRecipe(source: Source, ctx: SessionContext):
         component: "checklist",
         label: "Get ready",
         config: {
-          items: ["Headphones or speakers", "Pen and paper"],
+          itemKeys: ["prepareItemHeadphones", "prepareItemPenPaper"],
         },
       },
       {

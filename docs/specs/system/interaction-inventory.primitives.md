@@ -10,6 +10,7 @@ Per-primitive state matrix. Symbols: D H A F X P C — see parent
 | Primitive | D | H | A | F | X | P | C | Notes |
 | --- |:-:|:-:|:-:|:-:|:-:|:-:|:-:| --- |
 | `Button` | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | — | `floating`: A adds `pressFill`. Spinner on P when policy `cta` + primary/danger |
+| `OptionButton` | ✓ | ✓ | ✓ | ✓ | ✓ | — | **toggle** | Wraps `Button`; `selected` → `primary` + `aria-pressed`; `row` or `chip` layout |
 | `SubmitButton` | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ auto | — | Wraps `Button`; P from `useFormStatus` |
 | `ActionLink` | ✓ | ✓ | ✓ | ✓ | — | ✓ | ✓ | `current` → accent fill + `aria-current="page"`. P ≥180ms |
 | `NavLink` | ✓ | ✓ | ✓ | ✓ | — | ✓ | ✓ | `current` → `bg-accent text-accent-ink`, `aria-current="page"` |
@@ -27,6 +28,7 @@ Per-primitive state matrix. Symbols: D H A F X P C — see parent
 
 | Primitive | D | H | A | F | X | P | Notes |
 | --- |:-:|:-:|:-:|:-:|:-:|:-:| --- |
+| `Checkbox` | ✓ | ✓ marker | ✓ scale | ✓ peer | ✓ | — | Form consent rows; not exercise task options |
 | `Input` | ✓ | platform | platform | ✓ | ✓ | — | `aria-invalid:border-danger` |
 | `Textarea` | ✓ | platform | platform | ✓ | ✓ | — | Same `control` classes as Input |
 | `Select` | ✓ | platform | platform | ✓ | ✓ | — | Chevron is `pointer-events-none` |
@@ -56,5 +58,6 @@ Per-primitive state matrix. Symbols: D H A F X P C — see parent
 | --- | --- |
 | Kernel | `components/ui/interaction-kernel.ts` |
 | Pending hook | `components/ui/use-pending-navigation.ts` |
+| Option toggle | `components/ui/OptionButton.tsx` |
 | Registry | `docs/specs/system/interaction-registry.json` |
-| Gate | `scripts/check-interaction-surfaces.mjs` |
+| Gate | `scripts/checks/check-interaction-surfaces.mjs` |

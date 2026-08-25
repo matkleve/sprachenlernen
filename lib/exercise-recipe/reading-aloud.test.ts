@@ -29,6 +29,10 @@ describe("reading aloud recipe", () => {
     ]);
     expect(recipe.steps[1]?.config.text).toContain("gobierno");
     expect(recipe.steps[2]?.config.text).toContain("gobierno");
+    expect(recipe.steps[0]?.config.itemKeys).toEqual([
+      "prepareItemQuietPlace",
+      "prepareItemReadableText",
+    ]);
   });
 
   it("defaults to wikinews-es-3516 without sourceId", async () => {

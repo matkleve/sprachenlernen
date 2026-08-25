@@ -31,6 +31,10 @@ describe("free-production recipe", () => {
     ]);
     expect(recipe.steps[1]?.config.durationSec).toBe(900);
     expect(recipe.steps[0]?.config.introKey).toBe("introFreeProduction");
+    expect(recipe.steps[0]?.config.itemKeys).toEqual([
+      "prepareItemKeyboard",
+      "prepareItemTargetLang",
+    ]);
     expect(recipe.steps[1]?.config.promptKey).toBeTruthy();
   });
 

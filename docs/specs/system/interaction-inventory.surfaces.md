@@ -88,6 +88,8 @@ Update this file in the same PR as any new control or migration.
 | Control | File | Primitive | Variant | P |
 | --- | --- | --- | --- | --- |
 | Section pills | `ProfileSectionNav.tsx` | `FilterPill` | `aria-pressed`; toggles server panels by id | — |
+| Learner world opener | `LearnerWorldEditor.tsx` | `Button` | `ghost sm` text link look | — |
+| Learner world picker | `LearnerWorldEditor.tsx` | `OptionButton` | `layout="row"` | — |
 | Spoken language row | `ProfileSpokenLanguage.tsx` | `LanguageListRow` | `names` override | — |
 | Spoken make active | `ProfileSpokenLanguage.tsx` | `SubmitButton` | `secondary sm` | auto |
 | Choose first | `ProfileLanguages.tsx` | `ActionLink` | primary (default) | ✓ |
@@ -113,6 +115,7 @@ Update this file in the same PR as any new control or migration.
 | --- | --- | --- | --- | --- |
 | Choose (per tile) | `LanguagePicker.tsx` | `SubmitButton` | default | auto |
 | Unavailable tile | `LanguagePicker.tsx` | — | no control rendered | — |
+| Lernwelt world rows | `LearnerWorldSetup.tsx` | `OptionButton` | `layout="row"` | — |
 
 ## Design explorer (`/dev/design`)
 
@@ -130,3 +133,12 @@ Update this file in the same PR as any new control or migration.
 | Back to Methods | `RouteErrorSurface.tsx` | `ActionLink` | `secondary`; non-destination routes only | ✓ |
 | Route / global error | `error.tsx`, `global-error.tsx` | via `RouteErrorSurface` | — | ✓ |
 | Destination error | `DestinationError.tsx` | via `RouteErrorSurface` | — | ✓ |
+
+## Exercise runner
+
+| Control | File | Primitive | Variant | P |
+| --- | --- | --- | --- | --- |
+| Prep requirement rows | `PracticePrepList.tsx` | static list | non-interactive requirements | — |
+| Comprehension options | `ComprehensionQuestionsStep.tsx` | `OptionButton` | `layout="row"` | — |
+| Self-mark tokens | `SelfMarkStep.tsx` | `OptionButton` | `layout="chip"` | — |
+| Primary / nav chrome | `ExerciseRunnerChrome.tsx` | `Button` | secondary / primary / danger | — |

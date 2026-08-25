@@ -35,7 +35,7 @@ stay on [`../page/words-review.md`](../page/words-review.md) — not this runner
 
 | Type | Role | Done means |
 | --- | --- | --- |
-| `prepare` | Physical checklist | Learner tapped **Weiter** (checkboxes optional) |
+| `prepare` | Physical requirements (static list) | Learner tapped **Weiter** |
 | `do` | One task, one screen | Learner tapped **Fertig mit diesem Schritt** |
 | `wait` | Timer owned by this step | Learner tapped **Weiter** after expiry or early |
 | `submit` | Hand in work — photo and/or text | Learner tapped **Eingereicht** |

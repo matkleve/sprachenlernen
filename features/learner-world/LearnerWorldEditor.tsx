@@ -6,10 +6,9 @@ import { useTranslations } from "next-intl";
 
 import { Button } from "@/components/ui/Button";
 import { Dialog } from "@/components/ui/Dialog";
-import { PressableCard } from "@/components/ui/PressableCard";
+import { OptionButton } from "@/components/ui/OptionButton";
 import { saveLearnerWorldFromProfileAction } from "@/features/learner-world/actions";
 import { LEARNER_WORLD_IDS, type LearnerWorldId } from "@/lib/learner-world";
-import { cn } from "@/lib/utils";
 
 export type LearnerWorldEditorProps = {
   languageCode: string;
@@ -53,29 +52,27 @@ export function LearnerWorldEditor({ languageCode, currentWorldId }: LearnerWorl
 
   return (
     <>
-      <button
+      <Button
         type="button"
-        className="mt-2 text-left text-sm text-muted underline-offset-2 hover:text-ink hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+        variant="ghost"
+        size="sm"
+        className="mt-2 h-auto justify-start px-0 text-sm font-normal text-muted underline-offset-2 hover:underline"
         onClick={() => setOpen(true)}
       >
         {currentWorldId === "general" ? t("profileAddWorld") : t("profileWorld", { world: label })}
-      </button>
+      </Button>
 
       <Dialog open={open} onClose={() => setOpen(false)} title={t("pickTitle")}>
         <ul className="grid gap-3">
           {LEARNER_WORLD_IDS.map((worldId) => (
             <li key={worldId}>
-              <PressableCard
-                type="button"
-                aria-pressed={worldId === currentWorldId}
+              <OptionButton
+                layout="row"
+                selected={worldId === currentWorldId}
                 onClick={() => requestSave(worldId)}
-                className={cn(
-                  "w-full text-left",
-                  worldId === currentWorldId && "border-accent bg-accent-soft",
-                )}
               >
-                <span className="text-base font-medium text-ink">{t(`world.${worldId}`)}</span>
-              </PressableCard>
+                {t(`world.${worldId}`)}
+              </OptionButton>
             </li>
           ))}
         </ul>

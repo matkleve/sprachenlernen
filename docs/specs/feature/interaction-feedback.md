@@ -19,7 +19,7 @@ when work continues after release, **pending** (something is happening). Parent:
   spinners on grade buttons ([`review-write-queue`](../service/review-write-queue.md)
   — advance is the feedback); pending on filter chips (client-instant).
 
-**Reuse:** `Button`, `ActionLink`, `NavLink`, `FilterPill`, `IconButton`,
+**Reuse:** `Button`, `OptionButton`, `ActionLink`, `NavLink`, `FilterPill`, `IconButton`,
 `IconLink`, `TextLink`, `SurfaceLink`, `PressableCard`, `GradeButton`,
 `LanguageListRow`, `Disclosure`. Shared classes: `components/ui/interaction-kernel.ts`.
 
@@ -75,6 +75,7 @@ on `IconLink` or `ActionLink`. The back chip on drill-in routes is **not**
 | Filter / refine chips | required | none | Client-side filter, no I/O |
 | Native `<input>` / `<select>` | platform | none | DESIGN-SYSTEM § exemption |
 | Language switcher scrim | none | none | dismiss overlay, not a control |
+| Reflection deck scrim | none | none | dismiss overlay, not a control |
 
 ## Surfaces
 

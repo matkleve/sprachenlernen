@@ -1,9 +1,10 @@
 {
   "version": 1,
-  "description": "Authoritative list of interaction primitives and audited exemptions. Enforced by scripts/check-interaction-surfaces.mjs. Human-readable mirror: docs/specs/system/interaction-inventory.md",
+  "description": "Authoritative list of interaction primitives and audited exemptions. Enforced by scripts/checks/check-interaction-surfaces.mjs. Human-readable mirror: docs/specs/system/interaction-inventory.md",
   "inventoryDoc": "docs/specs/system/interaction-inventory.md",
   "primitives": [
     "Button",
+    "OptionButton",
     "ActionLink",
     "NavLink",
     "FilterPill",
@@ -15,10 +16,12 @@
     "PressableCard",
     "GradeButton",
     "LanguageListRow",
-    "Disclosure"
+    "Disclosure",
+    "Checkbox"
   ],
   "primitivePaths": [
     "components/ui/Button.tsx",
+    "components/ui/OptionButton.tsx",
     "components/ui/ActionLink.tsx",
     "components/ui/NavLink.tsx",
     "components/ui/FilterPill.tsx",
@@ -30,7 +33,8 @@
     "components/ui/PressableCard.tsx",
     "components/ui/GradeButton.tsx",
     "components/ui/LanguageListRow.tsx",
-    "components/ui/Disclosure.tsx"
+    "components/ui/Disclosure.tsx",
+    "components/ui/Checkbox.tsx"
   ],
   "forbiddenOutsidePrimitives": [
     "buttonVariants",
@@ -47,6 +51,16 @@
       "file": "features/marketing/PublicHeaderMenu.tsx",
       "pattern": "language-switcher-scrim",
       "reason": "Full-screen dismiss overlay — reuses language-switcher scrim token; not an actionable control."
+    },
+    {
+      "file": "components/ui/ReflectionDeck.tsx",
+      "pattern": "language-switcher-scrim",
+      "reason": "Full-screen dismiss overlay — same scrim token as language switcher; not an actionable control."
+    },
+    {
+      "file": "features/wood-grain-lab/WoodGrainLab.tsx",
+      "pattern": "<button",
+      "reason": "Design explorer only — preset list uses local card styling until a third production surface needs it."
     },
     {
       "file": "components/ui/error-callout.test.tsx",

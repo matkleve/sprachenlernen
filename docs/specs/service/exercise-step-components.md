@@ -52,7 +52,7 @@ single-file change.
 
 | Component | Purpose | Status | Methods |
 | --- | --- | --- | --- |
-| `checklist` | Tick list — pen, headphones, quiet (not gated) | shipped | dictation family, paper, 4/3/2, shadowing |
+| `checklist` | Static prep requirements — pen, headphones, quiet (not gated) | shipped | dictation family, reading-aloud, free-production |
 | `instruction` | One-screen how-this-works (first visit optional) | planned | 4/3/2, narrow reading/listening, dictogloss |
 | `context-check` | Confirm context still matches (`requires`) | planned | full dictation, paradigm tables |
 | `material-preview` | Show resolved Source slice + coverage band | shipped | extensive reading, retell, back-translation |
