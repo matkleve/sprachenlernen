@@ -1,21 +1,25 @@
 import { render, screen } from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
 import { describe, expect, it } from "vitest";
 
 import { PracticePrepList } from "@/features/exercise-runner/practice-surface/PracticePrepList";
 import { PracticeSurface } from "@/features/exercise-runner/practice-surface/PracticeSurface";
 
 describe("practice surface", () => {
-  it("renders prep rows as full-width option buttons", () => {
-    render(<PracticePrepList entries={[{ id: "a", label: "Keyboard ready" }]} />);
+  it("renders prep rows as static requirement text", () => {
+    const { container } = render(
+      <PracticePrepList entries={[{ id: "a", label: "Keyboard ready" }]} />,
+    );
 
-    const button = screen.getByRole("button", { name: "Keyboard ready" });
-    expect(button.className).toContain("w-full");
-    expect(button.className).toContain("justify-start");
-    expect(button.getAttribute("aria-pressed")).toBe("false");
+    expect(screen.getByText("Keyboard ready")).not.toBeNull();
+    expect(screen.queryByRole("button", { name: "Keyboard ready" })).toBeNull();
+
+    const row = container.querySelector("li");
+    expect(row?.className).toContain("border-x");
+    expect(row?.className).toContain("border-line-strong");
+    expect(row?.className).toContain("font-semibold");
   });
 
-  it("keeps option buttons readable with multi-line label text", () => {
+  it("keeps multi-line requirement text readable", () => {
     render(
       <PracticePrepList
         entries={[
@@ -27,26 +31,7 @@ describe("practice surface", () => {
       />,
     );
 
-    expect(
-      screen.getByRole("button", {
-        name: "In deiner Zielsprache schreiben — nicht auf Deutsch",
-      }),
-    ).not.toBeNull();
-  });
-
-  it("toggles a prep row when the learner selects it", async () => {
-    const user = userEvent.setup();
-    render(
-      <PracticePrepList entries={[{ id: "keyboard", label: "Keyboard ready" }]} />,
-    );
-
-    const button = screen.getByRole("button", { name: "Keyboard ready" });
-    expect(button.getAttribute("aria-pressed")).toBe("false");
-    expect(button.className).toContain("border-line");
-
-    await user.click(button);
-    expect(button.getAttribute("aria-pressed")).toBe("true");
-    expect(button.className).toContain("bg-accent");
+    expect(screen.getByText("In deiner Zielsprache schreiben — nicht auf Deutsch")).not.toBeNull();
   });
 
   it("wraps children at task density", () => {

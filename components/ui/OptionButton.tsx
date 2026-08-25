@@ -7,6 +7,8 @@ export type OptionButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
   selected?: boolean;
   /** `row` — full-width task options; `chip` — inline token toggles. */
   layout?: "row" | "chip";
+  /** `toggle` — multi-select (`aria-pressed`); `radio` — single-select in a group. */
+  selectionMode?: "toggle" | "radio";
 };
 
 /**
@@ -14,7 +16,10 @@ export type OptionButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
  * Contract: docs/specs/component/option-button.md
  */
 export const OptionButton = forwardRef<HTMLButtonElement, OptionButtonProps>(
-  function OptionButton({ selected = false, layout = "row", className, type, ...props }, ref) {
+  function OptionButton(
+    { selected = false, layout = "row", selectionMode = "toggle", className, type, ...props },
+    ref,
+  ) {
     return (
       <Button
         ref={ref}
@@ -22,7 +27,9 @@ export const OptionButton = forwardRef<HTMLButtonElement, OptionButtonProps>(
         variant={selected ? "primary" : "secondary"}
         size={layout === "row" ? "md" : "sm"}
         className={cn(layout === "row" ? "w-full justify-start" : "rounded-pill", className)}
-        aria-pressed={selected}
+        role={selectionMode === "radio" ? "radio" : undefined}
+        aria-pressed={selectionMode === "toggle" ? selected : undefined}
+        aria-checked={selectionMode === "radio" ? selected : undefined}
         {...props}
       />
     );

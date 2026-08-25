@@ -8,13 +8,13 @@ Custom checkbox control — native `input` stays for forms and screen readers; t
 visible box is drawn in-app so browsers cannot paint asymmetric borders.
 
 Parent: [`field.md`](field.md). Material setup consent rows use the inline
-`label` prop; exercise prep checklists use option `Button`s instead — see
+`label` prop; exercise prep requirements use static `PracticePrepList` — see
 [`practice-surface.md`](../feature/practice-surface.md).
 
 ## Scope
 
 - **In:** marker sizing, five interaction states, optional inline label, disabled.
-- **Out:** tri-state, radio behaviour, exercise prep rows (use option `Button`s).
+- **Out:** tri-state, radio behaviour, exercise prep requirements (static list).
 
 ## Marker
 

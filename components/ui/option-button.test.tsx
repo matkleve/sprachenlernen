@@ -25,6 +25,17 @@ describe("OptionButton", () => {
     expect(button.className).toContain("bg-accent");
   });
 
+  it("uses radio semantics when selectionMode is radio", () => {
+    render(
+      <OptionButton layout="row" selectionMode="radio" selected>
+        Answer A
+      </OptionButton>,
+    );
+    const option = screen.getByRole("radio", { name: "Answer A" });
+    expect(option.getAttribute("aria-checked")).toBe("true");
+    expect(option.getAttribute("aria-pressed")).toBeNull();
+  });
+
   it("toggles via click handler", async () => {
     const user = userEvent.setup();
     const onClick = vi.fn();

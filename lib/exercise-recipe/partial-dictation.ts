@@ -77,7 +77,7 @@ export function composePartialDictationRecipe(
         component: "checklist",
         label: "Get ready",
         config: {
-          items: ["Headphones or speakers", "Pen and paper or keyboard"],
+          itemKeys: ["prepareItemHeadphones", "prepareItemPenPaperKeyboard"],
         },
       },
       ...dictationLoop,

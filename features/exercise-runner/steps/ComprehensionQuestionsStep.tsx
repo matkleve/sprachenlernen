@@ -65,11 +65,12 @@ export function ComprehensionQuestionsStep({ config }: ComprehensionQuestionsSte
         return (
           <fieldset key={question.id} className="space-y-3">
             <legend className="text-base font-medium text-ink">{question.prompt}</legend>
-            <div className="flex flex-col gap-2">
+            <div className="flex flex-col gap-2" role="radiogroup">
               {question.options.map((option) => (
                 <OptionButton
                   key={option.id}
                   layout="row"
+                  selectionMode="radio"
                   selected={selected === option.id}
                   onClick={() => {
                     setAnswers((current) => ({ ...current, [question.id]: option.id }));

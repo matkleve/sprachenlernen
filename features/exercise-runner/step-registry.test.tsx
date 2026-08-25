@@ -41,7 +41,7 @@ describe("ExerciseStepBody registry", () => {
           type: "prepare",
           component: "checklist",
           label: "Get ready",
-          config: { items: ["Pen and paper"] },
+          config: { itemKeys: ["prepareItemPenPaper"] },
         }}
         answer={EMPTY_STEP_ANSWER}
         sessionFindings={NO_SESSION_FINDINGS}
@@ -54,7 +54,7 @@ describe("ExerciseStepBody registry", () => {
       />,
     );
 
-    expect(screen.getByText("Pen and paper")).toBeDefined();
+    expect(screen.getByText(en.exerciseRunner.prepareItemPenPaper)).toBeDefined();
     expect(screen.queryByText(/not built yet/i)).toBeNull();
   });
 

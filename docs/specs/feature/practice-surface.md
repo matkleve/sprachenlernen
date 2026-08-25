@@ -41,14 +41,14 @@ Applied via `PracticeSurface` wrapper — not new CSS color tokens.
 | Lead prompt | `practiceLeadClass`: `text-xl font-medium` desktop; `text-base font-semibold` mobile — reads above prep rows |
 | Body | `text-lg leading-relaxed text-ink` |
 | Secondary | `text-base text-muted` |
-| Prep row | `OptionButton` `layout="row"` — `secondary`→`primary` + `aria-pressed` |
+| Prep row | Static requirement — `border-x border-line-strong`, `font-semibold` text; not interactive |
 
 ## Behaviour
 
 | # | Element | Rule |
 | --- | --- | --- |
 | 1 | Step body | Wrapped in `PracticeSurface` |
-| 2 | Prepare checklist | `PracticePrepList` — `OptionButton` rows; does not gate **Weiter** |
+| 2 | Prepare requirements | `PracticePrepList` — static rows only; does not gate **Weiter** |
 | 3 | Runner footer | `border-t border-line` only — no `bg-surface` panel on `canvas` |
 | 4 | Primary CTA | `Button` `lg` desktop; `h-10` mobile; bottom-right with nav on one row on phone |
 | 5 | New step UI | Must use practice-surface primitives before app-scale fields |

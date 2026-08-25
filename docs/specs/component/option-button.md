@@ -4,16 +4,17 @@
 <!-- use-case: UC-049 -->
 <!-- status: active -->
 
-Full-width or inline toggle built on `Button` — practice prep rows,
-comprehension choices, self-mark tokens, learner-world pickers. Parent:
-[`button.md`](button.md), [`practice-surface.md`](../feature/practice-surface.md).
+Full-width or inline toggle built on `Button` — comprehension choices, self-mark
+tokens, learner-world pickers. Parent: [`button.md`](button.md),
+[`practice-surface.md`](../feature/practice-surface.md).
 
 ## Scope
 
-- **In:** `selected` → `primary` + `aria-pressed`; unselected → `secondary`;
-  `layout` `row` (full-width `md`) or `chip` (`sm`, inline).
-- **Out:** single-fire CTAs (use `Button` directly); chrome filters (use
-  `FilterPill`); form consent (use `Checkbox`).
+- **In:** `selected` → `primary`; unselected → `secondary`; `layout` `row` or
+  `chip`; `selectionMode` `toggle` (`aria-pressed`) or `radio` (`role="radio"`,
+  `aria-checked`).
+- **Out:** prepare requirements (static `PracticePrepList`); single-fire CTAs;
+  chrome filters (`FilterPill`); form consent (`Checkbox`).
 
 **Reuse: `Button`.**
 
@@ -21,20 +22,21 @@ comprehension choices, self-mark tokens, learner-world pickers. Parent:
 
 | Layout | Size | Classes | Use for |
 | --- | --- | --- | --- |
-| `row` | `md` | `w-full justify-start` | prep checklist, comprehension options, world picker |
+| `row` | `md` | `w-full justify-start` | comprehension options, world picker |
 | `chip` | `sm` | `rounded-pill` | self-mark error tokens in a wrap row |
 
-## States
+## Selection modes
 
-Inherits all five `Button` states plus `aria-pressed` for the selected layer.
-No `pending` by default — toggles are instant.
+| Mode | ARIA | Use for |
+| --- | --- | --- |
+| `toggle` (default) | `aria-pressed` | multi-select tokens, world picker |
+| `radio` | `role="radio"` + `aria-checked` | single-select comprehension options inside `role="radiogroup"` |
 
 ## Acceptance criteria
 
-- [ ] Given `selected={false}`, when rendered, then `variant="secondary"` and
-      `aria-pressed="false"`.
-- [ ] Given `selected={true}`, when rendered, then `variant="primary"` and
-      `aria-pressed="true"`.
+- [ ] Given `selectionMode="toggle"` and `selected={false}`, then `aria-pressed="false"`.
+- [ ] Given `selectionMode="radio"` and `selected={true}`, then `role="radio"` and
+      `aria-checked="true"` (no `aria-pressed`).
 - [ ] Given `layout="row"`, then the control is full width with left-aligned label.
 
 ## Check

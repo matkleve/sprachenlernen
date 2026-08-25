@@ -138,7 +138,7 @@ Update this file in the same PR as any new control or migration.
 
 | Control | File | Primitive | Variant | P |
 | --- | --- | --- | --- | --- |
-| Prep checklist rows | `PracticePrepList.tsx` | `OptionButton` | `layout="row"` | — |
+| Prep checklist rows | `PracticePrepList.tsx` | static list | non-interactive requirements | — |
 | Comprehension options | `ComprehensionQuestionsStep.tsx` | `OptionButton` | `layout="row"` | — |
 | Self-mark tokens | `SelfMarkStep.tsx` | `OptionButton` | `layout="chip"` | — |
 | Primary / nav chrome | `ExerciseRunnerChrome.tsx` | `Button` | secondary / primary / danger | — |

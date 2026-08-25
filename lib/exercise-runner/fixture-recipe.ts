@@ -11,7 +11,7 @@ export const FIXTURE_EXERCISE_RECIPE: ExerciseRecipe = {
       component: "checklist",
       label: "Get ready",
       config: {
-        items: ["Headphones", "Pen and paper"],
+        itemKeys: ["prepareItemHeadphones", "prepareItemPenPaper"],
       },
     },
     {
