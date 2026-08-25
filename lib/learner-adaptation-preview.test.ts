@@ -19,6 +19,8 @@ const labels = {
   demandingLine: (percent: number, words: number) => `demanding ${percent}% ${words}`,
   t1SupportLine: (percent: number, gaps: number) => `t1 ${percent}% ${gaps}`,
   blockedLine: (percent: number, level: string) => `blocked ${percent}% ${level}`,
+  materialInsufficientLine: (sentences: number, min: number, minutes: number) =>
+    `insufficient ${sentences}/${min}/${minutes}`,
   adaptationLabel: (level: string) => `Adapted for ${level}`,
   adaptationFailed: (level: string) => `failed ${level}`,
   generatedLabel: () => "Generated article",

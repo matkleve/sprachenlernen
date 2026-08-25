@@ -30,6 +30,11 @@ import {
 import type { MethodEntry } from "@/lib/method-catalogue";
 import { formatReadingTimeLabel } from "@/lib/reading-time";
 import { inferTargetLevelFromHeldCount } from "@/lib/target-level";
+import {
+  assessReadMaterialSufficiency,
+  isReadWindowMethod,
+  timedReadDurationSec,
+} from "@/lib/read-session-material";
 
 export type CatalogueShownBody = {
   body: string;
@@ -129,6 +134,7 @@ export type MaterialPreviewLabels = {
   demandingLine: (coveragePercent: number, wordsToComfortable: number) => string;
   t1SupportLine: (coveragePercent: number, gapCount: number) => string;
   blockedLine: (coveragePercent: number, targetLevel: string) => string;
+  materialInsufficientLine: (sentences: number, minSentences: number, minutes: number) => string;
   adaptationLabel: (targetLevel: string) => string;
   generatedLabel: () => string;
   adaptationFailed: (targetLevel: string) => string;
@@ -148,11 +154,17 @@ export function buildCatalogueMaterialPreview(
   heldLemmas: ReadonlySet<string>,
   labels: MaterialPreviewLabels,
   cache: AdaptationCacheStore,
+  options?: { budgetMinutes?: number },
 ): import("@/lib/method-material-setup").MaterialSetupPreview {
   const shown = resolveCatalogueShownBody(source, lexicon, heldLemmas, cache);
   const unitDeclaration = method.materialUnits?.find((unit) => unit.id === unitId);
+  const budgetMinutes = options?.budgetMinutes;
+  const windowDurationSec =
+    unitId === "window" && budgetMinutes !== undefined
+      ? timedReadDurationSec(method.id, budgetMinutes)
+      : unitDeclaration?.durationSec ?? DEFAULT_WINDOW_DURATION_SEC;
   const resolved = resolveMaterialUnit(sourceWithShownBody(source, shown.body), unitId, {
-    durationSec: unitDeclaration?.durationSec ?? DEFAULT_WINDOW_DURATION_SEC,
+    durationSec: windowDurationSec,
     lexicon,
     heldLemmas,
   });
@@ -161,13 +173,19 @@ export function buildCatalogueMaterialPreview(
   const timeLabel = formatReadingTimeLabel(coverage.tokenCount);
   const gate = shown.deliveryGate;
   const attribution = attributionForSource(source);
+  const sufficiency =
+    budgetMinutes !== undefined && isReadWindowMethod(method.id)
+      ? assessReadMaterialSufficiency(resolved.text, budgetMinutes, unitId)
+      : null;
+  const materialInsufficient = sufficiency !== null && !sufficiency.sufficient;
+  const startEnabled = shown.startEnabled && !materialInsufficient;
 
   return {
     sourceId: source.id,
     title: source.title,
     coverage,
     unitId,
-    unitLabel: labels.unitLabel(unitId, unitDeclaration?.durationSec),
+    unitLabel: labels.unitLabel(unitId, unitId === "window" ? windowDurationSec : unitDeclaration?.durationSec),
     timeLabel,
     adapted: shown.adapted,
     targetLevel: shown.targetLevel,
@@ -179,10 +197,17 @@ export function buildCatalogueMaterialPreview(
     attributionText: attribution?.text,
     attributionUrl: attribution?.url,
     deliveryGate: gate,
-    startEnabled: shown.startEnabled,
+    startEnabled,
     t1GapCount: shown.t1GapCount,
+    materialInsufficient,
     demandingCopy:
-      gate === "t1-support"
+      materialInsufficient && sufficiency && budgetMinutes !== undefined
+        ? labels.materialInsufficientLine(
+            sufficiency.sentenceCount,
+            sufficiency.minSentences,
+            budgetMinutes,
+          )
+        : gate === "t1-support"
         ? labels.t1SupportLine(coverage.coveragePercent, shown.t1GapCount)
         : gate === "blocked"
           ? labels.blockedLine(coverage.coveragePercent, shown.targetLevel)

@@ -20,12 +20,14 @@ export type SessionViabilityResult = {
 };
 
 function hasRetrievalStep(recipe: ExerciseRecipe): boolean {
+  const retrievalReview = new Set(["comprehension-questions", "self-mark", "compare", "diff-highlight", "feedback", "rubric", "reveal-answer"]);
   return recipe.steps.some(
     (step) =>
-      step.type === "do" &&
-      step.component !== "checklist" &&
-      step.component !== "material-preview" &&
-      step.component !== "text-display",
+      (step.type === "do" &&
+        step.component !== "checklist" &&
+        step.component !== "material-preview" &&
+        step.component !== "text-display") ||
+      (step.type === "review" && step.component && retrievalReview.has(step.component)),
   );
 }
 
@@ -92,10 +94,19 @@ function timedWriteSec(recipe: ExerciseRecipe): number {
   }, 0);
 }
 
+function timedReadSec(recipe: ExerciseRecipe): number {
+  return recipe.steps.reduce((sum, step) => {
+    if (step.component !== "text-display") return sum;
+    const durationSec = step.config.durationSec;
+    return typeof durationSec === "number" ? sum + durationSec : sum;
+  }, 0);
+}
+
 function passesVolumeGate(recipe: ExerciseRecipe): boolean {
   const units = countLearningUnits(recipe);
   if (units >= 3) return true;
   if (timedWriteSec(recipe) >= 480) return true;
+  if (timedReadSec(recipe) >= 480) return true;
   return false;
 }
 

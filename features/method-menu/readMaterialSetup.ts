@@ -37,6 +37,7 @@ export type MaterialSetupBundle = {
 export async function readMaterialSetupBundle(
   method: MethodEntry,
   labels: Parameters<typeof buildMaterialSetupContext>[4],
+  options?: { budgetMinutes?: number },
 ): Promise<MaterialSetupBundle> {
   if (!hasMaterialSetup(method)) return { status: "omit" };
 
@@ -62,6 +63,7 @@ export async function readMaterialSetupBundle(
     const context = buildMaterialSetupContext(method, sources, lexicon, heldLemmas, labels, {
       cache: adaptationCache,
       activeWorld,
+      budgetMinutes: options?.budgetMinutes,
     });
     if (!context) return { status: "omit" };
 

@@ -35,6 +35,7 @@ export type MaterialSetupLabels = {
   demandingLine: (coveragePercent: number, wordsToComfortable: number) => string;
   t1SupportLine: (coveragePercent: number, gapCount: number) => string;
   blockedLine: (coveragePercent: number, targetLevel: string) => string;
+  materialInsufficientLine: (sentences: number, minSentences: number, minutes: number) => string;
   adaptationLabel: (targetLevel: string) => string;
   generatedLabel: () => string;
   adaptationFailed: (targetLevel: string) => string;
@@ -80,6 +81,7 @@ export type MaterialSetupPreview = {
   deliveryGate?: DeliveryGate;
   startEnabled?: boolean;
   t1GapCount?: number;
+  materialInsufficient?: boolean;
   needsAdaptation?: boolean;
   processingConsentRequired?: boolean;
   adaptationError?: string;

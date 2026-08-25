@@ -62,6 +62,12 @@ function labelsFromTranslator(t: Awaited<ReturnType<typeof getTranslations>>): M
         percent: Math.round(coveragePercent),
         level: targetLevel,
       }),
+    materialInsufficientLine: (sentences: number, minSentences: number, minutes: number) =>
+      t("materialInsufficientLine", {
+        sentences,
+        min: minSentences,
+        minutes,
+      }),
     adaptationLabel: (targetLevel: string) => t("adaptationLabel", { level: targetLevel }),
     generatedLabel: () => t("generatedLabel"),
     adaptationFailed: (targetLevel: string) => t("adaptationFailed", { level: targetLevel }),

@@ -84,6 +84,12 @@ export async function MethodDetail({ method, searchParams = {} }: MethodDetailPr
         percent: Math.round(coveragePercent),
         level: targetLevel,
       }),
+    materialInsufficientLine: (sentences: number, minSentences: number, minutes: number) =>
+      tMaterial("materialInsufficientLine", {
+        sentences,
+        min: minSentences,
+        minutes,
+      }),
     adaptationLabel: (targetLevel: string) => tMaterial("adaptationLabel", { level: targetLevel }),
     generatedLabel: () => tMaterial("generatedLabel"),
     adaptationFailed: (targetLevel: string) =>
@@ -99,11 +105,6 @@ export async function MethodDetail({ method, searchParams = {} }: MethodDetailPr
     pastePlaceholder: tMaterial("pastePlaceholder"),
     linkUrl: tMaterial("linkUrl"),
   };
-  const materialBundle = hasMaterialSetup(method)
-    ? await readMaterialSetupBundle(method, materialLabels)
-    : { status: "omit" as const };
-  const showMaterialSetup = materialBundle.status === "ok";
-  const localized = localizeMethodEntry(method, (key) => t(key as "entries.background-listening.name"));
   const variantRaw =
     typeof searchParams.variantMinutes === "string"
       ? searchParams.variantMinutes
@@ -114,6 +115,11 @@ export async function MethodDetail({ method, searchParams = {} }: MethodDetailPr
     selectedVariantRaw: variantRaw,
     methodId: method.id,
   });
+  const materialBundle = hasMaterialSetup(method)
+    ? await readMaterialSetupBundle(method, materialLabels, { budgetMinutes: variantMinutes })
+    : { status: "omit" as const };
+  const showMaterialSetup = materialBundle.status === "ok";
+  const localized = localizeMethodEntry(method, (key) => t(key as "entries.background-listening.name"));
   const sessionContract = await resolveSessionContract(method, variantMinutes);
   const showVariantPicker =
     showDurationVariantPicker(method.durations, method.id) && !showMaterialSetup;

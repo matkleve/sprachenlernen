@@ -18,6 +18,7 @@ import {
 import type { SessionContract } from "@/lib/method-session-contract";
 import { usesExerciseRunner } from "@/lib/method-session";
 import type { MaterialUnitId } from "@/lib/material-unit";
+import { routes } from "@/lib/routes";
 import { cn } from "@/lib/utils";
 
 import { MaterialSetupPreviewCard } from "./MaterialSetupPreviewCard";
@@ -261,6 +262,20 @@ export function MethodMaterialSetup({
 
       {sessionContractForPreview ? (
         <MethodSessionContractText contract={sessionContractForPreview} />
+      ) : null}
+
+      {cataloguePreview &&
+      (cataloguePreview.deliveryGate === "blocked" ||
+        cataloguePreview.materialInsufficient ||
+        (cataloguePreview.deliveryGate === "t1-support" && !startEnabled)) ? (
+        <div className="flex flex-wrap gap-2 text-sm">
+          <ActionLink href={routes.wordsReview} variant="secondary" size="sm">
+            {t("reviewVocabularyFirst")}
+          </ActionLink>
+          <ActionLink href={routes.method("partial-dictation")} variant="ghost" size="sm">
+            {t("trySentenceDictation")}
+          </ActionLink>
+        </div>
       ) : null}
 
       {usesExerciseRunner(method) ? (

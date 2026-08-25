@@ -29,6 +29,11 @@ import {
   type MaterialUnitId,
 } from "@/lib/material-unit";
 import { formatReadingTimeLabel } from "@/lib/reading-time";
+import {
+  assessReadMaterialSufficiency,
+  isReadWindowMethod,
+  timedReadDurationSec,
+} from "@/lib/read-session-material";
 
 export function buildMaterialPreview(
   source: Source,
@@ -37,7 +42,7 @@ export function buildMaterialPreview(
   lexicon: Lexicon,
   heldLemmas: ReadonlySet<string>,
   labels: MaterialSetupLabels,
-  options?: { cache?: AdaptationCacheStore },
+  options?: { cache?: AdaptationCacheStore; budgetMinutes?: number },
 ): MaterialSetupPreview {
   if (source.origin === "catalogue" && options?.cache) {
     return buildCatalogueMaterialPreview(
@@ -48,31 +53,52 @@ export function buildMaterialPreview(
       heldLemmas,
       labels,
       options.cache,
+      { budgetMinutes: options.budgetMinutes },
     );
   }
 
   const unitDeclaration = method.materialUnits?.find((unit) => unit.id === unitId);
+  const budgetMinutes = options?.budgetMinutes;
+  const windowDurationSec =
+    unitId === "window" && budgetMinutes !== undefined
+      ? timedReadDurationSec(method.id, budgetMinutes)
+      : unitDeclaration?.durationSec ?? DEFAULT_WINDOW_DURATION_SEC;
   const resolved = resolveMaterialUnit(source, unitId, {
-    durationSec: unitDeclaration?.durationSec ?? DEFAULT_WINDOW_DURATION_SEC,
+    durationSec: windowDurationSec,
     lexicon,
     heldLemmas,
   });
   const coverage = computeCoverage(resolved.text, lexicon, heldLemmas);
   const wordsGap = wordsToComfortable(coverage);
   const timeLabel = formatReadingTimeLabel(coverage.tokenCount);
+  const sufficiency =
+    budgetMinutes !== undefined && isReadWindowMethod(method.id)
+      ? assessReadMaterialSufficiency(resolved.text, budgetMinutes, unitId)
+      : null;
+  const materialInsufficient = sufficiency !== null && !sufficiency.sufficient;
 
   return {
     sourceId: source.id,
     title: source.title,
     coverage,
     unitId,
-    unitLabel: labels.unitLabel(unitId, unitDeclaration?.durationSec),
+    unitLabel: labels.unitLabel(
+      unitId,
+      unitId === "window" ? windowDurationSec : unitDeclaration?.durationSec,
+    ),
     timeLabel,
-    startEnabled: true,
+    startEnabled: !materialInsufficient,
+    materialInsufficient,
     demandingCopy:
-      coverage.comfortBand === "demanding" && wordsGap > 0
-        ? labels.demandingLine(coverage.coveragePercent, wordsGap)
-        : undefined,
+      materialInsufficient && sufficiency && budgetMinutes !== undefined
+        ? labels.materialInsufficientLine(
+            sufficiency.sentenceCount,
+            sufficiency.minSentences,
+            budgetMinutes,
+          )
+        : coverage.comfortBand === "demanding" && wordsGap > 0
+          ? labels.demandingLine(coverage.coveragePercent, wordsGap)
+          : undefined,
   };
 }
 
@@ -82,7 +108,7 @@ export function buildMaterialSetupContext(
   lexicon: Lexicon,
   heldLemmas: ReadonlySet<string>,
   labels: MaterialSetupLabels,
-  options?: { cache?: AdaptationCacheStore; activeWorld?: LearnerWorldId },
+  options?: { cache?: AdaptationCacheStore; activeWorld?: LearnerWorldId; budgetMinutes?: number },
 ): MaterialSetupContext | null {
   if (!hasMaterialSetup(method)) return null;
 
@@ -90,7 +116,9 @@ export function buildMaterialSetupContext(
   const unitOptions = materialUnitOptions(method, labels);
   const defaultUnitId = defaultMaterialUnitId(method);
   const previews: MaterialSetupContext["previews"] = {};
-  const previewOptions = options?.cache ? { cache: options.cache } : undefined;
+  const previewOptions = options?.cache
+    ? { cache: options.cache, budgetMinutes: options.budgetMinutes }
+    : { budgetMinutes: options?.budgetMinutes };
   const activeWorld = options?.activeWorld ?? "general";
   const worldSources = sourcesMatchingActiveWorld(sources, activeWorld);
 

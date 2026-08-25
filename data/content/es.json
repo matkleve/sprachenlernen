@@ -6,7 +6,9 @@
     "title": "En el café",
     "origin": "fixture",
     "body": "Uno dos tres. El café está en la mesa. La casa es grande. María bebe té con azúcar en la terraza. Los niños juegan en el parque pequeño. El sol brilla sobre la ciudad antigua. Por la tarde llegan más clientes al café.",
-    "tags": ["daily"],
+    "tags": [
+      "daily"
+    ],
     "world": "everyday",
     "addedAt": "2026-08-17T00:00:00.000Z"
   },
@@ -17,7 +19,9 @@
     "title": "Autoridades electorales mantienen prohibición de presencia de observadores en elecciones egipcias",
     "origin": "catalogue",
     "body": "Miles marchan en Alemania contra la extrema derecha Mozambique: CNE confirma la victoria de Daniel Chapo por un 70 por ciento Mozambique: Albino Forquilha, nuevo líder de la oposición en un Parlamento dominado por el Frelimo Estallan protesta en Venezuela contra los resultados oficiales de las presidenciales Xóchitl Gálvez admite derrota en elecciones presidenciales mexicanas A pesar de una decisión judicial que ordena dar acceso a grupos independientes de observación electoral a los centros de votación, la Comisión Electoral Egipcia, nombrada por el actual gobierno, decidió mantener su prohibición de observadores, nacionales y internacionales en las primeras elecciones con múltiples candidatos que tendrá Egipto en su historia. Sólo tendrán acceso los testigos de las partes, afirmó Osama Attawiyah, jefe de la Comisión Electoral en una entrevista a la BBC. Igualmente mantendrán a un candidato invalidado por otra decisión judicial. El Presidente Mubarak se presenta como candidato para un nuevo período de seis años y es considerado como el candidato con más oportunidades de ganar. Sin embargo, la campaña electoral ha sido la oportunidad para que los egipcios discutan asuntos internos más que la situación internacional del país. De esta forma, han salido a relucir cantidad de problemas que existen en la sociedad egipcia y que no han sido atacados en las décadas de gobierno del actual presidente, entre ellos el desempleo, la corrupción de los funcionarios de estado y la casi ausencia de servicios públicos. Para Human Rights Watch, el riesgo de fraude en estas elecciones es muy grande dados los antecedentes de fraude en elecciones anteriores y el control que tiene el partido de gobierno sobre toda la actividad política del país. Esta organización considera como positivo el debate sobre al situación interna que tiene lugar durante la campaña electoral y considera que el gran reto de Mubarak no es ganar la elección sino mostrar que en realidad tiene suficiente apoyo luego de un cuarto de siglo de gobierno. La campaña electoral finaliza el domingo 11 de septiembre y ese día se espera que Mubarak organice una gran concentración en el Cairo.",
-    "tags": ["news"],
+    "tags": [
+      "news"
+    ],
     "world": "politics",
     "sourceUrl": "https://es.wikinews.org/wiki/Autoridades_electorales_mantienen_prohibici%C3%B3n_de_presencia_de_observadores_en_elecciones_egipcias",
     "addedAt": "2026-08-20T19:10:27.253Z",
@@ -36,7 +40,9 @@
     "origin": "catalogue",
     "generated": true,
     "body": "En agosto de dos mil veintiséis muchas ciudades de Europa registraron temperaturas por encima de los treinta grados. Los servicios meteorológicos informaron que varias regiones tuvieron noches muy calientes. En España el gobierno recomendó reducir el uso de aire acondicionado en horas punta. En Italia los médicos pidieron agua y sombra para personas mayores. Los expertos señalan que las olas de calor duran más días que en el pasado. Este texto no es un artículo de periódico original: resume hechos públicos en un nivel para aprender español.",
-    "tags": ["environment"],
+    "tags": [
+      "environment"
+    ],
     "world": "general",
     "addedAt": "2026-08-22T12:00:00.000Z",
     "licence": {
@@ -51,7 +57,9 @@
     "title": "Noticias lentas: elecciones locales en Alemania",
     "origin": "catalogue",
     "body": "En Alemania hay elecciones locales este mes. El gobierno presenta un plan para la energía y el clima. Los expertos discutan el cambio en la ciudad. Muchos ciudadanos leen las noticias lentas en la radio cada tarde. La Unión Europea habla de nuevas reglas para el futuro.",
-    "tags": ["politics"],
+    "tags": [
+      "politics"
+    ],
     "world": "politics",
     "series": "DW en español — Langsam gesprochene Nachrichten",
     "sourceUrl": "https://www.dw.com/es/noticias-lentas/ejemplo-fixture",
@@ -71,7 +79,96 @@
     "title": "Un paseo por la calle",
     "origin": "fixture",
     "body": "Uno dos tres. El sol brilla. La gente camina por la calle. Los niños juegan cerca de la casa.",
-    "tags": ["daily"],
+    "tags": [
+      "daily"
+    ],
     "addedAt": "2026-08-21T00:00:00.000Z"
+  },
+  {
+    "id": "es-fixture-daily-market",
+    "languageCode": "es",
+    "kind": "text",
+    "title": "Un sábado en el mercado",
+    "origin": "fixture",
+    "body": "María va al mercado cada sábado por la mañana. Compra fruta, pan y verdura fresca. El vendedor le habla del precio del tomate y del pescado del día. Los niños comen un helado cerca de la plaza. La madre compra café y habla con una vecina sobre el trabajo y la familia. Por la tarde la familia come en casa y lee un libro tranquilo. El padre prepara una sopa sencilla con lo que compraron. La ciudad tiene muchos colores y ruido suave en el mercado. Los turistas miran las tiendas y sacan fotos de la plaza antigua.",
+    "tags": [
+      "daily"
+    ],
+    "world": "everyday",
+    "addedAt": "2026-08-25T00:00:00.000Z"
+  },
+  {
+    "id": "es-fixture-politics-brief",
+    "languageCode": "es",
+    "kind": "text",
+    "title": "Resumen de la semana en política",
+    "origin": "fixture",
+    "body": "El gobierno presentó un plan para la energía y el clima esta semana. Los partidos discuten el presupuesto en el parlamento. La oposición pide más transparencia en las elecciones locales. Los expertos analizan el impacto en la economía y en los precios de la energía. En la Unión Europea los ministros hablan de nuevas reglas para el futuro. Los ciudadanos leen las noticias en la radio y en el teléfono cada mañana. En varias ciudades hubo reuniones pequeñas sobre el transporte público. El ministro promete más inversión en trenes y autobuses el próximo año.",
+    "tags": [
+      "news",
+      "politics"
+    ],
+    "world": "politics",
+    "addedAt": "2026-08-25T00:00:00.000Z"
+  },
+  {
+    "id": "wikinews-es-45098",
+    "languageCode": "es",
+    "kind": "text",
+    "title": "Portada",
+    "origin": "catalogue",
+    "body": "<div class=\"mf-mobile-only\"> </div> <div style=\"margin-top:-10px;\"> </div> {| style=\"height:5px;\" |- | |- |} {| style=\"height:15px;\" |- | |- |} <div class=\"main-wrapper nomobile\"> <div class=\"main-wrapper-column\"> / | }} de }} * }} de }} |opciones = * * <span class=\"mw-ui-button mw-ui-quiet\"> </span> }} </div> <div class=\"main-wrapper-column\"> |acciones = * * * |opciones = * * * * * * }} | <div style=\"text-align:left;\"> </div> }} |acciones = * | Créditos de la imagen}} |imagen destacada = 1 }} }} </div> </div> __NOEDITSECTION__ __NOTOC__",
+    "tags": [
+      "news"
+    ],
+    "world": "politics",
+    "sourceUrl": "https://es.wikinews.org/wiki/Portada",
+    "addedAt": "2026-08-25T19:43:41.989Z",
+    "licence": {
+      "kind": "cc-by",
+      "attribution": "Wikinews contributors",
+      "sourceUrl": "https://es.wikinews.org/wiki/Portada",
+      "fetchedAt": "2026-08-25T19:43:41.989Z"
+    }
+  },
+  {
+    "id": "wikinews-es-6974",
+    "languageCode": "es",
+    "kind": "text",
+    "title": "\"El Morrocotudo\" supera las 3000 noticias publicadas",
+    "origin": "catalogue",
+    "body": "Ya van un poco más de 6 meses desde que nació ''El Morrocotudo'', diario de participación ciudadana de habla hispana, con casi 300 corresponsales ciudadanos del mundo. A la fecha sobrepasa las 3.000 noticias publicadas y comentadas por sus miles de lectores, los cuales sobrepasan los 2.000, según el diario. Cada noticia puede ser comentada, abriendo un espacio para la conversación, además de dejar la puerta abierta de seguir ampliando la noticia. ''El Morrocotudo'' permite a los ciudadanos escribir sus notas, pero un editor general intenta que cada noticia tenga un contenido verídico y que no transgreda las reglas que el mismo diario posee. Fuentes *",
+    "tags": [
+      "news"
+    ],
+    "world": "politics",
+    "sourceUrl": "https://es.wikinews.org/wiki/%22El_Morrocotudo%22_supera_las_3000_noticias_publicadas",
+    "addedAt": "2026-08-25T19:43:41.989Z",
+    "licence": {
+      "kind": "cc-by",
+      "attribution": "Wikinews contributors",
+      "sourceUrl": "https://es.wikinews.org/wiki/%22El_Morrocotudo%22_supera_las_3000_noticias_publicadas",
+      "fetchedAt": "2026-08-25T19:43:41.989Z"
+    }
+  },
+  {
+    "id": "wikinews-es-15223",
+    "languageCode": "es",
+    "kind": "text",
+    "title": "El gobierno argentino reordenó por decreto la grilla de canales de noticias",
+    "origin": "catalogue",
+    "body": "Cinco días después de que el ex presidente argentino Néstor Kirchner, en un acto con intendentes, alzara carteles con la leyenda “TN Todo Negativo”, y tras la embestida del piquetero Luis D'Elía contra el grupo Clarín, el Gobierno a través del Comité Federal de Radiodifusión (Comfer), dispuso un nuevo ordenamiento para la grilla de canales del cable: TN sale de su ubicación entre el 3 y el 5 (en Buenos Aires, entre Canal 13 y Telefé) y pasa al lugar 6 junto al pelotón de canales de noticias. El gobierno dispuso por decreto reordenar la grilla de los canales de noticias en la televisión por cable, con lo cual Todo Noticias (TN) bajará del canal 11, donde está ubicado actualmente en la señal Multicanal-Cablevisión, al número 6. De esa forma TN, que antes se ubicaba en el dial entre los dos canales de aire de mayor rating, Telefé y Canal 13, pasó a sumarse al pelotón de los canales de noticias, en los primeros números del dial. Asimismo, se modificó la ubicación de Canal 7, que del número 16 bajó al número 8, y la de Encuentro, que estaba en el lugar número 6, pasará al 7. Mediante la modificación, América TV quedará en el lugar que antes ocupaba TN entre los canales de aire más vistos. La medida se dispuso mediante el decreto número 227 de la edición de hoy del Boletín Oficial. Los cableoperadores deberán incluir “entre los canales dos y seis las señales de noticias identificadas como Crónica, Canal 26, América 24, C5N y TN”, dispuso el artículo 1º, inciso a) de la norma, que da un plazo de 30 días para que se proceda al “efectivo cumplimiento” de las obligaciones derivadas de la resolución. La norma publicada hoy lleva la firma del interventor del Comfer, Juan Gabriel Mariotto, hombre del secretario de Medios, Enrique Albistur, tiene cuatro artículos y un Anexo también con cuatro artículos. En ese Anexo, se dispuso además que en los números 7 y 8 de la grilla de cable se incluyan los canales Encuentro y Canal 7, y del canal 9 en adelante los servicios de televisón abierta (canales 9, 11, América y 13). Con la nueva disposición, los principales canales del grupo Clarín, el 13 y TN, dejarán de estar uno a continuación del otro en la grilla del cable. (DyN) Fuentes * * *",
+    "tags": [
+      "news"
+    ],
+    "world": "politics",
+    "sourceUrl": "https://es.wikinews.org/wiki/El_gobierno_argentino_reorden%C3%B3_por_decreto_la_grilla_de_canales_de_noticias",
+    "addedAt": "2026-08-25T19:43:41.989Z",
+    "licence": {
+      "kind": "cc-by",
+      "attribution": "Wikinews contributors",
+      "sourceUrl": "https://es.wikinews.org/wiki/El_gobierno_argentino_reorden%C3%B3_por_decreto_la_grilla_de_canales_de_noticias",
+      "fetchedAt": "2026-08-25T19:43:41.989Z"
+    }
   }
 ]
