@@ -16,7 +16,33 @@ import {
 
 export const SHIPPED_CONTENT_LANGUAGES = ["es", "it"] as const;
 
+/**
+ * Cached for the process, for the same reason `LEMMA_TABLES` below is: a call
+ * reads `data/lemma/<code>.json` (2.8 MB for `es`), parses it, reads the
+ * frequency list, and rebuilds every index — **200-320 ms of blocking work**,
+ * measured. Uncached, fourteen call sites paid it per request, and
+ * `features/review-session/actions.ts` pays it twice in one.
+ *
+ * Safe to share: a `Lexicon` is a profile plus pure lookup functions closed
+ * over Maps that nothing outside `buildLexicon` can reach. Nothing mutates it —
+ * if that ever stops being true, this cache is the thing that breaks, so add a
+ * test there rather than making a copy here.
+ *
+ * `null` is cached too. A missing or malformed data file will still be missing
+ * on the next request, and re-reading it to fail again is the same cost twice.
+ */
+const LEXICONS = new Map<string, Lexicon | null>();
+
 export function loadLexiconForLanguage(languageCode: string): Lexicon | null {
+  const held = LEXICONS.get(languageCode);
+  if (held !== undefined) return held;
+
+  const lexicon = readLexiconForLanguage(languageCode);
+  LEXICONS.set(languageCode, lexicon);
+  return lexicon;
+}
+
+function readLexiconForLanguage(languageCode: string): Lexicon | null {
   if (
     !SHIPPED_CONTENT_LANGUAGES.includes(
       languageCode as (typeof SHIPPED_CONTENT_LANGUAGES)[number],
