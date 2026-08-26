@@ -39,7 +39,7 @@ remains the default when `budgetMinutes` is omitted.
 | --- | --- | --- |
 | 1 | Starter pool + empty history | Returns **15** cards in frequency order, each with a stable `taskId` and `wordId` |
 | 2 | Starter pool + prior reviews for some tasks | Rebuilds scheduler state per task via `rebuild`; includes **due** tasks (`due <= now`, not suspended/retired) before **new** tasks; still caps at **15** |
-| 3 | More than 15 due | Returns the 15 most overdue by `due` ascending |
+| 3 | More than 15 due | Returns **15** overdue tasks weighted by urgency (`R`, days past `due`) and `frequencyRank` (T-W12) — not a raw overdue counter |
 | 4 | Fewer than 15 due + new available | Fills with new tasks in frequency order until 15 or pool exhausted |
 | 5 | Pool smaller than session length | Returns every card in the pool — never invents cards |
 | 6 | Two Tasks of one Word both due | Includes the more overdue one; the other stays due for the next session |

@@ -28,3 +28,10 @@
       then no extra review row is written for the draw itself.
 - [x] Given `samplingReason` on a queue entry, when G1 panel renders (UC-005
       future), then copy maps from reason without exposing raw weights.
+- [x] Given two overdue tasks at equal `R`, when one is 20 days past `due` at
+      rank 10 and the other 1 day past `due` at rank 100, when sampling one card,
+      then the more overdue frequent task wins more than 80% of Monte Carlo trials
+      (UC-006 / T-W12).
+- [x] Given 20 overdue tasks and session length 15, when `buildSession` runs with
+      deterministic max-weight pick, then returned tasks are all overdue and the
+      first pick is among the highest urgency×frequency scores (T-W12).

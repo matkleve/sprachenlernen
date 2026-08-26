@@ -177,7 +177,10 @@ describe("session-sampling acceptance (T-W22)", () => {
 
   it("AC-4: many new reviews today throttle further new cards (Monte Carlo)", () => {
     const now = Date.now();
-    const dueTask = taskAtRetrievability(0.5, now, "es:due:meaning-recall", "es:due");
+    const dueTask = {
+      ...taskAtRetrievability(0.5, now, "es:due:meaning-recall", "es:due"),
+      due: now + DAY_MS,
+    };
     const newCard = baseCard(2, "new");
     const pair = [
       { card: baseCard(1, "due"), task: dueTask, isNew: false },
@@ -381,5 +384,62 @@ describe("session-sampling acceptance (T-W22)", () => {
       expect(SAMPLING_REASONS).toContain(entry.reason);
       expect(entry.reason).not.toMatch(/\d/);
     }
+  });
+
+  it("AC-11: break return prioritises overdue urgency and frequency (T-W12)", () => {
+    const now = Date.now();
+    const overdueFrequent = taskAtRetrievability(0.5, now, "es:freq:meaning-recall", "es:freq");
+    const overdueRare = taskAtRetrievability(0.5, now, "es:rare:meaning-recall", "es:rare");
+    const frequentTask = { ...overdueFrequent, due: now - 20 * DAY_MS };
+    const rareTask = { ...overdueRare, due: now - 1 * DAY_MS };
+
+    let frequentWins = 0;
+    const trials = 500;
+    for (let trial = 0; trial < trials; trial += 1) {
+      const picked = sampleSession({
+        candidates: [
+          { card: baseCard(10, "freq"), task: frequentTask, isNew: false },
+          { card: baseCard(100, "rare"), task: rareTask, isNew: false },
+        ],
+        context: monteCarloContext(now, mulberry32(trial + 1200)),
+        sessionLength: 1,
+      });
+      if (picked[0]?.card.lemma === "freq") frequentWins += 1;
+    }
+    expect(frequentWins).toBeGreaterThan(400);
+  });
+
+  it("AC-12: buildSession picks overdue backlog by urgency×frequency (T-W12)", () => {
+    const now = Date.now();
+    const overdueCards = Array.from({ length: 20 }, (_, index) => {
+      const rank = index + 1;
+      const card = baseCard(rank, `lemma${rank}`);
+      let task = taskAtRetrievability(0.55, now, card.taskId, card.wordId);
+      task = { ...task, due: now - (index + 1) * DAY_MS };
+      return { card, task };
+    });
+
+    const session = buildSession(
+      overdueCards.map((entry) => entry.card),
+      Object.fromEntries(overdueCards.map((entry) => [entry.card.taskId, entry.task])),
+      now,
+      15,
+      { sampling: emptySamplingContext(now) },
+    );
+
+    expect(session).toHaveLength(15);
+    const weights = overdueCards.map((entry) =>
+      weightCandidate(
+        { card: entry.card, task: entry.task, isNew: false },
+        emptySamplingContext(now),
+      ).weight,
+    );
+    const maxWeight = Math.max(...weights);
+    const topTaskIds = new Set(
+      overdueCards
+        .filter((_, index) => weights[index]! >= maxWeight * 0.95)
+        .map((entry) => entry.card.taskId),
+    );
+    expect(topTaskIds.has(session[0]!.taskId)).toBe(true);
   });
 });
